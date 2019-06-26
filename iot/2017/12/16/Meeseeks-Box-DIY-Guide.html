@@ -321,16 +321,16 @@ As it is run on a Raspberry Pi we need to make use of <code class="highlighter-r
 I also use Johnny-Five as an abstraction layer. More information about Johnny-Five can be found <a href="http://johnny-five.io" target="_blank">on their extensive website.</a></p>
 
 <p><em>main.js</em></p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Raspi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'raspi-io'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">five</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'johnny-five'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'https'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Raspi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">raspi-io</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">five</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">johnny-five</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">https</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">board</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">five</span><span class="p">.</span><span class="nx">Board</span><span class="p">({</span>
     <span class="na">io</span><span class="p">:</span> <span class="k">new</span> <span class="nx">Raspi</span><span class="p">(),</span>
     <span class="na">repl</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">});</span>
 
-<span class="nx">board</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'ready'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="nx">board</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">ready</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">prevValue</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
@@ -345,7 +345,7 @@ I also use Johnny-Five as an abstraction layer. More information about Johnny-Fi
             <span class="c1">//ctx.digitalWrite(0, 0);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">prevValue</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">ctx</span><span class="p">.</span><span class="nx">digitalWrite</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-            <span class="nx">doCall</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">);</span>
+            <span class="nx">doCall</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">);</span>
         <span class="p">}</span>
 
         <span class="nx">prevValue</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
@@ -377,17 +377,17 @@ This means that a 100Ω resistor needs to be put in series with the LED to prev
 <p><em>main.js</em></p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">doCall</span><span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">request</span><span class="p">({</span>
-        <span class="na">host</span><span class="p">:</span> <span class="s1">'rnm-meeseeks-box.cfapps.io'</span><span class="p">,</span>
+        <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">rnm-meeseeks-box.cfapps.io</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">port</span><span class="p">:</span> <span class="mi">443</span><span class="p">,</span>
-        <span class="na">path</span><span class="p">:</span> <span class="s1">'/'</span><span class="p">,</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">method</span><span class="p">:</span> <span class="nx">method</span><span class="p">,</span>
         <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
-            <span class="s1">'Content-Length'</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+            <span class="dl">'</span><span class="s1">Content-Length</span><span class="dl">'</span><span class="p">:</span> <span class="mi">0</span>
         <span class="p">}</span>
     <span class="p">});</span>
 
-    <span class="nx">request</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
+    <span class="nx">request</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
     <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div></div>

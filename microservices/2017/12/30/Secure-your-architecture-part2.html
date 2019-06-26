@@ -326,7 +326,7 @@ Example yml in the config server:</p>
 <h3 id="encryption">Encryption</h3>
 <p>To encrypt the data, start up your config server locally and enter this in your command line.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$&gt;</span> <span class="nv">SECRET</span><span class="o">=</span><span class="k">$(</span>curl <span class="nt">-X</span> POST <span class="nt">--data-urlencode</span> secret http://user:password@localhost:&lt;port&gt;/encrypt<span class="k">)</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$&gt;</span> <span class="nv">SECRET</span><span class="o">=</span><span class="si">$(</span>curl <span class="nt">-X</span> POST <span class="nt">--data-urlencode</span> secret http://user:password@localhost:&lt;port&gt;/encrypt<span class="si">)</span>
 <span class="nv">$&gt;</span> <span class="nb">echo</span> <span class="s2">"datasource.password=</span><span class="nv">$SECRET</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> application-dev.yml</code></pre></figure>
 
 <p>When the encryption is done, we get an encrypted piece of data in your configuration in the form of:</p>

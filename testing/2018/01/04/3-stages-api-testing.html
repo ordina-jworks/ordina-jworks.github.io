@@ -217,13 +217,13 @@ When pressed, it will emit an event that can be listened to by other microfronte
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">filterCCs</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">if</span><span class="p">(</span><span class="nx">isPlatformBrowser</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">platformId</span><span class="p">))</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">'filterCCs'</span><span class="p">,</span> <span class="p">{</span> <span class="na">detail</span><span class="p">:</span> <span class="p">{</span> <span class="na">needle</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">}</span> <span class="p">});</span>
+    <span class="kd">const</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="dl">'</span><span class="s1">filterCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">detail</span><span class="p">:</span> <span class="p">{</span> <span class="na">needle</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">}</span> <span class="p">});</span>
     <span class="nb">window</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kr">public</span> <span class="nx">filterStats</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">===</span> <span class="s1">''</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">===</span> <span class="dl">''</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">_updateData</span><span class="p">();</span>
@@ -237,7 +237,7 @@ When pressed, it will emit an event that can be listened to by other microfronte
 <span class="p">}</span>
 
 <span class="kr">public</span> <span class="nx">resetSearch</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -254,19 +254,19 @@ So we’re just resetting our local data to an empty array.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">()</span>
 <span class="k">async</span> <span class="nx">getAllCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">ccs</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getAllCCs</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">ccs</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getAllCCs</span><span class="p">();</span>
     <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">ccs</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="s1">'/search'</span><span class="p">)</span>
-<span class="k">async</span> <span class="nx">searchCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Query</span><span class="p">(</span><span class="s1">'needle'</span><span class="p">)</span> <span class="nx">searchString</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/search</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">async</span> <span class="nx">searchCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Query</span><span class="p">(</span><span class="dl">'</span><span class="s1">needle</span><span class="dl">'</span><span class="p">)</span> <span class="nx">searchString</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">filtered</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">searchCCs</span><span class="p">(</span><span class="nx">searchString</span><span class="p">);</span>
     <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">filtered</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="s1">'/:id'</span><span class="p">)</span>
-<span class="k">async</span> <span class="nx">getCC</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="s1">'id'</span><span class="p">)</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">cc</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getCC</span><span class="p">(</span><span class="o">+</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">async</span> <span class="nx">getCC</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">cc</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getCC</span><span class="p">(</span><span class="o">+</span><span class="nx">id</span><span class="p">);</span>
     <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">cc</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -304,8 +304,8 @@ When the needle is undefined (or an empty string), the search endpoint will retu
 <span class="p">...</span>
 </code></pre></div></div>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s1">'Should query ccs with an observable'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">'Should return data'</span><span class="p">,</span> <span class="nx">inject</span><span class="p">([</span><span class="nx">CCService</span><span class="p">,</span> <span class="nx">XHRBackend</span><span class="p">],</span> <span class="p">(</span><span class="nx">ccService</span><span class="p">,</span> <span class="nx">mockBackend</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Should query ccs with an observable</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Should return data</span><span class="dl">'</span><span class="p">,</span> <span class="nx">inject</span><span class="p">([</span><span class="nx">CCService</span><span class="p">,</span> <span class="nx">XHRBackend</span><span class="p">],</span> <span class="p">(</span><span class="nx">ccService</span><span class="p">,</span> <span class="nx">mockBackend</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="nx">mockBackend</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">connection</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="kd">const</span> <span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
           <span class="p">{</span>
@@ -319,9 +319,9 @@ When the needle is undefined (or an empty string), the search endpoint will retu
           <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">ccs</span><span class="p">)</span>
         <span class="p">})));</span>
       <span class="p">});</span>
-      <span class="nx">ccService</span><span class="p">.</span><span class="nx">getStats</span><span class="p">(</span><span class="s1">'tim'</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">ccService</span><span class="p">.</span><span class="nx">getStats</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nx">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'tim.vierbergen@ordina.be'</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim.vierbergen@ordina.be</span><span class="dl">'</span><span class="p">);</span>
        <span class="p">});</span>
       <span class="p">})</span>
     <span class="p">)</span>
@@ -347,12 +347,12 @@ Just as with our front-end, we trust the framework to correctly handle the commu
 
 <p>Our unit tests will start at the controller level of our API.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="s1">'searchCCs'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">'should return a filtered array of competence centers'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="kr">await</span> <span class="nx">ccsController</span><span class="p">.</span><span class="nx">searchCCs</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">,</span> <span class="s1">'tim'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">searchCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should return a filtered array of competence centers</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">await</span> <span class="nx">ccsController</span><span class="p">.</span><span class="nx">searchCCs</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">,</span> <span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">);</span>
       <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
       <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'tim.vierbergen@ordina.be'</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim.vierbergen@ordina.be</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -441,16 +441,16 @@ We want to trigger the search REST call by sending the search string <code class
 </p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
-<span class="nx">describe</span><span class="p">(</span><span class="s1">'Searching with Tim should show 2 results'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">page</span><span class="p">.</span><span class="nx">setSeachText</span><span class="p">(</span><span class="s1">'mySearchString'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s2">"Input field should contain 'tim'"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getSearchText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'tim'</span><span class="p">);</span>
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Searching with Tim should show 2 results</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nx">setSeachText</span><span class="p">(</span><span class="dl">'</span><span class="s1">mySearchString</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Input field should contain 'tim'</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getSearchText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">);</span>
         <span class="p">});</span>
-        <span class="nx">describe</span><span class="p">(</span><span class="s2">"Result should show 2 entries"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    	    <span class="nx">it</span><span class="p">(</span><span class="s2">"will show the number 2"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getResultNumber</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">'2'</span><span class="p">);</span>
+        <span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Result should show 2 entries</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    	    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">will show the number 2</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getResultNumber</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">2</span><span class="dl">'</span><span class="p">);</span>
             <span class="p">});</span>
-            <span class="nx">it</span><span class="p">(</span><span class="s2">"will show a dropdown with 2 results"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">will show a dropdown with 2 results</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
                 <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getResultList</span><span class="p">().</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
             <span class="p">});</span>
         <span class="p">});</span>
@@ -500,57 +500,57 @@ It will then analyse the response and check if the resulting array contains 2 en
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
     <span class="p">{</span>
-	<span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Search existing ccs"</span><span class="p">,</span>
-	<span class="s2">"event"</span><span class="p">:</span> <span class="p">[</span>
+	<span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Search existing ccs</span><span class="dl">"</span><span class="p">,</span>
+	<span class="dl">"</span><span class="s2">event</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
 		<span class="p">{</span>
-			<span class="s2">"listen"</span><span class="p">:</span> <span class="s2">"test"</span><span class="p">,</span>
-			<span class="s2">"script"</span><span class="p">:</span> <span class="p">{</span>
-				<span class="s2">"type"</span><span class="p">:</span> <span class="s2">"text/javascript"</span><span class="p">,</span>
-				<span class="s2">"exec"</span><span class="p">:</span> <span class="p">[</span>
-					<span class="s2">"var jsonData = JSON.parse(responseBody);"</span><span class="p">,</span>
-					<span class="s2">"var firstResult = jsonData[0];"</span><span class="p">,</span>
-					<span class="s2">""</span><span class="p">,</span>
-					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">Status code is 200</span><span class="se">\"</span><span class="s2">] = responseCode.code === 200;"</span><span class="p">,</span>
-					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">4 results returned</span><span class="se">\"</span><span class="s2">] = jsonData.length === 2;"</span><span class="p">,</span>
-					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">First result contains id </span><span class="se">\"</span><span class="s2">] ='id' in firstResult;"</span><span class="p">,</span>
-					<span class="s2">"tests[</span><span class="se">\"</span><span class="s2">Cl name contains tim vierbergen</span><span class="se">\"</span><span class="s2">] = firstResult.cl === </span><span class="se">\"</span><span class="s2">Tim Vierbergen</span><span class="se">\"</span><span class="s2">;"</span>
+			<span class="dl">"</span><span class="s2">listen</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">,</span>
+			<span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+				<span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="p">,</span>
+				<span class="dl">"</span><span class="s2">exec</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+					<span class="dl">"</span><span class="s2">var jsonData = JSON.parse(responseBody);</span><span class="dl">"</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">var firstResult = jsonData[0];</span><span class="dl">"</span><span class="p">,</span>
+					<span class="dl">""</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">tests[</span><span class="se">\"</span><span class="s2">Status code is 200</span><span class="se">\"</span><span class="s2">] = responseCode.code === 200;</span><span class="dl">"</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">tests[</span><span class="se">\"</span><span class="s2">4 results returned</span><span class="se">\"</span><span class="s2">] = jsonData.length === 2;</span><span class="dl">"</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">tests[</span><span class="se">\"</span><span class="s2">First result contains id </span><span class="se">\"</span><span class="s2">] ='id' in firstResult;</span><span class="dl">"</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">tests[</span><span class="se">\"</span><span class="s2">Cl name contains tim vierbergen</span><span class="se">\"</span><span class="s2">] = firstResult.cl === </span><span class="se">\"</span><span class="s2">Tim Vierbergen</span><span class="se">\"</span><span class="s2">;</span><span class="dl">"</span>
 				<span class="p">]</span>
 			<span class="p">}</span>
 		<span class="p">}</span>
 	<span class="p">],</span>
-	<span class="s2">"request"</span><span class="p">:</span> <span class="p">{</span>
-		<span class="s2">"url"</span><span class="p">:</span> <span class="p">{</span>
-			<span class="s2">"raw"</span><span class="p">:</span> <span class="s2">":/ccs/search?needle=tim"</span><span class="p">,</span>
-			<span class="s2">"host"</span><span class="p">:</span> <span class="p">[</span>
-				<span class="s2">""</span>
+	<span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+		<span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+			<span class="dl">"</span><span class="s2">raw</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">:/ccs/search?needle=tim</span><span class="dl">"</span><span class="p">,</span>
+			<span class="dl">"</span><span class="s2">host</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+				<span class="dl">""</span>
 			<span class="p">],</span>
-			<span class="s2">"port"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
-			<span class="s2">"path"</span><span class="p">:</span> <span class="p">[</span>
-				<span class="s2">"ccs"</span><span class="p">,</span>
-				<span class="s2">"search"</span>
+			<span class="dl">"</span><span class="s2">port</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+			<span class="dl">"</span><span class="s2">path</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+				<span class="dl">"</span><span class="s2">ccs</span><span class="dl">"</span><span class="p">,</span>
+				<span class="dl">"</span><span class="s2">search</span><span class="dl">"</span>
 			<span class="p">],</span>
-			<span class="s2">"query"</span><span class="p">:</span> <span class="p">[</span>
+			<span class="dl">"</span><span class="s2">query</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
 				<span class="p">{</span>
-					<span class="s2">"key"</span><span class="p">:</span> <span class="s2">"needle"</span><span class="p">,</span>
-					<span class="s2">"value"</span><span class="p">:</span> <span class="s2">"tim"</span><span class="p">,</span>
-					<span class="s2">"equals"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-					<span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span>
+					<span class="dl">"</span><span class="s2">key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">needle</span><span class="dl">"</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">tim</span><span class="dl">"</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">equals</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+					<span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
 				<span class="p">}</span>
 			<span class="p">],</span>
-			<span class="s2">"variable"</span><span class="p">:</span> <span class="p">[]</span>
+			<span class="dl">"</span><span class="s2">variable</span><span class="dl">"</span><span class="p">:</span> <span class="p">[]</span>
 		<span class="p">},</span>
-		<span class="s2">"method"</span><span class="p">:</span> <span class="s2">"GET"</span><span class="p">,</span>
-		<span class="s2">"header"</span><span class="p">:</span> <span class="p">[</span>
+		<span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+		<span class="dl">"</span><span class="s2">header</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
 			<span class="p">{</span>
-				<span class="s2">"key"</span><span class="p">:</span> <span class="s2">"Content-Type"</span><span class="p">,</span>
-				<span class="s2">"value"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
-				<span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span>
+				<span class="dl">"</span><span class="s2">key</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">,</span>
+				<span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+				<span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
 			<span class="p">}</span>
 		<span class="p">],</span>
-		<span class="s2">"body"</span><span class="p">:</span> <span class="p">{},</span>
-		<span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span>
+		<span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="p">{},</span>
+		<span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
 	<span class="p">},</span>
-	<span class="s2">"response"</span><span class="p">:</span> <span class="p">[]</span>
+	<span class="dl">"</span><span class="s2">response</span><span class="dl">"</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 <span class="p">...</span>        
 </code></pre></div></div>

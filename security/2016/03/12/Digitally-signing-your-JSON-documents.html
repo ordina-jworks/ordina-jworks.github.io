@@ -362,16 +362,16 @@ Since not all algorithms are implemented in Java, we are also going to use Bounc
 
 <p>If we were to implement the examples from the previous sections, we would start of with generating a new public-private key pair.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="n">KeyPair</span> <span class="n">keyPair</span> <span class="o">=</span> <span class="n">EllipticCurveProvider</span><span class="o">.</span><span class="na">generateKeyPair</span><span class="o">(</span><span class="n">SignatureAlgorithm</span><span class="o">.</span><span class="na">ES256</span><span class="o">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">KeyPair</span> <span class="n">keyPair</span> <span class="o">=</span> <span class="nc">EllipticCurveProvider</span><span class="o">.</span><span class="na">generateKeyPair</span><span class="o">(</span><span class="nc">SignatureAlgorithm</span><span class="o">.</span><span class="na">ES256</span><span class="o">);</span></code></pre></figure>
 
 <p>It’s as easy as that!
 We want to have a key of type “EC” so we use the <code class="highlighter-rouge">EllipticCurveProvider</code>, and by specifying <code class="highlighter-rouge">SignatureAlgorithm.ES256</code> we use the P-256 bit curve with SHA-256 hashing.</p>
 
 <p>Next we want to sign our base64url encoded payload</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="n">Jwts</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">Jwts</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
                 <span class="o">.</span><span class="na">setPayload</span><span class="o">(</span><span class="s">"eyAKICAgICAgICAiZnJvbSI6ewogICAgICAgICAgICAibmFtZSI6ICJUaW0gWXNld3luIiwKICAgICAgICAgICAgImFjY291bnQiOiAiQ2hlY2tpbmcgYWNjb3VudCIKICAgICAgICB9LAogICAgICAgICJ0byI6ewogICAgICAgICAgICAibmFtZSI6ICJUaW0gWXNld3luIiwKICAgICAgICAgICAgImFjY291bnQiOiAiU2F2aW5ncyBhY2NvdW50IgogICAgICAgIH0sCiAgICAgICAgImFtb3VudCI6IDI1MAogICAgICAgICJjdXJyZW5jeSI6ICJFVVIiCiAgICB9"</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">signWith</span><span class="o">(</span><span class="n">SignatureAlgorithm</span><span class="o">.</span><span class="na">ES256</span><span class="o">,</span> <span class="n">keyPair</span><span class="o">.</span><span class="na">getPrivate</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">signWith</span><span class="o">(</span><span class="nc">SignatureAlgorithm</span><span class="o">.</span><span class="na">ES256</span><span class="o">,</span> <span class="n">keyPair</span><span class="o">.</span><span class="na">getPrivate</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">compact</span><span class="o">();</span></code></pre></figure>
 
 <p>Since we already encoded our original message in the <a href="#jws">JWS section</a>, I’m not getting here into detail again.
@@ -398,11 +398,11 @@ MEYCIQCcwunLBiuHu2z_SlDVJyZuQv0NU8X4VYoOFN1EuIvObQIhAJeZuTeZw9k5uhpBc60iT13s3yb0
 <p>First we will check if the JWS was actually signed.
 This can be accomplished by executing following line of code.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="n">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">().</span><span class="na">isSigned</span><span class="o">(</span><span class="n">jws</span><span class="o">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">().</span><span class="na">isSigned</span><span class="o">(</span><span class="n">jws</span><span class="o">);</span></code></pre></figure>
 
 <p>To parse the JWS, we use the <code class="highlighter-rouge">parse()</code> method.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="n">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">()</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">()</span>
         <span class="o">.</span><span class="na">setSigningKey</span><span class="o">(</span><span class="n">publicKey</span><span class="o">)</span>
         <span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">jws</span><span class="o">);</span></code></pre></figure>
 
@@ -416,44 +416,44 @@ This custom resolver would read out the “jwk” field from the protected heade
 
 <p>Our own <code class="highlighter-rouge">SigningKeyResolver</code> implementation could look like this:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ECPublicSigningKeyResolver</span> <span class="kd">implements</span> <span class="n">SigningKeyResolver</span> <span class="o">{</span>
-        <span class="kd">public</span> <span class="n">Key</span> <span class="nf">resolveSigningKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="n">Claims</span> <span class="n">claims</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ECPublicSigningKeyResolver</span> <span class="kd">implements</span> <span class="nc">SigningKeyResolver</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">Key</span> <span class="nf">resolveSigningKey</span><span class="o">(</span><span class="nc">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="nc">Claims</span> <span class="n">claims</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="nf">getPublicKey</span><span class="o">(</span><span class="n">header</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="kd">public</span> <span class="n">Key</span> <span class="nf">resolveSigningKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="n">String</span> <span class="n">plaintext</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">Key</span> <span class="nf">resolveSigningKey</span><span class="o">(</span><span class="nc">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="nc">String</span> <span class="n">plaintext</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="nf">getPublicKey</span><span class="o">(</span><span class="n">header</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="kd">private</span> <span class="n">Key</span> <span class="nf">getPublicKey</span><span class="o">(</span><span class="n">JwsHeader</span> <span class="n">header</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">Key</span> <span class="nf">getPublicKey</span><span class="o">(</span><span class="nc">JwsHeader</span> <span class="n">header</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
-                <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">jwk</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">().</span><span class="na">readValue</span><span class="o">(</span><span class="n">header</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"jwk"</span><span class="o">).</span><span class="na">toString</span><span class="o">(),</span> <span class="n">HashMap</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+                <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">jwk</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">().</span><span class="na">readValue</span><span class="o">(</span><span class="n">header</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"jwk"</span><span class="o">).</span><span class="na">toString</span><span class="o">(),</span> <span class="nc">HashMap</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
             
-                <span class="n">String</span> <span class="n">curve</span> <span class="o">=</span> <span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"crv"</span><span class="o">);</span>
-                <span class="n">BigInteger</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"x"</span><span class="o">),</span> <span class="mi">16</span><span class="o">);</span>
-                <span class="n">BigInteger</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"y"</span><span class="o">),</span> <span class="mi">16</span><span class="o">);</span>
-                <span class="n">String</span> <span class="n">keyType</span> <span class="o">=</span> <span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"kty"</span><span class="o">);</span>
+                <span class="nc">String</span> <span class="n">curve</span> <span class="o">=</span> <span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"crv"</span><span class="o">);</span>
+                <span class="nc">BigInteger</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"x"</span><span class="o">),</span> <span class="mi">16</span><span class="o">);</span>
+                <span class="nc">BigInteger</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"y"</span><span class="o">),</span> <span class="mi">16</span><span class="o">);</span>
+                <span class="nc">String</span> <span class="n">keyType</span> <span class="o">=</span> <span class="n">jwk</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"kty"</span><span class="o">);</span>
 
-                <span class="n">ECNamedCurveParameterSpec</span> <span class="n">ecNamedCurveParameterSpec</span> <span class="o">=</span> <span class="n">ECNamedCurveTable</span><span class="o">.</span><span class="na">getParameterSpec</span><span class="o">(</span><span class="n">crv</span><span class="o">);</span>
+                <span class="nc">ECNamedCurveParameterSpec</span> <span class="n">ecNamedCurveParameterSpec</span> <span class="o">=</span> <span class="nc">ECNamedCurveTable</span><span class="o">.</span><span class="na">getParameterSpec</span><span class="o">(</span><span class="n">crv</span><span class="o">);</span>
             
-                <span class="n">ECCurve</span> <span class="n">curve</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getCurve</span><span class="o">();</span>
-                <span class="n">ECPoint</span> <span class="n">g</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getG</span><span class="o">();</span>
-                <span class="n">BigInteger</span> <span class="n">n</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getN</span><span class="o">();</span>
-                <span class="n">BigInteger</span> <span class="n">h</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getH</span><span class="o">();</span>
+                <span class="nc">ECCurve</span> <span class="n">curve</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getCurve</span><span class="o">();</span>
+                <span class="nc">ECPoint</span> <span class="n">g</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getG</span><span class="o">();</span>
+                <span class="nc">BigInteger</span> <span class="n">n</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getN</span><span class="o">();</span>
+                <span class="nc">BigInteger</span> <span class="n">h</span> <span class="o">=</span> <span class="n">ecNamedCurveParameterSpec</span><span class="o">.</span><span class="na">getH</span><span class="o">();</span>
 
-                <span class="n">ECParameterSpec</span> <span class="n">ecParameterSpec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ECParameterSpec</span><span class="o">(</span><span class="n">curve</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">h</span><span class="o">);</span>
-                <span class="n">ECPoint</span> <span class="n">ecPoint</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="na">createPoint</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+                <span class="nc">ECParameterSpec</span> <span class="n">ecParameterSpec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ECParameterSpec</span><span class="o">(</span><span class="n">curve</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">h</span><span class="o">);</span>
+                <span class="nc">ECPoint</span> <span class="n">ecPoint</span> <span class="o">=</span> <span class="n">curve</span><span class="o">.</span><span class="na">createPoint</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
 
-                <span class="n">ECPublicKeySpec</span> <span class="n">ecPublicKeySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ECPublicKeySpec</span><span class="o">(</span><span class="n">ecPoint</span><span class="o">,</span> <span class="n">ecParameterSpec</span><span class="o">);</span>
+                <span class="nc">ECPublicKeySpec</span> <span class="n">ecPublicKeySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ECPublicKeySpec</span><span class="o">(</span><span class="n">ecPoint</span><span class="o">,</span> <span class="n">ecParameterSpec</span><span class="o">);</span>
 
-                <span class="n">KeyFactory</span> <span class="n">keyFactory</span> <span class="o">=</span> <span class="n">KeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">kty</span><span class="o">);</span>
+                <span class="nc">KeyFactory</span> <span class="n">keyFactory</span> <span class="o">=</span> <span class="nc">KeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">kty</span><span class="o">);</span>
 
                 <span class="k">return</span> <span class="n">keyFactory</span><span class="o">.</span><span class="na">generatePublic</span><span class="o">(</span><span class="n">ecPublicKeySpec</span><span class="o">);</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InvalidKeySpecException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InvalidKeySpecException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
             <span class="o">}</span>
             <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>

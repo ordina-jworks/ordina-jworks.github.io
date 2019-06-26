@@ -214,10 +214,10 @@ The OpenFeign library, which provides us with the basics but very customizable O
 
 <h2 id="spring">Spring</h2>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@FeignClient</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"auth"</span><span class="o">,</span> <span class="n">fallback</span> <span class="o">=</span> <span class="n">FallbackAuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">configuration</span> <span class="o">=</span> <span class="n">FeignConfig</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@FeignClient</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"auth"</span><span class="o">,</span> <span class="n">fallback</span> <span class="o">=</span> <span class="nc">FallbackAuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">configuration</span> <span class="o">=</span> <span class="nc">FeignConfig</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthClient</span> <span class="o">{</span> 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"checkToken"</span><span class="o">)</span>
-    <span class="kt">boolean</span> <span class="nf">isTokenValid</span><span class="o">(</span><span class="nd">@RequestHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">)</span> <span class="n">String</span> <span class="n">token</span><span class="o">);</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"checkToken"</span><span class="o">)</span>
+    <span class="kt">boolean</span> <span class="nf">isTokenValid</span><span class="o">(</span><span class="nd">@RequestHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">token</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <ul>
@@ -228,9 +228,9 @@ You could also use the url attribute to point your client to the target applicat
 </ul>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FallbackAuthClient</span> <span class="kd">implements</span> <span class="n">AuthClient</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FallbackAuthClient</span> <span class="kd">implements</span> <span class="nc">AuthClient</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isTokenValid</span><span class="o">(</span><span class="nd">@RequestHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">)</span> <span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isTokenValid</span><span class="o">(</span><span class="nd">@RequestHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -246,7 +246,7 @@ You could also use the url attribute to point your client to the target applicat
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthClient</span> <span class="o">{</span>
     <span class="nd">@RequestLine</span><span class="o">(</span><span class="s">"GET /auth"</span><span class="o">)</span>
     <span class="nd">@Headers</span><span class="o">({</span><span class="s">"Authorization: {token}"</span><span class="o">,</span> <span class="s">"Accept: application/hal+json"</span><span class="o">})</span>
-    <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"token"</span><span class="o">)</span> <span class="n">String</span> <span class="n">token</span><span class="o">);</span>
+    <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"token"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">token</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <ul>
@@ -263,12 +263,12 @@ The second parameter is most likely the base url where all the requests begin.
 Get your URLs from the yml or properties file with the help of <code class="highlighter-rouge">@Value</code>.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Value</span><span class="o">(</span><span class="s">"${base.url}"</span><span class="o">)</span>
-<span class="kd">private</span> <span class="n">String</span> <span class="n">baseServerUrl</span><span class="o">;</span>
+<span class="kd">private</span> <span class="nc">String</span> <span class="n">baseServerUrl</span><span class="o">;</span>
 
 <span class="nd">@Bean</span>
-<span class="n">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="n">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
+<span class="nc">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="nc">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <h1 id="different-kinds-of-http-clients">Different kinds of HTTP clients</h1>
@@ -276,10 +276,10 @@ Get your URLs from the yml or properties file with the help of <code class="high
 You can configure another client (<code class="highlighter-rouge">ApacheHttpClient</code>, <code class="highlighter-rouge">OkHttpClient</code>, …) as follows:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
-<span class="n">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="k">new</span> <span class="n">ApacheHttpClient</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="n">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
+<span class="nc">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="k">new</span> <span class="nc">ApacheHttpClient</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="nc">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <h2 id="okhttpclient">OkHttpClient</h2>
@@ -304,8 +304,8 @@ You can configure another client (<code class="highlighter-rouge">ApacheHttpClie
 To achieve this in an <code class="highlighter-rouge">ApacheHttpClient</code>, we have to create an <code class="highlighter-rouge">HttpClient</code> that builds the SSL context.
 When the SSL context is valid, we wrap this inside an <code class="highlighter-rouge">ApacheHttpClient</code> for being compliant with OpenFeign.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ApacheHttpClient</span> <span class="nf">createHttpClient</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SSLException</span> <span class="o">{</span>
-    <span class="n">HttpClient</span> <span class="n">httpClient</span> <span class="o">=</span> <span class="n">HttpClients</span><span class="o">.</span><span class="na">custom</span><span class="o">()</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">ApacheHttpClient</span> <span class="nf">createHttpClient</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">SSLException</span> <span class="o">{</span>
+    <span class="nc">HttpClient</span> <span class="n">httpClient</span> <span class="o">=</span> <span class="nc">HttpClients</span><span class="o">.</span><span class="na">custom</span><span class="o">()</span>
             <span class="o">.</span><span class="na">setSSLSocketFactory</span><span class="o">(</span><span class="n">createSSLContext</span><span class="o">())</span>
             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">ApacheHttpClient</span><span class="o">(</span><span class="n">httpClient</span><span class="o">);</span>
@@ -314,10 +314,10 @@ When the SSL context is valid, we wrap this inside an <code class="highlighter-r
 <p>Add it to the builder.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
-<span class="n">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+<span class="nc">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
             <span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="n">createHttpClient</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="n">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
+            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="nc">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <h1 id="give-it-a-retry">Give it a (re)try</h1>
@@ -349,10 +349,10 @@ When we want to use the retryer of OpenFeign, we got three properties we can set
 <span class="kd">private</span> <span class="kt">int</span> <span class="n">maxAttempts</span><span class="o">;</span>
 
 <span class="nd">@Bean</span>
-<span class="n">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">retryer</span><span class="o">(</span><span class="k">new</span> <span class="n">Retryer</span><span class="o">.</span><span class="na">Default</span><span class="o">(</span><span class="n">period</span><span class="o">,</span> <span class="n">maxPeriod</span><span class="o">,</span> <span class="n">maxAttempts</span><span class="o">))</span>
-            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="n">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
+<span class="nc">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">retryer</span><span class="o">(</span><span class="k">new</span> <span class="nc">Retryer</span><span class="o">.</span><span class="na">Default</span><span class="o">(</span><span class="n">period</span><span class="o">,</span> <span class="n">maxPeriod</span><span class="o">,</span> <span class="n">maxAttempts</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="nc">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <h1 id="intercepting-requests">Intercepting requests</h1>
@@ -360,21 +360,21 @@ When we want to use the retryer of OpenFeign, we got three properties we can set
 This becomes very useful in situations where every request needs this extra information.
 To add an interceptor, we just add an extra method that returns the OpenFeign interceptor.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">RequestInterceptor</span> <span class="nf">requestInterceptor</span><span class="o">()</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">RequestInterceptor</span> <span class="nf">requestInterceptor</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">requestTemplate</span> <span class="o">-&gt;</span> <span class="o">{</span>
         <span class="n">requestTemplate</span><span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"user"</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
         <span class="n">requestTemplate</span><span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"password"</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-        <span class="n">requestTemplate</span><span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="n">ContentType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">.</span><span class="na">getMimeType</span><span class="o">());</span>
+        <span class="n">requestTemplate</span><span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="nc">ContentType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">.</span><span class="na">getMimeType</span><span class="o">());</span>
     <span class="o">};</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>To enable the customization, we add the interceptor to the builder.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
-<span class="n">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+<span class="nc">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
             <span class="o">.</span><span class="na">requestInterceptor</span><span class="o">(</span><span class="n">requestInterceptor</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="n">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
+            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="nc">AuthClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">baseServerUrl</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <h1 id="securing-your-api">Securing your API</h1>
@@ -388,13 +388,13 @@ Here are a few that can be handled by OpenFeign.</p>
 <p>For only Bearer token communication, you can just pass it down in the request header of your method call.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">//Spring</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"checkToken"</span><span class="o">)</span>
-<span class="kt">boolean</span> <span class="nf">isTokenValid</span><span class="o">(</span><span class="nd">@RequestHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">)</span> <span class="n">String</span> <span class="n">token</span><span class="o">);</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"checkToken"</span><span class="o">)</span>
+<span class="kt">boolean</span> <span class="nf">isTokenValid</span><span class="o">(</span><span class="nd">@RequestHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">token</span><span class="o">);</span>
 
 <span class="c1">//OpenFeign</span>
 <span class="nd">@RequestLine</span><span class="o">(</span><span class="s">"GET /auth"</span><span class="o">)</span>
 <span class="nd">@Headers</span><span class="o">({</span><span class="s">"Authorization: {token}"</span><span class="o">,</span> <span class="s">"Accept: application/hal+json"</span><span class="o">})</span>
-<span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"token"</span><span class="o">)</span> <span class="n">String</span> <span class="n">token</span><span class="o">);</span></code></pre></figure>
+<span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"token"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">token</span><span class="o">);</span></code></pre></figure>
 
 <h2 id="oauth2">OAuth2</h2>
 <p>This link provides a good explanation about the use of OAuth2 with OpenFeign: 
@@ -411,10 +411,10 @@ Since there are many kind of errors we can get, we want a place where we can han
 An OpenFeign <code class="highlighter-rouge">ErrorDecoder</code> must be added to the configuration of the client object as you can see in the code below.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
-<span class="n">MyClient</span> <span class="nf">myClient</span><span class="o">()</span> <span class="o">{</span>
-   <span class="k">return</span> <span class="n">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+<span class="nc">MyClient</span> <span class="nf">myClient</span><span class="o">()</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="nc">Feign</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
            <span class="o">.</span><span class="na">errorDecoder</span><span class="o">(</span><span class="n">errorDecoder</span><span class="o">())</span>
-           <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="n">MyClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;);</span>
+           <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="nc">MyClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Rather than throwing an exception in the <code class="highlighter-rouge">decode</code> method of the <code class="highlighter-rouge">ErrorDecoder</code>, you return an exception to Feign and Feign will throw it for you.
@@ -427,36 +427,36 @@ No way of interpreting that exception to rethrow a more functional exception eg.
 <p>To handle the errors, we have to look at the structure of these errors. 
 From that structure, we build up our own exception and throw it so the <code class="highlighter-rouge">ControllerAdvice</code> class can handle our exception.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomErrorDecoder</span> <span class="kd">implements</span> <span class="n">ErrorDecoder</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomErrorDecoder</span> <span class="kd">implements</span> <span class="nc">ErrorDecoder</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">Exception</span> <span class="nf">decode</span><span class="o">(</span><span class="n">String</span> <span class="n">methodKey</span><span class="o">,</span> <span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">CustomException</span> <span class="n">ex</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nc">Exception</span> <span class="nf">decode</span><span class="o">(</span><span class="nc">String</span> <span class="n">methodKey</span><span class="o">,</span> <span class="nc">Response</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">CustomException</span> <span class="n">ex</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">ex</span> <span class="o">=</span> <span class="n">createException</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
             <span class="o">}</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"Failed to decode CustomException"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
-        <span class="n">ex</span> <span class="o">=</span> <span class="n">ex</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">ex</span> <span class="o">:</span> <span class="k">new</span> <span class="n">CustomException</span><span class="o">(</span><span class="s">"Failed to decode CustomException"</span><span class="o">,</span> <span class="n">errorStatus</span><span class="o">(</span><span class="n">methodKey</span><span class="o">,</span> <span class="n">response</span><span class="o">).</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="n">ex</span> <span class="o">=</span> <span class="n">ex</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">ex</span> <span class="o">:</span> <span class="k">new</span> <span class="nc">CustomException</span><span class="o">(</span><span class="s">"Failed to decode CustomException"</span><span class="o">,</span> <span class="n">errorStatus</span><span class="o">(</span><span class="n">methodKey</span><span class="o">,</span> <span class="n">response</span><span class="o">).</span><span class="na">getMessage</span><span class="o">());</span>
         <span class="k">return</span> <span class="n">ex</span><span class="o">;</span>
     <span class="o">}</span>
     
-    <span class="kd">private</span> <span class="n">CustomExceptionException</span> <span class="nf">createException</span><span class="o">(</span><span class="n">Response</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">body</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">().</span><span class="na">asReader</span><span class="o">());</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">ErrorResource</span><span class="o">&gt;</span> <span class="n">errorMessages</span> <span class="o">=</span> <span class="n">createMessage</span><span class="o">(</span><span class="n">body</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="nc">CustomExceptionException</span> <span class="nf">createException</span><span class="o">(</span><span class="nc">Response</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">body</span> <span class="o">=</span> <span class="nc">Util</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">().</span><span class="na">asReader</span><span class="o">());</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ErrorResource</span><span class="o">&gt;</span> <span class="n">errorMessages</span> <span class="o">=</span> <span class="n">createMessage</span><span class="o">(</span><span class="n">body</span><span class="o">);</span>
         <span class="k">return</span> <span class="nf">createCustomException</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="n">errorMessages</span><span class="o">);</span>
     <span class="o">}</span>
     
-    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ErrorResource</span><span class="o">&gt;</span> <span class="nf">createMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ErrorResource</span><span class="o">&gt;</span> <span class="nf">createMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="nf">read</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">"$.errors"</span><span class="o">);</span>
     <span class="o">}</span>
     
-    <span class="kd">private</span> <span class="n">CustomException</span> <span class="nf">createCustomException</span><span class="o">(</span><span class="n">String</span> <span class="n">body</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ErrorResource</span><span class="o">&gt;</span> <span class="n">errors</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">CustomException</span> <span class="n">ex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CustomException</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="nc">CustomException</span> <span class="nf">createCustomException</span><span class="o">(</span><span class="nc">String</span> <span class="n">body</span><span class="o">,</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ErrorResource</span><span class="o">&gt;</span> <span class="n">errors</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">CustomException</span> <span class="n">ex</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CustomException</span><span class="o">();</span>
         <span class="n">ex</span><span class="o">.</span><span class="na">setErrors</span><span class="o">(</span><span class="n">errors</span><span class="o">);</span>
         <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">read</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">"$.status"</span><span class="o">);</span>
-        <span class="n">ex</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">status</span><span class="o">));</span>
+        <span class="n">ex</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="nc">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">status</span><span class="o">));</span>
         <span class="n">ex</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">read</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">"$.title"</span><span class="o">));</span>
         <span class="k">return</span> <span class="n">ex</span><span class="o">;</span>
     <span class="o">}</span>

@@ -375,7 +375,7 @@ gcloud config <span class="nb">set </span>project &lt;PROJECT_NAME&gt;
 <p>Create a cluster for your specific zone (e.g. europe-west1-d) and preferred cluster version (v1.10.2-gke.0 or later):</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">CLUSTER_VERSION</span><span class="o">=</span>1.10.2-gke.1
-<span class="nv">GCP_PROJECT</span><span class="o">=</span><span class="k">$(</span>gcloud info <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(config.project)'</span><span class="k">)</span>
+<span class="nv">GCP_PROJECT</span><span class="o">=</span><span class="si">$(</span>gcloud info <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(config.project)'</span><span class="si">)</span>
 <span class="nv">ZONE</span><span class="o">=</span>europe-west1-d
 
 <span class="nv">CLOUDSDK_CONTAINER_USE_V1_API</span><span class="o">=</span><span class="nb">false
@@ -453,7 +453,7 @@ Follow the guide further down, but first of all, set some variables while still 
 One of these variables is the Spinnaker bucket automatically created when installing Halyard.
 Look for the right bucket identifier in the GCP GKE buckets dashboard.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PROJECT_ID</span><span class="o">=</span><span class="k">$(</span>gcloud info <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(config.project)'</span><span class="k">)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PROJECT_ID</span><span class="o">=</span><span class="si">$(</span>gcloud info <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(config.project)'</span><span class="si">)</span>
 <span class="nv">JSON_PATH</span><span class="o">=</span>~/.gcp/gcp.json
 <span class="nv">MY_SPINNAKER_BUCKET</span><span class="o">=</span>spin-48b89b5e-dd67-446a-ad9f-66e8783e9822
 </code></pre></div></div>
@@ -531,10 +531,10 @@ gcloud iam service-accounts create <span class="nv">$HALYARD_SA</span> <span cla
     <span class="nt">--project</span><span class="o">=</span><span class="nv">$GCP_PROJECT</span> <span class="se">\</span>
     <span class="nt">--display-name</span> <span class="nv">$HALYARD_SA</span>
 
-<span class="nv">HALYARD_SA_EMAIL</span><span class="o">=</span><span class="k">$(</span>gcloud iam service-accounts list <span class="se">\</span>
+<span class="nv">HALYARD_SA_EMAIL</span><span class="o">=</span><span class="si">$(</span>gcloud iam service-accounts list <span class="se">\</span>
     <span class="nt">--project</span><span class="o">=</span><span class="nv">$GCP_PROJECT</span> <span class="se">\</span>
     <span class="nt">--filter</span><span class="o">=</span><span class="s2">"displayName:</span><span class="nv">$HALYARD_SA</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(email)'</span><span class="k">)</span>
+    <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(email)'</span><span class="si">)</span>
 
 gcloud projects add-iam-policy-binding <span class="nv">$GCP_PROJECT</span> <span class="se">\</span>
     <span class="nt">--role</span> roles/iam.serviceAccountKeyAdmin <span class="se">\</span>
@@ -550,10 +550,10 @@ gcloud iam service-accounts create <span class="nv">$GCS_SA</span> <span class="
     <span class="nt">--project</span><span class="o">=</span><span class="nv">$GCP_PROJECT</span> <span class="se">\</span>
     <span class="nt">--display-name</span> <span class="nv">$GCS_SA</span>
 
-<span class="nv">GCS_SA_EMAIL</span><span class="o">=</span><span class="k">$(</span>gcloud iam service-accounts list <span class="se">\</span>
+<span class="nv">GCS_SA_EMAIL</span><span class="o">=</span><span class="si">$(</span>gcloud iam service-accounts list <span class="se">\</span>
     <span class="nt">--project</span><span class="o">=</span><span class="nv">$GCP_PROJECT</span> <span class="se">\</span>
     <span class="nt">--filter</span><span class="o">=</span><span class="s2">"displayName:</span><span class="nv">$GCS_SA</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(email)'</span><span class="k">)</span>
+    <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(email)'</span><span class="si">)</span>
 
 gcloud projects add-iam-policy-binding <span class="nv">$GCP_PROJECT</span> <span class="se">\</span>
     <span class="nt">--role</span> roles/storage.admin <span class="se">\</span>
@@ -563,7 +563,7 @@ gcloud projects add-iam-policy-binding <span class="nv">$GCP_PROJECT</span> <spa
     <span class="nt">--member</span> serviceAccount:<span class="nv">$GCS_SA_EMAIL</span> <span class="se">\</span>
     <span class="nt">--role</span> roles/browser
 
-<span class="nv">HALYARD_HOST</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$USER</span><span class="nt">-halyard-</span><span class="sb">`</span><span class="nb">date</span> +%m%d<span class="sb">`</span> | <span class="nb">tr</span> <span class="s1">'_.'</span> <span class="s1">'-'</span><span class="k">)</span>
+<span class="nv">HALYARD_HOST</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$USER</span><span class="nt">-halyard-</span><span class="sb">`</span><span class="nb">date</span> +%m%d<span class="sb">`</span> | <span class="nb">tr</span> <span class="s1">'_.'</span> <span class="s1">'-'</span><span class="si">)</span>
 
 gcloud compute instances create <span class="nv">$HALYARD_HOST</span> <span class="se">\</span>
     <span class="nt">--project</span><span class="o">=</span><span class="nv">$GCP_PROJECT</span> <span class="se">\</span>
@@ -583,7 +583,7 @@ gcloud compute ssh <span class="nv">$HALYARD_HOST</span> <span class="se">\</spa
 
 <p>Inside the Halyard VM:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KUBECTL_LATEST</span><span class="o">=</span><span class="k">$(</span>curl <span class="nt">-s</span> https://storage.googleapis.com/kubernetes-release/release/stable.txt<span class="k">)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KUBECTL_LATEST</span><span class="o">=</span><span class="si">$(</span>curl <span class="nt">-s</span> https://storage.googleapis.com/kubernetes-release/release/stable.txt<span class="si">)</span>
 curl <span class="nt">-LO</span> https://storage.googleapis.com/kubernetes-release/release/<span class="nv">$KUBECTL_LATEST</span>/bin/linux/amd64/kubectl
 <span class="nb">chmod</span> +x kubectl
 <span class="nb">sudo mv </span>kubectl /usr/local/bin/kubectl
@@ -593,7 +593,7 @@ curl <span class="nt">-O</span> https://raw.githubusercontent.com/spinnaker/haly
 
 <span class="nv">GKE_CLUSTER_NAME</span><span class="o">=</span>spinnaker
 <span class="nv">GKE_CLUSTER_ZONE</span><span class="o">=</span>europe-west1-d
-<span class="nv">PROJECT_ID</span><span class="o">=</span><span class="k">$(</span>gcloud info <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(config.project)'</span><span class="k">)</span>
+<span class="nv">PROJECT_ID</span><span class="o">=</span><span class="si">$(</span>gcloud info <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(config.project)'</span><span class="si">)</span>
 
 gcloud config <span class="nb">set </span>container/use_client_certificate <span class="nb">true
 </span>gcloud container clusters get-credentials <span class="nv">$GKE_CLUSTER_NAME</span> <span class="se">\</span>
@@ -601,14 +601,14 @@ gcloud config <span class="nb">set </span>container/use_client_certificate <span
 
 <span class="nv">GCS_SA</span><span class="o">=</span>gcs-service-account
 <span class="nv">GCS_SA_DEST</span><span class="o">=</span>~/.gcp/gcp.json
-<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="k">$(</span><span class="nb">dirname</span> <span class="nv">$GCS_SA_DEST</span><span class="k">)</span>
-<span class="nv">GCS_SA_EMAIL</span><span class="o">=</span><span class="k">$(</span>gcloud iam service-accounts list <span class="se">\</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="si">$(</span><span class="nb">dirname</span> <span class="nv">$GCS_SA_DEST</span><span class="si">)</span>
+<span class="nv">GCS_SA_EMAIL</span><span class="o">=</span><span class="si">$(</span>gcloud iam service-accounts list <span class="se">\</span>
     <span class="nt">--filter</span><span class="o">=</span><span class="s2">"displayName:</span><span class="nv">$GCS_SA</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(email)'</span><span class="k">)</span>
+    <span class="nt">--format</span><span class="o">=</span><span class="s1">'value(email)'</span><span class="si">)</span>
 gcloud iam service-accounts keys create <span class="nv">$GCS_SA_DEST</span> <span class="se">\</span>
     <span class="nt">--iam-account</span> <span class="nv">$GCS_SA_EMAIL</span>
 
-hal config version edit <span class="nt">--version</span> <span class="k">$(</span>hal version latest <span class="nt">-q</span><span class="k">)</span>
+hal config version edit <span class="nt">--version</span> <span class="si">$(</span>hal version latest <span class="nt">-q</span><span class="si">)</span>
 hal config storage gcs edit <span class="se">\</span>
     <span class="nt">--project</span> <span class="nv">$PROJECT_ID</span> <span class="se">\</span>
     <span class="nt">--json-path</span> <span class="nv">$GCS_SA_DEST</span>
@@ -621,7 +621,7 @@ hal config provider docker-registry <span class="nb">enable
 hal config provider kubernetes <span class="nb">enable
 </span>hal config provider kubernetes account add my-k8s-account <span class="se">\</span>
     <span class="nt">--docker-registries</span> my-gcr-account <span class="se">\</span>
-    <span class="nt">--context</span> <span class="k">$(</span>kubectl config current-context<span class="k">)</span>
+    <span class="nt">--context</span> <span class="si">$(</span>kubectl config current-context<span class="si">)</span>
 
 <span class="c"># Only required in case you want to use eu.gcr.io</span>
 hal config provider docker-registry account add gcr-eu <span class="se">\</span>

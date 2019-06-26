@@ -304,28 +304,28 @@ With one push of a button you can generate a command line query or the translati
 Compass tells me the full aggregate will look like :</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">people</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">([{</span><span class="na">$match</span><span class="p">:</span> <span class="p">{</span>
-                      <span class="na">lastName</span> <span class="p">:</span> <span class="s2">"Van Hoof"</span>
+                      <span class="na">lastName</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Van Hoof</span><span class="dl">"</span>
                     <span class="p">}},</span> <span class="p">{</span><span class="na">$group</span><span class="p">:</span> <span class="p">{</span>
                       <span class="na">_id</span><span class="p">:</span> <span class="p">{</span> 
-                        <span class="s2">"lastName"</span> <span class="p">:</span> <span class="s2">"$lastName"</span><span class="p">,</span>
-                        <span class="s2">"firstName"</span><span class="p">:</span> <span class="s2">"$firstName"</span><span class="p">,</span>
-                        <span class="s2">"year"</span> <span class="p">:</span> <span class="s2">"$birthYear"</span>
+                        <span class="dl">"</span><span class="s2">lastName</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">$lastName</span><span class="dl">"</span><span class="p">,</span>
+                        <span class="dl">"</span><span class="s2">firstName</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">$firstName</span><span class="dl">"</span><span class="p">,</span>
+                        <span class="dl">"</span><span class="s2">year</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">$birthYear</span><span class="dl">"</span>
                       <span class="p">},</span>
                       <span class="na">count</span><span class="p">:</span> <span class="p">{</span>
                          <span class="na">$sum</span><span class="p">:</span> <span class="mi">1</span> 
                       <span class="p">}</span>
                     <span class="p">}},</span> <span class="p">{</span><span class="na">$group</span><span class="p">:</span> <span class="p">{</span>
-                            <span class="s2">"_id"</span><span class="p">:</span> <span class="p">{</span>
-                                <span class="s2">"year"</span><span class="p">:</span> <span class="s2">"$_id.year"</span><span class="p">,</span>
+                            <span class="dl">"</span><span class="s2">_id</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="dl">"</span><span class="s2">year</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">$_id.year</span><span class="dl">"</span><span class="p">,</span>
                             <span class="p">},</span>
-                            <span class="s2">"occurences"</span><span class="p">:</span> <span class="p">{</span>
-                              <span class="s2">"$push"</span> <span class="p">:</span> <span class="p">{</span>
-                                  <span class="s2">"identity"</span><span class="p">:</span> <span class="s2">"$_id"</span><span class="p">,</span>
-                                  <span class="s2">"count"</span><span class="p">:</span> <span class="s2">"$count"</span>
+                            <span class="dl">"</span><span class="s2">occurences</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+                              <span class="dl">"</span><span class="s2">$push</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+                                  <span class="dl">"</span><span class="s2">identity</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">$_id</span><span class="dl">"</span><span class="p">,</span>
+                                  <span class="dl">"</span><span class="s2">count</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">$count</span><span class="dl">"</span>
                               <span class="p">}</span>
                             <span class="p">}</span>
                     <span class="p">}},</span> <span class="p">{</span><span class="na">$sort</span><span class="p">:</span> <span class="p">{</span>
-                      <span class="s2">"_id.year"</span><span class="p">:</span> <span class="mi">1</span>
+                      <span class="dl">"</span><span class="s2">_id.year</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
                     <span class="p">}}])</span>
 </code></pre></div></div>
 
@@ -413,11 +413,11 @@ There is even an Electric Imp Library for IoT devices.</p>
 <h3 id="stitch-queryanywhere">Stitch QueryAnywhere</h3>
 <p>QueryAnywhere enables you to query the database directly instead of going through a REST api.
 The benefit here is that as a client application you are not restricted to what a REST api would expose but you can use all the power of the MongoDB Query Language directly:</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">employees</span> <span class="o">=</span> <span class="nx">mongodb</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="s2">"HR"</span><span class="p">).</span><span class="nx">collection</span><span class="p">(</span><span class="s2">"employees"</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">employees</span> <span class="o">=</span> <span class="nx">mongodb</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="dl">"</span><span class="s2">HR</span><span class="dl">"</span><span class="p">).</span><span class="nx">collection</span><span class="p">(</span><span class="dl">"</span><span class="s2">employees</span><span class="dl">"</span><span class="p">);</span>
   
   <span class="k">return</span> <span class="nx">employees</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">{</span>
     <span class="na">limit</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="na">sort</span><span class="p">:</span> <span class="p">{</span> <span class="s2">"salary"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="p">}</span>
+    <span class="na">sort</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">salary</span><span class="dl">"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="p">}</span>
   <span class="p">})</span>
     <span class="p">.</span><span class="nx">asArray</span><span class="p">();</span>
 </code></pre></div></div>
@@ -428,14 +428,14 @@ The benefit here is that as a client application you are not restricted to what 
 <p>You can write JavaScript functions in the Stitch serverless platform and combine database calls with cloud services.
 For example, send a message with Twilio to all users:</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
- <span class="kd">var</span> <span class="nx">mongodb</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">services</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'mongodb-atlas'</span><span class="p">);</span>
- <span class="kd">var</span> <span class="nx">twilio</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">services</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'twilio'</span><span class="p">);</span>
- <span class="kd">var</span> <span class="nx">coll</span> <span class="o">=</span> <span class="nx">mongodb</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="s1">'db'</span><span class="p">).</span><span class="nx">collection</span><span class="p">(</span><span class="s1">'users'</span><span class="p">);</span>
+ <span class="kd">var</span> <span class="nx">mongodb</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">services</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb-atlas</span><span class="dl">'</span><span class="p">);</span>
+ <span class="kd">var</span> <span class="nx">twilio</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">services</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">twilio</span><span class="dl">'</span><span class="p">);</span>
+ <span class="kd">var</span> <span class="nx">coll</span> <span class="o">=</span> <span class="nx">mongodb</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="dl">'</span><span class="s1">db</span><span class="dl">'</span><span class="p">).</span><span class="nx">collection</span><span class="p">(</span><span class="dl">'</span><span class="s1">users</span><span class="dl">'</span><span class="p">);</span>
  <span class="k">return</span> <span class="nx">coll</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">toArray</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">users</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="nx">users</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
    <span class="nx">twilio</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
     <span class="na">to</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">phone</span><span class="p">,</span>
-    <span class="na">from</span><span class="p">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">values</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'twilioNumber'</span><span class="p">),</span>
+    <span class="na">from</span><span class="p">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">values</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">twilioNumber</span><span class="dl">'</span><span class="p">),</span>
     <span class="na">body</span><span class="p">:</span> <span class="nx">message</span>
    <span class="p">});</span>
   <span class="p">});</span>
@@ -443,7 +443,7 @@ For example, send a message with Twilio to all users:</p>
 <span class="p">};</span>
 <span class="err">​</span>
 <span class="c1">// Then call callFunction from the client side</span>
-<span class="nx">stitchClient</span><span class="p">.</span><span class="nx">callFunction</span><span class="p">(</span><span class="s1">'sendMessage'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'Hello from Stitch!'</span><span class="p">]);</span>
+<span class="nx">stitchClient</span><span class="p">.</span><span class="nx">callFunction</span><span class="p">(</span><span class="dl">'</span><span class="s1">sendMessage</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Hello from Stitch!</span><span class="dl">'</span><span class="p">]);</span>
 </code></pre></div></div>
 
 <h3 id="stitch-triggers">Stitch Triggers</h3>

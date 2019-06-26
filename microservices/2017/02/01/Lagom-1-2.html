@@ -238,16 +238,16 @@ Note that Lagom Kafka Broker module requires an implementation of Lagom Persiste
 
 <p>In our simple demo project <a href="https://github.com/yannickdeturck/lagom-shop">Lagom Shop</a> we define a new method in the <code class="highlighter-rouge">item-api</code> project’s <code class="highlighter-rouge">ItemService</code> that will return a <code class="highlighter-rouge">Topic</code> of item creation events to subscribe on and we also add it to the <code class="highlighter-rouge">descriptor</code>:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Topic</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">();</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Topic</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">();</span>
 
 <span class="nd">@Override</span>
-<span class="k">default</span> <span class="n">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">withCalls</span><span class="o">(</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
+<span class="k">default</span> <span class="nc">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">withCalls</span><span class="o">(</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
     <span class="o">).</span><span class="na">publishing</span><span class="o">(</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">topic</span><span class="o">(</span><span class="s">"createdItems"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createdItemsTopic</span><span class="o">)</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">topic</span><span class="o">(</span><span class="s">"createdItems"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createdItemsTopic</span><span class="o">)</span>
     <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -255,60 +255,60 @@ Note that Lagom Kafka Broker module requires an implementation of Lagom Persiste
 An <code class="highlighter-rouge">ItemEvent</code> already exists in the <code class="highlighter-rouge">item-impl</code> project but you want this one to be solely used within the implementation project.
 It is considered a best practice to have a separate definition for external use as it would otherwise cause you to break clients if you would apply internal changes.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@JsonTypeInfo</span><span class="o">(</span><span class="n">use</span> <span class="o">=</span> <span class="n">JsonTypeInfo</span><span class="o">.</span><span class="na">Id</span><span class="o">.</span><span class="na">NAME</span><span class="o">,</span> <span class="n">property</span> <span class="o">=</span> <span class="s">"type"</span><span class="o">,</span> <span class="n">defaultImpl</span> <span class="o">=</span> <span class="n">Void</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@JsonTypeInfo</span><span class="o">(</span><span class="n">use</span> <span class="o">=</span> <span class="nc">JsonTypeInfo</span><span class="o">.</span><span class="na">Id</span><span class="o">.</span><span class="na">NAME</span><span class="o">,</span> <span class="n">property</span> <span class="o">=</span> <span class="s">"type"</span><span class="o">,</span> <span class="n">defaultImpl</span> <span class="o">=</span> <span class="nc">Void</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="nd">@JsonSubTypes</span><span class="o">({</span>
-        <span class="nd">@JsonSubTypes</span><span class="o">.</span><span class="na">Type</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@JsonSubTypes</span><span class="o">.</span><span class="na">Type</span><span class="o">(</span><span class="nc">ItemEvent</span><span class="o">.</span><span class="na">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="o">})</span>
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="o">{</span>
-    <span class="n">UUID</span> <span class="nf">getId</span><span class="o">();</span>
+    <span class="no">UUID</span> <span class="nf">getId</span><span class="o">();</span>
 
     <span class="nd">@JsonTypeName</span><span class="o">(</span><span class="s">"item-created"</span><span class="o">)</span>
-    <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ItemCreated</span> <span class="kd">implements</span> <span class="n">ItemEvent</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">UUID</span> <span class="n">id</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ItemCreated</span> <span class="kd">implements</span> <span class="nc">ItemEvent</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="no">UUID</span> <span class="n">id</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="nc">BigDecimal</span> <span class="n">price</span><span class="o">;</span>
     
         <span class="nd">@JsonCreator</span>
-        <span class="kd">public</span> <span class="nf">ItemCreated</span><span class="o">(</span><span class="n">UUID</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">ItemCreated</span><span class="o">(</span><span class="no">UUID</span> <span class="n">id</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">BigDecimal</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
             <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
             <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
         <span class="o">}</span>
     
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">UUID</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{...}</span>
+        <span class="kd">public</span> <span class="no">UUID</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{...}</span>
     
-        <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{...}</span>
+        <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{...}</span>
     
-        <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{...}</span>
+        <span class="kd">public</span> <span class="nc">BigDecimal</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{...}</span>
     
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{...}</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{...}</span>
     
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{...}</span>
     
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{...}</span>
+        <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{...}</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>In the <code class="highlighter-rouge">item-impl</code> project we add the implementation to <code class="highlighter-rouge">ItemServiceImpl</code> that will publish all <code class="highlighter-rouge">ItemCreated</code> events to the topic:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">Topic</span><span class="o">&lt;</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">TopicProducer</span><span class="o">.</span><span class="na">singleStreamWithOffset</span><span class="o">(</span><span class="n">offset</span> <span class="o">-&gt;</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">Topic</span><span class="o">&lt;</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">TopicProducer</span><span class="o">.</span><span class="na">singleStreamWithOffset</span><span class="o">(</span><span class="n">offset</span> <span class="o">-&gt;</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">persistentEntities</span>
-                <span class="o">.</span><span class="na">eventStream</span><span class="o">(</span><span class="n">ItemEventTag</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">,</span> <span class="n">offset</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">eventOffSet</span> <span class="o">-&gt;</span> <span class="n">eventOffSet</span><span class="o">.</span><span class="na">first</span><span class="o">()</span> <span class="k">instanceof</span> <span class="n">ItemCreated</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">eventStream</span><span class="o">(</span><span class="nc">ItemEventTag</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">,</span> <span class="n">offset</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">eventOffSet</span> <span class="o">-&gt;</span> <span class="n">eventOffSet</span><span class="o">.</span><span class="na">first</span><span class="o">()</span> <span class="k">instanceof</span> <span class="nc">ItemCreated</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">convertItem</span><span class="o">);</span>
     <span class="o">});</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="n">Pair</span><span class="o">&lt;</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">,</span> <span class="n">Offset</span><span class="o">&gt;</span> <span class="nf">convertItem</span><span class="o">(</span><span class="n">Pair</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">,</span> <span class="n">Offset</span><span class="o">&gt;</span> <span class="n">pair</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="o">((</span><span class="n">ItemCreated</span><span class="o">)</span><span class="n">pair</span><span class="o">.</span><span class="na">first</span><span class="o">()).</span><span class="na">getItem</span><span class="o">();</span>
+<span class="kd">private</span> <span class="nc">Pair</span><span class="o">&lt;</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">,</span> <span class="nc">Offset</span><span class="o">&gt;</span> <span class="nf">convertItem</span><span class="o">(</span><span class="nc">Pair</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">,</span> <span class="nc">Offset</span><span class="o">&gt;</span> <span class="n">pair</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="o">((</span><span class="nc">ItemCreated</span><span class="o">)</span><span class="n">pair</span><span class="o">.</span><span class="na">first</span><span class="o">()).</span><span class="na">getItem</span><span class="o">();</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Converting ItemEvent"</span> <span class="o">+</span> <span class="n">item</span><span class="o">);</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">Pair</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">.</span><span class="na">ItemCreated</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">item</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">Pair</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">.</span><span class="na">ItemCreated</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">item</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
             <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()),</span> <span class="n">pair</span><span class="o">.</span><span class="na">second</span><span class="o">());</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -317,14 +317,14 @@ Using the injected <code class="highlighter-rouge">ItemService</code> instance w
 In this case we log something whenever we receive a new message.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Inject</span>
-<span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="n">ReadSide</span> <span class="n">readSide</span><span class="o">,</span>
-                        <span class="n">ItemService</span> <span class="n">itemService</span><span class="o">,</span> <span class="n">PubSubRegistry</span> <span class="n">topics</span><span class="o">,</span> <span class="n">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="nc">ReadSide</span> <span class="n">readSide</span><span class="o">,</span>
+                        <span class="nc">ItemService</span> <span class="n">itemService</span><span class="o">,</span> <span class="nc">PubSubRegistry</span> <span class="n">topics</span><span class="o">,</span> <span class="nc">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
     <span class="o">...</span>
     <span class="n">itemService</span><span class="o">.</span><span class="na">createdItemsTopic</span><span class="o">()</span>
             <span class="o">.</span><span class="na">subscribe</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">atLeastOnce</span><span class="o">(</span><span class="n">Flow</span><span class="o">.</span><span class="na">fromFunction</span><span class="o">((</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span> <span class="n">item</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="o">.</span><span class="na">atLeastOnce</span><span class="o">(</span><span class="nc">Flow</span><span class="o">.</span><span class="na">fromFunction</span><span class="o">((</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span> <span class="n">item</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
                 <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Subscriber: doing something with the created item "</span> <span class="o">+</span> <span class="n">item</span><span class="o">);</span>
-                <span class="k">return</span> <span class="n">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+                <span class="k">return</span> <span class="nc">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
             <span class="o">}));</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -353,27 +353,27 @@ The processing of these tags across the cluster is handled for you by Lagom.</p>
 
 <p>To compare the two of them, here is a sample of using a single tag:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="kd">extends</span> <span class="n">Jsonable</span><span class="o">,</span> <span class="n">AggregateEvent</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="kd">extends</span> <span class="nc">Jsonable</span><span class="o">,</span> <span class="nc">AggregateEvent</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span>
     
-    <span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">AggregateEventTag</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">AggregateEventTag</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="no">TAG</span> <span class="o">=</span> <span class="nc">AggregateEventTag</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="nc">ItemEvent</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     
     <span class="nd">@Override</span>
-    <span class="k">default</span> <span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">aggregateTag</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">TAG</span><span class="o">;</span>
+    <span class="k">default</span> <span class="nc">AggregateEventTag</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="nf">aggregateTag</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="no">TAG</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>And an example of using sharded tags:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="kd">extends</span> <span class="n">Jsonable</span><span class="o">,</span> <span class="n">AggregateEvent</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemEvent</span> <span class="kd">extends</span> <span class="nc">Jsonable</span><span class="o">,</span> <span class="nc">AggregateEvent</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    <span class="kt">int</span> <span class="n">NUM_SHARDS</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="no">NUM_SHARDS</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
 
-    <span class="n">AggregateEventShards</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">AggregateEventTag</span><span class="o">.</span><span class="na">sharded</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">NUM_SHARDS</span><span class="o">);</span>
+    <span class="nc">AggregateEventShards</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="no">TAG</span> <span class="o">=</span> <span class="nc">AggregateEventTag</span><span class="o">.</span><span class="na">sharded</span><span class="o">(</span><span class="nc">ItemEvent</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="no">NUM_SHARDS</span><span class="o">);</span>
 
     <span class="nd">@Override</span>
-    <span class="k">default</span> <span class="n">AggregateEventShards</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">aggregateTag</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">TAG</span><span class="o">;</span>
+    <span class="k">default</span> <span class="nc">AggregateEventShards</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="nf">aggregateTag</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="no">TAG</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -382,15 +382,15 @@ The processing of these tags across the cluster is handled for you by Lagom.</p>
 <p>When using a single tag:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">PSequence</span><span class="o">&lt;</span><span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">TreePVector</span><span class="o">.</span><span class="na">singleton</span><span class="o">(</span><span class="n">ItemEvent</span><span class="o">.</span><span class="na">TAG</span><span class="o">);</span>
+<span class="kd">public</span> <span class="nc">PSequence</span><span class="o">&lt;</span><span class="nc">AggregateEventTag</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">TreePVector</span><span class="o">.</span><span class="na">singleton</span><span class="o">(</span><span class="nc">ItemEvent</span><span class="o">.</span><span class="na">TAG</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>And when using sharded tags:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">PSequence</span><span class="o">&lt;</span><span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
-  <span class="k">return</span> <span class="n">ItemEvent</span><span class="o">.</span><span class="na">TAG</span><span class="o">.</span><span class="na">allTags</span><span class="o">();</span>
+<span class="kd">public</span> <span class="nc">PSequence</span><span class="o">&lt;</span><span class="nc">AggregateEventTag</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="nc">ItemEvent</span><span class="o">.</span><span class="na">TAG</span><span class="o">.</span><span class="na">allTags</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Lagom now also provides automatic offset tracking, which until now, you had to do yourself in your read-side processors by explicitly loading and persisting offsets.
@@ -502,22 +502,22 @@ We change the version to be used in <code class="highlighter-rouge">project/plug
 <p>We replace the existing code:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="k">default</span> <span class="n">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">with</span><span class="o">(</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
+<span class="k">default</span> <span class="nc">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">with</span><span class="o">(</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
     <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>With the following:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="k">default</span> <span class="n">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">withCalls</span><span class="o">(</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
-            <span class="n">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
+<span class="k">default</span> <span class="nc">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Service</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s">"itemservice"</span><span class="o">).</span><span class="na">withCalls</span><span class="o">(</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items/:id"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getItem</span><span class="o">),</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">getAllItems</span><span class="o">),</span>
+            <span class="nc">Service</span><span class="o">.</span><span class="na">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/items"</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">createItem</span><span class="o">)</span>
     <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -525,19 +525,19 @@ We change the version to be used in <code class="highlighter-rouge">project/plug
 Subsequently, we need to update our read-sides to make use of the new API.
 Starting with replacing the deprecated <code class="highlighter-rouge">CassandraReadSideProcessor</code>:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="n">CassandraReadSideProcessor</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="nc">CassandraReadSideProcessor</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
 
 <p>With <code class="highlighter-rouge">ReadSideProcessor</code>:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="n">ReadSideProcessor</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="nc">ReadSideProcessor</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
 
 <p>Next step is to inject an instance of <code class="highlighter-rouge">CassandraSession</code> and <code class="highlighter-rouge">CassandraReadSide</code> via the constructor:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">final</span> <span class="n">CassandraSession</span> <span class="n">session</span><span class="o">;</span>
-<span class="kd">private</span> <span class="kd">final</span> <span class="n">CassandraReadSide</span> <span class="n">readSide</span><span class="o">;</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">final</span> <span class="nc">CassandraSession</span> <span class="n">session</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">final</span> <span class="nc">CassandraReadSide</span> <span class="n">readSide</span><span class="o">;</span>
 
 <span class="nd">@Inject</span>
-<span class="kd">public</span> <span class="nf">ItemEventProcessor</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">,</span> <span class="n">CassandraReadSide</span> <span class="n">readSide</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nf">ItemEventProcessor</span><span class="o">(</span><span class="nc">CassandraSession</span> <span class="n">session</span><span class="o">,</span> <span class="nc">CassandraReadSide</span> <span class="n">readSide</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">session</span> <span class="o">=</span> <span class="n">session</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="na">readSide</span> <span class="o">=</span> <span class="n">readSide</span><span class="o">;</span>
 <span class="o">}</span></code></pre></figure>
@@ -545,21 +545,21 @@ Starting with replacing the deprecated <code class="highlighter-rouge">Cassandra
 <p>All code related to handling offsets can be deleted since Lagom now handles this for us.
 We delete the following:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">PreparedStatement</span> <span class="n">writeOffset</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// initialized in prepare</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">PreparedStatement</span> <span class="n">writeOffset</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// initialized in prepare</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setWriteOffset</span><span class="o">(</span><span class="n">PreparedStatement</span> <span class="n">writeOffset</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setWriteOffset</span><span class="o">(</span><span class="nc">PreparedStatement</span> <span class="n">writeOffset</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">writeOffset</span> <span class="o">=</span> <span class="n">writeOffset</span><span class="o">;</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">Done</span><span class="o">&gt;</span> <span class="nf">prepareWriteOffset</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="nc">CompletionStage</span><span class="o">&lt;</span><span class="nc">Done</span><span class="o">&gt;</span> <span class="nf">prepareWriteOffset</span><span class="o">(</span><span class="nc">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Inserting into read-side table item_offset..."</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="na">prepare</span><span class="o">(</span><span class="s">"INSERT INTO item_offset (partition, offset) VALUES (1, ?)"</span><span class="o">).</span><span class="na">thenApply</span><span class="o">(</span><span class="n">ps</span> <span class="o">-&gt;</span> <span class="o">{</span>
         <span class="n">setWriteOffset</span><span class="o">(</span><span class="n">ps</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+        <span class="k">return</span> <span class="nc">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
     <span class="o">});</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">&gt;&gt;</span> <span class="nf">selectOffset</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="nc">CompletionStage</span><span class="o">&lt;</span><span class="nc">Optional</span><span class="o">&lt;</span><span class="no">UUID</span><span class="o">&gt;&gt;</span> <span class="nf">selectOffset</span><span class="o">(</span><span class="nc">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Looking up item_offset"</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="na">selectOne</span><span class="o">(</span><span class="s">"SELECT offset FROM item_offset"</span><span class="o">)</span>
             <span class="o">.</span><span class="na">thenApply</span><span class="o">(</span>
@@ -574,7 +574,7 @@ The logic from the existing <code class="highlighter-rouge">prepare()</code> is 
 <p>We start by deleting the old <code class="highlighter-rouge">prepare(CassandraSession session)</code> and the <code class="highlighter-rouge">defineEventHandlers(EventHandlersBuilder builder)</code>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">UUID</span><span class="o">&gt;&gt;</span> <span class="nf">prepare</span><span class="o">(</span><span class="n">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">CompletionStage</span><span class="o">&lt;</span><span class="nc">Optional</span><span class="o">&lt;</span><span class="no">UUID</span><span class="o">&gt;&gt;</span> <span class="nf">prepare</span><span class="o">(</span><span class="nc">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span>
             <span class="nf">prepareCreateTables</span><span class="o">(</span><span class="n">session</span><span class="o">).</span><span class="na">thenCompose</span><span class="o">(</span><span class="n">a</span> <span class="o">-&gt;</span>
                     <span class="n">prepareWriteOrder</span><span class="o">(</span><span class="n">session</span><span class="o">).</span><span class="na">thenCompose</span><span class="o">(</span><span class="n">b</span> <span class="o">-&gt;</span>
@@ -583,36 +583,36 @@ The logic from the existing <code class="highlighter-rouge">prepare()</code> is 
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">EventHandlers</span> <span class="nf">defineEventHandlers</span><span class="o">(</span><span class="n">EventHandlersBuilder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">EventHandlers</span> <span class="nf">defineEventHandlers</span><span class="o">(</span><span class="nc">EventHandlersBuilder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Setting up read-side event handlers..."</span><span class="o">);</span>
-    <span class="n">builder</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="n">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">processItemCreated</span><span class="o">);</span>
+    <span class="n">builder</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="nc">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">processItemCreated</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Finally we perform the necessary refactoring to implement both <code class="highlighter-rouge">buildHandler()</code> and <code class="highlighter-rouge">aggregateTags()</code>, and we clean up the existing processing logic for the read-side:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">CompletionStage</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">BoundStatement</span><span class="o">&gt;&gt;</span> <span class="nf">processItemCreated</span><span class="o">(</span><span class="n">ItemCreated</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">BoundStatement</span> <span class="n">bindWriteItem</span> <span class="o">=</span> <span class="n">writeItem</span><span class="o">.</span><span class="na">bind</span><span class="o">();</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">CompletionStage</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">BoundStatement</span><span class="o">&gt;&gt;</span> <span class="nf">processItemCreated</span><span class="o">(</span><span class="nc">ItemCreated</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">BoundStatement</span> <span class="n">bindWriteItem</span> <span class="o">=</span> <span class="n">writeItem</span><span class="o">.</span><span class="na">bind</span><span class="o">();</span>
     <span class="n">bindWriteItem</span><span class="o">.</span><span class="na">setUUID</span><span class="o">(</span><span class="s">"itemId"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
     <span class="n">bindWriteItem</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
     <span class="n">bindWriteItem</span><span class="o">.</span><span class="na">setDecimal</span><span class="o">(</span><span class="s">"price"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">().</span><span class="na">getPrice</span><span class="o">());</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Persisted Item {}"</span><span class="o">,</span> <span class="n">event</span><span class="o">.</span><span class="na">getItem</span><span class="o">());</span>
-    <span class="k">return</span> <span class="n">CassandraReadSide</span><span class="o">.</span><span class="na">completedStatements</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">bindWriteItem</span><span class="o">));</span>
+    <span class="k">return</span> <span class="nc">CassandraReadSide</span><span class="o">.</span><span class="na">completedStatements</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">bindWriteItem</span><span class="o">));</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">ReadSideHandler</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="nf">buildHandler</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">CassandraReadSide</span><span class="o">.</span><span class="na">ReadSideHandlerBuilder</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">readSide</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">"item_offset"</span><span class="o">);</span>
+<span class="kd">public</span> <span class="nc">ReadSideHandler</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="nf">buildHandler</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">CassandraReadSide</span><span class="o">.</span><span class="na">ReadSideHandlerBuilder</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">readSide</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="s">"item_offset"</span><span class="o">);</span>
     <span class="n">builder</span><span class="o">.</span><span class="na">setGlobalPrepare</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">prepareCreateTables</span><span class="o">(</span><span class="n">session</span><span class="o">));</span>
     <span class="n">builder</span><span class="o">.</span><span class="na">setPrepare</span><span class="o">(</span><span class="n">tag</span> <span class="o">-&gt;</span> <span class="n">prepareWriteItem</span><span class="o">(</span><span class="n">session</span><span class="o">));</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Setting up read-side event handlers..."</span><span class="o">);</span>
-    <span class="n">builder</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="n">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">processItemCreated</span><span class="o">);</span>
+    <span class="n">builder</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="nc">ItemCreated</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">this</span><span class="o">::</span><span class="n">processItemCreated</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">PSequence</span><span class="o">&lt;</span><span class="n">AggregateEventTag</span><span class="o">&lt;</span><span class="n">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">TreePVector</span><span class="o">.</span><span class="na">singleton</span><span class="o">(</span><span class="n">ItemEventTag</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">);</span>
+<span class="kd">public</span> <span class="nc">PSequence</span><span class="o">&lt;</span><span class="nc">AggregateEventTag</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;&gt;</span> <span class="nf">aggregateTags</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">TreePVector</span><span class="o">.</span><span class="na">singleton</span><span class="o">(</span><span class="nc">ItemEventTag</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>This leaves us with some refactoring to be done in our service implementations for registering the read-side.
@@ -621,25 +621,25 @@ The sole thing that needs to be done is replacing the injected <code class="high
 <p>So going from:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Inject</span>
-<span class="kd">public</span> <span class="nf">ItemServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="n">CassandraReadSide</span> <span class="n">readSide</span><span class="o">,</span>
-                        <span class="n">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nf">ItemServiceImpl</span><span class="o">(</span><span class="nc">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="nc">CassandraReadSide</span> <span class="n">readSide</span><span class="o">,</span>
+                        <span class="nc">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">persistentEntities</span> <span class="o">=</span> <span class="n">persistentEntities</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="na">db</span> <span class="o">=</span> <span class="n">db</span><span class="o">;</span>
 
-    <span class="n">persistentEntities</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEntity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">readSide</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEventProcessor</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">persistentEntities</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="nc">ItemEntity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">readSide</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="nc">ItemEventProcessor</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>To:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Inject</span>
-<span class="kd">public</span> <span class="nf">ItemServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="n">ReadSide</span> <span class="n">readSide</span><span class="o">,</span>
-                       <span class="n">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nf">ItemServiceImpl</span><span class="o">(</span><span class="nc">PersistentEntityRegistry</span> <span class="n">persistentEntities</span><span class="o">,</span> <span class="nc">ReadSide</span> <span class="n">readSide</span><span class="o">,</span>
+                       <span class="nc">CassandraSession</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">persistentEntities</span> <span class="o">=</span> <span class="n">persistentEntities</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="na">db</span> <span class="o">=</span> <span class="n">db</span><span class="o">;</span>
 
-    <span class="n">persistentEntities</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEntity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">readSide</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">ItemEventProcessor</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">persistentEntities</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="nc">ItemEntity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">readSide</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="nc">ItemEventProcessor</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>This concludes migrating our read-side logic to the new API.</p>
@@ -649,7 +649,7 @@ This requires us to add a single line <code class="highlighter-rouge">.withCassa
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@BeforeClass</span>
 <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">server</span> <span class="o">=</span> <span class="n">ServiceTest</span><span class="o">.</span><span class="na">startServer</span><span class="o">(</span><span class="n">ServiceTest</span><span class="o">.</span><span class="na">defaultSetup</span><span class="o">()</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="nc">ServiceTest</span><span class="o">.</span><span class="na">startServer</span><span class="o">(</span><span class="nc">ServiceTest</span><span class="o">.</span><span class="na">defaultSetup</span><span class="o">()</span>
             <span class="o">.</span><span class="na">withCassandra</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
             <span class="o">.</span><span class="na">withConfigureBuilder</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>

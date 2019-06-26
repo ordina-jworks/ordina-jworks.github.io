@@ -259,10 +259,10 @@ If you work in functional modules like I do, it is as easy as referring to the c
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">angular</span>
-        <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'starter.sign-in'</span><span class="p">,[])</span>
-        <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'SignInCtrl'</span><span class="p">,</span><span class="nx">SignInCtrl</span><span class="p">);</span>
+        <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">'</span><span class="s1">starter.sign-in</span><span class="dl">'</span><span class="p">,[])</span>
+        <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">SignInCtrl</span><span class="dl">'</span><span class="p">,</span><span class="nx">SignInCtrl</span><span class="p">);</span>
 
-    <span class="nx">SignInCtrl</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$scope'</span><span class="p">,</span><span class="s1">'$state'</span><span class="p">,</span><span class="s1">'SignInService'</span><span class="p">];</span>
+    <span class="nx">SignInCtrl</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$scope</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">$state</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">SignInService</span><span class="dl">'</span><span class="p">];</span>
 
     <span class="kd">function</span> <span class="nx">SignInCtrl</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">,</span><span class="nx">$state</span><span class="p">,</span><span class="nx">SignInService</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">$scope</span><span class="p">.</span><span class="nx">user</span> <span class="o">=</span> <span class="p">{};</span>
@@ -270,7 +270,7 @@ If you work in functional modules like I do, it is as easy as referring to the c
             <span class="nx">SignInService</span><span class="p">.</span><span class="nx">signIn</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">user</span><span class="p">)</span>
                 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
                     <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
-                        <span class="nx">$state</span><span class="p">.</span><span class="nx">go</span><span class="p">(</span><span class="s1">'tab.rooms'</span><span class="p">);</span>
+                        <span class="nx">$state</span><span class="p">.</span><span class="nx">go</span><span class="p">(</span><span class="dl">'</span><span class="s1">tab.rooms</span><span class="dl">'</span><span class="p">);</span>
                     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
                         <span class="nx">$scope</span><span class="p">.</span><span class="nx">incorrect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
                     <span class="p">}</span>
@@ -321,15 +321,15 @@ If you work in functional modules like I do, it is as easy as referring to the c
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">angular</span>
-        <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'starter.sign-in'</span><span class="p">)</span>
-        <span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">'SignInService'</span><span class="p">,</span> <span class="nx">SignInService</span><span class="p">);</span>
+        <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">'</span><span class="s1">starter.sign-in</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="dl">'</span><span class="s1">SignInService</span><span class="dl">'</span><span class="p">,</span> <span class="nx">SignInService</span><span class="p">);</span>
 
-    <span class="nx">SignInService</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$timeout'</span><span class="p">];</span>
+    <span class="nx">SignInService</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$timeout</span><span class="dl">'</span><span class="p">];</span>
 
     <span class="kd">function</span> <span class="nx">SignInService</span> <span class="p">(</span><span class="nx">$timeout</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">_user</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="na">email</span><span class="p">:</span> <span class="s1">'yannick@gmail.com'</span><span class="p">,</span>
-            <span class="na">pass</span><span class="p">:</span> <span class="s1">'1234'</span>
+            <span class="na">email</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yannick@gmail.com</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">pass</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1234</span><span class="dl">'</span>
         <span class="p">};</span>
 
         <span class="kd">function</span> <span class="nx">signIn</span> <span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
@@ -347,15 +347,15 @@ If you work in functional modules like I do, it is as easy as referring to the c
 
 <p>Next you need to provide a state, so add the following in <code class="highlighter-rouge">app.js</code>:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">state</span><span class="p">(</span><span class="s1">'signin'</span><span class="p">,{</span>
-    <span class="na">url</span><span class="p">:</span><span class="s1">'/signin'</span><span class="p">,</span>
-    <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'sign-in/sign-in.html'</span><span class="p">,</span>
-    <span class="na">controller</span><span class="p">:</span> <span class="s1">'SignCtrl'</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">state</span><span class="p">(</span><span class="dl">'</span><span class="s1">signin</span><span class="dl">'</span><span class="p">,{</span>
+    <span class="na">url</span><span class="p">:</span><span class="dl">'</span><span class="s1">/signin</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">sign-in/sign-in.html</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">controller</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SignCtrl</span><span class="dl">'</span>
 <span class="p">)}</span></code></pre></figure>
 
 <p>and change redirect to <code class="highlighter-rouge">/signin</code> by default:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$urlRouterProvider</span><span class="p">.</span><span class="nx">otherwise</span><span class="p">(</span><span class="s1">'/signin'</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$urlRouterProvider</span><span class="p">.</span><span class="nx">otherwise</span><span class="p">(</span><span class="dl">'</span><span class="s1">/signin</span><span class="dl">'</span><span class="p">);</span></code></pre></figure>
 
 <p><em>For complete authentication you should check the authenticated state when changing pages,
 but that’s not in the scope of this blog</em></p>
@@ -387,10 +387,10 @@ webdriver-manager start</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">exports</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
     <span class="na">capabilities</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">'browserName'</span><span class="p">:</span> <span class="s1">'chrome'</span>
+        <span class="dl">'</span><span class="s1">browserName</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">chrome</span><span class="dl">'</span>
     <span class="p">},</span>
     <span class="na">specs</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">'www/sign-in/sign-in.spec.js'</span><span class="p">,</span>
+        <span class="dl">'</span><span class="s1">www/sign-in/sign-in.spec.js</span><span class="dl">'</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="na">jasmineNodeOpts</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">showColors</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -399,7 +399,7 @@ webdriver-manager start</code></pre></figure>
     <span class="p">},</span>
     <span class="na">allScriptsTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
     <span class="na">onPrepare</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="nx">browser</span><span class="p">.</span><span class="nx">driver</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'http://localhost:8100'</span><span class="p">);</span>
+        <span class="nx">browser</span><span class="p">.</span><span class="nx">driver</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8100</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">};</span></code></pre></figure>
 
@@ -419,9 +419,9 @@ If not, you’ll see many errors, except that you might be referring to a wrong 
 If everything went well, you can simply add another test and it should validate to true.
 It only tests if the first page you see, is the login page:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">describe</span><span class="p">(</span><span class="s1">'Signing in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">'should start on sign-in view'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Sign in'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Signing in</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should start on sign-in view</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">Sign in</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">});</span></code></pre></figure>
 
@@ -447,22 +447,22 @@ At the end you’ll get a summary like <strong>1 specs, 0 failures Finished in x
 <p>This is a simple test but it doesn’t show the full potential of Protractor at all.
 Lets add a new spec as part of the describe.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">'should be unable to click Sign-in button when fields are empty'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btnSignIn'</span><span class="p">));</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'true'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should be unable to click Sign-in button when fields are empty</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">btnSignIn</span><span class="dl">'</span><span class="p">));</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">disabled</span><span class="dl">'</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span></code></pre></figure>
 
 <p>So here we test the availability of the sign-in button when the fields are empty.
 Next is to test if the button becomes available if the fields are filled in with valid data.
 So lets add another test:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">'should be possible to click Sign-in button when fields are filled in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btnSignIn'</span><span class="p">));</span>
-    <span class="kd">var</span> <span class="nx">txtUsername</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'username'</span><span class="p">));</span>
-    <span class="kd">var</span> <span class="nx">txtPassword</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'password'</span><span class="p">));</span>
-    <span class="nx">txtUsername</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="s1">'yannick@gmail.com'</span><span class="p">);</span>
-    <span class="nx">txtPassword</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should be possible to click Sign-in button when fields are filled in</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">btnSignIn</span><span class="dl">'</span><span class="p">));</span>
+    <span class="kd">var</span> <span class="nx">txtUsername</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">username</span><span class="dl">'</span><span class="p">));</span>
+    <span class="kd">var</span> <span class="nx">txtPassword</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">password</span><span class="dl">'</span><span class="p">));</span>
+    <span class="nx">txtUsername</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="dl">'</span><span class="s1">yannick@gmail.com</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">txtPassword</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="dl">'</span><span class="s1">1234</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">disabled</span><span class="dl">'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 <span class="p">});</span></code></pre></figure>
 
 <p>All these tests should pass correctly in protractor.</p>
@@ -484,13 +484,13 @@ Lets dive into <code class="highlighter-rouge">sign-in.page.js</code>.
 This file should also be put into the module folder:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SignInPage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">browser</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'http://localhost:8100/signin'</span><span class="p">);</span>
+    <span class="nx">browser</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8100/signin</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="nx">SignInPage</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">({},</span> <span class="p">{</span>
-    <span class="na">txtUsername</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'username'</span><span class="p">));</span> <span class="p">}},</span>
-    <span class="na">txtPassword</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'password'</span><span class="p">));</span> <span class="p">}},</span>
-    <span class="na">btnSignIn</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btnSignIn'</span><span class="p">));</span> <span class="p">}},</span>
+    <span class="na">txtUsername</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">username</span><span class="dl">'</span><span class="p">));</span> <span class="p">}},</span>
+    <span class="na">txtPassword</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">password</span><span class="dl">'</span><span class="p">));</span> <span class="p">}},</span>
+    <span class="na">btnSignIn</span><span class="p">:</span> <span class="p">{</span> <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">btnSignIn</span><span class="dl">'</span><span class="p">));</span> <span class="p">}},</span>
     <span class="na">typeUsername</span><span class="p">:</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">txtUsername</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="nx">keys</span><span class="p">);</span> <span class="p">}},</span>
     <span class="na">typePassword</span><span class="p">:</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">txtPassword</span><span class="p">.</span><span class="nx">sendKeys</span><span class="p">(</span><span class="nx">keys</span><span class="p">);</span> <span class="p">}},</span>
     <span class="na">clickSignIn</span><span class="p">:</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span> <span class="p">}}</span>
@@ -508,23 +508,23 @@ Then you only need to change that line and all your tests will still pass.</p>
 
 <p>We can now change our <code class="highlighter-rouge">sign-in.spec.js</code> to this:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SignInPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./sign-in.page.js'</span><span class="p">);</span>
-<span class="nx">describe</span><span class="p">(</span><span class="s1">'Signing in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SignInPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./sign-in.page.js</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Signing in</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
     <span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
     <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
         <span class="nx">page</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SignInPage</span><span class="p">();</span>
     <span class="p">});</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">'should be unable to click Sign-in button when fields are empty'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">txtUsername</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">txtPassword</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'true'</span><span class="p">);</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should be unable to click Sign-in button when fields are empty</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">txtUsername</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">txtPassword</span><span class="p">.</span><span class="nx">getText</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">''</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">disabled</span><span class="dl">'</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">});</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">'should be possible to click Sign-in button when fields are filled in'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="nx">page</span><span class="p">.</span><span class="nx">typeUsername</span><span class="p">(</span><span class="s1">'yannick@gmail.com'</span><span class="p">);</span>
-        <span class="nx">page</span><span class="p">.</span><span class="nx">typePassword</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should be possible to click Sign-in button when fields are filled in</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">page</span><span class="p">.</span><span class="nx">typeUsername</span><span class="p">(</span><span class="dl">'</span><span class="s1">yannick@gmail.com</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nx">page</span><span class="p">.</span><span class="nx">typePassword</span><span class="p">(</span><span class="dl">'</span><span class="s1">1234</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">btnSignIn</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">disabled</span><span class="dl">'</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
         <span class="nx">page</span><span class="p">.</span><span class="nx">clickSignIn</span><span class="p">();</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'Rooms'</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">Rooms</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">});</span></code></pre></figure>
 

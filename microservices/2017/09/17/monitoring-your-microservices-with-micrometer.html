@@ -228,8 +228,8 @@ Counters should <strong>not</strong> be used to expose current counts of items w
   </div>
 </div>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">Counter</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">counter</span><span class="o">(</span><span class="s">"received.messages"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nc">Counter</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">counter</span><span class="o">(</span><span class="s">"received.messages"</span><span class="o">);</span>
     
 <span class="n">counter</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
 </code></pre></div></div>
@@ -245,10 +245,10 @@ Gauges are typically used for measured values like current memory usage, but als
   </div>
 </div>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
 
-<span class="n">AtomicInteger</span> <span class="n">currentHttpRequests</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">gauge</span><span class="o">(</span><span class="s">"current.http.requests"</span><span class="o">,</span> <span class="k">new</span> <span class="n">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
-<span class="n">Queue</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span> <span class="n">receivedMessages</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">gauge</span><span class="o">(</span><span class="s">"unprocessed.messages"</span><span class="o">,</span> <span class="k">new</span> <span class="n">ConcurrentLinkedQueue</span><span class="o">&lt;&gt;(),</span> <span class="nl">ConcurrentLinkedQueue:</span><span class="o">:</span><span class="n">size</span><span class="o">);</span>
+<span class="nc">AtomicInteger</span> <span class="n">currentHttpRequests</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">gauge</span><span class="o">(</span><span class="s">"current.http.requests"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
+<span class="nc">Queue</span><span class="o">&lt;</span><span class="nc">Message</span><span class="o">&gt;</span> <span class="n">receivedMessages</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">gauge</span><span class="o">(</span><span class="s">"unprocessed.messages"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">ConcurrentLinkedQueue</span><span class="o">&lt;&gt;(),</span> <span class="nl">ConcurrentLinkedQueue:</span><span class="o">:</span><span class="n">size</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>Instead of returning a gauge, the <code class="highlighter-rouge">gauge</code> method will rather return the thing that is being observed.
@@ -262,14 +262,14 @@ These are useful for measuring short-duration latencies and the frequency of suc
 
 <p><img src="/img/2017-09-17-monitoring-your-microservices-with-micrometer/timer.png" alt="Timer showing how long it takes to process messages" class="image fit" /></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
 
-<span class="n">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nc">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
 
-<span class="n">Timer</span> <span class="n">timer</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">timer</span><span class="o">(</span><span class="s">"timer"</span><span class="o">);</span>
+<span class="nc">Timer</span> <span class="n">timer</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">timer</span><span class="o">(</span><span class="s">"timer"</span><span class="o">);</span>
     
 <span class="c1">// this will record how long it took us to get a registry and create a new timer</span>
-<span class="n">timer</span><span class="o">.</span><span class="na">record</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">);</span>
+<span class="n">timer</span><span class="o">.</span><span class="na">record</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>Or we could just annotate a method with <code class="highlighter-rouge">@Timed</code> and let Micrometer do the rest for us</p>
@@ -295,9 +295,9 @@ To time a long running task we use the same <code class="highlighter-rouge">@Tim
 <p>It is up to the application framework to make something happen with <code class="highlighter-rouge">@Timed</code>.
 In case it isn’t able to do that, you can still use the long task timer.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
 
-<span class="n">LongTaskTimer</span> <span class="n">looooongTimer</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">more</span><span class="o">().</span><span class="na">longTaskTimer</span><span class="o">(</span><span class="s">"sync"</span><span class="o">);</span>
+<span class="nc">LongTaskTimer</span> <span class="n">looooongTimer</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">more</span><span class="o">().</span><span class="na">longTaskTimer</span><span class="o">(</span><span class="s">"sync"</span><span class="o">);</span>
 
 <span class="kd">private</span> <span class="kt">void</span> <span class="nf">doSomethingWhichCanTakeALoooooongTime</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">looooongTimer</span><span class="o">.</span><span class="na">record</span><span class="o">(()</span> <span class="o">=&gt;</span> <span class="o">{</span>
@@ -312,9 +312,9 @@ In case it isn’t able to do that, you can still use the long task timer.</p>
 It is similar to a timer but more general in that the size does not have to be a period of time.
 Usually it is used to sample observations of things like response sizes.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
 
-<span class="n">DistributionSummary</span> <span class="n">summary</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">summary</span><span class="o">(</span><span class="s">"response.size"</span><span class="o">);</span>
+<span class="nc">DistributionSummary</span> <span class="n">summary</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">summary</span><span class="o">(</span><span class="s">"response.size"</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h2 id="summary-statistics">Summary statistics</h2>

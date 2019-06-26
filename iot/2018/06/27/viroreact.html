@@ -283,9 +283,9 @@ We have used this in our little app, more on that <a href="#demo-application">be
 </code></pre></div></div>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nx">createTargets</span><span class="p">({</span>
-  <span class="s2">"targetOne"</span> <span class="p">:</span> <span class="p">{</span>
-	<span class="na">source</span> <span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./res/targetOne.jpg'</span><span class="p">),</span>
-	<span class="na">orientation</span> <span class="p">:</span> <span class="s2">"Up"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">targetOne</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+	<span class="na">source</span> <span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/targetOne.jpg</span><span class="dl">'</span><span class="p">),</span>
+	<span class="na">orientation</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Up</span><span class="dl">"</span><span class="p">,</span>
 	<span class="na">physicalWidth</span> <span class="p">:</span> <span class="mf">0.1</span> <span class="c1">// real world width in meters</span>
   <span class="p">},</span>
 <span class="p">});</span>
@@ -359,8 +359,8 @@ They can make a long box look like a brick wall or a sphere look like our planet
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroMaterials</span><span class="p">.</span><span class="nx">createMaterials</span><span class="p">({</span>
   <span class="na">earth</span><span class="p">:</span> <span class="p">{</span>
 	<span class="na">shininess</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>
-	<span class="na">lightingModel</span><span class="p">:</span> <span class="s2">"Lambert"</span><span class="p">,</span>
-	<span class="na">diffuseTexture</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./res/earth_texture.jpg'</span><span class="p">),</span>
+	<span class="na">lightingModel</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Lambert</span><span class="dl">"</span><span class="p">,</span>
+	<span class="na">diffuseTexture</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/earth_texture.jpg</span><span class="dl">'</span><span class="p">),</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -376,7 +376,7 @@ That’s where <a href="https://docs.viromedia.com/docs/animation">animations</a
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroAnimations</span><span class="p">.</span><span class="nx">registerAnimations</span><span class="p">({</span>
 	<span class="na">animateImage</span><span class="p">:{</span><span class="na">properties</span><span class="p">:{</span><span class="na">scaleX</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">scaleY</span><span class="p">:</span><span class="mf">0.6</span><span class="p">},</span>
-				  <span class="na">easing</span><span class="p">:</span><span class="s2">"Bounce"</span><span class="p">,</span> <span class="na">duration</span><span class="p">:</span> <span class="mi">5000</span><span class="p">}});</span>
+				  <span class="na">easing</span><span class="p">:</span><span class="dl">"</span><span class="s2">Bounce</span><span class="dl">"</span><span class="p">,</span> <span class="na">duration</span><span class="p">:</span> <span class="mi">5000</span><span class="p">}});</span>
 </code></pre></div></div>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ViroImage</span> <span class="na">source=</span><span class="s">{require('./res/myimage.jpg')}</span>
 		   <span class="na">position=</span><span class="s">{[0,</span> <span class="err">-1,</span> <span class="err">-2]}</span>
@@ -405,7 +405,7 @@ They follow the same principles but each have their own properties.
 This being built on React Native we can also declare our own components of course!</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">CustomComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
-	<span class="kr">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span><span class="na">customProperty</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span>
+	<span class="kd">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span><span class="na">customProperty</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span>
 
     <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span><span class="k">super</span><span class="p">()</span> <span class="p">;}</span>
 
@@ -489,7 +489,7 @@ this will act as the marker to scan the meeting room information.</p>
 I had to configure this extension in the <code class="highlighter-rouge">rn-cli.config.js</code> file inside of the root folder.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">getAssetExts</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">[</span><span class="s2">"obj"</span><span class="p">,</span> <span class="s2">"mtl"</span><span class="p">,</span> <span class="s2">"JPG"</span><span class="p">,</span> <span class="s2">"vrx"</span><span class="p">,</span> <span class="s2">"hdr"</span><span class="p">];</span>
+    <span class="k">return</span> <span class="p">[</span><span class="dl">"</span><span class="s2">obj</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">mtl</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">JPG</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">vrx</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">hdr</span><span class="dl">"</span><span class="p">];</span>
   <span class="p">},</span>
 </code></pre></div></div>
 
@@ -508,9 +508,9 @@ I had to configure this extension in the <code class="highlighter-rouge">rn-cli.
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nx">setMarker</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nx">createTargets</span><span class="p">({</span>
-            <span class="s2">"mr7"</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">source</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./res/mr7.JPG'</span><span class="p">),</span>
-                <span class="na">orientation</span><span class="p">:</span> <span class="s2">"Up"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">mr7</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">source</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/mr7.JPG</span><span class="dl">'</span><span class="p">),</span>
+                <span class="na">orientation</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Up</span><span class="dl">"</span><span class="p">,</span>
                 <span class="na">physicalWidth</span><span class="p">:</span> <span class="mi">1</span>
             <span class="p">},</span>
         <span class="p">});</span>
@@ -532,14 +532,14 @@ Every time one of these events occurs, we want to fetch the latest meeting room 
 <p><code class="highlighter-rouge">onAnchorFound</code> gets called when the Image Marker has been detected.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getInfo</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://rooms.meeting/rm7'</span><span class="p">)</span>
+    <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://rooms.meeting/rm7</span><span class="dl">'</span><span class="p">)</span>
         <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
         <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="kd">const</span> <span class="nx">isTrueSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">isAvailable</span> <span class="o">===</span> <span class="s1">'true'</span><span class="p">);</span>
+            <span class="kd">const</span> <span class="nx">isTrueSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">isAvailable</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">);</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
                 <span class="na">isAvailable</span><span class="p">:</span> <span class="nx">isTrueSet</span><span class="p">,</span>
                 <span class="na">nextMeeting</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Next meeting: </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span> <span class="p">:</span> <span class="s2">`Free @ </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span><span class="p">,</span>
-                <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="s1">'Not Available'</span>
+                <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Not Available</span><span class="dl">'</span>
             <span class="p">})</span>
         <span class="p">})</span>
         <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -582,25 +582,25 @@ In our case, two TextViews positioned with a FlexView.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
     <span class="na">text</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">fontFamily</span><span class="p">:</span> <span class="s1">'Arial'</span><span class="p">,</span>
+        <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Arial</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">fontSize</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
         <span class="na">flex</span><span class="p">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span>
-        <span class="na">color</span><span class="p">:</span> <span class="s1">'#FFFFFF'</span>
+        <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#FFFFFF</span><span class="dl">'</span>
     <span class="p">},</span>
     <span class="na">nextMeeting</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">fontFamily</span><span class="p">:</span> <span class="s1">'Arial'</span><span class="p">,</span>
+        <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Arial</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">fontSize</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
         <span class="na">flex</span><span class="p">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span>
-        <span class="na">color</span><span class="p">:</span> <span class="s1">'#FFFFFF'</span>
+        <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#FFFFFF</span><span class="dl">'</span>
     <span class="p">},</span>
     <span class="na">containerAvail</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">flexDirection</span><span class="p">:</span> <span class="s1">'column'</span><span class="p">,</span>
-        <span class="na">backgroundColor</span><span class="p">:</span> <span class="s2">"#E98300"</span><span class="p">,</span>
+        <span class="na">flexDirection</span><span class="p">:</span> <span class="dl">'</span><span class="s1">column</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#E98300</span><span class="dl">"</span><span class="p">,</span>
         <span class="na">padding</span><span class="p">:</span> <span class="p">.</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">},</span>
     <span class="na">containerNotAvail</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">flexDirection</span><span class="p">:</span> <span class="s1">'column'</span><span class="p">,</span>
-        <span class="na">backgroundColor</span><span class="p">:</span> <span class="s2">"#e91530"</span><span class="p">,</span>
+        <span class="na">flexDirection</span><span class="p">:</span> <span class="dl">'</span><span class="s1">column</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#e91530</span><span class="dl">"</span><span class="p">,</span>
         <span class="na">padding</span><span class="p">:</span> <span class="p">.</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">});</span>
@@ -608,11 +608,11 @@ In our case, two TextViews positioned with a FlexView.</p>
 
 <p>Our final scene</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'use strict'</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">'</span><span class="s1">use strict</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">Component</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">Component</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="k">import</span> <span class="p">{</span><span class="nx">StyleSheet</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'react-native'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">StyleSheet</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">import</span> <span class="p">{</span>
     <span class="nx">ViroARScene</span><span class="p">,</span>
@@ -621,7 +621,7 @@ In our case, two TextViews positioned with a FlexView.</p>
     <span class="nx">ViroARTrackingTargets</span><span class="p">,</span>
     <span class="nx">ViroARImageMarker</span><span class="p">,</span>
     <span class="nx">ViroFlexView</span>
-<span class="p">}</span> <span class="k">from</span> <span class="s1">'react-viro'</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-viro</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MarkerScene</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
 
@@ -630,8 +630,8 @@ In our case, two TextViews positioned with a FlexView.</p>
 
         <span class="c1">// Set initial state here</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="na">text</span><span class="p">:</span> <span class="s2">"Initializing AR..."</span><span class="p">,</span>
-            <span class="na">nextMeeting</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Initializing AR...</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">nextMeeting</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
             <span class="na">isAvailable</span><span class="p">:</span> <span class="kc">true</span>
         <span class="p">};</span>
 
@@ -641,9 +641,9 @@ In our case, two TextViews positioned with a FlexView.</p>
 
     <span class="nx">setMarker</span><span class="p">()</span> <span class="p">{</span>
         <span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nx">createTargets</span><span class="p">({</span>
-            <span class="s2">"mr7"</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">source</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./res/mr7.JPG'</span><span class="p">),</span>
-                <span class="na">orientation</span><span class="p">:</span> <span class="s2">"Up"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">mr7</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">source</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/mr7.JPG</span><span class="dl">'</span><span class="p">),</span>
+                <span class="na">orientation</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Up</span><span class="dl">"</span><span class="p">,</span>
                 <span class="na">physicalWidth</span><span class="p">:</span> <span class="mi">1</span>
             <span class="p">},</span>
         <span class="p">});</span>
@@ -653,7 +653,7 @@ In our case, two TextViews positioned with a FlexView.</p>
         <span class="k">return</span> <span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">ViroARScene</span> <span class="nx">onAnchorFound</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">}</span>
                          <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">}</span><span class="o">&gt;</span>
-                <span class="o">&lt;</span><span class="nx">ViroARImageMarker</span> <span class="nx">target</span><span class="o">=</span><span class="p">{</span><span class="s2">"mr7"</span><span class="p">}</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">ViroARImageMarker</span> <span class="nx">target</span><span class="o">=</span><span class="p">{</span><span class="dl">"</span><span class="s2">mr7</span><span class="dl">"</span><span class="p">}</span><span class="o">&gt;</span>
                     <span class="o">&lt;</span><span class="nx">ViroFlexView</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isAvailable</span> <span class="p">?</span> <span class="nx">styles</span><span class="p">.</span><span class="nx">containerAvail</span> <span class="p">:</span> <span class="nx">styles</span><span class="p">.</span><span class="nx">containerNotAvail</span><span class="p">}</span>
                                   <span class="nx">width</span><span class="o">=</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span>
                                   <span class="nx">height</span><span class="o">=</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span>
@@ -675,14 +675,14 @@ In our case, two TextViews positioned with a FlexView.</p>
     <span class="p">}</span>
 
     <span class="nx">_getInfo</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://rooms.meeting/rm7'</span><span class="p">)</span>
+        <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://rooms.meeting/rm7</span><span class="dl">'</span><span class="p">)</span>
             <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
             <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-                <span class="kd">const</span> <span class="nx">isTrueSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">isAvailable</span> <span class="o">===</span> <span class="s1">'true'</span><span class="p">);</span>
+                <span class="kd">const</span> <span class="nx">isTrueSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">isAvailable</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">);</span>
                 <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
                     <span class="na">isAvailable</span><span class="p">:</span> <span class="nx">isTrueSet</span><span class="p">,</span>
                     <span class="na">nextMeeting</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Next meeting: </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span> <span class="p">:</span> <span class="s2">`Free @ </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span><span class="p">,</span>
-                    <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="s1">'Not Available'</span>
+                    <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Not Available</span><span class="dl">'</span>
                 <span class="p">})</span>
             <span class="p">})</span>
             <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -693,25 +693,25 @@ In our case, two TextViews positioned with a FlexView.</p>
 
 <span class="kd">var</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
     <span class="na">text</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">fontFamily</span><span class="p">:</span> <span class="s1">'Arial'</span><span class="p">,</span>
+        <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Arial</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">fontSize</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
         <span class="na">flex</span><span class="p">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span>
-        <span class="na">color</span><span class="p">:</span> <span class="s1">'#FFFFFF'</span>
+        <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#FFFFFF</span><span class="dl">'</span>
     <span class="p">},</span>
     <span class="na">nextMeeting</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">fontFamily</span><span class="p">:</span> <span class="s1">'Arial'</span><span class="p">,</span>
+        <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Arial</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">fontSize</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
         <span class="na">flex</span><span class="p">:</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span>
-        <span class="na">color</span><span class="p">:</span> <span class="s1">'#FFFFFF'</span>
+        <span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#FFFFFF</span><span class="dl">'</span>
     <span class="p">},</span>
     <span class="na">containerAvail</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">flexDirection</span><span class="p">:</span> <span class="s1">'column'</span><span class="p">,</span>
-        <span class="na">backgroundColor</span><span class="p">:</span> <span class="s2">"#E98300"</span><span class="p">,</span>
+        <span class="na">flexDirection</span><span class="p">:</span> <span class="dl">'</span><span class="s1">column</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#E98300</span><span class="dl">"</span><span class="p">,</span>
         <span class="na">padding</span><span class="p">:</span> <span class="p">.</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">},</span>
     <span class="na">containerNotAvail</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">flexDirection</span><span class="p">:</span> <span class="s1">'column'</span><span class="p">,</span>
-        <span class="na">backgroundColor</span><span class="p">:</span> <span class="s2">"#e91530"</span><span class="p">,</span>
+        <span class="na">flexDirection</span><span class="p">:</span> <span class="dl">'</span><span class="s1">column</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#e91530</span><span class="dl">"</span><span class="p">,</span>
         <span class="na">padding</span><span class="p">:</span> <span class="p">.</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">});</span>
@@ -728,27 +728,27 @@ Here we can define which scene to load when starting up the application.</p>
 <p>Assign your API key from ViroMedia.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">sharedProps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx"</span><span class="p">,</span>
+    <span class="na">apiKey</span><span class="p">:</span> <span class="dl">"</span><span class="s2">6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <p>Import your marker scene.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./js/MarkerScene'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./js/MarkerScene</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>Render your AR Scene.</p>
 
 <p>Final result:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">Component</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span><span class="nx">ViroARSceneNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'react-viro'</span><span class="p">;</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">Component</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">ViroARSceneNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-viro</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">sharedProps</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx"</span><span class="p">,</span>
+    <span class="na">apiKey</span><span class="p">:</span> <span class="dl">"</span><span class="s2">6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 
-<span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./js/MarkerScene'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./js/MarkerScene</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">ViroSample</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
     <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>

@@ -236,10 +236,10 @@ When registering the module you have to add all the libraries you want to depend
 In this example we inject the routing service for navigation.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
-    <span class="s2">"use strict"</span><span class="p">;</span>
+    <span class="dl">"</span><span class="s2">use strict</span><span class="dl">"</span><span class="p">;</span>
 
     <span class="nx">angular</span>
-       <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngRoute'</span><span class="p">])</span>
+       <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">"</span><span class="s2">jworks360</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">ngRoute</span><span class="dl">'</span><span class="p">])</span>
 <span class="p">}</span></code></pre></figure>
 
 <h3 id="internal-typescript-modules">Internal TypeScript Modules</h3>
@@ -249,7 +249,7 @@ This will encapsulate variables, interfaces and classes.
 TypeScript supports sub namespaces for further encapsulation.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
-    <span class="s2">"use strict"</span><span class="p">;</span>
+    <span class="dl">"</span><span class="s2">use strict</span><span class="dl">"</span><span class="p">;</span>
 <span class="p">}</span></code></pre></figure>
 
 <h4 id="transpiled-javascript">Transpiled JavaScript</h4>
@@ -337,21 +337,21 @@ The parameters have the same syntax as the properties.</p>
 
     <span class="kd">class</span> <span class="nx">EmployeeController</span> <span class="kr">implements</span> <span class="nx">IEmployeeController</span><span class="p">{</span>
 
-        <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"EmployeeService"</span><span class="p">];</span>
+        <span class="kd">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">EmployeeService</span><span class="dl">"</span><span class="p">];</span>
 
         <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">employeeService</span><span class="p">:</span><span class="nx">IEmployeeService</span><span class="p">,</span><span class="kr">public</span> <span class="nx">employee</span><span class="p">:</span><span class="nx">IEmployee</span><span class="p">){</span>
-             <span class="k">this</span><span class="p">.</span><span class="nx">employee</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">(</span><span class="s2">"Nivek"</span><span class="p">,</span><span class="s2">"Kevin"</span><span class="p">);</span>
+             <span class="k">this</span><span class="p">.</span><span class="nx">employee</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">(</span><span class="dl">"</span><span class="s2">Nivek</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Kevin</span><span class="dl">"</span><span class="p">);</span>
         <span class="p">}</span>
 
         <span class="nx">save</span><span class="p">():</span><span class="k">void</span><span class="p">{</span>
              <span class="k">this</span><span class="p">.</span><span class="nx">employeeService</span><span class="p">.</span><span class="nx">addEmployee</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">employee</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
-             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"added successfully!"</span><span class="p">);</span>
+             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">added successfully!</span><span class="dl">"</span><span class="p">);</span>
         <span class="p">});</span>
    <span class="p">}</span>
 
 <span class="p">}</span>
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s2">"EmployeeController"</span><span class="p">,</span> <span class="nx">EmployeeController</span><span class="p">);</span></code></pre></figure>
+<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">"</span><span class="s2">jworks360</span><span class="dl">"</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="dl">"</span><span class="s2">EmployeeController</span><span class="dl">"</span><span class="p">,</span> <span class="nx">EmployeeController</span><span class="p">);</span></code></pre></figure>
 
 <h3 id="dependency-injection-in-classes">Dependency Injection in classes</h3>
 <p>When a service is needed in your controller, it must to be injected before it can be used.
@@ -396,26 +396,26 @@ So it’s important to declare this into your routes and views.
 In your HTML you will have to prefix your methods and properties with the ControllerAs syntax.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">module</span> <span class="nx">JWorks</span> <span class="p">{</span>
-   <span class="s2">"use strict"</span><span class="p">;</span>
+   <span class="dl">"</span><span class="s2">use strict</span><span class="dl">"</span><span class="p">;</span>
 
    <span class="kd">function</span> <span class="nx">routes</span><span class="p">(</span><span class="nx">$routeProvider</span><span class="p">)</span> <span class="p">{</span>
 
        <span class="nx">$routeProvider</span>
-           <span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="p">{</span>
-               <span class="na">redirectTo</span><span class="p">:</span> <span class="s1">'/login'</span>
+           <span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+               <span class="na">redirectTo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span>
            <span class="p">})</span>
-           <span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s1">'/profile'</span><span class="p">,</span> <span class="p">{</span>
-               <span class="na">templateUrl</span><span class="p">:</span> <span class="s1">'app/persons/profile.html'</span><span class="p">,</span>
-               <span class="na">controller</span><span class="p">:</span> <span class="s1">'EmployeeController'</span><span class="p">,</span>
-               <span class="na">controllerAs</span><span class="p">:</span> <span class="s1">'$profile'</span><span class="p">,</span>
+           <span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="dl">'</span><span class="s1">/profile</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+               <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app/persons/profile.html</span><span class="dl">'</span><span class="p">,</span>
+               <span class="na">controller</span><span class="p">:</span> <span class="dl">'</span><span class="s1">EmployeeController</span><span class="dl">'</span><span class="p">,</span>
+               <span class="na">controllerAs</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$profile</span><span class="dl">'</span><span class="p">,</span>
            <span class="p">})</span>
            <span class="p">.</span><span class="nx">otherwise</span><span class="p">({</span>
-               <span class="na">redirectTo</span><span class="p">:</span> <span class="s1">'/'</span>
+               <span class="na">redirectTo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span>
            <span class="p">});</span>
    <span class="p">}</span>
-   <span class="nx">routes</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"$routeProvider"</span><span class="p">];</span>
+   <span class="nx">routes</span><span class="p">.</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">$routeProvider</span><span class="dl">"</span><span class="p">];</span>
 
-   <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">)</span>
+   <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">"</span><span class="s2">jworks360</span><span class="dl">"</span><span class="p">)</span>
        <span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="nx">routes</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -444,11 +444,11 @@ If you like to checkout what the difference is with $resource, you can check thi
 
    <span class="k">export</span> <span class="kd">class</span> <span class="nx">EmployeeService</span> <span class="kr">implements</span> <span class="nx">IEmployeeService</span> <span class="p">{</span>
 
-       <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"EmployeeRestangular"</span><span class="p">,</span> <span class="s2">"$location"</span><span class="p">];</span>
+       <span class="kd">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">EmployeeRestangular</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">$location</span><span class="dl">"</span><span class="p">];</span>
 
        <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">employeeRestService</span><span class="p">:</span><span class="nx">restAngular</span><span class="p">.</span><span class="nx">IService</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">$location</span><span class="p">:</span><span class="nx">ng</span><span class="p">.</span><span class="nx">ILocationService</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">employees</span><span class="p">:</span><span class="nx">restAngular</span><span class="p">.</span><span class="nx">IElement</span><span class="p">,</span><span class="kr">public</span> <span class="nx">employee</span><span class="p">:</span><span class="nx">IEmployee</span><span class="p">,</span><span class="kr">public</span> <span class="nx">username</span><span class="p">:</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">username</span> <span class="o">=</span><span class="nb">window</span><span class="p">.</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">"username"</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">employees</span> <span class="o">=</span> <span class="nx">employeeRestService</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">"employees"</span><span class="p">);</span>
+            <span class="nx">username</span> <span class="o">=</span><span class="nb">window</span><span class="p">.</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="dl">"</span><span class="s2">username</span><span class="dl">"</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">employees</span> <span class="o">=</span> <span class="nx">employeeRestService</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="dl">"</span><span class="s2">employees</span><span class="dl">"</span><span class="p">);</span>
             <span class="nx">employees</span><span class="p">.</span><span class="nx">one</span><span class="p">(</span><span class="nx">username</span><span class="p">).</span><span class="kd">get</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">data</span><span class="p">:</span><span class="nx">any</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
                    <span class="k">this</span><span class="p">.</span><span class="nx">setEmployee</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
                <span class="p">});</span>
@@ -470,8 +470,8 @@ If you like to checkout what the difference is with $resource, you can check thi
            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">employees</span><span class="p">.</span><span class="nx">oneUrl</span><span class="p">(</span><span class="nx">href</span><span class="p">).</span><span class="kd">get</span><span class="p">();</span>
        <span class="p">}</span>       
    <span class="p">}</span>
-          <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">)</span>
-              <span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s2">"EmployeeService"</span><span class="p">,</span> <span class="nx">EmployeeService</span><span class="p">);</span>       
+          <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">"</span><span class="s2">jworks360</span><span class="dl">"</span><span class="p">)</span>
+              <span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="dl">"</span><span class="s2">EmployeeService</span><span class="dl">"</span><span class="p">,</span> <span class="nx">EmployeeService</span><span class="p">);</span>       
 <span class="p">}</span></code></pre></figure>
 
 <p>In the above example, to use the Restangular service you have to install the proper typings.
@@ -494,9 +494,9 @@ To define a directive in TypeScript we use the directive service <strong>that An
 
    <span class="kd">class</span> <span class="nx">Animate</span> <span class="kr">implements</span> <span class="nx">ng</span><span class="p">.</span><span class="nx">IDirective</span> <span class="p">{</span>
 
-       <span class="nx">restrict</span> <span class="o">=</span> <span class="s2">"A"</span><span class="p">;</span>
+       <span class="nx">restrict</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">A</span><span class="dl">"</span><span class="p">;</span>
 
-       <span class="kr">static</span> <span class="nx">instance</span><span class="p">():</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IDirective</span> <span class="p">{</span>
+       <span class="kd">static</span> <span class="nx">instance</span><span class="p">():</span><span class="nx">ng</span><span class="p">.</span><span class="nx">IDirective</span> <span class="p">{</span>
            <span class="k">return</span> <span class="k">new</span> <span class="nx">Animate</span><span class="p">();</span>
        <span class="p">}</span>
 
@@ -504,17 +504,17 @@ To define a directive in TypeScript we use the directive service <strong>that An
 
            <span class="nx">$scope</span><span class="p">.</span><span class="nx">right</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
                <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
-                   <span class="na">left</span><span class="p">:</span> <span class="s1">'+=150'</span>
+                   <span class="na">left</span><span class="p">:</span> <span class="dl">'</span><span class="s1">+=150</span><span class="dl">'</span>
                <span class="p">});</span>
-                <span class="nx">elm</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">(</span><span class="s2">"slow"</span><span class="p">);</span>
+                <span class="nx">elm</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">(</span><span class="dl">"</span><span class="s2">slow</span><span class="dl">"</span><span class="p">);</span>
            <span class="p">};</span>
-           <span class="kd">var</span> <span class="nx">direction</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">[</span><span class="s1">'jwAnimate'</span><span class="p">];</span>
-           <span class="nx">elm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="nx">$scope</span><span class="p">[</span><span class="nx">direction</span><span class="p">]);</span>
+           <span class="kd">var</span> <span class="nx">direction</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">[</span><span class="dl">'</span><span class="s1">jwAnimate</span><span class="dl">'</span><span class="p">];</span>
+           <span class="nx">elm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span><span class="nx">$scope</span><span class="p">[</span><span class="nx">direction</span><span class="p">]);</span>
 
        <span class="p">}</span>
 
    <span class="p">}</span>
-   <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s2">"jworks360"</span><span class="p">).</span><span class="nx">directive</span><span class="p">(</span><span class="s2">"jwAnimate"</span><span class="p">,</span> <span class="nx">Animate</span><span class="p">.</span><span class="nx">instance</span><span class="p">);</span>
+   <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">"</span><span class="s2">jworks360</span><span class="dl">"</span><span class="p">).</span><span class="nx">directive</span><span class="p">(</span><span class="dl">"</span><span class="s2">jwAnimate</span><span class="dl">"</span><span class="p">,</span> <span class="nx">Animate</span><span class="p">.</span><span class="nx">instance</span><span class="p">);</span>
 
 <span class="p">}</span></code></pre></figure>
 

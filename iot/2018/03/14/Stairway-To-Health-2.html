@@ -259,7 +259,7 @@ It provides you with some nice TypeScript decorators which makes your code a lot
 
     <span class="c1">// the create function would that have to be executed by the main server while bootstrapping the application</span>
     <span class="kr">public</span> <span class="nx">create</span><span class="p">(</span><span class="nx">router</span><span class="p">:</span> <span class="nx">Router</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="s1">'/auth/entities'</span><span class="p">,</span>
+        <span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="dl">'</span><span class="s1">/auth/entities</span><span class="dl">'</span><span class="p">,</span>
                     <span class="k">this</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">,</span>
                     <span class="k">this</span><span class="p">.</span><span class="nx">requireAdmin</span><span class="p">,</span>
                     <span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">res</span><span class="p">:</span> <span class="nx">Response</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span> <span class="nx">NextFunction</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -272,14 +272,14 @@ It provides you with some nice TypeScript decorators which makes your code a lot
 <h4>NestJs example</h4>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// automatically registered to the server by nest</span>
 <span class="c1">// all /auth routes require user to be logged in (doesn't come standard with Nest)</span>
-<span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="s1">'/auth/entities'</span><span class="p">)</span>
+<span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">/auth/entities</span><span class="dl">'</span><span class="p">)</span>
 <span class="p">@</span><span class="nd">UseGuards</span><span class="p">(</span><span class="nx">RolesGuard</span><span class="p">)</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">EntitiesController</span> <span class="p">{</span>
     <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">entitiesService</span><span class="p">:</span> <span class="nx">EntitiesService</span><span class="p">)</span> <span class="p">{}</span>
-    <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
-    <span class="p">@</span><span class="nd">Roles</span><span class="p">(</span><span class="s1">'admin'</span><span class="p">)</span>
+    <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">@</span><span class="nd">Roles</span><span class="p">(</span><span class="dl">'</span><span class="s1">admin</span><span class="dl">'</span><span class="p">)</span>
     <span class="k">async</span> <span class="nx">findAll</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">IEntity</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">entitiesService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">entitiesService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -294,9 +294,9 @@ So we solved this by pushing all connected clients to an array and when we recei
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span>
 	<span class="nx">WebSocketGateway</span><span class="p">,</span> <span class="nx">SubscribeMessage</span><span class="p">,</span> <span class="nx">OnGatewayConnection</span><span class="p">,</span> <span class="nx">OnGatewayDisconnect</span><span class="p">,</span>
 	<span class="nx">WsResponse</span>
-<span class="p">}</span> <span class="k">from</span> <span class="s1">'@nestjs/websockets'</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/websockets</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="p">@</span><span class="nd">WebSocketGateway</span><span class="p">({</span><span class="na">namespace</span><span class="p">:</span> <span class="s1">'events/cheers'</span><span class="p">})</span>
+<span class="p">@</span><span class="nd">WebSocketGateway</span><span class="p">({</span><span class="na">namespace</span><span class="p">:</span> <span class="dl">'</span><span class="s1">events/cheers</span><span class="dl">'</span><span class="p">})</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">CheerEventsComponent</span> <span class="kr">implements</span> <span class="nx">OnGatewayConnection</span><span class="p">,</span> <span class="nx">OnGatewayDisconnect</span> <span class="p">{</span>
 	<span class="kr">public</span> <span class="nx">clients</span> <span class="o">=</span> <span class="p">[];</span>
 
@@ -317,9 +317,9 @@ So we solved this by pushing all connected clients to an array and when we recei
 		<span class="p">}</span>
 	<span class="p">}</span>
 
-	<span class="p">@</span><span class="nd">SubscribeMessage</span><span class="p">(</span><span class="s1">'cheer-created'</span><span class="p">)</span>
+	<span class="p">@</span><span class="nd">SubscribeMessage</span><span class="p">(</span><span class="dl">'</span><span class="s1">cheer-created</span><span class="dl">'</span><span class="p">)</span>
 	<span class="nx">onEvent</span><span class="p">():</span> <span class="nx">WsResponse</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
-		<span class="k">this</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">(</span><span class="s1">'cheer'</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">(</span><span class="dl">'</span><span class="s1">cheer</span><span class="dl">'</span><span class="p">);</span>
 		<span class="k">return</span><span class="p">;</span>
 	<span class="p">}</span>
 
@@ -354,11 +354,11 @@ When we receive a log, we check if there is an entry that has “date” and “
 If so, we update, otherwise we create a new entry (upsert).
 We still store the log in a “logs” collection, so that if ever our daily, weekly, … collections get corrupted, we can run a script that populates these collections with the correct data.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nx">create</span><span class="p">(</span><span class="nx">log</span><span class="p">:</span> <span class="nx">ILog</span><span class="p">,</span> <span class="nx">stream</span><span class="p">?:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ILog</span><span class="o">&gt;</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nx">create</span><span class="p">(</span><span class="nx">log</span><span class="p">:</span> <span class="nx">ILog</span><span class="p">,</span> <span class="nx">stream</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ILog</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">try</span> <span class="p">{</span>
 
         <span class="c1">// We insert the log into our logs collection</span>
-        <span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">logModel</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">log</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">logModel</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">log</span><span class="p">);</span>
 
         <span class="c1">// the identifiers so we can easily query for them</span>
         <span class="kd">let</span> <span class="nx">dailyIdentifier</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">item</span><span class="p">.</span><span class="nx">day</span><span class="p">}</span><span class="s2">-</span><span class="p">${</span><span class="nx">item</span><span class="p">.</span><span class="nx">month</span><span class="p">}</span><span class="s2">-</span><span class="p">${</span><span class="nx">item</span><span class="p">.</span><span class="nx">year</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
@@ -368,7 +368,7 @@ We still store the log in a “logs” collection, so that if ever our daily, we
 
         <span class="c1">// sensors send all their containers to us, we only need to update the collections</span>
         <span class="c1">// if they are 'counters' and they have a numeric value</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="s1">'counter'</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">numericValue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">counter</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">numericValue</span><span class="p">)</span> <span class="p">{</span>
 
             <span class="c1">// update all collections</span>
             <span class="c1">// by putting them in a variable, they all get executed without having to wait for each one to complete,</span>
@@ -425,7 +425,7 @@ We still store the log in a “logs” collection, so that if ever our daily, we
                           <span class="nx">yearlyCountPromise</span><span class="p">,</span>
                           <span class="nx">monthlyCountPromise</span><span class="p">]).</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
                               <span class="k">if</span> <span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
-                                  <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'stream-received'</span><span class="p">);</span>
+                                  <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">stream-received</span><span class="dl">'</span><span class="p">);</span>
                               <span class="p">}</span>
                           <span class="p">},</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
                             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>

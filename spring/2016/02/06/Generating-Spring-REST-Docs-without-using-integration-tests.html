@@ -193,8 +193,8 @@ For some undisclosed reasons we simply couldn’t write integration tests, so we
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeviceService</span> <span class="o">{</span>
 
-        <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Device</span><span class="o">&gt;</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Device</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
 
             <span class="cm">/*
                 Some business logic here...
@@ -208,15 +208,15 @@ For some undisclosed reasons we simply couldn’t write integration tests, so we
     <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"devices"</span><span class="o">)</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeviceController</span> <span class="o">{</span>
 
-        <span class="kd">private</span> <span class="n">DeviceService</span> <span class="n">deviceService</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">DeviceService</span> <span class="n">deviceService</span><span class="o">;</span>
 
         <span class="nd">@Autowired</span>
-        <span class="kd">public</span> <span class="nf">DeviceController</span><span class="o">(</span><span class="n">DeviceService</span> <span class="n">deviceService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">DeviceController</span><span class="o">(</span><span class="nc">DeviceService</span> <span class="n">deviceService</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">deviceService</span> <span class="o">=</span> <span class="n">deviceService</span><span class="o">;</span>
         <span class="o">}</span>
 
-        <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
-        <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_VALUE</span><span class="o">)</span>
+        <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Device</span><span class="o">&gt;</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">deviceService</span><span class="o">.</span><span class="na">getDevices</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
@@ -231,8 +231,8 @@ In this new application we set the base package that needs to be scanned to our 
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
 
         <span class="nd">@Bean</span>
-        <span class="kd">public</span> <span class="n">DeviceService</span> <span class="nf">getDeviceService</span><span class="o">()</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">EasyMock</span><span class="o">.</span><span class="na">createStrictMock</span><span class="o">(</span><span class="n">DeviceService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="nc">DeviceService</span> <span class="nf">getDeviceService</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">EasyMock</span><span class="o">.</span><span class="na">createStrictMock</span><span class="o">(</span><span class="nc">DeviceService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
     </code></pre></figure>
@@ -240,49 +240,49 @@ In this new application we set the base package that needs to be scanned to our 
 <p><br />
 Our <code class="highlighter-rouge">DeviceControllerTests</code> class will then look something like this:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-    <span class="nd">@SpringApplicationConfiguration</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Application</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@RunWith</span><span class="o">(</span><span class="nc">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="nd">@SpringApplicationConfiguration</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="o">{</span> <span class="nc">Application</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
     <span class="nd">@WebAppConfiguration</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeviceControllerTests</span> <span class="o">{</span>
 
         <span class="nd">@Rule</span>
-        <span class="kd">public</span> <span class="n">RestDocumentation</span> <span class="n">restDocumentation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestDocumentation</span><span class="o">(</span><span class="s">"target/generated-snippets"</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="nc">RestDocumentation</span> <span class="n">restDocumentation</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RestDocumentation</span><span class="o">(</span><span class="s">"target/generated-snippets"</span><span class="o">);</span>
 
         <span class="nd">@Autowired</span>
-        <span class="kd">private</span> <span class="n">WebApplicationContext</span> <span class="n">context</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">WebApplicationContext</span> <span class="n">context</span><span class="o">;</span>
 
         <span class="nd">@Autowired</span>
-        <span class="kd">public</span> <span class="n">DeviceService</span> <span class="n">deviceService</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nc">DeviceService</span> <span class="n">deviceService</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
 
         <span class="nd">@Before</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span> <span class="o">=</span> <span class="n">MockMvcBuilders</span><span class="o">.</span><span class="na">webAppContextSetup</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">context</span><span class="o">)</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span> <span class="o">=</span> <span class="nc">MockMvcBuilders</span><span class="o">.</span><span class="na">webAppContextSetup</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">context</span><span class="o">)</span>
                                             <span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">documentationConfiguration</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">restDocumentation</span><span class="o">))</span>
                                             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
         <span class="o">}</span>
 
         <span class="nd">@After</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cleanup</span><span class="o">()</span> <span class="o">{</span>
-            <span class="n">EasyMock</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
-            <span class="n">EasyMock</span><span class="o">.</span><span class="na">reset</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
+            <span class="nc">EasyMock</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
+            <span class="nc">EasyMock</span><span class="o">.</span><span class="na">reset</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
         <span class="o">}</span>
 
         <span class="nd">@Test</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-            <span class="n">Device</span> <span class="n">firstDevice</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Device</span><span class="o">(</span><span class="s">"iPhone 6"</span><span class="o">);</span>
-            <span class="n">Device</span> <span class="n">secondDevice</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Device</span><span class="o">(</span><span class="s">"Nexus 5"</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">getDevices</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+            <span class="nc">Device</span> <span class="n">firstDevice</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Device</span><span class="o">(</span><span class="s">"iPhone 6"</span><span class="o">);</span>
+            <span class="nc">Device</span> <span class="n">secondDevice</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Device</span><span class="o">(</span><span class="s">"Nexus 5"</span><span class="o">);</span>
             
-            <span class="n">List</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+            <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Device</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
             <span class="n">devices</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">firstDevice</span><span class="o">);</span>
             <span class="n">devices</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">secondDevice</span><span class="o">);</span>
 
-            <span class="n">EasyMock</span><span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">deviceService</span><span class="o">.</span><span class="na">getDevices</span><span class="o">()).</span><span class="na">andReturn</span><span class="o">(</span><span class="n">devices</span><span class="o">);</span>
+            <span class="nc">EasyMock</span><span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">deviceService</span><span class="o">.</span><span class="na">getDevices</span><span class="o">()).</span><span class="na">andReturn</span><span class="o">(</span><span class="n">devices</span><span class="o">);</span>
 
-            <span class="n">EasyMock</span><span class="o">.</span><span class="na">replay</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
+            <span class="nc">EasyMock</span><span class="o">.</span><span class="na">replay</span><span class="o">(</span><span class="n">deviceService</span><span class="o">);</span>
 
-            <span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/devices"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">))</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/devices"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">))</span>
                         <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
                         <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$"</span><span class="o">,</span> <span class="n">hasSize</span><span class="o">(</span><span class="mi">2</span><span class="o">)))</span>
                         <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"$[0].name"</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="n">firstDevice</span><span class="o">.</span><span class="na">getName</span><span class="o">())))</span>

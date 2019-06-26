@@ -361,16 +361,16 @@ In the API project you define the interface of your microservice:</p>
 
 <p><code class="highlighter-rouge">HelloService.java</code></p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloService</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
-  <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">hello</span><span class="o">();</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloService</span> <span class="kd">extends</span> <span class="nc">Service</span> <span class="o">{</span>
+  <span class="nc">ServiceCall</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">NotUsed</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">hello</span><span class="o">();</span>
   
-  <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">GreetingMessage</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">useGreeting</span><span class="o">();</span>
+  <span class="nc">ServiceCall</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">GreetingMessage</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">useGreeting</span><span class="o">();</span>
 
   <span class="nd">@Override</span>
-  <span class="k">default</span> <span class="n">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">default</span> <span class="nc">Descriptor</span> <span class="nf">descriptor</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="nf">named</span><span class="o">(</span><span class="s">"helloservice"</span><span class="o">).</span><span class="na">with</span><span class="o">(</span>
-        <span class="n">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/hello/:id"</span><span class="o">,</span>       <span class="n">hello</span><span class="o">()),</span>
-        <span class="n">restCall</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/hello/:id"</span><span class="o">,</span>       <span class="n">useGreeting</span><span class="o">())</span>
+        <span class="n">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>  <span class="s">"/api/hello/:id"</span><span class="o">,</span>       <span class="n">hello</span><span class="o">()),</span>
+        <span class="n">restCall</span><span class="o">(</span><span class="nc">Method</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/hello/:id"</span><span class="o">,</span>       <span class="n">useGreeting</span><span class="o">())</span>
       <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -386,18 +386,18 @@ Definitely worth a look seeing as it helps you get rid of boilerplate code.</p>
 
 <p><code class="highlighter-rouge">HelloServiceImpl.java</code></p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="n">HelloService</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="nc">HelloService</span> <span class="o">{</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">ServiceCall</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">NotUsed</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">completedFuture</span><span class="o">(</span><span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">id</span><span class="o">);</span>
+      <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">completedFuture</span><span class="o">(</span><span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">id</span><span class="o">);</span>
     <span class="o">};</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">GreetingMessage</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">useGreeting</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">ServiceCall</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">GreetingMessage</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">useGreeting</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">completedFuture</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">message</span> <span class="o">+</span> <span class="n">id</span><span class="o">);</span>
+      <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">completedFuture</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">message</span> <span class="o">+</span> <span class="n">id</span><span class="o">);</span>
     <span class="o">};</span>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -408,36 +408,36 @@ We also need to implement the module that binds the HelloService so that it can 
 
 <p><code class="highlighter-rouge">HelloServiceModule.java</code></p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceModule</span> <span class="kd">extends</span> <span class="n">AbstractModule</span> <span class="kd">implements</span> <span class="n">ServiceGuiceSupport</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceModule</span> <span class="kd">extends</span> <span class="nc">AbstractModule</span> <span class="kd">implements</span> <span class="nc">ServiceGuiceSupport</span> <span class="o">{</span>
   <span class="nd">@Override</span>
   <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">bindServices</span><span class="o">(</span><span class="n">serviceBinding</span><span class="o">(</span><span class="n">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">HelloServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="n">bindServices</span><span class="o">(</span><span class="n">serviceBinding</span><span class="o">(</span><span class="nc">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">HelloServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>We define our module in the <code class="highlighter-rouge">application.config</code>:</p>
 
-<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">play</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">enabled</span> <span class="o">+=</span> <span class="n">sample</span><span class="o">.</span><span class="n">helloworld</span><span class="o">.</span><span class="n">impl</span><span class="o">.</span><span class="nc">HelloServiceModule</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">play</span><span class="o">.</span><span class="py">modules</span><span class="o">.</span><span class="py">enabled</span> <span class="o">+=</span> <span class="nv">sample</span><span class="o">.</span><span class="py">helloworld</span><span class="o">.</span><span class="py">impl</span><span class="o">.</span><span class="py">HelloServiceModule</span></code></pre></figure>
 
 <p>And finally register our microservice in <code class="highlighter-rouge">build.sbt</code> with its dependencies and settings:</p>
 
-<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="n">helloworldApi</span> <span class="k">=</span> <span class="n">project</span><span class="o">(</span><span class="s">"helloworld-api"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span>
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="nv">helloworldApi</span> <span class="k">=</span> <span class="nf">project</span><span class="o">(</span><span class="s">"helloworld-api"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span>
     <span class="n">version</span> <span class="o">:=</span> <span class="s">"1.0-SNAPSHOT"</span><span class="o">,</span>
     <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="n">lagomJavadslApi</span>
   <span class="o">)</span>
 
-<span class="k">lazy</span> <span class="k">val</span> <span class="n">helloworldImpl</span> <span class="k">=</span> <span class="n">project</span><span class="o">(</span><span class="s">"helloworld-impl"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">LagomJava</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="nv">helloworldImpl</span> <span class="k">=</span> <span class="nf">project</span><span class="o">(</span><span class="s">"helloworld-impl"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">enablePlugins</span><span class="o">(</span><span class="nc">LagomJava</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span>
     <span class="n">version</span> <span class="o">:=</span> <span class="s">"1.0-SNAPSHOT"</span><span class="o">,</span>
     <span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
       <span class="n">lagomJavadslPersistence</span><span class="o">,</span>
       <span class="n">lagomJavadslTestKit</span>
     <span class="o">)</span>
   <span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span><span class="n">lagomForkedTestSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">dependsOn</span><span class="o">(</span><span class="n">helloworldApi</span><span class="o">)</span></code></pre></figure>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span><span class="n">lagomForkedTestSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">dependsOn</span><span class="o">(</span><span class="n">helloworldApi</span><span class="o">)</span></code></pre></figure>
 
 <p>We can then test our endpoint:</p>
 
@@ -450,11 +450,11 @@ Hello World</code></pre></figure>
 <p>Seeing as any good developer writes unit tests for his/her code so should we!</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceTest</span> <span class="o">{</span>
-  <span class="kd">private</span> <span class="kd">static</span> <span class="n">ServiceTest</span><span class="o">.</span><span class="na">TestServer</span> <span class="n">server</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ServiceTest</span><span class="o">.</span><span class="na">TestServer</span> <span class="n">server</span><span class="o">;</span>
 
   <span class="nd">@BeforeClass</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">server</span> <span class="o">=</span> <span class="n">ServiceTest</span><span class="o">.</span><span class="na">startServer</span><span class="o">(</span><span class="n">ServiceTest</span><span class="o">.</span><span class="na">defaultSetup</span><span class="o">());</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="nc">ServiceTest</span><span class="o">.</span><span class="na">startServer</span><span class="o">(</span><span class="nc">ServiceTest</span><span class="o">.</span><span class="na">defaultSetup</span><span class="o">());</span>
   <span class="o">}</span>
 
   <span class="nd">@AfterClass</span>
@@ -466,24 +466,24 @@ Hello World</code></pre></figure>
   <span class="o">}</span>
 
   <span class="nd">@Test</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldRespondHello</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldRespondHello</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
     <span class="c1">// given</span>
-    <span class="n">HelloService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="n">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">HelloService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="nc">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
     <span class="c1">// when</span>
-    <span class="n">String</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">hello</span><span class="o">().</span><span class="na">invoke</span><span class="o">(</span><span class="s">"Yannick"</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">.</span><span class="na">getInstance</span><span class="o">()).</span><span class="na">toCompletableFuture</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">SECONDS</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">hello</span><span class="o">().</span><span class="na">invoke</span><span class="o">(</span><span class="s">"Yannick"</span><span class="o">,</span> <span class="nc">NotUsed</span><span class="o">.</span><span class="na">getInstance</span><span class="o">()).</span><span class="na">toCompletableFuture</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="no">SECONDS</span><span class="o">);</span>
 
     <span class="c1">// then</span>
     <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Hello, Yannick"</span><span class="o">,</span> <span class="n">hello</span><span class="o">);</span>
   <span class="o">}</span>
 
   <span class="nd">@Test</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldRespondGreeting</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldRespondGreeting</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
     <span class="c1">// given</span>
-    <span class="n">HelloService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="n">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">HelloService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="nc">HelloService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
     <span class="c1">// when</span>
-    <span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">useGreeting</span><span class="o">().</span><span class="na">invoke</span><span class="o">(</span><span class="s">"Yannick"</span><span class="o">,</span> <span class="k">new</span> <span class="n">GreetingMessage</span><span class="o">(</span><span class="s">"Hi there, "</span><span class="o">)).</span><span class="na">toCompletableFuture</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">SECONDS</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">useGreeting</span><span class="o">().</span><span class="na">invoke</span><span class="o">(</span><span class="s">"Yannick"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">GreetingMessage</span><span class="o">(</span><span class="s">"Hi there, "</span><span class="o">)).</span><span class="na">toCompletableFuture</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="no">SECONDS</span><span class="o">);</span>
 
     <span class="c1">// then</span>
     <span class="n">assertEquals</span><span class="o">(</span><span class="s">"Hi there, Yannick"</span><span class="o">,</span> <span class="n">greeting</span><span class="o">);</span>
@@ -533,19 +533,19 @@ Each event has its own event handler registered.</p>
 
 <p><code class="highlighter-rouge">HelloWorld.java</code></p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="kd">extends</span> <span class="n">PersistentEntity</span><span class="o">&lt;</span><span class="n">HelloCommand</span><span class="o">,</span> <span class="n">HelloEvent</span><span class="o">,</span> <span class="n">WorldState</span><span class="o">&gt;</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="kd">extends</span> <span class="nc">PersistentEntity</span><span class="o">&lt;</span><span class="nc">HelloCommand</span><span class="o">,</span> <span class="nc">HelloEvent</span><span class="o">,</span> <span class="nc">WorldState</span><span class="o">&gt;</span> <span class="o">{</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">Behavior</span> <span class="nf">initialBehavior</span><span class="o">(</span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">WorldState</span><span class="o">&gt;</span> <span class="n">snapshotState</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">BehaviorBuilder</span> <span class="n">b</span> <span class="o">=</span> <span class="n">newBehaviorBuilder</span><span class="o">(</span>
-        <span class="n">snapshotState</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="k">new</span> <span class="n">WorldState</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">())));</span>
-    <span class="n">b</span><span class="o">.</span><span class="na">setCommandHandler</span><span class="o">(</span><span class="n">UseGreetingMessage</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">(</span><span class="n">cmd</span><span class="o">,</span> <span class="n">ctx</span><span class="o">)</span> <span class="o">-&gt;</span>
-      <span class="n">ctx</span><span class="o">.</span><span class="na">thenPersist</span><span class="o">(</span><span class="k">new</span> <span class="n">GreetingMessageChanged</span><span class="o">(</span><span class="n">cmd</span><span class="o">.</span><span class="na">message</span><span class="o">),</span>
-        <span class="n">evt</span> <span class="o">-&gt;</span> <span class="n">ctx</span><span class="o">.</span><span class="na">reply</span><span class="o">(</span><span class="n">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">())));</span>
+  <span class="kd">public</span> <span class="nc">Behavior</span> <span class="nf">initialBehavior</span><span class="o">(</span><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">WorldState</span><span class="o">&gt;</span> <span class="n">snapshotState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">BehaviorBuilder</span> <span class="n">b</span> <span class="o">=</span> <span class="n">newBehaviorBuilder</span><span class="o">(</span>
+        <span class="n">snapshotState</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="k">new</span> <span class="nc">WorldState</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">())));</span>
+    <span class="n">b</span><span class="o">.</span><span class="na">setCommandHandler</span><span class="o">(</span><span class="nc">UseGreetingMessage</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">(</span><span class="n">cmd</span><span class="o">,</span> <span class="n">ctx</span><span class="o">)</span> <span class="o">-&gt;</span>
+      <span class="n">ctx</span><span class="o">.</span><span class="na">thenPersist</span><span class="o">(</span><span class="k">new</span> <span class="nc">GreetingMessageChanged</span><span class="o">(</span><span class="n">cmd</span><span class="o">.</span><span class="na">message</span><span class="o">),</span>
+        <span class="n">evt</span> <span class="o">-&gt;</span> <span class="n">ctx</span><span class="o">.</span><span class="na">reply</span><span class="o">(</span><span class="nc">Done</span><span class="o">.</span><span class="na">getInstance</span><span class="o">())));</span>
 
-    <span class="n">b</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="n">GreetingMessageChanged</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-        <span class="n">evt</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">WorldState</span><span class="o">(</span><span class="n">evt</span><span class="o">.</span><span class="na">message</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+    <span class="n">b</span><span class="o">.</span><span class="na">setEventHandler</span><span class="o">(</span><span class="nc">GreetingMessageChanged</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+        <span class="n">evt</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">WorldState</span><span class="o">(</span><span class="n">evt</span><span class="o">.</span><span class="na">message</span><span class="o">,</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
 
-    <span class="n">b</span><span class="o">.</span><span class="na">setReadOnlyCommandHandler</span><span class="o">(</span><span class="n">Hello</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+    <span class="n">b</span><span class="o">.</span><span class="na">setReadOnlyCommandHandler</span><span class="o">(</span><span class="nc">Hello</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
         <span class="o">(</span><span class="n">cmd</span><span class="o">,</span> <span class="n">ctx</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">ctx</span><span class="o">.</span><span class="na">reply</span><span class="o">(</span><span class="n">state</span><span class="o">().</span><span class="na">message</span> <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="n">cmd</span><span class="o">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">"!"</span><span class="o">));</span>
 
     <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
@@ -558,24 +558,24 @@ Each event has its own event handler registered.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Immutable</span>
 <span class="nd">@JsonDeserialize</span>
-<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">WorldState</span> <span class="kd">implements</span> <span class="n">CompressedJsonable</span> <span class="o">{</span>
-  <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
-  <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">timestamp</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">WorldState</span> <span class="kd">implements</span> <span class="nc">CompressedJsonable</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">message</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">timestamp</span><span class="o">;</span>
 
   <span class="nd">@JsonCreator</span>
-  <span class="kd">public</span> <span class="nf">WorldState</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">String</span> <span class="n">timestamp</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">timestamp</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">timestamp</span><span class="o">,</span> <span class="s">"timestamp"</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="nf">WorldState</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">,</span> <span class="nc">String</span> <span class="n">timestamp</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="nc">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">timestamp</span> <span class="o">=</span> <span class="nc">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">timestamp</span><span class="o">,</span> <span class="s">"timestamp"</span><span class="o">);</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
       <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-    <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">WorldState</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">WorldState</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="nc">WorldState</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="nc">WorldState</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="n">WorldState</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="nc">WorldState</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">message</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">timestamp</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">timestamp</span><span class="o">);</span>
   <span class="o">}</span>
 
@@ -588,8 +588,8 @@ Each event has its own event handler registered.</p>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"WorldState"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="n">timestamp</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"WorldState"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="n">timestamp</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
   <span class="o">}</span></code></pre></figure>
 
 <p>In our command interface we define all the commands that our entity supports.
@@ -597,25 +597,25 @@ In order to get a complete picture of the commands an entity supports, it is the
 
 <p><code class="highlighter-rouge">HelloCommand.java</code></p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloCommand</span> <span class="kd">extends</span> <span class="n">Jsonable</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloCommand</span> <span class="kd">extends</span> <span class="nc">Jsonable</span> <span class="o">{</span>
   <span class="nd">@Immutable</span>
   <span class="nd">@JsonDeserialize</span>
-  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">UseGreetingMessage</span> <span class="kd">implements</span> <span class="n">HelloCommand</span><span class="o">,</span> <span class="n">CompressedJsonable</span><span class="o">,</span> <span class="n">PersistentEntity</span><span class="o">.</span><span class="na">ReplyType</span><span class="o">&lt;</span><span class="n">Done</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">UseGreetingMessage</span> <span class="kd">implements</span> <span class="nc">HelloCommand</span><span class="o">,</span> <span class="nc">CompressedJsonable</span><span class="o">,</span> <span class="nc">PersistentEntity</span><span class="o">.</span><span class="na">ReplyType</span><span class="o">&lt;</span><span class="nc">Done</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">message</span><span class="o">;</span>
 
     <span class="nd">@JsonCreator</span>
-    <span class="kd">public</span> <span class="nf">UseGreetingMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nf">UseGreetingMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="nc">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">UseGreetingMessage</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">UseGreetingMessage</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="nc">UseGreetingMessage</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="nc">UseGreetingMessage</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="n">UseGreetingMessage</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="nc">UseGreetingMessage</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">message</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -627,31 +627,31 @@ In order to get a complete picture of the commands an entity supports, it is the
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-      <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"UseGreetingMessage"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="nc">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"UseGreetingMessage"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
     <span class="o">}</span>
   <span class="o">}</span>
 
   <span class="nd">@Immutable</span>
   <span class="nd">@JsonDeserialize</span>
-  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="kd">implements</span> <span class="n">HelloCommand</span><span class="o">,</span> <span class="n">PersistentEntity</span><span class="o">.</span><span class="na">ReplyType</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">organization</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Hello</span> <span class="kd">implements</span> <span class="nc">HelloCommand</span><span class="o">,</span> <span class="nc">PersistentEntity</span><span class="o">.</span><span class="na">ReplyType</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">organization</span><span class="o">;</span>
 
     <span class="nd">@JsonCreator</span>
-    <span class="kd">public</span> <span class="nf">Hello</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">organization</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="s">"name"</span><span class="o">);</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">organization</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">organization</span><span class="o">,</span> <span class="s">"organization"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nf">Hello</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">organization</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="nc">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="s">"name"</span><span class="o">);</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">organization</span> <span class="o">=</span> <span class="nc">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">organization</span><span class="o">,</span> <span class="s">"organization"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">Hello</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">Hello</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="nc">Hello</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="nc">Hello</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="n">Hello</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="nc">Hello</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">name</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">organization</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">organization</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -664,8 +664,8 @@ In order to get a complete picture of the commands an entity supports, it is the
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-      <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">name</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"organization"</span><span class="o">,</span> <span class="n">organization</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="nc">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">name</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"organization"</span><span class="o">,</span> <span class="n">organization</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -675,25 +675,25 @@ It follows the same convention as with commands, specifying all events as inner 
 
 <p><code class="highlighter-rouge">HelloEvent.java</code></p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloEvent</span> <span class="kd">extends</span> <span class="n">Jsonable</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloEvent</span> <span class="kd">extends</span> <span class="nc">Jsonable</span> <span class="o">{</span>
   <span class="nd">@Immutable</span>
   <span class="nd">@JsonDeserialize</span>
-  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">GreetingMessageChanged</span> <span class="kd">implements</span> <span class="n">HelloEvent</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+  <span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">GreetingMessageChanged</span> <span class="kd">implements</span> <span class="nc">HelloEvent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">message</span><span class="o">;</span>
 
     <span class="nd">@JsonCreator</span>
-    <span class="kd">public</span> <span class="nf">GreetingMessageChanged</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nf">GreetingMessageChanged</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="nc">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="s">"message"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Object</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">another</span><span class="o">)</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="n">GreetingMessageChanged</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="n">GreetingMessageChanged</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">another</span> <span class="k">instanceof</span> <span class="nc">GreetingMessageChanged</span> <span class="o">&amp;&amp;</span> <span class="n">equalTo</span><span class="o">((</span><span class="nc">GreetingMessageChanged</span><span class="o">)</span> <span class="n">another</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="n">GreetingMessageChanged</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">equalTo</span><span class="o">(</span><span class="nc">GreetingMessageChanged</span> <span class="n">another</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">another</span><span class="o">.</span><span class="na">message</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -705,36 +705,36 @@ It follows the same convention as with commands, specifying all events as inner 
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-      <span class="k">return</span> <span class="n">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"GreetingMessageChanged"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="nc">MoreObjects</span><span class="o">.</span><span class="na">toStringHelper</span><span class="o">(</span><span class="s">"GreetingMessageChanged"</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>The <code class="highlighter-rouge">HelloServiceImpl.java</code> class will look like the following:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="n">HelloService</span> <span class="o">{</span>
-  <span class="kd">private</span> <span class="kd">final</span> <span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntityRegistry</span><span class="o">;</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="nc">HelloService</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">PersistentEntityRegistry</span> <span class="n">persistentEntityRegistry</span><span class="o">;</span>
 
   <span class="nd">@Inject</span>
-  <span class="kd">public</span> <span class="nf">HelloServiceImpl</span><span class="o">(</span><span class="n">PersistentEntityRegistry</span> <span class="n">persistentEntityRegistry</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nf">HelloServiceImpl</span><span class="o">(</span><span class="nc">PersistentEntityRegistry</span> <span class="n">persistentEntityRegistry</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">persistentEntityRegistry</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">;</span>
-    <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="nc">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">NotUsed</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">ServiceCall</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">NotUsed</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="n">PersistentEntityRef</span><span class="o">&lt;</span><span class="n">HelloCommand</span><span class="o">&gt;</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">refFor</span><span class="o">(</span><span class="n">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
-      <span class="k">return</span> <span class="n">ref</span><span class="o">.</span><span class="na">ask</span><span class="o">(</span><span class="k">new</span> <span class="n">Hello</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">()));</span>
+      <span class="nc">PersistentEntityRef</span><span class="o">&lt;</span><span class="nc">HelloCommand</span><span class="o">&gt;</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">refFor</span><span class="o">(</span><span class="nc">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">ref</span><span class="o">.</span><span class="na">ask</span><span class="o">(</span><span class="k">new</span> <span class="nc">Hello</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">()));</span>
     <span class="o">};</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">ServiceCall</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">GreetingMessage</span><span class="o">,</span> <span class="n">Done</span><span class="o">&gt;</span> <span class="nf">useGreeting</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nc">ServiceCall</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">GreetingMessage</span><span class="o">,</span> <span class="nc">Done</span><span class="o">&gt;</span> <span class="nf">useGreeting</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">request</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-       <span class="n">PersistentEntityRef</span><span class="o">&lt;</span><span class="n">HelloCommand</span><span class="o">&gt;</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">refFor</span><span class="o">(</span><span class="n">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
-       <span class="k">return</span> <span class="n">ref</span><span class="o">.</span><span class="na">ask</span><span class="o">(</span><span class="k">new</span> <span class="n">UseGreetingMessage</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">message</span><span class="o">));</span>
+       <span class="nc">PersistentEntityRef</span><span class="o">&lt;</span><span class="nc">HelloCommand</span><span class="o">&gt;</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">persistentEntityRegistry</span><span class="o">.</span><span class="na">refFor</span><span class="o">(</span><span class="nc">HelloWorld</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+       <span class="k">return</span> <span class="n">ref</span><span class="o">.</span><span class="na">ask</span><span class="o">(</span><span class="k">new</span> <span class="nc">UseGreetingMessage</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">message</span><span class="o">));</span>
     <span class="o">};</span>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>

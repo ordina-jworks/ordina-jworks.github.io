@@ -241,9 +241,9 @@ For now we will assume we got 2 public keys:</p>
 <h5 id="java-config">Java config</h5>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">	<span class="nd">@EnableWebSecurity</span>
-	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HpkpConfig</span> <span class="kd">extends</span> <span class="n">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HpkpConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
 		<span class="nd">@Override</span>
-		<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="n">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+		<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
 			<span class="n">http</span><span class="o">.</span><span class="na">httpPublicKeyPinning</span><span class="o">()</span>
 				<span class="o">.</span><span class="na">addSha256Pins</span><span class="o">(</span><span class="s">"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM="</span><span class="o">,</span> <span class="s">"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g="</span><span class="o">)</span>
 				<span class="o">.</span><span class="na">reportOnly</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>

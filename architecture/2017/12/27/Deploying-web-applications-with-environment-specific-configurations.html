@@ -194,14 +194,14 @@ One could set the URL where our API is hosted like this:</p>
   <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">||</span> <span class="p">{};</span>
 
   <span class="c1">// API url</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">.</span><span class="nx">apiUrl</span> <span class="o">=</span> <span class="s1">'http://dev.your-api.com'</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">.</span><span class="nx">apiUrl</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://dev.your-api.com</span><span class="dl">'</span><span class="p">;</span>
 <span class="p">}(</span><span class="k">this</span><span class="p">));</span>
 </code></pre></div></div>
 
 <p>Next up is to expose this variable to our web application, which in our case is an Angular app.
 We created an injectable <code class="highlighter-rouge">Configuration</code> class, which will have a getter to retrieve our API URL.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Injectable</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Injectable</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">function</span> <span class="nx">_env</span><span class="p">():</span> <span class="nx">any</span> <span class="p">{</span>
   <span class="c1">// return the native window obj</span>
@@ -234,7 +234,7 @@ Our <code class="highlighter-rouge">env.js.tpl</code> file looks like this:</p>
   <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">||</span> <span class="p">{};</span>
 
   <span class="c1">// API url</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">.</span><span class="nx">apiUrl</span> <span class="o">=</span> <span class="s1">'$API_URL'</span><span class="p">;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">.</span><span class="nx">apiUrl</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">$API_URL</span><span class="dl">'</span><span class="p">;</span>
 <span class="p">}(</span><span class="k">this</span><span class="p">));</span>
 </code></pre></div></div>
 

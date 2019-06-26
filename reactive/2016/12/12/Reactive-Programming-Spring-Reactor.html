@@ -310,7 +310,7 @@ The main difficulty is to make it side effect free.</p>
 
 <p>For example:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Publisher</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">rick</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findUser</span><span class="o">(</span><span class="s">"rick"</span><span class="o">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Publisher</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">rick</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findUser</span><span class="o">(</span><span class="s">"rick"</span><span class="o">);</span></code></pre></figure>
 
 <p>Note that a publisher is returned instead of directly returning the entity.
 By doing so it does not block the subscribers when querying for the user and the publisher will produce the user when ready.</p>
@@ -321,7 +321,7 @@ When you would be building the method <code class="highlighter-rouge">findOneUse
 
 <p>Also you will have to implement a subscriber to define the action to perform when the result is available.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">rick</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Subscriber</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;(){...});</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">rick</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="nc">Subscriber</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;(){...});</span></code></pre></figure>
 
 <p>Implementing this subscriber would not be that hard, because the specification has been made so that all complexity lies at the publishers side.</p>
 
@@ -400,15 +400,15 @@ When a bug gets fixed in Spring Reactor it will also be fixed in RxJava and vice
 <p>After that you have other operators like <a href="http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#flatMap-java.util.function.Function-">Flatmap()</a>, <a href="http://next.projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#map-java.util.function.Function-">Map()</a>, … to work with that data
 Some of the method names will be different to RxJava2, but the logic behind these methods has been aligned among RxJava and Spring .</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"red"</span><span class="o">,</span> <span class="s">"white"</span><span class="o">,</span> <span class="s">"blue"</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"red"</span><span class="o">,</span> <span class="s">"white"</span><span class="o">,</span> <span class="s">"blue"</span><span class="o">)</span>
        <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="nl">carRepository:</span><span class="o">:</span><span class="n">findByColor</span><span class="o">)</span>
        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nl">Result:</span><span class="o">:</span> <span class="k">new</span><span class="o">,</span> <span class="nl">Result:</span><span class="o">:</span><span class="n">add</span><span class="o">)</span>
        <span class="o">.</span><span class="na">doOnNext</span><span class="o">(</span><span class="nl">Result:</span><span class="o">:</span><span class="n">stop</span><span class="o">)</span>
        <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">doWithResult</span><span class="o">);</span>
 
 
-<span class="n">Interface</span> <span class="n">CarRepository</span> <span class="o">{</span>
-    <span class="n">Flux</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="nf">findByColor</span><span class="o">(</span><span class="n">String</span> <span class="n">color</span><span class="o">);</span>
+<span class="nc">Interface</span> <span class="nc">CarRepository</span> <span class="o">{</span>
+    <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">findByColor</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>This Flux will retrieve all cars which match the color “red” then those with the color “white” and finally “blue”.
@@ -426,10 +426,10 @@ Spring Data, Spring Security, Spring MVC, … are all good candidates who will h
 
 <p>None is like a flux, but will return at most 1 result, so it does have less methods.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">3000</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">3000</span><span class="o">)</span>
     <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 4"</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">2000</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 5"</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">t</span> <span class="o">+</span> <span class="s">" world"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="nc">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">2000</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 5"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">t</span> <span class="o">+</span> <span class="s">" world"</span><span class="o">))</span>
     <span class="o">.</span><span class="na">elapsed</span><span class="o">()</span>
     <span class="o">.</span><span class="na">subscribe</span><span class="o">()</span></code></pre></figure>
 
@@ -446,10 +446,10 @@ While with an Observable the call to <code class="highlighter-rouge">send()</cod
 <p><code class="highlighter-rouge">Block()</code> exists for very specific use cases and for testing.
 Never, ever use this in production, as is it blocks your call, which does infer with the Reactive non-blocking statements. ;-)</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">3000</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">3000</span><span class="o">)</span>
     <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 4"</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="n">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">2000</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 5"</span><span class="o">))</span>
-    <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">t</span> <span class="o">+</span> <span class="s">" world"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">or</span><span class="o">(</span><span class="nc">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">2000</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="s">"Spring 5"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">t</span> <span class="o">+</span> <span class="s">" world"</span><span class="o">))</span>
     <span class="o">.</span><span class="na">elapsed</span><span class="o">()</span>
     <span class="o">.</span><span class="na">block</span><span class="o">()</span></code></pre></figure>
 
@@ -457,13 +457,13 @@ Never, ever use this in production, as is it blocks your call, which does infer 
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">expectElementsWithThenComplete</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">expectSkylerJesseComplete</span><span class="o">(</span><span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">"swhite"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">),</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">"jpinkman"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">)));</span>
+    <span class="n">expectSkylerJesseComplete</span><span class="o">(</span><span class="nc">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"swhite"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">),</span> <span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"jpinkman"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">)));</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Use StepVerifier to check that the flux parameter emits a User with “swhite” username and another one with “jpinkman” then completes successfully.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">expectSkylerJesseComplete</span><span class="o">(</span><span class="n">Flux</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">flux</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">StepVerifier</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">flux</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">expectSkylerJesseComplete</span><span class="o">(</span><span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">flux</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">StepVerifier</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">flux</span><span class="o">)</span>
             <span class="o">.</span><span class="na">expectNextMatches</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"swhite"</span><span class="o">))</span>
             <span class="o">.</span><span class="na">expectNextMatches</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"jpinkman"</span><span class="o">))</span>
             <span class="o">.</span><span class="na">expectComplete</span><span class="o">();</span>
@@ -475,16 +475,16 @@ Never, ever use this in production, as is it blocks your call, which does infer 
 
 <p>Before you invoke your operations you can enable an, expensive, debug mode.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Hooks</span><span class="o">.</span><span class="na">onOperator</span><span class="o">(</span><span class="n">op</span> <span class="o">-&gt;</span> <span class="n">op</span><span class="o">.</span><span class="na">operatorStacktrace</span><span class="o">());</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Hooks</span><span class="o">.</span><span class="na">onOperator</span><span class="o">(</span><span class="n">op</span> <span class="o">-&gt;</span> <span class="n">op</span><span class="o">.</span><span class="na">operatorStacktrace</span><span class="o">());</span>
 
 <span class="k">try</span> <span class="o">{</span>
-    <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"a"</span><span class="o">)</span>
+    <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"a"</span><span class="o">)</span>
         <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span><span class="o">)</span>
         <span class="o">.</span><span class="na">timestamp</span><span class="o">()</span>
         <span class="o">.</span> <span class="o">...</span>
         
         
-<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">e</span><span class="o">.</span><span class="na">printStacktrace</span><span class="o">()</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -500,11 +500,11 @@ Never, ever use this in production, as is it blocks your call, which does infer 
 
 <p>If you want to stress test your CPU you can use <a href="http://projectreactor.io/core/docs/api/reactor/core/publisher/ParallelFlux.html">ParallelFlux</a> which will spread the workload in concurrent tasks when possible.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">.</span><span class="na">fromCallable</span><span class="o">(</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">.</span><span class="na">fromCallable</span><span class="o">(</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">)</span>
     <span class="o">.</span><span class="na">repeat</span><span class="o">()</span>
     <span class="o">.</span><span class="na">parallel</span><span class="o">(</span><span class="mi">8</span><span class="o">)</span> <span class="c1">//parallelism</span>
-    <span class="o">.</span><span class="na">runOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">parallel</span><span class="o">())</span>
-    <span class="o">.</span><span class="na">doOnNext</span><span class="o">(</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"I'm on thread "</span><span class="o">+</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">())</span> <span class="o">).</span>
+    <span class="o">.</span><span class="na">runOn</span><span class="o">(</span><span class="nc">Schedulers</span><span class="o">.</span><span class="na">parallel</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">doOnNext</span><span class="o">(</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"I'm on thread "</span><span class="o">+</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">())</span> <span class="o">).</span>
     <span class="o">.</span><span class="na">sequential</span><span class="o">()</span>
     <span class="o">.</span><span class="na">subscribe</span><span class="o">()</span>
     </code></pre></figure>
@@ -525,12 +525,12 @@ Afterwards you can merge these back into a Flux with sequential().</p>
 
 <p>To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use <code class="highlighter-rouge">Flux.create()</code>, <code class="highlighter-rouge">Mono.create()</code>, or <code class="highlighter-rouge">FluxProcessor.connectSink()</code>.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Mono</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">Mono</span><span class="o">.</span><span class="na">create</span><span class="o">(</span> <span class="n">sink</span> <span class="o">-&gt;</span> <span class="o">{</span>
-    <span class="n">HttpListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="n">event</span> <span class="o">-&gt;</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">create</span><span class="o">(</span> <span class="n">sink</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="nc">HttpListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="n">event</span> <span class="o">-&gt;</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">sink</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="k">new</span> <span class="n">RunTimeException</span><span class="o">(</span><span class="s">"Error"</span><span class="o">));</span>
+            <span class="n">sink</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="k">new</span> <span class="nc">RunTimeException</span><span class="o">(</span><span class="s">"Error"</span><span class="o">));</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
+            <span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">body</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
                 <span class="n">sink</span><span class="o">.</span><span class="na">succes</span><span class="o">();</span>
             <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
@@ -560,11 +560,11 @@ see <a href="https://github.com/reactor/reactor-kafka">Reactor Kafka</a> where t
   <img alt="EmitterProcessor" src="/img/reactive/emitterProcessor.png" class="image fit" />
 </p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">EmitterProcessor</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">emitter</span> <span class="o">=</span> <span class="n">EmitterProcessor</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
-<span class="n">BlockingSink</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">emitter</span><span class="o">.</span><span class="na">connectSink</span><span class="o">();</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">EmitterProcessor</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">emitter</span> <span class="o">=</span> <span class="nc">EmitterProcessor</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+<span class="nc">BlockingSink</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">sink</span> <span class="o">=</span> <span class="n">emitter</span><span class="o">.</span><span class="na">connectSink</span><span class="o">();</span>
 <span class="n">sink</span><span class="o">.</span><span class="na">next</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
 <span class="n">sink</span><span class="o">.</span><span class="na">next</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
-<span class="n">emitter</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="n">emitter</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 <span class="n">sink</span><span class="o">.</span><span class="na">next</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span> <span class="c1">//output : 3</span>
 <span class="n">sink</span><span class="o">.</span><span class="na">finish</span><span class="o">();</span></code></pre></figure>
 
@@ -627,7 +627,7 @@ Which under the hood support <a href="https://java.net/downloads/servlet-spec/Fi
 <p>The annotations are still very similar but you just return a Mono, so the User can now be retrieved in a non-blocking way.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{login}"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">Mono</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUser</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">login</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">getUser</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">String</span> <span class="n">login</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">repository</span><span class="o">.</span><span class="na">getUser</span><span class="o">(</span><span class="n">login</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 

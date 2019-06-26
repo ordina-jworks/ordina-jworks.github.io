@@ -288,10 +288,10 @@ Instead they define a public API in which they can receive inputs (<code class="
 <p><em>A simple presentational root component.</em></p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
-    <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
+    <span class="kd">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">;</span>
 
     <span class="nl">bindings</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
+        <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@</span><span class="dl">'</span><span class="p">,</span>
     <span class="p">};</span>
 
     <span class="nl">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">`
@@ -301,7 +301,7 @@ Instead they define a public API in which they can receive inputs (<code class="
 <span class="p">}</span>
 
     <span class="nx">angular</span>
-            <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'currencyConverterApp, []'</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">'</span><span class="s1">currencyConverterApp, []</span><span class="dl">'</span><span class="p">)</span>
             <span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">());</span></code></pre></figure>
 
 <p>This component has a very simple API with one input -  <code class="highlighter-rouge">title</code> - and zero outputs.
@@ -312,26 +312,26 @@ Also notice how easy it was to register this component directive.</p>
 <p><em>Let’s create the same component directive but register it with the <code class="highlighter-rouge">.directive()</code> method.</em></p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IDirective</span> <span class="p">{</span>
-    <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'app'</span><span class="p">;</span>
-    <span class="nl">restrict</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'E'</span><span class="p">,</span>
+    <span class="kd">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">;</span>
+    <span class="nl">restrict</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">E</span><span class="dl">'</span><span class="p">,</span>
     <span class="nx">bindToController</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
+        <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@</span><span class="dl">'</span><span class="p">,</span>
     <span class="p">},</span>
     <span class="nx">scope</span><span class="p">:</span><span class="nx">IScope</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="nx">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{},</span>
-    <span class="nx">controllerAs</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'$ctrl'</span><span class="p">,</span>
+    <span class="nx">controllerAs</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">$ctrl</span><span class="dl">'</span><span class="p">,</span>
     <span class="nx">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">`
         &lt;h1&gt;{{$ctrl.title}}&lt;/h1&gt;
         &lt;currency-converter&gt;&lt;/currency-converter&gt;
      `</span><span class="p">;</span>
 
-    <span class="kr">static</span> <span class="nx">instance</span><span class="p">():</span><span class="nx">IDirective</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="nx">instance</span><span class="p">():</span><span class="nx">IDirective</span> <span class="p">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="nx">angular</span>
-<span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'currencyConverterApp, []'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">'</span><span class="s1">currencyConverterApp, []</span><span class="dl">'</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="nx">RootComponent</span><span class="p">.</span><span class="nx">instance</span><span class="p">());</span></code></pre></figure>
 
 <p>As you can see, this has a lot more configuration compared to using the <code class="highlighter-rouge">.component()</code> helper method.
@@ -355,7 +355,7 @@ The container component eventually decides what action to take with the data, no
 <p><em>First we start with our component definition:</em></p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencyConverter</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span><span class="p">{</span>
-    <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'currencyConverter'</span><span class="p">;</span>
+    <span class="kd">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">currencyConverter</span><span class="dl">'</span><span class="p">;</span>
 
     <span class="nl">template</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">`
         ...
@@ -393,7 +393,7 @@ Our container component can bind a callback method on the on-selected attribute 
     <span class="nl">fromCurrencies</span><span class="p">:</span><span class="nx">Currency</span><span class="p">[];</span>
     <span class="nl">toCurrencies</span><span class="p">:</span><span class="nx">Currency</span><span class="p">[];</span>
 
-    <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="nx">CurrenciesDataService</span><span class="p">.</span><span class="nx">NAME</span><span class="p">];</span>
+    <span class="kd">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="nx">CurrenciesDataService</span><span class="p">.</span><span class="nx">NAME</span><span class="p">];</span>
         <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">currencyDataService</span><span class="p">:</span><span class="nx">CurrenciesDataService</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">}</span>
 
@@ -431,14 +431,14 @@ In this method we set our view model properties <code class="highlighter-rouge">
 <p>So how does our presentational component definition look like?</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencySelectComponent</span> <span class="kr">implements</span> <span class="nx">IComponentOptions</span> <span class="p">{</span>
-    <span class="kr">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s1">'currenciesSelect'</span><span class="p">;</span>
+    <span class="kd">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">currenciesSelect</span><span class="dl">'</span><span class="p">;</span>
 
     <span class="nl">bindings</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="na">title</span><span class="p">:</span> <span class="s1">'@'</span><span class="p">,</span>
-        <span class="na">currencies</span><span class="p">:</span> <span class="s1">'&lt;'</span><span class="p">,</span>
-        <span class="na">onSelected</span><span class="p">:</span> <span class="s1">'&amp;'</span><span class="p">,</span>
-        <span class="na">showSelected</span><span class="p">:</span> <span class="s1">'&lt;'</span><span class="p">,</span>
-        <span class="na">showValuesAsRates</span><span class="p">:</span> <span class="s1">'&lt;'</span>
+        <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">currencies</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">onSelected</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&amp;</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">showSelected</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">showValuesAsRates</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;</span><span class="dl">'</span>
     <span class="p">};</span>
 
     <span class="nl">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="nx">CurrencySelectComponentController</span><span class="p">;</span>
@@ -449,8 +449,8 @@ In this method we set our view model properties <code class="highlighter-rouge">
     <span class="kr">public</span> <span class="nx">title</span><span class="p">:</span><span class="nx">string</span><span class="p">;</span>
     <span class="kr">public</span> <span class="nx">currencies</span><span class="p">:</span><span class="nx">Currency</span><span class="p">[];</span>
     <span class="kr">public</span> <span class="nx">onSelected</span><span class="p">:</span><span class="nb">Function</span><span class="p">;</span>
-    <span class="kr">public</span> <span class="nx">showSelected</span><span class="p">:</span><span class="kr">boolean</span><span class="p">;</span>
-    <span class="kr">public</span> <span class="nx">showValuesAsRates</span><span class="p">:</span><span class="kr">boolean</span><span class="p">;</span>
+    <span class="kr">public</span> <span class="nx">showSelected</span><span class="p">:</span><span class="nx">boolean</span><span class="p">;</span>
+    <span class="kr">public</span> <span class="nx">showValuesAsRates</span><span class="p">:</span><span class="nx">boolean</span><span class="p">;</span>
     <span class="kr">public</span> <span class="nx">selected</span><span class="p">:</span><span class="nx">Currency</span><span class="p">;</span>
 
     <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
@@ -494,7 +494,7 @@ in this case <code class="highlighter-rouge">selectedCurrency</code>:</p>
 
 <p>And inside the parent component’s template:</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span> <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected(selectedCurrency)"</span> <span class="p">...</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span> <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="dl">"</span><span class="s2">$ctrl.toSelected(selectedCurrency)</span><span class="dl">"</span> <span class="p">...</span></code></pre></figure>
 
 <p>Another way of accessing selectedCurrency, is to use <code class="highlighter-rouge">$locals</code>.
 This is useful when you want to send multiple types of data back.
@@ -502,7 +502,7 @@ The advantage is you don’t have to specify each parameter separately in the co
 The disadvantage is <code class="highlighter-rouge">$locals</code> is not descriptive.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
-	<span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="s2">"$ctrl.toSelected($locals)"</span><span class="p">...</span></code></pre></figure>
+	<span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="dl">"</span><span class="s2">$ctrl.toSelected($locals)</span><span class="dl">"</span><span class="p">...</span></code></pre></figure>
 
 <p>To access the selectedCurrency you would use the property on the $locals object with the same name:</p>
 
@@ -517,7 +517,7 @@ The disadvantage is <code class="highlighter-rouge">$locals</code> is not descri
 <p>In our previous example we saw an example of child to parent communication by mapping an output binding:</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">binding</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="na">onSelected</span><span class="p">:</span> <span class="s1">'&amp;'</span>
+	<span class="na">onSelected</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&amp;</span><span class="dl">'</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>The parent component can pass a method to this binding which the child component can call back and optionally send back any data to.</p>
@@ -527,7 +527,7 @@ The disadvantage is <code class="highlighter-rouge">$locals</code> is not descri
 <p>A child component can also require its parent components controller by mapping it in the require property:</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">require</span><span class="p">:</span><span class="nx">any</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="na">parentCtrl</span><span class="p">:</span> <span class="s1">'^parentComponentName'</span>
+	<span class="na">parentCtrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">^parentComponentName</span><span class="dl">'</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>The <strong>^</strong> symbol is important here.
@@ -542,15 +542,15 @@ The parent controller will get bound on to the property <code class="highlighter
 You can implement a custom observer pattern inside the service, or use the rootscope as an eventbus.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">SampleService</span><span class="p">{</span>
-    <span class="kr">static</span> <span class="nx">SERVICE_NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">"mysampleservice"</span><span class="p">;</span>
-    <span class="kr">static</span> <span class="nx">EVENT_NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="s2">"sampleEvent"</span><span class="p">;</span>
+    <span class="kd">static</span> <span class="nx">SERVICE_NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">mysampleservice</span><span class="dl">"</span><span class="p">;</span>
+    <span class="kd">static</span> <span class="nx">EVENT_NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">sampleEvent</span><span class="dl">"</span><span class="p">;</span>
 
-    <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$rootScope'</span><span class="p">];</span>
+    <span class="kd">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$rootScope</span><span class="dl">'</span><span class="p">];</span>
     <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">$rootScope</span><span class="p">:</span><span class="nx">IRootscopeService</span><span class="p">){}</span>
 
     <span class="nx">subscribe</span><span class="p">(</span><span class="nx">scope</span><span class="p">:</span><span class="nx">IScope</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span><span class="nb">Function</span><span class="p">):</span><span class="k">void</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">handler</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="nx">SampleService</span><span class="p">.</span><span class="nx">EVENT_NAME</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
-        <span class="nx">scope</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s1">'$destroy'</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
+        <span class="nx">scope</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="dl">'</span><span class="s1">$destroy</span><span class="dl">'</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
     <span class="p">},</span>
 
     <span class="nx">notify</span><span class="p">():</span><span class="k">void</span> <span class="p">{</span>
@@ -561,7 +561,7 @@ You can implement a custom observer pattern inside the service, or use the roots
 <p>A component controller can get notified by any changes by subscribing to the service:</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="k">export</span> <span class="kd">class</span> <span class="nx">MyComponentController</span><span class="p">{</span>		
-        <span class="kr">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'$scope'</span><span class="p">,</span> <span class="nx">SampleService</span><span class="p">.</span><span class="nx">SERVICE_NAME</span><span class="p">];</span>
+        <span class="kd">static</span> <span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$scope</span><span class="dl">'</span><span class="p">,</span> <span class="nx">SampleService</span><span class="p">.</span><span class="nx">SERVICE_NAME</span><span class="p">];</span>
         <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">isolatescope</span><span class="p">:</span><span class="nx">IScope</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">sampleService</span><span class="p">:</span><span class="nx">SampleService</span><span class="p">){}</span>
 
         <span class="nx">$onInit</span><span class="p">():</span><span class="k">void</span><span class="p">{</span>

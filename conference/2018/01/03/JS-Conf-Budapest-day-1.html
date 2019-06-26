@@ -436,7 +436,7 @@ When writing complex programs, we could find ourselves in a situation where we w
 <span class="kd">function</span> <span class="nx">getJSON</span><span class="p">(){</span>
     <span class="c1">// To make the function blocking we manually create a Promise.</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">request</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'https://myurl.com/example.json'</span><span class="p">)</span>
+        <span class="nx">request</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://myurl.com/example.json</span><span class="dl">'</span><span class="p">)</span>
             <span class="p">.</span><span class="nx">then</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
                 <span class="c1">// The data from the request is available in a .then block</span>
                 <span class="c1">// We return the result using resolve.</span>
@@ -449,7 +449,7 @@ When writing complex programs, we could find ourselves in a situation where we w
 <span class="c1">// The async keyword will automatically create a new Promise and return it.</span>
 <span class="k">async</span> <span class="kd">function</span> <span class="nx">getJSONAsync</span><span class="p">(){</span>
     <span class="c1">// The await keyword saves us from having to write a .then() block.</span>
-    <span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">request</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'https://myurl.com/example.json'</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">request</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://myurl.com/example.json</span><span class="dl">'</span><span class="p">);</span>
     <span class="c1">// The result of the GET request is available in the json variable.</span>
     <span class="c1">// We return it just like in a regular synchronous function.</span>
     <span class="k">return</span> <span class="nx">json</span><span class="p">;</span>
@@ -640,8 +640,8 @@ There are more than half a million downloads per month of PostCSS plugins!</p>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">// ...  </span>
  	<span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
-		<span class="nx">require</span><span class="p">(</span><span class="s1">'postcss-mixins'</span><span class="p">)({</span>
- 			<span class="na">mixindsDir</span><span class="p">:</span> <span class="s1">'../src/mixins/'</span><span class="p">,</span>
+		<span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">postcss-mixins</span><span class="dl">'</span><span class="p">)({</span>
+ 			<span class="na">mixindsDir</span><span class="p">:</span> <span class="dl">'</span><span class="s1">../src/mixins/</span><span class="dl">'</span><span class="p">,</span>
 		<span class="p">},</span> 
 		<span class="c1">// ... </span>
 	<span class="p">]</span>
@@ -655,12 +655,12 @@ There are more than half a million downloads per month of PostCSS plugins!</p>
 
 <p>Now, we can’t test logic in CSS, but in JavaScript we can!</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// size.test.js</span>
-<span class="k">import</span> <span class="nx">size</span> <span class="k">from</span> <span class="s1">'../src/mixins/size.js'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">size</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../src/mixins/size.js</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="nx">test</span><span class="p">(</span><span class="s1">'Size returns width and height'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">expect</span><span class="p">(</span><span class="nx">size</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s1">'24px'</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({</span>
-      <span class="na">width</span><span class="p">:</span> <span class="s1">'24px'</span><span class="p">,</span>
-      <span class="na">height</span><span class="p">:</span> <span class="s1">'24px'</span>
+<span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">Size returns width and height</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">size</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">'</span><span class="s1">24px</span><span class="dl">'</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({</span>
+      <span class="na">width</span><span class="p">:</span> <span class="dl">'</span><span class="s1">24px</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">height</span><span class="p">:</span> <span class="dl">'</span><span class="s1">24px</span><span class="dl">'</span>
     <span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -676,29 +676,29 @@ Using that, we can do the following:</p>
 <span class="p">}</span>
 
 <span class="c1">// index.js</span>
-<span class="kd">const</span> <span class="nx">postcss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'postcss'</span><span class="p">);</span>
-<span class="nx">postcss</span><span class="p">.</span><span class="nx">plugin</span><span class="p">(</span><span class="s1">'postcss-size'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">css</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">postcss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">postcss</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">postcss</span><span class="p">.</span><span class="nx">plugin</span><span class="p">(</span><span class="dl">'</span><span class="s1">postcss-size</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">css</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="c1">// let’s transform CSS with JS</span>
-  <span class="nx">css</span><span class="p">.</span><span class="nx">walkDecls</span><span class="p">(</span><span class="s1">'size'</span><span class="p">,</span> <span class="nx">decl</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">css</span><span class="p">.</span><span class="nx">walkDecls</span><span class="p">(</span><span class="dl">'</span><span class="s1">size</span><span class="dl">'</span><span class="p">,</span> <span class="nx">decl</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="c1">// 1. get the size value </span>
       <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">decl</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
       <span class="c1">// 2. add “width” &amp; “height” properties</span>
-      <span class="nx">decl</span><span class="p">.</span><span class="nx">cloneBefore</span><span class="p">({</span> <span class="na">prop</span><span class="p">:</span> <span class="s1">'width'</span><span class="p">,</span> <span class="nx">value</span> <span class="p">});</span>
-      <span class="nx">decl</span><span class="p">.</span><span class="nx">cloneBefore</span><span class="p">({</span> <span class="na">prop</span><span class="p">:</span> <span class="s1">'height'</span><span class="p">,</span> <span class="nx">value</span> <span class="p">});</span>
+      <span class="nx">decl</span><span class="p">.</span><span class="nx">cloneBefore</span><span class="p">({</span> <span class="na">prop</span><span class="p">:</span> <span class="dl">'</span><span class="s1">width</span><span class="dl">'</span><span class="p">,</span> <span class="nx">value</span> <span class="p">});</span>
+      <span class="nx">decl</span><span class="p">.</span><span class="nx">cloneBefore</span><span class="p">({</span> <span class="na">prop</span><span class="p">:</span> <span class="dl">'</span><span class="s1">height</span><span class="dl">'</span><span class="p">,</span> <span class="nx">value</span> <span class="p">});</span>
       <span class="c1">// 3. remove “size” property </span>
       <span class="nx">decl</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
   <span class="p">});</span>
 <span class="p">});</span>
 
 <span class="c1">// index.test.js</span>
-<span class="kd">const</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./index.js'</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">postcss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'postcss'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">plugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./index.js</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">postcss</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">postcss</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">function</span> <span class="nx">run</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">output</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
-<span class="nx">test</span><span class="p">(</span><span class="s1">'Sets width and height'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">Sets width and height</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">run</span><span class="p">(</span>
-    <span class="s1">'.foo { size: 1px; }'</span><span class="p">,</span>
-    <span class="s1">'.foo { width: 1px; height: 1px; }'</span>
+    <span class="dl">'</span><span class="s1">.foo { size: 1px; }</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">.foo { width: 1px; height: 1px; }</span><span class="dl">'</span>
   <span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -760,7 +760,7 @@ It’s a technique to inject and execute any JavaScript code in the context of t
 
 <p>Inline code is considered harmful so don’t use something like this:</p>
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
-<span class="nx">alert</span><span class="p">(</span><span class="s1">'hello JSConfBP!'</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello JSConfBP!</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">...</span>
 <span class="nt">&lt;/script&gt;</span>
 

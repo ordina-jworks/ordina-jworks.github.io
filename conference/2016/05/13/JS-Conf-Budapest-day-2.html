@@ -462,7 +462,7 @@ We summarized the key parts of the talk for you.</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
 <span class="k">if</span> <span class="p">(</span><span class="nb">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nb">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">'/service-worker.js'</span><span class="p">);</span>
+    <span class="nb">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="dl">'</span><span class="s1">/service-worker.js</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
 
@@ -478,20 +478,20 @@ We summarized the key parts of the talk for you.</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
 <span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">staticCacheName</span> <span class="o">=</span> <span class="s1">'static'</span> <span class="o">+</span> <span class="nx">version</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">staticCacheName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">static</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">version</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">updateCache</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">caches</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">staticCacheName</span><span class="p">)</span>
         <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">cache</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">addAll</span><span class="p">([</span>
-                <span class="s1">'/offline-page'</span><span class="p">,</span>
-                <span class="s1">'/assets/css/main.css'</span><span class="p">,</span>
-                <span class="s1">'/assets/js/main.js'</span>
+                <span class="dl">'</span><span class="s1">/offline-page</span><span class="dl">'</span><span class="p">,</span>
+                <span class="dl">'</span><span class="s1">/assets/css/main.css</span><span class="dl">'</span><span class="p">,</span>
+                <span class="dl">'</span><span class="s1">/assets/js/main.js</span><span class="dl">'</span>
             <span class="p">]);</span>
         <span class="p">});</span>
 <span class="p">};</span>
 
-<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'install'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">install</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">event</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span><span class="nx">updateCache</span><span class="p">());</span>
 <span class="p">});</span>
 <span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
@@ -515,7 +515,7 @@ We summarized the key parts of the talk for you.</p>
 </ul>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">fetch</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">));</span>
 <span class="p">});</span>
 <span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
@@ -523,11 +523,11 @@ We summarized the key parts of the talk for you.</p>
 <p>It is possible to use custom responses when using Service Workers. E.g. Use templating to construct a HTML respose from JSON.</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'fetch'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">responseBody</span> <span class="o">=</span> <span class="s1">'&lt;h1&gt;Hello, world!&lt;/h1&gt;'</span><span class="p">;</span>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">fetch</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">responseBody</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;h1&gt;Hello, world!&lt;/h1&gt;</span><span class="dl">'</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">responseOptions</span> <span class="o">=</span> <span class="p">{</span>
         <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'text/html'</span>
+            <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span>
         <span class="p">}</span>
     <span class="p">};</span>
     <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span>

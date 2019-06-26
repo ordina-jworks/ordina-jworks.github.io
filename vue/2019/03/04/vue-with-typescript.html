@@ -245,26 +245,26 @@ We will now explain the difference between using the class-style component synta
 <h4 id="the-classic-vue-syntax">The classic Vue Syntax</h4>
 <p>If you do not use the class-style component syntax, your components will look exactly as if you have rendered them with Vue with JavaScript, but with the addition of types:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span><span class="p">,</span> <span class="p">{</span> <span class="nx">VNode</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue'</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span><span class="p">,</span> <span class="p">{</span> <span class="nx">VNode</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">HelloComponent</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="na">message</span><span class="p">:</span> <span class="s1">'Hello'</span><span class="p">,</span>
+            <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
         <span class="nx">greet</span> <span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="s1">' world'</span><span class="p">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> world</span><span class="dl">'</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
         <span class="nx">greeting</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span> <span class="o">+</span> <span class="s1">'!'</span><span class="p">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="nx">render</span> <span class="p">(</span><span class="nx">createElement</span><span class="p">):</span> <span class="nx">VNode</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">greeting</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">greeting</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -274,19 +274,19 @@ We will now explain the difference between using the class-style component synta
 <h4 id="class-style-component-syntax">Class-style component syntax</h4>
 <p>With the class-style component syntax, we would write the same component like this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="s1">'vue'</span>
-<span class="k">import</span> <span class="nx">Component</span> <span class="k">from</span> <span class="s1">'vue-class-component'</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">Component</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-class-component</span><span class="dl">'</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
-    <span class="na">template</span><span class="p">:</span> <span class="s1">'&lt;div&gt;&lt;/div&gt;'</span>
+    <span class="na">template</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;div&gt;&lt;/div&gt;</span><span class="dl">'</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">HelloComponent</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
-    <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">'Hello'</span>
+    <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span>
     <span class="nx">greet</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="s1">' world'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> world</span><span class="dl">'</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="kd">get</span> <span class="nx">greeting</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span> <span class="o">+</span> <span class="s1">'!'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -395,14 +395,14 @@ This should always be present in your <code class="highlighter-rouge">index.html
 <h2 id="src">Src</h2>
 
 <h3 id="maints">main.ts</h3>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="s1">'vue'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="s1">'./App.vue'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.vue</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
 <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
 	<span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
-<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="s1">'#app'</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>When you look in the <code class="highlighter-rouge">src</code> folder, you will find a <code class="highlighter-rouge">main.ts</code> file.
@@ -417,12 +417,12 @@ App is our main component that was generated by the Vue CLI and we will dive int
 <code class="highlighter-rouge">main.ts</code> should only be adapted to plug in new core functionalities of your application.
 For example, a <code class="highlighter-rouge">main.ts</code> of one of my own projects is this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CreateElement</span><span class="p">,</span> <span class="nx">VNode</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="s1">'./App.vue'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">i18n</span> <span class="k">from</span> <span class="s1">'./i18n'</span><span class="p">;</span>
-<span class="k">import</span> <span class="s1">'./registerServiceWorker'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">router</span> <span class="k">from</span> <span class="s1">'./router'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">store</span> <span class="k">from</span> <span class="s1">'./store'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CreateElement</span><span class="p">,</span> <span class="nx">VNode</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">i18n</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./i18n</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">./registerServiceWorker</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">router</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">store</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./store</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
@@ -431,7 +431,7 @@ For example, a <code class="highlighter-rouge">main.ts</code> of one of my own p
     <span class="nx">store</span><span class="p">,</span> <span class="c1">// custom store implementation</span>
     <span class="nx">i18n</span><span class="p">,</span> <span class="c1">// my translations</span>
     <span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="na">h</span><span class="p">:</span> <span class="nx">CreateElement</span><span class="p">):</span> <span class="nx">VNode</span> <span class="o">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
-<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="s1">'#app'</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>As you can see, I have added three core functionalities: a router, a store and an i18n library.
@@ -439,7 +439,7 @@ In each component that you make, these functionalities will be available.
 The reason why these will be available is because the Vue type gets extended by each of these libraries.
 For example in the typings of VueI18n (the i18n library that I use), we find:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declare</span> <span class="nx">module</span> <span class="s1">'vue/types/vue'</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declare</span> <span class="nx">module</span> <span class="dl">'</span><span class="s1">vue/types/vue</span><span class="dl">'</span> <span class="p">{</span>
 	<span class="kr">interface</span> <span class="nx">Vue</span> <span class="p">{</span>
 		<span class="nx">readonly</span> <span class="nx">$i18n</span><span class="p">:</span> <span class="nx">VueI18n</span> <span class="o">&amp;</span> <span class="nx">IVueI18n</span><span class="p">;</span>
 		<span class="nl">$t</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">VueI18n</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">t</span><span class="p">;</span>
@@ -455,7 +455,7 @@ For example in the typings of VueI18n (the i18n library that I use), we find:</p
 If you would use a different i18n library, you will have most of these things also readily available.
 For example vue-i18next defines <code class="highlighter-rouge">$i18n</code> as:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declare</span> <span class="nx">module</span> <span class="s2">"vue/types/vue"</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declare</span> <span class="nx">module</span> <span class="dl">"</span><span class="s2">vue/types/vue</span><span class="dl">"</span> <span class="p">{</span>
     <span class="kr">interface</span> <span class="nx">Vue</span> <span class="p">{</span>
         <span class="nx">readonly</span> <span class="nx">$i18n</span><span class="p">:</span> <span class="nx">VueI18Next</span><span class="p">;</span>
         <span class="nl">$t</span><span class="p">:</span> <span class="nx">TranslationFunction</span><span class="p">;</span>
@@ -483,8 +483,8 @@ The Vue CLI generates the App component with one child component.</p>
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">HelloWorld</span> <span class="k">from</span> <span class="s1">'./components/HelloWorld.vue'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">HelloWorld</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/HelloWorld.vue</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
 	<span class="na">components</span><span class="p">:</span> <span class="p">{</span>
@@ -525,7 +525,7 @@ For example in our <code class="highlighter-rouge">App</code> component, we want
 These components are local components.
 If you would want to write a component that is global, you have to register it like this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">'my-component-name'</span><span class="p">,</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">my-component-name</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
 	<span class="c1">// ... options ...</span>
 <span class="p">})</span>
 </code></pre></div></div>
@@ -539,7 +539,7 @@ An example of a use case that is justified would be an icon library like <a href
     <span class="p">...</span>
     <span class="nx">faCameraRetro</span><span class="p">,</span>
 <span class="p">);</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">'font-awesome-icon'</span><span class="p">,</span> <span class="nx">FontAwesomeIcon</span><span class="p">);</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">font-awesome-icon</span><span class="dl">'</span><span class="p">,</span> <span class="nx">FontAwesomeIcon</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>After this we can access the <code class="highlighter-rouge">font-awesome-icon</code> tag from everywhere.</p>
@@ -560,8 +560,8 @@ Firstly I will explain the basics of a Vue Component so that you will fully unde
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">HelloWorld</span> <span class="k">from</span> <span class="s1">'./components/HelloWorld.vue'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">HelloWorld</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/HelloWorld.vue</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
 	<span class="na">components</span><span class="p">:</span> <span class="p">{</span>
@@ -723,7 +723,7 @@ The <code class="highlighter-rouge">BlogPost</code> component is small:</p>
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Prop</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Prop</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">export</span> <span class="kr">interface</span> <span class="nx">Post</span> <span class="p">{</span>
 	<span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
@@ -794,8 +794,8 @@ We adapt <code class="highlighter-rouge">App.vue</code> as follows:</p>
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">BlogPost</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Post</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./components/BlogPost.vue'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">BlogPost</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Post</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/BlogPost.vue</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
 	<span class="na">components</span><span class="p">:</span> <span class="p">{</span>
@@ -805,21 +805,21 @@ We adapt <code class="highlighter-rouge">App.vue</code> as follows:</p>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
 	<span class="kr">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
 		<span class="p">{</span>
-			<span class="na">title</span><span class="p">:</span> <span class="s1">'My first blogpost ever!'</span><span class="p">,</span>
-			<span class="na">body</span><span class="p">:</span> <span class="s1">'Lorem ipsum dolor sit amet.'</span><span class="p">,</span>
-			<span class="na">author</span><span class="p">:</span> <span class="s1">'Elke'</span><span class="p">,</span>
+			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My first blogpost ever!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Lorem ipsum dolor sit amet.</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
-			<span class="na">title</span><span class="p">:</span> <span class="s1">'Look I am blogging!'</span><span class="p">,</span>
-			<span class="na">body</span><span class="p">:</span> <span class="s1">'Hurray for me, this is my second post!'</span><span class="p">,</span>
-			<span class="na">author</span><span class="p">:</span> <span class="s1">'Elke'</span><span class="p">,</span>
+			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Look I am blogging!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hurray for me, this is my second post!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
-			<span class="na">title</span><span class="p">:</span> <span class="s1">'Another one?!'</span><span class="p">,</span>
-			<span class="na">body</span><span class="p">:</span> <span class="s1">'Another one!'</span><span class="p">,</span>
-			<span class="na">author</span><span class="p">:</span> <span class="s1">'Elke'</span><span class="p">,</span>
+			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one?!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
 		<span class="p">},</span>
 	<span class="p">];</span>
@@ -889,7 +889,7 @@ We extend our <code class="highlighter-rouge">Post</code> interface to accomodat
 	<span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">datePosted</span><span class="p">:</span> <span class="nb">Date</span><span class="p">;</span>
-	<span class="nx">highlighted</span><span class="p">?:</span> <span class="kr">boolean</span><span class="p">;</span>
+	<span class="nx">highlighted</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -914,14 +914,14 @@ We extend our <code class="highlighter-rouge">Post</code> interface to accomodat
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Prop</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Prop</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">export</span> <span class="kr">interface</span> <span class="nx">Post</span> <span class="p">{</span>
 	<span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">datePosted</span><span class="p">:</span> <span class="nb">Date</span><span class="p">;</span>
-	<span class="nx">highlighted</span><span class="p">?:</span> <span class="kr">boolean</span><span class="p">;</span>
+	<span class="nx">highlighted</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Component</span>
@@ -1010,14 +1010,14 @@ So we can shorten <code class="highlighter-rouge">v-bind:class</code> to this:</
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Prop</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Prop</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">export</span> <span class="kr">interface</span> <span class="nx">Post</span> <span class="p">{</span>
 	<span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 	<span class="nl">datePosted</span><span class="p">:</span> <span class="nb">Date</span><span class="p">;</span>
-	<span class="nx">highlighted</span><span class="p">?:</span> <span class="kr">boolean</span><span class="p">;</span>
+	<span class="nx">highlighted</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Component</span>
@@ -1067,7 +1067,7 @@ The code block is followed by an explanation about what we have done exactly:</p
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
 	<span class="c1">// ...</span>
-	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="kr">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
 	<span class="kr">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
 
@@ -1117,14 +1117,14 @@ We update the button to the following code:</p>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
 	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
 		<span class="nt">&lt;h1&gt;</span>Elke's fantastic blog<span class="nt">&lt;/h1&gt;</span>
-		<span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleHighlightedPostsVisibility"</span><span class="nt">&gt;</span><span class="si">{{</span> <span class="nx">showHighlighted</span> <span class="p">?</span> <span class="s1">'Hide'</span> <span class="p">:</span> <span class="s1">'Show'</span> <span class="si">}}</span> highlighted posts<span class="nt">&lt;/button&gt;</span>
+		<span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleHighlightedPostsVisibility"</span><span class="nt">&gt;</span><span class="si">{{</span> <span class="nx">showHighlighted</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">Hide</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Show</span><span class="dl">'</span> <span class="si">}}</span> highlighted posts<span class="nt">&lt;/button&gt;</span>
 		<span class="nt">&lt;BlogPost</span> <span class="na">v-for=</span><span class="s">"blogPost in visibleBlogPosts"</span> <span class="na">:post=</span><span class="s">"blogPost"</span> <span class="na">:key=</span><span class="s">"blogPost.title"</span> <span class="nt">/&gt;</span>
 	<span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">BlogPost</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Post</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./components/BlogPost.vue'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">BlogPost</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Post</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/BlogPost.vue</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
 	<span class="na">components</span><span class="p">:</span> <span class="p">{</span>
@@ -1133,26 +1133,26 @@ We update the button to the following code:</p>
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
 
-	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="kr">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
 	<span class="kr">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
 		<span class="p">{</span>
-			<span class="na">title</span><span class="p">:</span> <span class="s1">'My first blogpost ever!'</span><span class="p">,</span>
-			<span class="na">body</span><span class="p">:</span> <span class="s1">'Lorem ipsum dolor sit amet.'</span><span class="p">,</span>
-			<span class="na">author</span><span class="p">:</span> <span class="s1">'Elke'</span><span class="p">,</span>
+			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My first blogpost ever!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Lorem ipsum dolor sit amet.</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
-			<span class="na">title</span><span class="p">:</span> <span class="s1">'Look I am blogging!'</span><span class="p">,</span>
-			<span class="na">body</span><span class="p">:</span> <span class="s1">'Hurray for me, this is my second post!'</span><span class="p">,</span>
-			<span class="na">author</span><span class="p">:</span> <span class="s1">'Elke'</span><span class="p">,</span>
+			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Look I am blogging!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hurray for me, this is my second post!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
 			<span class="na">highlighted</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
-			<span class="na">title</span><span class="p">:</span> <span class="s1">'Another one?!'</span><span class="p">,</span>
-			<span class="na">body</span><span class="p">:</span> <span class="s1">'Another one!'</span><span class="p">,</span>
-			<span class="na">author</span><span class="p">:</span> <span class="s1">'Elke'</span><span class="p">,</span>
+			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one?!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one!</span><span class="dl">'</span><span class="p">,</span>
+			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
 		<span class="p">},</span>
 	<span class="p">];</span>
@@ -1200,10 +1200,10 @@ Vue-axios basically turns the axios library into a plugin compatible for Vue.
 After that, we have to signal to Vue that we want to use this plugin.
 We add a <code class="highlighter-rouge">Vue.use(plugin, options)</code> statement in our <code class="highlighter-rouge">main.ts</code> so it looks like this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="s1">'axios'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="s1">'vue'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">VueAxios</span> <span class="k">from</span> <span class="s1">'vue-axios'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="s1">'./App.vue'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">VueAxios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-axios</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.vue</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
@@ -1211,7 +1211,7 @@ We add a <code class="highlighter-rouge">Vue.use(plugin, options)</code> stateme
 
 <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
 	<span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
-<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="s1">'#app'</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>The important part is that we put the <code class="highlighter-rouge">Vue.use(...)</code> statement before we actually bootstrap the application with <code class="highlighter-rouge">new Vue(...)</code>.</p>
@@ -1242,16 +1242,16 @@ The mounted hook is used for when the element is mounted into the HTML DOM, whic
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({})</span>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
 	<span class="kr">private</span> <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'The app is created!'</span><span class="p">);</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">The app is created!</span><span class="dl">'</span><span class="p">);</span>
 	<span class="p">}</span>
 
 	<span class="kr">private</span> <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'The app is mounted!'</span><span class="p">);</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">The app is mounted!</span><span class="dl">'</span><span class="p">);</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
@@ -1273,15 +1273,15 @@ To ensure that our code is compatible with all use cases, we place the HTTP call
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
 	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"app"</span><span class="nt">&gt;</span>
 		<span class="nt">&lt;h1&gt;</span>Elke's fantastic blog<span class="nt">&lt;/h1&gt;</span>
-		<span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleHighlightedPostsVisibility"</span><span class="nt">&gt;</span><span class="si">{{</span> <span class="nx">showHighlighted</span> <span class="p">?</span> <span class="s1">'Hide'</span> <span class="p">:</span> <span class="s1">'Show'</span> <span class="si">}}</span> highlighted posts<span class="nt">&lt;/button&gt;</span>
+		<span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleHighlightedPostsVisibility"</span><span class="nt">&gt;</span><span class="si">{{</span> <span class="nx">showHighlighted</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">Hide</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Show</span><span class="dl">'</span> <span class="si">}}</span> highlighted posts<span class="nt">&lt;/button&gt;</span>
 		<span class="nt">&lt;BlogPost</span> <span class="na">v-for=</span><span class="s">"blogPost in visibleBlogPosts"</span> <span class="na">:post=</span><span class="s">"blogPost"</span> <span class="na">:key=</span><span class="s">"blogPost.title"</span> <span class="nt">/&gt;</span>
 	<span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span><span class="nt">&gt;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'vue-property-decorator'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">BlogPost</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Post</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./components/BlogPost.vue'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AxiosResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'axios'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">BlogPost</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Post</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/BlogPost.vue</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AxiosResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
 	<span class="na">components</span><span class="p">:</span> <span class="p">{</span>
@@ -1290,7 +1290,7 @@ To ensure that our code is compatible with all use cases, we place the HTTP call
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
 
-	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="kr">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
 	<span class="kr">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
 
@@ -1303,7 +1303,7 @@ To ensure that our code is compatible with all use cases, we place the HTTP call
 	<span class="p">}</span>
 
 	<span class="kr">private</span> <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">this</span><span class="p">.</span><span class="nx">$http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'http://localhost:3000/blogposts'</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">:</span> <span class="nx">AxiosResponse</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">$http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:3000/blogposts</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">:</span> <span class="nx">AxiosResponse</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 			<span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="na">val</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
 				<span class="na">title</span><span class="p">:</span> <span class="nx">val</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span>
 				<span class="na">body</span><span class="p">:</span> <span class="nx">val</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>

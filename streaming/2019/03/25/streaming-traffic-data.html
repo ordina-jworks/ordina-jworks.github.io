@@ -205,12 +205,12 @@ For that workshop I used traffic data, since especially in Belgium, traffic data
 <p>General information about the sensors can be retrieved from <a href="http://miv.opendata.belfla.be/miv/configuratie/xml" target="_blank" rel="noopener noreferrer">http://miv.opendata.belfla.be/miv/configuratie/xml</a>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">&lt;</span><span class="n">meetpunt</span> <span class="n">unieke_id</span><span class="o">=</span><span class="s">"3640"</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="n">beschrijvende_id</span><span class="o">&gt;</span><span class="n">H291L10</span><span class="o">&lt;/</span><span class="n">beschrijvende_id</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="n">volledige_naam</span><span class="o">&gt;</span><span class="n">Parking</span> <span class="n">Kruibeke</span><span class="o">&lt;/</span><span class="n">volledige_naam</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="n">Ident_8</span><span class="o">&gt;</span><span class="n">A0140002</span><span class="o">&lt;/</span><span class="n">Ident_8</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">beschrijvende_id</span><span class="o">&gt;</span><span class="no">H291L10</span><span class="o">&lt;/</span><span class="n">beschrijvende_id</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">volledige_naam</span><span class="o">&gt;</span><span class="nc">Parking</span> <span class="nc">Kruibeke</span><span class="o">&lt;/</span><span class="n">volledige_naam</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">Ident_8</span><span class="o">&gt;</span><span class="no">A0140002</span><span class="o">&lt;/</span><span class="n">Ident_8</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">lve_nr</span><span class="o">&gt;</span><span class="mi">437</span><span class="o">&lt;/</span><span class="n">lve_nr</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">Kmp_Rsys</span><span class="o">&gt;</span><span class="mi">94</span><span class="o">,</span><span class="mi">695</span><span class="o">&lt;/</span><span class="n">Kmp_Rsys</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="n">Rijstrook</span><span class="o">&gt;</span><span class="n">R10</span><span class="o">&lt;/</span><span class="n">Rijstrook</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nc">Rijstrook</span><span class="o">&gt;</span><span class="no">R10</span><span class="o">&lt;/</span><span class="nc">Rijstrook</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">X_coord_EPSG_31370</span><span class="o">&gt;</span><span class="mi">144477</span><span class="o">,</span><span class="mi">0917</span><span class="o">&lt;/</span><span class="n">X_coord_EPSG_31370</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">Y_coord_EPSG_31370</span><span class="o">&gt;</span><span class="mi">208290</span><span class="o">,</span><span class="mi">6237</span><span class="o">&lt;/</span><span class="n">Y_coord_EPSG_31370</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">lengtegraad_EPSG_4326</span><span class="o">&gt;</span><span class="mi">4</span><span class="o">,</span><span class="mi">289767347</span><span class="o">&lt;/</span><span class="n">lengtegraad_EPSG_4326</span><span class="o">&gt;</span>
@@ -288,11 +288,11 @@ It makes it very easy to read/write messages to Kafka with it.</p>
 <p>Define a Spring Boot application - make sure to enable scheduling.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@SpringBootApplication</span>
     <span class="nd">@EnableScheduling</span>
-    <span class="nd">@EnableBinding</span><span class="o">({</span><span class="n">Channels</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+    <span class="nd">@EnableBinding</span><span class="o">({</span><span class="nc">Channels</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">OpenDataTrafficApplication</span> <span class="o">{</span>
 
-        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">OpenDataTrafficApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">OpenDataTrafficApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -301,27 +301,27 @@ It makes it very easy to read/write messages to Kafka with it.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Channels</span> <span class="o">{</span>
 
         <span class="nd">@Input</span>
-        <span class="n">SubscribableChannel</span> <span class="nf">trafficEvents</span><span class="o">();</span>
+        <span class="nc">SubscribableChannel</span> <span class="nf">trafficEvents</span><span class="o">();</span>
 
         <span class="nd">@Output</span>
-        <span class="n">MessageChannel</span> <span class="nf">trafficEventsOutput</span><span class="o">();</span>
+        <span class="nc">MessageChannel</span> <span class="nf">trafficEventsOutput</span><span class="o">();</span>
 
         <span class="nd">@Output</span>
-        <span class="n">MessageChannel</span> <span class="nf">sensorDataOutput</span><span class="o">();</span>
+        <span class="nc">MessageChannel</span> <span class="nf">sensorDataOutput</span><span class="o">();</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Create a bean to read in the events.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">TrafficEvent</span><span class="o">&gt;</span> <span class="nf">readInData</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="nf">readInData</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Will read in data from "</span> <span class="o">+</span> <span class="n">url</span><span class="o">);</span>
 
-        <span class="n">JAXBContext</span> <span class="n">jc</span> <span class="o">=</span> <span class="n">JAXBContext</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="s">"generated.traffic"</span><span class="o">);</span>
-        <span class="n">Unmarshaller</span> <span class="n">um</span> <span class="o">=</span> <span class="n">jc</span><span class="o">.</span><span class="na">createUnmarshaller</span><span class="o">();</span>
+        <span class="nc">JAXBContext</span> <span class="n">jc</span> <span class="o">=</span> <span class="nc">JAXBContext</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="s">"generated.traffic"</span><span class="o">);</span>
+        <span class="nc">Unmarshaller</span> <span class="n">um</span> <span class="o">=</span> <span class="n">jc</span><span class="o">.</span><span class="na">createUnmarshaller</span><span class="o">();</span>
 
-        <span class="n">Miv</span> <span class="n">miv</span> <span class="o">=</span> <span class="o">(</span><span class="n">Miv</span><span class="o">)</span> <span class="n">um</span><span class="o">.</span><span class="na">unmarshal</span><span class="o">(</span><span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">url</span><span class="o">).</span><span class="na">openStream</span><span class="o">());</span>
+        <span class="nc">Miv</span> <span class="n">miv</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Miv</span><span class="o">)</span> <span class="n">um</span><span class="o">.</span><span class="na">unmarshal</span><span class="o">(</span><span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="n">url</span><span class="o">).</span><span class="na">openStream</span><span class="o">());</span>
 
         <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">" This data is from "</span> <span class="o">+</span> <span class="n">miv</span><span class="o">.</span><span class="na">getTijdPublicatie</span><span class="o">().</span><span class="na">toGregorianCalendar</span><span class="o">().</span><span class="na">getTime</span><span class="o">());</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">TrafficEvent</span><span class="o">&gt;</span> <span class="n">trafficEventList</span> <span class="o">=</span> <span class="n">convertXmlToDomain</span><span class="o">.</span><span class="na">trafficMeasurements</span><span class="o">(</span><span class="n">miv</span><span class="o">.</span><span class="na">getMeetpunt</span><span class="o">());</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="n">trafficEventList</span> <span class="o">=</span> <span class="n">convertXmlToDomain</span><span class="o">.</span><span class="na">trafficMeasurements</span><span class="o">(</span><span class="n">miv</span><span class="o">.</span><span class="na">getMeetpunt</span><span class="o">());</span>
 
         <span class="n">lastReadInDate</span> <span class="o">=</span> <span class="n">miv</span><span class="o">.</span><span class="na">getTijdPublicatie</span><span class="o">().</span><span class="na">toGregorianCalendar</span><span class="o">().</span><span class="na">getTime</span><span class="o">();</span>
 
@@ -337,61 +337,61 @@ For every sensor point per vehicle we will extract one <code class="highlighter-
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Data</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficEvent</span> <span class="o">{</span>
 
-        <span class="kd">private</span> <span class="n">VehicleClass</span> <span class="n">vehicleClass</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">Integer</span> <span class="n">trafficIntensity</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">VehicleClass</span> <span class="n">vehicleClass</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">trafficIntensity</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="n">Integer</span> <span class="n">vehicleSpeedCalculated</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">vehicleSpeedCalculated</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="n">Integer</span> <span class="n">vehicleSpeedHarmonical</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">vehicleSpeedHarmonical</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">sensorId</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">sensorDescriptiveId</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">sensorId</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">sensorDescriptiveId</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="n">Integer</span> <span class="n">lveNumber</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">Date</span> <span class="n">timeRegistration</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">Date</span> <span class="n">lastUpdated</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">lveNumber</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Date</span> <span class="n">timeRegistration</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Date</span> <span class="n">lastUpdated</span><span class="o">;</span>
 
         <span class="cm">/*
         actueel_publicatie: 1 = data is less then 3 minutes old.
          */</span>
-        <span class="kd">private</span> <span class="n">Boolean</span> <span class="n">recentData</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Boolean</span> <span class="n">recentData</span><span class="o">;</span>
 
         <span class="cm">/* 
         Indicate if the sensor (meetPunt) was available when trying to retrieve the data
         */</span>
-        <span class="kd">private</span> <span class="n">Boolean</span> <span class="n">available</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Boolean</span> <span class="n">available</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="n">Integer</span> <span class="n">sensorDefect</span><span class="o">;</span>
-        <span class="kd">private</span> <span class="n">Integer</span> <span class="n">sensorValid</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">sensorDefect</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">sensorValid</span><span class="o">;</span>
 
     <span class="o">}</span>
 </code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">VehicleClass</code> is just an enum with the vehicle type.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">MOTO</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span>
-    <span class="n">CAR</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span>
-    <span class="n">VAN</span><span class="o">(</span><span class="mi">3</span><span class="o">),</span>
-    <span class="n">RIGGID_LORRIES</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span>
-    <span class="n">TRUCK_OR_BUS</span><span class="o">(</span><span class="mi">5</span><span class="o">),</span>
-    <span class="n">UNKNOWN</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="no">MOTO</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span>
+    <span class="no">CAR</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span>
+    <span class="no">VAN</span><span class="o">(</span><span class="mi">3</span><span class="o">),</span>
+    <span class="no">RIGGID_LORRIES</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span>
+    <span class="no">TRUCK_OR_BUS</span><span class="o">(</span><span class="mi">5</span><span class="o">),</span>
+    <span class="no">UNKNOWN</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>We will also retrieve the detailed sensor information from the XML containing the sensor descriptions.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Data</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SensorData</span> <span class="o">{</span>
 
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">uniekeId</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">uniekeId</span><span class="o">;</span>
 
         <span class="cm">/*
         MeetpuntId
         */</span>
-        <span class="kd">private</span> <span class="n">Integer</span> <span class="n">sensorId</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">sensorId</span><span class="o">;</span>
         <span class="cm">/*
         Meetpunt beschrijvende Id
          */</span>
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">sensorDescriptiveId</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">sensorDescriptiveId</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
 
         <span class="cm">/*
         Unique road number.
@@ -400,7 +400,7 @@ For every sensor point per vehicle we will extract one <code class="highlighter-
             Or the dataset "De beheersegmenten van de genummerde wegen" by AWV, field ident8,
             http://www.geopunt.be/catalogus/datasetfolder/12b65bc0-8c71-447a-8285-3334ca1769d8
         */</span>
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">ident8</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">ident8</span><span class="o">;</span>
 
         <span class="cm">/*
         Reference to the lane of the measurement point.
@@ -420,21 +420,21 @@ For every sensor point per vehicle we will extract one <code class="highlighter-
           The TR-lane is identical to the corresponding R-lane (TR10=R10,TR11=R11,TR12=R12,...), but returns the data of the "ghost traffic" instead.
           (The data for TR10 and R10 are provided by the same detection loops.)
          */</span>
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">trafficLane</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">trafficLane</span><span class="o">;</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Write these events to a topic.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendMessage</span><span class="o">(</span><span class="n">TrafficEvent</span> <span class="n">trafficEvent</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">outputChannels</span><span class="o">.</span><span class="na">trafficEvents</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="n">trafficEvent</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendMessage</span><span class="o">(</span><span class="nc">TrafficEvent</span> <span class="n">trafficEvent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">outputChannels</span><span class="o">.</span><span class="na">trafficEvents</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="nc">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="n">trafficEvent</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
 
 
         <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Send message to the trafficEventOutput channel"</span><span class="o">);</span>
-        <span class="n">outputChannels</span><span class="o">.</span><span class="na">trafficEventsOutput</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="n">trafficEvent</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+        <span class="n">outputChannels</span><span class="o">.</span><span class="na">trafficEventsOutput</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="nc">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="n">trafficEvent</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendSensorData</span><span class="o">(</span><span class="n">SensorData</span> <span class="n">sensorData</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">outputChannels</span><span class="o">.</span><span class="na">sensorDataOutput</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="n">sensorData</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendSensorData</span><span class="o">(</span><span class="nc">SensorData</span> <span class="n">sensorData</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">outputChannels</span><span class="o">.</span><span class="na">sensorDataOutput</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="nc">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="n">sensorData</span><span class="o">).</span><span class="na">build</span><span class="o">());</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
@@ -442,7 +442,7 @@ For every sensor point per vehicle we will extract one <code class="highlighter-
 
 <p>With the <code class="highlighter-rouge">@Scheduled</code> annotation Spring Boot will read in the events every 60 seconds.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">fixedRate</span> <span class="o">=</span> <span class="mi">60000</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="n">putAllEventsInKafka</span><span class="o">();</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -487,15 +487,15 @@ For both Kafka and Storm you not only need to set up a cluster of the framework 
 
 <p>First define a <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/messaging/SubscribableChannel.html" target="_blank" rel="noopener noreferrer">SubscribableChannel</a>.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Input</span>
-    <span class="n">SubscribableChannel</span> <span class="nf">trafficEvents</span><span class="o">();</span>
+    <span class="nc">SubscribableChannel</span> <span class="nf">trafficEvents</span><span class="o">();</span>
 </code></pre></div></div>
 
 <p>Then you will need to define a <code class="highlighter-rouge">MessageHandler</code> which will describe what you will do with every message you process.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">MessageHandler</span> <span class="n">messageHandler</span> <span class="o">=</span> <span class="o">(</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">MessageHandler</span> <span class="n">messageHandler</span> <span class="o">=</span> <span class="o">(</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="o">{</span>
             <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"retrieved message with header "</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
             <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"retrieved message "</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
 
-            <span class="n">TrafficEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="o">(</span><span class="n">TrafficEvent</span><span class="o">)</span> <span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">();</span>
+            <span class="nc">TrafficEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TrafficEvent</span><span class="o">)</span> <span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">();</span>
 
             <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">" the sensor id is "</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="na">getSensorId</span><span class="o">());</span>
 
@@ -591,15 +591,15 @@ Let’s use these but now using Kafka.</p>
 
 <p>First we are going to take in the static data of the sensors into a <code class="highlighter-rouge">KTable</code>.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">SensorData</span><span class="o">&gt;</span> <span class="n">sensorDescriptionsStream</span> <span class="o">=</span>
-        <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"sensorDataOutput"</span><span class="o">,</span> <span class="n">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="n">SensorDataSerde</span><span class="o">()));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">SensorData</span><span class="o">&gt;</span> <span class="n">sensorDescriptionsStream</span> <span class="o">=</span>
+        <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"sensorDataOutput"</span><span class="o">,</span> <span class="nc">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">SensorDataSerde</span><span class="o">()));</span>
 
-    <span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">SensorData</span><span class="o">&gt;</span> <span class="n">sensorDescriptionsWithKey</span> <span class="o">=</span>
+    <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">SensorData</span><span class="o">&gt;</span> <span class="n">sensorDescriptionsWithKey</span> <span class="o">=</span>
         <span class="n">sensorDescriptionsStream</span><span class="o">.</span><span class="na">selectKey</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">.</span><span class="na">getUniekeId</span><span class="o">());</span>
     <span class="n">sensorDescriptionsWithKey</span><span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="s">"dummy-topic"</span><span class="o">);</span>
 
-    <span class="n">KTable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">SensorData</span><span class="o">&gt;</span> <span class="n">sensorDataKTable</span> <span class="o">=</span>
-        <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">table</span><span class="o">(</span><span class="s">"dummy-topic"</span><span class="o">,</span> <span class="n">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="n">SensorDataSerde</span><span class="o">()));</span>
+    <span class="nc">KTable</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">SensorData</span><span class="o">&gt;</span> <span class="n">sensorDataKTable</span> <span class="o">=</span>
+        <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">table</span><span class="o">(</span><span class="s">"dummy-topic"</span><span class="o">,</span> <span class="nc">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">SensorDataSerde</span><span class="o">()));</span>
 </code></pre></div></div>
 
 <p>The main reason we are using a <code class="highlighter-rouge">KTable</code> is that it makes it easy to be sure to only get the most recent state of that sensor, as a <code class="highlighter-rouge">KTable</code> will only return one result per key.
@@ -608,14 +608,14 @@ For my example it is not that important to have a well defined topic name.
 But do realize that Kafka Streams will persist the state of a <code class="highlighter-rouge">Ktable</code> within Kafka topics.</p>
 
 <p>Subsequently we are going to enrich the traffic event with the sensor data.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">TrafficEvent</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span>
-            <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"trafficEventsOutput"</span><span class="o">,</span> <span class="n">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">()</span>
-                    <span class="o">,</span> <span class="k">new</span> <span class="n">TrafficEventSerde</span><span class="o">()));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span>
+            <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"trafficEventsOutput"</span><span class="o">,</span> <span class="nc">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">()</span>
+                    <span class="o">,</span> <span class="k">new</span> <span class="nc">TrafficEventSerde</span><span class="o">()));</span>
     <span class="n">stream</span><span class="o">.</span><span class="na">selectKey</span><span class="o">((</span><span class="n">key</span><span class="o">,</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">.</span><span class="na">getSensorId</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">sensorDataKTable</span><span class="o">,((</span><span class="n">TrafficEvent</span> <span class="n">trafficEvent</span><span class="o">,</span> <span class="n">SensorData</span> <span class="n">sensorData</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">sensorDataKTable</span><span class="o">,((</span><span class="nc">TrafficEvent</span> <span class="n">trafficEvent</span><span class="o">,</span> <span class="nc">SensorData</span> <span class="n">sensorData</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
                 <span class="n">trafficEvent</span><span class="o">.</span><span class="na">setSensorData</span><span class="o">(</span><span class="n">sensorData</span><span class="o">);</span>
                 <span class="k">return</span> <span class="n">trafficEvent</span><span class="o">;</span>
-            <span class="o">}),</span> <span class="n">Joined</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="n">TrafficEventSerde</span><span class="o">(),</span> <span class="kc">null</span><span class="o">))</span>
+            <span class="o">}),</span> <span class="nc">Joined</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">TrafficEventSerde</span><span class="o">(),</span> <span class="kc">null</span><span class="o">))</span>
             <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="s">"enriched-trafficEventsOutput"</span><span class="o">);</span>
 </code></pre></div></div>
 
@@ -627,9 +627,9 @@ In our case the key is just a string, while the body of the topic will be a JSON
 
 <p>With <code class="highlighter-rouge">join()</code>, full definition:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">&lt;</span><span class="n">VT</span><span class="o">,</span> <span class="n">VR</span><span class="o">&gt;</span> <span class="n">KStream</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">VR</span><span class="o">&gt;</span> <span class="nf">join</span><span class="o">(</span><span class="kd">final</span> <span class="n">KTable</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">VT</span><span class="o">&gt;</span> <span class="n">table</span><span class="o">,</span>
-         <span class="kd">final</span> <span class="n">ValueJoiner</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">V</span><span class="o">,</span> <span class="o">?</span> <span class="kd">super</span> <span class="n">VT</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">VR</span><span class="o">&gt;</span> <span class="n">joiner</span><span class="o">,</span>
-         <span class="kd">final</span> <span class="n">Joined</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">,</span> <span class="n">VT</span><span class="o">&gt;</span> <span class="n">joined</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">&lt;</span><span class="no">VT</span><span class="o">,</span> <span class="no">VR</span><span class="o">&gt;</span> <span class="nc">KStream</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">VR</span><span class="o">&gt;</span> <span class="nf">join</span><span class="o">(</span><span class="kd">final</span> <span class="nc">KTable</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">VT</span><span class="o">&gt;</span> <span class="n">table</span><span class="o">,</span>
+         <span class="kd">final</span> <span class="nc">ValueJoiner</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">V</span><span class="o">,</span> <span class="o">?</span> <span class="kd">super</span> <span class="no">VT</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="no">VR</span><span class="o">&gt;</span> <span class="n">joiner</span><span class="o">,</span>
+         <span class="kd">final</span> <span class="nc">Joined</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">,</span> <span class="no">VT</span><span class="o">&gt;</span> <span class="n">joined</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>We join our <code class="highlighter-rouge">KTable</code> with our <code class="highlighter-rouge">TrafficEvent</code> records using the <code class="highlighter-rouge">ValueJoiner</code> we pass along which will result in a new <code class="highlighter-rouge">Joined</code> result.
@@ -641,8 +641,8 @@ The <code class="highlighter-rouge">Joined</code> describes the new record struc
 
 <p>For some of our further processing we do not care for all traffic events, so let’s filter out some.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">TrafficEvent</span><span class="o">&gt;</span> <span class="n">streamToProcessData</span> <span class="o">=</span> 
-        <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"enriched-trafficEventsOutput"</span><span class="o">,</span> <span class="n">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="n">TrafficEventSerde</span><span class="o">()));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="n">streamToProcessData</span> <span class="o">=</span> 
+        <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"enriched-trafficEventsOutput"</span><span class="o">,</span> <span class="nc">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">TrafficEventSerde</span><span class="o">()));</span>
 
     <span class="n">streamToProcessData</span><span class="o">.</span><span class="na">selectKey</span><span class="o">((</span><span class="n">key</span><span class="o">,</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">.</span><span class="na">getSensorId</span><span class="o">())</span>
         <span class="o">.</span><span class="na">filter</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">canProcessSensor</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
@@ -650,7 +650,7 @@ The <code class="highlighter-rouge">Joined</code> describes the new record struc
 
 <p>Filtering happens on the key of the records, so first we will use <code class="highlighter-rouge">selectKey()</code> passing along a <code class="highlighter-rouge">KeyMapper</code> to map to the new key.
 The <code class="highlighter-rouge">KeyMapper</code> is a function to which you pass along the field which you want to become the new key.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">canProcessSensor</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">canProcessSensor</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">sensorIdsToProcess</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -689,19 +689,19 @@ Then you will need to aggregate the results per window with <code class="highlig
 
 <p>Do not forget to provide the correct <code class="highlighter-rouge">Materialized</code> parameters so Kafka knows what type of key and value is used as input by the aggregation.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">createWindowStreamForAverageSpeedPerSensor</span><span class="o">(</span><span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">TrafficEvent</span><span class="o">&gt;</span> <span class="n">streamToProcessData</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Initializer</span> <span class="n">initializer</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">SensorCount</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">createWindowStreamForAverageSpeedPerSensor</span><span class="o">(</span><span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="n">streamToProcessData</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Initializer</span> <span class="n">initializer</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">SensorCount</span><span class="o">();</span>
 
         <span class="n">streamToProcessData</span>
             <span class="o">.</span><span class="na">groupByKey</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">windowedBy</span><span class="o">(</span><span class="n">TimeWindows</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">300000</span><span class="o">).</span><span class="na">advanceBy</span><span class="o">(</span><span class="mi">60000</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">windowedBy</span><span class="o">(</span><span class="nc">TimeWindows</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">300000</span><span class="o">).</span><span class="na">advanceBy</span><span class="o">(</span><span class="mi">60000</span><span class="o">))</span>
             <span class="o">.</span><span class="na">aggregate</span><span class="o">(</span><span class="n">initializer</span><span class="o">,</span> <span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">aggregate</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">aggregate</span><span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">getVehicleSpeedCalculated</span><span class="o">()),</span>
-                    <span class="n">Materialized</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="n">JsonSerde</span><span class="o">&lt;&gt;(</span><span class="n">SensorCount</span><span class="o">.</span><span class="na">class</span><span class="o">)))</span>
-                    <span class="o">.</span><span class="na">mapValues</span><span class="o">(</span><span class="nl">SensorCount:</span><span class="o">:</span><span class="n">average</span><span class="o">,</span> <span class="n">Materialized</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="k">new</span> <span class="n">WindowedSerde</span><span class="o">&lt;&gt;(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">()),</span> <span class="n">Serdes</span><span class="o">.</span><span class="na">Double</span><span class="o">()))</span>
+                    <span class="nc">Materialized</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">JsonSerde</span><span class="o">&lt;&gt;(</span><span class="nc">SensorCount</span><span class="o">.</span><span class="na">class</span><span class="o">)))</span>
+                    <span class="o">.</span><span class="na">mapValues</span><span class="o">(</span><span class="nl">SensorCount:</span><span class="o">:</span><span class="n">average</span><span class="o">,</span> <span class="nc">Materialized</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="k">new</span> <span class="nc">WindowedSerde</span><span class="o">&lt;&gt;(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">()),</span> <span class="nc">Serdes</span><span class="o">.</span><span class="na">Double</span><span class="o">()))</span>
                     <span class="o">.</span><span class="na">toStream</span><span class="o">()</span>
-                    <span class="o">.</span><span class="na">map</span><span class="o">(((</span><span class="n">key</span><span class="o">,</span> <span class="n">average</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">KeyValue</span><span class="o">&lt;&gt;(</span><span class="n">key</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">average</span><span class="o">)))</span>
-                    <span class="o">.</span><span class="na">through</span><span class="o">(</span><span class="s">"average-speed-per-sensor"</span><span class="o">,</span> <span class="n">Produced</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="n">Serdes</span><span class="o">.</span><span class="na">Double</span><span class="o">()))</span>
-                    <span class="o">.</span><span class="na">foreach</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">average</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">((</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">" =======&gt; average speed for the sensor %s is now %s"</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">average</span><span class="o">))));</span>
+                    <span class="o">.</span><span class="na">map</span><span class="o">(((</span><span class="n">key</span><span class="o">,</span> <span class="n">average</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">KeyValue</span><span class="o">&lt;&gt;(</span><span class="n">key</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">average</span><span class="o">)))</span>
+                    <span class="o">.</span><span class="na">through</span><span class="o">(</span><span class="s">"average-speed-per-sensor"</span><span class="o">,</span> <span class="nc">Produced</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="nc">Serdes</span><span class="o">.</span><span class="na">Double</span><span class="o">()))</span>
+                    <span class="o">.</span><span class="na">foreach</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">average</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">((</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">" =======&gt; average speed for the sensor %s is now %s"</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">average</span><span class="o">))));</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
@@ -709,8 +709,8 @@ Then you will need to aggregate the results per window with <code class="highlig
                 <span class="o">.</span><span class="na">selectKey</span><span class="o">((</span><span class="n">key</span><span class="o">,</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">.</span><span class="na">getSensorData</span><span class="o">().</span><span class="na">getName</span><span class="o">().</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"\\s"</span><span class="o">,</span><span class="s">""</span><span class="o">).</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"-"</span><span class="o">,</span> <span class="s">""</span><span class="o">))</span>
         <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="s">"traffic-per-lane"</span><span class="o">);</span>
 
-    <span class="n">KStream</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">TrafficEvent</span><span class="o">&gt;</span> <span class="n">streamPerHighwayLaneToProcess</span> <span class="o">=</span> 
-            <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"traffic-per-lane"</span><span class="o">,</span> <span class="n">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="n">TrafficEventSerde</span><span class="o">()));</span>
+    <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="n">streamPerHighwayLaneToProcess</span> <span class="o">=</span> 
+            <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"traffic-per-lane"</span><span class="o">,</span> <span class="nc">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">TrafficEventSerde</span><span class="o">()));</span>
 
     <span class="k">this</span><span class="o">.</span><span class="na">createWindowStreamForAverageSpeedPerHighwaySection</span><span class="o">(</span><span class="n">streamPerHighwayLaneToProcess</span><span class="o">);</span>
 </code></pre></div></div>
@@ -785,68 +785,68 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
 </code></pre></div></div>
 
 <p>The idea is to get to a Storm topology with one <code class="highlighter-rouge">Spout</code> and two <code class="highlighter-rouge">Bolts</code>.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">final</span> <span class="n">TopologyBuilder</span> <span class="n">tp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TopologyBuilder</span><span class="o">();</span>
-        <span class="n">tp</span><span class="o">.</span><span class="na">setSpout</span><span class="o">(</span><span class="s">"kafka_spout"</span><span class="o">,</span> <span class="k">new</span> <span class="n">KafkaSpout</span><span class="o">&lt;&gt;(</span><span class="n">spoutConfig</span><span class="o">),</span> <span class="mi">1</span><span class="o">).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="n">TrafficEventBolt</span><span class="o">(</span><span class="n">sensorIdsToProcess</span><span class="o">)).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">final</span> <span class="nc">TopologyBuilder</span> <span class="n">tp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TopologyBuilder</span><span class="o">();</span>
+        <span class="n">tp</span><span class="o">.</span><span class="na">setSpout</span><span class="o">(</span><span class="s">"kafka_spout"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">KafkaSpout</span><span class="o">&lt;&gt;(</span><span class="n">spoutConfig</span><span class="o">),</span> <span class="mi">1</span><span class="o">).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">TrafficEventBolt</span><span class="o">(</span><span class="n">sensorIdsToProcess</span><span class="o">)).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">globalGrouping</span><span class="o">(</span><span class="s">"kafka_spout"</span><span class="o">);</span>
-        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"updateTrafficEventStats_bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="n">TrafficCountBolt</span><span class="o">()).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">fieldsGrouping</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
+        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"updateTrafficEventStats_bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">TrafficCountBolt</span><span class="o">()).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">fieldsGrouping</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
         <span class="k">return</span> <span class="n">tp</span><span class="o">.</span><span class="na">createTopology</span><span class="o">();</span>
 </code></pre></div></div>
 
 <p>First we will define a <code class="highlighter-rouge">KafkaSpout</code> which will take in the data of a Kafka topic.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">protected</span> <span class="n">KafkaSpoutConfig</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">getKafkaSpoutConfig</span><span class="o">(</span><span class="n">String</span> <span class="n">bootstrapServers</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ByTopicRecordTranslator</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">trans</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByTopicRecordTranslator</span><span class="o">&lt;&gt;(</span>
-                <span class="o">(</span><span class="n">r</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Values</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">topic</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">partition</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">offset</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">value</span><span class="o">()),</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">protected</span> <span class="nc">KafkaSpoutConfig</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">getKafkaSpoutConfig</span><span class="o">(</span><span class="nc">String</span> <span class="n">bootstrapServers</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ByTopicRecordTranslator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">trans</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByTopicRecordTranslator</span><span class="o">&lt;&gt;(</span>
+                <span class="o">(</span><span class="n">r</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Values</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">topic</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">partition</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">offset</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">value</span><span class="o">()),</span>
                 <span class="k">new</span> <span class="nf">Fields</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"partition"</span><span class="o">,</span> <span class="s">"offset"</span><span class="o">,</span> <span class="s">"key"</span><span class="o">,</span> <span class="s">"value"</span><span class="o">));</span>
         <span class="n">trans</span><span class="o">.</span><span class="na">forTopic</span><span class="o">(</span><span class="s">"trafficEventsOutput"</span><span class="o">,</span>
-                <span class="o">(</span><span class="n">r</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Values</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">topic</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">partition</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">offset</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">value</span><span class="o">()),</span>
+                <span class="o">(</span><span class="n">r</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Values</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">topic</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">partition</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">offset</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">value</span><span class="o">()),</span>
                 <span class="k">new</span> <span class="nf">Fields</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"partition"</span><span class="o">,</span> <span class="s">"offset"</span><span class="o">,</span> <span class="s">"key"</span><span class="o">,</span> <span class="s">"value"</span><span class="o">));</span>
-        <span class="k">return</span> <span class="n">KafkaSpoutConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">bootstrapServers</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">"trafficEventsOutput"</span><span class="o">})</span>
-                <span class="o">.</span><span class="na">setProp</span><span class="o">(</span><span class="n">ConsumerConfig</span><span class="o">.</span><span class="na">GROUP_ID_CONFIG</span><span class="o">,</span> <span class="s">"kafkaSpoutTestGroup"</span><span class="o">)</span>
+        <span class="k">return</span> <span class="nc">KafkaSpoutConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">bootstrapServers</span><span class="o">,</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]{</span><span class="s">"trafficEventsOutput"</span><span class="o">})</span>
+                <span class="o">.</span><span class="na">setProp</span><span class="o">(</span><span class="nc">ConsumerConfig</span><span class="o">.</span><span class="na">GROUP_ID_CONFIG</span><span class="o">,</span> <span class="s">"kafkaSpoutTestGroup"</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">setRetry</span><span class="o">(</span><span class="n">getRetryService</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">setRecordTranslator</span><span class="o">(</span><span class="n">trans</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">setOffsetCommitPeriodMs</span><span class="o">(</span><span class="mi">10_000</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">setFirstPollOffsetStrategy</span><span class="o">(</span><span class="n">EARLIEST</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">setFirstPollOffsetStrategy</span><span class="o">(</span><span class="no">EARLIEST</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">setMaxUncommittedOffsets</span><span class="o">(</span><span class="mi">1050</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
 <p>For completeness this is the <code class="highlighter-rouge">retryService</code> which just handles some retrying whenever your Kafka cluster is behaving naughty:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">protected</span> <span class="n">KafkaSpoutRetryService</span> <span class="nf">getRetryService</span><span class="o">()</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="nf">KafkaSpoutRetryExponentialBackoff</span><span class="o">(</span><span class="n">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">microSeconds</span><span class="o">(</span><span class="mi">500</span><span class="o">),</span>
-                    <span class="n">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">milliSeconds</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="n">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">seconds</span><span class="o">(</span><span class="mi">10</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">protected</span> <span class="nc">KafkaSpoutRetryService</span> <span class="nf">getRetryService</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">KafkaSpoutRetryExponentialBackoff</span><span class="o">(</span><span class="nc">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">microSeconds</span><span class="o">(</span><span class="mi">500</span><span class="o">),</span>
+                    <span class="nc">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">milliSeconds</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="nc">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">seconds</span><span class="o">(</span><span class="mi">10</span><span class="o">));</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Then we will emmit that data to a <code class="highlighter-rouge">TrafficEventBolt</code> which will filter out the events we want to process further.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficEventBolt</span> <span class="kd">extends</span> <span class="n">BaseRichBolt</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="n">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficEventBolt</span> <span class="kd">extends</span> <span class="nc">BaseRichBolt</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
 
 
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sensorIds</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">sensorIds</span><span class="o">;</span>
 
-        <span class="kd">public</span> <span class="nf">TrafficEventBolt</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">sensorIdsToProcess</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">TrafficEventBolt</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">sensorIdsToProcess</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">sensorIds</span> <span class="o">=</span> <span class="n">sensorIdsToProcess</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="o">(</span><span class="n">Map</span> <span class="n">map</span><span class="o">,</span> <span class="n">TopologyContext</span> <span class="n">topologyContext</span><span class="o">,</span> <span class="n">OutputCollector</span> <span class="n">outputCollector</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="o">(</span><span class="nc">Map</span> <span class="n">map</span><span class="o">,</span> <span class="nc">TopologyContext</span> <span class="n">topologyContext</span><span class="o">,</span> <span class="nc">OutputCollector</span> <span class="n">outputCollector</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">collector</span> <span class="o">=</span> <span class="n">outputCollector</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Tuple</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">Tuple</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"input = ["</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
 
             <span class="n">input</span><span class="o">.</span><span class="na">getValues</span><span class="o">();</span>
 
-            <span class="n">TrafficEvent</span> <span class="n">trafficEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">().</span><span class="na">fromJson</span><span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"value"</span><span class="o">),</span> <span class="n">TrafficEvent</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+            <span class="nc">TrafficEvent</span> <span class="n">trafficEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Gson</span><span class="o">().</span><span class="na">fromJson</span><span class="o">((</span><span class="nc">String</span><span class="o">)</span><span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"value"</span><span class="o">),</span> <span class="nc">TrafficEvent</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
             <span class="k">if</span> <span class="o">(</span><span class="n">sensorIds</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">trafficEvent</span><span class="o">.</span><span class="na">getSensorId</span><span class="o">()))</span> <span class="o">{</span>
-                <span class="n">collector</span><span class="o">.</span><span class="na">emit</span><span class="o">(</span><span class="n">input</span><span class="o">,</span> <span class="k">new</span> <span class="n">Values</span><span class="o">(</span><span class="n">trafficEvent</span><span class="o">.</span><span class="na">getSensorId</span><span class="o">(),</span> <span class="n">trafficEvent</span><span class="o">.</span><span class="na">getVehicleSpeedCalculated</span><span class="o">(),</span> <span class="n">trafficEvent</span><span class="o">.</span><span class="na">getTrafficIntensity</span><span class="o">()));</span>
+                <span class="n">collector</span><span class="o">.</span><span class="na">emit</span><span class="o">(</span><span class="n">input</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Values</span><span class="o">(</span><span class="n">trafficEvent</span><span class="o">.</span><span class="na">getSensorId</span><span class="o">(),</span> <span class="n">trafficEvent</span><span class="o">.</span><span class="na">getVehicleSpeedCalculated</span><span class="o">(),</span> <span class="n">trafficEvent</span><span class="o">.</span><span class="na">getTrafficIntensity</span><span class="o">()));</span>
             <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
                 <span class="n">collector</span><span class="o">.</span><span class="na">ack</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
             <span class="o">}</span>
@@ -854,45 +854,45 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">declareOutputFields</span><span class="o">(</span><span class="n">OutputFieldsDeclarer</span> <span class="n">declarer</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">declarer</span><span class="o">.</span><span class="na">declare</span><span class="o">(</span><span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">,</span> <span class="s">"speed"</span><span class="o">,</span> <span class="s">"trafficIntensity"</span><span class="o">));</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">declareOutputFields</span><span class="o">(</span><span class="nc">OutputFieldsDeclarer</span> <span class="n">declarer</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">declarer</span><span class="o">.</span><span class="na">declare</span><span class="o">(</span><span class="k">new</span> <span class="nc">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">,</span> <span class="s">"speed"</span><span class="o">,</span> <span class="s">"trafficIntensity"</span><span class="o">));</span>
         <span class="o">}</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Finally we will send out the tuples to a <code class="highlighter-rouge">TrafficCountBolt</code> which will gather some general statistics.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficCountBolt</span> <span class="kd">extends</span> <span class="n">BaseRichBolt</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="n">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficCountBolt</span> <span class="kd">extends</span> <span class="nc">BaseRichBolt</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
 
 
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">countPerSensors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">countPerSensors</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
 
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="o">(</span><span class="n">Map</span> <span class="n">map</span><span class="o">,</span> <span class="n">TopologyContext</span> <span class="n">topologyContext</span><span class="o">,</span> <span class="n">OutputCollector</span> <span class="n">outputCollector</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="o">(</span><span class="nc">Map</span> <span class="n">map</span><span class="o">,</span> <span class="nc">TopologyContext</span> <span class="n">topologyContext</span><span class="o">,</span> <span class="nc">OutputCollector</span> <span class="n">outputCollector</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">collector</span> <span class="o">=</span> <span class="n">outputCollector</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Tuple</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">Tuple</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"input = ["</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
 
-            <span class="n">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">countPerSensors</span><span class="o">.</span><span class="na">get</span><span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
+            <span class="nc">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">countPerSensors</span><span class="o">.</span><span class="na">get</span><span class="o">((</span><span class="nc">String</span><span class="o">)</span><span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
             <span class="o">}</span>
-            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">+</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"trafficIntensity"</span><span class="o">);</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">+</span> <span class="o">(</span><span class="nc">Integer</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"trafficIntensity"</span><span class="o">);</span>
             <span class="n">countPerSensors</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">count</span><span class="o">);</span>
 
-            <span class="n">collector</span><span class="o">.</span><span class="na">emit</span><span class="o">(</span><span class="k">new</span> <span class="n">Values</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">count</span><span class="o">));</span>
+            <span class="n">collector</span><span class="o">.</span><span class="na">emit</span><span class="o">(</span><span class="k">new</span> <span class="nc">Values</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">count</span><span class="o">));</span>
 
             <span class="n">collector</span><span class="o">.</span><span class="na">ack</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">declareOutputFields</span><span class="o">(</span><span class="n">OutputFieldsDeclarer</span> <span class="n">declarer</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">declarer</span><span class="o">.</span><span class="na">declare</span><span class="o">(</span><span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">,</span> <span class="s">"count"</span><span class="o">));</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">declareOutputFields</span><span class="o">(</span><span class="nc">OutputFieldsDeclarer</span> <span class="n">declarer</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">declarer</span><span class="o">.</span><span class="na">declare</span><span class="o">(</span><span class="k">new</span> <span class="nc">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">,</span> <span class="s">"count"</span><span class="o">));</span>
         <span class="o">}</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -900,24 +900,24 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
 <h3 id="windowing-1">Windowing</h3>
 <p>Storm also knows about the concept of <a href="https://storm.apache.org/releases/1.2.2/Windowing.html" target="_blank" rel="noopener noreferrer">windowing</a>.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountPerSensorIdBolt</span> <span class="kd">extends</span> <span class="n">BaseWindowedBolt</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountPerSensorIdBolt</span> <span class="kd">extends</span> <span class="nc">BaseWindowedBolt</span> <span class="o">{</span>
     
-        <span class="kd">private</span> <span class="n">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
 
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">countPerSensors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">countPerSensors</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">TupleWindow</span> <span class="n">tupleWindow</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">TupleWindow</span> <span class="n">tupleWindow</span><span class="o">)</span> <span class="o">{</span>
 
-            <span class="k">for</span> <span class="o">(</span><span class="n">Tuple</span> <span class="n">input</span> <span class="o">:</span> <span class="n">tupleWindow</span><span class="o">.</span><span class="na">get</span><span class="o">())</span> <span class="o">{</span>
-                <span class="n">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">countPerSensors</span><span class="o">.</span><span class="na">get</span><span class="o">((</span><span class="n">String</span><span class="o">)</span><span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
+            <span class="k">for</span> <span class="o">(</span><span class="nc">Tuple</span> <span class="n">input</span> <span class="o">:</span> <span class="n">tupleWindow</span><span class="o">.</span><span class="na">get</span><span class="o">())</span> <span class="o">{</span>
+                <span class="nc">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">countPerSensors</span><span class="o">.</span><span class="na">get</span><span class="o">((</span><span class="nc">String</span><span class="o">)</span><span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
                 <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
                     <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
                 <span class="o">}</span>
-                <span class="n">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">+</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"trafficIntensity"</span><span class="o">);</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">+</span> <span class="o">(</span><span class="nc">Integer</span><span class="o">)</span> <span class="n">input</span><span class="o">.</span><span class="na">getValueByField</span><span class="o">(</span><span class="s">"trafficIntensity"</span><span class="o">);</span>
                 <span class="n">countPerSensors</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">count</span><span class="o">);</span>
 
-                <span class="n">collector</span><span class="o">.</span><span class="na">emit</span><span class="o">(</span><span class="k">new</span> <span class="n">Values</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">count</span><span class="o">));</span>
+                <span class="n">collector</span><span class="o">.</span><span class="na">emit</span><span class="o">(</span><span class="k">new</span> <span class="nc">Values</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">count</span><span class="o">));</span>
 
                 <span class="n">collector</span><span class="o">.</span><span class="na">ack</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
             <span class="o">}</span>
@@ -930,14 +930,14 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
 
 <p>In this example we are just using windows with a fixed duration of five seconds.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">StormTopology</span> <span class="nf">getTopologyKafkaSpout</span><span class="o">(</span><span class="n">KafkaSpoutConfig</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">spoutConfig</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="n">TopologyBuilder</span> <span class="n">tp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TopologyBuilder</span><span class="o">();</span>
-        <span class="n">tp</span><span class="o">.</span><span class="na">setSpout</span><span class="o">(</span><span class="s">"kafka_spout"</span><span class="o">,</span> <span class="k">new</span> <span class="n">KafkaSpout</span><span class="o">&lt;&gt;(</span><span class="n">spoutConfig</span><span class="o">),</span> <span class="mi">1</span><span class="o">).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
-        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="n">TrafficEventBolt</span><span class="o">(</span><span class="n">sensorIdsToProcess</span><span class="o">)).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">StormTopology</span> <span class="nf">getTopologyKafkaSpout</span><span class="o">(</span><span class="nc">KafkaSpoutConfig</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">spoutConfig</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">TopologyBuilder</span> <span class="n">tp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TopologyBuilder</span><span class="o">();</span>
+        <span class="n">tp</span><span class="o">.</span><span class="na">setSpout</span><span class="o">(</span><span class="s">"kafka_spout"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">KafkaSpout</span><span class="o">&lt;&gt;(</span><span class="n">spoutConfig</span><span class="o">),</span> <span class="mi">1</span><span class="o">).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">TrafficEventBolt</span><span class="o">(</span><span class="n">sensorIdsToProcess</span><span class="o">)).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">globalGrouping</span><span class="o">(</span><span class="s">"kafka_spout"</span><span class="o">);</span>
-        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"updateTrafficEventStats_bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="n">TrafficCountBolt</span><span class="o">()).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">fieldsGrouping</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
-        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"windowedProcessBolt"</span><span class="o">,</span> <span class="k">new</span> <span class="n">CountPerSensorIdBolt</span><span class="o">().</span><span class="na">withWindow</span><span class="o">(</span><span class="n">BaseWindowedBolt</span><span class="o">.</span><span class="na">Duration</span><span class="o">.</span><span class="na">seconds</span><span class="o">(</span><span class="mi">5</span><span class="o">)))</span>
+        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"updateTrafficEventStats_bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">TrafficCountBolt</span><span class="o">()).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">fieldsGrouping</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Fields</span><span class="o">(</span><span class="s">"sensorId"</span><span class="o">));</span>
+        <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"windowedProcessBolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">CountPerSensorIdBolt</span><span class="o">().</span><span class="na">withWindow</span><span class="o">(</span><span class="nc">BaseWindowedBolt</span><span class="o">.</span><span class="na">Duration</span><span class="o">.</span><span class="na">seconds</span><span class="o">(</span><span class="mi">5</span><span class="o">)))</span>
                 <span class="o">.</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">globalGrouping</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">tp</span><span class="o">.</span><span class="na">createTopology</span><span class="o">();</span>
@@ -946,21 +946,21 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
 
 <p>You can also pass in an extra parameter <code class="highlighter-rouge">slidingInterval</code> to define a sliding window.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withWindow</span><span class="o">(</span><span class="n">Duration</span> <span class="n">windowLength</span><span class="o">,</span> <span class="n">Duration</span> <span class="n">slidingInterval</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withWindow</span><span class="o">(</span><span class="nc">Duration</span> <span class="n">windowLength</span><span class="o">,</span> <span class="nc">Duration</span> <span class="n">slidingInterval</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Both the <code class="highlighter-rouge">windowLength</code> and the <code class="highlighter-rouge">slidingInterval</code> can also be represented by a <code class="highlighter-rouge">Count</code>, which will base the window duration on the amount of tuples being processed.
 Either determining the length of the window by the tuples, or when to slide.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withWindow</span><span class="o">(</span><span class="n">Count</span> <span class="n">windowLength</span><span class="o">,</span> <span class="n">Duration</span> <span class="n">slidingInterval</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withWindow</span><span class="o">(</span><span class="nc">Count</span> <span class="n">windowLength</span><span class="o">,</span> <span class="nc">Duration</span> <span class="n">slidingInterval</span><span class="o">)</span>
 
-    <span class="n">withWindow</span><span class="o">(</span><span class="n">Duration</span> <span class="n">windowLength</span><span class="o">,</span> <span class="n">Count</span> <span class="n">slidingInterval</span><span class="o">)</span>
+    <span class="n">withWindow</span><span class="o">(</span><span class="nc">Duration</span> <span class="n">windowLength</span><span class="o">,</span> <span class="nc">Count</span> <span class="n">slidingInterval</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Even tumbling windows are possible:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withTumblingWindow</span><span class="o">(</span><span class="n">BaseWindowedBolt</span><span class="o">.</span><span class="na">Count</span> <span class="n">count</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withTumblingWindow</span><span class="o">(</span><span class="nc">BaseWindowedBolt</span><span class="o">.</span><span class="na">Count</span> <span class="n">count</span><span class="o">)</span>
 
-    <span class="n">withTumblingWindow</span><span class="o">(</span><span class="n">BaseWindowedBolt</span><span class="o">.</span><span class="na">Duration</span> <span class="n">duration</span><span class="o">)</span>
+    <span class="n">withTumblingWindow</span><span class="o">(</span><span class="nc">BaseWindowedBolt</span><span class="o">.</span><span class="na">Duration</span> <span class="n">duration</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Please note that a tuple belongs to only one of the tumbling windows, while with a sliding window it is very much possible that a single tuple is processed within multiple windows.</p>

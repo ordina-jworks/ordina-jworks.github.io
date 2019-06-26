@@ -292,31 +292,31 @@ I’ve created an easy model which represents a message (notification), and maps
 	<span class="nd">@Id</span>
 	<span class="nd">@GeneratedValue</span>
 	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
 	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"title"</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
 	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"message"</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">message</span><span class="o">;</span>
 
-	<span class="kd">public</span> <span class="n">Long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">id</span><span class="o">;}</span>
+	<span class="kd">public</span> <span class="nc">Long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">id</span><span class="o">;}</span>
 
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;}</span>
 
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getTitle</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">title</span><span class="o">;}</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTitle</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">title</span><span class="o">;}</span>
 
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTitle</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTitle</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;}</span>
 
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">message</span><span class="o">;}</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">message</span><span class="o">;}</span>
 
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>I’ve created a custom <code class="highlighter-rouge">CrudRepository&lt;Notification, Long&gt;</code>:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">NotificationRepository</span> <span class="kd">extends</span> <span class="n">CrudRepository</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">();</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">NotificationRepository</span> <span class="kd">extends</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="nc">Notification</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Notification</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">();</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Notification</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -326,14 +326,14 @@ I’ve created an easy model which represents a message (notification), and maps
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">NotificationService</span> <span class="o">{</span>
 
     <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">NotificationRepository</span> <span class="n">notificationRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">NotificationRepository</span> <span class="n">notificationRepository</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="nf">getAll</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Notification</span><span class="o">&gt;</span> <span class="nf">getAll</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">notificationRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Notification</span> <span class="nf">get</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">EntityNotFoundException</span> <span class="o">{</span>
-        <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Notification</span><span class="o">&gt;</span> <span class="n">notification</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">notificationRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nc">Notification</span> <span class="nf">get</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">EntityNotFoundException</span> <span class="o">{</span>
+        <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Notification</span><span class="o">&gt;</span> <span class="n">notification</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">notificationRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">notification</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">notification</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
@@ -349,14 +349,14 @@ I’ve created an easy model which represents a message (notification), and maps
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/notification"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">NotificationController</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">SseEmitter</span><span class="o">&gt;</span> <span class="n">emitters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">SseEmitter</span><span class="o">&gt;</span> <span class="n">emitters</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
 
     <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">NotificationService</span> <span class="n">notificationService</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">NotificationService</span> <span class="n">notificationService</span><span class="o">;</span>
 
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">TEXT_EVENT_STREAM_VALUE</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">SseEmitter</span> <span class="nf">events</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">SseEmitter</span> <span class="n">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SseEmitter</span><span class="o">();</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">produces</span> <span class="o">=</span> <span class="nc">MediaType</span><span class="o">.</span><span class="na">TEXT_EVENT_STREAM_VALUE</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">SseEmitter</span> <span class="nf">events</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">SseEmitter</span> <span class="n">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SseEmitter</span><span class="o">();</span>
         <span class="n">emitters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
         <span class="n">emitter</span><span class="o">.</span><span class="na">onCompletion</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
             <span class="n">emitters</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">emitter</span><span class="o">);</span>
@@ -370,11 +370,11 @@ I’ve created an easy model which represents a message (notification), and maps
         <span class="k">return</span> <span class="n">emitter</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleNotification</span><span class="o">(</span><span class="n">Notification</span> <span class="n">notification</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleNotification</span><span class="o">(</span><span class="nc">Notification</span> <span class="n">notification</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">emitters</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">emitter</span> <span class="o">-&gt;</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
                 <span class="n">emitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">notification</span><span class="o">);</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">emitter</span><span class="o">.</span><span class="na">complete</span><span class="o">();</span>
             <span class="o">}</span>
         <span class="o">});</span>
@@ -382,7 +382,7 @@ I’ve created an easy model which represents a message (notification), and maps
 
     <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">fixedDelay</span> <span class="o">=</span> <span class="mi">2000</span><span class="o">)</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">receiveNotification</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">handleNotification</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">notificationService</span><span class="o">.</span><span class="na">get</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span> <span class="o">*</span> <span class="o">(</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">1</span><span class="o">))</span> <span class="o">+</span> <span class="mi">1</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">handleNotification</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">notificationService</span><span class="o">.</span><span class="na">get</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="o">(</span><span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span> <span class="o">*</span> <span class="o">(</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">1</span><span class="o">))</span> <span class="o">+</span> <span class="mi">1</span><span class="o">));</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -430,9 +430,9 @@ Writing custom middleware is very easy and well documented in the <a href="https
       <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
       <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setNoDelay</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
       <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setKeepAlive</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span> <span class="s1">'text/event-stream'</span><span class="p">);</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Cache-Control'</span><span class="p">,</span> <span class="s1">'no-cache'</span><span class="p">);</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="s1">'Connection'</span><span class="p">,</span> <span class="s1">'keep-alive'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">text/event-stream</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Cache-Control</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">no-cache</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connection</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">keep-alive</span><span class="dl">'</span><span class="p">);</span>
       <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>   
     <span class="p">}</span>
 
@@ -441,7 +441,7 @@ Writing custom middleware is very easy and well documented in the <a href="https
     <span class="p">}</span>
 
     <span class="nx">res</span><span class="p">.</span><span class="nx">sseOnClose</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"onClose"</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">onClose</span><span class="dl">"</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="nx">next</span><span class="p">()</span>
@@ -459,25 +459,25 @@ Besides this initialization, I’ve also implemented an <code class="highlighter
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">database</span> <span class="o">=</span> <span class="p">{</span>
     <span class="na">notifications</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="na">type</span><span class="p">:</span> <span class="s1">'test'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"TEST"</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="s2">"testmessage"</span><span class="p">},</span>
+        <span class="p">{</span><span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">test</span><span class="dl">'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TEST</span><span class="dl">"</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testmessage</span><span class="dl">"</span><span class="p">},</span>
         <span class="p">...,</span>
-        <span class="p">{</span><span class="na">type</span><span class="p">:</span> <span class="s1">'test'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s2">"TEST2"</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="s2">"testmessag2"</span><span class="p">}</span>
+        <span class="p">{</span><span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">test</span><span class="dl">'</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TEST2</span><span class="dl">"</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testmessag2</span><span class="dl">"</span><span class="p">}</span>
 
     <span class="p">],</span>
     <span class="na">updates</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>  
-            <span class="na">entity</span><span class="p">:</span> <span class="s1">'contact'</span><span class="p">,</span>
+            <span class="na">entity</span><span class="p">:</span> <span class="dl">'</span><span class="s1">contact</span><span class="dl">'</span><span class="p">,</span>
             <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">id</span><span class="p">:</span><span class="s1">'123456'</span>
-                <span class="na">email</span><span class="p">:</span><span class="s1">'contact123456@gmail.com'</span>
+                <span class="na">id</span><span class="p">:</span><span class="dl">'</span><span class="s1">123456</span><span class="dl">'</span>
+                <span class="na">email</span><span class="p">:</span><span class="dl">'</span><span class="s1">contact123456@gmail.com</span><span class="dl">'</span>
             <span class="p">}</span>
          <span class="p">},</span>
          <span class="p">...,</span>
          <span class="p">{</span>  
-             <span class="na">entity</span><span class="p">:</span> <span class="s1">'company'</span><span class="p">,</span>
+             <span class="na">entity</span><span class="p">:</span> <span class="dl">'</span><span class="s1">company</span><span class="dl">'</span><span class="p">,</span>
              <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
-                 <span class="na">id</span><span class="p">:</span><span class="s1">'123456'</span>
-                 <span class="na">tel1</span><span class="p">:</span><span class="s1">'+3234457645'</span>
+                 <span class="na">id</span><span class="p">:</span><span class="dl">'</span><span class="s1">123456</span><span class="dl">'</span>
+                 <span class="na">tel1</span><span class="p">:</span><span class="dl">'</span><span class="s1">+3234457645</span><span class="dl">'</span>
              <span class="p">}</span>
          <span class="p">}</span>
     <span class="p">]</span>
@@ -492,9 +492,9 @@ Depending on specific parameters, you can then choose to send back a different t
 
 <p>server.js:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">sse_middleware</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./sse-middleware'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">database</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./database'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">sse_middleware</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./sse-middleware</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">database</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./database</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">DATA_LENGTH</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
@@ -514,11 +514,11 @@ Depending on specific parameters, you can then choose to send back a different t
   <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/stream'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"New subscriber request"</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stream</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">New subscriber request</span><span class="dl">"</span><span class="p">);</span>
   <span class="nx">res</span><span class="p">.</span><span class="nx">sseSetup</span><span class="p">();</span>
   <span class="nx">channels</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">sseSend</span><span class="p">(</span><span class="s2">"Connection open"</span><span class="p">);</span> <span class="c1">// if you want to send feedback for opening connection</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sseSend</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connection open</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// if you want to send feedback for opening connection</span>
   <span class="c1">// res.sendStatus(200);</span>
   <span class="nx">res</span><span class="p">.</span><span class="nx">sseOnClose</span><span class="p">(()</span><span class="o">=&gt;</span> <span class="p">{</span>
      <span class="c1">// implement your own strategy for removing a channel</span>
@@ -526,7 +526,7 @@ Depending on specific parameters, you can then choose to send back a different t
 <span class="p">})</span>
 
 <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Listening on port 8080...'</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Listening on port 8080...</span><span class="dl">'</span><span class="p">);</span>
   <span class="nx">start</span><span class="p">();</span>
 <span class="p">})</span>
 </code></pre></div></div>
@@ -558,14 +558,14 @@ You can also add the other fields, just separate them with <code class="highligh
 <p>For development purposes, it isn’t a bad idea to add a start en stop action for managing the interval.
 Just add the following to your server:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/start'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Starting stream"</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/start</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Starting stream</span><span class="dl">"</span><span class="p">);</span>
   <span class="nx">start</span><span class="p">();</span>
   <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/stop'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Stopping stream"</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stop</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Stopping stream</span><span class="dl">"</span><span class="p">);</span>
   <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">interval</span><span class="p">);</span>
   <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
 <span class="p">});</span>
@@ -603,14 +603,14 @@ In this service, you can make use of the <a href="https://developer.mozilla.org/
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">...</span>
 
 <span class="p">@</span><span class="nd">Injectable</span><span class="p">({</span>
-  <span class="na">providedIn</span><span class="p">:</span> <span class="s1">'root'</span>
+  <span class="na">providedIn</span><span class="p">:</span> <span class="dl">'</span><span class="s1">root</span><span class="dl">'</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">SseService</span> <span class="p">{</span>
 
-  <span class="nx">readonly</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'api/stream'</span><span class="p">;</span>
+  <span class="nx">readonly</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">api/stream</span><span class="dl">'</span><span class="p">;</span>
 
   <span class="kr">private</span> <span class="nx">_eventSource</span><span class="p">:</span> <span class="nx">EventSource</span><span class="p">;</span>
-  <span class="kr">private</span> <span class="nx">_open</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="kr">private</span> <span class="nx">_open</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>
 
   <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">_http</span><span class="p">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
@@ -628,13 +628,13 @@ In this service, you can make use of the <a href="https://developer.mozilla.org/
   <span class="p">}</span>
 
   <span class="kr">private</span> <span class="nx">_onError</span><span class="p">(</span><span class="na">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error:"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
     <span class="c1">// implement your own strategy for reconnection</span>
   <span class="p">}</span>
 
   <span class="kr">private</span> <span class="nx">_onOpen</span><span class="p">(</span><span class="na">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Open:"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Open:</span><span class="dl">"</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
   <span class="p">}</span>
 
@@ -660,12 +660,12 @@ Because we don’t want to add dev or test specific code in the app itself, we p
 <p>proxy.config.json</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
 
-    <span class="s2">"/api/*"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"target"</span><span class="p">:</span> <span class="s2">"http://localhost:8080/"</span><span class="p">,</span>
-        <span class="s2">"secure"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="s2">"logLevel"</span><span class="p">:</span> <span class="s2">"debug"</span><span class="p">,</span>
-        <span class="s2">"changeOrigin"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">"pathRewrite"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"^/api"</span><span class="p">:</span> <span class="s2">""</span><span class="p">}</span>
+    <span class="dl">"</span><span class="s2">/api/*</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">target</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">http://localhost:8080/</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">secure</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">logLevel</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">debug</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">changeOrigin</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">pathRewrite</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">^/api</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -783,7 +783,7 @@ You want all your api calls to go to the other mock (Node-RED in this case) whil
 
 <p>e.g. (protractor, jasmine):</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">beforeAll</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s1">'/api/start'</span><span class="p">);</span> <span class="c1">// depending on the host/address</span>
+    <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/start</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// depending on the host/address</span>
 <span class="p">});</span>
 </code></pre></div></div>
 

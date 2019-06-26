@@ -221,8 +221,8 @@ The Router offers two preloading strategies out of the box:</p>
 <p>And define your routes like this:</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="p">{</span>
-    <span class="nl">path</span><span class="p">:</span> <span class="s1">'performance'</span><span class="p">,</span>
-    <span class="nx">loadChildren</span><span class="p">:</span> <span class="s1">'performance.module#PerformanceModule'</span><span class="p">,</span>
+    <span class="nl">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">performance</span><span class="dl">'</span><span class="p">,</span>
+    <span class="nx">loadChildren</span><span class="p">:</span> <span class="dl">'</span><span class="s1">performance.module#PerformanceModule</span><span class="dl">'</span><span class="p">,</span>
     <span class="nx">canLoad</span><span class="p">:</span> <span class="p">[</span><span class="nx">AuthGuard</span><span class="p">]</span> <span class="c1">// Optional</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -287,10 +287,10 @@ The OnPush strategy will let the change detector run only in the following situa
 
 <p>The simplest way is to use only immutable objects.</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
 
    <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
-       <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-sub-component'</span><span class="p">,</span>
+       <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-sub-component</span><span class="dl">'</span><span class="p">,</span>
        <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ item.name }}`</span><span class="p">,</span>
        <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>
@@ -309,10 +309,10 @@ The OnPush strategy will let the change detector run only in the following situa
 
 <p>Another way is to use observables as inputs.</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">,</span> <span class="nx">ChangeDetectorRef</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">   <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">,</span> <span class="nx">ChangeDetectorRef</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
 
    <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
-       <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-sub-component'</span><span class="p">,</span>
+       <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-sub-component</span><span class="dl">'</span><span class="p">,</span>
        <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ myItemName }}`</span><span class="p">,</span>
        <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>

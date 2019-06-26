@@ -218,11 +218,11 @@ When upgrading multiple minor versions, it is advised to upgrade one minor versi
 In our case we are only limited to upgrading a single minor version so we can just use the latest migration guide right away.</p>
 
 <p>Upgrade the Lagom version in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"com.lightbend.lagom"</span> <span class="o">%</span> <span class="s">"lagom-sbt-plugin"</span> <span class="o">%</span> <span class="s">"1.4.5"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">addSbtPlugin</span><span class="o">(</span><span class="s">"com.lightbend.lagom"</span> <span class="o">%</span> <span class="s">"lagom-sbt-plugin"</span> <span class="o">%</span> <span class="s">"1.4.5"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Upgrade the sbt version in <code class="highlighter-rouge">project/build.properties</code>:</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sbt</span><span class="o">.</span><span class="n">version</span><span class="k">=</span><span class="mf">0.13</span><span class="o">.</span><span class="mi">16</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">sbt</span><span class="o">.</span><span class="py">version</span><span class="k">=</span><span class="mf">0.13</span><span class="o">.</span><span class="mi">16</span>
 </code></pre></div></div>
 
 <p>Upgrade the Scala version to <code class="highlighter-rouge">2.12.4</code> in <code class="highlighter-rouge">build.sbt</code>:</p>
@@ -230,7 +230,7 @@ In our case we are only limited to upgrading a single minor version so we can ju
 </code></pre></div></div>
 
 <p>Upgrade Play JSON Derived Codecs to 4.0.0 which adds Play 2.6 support:</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">playJsonDerivedCodecs</span> <span class="k">=</span> <span class="s">"org.julienrf"</span> <span class="o">%%</span> <span class="s">"play-json-derived-codecs"</span> <span class="o">%</span> <span class="s">"4.0.0"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">playJsonDerivedCodecs</span> <span class="k">=</span> <span class="s">"org.julienrf"</span> <span class="o">%%</span> <span class="s">"play-json-derived-codecs"</span> <span class="o">%</span> <span class="s">"4.0.0"</span>
 </code></pre></div></div>
 
 <p>Replace <code class="highlighter-rouge">play.api.data.validation.ValidationError</code> with <code class="highlighter-rouge">play.api.libs.json.JsonValidationError</code>.</p>
@@ -247,7 +247,7 @@ In our case we are only limited to upgrading a single minor version so we can ju
 </code></pre></div></div>
 
 <p>Change <code class="highlighter-rouge">override def describeServices</code> to <code class="highlighter-rouge">override def describeService</code> in each Lagom project’s class extending <code class="highlighter-rouge">LagomServerComponents</code> as the other one has become deprecated.</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="k">def</span> <span class="n">describeService</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">readDescriptor</span><span class="o">[</span><span class="kt">ItemService</span><span class="o">])</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="k">def</span> <span class="nf">describeService</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">readDescriptor</span><span class="o">[</span><span class="kt">ItemService</span><span class="o">])</span>
 </code></pre></div></div>
 
 <p>Implement CSRF security in the frontend project by utilising CSRF form fields (<code class="highlighter-rouge">@CSRF.formField</code>) or <a href="https://www.playframework.com/documentation/2.6.x/ScalaCsrf#Protecting-against-Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">one of the other approaches</a>.</p>
@@ -280,20 +280,20 @@ It allows your application to perform service discovery, access secrets, define 
 
 <h2 id="adding-kubernetes-support-to-our-lagom-shop-scala-application">Adding Kubernetes support to our Lagom Shop Scala application</h2>
 <p>We start off with adding the <code class="highlighter-rouge">sbt-reactive-app</code> sbt plugin in the <code class="highlighter-rouge">project/plugins.sbt</code> file:</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">"com.lightbend.rp"</span> <span class="o">%</span> <span class="s">"sbt-reactive-app"</span> <span class="o">%</span> <span class="s">"1.1.0"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">addSbtPlugin</span><span class="o">(</span><span class="s">"com.lightbend.rp"</span> <span class="o">%</span> <span class="s">"sbt-reactive-app"</span> <span class="o">%</span> <span class="s">"1.1.0"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Now enable the plugin for each module in the <code class="highlighter-rouge">build.sbt</code> file:</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">itemImpl</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="n">file</span><span class="o">(</span><span class="s">"item-impl"</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">dependsOn</span><span class="o">(</span><span class="n">itemApi</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span><span class="n">commonSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">LagomScala</span><span class="o">,</span> <span class="nc">SbtReactiveAppPlugin</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">itemImpl</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="nf">file</span><span class="o">(</span><span class="s">"item-impl"</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">dependsOn</span><span class="o">(</span><span class="n">itemApi</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span><span class="n">commonSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">enablePlugins</span><span class="o">(</span><span class="nc">LagomScala</span><span class="o">,</span> <span class="nc">SbtReactiveAppPlugin</span><span class="o">)</span>
   
-<span class="k">lazy</span> <span class="k">val</span> <span class="n">orderImpl</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="n">file</span><span class="o">(</span><span class="s">"order-impl"</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">dependsOn</span><span class="o">(</span><span class="n">orderApi</span><span class="o">,</span> <span class="n">itemApi</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span><span class="n">commonSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">LagomScala</span><span class="o">,</span> <span class="nc">SbtReactiveAppPlugin</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="nv">orderImpl</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="nf">file</span><span class="o">(</span><span class="s">"order-impl"</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">dependsOn</span><span class="o">(</span><span class="n">orderApi</span><span class="o">,</span> <span class="n">itemApi</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span><span class="n">commonSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">enablePlugins</span><span class="o">(</span><span class="nc">LagomScala</span><span class="o">,</span> <span class="nc">SbtReactiveAppPlugin</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span>
     <span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
       <span class="n">lagomScaladslPersistenceCassandra</span><span class="o">,</span>
       <span class="n">lagomScaladslTestKit</span><span class="o">,</span>
@@ -303,13 +303,13 @@ It allows your application to perform service discovery, access secrets, define 
       <span class="n">scalaTest</span>
     <span class="o">)</span>
   <span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span><span class="n">lagomForkedTestSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span><span class="n">lagomForkedTestSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
   
-<span class="k">lazy</span> <span class="k">val</span> <span class="n">frontend</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="n">file</span><span class="o">(</span><span class="s">"frontend"</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">dependsOn</span><span class="o">(</span><span class="n">itemApi</span><span class="o">,</span> <span class="n">orderApi</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span><span class="n">commonSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">PlayScala</span> <span class="o">&amp;&amp;</span> <span class="nc">LagomPlay</span><span class="o">,</span> <span class="nc">SbtReactiveAppPlugin</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">settings</span><span class="o">(</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="nv">frontend</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="nf">file</span><span class="o">(</span><span class="s">"frontend"</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">dependsOn</span><span class="o">(</span><span class="n">itemApi</span><span class="o">,</span> <span class="n">orderApi</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span><span class="n">commonSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">enablePlugins</span><span class="o">(</span><span class="nc">PlayScala</span> <span class="o">&amp;&amp;</span> <span class="nc">LagomPlay</span><span class="o">,</span> <span class="nc">SbtReactiveAppPlugin</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">settings</span><span class="o">(</span>
     <span class="n">version</span> <span class="o">:=</span> <span class="s">"1.0-SNAPSHOT"</span><span class="o">,</span>
     <span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
       <span class="n">lagomScaladslServer</span><span class="o">,</span>
@@ -319,7 +319,7 @@ It allows your application to perform service discovery, access secrets, define 
       <span class="s">"org.webjars"</span> <span class="o">%</span> <span class="s">"foundation"</span> <span class="o">%</span> <span class="s">"6.2.3"</span><span class="o">,</span>
       <span class="s">"org.webjars"</span> <span class="o">%</span> <span class="s">"foundation-icon-fonts"</span> <span class="o">%</span> <span class="s">"d596a3cfb3"</span>
     <span class="o">),</span>
-    <span class="nc">EclipseKeys</span><span class="o">.</span><span class="n">preTasks</span> <span class="o">:=</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">compile</span> <span class="n">in</span> <span class="nc">Compile</span><span class="o">),</span>
+    <span class="nv">EclipseKeys</span><span class="o">.</span><span class="py">preTasks</span> <span class="o">:=</span> <span class="nc">Seq</span><span class="o">(</span><span class="n">compile</span> <span class="n">in</span> <span class="nc">Compile</span><span class="o">),</span>
     <span class="n">httpIngressPaths</span> <span class="o">:=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
   <span class="o">)</span>
 </code></pre></div></div>
@@ -330,9 +330,9 @@ It allows your application to perform service discovery, access secrets, define 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.lightbend.rp.servicediscovery.lagom.scaladsl.LagomServiceLocatorComponents</span>
 
 <span class="k">class</span> <span class="nc">ItemApplicationLoader</span> <span class="k">extends</span> <span class="nc">LagomApplicationLoader</span> <span class="o">{</span>
-  <span class="k">override</span> <span class="k">def</span> <span class="n">load</span><span class="o">(</span><span class="n">context</span><span class="k">:</span> <span class="kt">LagomApplicationContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">LagomApplication</span> <span class="o">=</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="nf">load</span><span class="o">(</span><span class="n">context</span><span class="k">:</span> <span class="kt">LagomApplicationContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">LagomApplication</span> <span class="o">=</span>
     <span class="k">new</span> <span class="nc">ItemApplication</span><span class="o">(</span><span class="n">context</span><span class="o">)</span> <span class="k">with</span> <span class="nc">LagomServiceLocatorComponents</span> <span class="o">{</span>
-      <span class="k">override</span> <span class="k">lazy</span> <span class="k">val</span> <span class="n">circuitBreakerMetricsProvider</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">CircuitBreakerMetricsProviderImpl</span><span class="o">(</span><span class="n">actorSystem</span><span class="o">)</span>
+      <span class="k">override</span> <span class="k">lazy</span> <span class="k">val</span> <span class="nv">circuitBreakerMetricsProvider</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">CircuitBreakerMetricsProviderImpl</span><span class="o">(</span><span class="n">actorSystem</span><span class="o">)</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>

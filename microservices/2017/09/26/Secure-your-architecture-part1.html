@@ -469,7 +469,7 @@ There are plenty of options you can use for method security, but we’ll highlig
 </blockquote>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@PreAuthorize</span><span class="o">(</span><span class="s">"(authentication.principal.uuid == #uuid.toString()) or hasRole('ADMIN')"</span><span class="o">)</span>
-<span class="n">User</span> <span class="nf">findByUuid</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"uuid"</span><span class="o">)</span> <span class="n">UUID</span> <span class="n">uuid</span><span class="o">);</span>
+<span class="nc">User</span> <span class="nf">findByUuid</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"uuid"</span><span class="o">)</span> <span class="no">UUID</span> <span class="n">uuid</span><span class="o">);</span>
  </code></pre></figure>
 
 <h5 id="postauthorize">@PostAuthorize</h5>
@@ -482,7 +482,7 @@ You validate this by checking if the user has the admin role or if the principal
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@PreAuthorize</span><span class="o">(</span><span class="s">"hasAnyRole('ADMIN','USER')"</span><span class="o">)</span>
 <span class="nd">@PostAuthorize</span><span class="o">(</span><span class="s">"returnObject!=null or hasRole('ADMIN') or returnObject.uuid.toString() == authentication.principal.uuid"</span><span class="o">)</span>
-<span class="n">User</span> <span class="nf">findOne</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"uuid"</span><span class="o">)</span> <span class="n">UUID</span> <span class="n">uuid</span><span class="o">);</span>
+<span class="nc">User</span> <span class="nf">findOne</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"uuid"</span><span class="o">)</span> <span class="no">UUID</span> <span class="n">uuid</span><span class="o">);</span>
  </code></pre></figure>
 
 <h1 id="next-step">Next step</h1>

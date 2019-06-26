@@ -226,33 +226,33 @@ Here are the different tools of choice. To use these tools we’ll have to initi
 <h4 id="mockmvc">MockMvc</h4>
 <p>A lightweight server-less documentation generation by the Spring Framework that has been the default use in Spring REST Docs.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
 
 <span class="nd">@Autowired</span>
-<span class="kd">private</span> <span class="n">WebApplicationContext</span> <span class="n">context</span><span class="o">;</span>
+<span class="kd">private</span> <span class="nc">WebApplicationContext</span> <span class="n">context</span><span class="o">;</span>
 
  <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setup</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setup</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">document</span> <span class="o">=</span> <span class="n">document</span><span class="o">(</span><span class="s">"{method-name}"</span><span class="o">);</span>
-        <span class="n">mockMvc</span> <span class="o">=</span> <span class="n">MockMvcBuilders</span><span class="o">.</span><span class="na">webAppContextSetup</span><span class="o">(</span><span class="n">wac</span><span class="o">)</span>
+        <span class="n">mockMvc</span> <span class="o">=</span> <span class="nc">MockMvcBuilders</span><span class="o">.</span><span class="na">webAppContextSetup</span><span class="o">(</span><span class="n">wac</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">documentationConfiguration</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">restDocumentation</span><span class="o">).</span><span class="na">uris</span><span class="o">().</span><span class="na">withScheme</span><span class="o">(</span><span class="s">"https"</span><span class="o">)).</span><span class="na">alwaysDo</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">document</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">addFilter</span><span class="o">(</span><span class="k">new</span> <span class="n">JwtFilter</span><span class="o">(),</span><span class="s">"/*"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">addFilter</span><span class="o">(</span><span class="k">new</span> <span class="nc">JwtFilter</span><span class="o">(),</span><span class="s">"/*"</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span>
         <span class="n">objectWriter</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">.</span><span class="na">writer</span><span class="o">();</span>
 
-        <span class="n">authToken</span> <span class="o">=</span> <span class="n">TestUtil</span><span class="o">.</span><span class="na">getAuthToken</span><span class="o">();</span>
-        <span class="n">TestUtil</span><span class="o">.</span><span class="na">setAuthorities</span><span class="o">();</span>
+        <span class="n">authToken</span> <span class="o">=</span> <span class="nc">TestUtil</span><span class="o">.</span><span class="na">getAuthToken</span><span class="o">();</span>
+        <span class="nc">TestUtil</span><span class="o">.</span><span class="na">setAuthorities</span><span class="o">();</span>
     <span class="o">}</span></code></pre></figure>
 
 <h4 id="restassured-new-11">RestAssured (New 1.1)</h4>
 <p>As an alternative, you can use RestAssured to test and document your RESTful services. 
 Available in V1.1, RestAssured will be more expandable than MockMvc.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">RequestSpecification</span> <span class="n">spec</span><span class="o">;</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">RequestSpecification</span> <span class="n">spec</span><span class="o">;</span>
 
 <span class="nd">@Before</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">spec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RequestSpecBuilder</span><span class="o">().</span><span class="na">addFilter</span><span class="o">(</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">spec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RequestSpecBuilder</span><span class="o">().</span><span class="na">addFilter</span><span class="o">(</span>
             <span class="n">documentationConfiguration</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">restDocumentation</span><span class="o">))</span> 
             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
@@ -276,11 +276,11 @@ Be aware, these type of snippet will fail if you don’t have the correct respon
                                 <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"firstName"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's first name"</span><span class="o">),</span>
                                 <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"lastName"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's last name"</span><span class="o">),</span>
                                 <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"linkedin"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's linkedin"</span><span class="o">),</span>
-                                <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"unit"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's unit"</span><span class="o">).</span><span class="na">type</span><span class="o">(</span><span class="n">Unit</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+                                <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"unit"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's unit"</span><span class="o">).</span><span class="na">type</span><span class="o">(</span><span class="nc">Unit</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
                                 <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"_links"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"links to other resources"</span><span class="o">)</span>
                         <span class="o">));</span>
  <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span>
-                <span class="n">get</span><span class="o">(</span><span class="s">"/employees/1"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">));</span></code></pre></figure>
+                <span class="n">get</span><span class="o">(</span><span class="s">"/employees/1"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">));</span></code></pre></figure>
 
 <h4 id="relaxed-snippet-new-in-11">Relaxed Snippet (New in 1.1)</h4>
 <p>In contrast to default snippets, relaxed snippets don’t complain when something was neglected in the document.
@@ -291,7 +291,7 @@ This is an advantage when you only need to focus on a certain scenario or specif
 When added to your test method, you can extend it with extra variables.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// First we define a snippet for reuse</span>
-<span class="kd">protected</span> <span class="kd">final</span> <span class="n">LinksSnippet</span> <span class="n">pagingLinks</span> <span class="o">=</span> <span class="n">links</span><span class="o">(</span>
+<span class="kd">protected</span> <span class="kd">final</span> <span class="nc">LinksSnippet</span> <span class="n">pagingLinks</span> <span class="o">=</span> <span class="n">links</span><span class="o">(</span>
         <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"first"</span><span class="o">).</span><span class="na">optional</span><span class="o">().</span><span class="na">description</span><span class="o">(</span><span class="s">"The first page of results"</span><span class="o">),</span>
         <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"last"</span><span class="o">).</span><span class="na">optional</span><span class="o">().</span><span class="na">description</span><span class="o">(</span><span class="s">"The last page of results"</span><span class="o">),</span>
         <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"next"</span><span class="o">).</span><span class="na">optional</span><span class="o">().</span><span class="na">description</span><span class="o">(</span><span class="s">"The next page of results"</span><span class="o">),</span>
@@ -299,7 +299,7 @@ When added to your test method, you can extend it with extra variables.</p>
 
 <span class="c1">// Then you perform the mockMvc and add the snippet to the document.</span>
 <span class="c1">// As you can see, it is expendable.</span>
-<span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">))</span>
+<span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">))</span>
     <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
     <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">document</span><span class="o">(</span><span class="s">"example"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">pagingLinks</span><span class="o">.</span><span class="na">and</span><span class="o">(</span> 
             <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"alpha"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"Link to the alpha resource"</span><span class="o">),</span>
@@ -317,7 +317,7 @@ If you have dynamic links that can disappear at one time, you can use relaxed sn
                         <span class="n">halLinks</span><span class="o">(),</span> <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"self"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's resource"</span><span class="o">),</span>
                         <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"employee"</span><span class="o">).</span><span class="na">optional</span><span class="o">().</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's projection"</span><span class="o">)),</span>
                 <span class="n">responseFields</span><span class="o">(</span>
-                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"username"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee unique database identifier"</span><span class="o">).</span><span class="na">type</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"username"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee unique database identifier"</span><span class="o">).</span><span class="na">type</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
                         <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"_links"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"links to other resources"</span><span class="o">)</span>
                 <span class="o">));</span></code></pre></figure>
 
@@ -328,25 +328,25 @@ Because I use constraints, I made my own method `withPath, this will add an extr
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ConstrainedFields</span> <span class="o">{</span>
-         <span class="kd">private</span> <span class="kd">final</span> <span class="n">ConstraintDescriptions</span> <span class="n">constraintDescriptions</span><span class="o">;</span>
-         <span class="n">ConstrainedFields</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
-             <span class="k">this</span><span class="o">.</span><span class="na">constraintDescriptions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConstraintDescriptions</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+         <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ConstraintDescriptions</span> <span class="n">constraintDescriptions</span><span class="o">;</span>
+         <span class="nc">ConstrainedFields</span><span class="o">(</span><span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+             <span class="k">this</span><span class="o">.</span><span class="na">constraintDescriptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConstraintDescriptions</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
          <span class="o">}</span>
-         <span class="kd">private</span> <span class="n">FieldDescriptor</span> <span class="nf">withPath</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
-             <span class="k">return</span> <span class="nf">fieldWithPath</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="na">attributes</span><span class="o">(</span><span class="n">key</span><span class="o">(</span><span class="s">"constraints"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="n">StringUtils</span>
+         <span class="kd">private</span> <span class="nc">FieldDescriptor</span> <span class="nf">withPath</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+             <span class="k">return</span> <span class="nf">fieldWithPath</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="na">attributes</span><span class="o">(</span><span class="n">key</span><span class="o">(</span><span class="s">"constraints"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="nc">StringUtils</span>
                      <span class="o">.</span><span class="na">collectionToDelimitedString</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">constraintDescriptions</span>
                              <span class="o">.</span><span class="na">descriptionsForProperty</span><span class="o">(</span><span class="n">path</span><span class="o">),</span> <span class="s">". "</span><span class="o">)));</span>
          <span class="o">}</span>
      <span class="o">}</span>
 
  <span class="nd">@Test</span>
- <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postEmployee</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
-         <span class="n">Employee</span> <span class="n">employee</span> <span class="o">=</span> <span class="n">employeeRepository</span><span class="o">.</span><span class="na">findByUsernameIgnoreCase</span><span class="o">(</span><span class="s">"Nivek"</span><span class="o">);</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postEmployee</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span><span class="o">{</span>
+         <span class="nc">Employee</span> <span class="n">employee</span> <span class="o">=</span> <span class="n">employeeRepository</span><span class="o">.</span><span class="na">findByUsernameIgnoreCase</span><span class="o">(</span><span class="s">"Nivek"</span><span class="o">);</span>
          <span class="n">employee</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
          <span class="n">employee</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"Keloggs"</span><span class="o">);</span>
-         <span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="n">objectWriter</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">employee</span><span class="o">);</span>
+         <span class="nc">String</span> <span class="n">string</span> <span class="o">=</span> <span class="n">objectWriter</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">employee</span><span class="o">);</span>
  
-         <span class="n">ConstrainedFields</span> <span class="n">fields</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConstrainedFields</span><span class="o">(</span><span class="n">Employee</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+         <span class="nc">ConstrainedFields</span> <span class="n">fields</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConstrainedFields</span><span class="o">(</span><span class="nc">Employee</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
  
          <span class="k">this</span><span class="o">.</span><span class="na">document</span><span class="o">.</span><span class="na">snippets</span><span class="o">(</span>
                  <span class="n">requestFields</span><span class="o">(</span>
@@ -355,7 +355,7 @@ Because I use constraints, I made my own method `withPath, this will add an extr
                          <span class="n">fields</span><span class="o">.</span><span class="na">withPath</span><span class="o">(</span><span class="s">"lastName"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The employee's last name"</span><span class="o">),</span>
                          <span class="o">));</span>
  
-         <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">post</span><span class="o">(</span><span class="s">"/employees"</span><span class="o">).</span><span class="na">content</span><span class="o">(</span><span class="n">string</span><span class="o">).</span><span class="na">contentType</span><span class="o">(</span><span class="n">MediaTypes</span><span class="o">.</span><span class="na">HAL_JSON</span><span class="o">).</span><span class="na">header</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="n">authToken</span><span class="o">)).</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isCreated</span><span class="o">()).</span><span class="na">andReturn</span><span class="o">().</span><span class="na">getResponse</span><span class="o">().</span><span class="na">getHeader</span><span class="o">(</span><span class="s">"Location"</span><span class="o">);</span>
+         <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">post</span><span class="o">(</span><span class="s">"/employees"</span><span class="o">).</span><span class="na">content</span><span class="o">(</span><span class="n">string</span><span class="o">).</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaTypes</span><span class="o">.</span><span class="na">HAL_JSON</span><span class="o">).</span><span class="na">header</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="n">authToken</span><span class="o">)).</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isCreated</span><span class="o">()).</span><span class="na">andReturn</span><span class="o">().</span><span class="na">getResponse</span><span class="o">().</span><span class="na">getHeader</span><span class="o">(</span><span class="s">"Location"</span><span class="o">);</span>
      <span class="o">}</span>
                         
       </code></pre></figure>
@@ -376,7 +376,7 @@ This is useful when there are extra headers to set.
 When the request has to involve an authorization header for security reasons, you can add this header to your document.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span>
-                <span class="n">get</span><span class="o">(</span><span class="s">"/employees/1"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                <span class="n">get</span><span class="o">(</span><span class="s">"/employees/1"</span><span class="o">).</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="n">authToken</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">document</span><span class="o">(</span><span class="s">"headers"</span><span class="o">,</span>
                 				<span class="n">requestHeaders</span><span class="o">(</span> 
@@ -407,7 +407,7 @@ When the request has to involve an authorization header for security reasons, yo
 
 <p>Example</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">RestAssured</span><span class="o">.</span><span class="na">given</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">spec</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">RestAssured</span><span class="o">.</span><span class="na">given</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">spec</span><span class="o">)</span>
 	<span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">document</span><span class="o">(</span><span class="s">"users"</span><span class="o">,</span> <span class="n">requestParts</span><span class="o">(</span> 
 			<span class="n">partWithName</span><span class="o">(</span><span class="s">"file"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"The file to upload"</span><span class="o">))))</span> 
 	<span class="o">.</span><span class="na">multiPart</span><span class="o">(</span><span class="s">"file"</span><span class="o">,</span> <span class="s">"example"</span><span class="o">)</span> 

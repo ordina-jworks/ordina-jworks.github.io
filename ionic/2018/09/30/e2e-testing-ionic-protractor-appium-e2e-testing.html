@@ -493,49 +493,49 @@ and transpiles the <strong><em>protractor.config.ts</em></strong> file.</p>
 <p>Now one of the more exciting parts, configuring Protractor!
 Create a file called <strong>/e2e/protractor.config.ts</strong> with the following contents:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Config</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'protractor'</span><span class="p">;</span>
-<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">tsNode</span> <span class="k">from</span> <span class="s1">'ts-node'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Config</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">protractor</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">tsNode</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ts-node</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">const</span> <span class="nx">serverAddress</span> <span class="o">=</span> <span class="s1">'http://localhost:4723/wd/hub'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">serverAddress</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4723/wd/hub</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="s1">'**/*/*.e2e-spec.ts'</span>
+  <span class="dl">'</span><span class="s1">**/*/*.e2e-spec.ts</span><span class="dl">'</span>
 <span class="p">];</span>
 <span class="kd">const</span> <span class="nx">iPhoneXCapability</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
   <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
-  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app'</span><span class="p">,</span>
-  <span class="na">version</span><span class="p">:</span> <span class="s1">'11.4'</span><span class="p">,</span>
-  <span class="na">platform</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
-  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'iPhone X'</span><span class="p">,</span>
-  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
-  <span class="na">name</span><span class="p">:</span> <span class="s1">'My First Mobile Test'</span><span class="p">,</span>
-  <span class="na">automationName</span><span class="p">:</span> <span class="s1">'XCUITest'</span><span class="p">,</span>
-  <span class="na">nativeWebTap</span><span class="p">:</span> <span class="s1">'true'</span>
+  <span class="na">app</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">version</span><span class="p">:</span> <span class="dl">'</span><span class="s1">11.4</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">platform</span><span class="p">:</span> <span class="dl">'</span><span class="s1">iOS</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">iPhone X</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">iOS</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My First Mobile Test</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">automationName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">XCUITest</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">nativeWebTap</span><span class="p">:</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span>
 <span class="p">};</span>
 <span class="kd">const</span> <span class="nx">androidPixel2XLCapability</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
   <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
-  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'Android'</span><span class="p">,</span>
-  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'pixel2xl'</span><span class="p">,</span>
-  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk'</span><span class="p">,</span>
-  <span class="s1">'app-package'</span><span class="p">:</span> <span class="s1">'be.ryan.superApp'</span><span class="p">,</span>
-  <span class="s1">'app-activity'</span><span class="p">:</span> <span class="s1">'MainActivity'</span><span class="p">,</span>
-  <span class="na">autoAcceptAlerts</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
-  <span class="na">autoGrantPermissions</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Android</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pixel2xl</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">app</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">app-package</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">be.ryan.superApp</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">app-activity</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">MainActivity</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">autoAcceptAlerts</span><span class="p">:</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">autoGrantPermissions</span><span class="p">:</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">newCommandTimeout</span><span class="p">:</span> <span class="mi">300000</span>
 <span class="p">};</span>
 
 <span class="k">export</span> <span class="kd">let</span> <span class="nx">config</span><span class="p">:</span> <span class="nx">Config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">allScriptsTimeout</span><span class="p">:</span> <span class="mi">11000</span><span class="p">,</span>
   <span class="na">specs</span><span class="p">:</span> <span class="nx">testFilePAtterns</span><span class="p">,</span>
-  <span class="na">baseUrl</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">baseUrl</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
   <span class="na">multiCapabilities</span><span class="p">:</span> <span class="p">[</span>
     <span class="nx">androidPixel2XLCapability</span><span class="p">,</span>
     <span class="nx">iPhoneXCapability</span>
   <span class="p">],</span>
-  <span class="na">framework</span><span class="p">:</span> <span class="s1">'jasmine'</span><span class="p">,</span>
+  <span class="na">framework</span><span class="p">:</span> <span class="dl">'</span><span class="s1">jasmine</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">jasmineNodeOpts</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">showColors</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="na">defaultTimeoutInterval</span><span class="p">:</span> <span class="mi">30000</span>
@@ -543,7 +543,7 @@ Create a file called <strong>/e2e/protractor.config.ts</strong> with the followi
   <span class="na">seleniumAddress</span><span class="p">:</span> <span class="nx">serverAddress</span><span class="p">,</span>
   <span class="na">onPrepare</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">tsNode</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
-      <span class="na">project</span><span class="p">:</span> <span class="s1">'e2e/tsconfig.json'</span>
+      <span class="na">project</span><span class="p">:</span> <span class="dl">'</span><span class="s1">e2e/tsconfig.json</span><span class="dl">'</span>
     <span class="p">});</span>
   <span class="p">}</span>
 <span class="p">};</span>
@@ -579,16 +579,16 @@ you need to configure the <strong>multiCapabilities</strong> property.</p>
 </ul>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">androidPixel2XLCapability</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
   <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
-  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'Android'</span><span class="p">,</span>
-  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'pixel2xl'</span><span class="p">,</span>
-  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk'</span><span class="p">,</span>
-  <span class="s1">'app-package'</span><span class="p">:</span> <span class="s1">'be.ryan.superApp'</span><span class="p">,</span>
-  <span class="s1">'app-activity'</span><span class="p">:</span> <span class="s1">'MainActivity'</span><span class="p">,</span>
-  <span class="na">autoAcceptAlerts</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
-  <span class="na">autoGrantPermissions</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Android</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pixel2xl</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">app</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/Users/${user}/ordina/e2e/superApp/platforms/android/build/outputs/apk/android-debug.apk</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">app-package</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">be.ryan.superApp</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">app-activity</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">MainActivity</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">autoAcceptAlerts</span><span class="p">:</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">autoGrantPermissions</span><span class="p">:</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">newCommandTimeout</span><span class="p">:</span> <span class="mi">300000</span>
 <span class="p">};</span>
 </code></pre></div></div>
@@ -603,17 +603,17 @@ you need to configure the <strong>multiCapabilities</strong> property.</p>
 </ul>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">iPhoneXCapability</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">browserName</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="na">browserName</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
   <span class="na">autoWebview</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="na">autoWebviewTimeout</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
-  <span class="na">app</span><span class="p">:</span> <span class="s1">'/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app'</span><span class="p">,</span>
-  <span class="na">version</span><span class="p">:</span> <span class="s1">'11.4'</span><span class="p">,</span>
-  <span class="na">platform</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
-  <span class="na">deviceName</span><span class="p">:</span> <span class="s1">'iPhone X'</span><span class="p">,</span>
-  <span class="na">platformName</span><span class="p">:</span> <span class="s1">'iOS'</span><span class="p">,</span>
-  <span class="na">name</span><span class="p">:</span> <span class="s1">'My First Mobile Test'</span><span class="p">,</span>
-  <span class="na">automationName</span><span class="p">:</span> <span class="s1">'XCUITest'</span><span class="p">,</span>
-  <span class="na">nativeWebTap</span><span class="p">:</span> <span class="s1">'true'</span>
+  <span class="na">app</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/Users/${user}/ordina/e2e/superApp/platforms/ios/build/emulator/superApp.app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">version</span><span class="p">:</span> <span class="dl">'</span><span class="s1">11.4</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">platform</span><span class="p">:</span> <span class="dl">'</span><span class="s1">iOS</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">deviceName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">iPhone X</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">platformName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">iOS</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My First Mobile Test</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">automationName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">XCUITest</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">nativeWebTap</span><span class="p">:</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
@@ -630,7 +630,7 @@ you need to configure the <strong>multiCapabilities</strong> property.</p>
 <strong>specs</strong> property, in our case all the files that end with .e2e-spec.ts</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="s1">'**/*/*.e2e-spec.ts'</span>
+  <span class="dl">'</span><span class="s1">**/*/*.e2e-spec.ts</span><span class="dl">'</span>
 <span class="p">];</span>
 <span class="k">export</span> <span class="kd">let</span> <span class="nx">config</span><span class="p">:</span> <span class="nx">Config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="p">...</span>
@@ -647,22 +647,22 @@ you need to configure the <strong>multiCapabilities</strong> property.</p>
 <p>Writing protractor tests is out of scope in this post, 
 but here is an example test script that you should be able to run on both iOS and Android.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">browser</span><span class="p">,</span> <span class="nx">by</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">ElementFinder</span><span class="p">,</span> <span class="nx">protractor</span><span class="p">}</span> <span class="k">from</span> <span class="s1">'protractor'</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">browser</span><span class="p">,</span> <span class="nx">by</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">ElementFinder</span><span class="p">,</span> <span class="nx">protractor</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">protractor</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">'App'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">describe</span><span class="p">(</span><span class="s1">'Tutorial Screen'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">'should skip to the welcome screen and have the correct button labels'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="na">skipButton</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'skip'</span><span class="p">));</span>
-      <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">skipButton</span><span class="p">));</span>
-      <span class="kd">const</span> <span class="na">skipButtonLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">skipButton</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">skipButtonLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'SKIP'</span><span class="p">);</span>
+<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">App</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Tutorial Screen</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should skip to the welcome screen and have the correct button labels</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="na">skipButton</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">skip</span><span class="dl">'</span><span class="p">));</span>
+      <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">skipButton</span><span class="p">));</span>
+      <span class="kd">const</span> <span class="na">skipButtonLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">skipButton</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">skipButtonLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SKIP</span><span class="dl">'</span><span class="p">);</span>
 
       <span class="nx">skipButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
 
-      <span class="kd">const</span> <span class="na">loginBtn</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="s1">'btn-login'</span><span class="p">));</span>
-      <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">loginBtn</span><span class="p">));</span>
-      <span class="kd">const</span> <span class="na">loginBtnLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">loginBtnLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">'SIGN IN'</span><span class="p">);</span>
+      <span class="kd">const</span> <span class="na">loginBtn</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">btn-login</span><span class="dl">'</span><span class="p">));</span>
+      <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">loginBtn</span><span class="p">));</span>
+      <span class="kd">const</span> <span class="na">loginBtnLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">loginBtnLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SIGN IN</span><span class="dl">'</span><span class="p">);</span>
 
       <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
     <span class="p">});</span>
@@ -730,7 +730,7 @@ Then I should see the Login failed page
 <p>Developers write an implementation for the feature in a step definitions file:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Given</span><span class="p">(</span><span class="sr">/^I am on the Login page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="s1">'Login'</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="dl">'</span><span class="s1">Login</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 
 <span class="nx">When</span><span class="p">(</span><span class="sr">/^I click on "Login", </span><span class="se">()</span><span class="sr"> =&gt; </span><span class="err">{
@@ -746,7 +746,7 @@ Then I should see the Login failed page
 <span class="p">});</span>
 
 <span class="nx">Then</span><span class="p">(</span><span class="sr">/^I should see the Dashboard page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="s1">'Dashboard'</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="dl">'</span><span class="s1">Dashboard</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div></div>
 

@@ -653,14 +653,14 @@ processing happens until someone subscribes</strong>.</p>
 
 <p>Assembly:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="k">this</span><span class="o">.</span><span class="na">myFlux</span> <span class="o">=</span> <span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"foo"</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">length</span><span class="o">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="k">this</span><span class="o">.</span><span class="na">myFlux</span> <span class="o">=</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"foo"</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">length</span><span class="o">);</span></code></pre></figure>
 
 <p>As stated above, all that really happens when this code is called is creating a chain of operators
 (under the hood this phase is also used for things like <strong>operator fusion</strong>, see below).</p>
 
 <p>Execution:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="k">this</span><span class="o">.</span><span class="na">myFlux</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="k">this</span><span class="o">.</span><span class="na">myFlux</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span></code></pre></figure>
 
 <p>When the <code class="highlighter-rouge">subscribe</code> method is called the actual chain is executed and the length of the string is printed in the console.</p>
 
@@ -755,8 +755,8 @@ It also supports <a href="https://kafka.apache.org/documentation/streams/" targe
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@EmbeddedKafka</span><span class="o">(</span><span class="n">partitions</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span>
          <span class="n">topics</span> <span class="o">=</span> <span class="o">{</span>
-                 <span class="n">KafkaStreamsTests</span><span class="o">.</span><span class="na">STREAMING_TOPIC1</span><span class="o">,</span>
-                 <span class="n">KafkaStreamsTests</span><span class="o">.</span><span class="na">STREAMING_TOPIC2</span> <span class="o">})</span></code></pre></figure>
+                 <span class="nc">KafkaStreamsTests</span><span class="o">.</span><span class="na">STREAMING_TOPIC1</span><span class="o">,</span>
+                 <span class="nc">KafkaStreamsTests</span><span class="o">.</span><span class="na">STREAMING_TOPIC2</span> <span class="o">})</span></code></pre></figure>
 
 <p>Spring Kafka also has a starter available for <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-messaging.html#boot-features-kafka" target="_blank">Spring Boot</a> which makes it very easy to get started with Kafka and start playing around.
 As always, just go to <a href="http://start.spring.io/" target="_blank">start.spring.io</a> and get the Kafka dependency.</p>

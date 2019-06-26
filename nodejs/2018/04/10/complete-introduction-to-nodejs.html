@@ -342,10 +342,10 @@ we’ll log them separately just to show you that there’s different ways to lo
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// process is a global variable that refers to the current node process you are running,</span>
 <span class="c1">// it has a stdout property that has a write method which we can call to output data.</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'hello</span><span class="err">\</span><span class="s1">n'</span><span class="p">);</span> <span class="c1">// the \n creates a new line in the terminal</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="se">\n</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// the \n creates a new line in the terminal</span>
 
 <span class="c1">// or a bit simpler, the one we are used to from the browser, console.log</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'world'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">world</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <h2 id="hello-world-async">Hello World Async</h2>
@@ -353,9 +353,9 @@ we’ll log them separately just to show you that there’s different ways to lo
 <p>An example of non-blocking code</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// after 2 secs, print world</span>
-<span class="nx">setTimeout</span><span class="p">(</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'world'</span><span class="p">);</span> <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
+<span class="nx">setTimeout</span><span class="p">(</span> <span class="p">()</span><span class="o">=&gt;</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">world</span><span class="dl">'</span><span class="p">);</span> <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'hello</span><span class="err">\</span><span class="s1">n'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="se">\n</span><span class="dl">'</span><span class="p">);</span>
 <span class="c1">// prints  'hello' first, then 'world'</span>
 </code></pre></div></div>
 
@@ -394,17 +394,17 @@ Then we'll import it in another file and call the function from there.</name></p
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// the way we import another module into our file is by using require(), require is a global module for node</span>
 <span class="c1">// when requiring local modules (not the ones we install with npm), we give it the path relative to the current file,</span>
 <span class="c1">// no need for extensions, since node looks for a .js file</span>
-<span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./log'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./log</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="c1">// now that we have our functionality available in the log variable, we can use it</span>
-<span class="nx">log</span><span class="p">(</span><span class="s1">'Mike'</span><span class="p">);</span>
+<span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Mike</span><span class="dl">'</span><span class="p">);</span>
 <span class="c1">// logs 'hello Mike' to the console</span>
 </code></pre></div></div>
 
 <p>To import modules that you’ve installed with npm, don’t specify a path, but give it the package’s name.
 For example:</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// this imports the express module from the express package if we installed it`</span>
-<span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>To learn more about how to use <code class="highlighter-rouge">require</code> go check out this useful url: <a href="https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8" target="blank" rel="noopener noreferrer">Requiring Modules</a>.</p>
@@ -420,12 +420,12 @@ Node has some built-in modules that you can use like <code class="highlighter-ro
 <p><code class="highlighter-rouge">hello-server.js</code></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// import the http module (docs: https://nodejs.org/api/http.html)</span>
-<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="c1">// we create a server that will send plaintext 'Hello World' back to the client and put it in a variable server</span>
 <span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'text/plain'</span><span class="p">});</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'Hello world</span><span class="err">\</span><span class="s1">n'</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/plain</span><span class="dl">'</span><span class="p">});</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello world</span><span class="se">\n</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 
 <span class="c1">// we tell the server to start listening on port 3000</span>
@@ -433,7 +433,7 @@ Node has some built-in modules that you can use like <code class="highlighter-ro
     <span class="c1">// once the server has successfully started listening on port 3000</span>
     <span class="c1">// (if the port isn't already in use)</span>
     <span class="c1">// we'll log this to the console</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Server running at localhost:3000/'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Server running at localhost:3000/</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 
 </code></pre></div></div>
@@ -447,26 +447,26 @@ whenever the EventEmitter emits an event all the functions attached to the named
 <p>It’s real simple, let us show you with an example:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// first we require the 'events' module that comes with node</span>
-<span class="kd">const</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'events'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">events</span><span class="dl">'</span><span class="p">);</span>
 <span class="c1">// next we'll create a new instance of the events module's event emitter</span>
 <span class="kd">const</span> <span class="nx">eventEmitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span><span class="p">();</span>
 
 <span class="c1">// we'll tell the event emitter that we are going to listen for the 'hello' event</span>
 <span class="c1">// and give it a callback function that gets called when the event is triggered</span>
-<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="c1">// as you can see, our callback function accepts a data parameter,</span>
   <span class="c1">// we'll check if the event was emitted with data and has a 'name' property, if so we log 'Hello name'</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">data</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Hello </span><span class="p">${</span><span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="c1">// if no data was passed to the callback, we'll simply log 'Hello world'</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Hello world'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello world</span><span class="dl">'</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
 
 <span class="c1">// now that we are listening for the 'hello' event, we'll emit the event, once with data, and once without data</span>
-<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">,</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'Mike'</span><span class="p">});</span> <span class="c1">// logs 'Hello Mike'</span>
-<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span> <span class="c1">// logs 'Hello world'</span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mike</span><span class="dl">'</span><span class="p">});</span> <span class="c1">// logs 'Hello Mike'</span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// logs 'Hello world'</span>
 </code></pre></div></div>
 
 <h2 id="streams">Streams</h2>
@@ -478,15 +478,15 @@ Let’s see it in action with an example:</p>
 
 <p><code class="highlighter-rouge">streams.js</code></p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span><span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'text/plain'</span><span class="p">});</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/plain</span><span class="dl">'</span><span class="p">});</span>
   <span class="c1">// The request is a readable stream, this means that the connection isn't immediately closed,</span>
   <span class="c1">// the connection stays open for as long as the client keeps sending data.</span>
   <span class="c1">// Streams inherit from the event emitter, so we can listen for the request stream's 'readable' and 'end' events</span>
   <span class="c1">// the readable event is triggered whenever the request has sent a chunk of data that can be read.</span>
-  <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'readable'</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">readable</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
       <span class="kd">let</span> <span class="nx">chunk</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
       <span class="c1">// as long as we can read chunks from the request, we write those chunks to the response</span>
       <span class="k">while</span><span class="p">(</span><span class="kc">null</span> <span class="o">!==</span> <span class="p">(</span><span class="nx">chunk</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">read</span><span class="p">())){</span>
@@ -499,7 +499,7 @@ Let’s see it in action with an example:</p>
       <span class="c1">// the 'hello' string is being sent back to the client</span>
   <span class="p">});</span>
 
-  <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
+  <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">end</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
       <span class="c1">// once the request stream is closed, we also close the response stream</span>
       <span class="nx">response</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
   <span class="p">});</span>
@@ -514,7 +514,7 @@ Let’s see it in action with an example:</p>
 <span class="p">});</span>
 
 <span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Server running at localhost:3000/'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Server running at localhost:3000/</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div></div>
 
@@ -523,12 +523,12 @@ Let’s see it in action with an example:</p>
 To take advantage of multi-core systems, the user will sometimes want to launch a cluster of NodeJs processes to handle the load.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// require the cluster module</span>
-<span class="kd">const</span> <span class="nx">cluster</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'cluster'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">cluster</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">cluster</span><span class="dl">'</span><span class="p">);</span>
 <span class="c1">// we'll set up a http server on all cpus and load balance between them</span>
-<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
 <span class="c1">// we need to know the amount of cpus our machine has available,</span>
 <span class="c1">// so we do this with the 'os' module's cpus method which returns an array of cpus, to get the amount we get the array's length</span>
-<span class="kd">const</span> <span class="nx">numCPUs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'os'</span><span class="p">).</span><span class="nx">cpus</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">numCPUs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">os</span><span class="dl">'</span><span class="p">).</span><span class="nx">cpus</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nx">cluster</span><span class="p">.</span><span class="nx">isMaster</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// the cluster will first start up a master process that forks itself onto the other cpus and handles the load balancing between these workers</span>
@@ -540,7 +540,7 @@ To take advantage of multi-core systems, the user will sometimes want to launch 
   <span class="p">}</span>
 
   <span class="c1">// when a worker dies, it emits an exit event</span>
-  <span class="nx">cluster</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'exit'</span><span class="p">,</span> <span class="p">(</span><span class="nx">worker</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">signal</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">cluster</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">exit</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">worker</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">signal</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`worker </span><span class="p">${</span><span class="nx">worker</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2"> died`</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -549,7 +549,7 @@ To take advantage of multi-core systems, the user will sometimes want to launch 
 
   <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'hello world</span><span class="err">\</span><span class="s1">n'</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello world</span><span class="se">\n</span><span class="dl">'</span><span class="p">);</span>
   <span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">);</span>
 
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Worker </span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2"> started`</span><span class="p">);</span>
