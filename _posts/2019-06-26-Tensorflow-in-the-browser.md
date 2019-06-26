@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_van_den_abeele]
 title: "Getting started with TensorFlow in the browser"
-image: /img/2019-06-27-tensorflowjs/banner.jpg
+image: /img/2019-06-26-tensorflowjs/banner.jpg
 tags: [internet of things, iot, smart things, smart tech, machine learning, artificial intelligence, tensorflow, javascript, js, browser, node, ml5, yolo, ml, ai]
 category: machine-learning
 comments: true
@@ -35,7 +35,7 @@ This blogpost serves as a quick introduction to TensorFlow.js and ML5 so you too
 
 ## Tensorflow
 
-<img alt="Tensorflow" src="{{ '/img/2019-06-27-tensorflowjs/tensor.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Tensorflow" src="{{ '/img/2019-06-26-tensorflowjs/tensor.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 If we are going to implement machine learning into an application, TensorFlow is one of the most used libraries that provides everything we need to get started.
 It has been around from quite some time and is really mature.
@@ -61,7 +61,7 @@ They are a great place to start, but always remember that only with extended tra
 
 ## TensorFlow.js
 
-<img alt="TensorFlow.js" src="{{ '/img/2019-06-27-tensorflowjs/tensorflowjs.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="TensorFlow.js" src="{{ '/img/2019-06-26-tensorflowjs/tensorflowjs.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 Enter TensorFlow.js.
 This 'new' addition to the TensorFlow lineup allows developers to utilize the power of machine learning in the browser or in NodeJS.
@@ -86,7 +86,7 @@ Some models are upwards of a 100 MegaBytes or more, so loading them can take a w
 
 Taking the TensorFlow.js variant of TensorFlow into account we can see that there are many options in the ecosystem to build, train and run models almost everywhere.
 
-<img alt="TensorFlow ecosystem" src="{{ '/img/2019-06-27-tensorflowjs/overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="TensorFlow ecosystem" src="{{ '/img/2019-06-26-tensorflowjs/overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 ### A small JavaScript example
 
@@ -247,7 +247,7 @@ It exists, read on below to find out all about it!
 
 ## ML5
 
-<img alt="ML5" src="{{ '/img/2019-06-27-tensorflowjs/ml5-examples.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="ML5" src="{{ '/img/2019-06-26-tensorflowjs/ml5-examples.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 Enter ML5!
 This library provides ready to use building blocks, as their website describes:
@@ -310,11 +310,11 @@ The first example uses [YOLO (You Only Look Once)](https://pjreddie.com/darknet/
 The second example uses Style transfer to transfer styles from a base image to a provided target image.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-06-27-tensorflowjs/yolo.jpg' | prepend: site.baseurl }}" data-lightbox="ML5 custom examples" data-title="YoLo and image classification">
-        <img alt="YoLo and image classification" src="{{ '/img/2019-06-27-tensorflowjs/yolo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 60%; display: inline-block;">
+    <a href="{{ '/img/2019-06-26-tensorflowjs/yolo.jpg' | prepend: site.baseurl }}" data-lightbox="ML5 custom examples" data-title="YoLo and image classification">
+        <img alt="YoLo and image classification" src="{{ '/img/2019-06-26-tensorflowjs/yolo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 60%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2019-06-27-tensorflowjs/style.jpg' | prepend: site.baseurl }}" data-lightbox="ML5 custom examples" data-title="Style transfer">
-        <img alt="Style transfer" src="{{ '/img/2019-06-27-tensorflowjs/style.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 31%; display: inline-block;">
+     <a href="{{ '/img/2019-06-26-tensorflowjs/style.jpg' | prepend: site.baseurl }}" data-lightbox="ML5 custom examples" data-title="Style transfer">
+        <img alt="Style transfer" src="{{ '/img/2019-06-26-tensorflowjs/style.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 31%; display: inline-block;">
     </a>
 </div>
 <br/>
