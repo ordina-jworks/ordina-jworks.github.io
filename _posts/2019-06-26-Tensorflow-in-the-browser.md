@@ -19,7 +19,7 @@ comments: true
 1. [Introduction](#introduction)
 2. [TensorFlow](#tensorflow)
 4. [TensorFlow.js](#tensorflowjs)
-5. [Making it easier](#ml5)
+5. [ML5](#ml5)
 6. [Resources](#resources)
 
 ## Introduction
@@ -29,7 +29,7 @@ It is also something that is very hard to do, if you're trying to do it right, t
 Since AI/ML is here to stay and not everyone has the time and resources to study every aspect of ML, we need something to help us.
 We already have TensorFlow which runs in Python, nice if you know Python.
 But what if you want to experiment with ML in your latest web application?
-The answer is here! [TensorFlow.js](https://www.tensorflow.org/js){:target="_blank" rel="noopener noreferrer"}
+The answer is here: [TensorFlow.js](https://www.tensorflow.org/js){:target="_blank" rel="noopener noreferrer"}!
 
 This blogpost serves as a quick introduction to TensorFlow.js and ML5 so you too can get started with some cool AI/ML examples in your web applications!
 
@@ -38,14 +38,14 @@ This blogpost serves as a quick introduction to TensorFlow.js and ML5 so you too
 <img alt="Tensorflow" src="{{ '/img/2019-06-26-tensorflowjs/tensor.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 If we are going to implement machine learning into an application, TensorFlow is one of the most used libraries that provides everything we need to get started.
-It has been around from quite some time and is really mature.
-It is fully open source and a well adopted industry standard with great tooling and lots of reference materials.
+It has been around for quite some time and is really mature.
+It is fully open source and a well-adopted industry standard with great tooling and lots of reference materials.
 
 The full documentation on TensorFlow can be found [here](https://www.tensorflow.org/guide){:target="_blank" rel="noopener noreferrer"}.
 Learning TensorFlow is a long process that requires dedication and a lot of trial and error.
 Experimentation is key!
 
-There also a lot of very good online courses to get started with machine learning that can greatly aid you in understanding the key principles and concepts.
+There are also a lot of very good online courses to get started with machine learning that can greatly aid you in understanding the key principles and concepts.
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/vq2nnJ4g6N0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -57,7 +57,7 @@ There also a lot of very good online courses to get started with machine learnin
 <br/>
 
 There are many more videos about getting started, and there are also some very good courses on online educational websites like Coursera and Pluralsight.
-They are a great place to start, but always remember that only with extended trail and error and experimentation you will fully grasp the logic behind it all!
+They are a great place to start, but always remember that only with extended trial and error and experimentation you will fully grasp the logic behind it all!
 
 ## TensorFlow.js
 
@@ -81,19 +81,20 @@ But there are a few limitations though.
 Browsers are a lot more memory constrained than when training a model 'offline' with Python.
 This means that super complex models pose an issue when training in the browser, keep this in mind!
 You can however always train a model offline and only use TensorFlow.js to run the model in the browser and make predictions.
-Also keep in mind that the models you load tend to be on the larger side, especially when considering web pages.
+Also keep in mind that the models you load, tend to be on the larger side, especially when considering web pages.
 Some models are upwards of a 100 MegaBytes or more, so loading them can take a while, certainly when bandwidth is limited (mobile devices/3G/bad WiFi).
 
-Taking the TensorFlow.js variant of TensorFlow into account we can see that there are many options in the ecosystem to build, train and run models almost everywhere.
+Taking the TensorFlow.js variant of TensorFlow into account, we can see that there are many options in the ecosystem to build, train and run models almost everywhere.
 
 <img alt="TensorFlow ecosystem" src="{{ '/img/2019-06-26-tensorflowjs/overview.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 ### A small JavaScript example
 
-The following example is one how to recognize digits from the the MNIST dataset (Modified National Institute of Standards and Technology).
+The following example is one how to recognize digits from the MNIST dataset (Modified National Institute of Standards and Technology).
 This is a large dataset of scanned handwritten digits.
 It contains 60,000 training images and 10,000 testing images.
-Each image is black and white spanning 28 by 28 pixels, for a total of 784 pixels, numbers you’ll get to know by heart.
+Each image is black and white spanning 28 by 28 pixels, for a total of 784 pixels.
+Numbers you’ll get to know by heart.
 
 All the API calls used are documented on the [TensorFlow.js website](https://js.tensorflow.org/api/latest/){:target="_blank" rel="noopener noreferrer"}.
 
@@ -156,16 +157,17 @@ model.add(tf.layers.dense({
 ```
 
 This concludes the code for creating the actual layers.
-Each layer has some comments explaining why it is used and what it's function is.
-As is, this code is not that complex, the complexity stems from knowing what layers to use, what parameters to give them and how to combine them all.
+Each layer has some comments explaining why it is used and what its function is.
+As is, this code is not that complex.
+The complexity stems from knowing what layers to use, what parameters to give them and how to combine them all.
 This can only be learned up to some degree as a deep understanding is required to figure this out.
-Thankfully the internet has many websites with resources for machine learning and there are even websites dedicated to providing ready to use models, like [Model Zoo](https://modelzoo.co/){:target="_blank" rel="noopener noreferrer"}.
+Thankfully the internet has many websites with resources for machine learning and there are even websites dedicated to providing ready-to-use models, like [Model Zoo](https://modelzoo.co/){:target="_blank" rel="noopener noreferrer"}.
 
 Now we will look at code that sets the optimizer, sets up the training and validation, loads the data and then trains and validates the model.
 A working example of this code can be found [here](https://storage.googleapis.com/tfjs-examples/mnist/dist/index.html){:target="_blank" rel="noopener noreferrer"}.
 
 ```javascript
-// An optimizer is an iterative method for minimizing an loss function.
+// An optimizer is an iterative method for minimizing a loss function.
 // It tries to find the minimum of our loss function with respect to the model's weight parameters.
 const optimizer = 'rmsprop';
 
@@ -242,7 +244,7 @@ tf.tidy(() => {
 
 This is still not all that complicated code, but it is a lot to figure out all by yourself.
 There are pre-trained models available which can make your life easier, but what if there was an even easier way.
-What if there exists a library (or more than one) that allows you do to some commonly used machine learning techniques with very little code.
+What if there exists a library (or more than one) that allows you to do some commonly used machine learning techniques with very little code.
 It exists, read on below to find out all about it!
 
 ## ML5
@@ -320,7 +322,7 @@ The second example uses Style transfer to transfer styles from a base image to a
 <br/>
 
 These are really simple to make and provide a real world value for quickly prototyping an application to include a machine learning technique.
-While not everything is perfect (The cat is a Holy Birman not a Siamese, but I'll excuse that one) it can give you a rough view on how well it will work and if it merits further development effort.
+While not everything is perfect (the cat is a Holy Birman not a Siamese, but I'll excuse that one) it can give you a rough view on how well it will work and if it merits further development effort.
 
 Be sure to give it a try and see for yourself how easy it really is to get started with TensorFlow in the browser!
 
