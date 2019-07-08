@@ -17,8 +17,8 @@ Well, here is another piece of Japanese fish for you to fry.
 
 ### Fish that were yesterday
 
-Without any doubt, Kaoru Ishikawa 石川馨 (1915-1989) was one of the game changer Japanese organizational theorists of our times. 
-With his near-contemporaries Noriaki Kano (of the famous Kano MVP and customer satisfaction model), W. Edwards Deming (of 14 points and PDCA cycle fame) and Hirotaka Takeuchi and Ikujiro Nonaka (who were the first to come up with SCRUM in ‘The New New Product Development Game’, 1986), Ishikawa sort of laid the foundations of organisational models as we know and use them today. 
+Without any doubt, Kaoru Ishikawa 石川馨 (1915-1989) was one of the game changer Japanese organizational theorists of our time. 
+With his near-contemporaries Noriaki Kano (of the famous Kano MVP and customer satisfaction model), W. Edwards Deming (of 14 points and PDCA cycle fame), and Hirotaka Takeuchi and Ikujiro Nonaka (who were the first to come up with SCRUM in ‘The New New Product Development Game’, 1986), Ishikawa sort of laid the foundations of organisational models as we know and use them today. 
 Also, Ishikawa-sama is considered a key figure in the development of quality initiatives in Japan and elsewhere.
 
 As a baseline, Ishikawa had in mind to change the way people think about life, including work. 
@@ -30,12 +30,12 @@ To this end, Ishikawa thought of a set of useful and relevant methods.
 One of these, and what Ishikawa is mostly famous for, is the fishbone diagram, a.k.a. the Ishikawa or cause-and-effect diagram, often used in the analysis of industrial processes.
 
 Most commonly, Ishikawa diagrams are created to brainstorm over the multiple causes for a specific current event or defect. 
-The current status, default status, or, perhaps in most cases, the defect is shown as the fish's head, facing to the right, with the causes extending to the left as fishbones; the ribs branching off the backbone for major causes, with sub-branches for root-causes, up to as many levels as required, brainstormed or identified.
+The current status, default status, or, perhaps in most cases, the defect, is shown as the fish's head, facing to the right, with the causes extending to the left as fishbones; the ribs branching off the backbone for major causes, with sub-branches for root-causes, up to as many levels as required, brainstormed or identified.
 
 You could try doing fishbones at home with your children. 
 They are great fun to do – and they help your children understand that situations are mere results of a chain of previous events, and that nobody really is to blame for them.
 
-<img alt="Fishbones" src="{{ '/img/fishbones-for-tomorrow/tfishbones.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="Fishbones" src="{{ '/img/fishbones-for-tomorrow/fishbones.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 Fishbone structures with the head at the right side are beautiful – because they are in some way a reflection of evolution and natural selection. 
 They can also be viewed as a representation of complexity, where multiple minute events, small circumstances and off-chance happenings, all contribute to ‘what is’, in the here and the now.
@@ -66,10 +66,13 @@ After all, there is hardly an approach in the Agile framework where co-creation 
 
 Does it need saying that being out in the world hunting for appropriate liberating structures permitting cooperation and collaboration has become a second nature for me?
 
-It could be for you too. 
+It could be for you, too. 
 Think of this: that when turning around the arrow of time is permitted, if it facilitates working together - than everything else is permitted too, all the way up to imagining a world upside down.
 
+<img alt="Sushi" src="{{ '/img/fishbones-for-tomorrow/sushi.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
+
+// TODO fishbone template nog toevoegen
 
 #### Credit
 * Artwork in the main image by [Heather Fortner](http://heatherfortner.com/){:target="_blank" rel="noopener noreferrer"}
