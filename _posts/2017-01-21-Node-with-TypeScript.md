@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: 'Node with TypeScript'
 image: /img/node-with-typescript/node-ts.jpg
-tags: [Node, NodeJS, V8, JavaScript, TypeScript, IoT, Internet of Things]
+tags: [Node.js, V8, JavaScript, TypeScript, Internet of Things]
 category: IoT
 comments: true
 ---

@@ -3,7 +3,7 @@ layout: post
 authors: [ryan_de_gruyter]
 title: "Automated E2E (End-to-End) testing on Android and iOS with Ionic, Protractor and Appium."
 image: /img/ionic-protractor-appium.jpg
-tags: [ionic,protractor,appium,angular,typescript,javascript,jasmine,testing,E2E,end-to-end,Android,iOS]
+tags: [Ionic, Protractor, Appium, Angular, TypeScript, JavaScript, Jasmine, Testing, E2E, Android, iOS]
 category: Ionic
 comments: true
 ---
@@ -26,7 +26,7 @@ But what if your application run's on native mobile devices?
 
 This article will cover how to get started with E2E testing your Ionic application on native Android and iOS devices.
 
-To follow along, I recommend having a basic understanding of Javascript, Typescript, Jasmine and automated testing in general.
+To follow along, I recommend having a basic understanding of Javascript, TypeScript, Jasmine and automated testing in general.
 
 # Automated testing
 
@@ -130,7 +130,7 @@ We will be using this package to start up our Appium server.
 Decide in which language you want to write your tests in.
 You need to have a client library that can send MJSONWP / JSONWP HTTP Requests to the Appium server.
 
-For our application, we will write our tests in Typescript using Protractor since it has added support for Angular and type safety.
+For our application, we will write our tests in TypeScript using Protractor since it has added support for Angular and type safety.
 
 Other webdriver javascript clients:
 
@@ -248,9 +248,9 @@ Install the test runner with the following command:
 npm install -D protractor
 ```
 
-### 1. Configure Typescript
+### 1. Configure TypeScript
 
-We require a few extra tools to be able run and write our tests in Typescript.
+We require a few extra tools to be able run and write our tests in TypeScript.
 
 ```shell
 npm install -D ts-node @types/jasmine @types/node
@@ -283,7 +283,7 @@ Next, in your `/e2e` folder, create a **tsconfig.json** file with the following 
 
 This will be our tsconfig for our e2e test scripts.
 
-It's also a good idea to write your configuration files in Typescript.
+It's also a good idea to write your configuration files in TypeScript.
 For our protractor configuration, we will use a different typescript configuration file.
 
 In your `/e2e` folder, create a file called `/e2e/protractor.tsconfig.json`

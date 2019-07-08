@@ -3,7 +3,7 @@ layout: post
 authors: [yannick_de_turck]
 title: 'Heuristics from the Trenches by Cyrille Martraire'
 image: /img/DDDEurope2015.jpg
-tags: [Domain-Driven Design, DDD, Software Craftmanship]
+tags: [Domain-Driven Design, Software Craftmanship]
 category: Domain-Driven Design
 comments: true
 ---

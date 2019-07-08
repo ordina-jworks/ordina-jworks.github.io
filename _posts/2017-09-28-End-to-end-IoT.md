@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: 'Building end-to-end IoT demos with LoRa'
 image: /img/end-to-end-iot/booze-5.jpg
-tags: [JavaScript, TypeScript, IoT, Internet Of Things, Arduino, Prototyping, Sensors, LoRa, Booze, Node.js, Proximus, MyThings, smart tech, smart, tech, johnny-five, electronics, modem]
+tags: [JavaScript, TypeScript, Internet of Things, Arduino, Prototyping, Sensors, LoRa, Booze, Node.js, Proximus, MyThings, Smart tech, Electronics, Modem]
 category: IoT
 comments: true
 ---
