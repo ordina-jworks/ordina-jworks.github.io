@@ -30,15 +30,18 @@ To this end, Ishikawa thought of a set of useful and relevant methods.
 One of these, and what Ishikawa is mostly famous for, is the fishbone diagram, a.k.a. the Ishikawa or cause-and-effect diagram, often used in the analysis of industrial processes.
 
 Most commonly, Ishikawa diagrams are created to brainstorm over the multiple causes for a specific current event or defect. 
-The current status, default status, or, perhaps in most cases, the defect, is shown as the fish's head, facing to the right, with the causes extending to the left as fishbones; the ribs branching off the backbone for major causes, with sub-branches for root-causes, up to as many levels as required, brainstormed or identified.
+The current status, default status, or, perhaps in most cases, the defect, is shown as the fish's head, with the causes extending to the left as fishbones; the ribs branching off the backbone for major causes, with sub-branches for root-causes, up to as many levels as required, brainstormed or identified.
+An example of a fishbone diagram is shown below: 
+
+<img alt="Sushi" src="{{ '/img/fishbones-for-tomorrow/fishbone-example.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 You could try doing fishbones at home with your children. 
 They are great fun to do – and they help your children understand that situations are mere results of a chain of previous events, and that nobody really is to blame for them.
 
-<img alt="Fishbones" src="{{ '/img/fishbones-for-tomorrow/fishbones.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
-
 Fishbone structures with the head at the right side are beautiful – because they are in some way a reflection of evolution and natural selection. 
 They can also be viewed as a representation of complexity, where multiple minute events, small circumstances and off-chance happenings, all contribute to ‘what is’, in the here and the now.
+
+<img alt="Fishbones" src="{{ '/img/fishbones-for-tomorrow/fishbones.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 ### Turning around the arrow of time
 
@@ -53,7 +56,6 @@ For future orientation, one might keep the fish with its head at the right side,
 In my practice, I have noticed that the cause-and-effect method is in fact a really powerful tool to facilitate teams in parallel thinking. 
 After formulating a goal statement that everyone agrees on, defining the cause areas is a helpful step towards discovering shared and alternative trains of thought. 
 But once these areas are clear, every participant makes a deep dive into their personal knowledge and experience with regard to the goal and tries to gather as many ideas as possible, in silence.
-
 Then, one by one, the team members present their ideas while others detect and formulate connections, doubles and insights.
 
 This technique helps the team to orderly gather a myriad of ideas, and it really sets things in motion. 
@@ -71,8 +73,6 @@ Think of this: that when turning around the arrow of time is permitted, if it fa
 
 <img alt="Sushi" src="{{ '/img/fishbones-for-tomorrow/sushi.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-
-// TODO fishbone template nog toevoegen
-
 #### Credit
 * Artwork in the main image by [Heather Fortner](http://heatherfortner.com/){:target="_blank" rel="noopener noreferrer"}
+* Fishbone example taken from [24point0.com](https://www.24point0.com/powerpoint-business-templates/applications-fishbone-diagram/){:target="_blank" rel="noopener noreferrer"}
