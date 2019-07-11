@@ -36,7 +36,7 @@ An example of a fishbone diagram is shown below:
 <img alt="Sushi" src="{{ '/img/fishbones-for-tomorrow/fishbone-example.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 You could try doing fishbones at home with your children. 
-They are great fun to do – and they help your children understand that situations are mere results of a chain of previous events, and that nobody really is to blame for them.
+They are a lot of fun to do – and they help your children understand that situations are mere results of a chain of previous events, and that nobody really is to blame for them.
 
 Fishbone structures with the head at the right side are beautiful – because they are in some way a reflection of evolution and natural selection. 
 They can also be viewed as a representation of complexity, where multiple minute events, small circumstances and off-chance happenings, all contribute to ‘what is’, in the here and the now.
