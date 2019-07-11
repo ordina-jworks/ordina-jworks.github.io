@@ -46,7 +46,7 @@ They can also be viewed as a representation of complexity, where multiple minute
 ### Turning around the arrow of time
 
 Okay. 
-This is all pretty useful of course – but somehow, sometimes, in my work as an Agile Coach, I have been coming across teams more keen on exploring ahead and discovering further possibilities and opportunities, than keep looking backward. 
+This is all pretty useful of course – but somehow, sometimes, in my work as an Agile Coach, I have been coming across teams more keen on exploring ahead and discovering further possibilities and opportunities, than teams that keep looking backward. 
 And recently, in such a case, I thought I might permit myself and the team I was working with to even meddle with the arrow of time.
 
 Kaoru Ishikawa-sama might not have approved, but I decided to use a fishbone diagram to focus on the future rather than digging up causes of a problem from the past.
