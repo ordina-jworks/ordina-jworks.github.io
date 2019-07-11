@@ -17,7 +17,7 @@ Well, here is another piece of Japanese fish for you to fry.
 
 ### Fish that were yesterday
 
-Without any doubt, Kaoru Ishikawa 石川馨 (1915-1989) was one of the game changer Japanese organizational theorists of our time. 
+Without any doubt, Kaoru Ishikawa 石川馨 (1915-1989) was one of the game changing Japanese organizational theorists of our time. 
 With his near-contemporaries Noriaki Kano (of the famous Kano MVP and customer satisfaction model), W. Edwards Deming (of 14 points and PDCA cycle fame), and Hirotaka Takeuchi and Ikujiro Nonaka (who were the first to come up with SCRUM in ‘The New New Product Development Game’, 1986), Ishikawa sort of laid the foundations of organisational models as we know and use them today. 
 Also, Ishikawa-sama is considered a key figure in the development of quality initiatives in Japan and elsewhere.
 
