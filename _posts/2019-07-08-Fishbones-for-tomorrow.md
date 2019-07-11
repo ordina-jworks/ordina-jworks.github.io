@@ -69,7 +69,7 @@ After all, there is hardly an approach in the Agile framework where co-creation 
 Does it need saying that being out in the world hunting for appropriate liberating structures permitting cooperation and collaboration has become a second nature for me?
 
 It could be for you, too. 
-Think of this: that when turning around the arrow of time is permitted, if it facilitates working together - than everything else is permitted too, all the way up to imagining a world upside down.
+Think of this: when turning around the arrow of time is permitted, if it facilitates working together - then everything else is permitted too, all the way up to imagining a world upside down.
 
 <img alt="Sushi" src="{{ '/img/fishbones-for-tomorrow/sushi.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
