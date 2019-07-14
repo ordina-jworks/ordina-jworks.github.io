@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Getting started with TensorFlow in the browser - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-06-26-tensorflowjs/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/machine%20learning/2019/06/26/Tensorflow-in-the-browser.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Getting started with TensorFlow in the browser - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-06-26-tensorflowjs/banner.jpg"/>
+
+    
+    <title>Getting started with TensorFlow in the browser - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Getting started with TensorFlow in the browser</h2>
+                
+
+                
+                    Posted Jun 26, 2019
+
+
+    in <a href="/categories/machine-learning/">Machine Learning</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/internet-of-things/">Internet of Things</a>, 
+    
+        <a href="/tags/smart-tech/">Smart tech</a>, 
+    
+        <a href="/tags/machine-learning/">Machine Learning</a>, 
+    
+        <a href="/tags/artificial-intelligence/">Artificial Intelligence</a>, 
+    
+        <a href="/tags/tensorflow/">TensorFlow</a>, 
+    
+        <a href="/tags/javascript/">JavaScript</a>, 
+    
+        <a href="/tags/browser/">Browser</a>, 
+    
+        <a href="/tags/node.js/">Node.js</a>, 
+    
+        <a href="/tags/ml5.js/">Ml5.js</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#tensorflow">TensorFlow</a></li>
+  <li><a href="#tensorflowjs">TensorFlow.js</a></li>
+  <li><a href="#ml5">ML5</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Machine learning is a hot topic right now, and rightfully so!
+It is also something that is very hard to do, if you’re trying to do it right, that is.
+Since AI/ML is here to stay and not everyone has the time and resources to study every aspect of ML, we need something to help us.
+We already have TensorFlow which runs in Python, nice if you know Python.
+But what if you want to experiment with ML in your latest web application?
+The answer is here: <a href="https://www.tensorflow.org/js" target="_blank" rel="noopener noreferrer">TensorFlow.js</a>!</p>
+
+<p>This blogpost serves as a quick introduction to TensorFlow.js and ML5 so you too can get started with some cool AI/ML examples in your web applications!</p>
+
+<h2 id="tensorflow">Tensorflow</h2>
+
+<p><img alt="Tensorflow" src="/img/2019-06-26-tensorflowjs/tensor.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>If we are going to implement machine learning into an application, TensorFlow is one of the most used libraries that provides everything we need to get started.
+It has been around for quite some time and is really mature.
+It is fully open source and a well-adopted industry standard with great tooling and lots of reference materials.</p>
+
+<p>The full documentation on TensorFlow can be found <a href="https://www.tensorflow.org/guide" target="_blank" rel="noopener noreferrer">here</a>.
+Learning TensorFlow is a long process that requires dedication and a lot of trial and error.
+Experimentation is key!</p>
+
+<p>There are also a lot of very good online courses to get started with machine learning that can greatly aid you in understanding the key principles and concepts.</p>
+
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/vq2nnJ4g6N0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+</div>
+<p><br /></p>
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/tYYVSEHq-io" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+</div>
+<p><br /></p>
+
+<p>There are many more videos about getting started, and there are also some very good courses on online educational websites like Coursera and Pluralsight.
+They are a great place to start, but always remember that only with extended trial and error and experimentation you will fully grasp the logic behind it all!</p>
+
+<h2 id="tensorflowjs">TensorFlow.js</h2>
+
+<p><img alt="TensorFlow.js" src="/img/2019-06-26-tensorflowjs/tensorflowjs.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Enter TensorFlow.js.
+This ‘new’ addition to the TensorFlow lineup allows developers to utilize the power of machine learning in the browser or in NodeJS.
+The biggest advantage of this is that models written in Python can be converted and reused.
+This allows for some very cool use cases we will go into a bit later.</p>
+
+<p>TensorFlow.js is nice because:</p>
+
+<ul>
+  <li>GPU accelerated (in the browser), thanks to WebGL/OpenCL, and this even on non CUDA cards!</li>
+  <li>Lower barrier of entry, no prior Python knowledge required (but can be handy)</li>
+  <li>Convert/retrain/reuse existing models with your own data</li>
+  <li>Quickly prototype into existing applications without having to setup a full ML pipeline</li>
+  <li>In the browser we have direct access to various input devices/sensors like the camera/accelerometer/location/…</li>
+</ul>
+
+<p>This sound almost too good to be true!
+But there are a few limitations though.
+Browsers are a lot more memory constrained than when training a model ‘offline’ with Python.
+This means that super complex models pose an issue when training in the browser, keep this in mind!
+You can however always train a model offline and only use TensorFlow.js to run the model in the browser and make predictions.
+Also keep in mind that the models you load, tend to be on the larger side, especially when considering web pages.
+Some models are upwards of a 100 MegaBytes or more, so loading them can take a while, certainly when bandwidth is limited (mobile devices/3G/bad WiFi).</p>
+
+<p>Taking the TensorFlow.js variant of TensorFlow into account, we can see that there are many options in the ecosystem to build, train and run models almost everywhere.</p>
+
+<p><img alt="TensorFlow ecosystem" src="/img/2019-06-26-tensorflowjs/overview.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<h3 id="a-small-javascript-example">A small JavaScript example</h3>
+
+<p>The following example is one how to recognize digits from the MNIST dataset (Modified National Institute of Standards and Technology).
+This is a large dataset of scanned handwritten digits.
+It contains 60,000 training images and 10,000 testing images.
+Each image is black and white spanning 28 by 28 pixels, for a total of 784 pixels.
+Numbers you’ll get to know by heart.</p>
+
+<p>All the API calls used are documented on the <a href="https://js.tensorflow.org/api/latest/" target="_blank" rel="noopener noreferrer">TensorFlow.js website</a>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tf.sequential provides an API where the output from one layer is used as the input to the next layer.</span>
+<span class="kd">const</span> <span class="nx">model</span> <span class="o">=</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">sequential</span><span class="p">();</span>
+
+<span class="c1">// The first layer of the convolutional neural network plays a dual role:</span>
+<span class="c1">// it is both the input layer of the neural network and a layer that performs the first convolution operation on the input.</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">conv2d</span><span class="p">({</span>
+    <span class="na">inputShape</span><span class="p">:</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="na">kernelSize</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">filters</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+    <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">relu</span><span class="dl">'</span>
+<span class="p">}));</span>
+
+<span class="c1">// MaxPooling layer for downsampling =&gt; https://www.quora.com/What-is-max-pooling-in-convolutional-neural-networks</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">maxPooling2d</span><span class="p">({</span>
+    <span class="na">poolSize</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">strides</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}));</span>
+
+<span class="c1">// Our third layer is another convolution, this time with 32 filters.</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">conv2d</span><span class="p">({</span>
+    <span class="na">kernelSize</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">filters</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">relu</span><span class="dl">'</span>
+<span class="p">}));</span>
+
+<span class="c1">// Max pooling again.</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">maxPooling2d</span><span class="p">({</span>
+    <span class="na">poolSize</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="na">strides</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}));</span>
+
+<span class="c1">// Add another conv2d layer.</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">conv2d</span><span class="p">({</span>
+    <span class="na">kernelSize</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="na">filters</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">relu</span><span class="dl">'</span>
+<span class="p">}));</span>
+
+<span class="c1">// Now we flatten the output from the 2D filters into a 1D vector to prepare</span>
+<span class="c1">// it for input into our last layer. This is common practice when feeding</span>
+<span class="c1">// higher dimensional data to a final classification output layer.</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">flatten</span><span class="p">({}));</span>
+
+ <span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">dense</span><span class="p">({</span>
+    <span class="na">units</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+    <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">relu</span><span class="dl">'</span>
+<span class="p">}));</span>
+
+<span class="c1">// Our last layer is a dense layer which has 10 output units, one for each</span>
+<span class="c1">// We use the softmax function as the activation for the output layer as it</span>
+<span class="c1">// creates a probability distribution over our 10 classes so their output values sum to 1.</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">dense</span><span class="p">({</span>
+    <span class="na">units</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">softmax</span><span class="dl">'</span>
+<span class="p">}));</span>
+</code></pre></div></div>
+
+<p>This concludes the code for creating the actual layers.
+Each layer has some comments explaining why it is used and what its function is.
+As is, this code is not that complex.
+The complexity stems from knowing what layers to use, what parameters to give them and how to combine them all.
+This can only be learned up to some degree as a deep understanding is required to figure this out.
+Thankfully the internet has many websites with resources for machine learning and there are even websites dedicated to providing ready-to-use models, like <a href="https://modelzoo.co/" target="_blank" rel="noopener noreferrer">Model Zoo</a>.</p>
+
+<p>Now we will look at code that sets the optimizer, sets up the training and validation, loads the data and then trains and validates the model.
+A working example of this code can be found <a href="https://storage.googleapis.com/tfjs-examples/mnist/dist/index.html" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// An optimizer is an iterative method for minimizing a loss function.</span>
+<span class="c1">// It tries to find the minimum of our loss function with respect to the model's weight parameters.</span>
+<span class="kd">const</span> <span class="nx">optimizer</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">rmsprop</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// We compile our model by specifying an optimizer, a loss function, and a</span>
+<span class="c1">// list of metrics that we will use for model evaluation. Here we're using a</span>
+<span class="c1">// categorical crossentropy loss.</span>
+<span class="nx">model</span><span class="p">.</span><span class="nx">compile</span><span class="p">({</span>
+    <span class="nx">optimizer</span><span class="p">,</span>
+    <span class="na">loss</span><span class="p">:</span> <span class="dl">'</span><span class="s1">categoricalCrossentropy</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">metrics</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">accuracy</span><span class="dl">'</span><span class="p">],</span>
+<span class="p">});</span>
+
+<span class="c1">// Batch size is another important hyperparameter. It defines the number of</span>
+<span class="c1">// examples we group together, or batch, between updates to the model's</span>
+<span class="c1">// weights during training.</span>
+<span class="kd">const</span> <span class="nx">batchSize</span> <span class="o">=</span> <span class="mi">320</span><span class="p">;</span>
+
+<span class="c1">// Leave out the last 15% of the training data for validation, to monitor</span>
+<span class="c1">// overfitting during training.</span>
+<span class="kd">const</span> <span class="nx">validationSplit</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">trainBatchCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">trainData</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">getTrainData</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">testData</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">getTestData</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">totalNumBatches</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">trainData</span><span class="p">.</span><span class="nx">xs</span><span class="p">.</span><span class="nx">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">validationSplit</span><span class="p">)</span> <span class="o">/</span> <span class="nx">batchSize</span><span class="p">)</span> <span class="o">*</span> <span class="nx">trainEpochs</span><span class="p">;</span>
+
+<span class="c1">// During the long-running fit() call for model training, we include callbacks.  </span>
+<span class="kd">let</span> <span class="nx">valAcc</span><span class="p">;</span>
+<span class="k">await</span> <span class="nx">model</span><span class="p">.</span><span class="nx">fit</span><span class="p">(</span><span class="nx">trainData</span><span class="p">.</span><span class="nx">xs</span><span class="p">,</span> <span class="nx">trainData</span><span class="p">.</span><span class="nx">labels</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">batchSize</span><span class="p">,</span>
+    <span class="nx">validationSplit</span><span class="p">,</span>
+    <span class="na">epochs</span><span class="p">:</span> <span class="nx">trainEpochs</span><span class="p">,</span>
+    <span class="na">callbacks</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">onBatchEnd</span><span class="p">:</span> <span class="k">async</span> <span class="p">(</span><span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">trainBatchCount</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">onIteration</span> <span class="o">&amp;&amp;</span> <span class="nx">batch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onBatchEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">nextFrame</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="na">onEpochEnd</span><span class="p">:</span> <span class="k">async</span> <span class="p">(</span><span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">valAcc</span> <span class="o">=</span> <span class="nx">logs</span><span class="p">.</span><span class="nx">val_acc</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">onIteration</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onEpochEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">nextFrame</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+
+<span class="kd">const</span> <span class="nx">testResult</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">testData</span><span class="p">.</span><span class="nx">xs</span><span class="p">,</span> <span class="nx">testData</span><span class="p">.</span><span class="nx">labels</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">testAccPercent</span> <span class="o">=</span> <span class="nx">testResult</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">dataSync</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">finalValAccPercent</span> <span class="o">=</span> <span class="nx">valAcc</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">testExamples</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">examples</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">getTestData</span><span class="p">(</span><span class="nx">testExamples</span><span class="p">);</span>
+
+<span class="c1">// Code wrapped in a tf.tidy() function callback will have their tensors freed</span>
+<span class="c1">// from GPU memory after execution without having to call dispose().</span>
+<span class="nx">tf</span><span class="p">.</span><span class="nx">tidy</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">predict</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">xs</span><span class="p">);</span>
+
+    <span class="c1">// tf.argMax() returns the indices of the maximum values in the tensor along</span>
+    <span class="c1">// a specific axis. Categorical classification tasks like this one often</span>
+    <span class="c1">// represent classes as one-hot vectors. One-hot vectors are 1D vectors with</span>
+    <span class="c1">// one element for each output class. All values in the vector are 0</span>
+    <span class="c1">// except for one, which has a value of 1 (e.g. [0, 0, 0, 1, 0]). </span>
+    <span class="kd">const</span> <span class="nx">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">labels</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">labels</span><span class="p">.</span><span class="nx">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nx">dataSync</span><span class="p">());</span>
+    <span class="kd">const</span> <span class="nx">predictions</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nx">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nx">dataSync</span><span class="p">());</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This is still not all that complicated code, but it is a lot to figure out all by yourself.
+There are pre-trained models available which can make your life easier, but what if there was an even easier way.
+What if there exists a library (or more than one) that allows you to do some commonly used machine learning techniques with very little code.
+It exists, read on below to find out all about it!</p>
+
+<h2 id="ml5">ML5</h2>
+
+<p><img alt="ML5" src="/img/2019-06-26-tensorflowjs/ml5-examples.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Enter ML5!
+This library provides ready to use building blocks, as their website describes:</p>
+<blockquote>
+  <p>ML5.js aims to make machine learning approachable for a broad audience of artists, creative coders, and students.
+The library provides access to machine learning algorithms and models in the browser, building on top of TensorFlow.js with no other external dependencies.</p>
+</blockquote>
+
+<p>This gives us the ability to quickly use these machine learning techniques in prototypes, to experiment with and test viability in real world conditions without requiring a full model to be built up front.
+This is provided the machine learning technique is available within the ML5 library.</p>
+
+<p>Classifying an image becomes really simple:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Initialize the Image Classifier method with MobileNet. A callback needs to be passed.</span>
+<span class="kd">const</span> <span class="nx">classifier</span> <span class="o">=</span> <span class="nx">ml5</span><span class="p">.</span><span class="nx">imageClassifier</span><span class="p">(</span><span class="dl">'</span><span class="s1">MobileNet</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">‘</span><span class="nx">ready</span><span class="err">’</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">img</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">setup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">noCanvas</span><span class="p">();</span>
+    <span class="nx">img</span> <span class="o">=</span> <span class="nx">createImg</span><span class="p">(</span><span class="dl">'</span><span class="s1">images/bird.jpg</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">classifier</span><span class="p">.</span><span class="nx">predict</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">gotResult</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">img</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">gotResult</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">#result</span><span class="dl">'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">className</span><span class="p">);</span>
+    <span class="nx">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">#probability</span><span class="dl">'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">nf</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">probability</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This small example also uses <a href="https://p5js.org/" target="_blank" rel="noopener noreferrer">p5.js</a> for image handling/drawing.</p>
+
+<p>It has many different available machine learning techniques available:</p>
+
+<ul>
+  <li>Image classification</li>
+  <li>Pose estimation</li>
+  <li>Person segmentation</li>
+  <li>Biomedical image segmentation</li>
+  <li>Style transfer</li>
+  <li>Image to image translation</li>
+  <li>Feature extraction</li>
+  <li>Text sentiment detection</li>
+  <li>…</li>
+</ul>
+
+<p>Detailed information and reference documentation can be found on <a href="https://ml5js.org/reference/" target="_blank" rel="noopener noreferrer">their website</a>.
+The project is also fully open source and in active development.</p>
+
+<h3 id="some-ml5-examples">Some ML5 examples</h3>
+
+<p>We have written some small examples ourselves with ML5.
+You can run the examples by checking out <a href="https://github.com/ordina-jworks/TensorFlow.js" target="_blank" rel="noopener noreferrer">the repo</a> and switching to any of the solution branches.
+Be sure to run it from a local webserver or the demos will not work correctly!</p>
+
+<p>The first example uses <a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener noreferrer">YOLO (You Only Look Once)</a>  and ImageNet to detect the contents of an image and classify it.
+The second example uses Style transfer to transfer styles from a base image to a provided target image.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2019-06-26-tensorflowjs/yolo.jpg" data-lightbox="ML5 custom examples" data-title="YoLo and image classification">
+        <img alt="YoLo and image classification" src="/img/2019-06-26-tensorflowjs/yolo.jpg" class="image fit" style="margin:0px auto; width: 60%; display: inline-block;" />
+    </a>
+     <a href="/img/2019-06-26-tensorflowjs/style.jpg" data-lightbox="ML5 custom examples" data-title="Style transfer">
+        <img alt="Style transfer" src="/img/2019-06-26-tensorflowjs/style.jpg" class="image fit" style="margin:0px auto; width: 31%; display: inline-block;" />
+    </a>
+</div>
+<p><br /></p>
+
+<p>These are really simple to make and provide a real world value for quickly prototyping an application to include a machine learning technique.
+While not everything is perfect (the cat is a Holy Birman not a Siamese, but I’ll excuse that one) it can give you a rough view on how well it will work and if it merits further development effort.</p>
+
+<p>Be sure to give it a try and see for yourself how easy it really is to get started with TensorFlow in the browser!</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://www.tensorflow.org/js" target="_blank" rel="noopener noreferrer">TensorFlow.js</a></li>
+  <li><a href="https://modelzoo.co/" target="_blank" rel="noopener noreferrer">Model Zoo</a></li>
+  <li><a href="https://ml5js.org/" target="_blank" rel="noopener noreferrer">ML5</a></li>
+  <li><a href="https://github.com/ml5js/ml5-examples#examples-index" target="_blank" rel="noopener noreferrer">ML5 Demos</a></li>
+  <li><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener noreferrer">YOLO</a></li>
+  <li><a href="https://github.com/ordina-jworks/TensorFlow.js" target="_blank" rel="noopener noreferrer">ML5 Custom Examples</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/machine%20learning/2019/06/26/Tensorflow-in-the-browser.html&title=Getting started with TensorFlow in the browser&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Getting started with TensorFlow in the browser&url=https://ordina-jworks.github.io/machine%20learning/2019/06/26/Tensorflow-in-the-browser.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/machine%20learning/2019/06/26/Tensorflow-in-the-browser.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image" title="">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-06-26-tensorflowjs/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
