@@ -3,7 +3,7 @@ layout: post
 authors: [tim_ysewyn]
 title: "Monitoring your microservices with Micrometer.io"
 image: /img/2017-09-17-monitoring-your-microservices-with-micrometer/post-image.jpg
-tags: [microservices, monitoring]
+tags: [Microservices, Monitoring]
 category: Microservices
 comments: true
 ---

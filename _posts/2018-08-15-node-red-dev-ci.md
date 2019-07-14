@@ -3,7 +3,7 @@ layout: post
 authors: [tim_vierbergen]
 title: 'Node-RED: Development and CI'
 image: /img/node-red-dev-ci/node-red-dev-ci-white.png
-tags: [Node-RED,docker,Jenkins,GoCD,ci]
+tags: [Node-RED, Docker, Jenkins, GoCD, Continuous Integration]
 category: Testing
 comments: true
 ---

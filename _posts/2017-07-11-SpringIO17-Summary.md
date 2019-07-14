@@ -3,7 +3,7 @@ layout: post
 authors: [dieter_hubau, gina_de_beukelaer, hans_michiels, jeff_mesens, tim_schmitte]
 title: 'Spring I/O 2017 Recap'
 image: /img/springio2017.jpg
-tags: [Spring, IO, Pivotal, Google, Spring Boot, Java, Reactive, Reactor, DDD, CQRS, Spring Cloud, Spring Cloud Stream, Serverless]
+tags: [Spring, Pivotal, Google, Spring Boot, Java, Reactive, Reactor, Domain-Driven Design, CQRS, Spring Cloud, Spring Cloud Stream, Serverless]
 category: Spring
 comments: true
 ---

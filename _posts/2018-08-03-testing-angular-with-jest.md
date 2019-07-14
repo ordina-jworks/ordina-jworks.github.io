@@ -3,7 +3,7 @@ layout: post
 authors: [yannick_vergeylen]
 title: "Testing Angular with jest"
 image: /img/2018-08-03-testing-angular-with-jest/jest.png
-tags: [JWorks, culture]
+tags: [Jest, Angular, Testing, JavaScript]
 category: Testing
 comments: true
 ---

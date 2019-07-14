@@ -3,7 +3,7 @@ layout: post
 authors: [pieter_van_hees]
 title: 'SpringOne Platform - Fun With The Functional Web Framework'
 image: /img/2018-09-27-SpringOne-Platform/post-image.jpg
-tags: [Spring One, Pivotal, Functional Programming, Functional Web Framework, Spring, WebFlux.fn, Web MVC]
+tags: [SpringOne Platform, Conference, Pivotal, Functional Programming, Functional Web Framework, Spring, Spring WebFlux, Web MVC]
 category: Spring
 comments: true
 ---

@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [ryan_de_gruyter]
-title: 'Component-based application architecture with AngularJS and Typescript'
+title: 'Component-based application architecture with AngularJS and TypeScript'
 image: /img/components-angularjs.jpg
-tags: [angularjs, typescript, javascript, components, architecture, best practices]
+tags: [AngularJS, TypeScript, JavaScript, Components, Architecture]
 category: Angular
 comments: true
 redirect_from: /angularjs-typescript/2016/04/25/component-based-application-architecture-with-angularjs-and-typescript.html
@@ -26,7 +26,7 @@ If you are on a team with multiple front-end developers you can easily divide th
 It also helps in migrating to Angular 2, though I cannot promise it will be an easy task.
 Another bonus point is you are getting into the mindset of modern front-end development: **web components**.
 
-My preferred toolchain when developing AngularJS applications consists of Typescript, NPM and Webpack.
+My preferred toolchain when developing AngularJS applications consists of TypeScript, NPM and Webpack.
 The sample code in this article and the sample application are created together with these tools.
 
 You can find the sample application on Github:

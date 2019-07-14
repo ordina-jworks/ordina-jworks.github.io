@@ -3,7 +3,7 @@ layout: post
 authors: [frederic_ghijselinck]
 title: 'Angular Security Best Practices'
 image: /img/angular-security-best-practices.png
-tags: [Angular,TypeScript,JavaScript,Security,XSS,CSP,XSRF,XSSI]
+tags: [Angular, TypeScript, JavaScript, Security, XSS, CSP, XSRF, XSSI]
 category: Angular
 comments: true
 ---
