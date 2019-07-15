@@ -3,7 +3,7 @@ layout: post
 authors: [gert-jan_schokkaert]
 title: "Visualising IoT data with tableau"
 image: /img/2018-11-16-stairway-to-health/stairway-to-health.png
-tags: [Tableau, Visualisation, Dashboard, Internet of Things, IoT, LoRa, NoSQL, MongoDB]
+tags: [Tableau, Visualisation, Dashboard, Internet of Things, LoRa, NoSQL, MongoDB]
 category: Development
 comments: true
 ---

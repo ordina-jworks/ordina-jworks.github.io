@@ -3,8 +3,8 @@ layout: post
 authors: [michael_vervloet]
 title: "Complete Introduction to NodeJs"
 image: /img/complete-introduction-node.png
-tags: [NodeJs, tutorial, JavaScript, node]
-category: NodeJs
+tags: [Node.js, Tutorial, JavaScript]
+category: Node.js
 comments: true
 ---
 

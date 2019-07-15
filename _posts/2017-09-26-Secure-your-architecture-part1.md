@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_houtte]
 title: 'Securing your cloud-native microservice architecture in Spring: part 1'
 image: /img/microservices/part1/securitylogo.png
-tags: [Microservices, Security, OAuth2, JWT, Spring, Cloud]
+tags: [Microservices, Security, OAuth2, JWT, Spring, Cloud, Spring Cloud]
 category: Microservices
 comments: true
 ---

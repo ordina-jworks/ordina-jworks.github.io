@@ -3,7 +3,7 @@ layout: post
 authors: [dieter_hubau]
 title: '#Devoxx Arun Gupta talks Docker'
 image: /img/docker.png
-tags: [Docker, Devoxx]
+tags: [Docker, Devoxx, Conference]
 category: Conference
 comments: true
 redirect_from: /devoxx/2015/11/09/Devoxx15-Docker-Kubernetes.html

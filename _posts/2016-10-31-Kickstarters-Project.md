@@ -3,7 +3,7 @@ layout: post
 authors: [tim_verte]
 title: 'Kickstarter project 2016'
 image: /img/kicks.png
-tags: [Spring, Angular, Unit Test, Postman, Spring Boot, Spring REST Docs]
+tags: [Spring, Angular, Unit testing, Postman, Spring Boot, Spring REST Docs]
 category: Kickstarters
 comments: true
 ---
@@ -53,7 +53,7 @@ During the first month they received different courses in which they could impro
 
  * frontend
     * HTML & CSS
-    * Javascript & Typescript
+    * Javascript & TypeScript
     * Angular
     * Ionic
 

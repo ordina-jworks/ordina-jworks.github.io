@@ -3,7 +3,7 @@ layout: post
 authors: [andreas_evers]
 title: 'Automated Canary Analysis using Spinnaker - Codelab'
 image: /img/spinnaker/spinnaker-logo.png
-tags: [Canary, Continuous-Delivery, Cloud, Microservices, Netflix, Spring]
+tags: [Canary, Continuous Delivery, Cloud, Microservices, Netflix, Spring]
 category: Cloud
 comments: true
 ---

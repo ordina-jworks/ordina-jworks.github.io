@@ -3,7 +3,7 @@ layout: post
 authors: [tom_verelst]
 title: 'oDDs and enDs: Vaughn Vernon  on software projects in peril'
 image: /img/DDDEurope2015.jpg
-tags: [Domain-Driven Design, DDD, Software Craftmanship]
+tags: [Domain-Driven Design, Software Craftmanship]
 category: Domain-Driven Design
 comments: true
 ---

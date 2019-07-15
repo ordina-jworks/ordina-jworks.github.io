@@ -3,7 +3,7 @@ layout: post
 authors: [andreas_evers]
 title: 'Master Spring Boot auto-configuration'
 image: /img/springio.jpg
-tags: [Spring]
+tags: [Spring, Spring IO, Conference]
 category: Spring
 comments: true
 ---

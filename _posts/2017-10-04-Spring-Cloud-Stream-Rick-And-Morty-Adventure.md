@@ -3,7 +3,7 @@ layout: post
 authors: [dieter_hubau]
 title: 'Spring Cloud Stream - A New Rick and Morty Adventure'
 image: /img/spring-cloud-stream.png
-tags: [Spring, Cloud, Stream, Microservices, RabbitMQ, Messaging, Reactive, Rick, Morty]
+tags: [Spring, Spring Cloud Stream, Microservices, RabbitMQ, Messaging, Reactive]
 category: Spring
 comments: true
 ---
