@@ -3,7 +3,7 @@ layout: post
 authors: [ryan_de_gruyter, michael_vandendriessche]
 title: "ViroReact: Build cross-platform AR/VR applications for Android and iOS using React"
 image: /img/2018-06-26-viroreact/viroreact.jpg
-tags: [React, React Native, ViroReact, Virtual reality, VR, Augmented reality, AR, Mixed reality, MR]
+tags: [React, React Native, ViroReact, Virtual Reality, Augmented Reality, Mixed Reality]
 category: IoT
 comments: true
 ---

@@ -3,7 +3,7 @@ layout: post
 authors: [yannick_de_turck, dieter_hubau, derya_duru]
 title: 'JavaDay Ukraine 2017'
 image: /img/javaday-ukraine-2017/javaday-ukraine-2017.png
-tags: [JavaDay, Java, Kotlin, Spring, CQRS, Event Sourcing, Microservices, Reactive, Spinnaker, Reactor, WebFlux, Kubernetes]
+tags: [JavaDay, Java, Kotlin, Spring, CQRS, Event Sourcing, Microservices, Reactive, Spinnaker, Reactor, Spring WebFlux, Kubernetes]
 category: Conference
 comments: true
 ---

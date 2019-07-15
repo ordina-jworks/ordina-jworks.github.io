@@ -3,7 +3,7 @@ layout: post
 authors: [frederick_bousson, kevin_van_den_abeele]
 title: "The Vuzix Blade"
 image: /img/2019-03-31-vuzix/banner.jpg
-tags: [internet of things, iot, AR, VR, MR, Augmented reality, smart tech, smart glasses, glasses, android, vuzix, blade, vuzix blade, CES, Consumer Technology Association]
+tags: [Internet of Things, Augmented Reality, Virtual Reality, Smart tech, Smart glasses, Android, Vuzix, Vuzix Blade, CES, Consumer Technology Association]
 category: IoT, Smart tech, Smart glasses, Augmented reality
 comments: true
 ---

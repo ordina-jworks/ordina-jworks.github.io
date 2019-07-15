@@ -3,7 +3,7 @@ layout: post
 authors: [nils_devos]
 title: "Scrum VS Kanban"
 image: /img/agile/scrum-vs-kanban/boxers.jpg
-tags: [Agile,Scrum, Kanban]
+tags: [Agile, Scrum, Kanban]
 category: Agile
 comments: true
 permalink: agile/2018/04/30/scrum-vs-kanban.html

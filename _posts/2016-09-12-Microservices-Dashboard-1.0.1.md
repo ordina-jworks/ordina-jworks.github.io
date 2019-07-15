@@ -89,7 +89,7 @@ The information for these links come from Spring Boot Actuator health endpoints,
 The dashboard currently consists out of an AngularJS 1.x application which communicates over HTTP to a Spring Boot application.
 The frontend uses D3.js to visualise the nodes in the four columns.
 We are currently in the process of completely rebuilding the frontend stack.
-Next version will be running on Angular 2, Typescript and EcmaScript 6.
+Next version will be running on Angular 2, TypeScript and EcmaScript 6.
 Most of D3.js will be taken care of by Angular 2 itself.
 
 Thanks to this refactor we’ll see the introduction of RxJS, making the frontend much more reactive in nature.

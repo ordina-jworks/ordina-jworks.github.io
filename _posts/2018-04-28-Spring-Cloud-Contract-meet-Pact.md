@@ -3,7 +3,7 @@ layout: post
 authors: [tim_ysewyn]
 title: 'Spring Cloud Contract, meet Pact'
 image: /img/2018-04-28-Spring-Cloud-Contract-meet-Pact/post-image.jpg
-tags: [Spring, Spring Cloud, Spring Cloud Contract, SCC, Pact, CDCT]
+tags: [Spring, Spring Cloud, Spring Cloud Contract, Pact, CDCT]
 category: Spring
 comments: true
 ---

@@ -87,12 +87,12 @@ transparent_header: true
         <div class="content">
             <h2 class="major">Tags</h2>
             <div class="category-list left">
-                {% assign shown_tags = '' %}
-                {% for tag in site.tags %}{% assign tag_ = tag[0] | downcase | replace:' ','-' %}
-                    {% unless shown_tags contains tag_ %}
-                    <a href="/tags/{{tag_ }}"> <i class="fa fa-tag fa-fw"></i>{{tag[0]}}</a>
-                    {% assign shown_tags = shown_tags | append: ', ' | append: tag_ %}
-                    {% endunless %}
+                {% assign tags = site.tags | sort %}
+                {% for tag in tags %}
+                    <a href="/tags/{{ tag | first | slugify }}/" style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%"> 
+                        <i class="fa fa-tag fa-fw"></i>{{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
+                    </a>
+                </span>
                 {% endfor %}
             </div>
         </div>
