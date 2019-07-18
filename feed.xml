@@ -1,5 +1,394 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-07-17T14:40:59+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Fishbones for Tomorrow</title><link href="https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow.html" rel="alternate" type="text/html" title="Fishbones for Tomorrow" /><published>2019-07-16T00:00:00+00:00</published><updated>2019-07-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow.html">&lt;p&gt;For quite a few years now, I have been going steady with Japan, the birthplace of so many philosophies, teachings and practices preceding and gearing up to the Agile movement. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-07-18T05:50:12+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Cypress: a new kid on the E2E block</title><link href="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html" rel="alternate" type="text/html" title="Cypress: a new kid on the E2E block" /><published>2019-07-18T00:00:00+00:00</published><updated>2019-07-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/07/18/Cypress</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Intro&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#cypress&quot;&gt;Cypress&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#comparison&quot;&gt;Comparison&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-cypress&quot;&gt;Setting up Cypress&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#amazing-features&quot;&gt;Amazing features&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#continuous-integration&quot;&gt;Continuous Integration&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;intro&quot;&gt;Intro&lt;/h1&gt;
+
+&lt;p&gt;Those of us familiar with E2E testing a user interface, we all know the struggle.
+Not only coding with waits and timeouts but setups that were harder to manage especially when running it on a continuous integration platform.
+Maintaining versions, network issues, browser support, …&lt;/p&gt;
+
+&lt;p&gt;For as long as I can remember, there was one constant in this setup!
+Selenium was always there.
+No matter what framework you used, Nightwatch, Protractor, Gauge, Robot, …
+Selenium was the man in the middle.
+All I can remember from building a Selenium setup a few years ago, are all the difficulties and frustrations.
+Communication was not working, versions were not matching, timeout issues due to network lag, ….
+But still, Selenium was a dependency that was needed!&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/selenium-setup.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Not that I am not grateful for Selenium and its team of developers and maintainers, because let’s be honest, what would we have done without it?
+But now, ohh yeah, there’s a new kid in town.&lt;/p&gt;
+
+&lt;h1 id=&quot;cypress&quot;&gt;Cypress&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Fast, easy and reliable testing for anything that runs in a browser
+~&lt;a target=&quot;\_blank&quot; href=&quot;https://www.cypress.io/&quot;&gt;Cypress&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Cypress is aiming to provide its users with a bundled experience for writing end-to-end tests for web applications.
+While lots of other frameworks (as mentioned above) are all interacting over a Selenium server,
+for remote communication and by definition, running its tests outside of the browser, Cypress is executed inside the browser.
+Therefore Cypress is executed in the same runtime as your application itself.
+Because of this, Cypress has native access to every single object. The &lt;code class=&quot;highlighter-rouge&quot;&gt;window&lt;/code&gt;, the &lt;code class=&quot;highlighter-rouge&quot;&gt;document&lt;/code&gt;, a &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt;-element, a &lt;code class=&quot;highlighter-rouge&quot;&gt;service worker&lt;/code&gt;, … .
+Cypress does not need to send commands over-the-wire and can just access everything.&lt;/p&gt;
+
+&lt;h1 id=&quot;comparison&quot;&gt;Comparison&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Selenium&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Cypress&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Debugging:&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Hard/Remote&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Easy/Access to everything/Nice tool&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Speed:&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Remote = slow&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;In browser = Fast&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Parallel:&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Headless:&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Language support:&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Java, Perl PHP, Python, Ruby, C#, Javascript&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Javascript&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Browser support:&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Everything&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Only webkit&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;basic-architecture&quot;&gt;Basic Architecture&lt;/h2&gt;
+
+&lt;p&gt;Cypress consists of a few different building blocks.
+One of them is its own Nodejs process.
+You can look at this as being a backend.
+This backend then launches a browser window, sets up a proxy to this browser window and sets the domain to localhost.
+The browser window has two iFrames inside.
+One is for Cypress itself.
+The second one will hold the application under test.
+To make it possible to communicate with the application’s iFrame, it injects a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;-tag that also sets its domain to localhost.
+Because now, both iFrames are running on ‘localhost’, it is possible to access everything of the application.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/cypress-setup.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The proxy is proxying all requests from the web application itself to its backend.
+Because the proxy is part of the Cypress-setup, Cypress can act as the man-in-the-middle and spy on, mock or modify the requests and responses.&lt;/p&gt;
+
+&lt;p&gt;Communication between the Cypress Nodejs-backend and the Cypress iFrame, that is running the tests, is through a websocket.&lt;/p&gt;
+
+&lt;p&gt;There are a few downsides as seen in the comparison.
+Because Cypress is running inside of the browser, the language is Javascript.
+Cypress only supports Chrome so far. Although Cypress is working on supporting other browsers.
+Today there is no way of testing in Safari, Ìnternet Explorer, Edge, …
+Cypress tests are written using Mocha and Chai.&lt;/p&gt;
+
+&lt;h1 id=&quot;setting-up-cypress&quot;&gt;Setting Up Cypress&lt;/h1&gt;
+
+&lt;h2 id=&quot;installing-cypress&quot;&gt;Installing Cypress&lt;/h2&gt;
+
+&lt;p&gt;Installation of Cypress is really simple.
+You can install it through Yarn:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ yarn add cypress --dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Or plain npm:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ npm install cypress --save-dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also install it globally.
+This way you do not need a local &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; to run Cypress and all Cypress commands can be run straight from the command line.&lt;/p&gt;
+
+&lt;h2 id=&quot;running-cypress&quot;&gt;Running Cypress&lt;/h2&gt;
+
+&lt;p&gt;Depending on how you just installed Cypress, you can run Cypress by:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ yarn run cypress open&lt;/code&gt;
+of
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ $(npm bin)/cypress open&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Or globally:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ cypress open&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The first positive surprise!
+When opening Cypress for the first time, it notices that you haven’t run it before and it kindly scaffolds a &lt;code class=&quot;highlighter-rouge&quot;&gt;/cypress&lt;/code&gt; folder with examples into your project.
+This way, you already have a configured &lt;code class=&quot;highlighter-rouge&quot;&gt;base&lt;/code&gt; to start from.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/firsttime.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/firsttime2.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see, Cypress opens its own application.
+This is kind of a backend application that will orchestrate the tests.
+Running one of the tests, means that Cypress will open a second window, which is actually just a new browser window.
+It will then inject itself into that window in one frame, and load the application under test in another frame.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-cypress&quot;&gt;Configuring Cypress&lt;/h2&gt;
+
+&lt;p&gt;You can custom configure Cypress by adding a &lt;code class=&quot;highlighter-rouge&quot;&gt;cypress.json&lt;/code&gt; file in the root of your project.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;baseUrl&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;http://demo-app.localtest.me/demo-app&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;integrationFolder&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;testFiles&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;**.spec.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reporter&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;mochawesome&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reporterOptions&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;overwrite&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reportDir&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;results&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reportFilename&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;report.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You can always override these settings on the command-line:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ cypress run --spec src/** -c baseUrl=http://localhost&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;For a full overview of the configuration options, just check out the &lt;a href=&quot;https://docs.cypress.io/guides/references/configuration.html#Options&quot; target=&quot;blank&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;reporters&quot;&gt;Reporters&lt;/h2&gt;
+
+&lt;p&gt;Just like other frameworks, Cypress lets you add custom reporters for the test results.
+As you can see above, we’ve added &lt;code class=&quot;highlighter-rouge&quot;&gt;mochawesome&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Install it via Yarn:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;yarn add mochawesome &lt;span class=&quot;nt&quot;&gt;--dev&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;And then manually add it to the &lt;code class=&quot;highlighter-rouge&quot;&gt;cypress.json&lt;/code&gt; config file.&lt;/p&gt;
+
+&lt;p&gt;Take a look at the &lt;a href=&quot;https://www.npmjs.com/package/mochawesome&quot; target=&quot;blank&quot;&gt;documentation&lt;/a&gt; for the configuration.&lt;/p&gt;
+
+&lt;h2 id=&quot;cypress-and-typescript&quot;&gt;Cypress and TypeScript&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Cypress ships with official type declarations for TypeScript. This allows you to write your tests in TypeScript. All that is required is a little bit of configuration. ~docs&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The documentation itself is linking to some different examples.
+You can read all about the setup &lt;a target=&quot;blank&quot; href=&quot;https://docs.cypress.io/guides/tooling/typescript-support.html&quot;&gt;here&lt;/a&gt;.
+And you can also take a look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;npm package add-typescript-to-cypress&lt;/code&gt; &lt;a href=&quot;https://www.npmjs.com/package/@bahmutov/add-typescript-to-cypress&quot; target=&quot;blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;writing-your-first-tests&quot;&gt;Writing your first tests&lt;/h2&gt;
+
+&lt;p&gt;As shown above, you can configure the path to your &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-files.
+In our case, we are using &lt;code class=&quot;highlighter-rouge&quot;&gt;/src&lt;/code&gt;.
+Cypress will go through that directory and show all the spec files when using Cypress in development mode.
+When running Cypress command line to only run the tests, it will just run all those &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-files and then create the report.&lt;/p&gt;
+
+&lt;p&gt;In our small example we have an Angular demo app that has a material &lt;code class=&quot;highlighter-rouge&quot;&gt;sidenav&lt;/code&gt; with three links.
+Dashboard, clients and products.
+The latter two both have a material &lt;code class=&quot;highlighter-rouge&quot;&gt;datatable&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/demo-app.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s say we want to test our clients navigation and &lt;code class=&quot;highlighter-rouge&quot;&gt;datatable&lt;/code&gt;.
+Create a &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt; file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/src&lt;/code&gt; directory, in our case, named &lt;code class=&quot;highlighter-rouge&quot;&gt;clients.spec.js&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;/// &amp;lt;reference types=&quot;Cypress&quot; /&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients test&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients page should have Clients as a title&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.table-container-header h1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients table should initially have 20 rows&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.mat-row&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients table should show 10 rows when pagesize is set to 10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mat-select&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mat-option&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mat-select&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.mat-row&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;running-your-first-tests&quot;&gt;Running your first tests&lt;/h2&gt;
+
+&lt;p&gt;If you would now run &lt;code class=&quot;highlighter-rouge&quot;&gt;$ yarn run cypress open&lt;/code&gt;.
+Cypress will open itself, showing you your new &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-file.
+You can now run your &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-file by double clicking it, or click the ‘run all’ option on the top right of your Cypress application.&lt;/p&gt;
+
+&lt;p&gt;Changing the &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-file will trigger a reload/retest in your Cypress-environment.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/main-app.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;amazing-features&quot;&gt;Amazing features&lt;/h1&gt;
+
+&lt;p&gt;The purpose of this post is not to provide you with some sample code, but trying to convince you to take a look at Cypress.
+To do so, I’ll quickly go over some really nice features because besides the easy setup and nice main application, Cypress has much more to offer.&lt;/p&gt;
+
+&lt;h2 id=&quot;debugging-with-cypress&quot;&gt;Debugging with Cypress&lt;/h2&gt;
+
+&lt;p&gt;One of the hardest things when writing E2E tests is debugging.
+Running tests over and over again, while logging everything to check what is going on, is now history.
+Cypress injects itself in the same window as the application under test, so it has access to everything.
+Everything, including the debugger.&lt;/p&gt;
+
+&lt;p&gt;This means that you can actually debug your test code as you would debug the application itself.
+Although using the debugger is not that straight forward, it’s a great help.
+Check out out the documentation &lt;a href=&quot;https://docs.cypress.io/guides/guides/debugging.html#Using-debugger&quot; target=&quot;blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;snapshots&quot;&gt;Snapshots&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/snapshot.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Take a look at the image above.
+As you can see, Cypress takes a snapshot at every stage of the test.
+You can navigate through them later and see the snapshot at a specific time and even see the difference in the state of the application before a request and after its response when running &lt;code class=&quot;highlighter-rouge&quot;&gt;XHR requests&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;network-accessibility&quot;&gt;Network accessibility&lt;/h2&gt;
+
+&lt;p&gt;As mentioned above, Cypress can take snapshots before and after each &lt;code class=&quot;highlighter-rouge&quot;&gt;XHR request&lt;/code&gt;.
+Cypress knows what is going on under the hood because it is running in the same window.
+This makes it easy to implement stubs and spies.&lt;/p&gt;
+
+&lt;p&gt;A simple example for our use case would be intercepting the &lt;code class=&quot;highlighter-rouge&quot;&gt;client-service&lt;/code&gt; calls and return mocked data.
+To do so, Cypress needs to run a server.
+This can be done by just running &lt;code class=&quot;highlighter-rouge&quot;&gt;cy.server()&lt;/code&gt;.
+Next step is to define the route you want to listen on and attach new data to it.
+Cypress enables this with its &lt;code class=&quot;highlighter-rouge&quot;&gt;route&lt;/code&gt; configuration.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;**/*/api/client-service/**/*&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Tatiana&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Velez&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;diam.dictum@Proin.net&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;birthday&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;626286135&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Dumfries&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;694245&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;pageable&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;unsorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;pageNumber&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;offset&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;paged&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;unpaged&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;totalElements&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;totalPages&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;
+         &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;unsorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;numberOfElements&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;stub-clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;   
+  &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/network-stub.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;screenshots-and-videos&quot;&gt;Screenshots and videos&lt;/h2&gt;
+
+&lt;p&gt;Another cool embedded feature is the ability to capture screenshots or record videos.
+Cypress comes with screenshot and video recording out of the box.
+Screenshots always come in handy when trying to find a bug.
+Cypress even lets you take a screenshot, manually, from within your code.
+Before, we were always setting this up using ‘yet another plugin’ (and dependency).&lt;/p&gt;
+
+&lt;h1 id=&quot;continuous-integration&quot;&gt;Continuous integration&lt;/h1&gt;
+
+&lt;p&gt;Running Cypress on a continuous integration platform is also pretty easy.
+You just want Cypress to run the tests and not to open its Electron test manager for development.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ cypress run&lt;/code&gt; just does that.
+Just append the other options you want to override from the &lt;code class=&quot;highlighter-rouge&quot;&gt;cypress.json&lt;/code&gt; and you are good to go.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ yarn run cypress run --spec 'src/**/*' --reporter mochawesome --reporter-options reportDir=results,reportFilename=report.html&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Example &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;scripts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;cypress:ci&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;cypress run --spec 'src/**/*' --reporter mochawesome --reporter-options reportDir=results,reportFilename=report.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/command-line.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/cypress/mochawesome.png&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Although there are still some downsides to this new player in the E2E testing field, such as only supporting JavaScript and Chrome, there are just too many positives to keep it on the sideline.
+Cypress provides us with a new amazing test runner and manager. It strips all the hassles of previous setups and provides us with a real robust framework.
+It is providing us with cool but effective features like the snapshot time travel, easy debugging, headful/headless mode for CI and more.&lt;/p&gt;
+
+&lt;p&gt;Cypress is too good to not take a look at!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learning how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="Continuous Integration" /><category term="E2E" /><category term="JavaScript" /><category term="Testing" /><category term="Selenium" /><category term="Cypress" /><summary type="html">Table of contents Intro Cypress Comparison Setting up Cypress Amazing features Continuous Integration Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/cypress/cypress-logo.png" /></entry><entry><title type="html">Fishbones for Tomorrow</title><link href="https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow.html" rel="alternate" type="text/html" title="Fishbones for Tomorrow" /><published>2019-07-16T00:00:00+00:00</published><updated>2019-07-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow.html">&lt;p&gt;For quite a few years now, I have been going steady with Japan, the birthplace of so many philosophies, teachings and practices preceding and gearing up to the Agile movement. 
 This is how I came to discover the well-hidden connection between work and fish. 
 In Eastern Asia, the carp or koi is a deeply symbolic and highly respected animal, the presence and/or representation of which is considered a placeholder for luck, prosperity and a long life. 
 No surprise then, that the fish is sometimes used as a metaphor for good business practice and process improvement.&lt;/p&gt;
@@ -3396,313 +3785,4 @@ Furthermore, and most dauntingly, it builds on human trust, as an unconditional 
 &lt;ul&gt;
   &lt;li&gt;&lt;sup&gt;1&lt;/sup&gt; For a full but ever growing list of these liberating structures, visit &lt;a href=&quot;http://www.liberatingstructures.com/ls-menu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://www.liberatingstructures.com/ls-menu/&lt;/a&gt; and &lt;a href=&quot;http://www.liberatingstructures.com/ls-in-development/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://www.liberatingstructures.com/ls-in-development/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;sup&gt;2&lt;/sup&gt; The epic quote by Adam Weisbart, concluding every podcast: see &lt;a href=&quot;https://weisbart.com/agile-answers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://weisbart.com/agile-answers/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaëla&quot;, &quot;last_name&quot;=&gt;&quot;Broeckx&quot;, &quot;permalink&quot;=&gt;&quot;/author/michaela-broeckx/&quot;, &quot;title&quot;=&gt;&quot;Agile Coach&quot;, &quot;email&quot;=&gt;&quot;michaela.broeckx@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;michaelabroeckx&quot;, &quot;avatar&quot;=&gt;&quot;michaela-broeckx.jpg&quot;, &quot;bio&quot;=&gt;&quot;Michaëla is an Agile coach with a focus on value and the human aspects of work. She is devoted to Agile &amp; Scrum, not just as a mindset and framework for collaborative product delivery, but also for their general quality as ways to unlearn innate/inbred habits that prevent us from learning efficiently. A true Agile mindset enables enterprises to break down siloes, and build professional human networks throughout the company and beyond.&quot;}</name><email>michaela.broeckx@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="AgileWorks" /><category term="Scrum" /><category term="Agile Coaching" /><category term="Liberating Structures" /><summary type="html">Scrum is an Agile framework.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/scrum-is-a-liberating-structure/main-image.png" /></entry><entry><title type="html">Kickstarter Trajectory 2019 Light Edition</title><link href="https://ordina-jworks.github.io/kickstarters/2019/04/02/Kickstarter-Trajectory-2019-Light.html" rel="alternate" type="text/html" title="Kickstarter Trajectory 2019 Light Edition" /><published>2019-04-02T00:00:00+00:00</published><updated>2019-04-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/kickstarters/2019/04/02/Kickstarter-Trajectory-2019-Light</id><content type="html" xml:base="https://ordina-jworks.github.io/kickstarters/2019/04/02/Kickstarter-Trajectory-2019-Light.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;We started this kickstarter trajectory with four kickstarters.
-Jago was freshly graduated from school, where as Giel and Yolan already had working experience in IT.
-Seppe had multiple years of working experience in Digital Signage but made a career change and was also new to IT.
-The main goals of the kickstarter course was to give every kickstarter a knowledge foundation of the best practices within JWorks and to introduce them to the IT world.&lt;/p&gt;
-
-&lt;h2 id=&quot;first-day&quot;&gt;First day&lt;/h2&gt;
-&lt;h4 id=&quot;morning&quot;&gt;Morning&lt;/h4&gt;
-
-&lt;p&gt;On the first day there, we were welcomed by Robbe Struys and Angela Gallo.
-They gave us the basic information about the HR working of Ordina.
-After receiving the keys to our new car and our laptop they showed us how to work with Ordina Connect.
-We made our first CV and filled in our first timesheet entry.
-They toured us around the office and introduced us to our future colleagues.
-They were very friendly and they all said that we made the right choice.
-This was of course very nice to hear and put us at ease.
-We had brunch together and then we had a group picture as well as our profile pictures taken.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; alt=&quot;Group picture&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/group-picture.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;afternoon&quot;&gt;Afternoon&lt;/h4&gt;
-&lt;p&gt;With every developer comes his/her personal development environment.
-To help us pick the best tools to suite our needs, we had help from &lt;a href=&quot;/author/kevin-van-den-abeele&quot;&gt;Kevin Van den Abeele&lt;/a&gt;.
-He showed us the best IDEs for each language and best practices as to what we can do to improve our development experience.&lt;/p&gt;
-
-&lt;h2 id=&quot;git&quot;&gt;Git&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right&quot; width=&quot;35%&quot; alt=&quot;Git spaghetti vs linear&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/git-spaghetti-vs-linear.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A tool all developers use is Version Control.
-At Ordina we prefer to use &lt;a href=&quot;https://git-scm.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Git&lt;/a&gt; (this is preferred almost everywhere, who even uses SVN anymore?).
-So we learned to use Git, the best practices to get the best out of it and all this is done in the terminal of course.
-If you want to use a GUI for Git, they recommended GitKraken.
-Over the whole kickstarter traject, we would use Git to get our code examples and presentations.&lt;/p&gt;
-
-&lt;p&gt;We went over good practices and learned by doing this hands-on on our own machines.
-Creating our own repositories, branching, merging, … .&lt;a href=&quot;/author/yannick-de-turck/&quot;&gt;Yannick&lt;/a&gt;,
-our teacher for this course, was very clear to avoid spaghetti history by rebasing and squashing your commits to give a clean linear overview that is readable by your co-workers.&lt;/p&gt;
-
-&lt;h2 id=&quot;docker&quot;&gt;Docker&lt;/h2&gt;
-&lt;p&gt;&lt;img class=&quot;image right&quot; alt=&quot;Docker logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/docker.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As the era of containerization is rising, it only feels right to teach us the fundamentals about it and the importance of Docker in a project.
-That’s why they asked &lt;a href=&quot;/author/tom-verelst&quot;&gt;Tom Verelst&lt;/a&gt; to give us a detailed presentation about the mystical power of Docker.
-After the first introduction, we were soon ‘dockerizing’ our first full-stack application.
-We also combined everything together with Docker Compose, which made us start our whole full-stack application with just one command!&lt;/p&gt;
-
-&lt;p&gt;The session gave us an overview as to how Docker is used in the real world, and we couldn’t wait to use an orchestration framework to deploy our containers into the cloud!&lt;/p&gt;
-
-&lt;h2 id=&quot;databases&quot;&gt;Databases&lt;/h2&gt;
-
-&lt;p&gt;On day 3, &lt;a href=&quot;/author/tom-van-den-bulck&quot;&gt;Tom Van den Bulck&lt;/a&gt;, Competence Lead in Big and Fast Data, gave us a course on SQL and NoSQL database systems.
-As some of us were not familiar with NoSQL, this was very interesting to see the difference in usage and possibilities between normal SQL systems which we were all used to using before.&lt;/p&gt;
-
-&lt;h3 id=&quot;sql&quot;&gt;SQL&lt;/h3&gt;
-
-&lt;p&gt;For SQL database systems we had a look at PostgreSQL, an open-source object-relational database management system that is increasing in popularity across bigger enterprises for reasons such as high scalability, extensive features and as it works cross-platform.&lt;/p&gt;
-
-&lt;h3 id=&quot;nosql&quot;&gt;NoSQL&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;redis&quot;&gt;Redis&lt;/h4&gt;
-    &lt;p&gt;Redis is an open-source key-value store that runs in-memory.
-Used where consistency and durability is less important than speed.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;cassandra&quot;&gt;Cassandra&lt;/h4&gt;
-    &lt;p&gt;Cassandra is an open-source wide column store.
-Distributed across different nodes for high accessibility and low chance of downtime.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;mongodb&quot;&gt;MongoDB&lt;/h4&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;MongoDB is a document-oriented database system. Data in MongoDB does not need to be consistent and the data structure can change over time.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;h4 id=&quot;neo4j&quot;&gt;Neo4j&lt;/h4&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Neo4j is a graph database management system. No index is required and data with a lot of relations to other data can be accessed faster when dealing with higher amounts.&lt;/p&gt;
-
-&lt;h2 id=&quot;reactive-programming-with-rxjs&quot;&gt;Reactive programming with RxJS&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;RxJs logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/rxjs.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A course given by &lt;a href=&quot;/author/orjan-de-smet&quot;&gt;Orjan De Smet&lt;/a&gt; covering reactive programming, the advantages it brings and how and where to use it and how to use it in combination with unit testing.
-In short, reactive programming offers a solution to handling asynchronous calls with multiple events.
-Which means it offers more than one channel of communication so multi-step events can be handled efficiently.
-When coding in a traditional way you will often end up with a lot more code, could run into problems when for example a promise clogs a thread or you could end up with a mess of callbacks making your code extremely hard to read.&lt;/p&gt;
-
-&lt;h2 id=&quot;devops-and-continuous-integration&quot;&gt;DevOps and Continuous Integration&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;devops logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/devops.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;An introduction to DevOps &amp;amp; CI given by &lt;a href=&quot;/author/tim-vierbergen&quot;&gt;Tim Vierbergen&lt;/a&gt; explaining this way of working and how it increases the productivity of a team.
-We also covered some best practices considering version control, building, testing and deploying with an example project to get a bit more familiar with the software used to do this.
-Software such as Git for version control, Jenkins for building, Jasmine for testing and Docker/Spinnaker for deploying.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;security-principles&quot;&gt;Security Principles&lt;/h2&gt;
-
-&lt;p&gt;In this presentation we went over the basics on how to protect your application and the user data it stores from malicious intent.
-We went over some good practices regarding the storage of data and the verification of your users.
-For example the hashing of passwords, enabling 2-factor authentication and deciding on the amount of allowed invalid login attempts before issuing a timeout.
-All of these things should be decided using a mix of guidelines and common sense.&lt;/p&gt;
-
-&lt;h2 id=&quot;clean-code&quot;&gt;Clean Code&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;/author/pieter-van-hees&quot;&gt;Pieter Van Hees&lt;/a&gt; gave us a course of clean code, this course was not focussed on writing new code but improving the way you write the code.&lt;/p&gt;
-
-&lt;h4 id=&quot;improvements&quot;&gt;Improvements:&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Readability&lt;/li&gt;
-  &lt;li&gt;Maintainability&lt;/li&gt;
-  &lt;li&gt;Avoid rewrites&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The biggest enemy of clean code is pressure, so Pieter advised us to take our time to write clean code.
-During this course we also did some exercises through public code katas available on the internet.
-This course only gave an introduction and he recommended us to read the book Clean Code by Robert Cecil Martin.&lt;/p&gt;
-
-&lt;h2 id=&quot;frontend-build-tools-testing-package-managers-and-more&quot;&gt;Frontend Build tools, testing, package managers and more&lt;/h2&gt;
-
-&lt;p&gt;This course was led by &lt;a href=&quot;/author/michael-vervloet&quot;&gt;Michael Vervloet&lt;/a&gt;, who is a full stack JavaScript/TypeScript developer at Ordina.
-He gave us the know-how on the building process, serving your application and doing this in an optimized way.
-He also showed us to use generators and build tools to create a whole lot of code and files in the terminal.&lt;/p&gt;
-
-&lt;p&gt;The main topics of this course were Node.js, package managers and ways to build &amp;amp; generate your code (gulp, webpack and Angular CLI).
-We went over them one by one and got the chance to test and install them on our machines to get a hands-on experience.
-In the end, we created an Angular application from scratch and played around with the generator to make some components and serving them to look at our work.&lt;/p&gt;
-
-&lt;h2 id=&quot;java-language-features&quot;&gt;Java Language Features&lt;/h2&gt;
-&lt;p&gt;Java is a pretty popular language in the backend development world, and is our preferred backend language here at JWorks.
-That’s why &lt;a href=&quot;/author/yannick-de-turck&quot;&gt;Yannick De Turck&lt;/a&gt; explained us the newest features of Java versions 7, 8, 9, 10 and 11.
-Java 8 is currently the most used Java version.
-&lt;a href=&quot;/author/yannick-de-turck&quot;&gt;Yannick&lt;/a&gt; prepared some exercises for us so we could focus on the newest Java 8 features (lambdas, streams, optionals, …).&lt;/p&gt;
-
-&lt;p&gt;One of the most useful features that Java 10 introduced is the ‘var’ keyword.
-How great is it that you don’t have to specify the type twice during the initialization of an object!?&lt;/p&gt;
-
-&lt;p&gt;Java 11 is the newest LTS version, so it was important for us to get a detailed explanation about its newest changes and features.&lt;/p&gt;
-
-&lt;p&gt;Other than that, there were a lot of extra useful features that will certainly be nice to have once we can use them.
-It was very entertaining to get a quick overview as to what is new, what is being removed or deprecated and what we can or should expect in the coming Java versions.&lt;/p&gt;
-
-&lt;h2 id=&quot;spring-framework&quot;&gt;Spring Framework&lt;/h2&gt;
-&lt;p&gt;&lt;img class=&quot;image left&quot; alt=&quot;Spring logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/spring-logo.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;For a framework this big and popular, we followed a three-day course given by &lt;a href=&quot;/author/ken-coenen&quot;&gt;Ken Coenen&lt;/a&gt;.
-On the first day, we received a brief explanation as to how the Spring magic works behind the scenes (dependency injection, beans, …).
-We saw the basics of the most common components of the full Spring Framework such as Cloud, Security, … .&lt;/p&gt;
-
-&lt;p&gt;On the second day, we dived into the magic behind Spring Boot.
-It’s remarkable how much Spring Boot does for you without any configuration needed, although you can fully configure Spring Boot to your needs and satisfactions.&lt;/p&gt;
-
-&lt;p&gt;On the third day, &lt;a href=&quot;/author/ken-coenen&quot;&gt;Ken&lt;/a&gt; did a live coding session and created a Spring Boot application from scratch and explained how to fully initialize your Spring Boot project and get the most out of it through various steps and always showing the best practices for each implementation.&lt;/p&gt;
-
-&lt;h4 id=&quot;full-house-during-the-third-day&quot;&gt;Full House during the third day&lt;/h4&gt;
-&lt;p&gt;&lt;img class=&quot;image fit&quot; alt=&quot;Full house&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/spring-session.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Of course, afterwards we had some time to relax after three days of exploring the Spring Framework.
-We closed our three-day session on Friday with the best combination: pizza and beer!&lt;/p&gt;
-
-&lt;h4 id=&quot;pizza--beer&quot;&gt;Pizza &amp;amp; beer!&lt;/h4&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; alt=&quot;Pizza Time&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/pizza-time.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;unit-testing-and-mocking-in-java&quot;&gt;Unit Testing and mocking in Java&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right&quot; alt=&quot;Junit + Java Image&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/unit-testing.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We got an introduction to Unit Testing in Java from &lt;a href=&quot;/author/maarten-casteels&quot;&gt;Maarten Casteels&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;the-red-line&quot;&gt;The red line:&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Goals of Testing&lt;/li&gt;
-  &lt;li&gt;What to test&lt;/li&gt;
-  &lt;li&gt;Fixtures&lt;/li&gt;
-  &lt;li&gt;Mocks&lt;/li&gt;
-  &lt;li&gt;Assertions&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In the morning we got a very interactive theory session where we learned how important testing really is, the basics and what it all stands for.
-In the afternoon we learned to unit test our code, the best way to do this, how to mock dependencies, use fixtures and a whole lot more.
-Maarten also showed us the most common pitfalls to avoid, and some best practices like test-driven development (TDD) and how writing tests can help you with refactoring your code and lastly look at it with a different vision.&lt;/p&gt;
-
-&lt;p&gt;For lunch we went to a place called Meals On Wheels were we were introduced to a whole other world of sandwiches.
-Once you’ve been there you will know what we mean by that, don’t go too often though.&lt;/p&gt;
-
-&lt;h2 id=&quot;kubernetes&quot;&gt;Kubernetes&lt;/h2&gt;
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;Kubernetes Logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/kubernetes-logo.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://kubernetes.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kubernetes&lt;/a&gt; is an open source container orchestration framework which was first introduced to us by &lt;a href=&quot;/author/tom-verelst&quot;&gt;Tom Verelst&lt;/a&gt; during the kickstarter traject.
-It is made by Google and is now maintained by the Cloud Native Computing Foundation.
-First they introduced us to all the features that Kubernetes possesses (service discovery, horizontal scaling, load balancing, …).&lt;/p&gt;
-
-&lt;p&gt;Soon we learned how to deploy Docker containers in the cloud by using Kubernetes, and afterwards we had an hands-on exercise where we could deploy a full-stack application to a Kubernetes cluster using &lt;a href=&quot;https://github.com/kubernetes/minikube&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Minikube&lt;/a&gt;.
-It’s wonderful how you can deploy a full-stack application through Kubernetes with just one configuration file needed.
-Of course, it takes some time to get used to it, but once you get the hang of it, you can do outstanding stuff with this platform!&lt;/p&gt;
-
-&lt;h2 id=&quot;cloud-providers--platforms&quot;&gt;Cloud Providers &amp;amp; Platforms&lt;/h2&gt;
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;AWS Logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/aws-logo.png&quot; /&gt;
-To get a bigger picture of all the cloud providers and platforms that are out there conquering the IT world, 
-we had a dedicated session about this topic given by &lt;a href=&quot;/author/bas-moorkens&quot;&gt;Bas Moorkens&lt;/a&gt; and &lt;a href=&quot;/author/dieter-hubau&quot;&gt;Dieter Hubau&lt;/a&gt;.
-Bas was focusing on Amazon Web Services and all its features that it has to offer.&lt;/p&gt;
-
-&lt;p&gt;We quickly learned that AWS was very advanced and had lots of components to facilitate the life of a developer.
-It was a very interesting session and made me realise that AWS was a big part of the development scene.
-We are eager to use it and learn more of what is has to offer.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;OpenShift Logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/openshift-logo.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As for cloud platforms, we got a very detailed explanation of how OpenShift (made by RedHat) works and what its features and options are.
-We also got a high-level explanation as to how an application in the cloud works and what the best practices are to achieve deploying your application in the cloud.&lt;/p&gt;
-
-&lt;p&gt;Overall, it was a very interesting session for cloud-enthusiasts and we definitely want to learn more about it!&lt;/p&gt;
-
-&lt;h2 id=&quot;typescript&quot;&gt;TypeScript&lt;/h2&gt;
-&lt;p&gt;After the session HTLML5, CSS3, JavaScript, &lt;a href=&quot;/author/dimitri-de-kerf&quot;&gt;Dimitri De Kerf&lt;/a&gt; learned us the benefits of TypeScript. 
-He told us some benefits of using TypeScript instead of JavaScript.
-TypeScript is a wrapper around JavaScript, 
-which means it has more methods to make your daily programming more pleasant.&lt;/p&gt;
-
-&lt;p&gt;It also adds optional static typing for richer IDE autocomplete support.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/author/dimitri-de-kerf&quot;&gt;Dimitri De Kerf&lt;/a&gt; showed us how to configure our project to use TypeScript and to use these features.
-He explained us that it is important to know how to use TypeScript because it is used in popular frameworks like Angular and React.&lt;/p&gt;
-
-&lt;h2 id=&quot;angular&quot;&gt;Angular&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right&quot; width=&quot;300&quot; alt=&quot;Angular logo&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/angular.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/author/ryan-de-gruyter&quot;&gt;Ryan De Gruyter&lt;/a&gt; was our teacher for today.
-He quickly introduced us to Angular, a platform that is designed to easily create browser applications built by Google. 
-The first version of Angular was AngularJS.
-It was very popular and used by many companies.
-Google decided to update Angular and created Angular 2 which was not welcomed by the industry at that time because it removed all the AngularJS concepts.&lt;/p&gt;
-
-&lt;p&gt;It took some time for the industry to adapt and see the positive stuff of Angular 2: Open Source community, improved dependency injection, better performance, etc..
-Angular 2 is not the holy grail of frameworks. It still has some downsides like lots of ceremony and boilerplate thanks to the use of Angular CLI.&lt;/p&gt;
-
-&lt;p&gt;After the information session, he showed us how easy it was to create an Angular project where we learned how to create an Angular application using small reusable pieces called components.&lt;/p&gt;
-
-&lt;h2 id=&quot;frontend-hands-on&quot;&gt;Frontend hands-on&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;/author/jan-de-wilde&quot;&gt;Jan De Wilde&lt;/a&gt; asked if we still had question about the Angular session. 
-Because in this session we would create an Angular application using all the techniques we learned from the previous course and he wanted to be sure we understood everything before we started.
-So he went a bit deeper on some topics and showed us on how to execute calls to an API and to structure the project properly.&lt;/p&gt;
-
-&lt;p&gt;After the lunch break, when we were still digesting our food, we started to write a complete Angular application. 
-&lt;a href=&quot;/author/jan-de-wilde&quot;&gt;Jan De Wilde&lt;/a&gt; guided us through the process, showing us possible issues we could encounter and explained how we could solve those issues.&lt;/p&gt;
-
-&lt;h2 id=&quot;intro-to-cloud-friendly-development&quot;&gt;Intro to Cloud-Friendly Development&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;/author/kevin-van-houtte&quot;&gt;Kevin Van Houtte&lt;/a&gt; introduced us to contract testing.
-It is a tool to write an exact input and output of an API call.
-After we run our project, our contract will generate tests for our controller, checking if the controller output is the same as we expected in the contract.
-The files, generated by the contract, can be imported into Javadoc for documentation.&lt;/p&gt;
-
-&lt;p&gt;Afterwards we had some exercises where we could use all the skills we had learned in these courses.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;API driven programming with contract tests.&lt;/li&gt;
-  &lt;li&gt;Loading the API docs into our Java docs&lt;/li&gt;
-  &lt;li&gt;Attaching a database to our Spring Boot application&lt;/li&gt;
-  &lt;li&gt;Creating migration scripts and using these to populate the database with FlyWay&lt;/li&gt;
-  &lt;li&gt;Creating a config server and connecting our Spring Boot application to it&lt;/li&gt;
-  &lt;li&gt;Enabling actuator and using it to generate metrics data&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;All these exercises help us prepare for a real project in the future.&lt;/p&gt;
-
-&lt;h2 id=&quot;agile-development&quot;&gt;Agile Development&lt;/h2&gt;
-&lt;p&gt;Together with &lt;a href=&quot;/author/michaela-broeckx&quot;&gt;Michaëla Broeckx&lt;/a&gt;, Practice Manager Agile, we saw different approaches to work as a non-agile team.
-Like the waterfall system that has some downsides such as getting late feedback from the business or end user.
-The feedback is only in the end of the life cycle of the project or when the project got tested.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right&quot; alt=&quot;Agile Methodology&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/agile-methodology.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Applying an Agile approach offers a lot of benefits:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Quicker risk reduction&lt;/li&gt;
-  &lt;li&gt;limit handovers&lt;/li&gt;
-  &lt;li&gt;shorter term plans
-    &lt;ul&gt;
-      &lt;li&gt;to improve predictability, accuracy &amp;amp; reliability.&lt;/li&gt;
-      &lt;li&gt;to redone stress and unleash innovative emergent ideas&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;and so on!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;She proved her theory by doing a live exercise which involved folding paper airplanes as a team.
-At the end we would analyze the outcome.&lt;/p&gt;
-
-&lt;p&gt;After this we learned some other Agile practices: we got introduced into the SCRUM framework and the practice of Extreme Programming, plus its benefits.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-new-jworks-colleagues&quot;&gt;The new JWorks colleagues&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;p-image&quot; width=&quot;300&quot; height=&quot;300&quot; alt=&quot;Seppe Berghmans&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/seppe-berghmans.jpg&quot; /&gt;
-&lt;img class=&quot;p-image&quot; width=&quot;300&quot; height=&quot;300&quot; alt=&quot;Jago Staes&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/jago-staes.jpg&quot; /&gt; &lt;br /&gt;
-&lt;img class=&quot;p-image&quot; width=&quot;300&quot; height=&quot;300&quot; alt=&quot;Yolan Vloeberghs &quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/yolan-vloeberghs.jpg&quot; /&gt; 
-&lt;img class=&quot;p-image&quot; width=&quot;300&quot; height=&quot;300&quot; alt=&quot;Giel Reynders&quot; src=&quot;/img/2019-Kickstarter-Trajectory-2019-light/giel-reynders.jpg&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development. He also likes to experiment with frontend and mobile libraries and frameworks.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Kickstarters" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit testing" /><category term="Mocking" /><category term="Microservices" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Kubernetes" /><category term="OpenShift" /><category term="TypeScript" /><category term="Kickstarter" /><category term="Security" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaëla&quot;, &quot;last_name&quot;=&gt;&quot;Broeckx&quot;, &quot;permalink&quot;=&gt;&quot;/author/michaela-broeckx/&quot;, &quot;title&quot;=&gt;&quot;Agile Coach&quot;, &quot;email&quot;=&gt;&quot;michaela.broeckx@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;michaelabroeckx&quot;, &quot;avatar&quot;=&gt;&quot;michaela-broeckx.jpg&quot;, &quot;bio&quot;=&gt;&quot;Michaëla is an Agile coach with a focus on value and the human aspects of work. She is devoted to Agile &amp; Scrum, not just as a mindset and framework for collaborative product delivery, but also for their general quality as ways to unlearn innate/inbred habits that prevent us from learning efficiently. A true Agile mindset enables enterprises to break down siloes, and build professional human networks throughout the company and beyond.&quot;}</name><email>michaela.broeckx@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="AgileWorks" /><category term="Scrum" /><category term="Agile Coaching" /><category term="Liberating Structures" /><summary type="html">Scrum is an Agile framework.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/scrum-is-a-liberating-structure/main-image.png" /></entry></feed>
