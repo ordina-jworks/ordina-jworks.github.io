@@ -3,7 +3,7 @@ layout: post
 authors: [pieter_van_hees, kristof_eekhaut]
 title: 'DDD Europe 2019'
 image: /img/2019-02-16-ddd-europe/ddd-europe.jpg
-tags: [DDD, Domain-Driven Design, conference]
+tags: [Domain-Driven Design, Conference]
 category: Conference
 comments: true
 ---

@@ -3,7 +3,7 @@ layout: post
 authors: [greg_rinaldi]
 title: 'API Testing with Postman and Newman'
 image: /img/postman.png
-tags: [Postman,Integration Testing,Newman,Automation,Testing]
+tags: [Postman, Integration Testing, Newman, Automation, Testing]
 category: Testing
 comments: true
 ---

@@ -3,7 +3,7 @@ layout: post
 authors: [wout_meskens, sander_smets, michael_dewree, steven_deleye, ken_keymolen]
 title: "Kickstarter Trajectory 2018 Summer Edition"
 image: /img/kicks.png
-tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, DevOps, Docker, Typescript, Kickstarter, Security]
+tags: [Spring, Spring Boot, Angular, Unit testing, Mocking, Microservices, Git, DevOps, Docker, TypeScript, Kickstarter, Security]
 category: Kickstarters
 comments: true
 ---
@@ -118,7 +118,7 @@ In this course given by [Michael Vervloet](/author/michael-vervloet){:target="_b
 Later, we learned about NPM and other package managers and how to use them inside a project like an Angular app. 
 At the end, Angular-CLI was covered, the start of one of the most important frameworks we use at JWorks.
 
-#### Typescript: 
+#### TypeScript: 
 In the TypeScript course given by [Kevin Van Houtte](/author/kevin-van-houtte){:target="_blank"}, we built further on Node.js and NPM. 
 We did an exercise about school management where we used OO-programming and CRUD in TypeScript. 
 This was pretty challenging but with each other's help, we managed to get the final assessment done. 

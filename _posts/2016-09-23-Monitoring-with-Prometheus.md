@@ -3,7 +3,7 @@ layout: post
 authors: [tom_verelst]
 title: 'Monitoring with Prometheus'
 image: /img/prometheus.jpg
-tags: [Prometheus]
+tags: [Prometheus, Monitoring]
 category: Monitoring
 comments: true
 ---
