@@ -10,16 +10,18 @@ comments: true
 
 # Deploying your Spring Boot application in the cloud with Kubernetes
 
-Assuming you have already heard of Kubernetes, you are probably aware of the continuing growth of this platform. More and more platforms are growing in popularity because of the flexibility of these technologies. Look at OpenShift, Cloud Foundry, ....
+Assuming you have already heard of Kubernetes, you are probably aware of the continuing growth of this platform. More and more Kubernetes based platforms are growing in popularity because of the proven record of Kubernetes. Examples are OpenShift, Cloud Foundry, PKS, ....
 
-As adaptation is growing, many developers are wondering how they effectively use this platform to deploy their application in the cloud with a Kubernetes cluster and use its benefits.
+As adaptation is growing, many developers are wondering how to effectively use these platforms to deploy their application in the cloud on a kubernetes cluster and make full use of its benefits.
 
-Many big providers have already picked up Kubernetes and are providing their own implementations. A couple of examples are [Amazon Web Services (EKS)](https://aws.amazon.com/eks/){:target="_blank" rel="noopener noreferrer"}, [Google Cloud Platform (GKE)](https://cloud.google.com/kubernetes-engine/){:target="_blank" rel="noopener noreferrer"}, [Azure (AKS](https://azure.microsoft.com/nl-nl/services/kubernetes-service/){:target="_blank" rel="noopener noreferrer"}, [DigitalOcean](https://www.digitalocean.com/products/kubernetes/){:target="_blank" rel="noopener noreferrer"}, .... 
+Many big providers have already picked up Kubernetes and are providing their own (semi) managed implementations. A couple of examples are [Amazon Web Services (EKS)](https://aws.amazon.com/eks/){:target="_blank" rel="noopener noreferrer"}, [Google Cloud Platform (GKE)](https://cloud.google.com/kubernetes-engine/){:target="_blank" rel="noopener noreferrer"}, [Azure (AKS](https://azure.microsoft.com/nl-nl/services/kubernetes-service/){:target="_blank" rel="noopener noreferrer"}, [DigitalOcean](https://www.digitalocean.com/products/kubernetes/){:target="_blank" rel="noopener noreferrer"}, .... 
+
+In this post we will take a look at how you can use Kubernetes to deploy a Spring Boot application.
 
 ## Prerequisites
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/){:target="_blank" rel="noopener noreferrer"}
 * A Spring Boot project
-* A Kubernetes cluster in the cloud (you can use [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/){:target="_blank" rel="noopener noreferrer"} if you want to try this on your local machine)
+* A Kubernetes cluster. This can be a cluster in the cloud, in an on premise datacenter or you can use [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/{:target="_blank" rel="noopener noreferrer"} if you want to try this on your local machine)
 
 ## First things first: creating a Docker image
 
@@ -31,14 +33,13 @@ WORKDIR /tmp
 COPY target/app-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
-This is a very basic Dockerfile, but this should be enough to do what is needed.
+This is a very basic Dockerfile but it will do for our example. 
 
 <img class="image right" alt="Docker" src="/img/2019-07-11-deploy-spring-boot-kubernetes/docker.png">
 
-The first line tells us to use the 8-jre-alpine image from the openJDK repository as base image.
+The first line tells us to use the **8-jre-alpine** image from the openJDK repository as our base image.
 The second line tells the image that it should work from the /tmp directory.
-The third line copies the compiled JAR file from your target folder to the Docker image (you might have to rename the file name depending on the name of your project).
-
+The third line copies the compiled JAR file from your target folder to the Docker image (you might have to rename the file depending on the name of your project).
 
 Finally, we tell our image to use the java command as entry point, meaning that once the Docker image starts running, it has to execute that command.
 
@@ -46,12 +47,12 @@ You can now push this image to your favorite Docker registry, as Kubernetes will
 
 ## Where the magic happens: deploying your application on the Kubernetes cluster
 
-All Kubernetes configurations are written in YAML. This is because Kubernetes configuration files are meant to be easily readable by the human eye, and the Kubernetes team decided to use YAML instead of JSON.
+All Kubernetes configurations are written in YAML. The reason for this is that Kubernetes configuration files are meant to be easily readable by the human eye and the Kubernetes team decided to use YAML instead of JSON.
 
 ### Deployment
 
-Now that the Docker image is created, it can now be deployed on the Kubernetes cluster. 
-First a Deployment configuration file needs to be written, which will have the configuration on how the application should run.
+Now that the Docker image is created we can now deploy it on the Kubernetes cluster. 
+First we need to create a deployment configuration file. This file contains the configuration on how the application should run.
 
 ```yaml
 apiVersion: apps/v1
@@ -99,15 +100,15 @@ spec:
                   name: myapp-secret
                   key: database-name
 ```
-There's a lot going on here which will be explained step by step.
-The first 2 lines are telling which Kubernetes API version is being used and what kind of Kubernetes [object](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/){:target="_blank" rel="noopener noreferrer"} that is being applied. As we want to create a new Deployment, we use the Deployment object (easy, right?).
+There's a lot going on here which I will be explaining step by step.
+TThe first 2 lines are telling which Kubernetes API version is being used and what kind of Kubernetes [object](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/){:target="_blank" rel="noopener noreferrer"} is being applied. As we want to create a new Deployment, we use the Deployment object (easy, right?).
 Lines 3 to 7 are just basic metadata tags so the developer knows which application (s)he is working with. This does not affect the behavior of the application in any way.
 
-Lines 8 to 13 are specifying how the container should be made and which image it should run. This is the image that was created with the Dockerfile earlier in this post. After that, the port that the container should listen to is mentioned, which is 8080 in this case. The replica value specifies how many 'instances' (also called [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/){:target="_blank" rel="noopener noreferrer"}) that should be running. If the application is expecting a lot of requests, it might be useful to declare a higher number of replicas instead of 1.
-Lines 13 to EOF are specifying the environment variables that the container should use. They can either be hard-coded like `SPRING_PROFILES_ACTIVE` or a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/){:target="_blank" rel="noopener noreferrer"} or [ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/){:target="_blank" rel="noopener noreferrer"} can be created, which can then be used in a Deployment configuration, as in the example above.
+Lines 8 to 13 are specifying how the container should be made and which image it has to run. This is the image that we created with the Dockerfile earlier in this post. After that, it describes the port that the container should listen to, which is 8080 in this case. The replica value specifies how many 'instances' (also called [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/){:target="_blank" rel="noopener noreferrer"}) that should be running. If the application is expecting a lot of requests, it might be useful to declare a higher number of replicas instead of 1.
+Lines 13 to EOF are specifying the environment variables that the container uses. They can either be hard-coded like `SPRING_PROFILES_ACTIVE` or a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/){:target="_blank" rel="noopener noreferrer"} or [ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/){:target="_blank" rel="noopener noreferrer"} can be created, which can then be used in a Deployment configuration, as in the example above.
 
 ### Service
-The Deployment is up and running, but there needs to be some kind of way where these pods can be accessed. This is where a [Service](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank" rel="noopener noreferrer"} comes in. A Service provides external access to a set of Pods and decides which pod should handle the request.
+The Deployment is up and running, but we need some way to access our pod from the outside world. This is where a [Service](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank" rel="noopener noreferrer"} comes in. A Service provides external access to a set of Pods and decides which pod should handle the request.
 
 ```yaml
 apiVersion: v1
