@@ -268,16 +268,16 @@ Suppose I have a collection which contains documents that represent a person, li
 Here are two examples of elements in the collections:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-	</span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">ObjectId(</span><span class="s2">"5be40f6e7047ead15753d073"</span><span class="err">)</span><span class="p">,</span><span class="w">
-	</span><span class="s2">"firstName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Didi"</span><span class="p">,</span><span class="w">
-	</span><span class="s2">"lastName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Verhoft"</span><span class="p">,</span><span class="w">
-	</span><span class="s2">"birthYear"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1996</span><span class="w">
-</span><span class="p">},</span><span class="w">
+	</span><span class="nl">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">ObjectId(</span><span class="s2">"5be40f6e7047ead15753d073"</span><span class="err">)</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"firstName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Didi"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"lastName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Verhoft"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"birthYear"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1996</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
 </span><span class="p">{</span><span class="w">
-	</span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">ObjectId(</span><span class="s2">"5be40f6e7047ead15753d074"</span><span class="err">)</span><span class="p">,</span><span class="w">
-	</span><span class="s2">"firstName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Nick"</span><span class="p">,</span><span class="w">
-	</span><span class="s2">"lastName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Van Hoof"</span><span class="p">,</span><span class="w">
-	</span><span class="s2">"birthYear"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1992</span><span class="w">
+	</span><span class="nl">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">ObjectId(</span><span class="s2">"5be40f6e7047ead15753d074"</span><span class="err">)</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"firstName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Nick"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"lastName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Van Hoof"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"birthYear"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1992</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 <p>A person has the fields lastName, firstName and birthYear (and of course for some people more info could be stored).
@@ -498,15 +498,15 @@ Extraction happens with <a href="https://www.confluent.io/connector/kafka-connec
 All with a simple piece of configuration like:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"msSqlSourceConnector1"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"config"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"connector.class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"io.confluent.connect.cdc.mssql.MsSqlSourceConnector"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"tasks.max"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"initial.database"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testing"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"username"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"cdc"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"password"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"server.name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"db-01.example.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"server.port"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1433"</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"msSqlSourceConnector1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"config"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"connector.class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"io.confluent.connect.cdc.mssql.MsSqlSourceConnector"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tasks.max"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"initial.database"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testing"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"username"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"cdc"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"password"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"server.name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"db-01.example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"server.port"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1433"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>

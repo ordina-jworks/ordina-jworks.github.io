@@ -226,14 +226,14 @@ Then we provide information about how Jest should transpile our code under the t
 And for the Javascript files we’ll point to babel-jest (which ships with Jest).
 The transformIgnorePatterns point to some libraries that don’t need to be transpiled for our tests. (If you get <code class="highlighter-rouge">Unexpected token import</code> issues, you might need to add some packages here)</p>
 
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"jest"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="s2">"preset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jest-preset-angular"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"setupTestFrameworkScriptFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;rootDir&gt;/src/setup-jest.ts"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transform"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="err">'^.+\\.(ts|html)$'</span><span class="p">:</span><span class="w"> </span><span class="err">'&lt;rootDir&gt;/node_modules/jest-preset-angular/preprocessor.js'</span><span class="p">,</span><span class="w">
-     </span><span class="err">'^.+\\.js$'</span><span class="p">:</span><span class="w"> </span><span class="err">'babel-jest'</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"jest"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"preset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jest-preset-angular"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"setupTestFrameworkScriptFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;rootDir&gt;/src/setup-jest.ts"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"transform"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="err">'^.+\\.(ts|html)$':</span><span class="w"> </span><span class="err">'&lt;rootDir&gt;/node_modules/jest-preset-angular/preprocessor.js'</span><span class="p">,</span><span class="w">
+     </span><span class="err">'^.+\\.js$':</span><span class="w"> </span><span class="err">'babel-jest'</span><span class="w">
    </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"transformIgnorePatterns"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">'node_modules/(?!@ngrx|ng</span><span class="mi">2</span><span class="err">-translate|@ionic|lodash|ionic-angular)'</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"transformIgnorePatterns"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">'node_modules/(?!@ngrx|ng</span><span class="mi">2</span><span class="err">-translate|@ionic|lodash|ionic-angular)'</span><span class="p">],</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
