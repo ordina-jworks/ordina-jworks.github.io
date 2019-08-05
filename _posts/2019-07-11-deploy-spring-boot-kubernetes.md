@@ -21,10 +21,11 @@ Many big providers have already picked up Kubernetes and are providing their own
 In this post we will take a look at how you can use Kubernetes to deploy a Spring Boot application.
 
 ## Prerequisites
+* [Docker](https://www.docker.com){:target="_blank" rel="noopener noreferrer"}
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/){:target="_blank" rel="noopener noreferrer"}
 * [A Spring Boot project](https://www.github.com/yolanv/kubernetesdemo){:target="_blank" rel="noopener noreferrer"}
 * A Kubernetes cluster.
-This can be a cluster in the cloud, in an on premise datacenter or you can use [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/{:target="_blank" rel="noopener noreferrer"} if you want to try this on your local machine)
+This can be a cluster in the cloud, in an on-premise datacenter or you can use [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/){:target="_blank" rel="noopener noreferrer"} if you want to try this on your local machine.
 
 You can use the project from the prerequisites if you want to try it out with a sample project. This blog post will be based on this project. If you are using an other project, then change the names and labels where necessary. 
 
@@ -44,9 +45,9 @@ This is a very basic Dockerfile but it will do for our example.
 
 The first line tells us to use the **8-jre-alpine** image from the openJDK repository as our base image.
 The second line tells the image that it should work from the `/tmp` directory.
-The third line copies the compiled JAR (which is compiled with the `mvn clean install` command) file from your target folder to the Docker image (you might have to rename the file depending on the name of your project).
+The third line copies the compiled JAR (which is compiled with the `mvn clean install` command) file from your `target` folder to the Docker image (you might have to rename the file depending on the name of your project).
 
-Finally, we tell our image to use the java command as entry point, meaning that once the Docker image starts running, it has to execute that command.
+Finally, we tell our image to use the `java` command as entry point, meaning that once the Docker image starts running, it has to execute that command.
 
 You can now push this image to your favorite Docker registry, as Kubernetes will need to pull this image from the registry later. If you do not have a Docker registry, I suggest using Docker Hub. If you are using Docker Hub, you can use the following commands to build and push your application to the registry:
 
@@ -84,11 +85,11 @@ spec:
             - containerPort: 8080
 ```
 There's a lot going on here which I will be explaining step by step.
-TThe first 2 lines are telling which Kubernetes API version is being used and what kind of Kubernetes [object](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/){:target="_blank" rel="noopener noreferrer"} is being applied. As we want to create a new Deployment, we use the Deployment object (easy, right?).
+The first two lines are telling which Kubernetes API version is being used and what kind of Kubernetes [object](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/){:target="_blank" rel="noopener noreferrer"} is being applied. As we want to create a new Deployment, we use the Deployment object (easy, right?).
 
-Lines 3 to 6 are just basic metadata tags so the developer knows which application (s)he is working with. This does not affect the behavior of the application in any way.
+Lines 3 to 6 are just basic metadata tags so the developer knows which application (s)he is working with. This does not affect the behaviour of the application in any way.
 
-Lines 7 to 21 are specifying how the container should be made and which image it has to run. This is the image that we created with the Dockerfile earlier in this post. After that, it describes the port that the container should listen to, which is 8080 in this case. The replica value specifies how many 'instances' (also called [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/){:target="_blank" rel="noopener noreferrer"}) that should be running. If the application is expecting a lot of requests, it might be useful to declare a higher number of replicas instead of 1.
+Lines 7 to 21 are specifying how the container should be made and which image it has to run. This is the image that we created with the Dockerfile earlier in this post. After that, it describes the port that the container should listen to, which is 8080 in this case. The replica value specifies how many 'instances' (also called [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/){:target="_blank" rel="noopener noreferrer"}) that should be running. If the application is expecting a lot of requests, it might be useful to declare a higher number of replicas instead of only one.
 Lines 13 to EOF are specifying the environment variables that the container uses. They can either be hard-coded like `SPRING_PROFILES_ACTIVE` or a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/){:target="_blank" rel="noopener noreferrer"} or [ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/){:target="_blank" rel="noopener noreferrer"} can be created, which can then be used in a Deployment configuration, as in the example above.
 
 ### Service
@@ -113,7 +114,7 @@ The first four lines should be familiar.
 Instead of a Deployment, we are now declaring a Service.
 
 There are three types of services you can declare: ClusterIP, NodePort and LoadBalancer. It is not recommended to use NodePort in a production environment because of the limited options. Instead you might want to use a LoadBalancer. Most big cloud providers can provide a LoadBalancer for you. Another option is to use an [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/){:target="_blank" rel="noopener noreferrer"}, which is a recommended and popular option. If you want to learn more about this, I suggest you consult the [official Kubernetes documentation](https://v1-13.docs.kubernetes.io/docs/concepts/services-networking/service/#nodeport){:target="_blank" rel="noopener noreferrer"}.
-The nodePort value can be left out if you want Kubernetes to assign a random nodePort to your service. 
+The `nodePort` value can be left out if you want Kubernetes to assign a random NodePort to your service. 
 
 The selector value is meant to find the Pods with the same value as `spec.selector.matchLabels` from the Deployment configuration. This is how the Service is able to find our Pods.
 ### Applying the configuration
