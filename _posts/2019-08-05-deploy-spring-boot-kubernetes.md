@@ -49,7 +49,9 @@ The third line copies the compiled JAR (which is compiled with the `mvn clean in
 
 Finally, we tell our image to use the `java` command as entry point, meaning that once the Docker image starts running, it has to execute that command.
 
-You can now push this image to your favorite Docker registry, as Kubernetes will need to pull this image from the registry later. If you do not have a Docker registry, I suggest using Docker Hub. If you are using Docker Hub, you can use the following commands to build and push your application to the registry:
+You can now push this image to your favourite Docker registry, as Kubernetes will need to pull this image from the registry later.
+If you do not have a Docker registry, I suggest using [Docker Hub](https://hub.docker.com){:target="_blank" rel="noopener noreferrer"}.
+If you are using Docker Hub, you can use the following commands to build and push your application to the registry:
 
 ```
 docker build -t DOCKER_HUB_USERNAME/APPLICATION_NAME .
@@ -62,7 +64,7 @@ All Kubernetes configurations are written in YAML. The reason for this is that K
 
 ### Deployment
 
-Now that the Docker image is created we can now deploy it on the Kubernetes cluster. 
+Now that the Docker image is created, we can now deploy it on the Kubernetes cluster. 
 First we need to create a deployment configuration file. This file contains the configuration on how the application should run.
 
 ```yaml
