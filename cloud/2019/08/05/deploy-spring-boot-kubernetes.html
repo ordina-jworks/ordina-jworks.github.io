@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Deploying your Spring Boot application with Kubernetes - Yolan Vloeberghs">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-07-11-deploy-spring-boot-kubernetes/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Deploying your Spring Boot application with Kubernetes - Yolan Vloeberghs"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-07-11-deploy-spring-boot-kubernetes/banner.jpg"/>
+
+    
+    <title>Deploying your Spring Boot application with Kubernetes - Yolan Vloeberghs &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Deploying your Spring Boot application with Kubernetes</h2>
+                
+
+                
+                    Posted Aug 5, 2019
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/yolan-vloeberghs/">Yolan Vloeberghs</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/kubernetes/">Kubernetes</a>, 
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/spring-boot/">Spring Boot</a>, 
+    
+        <a href="/tags/docker/">Docker</a>, 
+    
+        <a href="/tags/aws/">AWS</a>, 
+    
+        <a href="/tags/eks/">EKS</a>, 
+    
+        <a href="/tags/google/">Google</a>, 
+    
+        <a href="/tags/gke/">GKE</a>, 
+    
+        <a href="/tags/digitalocean/">DigitalOcean</a>, 
+    
+        <a href="/tags/azure/">Azure</a>, 
+    
+        <a href="/tags/aks/">AKS</a>, 
+    
+        <a href="/tags/kubectl/">kubectl</a>, 
+    
+        <a href="/tags/minikube/">Minikube</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h2 id="introduction">Introduction</h2>
+
+<p>Today we are going to look at the features and benefits of using a Kubernetes cluster to deploy your application. As I am mostly focused on Java development, we will use a standard Spring Boot application as an example.</p>
+
+<p>Assuming you have already heard of Kubernetes, you are probably aware of the continuing growth of this platform. More and more Kubernetes based platforms are growing in popularity because of the proven record of Kubernetes. Examples are OpenShift, Cloud Foundry, PKS, ….</p>
+
+<p>As adaptation is growing, many developers are wondering how to effectively use these platforms to deploy their application in the cloud on a Kubernetes cluster and make full use of its benefits.</p>
+
+<p>Many big providers have already picked up Kubernetes and are providing their own (semi) managed implementations. A couple of examples are <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer">Amazon Web Services (EKS)</a>, <a href="https://cloud.google.com/kubernetes-engine/" target="_blank" rel="noopener noreferrer">Google Cloud Platform (GKE)</a>, <a href="https://azure.microsoft.com/nl-nl/services/kubernetes-service/" target="_blank" rel="noopener noreferrer">Azure (AKS)</a>, <a href="https://www.digitalocean.com/products/kubernetes/" target="_blank" rel="noopener noreferrer">DigitalOcean</a>, ….</p>
+
+<p>In this post we will take a look at how you can use Kubernetes to deploy a Spring Boot application.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+  <li><a href="https://www.docker.com" target="_blank" rel="noopener noreferrer">Docker</a></li>
+  <li><a href="https://kubernetes.io/docs/reference/kubectl/overview/" target="_blank" rel="noopener noreferrer">kubectl</a></li>
+  <li><a href="https://www.github.com/yolanv/kubernetesdemo" target="_blank" rel="noopener noreferrer">A Spring Boot project</a></li>
+  <li>A Kubernetes cluster.
+This can be a cluster in the cloud, in an on-premise datacenter or you can use <a href="https://kubernetes.io/docs/tasks/tools/install-minikube/" target="_blank" rel="noopener noreferrer">minikube</a> if you want to try this on your local machine.</li>
+</ul>
+
+<p>You can use the project from the prerequisites if you want to try it out with a sample project. This blog post will be based on this project. If you are using an other project, then change the names and labels where necessary.</p>
+
+<h2 id="first-things-first-creating-a-docker-image">First things first: creating a Docker image</h2>
+
+<p>Kubernetes works with Docker images. This means that your application needs to be dockerized so it can be pushed to a Docker registry. You can find a sample Dockerfile below.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM openjdk:8-jre-alpine
+WORKDIR /tmp
+COPY target/kubernetesdemo-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+</code></pre></div></div>
+<p>This is a very basic Dockerfile but it will do for our example.</p>
+
+<p><img class="image right" alt="Docker" src="/img/2019-07-11-deploy-spring-boot-kubernetes/docker.png" /></p>
+
+<p>The first line tells us to use the <strong>8-jre-alpine</strong> image from the openJDK repository as our base image.
+The second line tells the image that it should work from the <code class="highlighter-rouge">/tmp</code> directory.
+The third line copies the compiled JAR (which is compiled with the <code class="highlighter-rouge">mvn clean install</code> command) file from your <code class="highlighter-rouge">target</code> folder to the Docker image (you might have to rename the file depending on the name of your project).</p>
+
+<p>Finally, we tell our image to use the <code class="highlighter-rouge">java</code> command as entry point, meaning that once the Docker image starts running, it has to execute that command.</p>
+
+<p>You can now push this image to your favourite Docker registry, as Kubernetes will need to pull this image from the registry later.
+If you do not have a Docker registry, I suggest using <a href="https://hub.docker.com" target="_blank" rel="noopener noreferrer">Docker Hub</a>.
+If you are using Docker Hub, you can use the following commands to build and push your application to the registry:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build -t DOCKER_HUB_USERNAME/APPLICATION_NAME .
+docker push DOCKER_HUB_USERNAME/APPLICATION_NAME
+</code></pre></div></div>
+
+<h2 id="where-the-magic-happens-deploying-your-application-on-the-kubernetes-cluster">Where the magic happens: deploying your application on the Kubernetes cluster</h2>
+
+<p>All Kubernetes configurations are written in YAML. The reason for this is that Kubernetes configuration files are meant to be easily readable by the human eye and the Kubernetes team decided to use YAML instead of JSON.</p>
+
+<h3 id="deployment">Deployment</h3>
+
+<p>Now that the Docker image is created, we can now deploy it on the Kubernetes cluster. 
+First we need to create a deployment configuration file. This file contains the configuration on how the application should run.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">kubernetesdemo</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">kubernetesdemo</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">kubernetesdemo</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">kubernetesdemo</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s">yolanv/kubernetesdemo</span>
+          <span class="na">ports</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8080</span>
+</code></pre></div></div>
+<p>There’s a lot going on here which I will be explaining step by step.
+The first two lines are telling which Kubernetes API version is being used and what kind of Kubernetes <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/" target="_blank" rel="noopener noreferrer">object</a> is being applied. As we want to create a new Deployment, we use the Deployment object (easy, right?).</p>
+
+<p>Lines 3 to 6 are just basic metadata tags so the developer knows which application (s)he is working with. This does not affect the behaviour of the application in any way.</p>
+
+<p>Lines 7 to 21 are specifying how the container should be made and which image it has to run. This is the image that we created with the Dockerfile earlier in this post. After that, it describes the port that the container should listen to, which is 8080 in this case. The replica value specifies how many ‘instances’ (also called <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod/" target="_blank" rel="noopener noreferrer">Pods</a>) that should be running. If the application is expecting a lot of requests, it might be useful to declare a higher number of replicas instead of only one.
+Lines 13 to EOF are specifying the environment variables that the container uses. They can either be hard-coded like <code class="highlighter-rouge">SPRING_PROFILES_ACTIVE</code> or a <a href="https://kubernetes.io/docs/concepts/configuration/secret/" target="_blank" rel="noopener noreferrer">Secret</a> or <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/" target="_blank" rel="noopener noreferrer">ConfigMap</a> can be created, which can then be used in a Deployment configuration, as in the example above.</p>
+
+<h3 id="service">Service</h3>
+<p>The Deployment is up and running, but we need some way to access our pod from the outside world. This is where a <a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank" rel="noopener noreferrer">Service</a> comes in. 
+A Service provides external access to a set of Pods and decides which pod should handle the request.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">kubernetesdemo</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">NodePort</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">kubernetesdemo</span>
+  <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">8080</span>
+      <span class="na">nodePort</span><span class="pi">:</span> <span class="m">30011</span>
+</code></pre></div></div>
+<p>The first four lines should be familiar.
+Instead of a Deployment, we are now declaring a Service.</p>
+
+<p>There are three types of services you can declare: ClusterIP, NodePort and LoadBalancer. It is not recommended to use NodePort in a production environment because of the limited options. Instead you might want to use a LoadBalancer. Most big cloud providers can provide a LoadBalancer for you. Another option is to use an <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank" rel="noopener noreferrer">Ingress</a>, which is a recommended and popular option. If you want to learn more about this, I suggest you consult the <a href="https://v1-13.docs.kubernetes.io/docs/concepts/services-networking/service/#nodeport" target="_blank" rel="noopener noreferrer">official Kubernetes documentation</a>.
+The <code class="highlighter-rouge">nodePort</code> value can be left out if you want Kubernetes to assign a random NodePort to your service.</p>
+
+<p>The selector value is meant to find the Pods with the same value as <code class="highlighter-rouge">spec.selector.matchLabels</code> from the Deployment configuration. This is how the Service is able to find our Pods.</p>
+<h3 id="applying-the-configuration">Applying the configuration</h3>
+
+<p>Now that we have our YAML files, we can apply them to the cluster. You can even combine the two configurations into one file and separate them with <code class="highlighter-rouge">---</code>.
+You can use this separator to prevent having too many YAML configuration files.</p>
+
+<p>You can apply the configuration by using the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply -f k8s/kubernetesdemo-deployment.yaml
+</code></pre></div></div>
+
+<p>The output will be something like:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deployment.apps/kubernetesdemo created
+service/kubernetesdemo created
+</code></pre></div></div>
+
+<p>The application is now accessible through <code class="highlighter-rouge">http://IP_ADDRESS:NODE_PORT</code>. So if you are using Minikube, the IP should be <code class="highlighter-rouge">http://192.168.99.100:30080/</code>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>There is a lot of documentation available on the internet if you want to learn more about the power of Kubernetes. Think about the options and features that are available when using this platform. You can integrate it with your CI / CD tools (automated deployments!), autoscaling, … . The options are endless. 
+If you have any questions or feedback, I would love to hear them from you.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html&title=Deploying your Spring Boot application with Kubernetes&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Deploying your Spring Boot application with Kubernetes&url=https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yolan-vloeberghs/" class="image spotlight-image" title="">
+            <img src="/img/author/yolan-vloeberghs.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development. He also likes to experiment with frontend and mobile libraries and frameworks.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-07-11-deploy-spring-boot-kubernetes/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

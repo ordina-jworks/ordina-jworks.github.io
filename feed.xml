@@ -1,5 +1,133 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-07-29T11:10:07+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Cypress: a new kid on the E2E block</title><link href="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html" rel="alternate" type="text/html" title="Cypress: a new kid on the E2E block" /><published>2019-07-18T00:00:00+00:00</published><updated>2019-07-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/07/18/Cypress</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-08-05T09:32:54+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Deploying your Spring Boot application with Kubernetes</title><link href="https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html" rel="alternate" type="text/html" title="Deploying your Spring Boot application with Kubernetes" /><published>2019-08-05T00:00:00+00:00</published><updated>2019-08-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Today we are going to look at the features and benefits of using a Kubernetes cluster to deploy your application. As I am mostly focused on Java development, we will use a standard Spring Boot application as an example.&lt;/p&gt;
+
+&lt;p&gt;Assuming you have already heard of Kubernetes, you are probably aware of the continuing growth of this platform. More and more Kubernetes based platforms are growing in popularity because of the proven record of Kubernetes. Examples are OpenShift, Cloud Foundry, PKS, ….&lt;/p&gt;
+
+&lt;p&gt;As adaptation is growing, many developers are wondering how to effectively use these platforms to deploy their application in the cloud on a Kubernetes cluster and make full use of its benefits.&lt;/p&gt;
+
+&lt;p&gt;Many big providers have already picked up Kubernetes and are providing their own (semi) managed implementations. A couple of examples are &lt;a href=&quot;https://aws.amazon.com/eks/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Web Services (EKS)&lt;/a&gt;, &lt;a href=&quot;https://cloud.google.com/kubernetes-engine/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Cloud Platform (GKE)&lt;/a&gt;, &lt;a href=&quot;https://azure.microsoft.com/nl-nl/services/kubernetes-service/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Azure (AKS)&lt;/a&gt;, &lt;a href=&quot;https://www.digitalocean.com/products/kubernetes/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DigitalOcean&lt;/a&gt;, ….&lt;/p&gt;
+
+&lt;p&gt;In this post we will take a look at how you can use Kubernetes to deploy a Spring Boot application.&lt;/p&gt;
+
+&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.docker.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Docker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://kubernetes.io/docs/reference/kubectl/overview/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;kubectl&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.github.com/yolanv/kubernetesdemo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;A Spring Boot project&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;A Kubernetes cluster.
+This can be a cluster in the cloud, in an on-premise datacenter or you can use &lt;a href=&quot;https://kubernetes.io/docs/tasks/tools/install-minikube/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;minikube&lt;/a&gt; if you want to try this on your local machine.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can use the project from the prerequisites if you want to try it out with a sample project. This blog post will be based on this project. If you are using an other project, then change the names and labels where necessary.&lt;/p&gt;
+
+&lt;h2 id=&quot;first-things-first-creating-a-docker-image&quot;&gt;First things first: creating a Docker image&lt;/h2&gt;
+
+&lt;p&gt;Kubernetes works with Docker images. This means that your application needs to be dockerized so it can be pushed to a Docker registry. You can find a sample Dockerfile below.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FROM openjdk:8-jre-alpine
+WORKDIR /tmp
+COPY target/kubernetesdemo-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT [&quot;java&quot;, &quot;-jar&quot;, &quot;app.jar&quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This is a very basic Dockerfile but it will do for our example.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image right&quot; alt=&quot;Docker&quot; src=&quot;/img/2019-07-11-deploy-spring-boot-kubernetes/docker.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The first line tells us to use the &lt;strong&gt;8-jre-alpine&lt;/strong&gt; image from the openJDK repository as our base image.
+The second line tells the image that it should work from the &lt;code class=&quot;highlighter-rouge&quot;&gt;/tmp&lt;/code&gt; directory.
+The third line copies the compiled JAR (which is compiled with the &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn clean install&lt;/code&gt; command) file from your &lt;code class=&quot;highlighter-rouge&quot;&gt;target&lt;/code&gt; folder to the Docker image (you might have to rename the file depending on the name of your project).&lt;/p&gt;
+
+&lt;p&gt;Finally, we tell our image to use the &lt;code class=&quot;highlighter-rouge&quot;&gt;java&lt;/code&gt; command as entry point, meaning that once the Docker image starts running, it has to execute that command.&lt;/p&gt;
+
+&lt;p&gt;You can now push this image to your favourite Docker registry, as Kubernetes will need to pull this image from the registry later.
+If you do not have a Docker registry, I suggest using &lt;a href=&quot;https://hub.docker.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Docker Hub&lt;/a&gt;.
+If you are using Docker Hub, you can use the following commands to build and push your application to the registry:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker build -t DOCKER_HUB_USERNAME/APPLICATION_NAME .
+docker push DOCKER_HUB_USERNAME/APPLICATION_NAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;where-the-magic-happens-deploying-your-application-on-the-kubernetes-cluster&quot;&gt;Where the magic happens: deploying your application on the Kubernetes cluster&lt;/h2&gt;
+
+&lt;p&gt;All Kubernetes configurations are written in YAML. The reason for this is that Kubernetes configuration files are meant to be easily readable by the human eye and the Kubernetes team decided to use YAML instead of JSON.&lt;/p&gt;
+
+&lt;h3 id=&quot;deployment&quot;&gt;Deployment&lt;/h3&gt;
+
+&lt;p&gt;Now that the Docker image is created, we can now deploy it on the Kubernetes cluster. 
+First we need to create a deployment configuration file. This file contains the configuration on how the application should run.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apps/v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Deployment&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kubernetesdemo&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kubernetesdemo&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;replicas&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;matchLabels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kubernetesdemo&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;containers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kubernetesdemo&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yolanv/kubernetesdemo&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;There’s a lot going on here which I will be explaining step by step.
+The first two lines are telling which Kubernetes API version is being used and what kind of Kubernetes &lt;a href=&quot;https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;object&lt;/a&gt; is being applied. As we want to create a new Deployment, we use the Deployment object (easy, right?).&lt;/p&gt;
+
+&lt;p&gt;Lines 3 to 6 are just basic metadata tags so the developer knows which application (s)he is working with. This does not affect the behaviour of the application in any way.&lt;/p&gt;
+
+&lt;p&gt;Lines 7 to 21 are specifying how the container should be made and which image it has to run. This is the image that we created with the Dockerfile earlier in this post. After that, it describes the port that the container should listen to, which is 8080 in this case. The replica value specifies how many ‘instances’ (also called &lt;a href=&quot;https://kubernetes.io/docs/concepts/workloads/pods/pod/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Pods&lt;/a&gt;) that should be running. If the application is expecting a lot of requests, it might be useful to declare a higher number of replicas instead of only one.
+Lines 13 to EOF are specifying the environment variables that the container uses. They can either be hard-coded like &lt;code class=&quot;highlighter-rouge&quot;&gt;SPRING_PROFILES_ACTIVE&lt;/code&gt; or a &lt;a href=&quot;https://kubernetes.io/docs/concepts/configuration/secret/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Secret&lt;/a&gt; or &lt;a href=&quot;https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ConfigMap&lt;/a&gt; can be created, which can then be used in a Deployment configuration, as in the example above.&lt;/p&gt;
+
+&lt;h3 id=&quot;service&quot;&gt;Service&lt;/h3&gt;
+&lt;p&gt;The Deployment is up and running, but we need some way to access our pod from the outside world. This is where a &lt;a href=&quot;https://kubernetes.io/docs/concepts/services-networking/service/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Service&lt;/a&gt; comes in. 
+A Service provides external access to a set of Pods and decides which pod should handle the request.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Service&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kubernetesdemo&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;NodePort&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kubernetesdemo&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30011&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The first four lines should be familiar.
+Instead of a Deployment, we are now declaring a Service.&lt;/p&gt;
+
+&lt;p&gt;There are three types of services you can declare: ClusterIP, NodePort and LoadBalancer. It is not recommended to use NodePort in a production environment because of the limited options. Instead you might want to use a LoadBalancer. Most big cloud providers can provide a LoadBalancer for you. Another option is to use an &lt;a href=&quot;https://kubernetes.io/docs/concepts/services-networking/ingress/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ingress&lt;/a&gt;, which is a recommended and popular option. If you want to learn more about this, I suggest you consult the &lt;a href=&quot;https://v1-13.docs.kubernetes.io/docs/concepts/services-networking/service/#nodeport&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;official Kubernetes documentation&lt;/a&gt;.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;nodePort&lt;/code&gt; value can be left out if you want Kubernetes to assign a random NodePort to your service.&lt;/p&gt;
+
+&lt;p&gt;The selector value is meant to find the Pods with the same value as &lt;code class=&quot;highlighter-rouge&quot;&gt;spec.selector.matchLabels&lt;/code&gt; from the Deployment configuration. This is how the Service is able to find our Pods.&lt;/p&gt;
+&lt;h3 id=&quot;applying-the-configuration&quot;&gt;Applying the configuration&lt;/h3&gt;
+
+&lt;p&gt;Now that we have our YAML files, we can apply them to the cluster. You can even combine the two configurations into one file and separate them with &lt;code class=&quot;highlighter-rouge&quot;&gt;---&lt;/code&gt;.
+You can use this separator to prevent having too many YAML configuration files.&lt;/p&gt;
+
+&lt;p&gt;You can apply the configuration by using the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl apply -f k8s/kubernetesdemo-deployment.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The output will be something like:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;deployment.apps/kubernetesdemo created
+service/kubernetesdemo created
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The application is now accessible through &lt;code class=&quot;highlighter-rouge&quot;&gt;http://IP_ADDRESS:NODE_PORT&lt;/code&gt;. So if you are using Minikube, the IP should be &lt;code class=&quot;highlighter-rouge&quot;&gt;http://192.168.99.100:30080/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;There is a lot of documentation available on the internet if you want to learn more about the power of Kubernetes. Think about the options and features that are available when using this platform. You can integrate it with your CI / CD tools (automated deployments!), autoscaling, … . The options are endless. 
+If you have any questions or feedback, I would love to hear them from you.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development. He also likes to experiment with frontend and mobile libraries and frameworks.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Kubernetes" /><category term="Spring" /><category term="Spring Boot" /><category term="Docker" /><category term="AWS" /><category term="EKS" /><category term="Google" /><category term="GKE" /><category term="DigitalOcean" /><category term="Azure" /><category term="AKS" /><category term="kubectl" /><category term="Minikube" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-07-11-deploy-spring-boot-kubernetes/banner.jpg" /></entry><entry><title type="html">Cypress: a new kid on the E2E block</title><link href="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html" rel="alternate" type="text/html" title="Cypress: a new kid on the E2E block" /><published>2019-07-18T00:00:00+00:00</published><updated>2019-07-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/07/18/Cypress</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Intro&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#cypress&quot;&gt;Cypress&lt;/a&gt;&lt;/li&gt;
@@ -3697,91 +3825,4 @@ There is also a subtle difference between &lt;strong&gt;first&lt;/strong&gt; and
 
 &lt;p&gt;That’s all folks.
 Some of these rules are opinionated, but I hope they will help some of you to write better RxJS streams.
-Just remember: It’s not because you know what you’re doing that everyone knows what you’re doing.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Development" /><category term="RxJS" /><category term="Angular" /><summary type="html">In my current role as Angular coach I try to help my colleagues as much as possible to make their applications in a logical and comprehensible way. I’m a huge supporter of RxJS for reactive programming and I ask others to consider using the technology to help them create declarative code and prevent them from going to Callback Hell. But as people start to embrace RxJS streams, the difficulties paired with using reactive programming start to surface and I’ve concluded that there also exists something I’d like to call Observable Purgatory.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/speedlimit.jpg" /></entry><entry><title type="html">The Scrum framework is a Liberating Structure</title><link href="https://ordina-jworks.github.io/agile/2019/04/04/The-Scrum-framework-is-a-liberating-structure.html" rel="alternate" type="text/html" title="The Scrum framework is a Liberating Structure" /><published>2019-04-04T00:00:00+00:00</published><updated>2019-04-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2019/04/04/The-Scrum-framework-is-a-liberating-structure</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2019/04/04/The-Scrum-framework-is-a-liberating-structure.html">&lt;p&gt;&lt;strong&gt;Scrum is an Agile &lt;em&gt;framework&lt;/em&gt;.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;What does that actually mean?
-Are we supposed to fill it? 
-Could we grab it, put it on the wall and paint our image in it, the way we see it, the way it works for us?&lt;/p&gt;
-
-&lt;p&gt;Probably, we can. 
-Seemingly, many organizations attempt to connect the numbers and dots in precisely that way, trying to get a hold on their portfolio planning and utilising Scrum for metrics to fill their project reports - solely focusing on accelerating output and pushing velocity through the roof. 
-But let’s be careful, since we can easily get trapped in this. 
-A framework isn’t there to just fill it and use it. 
-Did we take the time or the effort to ponder over further possibilities that the frame might entail?&lt;/p&gt;
-
-&lt;p&gt;The framework is not meant to contain just our own painting, our own image, whatever it is that is known to us. 
-It is there to draw attention to something beyond… like the frame on the photo. 
-Let it be a window. 
-A transparent artifact, always representing a mere part of reality, depending on the spot from where we are and from where we are looking, not &lt;em&gt;at&lt;/em&gt; it but &lt;em&gt;through&lt;/em&gt; it, giving us an opportunity to inspect what we are spending our efforts on, or maybe… what we are wasting them on?&lt;/p&gt;
-
-&lt;p&gt;The power of the Scrum framework is in its simplicity. 
-The predictively recurring Scrum events form a synchronized pulse creating a steady heartbeat for the members of the Scrum team. 
-The drone is persistently present, but only discretely so, not drawing attention, because the frame is not what it’s about. 
-It’s a minimalist frame, that vanishes after a while, and is merely setting the scene… trying to create a fertile setting for a space in which, as soon as the Scrum team is accustomed to the pattern of the heartbeat, all team members can focus - as one organism - on collaboration, innovation and co-creation.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Together, we create&quot; src=&quot;/img/scrum-is-a-liberating-structure/together-we-create.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Interhuman friction due to role shifts, adapting to new responsibilities and accountabilities, as well as difficulties with alignment of expectations are well-known characteristics of a team’s storming phase. 
-But Tuckman, with his forming, storming, norming and performing model of team dynamics was only partly right. 
-We now know that storming will always be there to some degree, accompanying the complexity and quickly-changing environment of today. 
-A team, in fact, is constantly hovering over its storming arrhythmia, longing for it to clear up, using the heartbeat of the framework to gradually pave the road to high performance, focusing on value and gradual improvement.&lt;/p&gt;
-
-&lt;p&gt;Indeed, the Scrum framework is a ‘liberating structure’ in every sense. 
-Agreeing as a team on the structure to work with - and taking up one of the roles and its respective responsibilities therein, provides a clarity on what to expect and how to cooperate within that constraint. 
-The frame and heartbeat might appear to be limiting structures at first, but once applied as intended, prove to provide liberation – within the safety of knowing that the entire team is referencing through the same framework.&lt;/p&gt;
-
-&lt;p&gt;Metaphorically: Imagine a team looking at the sea and the framework is not there. 
-What are we looking at? 
-What are we seeing? 
-What area of the horizon are we exploring?&lt;/p&gt;
-
-&lt;p&gt;It will be hard to be aligned unless someone or something tells us where to look and what to look for. 
-Then put the frame, the window, on the beach. 
-All of us are looking through it – together, exploring a far bigger wedge of the sea than we ever could imagine doing alone.
-At the same time it is enabling us to jointly aim for what could be beyond the horizon, when we all look in the same direction.&lt;/p&gt;
-
-&lt;p&gt;Mind you, it is just a framework. 
-“Metaphors are all nice and well, but what about the real world?” - you might dryly remark. 
-Some teams indeed never really achieve this ‘selfless’ wavelength of high performance. 
-And Scrum as a mere facilitative tool is certainly not to blame for that. 
-Some teams tap into it rather effortlessly. 
-But it requires a common understanding of the framework - and the discipline to jointly be accountable for its success. 
-Furthermore, and most dauntingly, it builds on human trust, as an unconditional recipe to create psychological safety.&lt;/p&gt;
-
-&lt;p&gt;Just like the Scrum master serves the team to enable every team member to be at her/his best, the Scrum framework is there to create the best possible circumstances for generating flexible value creation in a transparent and predictive way.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;wall-art&quot; src=&quot;/img/scrum-is-a-liberating-structure/wall-art.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Browsing through the Liberating Structures list of Henri Lipmanowicz and Keith McCandless&lt;sup&gt;1&lt;/sup&gt;, it is easy to notice a parallel and detect some clear common attributes:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A Liberating Structure is simple to introduce. Just like Scrum they are easy to learn but can be hard to master. Having a good facilitator is a must.&lt;/li&gt;
-  &lt;li&gt;They are result focused. Not used for the sake of it, only for the extra value it generates.&lt;/li&gt;
-  &lt;li&gt;They involve rapid cycling, meaning fast iterative rounds generating input and feedback.&lt;/li&gt;
-  &lt;li&gt;They are inclusive, asking everyone’s opinion to make informed decisions on the way forward.&lt;/li&gt;
-  &lt;li&gt;They are seriously fun and boost a sense of freedom and responsibility within a group.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;These attributes help us to:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Share and spread vital knowledge&lt;/li&gt;
-  &lt;li&gt;Cope with complexity&lt;/li&gt;
-  &lt;li&gt;Include every member of the team and unleash their potential&lt;/li&gt;
-  &lt;li&gt;Adopt a habit of creative adaptability&lt;/li&gt;
-  &lt;li&gt;Promote anti-fragility&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And on top of that, Scrum - being an Agile practice strongly rooted in Lean principles - reintroduces systems thinking and the routine of improvement in the process of co-creation.&lt;/p&gt;
-
-&lt;p&gt;If there is one principle in the world that should never change, let it be this one.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Stay agile, never change” - Adam Weisbart&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;sup&gt;1&lt;/sup&gt; For a full but ever growing list of these liberating structures, visit &lt;a href=&quot;http://www.liberatingstructures.com/ls-menu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://www.liberatingstructures.com/ls-menu/&lt;/a&gt; and &lt;a href=&quot;http://www.liberatingstructures.com/ls-in-development/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://www.liberatingstructures.com/ls-in-development/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;sup&gt;2&lt;/sup&gt; The epic quote by Adam Weisbart, concluding every podcast: see &lt;a href=&quot;https://weisbart.com/agile-answers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://weisbart.com/agile-answers/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaëla&quot;, &quot;last_name&quot;=&gt;&quot;Broeckx&quot;, &quot;permalink&quot;=&gt;&quot;/author/michaela-broeckx/&quot;, &quot;title&quot;=&gt;&quot;Agile Coach&quot;, &quot;email&quot;=&gt;&quot;michaela.broeckx@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;michaelabroeckx&quot;, &quot;avatar&quot;=&gt;&quot;michaela-broeckx.jpg&quot;, &quot;bio&quot;=&gt;&quot;Michaëla is an Agile coach with a focus on value and the human aspects of work. She is devoted to Agile &amp; Scrum, not just as a mindset and framework for collaborative product delivery, but also for their general quality as ways to unlearn innate/inbred habits that prevent us from learning efficiently. A true Agile mindset enables enterprises to break down siloes, and build professional human networks throughout the company and beyond.&quot;}</name><email>michaela.broeckx@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="AgileWorks" /><category term="Scrum" /><category term="Agile Coaching" /><category term="Liberating Structures" /><summary type="html">Scrum is an Agile framework.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/scrum-is-a-liberating-structure/main-image.png" /></entry></feed>
+Just remember: It’s not because you know what you’re doing that everyone knows what you’re doing.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Development" /><category term="RxJS" /><category term="Angular" /><summary type="html">In my current role as Angular coach I try to help my colleagues as much as possible to make their applications in a logical and comprehensible way. I’m a huge supporter of RxJS for reactive programming and I ask others to consider using the technology to help them create declarative code and prevent them from going to Callback Hell. But as people start to embrace RxJS streams, the difficulties paired with using reactive programming start to surface and I’ve concluded that there also exists something I’d like to call Observable Purgatory.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-04-15-Keep-your-RxJS-streams-from-bursting-their-banks/speedlimit.jpg" /></entry></feed>
