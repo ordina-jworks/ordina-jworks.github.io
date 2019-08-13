@@ -9,7 +9,7 @@ comments: true
 ---
 
 > At some point in their career, developers come accross the need to work with security certificates.
-This article describes how to setup Let's Encrypt, retrieve a certificate, renew it automatically and how to use the certificate in a Java application for TLS communication.
+This article describes how to setup Let's Encrypt, retrieve a certificate, renew it automatically and use the certificate in a Java application for TLS communication.
 
 # Table of contents
 1. [Certificate Authorities and Let's Encrypt](#certificate-authorities-and-lets-encrypt)
