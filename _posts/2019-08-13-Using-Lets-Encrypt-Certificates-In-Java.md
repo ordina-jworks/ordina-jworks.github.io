@@ -29,8 +29,7 @@ That's why they issue certificates free of charge.
 
 # Installing a Let's Encrypt certificate
 
-We assume that you have shell access to your server.
-Let's Encrypt recommends to use [Certbot ACME Client](https://certbot.eff.org/){:target="_blank" rel="noopener noreferrer"}, since it can automate certificate issuance and installation with zero downtime.
+Assuming that you have shell access to your server, Let's Encrypt recommends to use [Certbot ACME Client](https://certbot.eff.org/){:target="_blank" rel="noopener noreferrer"}, since it can automate certificate issuance and installation with zero downtime.
 
 Certbot is a free, open source software tool for automatically using Let’s Encrypt certificates on manually-administrated websites to enable HTTPS.
 
@@ -40,12 +39,12 @@ You can select your web server software (Apache, Nginx, ...) and operating syste
 > You can check your operating system on Linux by executing `cat /etc/os-release`.
 
 Please note that these instructions also include setting up HTTPS for your website, which for this tutorial isn't necessary.
-We'll use the certificate in another way, for TLS communication in a Java applications.
+We'll use the certificate in another way, for TLS communication in a Java application.
 
-For Ubuntu, these are the steps required to install Certbot.
+For Ubuntu, the following steps are required to install Certbot.
 See also [Apache on Ubuntu 16.04 (xenial)](https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache){:target="_blank" rel="noopener noreferrer"}.
 
-You'll need to add the Certbot PPA to your list of repositories.
+Certbot is installed using APT (Advanced Package Tool), a tool for installing and removing applications on your system. This tool searches in its repositories for software distributions. Before you can install Certbot, you'll need to add the Certbot PPA (Personal Package Archive) to your list of available APT repositories.
 
 ```
 sudo apt-get update
@@ -55,19 +54,21 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get update
 ```
 
-Run this command on the command line on the machine to install Certbot.
+Run the following command to install Certbot.
 
 ```
 sudo apt-get install certbot python-certbot-apache
 ```
 
-You can choose to retrieve a certificate, or retrieve it and install it immediately in your web server, eg. Apache.
+You can choose to retrieve a certificate, or retrieve it and install it immediately on your web server, eg. Apache by adding the parameter `--apache`.
 For our situation, it is enough to retrieve a certificate.
 You do this with the following command:
 
 ```
-certbot certonly --apache
+certbot certonly
 ```
+
+You can find the installed Let's Encrypt certificates in the `/etc/letsencrypt/live` folder on your file system.
 
 # Certificate renewal
 
@@ -118,7 +119,7 @@ You can add this shell script as a Cronjob on your server.
 The command to renew certbot is installed in one of the following locations: `/etc/crontab/`, `/etc/cron.*/*` or `systemctl list-timers`.
 eg. To execute the script once every hour, you can add it to `/etc/cron.hourly`.
 
-We will edit the contents of the crontab file on the system with ``crontab -e``.
+We will edit the contents of the crontab file on the system with `crontab -e`.
 The line should start with a cron expression telling the system when to execute the task followed by the command to be executed.
 
 ```
@@ -202,7 +203,7 @@ keytool -importkeystore -deststorepass changeit -destkeypass changeit -deststore
 You can now load the keystore at location `/tmp/mydomain.be.keystore` in your Java application.
 
 > Please note that you not only need to create a keystore with your own certificates, but also a truststore with the trusted third-party certificates.
-The approach is exactly the same however.
+However, the approach is exactly the same.
 
 ## Using keystores and truststores in a Java application
 
@@ -285,9 +286,9 @@ final CloseableHttpClient client = HttpClients
     .build();
 ```
 
-> If you don't have the `.setSSLContext(sslContext)`, please check your ``org.apache.httpcomponents:httpclient`` version.
+> If you don't have the `.setSSLContext(sslContext)`, please check your `org.apache.httpcomponents:httpclient` version.
 
-You can now execute requests on with that client and each request will be sent over a TLS connection.
+Each HTTP request executed using this client will be sent over a TLS connection.
 
 ### Using the keystore with Spring REST
 
@@ -322,7 +323,7 @@ public RestTemplate restTemplate() throws Exception {
 }
 ```
 
-Please note that in the above code snippet, ``client`` must be an instance of Apache's HttpComponents HttpClient, eg. the `CloseableHttpClient` we created in the previous section.
+Please note that in the above code snippet, `client` must be an instance of Apache's HttpComponents HttpClient, eg. the `CloseableHttpClient` we created in the previous section.
 
 
 ### Using the keystore with Spring WS
@@ -360,7 +361,7 @@ public MyClient myClientSecure(Jaxb2Marshaller marshaller) {
 }
 ```
 
-Like in the Spring REST example, ``client`` must be an instance of Apache's HttpComponents HttpClient, eg. the `CloseableHttpClient` we created earlier.
+Like in the Spring REST example, `client` must be an instance of Apache's HttpComponents HttpClient, eg. the `CloseableHttpClient` we created earlier.
 
 Calling a service with the `org.springframework.ws.client.core.WebServiceTemplate` of our `MyClient` bean now uses the configured keystore and truststore.
 You can call a SOAP endpoint with `getWebServiceTemplate().marshalSendAndReceive(...)`.
