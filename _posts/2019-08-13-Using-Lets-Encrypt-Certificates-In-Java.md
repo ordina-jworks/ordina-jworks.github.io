@@ -133,7 +133,7 @@ Example of job definition:
 * * * * * command to be executed
 ```
 
-You can read more on cron expressions in the Baeldung blog [A Guide To Cron Expressions](https://www.baeldung.com/cron-expressions).
+You can read more on cron expressions in the Baeldung blog [A Guide To Cron Expressions](https://www.baeldung.com/cron-expressions){:target="_blank" rel="noopener noreferrer"}.
 
 The following line in crontab makes sure our script is executed every hour.
 
@@ -148,7 +148,7 @@ chmod +x /home/<username>/renew-script.sh
 ```
 
 There's no need to restart something after changing the `crontab` file.
-Cron will examine the modification time on all crontabs and reload those which have changed.
+Cron will examine the modification time on all crontabs and reload those which contain changes.
 
 # Using the certificate in a Java application
 
@@ -160,8 +160,8 @@ We will now see how we can import them in Java keystore files to use them in a J
 The first way you can use certificates in a JVM is to add them to the `cacerts` file of your Java distribution.
 
 Every JRE has its own keystore, which contains all Certificate Authorities it trusts.
-This is also refered to as a `truststore`.
-This `truststore` is stored as file called `cacerts`.
+This is also referred to as a `truststore`.
+This `truststore` is stored as a file called `cacerts`.
 It is typically located in `$JAVA_HOME/jre/lib/security` assuming `$JAVA_HOME` is where your JRE or JDK is installed.
 The default password for this keystore is `changeit`.
 
@@ -175,7 +175,7 @@ Please note that adding certificates to `cacerts` is not always the best solutio
 Although technically it is a fully functional keystore file, its purpose is mainly for determining which third-party certificates to trust.
 On top of this, it is tied to your Java installation and when you install another JRE or JDK, you'll need to add the certificates again.
 
-Our preferred approach is to add your own certificates to a keystore and the third-party certificates to separate truststore.
+Our preferred approach is to add your own certificates to a keystore and the third-party certificates to a separate truststore.
 Continue reading to see how you can do that.
 
 ## Creating and using a separate `.keystore` file
