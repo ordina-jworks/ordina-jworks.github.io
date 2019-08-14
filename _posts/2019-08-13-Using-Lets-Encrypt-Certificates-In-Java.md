@@ -33,7 +33,7 @@ Assuming that you have shell access to your server, Let's Encrypt recommends to 
 
 Certbot is a free, open source software tool for automatically using Let’s Encrypt certificates on manually-administrated websites to enable HTTPS.
 
-On the Certbot website you can find clear instructions on how to install.
+You can find clear installation instructions on the Certbot website.
 You can select your web server software (Apache, Nginx, ...) and operating system and Certbot provides the instructions to install it.
 
 > You can check your operating system on Linux by executing `cat /etc/os-release`.
@@ -44,7 +44,8 @@ We'll use the certificate in another way, for TLS communication in a Java applic
 For Ubuntu, the following steps are required to install Certbot.
 See also [Apache on Ubuntu 16.04 (xenial)](https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache){:target="_blank" rel="noopener noreferrer"}.
 
-Certbot is installed using APT (Advanced Package Tool), a tool for installing and removing applications on your system. This tool searches in its repositories for software distributions. Before you can install Certbot, you'll need to add the Certbot PPA (Personal Package Archive) to your list of available APT repositories.
+Certbot is installed using APT (Advanced Package Tool), a tool for installing and removing applications on Debian based systems. This tool searches in its repositories for software distributions.
+Before you can install Certbot, you'll need to add the Certbot PPA (Personal Package Archive) to your list of available APT repositories.
 
 ```
 sudo apt-get update
@@ -60,9 +61,9 @@ Run the following command to install Certbot.
 sudo apt-get install certbot python-certbot-apache
 ```
 
-You can choose to retrieve a certificate, or retrieve it and install it immediately on your web server, eg. Apache by adding the parameter `--apache`.
+By default, `certbot` retrieves a certificate and installs it immediately on your web server by adding an extra parameter, eg. `--apache` for [Apache HTTP Server](https://httpd.apache.org/){:target="_blank" rel="noopener noreferrer"}.
 For our situation, it is enough to retrieve a certificate.
-You do this with the following command:
+This is done by adding the `certonly` parameter to the command as follows:
 
 ```
 certbot certonly
@@ -215,6 +216,7 @@ First, we add properties to point to our keystore and truststore archives on the
 ```
 myprefix:
     client:
+        remote-service-endpoint-url: https://www.theirdomain.be/services/3.0
         trust-store: /ssl/theirdomain.be.jks
         trust-store-password: changeit
         key-store: /ssl/mydomain.be.keystore
@@ -227,6 +229,7 @@ Then we load those properties in a `@ConfigurationProperties` object.
 @Configuration
 @ConfigurationProperties("myprefix.client")
 public class MyClientProperties {
+    private String remoteServiceEndpointUrl;
     private String keyStore;
     private String keyStorePassword;
     private String trustStore;
@@ -345,7 +348,7 @@ On this object, you can set an instance of a `WebServiceMessageSender`.
 @Bean
 public Jaxb2Marshaller marshaller() {
     Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-    marshaller.setContextPath("be.belgacom.pgf.services.provisioningapisyncrequest.v3");
+    marshaller.setContextPath("fully.qualified.package.name.of.generated.sources");
     return marshaller;
 }
 
@@ -392,7 +395,7 @@ This is an example Keycloak configuration in the `standalone.xml` file:
 <security-realm name="ApplicationRealm">
     <server-identities>
         <ssl>
-            <keystore path="/tmp/api.connectmy.car.keystore" relative-to="jboss.server.config.dir" keystore-password="changeit" alias="keycloak.ordina-jworks.io" key-password="changeit" generate-self-signed-certificate-host="localhost"/>
+            <keystore path="/tmp/mydomain.be.keystore" relative-to="jboss.server.config.dir" keystore-password="changeit" alias="mydomain.be" key-password="changeit" generate-self-signed-certificate-host="localhost"/>
         </ssl>
     </server-identities>
 </security-realm>
