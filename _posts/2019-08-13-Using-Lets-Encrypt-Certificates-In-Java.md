@@ -140,7 +140,11 @@ The default password for this keystore is `changeit`.
 The following command imports the certificates into your JRE truststore.
 
 ```
-keytool -import -alias mydomain.be -keystore $JAVA_HOME/jre/lib/security/cacerts -file /etc/letsencrypt/live/mydomain.be/cert.pem -storepass changeit -noprompt
+keytool -import -alias mydomain.be \
+	-keystore $JAVA_HOME/jre/lib/security/cacerts \
+	-file /etc/letsencrypt/live/mydomain.be/cert.pem \
+	-storepass changeit \
+	-noprompt
 ```
 
 Please note that adding certificates to `cacerts` is not always the best solution.
@@ -161,7 +165,14 @@ You cannot import `.pem` certificates directly in a keystore, so you'll first ne
 We do this with the OpenSSL tool with the following command.
 
 ```
-openssl pkcs12 -export -in /etc/letsencrypt/live/mydomain.be/cert.pem -inkey /etc/letsencrypt/live/mydomain.be/privkey.pem -out /tmp/mydomain.be.p12 -name mydomain.be -CAfile /etc/letsencrypt/live/mydomain.be/fullchain.pem -caname "Let's Encrypt Authority X3" -password pass:changeit
+openssl pkcs12 -export \
+	 -in /etc/letsencrypt/live/mydomain.be/cert.pem \
+	 -inkey /etc/letsencrypt/live/mydomain.be/privkey.pem \
+	 -out /tmp/mydomain.be.p12 \
+	 -name mydomain.be \
+	 -CAfile /etc/letsencrypt/live/mydomain.be/fullchain.pem \
+	 -caname "Let's Encrypt Authority X3" \
+	 -password pass:changeit
 ```
 
 Change `mydomain.be` with your own DNS name.
@@ -169,7 +180,15 @@ Change `mydomain.be` with your own DNS name.
 The next step is to import the certificates into a `.keystore` file.
 
 ```
-keytool -importkeystore -deststorepass changeit -destkeypass changeit -deststoretype pkcs12 -srckeystore /tmp/mydomain.be.p12 -srcstoretype PKCS12 -srcstorepass changeit -destkeystore /tmp/mydomain.be.keystore -alias mydomain.be
+keytool -importkeystore \
+	-deststorepass changeit \
+	-destkeypass changeit \
+	-deststoretype pkcs12 \
+	-srckeystore /tmp/mydomain.be.p12 \
+	-srcstoretype PKCS12 \
+	-srcstorepass changeit \
+	-destkeystore /tmp/mydomain.be.keystore \
+	-alias mydomain.be
 ```
 
 You can now load the keystore at location `/tmp/mydomain.be.keystore` in your Java application.
@@ -186,8 +205,23 @@ Create a shell script `/home/<username>/renew-keystore.sh` with the following co
 
 # Create keystore
 echo "Refreshing '~/ssl/mydomain.be.keystore'"
-openssl pkcs12 -export -in /etc/letsencrypt/live/mydomain.be/cert.pem -inkey /etc/letsencrypt/live/mydomain.be/privkey.pem -out /tmp/mydomain.be.p12 -name mydomain.be -CAfile /etc/letsencrypt/live/mydomain.be/fullchain.pem -caname "Let's Encrypt Authority X3" -password pass:changeit
-keytool -importkeystore -deststorepass changeit -destkeypass changeit -deststoretype pkcs12 -srckeystore /tmp/mydomain.be.p12 -srcstoretype PKCS12 -srcstorepass changeit -destkeystore /tmp/mydomain.be.keystore -alias mydomain.be
+openssl pkcs12 -export \
+	 -in /etc/letsencrypt/live/mydomain.be/cert.pem \
+	 -inkey /etc/letsencrypt/live/mydomain.be/privkey.pem \
+	 -out /tmp/mydomain.be.p12 \
+	 -name mydomain.be \
+	 -CAfile /etc/letsencrypt/live/mydomain.be/fullchain.pem \
+	 -caname "Let's Encrypt Authority X3" \
+	 -password pass:changeit
+keytool -importkeystore \
+	-deststorepass changeit \
+	-destkeypass changeit \
+	-deststoretype pkcs12 \
+	-srckeystore /tmp/mydomain.be.p12 \
+	-srcstoretype PKCS12 \
+	-srcstorepass changeit \
+	-destkeystore /tmp/mydomain.be.keystore \
+	-alias mydomain.be
 # Move certificates to other servers
 echo "Copy '~/ssl/mydomain.be.keystore' to cluster servers"
 cp /tmp/mydomain.be.keystore /home/admin_jworks/ssl/mydomain.be.keystore
@@ -199,7 +233,12 @@ echo "Refreshing '~/ssl/theirdomain.be.keystore'"
 rm theirdomain.be.keystore
 openssl s_client -connect theirdomain.be:443 -showcerts </dev/null 2>/dev/null|openssl x509 -outform DER >theirdomain.der
 openssl x509 -inform der -in theirdomain.der -out theirdomain.pem
-keytool -import -alias theirdomain -keystore theirdomain.be.keystore -file ./theirdomain.pem -storepass theirdomain -noprompt
+keytool -import \
+	-alias theirdomain \
+	-keystore theirdomain.be.keystore \
+	-file ./theirdomain.pem \
+	-storepass theirdomain \
+	-noprompt
 echo "Copy '~/ssl/theirdomain.be.keystore' to cluster servers"
 cp theirdomain.be.keystore /home/admin_jworks/ssl/
 sudo scp ssl/theirdomain.be.keystore cc-backend-node-02:/home/admin_jworks/ssl/
