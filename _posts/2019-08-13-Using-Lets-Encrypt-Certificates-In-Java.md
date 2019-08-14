@@ -73,7 +73,8 @@ You can find the installed Let's Encrypt certificates in the `/etc/letsencrypt/l
 
 # Certificate renewal
 
-Let's Encrypt CA issues short-lived certificates of 90 days. Therefore you have to make sure you renew the certificates at least once in 3 months.
+Let's Encrypt CA issues short-lived certificates of 90 days.
+Therefore certificates must be renewed at least once in 3 months.
 
 Certificate renewal is actually quite simple with Certbot.
 You can renew the certificates with the following command:
@@ -82,7 +83,7 @@ You can renew the certificates with the following command:
 certbot renew
 ```
 
-> Add `--dry-run` if you want to try it out without consequences.
+> Add `--dry-run` to the command if you want to try it out without consequences.
 
 Executing this command multiple times is not a problem.
 When the certificate is not due for renewal, nothing will happen and you'll receive an output comparable to this:
@@ -105,55 +106,25 @@ No renewals were attempted.
 
 # Automating the renewal process
 
-Typically, the `certbot renew` command is executed in a cron job or systemd timer.
-Create a shell script `/home/<username>/renew-script.sh` with the following content:
+Certbot [automatically renews](https://certbot.eff.org/docs/using.html?highlight=hooks#automated-renewals){:target="_blank" rel="noopener noreferrer"} certificates on most operating systems now.
+
+Check your operating system's crontab (typically in `/etc/crontab/` and `/etc/cron.*/*` and systemd timers (`systemctl list-timers`).
+On our Ubuntu system we executed `systemctl list-timers` and found a `certbot.timer`.
 
 ```
-#!bin/bash
-certbot renew >> /var/log/renew.log
+NEXT                          LEFT          LAST                          PASSED       UNIT                         ACTIVATES
+Wed 2019-08-14 10:47:41 CEST  1h 19min left Tue 2019-08-13 18:00:03 CEST  15h ago      certbot.timer                certbot.service
 ```
 
-In the script above, we also write the log information to a file for debugging purposes.
-You can also add the `-q` parameter for quiet execution, but then writing to a log file has no use anymore.
+It basically boils down to the `certbot renew` command being executed periodically.
 
-You can add this shell script as a Cronjob on your server. 
-The command to renew certbot is installed in one of the following locations: `/etc/crontab/`, `/etc/cron.*/*` or `systemctl list-timers`.
-eg. To execute the script once every hour, you can add it to `/etc/cron.hourly`.
+> If your Linux distribution package didn't install the cronjob, you can easily set this up yourself.
+Since we need to automate the keystore and truststore creation as well, you can look at the section [Automate the keytore and truststore creation process](#automate-the-keytore-and-truststore-creation-process) for more information on creating cronjobs.
 
-We will edit the contents of the crontab file on the system with `crontab -e`.
-The line should start with a cron expression telling the system when to execute the task followed by the command to be executed.
-
-```
-Example of job definition:
-.---------------- minute (0 - 59)
-| .------------- hour (0 - 23)
-| | .---------- day of month (1 - 31)
-| | | .------- month (1 - 12) OR jan,feb,mar,apr ...
-| | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
-| | | | |
-* * * * * command to be executed
-```
-
-You can read more on cron expressions in the Baeldung blog [A Guide To Cron Expressions](https://www.baeldung.com/cron-expressions){:target="_blank" rel="noopener noreferrer"}.
-
-The following line in crontab makes sure our script is executed every hour.
-
-```
-0 * * * * bash /home/<username>/renew-script.sh >> /var/log/renew.log 
-```
-
-Remember to set execute permissions on the created script to allow the system to run the script.
-
-```
-chmod +x /home/<username>/renew-script.sh
-```
-
-There's no need to restart something after changing the `crontab` file.
-Cron will examine the modification time on all crontabs and reload those which contain changes.
 
 # Using the certificate in a Java application
 
-Let's Encrypt certificates are stored in the `/etc/letsencrypt/live` folder on your file system.
+All generated keys and issued Let's Encrypt certificates can be found in the `/etc/letsencrypt/live` folder on your file system.
 We will now see how we can import them in Java keystore files to use them in a Java application.
 
 ## Importing certificates into `cacerts`
@@ -205,6 +176,76 @@ You can now load the keystore at location `/tmp/mydomain.be.keystore` in your Ja
 
 > Please note that you not only need to create a keystore with your own certificates, but also a truststore with the trusted third-party certificates.
 However, the approach is exactly the same.
+
+## Automate the keytore and truststore creation process
+
+Create a shell script `/home/<username>/renew-keystore.sh` with the following content:
+
+```
+#!bin/bash
+
+# Create keystore
+echo "Refreshing '~/ssl/mydomain.be.keystore'"
+openssl pkcs12 -export -in /etc/letsencrypt/live/mydomain.be/cert.pem -inkey /etc/letsencrypt/live/mydomain.be/privkey.pem -out /tmp/mydomain.be.p12 -name mydomain.be -CAfile /etc/letsencrypt/live/mydomain.be/fullchain.pem -caname "Let's Encrypt Authority X3" -password pass:changeit
+keytool -importkeystore -deststorepass changeit -destkeypass changeit -deststoretype pkcs12 -srckeystore /tmp/mydomain.be.p12 -srcstoretype PKCS12 -srcstorepass changeit -destkeystore /tmp/mydomain.be.keystore -alias mydomain.be
+# Move certificates to other servers
+echo "Copy '~/ssl/mydomain.be.keystore' to cluster servers"
+cp /tmp/mydomain.be.keystore /home/admin_jworks/ssl/mydomain.be.keystore
+scp  /tmp/mydomain.be.keystore cc-backend-node-02:/home/admin_jworks/ssl/mydomain.be.keystore
+scp  /tmp/mydomain.be.keystore cc-frontend-node-01:/home/admin_jworks/ssl/mydomain.be.keystore
+
+# Create truststore
+echo "Refreshing '~/ssl/theirdomain.be.keystore'"
+rm theirdomain.be.keystore
+openssl s_client -connect theirdomain.be:443 -showcerts </dev/null 2>/dev/null|openssl x509 -outform DER >theirdomain.der
+openssl x509 -inform der -in theirdomain.der -out theirdomain.pem
+keytool -import -alias theirdomain -keystore theirdomain.be.keystore -file ./theirdomain.pem -storepass theirdomain -noprompt
+echo "Copy '~/ssl/theirdomain.be.keystore' to cluster servers"
+cp theirdomain.be.keystore /home/admin_jworks/ssl/
+sudo scp ssl/theirdomain.be.keystore cc-backend-node-02:/home/admin_jworks/ssl/
+sudo scp ssl/theirdomain.be.keystore cc-frontend-node-01:/home/admin_jworks/ssl/
+```
+
+You might not need everything from this script.
+It does more than creating a new keystore:
+
+* It creates the keystore `mydomain.be.keystore` as described in the previous section [Creating and using a separate `.keystore` file](#creating-and-using-a-separate-keystore-file)
+* It creates a truststore by connecting to the third-party server, writing their certificate to a file called `theirdomain.pem` and importing that file in `theirdomain.be.keystore`
+* It also copies both keystore and truststore files to other servers in our cluster
+
+The command to execute this shell script is installed in one of the following locations: `/etc/crontab/`, `/etc/cron.*/*` or `systemctl list-timers`.
+eg. To execute the script once every hour, you can add it to `/etc/cron.hourly`.
+
+We will edit the contents of the crontab file on the system with `crontab -e`.
+The line should start with a cron expression telling the system when to execute the task followed by the command to be executed.
+
+```
+Example of job definition:
+.---------------- minute (0 - 59)
+| .------------- hour (0 - 23)
+| | .---------- day of month (1 - 31)
+| | | .------- month (1 - 12) OR jan,feb,mar,apr ...
+| | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+| | | | |
+* * * * * command to be executed
+```
+
+You can read more on cron expressions in the Baeldung blog [A Guide To Cron Expressions](https://www.baeldung.com/cron-expressions){:target="_blank" rel="noopener noreferrer"}.
+
+The following line in crontab makes sure our script is executed every hour.
+
+```
+0 * * * * bash /home/<username>/renew-keystore.sh >> /var/log/renew-keystore.log 
+```
+
+Remember to set execute permissions on the created script to allow the system to run the script.
+
+```
+chmod +x /home/<username>/renew-keystore.sh
+```
+
+There's no need to restart something after changing the `crontab` file.
+Cron will examine the modification time on all crontabs and reload those which contain changes.
 
 ## Using keystores and truststores in a Java application
 
