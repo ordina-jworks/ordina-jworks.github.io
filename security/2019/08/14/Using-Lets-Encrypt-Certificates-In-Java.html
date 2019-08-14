@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Using Let's Encrypt certificates in Java applications - Ken Coenen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/lets-encrypt.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Using Let's Encrypt certificates in Java applications - Ken Coenen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/lets-encrypt.png"/>
+
+    
+    <title>Using Let's Encrypt certificates in Java applications - Ken Coenen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Using Let's Encrypt certificates in Java applications</h2>
+                
+
+                
+                    Posted Aug 14, 2019
+
+
+    in <a href="/categories/security/">Security</a>
+
+
+
+    by
+    
+        <a href="/author/ken-coenen/">Ken Coenen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/security/">Security</a>, 
+    
+        <a href="/tags/tls/">TLS</a>, 
+    
+        <a href="/tags/let's-encrypt/">Let's Encrypt</a>, 
+    
+        <a href="/tags/keycloak/">Keycloak</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>At some point in their career, developers come accross the need to work with security certificates.
+This article describes how to setup Let’s Encrypt, retrieve a certificate, renew it automatically and use the certificate in a Java application for TLS communication.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#certificate-authorities-and-lets-encrypt">Certificate Authorities and Let’s Encrypt</a></li>
+  <li><a href="#installing-a-lets-encrypt-certificate">Installing a Let’s Encrypt certificate</a></li>
+  <li><a href="#certificate-renewal">Certificate renewal</a></li>
+  <li><a href="#automating-the-renewal-process">Automating the renewal process</a></li>
+  <li><a href="#using-the-certificates-in-a-java-application">Using the certificates in a Java application</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<h1 id="certificate-authorities-and-lets-encrypt">Certificate Authorities and Let’s Encrypt</h1>
+
+<p>When you want to enable HTTPS on your website or need certificates for TLS communication, you’ll need to request this certificate from a <a href="https://en.wikipedia.org/wiki/Certificate_authority" target="_blank" rel="noopener noreferrer">Certificate Authority</a> (CA).
+It acts as a <a href="https://en.wikipedia.org/wiki/Trusted_third_party" target="_blank" rel="noopener noreferrer">trusted third party</a> between two parties that need to communicate with each other.
+<a href="https://certbot.eff.org/" target="_blank" rel="noopener noreferrer">Let’s Encrypt</a> is such a Certificate Authority.
+It is their mission to give everyone a secure and privacy-respecting web experience.
+That’s why they issue certificates free of charge.</p>
+
+<h1 id="installing-a-lets-encrypt-certificate">Installing a Let’s Encrypt certificate</h1>
+
+<p>Assuming that you have shell access to your server, Let’s Encrypt recommends to use <a href="https://certbot.eff.org/" target="_blank" rel="noopener noreferrer">Certbot ACME Client</a>, since it can automate certificate issuance and installation with zero downtime.</p>
+
+<p>Certbot is a free, open source software tool for automatically using Let’s Encrypt certificates on manually-administrated websites to enable HTTPS.</p>
+
+<p>Clear installation instructions can be found on the Certbot website.
+Select your web server software (Apache, Nginx, …) and operating system and Certbot provides the installation instructions.</p>
+
+<blockquote>
+  <p>You can check your operating system on Linux by executing <code class="highlighter-rouge">cat /etc/os-release</code>.</p>
+</blockquote>
+
+<p>Please note that these instructions also include setting up HTTPS for your website, which for this tutorial isn’t necessary.
+We’ll use the certificate in another way, for TLS communication in a Java application.</p>
+
+<p>For Ubuntu, the following steps are required to install Certbot.
+See also <a href="https://certbot.eff.org/lets-encrypt/ubuntuxenial-apache" target="_blank" rel="noopener noreferrer">Apache on Ubuntu 16.04 (xenial)</a>.</p>
+
+<p>Certbot is installed using APT (Advanced Package Tool), a tool for installing and removing applications on Debian based systems. This tool searches in its repositories for software distributions.
+Before you can install Certbot, you’ll need to add the Certbot PPA (Personal Package Archive) to your list of available APT repositories.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+</code></pre></div></div>
+
+<p>Run the following command to install Certbot.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install certbot python-certbot-apache
+</code></pre></div></div>
+
+<p>By default, <code class="highlighter-rouge">certbot</code> retrieves a certificate and installs it immediately on your web server by adding an extra parameter, eg. <code class="highlighter-rouge">--apache</code> for <a href="https://httpd.apache.org/" target="_blank" rel="noopener noreferrer">Apache HTTP Server</a>.
+For our situation, it is enough to retrieve a certificate.
+This is done by adding the <code class="highlighter-rouge">certonly</code> parameter to the command as follows:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>certbot certonly
+</code></pre></div></div>
+
+<p>You can find the installed Let’s Encrypt certificates in the <code class="highlighter-rouge">/etc/letsencrypt/live</code> folder on your file system.</p>
+
+<h1 id="certificate-renewal">Certificate renewal</h1>
+
+<p>Let’s Encrypt CA issues short-lived certificates of 90 days.
+Therefore certificates must be renewed at least once in 3 months.</p>
+
+<p>Certificate renewal is actually quite simple with Certbot.
+You can renew the certificates with the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>certbot renew
+</code></pre></div></div>
+
+<blockquote>
+  <p>Add <code class="highlighter-rouge">--dry-run</code> to the command if you want to try it out without consequences.</p>
+</blockquote>
+
+<p>Executing this command multiple times is not a problem.
+When the certificate is not due for renewal, nothing will happen and you’ll receive an output comparable to this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Processing /etc/letsencrypt/renewal/mydomain.be.conf
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Cert not yet due for renewal
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+The following certs are not due for renewal yet:
+  /etc/letsencrypt/live/mydomain.be/fullchain.pem expires on 2019-09-14 (skipped)
+No renewals were attempted.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</code></pre></div></div>
+
+<h1 id="automating-the-renewal-process">Automating the renewal process</h1>
+
+<p>Certbot <a href="https://certbot.eff.org/docs/using.html?highlight=hooks#automated-renewals" target="_blank" rel="noopener noreferrer">automatically renews</a> certificates on most operating systems now.</p>
+
+<p>Check your operating system’s crontab (typically in <code class="highlighter-rouge">/etc/crontab/</code> and <code class="highlighter-rouge">/etc/cron.*/*</code> and systemd timers (<code class="highlighter-rouge">systemctl list-timers</code>).
+On our Ubuntu system we executed <code class="highlighter-rouge">systemctl list-timers</code> and found a <code class="highlighter-rouge">certbot.timer</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NEXT                          LEFT          LAST                          PASSED       UNIT                         ACTIVATES
+Wed 2019-08-14 10:47:41 CEST  1h 19min left Tue 2019-08-13 18:00:03 CEST  15h ago      certbot.timer                certbot.service
+</code></pre></div></div>
+
+<p>It basically boils down to the <code class="highlighter-rouge">certbot renew</code> command being executed periodically.</p>
+
+<blockquote>
+  <p>If your Linux distribution package didn’t install the cronjob, you can easily set this up yourself.
+Since we need to automate the keystore and truststore creation as well, you can look at the section <a href="#automate-the-keystore-and-truststore-creation-process">Automate the keystore and truststore creation process</a> for more information on creating cronjobs.</p>
+</blockquote>
+
+<h1 id="using-the-certificates-in-a-java-application">Using the certificates in a Java application</h1>
+
+<p>All generated keys and issued Let’s Encrypt certificates can be found in the <code class="highlighter-rouge">/etc/letsencrypt/live</code> folder on your file system.
+We will now see how we can import them in Java keystore files to use them in a Java application.</p>
+
+<h2 id="importing-certificates-into-cacerts">Importing certificates into <code class="highlighter-rouge">cacerts</code></h2>
+
+<p>The first way you can use certificates in a JVM is to add them to the <code class="highlighter-rouge">cacerts</code> file of your Java distribution.</p>
+
+<p>Every JRE has its own keystore, which contains all Certificate Authorities it trusts.
+This is also referred to as a <code class="highlighter-rouge">truststore</code>.
+This <code class="highlighter-rouge">truststore</code> is stored as a file called <code class="highlighter-rouge">cacerts</code>.
+It is typically located in <code class="highlighter-rouge">$JAVA_HOME/jre/lib/security</code> assuming <code class="highlighter-rouge">$JAVA_HOME</code> is where your JRE or JDK is installed.
+The default password for this keystore is <code class="highlighter-rouge">changeit</code>.</p>
+
+<p>The following command imports the certificates into your JRE truststore.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keytool -import -alias mydomain.be \
+	-keystore $JAVA_HOME/jre/lib/security/cacerts \
+	-file /etc/letsencrypt/live/mydomain.be/cert.pem \
+	-storepass changeit \
+	-noprompt
+</code></pre></div></div>
+
+<p>Please note that adding certificates to <code class="highlighter-rouge">cacerts</code> is not always the best solution.
+Although technically it is a fully functional keystore file, its purpose is mainly for determining which third-party certificates to trust.
+On top of this, it is tied to your Java installation and when you install another JRE or JDK, you’ll need to add the certificates again.</p>
+
+<p>Our preferred approach is to add your own certificates to a keystore and the third-party certificates to a separate truststore.
+Continue reading to see how you can do that.</p>
+
+<h2 id="creating-a-separate-keystore-file">Creating a separate <code class="highlighter-rouge">.keystore</code> file</h2>
+
+<p>To use a certificate in a Java application, the preferred way is to add it to a separate <code class="highlighter-rouge">.keystore</code> file.</p>
+
+<p>The Java Runtime Environment (JRE) ships with a tool called <code class="highlighter-rouge">keytool</code> to create certificates and manipulate key stores.
+Adding certificates to a keystore can be done by using OpenSSL and the <code class="highlighter-rouge">keytool</code>.</p>
+
+<p>You cannot import multiple public and private <code class="highlighter-rouge">.pem</code> certificates directly in a keystore, so you’ll first need to add all <code class="highlighter-rouge">.pem</code> files to a <a href="https://en.wikipedia.org/wiki/PKCS_12" target="_blank" rel="noopener noreferrer">PKCS 12</a> archive.
+We do this with the OpenSSL tool with the following command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl pkcs12 -export \
+	 -in /etc/letsencrypt/live/mydomain.be/cert.pem \
+	 -inkey /etc/letsencrypt/live/mydomain.be/privkey.pem \
+	 -out /tmp/mydomain.be.p12 \
+	 -name mydomain.be \
+	 -CAfile /etc/letsencrypt/live/mydomain.be/fullchain.pem \
+	 -caname "Let's Encrypt Authority X3" \
+	 -password pass:changeit
+</code></pre></div></div>
+
+<p>Change <code class="highlighter-rouge">mydomain.be</code> with your own DNS name.</p>
+
+<p>The next step is to import the certificates into a <code class="highlighter-rouge">.keystore</code> file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keytool -importkeystore \
+	-deststorepass changeit \
+	-destkeypass changeit \
+	-deststoretype pkcs12 \
+	-srckeystore /tmp/mydomain.be.p12 \
+	-srcstoretype PKCS12 \
+	-srcstorepass changeit \
+	-destkeystore /tmp/mydomain.be.keystore \
+	-alias mydomain.be
+</code></pre></div></div>
+
+<p>You can now load the keystore at location <code class="highlighter-rouge">/tmp/mydomain.be.keystore</code> in your Java application.</p>
+
+<blockquote>
+  <p>Please note that you not only need to create a keystore with your own certificates, but also a truststore with the trusted third-party certificates.
+However, the approach is exactly the same.</p>
+</blockquote>
+
+<h2 id="automate-the-keystore-and-truststore-creation-process">Automate the keystore and truststore creation process</h2>
+
+<p>Create a shell script <code class="highlighter-rouge">/home/&lt;username&gt;/renew-keystore.sh</code> with the following content:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!bin/bash</span>
+
+<span class="c"># Create keystore</span>
+<span class="nb">echo</span> <span class="s2">"Refreshing '~/ssl/mydomain.be.keystore'"</span>
+openssl pkcs12 <span class="nt">-export</span> <span class="se">\</span>
+	 <span class="nt">-in</span> /etc/letsencrypt/live/mydomain.be/cert.pem <span class="se">\</span>
+	 <span class="nt">-inkey</span> /etc/letsencrypt/live/mydomain.be/privkey.pem <span class="se">\</span>
+	 <span class="nt">-out</span> /tmp/mydomain.be.p12 <span class="se">\</span>
+	 <span class="nt">-name</span> mydomain.be <span class="se">\</span>
+	 <span class="nt">-CAfile</span> /etc/letsencrypt/live/mydomain.be/fullchain.pem <span class="se">\</span>
+	 <span class="nt">-caname</span> <span class="s2">"Let's Encrypt Authority X3"</span> <span class="se">\</span>
+	 <span class="nt">-password</span> pass:changeit
+keytool <span class="nt">-importkeystore</span> <span class="se">\</span>
+	<span class="nt">-deststorepass</span> changeit <span class="se">\</span>
+	<span class="nt">-destkeypass</span> changeit <span class="se">\</span>
+	<span class="nt">-deststoretype</span> pkcs12 <span class="se">\</span>
+	<span class="nt">-srckeystore</span> /tmp/mydomain.be.p12 <span class="se">\</span>
+	<span class="nt">-srcstoretype</span> PKCS12 <span class="se">\</span>
+	<span class="nt">-srcstorepass</span> changeit <span class="se">\</span>
+	<span class="nt">-destkeystore</span> /tmp/mydomain.be.keystore <span class="se">\</span>
+	<span class="nt">-alias</span> mydomain.be
+<span class="c"># Move certificates to other servers</span>
+<span class="nb">echo</span> <span class="s2">"Copy '~/ssl/mydomain.be.keystore' to cluster servers"</span>
+<span class="nb">cp</span> /tmp/mydomain.be.keystore /home/admin_jworks/ssl/mydomain.be.keystore
+scp  /tmp/mydomain.be.keystore cc-backend-node-02:/home/admin_jworks/ssl/mydomain.be.keystore
+scp  /tmp/mydomain.be.keystore cc-frontend-node-01:/home/admin_jworks/ssl/mydomain.be.keystore
+
+<span class="c"># Create truststore</span>
+<span class="nb">echo</span> <span class="s2">"Refreshing '~/ssl/theirdomain.be.keystore'"</span>
+<span class="nb">rm </span>theirdomain.be.keystore
+openssl s_client <span class="nt">-connect</span> theirdomain.be:443 <span class="nt">-showcerts</span> &lt;/dev/null 2&gt;/dev/null|openssl x509 <span class="nt">-outform</span> DER <span class="o">&gt;</span>theirdomain.der
+openssl x509 <span class="nt">-inform</span> der <span class="nt">-in</span> theirdomain.der <span class="nt">-out</span> theirdomain.pem
+keytool <span class="nt">-import</span> <span class="se">\</span>
+	<span class="nt">-alias</span> theirdomain <span class="se">\</span>
+	<span class="nt">-keystore</span> theirdomain.be.keystore <span class="se">\</span>
+	<span class="nt">-file</span> ./theirdomain.pem <span class="se">\</span>
+	<span class="nt">-storepass</span> theirdomain <span class="se">\</span>
+	<span class="nt">-noprompt</span>
+<span class="nb">echo</span> <span class="s2">"Copy '~/ssl/theirdomain.be.keystore' to cluster servers"</span>
+<span class="nb">cp </span>theirdomain.be.keystore /home/admin_jworks/ssl/
+<span class="nb">sudo </span>scp ssl/theirdomain.be.keystore cc-backend-node-02:/home/admin_jworks/ssl/
+<span class="nb">sudo </span>scp ssl/theirdomain.be.keystore cc-frontend-node-01:/home/admin_jworks/ssl/
+</code></pre></div></div>
+
+<p>You might not need everything from this script.
+It does more than creating a new keystore:</p>
+
+<ul>
+  <li>It creates the keystore <code class="highlighter-rouge">mydomain.be.keystore</code> as described in the previous section <a href="#creating-a-separate-keystore-file">Creating and using a separate <code class="highlighter-rouge">.keystore</code> file</a></li>
+  <li>It creates a truststore by connecting to the third-party server, writing their certificate to a file called <code class="highlighter-rouge">theirdomain.pem</code> and importing that file in <code class="highlighter-rouge">theirdomain.be.keystore</code></li>
+  <li>It also copies both keystore and truststore files to other servers in our cluster</li>
+</ul>
+
+<p>The command to execute this shell script is installed in one of the following locations: <code class="highlighter-rouge">/etc/crontab/</code>, <code class="highlighter-rouge">/etc/cron.*/*</code> or <code class="highlighter-rouge">systemctl list-timers</code>.
+eg. To execute the script once every hour, you can add it to <code class="highlighter-rouge">/etc/cron.hourly</code>.</p>
+
+<p>We will edit the contents of the crontab file on the system with <code class="highlighter-rouge">crontab -e</code>.
+The line should start with a cron expression telling the system when to execute the task followed by the command to be executed.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Example of job definition:
+.---------------- minute (0 - 59)
+| .------------- hour (0 - 23)
+| | .---------- day of month (1 - 31)
+| | | .------- month (1 - 12) OR jan,feb,mar,apr ...
+| | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+| | | | |
+* * * * * command to be executed
+</code></pre></div></div>
+
+<p>You can read more on cron expressions in the Baeldung blog <a href="https://www.baeldung.com/cron-expressions" target="_blank" rel="noopener noreferrer">A Guide To Cron Expressions</a>.</p>
+
+<p>The following line in crontab makes sure our script is executed every hour.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 * * * * bash /home/&lt;username&gt;/renew-keystore.sh &gt;&gt; /var/log/renew-keystore.log 
+</code></pre></div></div>
+
+<p>Remember to set execute permissions on the created script to allow the system to run the script.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod +x /home/&lt;username&gt;/renew-keystore.sh
+</code></pre></div></div>
+
+<p>There’s no need to restart something after changing the <code class="highlighter-rouge">crontab</code> file.
+Cron will examine the modification time on all crontabs and reload those which contain changes.</p>
+
+<h2 id="using-keystores-and-truststores-in-a-java-application">Using keystores and truststores in a Java application</h2>
+
+<h3 id="spring-boot-configuration-properties">Spring Boot configuration properties</h3>
+
+<p>We’ll be using Spring Boot to externalize our TLS configuration.
+First, we add properties to point to our keystore and truststore archives on the filesystem and provide the necessary passwords.</p>
+
+<blockquote>
+  <p>Please note that there are existing Spring Boot properties prefixed with <code class="highlighter-rouge">server.ssl</code> to configure TLS.
+However, these properties are used for securing connections to your Tomcat server.
+They will not configure HTTP clients used within your application.
+We also need to configure more information about the service we’re consuming, eg. the endpoint url.
+We therefore specify our own properties.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myprefix:
+    client:
+        remote-service-endpoint-url: https://www.theirdomain.be/services/3.0
+        trust-store: /ssl/theirdomain.be.jks
+        trust-store-password: changeit
+        key-store: /ssl/mydomain.be.keystore
+        key-store-password: changeit
+</code></pre></div></div>
+
+<p>Then we load those properties in a <code class="highlighter-rouge">@ConfigurationProperties</code> object.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Configuration
+@ConfigurationProperties("myprefix.client")
+public class MyClientProperties {
+    private String remoteServiceEndpointUrl;
+    private String keyStore;
+    private String keyStorePassword;
+    private String trustStore;
+    private String trustStorePassword;
+    // Getters and setters
+}
+</code></pre></div></div>
+
+<p>This class is instantiated by Spring and can be autowired in other beans.</p>
+
+<h3 id="javas-sslcontext-and-http-clients">Java’s <code class="highlighter-rouge">SSLContext</code> and HTTP clients</h3>
+
+<p>In Java there are several frameworks you can use to establish an HTTP connection.</p>
+
+<ul>
+  <li>Java’s built-in <code class="highlighter-rouge">HttpURLConnection</code></li>
+  <li>Apache HttpComponents <a href="http://hc.apache.org/httpcomponents-client-4.5.x/index.html" target="_blank" rel="noopener noreferrer">HttpClient</a> – Please note that this is the successor of <a href="http://hc.apache.org/httpclient-legacy/index.html" target="_blank" rel="noopener noreferrer">Commons HttpClient</a>.
+If you’ll be using this client, make sure you’re importing the <code class="highlighter-rouge">org.apache.httpcomponents</code> version.</li>
+  <li><a href="https://square.github.io/okhttp/" target="_blank" rel="noopener noreferrer">OkHttp</a></li>
+</ul>
+
+<p>Java supports TLS communication through its <code class="highlighter-rouge">javax.net.ssl.SSLContext</code> class.</p>
+
+<p>We’ll be using Apache’s <a href="http://hc.apache.org/httpcomponents-client-4.5.x/index.html" target="_blank" rel="noopener noreferrer">HttpClient</a> to setup TLS communication.
+This library has builder classes with which you can easily create an <code class="highlighter-rouge">SSLContext</code>.</p>
+
+<p>Add the following Maven dependencies.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+    &lt;artifactId&gt;httpcore&lt;/artifactId&gt;
+    &lt;version&gt;${httpcore.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+    &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+    &lt;version&gt;${httpclient.version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>Now you can use the <code class="highlighter-rouge">org.apache.http.ssl.SSLContexts</code> and <code class="highlighter-rouge">org.apache.http.ssl.SSLContextBuilder</code> to create an <code class="highlighter-rouge">javax.net.ssl.SSLContext</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SSLContext sslContext = SSLContexts
+    .custom()
+    .loadKeyMaterial(Paths.get(properties.getKeyStore()).toFile(), properties.getKeyStorePassword().toCharArray(), properties.getKeyStorePassword().toCharArray())
+    .loadTrustMaterial(Paths.get(properties.getTrustStore()).toFile(), properties.getTrustStorePassword().toCharArray())
+    .build();
+</code></pre></div></div>
+
+<p>This <code class="highlighter-rouge">SSLContext</code> can be used to create an Apache <code class="highlighter-rouge">org.apache.http.impl.client.CloseableHttpClient</code>.
+We create the <code class="highlighter-rouge">CloseableHttpClient</code> with the <code class="highlighter-rouge">org.apache.http.impl.client.HttpClients</code> utility class.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>final CloseableHttpClient client = HttpClients
+    .custom()
+    .setSSLContext(sslContext)
+    .build();
+</code></pre></div></div>
+
+<p>If you don’t have the <code class="highlighter-rouge">.setSSLContext(sslContext)</code>, please check your <code class="highlighter-rouge">org.apache.httpcomponents:httpclient</code> version.</p>
+
+<p>Each HTTP request executed using this client will be sent over a TLS connection.</p>
+
+<blockquote>
+  <p>Please note that you also have the possibility to set the following Java system properties and ensure all communication uses TLS.</p>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>System.setProperty("javax.net.ssl.enabled", "true");
+System.setProperty("javax.net.ssl.trustStore", properties.getTrustStore());
+System.setProperty("javax.net.ssl.trustStorePassword", properties.getTrustStorePassword());
+System.setProperty("javax.net.ssl.keyPassword", properties.getKeyStorePassword());
+System.setProperty("javax.net.ssl.keyStore", properties.getKeyStore());
+System.setProperty("javax.net.ssl.keyStorePassword", properties.getKeyStorePassword());
+System.setProperty("javax.net.ssl.clientAuth", "need");
+</code></pre></div>  </div>
+  <p>Although it’s a valid possibility, these are settings for the entire system.
+On top of that, when you need to integrate with multiple third-parties and are dealing with multiple trusted parties and multiple public/private keypairs, it can become a mess to add everything to single keystore and truststore files.</p>
+</blockquote>
+
+<h3 id="using-the-keystore-with-spring-rest">Using the keystore with Spring REST</h3>
+
+<p>In the previous section we learned how to create an <code class="highlighter-rouge">javax.net.ssl.SSLContext</code> and an Apache HttpComponents <code class="highlighter-rouge">CloseableHttpClient</code>.</p>
+
+<p>Calling REST endpoints with Spring REST is done by using the <code class="highlighter-rouge">org.springframework.web.client.RestTemplate</code> class.
+This class is part of the <code class="highlighter-rouge">spring-web</code> module, which is automatically added by adding the <code class="highlighter-rouge">spring-boot-starter-web</code> dependency.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>Spring’s <code class="highlighter-rouge">RestTemplate</code> is an abstraction of the different HTTP clients we can use in Java.
+Under the hood, when a request is executed on the <code class="highlighter-rouge">RestTemplate</code>, Spring uses the passed <code class="highlighter-rouge">org.springframework.web.client.ClientHttpRequestFactory</code> to create a <code class="highlighter-rouge">org.springframework.http.client.ClientHttpRequest</code>, executes the request and transforms it to a <code class="highlighter-rouge">org.springframework.http.client.ClientHttpResponse</code>.
+There’s a specific implementation of these classes for each HTTP client.</p>
+
+<p>For example, for Apache’s HttpComponents HttpClient, you can find classes with the prefix <code class="highlighter-rouge">HttpComponents</code>:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">org.springframework.http.client.HttpComponentsClientHttpRequestFactory</code></li>
+  <li><code class="highlighter-rouge">org.springframework.http.client.HttpComponentsClientHttpRequest</code></li>
+  <li><code class="highlighter-rouge">org.springframework.http.client.HttpComponentsClientHttpResponse</code></li>
+</ul>
+
+<p>We’ll use <code class="highlighter-rouge">HttpComponentsClientHttpRequestFactory</code> to customize the <code class="highlighter-rouge">RestTemplate</code> and we register it with the Spring context by annotating the method with <code class="highlighter-rouge">@Bean</code> in one of the configuration classes.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Bean
+public RestTemplate restTemplate() throws Exception {
+    return new RestTemplate(new HttpComponentsClientHttpRequestFactory(client));
+}
+</code></pre></div></div>
+
+<p>Please note that in the above code snippet, <code class="highlighter-rouge">client</code> must be an instance of Apache’s HttpComponents HttpClient, eg. the <code class="highlighter-rouge">CloseableHttpClient</code> we created in the previous section.</p>
+
+<h3 id="using-the-keystore-with-spring-ws">Using the keystore with Spring WS</h3>
+
+<p>From time to time you have to integrate with a SOAP web service from the customer or a third party and use TLS communication when doing so.</p>
+
+<p>In the following example, we’ll use <a href="https://spring.io/projects/spring-ws" target="_blank" rel="noopener noreferrer">Spring Web Services</a> to implement this.
+Spring WS defines an interface <code class="highlighter-rouge">org.springframework.ws.client.core.support.WebServiceGatewaySupport</code> of which you can create an instance.
+It uses an attribute of the type <code class="highlighter-rouge">org.springframework.ws.transport.WebServiceMessageSender</code> to do the actual communication.
+Like with Spring REST, there are specific implementations for each HTTP client library.
+For Apache HttpComponents HttpClient, this is the <code class="highlighter-rouge">org.springframework.ws.transport.http.HttpComponentsMessageSender</code>.
+It accepts an <code class="highlighter-rouge">org.apache.http.client.HttpClient</code> to use for low-level communication.</p>
+
+<p>Your application must provide a bean instance of the type <code class="highlighter-rouge">WebServiceGatewaySupport</code>.
+On this object, you can set an instance of a <code class="highlighter-rouge">WebServiceMessageSender</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Bean
+public Jaxb2Marshaller marshaller() {
+    Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+    marshaller.setContextPath("fully.qualified.package.name.of.generated.sources");
+    return marshaller;
+}
+
+@Bean
+public MyClient myClientSecure(Jaxb2Marshaller marshaller) {
+    MyClient client = new MyClient(properties);
+    String url = properties.getRemoteServiceEndpointUrl();
+    client.setDefaultUri(url);
+    client.setMarshaller(marshaller);
+    client.setUnmarshaller(marshaller);
+    client.setMessageSender(new HttpComponentsMessageSender(client));
+    return client;
+}
+</code></pre></div></div>
+
+<p>Like in the Spring REST example, <code class="highlighter-rouge">client</code> must be an instance of Apache’s HttpComponents HttpClient, eg. the <code class="highlighter-rouge">CloseableHttpClient</code> we created earlier.</p>
+
+<p>Calling a service with the <code class="highlighter-rouge">org.springframework.ws.client.core.WebServiceTemplate</code> of our <code class="highlighter-rouge">MyClient</code> bean now uses the configured keystore and truststore.
+You can call a SOAP endpoint with <code class="highlighter-rouge">getWebServiceTemplate().marshalSendAndReceive(...)</code>.</p>
+
+<p>Please note that our <code class="highlighter-rouge">MyClient</code> class extends <code class="highlighter-rouge">WebServiceGatewaySupport</code>.
+The code snippet below also includes a sample call.
+<code class="highlighter-rouge">RequestType</code> and <code class="highlighter-rouge">ResponseType</code> are classes generated from the <code class="highlighter-rouge">wsdl</code> file and typically reside in the <code class="highlighter-rouge">target/generated-sources</code> directory of your project.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Component
+public class MyClient extends WebServiceGatewaySupport {
+    public ResponseType getMonthlyAlertDetail(BigInteger alertId, String apiKey) {
+        return JAXBElement&lt;ResponseType&gt; response = (JAXBElement&lt;ResponseType&gt;) getWebServiceTemplate()
+                .marshalSendAndReceive(new RequestType(...), message -&gt; ((SoapMessage) message).setSoapAction("SoapOperationName"));
+    }
+}
+</code></pre></div></div>
+
+<h3 id="using-the-keystore-in-keycloak">Using the keystore in Keycloak</h3>
+
+<p>If you’re using a product like eg. <a href="https://www.keycloak.org/" target="_blank" rel="noopener noreferrer">Keycloak</a> on your server, the way of using the certificate stays the same.
+It’s even easier, as you don’t need to write code to read the <code class="highlighter-rouge">.keystore</code> file.
+You can point to the <code class="highlighter-rouge">.keystore</code> file in the configuration files for that product.</p>
+
+<p>This is an example Keycloak configuration in the <code class="highlighter-rouge">standalone.xml</code> file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;security-realm name="ApplicationRealm"&gt;
+    &lt;server-identities&gt;
+        &lt;ssl&gt;
+            &lt;keystore path="/tmp/mydomain.be.keystore" relative-to="jboss.server.config.dir" keystore-password="changeit" alias="mydomain.be" key-password="changeit" generate-self-signed-certificate-host="localhost"/&gt;
+        &lt;/ssl&gt;
+    &lt;/server-identities&gt;
+&lt;/security-realm&gt;
+</code></pre></div></div>
+
+<h1 id="resources">Resources</h1>
+
+<ul>
+  <li><a href="https://letsencrypt.org/getting-started/" target="_blank" rel="noopener noreferrer">Let’s Encrypt Getting Started</a></li>
+  <li><a href="https://certbot.eff.org/" target="_blank" rel="noopener noreferrer">Certbot</a></li>
+  <li><a href="https://certbot.eff.org/docs/using.html?highlight=renew#renewing-certificates" target="_blank" rel="noopener noreferrer">Certbot CLI Renewing certificates</a></li>
+  <li><a href="https://www.openssl.org/" target="_blank" rel="noopener noreferrer">OpenSSL</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html" target="_blank" rel="noopener noreferrer">Oracle Java keytool documentation</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/PKCS_12" target="_blank" rel="noopener noreferrer">PKCS 12 information</a></li>
+  <li><a href="https://spring.io/projects/spring-ws" target="_blank" rel="noopener noreferrer">Spring Web Services</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html&title=Using Let's Encrypt certificates in Java applications&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Using Let's Encrypt certificates in Java applications&url=https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/ken-coenen/" class="image spotlight-image" title="">
+            <img src="/img/author/ken-coenen.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Ken is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he is also Backend Practice Manager of the Ordina JWorks unit. In this capacity, he narrows the gap between consultants and potential innovative customer projects. He does this by organizing workshops, talks and courses about the newest technologies, whereby people can grow in their role as a software consultant.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/lets-encrypt.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
