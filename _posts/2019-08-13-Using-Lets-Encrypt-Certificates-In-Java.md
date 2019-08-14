@@ -33,8 +33,8 @@ Assuming that you have shell access to your server, Let's Encrypt recommends to 
 
 Certbot is a free, open source software tool for automatically using Let’s Encrypt certificates on manually-administrated websites to enable HTTPS.
 
-You can find clear installation instructions on the Certbot website.
-You can select your web server software (Apache, Nginx, ...) and operating system and Certbot provides the instructions to install it.
+Clear installation instructions can be found on the Certbot website.
+Select your web server software (Apache, Nginx, ...) and operating system and Certbot provides the installation instructions.
 
 > You can check your operating system on Linux by executing `cat /etc/os-release`.
 
@@ -95,7 +95,6 @@ Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Processing /etc/letsencrypt/renewal/mydomain.be.conf
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Cert not yet due for renewal
-
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 The following certs are not due for renewal yet:
@@ -119,7 +118,7 @@ Wed 2019-08-14 10:47:41 CEST  1h 19min left Tue 2019-08-13 18:00:03 CEST  15h ag
 It basically boils down to the `certbot renew` command being executed periodically.
 
 > If your Linux distribution package didn't install the cronjob, you can easily set this up yourself.
-Since we need to automate the keystore and truststore creation as well, you can look at the section [Automate the keytore and truststore creation process](#automate-the-keytore-and-truststore-creation-process) for more information on creating cronjobs.
+Since we need to automate the keystore and truststore creation as well, you can look at the section [Automate the keystore and truststore creation process](#automate-the-keystore-and-truststore-creation-process) for more information on creating cronjobs.
 
 
 # Using the certificate in a Java application
@@ -196,7 +195,7 @@ You can now load the keystore at location `/tmp/mydomain.be.keystore` in your Ja
 > Please note that you not only need to create a keystore with your own certificates, but also a truststore with the trusted third-party certificates.
 However, the approach is exactly the same.
 
-## Automate the keytore and truststore creation process
+## Automate the keystore and truststore creation process
 
 Create a shell script `/home/<username>/renew-keystore.sh` with the following content:
 
@@ -369,7 +368,7 @@ final CloseableHttpClient client = HttpClients
     .build();
 ```
 
-> If you don't have the `.setSSLContext(sslContext)`, please check your `org.apache.httpcomponents:httpclient` version.
+If you don't have the `.setSSLContext(sslContext)`, please check your `org.apache.httpcomponents:httpclient` version.
 
 Each HTTP request executed using this client will be sent over a TLS connection.
 
