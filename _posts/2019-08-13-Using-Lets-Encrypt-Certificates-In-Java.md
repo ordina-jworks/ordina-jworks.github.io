@@ -16,7 +16,7 @@ This article describes how to setup Let's Encrypt, retrieve a certificate, renew
 2. [Installing a Let's Encrypt certificate](#installing-a-lets-encrypt-certificate)
 3. [Certificate renewal](#certificate-renewal)
 4. [Automating the renewal process](#automating-the-renewal-process)
-5. [Using keystores and truststores in a Java application](#using-keystores-and-truststores-in-a-java-application)
+5. [Using the certificates in a Java application](#using-the-certificates-in-a-java-application)
 6. [Resources](#resources)
 
 # Certificate Authorities and Let's Encrypt
@@ -121,7 +121,7 @@ It basically boils down to the `certbot renew` command being executed periodical
 Since we need to automate the keystore and truststore creation as well, you can look at the section [Automate the keystore and truststore creation process](#automate-the-keystore-and-truststore-creation-process) for more information on creating cronjobs.
 
 
-# Using the certificate in a Java application
+# Using the certificates in a Java application
 
 All generated keys and issued Let's Encrypt certificates can be found in the `/etc/letsencrypt/live` folder on your file system.
 We will now see how we can import them in Java keystore files to use them in a Java application.
@@ -291,6 +291,12 @@ Cron will examine the modification time on all crontabs and reload those which c
 
 We'll be using Spring Boot to externalize our TLS configuration.
 First, we add properties to point to our keystore and truststore archives on the filesystem and provide the necessary passwords.
+
+> Please note that there are existing Spring Boot properties prefixed with `server.ssl` to configure TLS.
+However, these properties are used for securing connections to your Tomcat server.
+They will not configure HTTP clients used within your application.
+We also need to configure more information about the service we're consuming, eg. the endpoint url.
+We therefore specify our own properties.
 
 ```
 myprefix:
