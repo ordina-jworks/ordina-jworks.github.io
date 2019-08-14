@@ -154,14 +154,14 @@ On top of this, it is tied to your Java installation and when you install anothe
 Our preferred approach is to add your own certificates to a keystore and the third-party certificates to a separate truststore.
 Continue reading to see how you can do that.
 
-## Creating and using a separate `.keystore` file
+## Creating a separate `.keystore` file
 
-To use a certificate in a Java application, the preferred way is to add it to a `.keystore` file.
+To use a certificate in a Java application, the preferred way is to add it to a separate `.keystore` file.
 
 The Java Runtime Environment (JRE) ships with a tool called `keytool` to create certificates and manipulate key stores.
 Adding certificates to a keystore can be done by using OpenSSL and the `keytool`.
 
-You cannot import `.pem` certificates directly in a keystore, so you'll first need to add the `.pem` file to a [PKCS 12](https://en.wikipedia.org/wiki/PKCS_12){:target="_blank" rel="noopener noreferrer"} archive.
+You cannot import multiple public and private `.pem` certificates directly in a keystore, so you'll first need to add all `.pem` files to a [PKCS 12](https://en.wikipedia.org/wiki/PKCS_12){:target="_blank" rel="noopener noreferrer"} archive.
 We do this with the OpenSSL tool with the following command.
 
 ```
@@ -248,7 +248,7 @@ sudo scp ssl/theirdomain.be.keystore cc-frontend-node-01:/home/admin_jworks/ssl/
 You might not need everything from this script.
 It does more than creating a new keystore:
 
-* It creates the keystore `mydomain.be.keystore` as described in the previous section [Creating and using a separate `.keystore` file](#creating-and-using-a-separate-keystore-file)
+* It creates the keystore `mydomain.be.keystore` as described in the previous section [Creating and using a separate `.keystore` file](#creating-a-separate-keystore-file)
 * It creates a truststore by connecting to the third-party server, writing their certificate to a file called `theirdomain.pem` and importing that file in `theirdomain.be.keystore`
 * It also copies both keystore and truststore files to other servers in our cluster
 
@@ -372,6 +372,19 @@ final CloseableHttpClient client = HttpClients
 > If you don't have the `.setSSLContext(sslContext)`, please check your `org.apache.httpcomponents:httpclient` version.
 
 Each HTTP request executed using this client will be sent over a TLS connection.
+
+> Please note that you also have the possibility to set the following Java system properties and ensure all communication uses TLS.
+```
+System.setProperty("javax.net.ssl.enabled", "true");
+System.setProperty("javax.net.ssl.trustStore", properties.getTrustStore());
+System.setProperty("javax.net.ssl.trustStorePassword", properties.getTrustStorePassword());
+System.setProperty("javax.net.ssl.keyPassword", properties.getKeyStorePassword());
+System.setProperty("javax.net.ssl.keyStore", properties.getKeyStore());
+System.setProperty("javax.net.ssl.keyStorePassword", properties.getKeyStorePassword());
+System.setProperty("javax.net.ssl.clientAuth", "need");
+```
+Although it's a valid possibility, these are settings for the entire system.
+On top of that, when you need to integrate with multiple third-parties and are dealing with multiple trusted parties and multiple public/private keypairs, it can become a mess to add everything to single keystore and truststore files.
 
 ### Using the keystore with Spring REST
 
