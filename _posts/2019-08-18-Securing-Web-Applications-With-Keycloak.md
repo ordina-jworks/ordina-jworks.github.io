@@ -108,7 +108,7 @@ After saving, we can see all the configuration options of the client.
 * Make sure the `Standard Flow` is enabled. All other flows can be disabled
 
 <div style="text-align: center;" >
-  <img src="/img/securing-web-applications-with-keycloak/configure_client.png" width="50%">
+  <img src="/img/securing-web-applications-with-keycloak/configure_client.png" width="70%">
 </div>
 
 > Standard flow is another name for the [Authorization Code Flow](https://tools.ietf.org/html/rfc6749#section-1.3.1) as defined in [the OAuth 2.0 specification](https://tools.ietf.org/html/rfc6749).
