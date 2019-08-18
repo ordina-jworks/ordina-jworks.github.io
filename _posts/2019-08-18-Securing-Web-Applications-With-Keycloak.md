@@ -12,19 +12,19 @@ comments: true
 This article is about how we can hook up our applications to an Identity and Access Management (IAM) framework such as Keycloak in a secure way.
 
 # Table of contents
-1. [Why Keycloak as Authentication Server](#why-keycloak-as-authentication-server)
-2. [Setting up a Keycloak Server](#Setting-up-a-Keycloak-Server)
-* [Creating a New Realm](#Creating-a-New-Realm)
-* [Creating a Client](#Creating-a-Client)
-* [Creating Roles and Scopes](#Creating-Roles-and-Scopes)
-* [Creating a user](#Creating-a-user)
-3. [Unsecured Setup](#Unsecured-Setup)
-* [Spring Boot back end](#Spring-Boot-back-end)
-* [Angular app: Tour of Heroes](#angular-app-tour-of-heroes)
-4. [Implementing Security](#Implementing-Security)
-* [Implicit Flow versus Code Flow + PKCE](#implicit-flow-versus-code-flow--pkce)
-* [Resource Server in Spring Boot](#Resource-Server-in-Spring-Boot)
-* [Securing The Angular application](#Securing-The-Angular-application)
+* [Why Keycloak as Authentication Server](#why-keycloak-as-authentication-server)
+* [Setting up a Keycloak Server](#Setting-up-a-Keycloak-Server)
+  * [Creating a New Realm](#Creating-a-New-Realm)
+  * [Creating a Client](#Creating-a-Client)
+  * [Creating Roles and Scopes](#Creating-Roles-and-Scopes)
+  * [Creating a user](#Creating-a-user)
+* [Unsecured Setup](#Unsecured-Setup)
+  * [Spring Boot back end](#Spring-Boot-back-end)
+  * [Angular app: Tour of Heroes](#angular-app-tour-of-heroes)
+* [Implementing Security](#Implementing-Security)
+  * [Implicit Flow versus Code Flow + PKCE](#implicit-flow-versus-code-flow--pkce)
+  * [Resource Server in Spring Boot](#Resource-Server-in-Spring-Boot)
+  * [Securing The Angular application](#Securing-The-Angular-application)
 
 # Why Keycloak as Authentication Server
 You can find several platforms that handle user logins and resource access management such as Keycloak, OKTA, OpenAM, etc. 
