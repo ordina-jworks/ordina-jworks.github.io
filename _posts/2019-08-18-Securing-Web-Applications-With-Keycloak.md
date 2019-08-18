@@ -13,18 +13,18 @@ This article is about how we can hook up our applications to an Identity and Acc
 
 # Table of contents
 * [Why Keycloak as Authentication Server](#why-keycloak-as-authentication-server)
-* [Setting up a Keycloak Server](#Setting-up-a-Keycloak-Server)
-  * [Creating a New Realm](#Creating-a-New-Realm)
-  * [Creating a Client](#Creating-a-Client)
-  * [Creating Roles and Scopes](#Creating-Roles-and-Scopes)
-  * [Creating a user](#Creating-a-user)
-* [Unsecured Setup](#Unsecured-Setup)
-  * [Spring Boot back end](#Spring-Boot-back-end)
+* [Setting up a Keycloak Server](#setting-up-a-keycloak-server)
+  * [Creating a New Realm](#creating-a-new-realm)
+  * [Creating a Client](#creating-a-client)
+  * [Creating Roles and Scopes](#creating-roles-and-scopes)
+  * [Creating a user](#creating-a-user)
+* [Unsecured Setup](#unsecured-setup)
+  * [Spring Boot back end](#spring-boot-back-end)
   * [Angular app: Tour of Heroes](#angular-app-tour-of-heroes)
-* [Implementing Security](#Implementing-Security)
+* [Implementing Security](#implementing-security)
   * [Implicit Flow versus Code Flow + PKCE](#implicit-flow-versus-code-flow--pkce)
-  * [Resource Server in Spring Boot](#Resource-Server-in-Spring-Boot)
-  * [Securing The Angular application](#Securing-The-Angular-application)
+  * [Resource Server in Spring Boot](#resource-server-in-spring-boot)
+  * [Securing The Angular application](#securing-the-angular-application)
 
 # Why Keycloak as Authentication Server
 You can find several platforms that handle user logins and resource access management such as Keycloak, OKTA, OpenAM, etc. 
