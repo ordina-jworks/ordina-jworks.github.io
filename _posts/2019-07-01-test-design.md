@@ -3,7 +3,7 @@ layout: post
 authors: [pieter_van_hees]
 title: 'Devoxx FR 2019'
 image: /img/devoxx-fr-2019/devoxx-fr.png
-tags: [TDD, tests, design, architecture]
+tags: [Test Driven Development, Test Design, Architecture]
 category: Testing
 comments: true
 ---
