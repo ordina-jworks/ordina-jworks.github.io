@@ -23,7 +23,7 @@ This article is about how we can hook up our applications to an Identity and Acc
   * [Angular app: Tour of Heroes](#angular-app-tour-of-heroes)
 * [Implementing Security](#implementing-security)
   * [Implicit Flow versus Code Flow + PKCE](#implicit-flow-versus-code-flow--pkce)
-  * [JSON WEB TOKEN (JWT)](#json-web-token-jwt)
+  * [JSON Web Token (JWT)](#json-web-token-jwt)
   * [Resource Server in Spring Boot](#resource-server-in-spring-boot)
   * [Securing The Angular application](#securing-the-angular-application)
 
