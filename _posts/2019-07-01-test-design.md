@@ -4,7 +4,7 @@ authors: [pieter_van_hees]
 title: 'Devoxx FR 2019'
 image: /img/devoxx-fr-2019/devoxx-fr.png
 tags: [TDD, tests, design, architecture]
-category: Conference
+category: Testing
 comments: true
 ---
 
