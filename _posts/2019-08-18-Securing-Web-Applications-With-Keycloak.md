@@ -29,9 +29,9 @@ This article is about how we can hook up our applications to an Identity and Acc
 * [Conclusion](#conclusion)
 
 # Why Keycloak as Authentication Server
-You can find several platforms that handle user logins and resource access management such as Keycloak, OKTA, OpenAM, etc. 
+You can find several platforms that handle user logins and resource access management such as [Keycloak](https://www.keycloak.org/){:target="_blank" rel="noopener noreferrer"}, [OKTA](https://www.okta.com/){:target="_blank" rel="noopener noreferrer"}, [OpenAM](https://forgerock.github.io/openam-community-edition/){:target="_blank" rel="noopener noreferrer"}, etc. 
 All those platforms have their own features and possibilities that may be useful for your use case. 
-In this article, we choose [Keycloak](https://www.keycloak.org/){:target="_blank" rel="noopener noreferrer"} as [authentication](https://en.wikipedia.org/wiki/Authentication){:target="_blank" rel="noopener noreferrer"} and [authorization](https://en.wikipedia.org/wiki/Authorization){:target="_blank" rel="noopener noreferrer"} server which is an [open-source](https://en.wikipedia.org/wiki/Open_source){:target="_blank" rel="noopener noreferrer"} identity and access management platform (IAM) from Red Hat's Jboss. 
+In this article, we choose Keycloak as [authentication](https://en.wikipedia.org/wiki/Authentication){:target="_blank" rel="noopener noreferrer"} and [authorization](https://en.wikipedia.org/wiki/Authorization){:target="_blank" rel="noopener noreferrer"} server which is an [open-source](https://en.wikipedia.org/wiki/Open_source){:target="_blank" rel="noopener noreferrer"} identity and access management platform (IAM) from Red Hat's Jboss. 
 We have chosen for Keycloak because [it is open-source](https://github.com/keycloak/keycloak){:target="_blank" rel="noopener noreferrer"} and [well-documented](https://www.keycloak.org/documentation.html){:target="_blank" rel="noopener noreferrer"}.
 
 Keycloak comes with several handy features built-in:
