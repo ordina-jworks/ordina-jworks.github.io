@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [pieter_van_hees]
-title: 'Design your tests!'
+title: 'Advantages of good test design'
 image: /img/devoxx-fr-2019/devoxx-fr.png
-tags: [Test Driven Development, Test Design, Architecture]
+tags: [Test Driven Development, Test Design, Architecture, Testing]
 category: Testing
 comments: true
 ---
@@ -100,7 +100,7 @@ public class OrderTest {
 }
 ```
 
-Our problems began when we realised that the constructor of our aggregate was becoming too large. 
+Our problems began when we realised that the number of parameters in the constructor of our aggregate became too large. 
 To resolve this issue we decided to create a class that contains all the data needed to call the constructor.
 
 ```java
@@ -159,7 +159,7 @@ public class OrderTest {
 A few months later, after adding some more features, we noticed that there was too much logic inside the constructor of our aggregate. 
 The constructor became too big and complex so we decided to use the factory pattern to create new instances of the aggregate. 
 
-As we didn't change the input parameters of the constructor, all our tests still compiled and we were happy.
+Since we already used a `CreateOrderData` as parameter of our constructor, all our tests still compiled and we were happy.
 That is, until we ran our tests. 
 
 Because we moved all construction logic from the constructor to the factory, the tests still compiled, but as they relied on this construction logic to create the instance the way we need it, they now failed.
@@ -184,7 +184,7 @@ Instead it would be better to put some sort of API in between our tests and the 
 We didn't take Uncle Bob's solution too literally and gave our own twist to it.
 
 For the specific problem of creating aggregate instances we decided to create a class that acts as a scenario builder.
-In this CreateOrderScenario we have a static factory method that will create a scenario that returns a valid Order when executed.
+In this `CreateOrderScenario` we have a static factory method that will create a scenario that returns a valid Order when executed.
 This means that when you need an order that is consistent and it doesn't matter for your test which data is in the order, you can just use the default scenario when it's executed.
 
 You could also create other default scenarios.
