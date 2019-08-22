@@ -1,5 +1,634 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-08-14T14:36:38+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Using Let’s Encrypt certificates in Java applications</title><link href="https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html" rel="alternate" type="text/html" title="Using Let's Encrypt certificates in Java applications" /><published>2019-08-14T00:00:00+00:00</published><updated>2019-08-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java</id><content type="html" xml:base="https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-08-22T12:11:09+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE</title><link href="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html" rel="alternate" type="text/html" title="Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE" /><published>2019-08-22T00:00:00+00:00</published><updated>2019-08-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak</id><content type="html" xml:base="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html">&lt;blockquote&gt;
+  &lt;p&gt;Gone are the days when we had to write our own login mechanisms and permission systems.
+This article is about how we can hook up our applications to an Identity and Access Management (IAM) solution such as Keycloak in a secure way.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-keycloak-as-authentication-server&quot;&gt;Why Keycloak as Authentication Server&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-a-keycloak-server&quot;&gt;Setting up a Keycloak Server&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#creating-a-new-realm&quot;&gt;Creating a New Realm&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#creating-a-client&quot;&gt;Creating a Client&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#creating-roles-and-scopes&quot;&gt;Creating Roles and Scopes&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#creating-a-user&quot;&gt;Creating a user&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-the-front-end-and-back-end-applications&quot;&gt;Setting up the Front End and Back End Applications&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-back-end&quot;&gt;Spring Boot back end&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#angular-app-tour-of-heroes&quot;&gt;Angular app: Tour of Heroes&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#implementing-security&quot;&gt;Implementing Security&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#implicit-flow-versus-code-flow--pkce&quot;&gt;Implicit Flow versus Code Flow + PKCE&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#json-web-token-jwt&quot;&gt;JSON Web Token (JWT)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#resource-server-in-spring-boot&quot;&gt;Resource Server in Spring Boot&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#securing-the-angular-application&quot;&gt;Securing The Angular application&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;why-keycloak-as-authentication-server&quot;&gt;Why Keycloak as Authentication Server&lt;/h1&gt;
+&lt;p&gt;You can find several platforms that handle user logins and resource access management such as &lt;a href=&quot;https://www.keycloak.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Keycloak&lt;/a&gt;, &lt;a href=&quot;https://www.okta.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OKTA&lt;/a&gt;, &lt;a href=&quot;https://forgerock.github.io/openam-community-edition/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OpenAM&lt;/a&gt;, etc. 
+All those platforms have their own features and possibilities that may be useful for your use case. 
+In this article, we choose Keycloak as &lt;a href=&quot;https://en.wikipedia.org/wiki/Authentication&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;authentication&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Authorization&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;authorization&lt;/a&gt; server which is an &lt;a href=&quot;https://en.wikipedia.org/wiki/Open_source&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;open-source&lt;/a&gt; identity and access management platform (IAM) from Red Hat’s Jboss. 
+We have chosen for Keycloak because &lt;a href=&quot;https://github.com/keycloak/keycloak&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;it is open-source&lt;/a&gt; and &lt;a href=&quot;https://www.keycloak.org/documentation.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;well-documented&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Keycloak comes with several handy features built-in:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Two-factor authentication&lt;/li&gt;
+  &lt;li&gt;Bruteforce detection&lt;/li&gt;
+  &lt;li&gt;Social login (Facebook, Twitter, Google…)&lt;/li&gt;
+  &lt;li&gt;LDAP/AD integration&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We will go over the basics to get you started.&lt;/p&gt;
+
+&lt;h1 id=&quot;setting-up-a-keycloak-server&quot;&gt;Setting up a Keycloak Server&lt;/h1&gt;
+
+&lt;p&gt;Keycloak supports &lt;a href=&quot;https://www.keycloak.org/docs/latest/server_installation/index.html#_operating-mode&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;multiple ways&lt;/a&gt; to be set up.
+For non-production purposes, it’s easiest to just &lt;a href=&quot;https://www.keycloak.org/downloads.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;download&lt;/a&gt; and run the standalone, which we will do here. 
+For actual deployments that are going to be run in production you’ll need to configure a shared database for Keycloak storage and set up Keycloak to run in a cluster to avoid a &lt;a href=&quot;https://en.wikipedia.org/wiki/Single_point_of_failure&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;single point of failure&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;At the time of writing, the latest release version was &lt;code class=&quot;highlighter-rouge&quot;&gt;6.0.1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl https://downloads.jboss.org/keycloak/6.0.1/keycloak-6.0.1.zip &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt; keycloak-6.0.1.zip
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;unzip keycloak-6.0.1.zip
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;keycloak-6.0.1/bin/
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./standalone
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;For Windows users, there is also a &lt;code class=&quot;highlighter-rouge&quot;&gt;standalone.bat&lt;/code&gt; in the same folder.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The Keycloak server is now running on port 8080.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;-Djboss.socket.binding.port-offset&lt;/code&gt; to change the port.&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;-Djboss.socket.binding.port-offset=1000&lt;/code&gt; will run the server on port 8080 + 1000 = 9080&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Go to &lt;a href=&quot;http://localhost:8080&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://localhost:8080&lt;/a&gt; and create an administrator account.
+You can now click on &lt;code class=&quot;highlighter-rouge&quot;&gt;Administration Console &amp;gt;&lt;/code&gt; and log in using the account you’ve just created.&lt;/p&gt;
+
+&lt;p&gt;You are now on the pre-defined Master realm. A realm manages a set of users, credentials, roles, and groups. 
+A user belongs to and logs into a realm and they are isolated from one another and can only manage and authenticate the users that they control.&lt;/p&gt;
+
+&lt;p&gt;The master realm is the highest level in the hierarchy. 
+Admin accounts in this realm have permissions to view and manage any other realm. 
+It’s best to create a new realm to manage our application and users.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-new-realm&quot;&gt;Creating a New Realm&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+    &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/create_realm.png&quot; alt=&quot;&quot; width=&quot;30%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Create a new realm by clicking on the drop-down arrow next to the realm name in the upper left corner.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+    &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/create_realm_2.png&quot; alt=&quot;&quot; width=&quot;60%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In this example, &lt;code class=&quot;highlighter-rouge&quot;&gt;heroes&lt;/code&gt; is chosen as the name of the realm.
+Feel free to change this to the name of your organisation if you have one.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-client&quot;&gt;Creating a Client&lt;/h2&gt;
+
+&lt;p&gt;Every application that interacts with Keycloak is considered to be a client.&lt;br /&gt;
+Let’s create one for the &lt;a href=&quot;https://en.wikipedia.org/wiki/Single-page_application&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Single-Page App&lt;/a&gt; (SPA).&lt;/p&gt;
+
+&lt;p&gt;Look for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Clients&lt;/code&gt; tab in the menu and hit &lt;code class=&quot;highlighter-rouge&quot;&gt;Create&lt;/code&gt;.&lt;br /&gt;
+Pick a name you think is suitable and choose &lt;a href=&quot;https://openid.net/connect/&quot;&gt;OpenID Connect&lt;/a&gt; (OIDC) as protocol.&lt;br /&gt;
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;Root URL&lt;/code&gt; can remain blank.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/create_client.png&quot; alt=&quot;&quot; width=&quot;50%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After saving, we can see all the configuration options of the client.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Valid Redirect URIs&lt;/code&gt; should be set to &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:4200/*&lt;/code&gt; as this is the address of our SPA&lt;/li&gt;
+  &lt;li&gt;Allow all origins for testing purposes&lt;/li&gt;
+  &lt;li&gt;Single-page apps use a &lt;code class=&quot;highlighter-rouge&quot;&gt;public client&lt;/code&gt; because they can not securely hide client credentials&lt;/li&gt;
+  &lt;li&gt;Make sure the &lt;code class=&quot;highlighter-rouge&quot;&gt;Standard Flow&lt;/code&gt; is enabled. All other flows can be disabled&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/configure_client.png&quot; alt=&quot;&quot; width=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Standard flow is another name for the &lt;a href=&quot;https://tools.ietf.org/html/rfc6749#section-1.3.1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Authorization Code Flow&lt;/a&gt; as defined in &lt;a href=&quot;https://tools.ietf.org/html/rfc6749&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the OAuth 2.0 specification&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Direct Access Grants Enabled&lt;/code&gt; may remain enabled for now. It will be easy to test our configuration later.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Don’t forget to hit &lt;code class=&quot;highlighter-rouge&quot;&gt;Save&lt;/code&gt; at the bottom of the form!&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-roles-and-scopes&quot;&gt;Creating Roles and Scopes&lt;/h2&gt;
+&lt;p&gt;Roles and scopes can be used to provide fine-grained access control to resources. 
+We want them to be present when handling requests with our Spring Boot application. 
+This part is optional, but can provide better insight in managing access to resources down the road.&lt;/p&gt;
+
+&lt;p&gt;Under &lt;code class=&quot;highlighter-rouge&quot;&gt;Roles&lt;/code&gt; &amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Add Role&lt;/code&gt;, enter any name you like. 
+Some standard roles are typically user or admin.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/create_role.png&quot; alt=&quot;&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A scope is created in a similar way under &lt;code class=&quot;highlighter-rouge&quot;&gt;Client Scopes&lt;/code&gt; &amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Create&lt;/code&gt;.&lt;br /&gt;
+We will not show a consent screen, so you can uncheck this option.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/create_scope.png&quot; alt=&quot;&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now add the scope to the client we created earlier under &lt;code class=&quot;highlighter-rouge&quot;&gt;Clients&lt;/code&gt; &amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Client Scopes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/assign_scope.png&quot; alt=&quot;&quot; width=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-user&quot;&gt;Creating a user&lt;/h2&gt;
+
+&lt;p&gt;To use our application later, we need a user to log in with.
+In most corporate environments, users are stored in Active Directory (AD) or LDAP.
+Keycloak can connect to both AD and LDAP but for our example, we will simply create a user in Keycloak itself.&lt;/p&gt;
+
+&lt;p&gt;Search for the &lt;code class=&quot;highlighter-rouge&quot;&gt;Users&lt;/code&gt; tab in the menu on the left and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Add User&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/create_user.png&quot; alt=&quot;&quot; width=&quot;60%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Check &lt;code class=&quot;highlighter-rouge&quot;&gt;Email Verified&lt;/code&gt; as we do not have email configured on our Keycloak server.&lt;br /&gt;
+After creation, you still have to set a password.
+Go to the Credentials tab and enter a new one.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/create_user_password.png&quot; alt=&quot;&quot; width=&quot;40%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Make sure the password is not a temporary one.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you created a new role in the previous section, you can assign it to your user under the &lt;code class=&quot;highlighter-rouge&quot;&gt;Role Mappings&lt;/code&gt; tab.&lt;/p&gt;
+
+&lt;p&gt;That’s all for the Keycloak part.
+Now let’s look at some applications to secure.&lt;/p&gt;
+
+&lt;h1 id=&quot;setting-up-the-front-end-and-back-end-applications&quot;&gt;Setting up the Front End and Back End Applications&lt;/h1&gt;
+
+&lt;p&gt;The demo setup will consist of:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;an Angular SPA project&lt;/li&gt;
+  &lt;li&gt;a Spring Boot application to serve some data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;spring-boot-back-end&quot;&gt;Spring Boot Back End&lt;/h2&gt;
+
+&lt;p&gt;You can clone the base setup &lt;a href=&quot;https://github.com/jmeys/heroes-api&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt; and switch to the &lt;code class=&quot;highlighter-rouge&quot;&gt;unsecured&lt;/code&gt; branch.
+It is a very simple application which serves some heroes on &lt;code class=&quot;highlighter-rouge&quot;&gt;/api/heroes&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;/api/heroes/{id}&lt;/code&gt; on port 9090.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.CrossOrigin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.PathVariable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.RestController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@CrossOrigin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@RestController&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/api/heroes&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HeroController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Hero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someHeroes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Hero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Ken&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Hero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Yannick&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Hero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Pieter&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@GetMapping&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Hero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;heroes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someHeroes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/{id}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hero&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathVariable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someHeroes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findFirst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;orElse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hero&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Hero&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For this example, every application may request these resources, hence the &lt;code class=&quot;highlighter-rouge&quot;&gt;@CrossOrigin(&quot;*&quot;)&lt;/code&gt;.
+Open the project in your favourite IDE and run it. 
+The application will run on port 9090.&lt;/p&gt;
+
+&lt;h2 id=&quot;angular-app-tour-of-heroes&quot;&gt;Angular App: Tour of Heroes&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://angular.io/tutorial&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tour of Heroes&lt;/a&gt; is the Angular tutorial application. 
+It’s pretty simple but has all the basic components which make up a modern Angular application. 
+And most importantly, it’s kept up to date with the latest version of Angular.&lt;/p&gt;
+
+&lt;p&gt;Use these commands or &lt;a href=&quot;https://angular.io/generated/zips/toh-pt6/toh-pt6.zip&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;download&lt;/a&gt; the latest version of the Tour Of Heroes application from &lt;a href=&quot;https://angular.io/tutorial/toh-pt6&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-LO&lt;/span&gt; https://angular.io/generated/zips/toh-pt6/toh-pt6.zip
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;unzip toh-pt6.zip &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; toh
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;toh
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm i
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The example app uses an in-memory service to return some heroes. 
+Since you’ll want to serve them from Spring Boot instead, change the url in &lt;code class=&quot;highlighter-rouge&quot;&gt;hero.service.ts&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;api/heroes&quot;&lt;/code&gt; into &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;http://localhost:9090/api/heroes&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HeroService&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;heroesUrl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;http://localhost:9090/api/heroes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It will still try to fetch preloaded heroes from memory, so delete the &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpClientInMemoryWebApiModule&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;app.module.ts&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now you can run the application with&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ng serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and browse to &lt;a href=&quot;http://localhost:4200&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;localhost:4200&lt;/a&gt; to see if it works.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Please note that not all functionality of the app is working because - for brevity - we only implemented the GET functionality in the Spring Boot back end.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;implementing-security&quot;&gt;Implementing Security&lt;/h1&gt;
+&lt;p&gt;We will now dive into the interesting part: setting up the security of the applications.
+To understand this section, you should have a basic understanding of OAuth 2.0 and OIDC. 
+If this is not yet the case, this section might be more difficult to understand. 
+You can fast-forward to the next section or start your journey by watching this awesome video by &lt;a href=&quot;https://twitter.com/nbarbettini&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nate Barbettini&lt;/a&gt; from &lt;a href=&quot;https://www.okta.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Okta&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;responsive-video&quot;&gt;
+    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/996OiexHze0&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;implicit-flow-versus-code-flow--pkce&quot;&gt;Implicit Flow versus Code Flow + PKCE&lt;/h2&gt;
+&lt;p&gt;In this example, we will use the authorization code grant flow with Proof Key for Code Exchange (&lt;a href=&quot;https://tools.ietf.org/html/rfc7636&quot;&gt;PKCE&lt;/a&gt;){:target=”_blank” rel=”noopener noreferrer”} to secure the Angular app. 
+It’s a very long name for what could be shortened to “code flow + PKCE” which is &lt;a href=&quot;https://tools.ietf.org/html/draft-ietf-oauth-security-topics-13#section-3.1.2&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;more secure than the implicit flow&lt;/a&gt;. &lt;br /&gt;
+In fact, the implicit flow was never very secure to begin with. 
+This is well-explained by &lt;a href=&quot;https://twitter.com/nbarbettini&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nate Barbettini&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/aaronpk&quot;&gt;Aaron Parecki&lt;/a&gt;:{:target=”_blank” rel=”noopener noreferrer”}&lt;/p&gt;
+
+&lt;div class=&quot;responsive-video&quot;&gt;
+    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/CHzERullHe8&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The implicit flow was the easiest to understand, since it required one step less than the standard code flow:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/implicit_vs_code.png&quot; alt=&quot;&quot; width=&quot;60%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;PKCE is an addition on top of the standard code flow to make it usable for public clients. 
+It is already in use for native and mobile clients. 
+PKCE boils down to this:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Give &lt;code class=&quot;highlighter-rouge&quot;&gt;hash&lt;/code&gt; of random value to authorization server when logging in to ask for &lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Hand over the &lt;code class=&quot;highlighter-rouge&quot;&gt;random value&lt;/code&gt; to authorization server when exchanging &lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt; for &lt;code class=&quot;highlighter-rouge&quot;&gt;access token&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Authorization server returns &lt;code class=&quot;highlighter-rouge&quot;&gt;access token&lt;/code&gt; after verifying that &lt;code class=&quot;highlighter-rouge&quot;&gt;hash&lt;/code&gt; belongs to &lt;code class=&quot;highlighter-rouge&quot;&gt;random value&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/pkce.png&quot; alt=&quot;&quot; width=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If a fraudster were to intercept our authorization grant (the code), he or she would still not have the &lt;code class=&quot;highlighter-rouge&quot;&gt;code_verifier&lt;/code&gt;, which is stored in our SPA client. 
+If he/she tries to exchange the stolen authorization grant without this value, the response would not be a token but rather an &lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP 400&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;invalid_grant&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;error_description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;PKCE code verifier not specified&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is why the code flow + PKCE is more secure than the implicit flow. 
+Even if an attacker manages to obtain the authorization grant, it’s worthless without the &lt;code class=&quot;highlighter-rouge&quot;&gt;code_verifier&lt;/code&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note that the HTTP 400 will only occur when using PKCE. 
+If no PKCE is used, the client should be confidential (requiring credentials to exchange the authorization grant) rather than be public.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So only our Angular client will be able to retrieve the access token in the form of a JSON Web Token.&lt;/p&gt;
+
+&lt;h2 id=&quot;json-web-token-jwt&quot;&gt;JSON Web Token (JWT)&lt;/h2&gt;
+&lt;p&gt;JSON Web Tokens or JWT, often pronounced as ‘jot’, is an open standard for a compact way of representing data to be transferred between two parties. 
+What this means is that it’s a special kind of object which has some data in it. It can also be digitally signed to make sure it is not tampered with.&lt;/p&gt;
+
+&lt;p&gt;In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Header&lt;/code&gt;:  the type of the token and the signing algorithm being used&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Payload&lt;/code&gt;: the payload, which contains the claims and additional data&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Signature&lt;/code&gt;: to verify if the token was not tampered with&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Therefore, a JWT typically looks like the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xxxxx.yyyyy.zzzzz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The header (xxx) and payload (yyy) are base64 encoded. 
+An access token is a good example of a JWT:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkdE9JZkY2NGZRYnlwWVRFdGV2eV83NUdIWTdQMmNHU1o2a2ZXWDdFblBJIn0.eyJqdGkiOiIxY2EzZTZkYS1kM2Y2LTRiYTMtYjNjZC1iMDExYmRlM2JmNmIiLCJleHAiOjE1NjYzMjk1NTYsIm5iZiI6MCwiaWF0IjoxNTY2MzI5MjU2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvaGVyb2VzIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjBkNjg0OWI4LWUyZmEtNGU3My04NjlhLTE1ZDVhOTE1YzdhMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InNwYS1oZXJvZXMiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiI4NWRjYTg0Ny00YmQzLTRiOTUtOTNiYy01MjE5ZjUzYWNiMzciLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBoZXJvZXMgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmVyb2VuIE1leXMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqZXJvZW4iLCJnaXZlbl9uYW1lIjoiSmVyb2VuIiwiZmFtaWx5X25hbWUiOiJNZXlzIiwiZW1haWwiOiJtZUBhY21lLmJlIn0.cvn79d-n0aFYqDB3p-htDNeeYOdkvqEsmDhGKp9V3a4i6nJx7dU0_r7zicQe26ZgDsM65ILx_X-buWv-e5_eraFo1OOveCGtBbrrLwrQ0Z7SlVMHJrDooJrLEE_m8Qlz_-iLcEC2-ODroEwyLRej_Du626B48QL2bcq-8ADqGSaLf7Y4ZTVMiP_p6dsCi4GDQLq1WOy-g6--z47FKTJVuAl2yY_JNNuEd5aofw0FTE38EoEinIdcy5NXCXDhtGHr_k5lA2Swu4JvK84YB6usECigCb1_zO_c6LhZQkRTCcCojxC6Qn1trQH9epcFEKTkDCHrNf6BLp4X9rH2URWJcA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can easily decode them using online tools like &lt;a href=&quot;https://jwt.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;jwt.io&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/jwt.png&quot; alt=&quot;&quot; width=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The payload section can have different kinds of data. 
+Since our tokens are used for OAuth and OIDC, they have all kinds of claims, which are key-value statements about an entity. 
+You can compare this to something like a coupon. A coupon has claims about how much it is worth, which product(s) it applies to and when it expires.&lt;/p&gt;
+
+&lt;p&gt;In our example token there is a claim that &lt;code class=&quot;highlighter-rouge&quot;&gt;name&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;Jeroen Meys&lt;/code&gt; and also that &lt;code class=&quot;highlighter-rouge&quot;&gt;scope&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;email profile heroes&lt;/code&gt;. 
+This scope claim means we can use this token to know my email, some profile info and whatever heroes is needed for (hint: keep on reading to find out!). 
+If you are interested in other JWT use-cases, you should definitely give &lt;a href=&quot;https://ordina-jworks.github.io/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Using JWT for State Transfer&lt;/a&gt; a read.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Be careful with online tools to analyze JWT tokens. You are exposing access tokens to the world!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now that we understand what an access token is and looks like, we can pass it along to the back end which will be configured as a stateless OAuth Resource Server.&lt;/p&gt;
+
+&lt;h2 id=&quot;resource-server-in-spring-boot&quot;&gt;Resource Server in Spring Boot&lt;/h2&gt;
+&lt;p&gt;Resource server is the OAuth 2.0 terminology for API server. 
+It will look at our access token and decide if we are allowed to perform the requested API action.&lt;br /&gt;
+What we really want to secure is the data served by our Spring Boot app.
+We don’t want the villains out there to be able to access our list of heroes, do we?&lt;/p&gt;
+
+&lt;p&gt;Let’s take care of that.&lt;/p&gt;
+
+&lt;p&gt;While Keycloak provides its &lt;a href=&quot;https://github.com/keycloak/keycloak/tree/master/adapters/oidc&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;own libraries&lt;/a&gt; to be used with Spring Boot, I personally favour more generic libraries that are provider unaware. 
+This is in line with the &lt;a href=&quot;https://docs.spring.io/spring/docs/current/spring-framework-reference/overview.html#overview-philosophy&quot;&gt;Spring framework design philosophy&lt;/a&gt; of deferring design decisions as late as possible.
+This way, when we feel like it, we can more easily switch from one solution (Keycloak) to another (eg. Okta), as long as they support the OIDC protocol. 
+The de facto standard for securing Spring Boot applications is Spring Boot Security. 
+It has resource server support, so this is what we’ll be using.&lt;/p&gt;
+
+&lt;h3 id=&quot;resource-server-imports&quot;&gt;Resource Server Imports&lt;/h3&gt;
+&lt;p&gt;Let’s add the dependecies to our &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.boot:spring-boot-starter-security'&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.security:spring-security-oauth2-resource-server'&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.security:spring-security-oauth2-jose'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spring-boot-starter-security&lt;/code&gt;: starter dependency for Spring Security&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spring-security-oauth2-resource-server&lt;/code&gt;: dependency to use our application as a Resource Server&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spring-security-oauth2-jose&lt;/code&gt;: support for the Javascript Object Signing and Encryption framework&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;configuration-of-the-resource-server&quot;&gt;Configuration of the Resource Server&lt;/h3&gt;
+&lt;p&gt;Then all we have to do is some configuring.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.security.config.annotation.web.builders.HttpSecurity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.security.config.annotation.web.configuration.EnableWebSecurity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@EnableWebSecurity&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ResourceServerConfig&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WebSecurityConfigurerAdapter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HttpSecurity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;cors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;authorizeRequests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mvcMatchers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/api/heroes/**&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasAuthority&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SCOPE_heroes&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;anyRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;denyAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;oauth2ResourceServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jwt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With these few lines of code, a lot is happening. We told Spring Security that all endpoints are forbidden, except for &lt;code class=&quot;highlighter-rouge&quot;&gt;/api/heroes/**&lt;/code&gt; when the heroes scope is present. This will be checked against the JWT access token.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;oauth2ResourceServer()&lt;/code&gt; sets up the application as a resource server. It will check if there is an access token on every request and whether it is valid or not. 
+In order to verify that a token hasn’t been tampered with, we need some information from Keycloak, which it exposes via a REST endpoint.&lt;/p&gt;
+
+&lt;p&gt;We add the endpoint to our &lt;code class=&quot;highlighter-rouge&quot;&gt;application.properties&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-properties highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;py&quot;&gt;server.port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;9090&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.security.oauth2.resourceserver.jwt.jwk-set-uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;http://localhost:8080/auth/realms/heroes/protocol/openid-connect/certs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;testing-the-setup&quot;&gt;Testing the setup&lt;/h3&gt;
+
+&lt;p&gt;That’s all for the resource server part.
+Don’t forget to restart the Spring Boot application after these changes!&lt;/p&gt;
+
+&lt;p&gt;We can use curl to verify if our security is working correctly.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; http://localhost:9090/api/heroes
+HTTP/1.1 401
+Set-Cookie: &lt;span class=&quot;nv&quot;&gt;JSESSIONID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;A2268A4D12924631929BEBDA57CB2333&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; HttpOnly
+WWW-Authenticate: Bearer
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;block
+Cache-Control: no-cache, no-store, max-age&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 0
+Date: Sun, 18 Aug 2019 21:15:14 GMT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Without a token, the server responds with HTTP 401. 
+This means we are not authorized. 
+As we don’t have a login form available just yet, we can use the Direct Access Grants flow to obtain a token. 
+This can come in very handy for testing different scenarios as well.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$export&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Content-Type: application/x-www-form-urlencoded&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;client_id=spa-heroes&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;username=jeroen&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;password=1234&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;grant_type=password&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST http://localhost:8080/auth/realms/heroes/protocol/openid-connect/token | jq &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; .access_token&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$TOKEN&lt;/span&gt;
+eyJhbGciOeUNvcWVJVWxNIn0.eyJqdGkiOiI......Hnz5aFdcAiB-5o-yep6rcGP_H6yQoW
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Make sure ‘Direct Access Grants Enabled’ is enabled in the Keycloak Client settings&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We can now use this token to request the resource once more:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Authorization: Bearer &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TOKEN&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; http://localhost:9090/api/heroes
+HTTP/1.1 200
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;block
+Cache-Control: no-cache, no-store, max-age&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: application/json&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;UTF-8
+Transfer-Encoding: chunked
+Date: Sun, 18 Aug 2019 21:25:36 GMT
+
+&lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;:1,&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;Ken&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;:2,&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;Yannick&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt;:3,&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;Pieter&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This time we got the requested resource back from the server!&lt;/p&gt;
+
+&lt;h2 id=&quot;securing-the-angular-application&quot;&gt;Securing The Angular application&lt;/h2&gt;
+
+&lt;p&gt;When we now look at our Tour Of Heroes application again, it’s complaining a bit:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;HeroService: getHeroes failed: Http failure response for http://localhost:9090/api/heroes: 401 OK
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We didn’t log in (HTTP 401), so we can’t see the content. Time to fix it!&lt;/p&gt;
+
+&lt;p&gt;There are many packages we could use to secure our Angular app. An easy one to get started with, is &lt;a href=&quot;https://github.com/manfredsteyer/angular-oauth2-oidc&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;angular-oauth2-oidc&lt;/a&gt; from Manfred Steyer but you could use any library, as long as it’s &lt;a href=&quot;https://openid.net/certification/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;certified by OpenID&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Add it to the dependencies:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm i angular-oauth2-oidc &lt;span class=&quot;nt&quot;&gt;--save&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then add it to the imports of &lt;code class=&quot;highlighter-rouge&quot;&gt;app.module.ts&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HttpClientModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;@angular/common/http&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OAuthModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;angular-oauth2-oidc&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;NgModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;HttpClientModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;OAuthModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forRoot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;resourceServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;allowedUrls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;http://localhost:9090/api&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;sendAccessToken&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice how we configure &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9090/api&lt;/code&gt; to be the only URL where we will send our access token to.&lt;/p&gt;
+
+&lt;p&gt;Next up, let’s add log in and log out buttons in &lt;code class=&quot;highlighter-rouge&quot;&gt;app.component.html&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;btn btn-default&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;(click)=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;login()&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  Login
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;btn btn-default&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;(click)=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;logoff()&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  Logout
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now all there is left to do is to configure the &lt;code class=&quot;highlighter-rouge&quot;&gt;OAuthService&lt;/code&gt;. We do this in &lt;code class=&quot;highlighter-rouge&quot;&gt;app.component.ts&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;@angular/core&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OAuthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NullValidationHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AuthConfig&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;angular-oauth2-oidc&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JwksValidationHandler&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;angular-oauth2-oidc&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;app-root&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;templateUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./app.component.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;styleUrls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./app.component.css&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Tour of Heroes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;oauthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OAuthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nl&quot;&gt;authConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AuthConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;issuer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;http://localhost:8080/auth/realms/heroes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;redirectUri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;origin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/heroes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;clientId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;spa-heroes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;openid profile email offline_access heroes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;responseType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// at_hash is not present in JWT token&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;disableAtHashCheck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;showDebugInformation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;oauthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initLoginFlow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;kr&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;logoff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;oauthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;logOut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;oauthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;authConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;oauthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tokenValidationHandler&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NullValidationHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;oauthService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loadDiscoveryDocumentAndTryLogin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Make sure that the name of the realm (heroes) and the client id (spa-heroes) correspond to the ones you defined in Keycloak. 
+Remember how we required the heroes scope to be present in our back end? The scope property is how we fix this. 
+If we omit &lt;code class=&quot;highlighter-rouge&quot;&gt;heroes&lt;/code&gt; from the scope list, we will be getting a 403 response from our resource server.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Keycloak is not returning the &lt;code class=&quot;highlighter-rouge&quot;&gt;at_hash&lt;/code&gt; claim in the access token. For this reason, the client library would crash while parsing it.
+This is why we disable it in the config but also use the &lt;code class=&quot;highlighter-rouge&quot;&gt;NullValidationHandler&lt;/code&gt; instead of the &lt;code class=&quot;highlighter-rouge&quot;&gt;JwksValidationHandler&lt;/code&gt; as it would also make the application crash.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We can now try to log in and if all went well, we should see our heroes appear again when browsing to &lt;code class=&quot;highlighter-rouge&quot;&gt;/dashboard&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;/heroes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Don’t worry if you do not immediatly see the heroes appear. This is because we load the &lt;code class=&quot;highlighter-rouge&quot;&gt;/heroes&lt;/code&gt; page before our code was exchanged for an access token.
+This results in the first &lt;code class=&quot;highlighter-rouge&quot;&gt;/heroes&lt;/code&gt; call getting a 401 response. You can create a new endpoint and use it as the redirectUri to get rid of this problem.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img class=&quot;image fit-contain&quot; src=&quot;/img/securing-web-applications-with-keycloak/result.gif&quot; alt=&quot;&quot; width=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;We set up a Keycloak server and covered how we can secure a Spring Boot API by turning it into a resource server. 
+We then discussed why the authorization grant flow + PKCE replaces the implicit flow and how to implement it in an Angular application.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jeroen&quot;, &quot;last_name&quot;=&gt;&quot;Meys&quot;, &quot;permalink&quot;=&gt;&quot;/author/jeroen-meys/&quot;, &quot;avatar&quot;=&gt;&quot;jeroen-meys.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;jeroen-meys-35416253&quot;, &quot;twitter&quot;=&gt;&quot;JeroenMeys&quot;, &quot;email&quot;=&gt;&quot;jeroen.meys@ordina.be&quot;, &quot;github&quot;=&gt;&quot;jmeys&quot;, &quot;bio&quot;=&gt;&quot;Jeroen is a Java Developer at Ordina Belgium who is passionate about security and has a secret love for the Windows operating system.&quot;}</name><email>jeroen.meys@ordina.be</email></author><category term="Security" /><category term="Security" /><category term="OAuth" /><category term="OIDC" /><category term="PKCE" /><category term="JWT" /><category term="Keycloak" /><category term="Resource Server" /><category term="Spring Security" /><category term="Angular" /><summary type="html">Gone are the days when we had to write our own login mechanisms and permission systems. This article is about how we can hook up our applications to an Identity and Access Management (IAM) solution such as Keycloak in a secure way.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/securing-web-applications-with-keycloak/keycloak.jpg" /></entry><entry><title type="html">Using Let’s Encrypt certificates in Java applications</title><link href="https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html" rel="alternate" type="text/html" title="Using Let's Encrypt certificates in Java applications" /><published>2019-08-14T00:00:00+00:00</published><updated>2019-08-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java</id><content type="html" xml:base="https://ordina-jworks.github.io/security/2019/08/14/Using-Lets-Encrypt-Certificates-In-Java.html">&lt;blockquote&gt;
   &lt;p&gt;At some point in their career, developers come accross the need to work with security certificates.
 This article describes how to setup Let’s Encrypt, retrieve a certificate, renew it automatically and use the certificate in a Java application for TLS communication.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -3291,417 +3920,4 @@ Even though a template is important, we should focus less on the template and mo
 This great experience also gave me the opportunity to talk and share knowledge and information with other business analysts. 
 It was really inspiring.&lt;/p&gt;
 
-&lt;p&gt;The slides for these presentations can be found on the website of &lt;a href=&quot;https://ba-beyond.eu/2019-programme.php&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BA&amp;amp;Beyond&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Astrid&quot;, &quot;last_name&quot;=&gt;&quot;Legrand&quot;, &quot;permalink&quot;=&gt;&quot;/author/astrid_legrand/&quot;, &quot;avatar&quot;=&gt;&quot;astrid-legrand.jpeg&quot;, &quot;title&quot;=&gt;&quot;Business Analyst &amp; Scrum Master&quot;, &quot;linkedin&quot;=&gt;&quot;astrid-legrand-2a813685&quot;, &quot;email&quot;=&gt;&quot;astrid.legrand@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Astrid works as a Business Analyst consultant at Ordina Belgium. She is also a Scrum Master who is eager to learn and focus on continuous improvement within an agile environment.&quot;}</name><email>astrid.legrand@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Conference" /><category term="BA&amp;Beyond" /><category term="Business Analysis" /><category term="Scrum" /><category term="User stories" /><category term="Post-its" /><category term="Cross functional teams" /><summary type="html">The BA &amp;amp; Beyond conference is a two day programme enabling business analysts to share their experiences and find inspiration in their daily work. The conference was an intense mix of talks and workshops, providing space for inspiring people to share their stories. After each talk, the attendees had the possibility to engage in conversation during a Q&amp;amp;A. The sessions were very interactive and really empowering. This second edition of the BA &amp;amp; Beyond conference was held during two days in Brussels and Amsterdam. Various topics were discussed, such as visual facilitation techniques, «How to Make an Agile Project Succeed», business analyst behaviours, or «The Inner Architecture of a Performer». What follows below is an overview of some of these talks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/ba-and-beyond-2019/main-image.png" /></entry><entry><title type="html">Istio Service Mesh: service to service communication</title><link href="https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html" rel="alternate" type="text/html" title="Istio Service Mesh: service to service communication" /><published>2019-05-03T00:00:00+00:00</published><updated>2019-05-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/05/03/istio-service-mesh-s2s.html">&lt;blockquote&gt;
-  &lt;p&gt;This post will describe how to use the Istio service mesh to provide service to service authentication and authorization in a Kubernetes cluster.
-It will show how ServiceRoles, ServiceRoleBindings and Identities in Istio can be used to achieve this.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-is-istio&quot;&gt;What is Istio?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#istio-concepts&quot;&gt;Istio concepts&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#show-me-the-code&quot;&gt;Show me the code&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;what-is-istio&quot;&gt;What is Istio?&lt;/h2&gt;
-
-&lt;p&gt;Istio is a service mesh created by Google, Lyft and IBM. 
-It aims to simplify some security and management aspects of a microservices software architecture.
-More information on Istio and its features can be found in its &lt;a href=&quot;https://istio.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;docs&lt;/a&gt;.
-In this blogpost we will highlight one of the key security features of Istio: service to service authentication and authorization.
-For the sake of simplicity, this post will focus on an Istio setup in Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;In a microservices architecture, managing access to services can be a challenging operation. 
-For end-user facing services, JWTs are used to add authorization information to a request.
-They are used by the service to determine which end-user is making the request.
-These tokens can be generated based on information that the end-user provides to an identity provider.
-In most cases this information is a username and password, with some additional 2FA if possible.
-This setup can be achieved by using OpenID Connect as a protocol with the authorization code grant flow and an identity provider like Keycloak.&lt;/p&gt;
-
-&lt;p&gt;When services communicate with each other, they also need to provide an identity to each other.
-A common option to do this is by using client credentials grant flow of OpenID Connect.
-In this flow a service provides its client credentials to authenticate against the identity provider, and to be able to generate an access token once authenticated.
-This token will be used to communicate to a service.&lt;/p&gt;
-
-&lt;p&gt;These are types of authorization flows on application level.
-They allow services to determine what resources an end-user or service can access.
-Istio’s service to service role based acccess control (RBAC) is not on application level but on communication level.
-It specifies which services can connect and communicate with each other. 
-In order to achieve this, Istio connects an identity to each service in the mesh and allows it to authenticate itself.
-The requested service can use this identity to determine if the service is allowed to connect or not.&lt;br /&gt;
-Istio makes use of proxies to handle all traffic (into and out of services) and using mutual trusted certificates to secure the connection and provide an identity to these proxies.
-When using the automatic proxy injection, enabling Istio’s service to service RBAC mechanism is almost as easy as flipping a switch.&lt;/p&gt;
-
-&lt;p&gt;There are five main components responsible for making this possible in Istio: Citadel, Pilot, Galley, Mixer and Envoy.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Citadel&lt;/em&gt; is Istio’s fortress of trust.
-It manages all certificates and acts as a Root CA in the Istio setup.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Galley&lt;/em&gt; is the main configuration manager.
-It is responsible for gathering all required information from the underlying platform.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Pilot&lt;/em&gt; manages all routing information and manages all the information for the proxies.
-It will initialise the proxies during start-up with their configuration and the certificates from Citadel.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Mixer&lt;/em&gt; is responsible for all monitoring, logging and authorization information.
-Whenever a proxy performs an action, Mixer knows about it. 
-This allows it to both monitor and log connections, but also provide authorization information to the proxies.&lt;/p&gt;
-
-&lt;p&gt;The final piece to the puzzle is &lt;em&gt;Envoy&lt;/em&gt;. 
-Envoy is the sidecar proxy responsible for handling the actual traffic between services in the service mesh.
-It will setup and manage the required mTLS connections and perform all required check with regards to the routing. 
-Envoy is managed as a separate project and in theory an other proxy could be used, but Envoy is most common.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/arch.svg&quot; alt=&quot;Istio architecture drawing&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A final, optional component is the sidecar injector.
-This component is not mandatory for the service mesh to work, but makes using it a lot easier.
-The injector is set up as a mutating webhook admission controller. 
-In a nutshell, this allows the injector to inspect and update some specific objects in the Kubernetes API.
-It will automatically inject the Envoy sidecar proxy into every pod which needs it.&lt;/p&gt;
-
-&lt;h2 id=&quot;istio-concepts&quot;&gt;Istio concepts&lt;/h2&gt;
-
-&lt;p&gt;Istio stores all its configuration directly in the Kubernetes API through the use of Custom Resource Definitions (CRDs).
-Next, a small description of the ones relevant for our blog are explained.&lt;/p&gt;
-
-&lt;h3 id=&quot;policies&quot;&gt;Policies&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/security/#authentication-policies&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Policies&lt;/a&gt; are at the heart of the mTLS setup in Istio.
-They define when mTLS should be used and how.
-Policies can be scoped in two levels: mesh wide (Mesh Policies) and namespace wide.&lt;/p&gt;
-
-&lt;h3 id=&quot;destination-rules&quot;&gt;Destination Rules&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/traffic-management/#destination-rules&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Destination rules&lt;/a&gt; are a set of rules that are evaluated when a service is called.
-They define multiple different routing options.
-For the scope of this blogpost, they will only be used to define which services require to be accessed using mTLS.&lt;/p&gt;
-
-&lt;h3 id=&quot;service-roles&quot;&gt;Service Roles&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/security/#servicerole&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Service Roles&lt;/a&gt; are used in Istio to describe which access a role provides. 
-It specifies which endpoints of a specific service can be used.
-Currently this is described by specifying the full internal DNS name of the service, the methods and the paths that the role can access.&lt;/p&gt;
-
-&lt;h3 id=&quot;service-role-bindings&quot;&gt;Service Role Bindings&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://istio.io/docs/concepts/security/#servicerole&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Service Role Bindings&lt;/a&gt; are used to connect identities (service accounts) or identity properties (namespaces) to actual roles. 
-When a binding is created, the identities connected to it are allowed the access specified in the referenced service role.&lt;/p&gt;
-
-&lt;h2 id=&quot;show-me-the-code&quot;&gt;Show me the code&lt;/h2&gt;
-
-&lt;p&gt;The Istio service to service authentication and authorization will now be explained by using an example setup.
-Note that the code snippets have been shortened in this blogpost.
-This is denoted with three dots &lt;code class=&quot;highlighter-rouge&quot;&gt;...&lt;/code&gt;.
-The full examples can be found in the accompanying repository on &lt;a href=&quot;https://github.com/pietervincken/istio-service-to-service-demo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Github&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
-
-&lt;p&gt;This demo assumes that Istio is already installed in the cluster with the demo profile enabled. 
-See &lt;a href=&quot;https://istio.io/docs/setup/kubernetes/install/helm/#option-1-install-with-helm-via-helm-template&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Install Istio&lt;/a&gt; for more information on the installation of Istio.
-In the demo repository, a small &lt;a href=&quot;https://github.com/pietervincken/istio-service-to-service-demo/blob/master/1-install-istio.sh&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;script&lt;/a&gt; can be found that can assist in setting up the demo environment&lt;/p&gt;
-
-&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
-
-&lt;p&gt;The setup of our application is a very simple service with a database backend. 
-Our service exposes one HTTP GET endpoint which will be accessed by the outside world. 
-Our database is an Apache CouchDB instance.
-Both the database and the service run inside Kubernetes.
-The setup is shown in the image below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/setup.png&quot; alt=&quot;demo setup&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;create-namespace&quot;&gt;Create namespace&lt;/h3&gt;
-
-&lt;p&gt;First, a new namespace is created.
-The service and database will both be added to this namespace.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create namespace with-istio
-kubectl label namespace with-istio istio-injection&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;enabled
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;install-couchdb&quot;&gt;Install CouchDB&lt;/h3&gt;
-
-&lt;p&gt;Next, the database is installed.
-This looks like a normal stateful set for a CouchDB database.
-There are some important changes.&lt;/p&gt;
-
-&lt;p&gt;First, a specific service account is created for CouchDB. 
-This is needed as Istio will use the service accounts in Kubernetes as its identities.
-The service account is linked to the podspec in the stateful set definition. 
-This way, it can be used by the Istio proxy later on.&lt;/p&gt;
-
-&lt;p&gt;Secondly, the probes have been adapted to work in Istio.
-Since Istio intercepts all traffic in the pod, it will also intercept requests from the Kube API to the service.
-Since the demo setup requires mTLS to be used, the probes would fail because the Kube API doesn’t use mTLS.
-Instead of manually changing the probes, Istio now has the option to rewrite the probes during the automatic proxy injection. 
-More information on the probes can be found in the &lt;a href=&quot;https://istio.io/help/ops/setup/app-health-check/#probe-rewrite&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Istio Docs&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note that no Istio specific configuration is required in the service manifests.
-This is possible because the demo profile automatically enables the sidecar injector and we enabled the injection on the &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace using the &lt;code class=&quot;highlighter-rouge&quot;&gt;istio-injection=enabled&lt;/code&gt; label.
-The automatic sidecar injector will inject the Envoy sidecar into all pods.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# Source: couchdb/templates/serviceaccount.yaml&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceAccount&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# Source: couchdb/templates/service.yaml&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Service&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-   &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ClusterIP&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;80&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# Source: couchdb/templates/statefulset.yaml&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apps/v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;StatefulSet&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;replicas&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;matchLabels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;serviceAccountName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;containers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;couchdb:2.3.0&quot;&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;imagePullPolicy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;IfNotPresent&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5984&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;livenessProbe&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;curl&lt;/span&gt;
-              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://localhost:5984/_up&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;readinessProbe&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;curl&lt;/span&gt;
-              &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://localhost:5984/_up&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;install-the-service-test-app&quot;&gt;Install the service: test-app&lt;/h3&gt;
-
-&lt;p&gt;A small NodeJS application was created for this demo.
-It exposes an HTTP GET endpoint which connects to the CouchDB database.
-The manifests are very similar to the CouchDB versions.
-As with CouchDB, note that no Istio specific configuration is required on the manifests.
-A service account is created and linked to provide the service with a unique identity in Kubernetes and Istio.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# Source: test-app-chart/templates/serviceaccount.yaml&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceAccount&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
-&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# Source: test-app-chart/templates/service.yaml&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Service&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
-  &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# Source: test-app-chart/templates/deployment.yaml&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apps/v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Deployment&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-   &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;replicas&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;matchLabels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-chart&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-chart&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;app.kubernetes.io/instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;serviceAccountName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-test-app-chart&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;containers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test-app-chart&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;test-app:latest&quot;&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;imagePullPolicy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;IfNotPresent&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;livenessProbe&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The current setup is displayed in the following drawing.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 446px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/istio-basic-setup.png&quot; alt=&quot;Basic setup in Istio&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;enabling-mutual-tls-mtls&quot;&gt;Enabling mutual TLS (mTLS)&lt;/h3&gt;
-
-&lt;p&gt;Currently the service can connect to the backend just fine. 
-TLS is currently not used to communicate between the service.&lt;/p&gt;
-
-&lt;p&gt;The following manifest defines a policy which changes this. 
-It is a namespace scoped policy telling Istio that all services in the &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace should &lt;strong&gt;ONLY&lt;/strong&gt; accept mTLS connections.
-This configuration will be picked up by Pilot and distributed to all Envoy proxies in the &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace.
-When this policy is applied, Envoy will drop any requests it gets that don’t use mTLS.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;authentication.istio.io/v1alpha1&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Policy&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;default&quot;&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;peers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;mtls&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; 
-      &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;STRICT&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Note, this policy only affects the incoming connections on the Envoy proxy.
-When a request would be sent to the test-app service now, it would be rejected with an HTTP 503 error code.
-This is shown in the following drawing.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 408px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/istio-mtls-broken.png&quot; alt=&quot;Broken mTLS drawing&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Next, the outgoing (client) connections needs to be configured to use mTLS.
-This can be done by specifying a destination rule for the services.
-A destination rule defines a set of rules that are evaluated for every outgoing request from a proxy.
-This rules defines that every proxy in &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; namespace needs to use mutual TLS for every service that ends with &lt;code class=&quot;highlighter-rouge&quot;&gt;.local&lt;/code&gt;.
-By applying this rule, the requests will succeed again on the test-app service.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;networking.istio.io/v1alpha3&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;DestinationRule&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;default&quot;&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*.local&quot;&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;trafficPolicy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;tls&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ISTIO_MUTUAL&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;enabling-role-based-access-control-rbac-on-the-services&quot;&gt;Enabling Role Based Access Control (RBAC) on the services&lt;/h3&gt;
-
-&lt;p&gt;Services can now communicate securely over mTLS.
-To increase the security even further, RBAC can be added to the services.
-RBAC allows for roles to be defined that specify access to specific services in the cluster. 
-By attaching these roles to service accounts (which are connected to services) services can be permitted to access specific other services. 
-This limits the reach a single service has in the cluster and therefor adheres to the least privileges principle.&lt;/p&gt;
-
-&lt;p&gt;The following manifest defines a cluster RBAC configuration.
-Such configuration can only exist once in the entire service mesh and it needs to have the name &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt;.
-The mode &lt;code class=&quot;highlighter-rouge&quot;&gt;ON_WITH_INCLUSION&lt;/code&gt; specifies that all subjects that are listed in the inclusion section need to have RBAC enabled. 
-These subjects can be namespaces and/or specific services.
-Specifying the namespace &lt;code class=&quot;highlighter-rouge&quot;&gt;with-istio&lt;/code&gt; in the inclusion section, enables RBAC for all services in that namespace.
-By default the RBAC configuration will reject all requests which don’t have the proper access defined with an HTTP 403 error code.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rbac.istio.io/v1alpha1&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ClusterRbacConfig&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;default&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ON_WITH_INCLUSION'&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;inclusion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;namespaces&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;with-istio'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;After this RBAC config is applied, requests to the test-app instance will start failing again. 
-The test-app currently doesn’t have a role attached to its service account that allows it to access the CouchDB database. 
-Therefor all requests to the service will be rejected with an HTTP error code of 403.
-This is shown in the following drawing.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 417px;&quot; src=&quot;/img/2019-04-14-istio-service-mesh-s2s/istio-rbac-refused.png&quot; alt=&quot;RBAC refuses connection&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The following manifest creates a role that allows access to the CouchDB service for all GET requests on any given path.
-Note that the full service name is used in the services specification, this is currently required by Istio.
-This is only needed for Istio to identify the traffic, short names can still be used to access the service.
-By applying this service role, nothing will change to the requests to the test-app since the role is not yet connected to the service account of the test-app service.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rbac.istio.io/v1alpha1&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceRole&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;couchdb-role&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;couchdb.with-istio.svc.cluster.local&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;GET&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So next, we link the new role to the service account of the test-app service.
-This is done through a service role binding.
-There are two sections to this binding: the role and the subjects.
-The role is the one that was created using the previous manifest. 
-The subjects can be any identity known to Istio. 
-In the demo scenario, only the service accounts are known.
-Istio defines a service account as a user identity. 
-As with the service names, the service account reference needs to be the full reference scoped towards the cluster.
-This allows services from outside of the namespaces to be specified as well.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;rbac.istio.io/v1alpha1&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceRoleBinding&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bind-test-app-service-couchdb-role&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;with-istio&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;subjects&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cluster.local/ns/with-istio/sa/test-app-test-app-chart&quot;&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;roleRef&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ServiceRole&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;couchdb-role&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;After applying the last manifest, requests should again be authorized and allowed to connect to the CouchDB instance.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;This demo showed how Istio can be used to secure communication between services using mTLS.
-Moreover it showed how the service mesh level authentication can be used to grant or deny access to services in the mesh.
-A role can be connected to a service account to allow access. 
-Important to note is that the service mesh only allowes or denies traffic.
-It doesn’t influence the application level access.&lt;/p&gt;
-
-&lt;p&gt;In a nutshell, Istio allows cluster admins to enable secure communication, and strong authentication and authorization mechanisms on their Kubernetes cluster without having to manage all kinds of certificates, usernames and passwords. 
-The application developers don’t need to adopt their application in order to communicate securely in the cluster, nor do they have to change their deployment configuration to enable the service mesh.&lt;/p&gt;
-
-&lt;p&gt;This blogpost only highlighted a portion of the features of Istio. 
-Security is only a part of the feature set. 
-Istio also allows advanced traffic management, monitoring and logging.
-Maybe something for a future blogpost.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="Istio" /><category term="Service Mesh" /><category term="Kubernetes" /><category term="Cloud" /><category term="Microservices" /><summary type="html">This post will describe how to use the Istio service mesh to provide service to service authentication and authorization in a Kubernetes cluster. It will show how ServiceRoles, ServiceRoleBindings and Identities in Istio can be used to achieve this.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-04-14-istio-service-mesh-s2s/istio.jpeg" /></entry></feed>
+&lt;p&gt;The slides for these presentations can be found on the website of &lt;a href=&quot;https://ba-beyond.eu/2019-programme.php&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BA&amp;amp;Beyond&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Astrid&quot;, &quot;last_name&quot;=&gt;&quot;Legrand&quot;, &quot;permalink&quot;=&gt;&quot;/author/astrid_legrand/&quot;, &quot;avatar&quot;=&gt;&quot;astrid-legrand.jpeg&quot;, &quot;title&quot;=&gt;&quot;Business Analyst &amp; Scrum Master&quot;, &quot;linkedin&quot;=&gt;&quot;astrid-legrand-2a813685&quot;, &quot;email&quot;=&gt;&quot;astrid.legrand@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Astrid works as a Business Analyst consultant at Ordina Belgium. She is also a Scrum Master who is eager to learn and focus on continuous improvement within an agile environment.&quot;}</name><email>astrid.legrand@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Conference" /><category term="BA&amp;Beyond" /><category term="Business Analysis" /><category term="Scrum" /><category term="User stories" /><category term="Post-its" /><category term="Cross functional teams" /><summary type="html">The BA &amp;amp; Beyond conference is a two day programme enabling business analysts to share their experiences and find inspiration in their daily work. The conference was an intense mix of talks and workshops, providing space for inspiring people to share their stories. After each talk, the attendees had the possibility to engage in conversation during a Q&amp;amp;A. The sessions were very interactive and really empowering. This second edition of the BA &amp;amp; Beyond conference was held during two days in Brussels and Amsterdam. Various topics were discussed, such as visual facilitation techniques, «How to Make an Agile Project Succeed», business analyst behaviours, or «The Inner Architecture of a Performer». What follows below is an overview of some of these talks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/ba-and-beyond-2019/main-image.png" /></entry></feed>

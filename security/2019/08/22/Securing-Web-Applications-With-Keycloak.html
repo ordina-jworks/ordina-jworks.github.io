@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE - Andreas Evers Andreas Evers Andreas Evers Andreas Evers Ken Coenen Ken Coenen Dieter Hubau Ken Coenen Yannick De Turck Tom Verelst Ken Coenen Tim Ysewyn Tim Ysewyn Bart Blommaerts Tim Ysewyn Kevin Van Houtte Jan De Wilde Yannick Vergeylen Andreas Evers Yannick De Turck and Andreas Evers Ryan de Gruyter Andreas Evers Jan De Wilde and Steve De Zitter Jan De Wilde and Steve De Zitter Tom Verelst Kevin Van Houtte Martin Kwee Martin Kwee Bart Blommaerts Andreas Evers Gregory Rinaldi Tom Verelst Dieter Hubau Dieter Wallecan Tim Verte Bart Blommaerts Yannick De Turck Tom Van den Bulck Kevin Van Houtte Kevin Van den Abeele Yannick De Turck Jan De Wilde Jan De Wilde, Frédéric Ghijselinck and Orjan De Smet Bart Blommaerts Tom Verelst Tom Verelst Bart Blommaerts Ken Coenen, Jeroen De Prest and Kevin Leyssens Matthias Caryn Ivar van Hartingsveldt Bart Blommaerts Hans Michiels Dieter Hubau, Gina De Beukelaer, Hans Michiels, Jeff Mesens and Tim Schmitte Jeff Mesens and Bart Blommaerts Tim Ysewyn Tim De Grande Kevin Van Houtte Kevin Van den Abeele Dieter Hubau Martijn Willekens Nick Geudens, Ken De Becker, Michiel Willems, Jef Willems and Simon Buysse Chris De Bruyne Michael Vervloet, Ines Van Stappen and Kevin Van den Abeele Bart Blommaerts Ken Coenen and Bart Blommaerts Yannick De Turck, Dieter Hubau and Derya Duru Bas Moorkens Kevin Van den Abeele Derya Duru Michael Vandendriessche and Kevin Van den Abeele Bart Blommaerts Tim Ysewyn Kevin Van Houtte Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Yannick Vergeylen, Dimitri De Kerf and Michael Vervloet Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Dimitri De Kerf and Dries Gijssels Tim Vierbergen Martijn Willekens Andreas Evers Tim Ysewyn Yannick De Turck Tom Verelst Tim De Grande Michael Vervloet and Axel Bergmans Tim De Grande Johan Silkens, Nick Van Hoof, Sam Schuddinck, Dries Thieren, Maarten Westelinck, Yunus Altin and Yen Mertens Frédéric Ghijselinck Michael Vervloet Ken Coenen Tim Ysewyn Nils Devos Yannick De Turck Andreas Evers Dieter Hubau, Yannick De Turck, Tom Van den Bulck, Johan Silkens, Jens Bosman, Tim Schmitte and Yen Mertens Derya Duru and Nils Devos Ryan de Gruyter and Michael Vandendriessche Wouter Nivelle Andreas Evers Maryse Meinen Yannick Vergeylen Tim Vierbergen Bas Moorkens Tim Ysewyn Kevin Van den Abeele Pieter Van Hees Ryan de Gruyter Nick Van Hoof Orjan De Smet Gert-jan Theunissen Nick Geudens Michaëla Broeckx Hans Vanbellingen and Tom Van den Bulck Martin Kwee and Jeroen Meys Wout Meskens, Sander Smets, Michaël De Wree, Steven Deleye and Ken Keymolen Kevin Van Houtte Martijn Willekens Tom Van den Bulck and Tim De Grande Chris De Bruyne, Nick Van Hoof and Jan Van der Veken Tim Vierbergen Jan Van der Veken Kevin Van den Abeele Gert-Jan Schokkaert Jan De Wilde, Ines Van Stappen, Elke Heymans, Sam Schuddinck, Gert-jan Theunissen, Stefanie Geldof, Michaël De Wree and Dimitri De Kerf Michaëla Broeckx Tom Van den Bulck, Maarten Casteels and Yannick De Turck Dimitri De Kerf Nick Van Hoof Tim Vierbergen Elke Heymans Pieter Van Hees and Kristof Eekhaut Tom Van den Bulck Tom Verelst Frederick Bousson and Kevin Van den Abeele Yolan Vloeberghs, Seppe Berghmans, Giel Reynders and Jago Staes Michaëla Broeckx Orjan De Smet Pieter Vincken Astrid Legrand Duncan Casteleyn Kevin Van den Abeele Tom Van den Bulck and Yannick De Turck Nick Van Hoof, Tom Van den Bulck, Yolan Vloeberghs, Jago Staes, Gina De Beukelaer and Tim Schmitte Michaëla Broeckx Tim Vierbergen Yolan Vloeberghs Ken Coenen Jeroen Meys">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/securing-web-applications-with-keycloak/keycloak.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE - Andreas Evers Andreas Evers Andreas Evers Andreas Evers Ken Coenen Ken Coenen Dieter Hubau Ken Coenen Yannick De Turck Tom Verelst Ken Coenen Tim Ysewyn Tim Ysewyn Bart Blommaerts Tim Ysewyn Kevin Van Houtte Jan De Wilde Yannick Vergeylen Andreas Evers Yannick De Turck and Andreas Evers Ryan de Gruyter Andreas Evers Jan De Wilde and Steve De Zitter Jan De Wilde and Steve De Zitter Tom Verelst Kevin Van Houtte Martin Kwee Martin Kwee Bart Blommaerts Andreas Evers Gregory Rinaldi Tom Verelst Dieter Hubau Dieter Wallecan Tim Verte Bart Blommaerts Yannick De Turck Tom Van den Bulck Kevin Van Houtte Kevin Van den Abeele Yannick De Turck Jan De Wilde Jan De Wilde, Frédéric Ghijselinck and Orjan De Smet Bart Blommaerts Tom Verelst Tom Verelst Bart Blommaerts Ken Coenen, Jeroen De Prest and Kevin Leyssens Matthias Caryn Ivar van Hartingsveldt Bart Blommaerts Hans Michiels Dieter Hubau, Gina De Beukelaer, Hans Michiels, Jeff Mesens and Tim Schmitte Jeff Mesens and Bart Blommaerts Tim Ysewyn Tim De Grande Kevin Van Houtte Kevin Van den Abeele Dieter Hubau Martijn Willekens Nick Geudens, Ken De Becker, Michiel Willems, Jef Willems and Simon Buysse Chris De Bruyne Michael Vervloet, Ines Van Stappen and Kevin Van den Abeele Bart Blommaerts Ken Coenen and Bart Blommaerts Yannick De Turck, Dieter Hubau and Derya Duru Bas Moorkens Kevin Van den Abeele Derya Duru Michael Vandendriessche and Kevin Van den Abeele Bart Blommaerts Tim Ysewyn Kevin Van Houtte Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Yannick Vergeylen, Dimitri De Kerf and Michael Vervloet Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Dimitri De Kerf and Dries Gijssels Tim Vierbergen Martijn Willekens Andreas Evers Tim Ysewyn Yannick De Turck Tom Verelst Tim De Grande Michael Vervloet and Axel Bergmans Tim De Grande Johan Silkens, Nick Van Hoof, Sam Schuddinck, Dries Thieren, Maarten Westelinck, Yunus Altin and Yen Mertens Frédéric Ghijselinck Michael Vervloet Ken Coenen Tim Ysewyn Nils Devos Yannick De Turck Andreas Evers Dieter Hubau, Yannick De Turck, Tom Van den Bulck, Johan Silkens, Jens Bosman, Tim Schmitte and Yen Mertens Derya Duru and Nils Devos Ryan de Gruyter and Michael Vandendriessche Wouter Nivelle Andreas Evers Maryse Meinen Yannick Vergeylen Tim Vierbergen Bas Moorkens Tim Ysewyn Kevin Van den Abeele Pieter Van Hees Ryan de Gruyter Nick Van Hoof Orjan De Smet Gert-jan Theunissen Nick Geudens Michaëla Broeckx Hans Vanbellingen and Tom Van den Bulck Martin Kwee and Jeroen Meys Wout Meskens, Sander Smets, Michaël De Wree, Steven Deleye and Ken Keymolen Kevin Van Houtte Martijn Willekens Tom Van den Bulck and Tim De Grande Chris De Bruyne, Nick Van Hoof and Jan Van der Veken Tim Vierbergen Jan Van der Veken Kevin Van den Abeele Gert-Jan Schokkaert Jan De Wilde, Ines Van Stappen, Elke Heymans, Sam Schuddinck, Gert-jan Theunissen, Stefanie Geldof, Michaël De Wree and Dimitri De Kerf Michaëla Broeckx Tom Van den Bulck, Maarten Casteels and Yannick De Turck Dimitri De Kerf Nick Van Hoof Tim Vierbergen Elke Heymans Pieter Van Hees and Kristof Eekhaut Tom Van den Bulck Tom Verelst Frederick Bousson and Kevin Van den Abeele Yolan Vloeberghs, Seppe Berghmans, Giel Reynders and Jago Staes Michaëla Broeckx Orjan De Smet Pieter Vincken Astrid Legrand Duncan Casteleyn Kevin Van den Abeele Tom Van den Bulck and Yannick De Turck Nick Van Hoof, Tom Van den Bulck, Yolan Vloeberghs, Jago Staes, Gina De Beukelaer and Tim Schmitte Michaëla Broeckx Tim Vierbergen Yolan Vloeberghs Ken Coenen Jeroen Meys"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/securing-web-applications-with-keycloak/keycloak.jpg"/>
+
+    
+    <title>Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE - Andreas Evers Andreas Evers Andreas Evers Andreas Evers Ken Coenen Ken Coenen Dieter Hubau Ken Coenen Yannick De Turck Tom Verelst Ken Coenen Tim Ysewyn Tim Ysewyn Bart Blommaerts Tim Ysewyn Kevin Van Houtte Jan De Wilde Yannick Vergeylen Andreas Evers Yannick De Turck and Andreas Evers Ryan de Gruyter Andreas Evers Jan De Wilde and Steve De Zitter Jan De Wilde and Steve De Zitter Tom Verelst Kevin Van Houtte Martin Kwee Martin Kwee Bart Blommaerts Andreas Evers Gregory Rinaldi Tom Verelst Dieter Hubau Dieter Wallecan Tim Verte Bart Blommaerts Yannick De Turck Tom Van den Bulck Kevin Van Houtte Kevin Van den Abeele Yannick De Turck Jan De Wilde Jan De Wilde, Frédéric Ghijselinck and Orjan De Smet Bart Blommaerts Tom Verelst Tom Verelst Bart Blommaerts Ken Coenen, Jeroen De Prest and Kevin Leyssens Matthias Caryn Ivar van Hartingsveldt Bart Blommaerts Hans Michiels Dieter Hubau, Gina De Beukelaer, Hans Michiels, Jeff Mesens and Tim Schmitte Jeff Mesens and Bart Blommaerts Tim Ysewyn Tim De Grande Kevin Van Houtte Kevin Van den Abeele Dieter Hubau Martijn Willekens Nick Geudens, Ken De Becker, Michiel Willems, Jef Willems and Simon Buysse Chris De Bruyne Michael Vervloet, Ines Van Stappen and Kevin Van den Abeele Bart Blommaerts Ken Coenen and Bart Blommaerts Yannick De Turck, Dieter Hubau and Derya Duru Bas Moorkens Kevin Van den Abeele Derya Duru Michael Vandendriessche and Kevin Van den Abeele Bart Blommaerts Tim Ysewyn Kevin Van Houtte Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Yannick Vergeylen, Dimitri De Kerf and Michael Vervloet Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Dimitri De Kerf and Dries Gijssels Tim Vierbergen Martijn Willekens Andreas Evers Tim Ysewyn Yannick De Turck Tom Verelst Tim De Grande Michael Vervloet and Axel Bergmans Tim De Grande Johan Silkens, Nick Van Hoof, Sam Schuddinck, Dries Thieren, Maarten Westelinck, Yunus Altin and Yen Mertens Frédéric Ghijselinck Michael Vervloet Ken Coenen Tim Ysewyn Nils Devos Yannick De Turck Andreas Evers Dieter Hubau, Yannick De Turck, Tom Van den Bulck, Johan Silkens, Jens Bosman, Tim Schmitte and Yen Mertens Derya Duru and Nils Devos Ryan de Gruyter and Michael Vandendriessche Wouter Nivelle Andreas Evers Maryse Meinen Yannick Vergeylen Tim Vierbergen Bas Moorkens Tim Ysewyn Kevin Van den Abeele Pieter Van Hees Ryan de Gruyter Nick Van Hoof Orjan De Smet Gert-jan Theunissen Nick Geudens Michaëla Broeckx Hans Vanbellingen and Tom Van den Bulck Martin Kwee and Jeroen Meys Wout Meskens, Sander Smets, Michaël De Wree, Steven Deleye and Ken Keymolen Kevin Van Houtte Martijn Willekens Tom Van den Bulck and Tim De Grande Chris De Bruyne, Nick Van Hoof and Jan Van der Veken Tim Vierbergen Jan Van der Veken Kevin Van den Abeele Gert-Jan Schokkaert Jan De Wilde, Ines Van Stappen, Elke Heymans, Sam Schuddinck, Gert-jan Theunissen, Stefanie Geldof, Michaël De Wree and Dimitri De Kerf Michaëla Broeckx Tom Van den Bulck, Maarten Casteels and Yannick De Turck Dimitri De Kerf Nick Van Hoof Tim Vierbergen Elke Heymans Pieter Van Hees and Kristof Eekhaut Tom Van den Bulck Tom Verelst Frederick Bousson and Kevin Van den Abeele Yolan Vloeberghs, Seppe Berghmans, Giel Reynders and Jago Staes Michaëla Broeckx Orjan De Smet Pieter Vincken Astrid Legrand Duncan Casteleyn Kevin Van den Abeele Tom Van den Bulck and Yannick De Turck Nick Van Hoof, Tom Van den Bulck, Yolan Vloeberghs, Jago Staes, Gina De Beukelaer and Tim Schmitte Michaëla Broeckx Tim Vierbergen Yolan Vloeberghs Ken Coenen Jeroen Meys &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE</h2>
+                
+
+                
+                    Posted Aug 22, 2019
+
+
+    in <a href="/categories/security/">Security</a>
+
+
+
+    by
+    
+        <a href="/author/jeroen-meys/">Jeroen Meys</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/security/">Security</a>, 
+    
+        <a href="/tags/oauth/">OAuth</a>, 
+    
+        <a href="/tags/oidc/">OIDC</a>, 
+    
+        <a href="/tags/pkce/">PKCE</a>, 
+    
+        <a href="/tags/jwt/">JWT</a>, 
+    
+        <a href="/tags/keycloak/">Keycloak</a>, 
+    
+        <a href="/tags/resource-server/">Resource Server</a>, 
+    
+        <a href="/tags/spring-security/">Spring Security</a>, 
+    
+        <a href="/tags/angular/">Angular</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>Gone are the days when we had to write our own login mechanisms and permission systems.
+This article is about how we can hook up our applications to an Identity and Access Management (IAM) solution such as Keycloak in a secure way.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ul>
+  <li><a href="#why-keycloak-as-authentication-server">Why Keycloak as Authentication Server</a></li>
+  <li><a href="#setting-up-a-keycloak-server">Setting up a Keycloak Server</a>
+    <ul>
+      <li><a href="#creating-a-new-realm">Creating a New Realm</a></li>
+      <li><a href="#creating-a-client">Creating a Client</a></li>
+      <li><a href="#creating-roles-and-scopes">Creating Roles and Scopes</a></li>
+      <li><a href="#creating-a-user">Creating a user</a></li>
+    </ul>
+  </li>
+  <li><a href="#setting-up-the-front-end-and-back-end-applications">Setting up the Front End and Back End Applications</a>
+    <ul>
+      <li><a href="#spring-boot-back-end">Spring Boot back end</a></li>
+      <li><a href="#angular-app-tour-of-heroes">Angular app: Tour of Heroes</a></li>
+    </ul>
+  </li>
+  <li><a href="#implementing-security">Implementing Security</a>
+    <ul>
+      <li><a href="#implicit-flow-versus-code-flow--pkce">Implicit Flow versus Code Flow + PKCE</a></li>
+      <li><a href="#json-web-token-jwt">JSON Web Token (JWT)</a></li>
+      <li><a href="#resource-server-in-spring-boot">Resource Server in Spring Boot</a></li>
+      <li><a href="#securing-the-angular-application">Securing The Angular application</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h1 id="why-keycloak-as-authentication-server">Why Keycloak as Authentication Server</h1>
+<p>You can find several platforms that handle user logins and resource access management such as <a href="https://www.keycloak.org/" target="_blank" rel="noopener noreferrer">Keycloak</a>, <a href="https://www.okta.com/" target="_blank" rel="noopener noreferrer">OKTA</a>, <a href="https://forgerock.github.io/openam-community-edition/" target="_blank" rel="noopener noreferrer">OpenAM</a>, etc. 
+All those platforms have their own features and possibilities that may be useful for your use case. 
+In this article, we choose Keycloak as <a href="https://en.wikipedia.org/wiki/Authentication" target="_blank" rel="noopener noreferrer">authentication</a> and <a href="https://en.wikipedia.org/wiki/Authorization" target="_blank" rel="noopener noreferrer">authorization</a> server which is an <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank" rel="noopener noreferrer">open-source</a> identity and access management platform (IAM) from Red Hat’s Jboss. 
+We have chosen for Keycloak because <a href="https://github.com/keycloak/keycloak" target="_blank" rel="noopener noreferrer">it is open-source</a> and <a href="https://www.keycloak.org/documentation.html" target="_blank" rel="noopener noreferrer">well-documented</a>.</p>
+
+<p>Keycloak comes with several handy features built-in:</p>
+<ul>
+  <li>Two-factor authentication</li>
+  <li>Bruteforce detection</li>
+  <li>Social login (Facebook, Twitter, Google…)</li>
+  <li>LDAP/AD integration</li>
+  <li>…</li>
+</ul>
+
+<p>We will go over the basics to get you started.</p>
+
+<h1 id="setting-up-a-keycloak-server">Setting up a Keycloak Server</h1>
+
+<p>Keycloak supports <a href="https://www.keycloak.org/docs/latest/server_installation/index.html#_operating-mode" target="_blank" rel="noopener noreferrer">multiple ways</a> to be set up.
+For non-production purposes, it’s easiest to just <a href="https://www.keycloak.org/downloads.html" target="_blank" rel="noopener noreferrer">download</a> and run the standalone, which we will do here. 
+For actual deployments that are going to be run in production you’ll need to configure a shared database for Keycloak storage and set up Keycloak to run in a cluster to avoid a <a href="https://en.wikipedia.org/wiki/Single_point_of_failure" target="_blank" rel="noopener noreferrer">single point of failure</a>.</p>
+
+<p>At the time of writing, the latest release version was <code class="highlighter-rouge">6.0.1</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl https://downloads.jboss.org/keycloak/6.0.1/keycloak-6.0.1.zip <span class="nt">--output</span> keycloak-6.0.1.zip
+<span class="nv">$ </span>unzip keycloak-6.0.1.zip
+<span class="nv">$ </span><span class="nb">cd </span>keycloak-6.0.1/bin/
+<span class="nv">$ </span>./standalone
+</code></pre></div></div>
+
+<blockquote>
+  <p>For Windows users, there is also a <code class="highlighter-rouge">standalone.bat</code> in the same folder.</p>
+</blockquote>
+
+<p>The Keycloak server is now running on port 8080.</p>
+
+<blockquote>
+  <p>Use <code class="highlighter-rouge">-Djboss.socket.binding.port-offset</code> to change the port.<br />
+<code class="highlighter-rouge">-Djboss.socket.binding.port-offset=1000</code> will run the server on port 8080 + 1000 = 9080</p>
+</blockquote>
+
+<p>Go to <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a> and create an administrator account.
+You can now click on <code class="highlighter-rouge">Administration Console &gt;</code> and log in using the account you’ve just created.</p>
+
+<p>You are now on the pre-defined Master realm. A realm manages a set of users, credentials, roles, and groups. 
+A user belongs to and logs into a realm and they are isolated from one another and can only manage and authenticate the users that they control.</p>
+
+<p>The master realm is the highest level in the hierarchy. 
+Admin accounts in this realm have permissions to view and manage any other realm. 
+It’s best to create a new realm to manage our application and users.</p>
+
+<h2 id="creating-a-new-realm">Creating a New Realm</h2>
+
+<div style="text-align: center;">
+    <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_realm.png" alt="" width="30%" />
+</div>
+
+<p>Create a new realm by clicking on the drop-down arrow next to the realm name in the upper left corner.</p>
+
+<div style="text-align: center;">
+    <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_realm_2.png" alt="" width="60%" />
+</div>
+
+<p>In this example, <code class="highlighter-rouge">heroes</code> is chosen as the name of the realm.
+Feel free to change this to the name of your organisation if you have one.</p>
+
+<h2 id="creating-a-client">Creating a Client</h2>
+
+<p>Every application that interacts with Keycloak is considered to be a client.<br />
+Let’s create one for the <a href="https://en.wikipedia.org/wiki/Single-page_application" target="_blank" rel="noopener noreferrer">Single-Page App</a> (SPA).</p>
+
+<p>Look for the <code class="highlighter-rouge">Clients</code> tab in the menu and hit <code class="highlighter-rouge">Create</code>.<br />
+Pick a name you think is suitable and choose <a href="https://openid.net/connect/">OpenID Connect</a> (OIDC) as protocol.<br />
+The <code class="highlighter-rouge">Root URL</code> can remain blank.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_client.png" alt="" width="50%" />
+</div>
+
+<p>After saving, we can see all the configuration options of the client.</p>
+<ul>
+  <li><code class="highlighter-rouge">Valid Redirect URIs</code> should be set to <code class="highlighter-rouge">http://localhost:4200/*</code> as this is the address of our SPA</li>
+  <li>Allow all origins for testing purposes</li>
+  <li>Single-page apps use a <code class="highlighter-rouge">public client</code> because they can not securely hide client credentials</li>
+  <li>Make sure the <code class="highlighter-rouge">Standard Flow</code> is enabled. All other flows can be disabled</li>
+</ul>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/configure_client.png" alt="" width="70%" />
+</div>
+
+<blockquote>
+  <p>Standard flow is another name for the <a href="https://tools.ietf.org/html/rfc6749#section-1.3.1" target="_blank" rel="noopener noreferrer">Authorization Code Flow</a> as defined in <a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener noreferrer">the OAuth 2.0 specification</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="highlighter-rouge">Direct Access Grants Enabled</code> may remain enabled for now. It will be easy to test our configuration later.</p>
+</blockquote>
+
+<p>Don’t forget to hit <code class="highlighter-rouge">Save</code> at the bottom of the form!</p>
+
+<h2 id="creating-roles-and-scopes">Creating Roles and Scopes</h2>
+<p>Roles and scopes can be used to provide fine-grained access control to resources. 
+We want them to be present when handling requests with our Spring Boot application. 
+This part is optional, but can provide better insight in managing access to resources down the road.</p>
+
+<p>Under <code class="highlighter-rouge">Roles</code> &gt; <code class="highlighter-rouge">Add Role</code>, enter any name you like. 
+Some standard roles are typically user or admin.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_role.png" alt="" width="80%" />
+</div>
+
+<p>A scope is created in a similar way under <code class="highlighter-rouge">Client Scopes</code> &gt; <code class="highlighter-rouge">Create</code>.<br />
+We will not show a consent screen, so you can uncheck this option.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_scope.png" alt="" width="80%" />
+</div>
+
+<p>Now add the scope to the client we created earlier under <code class="highlighter-rouge">Clients</code> &gt; <code class="highlighter-rouge">Client Scopes</code>.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/assign_scope.png" alt="" width="80%" />
+</div>
+<p><br /></p>
+
+<h2 id="creating-a-user">Creating a user</h2>
+
+<p>To use our application later, we need a user to log in with.
+In most corporate environments, users are stored in Active Directory (AD) or LDAP.
+Keycloak can connect to both AD and LDAP but for our example, we will simply create a user in Keycloak itself.</p>
+
+<p>Search for the <code class="highlighter-rouge">Users</code> tab in the menu on the left and click <code class="highlighter-rouge">Add User</code>.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_user.png" alt="" width="60%" />
+</div>
+
+<p>Check <code class="highlighter-rouge">Email Verified</code> as we do not have email configured on our Keycloak server.<br />
+After creation, you still have to set a password.
+Go to the Credentials tab and enter a new one.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_user_password.png" alt="" width="40%" />
+</div>
+
+<blockquote>
+  <p>Make sure the password is not a temporary one.</p>
+</blockquote>
+
+<p>If you created a new role in the previous section, you can assign it to your user under the <code class="highlighter-rouge">Role Mappings</code> tab.</p>
+
+<p>That’s all for the Keycloak part.
+Now let’s look at some applications to secure.</p>
+
+<h1 id="setting-up-the-front-end-and-back-end-applications">Setting up the Front End and Back End Applications</h1>
+
+<p>The demo setup will consist of:</p>
+<ul>
+  <li>an Angular SPA project</li>
+  <li>a Spring Boot application to serve some data</li>
+</ul>
+
+<h2 id="spring-boot-back-end">Spring Boot Back End</h2>
+
+<p>You can clone the base setup <a href="https://github.com/jmeys/heroes-api" target="_blank" rel="noopener noreferrer">here</a> and switch to the <code class="highlighter-rouge">unsecured</code> branch.
+It is a very simple application which serves some heroes on <code class="highlighter-rouge">/api/heroes</code> and <code class="highlighter-rouge">/api/heroes/{id}</code> on port 9090.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.CrossOrigin</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.PathVariable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="nd">@CrossOrigin</span><span class="o">(</span><span class="s">"*"</span><span class="o">)</span>
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/api/heroes"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HeroController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Hero</span><span class="o">&gt;</span> <span class="n">someHeroes</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">Hero</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"Ken"</span><span class="o">),</span>
+            <span class="k">new</span> <span class="nf">Hero</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">"Yannick"</span><span class="o">),</span>
+            <span class="k">new</span> <span class="nf">Hero</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">"Pieter"</span><span class="o">));</span>
+
+    <span class="nd">@GetMapping</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Hero</span><span class="o">&gt;</span> <span class="nf">heroes</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">someHeroes</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Hero</span> <span class="nf">hero</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">someHeroes</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">h</span> <span class="o">-&gt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">h</span><span class="o">.</span><span class="na">getId</span><span class="o">()).</span><span class="na">equals</span><span class="o">(</span><span class="n">id</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">findFirst</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Hero</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Hero</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">id</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">name</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>For this example, every application may request these resources, hence the <code class="highlighter-rouge">@CrossOrigin("*")</code>.
+Open the project in your favourite IDE and run it. 
+The application will run on port 9090.</p>
+
+<h2 id="angular-app-tour-of-heroes">Angular App: Tour of Heroes</h2>
+
+<p><a href="https://angular.io/tutorial" target="_blank" rel="noopener noreferrer">Tour of Heroes</a> is the Angular tutorial application. 
+It’s pretty simple but has all the basic components which make up a modern Angular application. 
+And most importantly, it’s kept up to date with the latest version of Angular.</p>
+
+<p>Use these commands or <a href="https://angular.io/generated/zips/toh-pt6/toh-pt6.zip" target="_blank" rel="noopener noreferrer">download</a> the latest version of the Tour Of Heroes application from <a href="https://angular.io/tutorial/toh-pt6" target="_blank" rel="noopener noreferrer">the website</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-LO</span> https://angular.io/generated/zips/toh-pt6/toh-pt6.zip
+<span class="nv">$ </span>unzip toh-pt6.zip <span class="nt">-d</span> toh
+<span class="nv">$ </span><span class="nb">cd </span>toh
+<span class="nv">$ </span>npm i
+</code></pre></div></div>
+
+<p>The example app uses an in-memory service to return some heroes. 
+Since you’ll want to serve them from Spring Boot instead, change the url in <code class="highlighter-rouge">hero.service.ts</code> from <code class="highlighter-rouge">"api/heroes"</code> into <code class="highlighter-rouge">"http://localhost:9090/api/heroes"</code>.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+
+  <span class="kr">private</span> <span class="nx">heroesUrl</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:9090/api/heroes</span><span class="dl">'</span><span class="p">;</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It will still try to fetch preloaded heroes from memory, so delete the <code class="highlighter-rouge">HttpClientInMemoryWebApiModule</code> from <code class="highlighter-rouge">app.module.ts</code>.</p>
+
+<p>Now you can run the application with</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ng serve
+</code></pre></div></div>
+
+<p>and browse to <a href="http://localhost:4200" target="_blank" rel="noopener noreferrer">localhost:4200</a> to see if it works.</p>
+
+<blockquote>
+  <p>Please note that not all functionality of the app is working because - for brevity - we only implemented the GET functionality in the Spring Boot back end.</p>
+</blockquote>
+
+<h1 id="implementing-security">Implementing Security</h1>
+<p>We will now dive into the interesting part: setting up the security of the applications.
+To understand this section, you should have a basic understanding of OAuth 2.0 and OIDC. 
+If this is not yet the case, this section might be more difficult to understand. 
+You can fast-forward to the next section or start your journey by watching this awesome video by <a href="https://twitter.com/nbarbettini" target="_blank" rel="noopener noreferrer">Nate Barbettini</a> from <a href="https://www.okta.com/" target="_blank" rel="noopener noreferrer">Okta</a>.</p>
+
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/996OiexHze0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+</div>
+<p><br /></p>
+
+<h2 id="implicit-flow-versus-code-flow--pkce">Implicit Flow versus Code Flow + PKCE</h2>
+<p>In this example, we will use the authorization code grant flow with Proof Key for Code Exchange (<a href="https://tools.ietf.org/html/rfc7636">PKCE</a>){:target=”_blank” rel=”noopener noreferrer”} to secure the Angular app. 
+It’s a very long name for what could be shortened to “code flow + PKCE” which is <a href="https://tools.ietf.org/html/draft-ietf-oauth-security-topics-13#section-3.1.2" target="_blank" rel="noopener noreferrer">more secure than the implicit flow</a>. <br />
+In fact, the implicit flow was never very secure to begin with. 
+This is well-explained by <a href="https://twitter.com/nbarbettini" target="_blank" rel="noopener noreferrer">Nate Barbettini</a> and <a href="https://twitter.com/aaronpk">Aaron Parecki</a>:{:target=”_blank” rel=”noopener noreferrer”}</p>
+
+<div class="responsive-video">
+    <iframe width="1164" height="655" src="https://www.youtube.com/embed/CHzERullHe8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+</div>
+<p><br /></p>
+
+<p>The implicit flow was the easiest to understand, since it required one step less than the standard code flow:</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/implicit_vs_code.png" alt="" width="60%" />
+</div>
+
+<p>PKCE is an addition on top of the standard code flow to make it usable for public clients. 
+It is already in use for native and mobile clients. 
+PKCE boils down to this:</p>
+<ol>
+  <li>Give <code class="highlighter-rouge">hash</code> of random value to authorization server when logging in to ask for <code class="highlighter-rouge">code</code></li>
+  <li>Hand over the <code class="highlighter-rouge">random value</code> to authorization server when exchanging <code class="highlighter-rouge">code</code> for <code class="highlighter-rouge">access token</code></li>
+  <li>Authorization server returns <code class="highlighter-rouge">access token</code> after verifying that <code class="highlighter-rouge">hash</code> belongs to <code class="highlighter-rouge">random value</code>.</li>
+</ol>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/pkce.png" alt="" width="70%" />
+</div>
+
+<p>If a fraudster were to intercept our authorization grant (the code), he or she would still not have the <code class="highlighter-rouge">code_verifier</code>, which is stored in our SPA client. 
+If he/she tries to exchange the stolen authorization grant without this value, the response would not be a token but rather an <code class="highlighter-rouge">HTTP 400</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid_grant"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"error_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PKCE code verifier not specified"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This is why the code flow + PKCE is more secure than the implicit flow. 
+Even if an attacker manages to obtain the authorization grant, it’s worthless without the <code class="highlighter-rouge">code_verifier</code>.</p>
+
+<blockquote>
+  <p>Note that the HTTP 400 will only occur when using PKCE. 
+If no PKCE is used, the client should be confidential (requiring credentials to exchange the authorization grant) rather than be public.</p>
+</blockquote>
+
+<p>So only our Angular client will be able to retrieve the access token in the form of a JSON Web Token.</p>
+
+<h2 id="json-web-token-jwt">JSON Web Token (JWT)</h2>
+<p>JSON Web Tokens or JWT, often pronounced as ‘jot’, is an open standard for a compact way of representing data to be transferred between two parties. 
+What this means is that it’s a special kind of object which has some data in it. It can also be digitally signed to make sure it is not tampered with.</p>
+
+<p>In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Header</code>:  the type of the token and the signing algorithm being used</li>
+  <li><code class="highlighter-rouge">Payload</code>: the payload, which contains the claims and additional data</li>
+  <li><code class="highlighter-rouge">Signature</code>: to verify if the token was not tampered with</li>
+</ul>
+
+<p>Therefore, a JWT typically looks like the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xxxxx.yyyyy.zzzzz
+</code></pre></div></div>
+
+<p>The header (xxx) and payload (yyy) are base64 encoded. 
+An access token is a good example of a JWT:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkdE9JZkY2NGZRYnlwWVRFdGV2eV83NUdIWTdQMmNHU1o2a2ZXWDdFblBJIn0.eyJqdGkiOiIxY2EzZTZkYS1kM2Y2LTRiYTMtYjNjZC1iMDExYmRlM2JmNmIiLCJleHAiOjE1NjYzMjk1NTYsIm5iZiI6MCwiaWF0IjoxNTY2MzI5MjU2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvaGVyb2VzIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjBkNjg0OWI4LWUyZmEtNGU3My04NjlhLTE1ZDVhOTE1YzdhMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InNwYS1oZXJvZXMiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiI4NWRjYTg0Ny00YmQzLTRiOTUtOTNiYy01MjE5ZjUzYWNiMzciLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBoZXJvZXMgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmVyb2VuIE1leXMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqZXJvZW4iLCJnaXZlbl9uYW1lIjoiSmVyb2VuIiwiZmFtaWx5X25hbWUiOiJNZXlzIiwiZW1haWwiOiJtZUBhY21lLmJlIn0.cvn79d-n0aFYqDB3p-htDNeeYOdkvqEsmDhGKp9V3a4i6nJx7dU0_r7zicQe26ZgDsM65ILx_X-buWv-e5_eraFo1OOveCGtBbrrLwrQ0Z7SlVMHJrDooJrLEE_m8Qlz_-iLcEC2-ODroEwyLRej_Du626B48QL2bcq-8ADqGSaLf7Y4ZTVMiP_p6dsCi4GDQLq1WOy-g6--z47FKTJVuAl2yY_JNNuEd5aofw0FTE38EoEinIdcy5NXCXDhtGHr_k5lA2Swu4JvK84YB6usECigCb1_zO_c6LhZQkRTCcCojxC6Qn1trQH9epcFEKTkDCHrNf6BLp4X9rH2URWJcA
+</code></pre></div></div>
+
+<p>We can easily decode them using online tools like <a href="https://jwt.io/" target="_blank" rel="noopener noreferrer">jwt.io</a>.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/jwt.png" alt="" width="70%" />
+</div>
+
+<p>The payload section can have different kinds of data. 
+Since our tokens are used for OAuth and OIDC, they have all kinds of claims, which are key-value statements about an entity. 
+You can compare this to something like a coupon. A coupon has claims about how much it is worth, which product(s) it applies to and when it expires.</p>
+
+<p>In our example token there is a claim that <code class="highlighter-rouge">name</code> is <code class="highlighter-rouge">Jeroen Meys</code> and also that <code class="highlighter-rouge">scope</code> is <code class="highlighter-rouge">email profile heroes</code>. 
+This scope claim means we can use this token to know my email, some profile info and whatever heroes is needed for (hint: keep on reading to find out!). 
+If you are interested in other JWT use-cases, you should definitely give <a href="https://ordina-jworks.github.io/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html" target="_blank" rel="noopener noreferrer">Using JWT for State Transfer</a> a read.</p>
+
+<blockquote>
+  <p>Be careful with online tools to analyze JWT tokens. You are exposing access tokens to the world!</p>
+</blockquote>
+
+<p>Now that we understand what an access token is and looks like, we can pass it along to the back end which will be configured as a stateless OAuth Resource Server.</p>
+
+<h2 id="resource-server-in-spring-boot">Resource Server in Spring Boot</h2>
+<p>Resource server is the OAuth 2.0 terminology for API server. 
+It will look at our access token and decide if we are allowed to perform the requested API action.<br />
+What we really want to secure is the data served by our Spring Boot app.
+We don’t want the villains out there to be able to access our list of heroes, do we?</p>
+
+<p>Let’s take care of that.</p>
+
+<p>While Keycloak provides its <a href="https://github.com/keycloak/keycloak/tree/master/adapters/oidc" target="_blank" rel="noopener noreferrer">own libraries</a> to be used with Spring Boot, I personally favour more generic libraries that are provider unaware. 
+This is in line with the <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/overview.html#overview-philosophy">Spring framework design philosophy</a> of deferring design decisions as late as possible.
+This way, when we feel like it, we can more easily switch from one solution (Keycloak) to another (eg. Okta), as long as they support the OIDC protocol. 
+The de facto standard for securing Spring Boot applications is Spring Boot Security. 
+It has resource server support, so this is what we’ll be using.</p>
+
+<h3 id="resource-server-imports">Resource Server Imports</h3>
+<p>Let’s add the dependecies to our <code class="highlighter-rouge">build.gradle</code> file:</p>
+
+<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">dependencies</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="n">implementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter-security'</span>
+	<span class="n">implementation</span> <span class="s1">'org.springframework.security:spring-security-oauth2-resource-server'</span>
+	<span class="n">implementation</span> <span class="s1">'org.springframework.security:spring-security-oauth2-jose'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">spring-boot-starter-security</code>: starter dependency for Spring Security</li>
+  <li><code class="highlighter-rouge">spring-security-oauth2-resource-server</code>: dependency to use our application as a Resource Server</li>
+  <li><code class="highlighter-rouge">spring-security-oauth2-jose</code>: support for the Javascript Object Signing and Encryption framework</li>
+</ul>
+
+<h3 id="configuration-of-the-resource-server">Configuration of the Resource Server</h3>
+<p>Then all we have to do is some configuring.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.EnableWebSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+
+<span class="nd">@EnableWebSecurity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResourceServerConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span><span class="o">.</span><span class="na">cors</span><span class="o">().</span><span class="na">and</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">authorizeRequests</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">mvcMatchers</span><span class="o">(</span><span class="s">"/api/heroes/**"</span><span class="o">).</span><span class="na">hasAuthority</span><span class="o">(</span><span class="s">"SCOPE_heroes"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">anyRequest</span><span class="o">().</span><span class="na">denyAll</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">and</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">oauth2ResourceServer</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">jwt</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>With these few lines of code, a lot is happening. We told Spring Security that all endpoints are forbidden, except for <code class="highlighter-rouge">/api/heroes/**</code> when the heroes scope is present. This will be checked against the JWT access token.</p>
+
+<p>The <code class="highlighter-rouge">oauth2ResourceServer()</code> sets up the application as a resource server. It will check if there is an access token on every request and whether it is valid or not. 
+In order to verify that a token hasn’t been tampered with, we need some information from Keycloak, which it exposes via a REST endpoint.</p>
+
+<p>We add the endpoint to our <code class="highlighter-rouge">application.properties</code>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">server.port</span><span class="p">=</span><span class="s">9090</span>
+<span class="py">spring.security.oauth2.resourceserver.jwt.jwk-set-uri</span><span class="p">=</span><span class="s">http://localhost:8080/auth/realms/heroes/protocol/openid-connect/certs</span>
+</code></pre></div></div>
+
+<h3 id="testing-the-setup">Testing the setup</h3>
+
+<p>That’s all for the resource server part.
+Don’t forget to restart the Spring Boot application after these changes!</p>
+
+<p>We can use curl to verify if our security is working correctly.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-i</span> http://localhost:9090/api/heroes
+HTTP/1.1 401
+Set-Cookie: <span class="nv">JSESSIONID</span><span class="o">=</span>A2268A4D12924631929BEBDA57CB2333<span class="p">;</span> <span class="nv">Path</span><span class="o">=</span>/<span class="p">;</span> HttpOnly
+WWW-Authenticate: Bearer
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1<span class="p">;</span> <span class="nv">mode</span><span class="o">=</span>block
+Cache-Control: no-cache, no-store, max-age<span class="o">=</span>0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 0
+Date: Sun, 18 Aug 2019 21:15:14 GMT
+</code></pre></div></div>
+
+<p>Without a token, the server responds with HTTP 401. 
+This means we are not authorized. 
+As we don’t have a login form available just yet, we can use the Direct Access Grants flow to obtain a token. 
+This can come in very handy for testing different scenarios as well.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$export</span> <span class="nv">TOKEN</span><span class="o">=</span><span class="si">$(</span>curl <span class="nt">-H</span> <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s2">"client_id=spa-heroes"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s2">"username=jeroen"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s2">"password=1234"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s2">"grant_type=password"</span> <span class="se">\</span>
+  <span class="nt">-X</span> POST http://localhost:8080/auth/realms/heroes/protocol/openid-connect/token | jq <span class="nt">-r</span> .access_token<span class="si">)</span>
+<span class="nv">$echo</span> <span class="nv">$TOKEN</span>
+eyJhbGciOeUNvcWVJVWxNIn0.eyJqdGkiOiI......Hnz5aFdcAiB-5o-yep6rcGP_H6yQoW
+</code></pre></div></div>
+
+<blockquote>
+  <p>Make sure ‘Direct Access Grants Enabled’ is enabled in the Keycloak Client settings</p>
+</blockquote>
+
+<p>We can now use this token to request the resource once more:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-i</span> <span class="nt">-X</span> GET <span class="nt">-H</span> <span class="s2">"Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">"</span> http://localhost:9090/api/heroes
+HTTP/1.1 200
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1<span class="p">;</span> <span class="nv">mode</span><span class="o">=</span>block
+Cache-Control: no-cache, no-store, max-age<span class="o">=</span>0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: application/json<span class="p">;</span><span class="nv">charset</span><span class="o">=</span>UTF-8
+Transfer-Encoding: chunked
+Date: Sun, 18 Aug 2019 21:25:36 GMT
+
+<span class="o">[{</span><span class="s2">"id"</span>:1,<span class="s2">"name"</span>:<span class="s2">"Ken"</span><span class="o">}</span>,<span class="o">{</span><span class="s2">"id"</span>:2,<span class="s2">"name"</span>:<span class="s2">"Yannick"</span><span class="o">}</span>,<span class="o">{</span><span class="s2">"id"</span>:3,<span class="s2">"name"</span>:<span class="s2">"Pieter"</span><span class="o">}]</span>
+</code></pre></div></div>
+
+<p>This time we got the requested resource back from the server!</p>
+
+<h2 id="securing-the-angular-application">Securing The Angular application</h2>
+
+<p>When we now look at our Tour Of Heroes application again, it’s complaining a bit:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HeroService: getHeroes failed: Http failure response for http://localhost:9090/api/heroes: 401 OK
+</code></pre></div></div>
+
+<p>We didn’t log in (HTTP 401), so we can’t see the content. Time to fix it!</p>
+
+<p>There are many packages we could use to secure our Angular app. An easy one to get started with, is <a href="https://github.com/manfredsteyer/angular-oauth2-oidc" target="_blank" rel="noopener noreferrer">angular-oauth2-oidc</a> from Manfred Steyer but you could use any library, as long as it’s <a href="https://openid.net/certification/" target="_blank" rel="noopener noreferrer">certified by OpenID</a>.</p>
+
+<p>Add it to the dependencies:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm i angular-oauth2-oidc <span class="nt">--save</span>
+</code></pre></div></div>
+
+<p>Then add it to the imports of <code class="highlighter-rouge">app.module.ts</code></p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">HttpClientModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/common/http</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OAuthModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="nx">HttpClientModule</span><span class="p">,</span>
+    <span class="nx">OAuthModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({</span>
+      <span class="na">resourceServer</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">allowedUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">http://localhost:9090/api</span><span class="dl">'</span><span class="p">],</span>
+          <span class="na">sendAccessToken</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+</code></pre></div></div>
+
+<p>Notice how we configure <code class="highlighter-rouge">localhost:9090/api</code> to be the only URL where we will send our access token to.</p>
+
+<p>Next up, let’s add log in and log out buttons in <code class="highlighter-rouge">app.component.html</code>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-default"</span> <span class="na">(click)=</span><span class="s">"login()"</span><span class="nt">&gt;</span>
+  Login
+<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-default"</span> <span class="na">(click)=</span><span class="s">"logoff()"</span><span class="nt">&gt;</span>
+  Logout
+<span class="nt">&lt;/button&gt;</span>
+</code></pre></div></div>
+
+<p>Now all there is left to do is to configure the <code class="highlighter-rouge">OAuthService</code>. We do this in <code class="highlighter-rouge">app.component.ts</code>:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OAuthService</span><span class="p">,</span> <span class="nx">NullValidationHandler</span><span class="p">,</span> <span class="nx">AuthConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">JwksValidationHandler</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app-root</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./app.component.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">./app.component.css</span><span class="dl">'</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+  
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">configure</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nl">authConfig</span><span class="p">:</span> <span class="nx">AuthConfig</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">issuer</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://localhost:8080/auth/realms/heroes</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">redirectUri</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/heroes</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">clientId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">spa-heroes</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">scope</span><span class="p">:</span> <span class="dl">'</span><span class="s1">openid profile email offline_access heroes</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">responseType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">code</span><span class="dl">'</span><span class="p">,</span>
+    <span class="c1">// at_hash is not present in JWT token</span>
+    <span class="na">disableAtHashCheck</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">showDebugInformation</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+  
+  <span class="kr">public</span> <span class="nx">login</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">initLoginFlow</span><span class="p">();</span>
+  <span class="p">}</span>
+  
+  <span class="kr">public</span> <span class="nx">logoff</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">logOut</span><span class="p">();</span>
+  <span class="p">}</span>
+  
+  <span class="kr">private</span> <span class="nx">configure</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">authConfig</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">tokenValidationHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NullValidationHandler</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">loadDiscoveryDocumentAndTryLogin</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Make sure that the name of the realm (heroes) and the client id (spa-heroes) correspond to the ones you defined in Keycloak. 
+Remember how we required the heroes scope to be present in our back end? The scope property is how we fix this. 
+If we omit <code class="highlighter-rouge">heroes</code> from the scope list, we will be getting a 403 response from our resource server.</p>
+
+<blockquote>
+  <p>Keycloak is not returning the <code class="highlighter-rouge">at_hash</code> claim in the access token. For this reason, the client library would crash while parsing it.
+This is why we disable it in the config but also use the <code class="highlighter-rouge">NullValidationHandler</code> instead of the <code class="highlighter-rouge">JwksValidationHandler</code> as it would also make the application crash.</p>
+</blockquote>
+
+<p>We can now try to log in and if all went well, we should see our heroes appear again when browsing to <code class="highlighter-rouge">/dashboard</code> or <code class="highlighter-rouge">/heroes</code>.</p>
+
+<blockquote>
+  <p>Don’t worry if you do not immediatly see the heroes appear. This is because we load the <code class="highlighter-rouge">/heroes</code> page before our code was exchanged for an access token.
+This results in the first <code class="highlighter-rouge">/heroes</code> call getting a 401 response. You can create a new endpoint and use it as the redirectUri to get rid of this problem.</p>
+</blockquote>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/result.gif" alt="" width="70%" />
+</div>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>We set up a Keycloak server and covered how we can secure a Spring Boot API by turning it into a resource server. 
+We then discussed why the authorization grant flow + PKCE replaces the implicit flow and how to implement it in an Angular application.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html&title=Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE&url=https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/jeroen-meys/" class="image spotlight-image" title="">
+            <img src="/img/author/jeroen-meys.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Jeroen is a Java Developer at Ordina Belgium who is passionate about security and has a secret love for the Windows operating system.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/securing-web-applications-with-keycloak/keycloak.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
