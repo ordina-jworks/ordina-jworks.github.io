@@ -1,8 +1,8 @@
 ---
 layout: post
 authors: [pieter_van_hees]
-title: 'Advantages of good test design'
-image: /img/devoxx-fr-2019/devoxx-fr.png
+title: 'Avoiding fragile tests with better design'
+image: /img/fragile5.png
 tags: [Test Driven Development, Test Design, Architecture, Testing]
 category: Testing
 comments: true
