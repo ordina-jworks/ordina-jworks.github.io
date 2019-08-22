@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [ken_coenen]
-title: 'Using Let''s Encrypt certificates in Java applications'
+title: Using Let's Encrypt certificates in Java applications
 image: /img/lets-encrypt.png
 tags: [Security, TLS, Let's Encrypt, Keycloak]
 category: Security

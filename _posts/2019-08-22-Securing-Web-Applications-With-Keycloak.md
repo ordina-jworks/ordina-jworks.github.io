@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [jeroen_meys]
-title: 'Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE'
+title: Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE
 image: /img/securing-web-applications-with-keycloak/keycloak.jpg
 tags: [Security, OAuth, OIDC, PKCE, JWT, Keycloak, Resource Server, Spring Security, Angular]
 category: Security
@@ -283,10 +283,10 @@ You can fast-forward to the next section or start your journey by watching this 
 <br>
 
 ## Implicit Flow versus Code Flow + PKCE
-In this example, we will use the authorization code grant flow with Proof Key for Code Exchange ([PKCE](https://tools.ietf.org/html/rfc7636)){:target="_blank" rel="noopener noreferrer"} to secure the Angular app. 
+In this example, we will use the authorization code grant flow with Proof Key for Code Exchange ([PKCE](https://tools.ietf.org/html/rfc7636){:target="_blank" rel="noopener noreferrer"}) to secure the Angular app. 
 It's a very long name for what could be shortened to "code flow + PKCE" which is [more secure than the implicit flow](https://tools.ietf.org/html/draft-ietf-oauth-security-topics-13#section-3.1.2){:target="_blank" rel="noopener noreferrer"}.   
 In fact, the implicit flow was never very secure to begin with. 
-This is well-explained by [Nate Barbettini](https://twitter.com/nbarbettini){:target="_blank" rel="noopener noreferrer"} and [Aaron Parecki](https://twitter.com/aaronpk):{:target="_blank" rel="noopener noreferrer"}
+This is well-explained by [Nate Barbettini](https://twitter.com/nbarbettini){:target="_blank" rel="noopener noreferrer"} and [Aaron Parecki](https://twitter.com/aaronpk){:target="_blank" rel="noopener noreferrer"}:
 
 <div class="responsive-video">
     <iframe width="1164" height="655" src="https://www.youtube.com/embed/CHzERullHe8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
