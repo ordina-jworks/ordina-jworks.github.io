@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Avoiding fragile tests with better design - Andreas Evers Andreas Evers Andreas Evers Andreas Evers Ken Coenen Ken Coenen Dieter Hubau Ken Coenen Yannick De Turck Tom Verelst Ken Coenen Tim Ysewyn Tim Ysewyn Bart Blommaerts Tim Ysewyn Kevin Van Houtte Jan De Wilde Yannick Vergeylen Andreas Evers Yannick De Turck and Andreas Evers Ryan de Gruyter Andreas Evers Jan De Wilde and Steve De Zitter Jan De Wilde and Steve De Zitter Tom Verelst Kevin Van Houtte Martin Kwee Martin Kwee Bart Blommaerts Andreas Evers Gregory Rinaldi Tom Verelst Dieter Hubau Dieter Wallecan Tim Verte Bart Blommaerts Yannick De Turck Tom Van den Bulck Kevin Van Houtte Kevin Van den Abeele Yannick De Turck Jan De Wilde Jan De Wilde, Frédéric Ghijselinck and Orjan De Smet Bart Blommaerts Tom Verelst Tom Verelst Bart Blommaerts Ken Coenen, Jeroen De Prest and Kevin Leyssens Matthias Caryn Ivar van Hartingsveldt Bart Blommaerts Hans Michiels Dieter Hubau, Gina De Beukelaer, Hans Michiels, Jeff Mesens and Tim Schmitte Jeff Mesens and Bart Blommaerts Tim Ysewyn Tim De Grande Kevin Van Houtte Kevin Van den Abeele Dieter Hubau Martijn Willekens Nick Geudens, Ken De Becker, Michiel Willems, Jef Willems and Simon Buysse Chris De Bruyne Michael Vervloet, Ines Van Stappen and Kevin Van den Abeele Bart Blommaerts Ken Coenen and Bart Blommaerts Yannick De Turck, Dieter Hubau and Derya Duru Bas Moorkens Kevin Van den Abeele Derya Duru Michael Vandendriessche and Kevin Van den Abeele Bart Blommaerts Tim Ysewyn Kevin Van Houtte Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Yannick Vergeylen, Dimitri De Kerf and Michael Vervloet Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Dimitri De Kerf and Dries Gijssels Tim Vierbergen Martijn Willekens Andreas Evers Tim Ysewyn Yannick De Turck Tom Verelst Tim De Grande Michael Vervloet and Axel Bergmans Tim De Grande Johan Silkens, Nick Van Hoof, Sam Schuddinck, Dries Thieren, Maarten Westelinck, Yunus Altin and Yen Mertens Frédéric Ghijselinck Michael Vervloet Ken Coenen Tim Ysewyn Nils Devos Yannick De Turck Andreas Evers Dieter Hubau, Yannick De Turck, Tom Van den Bulck, Johan Silkens, Jens Bosman, Tim Schmitte and Yen Mertens Derya Duru and Nils Devos Ryan de Gruyter and Michael Vandendriessche Wouter Nivelle Andreas Evers Maryse Meinen Yannick Vergeylen Tim Vierbergen Bas Moorkens Tim Ysewyn Kevin Van den Abeele Pieter Van Hees Ryan de Gruyter Nick Van Hoof Orjan De Smet Gert-jan Theunissen Nick Geudens Michaëla Broeckx Hans Vanbellingen and Tom Van den Bulck Martin Kwee and Jeroen Meys Wout Meskens, Sander Smets, Michaël De Wree, Steven Deleye and Ken Keymolen Kevin Van Houtte Martijn Willekens Tom Van den Bulck and Tim De Grande Chris De Bruyne, Nick Van Hoof and Jan Van der Veken Tim Vierbergen Jan Van der Veken Kevin Van den Abeele Gert-Jan Schokkaert Jan De Wilde, Ines Van Stappen, Elke Heymans, Sam Schuddinck, Gert-jan Theunissen, Stefanie Geldof, Michaël De Wree and Dimitri De Kerf Michaëla Broeckx Tom Van den Bulck, Maarten Casteels and Yannick De Turck Dimitri De Kerf Nick Van Hoof Tim Vierbergen Elke Heymans Pieter Van Hees and Kristof Eekhaut Tom Van den Bulck Tom Verelst Frederick Bousson and Kevin Van den Abeele Yolan Vloeberghs, Seppe Berghmans, Giel Reynders and Jago Staes Michaëla Broeckx Orjan De Smet Pieter Vincken Astrid Legrand Duncan Casteleyn Kevin Van den Abeele Tom Van den Bulck and Yannick De Turck Nick Van Hoof, Tom Van den Bulck, Yolan Vloeberghs, Jago Staes, Gina De Beukelaer and Tim Schmitte Michaëla Broeckx Tim Vierbergen Yolan Vloeberghs Ken Coenen Jeroen Meys Pieter Van Hees">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/fragile5.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing/2019/08/23/test-design.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Avoiding fragile tests with better design - Andreas Evers Andreas Evers Andreas Evers Andreas Evers Ken Coenen Ken Coenen Dieter Hubau Ken Coenen Yannick De Turck Tom Verelst Ken Coenen Tim Ysewyn Tim Ysewyn Bart Blommaerts Tim Ysewyn Kevin Van Houtte Jan De Wilde Yannick Vergeylen Andreas Evers Yannick De Turck and Andreas Evers Ryan de Gruyter Andreas Evers Jan De Wilde and Steve De Zitter Jan De Wilde and Steve De Zitter Tom Verelst Kevin Van Houtte Martin Kwee Martin Kwee Bart Blommaerts Andreas Evers Gregory Rinaldi Tom Verelst Dieter Hubau Dieter Wallecan Tim Verte Bart Blommaerts Yannick De Turck Tom Van den Bulck Kevin Van Houtte Kevin Van den Abeele Yannick De Turck Jan De Wilde Jan De Wilde, Frédéric Ghijselinck and Orjan De Smet Bart Blommaerts Tom Verelst Tom Verelst Bart Blommaerts Ken Coenen, Jeroen De Prest and Kevin Leyssens Matthias Caryn Ivar van Hartingsveldt Bart Blommaerts Hans Michiels Dieter Hubau, Gina De Beukelaer, Hans Michiels, Jeff Mesens and Tim Schmitte Jeff Mesens and Bart Blommaerts Tim Ysewyn Tim De Grande Kevin Van Houtte Kevin Van den Abeele Dieter Hubau Martijn Willekens Nick Geudens, Ken De Becker, Michiel Willems, Jef Willems and Simon Buysse Chris De Bruyne Michael Vervloet, Ines Van Stappen and Kevin Van den Abeele Bart Blommaerts Ken Coenen and Bart Blommaerts Yannick De Turck, Dieter Hubau and Derya Duru Bas Moorkens Kevin Van den Abeele Derya Duru Michael Vandendriessche and Kevin Van den Abeele Bart Blommaerts Tim Ysewyn Kevin Van Houtte Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Yannick Vergeylen, Dimitri De Kerf and Michael Vervloet Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Dimitri De Kerf and Dries Gijssels Tim Vierbergen Martijn Willekens Andreas Evers Tim Ysewyn Yannick De Turck Tom Verelst Tim De Grande Michael Vervloet and Axel Bergmans Tim De Grande Johan Silkens, Nick Van Hoof, Sam Schuddinck, Dries Thieren, Maarten Westelinck, Yunus Altin and Yen Mertens Frédéric Ghijselinck Michael Vervloet Ken Coenen Tim Ysewyn Nils Devos Yannick De Turck Andreas Evers Dieter Hubau, Yannick De Turck, Tom Van den Bulck, Johan Silkens, Jens Bosman, Tim Schmitte and Yen Mertens Derya Duru and Nils Devos Ryan de Gruyter and Michael Vandendriessche Wouter Nivelle Andreas Evers Maryse Meinen Yannick Vergeylen Tim Vierbergen Bas Moorkens Tim Ysewyn Kevin Van den Abeele Pieter Van Hees Ryan de Gruyter Nick Van Hoof Orjan De Smet Gert-jan Theunissen Nick Geudens Michaëla Broeckx Hans Vanbellingen and Tom Van den Bulck Martin Kwee and Jeroen Meys Wout Meskens, Sander Smets, Michaël De Wree, Steven Deleye and Ken Keymolen Kevin Van Houtte Martijn Willekens Tom Van den Bulck and Tim De Grande Chris De Bruyne, Nick Van Hoof and Jan Van der Veken Tim Vierbergen Jan Van der Veken Kevin Van den Abeele Gert-Jan Schokkaert Jan De Wilde, Ines Van Stappen, Elke Heymans, Sam Schuddinck, Gert-jan Theunissen, Stefanie Geldof, Michaël De Wree and Dimitri De Kerf Michaëla Broeckx Tom Van den Bulck, Maarten Casteels and Yannick De Turck Dimitri De Kerf Nick Van Hoof Tim Vierbergen Elke Heymans Pieter Van Hees and Kristof Eekhaut Tom Van den Bulck Tom Verelst Frederick Bousson and Kevin Van den Abeele Yolan Vloeberghs, Seppe Berghmans, Giel Reynders and Jago Staes Michaëla Broeckx Orjan De Smet Pieter Vincken Astrid Legrand Duncan Casteleyn Kevin Van den Abeele Tom Van den Bulck and Yannick De Turck Nick Van Hoof, Tom Van den Bulck, Yolan Vloeberghs, Jago Staes, Gina De Beukelaer and Tim Schmitte Michaëla Broeckx Tim Vierbergen Yolan Vloeberghs Ken Coenen Jeroen Meys Pieter Van Hees"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/fragile5.png"/>
+
+    
+    <title>Avoiding fragile tests with better design - Andreas Evers Andreas Evers Andreas Evers Andreas Evers Ken Coenen Ken Coenen Dieter Hubau Ken Coenen Yannick De Turck Tom Verelst Ken Coenen Tim Ysewyn Tim Ysewyn Bart Blommaerts Tim Ysewyn Kevin Van Houtte Jan De Wilde Yannick Vergeylen Andreas Evers Yannick De Turck and Andreas Evers Ryan de Gruyter Andreas Evers Jan De Wilde and Steve De Zitter Jan De Wilde and Steve De Zitter Tom Verelst Kevin Van Houtte Martin Kwee Martin Kwee Bart Blommaerts Andreas Evers Gregory Rinaldi Tom Verelst Dieter Hubau Dieter Wallecan Tim Verte Bart Blommaerts Yannick De Turck Tom Van den Bulck Kevin Van Houtte Kevin Van den Abeele Yannick De Turck Jan De Wilde Jan De Wilde, Frédéric Ghijselinck and Orjan De Smet Bart Blommaerts Tom Verelst Tom Verelst Bart Blommaerts Ken Coenen, Jeroen De Prest and Kevin Leyssens Matthias Caryn Ivar van Hartingsveldt Bart Blommaerts Hans Michiels Dieter Hubau, Gina De Beukelaer, Hans Michiels, Jeff Mesens and Tim Schmitte Jeff Mesens and Bart Blommaerts Tim Ysewyn Tim De Grande Kevin Van Houtte Kevin Van den Abeele Dieter Hubau Martijn Willekens Nick Geudens, Ken De Becker, Michiel Willems, Jef Willems and Simon Buysse Chris De Bruyne Michael Vervloet, Ines Van Stappen and Kevin Van den Abeele Bart Blommaerts Ken Coenen and Bart Blommaerts Yannick De Turck, Dieter Hubau and Derya Duru Bas Moorkens Kevin Van den Abeele Derya Duru Michael Vandendriessche and Kevin Van den Abeele Bart Blommaerts Tim Ysewyn Kevin Van Houtte Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Yannick Vergeylen, Dimitri De Kerf and Michael Vervloet Frédéric Ghijselinck, Orjan De Smet, Stefanie Geldof, Martijn Willekens, Dimitri De Kerf and Dries Gijssels Tim Vierbergen Martijn Willekens Andreas Evers Tim Ysewyn Yannick De Turck Tom Verelst Tim De Grande Michael Vervloet and Axel Bergmans Tim De Grande Johan Silkens, Nick Van Hoof, Sam Schuddinck, Dries Thieren, Maarten Westelinck, Yunus Altin and Yen Mertens Frédéric Ghijselinck Michael Vervloet Ken Coenen Tim Ysewyn Nils Devos Yannick De Turck Andreas Evers Dieter Hubau, Yannick De Turck, Tom Van den Bulck, Johan Silkens, Jens Bosman, Tim Schmitte and Yen Mertens Derya Duru and Nils Devos Ryan de Gruyter and Michael Vandendriessche Wouter Nivelle Andreas Evers Maryse Meinen Yannick Vergeylen Tim Vierbergen Bas Moorkens Tim Ysewyn Kevin Van den Abeele Pieter Van Hees Ryan de Gruyter Nick Van Hoof Orjan De Smet Gert-jan Theunissen Nick Geudens Michaëla Broeckx Hans Vanbellingen and Tom Van den Bulck Martin Kwee and Jeroen Meys Wout Meskens, Sander Smets, Michaël De Wree, Steven Deleye and Ken Keymolen Kevin Van Houtte Martijn Willekens Tom Van den Bulck and Tim De Grande Chris De Bruyne, Nick Van Hoof and Jan Van der Veken Tim Vierbergen Jan Van der Veken Kevin Van den Abeele Gert-Jan Schokkaert Jan De Wilde, Ines Van Stappen, Elke Heymans, Sam Schuddinck, Gert-jan Theunissen, Stefanie Geldof, Michaël De Wree and Dimitri De Kerf Michaëla Broeckx Tom Van den Bulck, Maarten Casteels and Yannick De Turck Dimitri De Kerf Nick Van Hoof Tim Vierbergen Elke Heymans Pieter Van Hees and Kristof Eekhaut Tom Van den Bulck Tom Verelst Frederick Bousson and Kevin Van den Abeele Yolan Vloeberghs, Seppe Berghmans, Giel Reynders and Jago Staes Michaëla Broeckx Orjan De Smet Pieter Vincken Astrid Legrand Duncan Casteleyn Kevin Van den Abeele Tom Van den Bulck and Yannick De Turck Nick Van Hoof, Tom Van den Bulck, Yolan Vloeberghs, Jago Staes, Gina De Beukelaer and Tim Schmitte Michaëla Broeckx Tim Vierbergen Yolan Vloeberghs Ken Coenen Jeroen Meys Pieter Van Hees &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Avoiding fragile tests with better design</h2>
+                
+
+                
+                    Posted Aug 23, 2019
+
+
+    in <a href="/categories/testing/">Testing</a>
+
+
+
+    by
+    
+        <a href="/author/pieter-van-hees/">Pieter Van Hees</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/test-driven-development/">Test Driven Development</a>, 
+    
+        <a href="/tags/test-design/">Test Design</a>, 
+    
+        <a href="/tags/architecture/">Architecture</a>, 
+    
+        <a href="/tags/testing/">Testing</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of contents</h1>
+
+<ul>
+  <li><a href="#why-should-we-design-our-tests">Why should we design our tests</a></li>
+  <li><a href="#the-most-basic-test-design">The most basic test design</a></li>
+  <li><a href="#fragile-tests-example">Fragile tests example</a></li>
+  <li><a href="#implementing-the-api">Implementing the API</a></li>
+  <li><a href="#advantages-of-using-an-api">Advantages of using an API</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="why-should-we-design-our-tests">Why should we design our tests</h2>
+
+<p>We spend quite some time thinking about the design of our production code.
+We do this because we want our code to be readable and maintainable.
+The easier our code can be maintained, the easier we can implement new features and perform the necessary refactorings to implement those features.</p>
+
+<p>The absurd thing is that we only design our <em>production code</em> and not our tests.
+Our tests should be equally readable and maintainable as our production code, because if we don’t, we’ll spend too much time fixing and rewriting our tests.</p>
+
+<p>If we successfully create readable tests, they will also serve as very good documentation, describing the functionality of our code, and how it is expected to behave.</p>
+
+<h2 id="the-most-basic-test-design">The most basic test design</h2>
+
+<p>A common practice in writing tests is creating a test class for each production class. 
+The reason why it is such a popular practice, is because:</p>
+<ul>
+  <li>it’s easy to find tests for the production code you’re looking at,</li>
+  <li>it’s a quick way to write new tests because you don’t have to think about how and where to write tests.</li>
+</ul>
+
+<p>Although this approach does have advantages, it can also be harmful for the maintainability of your application.
+The disadvantage of this approach becomes clear when you need to refactor some classes.
+If you move logic from one class to another, or even multiple other classes, you need to create new tests to test each of those classes, if you want to keep your ‘one class means one test class’ strategy.</p>
+
+<p>In performing such a refactoring we should not need to change any tests because we are not adding or changing any functionality, only moving logic around. 
+However, if we want to keep our <em>design</em> of having a test class for each production class, we need to refactor our tests as well.</p>
+
+<p>Even if we don’t want to keep this design, our tests will have to be modified because chances are big that the API of our production code changed. 
+The parameters of methods might have changed, the fields of objects might have changed, constructors might have changed, etc.
+If we are lucky, the tests still compile, but they will very likely fail. 
+And the larger your application becomes, the more work it will be to get all tests compiling and green again.</p>
+
+<p>This phenomenon is known as <a href="http://xunitpatterns.com/Fragile%20Test.html" target="_blank" rel="noopener noreferrer">fragile tests</a>.</p>
+
+<h2 id="fragile-tests-example">Fragile tests example</h2>
+
+<p>An example of this phenomenon that we encountered on a project is the creation of an instance of an <a href="https://martinfowler.com/bliki/DDD_Aggregate.html" target="_blank" rel="noopener noreferrer">aggregate</a>.
+A lot of the tests in our project needed an instance of an aggregate. 
+This was not a problem at first, we just created aggregates by using the constructor of the class and passing all the necessary data in it.
+We created these instances in every test where we needed them, or sometimes created a method in the test class to not duplicate the construction too much in that class.</p>
+
+<p>To illustrate the issue we will look at a fictional simplified example about order creation.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="no">UUID</span> <span class="n">customerId</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">Order</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Customer</span> <span class="n">customer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Assert</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">customer</span><span class="o">,</span> <span class="s">"Customer should not be null"</span><span class="o">);</span>
+        <span class="nc">Assert</span><span class="o">.</span><span class="na">isTrue</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">isActive</span><span class="o">(),</span> <span class="s">"Customer should be active"</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">customerId</span> <span class="o">=</span> <span class="n">customer</span><span class="o">.</span><span class="na">getId</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="no">UUID</span> <span class="nf">getCustomerId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">customerId</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderTest</span> <span class="o">{</span>
+    
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">given_an_active_customer_then_order_creation_should_be_successful</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="no">UUID</span> <span class="n">customerId</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">Customer</span> <span class="n">customer</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">getId</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">customerId</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">isActive</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        
+        <span class="kd">final</span> <span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Order</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+        
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getCustomerId</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">customerId</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">given_an_inactive_customer_then_order_creation_should_result_in_an_illegal_argument_exception</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">Customer</span> <span class="n">customer</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">isActive</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+ 
+        <span class="n">assertThrows</span><span class="o">(</span><span class="nc">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Order</span><span class="o">(</span><span class="n">customer</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Our problems began when we realised that the number of parameters in the constructor of our aggregate became too large. 
+To resolve this issue we decided to create a class that contains all the data needed to call the constructor.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="no">UUID</span> <span class="n">customerId</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">Order</span><span class="o">(</span><span class="kd">final</span> <span class="nc">CreateOrderData</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Assert</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">getCustomer</span><span class="o">(),</span> <span class="s">"Customer should not be null"</span><span class="o">);</span>
+        <span class="nc">Assert</span><span class="o">.</span><span class="na">isTrue</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">getCustomer</span><span class="o">().</span><span class="na">isActive</span><span class="o">(),</span> <span class="s">"Customer should be active"</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">customerId</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getCustomer</span><span class="o">().</span><span class="na">getId</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="no">UUID</span> <span class="nf">getCustomerId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">customerId</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However when we tried to run all the tests, most of them didn’t compile anymore, which makes sense because we changed the contract.
+Now we could have made it easier for ourselves by using some IntelliJ refactoring tools, but nevertheless, it’s absurd that so many tests could break by just changing the way we construct our aggregates.</p>
+
+<p>When we finally got all our tests green again by just creating the data class parameter, we were so happy and sick of the refactoring that we just stopped there, instead of addressing the underlying issue.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderTest</span> <span class="o">{</span>
+    
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">createOrder_happyPath</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="no">UUID</span> <span class="n">customerId</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">Customer</span> <span class="n">customer</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">getId</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">customerId</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">isActive</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        
+        <span class="kd">final</span> <span class="nc">CreateOrderData</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CreateOrderData</span><span class="o">();</span>
+        <span class="n">data</span><span class="o">.</span><span class="na">setCustomer</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+        
+        <span class="kd">final</span> <span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Order</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getCustomerId</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">customerId</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">createOrder_customerInactive</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">Customer</span> <span class="n">customer</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">isActive</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+ 
+        <span class="kd">final</span> <span class="nc">CreateOrderData</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CreateOrderData</span><span class="o">();</span>
+        <span class="n">data</span><span class="o">.</span><span class="na">setCustomer</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+        
+        <span class="n">assertThrows</span><span class="o">(</span><span class="nc">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Order</span><span class="o">(</span><span class="n">data</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>A few months later, after adding some more features, we noticed that there was too much logic inside the constructor of our aggregate. 
+The constructor became too big and complex so we decided to use the factory pattern to create new instances of the aggregate.</p>
+
+<p>Since we already used a <code class="highlighter-rouge">CreateOrderData</code> as parameter of our constructor, all our tests still compiled and we were happy.
+That is, until we ran our tests.</p>
+
+<p>Because we moved all construction logic from the constructor to the factory, the tests still compiled, but as they relied on this construction logic to create the instance the way we need it, they now failed.
+Again we were faced with the issue of a large amount of tests that we had to refactor.</p>
+
+<p>Not having learned from our previous mistakes and being under time pressure, we decided to use the factory to create instances in all our tests. 
+For the factory we needed some other services, repositories etc. which we all mocked.
+This was a huge amount of work because of all the mocking we had to do just so we could create a consistent aggregate.
+And we had to do this, again, in every test that needs an aggregate.</p>
+
+<p>After everything worked again, we were happy that the pile of work was done and we could move on with other things.</p>
+
+<p>In the weeks that followed, however, we started to notice that every time we changed the logic of the factory, we needed to change all the tests again because we had to add some extra mocks, data, etc. in all the tests.</p>
+
+<p>After a few of these iterations where we had to spend too much time fixing tests, we were fed up and decided (way too late of course) to free up some time for a more structural solution.</p>
+
+<p>We got some inspiration from a <a href="https://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html" target="_blank" rel="noopener noreferrer">blogpost</a> from Uncle Bob about his opinion on the statement that <em>TDD harms architecture</em>.
+One of the things he mentions in his post is that we shouldn’t make the mistake of coupling every test to the implementation of our production code.
+Instead it would be better to put some sort of API in between our tests and the production code.</p>
+
+<h2 id="implementing-the-api">Implementing the API</h2>
+<p>We didn’t take Uncle Bob’s solution too literally and gave our own twist to it.</p>
+
+<p>For the specific problem of creating aggregate instances we decided to create a class that acts as a scenario builder.
+In this <code class="highlighter-rouge">CreateOrderScenario</code> we have a static factory method that will create a scenario that returns a valid <code class="highlighter-rouge">Order</code> when executed.
+This means that when you need an order that is consistent and it doesn’t matter for your test which data is in the order, you can just use the default scenario when it’s executed.</p>
+
+<p>You could also create other default scenarios.
+For example an order with an invalid customer, or with specific data that triggers a certain flow in the order process.</p>
+
+<p>This is very convenient for most tests.
+However, in some tests we want to influence how the order is constructed, so we can test some custom cases other than a default scenario, specific for certain tests.
+We implemented this by adding some methods to our scenario class that allows the scenario to be modified to the test’s needs.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CreateOrderScenario</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="no">UUID</span> <span class="n">customerId</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="nc">CreateOrderData</span> <span class="n">createOrderData</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">CustomerRepository</span> <span class="n">customerRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CreateOrderScenario</span> <span class="nf">defaultScenario</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">CreateOrderScenario</span> <span class="n">scenario</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CreateOrderScenario</span><span class="o">();</span>
+
+        <span class="kd">final</span> <span class="nc">Customer</span> <span class="n">customer</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">isActive</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+        <span class="n">scenario</span><span class="o">.</span><span class="na">customerRepository</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">CustomerRepository</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">when</span><span class="o">(</span><span class="n">scenario</span><span class="o">.</span><span class="na">customerRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">customerId</span><span class="o">)).</span><span class="na">thenReturn</span><span class="o">(</span><span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">customer</span><span class="o">));</span>
+
+        <span class="n">scenario</span><span class="o">.</span><span class="na">createOrderData</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CreateOrderData</span><span class="o">(</span><span class="n">customerId</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">scenario</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">CreateOrderScenario</span> <span class="nf">modifyCreateOrderData</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">CreateOrderData</span><span class="o">&gt;</span> <span class="n">modifier</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">modifier</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">createOrderData</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">CreateOrderScenario</span> <span class="nf">overrideCustomerRepository</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">OrderRepository</span><span class="o">&gt;</span> <span class="n">modifier</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">customerRepository</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">CustomerRepository</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">modifier</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">customerRepository</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Order</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">OrderValidator</span> <span class="n">orderValidator</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OrderValidator</span><span class="o">(</span><span class="n">customerRepository</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="nc">OrderFactory</span> <span class="n">orderFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OrderFactory</span><span class="o">(</span><span class="n">orderValidator</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">orderFactory</span><span class="o">.</span><span class="na">createOrder</span><span class="o">(</span><span class="n">createOrderData</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the following example we created two tests that verify that the construction of an order works correctly.
+In the first test, we use the default scenario without modifying anything, meaning, we test the happy path and verify that all data in the created order is correct.</p>
+
+<p>In the second test we verify that if we try to create an order for a customer that doesn’t exist, we get a validation exception.
+We do this by creating a default scenario, then modifying the input data to use a <code class="highlighter-rouge">customerId</code> defined in the test, and then overriding the behaviour of the <code class="highlighter-rouge">CustomerRepository</code> mock.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">CreateOrderTest</span> <span class="o">{</span>
+    
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">createOrder_happyPath</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="nc">CreateOrderScenario</span>
+            <span class="o">.</span><span class="na">defaultScenario</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">execute</span><span class="o">();</span>
+        
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getCustomerId</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="nc">CreateOrderScenario</span><span class="o">.</span><span class="na">customerId</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">createOrder_customerInactive</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="no">UUID</span> <span class="n">customerId</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">CreateOrderScenario</span> <span class="n">scenario</span> <span class="o">=</span> <span class="nc">CreateOrderScenario</span>
+            <span class="o">.</span><span class="na">defaultScenario</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">modifyCreateOrderData</span><span class="o">(</span><span class="n">orderData</span> <span class="o">-&gt;</span> <span class="n">orderData</span><span class="o">.</span><span class="na">setCustomerId</span><span class="o">(</span><span class="n">customerId</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">overrideCustomerRepository</span><span class="o">(</span><span class="n">repository</span> <span class="o">-&gt;</span> 
+                <span class="n">when</span><span class="o">(</span><span class="n">repository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">customerId</span><span class="o">)).</span><span class="na">thenReturn</span><span class="o">(</span><span class="nc">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">()));</span>
+        
+        <span class="n">assertThrows</span><span class="o">(</span><span class="nc">InvalidCustomerException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">scenario</span><span class="o">.</span><span class="na">execute</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="advantages-of-using-an-api">Advantages of using an API</h2>
+
+<p>The advantage of this design is that our tests are not aware of:</p>
+<ul>
+  <li>the use of a factory to create orders,</li>
+  <li>a validator class, used by the factory to validate the input for creating an order,</li>
+  <li>and how the constructor of the <code class="highlighter-rouge">Order</code> aggregate should be called.</li>
+</ul>
+
+<p>With this example, it’s easy to see that our new tests are much less likely to break than our original <strong>design</strong>. 
+There is a clean layer between the implementation/design of our application, and the tests.
+This lower coupling makes it easier to refactor the application, and implement new features at a higher pace.</p>
+
+<p>Also notice that we didn’t create a test class that maps one-to-one to a production code class.
+Rather than testing our <code class="highlighter-rouge">Order</code> object, our <code class="highlighter-rouge">OrderFactory</code>, or our <code class="highlighter-rouge">OrderValidator</code>, we test the creation of an aggregate instance. 
+We test what we expect our application to do, not what we expect our class to do.</p>
+
+<p>Whenever we have to change the logic of how an <code class="highlighter-rouge">Order</code> is created, we know that we have to look in the <code class="highlighter-rouge">CreateOrderTest</code> class.
+We don’t have to look at the <code class="highlighter-rouge">OrderTest</code> class, the <code class="highlighter-rouge">OrderFactoryTest</code> class, or the <code class="highlighter-rouge">OrderValidator</code> test class to see where we should add some tests.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>In no way is this design perfect, nor will it be suitable in every project.
+However, it is a good starting point to have a lower coupling between tests and production code.
+And it’s also a good way to take your test design further and make it more applicable and relevant to your specific project.</p>
+
+<p>This creates the opportunity to make a higher level language to express your tests, making them more readable, and express your intent of what your test is verifying more clearly.</p>
+
+<p>And even if you’re not convinced of this design, think about a design of your own, and start to improve the readability and maintainability of your tests.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing/2019/08/23/test-design.html&title=Avoiding fragile tests with better design&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Avoiding fragile tests with better design&url=https://ordina-jworks.github.io/testing/2019/08/23/test-design.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing/2019/08/23/test-design.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/pieter-van-hees/" class="image spotlight-image" title="">
+            <img src="/img/author/pieter-van-hees.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Pieter Van Hees is a Java Software Engineer at Ordina Belgium. He is passionate about Domain-Driven Design and producing clean software that works.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/fragile5.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

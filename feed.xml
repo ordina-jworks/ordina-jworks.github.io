@@ -1,5 +1,289 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-08-22T14:06:23+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE</title><link href="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html" rel="alternate" type="text/html" title="Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE" /><published>2019-08-22T00:00:00+00:00</published><updated>2019-08-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak</id><content type="html" xml:base="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-08-23T13:14:39+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Avoiding fragile tests with better design</title><link href="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html" rel="alternate" type="text/html" title="Avoiding fragile tests with better design" /><published>2019-08-23T00:00:00+00:00</published><updated>2019-08-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/08/23/test-design</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-should-we-design-our-tests&quot;&gt;Why should we design our tests&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-most-basic-test-design&quot;&gt;The most basic test design&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#fragile-tests-example&quot;&gt;Fragile tests example&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#implementing-the-api&quot;&gt;Implementing the API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#advantages-of-using-an-api&quot;&gt;Advantages of using an API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;why-should-we-design-our-tests&quot;&gt;Why should we design our tests&lt;/h2&gt;
+
+&lt;p&gt;We spend quite some time thinking about the design of our production code.
+We do this because we want our code to be readable and maintainable.
+The easier our code can be maintained, the easier we can implement new features and perform the necessary refactorings to implement those features.&lt;/p&gt;
+
+&lt;p&gt;The absurd thing is that we only design our &lt;em&gt;production code&lt;/em&gt; and not our tests.
+Our tests should be equally readable and maintainable as our production code, because if we don’t, we’ll spend too much time fixing and rewriting our tests.&lt;/p&gt;
+
+&lt;p&gt;If we successfully create readable tests, they will also serve as very good documentation, describing the functionality of our code, and how it is expected to behave.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-most-basic-test-design&quot;&gt;The most basic test design&lt;/h2&gt;
+
+&lt;p&gt;A common practice in writing tests is creating a test class for each production class. 
+The reason why it is such a popular practice, is because:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;it’s easy to find tests for the production code you’re looking at,&lt;/li&gt;
+  &lt;li&gt;it’s a quick way to write new tests because you don’t have to think about how and where to write tests.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Although this approach does have advantages, it can also be harmful for the maintainability of your application.
+The disadvantage of this approach becomes clear when you need to refactor some classes.
+If you move logic from one class to another, or even multiple other classes, you need to create new tests to test each of those classes, if you want to keep your ‘one class means one test class’ strategy.&lt;/p&gt;
+
+&lt;p&gt;In performing such a refactoring we should not need to change any tests because we are not adding or changing any functionality, only moving logic around. 
+However, if we want to keep our &lt;em&gt;design&lt;/em&gt; of having a test class for each production class, we need to refactor our tests as well.&lt;/p&gt;
+
+&lt;p&gt;Even if we don’t want to keep this design, our tests will have to be modified because chances are big that the API of our production code changed. 
+The parameters of methods might have changed, the fields of objects might have changed, constructors might have changed, etc.
+If we are lucky, the tests still compile, but they will very likely fail. 
+And the larger your application becomes, the more work it will be to get all tests compiling and green again.&lt;/p&gt;
+
+&lt;p&gt;This phenomenon is known as &lt;a href=&quot;http://xunitpatterns.com/Fragile%20Test.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;fragile tests&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;fragile-tests-example&quot;&gt;Fragile tests example&lt;/h2&gt;
+
+&lt;p&gt;An example of this phenomenon that we encountered on a project is the creation of an instance of an &lt;a href=&quot;https://martinfowler.com/bliki/DDD_Aggregate.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;aggregate&lt;/a&gt;.
+A lot of the tests in our project needed an instance of an aggregate. 
+This was not a problem at first, we just created aggregates by using the constructor of the class and passing all the necessary data in it.
+We created these instances in every test where we needed them, or sometimes created a method in the test class to not duplicate the construction too much in that class.&lt;/p&gt;
+
+&lt;p&gt;To illustrate the issue we will look at a fictional simplified example about order creation.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;notNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Customer should not be null&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isTrue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Customer should be active&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customerId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getCustomerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;given_an_active_customer_then_order_creation_should_be_successful&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;order&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;given_an_inactive_customer_then_order_creation_should_result_in_an_illegal_argument_exception&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+ 
+        &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Our problems began when we realised that the number of parameters in the constructor of our aggregate became too large. 
+To resolve this issue we decided to create a class that contains all the data needed to call the constructor.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;notNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Customer should not be null&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Assert&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isTrue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Customer should be active&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customerId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getCustomerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;However when we tried to run all the tests, most of them didn’t compile anymore, which makes sense because we changed the contract.
+Now we could have made it easier for ourselves by using some IntelliJ refactoring tools, but nevertheless, it’s absurd that so many tests could break by just changing the way we construct our aggregates.&lt;/p&gt;
+
+&lt;p&gt;When we finally got all our tests green again by just creating the data class parameter, we were so happy and sick of the refactoring that we just stopped there, instead of addressing the underlying issue.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createOrder_happyPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCustomer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;order&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createOrder_customerInactive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+ 
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCustomer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A few months later, after adding some more features, we noticed that there was too much logic inside the constructor of our aggregate. 
+The constructor became too big and complex so we decided to use the factory pattern to create new instances of the aggregate.&lt;/p&gt;
+
+&lt;p&gt;Since we already used a &lt;code class=&quot;highlighter-rouge&quot;&gt;CreateOrderData&lt;/code&gt; as parameter of our constructor, all our tests still compiled and we were happy.
+That is, until we ran our tests.&lt;/p&gt;
+
+&lt;p&gt;Because we moved all construction logic from the constructor to the factory, the tests still compiled, but as they relied on this construction logic to create the instance the way we need it, they now failed.
+Again we were faced with the issue of a large amount of tests that we had to refactor.&lt;/p&gt;
+
+&lt;p&gt;Not having learned from our previous mistakes and being under time pressure, we decided to use the factory to create instances in all our tests. 
+For the factory we needed some other services, repositories etc. which we all mocked.
+This was a huge amount of work because of all the mocking we had to do just so we could create a consistent aggregate.
+And we had to do this, again, in every test that needs an aggregate.&lt;/p&gt;
+
+&lt;p&gt;After everything worked again, we were happy that the pile of work was done and we could move on with other things.&lt;/p&gt;
+
+&lt;p&gt;In the weeks that followed, however, we started to notice that every time we changed the logic of the factory, we needed to change all the tests again because we had to add some extra mocks, data, etc. in all the tests.&lt;/p&gt;
+
+&lt;p&gt;After a few of these iterations where we had to spend too much time fixing tests, we were fed up and decided (way too late of course) to free up some time for a more structural solution.&lt;/p&gt;
+
+&lt;p&gt;We got some inspiration from a &lt;a href=&quot;https://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;blogpost&lt;/a&gt; from Uncle Bob about his opinion on the statement that &lt;em&gt;TDD harms architecture&lt;/em&gt;.
+One of the things he mentions in his post is that we shouldn’t make the mistake of coupling every test to the implementation of our production code.
+Instead it would be better to put some sort of API in between our tests and the production code.&lt;/p&gt;
+
+&lt;h2 id=&quot;implementing-the-api&quot;&gt;Implementing the API&lt;/h2&gt;
+&lt;p&gt;We didn’t take Uncle Bob’s solution too literally and gave our own twist to it.&lt;/p&gt;
+
+&lt;p&gt;For the specific problem of creating aggregate instances we decided to create a class that acts as a scenario builder.
+In this &lt;code class=&quot;highlighter-rouge&quot;&gt;CreateOrderScenario&lt;/code&gt; we have a static factory method that will create a scenario that returns a valid &lt;code class=&quot;highlighter-rouge&quot;&gt;Order&lt;/code&gt; when executed.
+This means that when you need an order that is consistent and it doesn’t matter for your test which data is in the order, you can just use the default scenario when it’s executed.&lt;/p&gt;
+
+&lt;p&gt;You could also create other default scenarios.
+For example an order with an invalid customer, or with specific data that triggers a certain flow in the order process.&lt;/p&gt;
+
+&lt;p&gt;This is very convenient for most tests.
+However, in some tests we want to influence how the order is constructed, so we can test some custom cases other than a default scenario, specific for certain tests.
+We implemented this by adding some methods to our scenario class that allows the scenario to be modified to the test’s needs.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomerRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;defaultScenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenario&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;scenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customerRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;scenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createOrderData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;modifyCreateOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CreateOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;modifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;createOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;overrideCustomerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;OrderRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;customerRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;modifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderValidator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orderValidator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderFactory&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orderFactory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;orderValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orderFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;createOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the following example we created two tests that verify that the construction of an order works correctly.
+In the first test, we use the default scenario without modifying anything, meaning, we test the happy path and verify that all data in the created order is correct.&lt;/p&gt;
+
+&lt;p&gt;In the second test we verify that if we try to create an order for a customer that doesn’t exist, we get a validation exception.
+We do this by creating a default scenario, then modifying the input data to use a &lt;code class=&quot;highlighter-rouge&quot;&gt;customerId&lt;/code&gt; defined in the test, and then overriding the behaviour of the &lt;code class=&quot;highlighter-rouge&quot;&gt;CustomerRepository&lt;/code&gt; mock.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createOrder_happyPath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Order&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;order&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;defaultScenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createOrder_customerInactive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;randomUUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenario&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateOrderScenario&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;defaultScenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;modifyCreateOrderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;orderData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orderData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCustomerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;overrideCustomerRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; 
+                &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customerId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()));&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InvalidCustomerException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scenario&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;advantages-of-using-an-api&quot;&gt;Advantages of using an API&lt;/h2&gt;
+
+&lt;p&gt;The advantage of this design is that our tests are not aware of:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the use of a factory to create orders,&lt;/li&gt;
+  &lt;li&gt;a validator class, used by the factory to validate the input for creating an order,&lt;/li&gt;
+  &lt;li&gt;and how the constructor of the &lt;code class=&quot;highlighter-rouge&quot;&gt;Order&lt;/code&gt; aggregate should be called.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With this example, it’s easy to see that our new tests are much less likely to break than our original &lt;strong&gt;design&lt;/strong&gt;. 
+There is a clean layer between the implementation/design of our application, and the tests.
+This lower coupling makes it easier to refactor the application, and implement new features at a higher pace.&lt;/p&gt;
+
+&lt;p&gt;Also notice that we didn’t create a test class that maps one-to-one to a production code class.
+Rather than testing our &lt;code class=&quot;highlighter-rouge&quot;&gt;Order&lt;/code&gt; object, our &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderFactory&lt;/code&gt;, or our &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderValidator&lt;/code&gt;, we test the creation of an aggregate instance. 
+We test what we expect our application to do, not what we expect our class to do.&lt;/p&gt;
+
+&lt;p&gt;Whenever we have to change the logic of how an &lt;code class=&quot;highlighter-rouge&quot;&gt;Order&lt;/code&gt; is created, we know that we have to look in the &lt;code class=&quot;highlighter-rouge&quot;&gt;CreateOrderTest&lt;/code&gt; class.
+We don’t have to look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderTest&lt;/code&gt; class, the &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderFactoryTest&lt;/code&gt; class, or the &lt;code class=&quot;highlighter-rouge&quot;&gt;OrderValidator&lt;/code&gt; test class to see where we should add some tests.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In no way is this design perfect, nor will it be suitable in every project.
+However, it is a good starting point to have a lower coupling between tests and production code.
+And it’s also a good way to take your test design further and make it more applicable and relevant to your specific project.&lt;/p&gt;
+
+&lt;p&gt;This creates the opportunity to make a higher level language to express your tests, making them more readable, and express your intent of what your test is verifying more clearly.&lt;/p&gt;
+
+&lt;p&gt;And even if you’re not convinced of this design, think about a design of your own, and start to improve the readability and maintainability of your tests.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Van Hees&quot;, &quot;github&quot;=&gt;&quot;pvanhees&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-van-hees-73671133&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter-van-hees/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-van-hees.jpg&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vanhees@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Van Hees is a Java Software Engineer at Ordina Belgium. He is passionate about Domain-Driven Design and producing clean software that works.&quot;}</name><email>pieter.vanhees@ordina.be</email></author><category term="Testing" /><category term="Test Driven Development" /><category term="Test Design" /><category term="Architecture" /><category term="Testing" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/fragile5.png" /></entry><entry><title type="html">Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE</title><link href="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html" rel="alternate" type="text/html" title="Securing Web Applications With Keycloak Using OAuth 2.0 Authorization Code Flow and PKCE" /><published>2019-08-22T00:00:00+00:00</published><updated>2019-08-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak</id><content type="html" xml:base="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html">&lt;blockquote&gt;
   &lt;p&gt;Gone are the days when we had to write our own login mechanisms and permission systems.
 This article is about how we can hook up our applications to an Identity and Access Management (IAM) solution such as Keycloak in a secure way.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -3803,121 +4087,4 @@ We used these sources either because we were granted permissions to use them or 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.google.com/document/d/1nFGazvrCvHMZJgFstlbzoHjpAVwv5DEdnaBr_5pKuHo/edit?usp=sharing&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Java Is Still Free&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://mail.openjdk.java.net/pipermail/jdk-updates-dev/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The jdk-updates-dev Archives&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Duncan&quot;, &quot;last_name&quot;=&gt;&quot;Casteleyn&quot;, &quot;github&quot;=&gt;&quot;DuncanCasteleyn&quot;, &quot;linkedin&quot;=&gt;&quot;duncan-casteleyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/duncan-casteleyn/&quot;, &quot;avatar&quot;=&gt;&quot;duncan-casteleyn.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;email&quot;=&gt;&quot;duncan.casteleyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Duncan is a Java Consultant at Ordina Belgium, who is passionate about Java technologies. He likes to explore Spring Boot, Kotlin and other new technologies that he can use to develop applications.&quot;}</name><email>duncan.casteleyn@ordina.be</email></author><category term="Java" /><category term="Java" /><category term="OpenJDK" /><category term="JDK" /><summary type="html">Around February we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM. We decided it would be good idea to write a blog post that should clear up the confusion for our developers and clients.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-05-20-JDK-distributions/openjdk.png" /></entry><entry><title type="html">BA &amp;amp; Beyond - an inspiring conference for keen business analysts</title><link href="https://ordina-jworks.github.io/agile/2019/05/15/BA-and-Beyond.html" rel="alternate" type="text/html" title="BA &amp; Beyond - an inspiring conference for keen business analysts" /><published>2019-05-15T00:00:00+00:00</published><updated>2019-05-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2019/05/15/BA-and-Beyond</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2019/05/15/BA-and-Beyond.html">&lt;blockquote&gt;
-  &lt;p&gt;The &lt;a href=&quot;https://ba-beyond.eu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BA &amp;amp; Beyond&lt;/a&gt; conference is a two day programme enabling business analysts to share their experiences and find inspiration in their daily work.
-The conference was an intense mix of talks and workshops, providing space for inspiring people to share their stories. 
-After each talk, the attendees had the possibility to engage in conversation during a Q&amp;amp;A. 
-The sessions were very interactive and really empowering.
-This second edition of the BA &amp;amp; Beyond conference was held during two days in Brussels and Amsterdam. 
-Various topics were discussed, such as visual facilitation techniques, «How to Make an Agile Project Succeed», business analyst behaviours, or «The Inner Architecture of a Performer». 
-What follows below is an overview of some of these talks.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#when-bas-go-bad---christina-lovelock&quot;&gt;When BAs go BAD - Christina Lovelock&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-7-hidden-layers-behind-agile-techniques-ever-wondered-why-we-use-post-its-during-retrospectives--pieter-van-driessche&quot;&gt;The 7 hidden layers behind agile techniques: Ever wondered why we use post-its during retrospectives? – Pieter Van Driessche&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#you-are-doing-it-wrong-the-truth-about-user-stories--pieter-hens&quot;&gt;You are doing it wrong: The truth about user stories – Pieter Hans&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;when-bas-go-bad---christina-lovelock&quot;&gt;When BAs go BAD - Christina Lovelock&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Christina Lovelock&quot; src=&quot;/img/ba-and-beyond-2019/christina-lovelock.jpeg&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://www.linkedin.com/in/christina-lovelock/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Christina Lovelock&lt;/a&gt; has built BA teams in several public sector organisations including the NHS, ranging in size from 5 to 120 Business Analysts. 
-She currently leads the BA practice at the University of Leeds.
-She is active in the BA professional community in the UK, attending and regularly speaking at local and national events and conferences.&lt;/p&gt;
-
-&lt;p&gt;Christina’s talk was purely soft skills related and depicts the sort of behaviours shown by business analysts when they face difficult situations.
-Some typical BA behavioural mistakes are triggered by the way they see themselves in the team. 
-For instance, a BA could feel as if he or she is not part of the team: there are de facto less analysts than developers in a team which can lead to an «Us VS Them» mentality.
-It is also sometimes difficult to build a BA community, and being sandwiched between IT and the business can sometimes lead to negative self perceptions such as «I am just a BA» or «Neither the PO nor the developers understand me».&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;bad-ba-behaviours&quot; src=&quot;/img/ba-and-beyond-2019/bad-ba-behaviours.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Understanding that the BA is as much a member of the team as the others and that he or she is not the only one accountable for the communication between IT and Business, leads to better collaboration and is a great step towards agility, allowing all team members to be more confident and positive.
-Whatever your role in a project team; collaboration, transparency and confidence - in yourself and in your team mates - as well as clear communication are key factors to succeed together.&lt;/p&gt;
-
-&lt;p&gt;Another difficulty in the BA role is providing the right level of detail in your analysis. 
-Indeed it is sometimes difficult to have the right level of focus on the right things. 
-Moreover, being a good BA is also about sharing knowledge, tools and techniques. 
-Talking with other analysts and contributing to the practice are important aspects of the job.&lt;/p&gt;
-
-&lt;p&gt;Of course all those behaviours and feelings don’t just apply to business analysts but also to every team role: scrum master, developer, product owner, tester.
-This talk gave us the opportunity to identify and name some feelings we can face as business analysts while giving us the keys to find solutions to the difficult situations we could face.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;ba-behaviours&quot; src=&quot;/img/ba-and-beyond-2019/ba-behaviours.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;the-7-hidden-layers-behind-agile-techniques-ever-wondered-why-we-use-post-its-during-retrospectives--pieter-van-driessche&quot;&gt;The 7 hidden layers behind agile techniques: Ever wondered why we use post-its during retrospectives? – Pieter Van Driessche&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Pieter Van Driessche&quot; src=&quot;/img/ba-and-beyond-2019/pieter-van-driessche.jpg&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://www.linkedin.com/in/pietervandriessche/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Pieter Van Driessche&lt;/a&gt; has worked in IT for over 20 years and did most of the common software jobs: developer, analyst, team lead and project manager. 
-He experimented with cultural change management for 2 years, after which he returned to IT because of the faster speed of change. 
-He has been an agile coach for almost 15 years and coaches all kinds of teams in all kinds of organisations: software, operation or marketing teams, in Belgium and abroad, in small and large organisations.&lt;/p&gt;
-
-&lt;p&gt;This talk was a great eye-opener about a simple thing we all do every day in our scrum teams: sticking post-its! 
-Although this has become a very common habit, we might not know why post-its are used during scrum meetings and especially during retrospectives. 
-Below are some insights.&lt;/p&gt;
-
-&lt;h3 id=&quot;psychological-safety&quot;&gt;Psychological safety&lt;/h3&gt;
-
-&lt;p&gt;Thanks to post-its, all participants get the same space. 
-Post-its give everybody a voice, everybody can express themselves without fear. 
-Moreover, post-its give a real chance to introvert people.&lt;/p&gt;
-
-&lt;h3 id=&quot;team-objectives-and-peer-pressures&quot;&gt;Team objectives and peer pressures&lt;/h3&gt;
-
-&lt;p&gt;By giving post-its to everybody attending the retrospective, peer pressure encourages everybody to participate and everybody will stick at least one post-it. 
-And the more post-its we have, the greater the outcome we build.
-This fact is closely linked to our comfort zone. 
-Although it is sometimes difficult to say what we really think, the post-its and the peer pressure force us to get out of our comfort zone by expressing ourselves, finding solutions and being confronted with our team mates.
-Getting out of our comfort zone promotes continuous improvement, and that’s what we all want.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-physical-connection&quot;&gt;The physical connection&lt;/h3&gt;
-
-&lt;p&gt;Moving post-its on a white board allows us to make abstract things tangible. 
-As a consequence, we are more involved in our daily work as we, and the others, can see our progress in a physical way.&lt;/p&gt;
-
-&lt;h2 id=&quot;you-are-doing-it-wrong-the-truth-about-user-stories--pieter-hens&quot;&gt;You are doing it wrong: The truth about user stories – Pieter Hens&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Pieter Hens&quot; src=&quot;/img/ba-and-beyond-2019/pieter-hens.jpg&quot; /&gt;&lt;/span&gt;
-&lt;a href=&quot;https://www.linkedin.com/in/henspieter/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Pieter Hens&lt;/a&gt; has been working for over 15 years in a software product development and analysis setting. 
-He has taken up roles as a business and functional analyst, project manager, coach and team lead in projects of various sizes. 
-He currently specialises in the full range of software product management: product strategy, discovery and development.&lt;/p&gt;
-
-&lt;p&gt;User stories are part of the root of our projects, we use them on a daily basis to achieve our goals, however the user stories are sometimes wrongly used, leading to counterproductive effects.
-Here are some myths about user stories.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-analyst-writes-the-user-stories-and-the-dev-team-implements-them&quot;&gt;The analyst writes the user stories and the dev team implements them&lt;/h3&gt;
-
-&lt;p&gt;Writing a user story is not the BA responsibility, elaborating a user story is a team effort and everybody in the team is eligible to write user stories.
-Writing the user stories together reduces risk of misunderstanding. 
-Before implementing a user story, all team members should agree on and understand the user story content.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;glad-we-all-agree&quot; src=&quot;/img/ba-and-beyond-2019/glad-we-all-agree.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;we-dont-need-documents-or-models-anymore&quot;&gt;We don’t need documents or models anymore&lt;/h3&gt;
-
-&lt;p&gt;User stories have to be backed up by documents and models. 
-A user story alone is not enough, we need a context and the big picture.
-User stories are not meant to replace documents, they are meant to tell stories.&lt;/p&gt;
-
-&lt;h3 id=&quot;if-it-does-not-fit-the-as-a-role-i-can-do-something---template-it-is-not-a-user-story&quot;&gt;If it does not fit the ‘As a [role] I can [do something]’ - template, it is not a user story&lt;/h3&gt;
-
-&lt;p&gt;Having a template for the user story is a good way to ease the understanding of the common goal. 
-Having our requirements standardised simplifies the processes.
-However, not all user stories fit the same strict template. 
-Even though a template is important, we should focus less on the template and more on the content itself.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;template-zombie&quot; src=&quot;/img/ba-and-beyond-2019/template-zombie.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;I learned a lot during these two days and the conference gave me new insights and tools to deal with my work every day.
-This great experience also gave me the opportunity to talk and share knowledge and information with other business analysts. 
-It was really inspiring.&lt;/p&gt;
-
-&lt;p&gt;The slides for these presentations can be found on the website of &lt;a href=&quot;https://ba-beyond.eu/2019-programme.php&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BA&amp;amp;Beyond&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Astrid&quot;, &quot;last_name&quot;=&gt;&quot;Legrand&quot;, &quot;permalink&quot;=&gt;&quot;/author/astrid_legrand/&quot;, &quot;avatar&quot;=&gt;&quot;astrid-legrand.jpeg&quot;, &quot;title&quot;=&gt;&quot;Business Analyst &amp; Scrum Master&quot;, &quot;linkedin&quot;=&gt;&quot;astrid-legrand-2a813685&quot;, &quot;email&quot;=&gt;&quot;astrid.legrand@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Astrid works as a Business Analyst consultant at Ordina Belgium. She is also a Scrum Master who is eager to learn and focus on continuous improvement within an agile environment.&quot;}</name><email>astrid.legrand@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Conference" /><category term="BA&amp;Beyond" /><category term="Business Analysis" /><category term="Scrum" /><category term="User stories" /><category term="Post-its" /><category term="Cross functional teams" /><summary type="html">The BA &amp;amp; Beyond conference is a two day programme enabling business analysts to share their experiences and find inspiration in their daily work. The conference was an intense mix of talks and workshops, providing space for inspiring people to share their stories. After each talk, the attendees had the possibility to engage in conversation during a Q&amp;amp;A. The sessions were very interactive and really empowering. This second edition of the BA &amp;amp; Beyond conference was held during two days in Brussels and Amsterdam. Various topics were discussed, such as visual facilitation techniques, «How to Make an Agile Project Succeed», business analyst behaviours, or «The Inner Architecture of a Performer». What follows below is an overview of some of these talks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/ba-and-beyond-2019/main-image.png" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Duncan&quot;, &quot;last_name&quot;=&gt;&quot;Casteleyn&quot;, &quot;github&quot;=&gt;&quot;DuncanCasteleyn&quot;, &quot;linkedin&quot;=&gt;&quot;duncan-casteleyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/duncan-casteleyn/&quot;, &quot;avatar&quot;=&gt;&quot;duncan-casteleyn.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;email&quot;=&gt;&quot;duncan.casteleyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Duncan is a Java Consultant at Ordina Belgium, who is passionate about Java technologies. He likes to explore Spring Boot, Kotlin and other new technologies that he can use to develop applications.&quot;}</name><email>duncan.casteleyn@ordina.be</email></author><category term="Java" /><category term="Java" /><category term="OpenJDK" /><category term="JDK" /><summary type="html">Around February we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM. We decided it would be good idea to write a blog post that should clear up the confusion for our developers and clients.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-05-20-JDK-distributions/openjdk.png" /></entry></feed>
