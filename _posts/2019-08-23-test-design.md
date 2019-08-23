@@ -31,7 +31,7 @@ If we successfully create readable tests, they will also serve as very good docu
 ## The most basic test design
 
 A common practice in writing tests is creating a test class for each production class. 
-The reason why it is such a popular practice, is because;
+The reason why it is such a popular practice, is because:
 * it's easy to find tests for the production code you're looking at,
 * it's a quick way to write new tests because you don't have to think about how and where to write tests.
 
@@ -40,7 +40,7 @@ Although this approach does have advantages, it can also be harmful for the main
 The disadvantage of this approach becomes clear when you need to refactor some classes.
 If you move logic from one class to another, or even multiple other classes, you need to create new tests to test each of those classes, if you want to keep your 'one class means one test class' strategy.
 
-In performing such a refactoring we should not need to change any test because we are not adding or changing any functionality, only moving logic around. 
+In performing such a refactoring we should not need to change any tests because we are not adding or changing any functionality, only moving logic around. 
 However, if we want to keep our *design* of having a test class for each production class, we need to refactor our tests as well.
 
 Even if we don't want to keep this design, our tests will have to be modified because chances are big that the API of our production code changed. 
@@ -184,14 +184,14 @@ Instead it would be better to put some sort of API in between our tests and the 
 We didn't take Uncle Bob's solution too literally and gave our own twist to it.
 
 For the specific problem of creating aggregate instances we decided to create a class that acts as a scenario builder.
-In this `CreateOrderScenario` we have a static factory method that will create a scenario that returns a valid Order when executed.
+In this `CreateOrderScenario` we have a static factory method that will create a scenario that returns a valid `Order` when executed.
 This means that when you need an order that is consistent and it doesn't matter for your test which data is in the order, you can just use the default scenario when it's executed.
 
 You could also create other default scenarios.
 For example an order with an invalid customer, or with specific data that triggers a certain flow in the order process.
 
 This is very convenient for most tests.
-However, in some tests we want to influence how the Order is constructed, so we can test some custom cases other than a default scenario, specific for certain tests.
+However, in some tests we want to influence how the order is constructed, so we can test some custom cases other than a default scenario, specific for certain tests.
 We implemented this by adding some methods to our scenario class that allows the scenario to be modified to the test's needs.
 
 ```java
@@ -280,7 +280,7 @@ There is a clean layer between the implementation/design of our application, and
 This lower coupling makes it easier to refactor the application, and implement new features at a higher pace.
 
 Also notice that we didn't create a test class that maps one-to-one to a production code class.
-Rather than testing our `Order` object, or our `OrderFactory`, or our `OrderValidator`, we test the creation of an aggregate instance. 
+Rather than testing our `Order` object, our `OrderFactory`, or our `OrderValidator`, we test the creation of an aggregate instance. 
 We test what we expect our application to do, not what we expect our class to do.
 
 Whenever we have to change the logic of how an `Order` is created, we know that we have to look in the `CreateOrderTest` class.
