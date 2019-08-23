@@ -3,7 +3,7 @@ layout: post
 authors: [michael_vandendriessche, kevin_van_den_abeele]
 title: 'An introduction to virtual and alternate reality'
 image: /img/virtualreality/banner.jpg
-tags: [Internet of Things, IoT, Virtual reality, VR, Alternate reality, Augmented reality, AR, Mixed reality, Merged Reality, MR, Oculus Rift, Oculus, HTC Vive, Vive, SteamVR, Steam, Unreal Engine, Unity, Hololens, Holo Lens, Microsoft, Google Glass, Google]
+tags: [Internet of Things, Virtual Reality, Alternate Reality, Augmented Reality, Mixed Reality, Merged Reality, Oculus Rift, Oculus, HTC Vive, Vive, SteamVR, Steam, Unreal Engine, Unity, HoloLens, Microsoft, Google Glass, Google]
 category: IoT
 comments: true
 ---

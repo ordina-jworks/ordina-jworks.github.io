@@ -3,7 +3,7 @@ layout: post
 authors: [andreas_evers]
 title: "JWorks: A Culture of Learning"
 image: /img/jworks-culture.jpg
-tags: [JWorks, culture]
+tags: [JWorks, Culture]
 category: Culture
 comments: true
 ---

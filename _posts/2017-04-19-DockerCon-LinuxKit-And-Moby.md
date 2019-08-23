@@ -3,7 +3,7 @@ layout: post
 authors: [tom_verelst]
 title: "DockerCon 2017: LinuxKit and Moby"
 image: /img/dockercon2017/thumbnail.jpg
-tags: [DockerCon,Docker,Conference]
+tags: [DockerCon, Docker, Conference]
 category: Conference
 comments: true
 ---
