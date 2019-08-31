@@ -197,24 +197,34 @@ On this point I'm agreeing with the third party monitoring solutions.
 If you want to have this capability, outsource it, use a third party tool.
 
 # Monitoring your serverless environment
+[comment]: <> (TODO: work out example of a custom metric)
 * custom cloudwatch metrics
-If you’re making additional network calls during the invocation then you’ll pay for those additional execution time, and your users would have to wait that much longer for the API to respond.
-Instead, process the logs from CloudWatch Logs after the fact.
-* Custom metrics?
-publishing custom metrics requires additional network calls that need to be made during the function’s execution, adding to user-facing latency.
-You could solve this by logging the data needed for the metric as a custom formatted log.
-* execution time vs billed duration
-* provisioned memory vs memory used
+You can send custom metrics to CloudWatch by making an additional network call.
+But this will add time to your lambda function's execution time and thereby impacting your user.
+It is also possible to create a custom REPORT log (like the START and END log of AWS remember).
+These logs are send async to CloudWatch anyway.
+There they will be picked up as a custom metric.
 
+Two custom metrics that I recommend are.
+These are not about health monitoring.
+They're about monitoring your budget.
+* execution time vs billed duration
+[comment]: <> (TODO: HowTo)
+* provisioned memory vs memory used
+[comment]: <> (TODO: HowTo)
 
 ### Third Party Tools
-* lumigo (5)
-* Splunk (2)
-* New Relic (1)
+**lumigo**: 
+* demo movie
+**Splunk**:
+* story about my experience
+**New Relic**: short mention
 
 
 ### Conclusion
-* Do not over engineer you functions!
+Monitoring does not have to be difficult.
+It is important to know whay your doing.
+And if you do, you'll slay the monitoring monster.
 
 
 # Resources
