@@ -157,30 +157,44 @@ The alarm will publish an event to an sns topic.
 You can then listen on these events and send out an email or a slack notification.
 
 # Xray: distributed tracing
-* Distributed tracing:
-Serverless architectures are microservices by default, you need correlation IDs to help debug issues that spans across multiple functions, and possibly different event source types – asynchronous, synchronous and streams.
+Serverless architectures are like microservices: distributed systems.
+Remember the schema of the technical landscape I showed abowe?
+You need ID which you can use to correlate requests in different services and thereby trace a full transaction that started with an incoming event.
+A function can receive an http request and put a message on a SNS topic.
+A second functio listens on this topic and puts an item in a database.
+The database stream triggers an other function.
+This third function asynchronously calls a fourth function.
+I can go on like this for quite a while. 
+The point is that a single incoming http request might trigger functions all over in the landscape.
+Luckily AWS has a service that can help us out: XRay.
 * explain the problem:
-Searching for a needle in a haystack. Eg. issues with some bankaccount number but the log you search for does not contain the bank account number
-* What is AWS XRAY
-* concepts
-* * sampling
-* * querying
-* * Visualitation
-* demonstrate by example
-* shortcomings
-* * Always 200
-* * Cannot trace over DynamoDB Streams, SQS, SNS topics
+Searching for a needle in a haystack. For example a problem with a sales number but the log you search for does not contain the sales number
+**concepts**
+*sampling
+* querying: Xray query language
+* Visualitation
+[comment]: <> (TODO: demonstrate by example)
+* segments
 
-“makes it easy for developers to analyze the behavior of their production, distributed applications with end-to-end tracing capabilities.” 
+**shortcomings**
+*Always 200
+*You cannot trace asynchronous requests: no tracing over DynamoDB Streams, SQS, SNS topics.
+AWS is working on this however I heard.
+
+XRay is all about behavior.
+It makes it easy to analyze the behavior of your distributed serverless applications. 
 AWS X-Ray is a great tool which allows you to trace and instrument your code to gain extra visibility into what’s going on.
- It also enables you to profile different parts of your code and identify slow spots, or slow AWS APIs, such as DynamoDB, SQS, and others.
+ It also enables you to zoom in on different parts of your code and identify the parts that are lacking.
+ [comment]: <> (TODO: example of a trace with slow subsegments)
 
 # Implement your own tracing solution
-If you’ve reached this far, think twice.
-You are about to enter a fascinating world of distributed tracing, 
-and unless this is the business of your company (for some of us, this is the case), 
-you are going to spend A LOT of time on this – and it’s probably never going to be enough. 
-The one thing you should think about is – how do you want to spend your time? 
+Since Xray is not tracing async requests, you could implement your own tracing solution.
+However, is that really what you want to be doing?
+I always here all this fuzz about focussing on the business value. 
+Plus, implementing your own tracing solution is hard.
+You'll find enough battle stories online.
+On this point I'm agreeing with the third party monitoring solutions.
+If you want to have this capability, outsource it, use a third party tool.
 
 # Monitoring your serverless environment
 * custom cloudwatch metrics
