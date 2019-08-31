@@ -35,80 +35,131 @@ What does a typical serverless application look like?
 All these questions trace back to:
 * monitoring
 * visibility
-* observibility
+* observability
 
-However, when crossing the 5 or 10 functions range, most teams quickly discover challenges in understanding their systems, and some even refer to it has “log hell
+I can do this myself. I know my technical landscape!
+Yes, but!?
+When crossing the 5 or 10 functions range, most teams quickly discover challenges in understanding their systems, and some even refer to it has “log hell"
 
 # Optional solutions
-* Solution: A solid desing with eye for monitoring, distributed tracing and logging
+* Optimize the information in your logs
+* Get the maximum out of your logs
+  * Structuring
+  * Querying
 
+* Know your metrics
+* Monitoring via dashboards
+* Alerting
+
+* Distributed tracing
+  * link function executions by transaction
+
+* Monitoring custom metrics
+* Solution: A solid design with eye for monitoring, distributed tracing and logging
+
+* third party tools
+
+We are going to talk a lot about CloudWatch today.
+Anyhow, what's in a word? 
+It's literally the service to Watch what happens in your Cloud environment.
+And that is exactly the environment we want to monitor.
 
 # CloudWatch logs
 * CloudWatch logs in general
+* Lambda has a build in agent for logging
+* Default start end log -> report logs
 
 ## Serverless logging:
-During the execution of a Lambda function, whatever you write to stdout (eg. using console.log in Node.js) will be captured by Lambda and sent to CloudWatch Logs asynchronously in the background, without adding any overhead to your function execution time
+During the execution of a Lambda function you can write logs to standard out.
+The CloudWatch logs agent will forward them asynchronously to CloudWatch without adding any execution time.
+
 * Cloudwatch:
 * * LogGroup: one per function
 * * LogStreams: one per container instance
 * * retention period
 * * subscription
-If you’re making additional network calls during the invocation then you’ll pay for those additional execution time, and your users would have to wait that much longer for the API to respond.
-Instead, process the logs from CloudWatch Logs after the fact.
-You can create subscriptions on these logGroups if you want to stream the logs to a third party service
+
 * Lambda
-At the end of every invocation, Lambda publishes a REPORT log message detailing the max amount of memory used by your function during this invocation, and how much time is billed.
+At the end of every invocation, Lambda publishes a REPORT log message with detail about the max amount of memory used by your function during this invocation, and how much time is billed.
 To cut costs you can monitor billed duration vs duration and memory vs memory used.
-You could even create a custom metric for this and visualise it
+You could even create a custom metric for this and visualise it.
 
 ## Logging: Structured logging
 **Why**  
-The problem with log files is they are unstructured text data. 
-This makes it hard to query them for any sort of useful information. 
-As a developer, it would be nice to be able to filter all logs by a certain customer # or transaction #. 
+Normal writes to stout are unstructured text data. 
+This makes them unsuited for querying.
+That in turn makes it harder to get the right information out of them.
+You could parse a normal log to get some info out of them (I'll show you how further down).
+Still, that is error prone and will be break once someone changes the log statement.
+
+As a developer, it would be nice to be able to filter all logs by a certain functional key # or transaction #.
 The goal of structured logging is to solve these sorts of problems and allow additional analytics.
 
 **What is structured logging**  
 * add contextual information (2)
+[comment]: <> (TODO: example of normal log vs structured log)
+
 * filter log messages, searching log files (4)
-* structured format (3): This makes it possible for you to analyze your logs like big data. 
-It’s not just readable text, but a database that can be queried. 
+* structured format (3): This makes it possible for you to analyze your logs like you would analyse data. 
+A log is no longer just text, it became kind of like a database that can be queried. 
 This allows summaries and analytics to take place and help you monitor your application and troubleshoot issues faster.
-* Process log files for analytics or business intelligence (4)
+* Process log files for further analytics or BI applications
+* Use an other lambda that subscribes to the logGroup to process this data into a metric 
 
 **why do you need structured logging in serverless applications**
 * Highly distributed applications
-* a lot of functions processing the flow that was initialised by the same request
+* a lot of functions processing the flow that was initialised by the same request.
+Correlate them via a field that marks the transaction.
+This can be something like a traceId or correlationId.
+More about that later in the post.
 * * add traceId -> correlate logs corresponding to the same request
 
-* How do you implement structured logging
-Logback, slf4j2..
+* How do you implement structured logging?
+This is language specific.
+In Java we're talking about configureing Logback, slf4j2..
+In JavaScript you'd have to overload the log function.
 
 ## CloudWatch Log Insights
 * What? Querying your log data
-* Query Language
-* Examples and visualisations
+* AWS has it's own query language for Log Insights.  
+The language will feel familiar to most of you since it has some touchpoints with SQL and other third party monitoring tools.
+* Examples and visualisations: 
+[comment]: <> (TODO: example of queries and visualisations)
 * Exporting these dashboards?
-* No centrilisation
-* Recently: query over multiple log groups
+* No centrilisation!
+But recently: query over multiple log groups!
+[comment]: <> (TODO: visualize)
+
 
 
 # Monitoring with AWS CloudWatch Dashboards: Metrics, Dashboards, Alerting
-* Standard Metrics for Serverless applications 
+CloudWatch has this metrics tab.
+Out of the box AWS provides four lambda metrics: Erros, Duration, Throttles and Invocations.
+[comment]: <> (TODO: visualize the metrics )
+
+These are the standard Metrics for a serverless application.
 CloudWatch metrics for AWS services are only granular down to 1 minute interval (custom metrics can be granular down to 1 second)
-CloudWatch metrics are often a few minutes behind (though custom metrics might have less lag now that they can be recorded at 1 second interval)
+They can be a few minutes behind (for custom metrics you can have less lag because you can record them at 1 second interval)
 CloudWatch Logs are usually more than 10s behind (not precise measurement, but based on personal observation)
-* Custom metrics?
-publishing custom metrics requires additional network calls that need to be made during the function’s execution, adding to user-facing latency.
-You could solve this by logging the data needed for the metric as a custom formatted log.
-Use an other lambda that subscribes to the logGroup to process this data into a metric (1)
-* Creating cloudwatch dashboards + examples
-* Alerting: eg. slack and email
+
+
+* Creating CloudWatch dashboards: You can add these metric visualisations to a dashboard that gives you a visual overview.
+In these dashboards you can also add the visualisations from your Log Insight queries.
+And custom metrics that you created (more further on in the post)
+[comment]: <> (TODO: example of a dashboard)
+
+
+* Alarms and alerting: eg. slack and email.
+The alarm an action based on the value of the metric relative to the threshold over a period of time.
+That means that you can configure the threshold at which you want to be notified.
+And the length of the period that the metric is above this threshold before the alarm goes of.
+The alarm will publish an event to an sns topic.
+You can then listen on these events and send out an email or a slack notification.
 
 # Xray: distributed tracing
 * Distributed tracing:
 Serverless architectures are microservices by default, you need correlation IDs to help debug issues that spans across multiple functions, and possibly different event source types – asynchronous, synchronous and streams.
-* explain the proble;:
+* explain the problem:
 Searching for a needle in a haystack. Eg. issues with some bankaccount number but the log you search for does not contain the bank account number
 * What is AWS XRAY
 * concepts
@@ -133,9 +184,13 @@ The one thing you should think about is – how do you want to spend your time?
 
 # Monitoring your serverless environment
 * custom cloudwatch metrics
+If you’re making additional network calls during the invocation then you’ll pay for those additional execution time, and your users would have to wait that much longer for the API to respond.
+Instead, process the logs from CloudWatch Logs after the fact.
+* Custom metrics?
+publishing custom metrics requires additional network calls that need to be made during the function’s execution, adding to user-facing latency.
+You could solve this by logging the data needed for the metric as a custom formatted log.
 * execution time vs billed duration
 * provisioned memory vs memory used
-
 
 
 ### Third Party Tools
@@ -153,9 +208,9 @@ The one thing you should think about is – how do you want to spend your time?
 2. https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/
 3. https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/
 4. https://stackify.com/what-is-structured-logging-and-why-developers-need-it/
-5. TechTalk Observability: https://www.youtube.com/watch?v=1oZGakvhPWY&feature=youtu.be&mkt_tok=eyJpIjoiWlRGbVpHVTBOV1l5WTJZeSIsInQiOiIrT0F0eGpVakdFaStVTDBvV1NzTDF0WU0xQjR2aVwvbWp2WitocWVFTVlwVnpBRUJcL3AxYWJ6dU9KN1ZNV3I4RXBjeCt6UTA5UjJQMXZrRUdGYVwvdThxS3B0bVdzME1COWFCSGZWOVQ3NTlESWpOUzdhVGtwSm85cHpYbE91V1o0QTFDMnlwRTVVZ0tqT20xTFNSYlwvZlJRPT0ifQ%3D%3D
-6. TechTalk Observability: https://pages.awscloud.com/rs/112-TZM-766/images/2019_0818-MGT_Slide-Deck.pdf?mkt_tok=eyJpIjoiWlRGbVpHVTBOV1l5WTJZeSIsInQiOiIrT0F0eGpVakdFaStVTDBvV1NzTDF0WU0xQjR2aVwvbWp2WitocWVFTVlwVnpBRUJcL3AxYWJ6dU9KN1ZNV3I4RXBjeCt6UTA5UjJQMXZrRUdGYVwvdThxS3B0bVdzME1COWFCSGZWOVQ3NTlESWpOUzdhVGtwSm85cHpYbE91V1o0QTFDMnlwRTVVZ0tqT20xTFNSYlwvZlJRPT0ifQ%3D%3D
+
 7. custom connect traces: https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html
+8. slidehare on monitoring: https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017
 
 
 
