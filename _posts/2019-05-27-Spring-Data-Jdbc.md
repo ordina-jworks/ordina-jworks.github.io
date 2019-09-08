@@ -51,18 +51,121 @@ You can use spring templates to create tables and even fill them up. To do this,
 {% endhighlight %}
 
 #### Spring data jpa
-Spring data jpa helps you with setting up the database by mapping the entity structure to the database. 
-So with spring data jpa you don't have to write all the sql statements yourself to create your database schema, because this can be done automatically by spring data jpa.
-The only thing you need to do is create your entity structure inside your project and annotate it properly so spring data jpa can understand.
-This can become rather complicated when you have a complicated structure with a lot of one-to-many, many-to-one, many-to-many ... relationships.
+Spring data jpa is more of a help with the creation of your database structure. 
+Spring data uses the concept of entities to determine which classes need to be saved to the database.
+A class is seen as an Entity when it is annotated with the @Entity annotation.
+The data of each entity class will standard be saved in a separate database table.
+To define how the links in the classes need to be created in the database structure, other annotations can be added inside the entity classes.
+The most common links are @OneToMany, @ManyToOne and @ManyToMany.
+For example if class A has a @OneToMany relationship to class B then the database scheme will have a foreign key in table B to table A and hibernate will keep a list of linked B elements in entity A. 
 
-Instead of 1 class you need 
+These were just the basics of how to define your data structure. 
+This was to illustrate how spring data jpa uses annotations on classes to create a database.
+So with spring data jpa you don't have to write all the sql statements yourself to create your database schema, because this can be done automatically by spring data jpa.
+
+This system has also some disadvantages. 
+Spring data jpa gives you so many options that it is very easy to make a complicated, not easily understandable, schema.
+For example it is easy to define a data structure with a many-to-many relationship or with bi-directional relationships, but when this is implemented in spring data jpa, you need to start thinking how this impacts the database.
+In that example you need a intermediate table and reference use a reference to the unidirectional relationship.
 
 ##### Example:
 
+{% highlight java %}
+
+    @Entity
+    public class Rental {
+     
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        private Long id;
+     
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "company_id")
+        private RentalCompany company;
+     
+        // ...
+     
+    }
+    
+    @Entity
+    public class RentalCompany {
+     
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        private Long id;
+     
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+        private List<Rental> rentals;
+         
+        // ...
+    }
+
+{% endhighlight %}
+
 
 #### Spring data jdbc
-DDD eerste keer aanhalen. Alleen one-to-many relationships. Verdere uitleg gaat gedaan worden in "better design".
+When you use spring data jdbc, you will also be helped with creating your database.
+It also uses annotations like all other spring data frameworks. 
+The way we work with the annotations is a bit different than how the annotations of spring data jpa work.
+Before the explanation of the practical differences, you should know why the developers of spring data jdbc made most of the changes to this spring data framework.
+They wanted to make a framework that is more understandable than spring data jpa and helps you with creating a better data design.
+Therefore the tried to implements some concepts of DDD.
+
+The first big difference is that we work with aggregates instead of entities.
+If you don't know this concept or why it is usefull, you can check some very good article about this: Effective Aggregate Design by Vaugn Vernon.
+https://dddcommunity.org/library/vernon_2011/
+Because we use aggregates we don't want a table for each class/entity, but one for each aggregate. 
+To achieve this, we don't add @Entity annotations, only add an @Id annotation to identifiers of the aggregate roots.
+
+We link classes together to form an aggregate with at the top the aggregate root, by using object references and the @ManyToOne annotation.
+This makes it easy to define boundaries of the aggregate. 
+If a class can't reach another class by using object references than they are not part of the same aggregate.
+We can link aggregates together by using the id's of the aggregate roots. 
+
+You should also notice that only the @ManyToOne and @OneToOne annotations are supported in spring data jdbc.
+This is done according to the theory behind aggregates. 
+If you should would @OneToMany or @ManyToMany annotations, you can't get a aggregate structure.
+
+In the following example you can see 2 aggregate roots RentalCompany and Car. 
+Rental is part of the aggregate of RentalCompany.
+
+##### Example:
+
+{% highlight java %}
+
+    public class RentalCompany {
+    
+        @Id
+        private Long id;
+    
+        private String name;
+        private Set<Rental> rentals;
+    
+    }
+    
+    public class Rental {
+    
+        private String renter;
+        private Long carId;
+        private LocalDate startDate;
+        private LocalDate endDate;
+    }
+    
+    public class Car {
+    
+        @Id
+        private Long id;
+        
+        private String color;
+        private String brand;
+        private String model;
+        private String licensePlate;
+        private CarType type;
+        private List<Long> rentals;
+    }
+    
+
+{% endhighlight %}
 
 ### Querying the database
 
