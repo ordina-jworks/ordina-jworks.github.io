@@ -22,8 +22,9 @@ comments: true
 * DONE What alternatives are available to solve this problem?
     * Compare it with Helm 2, 3 and OpenShift Template
 * What is Kustomize and how to use it. 
-* Show base + overlay setup for environments
-* Show variant approach
+    * Show base + overlay setup for environments
+    * Show variant approach
+* Real world example
 * Conclusion
 
 ## What problem do we have?
@@ -78,6 +79,7 @@ As discussed on the Kustomize projects [readme](https://github.com/kubernetes-si
 
 A base manifest is in essence a set of bare bones Kubernetes manifests.
 For the scope of this blogpost a single base manifest will contain all configuration to deploy a single service.
+//TODO keep? Kustomize doesn't require this, but it seems like good fit.
 
 Let's assume the following set of Kubernetes manifests:
 ```
@@ -113,9 +115,37 @@ This option makes Kustomize add the label to all managed manifests at build time
 Other options like image overrides, namespaces overrides and name prefixing are also available. 
 For more information on these features check out the documentation [here](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html). 
 
-## Overlay manifest
+### Overlay manifest
 
+The second half of the cake in Kustomize are the overlays. 
+Overlays are yaml snippets, Kustomize configuration and/or even full manifests that can be used to adapt a base manifest.
 
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+ # //TODO add correct git url here.
+bases:
+- ../../base
+- ssh::git@some-git-provider:some-repo-path.git//folder-in-repo-with-kustomize-config
+- https://some-git-provider/some-repo-path.git//folder-in-repo-with-kustomize-config
+...
+```
+
+In the default setup on the Kustomize homepage, the bases are always local folders. 
+However, a really useful feature is referencing remote locations, including git repositories, as bases to be used in an overlay. 
+Kustomize support referencing multiple bases, which again allows for a lot of flexibility. 
+
+The way Kustomize builds a template is the following:
+
+1. Download the remote bases to a temporary folder
+1. Executed `kustomize build` on all of the bases
+    1. This will include executing any generators that are configured in the bases.
+1. Add any manifests that are listed in the resources section.
+1. Apply the patches, generators to the (generated) manifests of the bases. 
+
+This order of execution is important to remember when creating setups, especially when using overrides for generators in the base. 
+E.g. when using a config map generator in the overlay, a config map generator needs to be used in the base as well, because 
 
 ## Conclusion
 
