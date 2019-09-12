@@ -25,8 +25,10 @@ All communication between those services goes though the API.
 * **Multiple frontend applications use the same backend.**  
 And often these applications are created by separate teams.
 * **API's carry business value.**  
+Yes, there is money in your API.
 An API exposes the functionality of your product.
 A good API allows user to integrate with your product with ease.
+Thus making your product a great choice.
 
 In all of the cases a above there is value (even money!) in good communication between services.
 And that's why you should practice API first development.
@@ -40,9 +42,25 @@ The implementation comes next.
 This will allow teams to develop there applications separately because they both know and understand how communication between the services will happen.
 The contract between services is set.
 
+Now that we understand the importance of and value of API first design let's see how the Swagger/OpenAPI spec can help you with that.
 
 # Story
-# API first development - What
+Suppose that we ***Ordina*** are hosting a conference where multiple technical and agile sessions will be given.
+User can check session information and register for sessions.
+A backend service maintains this information.
+The website is exposing the information.
+There is also an app for `Android` and one for `IOS`.
+The API endpoint that gives you all the sessions is also publicly exposed to allow developers to have some fun with it.
+So we have multiple services interacting with the backend.
+<div style="text-align: center;">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/design.png" width="100%" height="100%">
+</div>
+
+From now on I will be speaking about OAS (OpenAPI Specification) instead of writing OpenAPI/Swagger all the time.
+Let's now use OAS to help us with our API First approach.
+
+# API first development with OpenAPI/Swagger
+
 # Visualisations
 # Hosting your visualisations
 # swagger code gen: generate code via cli
