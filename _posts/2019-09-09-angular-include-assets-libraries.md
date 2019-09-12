@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [orjan_de_smet]
-title: "Include library assets into applications inside an Angular workspace"
+title: "Lessons learned on including library assets into Angular applications"
 image: /img/2019-09-09-angular-include-assets-libraries/tpryd.jpg
 tags: [Angular, Builders, Assets, Library, Monorepo]
 category: Architecture
