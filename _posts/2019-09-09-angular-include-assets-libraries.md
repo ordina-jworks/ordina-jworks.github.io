@@ -24,16 +24,16 @@ These criteria are:
 - An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.
 - A dependency on another library should be added with minimal change and with minimal affected projects.
 
-I haven't worked with many monorepo tools, other than Nrwl/nx, so I will base my definition of affected projects on that.
+I haven't worked with many monorepo tools, other than [Nrwl/nx](https://nx.dev){:target="_blank" rel="noopener noreferrer"}, so I will base my definition of affected projects on that.
 Nrwl/nx uses a dependency graph to determine the affected projects.
 In short: if a library has a changed file, then all projects that import this library (either directly or lazy-loaded) are affected.
 This works recursively, so the projects that import those projectes are also affected and so on.
-Some files, like package.json and angular.json have implicitDependencies set to "*", which means a change in those files will regard all projects in the workspace as affected.
+Some files, like `package.json` and `angular.json` have `implicitDependencies` set to `"*"`, which means a change in those files will regard all projects in the workspace as affected.
 
 These are the solutions (in order) I've gone through to tackle this exact problem for a monorepo I'm currently managing.
 
-*Note: In that monorepo the focus was on json-files with translations used for @ngx-translate, but in my examples here I will use images.*
-*In the example the application, my-app, only depends on the library neighbourhood-dogs-lib and should only display a picture of my dog and Pete's dog, but not of Karen's cat.*
+*Note: In that monorepo the focus was on json-files with translations used for `@ngx-translate`, but in my examples here I will use images.*
+*In the example, the application, my-app, only depends on the library neighbourhood-dogs-lib and should only display a picture of my dog and Pete's dog, but not of Karen's cat.*
 
 ### Solution 1 - Assets in the application source
 
@@ -69,11 +69,11 @@ These are the solutions (in order) I've gone through to tackle this exact proble
 
 I call this solution the "I'll figure it out later"-solution.
 The main idea was to set aside this problem because other tasks had higher priority, the monorepo wasn't nearly as big as it is now.
-Basically the assets used by a library were put in the assets folder of the application's source directory.
+Basically, the assets used by a library were put in the `assets` folder of the application's source directory.
 This meant that the build of an application would simply include these assets out of the box.
 This is fine for a single application, but as soon as a second application (let's say, neighbourhood-animals-app) was to use this library, it, too, would need a copy of those assets in its source directory.
 A change to one of the assets would also mean that two applications would need this change, which is prone to being forgotten.
-Moreover the image of Karen's cat is nowhere to be found because at this time, no application needs it.
+Moreover, the image of Karen's cat is nowhere to be found because at this time, no application needs it.
 
 As for the criteria:
 
@@ -94,8 +94,8 @@ As for the criteria:
     </tbody>
 </table>
 
-*Kind of, if I don't forget to copy our assets
-**Depends on the amount applications that need these extra assets
+*Kind of, if I don't forget to copy our assets<br/>
+**Depends on the amount of applications that need these extra assets
 
 ### Solution 2 - Shared assets directory
 
@@ -131,9 +131,9 @@ As for the criteria:
 ```
 
 This is the "Share everything"-solution. It was created to solve the main fault of the previous, namely that assets could exist twice.
-Another important aspect here was to reduce the amount of times that angular.json would be changed when more assets from another library would be added.
-Because angular.json implicitly affects all projects, this file should be kept untouched as much as possible.
-So a one-time change was made to let the projects in angular.json include these shared assets:
+Another important aspect here was to reduce the amount of times that `angular.json` would be changed when more assets from another library would be added.
+Because `angular.json` implicitly affects all projects, this file should be kept untouched as much as possible.
+So a one-time change was made to let the projects in `angular.json` include these shared assets:
 
 ```json
 {
@@ -144,7 +144,7 @@ So a one-time change was made to let the projects in angular.json include these 
 ```
 
 Unfortunately this meant that all assets from all libraries would be added to those applications, which increases the bundle size significantly.
-Another disadvantage is that the Nx dependency graph could not link changes in this directory with their corresponding libraries, unless every single file was mentioned in nx.json with an implicit dependency for that library.
+Another disadvantage is that the Nx dependency graph could not link changes in this directory with their corresponding libraries, unless every single file was mentioned in `nx.json` with an implicit dependency for that library.
 Ironically, this solves criteria 3 perfectly, because nothing is affected, so that's the bare minimum.
 
 Going back through the criteria:
@@ -170,10 +170,10 @@ Going back through the criteria:
 
 ### Solution 3 - Custom Angular builders
 
-A solution I came across was to copy the assets after a build into the dist-folder using a script in the package.json file, but for obvious reasons that wouldn't work easily when managing different apps.
+A solution I came across was to copy the assets after a build into the `dist`-folder using a script in the `package.json` file, but for obvious reasons that wouldn't work easily when managing different apps.
 Neither would it work with the dev-server, so I didn't even go there.
 Including assets by adding them to the build target's assets array is how Angular itself prescribes to solve this problem, so let's keep that.
-However, I still wanted to change the angular.json file (and other files) as minimally as possible.
+However, I still wanted to change the `angular.json` file (and other files) as minimally as possible.
 
 Enter Angular 8 and the stable version of the CLI Builder API!
 
@@ -212,12 +212,12 @@ Enter Angular 8 and the stable version of the CLI Builder API!
       └─ ...
 ```
 
-Using this new API, I was able to construct 2 new builders to replace the default `@angular-devkit/build-angular:browser` and `@angular-devkit/build-angular:dev-server` while still utilizing them.
+Using this new API, I was able to construct two new builders to replace the default `@angular-devkit/build-angular:browser` and `@angular-devkit/build-angular:dev-server` while still utilizing them.
 These custom builders take the same options as the ones they replace and work more like a hook than a new builder.
 The idea is to update the build target in the in-memory workspace before the default builder is actually executed.
-Simply put, the custom builders read angular.json, update the assets array and pass the updated version to the original builders.
-A single configuration file (include.json in the application's assets directory) lets the custom builder read which libraries the application depends on.
-It then determines its source directory using the workspace configuration file (angular.json) and adds the following to the assets array:
+Simply put, the custom builders read `angular.json`, update the assets array and pass the updated version to the original builders.
+A single configuration file (`include.json` in the application's `assets` directory) lets the custom builder read which libraries the application depends on.
+It then determines its source directory using the workspace configuration file (`angular.json`) and adds the following to the assets array:
 
 ```json
 {
@@ -227,7 +227,7 @@ It then determines its source directory using the workspace configuration file (
 }
 ```
 
-If I wanted my-app to also include the neighbourhood's cats, then I could change include.json to also include `neighbourhood-cats-lib` and the next build would add the follow to the assets array:
+If I wanted my-app to also include the neighbourhood's cats, then I could change `include.json` to also include `neighbourhood-cats-lib` and the next build would add the following to the assets array:
 
 ```json
 {
@@ -242,7 +242,7 @@ If I wanted my-app to also include the neighbourhood's cats, then I could change
 }
 ```
 
-Though I'd rather set the option that these assets are placed in subFolders, so I added that into the builders too.
+Though I'd rather set the option that these assets are placed in sub folders, so I added that into the builders too.
 That made the assets array into the following, which prevents libs from overwriting other assets:
 
 ```json
@@ -258,9 +258,9 @@ That made the assets array into the following, which prevents libs from overwrit
 }
 ```
 
-*Note: The reason this include.json file is in the assets directory was to make a custom HttpTranslateLoader (using a simple RxJS mergeMap and forkJoin) read that same file to determine which translation assets to download.*
+*Note: The reason this `include.json` file is in the `assets` directory was to make a custom `HttpTranslateLoader` (using a simple RxJS `mergeMap` and `forkJoin`) read that same file to determine which translation assets to download.*
 
-Let's go through the criteria 1 more time:
+Let's go through the criteria one more time:
 
 <table>
     <tbody>
@@ -287,7 +287,7 @@ If that's not the case (for example if the library containing assets has no comp
 ## Sharing is caring
 
 Because I care about the community I packaged this solution and published it to npm.
-It's called `ngx-library-assets` and is available at [https://www.npmjs.com/package/ngx-library-assets](https://www.npmjs.com/package/ngx-library-assets).
-Install it as a devDependency.
+It's called `ngx-library-assets` and is available at [https://www.npmjs.com/package/ngx-library-assets](https://www.npmjs.com/package/ngx-library-assets){:target="_blank" rel="noopener noreferrer"}.
+Install it as a `devDependency`.
 
 *Disclaimer: I do not actually own a dog, or a cat. Neither do Pete and Karen. I don't even have any neighbours named Pete or Karen.*
