@@ -11,7 +11,36 @@ comments: true
 # Table of content
 
 
-# API first development - Why
+# API first development - Why, how and what
+> Great communication is key to great software engineering.
+
+Not only between people.
+Also between application or services.
+If your applications cannot communicate properly, you'll never be able to expose the functionality that is key to a good product.
+
+We also see the following trends in software engineering:
+* **Shift towards the cloud.**  
+Instead of big monolitic applications we are building lot's of smaller (micro)services.
+All communication between those services goes though the API.
+* **Multiple frontend applications use the same backend.**  
+And often these applications are created by separate teams.
+* **API's carry business value.**  
+An API exposes the functionality of your product.
+A good API allows user to integrate with your product with ease.
+
+In all of the cases a above there is value (even money!) in good communication between services.
+And that's why you should practice API first development.
+Put your communication first!
+
+***What do I need to do to practice API first development?***
+* Understand that the API is the interface for your application.  
+It is the intersection where multiple services join hands to couple there functionality.
+* First design your API.  
+The implementation comes next.
+This will allow teams to develop there applications separately because they both know and understand how communication between the services will happen.
+The contract between services is set.
+
+
 # Story
 # API first development - What
 # Visualisations
