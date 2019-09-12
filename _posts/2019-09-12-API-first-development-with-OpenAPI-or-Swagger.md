@@ -53,15 +53,54 @@ There is also an app for `Android` and one for `IOS`.
 The API endpoint that gives you all the sessions is also publicly exposed to allow developers to have some fun with it.
 So we have multiple services interacting with the backend.
 <div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/design.png" width="100%" height="100%">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/design.png" width="50%" height="50%" target="_blank">
 </div>
-
+ 
 From now on I will be speaking about OAS (OpenAPI Specification) instead of writing OpenAPI/Swagger all the time.
 Let's now use OAS to help us with our API First approach.
 
 # API first development with OpenAPI/Swagger
+Let me introduce you to [https://editor.swagger.io](https://editor.swagger.io).
+A portal to visualise your OAS.
+Easy to use and offering all the functionality we need for this example.
 
-# Visualisations
+I'll keep it simple and create the OAS for the API exposing the endpoint where consumers of the API can fetch all sessions of the conference.
+The OAS allows you to use JSON or Yaml to describe your API.
+
+// TODO: replace by gif that switches between views
+
+<div style="text-align: center;">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/apioverviewyml.png" width="100%" height="100%">
+</div>
+
+You can dive deeper into an endpoint by clicking it.
+
+<div style="text-align: center;">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/apiyml.png" width="100%" height="100%">
+</div>
+  
+Find the descriptive yaml via [this](https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28) gist.
+
+As you can see from the example the OpenAPI specification is very readable.
+Even if it's new to you, you should be able to deduct what is written in the yaml.
+You like looking in the yaml?
+Sure you don't! 
+There is this great visualisation to the right of it.
+This very clearly visualises what your API can do.
+Clear visualisations mean clear communication. 
+
+The example is quite short.
+Describing a whole API, the file might become large.
+But that's no problem.
+The OpenAPI spec allows you to split your definitions over multiple files which you can reference from within other files.
+
+> Takeaways: Easy descriptive language & great visualisations
+
+You want to expose your beautiful visualisation to your clients.
+They shouldn't have to past a `yaml` file in a window of there browser all the time.
+How do we do that? 
+Let's find out next.
+
 # Hosting your visualisations
 # swagger code gen: generate code via cli
 # swagger code gen: generate code via maven / gradle plugin
