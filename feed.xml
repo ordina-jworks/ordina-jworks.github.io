@@ -1,5 +1,282 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-09-05T06:44:48+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Avoiding fragile tests with better design</title><link href="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html" rel="alternate" type="text/html" title="Avoiding fragile tests with better design" /><published>2019-08-23T00:00:00+00:00</published><updated>2019-08-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/08/23/test-design</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-09-13T06:23:55+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Lessons learned on including library assets into Angular applications</title><link href="https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries.html" rel="alternate" type="text/html" title="Lessons learned on including library assets into Angular applications" /><published>2019-09-13T00:00:00+00:00</published><updated>2019-09-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries.html">&lt;p&gt;With Angular 6, which has now been released ages ago, workspaces were introduced.
+This meant that a repository could include multiple applications and libraries, eventually building a monorepository.
+I welcomed this change, as it meant that all applications in one repository could be kept up to date easily and more.
+But I’m not here to talk about all the advantages and disadvantages of a monorepo.
+Instead I’d like to talk about one specific challenge with this type of repository.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-include-assets-used-by-libraries&quot;&gt;How to include assets used by libraries&lt;/h2&gt;
+
+&lt;p&gt;There are multiple solutions to this problem.
+But not all solutions match all criteria for a good architecture.
+These criteria are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/li&gt;
+  &lt;li&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/li&gt;
+  &lt;li&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I haven’t worked with many monorepo tools, other than &lt;a href=&quot;https://nx.dev&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nrwl/nx&lt;/a&gt;, so I will base my definition of affected projects on that.
+Nrwl/nx uses a dependency graph to determine the affected projects.
+In short: if a library has a changed file, then all projects that import this library (either directly or lazy-loaded) are affected.
+This works recursively, so the projects that import those projectes are also affected and so on.
+Some files, like &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; have &lt;code class=&quot;highlighter-rouge&quot;&gt;implicitDependencies&lt;/code&gt; set to &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;*&quot;&lt;/code&gt;, which means a change in those files will regard all projects in the workspace as affected.&lt;/p&gt;
+
+&lt;p&gt;These are the solutions (in order) I’ve gone through to tackle this exact problem for a monorepo I’m currently managing.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: In that monorepo the focus was on json-files with translations used for &lt;code class=&quot;highlighter-rouge&quot;&gt;@ngx-translate&lt;/code&gt;, but in my examples here I will use images.&lt;/em&gt;
+&lt;em&gt;In the example, the application, my-app, only depends on the library neighbourhood-dogs-lib and should only display a picture of my dog and Pete’s dog, but not of Karen’s cat.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;solution-1---assets-in-the-application-source&quot;&gt;Solution 1 - Assets in the application source&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
+│  └─ 📂my-app
+│     ├─ 📂src
+│     │  ├─ 📂assets
+│     │  │  └─ 📂images
+│     │  │     ├─ 🖼my-dog.jpg
+│     │  │     └─ 🖼pete-dog.jpg
+│     │  ├─ 📂app
+│     │  │  └─ ...
+│     │  ├─ 📄index.html
+│     │  └─ ...
+│     └─ ...
+└─ 📂libs
+   ├─ 📂neighbourhood-dogs-lib
+   │  ├─ 📂src
+   │  │  ├─ 📂lib
+   │  │  │  ├─ 📄dog-list.component.ts
+   │  │  │  └─ 📄dog.component.ts
+   │  │  └─ ...
+   │  └─ ...
+   └─ 📂neighbourhood-cats-lib
+      ├─ 📂src
+      │  ├─ 📂lib
+      │  │  ├─ 📄cat-list.component.ts
+      │  │  └─ 📄cat.component.ts
+      │  └─ ...
+      └─ ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I call this solution the “I’ll figure it out later”-solution.
+The main idea was to set aside this problem because other tasks had higher priority, the monorepo wasn’t nearly as big as it is now.
+Basically, the assets used by a library were put in the &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; folder of the application’s source directory.
+This meant that the build of an application would simply include these assets out of the box.
+This is fine for a single application, but as soon as a second application (let’s say, neighbourhood-animals-app) was to use this library, it, too, would need a copy of those assets in its source directory.
+A change to one of the assets would also mean that two applications would need this change, which is prone to being forgotten.
+Moreover, the image of Karen’s cat is nowhere to be found because at this time, no application needs it.&lt;/p&gt;
+
+&lt;p&gt;As for the criteria:&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;❌&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;⚠️*&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;⚠️**&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*Kind of, if I don’t forget to copy our assets&lt;br /&gt;
+**Depends on the amount of applications that need these extra assets&lt;/p&gt;
+
+&lt;h3 id=&quot;solution-2---shared-assets-directory&quot;&gt;Solution 2 - Shared assets directory&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
+│  └─ 📂my-app
+│     ├─ 📂src
+│     │  ├─ 📂app
+│     │  │  └─ ...
+│     │  ├─ 📄index.html
+│     │  └─ ...
+│     └─ ...
+├─ 📂libs
+│  ├─ 📂neighbourhood-dogs-lib
+│  │  ├─ 📂src
+│  │  │  ├─ 📂lib
+│  │  │  │  ├─ 📄dog-list.component.ts
+│  │  │  │  └─ 📄dog.component.ts
+│  │  │  └─ ...
+│  │  └─ ...
+│  └─ 📂neighbourhood-cats-lib
+│     ├─ 📂src
+│     │  ├─ 📂lib
+│     │  │  ├─ 📄cat-list.component.ts
+│     │  │  └─ 📄cat.component.ts
+│     │  └─ ...
+│     └─ ...
+└─ 📂shared-assets
+   └─ 📂images
+      ├─ 🖼my-dog.jpg
+      ├─ 🖼pete-dog.jpg
+      └─ 🖼karen-cat.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is the “Share everything”-solution. It was created to solve the main fault of the previous, namely that assets could exist twice.
+Another important aspect here was to reduce the amount of times that &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; would be changed when more assets from another library would be added.
+Because &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; implicitly affects all projects, this file should be kept untouched as much as possible.
+So a one-time change was made to let the projects in &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; include these shared assets:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./shared-assets/images&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/images&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Unfortunately this meant that all assets from all libraries would be added to those applications, which increases the bundle size significantly.
+Another disadvantage is that the Nx dependency graph could not link changes in this directory with their corresponding libraries, unless every single file was mentioned in &lt;code class=&quot;highlighter-rouge&quot;&gt;nx.json&lt;/code&gt; with an implicit dependency for that library.
+Ironically, this solves criteria 3 perfectly, because nothing is affected, so that’s the bare minimum.&lt;/p&gt;
+
+&lt;p&gt;Going back through the criteria:&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;⚠️*&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;❌&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*There are no longer duplicate assets, but they’re not part of the project that utilizes them&lt;/p&gt;
+
+&lt;h3 id=&quot;solution-3---custom-angular-builders&quot;&gt;Solution 3 - Custom Angular builders&lt;/h3&gt;
+
+&lt;p&gt;A solution I came across was to copy the assets after a build into the &lt;code class=&quot;highlighter-rouge&quot;&gt;dist&lt;/code&gt;-folder using a script in the &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file, but for obvious reasons that wouldn’t work easily when managing different apps.
+Neither would it work with the dev-server, so I didn’t even go there.
+Including assets by adding them to the build target’s assets array is how Angular itself prescribes to solve this problem, so let’s keep that.
+However, I still wanted to change the &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; file (and other files) as minimally as possible.&lt;/p&gt;
+
+&lt;p&gt;Enter Angular 8 and the stable version of the CLI Builder API!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
+│  └─ 📂my-app
+│     ├─ 📂src
+│     │  ├─ 📂assets
+│     │  │  └─ 📄include.json
+│     │  ├─ 📂app
+│     │  │  └─ ...
+│     │  ├─ 📄index.html
+│     │  └─ ...
+│     └─ ...
+└─ 📂libs
+   ├─ 📂neighbourhood-dogs-lib
+   │  ├─ 📂src
+   │  │  ├─ 📂assets
+   │  │  │  └─ 📂images
+   │  │  │     ├─ 🖼my-dog.jpg
+   │  │  │     └─ 🖼pete-dog.jpg
+   │  │  ├─ 📂lib
+   │  │  │  ├─ 📄dog-list.component.ts
+   │  │  │  └─ 📄dog.component.ts
+   │  │  └─ ...
+   │  └─ ...
+   └─ 📂neighbourhood-cats-lib
+      ├─ 📂src
+      │  ├─ 📂assets
+      │  │  └─ 📂images
+      │  │     └─ 🖼karen-cat.jpg
+      │  ├─ 📂lib
+      │  │  ├─ 📄cat-list.component.ts
+      │  │  └─ 📄cat.component.ts
+      │  └─ ...
+      └─ ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Using this new API, I was able to construct two new builders to replace the default &lt;code class=&quot;highlighter-rouge&quot;&gt;@angular-devkit/build-angular:browser&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;@angular-devkit/build-angular:dev-server&lt;/code&gt; while still utilizing them.
+These custom builders take the same options as the ones they replace and work more like a hook than a new builder.
+The idea is to update the build target in the in-memory workspace before the default builder is actually executed.
+Simply put, the custom builders read &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt;, update the assets array and pass the updated version to the original builders.
+A single configuration file (&lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; in the application’s &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; directory) lets the custom builder read which libraries the application depends on.
+It then determines its source directory using the workspace configuration file (&lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt;) and adds the following to the assets array:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If I wanted my-app to also include the neighbourhood’s cats, then I could change &lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; to also include &lt;code class=&quot;highlighter-rouge&quot;&gt;neighbourhood-cats-lib&lt;/code&gt; and the next build would add the following to the assets array:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-cats-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Though I’d rather set the option that these assets are placed in sub folders, so I added that into the builders too.
+That made the assets array into the following, which prevents libs from overwriting other assets:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/neighbourhood-dogs-lib&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-cats-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/neighbourhood-cats-lib&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Note: The reason this &lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; file is in the &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; directory was to make a custom &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpTranslateLoader&lt;/code&gt; (using a simple RxJS &lt;code class=&quot;highlighter-rouge&quot;&gt;mergeMap&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;forkJoin&lt;/code&gt;) read that same file to determine which translation assets to download.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s go through the criteria one more time:&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅*&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*Because the assets are inside the library’s directory, the dependency graph can detect a change and determine the affected applications&lt;/p&gt;
+
+&lt;p&gt;There is one caveat though: the dependency graph will only detect dependencies if the library is also imported in the code of the application, which would be the case mostly.
+If that’s not the case (for example if the library containing assets has no components/services/modules/…), simply create an empty module in it and import it in the applications that depend on these assets.&lt;/p&gt;
+
+&lt;h2 id=&quot;sharing-is-caring&quot;&gt;Sharing is caring&lt;/h2&gt;
+
+&lt;p&gt;Because I care about the community I packaged this solution and published it to npm.
+It’s called &lt;code class=&quot;highlighter-rouge&quot;&gt;ngx-library-assets&lt;/code&gt; and is available at &lt;a href=&quot;https://www.npmjs.com/package/ngx-library-assets&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.npmjs.com/package/ngx-library-assets&lt;/a&gt;.
+Install it as a &lt;code class=&quot;highlighter-rouge&quot;&gt;devDependency&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Disclaimer: I do not actually own a dog, or a cat. Neither do Pete and Karen. I don’t even have any neighbours named Pete or Karen.&lt;/em&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Angular" /><category term="Builders" /><category term="Assets" /><category term="Library" /><category term="Monorepo" /><summary type="html">With Angular 6, which has now been released ages ago, workspaces were introduced. This meant that a repository could include multiple applications and libraries, eventually building a monorepository. I welcomed this change, as it meant that all applications in one repository could be kept up to date easily and more. But I’m not here to talk about all the advantages and disadvantages of a monorepo. Instead I’d like to talk about one specific challenge with this type of repository.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-09-09-angular-include-assets-libraries/tpryd.jpg" /></entry><entry><title type="html">Avoiding fragile tests with better design</title><link href="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html" rel="alternate" type="text/html" title="Avoiding fragile tests with better design" /><published>2019-08-23T00:00:00+00:00</published><updated>2019-08-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/08/23/test-design</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#why-should-we-design-our-tests&quot;&gt;Why should we design our tests&lt;/a&gt;&lt;/li&gt;
@@ -3777,314 +4054,4 @@ While not everything is perfect (the cat is a Holy Birman not a Siamese, but I�
   &lt;li&gt;&lt;a href=&quot;https://github.com/ml5js/ml5-examples#examples-index&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ML5 Demos&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://pjreddie.com/darknet/yolo/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YOLO&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/ordina-jworks/TensorFlow.js&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ML5 Custom Examples&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="Machine Learning" /><category term="Internet of Things" /><category term="Smart tech" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><category term="TensorFlow" /><category term="JavaScript" /><category term="Browser" /><category term="Node.js" /><category term="Ml5.js" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-06-26-tensorflowjs/banner.jpg" /></entry><entry><title type="html">JDK distributions</title><link href="https://ordina-jworks.github.io/java/2019/05/22/JDK-distributions.html" rel="alternate" type="text/html" title="JDK distributions" /><published>2019-05-22T00:00:00+00:00</published><updated>2019-05-22T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/java/2019/05/22/JDK-distributions</id><content type="html" xml:base="https://ordina-jworks.github.io/java/2019/05/22/JDK-distributions.html">&lt;blockquote&gt;
-  &lt;p&gt;Around February we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM.
-We decided it would be good idea to write a blog post that should clear up the confusion for our developers and clients.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#oracles-jdk-distributions&quot;&gt;Oracle’s JDK distributions&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#openjdk-updates&quot;&gt;OpenJDK updates&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#openjdk-providers&quot;&gt;OpenJDK providers&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#java-desktop-java-web-start-and-javafx&quot;&gt;Java Desktop, Java Web Start and JavaFX&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;oracles-jdk-distributions&quot;&gt;Oracle’s JDK distributions&lt;/h2&gt;
-
-&lt;p&gt;First we have to explain what changed to Oracle’s JDK distributions recently, which has brought along a lot of uncertainty within the Java community.
-This blog post is going to try to explain these changes and more importantly, tell you what you should know about the licenses and options you have.&lt;/p&gt;
-
-&lt;p&gt;At the end of this article you should know more about the free updates and commercial support options from  various JDK vendors and understand that OpenJDK 8 and 11 are still being updated, even though Oracle is going to stop leading those projects, to focus on the new versions and providing commercial support.&lt;/p&gt;
-
-&lt;h3 id=&quot;six-month-release-cycle&quot;&gt;Six month release cycle&lt;/h3&gt;
-
-&lt;p&gt;Java SE now has new major versions released every six months since Java version 9.
-Prior to this version, updates where provided by Oracle and other OpenJDK contributors.
-These releases, such as 8u91, 8u111 and 8u131, were released every six months.
-You would not get further updates on 8u91 once 8u111 was released and no longer get updates for 8u111 once 8u131 was released.&lt;/p&gt;
-
-&lt;p&gt;Since Java version 9 however, there is a new six month release cycle for major versions.
-Similar to the old update cycle.
-In the new version system you will no longer get updates for Java 12 once Java 13 is released.
-Exceptions being long-term support versions which will get updates beyond six months.
-More about that later.&lt;/p&gt;
-
-&lt;p&gt;Below is a table for free updates.
-Each vendor can release their own OpenJDK distributions and decide for themselves how long they provide free updates.
-If you want pick a vendor, make sure you research how long they will be providing free updates/support because this may vary from vendor to vendor.
-Further in the article we provide a table with most of this information.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Version&lt;/th&gt;
-      &lt;th&gt;Release date&lt;/th&gt;
-      &lt;th&gt;Free updates ended or superseded&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 6&lt;/td&gt;
-      &lt;td&gt;December 2006&lt;/td&gt;
-      &lt;td&gt;Supported primarily by Azul systems&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 7&lt;/td&gt;
-      &lt;td&gt;July 2011&lt;/td&gt;
-      &lt;td&gt;Supported primarily by Red Hat until at least June 2020&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 8&lt;/td&gt;
-      &lt;td&gt;March 2014&lt;/td&gt;
-      &lt;td&gt;Supported by Red Hat, Amazon, Azul Systems, BellSoft, Google, IBM, jClarity, SAP, and others.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 9&lt;/td&gt;
-      &lt;td&gt;Sept 2017&lt;/td&gt;
-      &lt;td&gt;Superseded by OpenJDK 10&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 10&lt;/td&gt;
-      &lt;td&gt;March 2018&lt;/td&gt;
-      &lt;td&gt;Superseded by OpenJDK 11&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 11&lt;/td&gt;
-      &lt;td&gt;Sept 2018&lt;/td&gt;
-      &lt;td&gt;Supported by Red hat, Amazon, Azul Systems, BellSoft, Google, IBM, jClarity, SAP, and others.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 12&lt;/td&gt;
-      &lt;td&gt;March 2019&lt;/td&gt;
-      &lt;td&gt;Superseded by OpenJDK 13&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OpenJDK 13&lt;/td&gt;
-      &lt;td&gt;Sept 2019&lt;/td&gt;
-      &lt;td&gt;Will be superseded by OpenJDK 14&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;support-and-licenses&quot;&gt;Support and licenses&lt;/h3&gt;
-
-&lt;p&gt;Before Java 9, Oracle would provide updates for their JDK for three years.
-The license allowed you to use these updates personally and commercially.
-The updates had no support so if you wanted support you had to buy a license from Oracle and those licenses also came with longer update cycles.
-Starting April 2019, the new Oracle JDK 8 updates will be restricted and will remain free for personal desktop use, development, testing, prototyping, demonstrating and for use with certain types of applications.
-Commercial use of these updates requires you to get a license for a paid support plan.
-Using older versions is allowed, but will not contain important security patches.&lt;/p&gt;
-
-&lt;p&gt;Java 9 brings new update cycles which allows for new implementations like TLS 1.3 to be added to Java faster.
-Oracle also started producing Oracle OpenJDK builds which use the GNU General Public License, version 2, with the Classpath Exception.
-Every major Java version has free updates for six months until the next major version is released.
-If you need new updates and support for these older versions, you will have to buy a license from Oracle which will extend support and updates although they only provide this for LTS releases.&lt;/p&gt;
-
-&lt;h4 id=&quot;support&quot;&gt;Support&lt;/h4&gt;
-
-&lt;p&gt;So what if I want support from Oracle?
-Support isn’t free because Oracle and other companies have to hire employees and developers to provide these support services.
-If you need the reassurance of bug fixes and somebody to answer your questions then you have to get commercial support.
-You aren’t limited to Oracle’s support.
-Which vendor you choose to get this support from is up to you.
-But each vendor has their own JDK binaries so make sure you use the binaries of the vendor you want to get commercial support from and don’t forget to check how long they will support your OpenJDK version.
-Each vendor can decide for themselves how long they provide support for their OpenJDK libraries, so this isn’t a decision you should make on a whim.&lt;/p&gt;
-
-&lt;p&gt;You might also be thinking: “Why would I pay for commercial support for (open source) JDK versions?”.
-Don’t forget that Oracle and other vendors pour money in development of these JDK versions and this money has to come from somewhere.
-You are not obliged to get paid support with one of the vendors providing OpenJDK versions, but we think it’s worth thinking about supporting the Java ecosystem to ensure its long-lasting future.
-If there is no money to develop the JDK further then there won’t be any progression to the future of the JDK ecosystem.&lt;/p&gt;
-
-&lt;h3 id=&quot;long-term-support-lts&quot;&gt;Long-Term Support (LTS)&lt;/h3&gt;
-
-&lt;p&gt;In the OpenJDK, LTS is an understanding between various contributors which are mainly led by Oracle and Red Hat which means that the code line for Java SE 11, 17, 23, etc will be maintained for a longer period of time than six months.&lt;/p&gt;
-
-&lt;p&gt;Oracle leads the first six months of the OpenJDK LTS code line, providing updates and producing the Oracle OpenJDK builds, but afterwards as mentioned before, provide updates under a paid support plan.&lt;/p&gt;
-
-&lt;p&gt;There’s a but however: Oracle will work with other OpenJDK vendors to hand over the OpenJDK LTS code line and allow those vendors to continue working on these updates together.
-Handing over the OpenJDK code line has already occurred for both Java 8 and Java 11 with Red Hat taking over those update projects.
-This doesn’t mean that they are the only one contributing to the OpenJDK project.
-Various people can still provide patches and add new features to new versions of the OpenJDK.
-You can read more about JDK 11 updates on the &lt;a href=&quot;https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OpenJDK Wiki&lt;/a&gt;.
-You’ll see that there are updates planned until at least mid October 2019.&lt;/p&gt;
-
-&lt;p&gt;This means that the Oracle JDK could differ from the OpenJDK based binaries and the JDKs provided by other vendors.
-Most of the major vendors have continued to take efforts to keep them in sync as much as possible, but this does mean you should develop, test, … your applications on the binaries you plan on using in production, or you might end up with some unexpected results during production.
-To prevent big differences, a TCK is  provided by Oracle for OpenJDK distributions.
-More about that later in the article.&lt;/p&gt;
-
-&lt;h2 id=&quot;openjdk-updates&quot;&gt;OpenJDK updates&lt;/h2&gt;
-
-&lt;p&gt;The OpenJDK community works on free, open-source implementations of the Java SE standard.
-Oracle contributes a lot to these projects and forms the basis for both the Oracle JDK and OpenJDK builds.
-OpenJDK 11+ versions are interchangeable with Oracle’s JDK for applications.
-Oracle will continue to contribute to OpenJDK while they provide updates for the corresponding Oracle OpenJDK build version.
-Once that version is superseded, Oracle will cease contributing to that version and start updating the next one.&lt;/p&gt;
-
-&lt;h3 id=&quot;updates-from-other-vendors&quot;&gt;Updates from other vendors&lt;/h3&gt;
-
-&lt;p&gt;Oracle is very receptive of the idea on having community maintenance and will continue to support handover of the OpenJDK to the community to a qualified volunteering entity once they have moved on to work on the next version.
-Red Hat is currently globally leading and updating OpenJDK 6 and OpenJDK 7 projects after Oracle ended updates for them.
-After Red Hat stopped updating OpenJDK 6, Azul Systems took over leading the project and continued to provide updates for the project to this day of writing.&lt;/p&gt;
-
-&lt;p&gt;Red Hat is currently leading OpenJDK 8 and OpenJDK 11 since April 2019.
-This does not mean that they are the sole contributors to the project.
-Other vendors are providing patches and updates as well. 
-The biggest contributions are happening to the OpenJDK 8 project with contributions from not just Red Hat, but Amazon, Azul Systems, BellSoft, IBM, jClarity, Google, Sap and many other vendors.&lt;/p&gt;
-
-&lt;p&gt;For consistency, these vendors provide extended update cycles for their OpenJDK for the same versions that are deemed LTS for Oracle’s JDK.&lt;/p&gt;
-
-&lt;h2 id=&quot;openjdk-providers&quot;&gt;OpenJDK providers&lt;/h2&gt;
-
-&lt;h3 id=&quot;build-yourself-from-source-providers&quot;&gt;Build yourself from source providers&lt;/h3&gt;
-
-&lt;p&gt;One of the options you have is to build a JDK from source code meaning OpenJDK, no commercial support and you need to build it yourself and keep it updated.
-This is not something we would suggest doing since this requires you to put resources in, checking for updates and applying patches if needed.
-There is also no way of getting any commercial support if you ever need it.&lt;/p&gt;
-
-&lt;h4 id=&quot;source-providers&quot;&gt;Source providers&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://hg.openjdk.java.net/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mercurial&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://openjdk-sources.osci.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tarballs (Java 7+)&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.github.com/AdoptOpenJDK/openjdk-build&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AdoptOpenJDK&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;using-binaries-from-providers&quot;&gt;Using binaries from providers&lt;/h3&gt;
-
-&lt;p&gt;The most convenient option is to use binary distributions from other providers that are providing public updates.&lt;/p&gt;
-
-&lt;h4 id=&quot;free-binary-distributions--commercial-support&quot;&gt;Free binary distributions &amp;amp; commercial support&lt;/h4&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Distribution&lt;/th&gt;
-      &lt;th&gt;Versions&lt;/th&gt;
-      &lt;th&gt;TCK&lt;/th&gt;
-      &lt;th&gt;Public updates&lt;/th&gt;
-      &lt;th&gt;Arch(*)&lt;/th&gt;
-      &lt;th&gt;Commercial Support&lt;/th&gt;
-      &lt;th&gt;Commercial Support ended&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://adoptopenjdk.net/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AdoptOpenJDK&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;8, 11&lt;/td&gt;
-      &lt;td&gt;No&lt;/td&gt;
-      &lt;td&gt;Until at least Sep 2023&lt;/td&gt;
-      &lt;td&gt;Major + Minor&lt;/td&gt;
-      &lt;td&gt;IBM, jClarity&lt;/td&gt;
-      &lt;td&gt;Indefinitely (IBM), Until at least 2025 (jClarity)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://aws.amazon.com/corretto/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Corretto&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;8, 11&lt;/td&gt;
-      &lt;td&gt;Yes&lt;/td&gt;
-      &lt;td&gt;Until at least June 2023&lt;/td&gt;
-      &lt;td&gt;Major&lt;/td&gt;
-      &lt;td&gt;-&lt;/td&gt;
-      &lt;td&gt;?&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://www.azul.com/downloads/zulu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Azul Zulu&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;8, 11&lt;/td&gt;
-      &lt;td&gt;Yes&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;Major + Minor&lt;/td&gt;
-      &lt;td&gt;Azul&lt;/td&gt;
-      &lt;td&gt;March 2025 (8), September 2026 (11)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://www.bell-sw.com/pages/products&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Bellsoft Liberica&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;8, 11&lt;/td&gt;
-      &lt;td&gt;Yes&lt;/td&gt;
-      &lt;td&gt;Until at least 2023&lt;/td&gt;
-      &lt;td&gt;Major + Minor&lt;/td&gt;
-      &lt;td&gt;BellSoft&lt;/td&gt;
-      &lt;td&gt;Until 2026&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://openjdk.java.net/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Oracle OpenJDK&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;11&lt;/td&gt;
-      &lt;td&gt;Yes&lt;/td&gt;
-      &lt;td&gt;Until Mar 2019&lt;/td&gt;
-      &lt;td&gt;Major&lt;/td&gt;
-      &lt;td&gt;Oracle (through the Oracle JDK)&lt;/td&gt;
-      &lt;td&gt;September 2023, September 2026 (extended support)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://sap.github.io/SapMachine/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SapMachine&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;11&lt;/td&gt;
-      &lt;td&gt;Yes&lt;/td&gt;
-      &lt;td&gt;September 2022&lt;/td&gt;
-      &lt;td&gt;Major&lt;/td&gt;
-      &lt;td&gt;SAP&lt;/td&gt;
-      &lt;td&gt;September 2022&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;* &lt;strong&gt;Major&lt;/strong&gt; = Linux x86, MacOS, Windows x64,
-&lt;strong&gt;Minor&lt;/strong&gt; = various other platforms.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Notes:&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;As a general philosophy, AdoptOpenJDK will continue to build binaries for LTS releases as long as the corresponding upstream source (Oracle OpenJDK) is actively maintained.&lt;/em&gt;
-&lt;em&gt;The Eclipse OpenJ9 Support Document covers extra support info for that VM.&lt;/em&gt;
-&lt;em&gt;This information might change overtime and was gathered from the vendors pages and support.&lt;/em&gt;
-&lt;em&gt;Contact vendors for the most recent information.&lt;/em&gt;
-&lt;em&gt;jClarity will support their JDK binaries as long as produced which likely means 2028&lt;/em&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;technology-compatibility-kit-for-java-tck&quot;&gt;Technology Compatibility Kit for Java (TCK)&lt;/h5&gt;
-
-&lt;p&gt;The Java Compatibility Kit (a.k.a., the JCK or TCK for Java SE) is an extensive test suite used by Oracle and licensees to ensure compatible implementations of its platform.
-This ensures that the OpenJDK implementation does not have major differences from the Oracle’s JDK, but it is still possible for there to be minor differences in the binary distribution.&lt;/p&gt;
-
-&lt;p&gt;Sun released a specific license to permit running the TCK in the OpenJDK context for any GPL implementation deriving substantially from OpenJDK.
-This also means to be TCK compliant.
-The JDK distribution is required to use the same GPL license.
-Otherwise you cannot obtain legal access the TCK.
-It is available at no charge to developers who are planning to deploy a compatible Java implementation based on code derived from the OpenJDK or who are participating in OpenJDK research, bug fixes, code enhancement and/or ports to other hardware or software architectures.&lt;/p&gt;
-
-&lt;h3 id=&quot;using-distributions-provided-by-your-linux-distribution&quot;&gt;Using distributions provided by your linux distribution&lt;/h3&gt;
-
-&lt;p&gt;Many Linux distributions will continue to provide OpenJDK binaries for their distributions through their package managers including and not limited to Debian, Ubuntu, CentOS, Fedora, Alpine, …&lt;/p&gt;
-
-&lt;h2 id=&quot;java-desktop-java-web-start-and-javafx&quot;&gt;Java Desktop, Java Web Start and JavaFX&lt;/h2&gt;
-
-&lt;p&gt;There are various changes with Desktop Java SE starting with the Oracle JDK 11 that you should be aware of.&lt;/p&gt;
-
-&lt;h3 id=&quot;javafx-and-openjfx&quot;&gt;JavaFX and OpenJFX&lt;/h3&gt;
-
-&lt;p&gt;As of Java version 11, both Oracle’s JDK and Oracle’s OpenJDK will no longer contain the JavaFX or OpenJFX libraries.
-You will have to add these libraries yourself or through build tools.
-The update cycle is the same as OpenJDK: if OpenJFX 12 is released, public updates are dropped for OpenJFX 11.&lt;/p&gt;
-
-&lt;h3 id=&quot;java-packager&quot;&gt;Java Packager&lt;/h3&gt;
-
-&lt;p&gt;The Java packager, which allows you to bundle applications and their dependencies with the JVM, is no longer part of the OpenJDK and has been removed from all of Oracle’s JDK versions starting from version 11.
-There is a &lt;a href=&quot;https://bugs.openjdk.java.net/browse/JDK-8200758&quot;&gt;JEP&lt;/a&gt; to add a new packaging tool to OpenJDK but this is not yet ready for Java 11.&lt;/p&gt;
-
-&lt;h3 id=&quot;java-webstart&quot;&gt;Java WebStart&lt;/h3&gt;
-
-&lt;p&gt;Java WebStart has been removed from Oracle’s JDK versions starting from version 11.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Alternatively you can use &lt;a href=&quot;https://icedtea.classpath.org/wiki/IcedTea-Web&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;IcedTea-Web&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;AdoptOpenJDK will be supporting OpenJDK binaries with IcedTea-Web&lt;/li&gt;
-  &lt;li&gt;IBM will be supporting AdoptOpenJDK builds of OpenJDK with IcedTea-Web&lt;/li&gt;
-  &lt;li&gt;Builds from Red hat include a simplified IcedTea-Web installer (ojdkbuild)&lt;/li&gt;
-  &lt;li&gt;Karukun is working on an &lt;a href=&quot;https://dev.karakun.com/webstart/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OSS replacement for Web Start&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;sources&quot;&gt;Sources&lt;/h2&gt;
-&lt;p&gt;The information in this blog post comes from various sources which will be listed below.
-A huge thanks goes out to the creators of the “Java Is Still Free” document who granted us permissions to use their post for this blog post.
-We used these sources either because we were granted permissions to use them or the terms allowed us to use them.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.google.com/document/d/1nFGazvrCvHMZJgFstlbzoHjpAVwv5DEdnaBr_5pKuHo/edit?usp=sharing&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Java Is Still Free&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mail.openjdk.java.net/pipermail/jdk-updates-dev/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The jdk-updates-dev Archives&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Duncan&quot;, &quot;last_name&quot;=&gt;&quot;Casteleyn&quot;, &quot;github&quot;=&gt;&quot;DuncanCasteleyn&quot;, &quot;linkedin&quot;=&gt;&quot;duncan-casteleyn&quot;, &quot;permalink&quot;=&gt;&quot;/author/duncan-casteleyn/&quot;, &quot;avatar&quot;=&gt;&quot;duncan-casteleyn.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;email&quot;=&gt;&quot;duncan.casteleyn@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Duncan is a Java Consultant at Ordina Belgium, who is passionate about Java technologies. He likes to explore Spring Boot, Kotlin and other new technologies that he can use to develop applications.&quot;}</name><email>duncan.casteleyn@ordina.be</email></author><category term="Java" /><category term="Java" /><category term="OpenJDK" /><category term="JDK" /><summary type="html">Around February we had a discussion in our chat group of developers which made us realise how much confusion there is on the new update cycle for the JVM. We decided it would be good idea to write a blog post that should clear up the confusion for our developers and clients.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-05-20-JDK-distributions/openjdk.png" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="Machine Learning" /><category term="Internet of Things" /><category term="Smart tech" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><category term="TensorFlow" /><category term="JavaScript" /><category term="Browser" /><category term="Node.js" /><category term="Ml5.js" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-06-26-tensorflowjs/banner.jpg" /></entry></feed>
