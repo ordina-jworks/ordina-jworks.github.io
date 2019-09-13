@@ -52,14 +52,29 @@ The website is exposing the information.
 There is also an app for `Android` and one for `IOS`.
 The API endpoint that gives you all the sessions is also publicly exposed to allow developers to have some fun with it.
 So we have multiple services interacting with the backend.
+
 <div style="text-align: center;">
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/design.png" width="50%" height="50%" target="_blank">
 </div>
- 
-From now on I will be speaking about OAS (OpenAPI Specification) instead of writing OpenAPI/Swagger all the time.
-Let's now use OAS to help us with our API First approach.
+
+The applications are created by different teams and they all embrace the **API first** approach.
+They read this blog and realised that by agreeing on the common interface first they could develop separately without impacting each other.
+So hooray for API first development. :tada:
+
 
 # API first development with OpenAPI/Swagger
+The functional analysts and a couple of developers of the team are sitting together to agree on how the API should be defined.
+They first agree that the API should have an endpoint on which a client should be able to fetch all sessions of the conference. 
+Now it's a matter of working out this endpoint and then bringing it to the teams te implement.
+
+Designing an API is easier when you can visualise the API.
+Let's bring in the OpenAPI spec.
+
+> The OpenAPI specification allows you to define your API in a descriptive language (json or yaml) and nicely visualise it
+
+From now on I will be speaking about OAS (OpenAPI Specification) instead of writing OpenAPI/Swagger all the time.
+Let's now use OAS to help us with our API First approach and design our API.
+
 Let me introduce you to [https://editor.swagger.io](https://editor.swagger.io).
 A portal to visualise your OAS.
 Easy to use and offering all the functionality we need for this example.
@@ -89,8 +104,8 @@ There is this great visualisation to the right of it.
 This very clearly visualises what your API can do.
 Clear visualisations mean clear communication. 
 
-The example is quite short.
-Describing a whole API, the file might become large.
+The example is short.
+Describing a whole API, the file might become quite large.
 But that's no problem.
 The OpenAPI spec allows you to split your definitions over multiple files which you can reference from within other files.
 
@@ -102,6 +117,11 @@ How do we do that?
 Let's find out next.
 
 # Hosting your visualisations
+The API specifications should be easily accessible for you and your clients.
+
+
+
+# postman import
 # swagger code gen: generate code via cli
 # swagger code gen: generate code via maven / gradle plugin
 # swagger with Spring

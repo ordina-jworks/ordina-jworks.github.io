@@ -20,11 +20,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/GetAllSessionsResponse"
         '404':
-          description: "Could not find any sessiosn"
+          description: "Could not find any session"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/404Response"
+  "/session/create":
+    post:
+      description: Create a new session on the conference
+      operationId: createSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Session"
+      responses:
+        '202':
+          description: "Session successfully created"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSessionResponse'
 
 components:
   schemas:
@@ -73,13 +89,24 @@ components:
     GetAllSessionsResponse:
       type: object
       required:
-        - qaEnsembles
+        - sessions
       properties:
-        qaEnsembles:
+        sessions:
           type: array
-          description: "List of QAEnsembles"
+          description: "List of sessions"
           items:
             $ref: '#/components/schemas/Session'
+
+    CreateSessionResponse:
+      required:
+        - sessionId
+      allOf:
+        - $ref: '#/components/schemas/Session'
+        - type: object
+          properties:
+            sessionId:
+              type: string
+              example: "11313"
 
     GenericResponse:
       type: object
@@ -94,7 +121,4 @@ components:
       type: object
       allOf:
         - $ref: '#/components/schemas/GenericResponse'
-
-
-
 
