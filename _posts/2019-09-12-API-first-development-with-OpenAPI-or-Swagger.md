@@ -81,17 +81,10 @@ Easy to use and offering all the functionality we need for this example.
 I'll keep it simple and create the OAS for the API exposing the endpoint where consumers of the API can fetch all sessions of the conference.
 The OAS allows you to use JSON or Yaml to describe your API.
 
-// TODO: replace by gif that switches between views
-
 <div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/apioverviewyml.png" width="100%" height="100%">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/swagger-editor.gif" width="70%" height="70%">
 </div>
 
-You can dive deeper into an endpoint by clicking it.
-
-<div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/apiyml.png" width="100%" height="100%">
-</div>
   
 Find the descriptive yaml via [this](https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28) gist.
 
@@ -127,19 +120,18 @@ A couple of hosted solutions:
 * readme.io
 
 <div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/hosted-solutions.gif" width="100%" height="100%">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/hosted-solutions.gif" width="70%" height="70%">
 </div>
 
 
 * Redocly: [Generator](https://github.com/Redocly/create-openapi-repo) for a github repo that allows you to host via github pages. 
 
 <div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/redoc.gif" width="100%" height="100%">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/redoc.gif" width="70%" height="70%">
 </div>
 
-
-
 # postman import
+
 # swagger code gen: generate code via cli
 # swagger code gen: generate code via maven / gradle plugin
 # swagger with Spring
