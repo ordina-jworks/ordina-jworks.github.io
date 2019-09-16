@@ -3,7 +3,7 @@ layout: post
 authors: [ken_coenen]
 title: 'A decade of DDD, CQRS and Event Sourcing'
 image: /img/DDDEurope2015.jpg
-tags: [Domain-Driven Design, DDD, CQRS, Event Sourcing, Software Craftmanship]
+tags: [Domain-Driven Design, CQRS, Event Sourcing, Software Craftmanship]
 category: Domain-Driven Design
 comments: true
 ---

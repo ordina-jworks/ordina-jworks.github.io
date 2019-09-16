@@ -3,7 +3,7 @@ layout: post
 authors: [ivar_van_hartingsveldt]
 title: 'Creating a REST API with NodeJS, TypeScript and Koa.'
 image: /img/nodejs-typescript-koa/koa-logo.png
-tags: [NodeJS, TypeScript, JavaScript, Koa, REST, MySQL]
+tags: [Node.js, TypeScript, JavaScript, Koa, REST, MySQL]
 category: NodeJS
 comments: true
 ---

@@ -4,8 +4,8 @@ authors: [elke_heymans]
 outbound: [tech_blog_vue-with-typescript]
 title: 'Vue with TypeScript'
 image: /img/vue-with-typescript/vue-plus-typescript.png
-tags: [Vue,TypeScript,JavaScript,VueJS,VueCLI]
-category: Vue
+tags: [Vue.js, TypeScript, JavaScript]
+category: Frontend
 comments: true
 ---
 

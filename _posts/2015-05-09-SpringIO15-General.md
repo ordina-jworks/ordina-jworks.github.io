@@ -3,7 +3,7 @@ layout: post
 authors: [andreas_evers]
 title: 'Spring I/O 2015 Barcelona'
 image: /img/springio.jpg
-tags: [Spring]
+tags: [Spring, Spring IO, Conference]
 category: Spring
 comments: true
 ---

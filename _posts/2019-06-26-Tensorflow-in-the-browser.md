@@ -3,8 +3,8 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: "Getting started with TensorFlow in the browser"
 image: /img/2019-06-26-tensorflowjs/banner.jpg
-tags: [internet of things, iot, smart things, smart tech, machine learning, artificial intelligence, tensorflow, javascript, js, browser, node, ml5, yolo, ml, ai]
-category: machine-learning
+tags: [Internet of Things, Smart tech, Machine Learning, Artificial Intelligence, TensorFlow, JavaScript, Browser, Node.js, Ml5.js]
+category: Machine Learning
 comments: true
 ---
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />

@@ -3,7 +3,7 @@ layout: post
 authors: [yannick_vergeylen]
 title: 'Protractor testing in Ionic app'
 image: /img/ionic-protractor.png
-tags: [ionic, protractor, pageobject, functional modules]
+tags: [Ionic, Protractor, PageObjects, Functional modules]
 category: Ionic
 comments: true
 ---

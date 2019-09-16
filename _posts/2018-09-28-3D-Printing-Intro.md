@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: "3D Printing: An introduction"
 image: /img/2018-09-28-3D-Printing/banner.jpg
-tags: [3D printing, printing, building, technology, iot, internet of things, SLA, DLP, FDM, SLS, PLA, ABS, PETG, printer, sintering, melting, construction, tinkering]
+tags: [3D printing, Printing, Building, Technology, Internet of Things, SLA, DLP, FDM, SLS, PLA, ABS, PETG, Sintering, Melting, Construction, Tinkering]
 category: IoT
 comments: true
 ---
