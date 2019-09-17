@@ -5,7 +5,7 @@ info:
   version: '1'
   title: Conference-API
 servers:
-  - url: "https://yourdomain.com/api/"
+  - url: "https://your-own-dummy-conference-domain.com/api/"
     description: 'Base URL for the API'
 paths:
   "/session/all":
@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/404Response"
+                $ref: "#/components/schemas/NotFoundResponse"
   "/session/create":
     post:
       description: Create a new session on the conference
@@ -85,7 +85,6 @@ components:
           description: "City where the company is based"
           example: "Mechelen"
 
-
     GetAllSessionsResponse:
       type: object
       required:
@@ -117,8 +116,7 @@ components:
           type: string
           example: "This is the response message"
 
-    404Response:
+    NotFoundResponse:
       type: object
       allOf:
         - $ref: '#/components/schemas/GenericResponse'
-
