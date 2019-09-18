@@ -14,16 +14,16 @@ comments: true
 
 * [What problem do we have?](#what-problem-do-we-have)
 * [What alternatives are available to solve this problem?](#what-alternatives-are-available-to-solve-this-problem)
-* [What is Kustomize and how to use it](#what-is-Kustomize-and-how-to-use-it)
+* [What is Kustomize and how to use it](#what-is-kustomize-and-how-to-use-it)
 * [Extending Kustomize](#extending-kustomize-plugins)
 * [Conclusion](#conclusion-when-to-use-kustomize)
 
 ## What problem do we have?
 
 Deploying components to a Kubernetes cluster should be as easy as running `kubectl apply -f folder-with-deployment-manifests`. 
-This approach works very well for a single environment, but quickly become very hard to do properly when managing multiple environment (Dev, Staging, ..., Production). 
+This approach works very well for a single environment, but quickly become very hard to do properly when managing multiple environments (Dev, Staging, ..., Production). 
 The reason for this is due to the configuration differences in these environments.
-Every environment needs different configuration to: connect to different databases, use other secret values, use different deployment configurations (number of replicas for example), ...
+Every environment needs a different configuration to: connect to different databases, use other secret values, use different deployment configurations (number of replicas for example), ...
 Managing these differences can be very hard to do in a single set of manifests.
 
 ## What alternatives are available to solve this problem?
