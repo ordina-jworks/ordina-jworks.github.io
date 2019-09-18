@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JavaScript Testing 101 - Ivar van Hartingsveldt">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-07-11-js-testing.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/testing,%20development,%20frontend/2019/09/18/JS-testing-101.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="JavaScript Testing 101 - Ivar van Hartingsveldt"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-07-11-js-testing.png"/>
+
+    
+    <title>JavaScript Testing 101 - Ivar van Hartingsveldt &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>JavaScript Testing 101</h2>
+                
+
+                
+                    Posted Sep 18, 2019
+
+
+    in <a href="/categories/testing,-development,-frontend/">Testing, Development, Frontend</a>
+
+
+
+    by
+    
+        <a href="/author/ivar-van-hartingsveldt/">Ivar van Hartingsveldt</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/javascript/">JavaScript</a>, 
+    
+        <a href="/tags/testing/">Testing</a>, 
+    
+        <a href="/tags/typescript/">TypeScript</a>, 
+    
+        <a href="/tags/jasmine/">Jasmine</a>, 
+    
+        <a href="/tags/karma/">Karma</a>, 
+    
+        <a href="/tags/unit-testing/">Unit testing</a>, 
+    
+        <a href="/tags/observables/">Observables</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="javascript-unit-testing-101">JavaScript unit testing 101</h1>
+
+<p>In this blog post I will explain how to write unit tests for JavaScript. For the examples, we will be using jasmine and ts-mockito, but the theory should be applicable to every testing framework.
+ Why am I using two frameworks here instead of only jasmine? Well, in my opinion, jasmine relies too much on magic strings that might give problems during refactoring and makes autocompletion impossible in a lot of cases (depending on how good your IDE is).
+Ts-mockito is a mocking framework that allows you to create mocks based on a class, so you don’t have to tell it the method names to mock.
+There are other good mocking frameworks for typescript as well, but my experience is with ts-mockito, so I will be using it for the examples of this blog post.
+or the code examples I used the Angular CLI to generate a project for me, but I will not be using any of the Angular testing tools to keep these test cases completely framework independent.
+The Angular CLI was just an easy way to quickly get everything up and running.</p>
+
+<h2 id="the-basics">The basics</h2>
+
+<p>The beginning of a test is naming it. 
+I write every test in the same structure:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>describe: ‘classname’
+
+    ↪ constant values used in the test
+
+    ↪ mock declarations
+
+    ↪ classUnderTest declaration
+
+    ↪ beforeEach to setup the test
+
+    ↪ describe: ‘methodname’:
+
+        ↪ it ‘should return this when input is so and so’
+
+        ↪ it ‘should return this value if input is something else’
+		
+    ↪ describe: ‘other method name’:
+	
+        ↪ it‘should return this when input is so and so’
+		
+        ↪ it‘should return this value if input is something else’
+</code></pre></div></div>
+
+<p>This allows you to quickly see from your testing log, which method from which class has a bug.
+ I personally always try to call the object you are testing something like ‘componentUnderTest’ or ‘serviceUnderTest’.
+This allows you to very quickly see in a unit test, which object is actually being tested.</p>
+
+<p>When you want to mock certain dependencies of your class, you should always declare all the mocks at the top of the test, before your (first) beforeEach call and you should initialize them within the beforeEach.
+ The reason we want to initialize our mocks in the beforeEach and not at declaration, is because you want fresh mocks for every test.
+If you initialize your mock only once at declaration, the method call count and mock return values will not be removed.
+This can cause tests to influence each others output, so they can complete successfully or unsuccessfully, depending on the order in which they are run, this can be a headache to debug if you don’t realize this from the beginning.
+I will explain here with an example:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">AppComponent</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+  <span class="kd">const</span> <span class="nx">aBrownCar</span> <span class="o">=</span> <span class="p">{</span><span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">brown</span><span class="dl">'</span><span class="p">,</span> <span class="na">brand</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Ford</span><span class="dl">'</span><span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">aRedFerrari</span> <span class="o">=</span> <span class="p">{</span><span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">red</span><span class="dl">'</span><span class="p">,</span> <span class="na">brand</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Ferrari</span><span class="dl">'</span><span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">aRedPorsche</span> <span class="o">=</span> <span class="p">{</span><span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">red</span><span class="dl">'</span><span class="p">,</span> <span class="na">brand</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Porsche</span><span class="dl">'</span><span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">aBlackCadillac</span> <span class="o">=</span> <span class="p">{</span><span class="na">color</span><span class="p">:</span> <span class="dl">'</span><span class="s1">black</span><span class="dl">'</span><span class="p">,</span> <span class="na">brand</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Cadillac</span><span class="dl">'</span><span class="p">};</span>
+
+  <span class="kd">const</span> <span class="na">carService</span><span class="p">:</span> <span class="nx">CarService</span> <span class="o">=</span> <span class="nx">mock</span><span class="p">(</span><span class="nx">CarService</span><span class="p">);</span>
+
+  <span class="kd">let</span> <span class="na">componentUnderTest</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
+
+  <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">componentUnderTest</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppComponent</span><span class="p">(</span>
+      <span class="nx">instance</span><span class="p">(</span><span class="nx">carService</span><span class="p">)</span>
+    <span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">getAllRedCars</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should only return the cars where the color is red</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCars</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">([</span><span class="nx">aBrownCar</span><span class="p">,</span> <span class="nx">aRedFerrari</span><span class="p">,</span> <span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">]);</span>
+
+      <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllRedCars</span><span class="p">();</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aRedFerrari</span><span class="p">,</span> <span class="nx">aRedPorsche</span><span class="p">]);</span>
+      <span class="nx">verify</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCars</span><span class="p">()).</span><span class="nx">once</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">getAllBlackCars</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should only return the cars where the color is black</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCars</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">([</span><span class="nx">aBrownCar</span><span class="p">,</span> <span class="nx">aRedFerrari</span><span class="p">,</span> <span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">]);</span>
+
+      <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllBlackCars</span><span class="p">();</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aBlackCadillac</span><span class="p">]);</span>
+      <span class="nx">verify</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCars</span><span class="p">()).</span><span class="nx">once</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>As you can guess, this test will fail with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: Expected "getCars()" to be called 1 time(s). But has been called 2 time(s).
+</code></pre></div></div>
+
+<p>This happens because the tests don’t start with a fresh mock.
+So the call to the getCars() from the first test, is still part of the callcount of the mock in the second test.
+If we reinitialize the mocks every time in the beforeEach, this problem is solved.</p>
+
+<h2 id="writing-a-unit-test">Writing a unit test</h2>
+
+<p>Every unit test has 3 parts.
+First part is the setup, where you set certain values and mock the necessary method calls.
+Second part is the actual call of the method you are testing.
+The last part is the verification, where you will check if the output is correct or the right methods have been called.
+For readability, leave a blank line between each part, so you can clearly see from a glance what your setup, call and verification part is.</p>
+
+<p>A good way to write your unit test is the following:</p>
+
+<p>You start with your empty test:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should only return the cars where the color is black</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+ <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Then you write the method call you want to test:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should only return the cars where the color is black</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllBlackCars</span><span class="p">();</span>
+ <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Then you write your verification part:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should only return the cars where the color is black</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllBlackCars</span><span class="p">();</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aBlackCadillac</span><span class="p">]);</span>
+      <span class="nx">verify</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCars</span><span class="p">()).</span><span class="nx">once</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>After this, you run your test once. 
+It should fail. 
+Then you write the setup you need to get to the expected output:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should only return the cars where the color is black</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCars</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">([</span><span class="nx">aBrownCar</span><span class="p">,</span> <span class="nx">aRedFerrari</span><span class="p">,</span> <span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">]);</span>
+
+      <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllBlackCars</span><span class="p">();</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aBlackCadillac</span><span class="p">]);</span>
+      <span class="nx">verify</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCars</span><span class="p">()).</span><span class="nx">once</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This is a good way to work when you write unit tests.
+Writing the verification part before your setup, allows you to see that your test is actually able to fail.
+This is especially handy when you are testing asynchronous code, where a missing done operator can make your test be successful every time, no matter what your expects check, but more about this in the next part.</p>
+
+<h2 id="asynchronous-testing">Asynchronous testing</h2>
+
+<p>Thinking in async code, can be a bit of a challenge, especially when you start out with JavaScript as a new developer or coming from a language that works mostly with synchronous code.</p>
+
+<p>In this part of the post, I will show you how to test asynchronous code.
+Both with promises and observables.</p>
+
+<p>For both promises and observables, I will test methods that show the most common usage patterns.
+One scenario is where you simply get something asynchronously and set its value to a field, the other scenario is a little more complicated, where you get something asynchronously, have some side effects before it resolves, and have some more side effects after it resolves.
+If that seems complicated, don’t worry, it will become clear very soon.</p>
+
+<p>For the promises, I will be using the async / await syntax.
+If you don’t know what that is yet, I suggest you read up on it, a good article is <a href="https://alligator.io/js/async-functions/">this one</a>.</p>
+
+<h3 id="promises">Promises</h3>
+
+<h4 id="scenario-a">Scenario A</h4>
+
+<p>The method we will be testing will be the following:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nx">getAllRedCarsAsPromise</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">redCars</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsPromise</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nx">redCars</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="na">car</span><span class="p">:</span> <span class="nx">Car</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">color</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">red</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This function just gets the cars from the <code class="highlighter-rouge">carService</code> asynchronously and filters out all the non-red cars before returning the array.</p>
+
+<p>The first test, we will simply test the happy scenario, where the <code class="highlighter-rouge">carService</code> returns us a nice list of cars and the non-red cars are filtered out.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">getAllRedCarsAsPromise</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should get the cars where the color is red</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsPromise</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aBrownCar</span><span class="p">]));</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllRedCarsAsPromise</span><span class="p">();</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fail</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="nx">done</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>So what exactly goes on here? 
+First we mock the carService.getCarsAsPromise() method and tell it that it should always return a promise that resolves with a list of cars. 
+Then we call the method that we are testing, we wait for it to resolve (by using the await keyword).
+Afterward we expect that the returned array only contains the red Porsche.
+Now, what is this whole try catch thingy? When the promise is rejected, the execution of the code in the try block will be stopped and the code in the catch block will be executed.
+In this case, if the getCarsAsPromise() should fail, it will go into the catch block and the test will fail.
+The message that will be shown by jasmine, is the error message that is given to the error that was thrown.
+For instance, if the <code class="highlighter-rouge">getCarsAsPromise()</code> promise return value were to be rejected with the error message ‘Something went wrong.’, the test will fail with the message <code class="highlighter-rouge">Failed: Something went wrong.</code>.
+In the finally block, we call the done function, to tell jasmine that our test is done, we call it in the finally block, because the code in the finally block will always be executed, regardless of the result of the promise.</p>
+
+<p>Note: the done function should ALWAYS be called, regardless if your test fails or succeeds.
+The reason for this is that without the done function, the test will only fail after the timeout limit has been reached.
+When jasmine executes a test, it will wait for 5 seconds before timing out, if the done function has not been called within that time, it will fail.</p>
+
+<p>To explain with an example, if we would remove the finally block and call the done function after the expect in the try block, the test would execute as expected in the scenario where the promise is resolved, but if the promise where to be rejected, it would call the fail(e), but since jasmine does not consider the fail call as the end of a test, it would still wait until the timeout for the done function.
+The test will eventually fail, but it will take 5 seconds to fail instead of 0.5 seconds.</p>
+
+<p>In the second test, we will test what happens when the promise is rejected:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should set retrievalError to true if the promise is rejected</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsPromise</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">());</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="k">await</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllRedCarsAsPromise</span><span class="p">();</span>
+
+        <span class="nx">fail</span><span class="p">(</span><span class="dl">'</span><span class="s1">Call should not have succeeded</span><span class="dl">'</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// nothing to expect here</span>
+      <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="nx">done</span><span class="p">();</span>
+      <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>As you can see here, we call the fail function in the try block, because the method under test should throw an error.
+So after calling the method under test, it should go directly to the catch block.
+Since our method under test does not handle any errors, there is nothing to expect there.
+In the finally block, we tell jasmine the test is done.</p>
+
+<h4 id="scenario-b">Scenario B</h4>
+
+<p>The next method we will be testing is the following:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="nx">getAllRedCarsAsPromiseWithStuffHappeningInBetween</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">cars</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAllRedCarsAsPromise</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">carRetrievalError</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>So a few things are happening:</p>
+<ul>
+  <li>First we set <code class="highlighter-rouge">loading</code> to true</li>
+  <li>Then we get the red cars asynchronously and assign them to our <code class="highlighter-rouge">cars</code> field</li>
+  <li>If getting the red cars throws an error, we set <code class="highlighter-rouge">carRetrievalError</code> to <code class="highlighter-rouge">true</code></li>
+  <li>Afterward we always set <code class="highlighter-rouge">loading</code> back to false</li>
+</ul>
+
+<p>In this case, we don’t just want to test the end result of our test, but also the side effects in between, in this case, the setting of the loading field to true or false. 
+For observables, these types of scenarios are a little easier to test, but with a little creativity, we can also do this for promises, without the use of special testing tools or libraries.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should set all the red cars to the cars field and set loading field correctly</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="na">promiseResolve</span><span class="p">:</span> <span class="p">(</span><span class="na">cars</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsPromise</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">promiseResolve</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      <span class="p">}));</span>
+
+      <span class="nx">componentUnderTest</span>
+        <span class="p">.</span><span class="nx">getAllRedCarsAsPromiseWithStuffHappeningInBetween</span><span class="p">()</span>
+        <span class="p">.</span><span class="k">finally</span><span class="p">(</span>
+          <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">cars</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+            <span class="nx">done</span><span class="p">();</span>
+          <span class="p">}</span>
+        <span class="p">);</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+
+      <span class="nx">promiseResolve</span><span class="p">([</span><span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aRedPorsche</span><span class="p">]);</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+
+<p>So what’s happening here? 
+In the promise callback, we assign the resolve function to a variable outside of that function, so we can use it later on.
+Then we call our method under test, but notice that we don’t use the await keyword here.
+Why is this? Well, if we were to use the await keyword, it would simply wait for the promise to resolve, but it would never happen because our resolve function is never called.
+Instead we just want to call it, let it execute and start expecting the side effects.
+As we saw in the method under test, the loading field is set to true before the red cars are retrieved, since those cars are not retrieved yet, we can check that the loading field is indeed set to true.
+Ok, now we have checked that, let’s resolve the carService call.
+ We do this by calling our promiseResolve function.
+Now the cars are resolved, so we can check that the loading has now been set to false and the cars field has been correctly set to the right value.
+The finally callback of the returned promise, will execute after we call our promiseResolve function, and will check the final result of our method and subsequently call the done function to tell jasmine our test is over.</p>
+
+<p>In the second test we will test the error scenario, where we want to see if the loading value is still set correctly and the <code class="highlighter-rouge">carRetrievalError</code> is also set to true.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should set the retrievalError to true and loading states correctly if the promise is rejected</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="na">promiseReject</span><span class="p">:</span> <span class="p">(</span><span class="na">cars</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsPromise</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">promiseReject</span> <span class="o">=</span> <span class="nx">reject</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      <span class="p">}));</span>
+
+      <span class="nx">componentUnderTest</span>
+        <span class="p">.</span><span class="nx">getAllRedCarsAsPromiseWithStuffHappeningInBetween</span><span class="p">()</span>
+        <span class="p">.</span><span class="k">finally</span><span class="p">(</span>
+          <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">cars</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">carRetrievalError</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+            <span class="nx">done</span><span class="p">();</span>
+          <span class="p">}</span>
+        <span class="p">);</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+
+      <span class="nx">promiseReject</span><span class="p">(</span><span class="kc">undefined</span><span class="p">);</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Here we actually do the same thing, except instead of using the <code class="highlighter-rouge">resolve</code> function, we use the <code class="highlighter-rouge">reject</code> function.</p>
+
+<h3 id="observables">Observables</h3>
+
+<p>For observables, I have created methods that do exactly the same as our previous promises scenarios, except we use observables here.</p>
+
+<h4 id="scenario-a-1">Scenario A</h4>
+
+<p>For scenario A we will test a simple observable that returns one value and then completes. 
+ This is a fairly common use case, especially with http calls.
+ Here is our method under test:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getAllRedCarsAsObservable</span><span class="p">():</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">carService</span>
+      <span class="p">.</span><span class="nx">getCarsAsObservable</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">map</span><span class="p">((</span><span class="na">cars</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">cars</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="na">car</span><span class="p">:</span> <span class="nx">Car</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">car</span><span class="p">.</span><span class="nx">color</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">red</span><span class="dl">'</span><span class="p">))</span>
+       <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We simply get all the cars as an observable and then we call the <code class="highlighter-rouge">map</code> operator to filter the list we get. 
+ Pretty simple scenario.</p>
+
+<p>For a simple scenario like this, there are two ways to test this. 
+ The first one is this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should get the cars where the color is red</span><span class="dl">'</span><span class="p">,</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsObservable</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="k">of</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aBrownCar</span><span class="p">]));</span>
+
+    <span class="nx">componentUnderTest</span>
+      <span class="p">.</span><span class="nx">getAllRedCarsAsObservable</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span>
+        <span class="p">(</span><span class="na">actual</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
+          <span class="nx">done</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nx">fail</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+          <span class="nx">done</span><span class="p">();</span>
+        <span class="p">}</span>
+      <span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>We simply call our method under test, subscribe to the resulting observable, and in the subscribe callback we do our expects and in the error callback we fail the test. 
+This is the easiest way to test this scenario, although, it is a little verbose. 
+To reduce the lines of code, a simple scenario like this, can also be tested by transforming the observable to a promise and test it like we did in the promise scenario:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should get the cars where the color is red (alternative way)</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsObservable</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="k">of</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aBrownCar</span><span class="p">]));</span>
+
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllRedCarsAsObservable</span><span class="p">().</span><span class="nx">toPromise</span><span class="p">();</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
+        <span class="nx">done</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fail</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+        <span class="nx">done</span><span class="p">();</span>
+      <span class="p">}</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+
+<p>I guess in this case it depends on what you find the most readable. 
+The async await syntax makes the second version very readable, but comes down to personal preference.</p>
+
+<h4 id="scenario-b-1">Scenario B</h4>
+
+<p>In the next scenario we will be testing an observable call with side effects.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getAllRedCarsAsObservablewithStuffHappeningInBetween</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">getAllRedCarsAsObservable</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+        <span class="nx">finalize</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+      <span class="p">)</span>
+      <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span>
+        <span class="p">(</span><span class="na">cars</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">cars</span> <span class="o">=</span> <span class="nx">cars</span><span class="p">,</span>
+        <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">carRetrievalError</span> <span class="o">=</span> <span class="kc">true</span>
+      <span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Same scenario as the promises, we set loading to true and subscribe to an observable, when it resolves, we set the value and when it completes, we set loading to false. 
+If the observable throws an error, we set carRetrievalError to true.</p>
+
+<p>So our first test is the happy path, the observable resolves with an array of cars and everything goes as expected:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should set all the red cars to the cars field and set loading field correctly</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">carsSubject</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;&gt;</span><span class="p">();</span>
+    <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsObservable</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="nx">carsSubject</span><span class="p">);</span>
+
+    <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllRedCarsAsObservablewithStuffHappeningInBetween</span><span class="p">();</span>
+
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+
+    <span class="nx">carsSubject</span><span class="p">.</span><span class="nx">next</span><span class="p">([</span><span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aRedPorsche</span><span class="p">]);</span>
+    <span class="nx">carsSubject</span><span class="p">.</span><span class="nx">complete</span><span class="p">();</span>
+
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">cars</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+    <span class="nx">done</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This scenario is very easily tested with observables, because of Subjects. What is a subject? 
+A subject can act as both an observable and an observer.
+This means we can subscribe to it and receive the emitted values, or we can tell it to emit a certain value.</p>
+
+<p>In this case, instead of telling the carService to return an Observable that immediately resolves with a value, we tell it to return a <code class="highlighter-rouge">subject.asObservable()</code>.
+Now we are in control of when and what value is emitted in this observable.
+This allows us to check our side effects easily at the right time.</p>
+
+<p>Note that I am calling the <code class="highlighter-rouge">carsSubject.complete()</code> after I emit the car array value.
+I do this because I set <code class="highlighter-rouge">loading</code> to <code class="highlighter-rouge">false</code> in the <code class="highlighter-rouge">finalize</code> operator.
+This <code class="highlighter-rouge">finalize</code> operator is only called when the observable is completed.
+So if I don’t call the <code class="highlighter-rouge">carsSubject.complete()</code>, <code class="highlighter-rouge">loading</code> will never be set to <code class="highlighter-rouge">false</code> and my test will fail.
+The error scenario is pretty much the same logic, except we call the error method instead of the next on the subject.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should set retrievalError to true if the observable throws an error</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">carsSubject</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;&gt;</span><span class="p">();</span>
+    <span class="nx">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nx">getCarsAsObservable</span><span class="p">()).</span><span class="nx">thenReturn</span><span class="p">(</span><span class="nx">carsSubject</span><span class="p">.</span><span class="nx">asObservable</span><span class="p">());</span>
+
+    <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">getAllRedCarsAsObservablewithStuffHappeningInBetween</span><span class="p">();</span>
+
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+
+    <span class="nx">carsSubject</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="kc">undefined</span><span class="p">);</span>
+    <span class="nx">carsSubject</span><span class="p">.</span><span class="nx">complete</span><span class="p">();</span>
+
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">cars</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([]);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">carRetrievalError</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+    <span class="nx">done</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>##Conclusion</p>
+
+<p>I hope these code examples help you to effectively unit test your (asynchronous) code. 
+Readability is everything, so make sure you use blank lines to clearly differentiate between the different parts of a test. 
+And don’t forget that done function, without it, your test might timeout, or even worse, it might succeed without actually having tested anything at all.</p>
+
+<p>All the code examples can be checked on the following repository:</p>
+
+<p><a href="https://github.com/ivarvh/js-testing-101">https://github.com/ivarvh/js-testing-101</a></p>
+
+<p>Simply clone the repo, run npm install and run npm test to execute the tests.</p>
+
+<p>Happy testing everyone!</p>
+
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/testing,%20development,%20frontend/2019/09/18/JS-testing-101.html&title=JavaScript Testing 101&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=JavaScript Testing 101&url=https://ordina-jworks.github.io/testing,%20development,%20frontend/2019/09/18/JS-testing-101.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/testing,%20development,%20frontend/2019/09/18/JS-testing-101.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/ivar-van-hartingsveldt/" class="image spotlight-image" title="">
+            <img src="/img/author/ivar-van-hartingsveldt.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Ivar is a backend Java developer who converted to frontend. When ES6 and TypeScript came along, he really started investing his time in that and now he writes Javascript / TypeScript almost exclusively.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-07-11-js-testing.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
