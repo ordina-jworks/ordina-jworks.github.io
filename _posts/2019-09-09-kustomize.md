@@ -31,10 +31,10 @@ Managing these differences can be very hard to do in a single set of manifests.
 Luckily this problem exists in many organizations and the community already created multiple tools to help solve the problem. 
 In the scope of configuration management for Kubernetes the following tools are in available:
 
-* [OpenShift Templates](https://docs.openshift.com/container-platform/4.1/welcome/index.html)
-* [Helm 2](https://helm.sh/)
-* [Helm 3](https://v3.helm.sh/)
-* [Kustomize](https://kustomize.io/)
+* [OpenShift Templates](https://docs.openshift.com/container-platform/4.1/welcome/index.html{:target="_blank" rel="noopener noreferrer"}
+* [Helm 2](https://helm.sh/{:target="_blank" rel="noopener noreferrer"}
+* [Helm 3](https://v3.helm.sh/{:target="_blank" rel="noopener noreferrer"}
+* [Kustomize](https://kustomize.io/{:target="_blank" rel="noopener noreferrer"}
 
 OpenShift Templates are part of the OpenShift platform and can be used both to template manifests in a repository and to provide an off-the-shelve experience in the OpenShift platform itself.
 For example, a cluster administrator can install a template for an Apache Kafka setup.
@@ -61,14 +61,14 @@ Unlike Helm and OpenShift Templates, the main goal of Kustomize is to allow user
 
 As briefly discussed, Kustomize is a configuration management tool that has been embedded into `kubectl`.
 Originally it was a separate tool and some functionality is still only available in the Kustomize binary and not in Kubectl.
-The documentation of Kustomize is therefore available in two parts, the [core docs](https://github.com/kubernetes-sigs/kustomize/tree/master/docs) and the [Kubectl docs](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html).
+The documentation of Kustomize is therefore available in two parts, the [core docs](https://github.com/kubernetes-sigs/kustomize/tree/master/docs{:target="_blank" rel="noopener noreferrer"} and the [Kubectl docs](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html{:target="_blank" rel="noopener noreferrer"}.
 
 Important to note, especially when considering the usage of this tool, is what it doesn't do:
 * It doesn't manage deployments
 * It doesn't package applications in deployable artifacts
 * It doesn't manage secrets securely
 
-As discussed in the Kustomize projects [readme](https://github.com/kubernetes-sigs/kustomize/) a Kustomize manifest exists out of two main structures: a base manifest and overlays.
+As discussed in the Kustomize projects [readme](https://github.com/kubernetes-sigs/kustomize/{:target="_blank" rel="noopener noreferrer"} a Kustomize manifest exists out of two main structures: a base manifest and overlays.
 
 ### Base manifest
 
@@ -106,7 +106,7 @@ resources:
 In this example, only a single feature of Kustomize is used, namely the `commonLabels` option. 
 This option makes Kustomize add the label to all managed manifests at build time (when running `kubectl apply -k` or `kustomize build`). 
 Other options like image overrides, namespaces overrides and name prefixing are also available. 
-For more information on these features check out the documentation [here](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html). 
+For more information on these features check out the documentation [here](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html{:target="_blank" rel="noopener noreferrer"}. 
 
 ### Overlay manifest
 
@@ -125,13 +125,13 @@ bases:
 ```
 
 In the default setup on the Kustomize homepage, the bases are always local folders. 
-However, a really useful feature is referencing remote locations, including git repositories, as bases to be used in an overlay. 
-The git endpoints need to be specified as described in the [hashicorp/go-getter URL format](https://github.com/hashicorp/go-getter#url-format). 
-Important to note here is that when using the git references, the machine that is executing kustomize build needs have a valid git configuration to access the referenced repositories.
-As the kustomization file is checked into version control, adding credentials into the link is not recommended.
+However, a really useful feature is referencing remote locations, including Git repositories, as bases to be used in an overlay. 
+The Git endpoints need to be specified as described in the [hashicorp/go-getter URL format](https://github.com/hashicorp/go-getter#url-format{:target="_blank" rel="noopener noreferrer"}. 
+Important to note here is that when using the Git references, the machine that is executing Kustomize builds needs have a valid Git configuration to access the referenced repositories.
+As the kustomization file is checked into version control, adding credentials into the link is considered a bad practice.
 Kustomize supports referencing multiple bases, which again allows for a lot of flexibility. 
 The references work recursively, so multiple levels of manifests are supported.
-At the time of writing, diamond composition is not possible but [being worked on](https://github.com/kubernetes-sigs/kustomize/issues/1251).
+At the time of writing, diamond composition is not possible but [being worked on](https://github.com/kubernetes-sigs/kustomize/issues/1251{:target="_blank" rel="noopener noreferrer"}.
 
 The way Kustomize builds a set of manifests is the following:
 
@@ -153,12 +153,12 @@ This mechanism allows for a lot of flexibility.
 Currently, plugins are still an alpha feature and therefore not available through `kubectl` but only through the `kustomize` tool itself.
 
 Writing a plugin can be done in one of two ways:
-* Write a plugin in Go and link it as a shared library to the kustomize tool
+* Write a plugin in Go and link it as a shared library to the Kustomize tool
 * Write a plugin based on the exec model
 
-While the first way allows the code to be more easily absorbed into the kustomize binary later on, it requires the plugin to be compiled together with the `kustomize` binary.
+While the first way allows the code to be more easily absorbed into the Kustomize binary later on, it requires the plugin to be compiled together with the `kustomize` binary.
 The second option is a lot more flexible as it only relies on the plugin being available and providing a very rudimentary interface.
-More information on support for plugins can be found in the [docs](https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins) and examples can be found [here](https://github.com/Agilicus/kustomize-plugins).
+More information on support for plugins can be found in the [docs](https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins{:target="_blank" rel="noopener noreferrer"} and examples can be found [here](https://github.com/Agilicus/kustomize-plugins{:target="_blank" rel="noopener noreferrer"}.
 
 ## Real-world example
 
@@ -229,7 +229,7 @@ There are three different ways to override a ConfigMap.
 
 Generators can be used to ease the management of configuration. 
 The ConfigMap generator makes creating ConfigMaps easier by providing a more common way to specify configuration.
-More information on the ConfigMap generator can be found [here](https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator).
+More information on the ConfigMap generator can be found [here](https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator{:target="_blank" rel="noopener noreferrer"}.
 
 `acceptance/kustomization.yaml`
 ```yaml
@@ -255,7 +255,7 @@ Currently only ConfigMap and secret generators are available by default, but as 
 Patches are the last way to override a configuration from a base.
 Patches are available in two flavors: Json6902 and Strategic Merge.
 
-Json6902 is an RFC standard provided by the [IETF](https://tools.ietf.org/html/rfc6902) to describe JSON patches.
+Json6902 is an RFC standard provided by the [IETF](https://tools.ietf.org/html/rfc6902{:target="_blank" rel="noopener noreferrer"} to describe JSON patches.
 In a nutshell, operations (patches) can be described using JSON path, operations ,and values.
 
 For the example earlier, this would result in the following:
@@ -311,7 +311,7 @@ When multiple variants are created, updates to the base will automatically be ad
 
 ## Conclusion: When to use Kustomize?
 
-Kustomize great tool to have in Kubernetes toolbox to simplify configuration management in Kubernetes.
+Kustomize is a great tool to have in your toolbox to simplify configuration management in Kubernetes.
 DRY principles can be adhered to and managing configuration code can be done in a structured and unified way.
 Kustomize is a great fit when different environments require different configuration for a microservice. 
 Especially when sensible defaults can be added to the base template and only a small amount of overrides are required per environment. 
@@ -328,9 +328,9 @@ If all of the above are true for you, start using Kustomize today and experience
 
 ## Useful links
 
-* [Kubectl-Kustomize docs](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html)
-* [Kustomize core docs](https://github.com/kubernetes-sigs/kustomize/tree/master/docs)
-* [Kustomize plugins](https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins)
-* [Kustomize plugin examples](https://github.com/Agilicus/kustomize-plugins)
-* [ConfigMap Generator](https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator)
-* [Helm blogpost](//TBD)
+* [Kubectl-Kustomize docs](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html{:target="_blank" rel="noopener noreferrer"}
+* [Kustomize core docs](https://github.com/kubernetes-sigs/kustomize/tree/master/docs{:target="_blank" rel="noopener noreferrer"}
+* [Kustomize plugins](https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins{:target="_blank" rel="noopener noreferrer"}
+* [Kustomize plugin examples](https://github.com/Agilicus/kustomize-plugins{:target="_blank" rel="noopener noreferrer"}
+* [ConfigMap Generator](https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator{:target="_blank" rel="noopener noreferrer"}
+* [Helm blogpost](//TBD){:target="_blank" rel="noopener noreferrer"}
