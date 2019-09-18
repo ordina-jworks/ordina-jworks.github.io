@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Kustomize: Kubernetes configuration management, the easy way - Pieter Vincken">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-09-09-kustomize/banner.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2019/09/09/kustomize.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Kustomize: Kubernetes configuration management, the easy way - Pieter Vincken"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-09-09-kustomize/banner.png"/>
+
+    
+    <title>Kustomize: Kubernetes configuration management, the easy way - Pieter Vincken &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Kustomize: Kubernetes configuration management, the easy way</h2>
+                
+
+                
+                    Posted Sep 9, 2019
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/pieter_vincken/">Pieter Vincken</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/kustomize/">Kustomize</a>, 
+    
+        <a href="/tags/configuration-management/">Configuration Management</a>, 
+    
+        <a href="/tags/kubernetes/">Kubernetes</a>, 
+    
+        <a href="/tags/cloud/">Cloud</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h3 id="reading-time-8-min-29-sec">Reading time: 8 min 29 sec</h3>
+
+<h1 id="table-of-contents">Table of contents</h1>
+
+<ul>
+  <li><a href="#what-problem-do-we-have">What problem do we have?</a></li>
+  <li><a href="#what-alternatives-are-available-to-solve-this-problem">What alternatives are available to solve this problem?</a></li>
+  <li><a href="#what-is-kustomize-and-how-to-use-it">What is Kustomize and how to use it</a></li>
+  <li><a href="#extending-kustomize-plugins">Extending Kustomize</a></li>
+  <li><a href="#conclusion-when-to-use-kustomize">Conclusion</a></li>
+</ul>
+
+<h2 id="what-problem-do-we-have">What problem do we have?</h2>
+
+<p>Deploying components to a Kubernetes cluster should be as easy as running <code class="highlighter-rouge">kubectl apply -f folder-with-deployment-manifests</code>. 
+This approach works very well for a single environment, but quickly become very hard to do properly when managing multiple environments (Dev, Staging, …, Production). 
+The reason for this is due to the configuration differences in these environments.
+Every environment needs a different configuration to: connect to different databases, use other secret values, use different deployment configurations (number of replicas for example), …
+Managing these differences can be very hard to do in a single set of manifests.</p>
+
+<h2 id="what-alternatives-are-available-to-solve-this-problem">What alternatives are available to solve this problem?</h2>
+
+<p>Luckily this problem exists in many organizations and the community already created multiple tools to help solve the problem. 
+In the scope of configuration management for Kubernetes the following tools are in available:</p>
+
+<ul>
+  <li><a href="https://docs.openshift.com/container-platform/4.1/welcome/index.html" target="_blank" rel="noopener noreferrer">OpenShift Templates</a></li>
+  <li><a href="https://helm.sh/" target="_blank" rel="noopener noreferrer">Helm 2</a></li>
+  <li><a href="https://v3.helm.sh/" target="_blank" rel="noopener noreferrer">Helm 3</a></li>
+  <li><a href="https://kustomize.io/" target="_blank" rel="noopener noreferrer">Kustomize</a></li>
+</ul>
+
+<p>OpenShift Templates are part of the OpenShift platform and can be used both to template manifests in a repository and to provide an off-the-shelve experience in the OpenShift platform itself.
+For example, a cluster administrator can install a template for an Apache Kafka setup.
+By provisioning this template (through the online UI or the CLI) and providing the required template values, the service can be provisioned like the administrator provides it. 
+This is a very powerful approach to allow developers to provision supporting systems directly in the platform.</p>
+
+<p>Helm 2 is a templating and deployment management tool. 
+In Helm 2 a server-side component needs to be installed in the cluster named Tiller. 
+Tiller is the central entrypoint and management component for all deployments using Helm 2.
+It keeps the state of all deployed manifests and groups them together as a single release.
+The main disadvantage of Helm 2 is the lack of proper authorization (RBAC) support as Tiller will run with almost root-level privileges on the cluster.</p>
+
+<p>Helm 3 is currently still in beta, but the reworked version should resolve a lot of the issues with Helm 2.
+Like Helm 2 it’s still a templating engine which also manages releases. 
+Unlike Helm 2, it doesn’t use the Tiller component anymore to manage all the state connected to the release.
+More information about Helm can be found in a future blogpost.</p>
+
+<p>Kustomize is a Kubernetes configuration management tool that is provided as part of the <code class="highlighter-rouge">kubectl</code> command, behind the <code class="highlighter-rouge">-k</code> flag.
+Kustomize allows a user to use standard Kubernetes manifests and overlay any changes that they want to make using an overlay manifest.
+Unlike Helm, Kustomize only provides configuration management and doesn’t manage any state about the manifests it adapts.
+Unlike Helm and OpenShift Templates, the main goal of Kustomize is to allow users to adapt their existing manifests in any thinkable way, instead of templating some parts of the manifest that can be changed.</p>
+
+<h2 id="what-is-kustomize-and-how-to-use-it">What is Kustomize and how to use it</h2>
+
+<p>As briefly discussed, Kustomize is a configuration management tool that has been embedded into <code class="highlighter-rouge">kubectl</code>.
+Originally it was a separate tool and some functionality is still only available in the Kustomize binary and not in Kubectl.
+The documentation of Kustomize is therefore available in two parts, the <a href="https://github.com/kubernetes-sigs/kustomize/tree/master/docs" target="_blank" rel="noopener noreferrer">core docs</a> and the <a href="https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html" target="_blank" rel="noopener noreferrer">Kubectl docs</a>.</p>
+
+<p>Important to note, especially when considering the usage of this tool, is what it doesn’t do:</p>
+<ul>
+  <li>It doesn’t manage deployments</li>
+  <li>It doesn’t package applications in deployable artifacts</li>
+  <li>It doesn’t manage secrets securely</li>
+</ul>
+
+<p>As discussed in the Kustomize projects <a href="https://github.com/kubernetes-sigs/kustomize/" target="_blank" rel="noopener noreferrer">readme</a> a Kustomize manifest exists out of two main structures: a base manifest and overlays.</p>
+
+<h3 id="base-manifest">Base manifest</h3>
+
+<p>A base manifest is, in essence, a set of bare-bones Kubernetes manifests.
+For the scope of this blog post, a single base manifest will contain all configuration to deploy a single service.
+Kustomize doesn’t require this, but it seems like a good fit.</p>
+
+<p>Let’s assume the following set of Kubernetes manifests:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── deployment.yaml
+├── ingress.yaml
+└── service.yaml
+</code></pre></div></div>
+
+<p>These manifests can deploy one of our apps to a cluster.
+It will create a deployment, a service exposing the app to the cluster and an ingress object that will allow connections from outside of the cluster.
+Managing a set of these manifests in separate files or even in one file, can be a bit challenging and ofter results in violating the Don’t-Repeat-Yourself (DRY) principle.
+Kustomize can assist in preventing this and allows the user to more generally manage their manifests.
+Adding Kustomize to a set of manifests is as easy as creating a <code class="highlighter-rouge">kustomization.yaml</code> file and running <code class="highlighter-rouge">kustomize build</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+
+<span class="c1"># Add labels to all objects created by this kustomize manifest.</span>
+<span class="na">commonLabels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">task-service</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">deployment.yaml</span>
+<span class="pi">-</span> <span class="s">service.yaml</span>
+<span class="pi">-</span> <span class="s">ingress.yaml</span>
+</code></pre></div></div>
+
+<p>In this example, only a single feature of Kustomize is used, namely the <code class="highlighter-rouge">commonLabels</code> option. 
+This option makes Kustomize add the label to all managed manifests at build time (when running <code class="highlighter-rouge">kubectl apply -k</code> or <code class="highlighter-rouge">kustomize build</code>). 
+Other options like image overrides, namespaces overrides and name prefixing are also available. 
+For more information on these features check out the documentation <a href="https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<h3 id="overlay-manifest">Overlay manifest</h3>
+
+<p>The second half of the cake in Kustomize are the overlays. 
+Overlays are YAML snippets, Kustomize configuration and/or even full manifests that can be used to adapt a base manifest.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+
+<span class="na">bases</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">../../base</span>
+<span class="pi">-</span> <span class="s">git::ssh://git@some-git-provider:some-repo-path.git//folder-in-repo-with-kustomize-config?ref=branch</span>
+<span class="pi">-</span> <span class="s">github.com/project/repo//folder-in-repo?ref=branch</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>In the default setup on the Kustomize homepage, the bases are always local folders. 
+However, a really useful feature is referencing remote locations, including Git repositories, as bases to be used in an overlay. 
+The Git endpoints need to be specified as described in the <a href="https://github.com/hashicorp/go-getter#url-format" target="_blank" rel="noopener noreferrer">hashicorp/go-getter URL format</a>. 
+Important to note here is that when using the Git references, the machine that is executing Kustomize builds needs have a valid Git configuration to access the referenced repositories.
+As the kustomization file is checked into version control, adding credentials into the link is considered a bad practice.
+Kustomize supports referencing multiple bases, which again allows for a lot of flexibility. 
+The references work recursively, so multiple levels of manifests are supported.
+At the time of writing, diamond composition is not possible but <a href="https://github.com/kubernetes-sigs/kustomize/issues/1251" target="_blank" rel="noopener noreferrer">being worked on</a>.</p>
+
+<p>The way Kustomize builds a set of manifests is the following:</p>
+
+<ol>
+  <li>Download the remote bases to a temporary folder</li>
+  <li>Executed <code class="highlighter-rouge">kustomize build</code> on all of the bases
+    <ol>
+      <li>This will include executing any generators and transformers that are configured in the bases.</li>
+    </ol>
+  </li>
+  <li>Add any manifests that are listed in the resources section.</li>
+  <li>Execute the generators.</li>
+  <li>Apply any patches and execute the transformers against all manifest that are generated or available through the bases.</li>
+</ol>
+
+<p>This order of execution is important to remember when creating setups, especially when using overrides for generators in the base. 
+E.g. when using a config map generator in the overlay, a ConfigMap generator needs to be used in the base as well, otherwise Kustomize will not allow the override to be executed. 
+This is because the config map generator adds a random ID to the name of each generated config map and cannot determine whether to change the config maps in the base template as well.</p>
+
+<h2 id="extending-kustomize-plugins">Extending Kustomize: plugins</h2>
+
+<p>Kustomize allows plugins to be created and used during execution. 
+This mechanism allows for a lot of flexibility.
+Currently, plugins are still an alpha feature and therefore not available through <code class="highlighter-rouge">kubectl</code> but only through the <code class="highlighter-rouge">kustomize</code> tool itself.</p>
+
+<p>Writing a plugin can be done in one of two ways:</p>
+<ul>
+  <li>Write a plugin in Go and link it as a shared library to the Kustomize tool</li>
+  <li>Write a plugin based on the exec model</li>
+</ul>
+
+<p>While the first way allows the code to be more easily absorbed into the Kustomize binary later on, it requires the plugin to be compiled together with the <code class="highlighter-rouge">kustomize</code> binary.
+The second option is a lot more flexible as it only relies on the plugin being available and providing a very rudimentary interface.
+More information on support for plugins can be found in the <a href="https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins" target="_blank" rel="noopener noreferrer">docs</a> and examples can be found <a href="https://github.com/Agilicus/kustomize-plugins" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<h2 id="real-world-example">Real-world example</h2>
+
+<p>In the last section of this post, a simple example setup will be shown and discussed.
+Consider the following scenario: a UI, two backends (task service and process service) and a datastore.
+The components have deployments, services, ConfigMaps ,and ingress manifests.
+This would result in the following structure:</p>
+
+<p>Let’s assume the following set of Kubernetes manifests:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>frontend/
+├── deployment.yaml
+├── ingress.yaml
+├── configmap.yaml
+└── service.yaml
+
+task-service/
+├── deployment.yaml
+├── ingress.yaml
+├── configmap.yaml
+└── service.yaml
+
+process-service/
+├── deployment.yaml
+├── ingress.yaml
+├── configmap.yaml
+└── service.yaml
+</code></pre></div></div>
+
+<p>Deploying this application is as easy as running <code class="highlighter-rouge">kubectl apply -f &lt;folder&gt;</code> on each of these folders. 
+A very simple use case for Kustomize is to deploy all of these components at once and group them. 
+The following <code class="highlighter-rouge">kustomization.yaml</code> should be added to each folder.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">deployment.yaml</span>
+<span class="pi">-</span> <span class="s">service.yaml</span>
+<span class="pi">-</span> <span class="s">ingress.yaml</span>
+<span class="pi">-</span> <span class="s">configmap.yaml</span>
+</code></pre></div></div>
+
+<p>The following Kustomization manifest could then be used to deploy everything at once by running <code class="highlighter-rouge">kubectl apply -k acceptance/</code></p>
+
+<p><code class="highlighter-rouge">acceptance/kustomization.yaml</code></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">../frontend</span>
+<span class="pi">-</span> <span class="s">../task-service</span>
+<span class="pi">-</span> <span class="s">../process-service</span>
+</code></pre></div></div>
+
+<p>During the execution of this command, Kustomize will generate a single (giant) file containing all the manifests. 
+Note that the bases are referenced under the resources.
+The <code class="highlighter-rouge">bases</code> key is deprecated and all references should be moved into the resources key.</p>
+
+<p>Making variants on the actual bases is super easy. 
+For example, let’s assume that the acceptance environment needs a different configuration.
+This can be achieved by just overriding the ConfigMap in the acceptance folder.
+There are three different ways to override a ConfigMap.</p>
+
+<h3 id="using-configmap-generator">Using ConfigMap Generator</h3>
+
+<p>Generators can be used to ease the management of configuration. 
+The ConfigMap generator makes creating ConfigMaps easier by providing a more common way to specify configuration.
+More information on the ConfigMap generator can be found <a href="https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<p><code class="highlighter-rouge">acceptance/kustomization.yaml</code></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#...original yaml...</span>
+
+<span class="na">configMapGenerator</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">task-service</span>
+  <span class="na">env</span><span class="pi">:</span> 
+    <span class="pi">-</span> <span class="s">loglevel=warn</span>
+</code></pre></div></div>
+
+<p>The ConfigMap generator will look for the original manifest and apply the override.
+Important to note here is that the generator only works if the original manifest was generated aswell.
+Using this approach thus requires both the base and overrides to use the generator.
+A nice bonus to using the generator is that it will add unique IDs to the ConfigMap name every time one is generated. 
+This way, a component is automatically updated when a linked ConfigMap is changed.
+This provides a nice way to prevent manually triggering a rolling update when configuration changes.</p>
+
+<p>Currently only ConfigMap and secret generators are available by default, but as mentioned, there is a very good plugin mechanism available to add more.</p>
+
+<h3 id="using-patches">Using patches</h3>
+
+<p>Patches are the last way to override a configuration from a base.
+Patches are available in two flavors: Json6902 and Strategic Merge.</p>
+
+<p>Json6902 is an RFC standard provided by the <a href="https://tools.ietf.org/html/rfc6902" target="_blank" rel="noopener noreferrer">IETF</a> to describe JSON patches.
+In a nutshell, operations (patches) can be described using JSON path, operations ,and values.</p>
+
+<p>For the example earlier, this would result in the following:
+<code class="highlighter-rouge">acceptance/kustomization.yaml</code></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#...original yaml...</span>
+
+<span class="na">patches</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">target</span><span class="pi">:</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">v1</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">task-service</span>
+  <span class="na">path</span><span class="pi">:</span> <span class="s">configs/acceptance-specific-task-service-configmap-patch.yaml</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">acceptance/configs/acceptance-specific-task-service-configmap-patch.yaml</code></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="pi">-</span> <span class="na">op</span><span class="pi">:</span> <span class="s">replace</span>
+   <span class="na">path</span><span class="pi">:</span> <span class="s">/data/loglevel</span>
+   <span class="na">value</span><span class="pi">:</span> <span class="s">warn</span>
+</code></pre></div></div>
+
+<p>Matching is done based on the name (<code class="highlighter-rouge">metadata.name</code>), version and kind of the resource.
+This approach will result in the acceptance-specific config map overriding the base task-service ConfigMap.
+It will result in the same ConfigMap manifest after the <code class="highlighter-rouge">kustomize build</code>.</p>
+
+<p>The strategic merge is the final way to provide an override in Kustomize.
+It merges the existing ConfigMaps with the new configuration provided in the override. 
+It applies the same matching rules as the JSON patch approach to match base manifests with the overrides.
+Note that the configuration will be added or overridden.</p>
+
+<p><code class="highlighter-rouge">acceptance/kustomization.yaml</code></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#...original yaml...</span>
+
+<span class="na">patches</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">patches/acceptance-specific-task-service-configmap.yaml</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">acceptance/patches/acceptance-specific-task-service-configmap.yaml</code></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">task-service</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">loglevel</span><span class="pi">:</span> <span class="s">warm</span>
+</code></pre></div></div>
+
+<p>Building this Kustomize manifest will again result in the same Kubernetes ConfigMap manifest as the other two approaches. 
+Note that none of the three approaches required changing the original manifests.
+When multiple variants are created, updates to the base will automatically be added to all variants without having to change a single line of code.</p>
+
+<h2 id="conclusion-when-to-use-kustomize">Conclusion: When to use Kustomize?</h2>
+
+<p>Kustomize is a great tool to have in your toolbox to simplify configuration management in Kubernetes.
+DRY principles can be adhered to and managing configuration code can be done in a structured and unified way.
+Kustomize is a great fit when different environments require different configuration for a microservice. 
+Especially when sensible defaults can be added to the base template and only a small amount of overrides are required per environment. 
+When compared to Helm, both version 2 and 3, Kustomize doesn’t pollute the original manifests with templating code.</p>
+
+<p>Kustomize is a configuration management tool for Kubernetes.</p>
+
+<ul>
+  <li>Have a lot of configuration code being duplicated across environments?</li>
+  <li>Have a complex CD setup with manual steps to deploy configuration to a specific environment?</li>
+  <li>Hate using templating engines?</li>
+  <li>Really really really like using Kubernetes?</li>
+</ul>
+
+<p>If all of the above are true for you, start using Kustomize today and experience it yourself!</p>
+
+<h2 id="useful-links">Useful links</h2>
+
+<ul>
+  <li><a href="https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html" target="_blank" rel="noopener noreferrer">Kubectl-Kustomize docs</a></li>
+  <li><a href="https://github.com/kubernetes-sigs/kustomize/tree/master/docs" target="_blank" rel="noopener noreferrer">Kustomize core docs</a></li>
+  <li><a href="https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins" target="_blank" rel="noopener noreferrer">Kustomize plugins</a></li>
+  <li><a href="https://github.com/Agilicus/kustomize-plugins" target="_blank" rel="noopener noreferrer">Kustomize plugin examples</a></li>
+  <li><a href="https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator" target="_blank" rel="noopener noreferrer">ConfigMap Generator</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2019/09/09/kustomize.html&title=Kustomize: Kubernetes configuration management, the easy way&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Kustomize: Kubernetes configuration management, the easy way&url=https://ordina-jworks.github.io/cloud/2019/09/09/kustomize.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2019/09/09/kustomize.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/pieter_vincken/" class="image spotlight-image" title="">
+            <img src="/img/author/pieter-vincken.jpeg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-09-09-kustomize/banner.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
