@@ -13,6 +13,7 @@ comments: true
 * [What problem do we have?](#what-problem-do-we-have)
 * [What alternatives are available to solve this problem?](#what-alternatives-are-available-to-solve-this-problem)
 * [What is Kustomize and how to use it](#what-is-Kustomize-and-how-to-use-it)
+* [Extending Kustomize](#extending-kustomize-plugins)
 * [Conclusion](#conclusion-when-to-use-kustomize)
 
 ## TODO
@@ -73,12 +74,12 @@ As briefly discussed, Kustomize is a configuration management tool that has been
 Originally it was a separate tool and some functionality is still only available in the Kustomize binary and not in Kubectl.
 The documentation of Kustomize is therefore available in two parts, the core docs and the Kubectl docs ([Links](#useful-links)).
 
-As discussed in the Kustomize projects [readme](https://github.com/kubernetes-sigs/kustomize/) a Kustomize manifest exists out of two main structures: a base manifest and overlays.
-
 Important to note, especially when considering the usage of this tool, is what it doesn't do:
 * It doesn't manage deployments
 * It doesn't package applications in deployable artifacts
 * It doesn't manage secrets securly
+
+As discussed in the Kustomize projects [readme](https://github.com/kubernetes-sigs/kustomize/) a Kustomize manifest exists out of two main structures: a base manifest and overlays.
 
 ### Base manifest
 
@@ -148,18 +149,173 @@ The way Kustomize builds a template is the following:
 1. Executed `kustomize build` on all of the bases
     1. This will include executing any generators that are configured in the bases.
 1. Add any manifests that are listed in the resources section.
-1. Apply the patches, generators to the (generated) manifests of the bases. 
+1. Execute the generators.
+1. Apply any patches and execute the transformers against all manifest that are generated or available through the bases. 
 
 This order of execution is important to remember when creating setups, especially when using overrides for generators in the base. 
 E.g. when using a config map generator in the overlay, a config map generator needs to be used in the base as well, otherwise Kustomize will not allow the override to be executed. 
 This is because the config map generator adds a random ID to the name of each generated config map and cannot determine whether to change the config maps in the base template as well.
 
+## Extending Kustomize: plugins
+
+Kustomize allows plugins to be created and used during execution. 
+This mechanism allows for a lot of flexibilty.
+Currently, plugins are still an alpha feature and therefor not available through `kubectl` but only through the `kustomize` tool itself.
+
+Writing a plugin can be done in one of two ways:
+* Write a plugin in Go and link it as a shared library to the kustomize tool
+* Write a plugin based on the exec model
+
+While the first way allows the code to be more easily absorbed into the kustomize binary later on, it requires the plugin to be compiled together with the `kustomize` binary.
+The second option is a lot more flexible as it only relies on the plugin being availble and providing a very rudementary interface.
+More information on support for plugins and example can be found [here](#useful-links).
+
 ## Real world example
 
 In the last section of this post, a simple example setup will be shown and dicussed.
-Consider the following scenario: 
+Consider the following scenario: an UI, two backends (task service and process service) and a datastore.
+The components have deployments, services, configmaps and ingress objects.
+This would result in the following structure:
 
-//TODO
+Let's assume the following set of Kubernetes manifests:
+```
+frontend/
+├── deployment.yaml
+├── ingress.yaml
+├── configmap.yaml
+└── service.yaml
+
+task-service/
+├── deployment.yaml
+├── ingress.yaml
+├── configmap.yaml
+└── service.yaml
+
+process-service/
+├── deployment.yaml
+├── ingress.yaml
+├── configmap.yaml
+└── service.yaml
+```
+
+Deploying this application is as easy as running `kubectl apply -f <folder>` on each of these folders. 
+A very simple usecase for Kustomize is to deploy all of these components at once and group them. 
+The following `kustomization.yaml` should be added to each folder.
+
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- configmap.yaml
+```
+
+The following Kustomization manifest could then be used to deploy everyting at once by running `kubectl apply -k acceptance/`
+
+`acceptance/kustomization.yaml`
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../frontend
+- ../task-service
+- ../process-service
+```
+
+During the execution of this command, Kustomize will generate a single (giant) manifest. 
+Note that the bases are referenced under the resources.
+The `bases` key is deprecated and all references should be moved into the resources key.
+
+Making variant on the actual bases is super easy. 
+For example, let's assume that the acceptance environment needs a different configuration.
+This can be achieved by just overriding the configmap in the acceptance folder.
+There are three different ways to override a configmap.
+
+### Using Configmap Generator
+
+Generators can be used to ease the management of configuration. 
+The configmap generator makes creating configmaps easier by providing a more common way to specify configuration.
+More information on the configmap generator can be found [here](#useful-links).
+
+`acceptance/kustomization.yaml`
+```yaml
+#...original yaml...
+
+configMapGenerator:
+- name: task-service
+  env: 
+    - loglevel=warn
+```
+
+The configmap generator will again look for the original manifest and apply the override.
+Important to note here is that the generator only works, if the original manifest is also generated.
+Using this approach thus requires both the base and overrides to use the generator.
+A nice bonus to using the generator is that it will add unique IDs to the configmap name every time one is generated. 
+This way, a component is automatically updated when a linked configmap is changed.
+This is provides a nice way to prevent manually triggering a rolling update when configuration changes.
+
+Currently only configmap and secret generators are available by default, but as mentioned, there is a very good plugin mechanism avaiable to add more.
+
+### Using patches
+
+Patches are the last way to override a configuration from a base.
+Patches are available in two flavors: Json6902 and Strategic Merge.
+
+Json6902 is an RFC standard provided by the [IETF](https://tools.ietf.org/html/rfc6902) to describe JSON patches.
+In a nutshell, operations (patches) can be described using JSON path, operations and values.
+
+For the example earlier, this would result in the following:
+`acceptance/kustomization.yaml`
+```yaml
+#...original yaml...
+
+patches:
+- target:
+    version: v1
+    kind: ConfigMap
+    name: task-service
+  path: configs/acceptance-specific-task-service-configmap-patch.yaml
+```
+
+`acceptance/configs/acceptance-specific-task-service-configmap-patch.yaml`
+```yaml
+ - op: replace
+   path: /data/loglevel
+   value: warn
+```
+
+Matching is done based on the name (`metadata.name`), version and kind of the resource.
+This approach will result in the acceptance-specific config map overriding the base task-service configmap.
+It will result in the exact same configmap manifest after the `kustomize build`.
+
+The strategic merge is the final way provide an override in Kustomize.
+It merges the existing configmaps with the new configuration provided in the override. 
+It applies the same matching rules as the JSON patch approach to match base manifests with the overrides.
+Note that the configuration will be added or overridden. 
+
+`acceptance/kustomization.yaml`
+```yaml
+#...original yaml...
+
+patches:
+- patches/acceptance-specific-task-service-configmap.yaml
+```
+
+`acceptance/patches/acceptance-specific-task-service-configmap.yaml`
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: task-service
+data:
+  loglevel: warm
+```
+
+Building this Kustomize manifest will again result in the same Kubernetes configmap manifest as the other two approaches. 
 
 ## Conclusion: When to use Kustomize?
 
@@ -182,4 +338,7 @@ If all of the above are true for you, start using Kustomize today and experience
 
 * [Kubectl-Kustomize docs](https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html)
 * [Kustomize core docs](https://github.com/kubernetes-sigs/kustomize/tree/master/docs)
+* [Kustomize plugins](https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins)
+* [Kustomize plugin examples](https://github.com/Agilicus/kustomize-plugins)
+* [Configmap Generator](https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator)
 * [Helm blogpost](//TBD)
