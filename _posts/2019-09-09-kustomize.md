@@ -8,6 +8,8 @@ category: Cloud
 comments: true
 ---
 
+### Reading time: 8 min 29 sec
+
 # Table of contents
 
 * [What problem do we have?](#what-problem-do-we-have)
@@ -278,7 +280,7 @@ patches:
 
 Matching is done based on the name (`metadata.name`), version and kind of the resource.
 This approach will result in the acceptance-specific config map overriding the base task-service ConfigMap.
-It will result in the exact same ConfigMap manifest after the `kustomize build`.
+It will result in the same ConfigMap manifest after the `kustomize build`.
 
 The strategic merge is the final way to provide an override in Kustomize.
 It merges the existing ConfigMaps with the new configuration provided in the override. 
