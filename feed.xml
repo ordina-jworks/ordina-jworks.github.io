@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-09-18T19:20:52+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-09-18T19:27:37+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">JavaScript Testing 101</title><link href="https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101.html" rel="alternate" type="text/html" title="JavaScript Testing 101" /><published>2019-09-18T00:00:00+00:00</published><updated>2019-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101.html">&lt;h1 id=&quot;javascript-unit-testing-101&quot;&gt;JavaScript unit testing 101&lt;/h1&gt;
 
 &lt;p&gt;In this blog post I will explain how to write unit tests for JavaScript. For the examples, we will be using jasmine and ts-mockito, but the theory should be applicable to every testing framework.
@@ -470,284 +470,7 @@ And don’t forget that done function, without it, your test might timeout, or e
 
 &lt;p&gt;Simply clone the repo, run npm install and run npm test to execute the tests.&lt;/p&gt;
 
-&lt;p&gt;Happy testing everyone!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Ivar&quot;, &quot;last_name&quot;=&gt;&quot;van Hartingsveldt&quot;, &quot;permalink&quot;=&gt;&quot;/author/ivar-van-hartingsveldt/&quot;, &quot;avatar&quot;=&gt;&quot;ivar-van-hartingsveldt.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;ivar.vanhartingsveldt@ordina.be&quot;, &quot;github&quot;=&gt;&quot;ivarvh&quot;, &quot;linkedin&quot;=&gt;&quot;ivarvh&quot;, &quot;bio&quot;=&gt;&quot;Ivar is a backend Java developer who converted to frontend. When ES6 and TypeScript came along, he really started investing his time in that and now he writes Javascript / TypeScript almost exclusively.&quot;}</name><email>ivar.vanhartingsveldt@ordina.be</email></author><category term="Testing" /><category term="JavaScript" /><category term="Testing" /><category term="TypeScript" /><category term="Jasmine" /><category term="Karma" /><category term="Unit testing" /><category term="Observables" /><summary type="html">JavaScript unit testing 101</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-07-11-js-testing.png" /></entry><entry><title type="html">Lessons learned on including library assets into Angular applications</title><link href="https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries.html" rel="alternate" type="text/html" title="Lessons learned on including library assets into Angular applications" /><published>2019-09-13T00:00:00+00:00</published><updated>2019-09-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries.html">&lt;p&gt;With Angular 6, which has now been released ages ago, workspaces were introduced.
-This meant that a repository could include multiple applications and libraries, eventually building a monorepository.
-I welcomed this change, as it meant that all applications in one repository could be kept up to date easily and more.
-But I’m not here to talk about all the advantages and disadvantages of a monorepo.
-Instead I’d like to talk about one specific challenge with this type of repository.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-to-include-assets-used-by-libraries&quot;&gt;How to include assets used by libraries&lt;/h2&gt;
-
-&lt;p&gt;There are multiple solutions to this problem.
-But not all solutions match all criteria for a good architecture.
-These criteria are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/li&gt;
-  &lt;li&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/li&gt;
-  &lt;li&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I haven’t worked with many monorepo tools, other than &lt;a href=&quot;https://nx.dev&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nrwl/nx&lt;/a&gt;, so I will base my definition of affected projects on that.
-Nrwl/nx uses a dependency graph to determine the affected projects.
-In short: if a library has a changed file, then all projects that import this library (either directly or lazy-loaded) are affected.
-This works recursively, so the projects that import those projectes are also affected and so on.
-Some files, like &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; have &lt;code class=&quot;highlighter-rouge&quot;&gt;implicitDependencies&lt;/code&gt; set to &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;*&quot;&lt;/code&gt;, which means a change in those files will regard all projects in the workspace as affected.&lt;/p&gt;
-
-&lt;p&gt;These are the solutions (in order) I’ve gone through to tackle this exact problem for a monorepo I’m currently managing.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Note: In that monorepo the focus was on json-files with translations used for &lt;code class=&quot;highlighter-rouge&quot;&gt;@ngx-translate&lt;/code&gt;, but in my examples here I will use images.&lt;/em&gt;
-&lt;em&gt;In the example, the application, my-app, only depends on the library neighbourhood-dogs-lib and should only display a picture of my dog and Pete’s dog, but not of Karen’s cat.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;solution-1---assets-in-the-application-source&quot;&gt;Solution 1 - Assets in the application source&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
-│  └─ 📂my-app
-│     ├─ 📂src
-│     │  ├─ 📂assets
-│     │  │  └─ 📂images
-│     │  │     ├─ 🖼my-dog.jpg
-│     │  │     └─ 🖼pete-dog.jpg
-│     │  ├─ 📂app
-│     │  │  └─ ...
-│     │  ├─ 📄index.html
-│     │  └─ ...
-│     └─ ...
-└─ 📂libs
-   ├─ 📂neighbourhood-dogs-lib
-   │  ├─ 📂src
-   │  │  ├─ 📂lib
-   │  │  │  ├─ 📄dog-list.component.ts
-   │  │  │  └─ 📄dog.component.ts
-   │  │  └─ ...
-   │  └─ ...
-   └─ 📂neighbourhood-cats-lib
-      ├─ 📂src
-      │  ├─ 📂lib
-      │  │  ├─ 📄cat-list.component.ts
-      │  │  └─ 📄cat.component.ts
-      │  └─ ...
-      └─ ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;I call this solution the “I’ll figure it out later”-solution.
-The main idea was to set aside this problem because other tasks had higher priority, the monorepo wasn’t nearly as big as it is now.
-Basically, the assets used by a library were put in the &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; folder of the application’s source directory.
-This meant that the build of an application would simply include these assets out of the box.
-This is fine for a single application, but as soon as a second application (let’s say, neighbourhood-animals-app) was to use this library, it, too, would need a copy of those assets in its source directory.
-A change to one of the assets would also mean that two applications would need this change, which is prone to being forgotten.
-Moreover, the image of Karen’s cat is nowhere to be found because at this time, no application needs it.&lt;/p&gt;
-
-&lt;p&gt;As for the criteria:&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;❌&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;⚠️*&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;⚠️**&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;*Kind of, if I don’t forget to copy our assets&lt;br /&gt;
-**Depends on the amount of applications that need these extra assets&lt;/p&gt;
-
-&lt;h3 id=&quot;solution-2---shared-assets-directory&quot;&gt;Solution 2 - Shared assets directory&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
-│  └─ 📂my-app
-│     ├─ 📂src
-│     │  ├─ 📂app
-│     │  │  └─ ...
-│     │  ├─ 📄index.html
-│     │  └─ ...
-│     └─ ...
-├─ 📂libs
-│  ├─ 📂neighbourhood-dogs-lib
-│  │  ├─ 📂src
-│  │  │  ├─ 📂lib
-│  │  │  │  ├─ 📄dog-list.component.ts
-│  │  │  │  └─ 📄dog.component.ts
-│  │  │  └─ ...
-│  │  └─ ...
-│  └─ 📂neighbourhood-cats-lib
-│     ├─ 📂src
-│     │  ├─ 📂lib
-│     │  │  ├─ 📄cat-list.component.ts
-│     │  │  └─ 📄cat.component.ts
-│     │  └─ ...
-│     └─ ...
-└─ 📂shared-assets
-   └─ 📂images
-      ├─ 🖼my-dog.jpg
-      ├─ 🖼pete-dog.jpg
-      └─ 🖼karen-cat.jpg
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This is the “Share everything”-solution. It was created to solve the main fault of the previous, namely that assets could exist twice.
-Another important aspect here was to reduce the amount of times that &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; would be changed when more assets from another library would be added.
-Because &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; implicitly affects all projects, this file should be kept untouched as much as possible.
-So a one-time change was made to let the projects in &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; include these shared assets:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./shared-assets/images&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/images&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Unfortunately this meant that all assets from all libraries would be added to those applications, which increases the bundle size significantly.
-Another disadvantage is that the Nx dependency graph could not link changes in this directory with their corresponding libraries, unless every single file was mentioned in &lt;code class=&quot;highlighter-rouge&quot;&gt;nx.json&lt;/code&gt; with an implicit dependency for that library.
-Ironically, this solves criteria 3 perfectly, because nothing is affected, so that’s the bare minimum.&lt;/p&gt;
-
-&lt;p&gt;Going back through the criteria:&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;⚠️*&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;❌&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;*There are no longer duplicate assets, but they’re not part of the project that utilizes them&lt;/p&gt;
-
-&lt;h3 id=&quot;solution-3---custom-angular-builders&quot;&gt;Solution 3 - Custom Angular builders&lt;/h3&gt;
-
-&lt;p&gt;A solution I came across was to copy the assets after a build into the &lt;code class=&quot;highlighter-rouge&quot;&gt;dist&lt;/code&gt;-folder using a script in the &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file, but for obvious reasons that wouldn’t work easily when managing different apps.
-Neither would it work with the dev-server, so I didn’t even go there.
-Including assets by adding them to the build target’s assets array is how Angular itself prescribes to solve this problem, so let’s keep that.
-However, I still wanted to change the &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; file (and other files) as minimally as possible.&lt;/p&gt;
-
-&lt;p&gt;Enter Angular 8 and the stable version of the CLI Builder API!&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
-│  └─ 📂my-app
-│     ├─ 📂src
-│     │  ├─ 📂assets
-│     │  │  └─ 📄include.json
-│     │  ├─ 📂app
-│     │  │  └─ ...
-│     │  ├─ 📄index.html
-│     │  └─ ...
-│     └─ ...
-└─ 📂libs
-   ├─ 📂neighbourhood-dogs-lib
-   │  ├─ 📂src
-   │  │  ├─ 📂assets
-   │  │  │  └─ 📂images
-   │  │  │     ├─ 🖼my-dog.jpg
-   │  │  │     └─ 🖼pete-dog.jpg
-   │  │  ├─ 📂lib
-   │  │  │  ├─ 📄dog-list.component.ts
-   │  │  │  └─ 📄dog.component.ts
-   │  │  └─ ...
-   │  └─ ...
-   └─ 📂neighbourhood-cats-lib
-      ├─ 📂src
-      │  ├─ 📂assets
-      │  │  └─ 📂images
-      │  │     └─ 🖼karen-cat.jpg
-      │  ├─ 📂lib
-      │  │  ├─ 📄cat-list.component.ts
-      │  │  └─ 📄cat.component.ts
-      │  └─ ...
-      └─ ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Using this new API, I was able to construct two new builders to replace the default &lt;code class=&quot;highlighter-rouge&quot;&gt;@angular-devkit/build-angular:browser&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;@angular-devkit/build-angular:dev-server&lt;/code&gt; while still utilizing them.
-These custom builders take the same options as the ones they replace and work more like a hook than a new builder.
-The idea is to update the build target in the in-memory workspace before the default builder is actually executed.
-Simply put, the custom builders read &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt;, update the assets array and pass the updated version to the original builders.
-A single configuration file (&lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; in the application’s &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; directory) lets the custom builder read which libraries the application depends on.
-It then determines its source directory using the workspace configuration file (&lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt;) and adds the following to the assets array:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If I wanted my-app to also include the neighbourhood’s cats, then I could change &lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; to also include &lt;code class=&quot;highlighter-rouge&quot;&gt;neighbourhood-cats-lib&lt;/code&gt; and the next build would add the following to the assets array:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-cats-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Though I’d rather set the option that these assets are placed in sub folders, so I added that into the builders too.
-That made the assets array into the following, which prevents libs from overwriting other assets:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/neighbourhood-dogs-lib&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-cats-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/neighbourhood-cats-lib&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;Note: The reason this &lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; file is in the &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; directory was to make a custom &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpTranslateLoader&lt;/code&gt; (using a simple RxJS &lt;code class=&quot;highlighter-rouge&quot;&gt;mergeMap&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;forkJoin&lt;/code&gt;) read that same file to determine which translation assets to download.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Let’s go through the criteria one more time:&lt;/p&gt;
-
-&lt;table&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;✅*&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
-            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;*Because the assets are inside the library’s directory, the dependency graph can detect a change and determine the affected applications&lt;/p&gt;
-
-&lt;p&gt;There is one caveat though: the dependency graph will only detect dependencies if the library is also imported in the code of the application, which would be the case mostly.
-If that’s not the case (for example if the library containing assets has no components/services/modules/…), simply create an empty module in it and import it in the applications that depend on these assets.&lt;/p&gt;
-
-&lt;h2 id=&quot;sharing-is-caring&quot;&gt;Sharing is caring&lt;/h2&gt;
-
-&lt;p&gt;Because I care about the community I packaged this solution and published it to npm.
-It’s called &lt;code class=&quot;highlighter-rouge&quot;&gt;ngx-library-assets&lt;/code&gt; and is available at &lt;a href=&quot;https://www.npmjs.com/package/ngx-library-assets&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.npmjs.com/package/ngx-library-assets&lt;/a&gt;.
-Install it as a &lt;code class=&quot;highlighter-rouge&quot;&gt;devDependency&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Disclaimer: I do not actually own a dog, or a cat. Neither do Pete and Karen. I don’t even have any neighbours named Pete or Karen.&lt;/em&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Angular" /><category term="Builders" /><category term="Assets" /><category term="Library" /><category term="Monorepo" /><summary type="html">With Angular 6, which has now been released ages ago, workspaces were introduced. This meant that a repository could include multiple applications and libraries, eventually building a monorepository. I welcomed this change, as it meant that all applications in one repository could be kept up to date easily and more. But I’m not here to talk about all the advantages and disadvantages of a monorepo. Instead I’d like to talk about one specific challenge with this type of repository.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-09-09-angular-include-assets-libraries/tpryd.jpg" /></entry><entry><title type="html">Kustomize: Kubernetes configuration management, the easy way</title><link href="https://ordina-jworks.github.io/cloud/2019/09/09/kustomize.html" rel="alternate" type="text/html" title="Kustomize: Kubernetes configuration management, the easy way" /><published>2019-09-09T00:00:00+00:00</published><updated>2019-09-09T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/09/09/kustomize</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/09/09/kustomize.html">&lt;h3 id=&quot;reading-time-8-min-29-sec&quot;&gt;Reading time: 8 min 29 sec&lt;/h3&gt;
+&lt;p&gt;Happy testing everyone!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Ivar&quot;, &quot;last_name&quot;=&gt;&quot;van Hartingsveldt&quot;, &quot;permalink&quot;=&gt;&quot;/author/ivar-van-hartingsveldt/&quot;, &quot;avatar&quot;=&gt;&quot;ivar-van-hartingsveldt.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;ivar.vanhartingsveldt@ordina.be&quot;, &quot;github&quot;=&gt;&quot;ivarvh&quot;, &quot;linkedin&quot;=&gt;&quot;ivarvh&quot;, &quot;bio&quot;=&gt;&quot;Ivar is a backend Java developer who converted to frontend. When ES6 and TypeScript came along, he really started investing his time in that and now he writes Javascript / TypeScript almost exclusively.&quot;}</name><email>ivar.vanhartingsveldt@ordina.be</email></author><category term="Testing" /><category term="JavaScript" /><category term="Testing" /><category term="TypeScript" /><category term="Jasmine" /><category term="Karma" /><category term="Unit testing" /><category term="Observables" /><summary type="html">JavaScript unit testing 101</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-07-11-js-testing.png" /></entry><entry><title type="html">Kustomize: Kubernetes configuration management, the easy way</title><link href="https://ordina-jworks.github.io/cloud/2019/09/18/kustomize.html" rel="alternate" type="text/html" title="Kustomize: Kubernetes configuration management, the easy way" /><published>2019-09-18T00:00:00+00:00</published><updated>2019-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/09/18/kustomize</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/09/18/kustomize.html">&lt;h3 id=&quot;reading-time-8-min-29-sec&quot;&gt;Reading time: 8 min 29 sec&lt;/h3&gt;
 
 &lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 
@@ -1077,7 +800,284 @@ When compared to Helm, both version 2 and 3, Kustomize doesn’t pollute the ori
   &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/kustomize/tree/master/docs/plugins&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kustomize plugins&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/Agilicus/kustomize-plugins&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kustomize plugin examples&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ConfigMap Generator&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="Kustomize" /><category term="Configuration Management" /><category term="Kubernetes" /><category term="Cloud" /><summary type="html">Reading time: 8 min 29 sec</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-09-09-kustomize/banner.png" /></entry><entry><title type="html">Avoiding fragile tests with better design</title><link href="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html" rel="alternate" type="text/html" title="Avoiding fragile tests with better design" /><published>2019-08-23T00:00:00+00:00</published><updated>2019-08-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/08/23/test-design</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="Kustomize" /><category term="Configuration Management" /><category term="Kubernetes" /><category term="Cloud" /><summary type="html">Reading time: 8 min 29 sec</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-09-09-kustomize/banner.png" /></entry><entry><title type="html">Lessons learned on including library assets into Angular applications</title><link href="https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries.html" rel="alternate" type="text/html" title="Lessons learned on including library assets into Angular applications" /><published>2019-09-13T00:00:00+00:00</published><updated>2019-09-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2019/09/13/angular-include-assets-libraries.html">&lt;p&gt;With Angular 6, which has now been released ages ago, workspaces were introduced.
+This meant that a repository could include multiple applications and libraries, eventually building a monorepository.
+I welcomed this change, as it meant that all applications in one repository could be kept up to date easily and more.
+But I’m not here to talk about all the advantages and disadvantages of a monorepo.
+Instead I’d like to talk about one specific challenge with this type of repository.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-include-assets-used-by-libraries&quot;&gt;How to include assets used by libraries&lt;/h2&gt;
+
+&lt;p&gt;There are multiple solutions to this problem.
+But not all solutions match all criteria for a good architecture.
+These criteria are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/li&gt;
+  &lt;li&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/li&gt;
+  &lt;li&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I haven’t worked with many monorepo tools, other than &lt;a href=&quot;https://nx.dev&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nrwl/nx&lt;/a&gt;, so I will base my definition of affected projects on that.
+Nrwl/nx uses a dependency graph to determine the affected projects.
+In short: if a library has a changed file, then all projects that import this library (either directly or lazy-loaded) are affected.
+This works recursively, so the projects that import those projectes are also affected and so on.
+Some files, like &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; have &lt;code class=&quot;highlighter-rouge&quot;&gt;implicitDependencies&lt;/code&gt; set to &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;*&quot;&lt;/code&gt;, which means a change in those files will regard all projects in the workspace as affected.&lt;/p&gt;
+
+&lt;p&gt;These are the solutions (in order) I’ve gone through to tackle this exact problem for a monorepo I’m currently managing.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: In that monorepo the focus was on json-files with translations used for &lt;code class=&quot;highlighter-rouge&quot;&gt;@ngx-translate&lt;/code&gt;, but in my examples here I will use images.&lt;/em&gt;
+&lt;em&gt;In the example, the application, my-app, only depends on the library neighbourhood-dogs-lib and should only display a picture of my dog and Pete’s dog, but not of Karen’s cat.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;solution-1---assets-in-the-application-source&quot;&gt;Solution 1 - Assets in the application source&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
+│  └─ 📂my-app
+│     ├─ 📂src
+│     │  ├─ 📂assets
+│     │  │  └─ 📂images
+│     │  │     ├─ 🖼my-dog.jpg
+│     │  │     └─ 🖼pete-dog.jpg
+│     │  ├─ 📂app
+│     │  │  └─ ...
+│     │  ├─ 📄index.html
+│     │  └─ ...
+│     └─ ...
+└─ 📂libs
+   ├─ 📂neighbourhood-dogs-lib
+   │  ├─ 📂src
+   │  │  ├─ 📂lib
+   │  │  │  ├─ 📄dog-list.component.ts
+   │  │  │  └─ 📄dog.component.ts
+   │  │  └─ ...
+   │  └─ ...
+   └─ 📂neighbourhood-cats-lib
+      ├─ 📂src
+      │  ├─ 📂lib
+      │  │  ├─ 📄cat-list.component.ts
+      │  │  └─ 📄cat.component.ts
+      │  └─ ...
+      └─ ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I call this solution the “I’ll figure it out later”-solution.
+The main idea was to set aside this problem because other tasks had higher priority, the monorepo wasn’t nearly as big as it is now.
+Basically, the assets used by a library were put in the &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; folder of the application’s source directory.
+This meant that the build of an application would simply include these assets out of the box.
+This is fine for a single application, but as soon as a second application (let’s say, neighbourhood-animals-app) was to use this library, it, too, would need a copy of those assets in its source directory.
+A change to one of the assets would also mean that two applications would need this change, which is prone to being forgotten.
+Moreover, the image of Karen’s cat is nowhere to be found because at this time, no application needs it.&lt;/p&gt;
+
+&lt;p&gt;As for the criteria:&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;❌&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;⚠️*&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;⚠️**&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*Kind of, if I don’t forget to copy our assets&lt;br /&gt;
+**Depends on the amount of applications that need these extra assets&lt;/p&gt;
+
+&lt;h3 id=&quot;solution-2---shared-assets-directory&quot;&gt;Solution 2 - Shared assets directory&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
+│  └─ 📂my-app
+│     ├─ 📂src
+│     │  ├─ 📂app
+│     │  │  └─ ...
+│     │  ├─ 📄index.html
+│     │  └─ ...
+│     └─ ...
+├─ 📂libs
+│  ├─ 📂neighbourhood-dogs-lib
+│  │  ├─ 📂src
+│  │  │  ├─ 📂lib
+│  │  │  │  ├─ 📄dog-list.component.ts
+│  │  │  │  └─ 📄dog.component.ts
+│  │  │  └─ ...
+│  │  └─ ...
+│  └─ 📂neighbourhood-cats-lib
+│     ├─ 📂src
+│     │  ├─ 📂lib
+│     │  │  ├─ 📄cat-list.component.ts
+│     │  │  └─ 📄cat.component.ts
+│     │  └─ ...
+│     └─ ...
+└─ 📂shared-assets
+   └─ 📂images
+      ├─ 🖼my-dog.jpg
+      ├─ 🖼pete-dog.jpg
+      └─ 🖼karen-cat.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is the “Share everything”-solution. It was created to solve the main fault of the previous, namely that assets could exist twice.
+Another important aspect here was to reduce the amount of times that &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; would be changed when more assets from another library would be added.
+Because &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; implicitly affects all projects, this file should be kept untouched as much as possible.
+So a one-time change was made to let the projects in &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; include these shared assets:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./shared-assets/images&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/images&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Unfortunately this meant that all assets from all libraries would be added to those applications, which increases the bundle size significantly.
+Another disadvantage is that the Nx dependency graph could not link changes in this directory with their corresponding libraries, unless every single file was mentioned in &lt;code class=&quot;highlighter-rouge&quot;&gt;nx.json&lt;/code&gt; with an implicit dependency for that library.
+Ironically, this solves criteria 3 perfectly, because nothing is affected, so that’s the bare minimum.&lt;/p&gt;
+
+&lt;p&gt;Going back through the criteria:&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;⚠️*&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;❌&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*There are no longer duplicate assets, but they’re not part of the project that utilizes them&lt;/p&gt;
+
+&lt;h3 id=&quot;solution-3---custom-angular-builders&quot;&gt;Solution 3 - Custom Angular builders&lt;/h3&gt;
+
+&lt;p&gt;A solution I came across was to copy the assets after a build into the &lt;code class=&quot;highlighter-rouge&quot;&gt;dist&lt;/code&gt;-folder using a script in the &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file, but for obvious reasons that wouldn’t work easily when managing different apps.
+Neither would it work with the dev-server, so I didn’t even go there.
+Including assets by adding them to the build target’s assets array is how Angular itself prescribes to solve this problem, so let’s keep that.
+However, I still wanted to change the &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt; file (and other files) as minimally as possible.&lt;/p&gt;
+
+&lt;p&gt;Enter Angular 8 and the stable version of the CLI Builder API!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├─ 📂apps
+│  └─ 📂my-app
+│     ├─ 📂src
+│     │  ├─ 📂assets
+│     │  │  └─ 📄include.json
+│     │  ├─ 📂app
+│     │  │  └─ ...
+│     │  ├─ 📄index.html
+│     │  └─ ...
+│     └─ ...
+└─ 📂libs
+   ├─ 📂neighbourhood-dogs-lib
+   │  ├─ 📂src
+   │  │  ├─ 📂assets
+   │  │  │  └─ 📂images
+   │  │  │     ├─ 🖼my-dog.jpg
+   │  │  │     └─ 🖼pete-dog.jpg
+   │  │  ├─ 📂lib
+   │  │  │  ├─ 📄dog-list.component.ts
+   │  │  │  └─ 📄dog.component.ts
+   │  │  └─ ...
+   │  └─ ...
+   └─ 📂neighbourhood-cats-lib
+      ├─ 📂src
+      │  ├─ 📂assets
+      │  │  └─ 📂images
+      │  │     └─ 🖼karen-cat.jpg
+      │  ├─ 📂lib
+      │  │  ├─ 📄cat-list.component.ts
+      │  │  └─ 📄cat.component.ts
+      │  └─ ...
+      └─ ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Using this new API, I was able to construct two new builders to replace the default &lt;code class=&quot;highlighter-rouge&quot;&gt;@angular-devkit/build-angular:browser&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;@angular-devkit/build-angular:dev-server&lt;/code&gt; while still utilizing them.
+These custom builders take the same options as the ones they replace and work more like a hook than a new builder.
+The idea is to update the build target in the in-memory workspace before the default builder is actually executed.
+Simply put, the custom builders read &lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt;, update the assets array and pass the updated version to the original builders.
+A single configuration file (&lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; in the application’s &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; directory) lets the custom builder read which libraries the application depends on.
+It then determines its source directory using the workspace configuration file (&lt;code class=&quot;highlighter-rouge&quot;&gt;angular.json&lt;/code&gt;) and adds the following to the assets array:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If I wanted my-app to also include the neighbourhood’s cats, then I could change &lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; to also include &lt;code class=&quot;highlighter-rouge&quot;&gt;neighbourhood-cats-lib&lt;/code&gt; and the next build would add the following to the assets array:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-cats-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Though I’d rather set the option that these assets are placed in sub folders, so I added that into the builders too.
+That made the assets array into the following, which prevents libs from overwriting other assets:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-dogs-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/neighbourhood-dogs-lib&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;**/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;input&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./libs/neighbourhood-cats-lib/src/assets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;output&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./assets/neighbourhood-cats-lib&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Note: The reason this &lt;code class=&quot;highlighter-rouge&quot;&gt;include.json&lt;/code&gt; file is in the &lt;code class=&quot;highlighter-rouge&quot;&gt;assets&lt;/code&gt; directory was to make a custom &lt;code class=&quot;highlighter-rouge&quot;&gt;HttpTranslateLoader&lt;/code&gt; (using a simple RxJS &lt;code class=&quot;highlighter-rouge&quot;&gt;mergeMap&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;forkJoin&lt;/code&gt;) read that same file to determine which translation assets to download.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s go through the criteria one more time:&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Assets should exist only once, preferably in the project that utilizes them.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;An update on an asset should trigger the rebuild of all those applications depending on the library using the asset, and only those.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅*&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;A dependency on another library should be added with minimal change and with minimal affected projects.&lt;/td&gt;
+            &lt;td style=&quot;width: 70px&quot;&gt;✅&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;*Because the assets are inside the library’s directory, the dependency graph can detect a change and determine the affected applications&lt;/p&gt;
+
+&lt;p&gt;There is one caveat though: the dependency graph will only detect dependencies if the library is also imported in the code of the application, which would be the case mostly.
+If that’s not the case (for example if the library containing assets has no components/services/modules/…), simply create an empty module in it and import it in the applications that depend on these assets.&lt;/p&gt;
+
+&lt;h2 id=&quot;sharing-is-caring&quot;&gt;Sharing is caring&lt;/h2&gt;
+
+&lt;p&gt;Because I care about the community I packaged this solution and published it to npm.
+It’s called &lt;code class=&quot;highlighter-rouge&quot;&gt;ngx-library-assets&lt;/code&gt; and is available at &lt;a href=&quot;https://www.npmjs.com/package/ngx-library-assets&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.npmjs.com/package/ngx-library-assets&lt;/a&gt;.
+Install it as a &lt;code class=&quot;highlighter-rouge&quot;&gt;devDependency&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Disclaimer: I do not actually own a dog, or a cat. Neither do Pete and Karen. I don’t even have any neighbours named Pete or Karen.&lt;/em&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Angular" /><category term="Builders" /><category term="Assets" /><category term="Library" /><category term="Monorepo" /><summary type="html">With Angular 6, which has now been released ages ago, workspaces were introduced. This meant that a repository could include multiple applications and libraries, eventually building a monorepository. I welcomed this change, as it meant that all applications in one repository could be kept up to date easily and more. But I’m not here to talk about all the advantages and disadvantages of a monorepo. Instead I’d like to talk about one specific challenge with this type of repository.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-09-09-angular-include-assets-libraries/tpryd.jpg" /></entry><entry><title type="html">Avoiding fragile tests with better design</title><link href="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html" rel="alternate" type="text/html" title="Avoiding fragile tests with better design" /><published>2019-08-23T00:00:00+00:00</published><updated>2019-08-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/08/23/test-design</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/08/23/test-design.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#why-should-we-design-our-tests&quot;&gt;Why should we design our tests&lt;/a&gt;&lt;/li&gt;
