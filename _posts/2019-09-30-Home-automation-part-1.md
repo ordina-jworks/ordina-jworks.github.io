@@ -56,9 +56,33 @@ As we will see later on, even those that do not support a home automation platfo
 The platforms:
 
 - Cloud enabled (more well known):
-  - TODO
-- On premise solutions (lesser known, but safer):
-  - TODO
+  - [Apple Homekit](https://www.apple.com/be-nl/shop/accessories/all-accessories/homekit){:target="_blank" rel="noopener noreferrer"}
+  - [Google Assistant/Google Home](https://store.google.com/nl/product/google_home){:target="_blank" rel="noopener noreferrer"}
+  - [Amazon Alexa](https://www.amazon.com/Amazon-Echo-And-Alexa-Devices/b?ie=UTF8&node=9818047011){:target="_blank" rel="noopener noreferrer"}
+  - [Xiaomi Mi Smart Home](https://xiaomi-mi.com/mi-smart-home/){:target="_blank" rel="noopener noreferrer"}
+- On premise solutions (lesser known, but safer)
+  - [Home Assistant](https://www.home-assistant.io/){:target="_blank" rel="noopener noreferrer"}
+  - [OpenHAB](https://www.openhab.org/){:target="_blank" rel="noopener noreferrer"}
+
+### Apple Homekit
+
+TODO
+
+### Google Assistant / Google Home
+
+TODO
+
+### Amazon Alexa
+
+TODO
+
+### Home Assistant
+
+TODO
+
+### OpenHAB
+
+TODO
 
 <img alt="altname" src="{{ '/img/2019-09-30-home-automation/image.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
@@ -73,4 +97,15 @@ TODO
 
 ## Resources
 
-- [NAME](https://www.website.com/){:target="_blank" rel="noopener noreferrer"}
+- [Apple Homekit](https://www.apple.com/be-nl/shop/accessories/all-accessories/homekit){:target="_blank" rel="noopener noreferrer"}
+- [Google Assistant/Google Home](https://store.google.com/nl/product/google_home){:target="_blank" rel="noopener noreferrer"}
+- [Amazon Alexa](https://www.amazon.com/Amazon-Echo-And-Alexa-Devices/b?ie=UTF8&node=9818047011){:target="_blank" rel="noopener noreferrer"}
+- [Xiaomi Mi Smart Home](https://xiaomi-mi.com/mi-smart-home/){:target="_blank" rel="noopener noreferrer"}
+- [Home Assistant](https://www.home-assistant.io/){:target="_blank" rel="noopener noreferrer"}
+- [OpenHAB](https://www.openhab.org/){:target="_blank" rel="noopener noreferrer"}
+
+- [Homebridge](https://homebridge.io/)
+- [Homebridge github](https://github.com/nfarina/homebridge)
+- [Homekit catalog, apple](https://developer.apple.com/documentation/homekit/configuring_a_home_automation_device)
+- [Homekit application protocol](https://github.com/KhaosT/HAP-NodeJS/)
+- [Homebridge plugins](https://www.npmjs.com/search?q=homebridge-plugin)
