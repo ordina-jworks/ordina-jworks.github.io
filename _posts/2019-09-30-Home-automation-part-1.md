@@ -57,8 +57,8 @@ The platforms:
 
 - Cloud enabled (more well known):
   - [Apple Homekit](https://www.apple.com/be-nl/shop/accessories/all-accessories/homekit){:target="_blank" rel="noopener noreferrer"}
-  - [Google Assistant/Google Home](https://store.google.com/nl/product/google_home){:target="_blank" rel="noopener noreferrer"}
-  - [Amazon Alexa](https://www.amazon.com/Amazon-Echo-And-Alexa-Devices/b?ie=UTF8&node=9818047011){:target="_blank" rel="noopener noreferrer"}
+  - [Google Assistant/Google Home](https://assistant.google.com/explore/){:target="_blank" rel="noopener noreferrer"}
+  - [Amazon Alexa](https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=merchandised-search-6&pf_rd_r=0E90B2MD8KGD1D7KVEM1&pf_rd_t=101&pf_rd_p=02147624-e148-4901-b449-773097cfa62e&pf_rd_i=17934672011){:target="_blank" rel="noopener noreferrer"}
   - [Xiaomi Mi Smart Home](https://xiaomi-mi.com/mi-smart-home/){:target="_blank" rel="noopener noreferrer"}
 - On premise solutions (lesser known, but safer)
   - [Home Assistant](https://www.home-assistant.io/){:target="_blank" rel="noopener noreferrer"}
@@ -66,21 +66,75 @@ The platforms:
 
 ### Apple Homekit
 
-TODO
+<img alt="Homekit" src="{{ '/img/2019-09-30-home-automation/homekit.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-### Google Assistant / Google Home
+Apple's home automation platform is called Homekit.
+It can be used on alles ios and osx devices, giving you access to it from everywhere.
+By default homekit control is limited to your local network only.
+If you add an apple TV/homepod/ipad as a hub you can allow remote access through icloud.
+For best results I would recommend to use an apple TV (gen 4 or later) connected through ethernet.
 
-TODO
+Automations can be made using the app (some special automations require a hub though).
+These automations can be be based on a number of different triggers & conditions (sensors/state change/people coming home or leaving/time of day/...)
+An automation can change the state of a device, or change change the state of multiple devices if they have been grouped into a scene.
+
+Homekit supports many devices, which can be identified by 'works with apple homekit' logo.
+
+<img alt="Works with Homekit" src="{{ '/img/2019-09-30-home-automation/works-with-homekit.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+Some of these include:
+
+- Hue
+- Tadoo
+- Eve
+- and many others...
+
+If your device is not supported but has its own app/api there is a big chance you can get it to work by installing homebridge and adding that to your home app in ios.
+Scroll down to the example section of this blogpost if you want to learn more on how to do set this up yourself.
+
+### Google Home
+
+<img alt="Google Assistant" src="{{ '/img/2019-09-30-home-automation/google.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+Google's home automation platform is called Google Assistant / Google Home. Both assistant and home are used to control smart devices.
+it can be used on Android and ios devices.
+
+To make best use of all the features a google home hub or a google home (mini) is required.
+Google Assistant support many devices (much more than homekit), these can be added via the app.
+After setup you can ask the assistant to perform certain tasks and change the state of devices.
+
+Automations with google assistant are called [routines](https://support.google.com/googlenest/answer/7029585){:target="_blank" rel="noopener noreferrer"}.
+For the time being these are not quite as extensive as homekit or Home Assistant/OpenHAB.
+You can make routines that are based on a time of day event or people coming home/leaving.
+Triggering routines based on state changes of the smart devices is not supported for now, this is supposedly to be added in the future.
 
 ### Amazon Alexa
 
-TODO
+<img alt="Alexa" src="{{ '/img/2019-09-30-home-automation/alexa.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+Amazon's home automation platform is part of it's Alexa assistant.
+
+To make best use of all the features an echo device is required.
+Alexa support many devices (much more than homekit), these can be added via the app.
+After setup you can ask Alexa to perform certain tasks and change the state of devices.
+
+Automations with Alexa are called routines.
+These routines are like the scenes and routines that exist with homekit & google assistant.
+The routines can be triggered like in homekit, by devices/sensors, coming home or leaving, time of day.
 
 ### Home Assistant
+
+<img alt="Home Assistant" src="{{ '/img/2019-09-30-home-automation/home-assistant.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 TODO
 
 ### OpenHAB
+
+<img alt="OpenHAB" src="{{ '/img/2019-09-30-home-automation/openhab.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+TODO
+
+## Example: Homekit & Homebridge
 
 TODO
 
@@ -91,15 +145,11 @@ TODO
 </div>
 <br/>
 
-## Example: Homekit & Homebridge
-
-TODO
-
 ## Resources
 
 - [Apple Homekit](https://www.apple.com/be-nl/shop/accessories/all-accessories/homekit){:target="_blank" rel="noopener noreferrer"}
-- [Google Assistant/Google Home](https://store.google.com/nl/product/google_home){:target="_blank" rel="noopener noreferrer"}
-- [Amazon Alexa](https://www.amazon.com/Amazon-Echo-And-Alexa-Devices/b?ie=UTF8&node=9818047011){:target="_blank" rel="noopener noreferrer"}
+- [Google Assistant/Google Home](https://assistant.google.com/explore/){:target="_blank" rel="noopener noreferrer"}
+- [Amazon Alexa](https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=merchandised-search-6&pf_rd_r=0E90B2MD8KGD1D7KVEM1&pf_rd_t=101&pf_rd_p=02147624-e148-4901-b449-773097cfa62e&pf_rd_i=17934672011){:target="_blank" rel="noopener noreferrer"}
 - [Xiaomi Mi Smart Home](https://xiaomi-mi.com/mi-smart-home/){:target="_blank" rel="noopener noreferrer"}
 - [Home Assistant](https://www.home-assistant.io/){:target="_blank" rel="noopener noreferrer"}
 - [OpenHAB](https://www.openhab.org/){:target="_blank" rel="noopener noreferrer"}
