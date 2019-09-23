@@ -43,7 +43,7 @@ Instead of big monolitic applications we are building lot's of smaller (micro)se
 All communication between those services goes through the API.
 * **Multiple frontend applications use the same backend.**  
 And often these applications are created by separate teams.
-* **API's carry business value.**  
+* **API carry business value.**  
 Yes, there is money in your API.
 An API exposes the functionality of your product.
 A good API allows user to integrate with your product with ease.
@@ -58,7 +58,7 @@ Put your communication first!
 ***How can I practice API first development?***
 * Understand that the API is the interface for your application.  
 It is the intersection where multiple services join hands to couple there functionality.
-* First design your API.  
+* First step is to design your API.
 The implementation comes next.
 This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
 The contract between services is set.
@@ -68,21 +68,26 @@ The contract between services is set.
 Now that we understand the importance of and value of API first design let's see how the Swagger/OpenAPI spec can help you with that.
 
 ## Top-down vs bottom-up
-https://swagger.io/blog/api-design/design-first-or-code-first-api-development/
-https://stackoverflow.com/questions/5890438/what-is-the-difference-between-a-top-down-web-service-and-a-bottom-up-web-servic
+> API first development implies a top-down approach to build your API.
 
+Basically there are two approaches:
+* Top-down aka Design First
+* Bottom-up aka Code First
+
+To quote `Swagger.io`:
+ >Design First: The plan is converted to a human and machine readable contract, such as a Swagger document, from which the code is built
+ >Code First: Based on the business plan, API is directly coded, from which a human or machine readable document, such as a Swagger document can be generated
+
+In this blogpost I am using the Top-down Design First approach to facilitate API first development.
+In the last paragraph of this blog I'll briefly show an example of a Code First approach with `Springfox`
 
 # API design: an example
 Suppose that we ***Ordina*** are hosting a conference where multiple technical and agile sessions will be given.
 Users can check session information and register for sessions.
-A backend service maintains this information.
-The website is exposing the information.
-There is also an app for `Android` and one for `IOS`.
-The API endpoint that gives you all the sessions is also publicly exposed to allow developers to have some fun with it.
-So we have multiple services interacting with the backend.
+A backend service is accessed by a web application and two mobile apps.
 
 <div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/design.png" width="50%" height="50%" target="_blank">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/design.png" width="40%" height="40%" target="_blank">
 </div>
 
 The applications are created by different teams and they all embrace the **API first** approach.
@@ -149,12 +154,22 @@ If your company hasn't there are plenty of tools to visualize your API defined w
 
 A couple of hosted solutions:
 * [swaggerhub.com](https://swagger.io/tools/swaggerhub/){:target="_blank"}: Platform for API design and hosting by `SMARTBEAR` itself
+
 * [next.stoplight.io](https://next.stoplight.io/){:target="_blank"}
+<div style="text-align: center;">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/next-stoplight.png" width="100%" height="100%">
+</div>
+
 * [readme.io](https://readme.com/){:target="_blank"}
+<div style="text-align: center;">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/readme-io.png" width="100%" height="100%">
+</div>
+
 * [apiary](https://apiary.io/){:target="_blank"}
 
-* Redocly: [Generator](https://github.com/Redocly/create-openapi-repo){:target="_blank"} allows you to host via github pages. 
-You can also host locally and integrate with Github pages for publishing your api.
+* Redocly:  Redoc allows you to host via github pages. 
+You can also host locally and integrate with Github pages for publishing your API.
+Use this [Generator](https://github.com/Redocly/create-openapi-repo){:target="_blank"} to create a repository for your API spec.
 
 <div style="text-align: center;">
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/redocly.gif" width="70%" height="70%">
@@ -286,8 +301,10 @@ These classes are uses to transfer data in and out of the application (`Dto` aka
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/generate-dtos-in-package-with-beanvalidation.png" width="100%" height="100%">
 </div>
 
+
+
 ### Bean Validation
-> Keep your generated class files in sync with the requirements from the API specs by setting the useBeanValidation option to true.
+> Keep your generated class files in sync with the requirements of the API specs by setting the useBeanValidation option to true.
 
 In the last example I also specified a property `useBeanValidation=true`.
 Requirements specified in the API documentation like a required field are now translated to the code.
@@ -456,6 +473,39 @@ paths:
 For a the full template including the Lambda resources look in this [gist](){:target="_blank"}. //TODO
 Checkout the application here: //TODO
 
+# Code First
+I promised you an example of a code first approach.
+Here I set up a Spring boot application with Springfox dependencies.
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${springfox.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${springfox.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-bean-validators</artifactId>
+        <version>${springfox.version}</version>
+    </dependency>
+</dependencies>
+```
+
+Implementing the API and using the write annotations leads to an endpoint of your application on which your API spec is visualised: `/swagger-ui.html`
+There is also an endpoint to download the Swagger / OpenAPI specification:  `api-docs`
+<div style="text-align: center;">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/springfox.png" width="100%" height="100%">
+</div>
+
+
 # Pros and Cons
 * visualisation
 * tooling
@@ -476,4 +526,5 @@ https://github.com/OpenAPITools/openapi-generator
 https://howtodoinjava.com/swagger2/code-generation-for-rest-api/
 https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section
 https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/
+https://swagger.io/blog/api-design/design-first-or-code-first-api-development/
 
