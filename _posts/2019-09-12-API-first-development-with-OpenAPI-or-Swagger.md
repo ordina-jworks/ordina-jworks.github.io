@@ -17,9 +17,10 @@ comments: true
 5.[Integrating with Postman](#integrating-with-postman)  
 6.[OpenAPI Generator: generate API compliant code](#openapi-generator-generate-api-compliant-code)  
 7.[Integrating with your build process: maven or gradle plugin](#integrating-with-your-build-process-maven-or-gradle-plugin)  
-8.[Serverless on AWS: OpenAPI, API Gateway Lambda and Sam](#serverless-on-aws-openapi-api-gateway-lambda-and-sam)  
-9.[Generate consumer driven contract testing](#generate-consumer-driven-contract-testing)  
-10.[Resources](#resources)  
+8.[Serverless on AWS: OpenAPI, API Gateway Lambda and SAM](#serverless-on-aws-openapi-api-gateway-lambda-and-sam)  
+9. [Sprinfox](#code-first-with-springfox)
+10.[Conclusion](#conclusion)
+
 
 
 # Intro
@@ -413,7 +414,7 @@ Again a unit test can validate that:
 * no exception is thrown
 
 
-# Serverless on AWS: OpenAPI, API Gateway Lambda and Sam
+# Serverless on AWS: OpenAPI, API Gateway Lambda and SAM
 It's fairly easy to create an API Gateway from a openAPI specification.
 In the API Gateway console under *Create* select * Import from Swagger or Open API 3* and upload your specification.
 
@@ -452,7 +453,7 @@ In the lambda function resource specify that the lambda should be triggered from
           Type: Api
           Properties:
             RestApiId: !Ref "ConferenceApiGateway"
-            Path: /session/all
+            Path: /sessions
             Method: GET
 ```
 
@@ -460,7 +461,7 @@ And add the `x-amazon-apigateway-integration` extension in your `api.yml` to spe
 
 ```yaml
 paths:
-  "/session/all":
+  "/sessions":
     get:
       ...
       x-amazon-apigateway-integration:
@@ -471,9 +472,9 @@ paths:
 ```
 
 For a the full template including the Lambda resources look in this [gist](){:target="_blank"}. //TODO
-Checkout the application here: //TODO
+Chec kout the application here: //TODO
 
-# Code First
+# Code First with Springfox
 I promised you an example of a code first approach.
 Here I set up a Spring boot application with Springfox dependencies.
 
@@ -505,15 +506,10 @@ There is also an endpoint to download the Swagger / OpenAPI specification:  `api
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/springfox.png" width="100%" height="100%">
 </div>
 
-
-# Pros and Cons
+# Conclusion
 * visualisation
 * tooling
 * functional analyst can help 
-
-
-
-# Conclusion
 
 
 
