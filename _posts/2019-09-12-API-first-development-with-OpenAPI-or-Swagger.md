@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [nick_van_hoof]
-title: 'API first development with OpenAPI or Swagger'
+title: 'API first development with OpenAPI/Swagger'
 image: /img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/featured-image.png
 tags: [API, cloud]
 category: Cloud
@@ -23,11 +23,11 @@ comments: true
 
 
 # Intro
-* I'll start of with a lecture about API first development and it's advantages.
-* We will discover how to visualize our API specs. [Jump to section](#api-first-development---why-how-and-what)  
-* Next I'll show you how to generate code that is completely compliant with your API specs. [Jump to section](#openapi-generator-generate-api-compliant-code)
-* We then dive into how to integrate this in your build process by using maven or gradle plugins. [Jump to section](#integrating-with-your-build-process-maven-or-gradle-plugin)
-* To finish it up I'll demonstrate how to use it in a cloud native serverless product. [Jump to section](#serverless-on-aws-openapi-api-gateway-lambda-and-sam)
+* I'll start of with a lecture about API first development and it's advantages.([Jump to section](#api-first-development---why-how-and-what))
+* We will discover how to visualize our API specs. ([Jump to section](#api-first-development-with-openapiswagger))  
+* Next I'll show you how to generate code that is completely compliant with your API specs. ([Jump to section](#openapi-generator-generate-api-compliant-code))
+* We then dive into how to integrate this in your build process by using maven or gradle plugins. ([Jump to section](#integrating-with-your-build-process-maven-or-gradle-plugin))
+* To finish it up I'll demonstrate how to use it in a cloud native serverless product with `AWS SAM` and `AWS Lambda`. ([Jump to section](#serverless-on-aws-openapi-api-gateway-lambda-and-sam))
 
 # API first development - Why, how and what
 > Great communication is key to great software engineering.
@@ -63,7 +63,14 @@ The implementation comes next.
 This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
 The contract between services is set.
 
+> API first development allows teams to develop seperately against a common interface, the API.
+
 Now that we understand the importance of and value of API first design let's see how the Swagger/OpenAPI spec can help you with that.
+
+## Top-down vs bottom-up
+https://swagger.io/blog/api-design/design-first-or-code-first-api-development/
+https://stackoverflow.com/questions/5890438/what-is-the-difference-between-a-top-down-web-service-and-a-bottom-up-web-servic
+
 
 # API design: an example
 Suppose that we ***Ordina*** are hosting a conference where multiple technical and agile sessions will be given.
@@ -106,10 +113,10 @@ I'll keep it simple and create the OAS for the API exposing the endpoint where c
 The OAS allows you to use JSON or Yaml to describe your API.
 
 <div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/editor-swagger-io.png" width="100%" height="100%">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/swagger-layout.png" width="100%" height="100%">
 </div>
 
-  
+//TODO update gists
 Find the descriptive yaml via [this](https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28){:target="_blank"} gist.
 
 As you can see from the example the OpenAPI specification is very readable.
@@ -138,21 +145,16 @@ The specification on which you agreed should be hosted somewhere for everyone to
 Sometimes companies have there own in house tools to visualise OAS.
 If your company hasn't there are plenty of tools to visualize your API defined with OAS.
 
+> Choose a visualisation solution that allows you to show a diff between versions of your API
+
 A couple of hosted solutions:
-* swaggerhub.com: Platform for API design and hosting by `SMARTBEAR` itself
+* [swaggerhub.com](https://swagger.io/tools/swaggerhub/){:target="_blank"}: Platform for API design and hosting by `SMARTBEAR` itself
+* [next.stoplight.io](https://next.stoplight.io/){:target="_blank"}
+* [readme.io](https://readme.com/){:target="_blank"}
+* [apiary](https://apiary.io/){:target="_blank"}
 
-* next.stoplight.io
-<div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/next-stoplight.png" width="100%" height="100%">
-</div>
-
-* readme.io
-<div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/readme-io.png" width="100%" height="100%">
-</div>
-
-* Redocly: [Generator](https://github.com/Redocly/create-openapi-repo){:target="_blank"} for a github repo that allows you to host via github pages. 
-It allows you to host locally and integrate with github pages for publishing your api.
+* Redocly: [Generator](https://github.com/Redocly/create-openapi-repo){:target="_blank"} allows you to host via github pages. 
+You can also host locally and integrate with Github pages for publishing your api.
 
 <div style="text-align: center;">
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/redocly.gif" width="70%" height="70%">
@@ -162,9 +164,8 @@ It allows you to host locally and integrate with github pages for publishing you
 # Integrating with Postman
 > You can create a working Postman collection from the OpenAPI spec
 
-How difficult is it to keep a Postman collection up to date with an evolving API.
-Not only that.
-You also have to make sure that every member of your team always has the latest version of your API collection.
+You don't have to tell me how difficult it is to keep a Postman collection up to date with an evolving API!
+More so, y  ou also have to make sure that every member of your team always has the latest version of your API collection.
 
 Good news!
 Postman can import a collection directly from the OAS.
@@ -228,6 +229,8 @@ For starters we only want to generate the model classes:
 ```bash
 openapi-generator generate -i api.yml -g java -Dmodels
 ```
+Models here refers to your DTO's (Data Transfer Objects).
+These are different from your domain models or entity models.
 
 Let's see what we did here:
 ```bash
@@ -289,7 +292,7 @@ These classes are uses to transfer data in and out of the application (`Dto` aka
 In the last example I also specified a property `useBeanValidation=true`.
 Requirements specified in the API documentation like a required field are now translated to the code.
 The `getter` on the  `speaker` field in the `SessionDto` class is now annotated with `@NotNull`.
-You can now use a framework like JSR 380, known as Bean Validation 2.0., to validate input and output.
+You can now use a framework like `JSR 380`, known as `Bean Validation 2.0.`, to validate input and output.
 This is a `Java` specific example, but the same will happen when you change to other languages by using eg. `-g python`.
 
 <div style="text-align: center;">
@@ -365,6 +368,34 @@ That's a combination of:
 
 Check out [this gist](https://gist.github.com/Nxtra/4c92fa9a6c2fb62a8c606128ae8ca87f){:target="_blank"} for the code.
 
+# Testing your API
+Testing you API would normally involve setting up a larger integration test.
+In the case of AWS Lambda this means that you'd have to deploy your application since you cannot run it locally (Not that easily at least).
+Luckily we have set the `useBeanValidation` property to true.
+This allows us to write unit tests that validate the incoming and outgoing requests of our function.
+
+After you deserialize the incoming request you can validate it against your API specs:
+```java
+Set<ConstraintViolation<SessionDto>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(sessionDto);
+```
+
+If some violations are detected you can return them wrapped in a 400 response.
+You could easily check this functionality by writing a unit test that:
+* checks that no violations are found in the case of a valid request body
+* checks that violations are found in case a payload is send which is not compliant with the API specs.
+
+The same goes for the responses. 
+In your code validate the response against your API specifications by using the `responseDto` that was generated from the specs:
+```java
+Set<ConstraintViolation<CreateSessionResponseDto>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(response);
+```
+If this finds any violations throw a `ConstraintValidationException`.
+
+Again a unit test can validate that:
+* no violations are found when the response is validated
+* no exception is thrown
+
+
 # Serverless on AWS: OpenAPI, API Gateway Lambda and Sam
 It's fairly easy to create an API Gateway from a openAPI specification.
 In the API Gateway console under *Create* select * Import from Swagger or Open API 3* and upload your specification.
@@ -425,7 +456,14 @@ paths:
 For a the full template including the Lambda resources look in this [gist](){:target="_blank"}. //TODO
 Checkout the application here: //TODO
 
-# Generate consumer driven contract testing
+# Pros and Cons
+* visualisation
+* tooling
+* functional analyst can help 
+
+
+
+# Conclusion
 
 
 
