@@ -5,10 +5,10 @@ info:
   version: '1'
   title: Conference-API
 servers:
-  - url: "https://your-own-dummy-conference-domain.com/api/"
+  - url: "https://your-conference-domain.com/api/"
     description: 'Base URL for the API'
 paths:
-  "/session/all":
+  "/sessions":
     get:
       description: Get all sessions of the conference
       operationId: getAllSessions
@@ -25,7 +25,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/NotFoundResponse"
-  "/session/create":
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations
+        responses:
+          default:
+            statusCode: 200
     post:
       description: Create a new session on the conference
       operationId: createSession
@@ -41,6 +48,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateSessionResponse'
+        '400':
+          description: "You made a bad request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateSessionFunction.Arn}/invocations
+        responses:
+          default:
+            statusCode: 200
 
 components:
   schemas:
@@ -120,3 +141,33 @@ components:
       type: object
       allOf:
         - $ref: '#/components/schemas/GenericResponse'
+
+    BadRequestResponse:
+      type: object
+      required:
+        - problems
+      properties:
+        problems:
+          type: array
+          description: list of problems
+          items:
+            $ref: '#/components/schemas/BadRequestItem'
+
+    BadRequestItem:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 1
+          description: message that explains what is wrong with this field
+          example: Incorrect data type
+
+  responses:
+    BadRequest:
+      description: Request was not conform the API specifications
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestResponse'
