@@ -18,7 +18,7 @@ comments: true
 6.[OpenAPI Generator: generate API compliant code](#openapi-generator-generate-api-compliant-code)  
 7.[Integrating with your build process: maven or gradle plugin](#integrating-with-your-build-process-maven-or-gradle-plugin)  
 8.[Serverless on AWS: OpenAPI, API Gateway Lambda and SAM](#serverless-on-aws-openapi-api-gateway-lambda-and-sam)  
-9. [Sprinfox](#code-first-with-springfox)
+9.[Springfox](#code-first-with-springfox)   
 10.[Conclusion](#conclusion)
 
 
@@ -29,12 +29,12 @@ comments: true
 * Next I'll show you how to generate code that is completely compliant with your API specs. ([Jump to section](#openapi-generator-generate-api-compliant-code))
 * We then dive into how to integrate this in your build process by using maven or gradle plugins. ([Jump to section](#integrating-with-your-build-process-maven-or-gradle-plugin))
 * To finish it up I'll demonstrate how to use it in a cloud native serverless product with `AWS SAM` and `AWS Lambda`. ([Jump to section](#serverless-on-aws-openapi-api-gateway-lambda-and-sam))
+* Wrapping it up with a conclusion. ([Jump to section](#conclusion))
 
 # API first development - Why, how and what
 > Great communication is key to great software engineering.
 
-Not only between people.
-Also between application or services.
+That also goes for applications and services.
 If your applications cannot communicate properly, you'll never be able to expose the functionality that is key to a good product.
 
 
@@ -42,8 +42,10 @@ We also see the following trends in software engineering:
 * **Shift towards the cloud.**  
 Instead of big monolitic applications we are building lot's of smaller (micro)services.
 All communication between those services goes through the API.
+
 * **Multiple frontend applications use the same backend.**  
 And often these applications are created by separate teams.
+
 * **API carry business value.**  
 Yes, there is money in your API.
 An API exposes the functionality of your product.
@@ -64,7 +66,7 @@ The implementation comes next.
 This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
 The contract between services is set.
 
-> API first development allows teams to develop seperately against a common interface, the API.
+> API first development allows teams to develop separately against a common interface, the API.
 
 Now that we understand the importance of and value of API first design let's see how the Swagger/OpenAPI spec can help you with that.
 
@@ -76,10 +78,11 @@ Basically there are two approaches:
 * Bottom-up aka Code First
 
 To quote `Swagger.io`:
- >Design First: The plan is converted to a human and machine readable contract, such as a Swagger document, from which the code is built
- >Code First: Based on the business plan, API is directly coded, from which a human or machine readable document, such as a Swagger document can be generated
+> Design First: The plan is converted to a human and machine readable contract, such as a Swagger document, from which the code is built.  
 
-In this blogpost I am using the Top-down Design First approach to facilitate API first development.
+> Code First: Based on the business plan, API is directly coded, from which a human or machine readable document, such as a Swagger document can be generated.
+
+In this blog post I am using the Top-down Design First approach to facilitate API first development.
 In the last paragraph of this blog I'll briefly show an example of a Code First approach with `Springfox`
 
 # API design: an example
@@ -122,7 +125,6 @@ The OAS allows you to use JSON or Yaml to describe your API.
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/swagger-layout.png" width="100%" height="100%">
 </div>
 
-//TODO update gists
 Find the descriptive yaml via [this](https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28){:target="_blank"} gist.
 
 As you can see from the example the OpenAPI specification is very readable.
@@ -384,7 +386,7 @@ That's a combination of:
   * `<generateApis>false</generateApis>`
   * `<generateSupportingFiles>false</generateSupportingFiles>`
 
-Check out [this gist](https://gist.github.com/Nxtra/4c92fa9a6c2fb62a8c606128ae8ca87f){:target="_blank"} for the code.
+Check out [this gist](https://gist.github.com/Nxtra/4c92fa9a6c2fb62a8c606128ae8ca87f){:target="_blank"} for the xml.
 
 # Testing your API
 Testing you API would normally involve setting up a larger integration test.
@@ -471,8 +473,7 @@ paths:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations
 ```
 
-For a the full template including the Lambda resources look in this [gist](){:target="_blank"}. //TODO
-Chec kout the application here: //TODO
+For a the full template including the Lambda resources look in this [gist](https://gist.github.com/Nxtra/3600ccab85d92faebf3c465701ba7c21){:target="_blank"}.
 
 # Code First with Springfox
 I promised you an example of a code first approach.
@@ -507,20 +508,34 @@ There is also an endpoint to download the Swagger / OpenAPI specification:  `api
 </div>
 
 # Conclusion
-* visualisation
-* tooling
-* functional analyst can help 
+Here are some takeaways about API first development:
+* Design the API before implementing it
+* Visualize your API so that dependent teams can easily consult it
+* API first development implies a top-down approach
+* Swagger/OpenAPI can help you with API first development
 
+Below the pros and cons of practising API first development using Swagger/OpenAPI.
 
+**Pros** 
+ * Strong tooling support — AWS, Postman, visualizing the API, generate skeleton classes, ... 
+ * Strong consistency between API spec and Web layer of the code
+ * Example support 
+ * Documenting API descriptions separated from code (not really separates, because they’re added to the generated classes, but you won’t need to change them 
+ * Functional analyst can assist with creating the API specs because it's a human readable format
+
+**Cons** 
+ * No support for complex/variable request/response scenarios
+ * Little extra documentation can be added in the API specs
+ * Development can only start after API is designed
 
 
 # Resources
-https://scratchpad.blog/serverless/howto/configure-aws-api-gateway-with-swagger/
-https://github.com/jthomerson/cloudformation-template-for-lambda-backed-api-gateway-with-dynamodb
-https://medium.com/capital-one-tech/how-to-make-swagger-codegen-work-for-your-team-32194f7d97e4
-https://github.com/OpenAPITools/openapi-generator
-https://howtodoinjava.com/swagger2/code-generation-for-rest-api/
-https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section
-https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/
-https://swagger.io/blog/api-design/design-first-or-code-first-api-development/
+* [https://scratchpad.blog/serverless/howto/configure-aws-api-gateway-with-swagger/](https://scratchpad.blog/serverless/howto/configure-aws-api-gateway-with-swagger/)
+* [https://github.com/jthomerson/cloudformation-template-for-lambda-backed-api-gateway-with-dynamodb](https://github.com/jthomerson/cloudformation-template-for-lambda-backed-api-gateway-with-dynamodb)
+* [https://medium.com/capital-one-tech/how-to-make-swagger-codegen-work-for-your-team-32194f7d97e4](https://medium.com/capital-one-tech/how-to-make-swagger-codegen-work-for-your-team-32194f7d97e4)
+* [https://github.com/OpenAPITools/openapi-generator](https://github.com/OpenAPITools/openapi-generator)
+* [https://howtodoinjava.com/swagger2/code-generation-for-rest-api/](https://howtodoinjava.com/swagger2/code-generation-for-rest-api/)
+* [https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section](https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section)
+* [https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/](https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/)
+* [https://swagger.io/blog/api-design/design-first-or-code-first-api-development/](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/)
 
