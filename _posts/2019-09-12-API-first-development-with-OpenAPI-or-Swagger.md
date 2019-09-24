@@ -16,7 +16,7 @@ comments: true
 4.[Hosting your visualisations](#hosting-your-visualisations)  
 5.[Integrating with Postman](#integrating-with-postman)  
 6.[OpenAPI Generator: generate API compliant code](#openapi-generator-generate-api-compliant-code)  
-7.[Integrating with your build process: maven or gradle plugin](#integrating-with-your-build-process-maven-or-gradle-plugin)  
+7.[Integrating with your build process: maven or gradle plugin](#integrating-swaggeropenapi-with-your-build-process-maven-or-gradle-plugin)  
 8.[Serverless on AWS: OpenAPI, API Gateway Lambda and SAM](#serverless-on-aws-openapi-api-gateway-lambda-and-sam)  
 9.[Springfox](#code-first-with-springfox)   
 10.[Conclusion](#conclusion)
@@ -26,10 +26,11 @@ comments: true
 # Intro
 * I'll start of with a lecture about API first development and it's advantages.([Jump to section](#api-first-development---why-how-and-what))
 * We will discover how to visualize our API specs. ([Jump to section](#api-first-development-with-openapiswagger))  
+* Generate a postman collection from your OpenAPI definition. ([Jump to section](#integrating-with-postman))   
 * Next I'll show you how to generate code that is completely compliant with your API specs. ([Jump to section](#openapi-generator-generate-api-compliant-code))
 * We then dive into how to integrate this in your build process by using maven or gradle plugins. ([Jump to section](#integrating-with-your-build-process-maven-or-gradle-plugin))
 * To finish it up I'll demonstrate how to use it in a cloud native serverless product with `AWS SAM` and `AWS Lambda`. ([Jump to section](#serverless-on-aws-openapi-api-gateway-lambda-and-sam))
-* Wrapping it up with a conclusion. ([Jump to section](#conclusion))
+* Wrapping it up with a conclusion.
 
 # API first development - Why, how and what
 > Great communication is key to great software engineering.
@@ -44,7 +45,7 @@ Instead of big monolitic applications we are building lot's of smaller (micro)se
 All communication between those services goes through the API.
 
 * **Multiple frontend applications use the same backend.**  
-And often these applications are created by separate teams.
+Often these applications are created by separate teams.
 
 * **API carry business value.**  
 Yes, there is money in your API.
@@ -61,7 +62,7 @@ Put your communication first!
 ***How can I practice API first development?***
 * Understand that the API is the interface for your application.  
 It is the intersection where multiple services join hands to couple there functionality.
-* First step is to design your API.
+* The first step is to design your API.
 The implementation comes next.
 This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
 The contract between services is set.
@@ -83,12 +84,12 @@ To quote `Swagger.io`:
 > Code First: Based on the business plan, API is directly coded, from which a human or machine readable document, such as a Swagger document can be generated.
 
 In this blog post I am using the Top-down Design First approach to facilitate API first development.
-In the last paragraph of this blog I'll briefly show an example of a Code First approach with `Springfox`
+In the last paragraph of this blog I'll briefly show an example of a Code First approach with `Springfox`.
 
 # API design: an example
-Suppose that we ***Ordina*** are hosting a conference where multiple technical and agile sessions will be given.
+Suppose that we, ***Ordina*** are hosting a conference where multiple technical and agile sessions will be given.
 Users can check session information and register for sessions.
-A backend service is accessed by a web application and two mobile apps.
+The backend service is accessed by a web application and two mobile apps.
 
 <div style="text-align: center;">
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/design.png" width="40%" height="40%" target="_blank">
@@ -100,6 +101,8 @@ They read this blog and realised that by agreeing on the common interface first 
 So hooray for API first development!
 
 # API first development with OpenAPI/Swagger
+Let's continue with creating the backend application.
+
 The functional analysts and a couple of developers of the team are sitting together to agree on how the API should be defined.
 * A client should be able to fetch all sessions via the API
 * A client should be able to create a new session via the API
@@ -109,9 +112,9 @@ We need to clearly define and communicate the API before starting to implement.
 Designing an API is easier when you can visualise the API.
 Let's bring in the OpenAPI spec.
 
-> The OpenAPI specification allows you to define your API in a descriptive language (json or yaml) and nicely visualise it
+> The OpenAPI specification allows you to define your API in a descriptive language (JSON or Yaml) and nicely visualise it
 
-Note: If I speak about OAS (OpenAPI Specification) instead of OpenAPI/Swagger specification.
+Note: If I speak about OAS (OpenAPI Specification) instead of OpenAPI/Swagger specification.  
 Let's now use OAS to help us with our API First approach and design our API.
 
 Let me introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}.
@@ -136,7 +139,7 @@ This very clearly visualises what your API can do.
 Clear visualisations mean clear communication. 
 
 The API in the example is small.
-Describing a whole real-world API, the file might become quite large.
+When describing a whole real-world API, the file might become quite large.
 But that's no problem.
 The OpenAPI spec allows you to split your definitions over multiple files which you can reference from within other files.
 
@@ -151,7 +154,7 @@ Let's find out next.
 The API specifications should be easily accessible for you and your clients.
 The specification on which you agreed should be hosted somewhere for everyone to see.
 Sometimes companies have there own in house tools to visualise OAS.
-If your company hasn't there are plenty of tools to visualize your API defined with OAS.
+If your company has no such tool there are plenty of other tools to visualize your API defined with OAS.
 
 > Choose a visualisation solution that allows you to show a diff between versions of your API
 
@@ -194,21 +197,21 @@ Just like I did in the image below.
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/postman-oas.png" width="100%" height="100%">
 </div>
 
-As you can see on the background of the image above, the request wat correctly imported from the Swagger file.
+As you can see on the background of the image above, the request was correctly imported from the Swagger file.
 
 # OpenAPI Generator: generate API compliant code
 > Generate code that is compliant with your API spec with OpenAPI Generator
 
-You are maintaining the API first approach.
+You are practising the API first approach.
 The teams have agreed on the API specs.
 It's time to start implementing our API!
-No dependencies on other teams.
+No dependencies on other teams anymore.
 We already defined the interface of our application.
 Let's go ahead with the implementation.
 
 Time to code!
 If I write code, I might make mistakes.
-Let's generate it.
+So let's generate code that is completely compliant with the specs.
 
 OpenAPI Generator is a hugely popular [repository](https://github.com/OpenAPITools/openapi-generator){:target="_blank"} on github.
 It allows you to generate code that is completely in line with your API spec since you create it automatically from this specification.
@@ -257,11 +260,13 @@ generate
 
 Generate is the command that we give to the openapi-generator cli to instruct it to generate the code.
 
+
 ```bash
 -i api.yml
 ```
 
 The input file that contains our API specifications.
+
 
 ```bash
 -g java
@@ -270,11 +275,13 @@ The input file that contains our API specifications.
 The generator to use.
 Here we specify that we want Java as output language.
 
+
 ```bash
 -Dmodels
 ```
 
 We are telling the generator to only generate the models for our API.
+
 
 If you want help or you forgot one of the options you can look [here](https://github.com/OpenAPITools/openapi-generator/blob/master/README.md#3---usage){:target="_blank"} or execute:
 
@@ -306,13 +313,14 @@ These classes are uses to transfer data in and out of the application (`Dto` aka
 
 
 
+  
 ### Bean Validation
 > Keep your generated class files in sync with the requirements of the API specs by setting the useBeanValidation option to true.
 
-In the last example I also specified a property `useBeanValidation=true`.
+In the last example I also specified a property `useBeanValidation=true`.  
 Requirements specified in the API documentation like a required field are now translated to the code.
-The `getter` on the  `speaker` field in the `SessionDto` class is now annotated with `@NotNull`.
-You can now use a framework like `JSR 380`, known as `Bean Validation 2.0.`, to validate input and output.
+The `getter` on the  `speaker` field in the `SessionDto` class is now annotated with `@NotNull`.  
+You can now use a framework like `JSR 380`, known as `Bean Validation 2.0.`, to validate input and output.  
 This is a `Java` specific example, but the same will happen when you change to other languages by using eg. `-g python`.
 
 <div style="text-align: center;">
@@ -321,7 +329,7 @@ This is a `Java` specific example, but the same will happen when you change to o
 
 Now that we got acquainted with code generation I am going to show you how to include it in your build process.
 
-# Integrating with your build process: maven or gradle plugin
+# Integrating Swagger/OpenAPI with your build process: maven or gradle plugin
 There are maven and gradle plugins that support the `openapi-generator` project. 
 ([maven](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin){:target="_blank"} and [gradle](https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin){:target="_blank"})
 
@@ -378,7 +386,7 @@ That is caused by the combination of multiple options:
   * `<modelPackage>be.ordina.conference.api.model</modelPackage>`
     
     
-* only the API models will be generated, with markdown documentation and no test classes.
+* Only the API models will be generated, with markdown documentation and no test classes.
 That's a combination of:
   * `<generateModels>true</generateModels>`
   * `<generateModelTests>false</generateModelTests>`
@@ -418,7 +426,7 @@ Again a unit test can validate that:
 
 # Serverless on AWS: OpenAPI, API Gateway Lambda and SAM
 It's fairly easy to create an API Gateway from a openAPI specification.
-In the API Gateway console under *Create* select * Import from Swagger or Open API 3* and upload your specification.
+In the API Gateway console under *Create* select *Import from Swagger or Open API 3* and upload your specification.
 
 <div style="text-align: center;">
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/create-apigateway-via-ui.gif" width="100%" height="100%">
@@ -426,7 +434,7 @@ In the API Gateway console under *Create* select * Import from Swagger or Open A
 
 Of course we want to use the specification programmatically.
 Suppose we create our backend service with AWS Lambda (serverless).
-I stay with AWS native tools and will use SAM to deploy the Lambda functions and my API.
+I'll keep to AWS native tools and will use SAM to deploy the Lambda functions and my API.
 SAM allows you to use an OpenAPI specification to create your API Gateway.
 
 In your SAM template define the API Gateway resource by referencing you OAS.
@@ -443,7 +451,7 @@ In your SAM template define the API Gateway resource by referencing you OAS.
             Location: ./openapi.yaml
 ```
 
-In the lambda function resource specify that the lambda should be triggered from this API Gateway.
+In the Lambda function resource specify that the lambda should be triggered from this API Gateway.
 
 ```yaml
   GetAllSessionsFunction:
