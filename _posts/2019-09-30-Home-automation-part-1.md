@@ -17,9 +17,10 @@ comments: true
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Different platforms](#platforms)
-3. [Example: Homekit & Homebridge](#apple)
-4. [Resources](#resources)
+2. [Platforms](#platforms)
+3. [Example](#example)
+4. [Conclusion](#conclusion)
+5. [Resources](#resources)
 
 ## Introduction
 
@@ -31,7 +32,7 @@ If you are willing to get creative almost everything can be automated!
 In this first blogpost we'll present some of the platforms that are available and some of the pros & cons of each one.
 To close of this blogpost we'll start by looking in to Apple's Homekit and by extension HomeBridge.
 
-## Different platforms
+## Platforms
 
 In the world of home automation there are many ways to automate stuff.
 We will be focussing on either cloud-enabled platforms or those that you can run on premise.
@@ -80,7 +81,7 @@ An automation can change the state of a device, or change change the state of mu
 
 Homekit supports many devices, which can be identified by 'works with apple homekit' logo.
 
-<img alt="Works with Homekit" src="{{ '/img/2019-09-30-home-automation/works-with-homekit.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Works with Homekit" src="{{ '/img/2019-09-30-home-automation/works-with-homekit.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 250px;">
 
 Some of these include:
 
@@ -94,7 +95,7 @@ Scroll down to the example section of this blogpost if you want to learn more on
 
 ### Google Home
 
-<img alt="Google Assistant" src="{{ '/img/2019-09-30-home-automation/google.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Google Assistant" src="{{ '/img/2019-09-30-home-automation/google.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 Google's home automation platform is called Google Assistant / Google Home. Both assistant and home are used to control smart devices.
 it can be used on Android and ios devices.
@@ -110,9 +111,10 @@ Triggering routines based on state changes of the smart devices is not supported
 
 ### Amazon Alexa
 
-<img alt="Alexa" src="{{ '/img/2019-09-30-home-automation/alexa.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Alexa" src="{{ '/img/2019-09-30-home-automation/alexa.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 Amazon's home automation platform is part of it's Alexa assistant.
+it can be used on Android and ios devices.
 
 To make best use of all the features an echo device is required.
 Alexa support many devices (much more than homekit), these can be added via the app.
@@ -122,28 +124,93 @@ Automations with Alexa are called routines.
 These routines are like the scenes and routines that exist with homekit & google assistant.
 The routines can be triggered like in homekit, by devices/sensors, coming home or leaving, time of day.
 
+You can get very creative with the routines, a funny example below, pity the intruder that is caught up in this encounter!
+
+<img alt="Alexa routine example" src="{{ '/img/2019-09-30-home-automation/alexa-intruder-meme.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
+
 ### Home Assistant
 
-<img alt="Home Assistant" src="{{ '/img/2019-09-30-home-automation/home-assistant.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Home Assistant" src="{{ '/img/2019-09-30-home-automation/home-assistant.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-TODO
+Home Assistant is a fully open source home automation platform that if fully focussed on the user's privacy.
+It can be used in the browser as well as on ios and Android devices.
+
+It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
+Home Assistant has support for over a thousand integrations that are supported by the platform.
+If you want to create your own integration, a fully documented [developer portal](https://developers.home-assistant.io/en/){:target="_blank" rel="noopener noreferrer"} will assist you.
+The integrations are written in python 3.
+
+Automations are called as what they are, automations.
+They can control devices or perform actions (calling services etc.) based on triggers.
+These triggers can be various things like in the previously mentioned platforms, but Home Assistant takes it one step further and allows for very fine grained and very detailed/specific triggers.
+
+Location tracking & presence detection is also possible but requires the integration and use of [Owntracks](https://owntracks.org/){:target="_blank" rel="noopener noreferrer"}.
 
 ### OpenHAB
 
 <img alt="OpenHAB" src="{{ '/img/2019-09-30-home-automation/openhab.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-TODO
+Like Home Assistant OpenHAB is a fully open source home automation platform.
+It can be used in the browser as well as on ios and Android devices.
 
-## Example: Homekit & Homebridge
+It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
+It also supports well over a thousand existing integrations and can easily be extended.
+It is written in Java and can be configured with a DSL.
 
-TODO
+Automations are called rules.
+These can be configured with the platform's DSL.
+They can control devices or perform actions (calling services etc.) based on triggers.
+These triggers can really be anything you can think of, any integration or trigger action you can think of, it can be done.
 
-<img alt="altname" src="{{ '/img/2019-09-30-home-automation/image.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+OpenHAB does require quite a bit of research.
+Do not jump into this platform without doing some digging beforehand.
+It's documentation is very extensive and is very well made.
 
-<div class="responsive-video">
-    <iframe width="1164" height="655" src="https://www.youtube.com/embed/vq2nnJ4g6N0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+## Example
+
+### Homekit & Homebridge
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2019-09-30-home-automation/homekit-1.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit devices 1">
+        <img alt="Homekit devices 1" src="{{ '/img/2019-09-30-home-automation/homekit-1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2019-09-30-home-automation/homekit-2.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit devices 2">
+        <img alt="Homekit devices 2" src="{{ '/img/2019-09-30-home-automation/homekit-2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2019-09-30-home-automation/homekit-3.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit automations">
+        <img alt="Homekit automations" src="{{ '/img/2019-09-30-home-automation/homekit-3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32.7%; display: inline-block;">
+    </a>
 </div>
-<br/>
+
+Below is how my home is set up, which plugins I use (and made myself).
+
+The only official homekit device I own is my thermostat, all other devices are exposed to Homekit through Homebridge.
+Homebridge is a NodeJS server that exposes custom devices to be used inside the Homekit platform.
+It can be installed and configured easily, for example on a Raspberry Pi and provides a code or QR code during startup which you can use to add the Homekit bridge to your setup.
+
+A list of all devices I use through Homebridge with their according plugins:
+
+- Nest protects - [homebridge-nest plugin](https://www.npmjs.com/package/homebridge-nest){:target="_blank" rel="noopener noreferrer"}, only possible now if you already have a nest developer account and the required keys.
+- Unifi protect cameras [homebridge-camera-ffmpeg plugin](https://www.npmjs.com/package/homebridge-camera-ffmpeg){:target="_blank" rel="noopener noreferrer"}[homebridge-unifi-protect-motion-sensors plugin](https://www.npmjs.com/package/homebridge-unifi-protect-motion-sensors){:target="_blank" rel="noopener noreferrer"}
+- Smartwares smart wifi switch & RF outlets [homebridge-homewizard-flamingo plugin](https://www.npmjs.com/package/homebridge-homewizard-flamingo){:target="_blank" rel="noopener noreferrer"}
+- Somfy based shutters [homebridge-somfy](https://www.npmjs.com/package/homebridge-somfy){:target="_blank" rel="noopener noreferrer"}
+- LG Airco unit [homebridge-lg-airco](https://www.npmjs.com/package/homebridge-lg-airco){:target="_blank" rel="noopener noreferrer"}
+
+There are many many more devices and integrations available for use with Homebridge.
+You can find these by looking on the [NPM plugin repository](https://www.npmjs.com/){:target="_blank" rel="noopener noreferrer"} and searching for `homebridge-PLUGINNAME`.
+
+These plugins can be installed by installing the NPM package globally and adding said package to the `config.json` of the Homebridge instance.
+The main page of the [github repo](https://github.com/nfarina/homebridge){:target="_blank" rel="noopener noreferrer"} explains in detail how to set everything up so you too can get started quickly
+
+## Conclusion
+
+Home automation is a wonderful thing.
+It can make your live easier in various ways.
+It is however required to think things through and do some research before jumping into this.
+Looking into what devices are supported, out of the box, or via custom integrations/plugins is very important.
+If you have some programming experience and some time to spare you can very easily make your own integrations for devices that are not supported.
+
+In the coming months we'll be diving a bit deeper into the wonderful world of home automation with more in depth blog posts about Homekit with Homebridge and OpenHAB.
 
 ## Resources
 
@@ -152,8 +219,9 @@ TODO
 - [Amazon Alexa](https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=merchandised-search-6&pf_rd_r=0E90B2MD8KGD1D7KVEM1&pf_rd_t=101&pf_rd_p=02147624-e148-4901-b449-773097cfa62e&pf_rd_i=17934672011){:target="_blank" rel="noopener noreferrer"}
 - [Xiaomi Mi Smart Home](https://xiaomi-mi.com/mi-smart-home/){:target="_blank" rel="noopener noreferrer"}
 - [Home Assistant](https://www.home-assistant.io/){:target="_blank" rel="noopener noreferrer"}
+- [Home Assistant developer portal](https://developers.home-assistant.io/en/){:target="_blank" rel="noopener noreferrer"}
+- [Owntracks](https://owntracks.org/){:target="_blank" rel="noopener noreferrer"}
 - [OpenHAB](https://www.openhab.org/){:target="_blank" rel="noopener noreferrer"}
-
 - [Homebridge](https://homebridge.io/)
 - [Homebridge github](https://github.com/nfarina/homebridge)
 - [Homekit catalog, apple](https://developer.apple.com/documentation/homekit/configuring_a_home_automation_device)
