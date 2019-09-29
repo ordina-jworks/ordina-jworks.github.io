@@ -247,9 +247,14 @@ Doing some statistical analysis I found:
 ### Billed duration
 Via CloudWatch Log Insights I can also visualize the TotalBilledDurationInGBSeconds and TotalPriceInDollars for this test.
 
+* **DynamoDB**
+
 <div style="text-align: center;" >
   <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/i-dynamodb-billed-duration-and-price.png" width="100%" height="100%">
 </div>
+
+
+* **MongoDB**
 
 <div style="text-align: center;" >
   <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/h-mongodb-billed-duration-and-price.png" width="100%" height="100%">
