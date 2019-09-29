@@ -11,12 +11,16 @@ comments: false
 ### Reading time: 10 min 30 sec
 
 # Table of contents
+* [MongoDB and AWS Lambda: a successful marriage?](#mongodb-and-aws-lambda-a-successful-marriage)
+* [Connect your Lambda Functions with your MongoDB Atlas Cluster](#connect-your-lambda-functions-with-your-mongodb-atlas-cluster)
+* [Performance: MongoDB vs DynamoDB](#performance-mongodb-vs-dynamodb)
+* [Useful links](#useful-links)
 
 
-# MongoDB and AWS Lambda: a successful marriage.
+# MongoDB and AWS Lambda: a successful marriage?
 Can we use MongoDB Atlas when working with AWS Lambda?  
 Yes we can!   
-It's simple enough to setup and above all very performant!  
+It's simple enough to setup and above all also performant!  
 
 This blog concerns mainly two things:
 * How to setup a production like structure
@@ -29,7 +33,7 @@ We'll setup a VPC peering connection between our Atlas Cluster and our AWS VPC.
 
 ## The AWS side
 Let's setup a new VPC.
-In this VPC we will create a public subnet.
+In this VPC we will create a public subnet.  
 A route table will be associated with that subnet.
 In the route table we'll define that we want to route all database traffic through the VPC peering connection towards the Atlas cluster.
 
@@ -51,7 +55,7 @@ Give your VPC and public subnet a name.
 Make sure that `enable DNS hostnames` is enabled.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="70%" height="70%">
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="100%" height="100%">
 </div>
 
 Your VPC has been successfully created.
@@ -128,7 +132,7 @@ In the VPC service of AWS go to `Peering Connections`.
 Accept this peering request!
 
 Now you have to update your routing tables.
-AWS will also ask you `Do you want to update your routing tables` when you accept the peering request.
+AWS will also ask you `Do you want to update your routing tables` when you accept the peering request.  
 Our Lambda Functions will be deployed in the public subnet of our VPC.
 So we want to modify the route table that is associated with that subnet.
 You can recognize that route table because it has an **explicit subnet association**.
@@ -137,7 +141,7 @@ You can recognize that route table because it has an **explicit subnet associati
   <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%">
 </div>
 
-Click `edit routes` and add a route towards your Atlas cluster.
+Click `edit routes` and add a route towards your Atlas cluster.  
 What we are actually saying here is that we want to route all traffic to our Atlas cluster through the VPC peering connection.  
 As `Destination` choose the Atlas CIDR and under `Target` choose your VPC peering connection.
 
@@ -153,8 +157,8 @@ Updating the route table will update the status of the peering connection to **a
 
 ### Deploy your lambda functions!
 
-Deploy your Lambda functions to your VPC and test it out!
-Deploy them into the public subnet that we just created and as security group specify the security group of your AWS VPC.
+Deploy your Lambda functions to your VPC and test it out!  
+Deploy them into the public subnet that we just created and as security group specify the security group of your AWS VPC.  
 In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
 
 <div style="text-align: center;" >
@@ -163,7 +167,7 @@ In the Lambda User Interface of the AWS Console you will now see that the Lambda
 
 
 # Performance: MongoDB vs DynamoDB
-Can MongoDB be a great alternative for DynamoDB?
+Can MongoDB be an alternative for DynamoDB?  
 In the serverless AWS world DynamoDB is often the database of choice.  
 DynamoDB is a key-value store which is suitable for usecases of storing smaller documents for shorter periods. 
 There certainly are a lot of use cases where you want more functionality then what Dynamo offers you.  
@@ -175,7 +179,7 @@ Below I did a performance comparison between DynamoDB and AWS Lambda.
 
 In the application below people can creat sessions that they want to give on a conference for software developers.  
 The request to create a sessions is accepted and processed asynchronously.
-The request arrives on a `SNS` topic which fans out towars 2 `SQS` queues.  
+The request arrives on a `SNS` topic which fans out towards two `SQS` queues.  
 Both of these queues trigger a Lambda Function:
 * one Lambda Function saves in a DynamoDB table
 * one Lambda Function saves in a MongoDB Atlas collection
@@ -240,11 +244,14 @@ Doing some statistical analysis I found:
 * Sessions.saveDynamoDB: average **[99 ms]** median **[10 ms]**
 * Sessions.saveMongoDB: average **[68ms]** median **[6ms]**
 
+### Billed duration
+
 
 ### Performance conclusion
 There is no performance penalty for using MongoDB from serverless applications.
 DynamoDB and MongoDB perform about equally for the use case that I tested.
 
 ## Useful links
-[https://docs.atlas.mongodb.com/security-vpc-peering/](https://docs.atlas.mongodb.com/security-vpc-peering/)
-[https://www.mongodb.com/blog/post/introducing-vpc-peering-for-mongodb-atlas](https://www.mongodb.com/blog/post/introducing-vpc-peering-for-mongodb-atlas)
+* [https://docs.atlas.mongodb.com/security-vpc-peering/](https://docs.atlas.mongodb.com/security-vpc-peering/)
+* [https://www.mongodb.com/blog/post/introducing-vpc-peering-for-mongodb-atlas](https://www.mongodb.com/blog/post/introducing-vpc-peering-for-mongodb-atlas)
+* [https://aws.amazon.com/xray/](https://aws.amazon.com/xray/)
