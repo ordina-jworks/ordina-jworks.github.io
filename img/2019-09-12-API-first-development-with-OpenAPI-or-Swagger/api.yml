@@ -12,6 +12,8 @@ paths:
     get:
       description: Get all sessions of the conference
       operationId: getAllSessions
+      tags:
+        - sessions
       responses:
         '200':
           description: "The list of sessions is returned"
@@ -19,12 +21,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GetAllSessionsResponse"
-        '404':
-          description: "Could not find any session"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponse"
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         httpMethod: "POST"
@@ -36,6 +32,8 @@ paths:
     post:
       description: Create a new session on the conference
       operationId: createSession
+      tags:
+        - sessions
       requestBody:
         content:
           application/json:
@@ -43,7 +41,7 @@ paths:
               $ref: "#/components/schemas/Session"
       responses:
         '202':
-          description: "Session successfully created"
+          description: "Session accepted for creation"
           content:
             application/json:
               schema:
@@ -62,6 +60,34 @@ paths:
         responses:
           default:
             statusCode: 200
+  "/sessions/{sessionId}":
+    get:
+      description: Get session of the conference by sessionId
+      operationId: getSessionByUuid
+      tags:
+        - sessions
+      parameters:
+        - in: path
+          name: sessionId
+          schema:
+            type: string
+          required: true
+          description: Numeric ID of the session to get
+      responses:
+        '200':
+          description: "The session is returned"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSessionResponse"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetOneSessionFunction.Arn}/invocations
+        responses:
+          default:
+            statusCode: 200
 
 components:
   schemas:
@@ -73,6 +99,7 @@ components:
       properties:
         subject:
           type: string
+          minLength: 1
           example: "API first development with OAS"
         duration:
           type: number
@@ -86,9 +113,12 @@ components:
           $ref: '#/components/schemas/Speaker'
     Speaker:
       type: object
+      required:
+        - firstName
       properties:
         firstName:
           type: string
+          minLength: 1
           example: "Nick"
         lastName:
           type: string
@@ -115,7 +145,18 @@ components:
           type: array
           description: "List of sessions"
           items:
-            $ref: '#/components/schemas/Session'
+            $ref: '#/components/schemas/GetSessionResponse'
+
+    GetSessionResponse:
+      required:
+        - sessionId
+      allOf:
+        - $ref: '#/components/schemas/Session'
+        - type: object
+          properties:
+            sessionId:
+              type: string
+              example: "11313"
 
     CreateSessionResponse:
       required:
