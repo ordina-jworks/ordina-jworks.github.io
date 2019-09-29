@@ -97,7 +97,7 @@ The backend service is accessed by a web application and two mobile apps.
 
 The applications are created by different teams and they all embrace the **API first** approach.
 
-They read this blog and realised that by agreeing on the common interface first they could develop separately without impacting each other.
+They read this blog and realised that by agreeing on the common interface first, they could develop separately without impacting each other.
 So hooray for API first development!
 
 # API first development with OpenAPI/Swagger
