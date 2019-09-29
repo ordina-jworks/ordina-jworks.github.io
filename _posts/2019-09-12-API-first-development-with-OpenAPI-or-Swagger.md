@@ -32,6 +32,10 @@ comments: true
 * To finish it up I'll demonstrate how to use it in a cloud native serverless product with `AWS SAM` and `AWS Lambda`. ([Jump to section](#serverless-on-aws-openapi-api-gateway-lambda-and-sam))
 * Wrapping it up with a conclusion.
 
+> An API or Application Programming Interface is a way of exposing your company's digital services.
+
+It is the layer through which your services communicate with other services.
+
 # API first development - Why, how and what
 > Great communication is key to great software engineering.
 
@@ -47,21 +51,22 @@ All communication between those services goes through the API.
 * **Multiple frontend applications use the same backend.**  
 Often these applications are created by separate teams.
 
-* **API carry business value.**  
-Yes, there is money in your API.
+* **API carry business value.**    
+Yes, there is money in your API.  
 An API exposes the functionality of your product.
 A good API allows user to integrate with your product with ease.
 Thus making your product a great choice.
 
-In all of the cases a above there is value (even money!) in good communication between services.
+In all of the cases a above there is value in good communication between services.
 And that's why you should practice API first development.
 Put your communication first!
 
-> API first development makes a clear API definition the first priority
+> The first priority in your API first development story is a clear API definition
 
 ***How can I practice API first development?***
 * Understand that the API is the interface for your application.  
 It is the intersection where multiple services join hands to couple there functionality.
+Defining APIs gives us the opportunity to expose our application's functionality and create bridges between our provider and consumer.
 * The first step is to design your API.
 The implementation comes next.
 This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
@@ -114,14 +119,13 @@ Let's bring in the OpenAPI spec.
 
 > The OpenAPI specification allows you to define your API in a descriptive language (JSON or Yaml) and nicely visualise it
 
-Note: If I speak about OAS (OpenAPI Specification) instead of OpenAPI/Swagger specification.  
 Let's now use OAS to help us with our API First approach and design our API.
+Note that by OAS I mean OpenAPI Specification.  
 
-Let me introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}.
-A portal to visualise your OAS.
+Let me introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}, a portal to visualise...
 Easy to use and offering all the functionality we need for this example.
 
-I'll keep it simple and create the OAS for the API exposing the endpoint where consumers of the API can fetch all sessions of the conference.
+I'll keep it simple, we will create the OAS for exposing the endpoint to let consumers fetch the sessions of the conference.  
 The OAS allows you to use JSON or Yaml to describe your API.
 
 <div style="text-align: center;">
@@ -130,7 +134,7 @@ The OAS allows you to use JSON or Yaml to describe your API.
 
 Find the descriptive yaml via [this](https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28){:target="_blank"} gist.
 
-As you can see from the example the OpenAPI specification is very readable.
+As you can see from the example, the OpenAPI specification is very readable.
 Even if it's new to you, you should be able to deduct what is written in the yaml.
 You like looking in the yaml?
 Sure you don't! 
@@ -146,14 +150,14 @@ The OpenAPI spec allows you to split your definitions over multiple files which 
 > Takeaways: Easy descriptive language & great visualisations
 
 You want to expose your beautiful visualisation to your clients.
-They shouldn't have to past a `yaml` file in a window of there browser all the time.
+They shouldn't have to paste a `yaml` file in a window of there browser all the time.
 How do we do that? 
 Let's find out next.
 
 # Hosting your visualisations
 The API specifications should be easily accessible for you and your clients.
-The specification on which you agreed should be hosted somewhere for everyone to see.
-Sometimes companies have there own in house tools to visualise OAS.
+The specification which you agreed upon, should be hosted somewhere for everyone to see.
+Sometimes companies have there own in-house tools to visualise OAS.
 If your company has no such tool there are plenty of other tools to visualize your API defined with OAS.
 
 > Choose a visualisation solution that allows you to show a diff between versions of your API
@@ -186,7 +190,7 @@ Use this [Generator](https://github.com/Redocly/create-openapi-repo){:target="_b
 > You can create a working Postman collection from the OpenAPI spec
 
 You don't have to tell me how difficult it is to keep a Postman collection up to date with an evolving API!
-More so, y  ou also have to make sure that every member of your team always has the latest version of your API collection.
+More so, you have to make sure that every member of your team has the latest version of your API collection.
 
 Good news!
 Postman can import a collection directly from the OAS.
@@ -202,19 +206,15 @@ As you can see on the background of the image above, the request was correctly i
 # OpenAPI Generator: generate API compliant code
 > Generate code that is compliant with your API spec with OpenAPI Generator
 
-You are practising the API first approach.
-The teams have agreed on the API specs.
-It's time to start implementing our API!
-No dependencies on other teams anymore.
-We already defined the interface of our application.
-Let's go ahead with the implementation.
+When you agreed on the specification of your API it is time to start implementing it!
+The specification is shared across the different teams and they can each start implementing separately.
 
-Time to code!
+Time to code!  
 If I write code, I might make mistakes.
 So let's generate code that is completely compliant with the specs.
 
 OpenAPI Generator is a hugely popular [repository](https://github.com/OpenAPITools/openapi-generator){:target="_blank"} on github.
-It allows you to generate code that is completely in line with your API spec since you create it automatically from this specification.
+It allows you to generate code that is completely in line with your API specification.
 
 On `mac` you can just install the `openapi-generator-cli` by installing it via brew.
 
@@ -232,7 +232,7 @@ You have the cli installed and created a directory which contains your api.yml f
 
 Let's generate the code!
 
-You could generate a whole projec.
+You could generate a whole project.
 
 ```bash
 openapi-generator generate -i api.yml -g java
@@ -377,7 +377,7 @@ I want to configure it to behave the same way as the example above.
 </plugin>
 ```
 
-Important to note here are the following points:
+Important to note:
 
 * The generated models will appear in the current module under `/src/java/be/ordina/conference/api/model`
 That is caused by the combination of multiple options:
@@ -425,7 +425,7 @@ Again a unit test can validate that:
 
 
 # Serverless on AWS: OpenAPI, API Gateway Lambda and SAM
-It's fairly easy to create an API Gateway from a openAPI specification.
+It's fairly easy to create an API Gateway from an openAPI specification.
 In the API Gateway console under *Create* select *Import from Swagger or Open API 3* and upload your specification.
 
 <div style="text-align: center;">
@@ -434,10 +434,10 @@ In the API Gateway console under *Create* select *Import from Swagger or Open AP
 
 Of course we want to use the specification programmatically.
 Suppose we create our backend service with AWS Lambda (serverless).
-I'll keep to AWS native tools and will use SAM to deploy the Lambda functions and my API.
+I'll be using AWS native tools and use SAM to deploy the Lambda functions and my API.
 SAM allows you to use an OpenAPI specification to create your API Gateway.
 
-In your SAM template define the API Gateway resource by referencing you OAS.
+In your SAM template define the API Gateway resource by referencing your OAS.
 
 ```yaml
   ConferenceApiGateway: 
@@ -467,7 +467,7 @@ In the Lambda function resource specify that the lambda should be triggered from
             Method: GET
 ```
 
-And add the `x-amazon-apigateway-integration` extension in your `api.yml` to specify how the api has to integrate with the backend Lambda service.
+Add the `x-amazon-apigateway-integration` extension in your `api.yml` to specify how the api has to integrate with the backend Lambda service.
 
 ```yaml
 paths:
@@ -481,7 +481,7 @@ paths:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations
 ```
 
-For a the full template including the Lambda resources look in this [gist](https://gist.github.com/Nxtra/3600ccab85d92faebf3c465701ba7c21){:target="_blank"}.
+For a full template example including the Lambda resources, check out this [gist](https://gist.github.com/Nxtra/3600ccab85d92faebf3c465701ba7c21){:target="_blank"}.
 
 # Code First with Springfox
 I promised you an example of a code first approach.
@@ -509,7 +509,7 @@ Here I set up a Spring boot application with Springfox dependencies.
 </dependencies>
 ```
 
-Implementing the API and using the write annotations leads to an endpoint of your application on which your API spec is visualised: `/swagger-ui.html`
+Implementing the API and using the right annotations leads to an endpoint of your application on which your API spec is visualised: `/swagger-ui.html`
 There is also an endpoint to download the Swagger / OpenAPI specification:  `api-docs`
 <div style="text-align: center;">
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/springfox.png" width="100%" height="100%">
