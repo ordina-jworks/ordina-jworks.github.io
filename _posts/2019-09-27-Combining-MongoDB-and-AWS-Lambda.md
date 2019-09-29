@@ -245,7 +245,17 @@ Doing some statistical analysis I found:
 * Sessions.saveMongoDB: average **[68ms]** median **[6ms]**
 
 ### Billed duration
+Via CloudWatch Log Insights I can also visualize the TotalBilledDurationInGBSeconds and TotalPriceInDollars for this test.
 
+<div style="text-align: center;" >
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/i-dynamodb-billed-duration-and-price.png" width="100%" height="100%">
+</div>
+
+<div style="text-align: center;" >
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/h-mongodb-billed-duration-and-price.png" width="100%" height="100%">
+</div>
+
+ 
 
 ### Performance conclusion
 There is no performance penalty for using MongoDB from serverless applications.
