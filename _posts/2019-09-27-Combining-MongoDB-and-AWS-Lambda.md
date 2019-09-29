@@ -181,16 +181,69 @@ Both of these queues trigger a Lambda Function:
 * one Lambda Function saves in a MongoDB Atlas collection
 
 I will hit the application with a bunch of sessions that have to be persisted.
-During one minute I will increase the load of incoming sessions from 1/second to 10/second.
+During one minute I will increase the load of incoming sessions from 1/second to 10/second.  
+In total 350 sessions will be fired towards the application during this one minute.
 
 <div style="text-align: center;" >
   <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/a-architecture-test.png" width="100%" height="100%">
 </div>
 
 ## Performance Results
+I used the AWS services `XRAY` and `CloudWatch` to get insight in the performance.
+
+### Response Distribution
+Xray allows you to get a high level overview of the performance of your functions.  
+It visualizes how fast your function responded over all. 
+Below on the left you see the MongoDB response distribution and on the right the DynamoDB response distribution.
+
+<div style="text-align: center;" >
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/f-response-distribution-both.png" width="100%" height="100%">
+</div>
+
+This tells us that most of the requests where treated blazingly fast.  
+
+So let's dig deeper.
+
+### Cold Start
+During the cold start the connection with the database is made.  
+When your Lambda container is re-uses, the connection will also be re-used.
+That is, if you implemented it correctly.
+
+Below you see an example of a cold start for both the DynamoDB and MongoDB lambda.  
+
+**They both perform equally concerning the cold start.**
 
 
+<div style="text-align: center;" >
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/e-dynomo-cold-start.png" width="100%" height="100%">
+</div>
 
+<div style="text-align: center;" >
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/d-mongodb-cold-start.png" width="100%" height="100%">
+</div>
+
+
+### Performing under load
+As you can see from the images above I created two subsegments representing the work that the MongoDBClient and DynamoDBClient have to do to persist the data towards the database.
+* Sessions.saveSessionDynamoDB
+* Sessions.saveSessionMongoDB
+
+
+<div style="text-align: center;" >
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/g-save-session-comparision.png" width="100%" height="100%">
+</div>
+
+In the graphs above the duration of the *saveSession* segment is plotted against the time at which i occured.
+When we are moving away from the cold starts we see that both DynamoDB and MongoDB have the segment spanning only a few milliseconds.
+
+Doing some statistical analysis I found:
+* Sessions.saveDynamoDB: average **[99 ms]** median **[10 ms]**
+* Sessions.saveMongoDB: average **[68ms]** median **[6ms]**
+
+
+### Performance conclusion
+There is no performance penalty for using MongoDB from serverless applications.
+DynamoDB and MongoDB perform about equally for the use case that I tested.
 
 ## Useful links
 [https://docs.atlas.mongodb.com/security-vpc-peering/](https://docs.atlas.mongodb.com/security-vpc-peering/)
