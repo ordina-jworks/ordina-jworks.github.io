@@ -115,7 +115,7 @@ This will supposedly be added in the future.
 <img alt="Alexa" src="{{ '/img/2019-09-30-home-automation/alexa.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 Amazon's home automation platform is part of its Alexa assistant.
-it can be used on Android and iOS devices.
+It can be used on Android and iOS devices.
 
 To make best use of all the features an echo device is required.
 Alexa supports many devices.
@@ -135,7 +135,7 @@ You can get very creative with the routines, a funny example below, pity the int
 
 <img alt="Home Assistant" src="{{ '/img/2019-09-30-home-automation/home-assistant.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
-Home Assistant is a fully open source home automation platform that if fully focussed on the user's privacy.
+Home Assistant is a fully open source home automation platform that is fully focussed on the user's privacy.
 It can be used in the browser as well as on iOS and Android devices.
 
 It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
