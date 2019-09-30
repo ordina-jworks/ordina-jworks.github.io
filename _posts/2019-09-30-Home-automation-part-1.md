@@ -70,14 +70,14 @@ The platforms:
 <img alt="Homekit" src="{{ '/img/2019-09-30-home-automation/Homekit.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 Apple's home automation platform is called Homekit.
-It can be used on alles iOS and macOS X devices, giving us access to it from everywhere.
+It can be used on all iOS and macOS X devices, giving us access to it from everywhere.
 By default Homekit control is limited to your local network only.
 If we add an apple TV/HomePod/iPad as a hub it will allow for remote access through iCloud.
 For best results I would recommend to use an apple TV (gen 4 or later) connected through ethernet.
 
 Automations can be made using the app (some special automations require a hub though).
-These automations can be be based on a number of different triggers & conditions (sensors/state change/people coming home or leaving/time of day/...)
-An automation can change the state of a device, or change change the state of multiple devices if they have been grouped into a scene.
+These automations can be based on a number of different triggers & conditions (sensors/state change/people coming home or leaving/time of day/...)
+An automation can change the state of a device, or change the state of multiple devices if they have been grouped into a scene.
 
 Homekit supports many devices, which can be identified by 'works with Apple Homekit' logo.
 
@@ -91,7 +91,7 @@ Some of these include:
 - and many others...
 
 If your device is not supported but has its own app/api there is a big chance you can get it to work by installing homebridge and adding that to your home app in iOS.
-Scroll down to the example section of this blogpost if you want to learn more on how to do set this up yourself.
+Scroll down to the example section of this blogpost if you want to learn more on how to set this up yourself.
 
 ### Google Home
 
