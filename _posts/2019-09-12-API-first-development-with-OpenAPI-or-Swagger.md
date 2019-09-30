@@ -51,7 +51,7 @@ All communication between those services goes through the API.
 * **Multiple frontend applications use the same backend.**  
 Often these applications are created by separate teams.
 
-* **API carry business value.**    
+* **An API carry business value.**    
 There is real money in your API.  
 Defining APIs gives us the opportunity to expose our application's functionality and create bridges between our provider and consumers.
 The easier it is to integrate with your API, the higher the acceptance rate of consumers for your product will be.
@@ -135,11 +135,11 @@ The OAS allows you to use JSON or Yaml to describe your API.
 Find the descriptive yaml via [this](https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28){:target="_blank"} gist.
 
 As you can see from the example, the OpenAPI specification is very readable.
-Even if it's new to you, you should be able to deduct what is written in the yaml.
-You like looking in the yaml?
+Even if it's new to you, you should be able to deduct what is written in the yaml.  
+You like looking at raw yaml?
 Sure you don't! 
-There is this great visualisation to the right of it.
-This very clearly visualises what your API can do.
+There is a great visualisation to the right of it.
+This clearly visualises what your API can do.
 Clear visualisations mean clear communication. 
 
 The API in the example is small.
@@ -147,7 +147,7 @@ When describing a whole real-world API, the file might become quite large.
 But that's no problem.
 The OpenAPI spec allows you to split your definitions over multiple files which you can reference from within other files.
 
-> Takeaways: Easy descriptive language & great visualisations
+> OpenAPI Takeaways: Easy descriptive language & great visualisations
 
 You want to expose your beautiful visualisation to your clients.
 They shouldn't have to paste a `yaml` file in a window of their browser all the time.
@@ -429,7 +429,7 @@ It's fairly easy to create an API Gateway from an openAPI specification.
 In the API Gateway console under *Create* select *Import from Swagger or Open API 3* and upload your specification.
 
 <div style="text-align: center;">
-  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/create-apigateway-via-ui.gif" width="100%" height="100%">
+  <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/create-apigateway.gif" width="100%" height="100%">
 </div>
 
 Of course we want to use the specification programmatically.
