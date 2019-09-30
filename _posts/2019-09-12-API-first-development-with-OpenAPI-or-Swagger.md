@@ -250,7 +250,7 @@ For starters we only want to generate the model classes:
 ```bash
 openapi-generator generate -i api.yml -g java -Dmodels
 ```
-Models here refers to your DTO's (Data Transfer Objects).
+Models here refers to your DTO's (Data Transfer Objects) or Resources.
 These are different from your domain models or entity models.
 
 Let's see what we did here:
