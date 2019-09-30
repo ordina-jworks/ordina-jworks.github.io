@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Home Automation part 1 - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-09-30-home-automation/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Home Automation part 1 - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-09-30-home-automation/banner.jpg"/>
+
+    
+    <title>Home Automation part 1 - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Home Automation part 1</h2>
+                
+
+                
+                    Posted Sep 30, 2019
+
+
+    in <a href="/categories/machine-learning/">Machine Learning</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/internet-of-things/">Internet of Things</a>, 
+    
+        <a href="/tags/smart-tech/">Smart tech</a>, 
+    
+        <a href="/tags/home/">Home</a>, 
+    
+        <a href="/tags/smart-home/">smart home</a>, 
+    
+        <a href="/tags/automation/">automation</a>, 
+    
+        <a href="/tags/home-automation/">home automation</a>, 
+    
+        <a href="/tags/siri/">siri</a>, 
+    
+        <a href="/tags/apple/">apple</a>, 
+    
+        <a href="/tags/google-assistant/">google assistant</a>, 
+    
+        <a href="/tags/amazon/">amazon</a>, 
+    
+        <a href="/tags/alexa/">alexa</a>, 
+    
+        <a href="/tags/homekit/">Homekit</a>, 
+    
+        <a href="/tags/home-assistant/">home assistant</a>, 
+    
+        <a href="/tags/openhab/">openHab</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#platforms">Platforms</a></li>
+  <li><a href="#example">Example</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this series of blogposts we are going to take a deeper look into home automation.
+Home automation is the wonderful art of automating your home so it becomes easier to do certain tasks.
+It is a very wide field where there are many available options, platforms and devices.
+If you are willing to get creative almost everything can be automated!</p>
+
+<p>In this first blogpost we’ll present some of the platforms that are available and some of the pros &amp; cons of each one.
+To close of this blogpost we’ll start by looking into Apple’s Homekit and by extension HomeBridge.</p>
+
+<h2 id="platforms">Platforms</h2>
+
+<p>In the world of home automation there are many ways to automate stuff.
+We will be focussing on either cloud-enabled platforms or those that can be run on premise.
+The hardware vendor based platforms (e.g.: niko) will not be included!</p>
+
+<p>The platforms can be split up into two main parts:</p>
+
+<ul>
+  <li>Cloud enabled, mainly from manufactures and larger phone companies</li>
+  <li>On premise platforms (that do not require internet/cloud access)</li>
+</ul>
+
+<p>Security is a very important aspect in the home automation world!
+The best way one would go about to automating one’s home would be completely independent from any cloud based services/APIs
+Internet access can be intermittent, cloud based API’s can be down or even be shut down permanently.
+Even worse, accounts could be breached giving unknown third parties access to your home’s devices!</p>
+
+<p>However, most people already have some smart devices and most of these have their own app, so ditching any cloud based systems is going to be a lot harder/more expensive.
+As with any online service use strong unique password for each different service and enable multifactor authentication whenever possible!
+Using all these different apps can be very cumbersome: using app A to turn on the lights, using app B to turn on the TV, using app C to change the thermostat, you get the picture.
+Some of these smart devices support home automation platforms, some do not.
+As we will see later on, even those that do not support a home automation platform out of the box can mostly be made to do so!</p>
+
+<p>The platforms:</p>
+
+<ul>
+  <li>Cloud enabled (more well known):
+    <ul>
+      <li><a href="https://www.apple.com/be-nl/shop/accessories/all-accessories/Homekit" target="_blank" rel="noopener noreferrer">Apple Homekit</a></li>
+      <li><a href="https://assistant.google.com/explore/" target="_blank" rel="noopener noreferrer">Google Assistant/Google Home</a></li>
+      <li><a href="https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&amp;pf_rd_m=ATVPDKIKX0DER&amp;pf_rd_s=merchandised-search-6&amp;pf_rd_r=0E90B2MD8KGD1D7KVEM1&amp;pf_rd_t=101&amp;pf_rd_p=02147624-e148-4901-b449-773097cfa62e&amp;pf_rd_i=17934672011" target="_blank" rel="noopener noreferrer">Amazon Alexa</a></li>
+      <li><a href="https://xiaomi-mi.com/mi-smart-home/" target="_blank" rel="noopener noreferrer">Xiaomi Mi Smart Home</a></li>
+    </ul>
+  </li>
+  <li>On premise solutions (lesser known, but safer)
+    <ul>
+      <li><a href="https://www.home-assistant.io/" target="_blank" rel="noopener noreferrer">Home Assistant</a></li>
+      <li><a href="https://www.openhab.org/" target="_blank" rel="noopener noreferrer">OpenHAB</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="apple-homekit">Apple Homekit</h3>
+
+<p><img alt="Homekit" src="/img/2019-09-30-home-automation/Homekit.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Apple’s home automation platform is called Homekit.
+It can be used on all iOS and macOS X devices, giving us access to it from everywhere.
+By default Homekit control is limited to your local network only.
+If we add an apple TV/HomePod/iPad as a hub it will allow for remote access through iCloud.
+For best results I would recommend to use an apple TV (gen 4 or later) connected through ethernet.</p>
+
+<p>Automations can be made using the app (some special automations require a hub though).
+These automations can be based on a number of different triggers &amp; conditions (sensors/state change/people coming home or leaving/time of day/…)
+An automation can change the state of a device, or change the state of multiple devices if they have been grouped into a scene.</p>
+
+<p>Homekit supports many devices, which can be identified by ‘works with Apple Homekit’ logo.</p>
+
+<p><img alt="Works with Homekit" src="/img/2019-09-30-home-automation/works-with-Homekit.png" class="image fit" style="margin:0px auto; max-width: 250px;" /></p>
+
+<p>Some of these include:</p>
+
+<ul>
+  <li>Hue</li>
+  <li>Tadoo</li>
+  <li>Eve</li>
+  <li>and many others…</li>
+</ul>
+
+<p>If your device is not supported but has its own app/api there is a big chance you can get it to work by installing homebridge and adding that to your home app in iOS.
+Scroll down to the example section of this blogpost if you want to learn more on how to set this up yourself.</p>
+
+<h3 id="google-home">Google Home</h3>
+
+<p><img alt="Google Assistant" src="/img/2019-09-30-home-automation/google.png" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Google’s home automation platform is called Google Assistant / Google Home. Both assistant and home are used to control smart devices.
+it can be used on Android and iOS devices.</p>
+
+<p>To make best use of all the features a Google Home Hub or a Google Home (Mini) is required.
+Google Assistant supports many devices (much more than Homekit), these can be added via the app.
+After setup you can ask the assistant to perform certain tasks and change the state of devices.</p>
+
+<p>Automations with google assistant are called <a href="https://support.google.com/googlenest/answer/7029585" target="_blank" rel="noopener noreferrer">routines</a>.
+For the time being these are not quite as extensive as Homekit or Home Assistant/OpenHAB.
+You can make routines that are based on a time of day event or people coming home/leaving.
+Triggering routines based on state changes of the smart devices is not supported for now.
+This will supposedly be added in the future.</p>
+
+<h3 id="amazon-alexa">Amazon Alexa</h3>
+
+<p><img alt="Alexa" src="/img/2019-09-30-home-automation/alexa.png" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Amazon’s home automation platform is part of its Alexa assistant.
+It can be used on Android and iOS devices.</p>
+
+<p>To make best use of all the features an echo device is required.
+Alexa supports many devices.
+Much more than Homekit.
+These can be added via the app.
+After setup you can ask Alexa to perform certain tasks and change the state of devices.</p>
+
+<p>Automations with Alexa are called routines.
+These routines are like the scenes and routines that exist with Homekit &amp; google assistant.
+The routines can be triggered like in Homekit, by devices/sensors, coming home or leaving, time of day.</p>
+
+<p>You can get very creative with the routines, a funny example below, pity the intruder that is caught up in this encounter!</p>
+
+<p><img alt="Alexa routine example" src="/img/2019-09-30-home-automation/alexa-intruder-meme.jpg" class="image fit" style="margin:0px auto; max-width: 400px;" /></p>
+
+<h3 id="home-assistant">Home Assistant</h3>
+
+<p><img alt="Home Assistant" src="/img/2019-09-30-home-automation/home-assistant.png" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Home Assistant is a fully open source home automation platform that is fully focussed on the user’s privacy.
+It can be used in the browser as well as on iOS and Android devices.</p>
+
+<p>It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
+Home Assistant has support for over a thousand integrations that are supported by the platform.
+If you want to create your own integration, a fully documented <a href="https://developers.home-assistant.io/en/" target="_blank" rel="noopener noreferrer">developer portal</a> will assist you.
+The integrations are written in python 3.</p>
+
+<p>Automations are called as what they are, automations.
+They can control devices or perform actions (calling services etc.) based on triggers.
+These triggers can be various things like in the previously mentioned platforms, but Home Assistant takes it one step further and allows for very fine grained and very detailed/specific triggers.</p>
+
+<p>Location tracking &amp; presence detection is also possible but requires the integration and use of <a href="https://owntracks.org/" target="_blank" rel="noopener noreferrer">Owntracks</a>.</p>
+
+<h3 id="openhab">OpenHAB</h3>
+
+<p><img alt="OpenHAB" src="/img/2019-09-30-home-automation/openhab.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>Like Home Assistant OpenHAB is a fully open source home automation platform.
+It can be used in the browser as well as on iOS and Android devices.</p>
+
+<p>It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
+It also supports well over a thousand existing integrations and can easily be extended.
+It is written in Java and can be configured with a DSL.</p>
+
+<p>Automations are called rules.
+These can be configured with the platform’s DSL.
+They can control devices or perform actions (calling services etc.) based on triggers.
+These triggers can really be anything you can think of, any integration or trigger action you can think of, it can be done.</p>
+
+<p>OpenHAB does require quite a bit of research.
+Do not jump into this platform without doing some digging beforehand.
+Its documentation is very extensive and is very well made.</p>
+
+<h2 id="example">Example</h2>
+
+<h3 id="homekit--homebridge">Homekit &amp; Homebridge</h3>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2019-09-30-home-automation/Homekit-1.jpg" data-lightbox="ui" data-title="Homekit devices 1">
+        <img alt="Homekit devices 1" src="/img/2019-09-30-home-automation/Homekit-1.jpg" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;" />
+    </a>
+    <a href="/img/2019-09-30-home-automation/Homekit-2.jpg" data-lightbox="ui" data-title="Homekit devices 2">
+        <img alt="Homekit devices 2" src="/img/2019-09-30-home-automation/Homekit-2.jpg" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;" />
+    </a>
+    <a href="/img/2019-09-30-home-automation/Homekit-3.jpg" data-lightbox="ui" data-title="Homekit automations">
+        <img alt="Homekit automations" src="/img/2019-09-30-home-automation/Homekit-3.jpg" class="image fit" style="margin:0px auto; width: 32.7%; display: inline-block;" />
+    </a>
+</div>
+
+<p>Below is how my home is set up, which plugins I use (and made myself).</p>
+
+<p>The only official Homekit device I own is my thermostat, all other devices are exposed to Homekit through Homebridge.
+Homebridge is a NodeJS server that exposes custom devices to be used inside the Homekit platform.
+It can be installed and configured easily, for example on a Raspberry Pi and provides a code or QR code during startup which you can use to add the Homekit bridge to your setup.</p>
+
+<p>A list of all devices I use through Homebridge with their according plugins:</p>
+
+<ul>
+  <li>Nest protects - <a href="https://www.npmjs.com/package/homebridge-nest" target="_blank" rel="noopener noreferrer">homebridge-nest plugin</a>, only possible now if you already have a nest developer account and the required keys.</li>
+  <li>Unifi protect cameras <a href="https://www.npmjs.com/package/homebridge-camera-ffmpeg" target="_blank" rel="noopener noreferrer">homebridge-camera-ffmpeg plugin</a><a href="https://www.npmjs.com/package/homebridge-unifi-protect-motion-sensors" target="_blank" rel="noopener noreferrer">homebridge-unifi-protect-motion-sensors plugin</a></li>
+  <li>Smartwares smart wifi switch &amp; RF outlets <a href="https://www.npmjs.com/package/homebridge-homewizard-flamingo" target="_blank" rel="noopener noreferrer">homebridge-homewizard-flamingo plugin</a></li>
+  <li>Somfy based shutters <a href="https://www.npmjs.com/package/homebridge-somfy" target="_blank" rel="noopener noreferrer">homebridge-somfy</a></li>
+  <li>LG Airco unit <a href="https://www.npmjs.com/package/homebridge-lg-airco" target="_blank" rel="noopener noreferrer">homebridge-lg-airco</a></li>
+</ul>
+
+<p>There are many, many more devices and integrations available for use with Homebridge.
+You can find these by looking on the <a href="https://www.npmjs.com/" target="_blank" rel="noopener noreferrer">NPM plugin repository</a> and searching for <code class="highlighter-rouge">homebridge-PLUGINNAME</code>.</p>
+
+<p>These plugins can be installed by installing the NPM package globally and adding said package to the <code class="highlighter-rouge">config.json</code> of the Homebridge instance.
+The main page of the <a href="https://github.com/nfarina/homebridge" target="_blank" rel="noopener noreferrer">github repo</a> explains in detail how to set everything up so you too can get started quickly</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Home automation is a wonderful thing.
+It can make your live easier in various ways.
+It is however required to think things through and do some research before jumping into this.
+Looking into what devices are supported, out of the box, or via custom integrations/plugins is very important.
+If you have some programming experience and some time to spare you can very easily make your own integrations for devices that are not supported.</p>
+
+<p>In the coming months we’ll be diving a bit deeper into the wonderful world of home automation with more in depth blog posts about Homekit with Homebridge and OpenHAB.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://www.apple.com/be-nl/shop/accessories/all-accessories/Homekit" target="_blank" rel="noopener noreferrer">Apple Homekit</a></li>
+  <li><a href="https://assistant.google.com/explore/" target="_blank" rel="noopener noreferrer">Google Assistant/Google Home</a></li>
+  <li><a href="https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&amp;pf_rd_m=ATVPDKIKX0DER&amp;pf_rd_s=merchandised-search-6&amp;pf_rd_r=0E90B2MD8KGD1D7KVEM1&amp;pf_rd_t=101&amp;pf_rd_p=02147624-e148-4901-b449-773097cfa62e&amp;pf_rd_i=17934672011" target="_blank" rel="noopener noreferrer">Amazon Alexa</a></li>
+  <li><a href="https://xiaomi-mi.com/mi-smart-home/" target="_blank" rel="noopener noreferrer">Xiaomi Mi Smart Home</a></li>
+  <li><a href="https://www.home-assistant.io/" target="_blank" rel="noopener noreferrer">Home Assistant</a></li>
+  <li><a href="https://developers.home-assistant.io/en/" target="_blank" rel="noopener noreferrer">Home Assistant developer portal</a></li>
+  <li><a href="https://owntracks.org/" target="_blank" rel="noopener noreferrer">Owntracks</a></li>
+  <li><a href="https://www.openhab.org/" target="_blank" rel="noopener noreferrer">OpenHAB</a></li>
+  <li><a href="https://homebridge.io/">Homebridge</a></li>
+  <li><a href="https://github.com/nfarina/homebridge">Homebridge github</a></li>
+  <li><a href="https://developer.apple.com/documentation/Homekit/configuring_a_home_automation_device">Homekit catalog, apple</a></li>
+  <li><a href="https://github.com/KhaosT/HAP-NodeJS/">Homekit application protocol</a></li>
+  <li><a href="https://www.npmjs.com/search?q=homebridge-plugin">Homebridge plugins</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html&title=Home Automation part 1&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Home Automation part 1&url=https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image" title="">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-09-30-home-automation/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

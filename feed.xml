@@ -1,5 +1,248 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-09-18T20:26:37+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">JavaScript Testing 101</title><link href="https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101.html" rel="alternate" type="text/html" title="JavaScript Testing 101" /><published>2019-09-18T00:00:00+00:00</published><updated>2019-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101.html">&lt;h1 id=&quot;javascript-unit-testing-101&quot;&gt;JavaScript unit testing 101&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-09-30T12:16:28+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Home Automation part 1</title><link href="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html" rel="alternate" type="text/html" title="Home Automation part 1" /><published>2019-09-30T00:00:00+00:00</published><updated>2019-09-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1</id><content type="html" xml:base="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#platforms&quot;&gt;Platforms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#example&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In this series of blogposts we are going to take a deeper look into home automation.
+Home automation is the wonderful art of automating your home so it becomes easier to do certain tasks.
+It is a very wide field where there are many available options, platforms and devices.
+If you are willing to get creative almost everything can be automated!&lt;/p&gt;
+
+&lt;p&gt;In this first blogpost we’ll present some of the platforms that are available and some of the pros &amp;amp; cons of each one.
+To close of this blogpost we’ll start by looking into Apple’s Homekit and by extension HomeBridge.&lt;/p&gt;
+
+&lt;h2 id=&quot;platforms&quot;&gt;Platforms&lt;/h2&gt;
+
+&lt;p&gt;In the world of home automation there are many ways to automate stuff.
+We will be focussing on either cloud-enabled platforms or those that can be run on premise.
+The hardware vendor based platforms (e.g.: niko) will not be included!&lt;/p&gt;
+
+&lt;p&gt;The platforms can be split up into two main parts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cloud enabled, mainly from manufactures and larger phone companies&lt;/li&gt;
+  &lt;li&gt;On premise platforms (that do not require internet/cloud access)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Security is a very important aspect in the home automation world!
+The best way one would go about to automating one’s home would be completely independent from any cloud based services/APIs
+Internet access can be intermittent, cloud based API’s can be down or even be shut down permanently.
+Even worse, accounts could be breached giving unknown third parties access to your home’s devices!&lt;/p&gt;
+
+&lt;p&gt;However, most people already have some smart devices and most of these have their own app, so ditching any cloud based systems is going to be a lot harder/more expensive.
+As with any online service use strong unique password for each different service and enable multifactor authentication whenever possible!
+Using all these different apps can be very cumbersome: using app A to turn on the lights, using app B to turn on the TV, using app C to change the thermostat, you get the picture.
+Some of these smart devices support home automation platforms, some do not.
+As we will see later on, even those that do not support a home automation platform out of the box can mostly be made to do so!&lt;/p&gt;
+
+&lt;p&gt;The platforms:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cloud enabled (more well known):
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.apple.com/be-nl/shop/accessories/all-accessories/Homekit&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Apple Homekit&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://assistant.google.com/explore/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Assistant/Google Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&amp;amp;pf_rd_m=ATVPDKIKX0DER&amp;amp;pf_rd_s=merchandised-search-6&amp;amp;pf_rd_r=0E90B2MD8KGD1D7KVEM1&amp;amp;pf_rd_t=101&amp;amp;pf_rd_p=02147624-e148-4901-b449-773097cfa62e&amp;amp;pf_rd_i=17934672011&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Alexa&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://xiaomi-mi.com/mi-smart-home/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Xiaomi Mi Smart Home&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;On premise solutions (lesser known, but safer)
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Home Assistant&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.openhab.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OpenHAB&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;apple-homekit&quot;&gt;Apple Homekit&lt;/h3&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Homekit&quot; src=&quot;/img/2019-09-30-home-automation/Homekit.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Apple’s home automation platform is called Homekit.
+It can be used on all iOS and macOS X devices, giving us access to it from everywhere.
+By default Homekit control is limited to your local network only.
+If we add an apple TV/HomePod/iPad as a hub it will allow for remote access through iCloud.
+For best results I would recommend to use an apple TV (gen 4 or later) connected through ethernet.&lt;/p&gt;
+
+&lt;p&gt;Automations can be made using the app (some special automations require a hub though).
+These automations can be based on a number of different triggers &amp;amp; conditions (sensors/state change/people coming home or leaving/time of day/…)
+An automation can change the state of a device, or change the state of multiple devices if they have been grouped into a scene.&lt;/p&gt;
+
+&lt;p&gt;Homekit supports many devices, which can be identified by ‘works with Apple Homekit’ logo.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Works with Homekit&quot; src=&quot;/img/2019-09-30-home-automation/works-with-Homekit.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 250px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Some of these include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hue&lt;/li&gt;
+  &lt;li&gt;Tadoo&lt;/li&gt;
+  &lt;li&gt;Eve&lt;/li&gt;
+  &lt;li&gt;and many others…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If your device is not supported but has its own app/api there is a big chance you can get it to work by installing homebridge and adding that to your home app in iOS.
+Scroll down to the example section of this blogpost if you want to learn more on how to set this up yourself.&lt;/p&gt;
+
+&lt;h3 id=&quot;google-home&quot;&gt;Google Home&lt;/h3&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Google Assistant&quot; src=&quot;/img/2019-09-30-home-automation/google.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Google’s home automation platform is called Google Assistant / Google Home. Both assistant and home are used to control smart devices.
+it can be used on Android and iOS devices.&lt;/p&gt;
+
+&lt;p&gt;To make best use of all the features a Google Home Hub or a Google Home (Mini) is required.
+Google Assistant supports many devices (much more than Homekit), these can be added via the app.
+After setup you can ask the assistant to perform certain tasks and change the state of devices.&lt;/p&gt;
+
+&lt;p&gt;Automations with google assistant are called &lt;a href=&quot;https://support.google.com/googlenest/answer/7029585&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;routines&lt;/a&gt;.
+For the time being these are not quite as extensive as Homekit or Home Assistant/OpenHAB.
+You can make routines that are based on a time of day event or people coming home/leaving.
+Triggering routines based on state changes of the smart devices is not supported for now.
+This will supposedly be added in the future.&lt;/p&gt;
+
+&lt;h3 id=&quot;amazon-alexa&quot;&gt;Amazon Alexa&lt;/h3&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Alexa&quot; src=&quot;/img/2019-09-30-home-automation/alexa.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Amazon’s home automation platform is part of its Alexa assistant.
+It can be used on Android and iOS devices.&lt;/p&gt;
+
+&lt;p&gt;To make best use of all the features an echo device is required.
+Alexa supports many devices.
+Much more than Homekit.
+These can be added via the app.
+After setup you can ask Alexa to perform certain tasks and change the state of devices.&lt;/p&gt;
+
+&lt;p&gt;Automations with Alexa are called routines.
+These routines are like the scenes and routines that exist with Homekit &amp;amp; google assistant.
+The routines can be triggered like in Homekit, by devices/sensors, coming home or leaving, time of day.&lt;/p&gt;
+
+&lt;p&gt;You can get very creative with the routines, a funny example below, pity the intruder that is caught up in this encounter!&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Alexa routine example&quot; src=&quot;/img/2019-09-30-home-automation/alexa-intruder-meme.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;home-assistant&quot;&gt;Home Assistant&lt;/h3&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Home Assistant&quot; src=&quot;/img/2019-09-30-home-automation/home-assistant.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Home Assistant is a fully open source home automation platform that is fully focussed on the user’s privacy.
+It can be used in the browser as well as on iOS and Android devices.&lt;/p&gt;
+
+&lt;p&gt;It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
+Home Assistant has support for over a thousand integrations that are supported by the platform.
+If you want to create your own integration, a fully documented &lt;a href=&quot;https://developers.home-assistant.io/en/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;developer portal&lt;/a&gt; will assist you.
+The integrations are written in python 3.&lt;/p&gt;
+
+&lt;p&gt;Automations are called as what they are, automations.
+They can control devices or perform actions (calling services etc.) based on triggers.
+These triggers can be various things like in the previously mentioned platforms, but Home Assistant takes it one step further and allows for very fine grained and very detailed/specific triggers.&lt;/p&gt;
+
+&lt;p&gt;Location tracking &amp;amp; presence detection is also possible but requires the integration and use of &lt;a href=&quot;https://owntracks.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Owntracks&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;openhab&quot;&gt;OpenHAB&lt;/h3&gt;
+
+&lt;p&gt;&lt;img alt=&quot;OpenHAB&quot; src=&quot;/img/2019-09-30-home-automation/openhab.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Like Home Assistant OpenHAB is a fully open source home automation platform.
+It can be used in the browser as well as on iOS and Android devices.&lt;/p&gt;
+
+&lt;p&gt;It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
+It also supports well over a thousand existing integrations and can easily be extended.
+It is written in Java and can be configured with a DSL.&lt;/p&gt;
+
+&lt;p&gt;Automations are called rules.
+These can be configured with the platform’s DSL.
+They can control devices or perform actions (calling services etc.) based on triggers.
+These triggers can really be anything you can think of, any integration or trigger action you can think of, it can be done.&lt;/p&gt;
+
+&lt;p&gt;OpenHAB does require quite a bit of research.
+Do not jump into this platform without doing some digging beforehand.
+Its documentation is very extensive and is very well made.&lt;/p&gt;
+
+&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
+
+&lt;h3 id=&quot;homekit--homebridge&quot;&gt;Homekit &amp;amp; Homebridge&lt;/h3&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2019-09-30-home-automation/Homekit-1.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Homekit devices 1&quot;&gt;
+        &lt;img alt=&quot;Homekit devices 1&quot; src=&quot;/img/2019-09-30-home-automation/Homekit-1.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2019-09-30-home-automation/Homekit-2.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Homekit devices 2&quot;&gt;
+        &lt;img alt=&quot;Homekit devices 2&quot; src=&quot;/img/2019-09-30-home-automation/Homekit-2.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2019-09-30-home-automation/Homekit-3.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Homekit automations&quot;&gt;
+        &lt;img alt=&quot;Homekit automations&quot; src=&quot;/img/2019-09-30-home-automation/Homekit-3.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32.7%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Below is how my home is set up, which plugins I use (and made myself).&lt;/p&gt;
+
+&lt;p&gt;The only official Homekit device I own is my thermostat, all other devices are exposed to Homekit through Homebridge.
+Homebridge is a NodeJS server that exposes custom devices to be used inside the Homekit platform.
+It can be installed and configured easily, for example on a Raspberry Pi and provides a code or QR code during startup which you can use to add the Homekit bridge to your setup.&lt;/p&gt;
+
+&lt;p&gt;A list of all devices I use through Homebridge with their according plugins:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Nest protects - &lt;a href=&quot;https://www.npmjs.com/package/homebridge-nest&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-nest plugin&lt;/a&gt;, only possible now if you already have a nest developer account and the required keys.&lt;/li&gt;
+  &lt;li&gt;Unifi protect cameras &lt;a href=&quot;https://www.npmjs.com/package/homebridge-camera-ffmpeg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-camera-ffmpeg plugin&lt;/a&gt;&lt;a href=&quot;https://www.npmjs.com/package/homebridge-unifi-protect-motion-sensors&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-unifi-protect-motion-sensors plugin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Smartwares smart wifi switch &amp;amp; RF outlets &lt;a href=&quot;https://www.npmjs.com/package/homebridge-homewizard-flamingo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-homewizard-flamingo plugin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Somfy based shutters &lt;a href=&quot;https://www.npmjs.com/package/homebridge-somfy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-somfy&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;LG Airco unit &lt;a href=&quot;https://www.npmjs.com/package/homebridge-lg-airco&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-lg-airco&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are many, many more devices and integrations available for use with Homebridge.
+You can find these by looking on the &lt;a href=&quot;https://www.npmjs.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NPM plugin repository&lt;/a&gt; and searching for &lt;code class=&quot;highlighter-rouge&quot;&gt;homebridge-PLUGINNAME&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;These plugins can be installed by installing the NPM package globally and adding said package to the &lt;code class=&quot;highlighter-rouge&quot;&gt;config.json&lt;/code&gt; of the Homebridge instance.
+The main page of the &lt;a href=&quot;https://github.com/nfarina/homebridge&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;github repo&lt;/a&gt; explains in detail how to set everything up so you too can get started quickly&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Home automation is a wonderful thing.
+It can make your live easier in various ways.
+It is however required to think things through and do some research before jumping into this.
+Looking into what devices are supported, out of the box, or via custom integrations/plugins is very important.
+If you have some programming experience and some time to spare you can very easily make your own integrations for devices that are not supported.&lt;/p&gt;
+
+&lt;p&gt;In the coming months we’ll be diving a bit deeper into the wonderful world of home automation with more in depth blog posts about Homekit with Homebridge and OpenHAB.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.apple.com/be-nl/shop/accessories/all-accessories/Homekit&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Apple Homekit&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://assistant.google.com/explore/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Assistant/Google Home&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&amp;amp;pf_rd_m=ATVPDKIKX0DER&amp;amp;pf_rd_s=merchandised-search-6&amp;amp;pf_rd_r=0E90B2MD8KGD1D7KVEM1&amp;amp;pf_rd_t=101&amp;amp;pf_rd_p=02147624-e148-4901-b449-773097cfa62e&amp;amp;pf_rd_i=17934672011&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Alexa&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xiaomi-mi.com/mi-smart-home/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Xiaomi Mi Smart Home&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Home Assistant&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developers.home-assistant.io/en/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Home Assistant developer portal&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://owntracks.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Owntracks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.openhab.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OpenHAB&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://homebridge.io/&quot;&gt;Homebridge&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nfarina/homebridge&quot;&gt;Homebridge github&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.apple.com/documentation/Homekit/configuring_a_home_automation_device&quot;&gt;Homekit catalog, apple&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/KhaosT/HAP-NodeJS/&quot;&gt;Homekit application protocol&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.npmjs.com/search?q=homebridge-plugin&quot;&gt;Homebridge plugins&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="Machine Learning" /><category term="Internet of Things" /><category term="Smart tech" /><category term="Home" /><category term="smart home" /><category term="automation" /><category term="home automation" /><category term="siri" /><category term="apple" /><category term="google assistant" /><category term="amazon" /><category term="alexa" /><category term="Homekit" /><category term="home assistant" /><category term="openHab" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-09-30-home-automation/banner.jpg" /></entry><entry><title type="html">JavaScript Testing 101</title><link href="https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101.html" rel="alternate" type="text/html" title="JavaScript Testing 101" /><published>2019-09-18T00:00:00+00:00</published><updated>2019-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/09/18/JS-testing-101.html">&lt;h1 id=&quot;javascript-unit-testing-101&quot;&gt;JavaScript unit testing 101&lt;/h1&gt;
 
 &lt;p&gt;In this blog post I will explain how to write unit tests for JavaScript. For the examples, we will be using jasmine and ts-mockito, but the theory should be applicable to every testing framework.
  Why am I using two frameworks here instead of only jasmine? Well, in my opinion, jasmine relies too much on magic strings that might give problems during refactoring and makes autocompletion impossible in a lot of cases (depending on how good your IDE is).
@@ -3072,1001 +3315,4 @@ Think of this: when turning around the arrow of time is permitted, if it facilit
 &lt;ul&gt;
   &lt;li&gt;Artwork in the main image by &lt;a href=&quot;http://heatherfortner.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heather Fortner&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Fishbone example taken from &lt;a href=&quot;https://www.24point0.com/powerpoint-business-templates/applications-fishbone-diagram/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;24point0.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaëla&quot;, &quot;last_name&quot;=&gt;&quot;Broeckx&quot;, &quot;permalink&quot;=&gt;&quot;/author/michaela-broeckx/&quot;, &quot;title&quot;=&gt;&quot;Agile Coach&quot;, &quot;email&quot;=&gt;&quot;michaela.broeckx@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;michaelabroeckx&quot;, &quot;avatar&quot;=&gt;&quot;michaela-broeckx.jpg&quot;, &quot;bio&quot;=&gt;&quot;Michaëla is an Agile coach with a focus on value and the human aspects of work. She is devoted to Agile &amp; Scrum, not just as a mindset and framework for collaborative product delivery, but also for their general quality as ways to unlearn innate/inbred habits that prevent us from learning efficiently. A true Agile mindset enables enterprises to break down siloes, and build professional human networks throughout the company and beyond.&quot;}</name><email>michaela.broeckx@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="AgileWorks" /><category term="Agile Coaching" /><category term="Liberating Structures" /><category term="Root Cause Analysis" /><category term="Powerful Techniques" /><summary type="html">For quite a few years now, I have been going steady with Japan, the birthplace of so many philosophies, teachings and practices preceding and gearing up to the Agile movement. This is how I came to discover the well-hidden connection between work and fish. In Eastern Asia, the carp or koi is a deeply symbolic and highly respected animal, the presence and/or representation of which is considered a placeholder for luck, prosperity and a long life. No surprise then, that the fish is sometimes used as a metaphor for good business practice and process improvement.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/fishbones-for-tomorrow/main-image.jpg" /></entry><entry><title type="html">Spring IO 2019</title><link href="https://ordina-jworks.github.io/conference/2019/07/10/Spring-IO-2019.html" rel="alternate" type="text/html" title="Spring IO 2019" /><published>2019-07-10T00:00:00+00:00</published><updated>2019-07-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2019/07/10/Spring-IO-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2019/07/10/Spring-IO-2019.html">&lt;h1 id=&quot;spring-io-2019&quot;&gt;Spring IO 2019!&lt;/h1&gt;
-
-&lt;p&gt;Spring I/O has become a yearly tradition for our JWorks consultants. 
-With 21 colleagues we went to the conference in beautiful Barcelona on the 16th and 17th of May.&lt;/p&gt;
-
-&lt;p&gt;The conference was held at the same location as last year, the &lt;strong&gt;Palau de Congressos de Barcelona&lt;/strong&gt;. 
-As indicated last year, this year there was an overlap at the venue with the &lt;a href=&quot;http://www.automobilebarcelona.com/es/visitar&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Barcelona 
-International Motor Show&lt;/a&gt;.
-This gave us the opportunity to take a look at some beautiful cars during breaks.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/venue.jpg&quot; alt=&quot;Venue Spring I/O 2019&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/jworks.jpg&quot; alt=&quot;JWorks at Spring I/O 2019&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;In this blog post we’ll talk about some of the presentations of this year but it is not a complete list.
-There were so many interesting talks and all of them are available on &lt;a href=&quot;https://www.youtube.com/playlist?list=PLe6FX2SlkJdTlXfwer8JB-WGm-TEyIB2k&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Youtube&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let us know if we missed anything by &lt;a href=&quot;https://github.com/ordina-jworks/ordina-jworks.github.io/issues/new&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;filing an issue&lt;/a&gt; or contacting us at &lt;a href=&quot;mailto:jworks@ordina.be&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;our general JWorks email&lt;/a&gt;.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#moving-from-imperative-to-reactive-by-paul-harris&quot;&gt;Moving from Imperative to Reactive by Paul Harris&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#configuration-management-with-kubernetes-a-spring-boot-use-case-by-nicolas-frankel&quot;&gt;Configuration Management with Kubernetes, a Spring Boot use case by Nicolas Frankel&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#building-better-monoliths---modulithic-applications-with-spring-boot-by-oliver-drotbohm&quot;&gt;Building better monoliths - Modulithic Applications with Spring Boot by Oliver Drotbohm&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#cutting-edge-continuous-delivery-automated-canary-analysis-through-spring-based-spinnaker-by-andreas-evers&quot;&gt;Cutting-Edge Continuous Delivery: Automated Canary Analysis through Spring based Spinnaker by Andreas Evers&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#using-java-modules-in-practice-with-spring-boot-by-jaap-coomans&quot;&gt;Using Java Modules in Practice with Spring Boot by Jaap Coomans&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#stream-processing-with-the-spring-framework-by-josh-long-and-viktor-gamov&quot;&gt;Stream Processing with the Spring Framework by Josh Long and Viktor Gamov&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#how-fast-is-spring-by-dave-syer&quot;&gt;How Fast is Spring by Dave Syer&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#kubernetes-andor-cloud-foundry---how-to-run-your-spring-boot-microservices-on-state-of-the-art-cloud-platforms-by-matthias-haeussler&quot;&gt;Kubernetes and/or Cloud Foundry - How to run your Spring Boot Microservices on state-of-the-art cloud platforms by Matthias Haeussler&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#migrating-a-modern-spring-web-application-to-serverless-by-jeroen-sterken-and-wim-creuwels&quot;&gt;Migrating a modern spring web application to serverless by Jeroen Sterken and Wim Creuwels&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#testing-spring-boot-applications-by-andy-wilkinson&quot;&gt;Testing Spring Boot Applications by Andy Wilkinson&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#how-to-live-in-a-post-spring-cloud-netflix-world-by-olga-maciaszek-and-marcin-grzejszczak&quot;&gt;How to live in a post-Spring-Cloud-Netflix world by Olga Maciaszek and Marcin Grzejszczak&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#event-driven-microservices-with-axon-and-spring-boot-excitingly-boring-by-allard-buijze&quot;&gt;Event-Driven Microservices with Axon and Spring Boot: excitingly boring by Allard Buijze&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#how-to-secure-your-spring-apps-with-keycloak-by-thomas-darimont&quot;&gt;How to secure your Spring apps with Keycloak by Thomas Darimont&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#zero-downtime-migrations-with-spring-boot-by-alex-soto&quot;&gt;Zero Downtime Migrations with Spring Boot by Alex Soto&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;day-1-talks--workshops&quot;&gt;Day 1: Talks &amp;amp; Workshops&lt;/h1&gt;
-
-&lt;h2 id=&quot;moving-from-imperative-to-reactive-by-paul-harris&quot;&gt;Moving from Imperative to Reactive by &lt;a href=&quot;https://twitter.com/twoseat&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Paul Harris&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Paul Harris&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/paul-harris.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;When development started on the Cloud Foundry Java client, &lt;a href=&quot;https://projectreactor.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Reactor&lt;/a&gt; was also rebooted. 
-Which means that they became their very first customer.&lt;/p&gt;
-
-&lt;p&gt;Paul Harris says that he made all the mistakes you can make with reactive programming.
-And now he’ll teach us how to avoid many of those.&lt;/p&gt;
-
-&lt;p&gt;It al started with the &lt;strong&gt;&lt;a href=&quot;https://www.reactivemanifesto.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Reactive Manifesto&lt;/a&gt;&lt;/strong&gt; in 2013, which came up with four ideas for reactive applications:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Responsive: it should feel as if the application is progressing, with for example, some feedback.&lt;/li&gt;
-  &lt;li&gt;Resilient: if a particular part of you application fails, the remainder should be able to cope with that.&lt;/li&gt;
-  &lt;li&gt;Elastic: make the most out of the resources available to the application.&lt;/li&gt;
-  &lt;li&gt;Message-Driven: more message-driven than event-driven.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A manifesto is nice, but it does not compile.&lt;/p&gt;
-
-&lt;p&gt;The next step was &lt;a href=&quot;https://www.reactive-streams.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Reactive Streams&lt;/a&gt; which defined a set of interfaces for how we might deal with reactive streaming situations.
-You can distinguish four interfaces:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.reactive-streams.org/reactive-streams-1.0.2-javadoc/org/reactivestreams/Publisher.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Publisher&lt;/a&gt;: which emits ‘things’ or signals in other words.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.reactive-streams.org/reactive-streams-1.0.2-javadoc/org/reactivestreams/Subscriber.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Subscriber&lt;/a&gt;: listens to those signals.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.reactive-streams.org/reactive-streams-1.0.2-javadoc/org/reactivestreams/Subscription.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Subscription&lt;/a&gt;: after a subscriber subscribed to a publication a subscription is obtained.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.reactive-streams.org/reactive-streams-1.0.2-javadoc/org/reactivestreams/Processor.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Processor&lt;/a&gt;: is a combination of a publisher and a subscriber that allows you to process data.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The intention of Reactive Streams was that more useful real world implementations would follow.
-One of these is Spring Reactor.
-For a good introduction to Spring Reactor you can read our &lt;a href=&quot;https://ordina-jworks.github.io/reactive/2016/12/12/Reactive-Programming-Spring-Reactor.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;blog post&lt;/a&gt; about it.&lt;/p&gt;
-
-&lt;p&gt;Spring Reactor contains various reactive frameworks, the three big ones are:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://projectreactor.io/docs/core/release/api/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Reactor-Core&lt;/a&gt;: the basic provision.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://projectreactor.io/docs/netty/release/api/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Reactor-Netty&lt;/a&gt;: the reactive implementation of Netty.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://projectreactor.io/docs/test/release/api/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Reactor-Test&lt;/a&gt;: which is a bunch of really good useful methods for testing reactive streams.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Before Paul dove in the code he first explained &lt;a href=&quot;https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mono&lt;/a&gt; and &lt;a href=&quot;https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Flux&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;a-mono&quot;&gt;a Mono&lt;/h3&gt;
-&lt;p&gt;A Reactive Streams &lt;code class=&quot;highlighter-rouge&quot;&gt;Publisher&lt;/code&gt; that emits none or a single element.
-&lt;img alt=&quot;a Mono&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/mono.svg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;a-flux&quot;&gt;a Flux&lt;/h3&gt;
-&lt;p&gt;A &lt;code class=&quot;highlighter-rouge&quot;&gt;Publisher&lt;/code&gt; that emits zero to N elements.
-&lt;img alt=&quot;a Flux&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/flux.svg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Paul showed us a demo of how to make a legacy Maven Spring application reactive.
-In order to do so the following steps were taken:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Add dependency to &lt;a href=&quot;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Boot Starter WebFlux&lt;/a&gt;.
-This is the reactive variant of &lt;code class=&quot;highlighter-rouge&quot;&gt;Web MVC&lt;/code&gt;. 
-You shouldn’t need to change anything to keep it running unless you have used specific server features.&lt;/li&gt;
-  &lt;li&gt;Convert the return of a &lt;code class=&quot;highlighter-rouge&quot;&gt;List&lt;/code&gt; to a &lt;code class=&quot;highlighter-rouge&quot;&gt;Flux&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Convert return types for repository methods to &lt;code class=&quot;highlighter-rouge&quot;&gt;Mono&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;Flux&lt;/code&gt;.
-    &lt;ul&gt;
-      &lt;li&gt;Use the static method &lt;code class=&quot;highlighter-rouge&quot;&gt;.justOrEmpty&lt;/code&gt; of the &lt;code class=&quot;highlighter-rouge&quot;&gt;Mono&lt;/code&gt; type in order to deal with an optional.&lt;/li&gt;
-      &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;.switchIfEmpty&lt;/code&gt; to return a proper error response.&lt;/li&gt;
-      &lt;li&gt;In order to return a &lt;code class=&quot;highlighter-rouge&quot;&gt;Flux&lt;/code&gt;: use &lt;code class=&quot;highlighter-rouge&quot;&gt;fromIterable&lt;/code&gt;.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Conclusion is that reactive starts off complicated, but it will become easier when you have used it more often. 
-It doesn’t have that many different methods you can use, so all in all it is quite easy to wrap your head around.&lt;/p&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/vSHNBgY7MGA&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;configuration-management-with-kubernetes-a-spring-boot-use-case-by-nicolas-frankel&quot;&gt;Configuration Management with Kubernetes, a Spring Boot use case by &lt;a href=&quot;https://twitter.com/nicolas_frankel&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nicolas Frankel&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Nicolas Frankel&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/nicolas-frankel.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Nicolas Frankel is a Developer Advocate who works for &lt;a href=&quot;https://www.exoscale.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Exoscale&lt;/a&gt;, a European cloud hosting provider.&lt;/p&gt;
-
-&lt;p&gt;In this session, he explained how to correctly configure each environment with its own parameters and settings.&lt;/p&gt;
-
-&lt;p&gt;There are traditional configuration management tools such as Chef, Ansible, Puppet, … . 
-But what is the point?&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Docker images are and should always be immutable.&lt;/em&gt;&lt;br /&gt;
-They should be configurable depending on the environment where we want to run our image in.
-A Docker image should be able to run in different environments without problems, this is where &lt;a href=&quot;https://kubernetes.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kubernetes&lt;/a&gt; comes in. 
-Kubernetes can easily configure and parameterize each Docker image to run in different environments.&lt;/p&gt;
-
-&lt;p&gt;One thing to remember is that you should make sure that you are working in the correct environment. 
-Nicolas likes to add banners to the page to know in which environment you are currently working. 
-For example, if you are working in the development environment, then you might want to show a big blue ‘Development’ banner, while in production you would prefer using a big, red, blinking one.&lt;/p&gt;
-
-&lt;p&gt;This can all be done with the power of Kubernetes and immutable images. 
-You can simply declare your environment variables in Kubernetes, then you can inject your environment in your Spring Boot application.&lt;/p&gt;
-
-&lt;p&gt;There are three ways to access your environment variables in Spring Boot: profiles, &lt;code class=&quot;highlighter-rouge&quot;&gt;@Value&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;@ConfigurationProperties&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;To get started in Kubernetes, you have to create a few Kubernetes objects:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;(Optional) A &lt;a href=&quot;https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Namespace&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;A &lt;a href=&quot;https://kubernetes.io/docs/concepts/services-networking/service/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Service&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;A &lt;a href=&quot;https://kubernetes.io/docs/concepts/workloads/pods/pod/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Pod&lt;/a&gt; / &lt;a href=&quot;https://kubernetes.io/docs/concepts/workloads/controllers/deployment/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Deployment&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;In the Deployment, you can give the arguments based on the environment that you want to spin up.
-With a &lt;a href=&quot;https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ConfigMap&lt;/a&gt;, you can combine your environment variables that belong to each other (ex. database settings, AWS keys, …).
-Once done defining the ConfigMap, you can import the ConfigMap in your Deployment declaration.&lt;/p&gt;
-
-&lt;p&gt;What’s also very interesting is that you can declare your environment variables in a seperate Git repository with the use of an &lt;a href=&quot;https://kubernetes.io/docs/concepts/workloads/pods/init-containers/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;initContainer&lt;/a&gt;. 
-Of course, you can already do this with &lt;a href=&quot;https://spring.io/projects/spring-cloud-config&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Cloud Config&lt;/a&gt;. 
-This is just an alternative on the Kubernetes side of configuration management.&lt;/p&gt;
-
-&lt;p&gt;If you want to read more about Nicolas Frankel’s work, you can read his blog &lt;a href=&quot;https://blog.frankel.ch&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;You can watch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/cTWu_DLqDt4&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;building-better-monoliths---modulithic-applications-with-spring-boot-by-oliver-drotbohm&quot;&gt;Building better monoliths - Modulithic Applications with Spring Boot by &lt;a href=&quot;https://twitter.com/odrotbohm&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Oliver Drotbohm&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Oliver Drotbohm&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/oliver-drotbohm.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;This talk caught our attention because we’re currently working at a client where we see some of the limitations of a microservice architecture. 
-We are currently considering merging multiple of them into a more coarse-grained architecture containing multiple more ‘monolithic’ applications.&lt;/p&gt;
-
-&lt;h3 id=&quot;microservice-architectures-also-have-disadvantages&quot;&gt;Microservice architectures also have disadvantages!&lt;/h3&gt;
-&lt;p&gt;The talk starts off explaining some of the key differences between microservice and classic monoliths from an architectural point of view.&lt;/p&gt;
-
-&lt;p&gt;The key takeaway here is that although there’s an advantage in terms of architecture degradation, it is harder to accidentally call another microservice than to call a method on another bounded context in a monolith.
-This advantage comes at a cost, you lose compile-time safety which makes it harder to refactor than a monolith and it is harder to test the whole system.
-These are especially disadvantageous in the early stages of the project when it is not clear yet what the correct bounded contexts are.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-modulith&quot;&gt;The Modulith&lt;/h3&gt;
-&lt;p&gt;It might thus be useful to consider starting off with a well-structured monolith before considering evolving towards microservices.
-But how do we avoid having our architecture degrade quickly?
-Enter the modulith; a modulith is basically a monolith with multiple modules with well-defined dependencies in it.
-To achieve this, Oliver demonstrated a ‘Moduliths’ tool that he’s in process off developing for the Spring framework.&lt;/p&gt;
-
-&lt;p&gt;The idea is to use a package structure convention and enforce it with tests using Java’s Reflection.
-In this package structure convention only (public members of) the root package of each module are accessible to other modules.
-It’s considered the API package of that module while subpackages are considered internal. 
-There’s more to this tool however; another problem of modularizing your application is that you typically want to do integration testing on the bounds of your modules.
-The ‘Moduliths’ tool allows to bootstrap your module alone or in various configurations with specific module dependencies for integration testing. 
-To top it off, there’s support to generate PlantUML diagrams for documentation purposes!&lt;/p&gt;
-
-&lt;p&gt;For more details take a look at &lt;a href=&quot;https://github.com/odrotbohm/moduliths&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/odrotbohm/moduliths&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;alternative-approaches&quot;&gt;Alternative approaches&lt;/h3&gt;
-&lt;p&gt;There are of course other ways to divide your application into modules and maintain the architecture:&lt;/p&gt;
-
-&lt;h4 id=&quot;multiple-artifactsgradlemaven-modules&quot;&gt;Multiple artifacts(gradle/maven modules).&lt;/h4&gt;
-&lt;p&gt;You might get an explosion of artifacts and it can become kind of verbose with all the configuration(&lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;) files.
-Additionally, the artifacts are redundant since we’re planning on deploying everything together anyway.
-There’s also no support to dynamically compose modules for tests since the dependencies are typically statically defined.&lt;/p&gt;
-
-&lt;p&gt;This was actually the way we were considering handling it at our client.
-The big advantage here in our eyes is that reflection can be avoided and the architecture can be verified at compile-time. 
-The good news is that it is possible to combine it with the moduliths approach, 
-which might be useful for integration testing.&lt;/p&gt;
-
-&lt;h4 id=&quot;java9-module-system&quot;&gt;Java(9+) Module System&lt;/h4&gt;
-&lt;p&gt;Could be used but it’s certainly not designed for this.
-It definitely doesn’t have any support for dynamically composing your modules for testing.&lt;/p&gt;
-
-&lt;h4 id=&quot;external-tools&quot;&gt;External tools&lt;/h4&gt;
-&lt;p&gt;JQAssist, Sonargraph, jDepend… . 
-These are powerful tools but usually run during the build making the feedback loop bigger.&lt;/p&gt;
-
-&lt;h3 id=&quot;wrapping-it-up&quot;&gt;Wrapping it up&lt;/h3&gt;
-
-&lt;p&gt;The moduliths approach explained in this talk gives us a nice intermediate step towards a better architecture.
-It alleviates some of the biggest problems with monoliths without introducing new ones using a more complex architecture like microservices!&lt;/p&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/bVaiTPYlHFE&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;cutting-edge-continuous-delivery-automated-canary-analysis-through-spring-based-spinnaker-by-andreas-evers&quot;&gt;Cutting-Edge Continuous Delivery: Automated Canary Analysis through Spring based Spinnaker by &lt;a href=&quot;https://twitter.com/andreasevers&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Andreas Evers&lt;/a&gt;&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The ultimate goal of continuous delivery is to deploy software quickly and automatically.
-This can only be achieved if we are able to push new code without fear.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Andreas Evers&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/andreas-evers.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Throughout the years, Andreas saw that there are two opposing forces that are battling it out.
-On the one hand there is the need for speed while on the other hand there is the need for confidence.
-Like, updating in production without testing will give you great speed, but not much confidence.&lt;/p&gt;
-
-&lt;p&gt;Microservices using integration tests on an acceptance environment might mean that you test an already obsolete topology because microservices can change that quickly.
-Contract testing does not cover all the aspects needed to provide confidence as it does not test behaviour.&lt;/p&gt;
-
-&lt;p&gt;A good alternative that Andreas talked about is Canary Analysis.
-In order to do so let’s first introduce Spinnaker:
-&lt;a href=&quot;https://www.spinnaker.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spinnaker&lt;/a&gt; is an open source, multi-cloud continuous delivery platform created at Netlfix.
-It supports a lot of cloud environments like: OpenStack, AWS, Google Cloud, Microsoft Azure, Cloud Foundry, … 
-Major contributors are Netflix, Google, Microsoft, Pivotal, …&lt;/p&gt;
-
-&lt;p&gt;Under the hood, Spinnaker is composed of a bunch of Spring Boot microservices.
-Another important component of Spinnaker is &lt;a href=&quot;https://github.com/spinnaker/halyard&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Halyard&lt;/a&gt;: a bill of materials for the different microservices of Spinnaker, helping you with the deployment of Spinnaker.
-Spinnaker also integrates well with your CI environments.&lt;/p&gt;
-
-&lt;p&gt;Cloud deployments are often complex:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Different regions&lt;/li&gt;
-  &lt;li&gt;Different accounts for your environments (production, acceptance, … )&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Teams want an easy road into the cloud, no complexity to deploy.
-On the other hand easy rollbacks are important.
-Spinnaker can help you with this!&lt;/p&gt;
-
-&lt;p&gt;Various deployment strategies exist:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Red/Black&lt;/li&gt;
-  &lt;li&gt;Rolling Red/Black&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.spinnaker.io/guides/user/canary/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Canary analysis&lt;/a&gt; 
-&lt;img alt=&quot;deployment strategies&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/deployment-strategies.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 700px;&quot; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can define a pipeline to deploy into production:
-&lt;img alt=&quot;pipeline tasks&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/pipeline-tasks.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;For every stage you will have a series of steps.
-Within every step you can define multiple tasks and every task has some operations which get executed.
-A lot of these steps are very specific depending on the cloud which Spinnaker tends to abstract away.&lt;/p&gt;
-
-&lt;p&gt;Spinnakers makes it possible to go fast but still do it safely:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Automated rollbacks&lt;/li&gt;
-  &lt;li&gt;Deployment windows&lt;/li&gt;
-  &lt;li&gt;Cluster locking&lt;/li&gt;
-  &lt;li&gt;Traffic guards which are extra safeguards which can be configured&lt;/li&gt;
-  &lt;li&gt;Manual judgements which makes use of the human “gut” feeling, which a computer does not have&lt;/li&gt;
-  &lt;li&gt;…&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Andreas had a Rick &amp;amp; Morty demo application of which he had an old, already deployed version and a new version.
-When doing canary, it is wise to startup a baseline, the old version, so that you have the solid baseline to measure against.
-Spinnaker will also look at JVM metrics like memory, CPU, etc. 
-But you can also define business metrics like startup time of the app, response times, …&lt;/p&gt;
-
-&lt;p&gt;When the canary fails, it will just rollback and restore the previous version.
-Spinnaker will decide if the canary fails by looking at the statistics it gathered.&lt;/p&gt;
-
-&lt;p&gt;Canary testing allows you to test with real users and real production data.
-At the same time it reduces the possible impact of your new version on end users.&lt;/p&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/uB35m60GAZw&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;using-java-modules-in-practice-with-spring-boot-by-jaap-coomans&quot;&gt;Using Java Modules in Practice with Spring Boot by &lt;a href=&quot;https://twitter.com/JaapCoomans&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jaap Coomans&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Jaap Coomans&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/jaap-coomans.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;current-state&quot;&gt;Current State&lt;/h3&gt;
-&lt;p&gt;First Jaap started with addressing the current state of the module system:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Most tooling support is good (Maven, IDE, …)&lt;/li&gt;
-  &lt;li&gt;In frameworks the adoption is very low&lt;/li&gt;
-  &lt;li&gt;For developers it is even lower&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;It can be summarized as: it’s like eating vegetables, we know it is healthy, we know its beneficial, but we don’t do it.&lt;/p&gt;
-
-&lt;h3 id=&quot;using-modules&quot;&gt;Using modules?!&lt;/h3&gt;
-
-&lt;p&gt;What challenges will you face when you want to migrate to modules.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Split packages: packages with the same name exposed by more than one module.&lt;/li&gt;
-  &lt;li&gt;Automatic modules: plain JAR on your module path and thus interpreted as a module.
-This exports and opens all packages, reads all other modules and it derives its module name from the filename
-The problem with that is that you can only have one module with a certain name on your module path.
-    &lt;ul&gt;
-      &lt;li&gt;In Maven Central, 3.500 collisions are possible.&lt;/li&gt;
-      &lt;li&gt;You can circumvent this with the Automatic-Module-Name in your manifest file.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For the demo application, Jaap used MongoDB.
-There is a split package issue in the legacy mongo client, not with the new one, but Spring Data Mongo relies heavily on the legacy mongo client instead of the new one.&lt;/p&gt;
-
-&lt;p&gt;In order to get started with modules, the first steps are just to minimize the problems you might encounter.&lt;/p&gt;
-&lt;h4 id=&quot;step-1--2--3&quot;&gt;Step 1 + 2 + 3:&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Upgrade your dependencies as this will minimize conflicts.&lt;/li&gt;
-  &lt;li&gt;Use JDK11+.&lt;/li&gt;
-  &lt;li&gt;Compile to  JDK11+.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;These first three steps are just to reduce the problems you might encounter.&lt;/p&gt;
-
-&lt;h4 id=&quot;step-4&quot;&gt;Step 4:&lt;/h4&gt;
-&lt;p&gt;Prepare the module structure within your code, so you can go from module to module.
-Don’t start with one big module from the start.&lt;/p&gt;
-
-&lt;h4 id=&quot;step-5&quot;&gt;Step 5:&lt;/h4&gt;
-&lt;p&gt;Add module descriptors bottom-up.&lt;/p&gt;
-
-&lt;p&gt;Create a new &lt;code class=&quot;highlighter-rouge&quot;&gt;module-info.java&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;This first module has no external dependencies whatsoever making it very easy to define.
-You only need to indicate what your are going to expose.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Note: you might need a newer version of the Maven Surefire Plugin; Jaap used version &lt;code class=&quot;highlighter-rouge&quot;&gt;3.0.0-M3&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;For a module which needs other modules, you will need to define a little bit more within the &lt;code class=&quot;highlighter-rouge&quot;&gt;module-info&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bgg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//requires com.sun.xml.bind;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;xml&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feign&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;core&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feign&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaxb&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-   
-    &lt;span class=&quot;n&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bgg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;factory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;opens&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bgg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;xmlapi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;requires&lt;/code&gt;: Defines the modules that you need.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;exports&lt;/code&gt;: The packages that you expose.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;opens&lt;/code&gt;: This means that this will make a module available for reflection (i.e. at runtime), that you might need for JAXB in this case.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Spring is not yet modular, but they did define automatic module names in all of their JARs.&lt;/p&gt;
-
-&lt;h4 id=&quot;step-6&quot;&gt;Step 6:&lt;/h4&gt;
-&lt;p&gt;Add a module descriptor to the main JAR.
-Only then you get all the benefits of the module system.
-At this moment you will also encounter all the hurdles as this will also get you into runtime errors.
-If you do not execute this step, your main application will still be using the classpath and not the module path.&lt;/p&gt;
-
-&lt;p&gt;Export the main class and the application module.&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;application&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bgg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    
-    &lt;span class=&quot;n&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You can also define &lt;code class=&quot;highlighter-rouge&quot;&gt;requires transitive&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoomans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;persistence&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;requires&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transitive&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jaapcoommans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boardgame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
- &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This last part means that when you depend on that module, you will also implicitly depend on that transitive module.&lt;/p&gt;
-
-&lt;h3 id=&quot;runtime-errors&quot;&gt;Runtime Errors.&lt;/h3&gt;
-
-&lt;p&gt;When you encounter runtime errors, you can pretty much copy paste the errors you get about opening the modules.
-Encountering &lt;code class=&quot;highlighter-rouge&quot;&gt;ClassNotFoundExceptions&lt;/code&gt; hints at missing modules for which you should define a &lt;code class=&quot;highlighter-rouge&quot;&gt;requires&lt;/code&gt; definition.&lt;/p&gt;
-
-&lt;p&gt;When you stop getting errors, this means that you have reached the next phase..&lt;/p&gt;
-
-&lt;p&gt;Spring does use some of the internals of the JDK, which can be fixed by:&lt;code class=&quot;highlighter-rouge&quot;&gt;requires jdk.unsupported&lt;/code&gt;.
-This does help you out for now, but the module name alone screams that you should not use it.&lt;/p&gt;
-
-&lt;h3 id=&quot;lessons-learned&quot;&gt;Lessons Learned.&lt;/h3&gt;
-
-&lt;p&gt;As a summary here are the lessons learned by Jaap:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Move bottom up.&lt;/li&gt;
-  &lt;li&gt;Test all paths on every step, because you will encounter runtime errors.&lt;/li&gt;
-  &lt;li&gt;The logs have the answer while the JVM gives you a good indication of errors by the module system.&lt;/li&gt;
-  &lt;li&gt;It still involves pioneering.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/UFBH7gHJkb4&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;stream-processing-with-the-spring-framework-by-josh-long-and-viktor-gamov&quot;&gt;Stream Processing with the Spring Framework by &lt;a href=&quot;https://twitter.com/starbuxman&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Josh Long&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/gamussa&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Viktor Gamov&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;All the source code of the live demo can be found on &lt;a href=&quot;https://github.com/joshlong/spring_io_2019/tree/master/kafka_and_spring&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Josh Long&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/josh-long.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Viktor Gamov&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/viktor-gamov.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Statement: &lt;em&gt;It is dangerous to think of Kafka as a message queue as it tends to become a vine of data within your organization to move data around thus becoming a database.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;In the demo they made use of &lt;a href=&quot;https://avro.apache.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Apache Avro&lt;/a&gt;.
-The Avro format will be used as a contract for the messages, it also gives you the option to generate Java classes based on the schema.
-You can use an Avro Maven plugin for that.&lt;/p&gt;
-
-&lt;p&gt;Kafka does not care what you put in there.
-But passing along a schema gives your consumers the option to verify that they can process the message or not.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://spring.io/projects/spring-kafka&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Kafka&lt;/a&gt; gives you &lt;a href=&quot;https://docs.spring.io/spring-kafka/api/org/springframework/kafka/core/KafkaTemplate.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;KafkaTemplates&lt;/a&gt; that you can use.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;KafkaTemplate&lt;/code&gt; wraps a producer and provides you with some extra handy methods to send data to Kafka topics.
-For more information you can check out the reference guide to &lt;a href=&quot;https://docs.spring.io/spring-kafka/reference/html/#kafka-template&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;use KafkaTemplates&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;It is important that you think about the type of the key and the type of the value, serializer and deserializer.&lt;/p&gt;
-
-&lt;p&gt;For this you will need to define a &lt;code class=&quot;highlighter-rouge&quot;&gt;DefaultKafkaProducerFactory&lt;/code&gt; which will provide you with some default config options like:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Bootstrap servers: where to find your Kafka.&lt;/li&gt;
-  &lt;li&gt;Schema registry URL: where to find your Avro schema registry.&lt;/li&gt;
-  &lt;li&gt;Key serializer: the class to be used to serialize your key when writing the message to Kafka.&lt;/li&gt;
-  &lt;li&gt;Value serializer: the class to be used to serialize your value.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Without those serializers, Kafka will not be able to transform your message.&lt;/p&gt;
-
-&lt;p&gt;Various other frameworks worth mentioning:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://spring.io/projects/spring-cloud-stream&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Cloud Stream&lt;/a&gt;: allows you to abstract the use of message brokers.
-It will manage a lot of the bindings for you with Kafka Streams mapping a lot of the configuration automatically for you.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://kafka.apache.org/documentation/streams/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kafka Streams&lt;/a&gt;: a stream processing pipeline that you can use to build processing pipelines.
-Similar to Spark but less of a hassle to set up.
-Ktable is the representation of state.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Some final notes about Kafka Streams:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Kafka streams allows you to visualize your topology in a Directed Acyclic Graph using &lt;code class=&quot;highlighter-rouge&quot;&gt;TopologyDescroption&lt;/code&gt;.
-For more info see this &lt;a href=&quot;https://docs.confluent.io/current/streams/faq.html#visualizing-topologies&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Kafka Streams allows you to do stateful stream processing in an easy way. 
-Its state store is replicated within Kafka so it can restore it in case of failure.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Do not forget your &lt;code class=&quot;highlighter-rouge&quot;&gt;SerDes&lt;/code&gt; when writing out Kafka Streams code.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;Spring Cloud Stream&lt;/code&gt; automatically converts to JSON but your &lt;code class=&quot;highlighter-rouge&quot;&gt;Kafka streams&lt;/code&gt; code deals with binary data, so it needs to know how to serialize / deserialize. 
-Some of them are predefined by Kafka: &lt;code class=&quot;highlighter-rouge&quot;&gt;StringSerde&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;LongSerde&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;JsonSerdes&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;It was a very entertaining live coding session which you can rewatch here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/OHjVhTQ3j6g&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;how-fast-is-spring-by-dave-syer&quot;&gt;How Fast is Spring by &lt;a href=&quot;https://twitter.com/david_syer&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dave Syer&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Dave Syer&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/dave-syer.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;In this talk Dave is going over the performance improvements carried out by the Spring team.&lt;/p&gt;
-
-&lt;p&gt;Cold startup time of the JVM takes up some time but once started it is an awesome place.&lt;/p&gt;
-
-&lt;p&gt;We went through some measurements.
-An application started up in 1.300 milliseconds.
-This went down to 1.200 milliseconds by tuning Spring a bit.
-By then using Spring functional bean definitions it went down to 600 milliseconds.&lt;/p&gt;
-
-&lt;p&gt;The overhead of Spring Boot versus no Spring Boot is currently around 15 milliseconds.
-Thus, a lot of the overhead has already been dealt with.&lt;/p&gt;
-
-&lt;p&gt;If the classloader has been warmed up, the startup time difference is much smaller.
-With Spring Devtools you have a warm classloader, which reduces your startup time.&lt;/p&gt;
-
-&lt;p&gt;Lots of optimizations have happened e.g. heap memory went down from 10MB to 6MB with the move to Spring Boot 2.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/jvm-profiling-tools/async-profiler&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Async profiler&lt;/a&gt; is a tool you can attach to a running Java process.
-It has little to no impact on the running performance and shows the calls being executed.
-The width of the flame is the time it took to run.
-Red and yellow colour means: not in Java user memory and ready for garbage collection.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Async profiler&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/async-profiler.svg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Spring Boot 2.2 has boosted performance.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Classpath exclusion from Spring Boot web starters.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spring-context-indexer&lt;/code&gt;: this is marginal but with a lot of beans it will have a bigger impact.&lt;/li&gt;
-  &lt;li&gt;Spring Actuators used to be costly for startup time, but no longer a big impact since the optimizations in Spring Boot 2.0.&lt;/li&gt;
-  &lt;li&gt;Use explicit &lt;code class=&quot;highlighter-rouge&quot;&gt;spring.config.location&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Switch of JMX &lt;code class=&quot;highlighter-rouge&quot;&gt;spring.jmx.enabled = false&lt;/code&gt; (in 2.2 this is the default setting).&lt;/li&gt;
-  &lt;li&gt;Make bean definitions lazy by default.
-In production you might not want this because if a bean is lazy loaded, the application might not fail on startup.
-It can make sense to do this during development in order to improve development time.&lt;/li&gt;
-  &lt;li&gt;Unpack the fat JAR and run it by specifying the explicit classpath as &lt;code class=&quot;highlighter-rouge&quot;&gt;java --jar&lt;/code&gt; is little bit slower compared to using &lt;code class=&quot;highlighter-rouge&quot;&gt;java --cp&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Run the JVM with &lt;code class=&quot;highlighter-rouge&quot;&gt;-noverify&lt;/code&gt; and consider &lt;code class=&quot;highlighter-rouge&quot;&gt;-XX:TieredStopAtLevel=1&lt;/code&gt;.
-    &lt;ul&gt;
-      &lt;li&gt;All JVM experts will tell you not to do this.&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-noverify&lt;/code&gt; will gain you 40% time with any app but it does not validate byte code which is less interesting in production as the JVM will just crash and show you no exception whatsoever.&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-XX:TieredStopAtLevel=1&lt;/code&gt; this deals with the JIT compiler, will gain you around 10% with any app.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Import auto configuration manually as it is not needed and might give you a small speed gain.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A nice list of tools you can use:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Benchmarks: &lt;a href=&quot;https://openjdk.java.net/projects/code-tools/jmh/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;JMH&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;JUnit and JMH: &lt;a href=&quot;https://github.com/mp911de/microbenchmark-runner&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;microbenchmark-runner&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Profiling: &lt;a href=&quot;https://github.com/jvm-profiling-tools/async-profiler&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;async-profiler&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;GC pressure: &lt;a href=&quot;https://www.oracle.com/technetwork/java/javaseproducts/mission-control/java-mission-control-1998576.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;JMC aka flight controller&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Quick metrics for any Spring Boot JAR: &lt;a href=&quot;https://github.com/dsyer/spring-boot-startup-bench&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Benchmark launcher&lt;/a&gt; from dsyer/spring-boot-startup.&lt;/li&gt;
-  &lt;li&gt;Classpath manipulation: &lt;a href=&quot;https://github.com/spring-projects-experimental/spring-boot-thin-launcher&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Thin Launcher&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Profiling with &lt;a href=&quot;https://www.eclipse.org/aspectj/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AspectJ&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Other Remarks:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The Hibernate team is pretty aware of the GC issues and have done serious optimizations around it.&lt;/li&gt;
-  &lt;li&gt;Lazy beans: Pay attention to custom beans with an expensive &lt;code class=&quot;highlighter-rouge&quot;&gt;@PostConstruct&lt;/code&gt;.
-It tends to be misused for opening files, accessing database, which tends to block up the startup.&lt;/li&gt;
-  &lt;li&gt;You can try using &lt;code class=&quot;highlighter-rouge&quot;&gt;@ImportAutoConfiguration&lt;/code&gt; but then you need to know which &lt;code class=&quot;highlighter-rouge&quot;&gt;AutoConfigurations&lt;/code&gt; you need to include.
-Discovering that is the hard part.&lt;/li&gt;
-  &lt;li&gt;Functional Bean Definitions: 
-If you use &lt;code class=&quot;highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt; then you make use of reflection.
-You can implement an &lt;code class=&quot;highlighter-rouge&quot;&gt;ApplicationContextInitializer&lt;/code&gt; which makes you reflection free, but it is a bit harder to implement.&lt;/li&gt;
-  &lt;li&gt;CPU constrained environments benefit from native images built with &lt;a href=&quot;https://www.graalvm.org/docs/reference-manual/aot-compilation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GraalVM&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/T22i3WAa6dI&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;kubernetes-andor-cloud-foundry---how-to-run-your-spring-boot-microservices-on-state-of-the-art-cloud-platforms-by-matthias-haeussler&quot;&gt;Kubernetes and/or Cloud Foundry - How to run your Spring Boot Microservices on state-of-the-art cloud platforms by &lt;a href=&quot;https://twitter.com/maeddes&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Matthias Haeussler&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Matthias Haeussler&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/matthias-haeussler.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Matthias Haeussler is a Cloud Advocate at NovaTec Consulting. 
-He gave a presentation about the differences between Kubernetes and Cloud Foundry.
-He showed us this live with Spring Boot application which was deployed on both Kubernetes and Cloud Foundry.&lt;/p&gt;
-
-&lt;h3 id=&quot;cloud-foundry&quot;&gt;Cloud Foundry&lt;/h3&gt;
-&lt;p&gt;To deploy your application on Cloud Foundry, you simply have to run one command: &lt;code class=&quot;highlighter-rouge&quot;&gt;cf push&lt;/code&gt; (under the assumption that you have the CLI installed and configured).
-This will send your whole codebase to Cloud Foundry, which then builds a container for your application and runs it. 
-Cloud Foundry does not use Docker images, only containers.
-The thing with Cloud Foundry is that it uses containers behind-the-scenes, but as a CF user, you don’t really notice it.&lt;/p&gt;
-
-&lt;h3 id=&quot;kubernetes&quot;&gt;Kubernetes&lt;/h3&gt;
-&lt;p&gt;With Kubernetes, it’s a whole different story. You can’t just ‘run’ your application on Kubernetes. You will need a Docker image to run your application, which means
-your application must have a Dockerfile inside it. 
-This Docker image must be pushed to a Docker registry, which is then pulled from the registry by Kubernetes and ran with the specified configuration.&lt;/p&gt;
-
-&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
-&lt;p&gt;In Kubernetes, you can configure way more which is a huge benefit.
-On the other hand you also need to know more about the platform to do so.
-Whereas with Cloud Foundry it is just one command and your codebase is pushed, wrapped into a container and ran on the platform.
-Way more simple but with less configuration options.
-Thus you can configure less than when using Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;Kubernetes also requires more dependencies if you want to get more out of it (ex. Helm, Prometheus, Istio, …).
-This requires additional maintenance of those dependencies.&lt;/p&gt;
-
-&lt;p&gt;The ideal platform is: the simplicity of Cloud Foundry with the functional features of Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/-WZmhofnfII&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;migrating-a-modern-spring-web-application-to-serverless-by-jeroen-sterken-and-wim-creuwels&quot;&gt;Migrating a modern spring web application to serverless by &lt;a href=&quot;https://twitter.com/jeroensterken&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jeroen Sterken&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/wimcreuwels&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Wim Creuwels&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Jeroen Sterken&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/jeroen-sterken.jpg&quot; /&gt;&lt;/span&gt;
-&lt;span class=&quot;image left&quot;&gt;
-&lt;img class=&quot;p-image&quot; alt=&quot;Wim Creuwels&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/wim-creuwels.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Is serverless the holy grail? 
-These guys explored the possibilities while migrating an existing monolith to serverless at one of their clients.&lt;/p&gt;
-
-&lt;p&gt;Serverless will help your developers focus on the code instead of server management and database setup.
-Wim and Jeroen also mention the flip side of the coin.
-It’s a new technology and as is the case with every new technology, there is a learning curve.
-Developers have to get used to the services that the cloud provider supports.
-They need to “think serverless” and model applications as functions in well-defined steps.
-Infrastructure has to be modelled using Infrastructure as Code.
-A topic on which you can find a great resource on our blog &lt;a href=&quot;https://ordina-jworks.github.io/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;No, serverless is not the holy grail. It is however a great solution for some typical use cases:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Event-driven architectures&lt;/li&gt;
-  &lt;li&gt;Internet of things&lt;/li&gt;
-  &lt;li&gt;Applications with varying load&lt;/li&gt;
-  &lt;li&gt;Data analysis&lt;/li&gt;
-  &lt;li&gt;…&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;step-functions&quot;&gt;Step functions&lt;/h4&gt;
-&lt;p&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Step Function Diagram&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/step-function-diagram.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Jeroen and Wim glued their app together using AWS Step Functions.
-Step Functions is a serverless orchestration service that lets you model your workflow as a series of steps.
-Step Functions will keep your Lambda functions free of logic that triggers other Lamba functions.
-Instead it will use the output of one Lambda function to trigger the next one, thus progressing towards the next step.&lt;br /&gt;
-These steps are made visible by a clear step diagram that shows your workflow.
-This diagram allows you to monitor your flow by changing color when something goes wrong.
-In case of an error Step Functions will automatically retry.&lt;/p&gt;
-
-&lt;h4 id=&quot;spring-cloud-functions&quot;&gt;Spring Cloud Functions&lt;/h4&gt;
-&lt;p&gt;We are at SpringIO and we’re talking about Serverless Cloud technology so Spring Cloud Functions cannot be left unmentioned.
-Spring Cloud Function is a project by the Spring team that allows you to write cloud platform independent code.
-In the process you can keep using familiar Spring constructs like beans, autowiring and dependency injection.
-You can find great guides on &lt;a href=&quot;https://www.baeldung.com/spring-cloud-function&quot; target=&quot;_blank&quot;&gt;baeldung.com&lt;/a&gt; and &lt;a href=&quot;https://spring.io/projects/spring-cloud-function&quot; target=&quot;_blank&quot;&gt;spring.io&lt;/a&gt;.
-Using Spring Cloud Functions will lower the stepping stone towards Serverless because most Java developers are already familiar with the Spring Framework.&lt;/p&gt;
-
-&lt;p&gt;Serverless was already a hot topic.
-The fact that Spring now has also jumped on the wagon only makes it hotter.
-Definitely keep your eyes open for Serverless in the near future.&lt;/p&gt;
-
-&lt;p&gt;You can rewatch their talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/594bKxp0wZI&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;day-2-talks--workshops&quot;&gt;Day 2: Talks &amp;amp; Workshops&lt;/h1&gt;
-&lt;h2 id=&quot;testing-spring-boot-applications-by-andy-wilkinson&quot;&gt;Testing Spring Boot Applications by &lt;a href=&quot;https://twitter.com/ankinson&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Andy Wilkinson&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Andy Wilkinson&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/andy-wilkinson.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Andy Wilkinson of Pivotal explained us the importance and essence of writing tests in your application to ensure the quality of your services.
-Of course, having a zero risk functionality is practically impossible but testing helps you to reduce your risk to a minimum.&lt;/p&gt;
-
-&lt;p&gt;But how do you know if a test is ‘good’? 
-Almost everyone is basing this on the amount of code coverage in their project.
-This does not determine the quality of your tests.
-When you write tests, you want to think about mistakes that you make or that can be made by the end user.&lt;/p&gt;
-
-&lt;h3 id=&quot;unit-testing&quot;&gt;Unit testing&lt;/h3&gt;
-&lt;p&gt;When you rewrite your application logic, there’s a high chance that you have to rewrite your unit tests as well. 
-So make sure that you do not have to spend a lot of time on rewriting your tests when you want to refactor your application or write extra features.&lt;/p&gt;
-
-&lt;p&gt;It’s also very important to use descriptive names for your tests. 
-Make sure that your tests are readable by the human eye.
-No one wants to read a test that is not clear or creates more confusion (JUnit 5 comes with a display annotation to make a test name more readable).&lt;/p&gt;
-
-&lt;p&gt;When you are familiar with writing unit tests, you’ve probably also heard of mocking. 
-Unit testing is all round mocking external services and dependencies. 
-After all, in a unit tests we are under the assumption that all our external dependencies are working as they should.&lt;/p&gt;
-
-&lt;h3 id=&quot;integration-testing&quot;&gt;Integration Testing&lt;/h3&gt;
-&lt;p&gt;Andy gave us a detailed explanation of how the various testing annotations work such as &lt;code class=&quot;highlighter-rouge&quot;&gt;@SpringBootTest&lt;/code&gt;, which gives us a more Spring Boot way of testing our application (which means less configuration, hooray!). 
-&lt;code class=&quot;highlighter-rouge&quot;&gt;@SpyBean&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;@MockBean&lt;/code&gt; to create a mock or spy object of a Spring Component, &lt;code class=&quot;highlighter-rouge&quot;&gt;@ActiveProfiles&lt;/code&gt; to run your test class with a specific profile, etc.&lt;/p&gt;
-
-&lt;h4 id=&quot;testing-against-databases&quot;&gt;Testing Against Databases&lt;/h4&gt;
-&lt;p&gt;One of the more appearing problems in integration testing is working with a database. 
-Typically, when you want to test against data in a database you are going to want to use an in-memory database.
-Often this is a HSQLDB or H2 database.
-This is where it gets interesting. 
-You can tell your H2 instance to run in a specific database software mode, such as PostgreSQL.
-However, it’s not exactly the same as working with a real PostgreSQL server.
-H2 only interprets the queries that are ran in a PostgreSQL dialect and tries to convert to its own syntax. 
-This can cause lots of problems, because you are not working with a real Postgres server.
-Even though H2 is ran with PostgreSQL compatibility mode, it can still fail with queries that will run perfectly on a real PostgreSQL server.&lt;/p&gt;
-
-&lt;p&gt;Andy recommended us to use &lt;a href=&quot;https://www.testcontainers.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;TestContainers&lt;/a&gt;.
-These have the power to spin up a Docker image of a database of your choice.
-So you’ll have the full functionality of a database server.&lt;/p&gt;
-
-&lt;h3 id=&quot;whats-next&quot;&gt;What’s next?&lt;/h3&gt;
-&lt;p&gt;We are really excited to see what the new Spring Boot versions will have in store to help us write better and clearer tests.
-Spring Boot 2.2 will come with full JUnit 5 functionality and thus, will leave JUnit 4 behind.&lt;/p&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/5sjFn9BsAds&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;how-to-live-in-a-post-spring-cloud-netflix-world-by-olga-maciaszek-and-marcin-grzejszczak&quot;&gt;How to live in a post-Spring-Cloud-Netflix world by &lt;a href=&quot;https://twitter.com/olga_maciaszek&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Olga Maciaszek&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/mgrzejszczak&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Marcin Grzejszczak&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Olga Maciaszek&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/olga-maciaszek.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Andy Wilkinson&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/marcin-grzejszczak.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Discovering the new Spring Cloud stack.
-That’s what this talk was all about.
-Olga Maciaszek and Marcin Grzejszczak showed us the new solutions for Gateway proxying, circuit breaking and the whole new Spring Cloud stack.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-world-is-changing&quot;&gt;The world is changing&lt;/h3&gt;
-
-&lt;h4 id=&quot;spring-cloud-load-balancer&quot;&gt;Spring Cloud Load Balancer&lt;/h4&gt;
-&lt;p&gt;Client side load balancing via the &lt;code class=&quot;highlighter-rouge&quot;&gt;@LoadBalancerClient&lt;/code&gt; annotation.
-Use the &lt;code class=&quot;highlighter-rouge&quot;&gt;@LoadBalanced&lt;/code&gt; annotation as a marker annotation to indicate that a &lt;code class=&quot;highlighter-rouge&quot;&gt;RibbonLoadBalancingClient&lt;/code&gt; should be used to interact with a service.&lt;/p&gt;
-
-&lt;h4 id=&quot;spring-cloud-gateway&quot;&gt;Spring Cloud Gateway&lt;/h4&gt;
-&lt;p&gt;Via routes your requests are processed to downstream services.
-Spring Cloud Gateway is used as a simple way to achieve this routing to your APIs.
-You can keep configuring this as code:&lt;/p&gt;
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;users_service_route&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/user-service/**&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HttpMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;stripPrefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lb://user-service&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;or in your properties file:&lt;/p&gt;
-
-&lt;div class=&quot;language-properties highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;py&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;py&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;py&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;proxy&lt;/span&gt;
-  &lt;span class=&quot;py&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;py&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;py&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;err&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;fraud&lt;/span&gt;
-        &lt;span class=&quot;py&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;lb://fraud-verifier&lt;/span&gt;
-        &lt;span class=&quot;py&quot;&gt;predicates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;err&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;Path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/fraud-verifier/**&lt;/span&gt;
-        &lt;span class=&quot;py&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;err&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;StripPrefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;err&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Retry&lt;/span&gt;
-          &lt;span class=&quot;py&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;py&quot;&gt;retries&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;3&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;circuit-breaking-and-resilience4j&quot;&gt;Circuit Breaking and Resilience4J&lt;/h4&gt;
-&lt;p&gt;You need a design that is resilient and fault tolerant.&lt;/p&gt;
-
-&lt;p&gt;After a number of failed attempts, we can consider a service unavailable.
-We will then back off and stop flooding it with requests.
-We can save system resources for calls which are likely to fail.
-And give the other service some time to get back on their feet.&lt;/p&gt;
-
-&lt;h4 id=&quot;micrometer-and-prometheus&quot;&gt;Micrometer and Prometheus&lt;/h4&gt;
-&lt;p&gt;Periodically scraping metrics from your services to monitor health.&lt;/p&gt;
-
-&lt;h4 id=&quot;spring-cloud-config-server&quot;&gt;Spring Cloud Config Server&lt;/h4&gt;
-&lt;p&gt;Externalize your configuration.
-You don’t have to restart your application to reload your configuration.
-Just fetch it from the remote service again.&lt;/p&gt;
-
-&lt;h3 id=&quot;resources&quot;&gt;Resources&lt;/h3&gt;
-&lt;p&gt;Check out a fully working Spring Cloud microservices demo here:
-&lt;a href=&quot;https://github.com/OlgaMaciaszek/spring-cloud-netflix-demo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/OlgaMaciaszek/spring-cloud-netflix-demo&lt;/a&gt;.
-A lot of gratitude to Olga and Marcin for providing a working example that we can play around with to get acquainted with the new services.&lt;/p&gt;
-
-&lt;p&gt;You can rewatch their talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/CcL8wrguhhM&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;event-driven-microservices-with-axon-and-spring-boot-excitingly-boring-by-allard-buijze&quot;&gt;Event-Driven Microservices with Axon and Spring Boot: excitingly boring by &lt;a href=&quot;https://twitter.com/allardbz&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Allard Buijze&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Allard Buijze&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/allard-buijze.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;In this presentation, Allard Buijze, Founder and CTO of AxonIQ talks about the advantages of event-driven architectures and shows how easy it is to set up your own event-driven microservices using Axon and Spring Boot.&lt;/p&gt;
-
-&lt;h3 id=&quot;what-is-axon&quot;&gt;What is Axon?&lt;/h3&gt;
-
-&lt;p&gt;The &lt;a href=&quot;https://axoniq.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Axon framework&lt;/a&gt; is used for building event-driven microservices using Domain-Driven Design, CQRS and Event Sourcing.
-It is there to prevent developers from getting lost inside a complex microservice architecture.&lt;/p&gt;
-
-&lt;h5 id=&quot;cqrs&quot;&gt;CQRS&lt;/h5&gt;
-&lt;p&gt;Command and Query Responsibility Segregation is a design pattern where you split the reading and writing of data into seperate models.
-You use queries for reading the data and commands for updating the data.
-While for basic CRUD operations having these models combined might be fine but once the amount of business logic and the amount of queries increases it might become increasingly difficult to manage.&lt;/p&gt;
-
-&lt;h3 id=&quot;state-storage-vs-event-sourcing&quot;&gt;State Storage vs Event Sourcing&lt;/h3&gt;
-&lt;p&gt;A big part of this presentation is about the advantages of using event sourcing rather than state storage.
-Events describe the history of an object rather than just the current state of the object.
-It is easy to go through the history and generate the current state while also getting a lot of extra information about the object you would otherwise miss out on when just storing its current state. 
-Explicit record that something happened, rather than an implicit record of what happened based on changes that occured.
-This also makes testing your application easier because you do not have to rely on state but rather on a series of events to take place or an exception to occur.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; alt=&quot;event-sourcing&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/event-sourcing.png&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;events&quot;&gt;Events&lt;/h3&gt;
-&lt;p&gt;One of the biggest advantages of events is that they remain valuable over time.
-They need to be the source of everything in the application and show a true representation of your entities.
-Once again, you don’t save the state of an aggregate, you can generate the state by replaying the history.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-power-of-not-now&quot;&gt;The power of not now&lt;/h3&gt;
-&lt;p&gt;The power of not now basically means that because you save all the events,
-you can generate reports whenever you want based on the captured data.
-You don’t have to know in advance what data is important to store for later on, everything is stored.&lt;/p&gt;
-
-&lt;h3 id=&quot;axon-server&quot;&gt;Axon Server&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://docs.axoniq.io/reference-guide/axon-server&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Axon Server&lt;/a&gt; is a service that distributes your components, manages routing, stores events and provides high availability and observability.
-By combining all these otherwise different services into one single easy to configure service,
-you make your entire architecture a lot easier to manage than if you were to use for example the Netflix Eureka Discovery Service for communication between microservices,
-the MySQL Event Store for storing events and RabbitMQ to handle messaging.
-By simply adding the Axon Server dependency and adding some annotations you can use all of these services while keeping the complexity low.&lt;/p&gt;
-
-&lt;h3 id=&quot;tracing&quot;&gt;Tracing&lt;/h3&gt;
-&lt;p&gt;Axon can also manage tracing for you by just adding the Axon tracing and Jaeger to your dependencies.
-Where otherwise setting up tracing would be a lot of work having to deal with all kinds of headers,
-passing headers along and interpreting them,
-Axon tracing takes care of all of this for you.&lt;/p&gt;
-
-&lt;p&gt;You can rewatch his talk here:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/iVaD3mdwvx4&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;how-to-secure-your-spring-apps-with-keycloak-by-thomas-darimont&quot;&gt;How to secure your Spring apps with Keycloak by &lt;a href=&quot;https://twitter.com/thomasdarimont&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Thomas Darimont&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Thomas Darimont&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/thomas-darimont.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;In this presentation Thomas Darimont talks about what Keycloak is,
-what you can do with it and gives a demo of how it works and how you can set it up for your own applications.&lt;/p&gt;
-
-&lt;h3 id=&quot;what-is-keycloak&quot;&gt;What is Keycloak?&lt;/h3&gt;
-&lt;p&gt;Keycloak is a Java based authentication and authorization server. 
-It is developed by Red Hat who use it as a base for their enterprise RH-SSO application on which they provide additional support and documentation.
-It is also backed by a large open source community providing additional features, documentation and bugfixes.&lt;/p&gt;
-
-&lt;h3 id=&quot;keycloak-features&quot;&gt;Keycloak Features&lt;/h3&gt;
-
-&lt;p&gt;One of the most important features of Keycloak is the Single Sign-On and with this the Single logout.
-Sign into keycloak once to gain access to multiple applications and sign out once to sign out of all applications.
-Do note though that individual applications can disable this single logout so you might not get logged out of all the applications within a realm.
-Another great feature of Keycloak is their multi-factor authentication using one of the known authentication apps like the Google Authenticator.
-Keycloak also supports authentication through social media platforms such as Facebook, Twitter, Google or even Github. 
-Then of course there is the fact that Keycloak is completely customizable and extensible.
-It comes with a preferred stack on which we will dive into more detail later on.
-You can get away from this and use your own preferred services albeit with some additional configuration.
-Keycloak also comes with an easy to use management console for administrators and a user management interface where all users can update their user details.
-The last feature to discuss are the realms. 
-Sets of applications, users and registered OAuth clients to whom the Keycloak settings will be applied. 
-With these realms you can give users specific roles or just authenticate them across multiple applications using the Single Sign-on feature.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-keycloak-preferred-stack&quot;&gt;The keycloak preferred stack&lt;/h3&gt;
-
-&lt;p&gt;By default Keycloak is a WildFly based server with a plain JAX-RS application.
-It uses JPA for storing data and Infinispan for the horizontal scaling
-of multiple Keycloak nodes that all distribute information like user sessions between eachother.
-Other than that it uses the Freemarker template engine to render for example the login pages
-and Jackson 2.x for everything JSON related like the tokens.&lt;/p&gt;
-
-&lt;h3 id=&quot;securing-your-application&quot;&gt;Securing your application&lt;/h3&gt;
-
-&lt;p&gt;To add Keycloak to your applications you have to add a dependency and you will have to register your application within a Keycloak realm.
-After doing some configuration within your application and the Keycloak management console,
-you will have to authenticate through Keycloak to regain access to your application.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-authentication-process&quot;&gt;The authentication process&lt;/h3&gt;
-
-&lt;p&gt;The following steps describe the Keycloak authentication process:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Unauthenticated user accesses application&lt;/li&gt;
-  &lt;li&gt;The application redirects to Keycloak for login&lt;/li&gt;
-  &lt;li&gt;When the login is successful, Keycloak will create an SSO session and will emit cookies&lt;/li&gt;
-  &lt;li&gt;Keycloak generates a random code and redirects the user back to application&lt;/li&gt;
-  &lt;li&gt;The application receives the code associated with the sign-on session and sends the code back to Keycloak via a separate channel&lt;/li&gt;
-  &lt;li&gt;If the code sent back is associated with the sign-on session, Keycloak will reply with an access token, a refresh token and an id token&lt;/li&gt;
-  &lt;li&gt;The application verifies the tokens and associate them with a session&lt;/li&gt;
-  &lt;li&gt;The user is now logged in to the application&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For more information you can refer to Keycloak’s &lt;a href=&quot;https://www.keycloak.org/documentation.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;official documentation&lt;/a&gt; and you can also watch the original talk itself in the following video:&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/KrOd5wIkqls&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;zero-downtime-migrations-with-spring-boot-by-alex-soto&quot;&gt;Zero Downtime Migrations with Spring Boot by &lt;a href=&quot;https://twitter.com/alexsotob&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Alex Soto&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Alex Soto&quot; src=&quot;/img/2019-05-16-Spring-IO-2019/alex-soto.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;In this talk, Alex Soto, Software Engineer at Red Hat covers the subject of zero downtime migrations of microservices in Spring Boot.
-He covers some of the different deployment techniques.
-Some easy to understand ones and some more advanced techniques for when you are dealing with the persistent states of your applications.&lt;/p&gt;
-
-&lt;h3 id=&quot;dealing-with-downtime-when-using-microservices&quot;&gt;Dealing with downtime when using microservices&lt;/h3&gt;
-
-&lt;p&gt;While it is easier and faster to take down a single service rather than a single monolith application,
-deployment or redeployment of services will happen a lot more often when using a microservices architecture. 
-Another thing to consider is that when you have downtime on a service,
-all the services that have a dependency on the offline service will no longer work either.
-For this reason it is important to minimise downtime of your applications or even have no downtime at all. 
-This is why you need to deploy and release services at different times.
-Here are some techniques on how to do this.&lt;/p&gt;
-
-&lt;h3 id=&quot;bluegreen-deployment&quot;&gt;Blue/Green deployment&lt;/h3&gt;
-
-&lt;p&gt;Blue/Green deployment is where you will deploy an updated version of the service you want to replace
-and release it by changing the routing from the old one to the new one.
-It is important to keep the old service deployed and monitor the new one so that in case of errors
-you can easily revert the routing back to keep everything up and running.
-The downside of blue/green deployment is that if something goes wrong,
-all users are affected if changes happen before reverting the routing.
-But of course there is a solution to this problem, Canary releases.&lt;/p&gt;
-
-&lt;h3 id=&quot;canary-releases&quot;&gt;Canary releases&lt;/h3&gt;
-
-&lt;p&gt;Canary releases is where you route a small percentage of your traffic through an updated service while the rest keeps using the original service.
-This limits the amount of users that might be affected by unwanted changes while you monitor your new application.
-As everything goes well you increase the percentage of users until eventually your entire userbase uses the new service.
-All while still having the advantage of Blue/Green deployment to fall back on when things go wrong.&lt;/p&gt;
-
-&lt;h3 id=&quot;mirroring-traffic&quot;&gt;Mirroring traffic&lt;/h3&gt;
-
-&lt;p&gt;Mirroring traffic is another deployment technique where you deploy an updated version of a service next to the original one and send your requests to both services.
-Only the original service handles requests while the requests to the updated service are just fire and forget requests while you monitor if everything goes according to plan.
-Before eventually changing the routing to the updated version of the service.&lt;/p&gt;
-
-&lt;h3 id=&quot;but-what-about-sticky-sessions&quot;&gt;But what about sticky sessions&lt;/h3&gt;
-
-&lt;p&gt;When dealing with sticky sessions, which you often see with for example shopping carts on webshops,
-your session is linked to a specific service by IP.
-This means that when you get rerouted to an updated service, you will lose your session.
-To counter this problem you can use an in-memory datagrid using for example Redis
-and duplicate this across all the services that use these sticky sessions in your cluster.
-When you do this, your shopping cart will stay, even when the service you are accessing changes.&lt;/p&gt;
-
-&lt;h3 id=&quot;dealing-with-persistent-data&quot;&gt;Dealing with persistent data&lt;/h3&gt;
-
-&lt;p&gt;While problems with in-memory data are often fixed quite easily,
-when dealing with persistent data, zero downtime deployment becomes a little bit more tricky.
-Take for example the change of a column name in a database.
-If you were to use different services accessing the same database but using different column names, this would cause issues. 
-This exact problem and how to tackle it is shown in the demo.
-Together with a more in-depth explanation of the covered topics in a video of the talk below.&lt;/p&gt;
-
-&lt;div class=&quot;responsive-video&quot;&gt;
-    &lt;iframe width=&quot;1164&quot; height=&quot;655&quot; src=&quot;https://www.youtube.com/embed/oziyniXdUe8&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;the-end&quot;&gt;The end&lt;/h2&gt;
-&lt;p&gt;Spring is trendy as ever.
-Solid fundamentals and ready for the future of software development.
-It was great to further extend our Spring expertise.
-And let’s not forget the amazing time we had amongst colleagues.
-We’ll be back next year for more!
-Will you be there too?!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is a Java &amp; JavaScript developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build his expertise by contributing to valuable projects. Serverless, microservices and IoT fascinate him the most.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Conference" /><category term="Spring IO" /><category term="Spring" /><category term="Java" /><category term="Conference" /><summary type="html">Spring IO 2019!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-05-16-Spring-IO-2019/spring-io.png" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaëla&quot;, &quot;last_name&quot;=&gt;&quot;Broeckx&quot;, &quot;permalink&quot;=&gt;&quot;/author/michaela-broeckx/&quot;, &quot;title&quot;=&gt;&quot;Agile Coach&quot;, &quot;email&quot;=&gt;&quot;michaela.broeckx@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;michaelabroeckx&quot;, &quot;avatar&quot;=&gt;&quot;michaela-broeckx.jpg&quot;, &quot;bio&quot;=&gt;&quot;Michaëla is an Agile coach with a focus on value and the human aspects of work. She is devoted to Agile &amp; Scrum, not just as a mindset and framework for collaborative product delivery, but also for their general quality as ways to unlearn innate/inbred habits that prevent us from learning efficiently. A true Agile mindset enables enterprises to break down siloes, and build professional human networks throughout the company and beyond.&quot;}</name><email>michaela.broeckx@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="AgileWorks" /><category term="Agile Coaching" /><category term="Liberating Structures" /><category term="Root Cause Analysis" /><category term="Powerful Techniques" /><summary type="html">For quite a few years now, I have been going steady with Japan, the birthplace of so many philosophies, teachings and practices preceding and gearing up to the Agile movement. This is how I came to discover the well-hidden connection between work and fish. In Eastern Asia, the carp or koi is a deeply symbolic and highly respected animal, the presence and/or representation of which is considered a placeholder for luck, prosperity and a long life. No surprise then, that the fish is sometimes used as a metaphor for good business practice and process improvement.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/fishbones-for-tomorrow/main-image.jpg" /></entry></feed>
