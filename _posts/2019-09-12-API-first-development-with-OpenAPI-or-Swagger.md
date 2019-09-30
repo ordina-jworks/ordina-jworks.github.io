@@ -52,25 +52,25 @@ All communication between those services goes through the API.
 Often these applications are created by separate teams.
 
 * **API carry business value.**    
-Yes, there is money in your API.  
-An API exposes the functionality of your product.
-A good API allows user to integrate with your product with ease.
-Thus making your product a great choice.
+There is real money in your API.  
+Defining APIs gives us the opportunity to expose our application's functionality and create bridges between our provider and consumers.
+The easier it is to integrate with your API, the higher the acceptance rate of consumers for your product will be.
 
-In all of the cases a above there is value in good communication between services.
+In all of the cases above, there is value in good communication between services.
 And that's why you should practice API first development.
 Put your communication first!
 
 > The first priority in your API first development story is a clear API definition
 
-***How can I practice API first development?***
-* Understand that the API is the interface for your application.  
-It is the intersection where multiple services join hands to couple there functionality.
-Defining APIs gives us the opportunity to expose our application's functionality and create bridges between our provider and consumer.
-* The first step is to design your API.
-The implementation comes next.
+***How do you practice API first development?***
+* *Understand that the API is the interface for your application.*  
+It is the intersection where multiple services join hands to couple their functionality.
+Defining APIs gives us the opportunity to expose our 's functionality and create bridges between our provider and consumer.
+* *Design your API before implementing it.*  
 This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
 The contract between services is set.
+* *Visualize your API*  
+An image says more then a thousand words. We'll see how OpenAPI can help you with this.
 
 > API first development allows teams to develop separately against a common interface, the API.
 
@@ -92,7 +92,7 @@ In this blog post I am using the Top-down Design First approach to facilitate AP
 In the last paragraph of this blog I'll briefly show an example of a Code First approach with `Springfox`.
 
 # API design: an example
-Suppose that we, ***Ordina*** are hosting a conference where multiple technical and agile sessions will be given.
+Suppose that we, ***Ordina***, are hosting a conference where multiple technical and agile sessions will be given.
 Users can check session information and register for sessions.
 The backend service is accessed by a web application and two mobile apps.
 
@@ -150,7 +150,7 @@ The OpenAPI spec allows you to split your definitions over multiple files which 
 > Takeaways: Easy descriptive language & great visualisations
 
 You want to expose your beautiful visualisation to your clients.
-They shouldn't have to paste a `yaml` file in a window of there browser all the time.
+They shouldn't have to paste a `yaml` file in a window of their browser all the time.
 How do we do that? 
 Let's find out next.
 
@@ -206,7 +206,7 @@ As you can see on the background of the image above, the request was correctly i
 # OpenAPI Generator: generate API compliant code
 > Generate code that is compliant with your API spec with OpenAPI Generator
 
-When you agreed on the specification of your API it is time to start implementing it!
+When you've agreed upon the specification of your API it is time to start implementing it!
 The specification is shared across the different teams and they can each start implementing separately.
 
 Time to code!  
@@ -250,7 +250,7 @@ For starters we only want to generate the model classes:
 ```bash
 openapi-generator generate -i api.yml -g java -Dmodels
 ```
-Models here refers to your DTO's (Data Transfer Objects) or Resources.
+Models here refer to your DTO's (Data Transfer Objects) or Resources.
 These are different from your domain models or entity models.
 
 Let's see what we did here:
@@ -305,7 +305,7 @@ openapi-generator generate \
 
 This generates the `java` models without creating test classes and puts them in a package `com.ordina.conference_app.model`.
 It suffixes them with `Dto` since that's what they are.
-These classes are uses to transfer data in and out of the application (`Dto` aka Data Transfer Object).
+These classes are used to transfer data in and out of the application (`Dto` aka Data Transfer Object).
 
 <div style="text-align: center;">
   <img src="/img/2019-09-12-API-first-development-with-OpenAPI-or-Swagger/generate-dtos-in-package-with-beanvalidation.png" width="100%" height="100%">
@@ -410,7 +410,7 @@ Set<ConstraintViolation<SessionDto>> violations = Validation.buildDefaultValidat
 If some violations are detected you can return them wrapped in a 400 response.
 You could easily check this functionality by writing a unit test that:
 * checks that no violations are found in the case of a valid request body
-* checks that violations are found in case a payload is send which is not compliant with the API specs.
+* checks that violations are found in case a payload is sent which is not compliant with the API specs.
 
 The same goes for the responses. 
 In your code validate the response against your API specifications by using the `responseDto` that was generated from the specs:
@@ -528,7 +528,7 @@ Below the pros and cons of practising API first development using Swagger/OpenAP
  * Strong tooling support — AWS, Postman, visualizing the API, generate skeleton classes, ... 
  * Strong consistency between API spec and Web layer of the code
  * Example support 
- * Documenting API descriptions separated from code (not really separates, because they’re added to the generated classes, but you won’t need to change them 
+ * Documenting API descriptions separated from code (not really separated, because they’re added to the generated classes, but you won’t need to change them 
  * Functional analyst can assist with creating the API specs because it's a human readable format
 
 **Cons** 
