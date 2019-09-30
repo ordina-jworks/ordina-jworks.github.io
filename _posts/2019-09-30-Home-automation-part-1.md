@@ -230,3 +230,4 @@ In the coming months we'll be diving a bit deeper into the wonderful world of ho
 - [Homekit catalog, apple](https://developer.apple.com/documentation/Homekit/configuring_a_home_automation_device)
 - [Homekit application protocol](https://github.com/KhaosT/HAP-NodeJS/)
 - [Homebridge plugins](https://www.npmjs.com/search?q=homebridge-plugin)
+
