@@ -67,7 +67,7 @@ The platforms:
 
 ### Apple Homekit
 
-<img alt="Homekit" src="{{ '/img/2019-09-30-home-automation/Homekit.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Homekit" src="{{ '/img/2019-09-30-home-automation/homekit.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 Apple's home automation platform is called Homekit.
 It can be used on all iOS and macOS X devices, giving us access to it from everywhere.
@@ -81,7 +81,7 @@ An automation can change the state of a device, or change the state of multiple 
 
 Homekit supports many devices, which can be identified by 'works with Apple Homekit' logo.
 
-<img alt="Works with Homekit" src="{{ '/img/2019-09-30-home-automation/works-with-Homekit.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 250px;">
+<img alt="Works with Homekit" src="{{ '/img/2019-09-30-home-automation/works-with-homekit.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 250px;">
 
 Some of these include:
 
@@ -174,14 +174,14 @@ Its documentation is very extensive and is very well made.
 ### Homekit & Homebridge
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-09-30-home-automation/Homekit-1.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit devices 1">
-        <img alt="Homekit devices 1" src="{{ '/img/2019-09-30-home-automation/Homekit-1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;">
+    <a href="{{ '/img/2019-09-30-home-automation/homekit-1.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit devices 1">
+        <img alt="Homekit devices 1" src="{{ '/img/2019-09-30-home-automation/homekit-1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2019-09-30-home-automation/Homekit-2.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit devices 2">
-        <img alt="Homekit devices 2" src="{{ '/img/2019-09-30-home-automation/Homekit-2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;">
+    <a href="{{ '/img/2019-09-30-home-automation/homekit-2.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit devices 2">
+        <img alt="Homekit devices 2" src="{{ '/img/2019-09-30-home-automation/homekit-2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2019-09-30-home-automation/Homekit-3.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit automations">
-        <img alt="Homekit automations" src="{{ '/img/2019-09-30-home-automation/Homekit-3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32.7%; display: inline-block;">
+    <a href="{{ '/img/2019-09-30-home-automation/homekit-3.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Homekit automations">
+        <img alt="Homekit automations" src="{{ '/img/2019-09-30-home-automation/homekit-3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 32.7%; display: inline-block;">
     </a>
 </div>
 
