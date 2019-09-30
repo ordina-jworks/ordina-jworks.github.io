@@ -157,7 +157,7 @@ Updating the route table will update the status of the peering connection to **a
 
 ### Deploy your lambda functions!
 
-Deploy your Lambda functions to your VPC and test it out!  
+Deploy your Lambda functions to your VPC and test them out!  
 Deploy them into the public subnet that we just created and as security group specify the security group of your AWS VPC.  
 In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
 
@@ -210,7 +210,7 @@ So let's dig deeper.
 
 ### Cold Start
 During the cold start the connection with the database is made.  
-When your Lambda container is re-uses, the connection will also be re-used.
+When your Lambda container is reused, the connection will also be reused.
 That is, if you implemented it correctly.
 
 Below you see an example of a cold start for both the DynamoDB and MongoDB lambda.  
@@ -237,7 +237,7 @@ As you can see from the images above I created two subsegments representing the 
   <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/g-save-session-comparision.png" width="100%" height="100%">
 </div>
 
-In the graphs above the duration of the *saveSession* segment is plotted against the time at which i occured.
+In the graphs above the duration of the *saveSession* segment is plotted against the time at which it occured.
 When we are moving away from the cold starts we see that both DynamoDB and MongoDB have the segment spanning only a few milliseconds.
 
 Doing some statistical analysis I found:
@@ -268,5 +268,4 @@ DynamoDB and MongoDB perform about equally for the use case that I tested.
 
 ## Useful links
 * [https://docs.atlas.mongodb.com/security-vpc-peering/](https://docs.atlas.mongodb.com/security-vpc-peering/)
-* [https://www.mongodb.com/blog/post/introducing-vpc-peering-for-mongodb-atlas](https://www.mongodb.com/blog/post/introducing-vpc-peering-for-mongodb-atlas)
 * [https://aws.amazon.com/xray/](https://aws.amazon.com/xray/)
