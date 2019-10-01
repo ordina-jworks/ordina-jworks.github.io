@@ -40,7 +40,7 @@ The hardware vendor based platforms (e.g.: Niko) will not be included!
 
 The platforms can be split up into two main parts:
 
-- Cloud enabled, mainly from manufactures and larger phone companies
+- Cloud enabled, mainly from manufacturers and larger phone companies
 - On-premise platforms (that do not require internet/cloud access)
 
 Security is a very important aspect in the home automation world!
