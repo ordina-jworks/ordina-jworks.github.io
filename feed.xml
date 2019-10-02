@@ -1,5 +1,581 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-10-01T11:53:17+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Home Automation part 1</title><link href="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html" rel="alternate" type="text/html" title="Home Automation part 1" /><published>2019-09-30T00:00:00+00:00</published><updated>2019-09-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1</id><content type="html" xml:base="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-10-02T15:10:57+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">API first development with OpenAPI/Swagger</title><link href="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html" rel="alternate" type="text/html" title="API first development with OpenAPI/Swagger" /><published>2019-10-02T00:00:00+00:00</published><updated>2019-10-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
+
+&lt;p&gt;1.&lt;a href=&quot;#api-first-development---why-how-and-what&quot;&gt;API first development - Why, how and what&lt;/a&gt;&lt;br /&gt;
+2.&lt;a href=&quot;#api-design-an-example&quot;&gt;API design: an example&lt;/a&gt;&lt;br /&gt;
+3.&lt;a href=&quot;#api-first-development-with-openapiswagger&quot;&gt;API first development with OpenAPI/Swagger&lt;/a&gt;&lt;br /&gt;
+4.&lt;a href=&quot;#hosting-your-visualisations&quot;&gt;Hosting your visualisations&lt;/a&gt;&lt;br /&gt;
+5.&lt;a href=&quot;#integrating-with-postman&quot;&gt;Integrating with Postman&lt;/a&gt;&lt;br /&gt;
+6.&lt;a href=&quot;#openapi-generator-generate-api-compliant-code&quot;&gt;OpenAPI Generator: generate API compliant code&lt;/a&gt;&lt;br /&gt;
+7.&lt;a href=&quot;#integrating-swaggeropenapi-with-your-build-process-maven-or-gradle-plugin&quot;&gt;Integrating with your build process: maven or gradle plugin&lt;/a&gt;&lt;br /&gt;
+8.&lt;a href=&quot;#serverless-on-aws-openapi-api-gateway-lambda-and-sam&quot;&gt;Serverless on AWS: OpenAPI, API Gateway Lambda and SAM&lt;/a&gt;&lt;br /&gt;
+9.&lt;a href=&quot;#code-first-with-springfox&quot;&gt;Springfox&lt;/a&gt; &lt;br /&gt;
+10.&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;intro&quot;&gt;Intro&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;I’ll start of with a lecture about API first development and it’s advantages.(&lt;a href=&quot;#api-first-development---why-how-and-what&quot;&gt;Jump to section&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;We will discover how to visualize our API specs. (&lt;a href=&quot;#api-first-development-with-openapiswagger&quot;&gt;Jump to section&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Generate a postman collection from your OpenAPI definition. (&lt;a href=&quot;#integrating-with-postman&quot;&gt;Jump to section&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Next I’ll show you how to generate code that is completely compliant with your API specs. (&lt;a href=&quot;#openapi-generator-generate-api-compliant-code&quot;&gt;Jump to section&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;We then dive into how to integrate this in your build process by using maven or gradle plugins. (&lt;a href=&quot;#integrating-with-your-build-process-maven-or-gradle-plugin&quot;&gt;Jump to section&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;To finish it up I’ll demonstrate how to use it in a cloud native serverless product with &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS SAM&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS Lambda&lt;/code&gt;. (&lt;a href=&quot;#serverless-on-aws-openapi-api-gateway-lambda-and-sam&quot;&gt;Jump to section&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Wrapping it up with a conclusion.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;An API or Application Programming Interface is a way of exposing your company’s digital services.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It is the layer through which your services communicate with other services.&lt;/p&gt;
+
+&lt;h1 id=&quot;api-first-development---why-how-and-what&quot;&gt;API first development - Why, how and what&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Great communication is key to great software engineering.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;That also goes for applications and services.
+If your applications cannot communicate properly, you’ll never be able to expose the functionality that is key to a good product.&lt;/p&gt;
+
+&lt;p&gt;We also see the following trends in software engineering:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Shift towards the cloud.&lt;/strong&gt;&lt;br /&gt;
+Instead of big monolitic applications we are building lot’s of smaller (micro)services.
+All communication between those services goes through the API.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Multiple frontend applications use the same backend.&lt;/strong&gt;&lt;br /&gt;
+Often these applications are created by separate teams.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;An API carry business value.&lt;/strong&gt;  &lt;br /&gt;
+There is real money in your API.&lt;br /&gt;
+Defining APIs gives us the opportunity to expose our application’s functionality and create bridges between our provider and consumers.
+The easier it is to integrate with your API, the higher the acceptance rate of consumers for your product will be.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In all of the cases above, there is value in good communication between services.
+And that’s why you should practice API first development.
+Put your communication first!&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The first priority in your API first development story is a clear API definition&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;How do you practice API first development?&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Design your API before implementing it.&lt;/em&gt;&lt;br /&gt;
+This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
+The contract between services is set.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Understand that the API is the interface for your application.&lt;/em&gt;&lt;br /&gt;
+It is the intersection where multiple services join hands to couple their functionality.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Visualize your API&lt;/em&gt;&lt;br /&gt;
+An image says more then a thousand words. We’ll see how OpenAPI can help you with this.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;API first development allows teams to develop separately against a common interface, the API.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now that we understand the importance of and value of API first design let’s see how the Swagger/OpenAPI spec can help you with that.&lt;/p&gt;
+
+&lt;h2 id=&quot;top-down-vs-bottom-up&quot;&gt;Top-down vs bottom-up&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;API first development implies a top-down approach to build your API.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Basically there are two approaches:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Top-down aka Design First&lt;/li&gt;
+  &lt;li&gt;Bottom-up aka Code First&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To quote &lt;code class=&quot;highlighter-rouge&quot;&gt;Swagger.io&lt;/code&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Design First: The plan is converted to a human and machine readable contract, such as a Swagger document, from which the code is built.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Code First: Based on the business plan, API is directly coded, from which a human or machine readable document, such as a Swagger document can be generated.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In this blog post I am using the Top-down Design First approach to facilitate API first development.
+In the last paragraph of this blog I’ll briefly show an example of a Code First approach with &lt;code class=&quot;highlighter-rouge&quot;&gt;Springfox&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;api-design-an-example&quot;&gt;API design: an example&lt;/h1&gt;
+&lt;p&gt;Suppose that we, &lt;strong&gt;&lt;em&gt;Ordina&lt;/em&gt;&lt;/strong&gt;, are hosting a conference where multiple technical and agile sessions will be given.
+Users can check session information and register for sessions.
+The backend service is accessed by a web application and two mobile apps.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/design.png&quot; width=&quot;40%&quot; height=&quot;40%&quot; target=&quot;_blank&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The applications are created by different teams and they all embrace the &lt;strong&gt;API first&lt;/strong&gt; approach.&lt;/p&gt;
+
+&lt;p&gt;They read this blog and realised that by agreeing on the common interface first, they could develop separately without impacting each other.
+So hooray for API first development!&lt;/p&gt;
+
+&lt;h1 id=&quot;api-first-development-with-openapiswagger&quot;&gt;API first development with OpenAPI/Swagger&lt;/h1&gt;
+&lt;p&gt;Let’s continue with creating the backend application.&lt;/p&gt;
+
+&lt;p&gt;The functional analysts and a couple of developers of the team are sitting together to agree on how the API should be defined.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A client should be able to fetch all sessions via the API&lt;/li&gt;
+  &lt;li&gt;A client should be able to create a new session via the API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is a crucial part of the API first mindset.
+We need to clearly define and communicate the API before starting to implement.
+Designing an API is easier when you can visualise the API.
+Let’s bring in the OpenAPI spec.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The OpenAPI specification allows you to define your API in a descriptive language (JSON or Yaml) and nicely visualise it&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let’s now use OAS to help us with our API First approach and design our API.
+Note that by OAS I mean OpenAPI Specification.&lt;/p&gt;
+
+&lt;p&gt;Let me introduce you to &lt;a href=&quot;https://editor.swagger.io&quot; target=&quot;_blank&quot;&gt;https://editor.swagger.io&lt;/a&gt;, a portal to visualise…
+Easy to use and offering all the functionality we need for this example.&lt;/p&gt;
+
+&lt;p&gt;I’ll keep it simple, we will create the OAS for exposing the endpoint to let consumers fetch the sessions of the conference.&lt;br /&gt;
+The OAS allows you to use JSON or Yaml to describe your API.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/swagger-layout.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Find the descriptive yaml via &lt;a href=&quot;https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28&quot; target=&quot;_blank&quot;&gt;this&lt;/a&gt; gist.&lt;/p&gt;
+
+&lt;p&gt;As you can see from the example, the OpenAPI specification is very readable.
+Even if it’s new to you, you should be able to deduct what is written in the yaml.&lt;br /&gt;
+You like looking at raw yaml?
+Sure you don’t! 
+There is a great visualisation to the right of it.
+This clearly visualises what your API can do.
+Clear visualisations mean clear communication.&lt;/p&gt;
+
+&lt;p&gt;The API in the example is small.
+When describing a whole real-world API, the file might become quite large.
+But that’s no problem.
+The OpenAPI spec allows you to split your definitions over multiple files which you can reference from within other files.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;OpenAPI Takeaways: Easy descriptive language &amp;amp; great visualisations&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You want to expose your beautiful visualisation to your clients.
+They shouldn’t have to paste a &lt;code class=&quot;highlighter-rouge&quot;&gt;yaml&lt;/code&gt; file in a window of their browser all the time.
+How do we do that? 
+Let’s find out next.&lt;/p&gt;
+
+&lt;h1 id=&quot;hosting-your-visualisations&quot;&gt;Hosting your visualisations&lt;/h1&gt;
+&lt;p&gt;The API specifications should be easily accessible for you and your clients.
+The specification which you agreed upon, should be hosted somewhere for everyone to see.
+Sometimes companies have there own in-house tools to visualise OAS.
+If your company has no such tool there are plenty of other tools to visualize your API defined with OAS.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Choose a visualisation solution that allows you to show a diff between versions of your API&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A couple of hosted solutions:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://swagger.io/tools/swaggerhub/&quot; target=&quot;_blank&quot;&gt;swaggerhub.com&lt;/a&gt;: Platform for API design and hosting by &lt;code class=&quot;highlighter-rouge&quot;&gt;SMARTBEAR&lt;/code&gt; itself&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://next.stoplight.io/&quot; target=&quot;_blank&quot;&gt;next.stoplight.io&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/next-stoplight.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://readme.com/&quot; target=&quot;_blank&quot;&gt;readme.io&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/readme-io.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://apiary.io/&quot; target=&quot;_blank&quot;&gt;apiary&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Redocly:  Redoc allows you to host via github pages. 
+You can also host locally and integrate with Github pages for publishing your API.
+Use this &lt;a href=&quot;https://github.com/Redocly/create-openapi-repo&quot; target=&quot;_blank&quot;&gt;Generator&lt;/a&gt; to create a repository for your API spec.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/redocly.gif&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;integrating-with-postman&quot;&gt;Integrating with Postman&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;You can create a working Postman collection from the OpenAPI spec&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You don’t have to tell me how difficult it is to keep a Postman collection up to date with an evolving API!
+More so, you have to make sure that every member of your team has the latest version of your API collection.&lt;/p&gt;
+
+&lt;p&gt;Good news!
+Postman can import a collection directly from the OAS.
+In the Postman UI go to &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt; and import from &lt;code class=&quot;highlighter-rouge&quot;&gt;raw text&lt;/code&gt;.
+Just like I did in the image below.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/postman-oas.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see on the background of the image above, the request was correctly imported from the Swagger file.&lt;/p&gt;
+
+&lt;h1 id=&quot;openapi-generator-generate-api-compliant-code&quot;&gt;OpenAPI Generator: generate API compliant code&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Generate code that is compliant with your API spec with OpenAPI Generator&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;When you’ve agreed upon the specification of your API it is time to start implementing it!
+The specification is shared across the different teams and they can each start implementing separately.&lt;/p&gt;
+
+&lt;p&gt;Time to code!&lt;br /&gt;
+If I write code, I might make mistakes.
+So let’s generate code that is completely compliant with the specs.&lt;/p&gt;
+
+&lt;p&gt;OpenAPI Generator is a hugely popular &lt;a href=&quot;https://github.com/OpenAPITools/openapi-generator&quot; target=&quot;_blank&quot;&gt;repository&lt;/a&gt; on github.
+It allows you to generate code that is completely in line with your API specification.&lt;/p&gt;
+
+&lt;p&gt;On &lt;code class=&quot;highlighter-rouge&quot;&gt;mac&lt;/code&gt; you can just install the &lt;code class=&quot;highlighter-rouge&quot;&gt;openapi-generator-cli&lt;/code&gt; by installing it via brew.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;openapi-generator-cli
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also checkout the github project, build it and use that jar.&lt;/p&gt;
+
+&lt;p&gt;You have the cli installed and created a directory which contains your api.yml file.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/repo-dir.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s generate the code!&lt;/p&gt;
+
+&lt;p&gt;You could generate a whole project.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openapi-generator generate &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; api.yml &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That would generate a whole Java project with a bunch of files.
+Let’s start a little smaller.&lt;/p&gt;
+
+&lt;p&gt;If you followed along clear the directory with&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-name&lt;/span&gt; api.yml &lt;span class=&quot;nt&quot;&gt;-delete&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For starters we only want to generate the model classes:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openapi-generator generate &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; api.yml &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; java &lt;span class=&quot;nt&quot;&gt;-Dmodels&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Models here refer to your DTO’s (Data Transfer Objects) or Resources.
+These are different from your domain models or entity models.&lt;/p&gt;
+
+&lt;p&gt;Let’s see what we did here:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;generate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Generate is the command that we give to the openapi-generator cli to instruct it to generate the code.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; api.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The input file that contains our API specifications.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The generator to use.
+Here we specify that we want Java as output language.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;-Dmodels&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We are telling the generator to only generate the models for our API.&lt;/p&gt;
+
+&lt;p&gt;If you want help or you forgot one of the options you can look &lt;a href=&quot;https://github.com/OpenAPITools/openapi-generator/blob/master/README.md#3---usage&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; or execute:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openapi-generator &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;generate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you execute this command you’ll see that there are a lot more options.
+We could for example do the following&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openapi-generator generate &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; api.yml &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; java &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-Dmodels&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-DmodelTests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--model-name-suffix&lt;/span&gt; Dto &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--model-package&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;com.ordina.conference_app.model&quot;&lt;/span&gt;  &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;useBeanValidation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This generates the &lt;code class=&quot;highlighter-rouge&quot;&gt;java&lt;/code&gt; models without creating test classes and puts them in a package &lt;code class=&quot;highlighter-rouge&quot;&gt;com.ordina.conference_app.model&lt;/code&gt;.
+It suffixes them with &lt;code class=&quot;highlighter-rouge&quot;&gt;Dto&lt;/code&gt; since that’s what they are.
+These classes are used to transfer data in and out of the application (&lt;code class=&quot;highlighter-rouge&quot;&gt;Dto&lt;/code&gt; aka Data Transfer Object).&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/generate-dtos-in-package-with-beanvalidation.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;bean-validation&quot;&gt;Bean Validation&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Keep your generated class files in sync with the requirements of the API specs by setting the useBeanValidation option to true.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In the last example I also specified a property &lt;code class=&quot;highlighter-rouge&quot;&gt;useBeanValidation=true&lt;/code&gt;.&lt;br /&gt;
+Requirements specified in the API documentation like a required field are now translated to the code.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;getter&lt;/code&gt; on the  &lt;code class=&quot;highlighter-rouge&quot;&gt;speaker&lt;/code&gt; field in the &lt;code class=&quot;highlighter-rouge&quot;&gt;SessionDto&lt;/code&gt; class is now annotated with &lt;code class=&quot;highlighter-rouge&quot;&gt;@NotNull&lt;/code&gt;.&lt;br /&gt;
+You can now use a framework like &lt;code class=&quot;highlighter-rouge&quot;&gt;JSR 380&lt;/code&gt;, known as &lt;code class=&quot;highlighter-rouge&quot;&gt;Bean Validation 2.0.&lt;/code&gt;, to validate input and output.&lt;br /&gt;
+This is a &lt;code class=&quot;highlighter-rouge&quot;&gt;Java&lt;/code&gt; specific example, but the same will happen when you change to other languages by using eg. &lt;code class=&quot;highlighter-rouge&quot;&gt;-g python&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/SessionDto.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now that we got acquainted with code generation I am going to show you how to include it in your build process.&lt;/p&gt;
+
+&lt;h1 id=&quot;integrating-swaggeropenapi-with-your-build-process-maven-or-gradle-plugin&quot;&gt;Integrating Swagger/OpenAPI with your build process: maven or gradle plugin&lt;/h1&gt;
+&lt;p&gt;There are maven and gradle plugins that support the &lt;code class=&quot;highlighter-rouge&quot;&gt;openapi-generator&lt;/code&gt; project. 
+(&lt;a href=&quot;https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin&quot; target=&quot;_blank&quot;&gt;maven&lt;/a&gt; and &lt;a href=&quot;https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin&quot; target=&quot;_blank&quot;&gt;gradle&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;I started a maven project and included our &lt;code class=&quot;highlighter-rouge&quot;&gt;api.yml&lt;/code&gt; on the classpath.
+Now it is a matter of configuring the &lt;code class=&quot;highlighter-rouge&quot;&gt;openapi-generator-build-plugin&lt;/code&gt; in our maven &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I want to configure it to behave the same way as the example above.&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.openapitools&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;openapi-generator-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;executions&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;execution&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;goals&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;goal&amp;gt;&lt;/span&gt;generate&lt;span class=&quot;nt&quot;&gt;&amp;lt;/goal&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/goals&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;inputSpec&amp;gt;&lt;/span&gt;openapi.yaml&lt;span class=&quot;nt&quot;&gt;&amp;lt;/inputSpec&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;output&amp;gt;&lt;/span&gt;${project.basedir}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/output&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;generatorName&amp;gt;&lt;/span&gt;java&lt;span class=&quot;nt&quot;&gt;&amp;lt;/generatorName&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;addCompileSourceRoot&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/addCompileSourceRoot&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;skipOverwrite&amp;gt;&lt;/span&gt;false&lt;span class=&quot;nt&quot;&gt;&amp;lt;/skipOverwrite&amp;gt;&lt;/span&gt;
+
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;modelNameSuffix&amp;gt;&lt;/span&gt;Dto&lt;span class=&quot;nt&quot;&gt;&amp;lt;/modelNameSuffix&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;modelPackage&amp;gt;&lt;/span&gt;be.ordina.conference.api.model&lt;span class=&quot;nt&quot;&gt;&amp;lt;/modelPackage&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;generateModels&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/generateModels&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;generateModelTests&amp;gt;&lt;/span&gt;false&lt;span class=&quot;nt&quot;&gt;&amp;lt;/generateModelTests&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;generateModelDocumentation&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/generateModelDocumentation&amp;gt;&lt;/span&gt;
+
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;generateApis&amp;gt;&lt;/span&gt;false&lt;span class=&quot;nt&quot;&gt;&amp;lt;/generateApis&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;generateSupportingFiles&amp;gt;&lt;/span&gt;false&lt;span class=&quot;nt&quot;&gt;&amp;lt;/generateSupportingFiles&amp;gt;&lt;/span&gt;
+
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;library&amp;gt;&lt;/span&gt;jersey2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/library&amp;gt;&lt;/span&gt;
+
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;configOptions&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dateLibrary&amp;gt;&lt;/span&gt;java8-localdatetime&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dateLibrary&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;java8&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/java8&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;useBeanValidation&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/useBeanValidation&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;sourceFolder&amp;gt;&lt;/span&gt;src/java&lt;span class=&quot;nt&quot;&gt;&amp;lt;/sourceFolder&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/configOptions&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/execution&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/executions&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Important to note:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The generated models will appear in the current module under &lt;code class=&quot;highlighter-rouge&quot;&gt;/src/java/be/ordina/conference/api/model&lt;/code&gt;
+That is caused by the combination of multiple options:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;output&amp;gt;${project.basedir}&amp;lt;/output&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;sourceFolder&amp;gt;src/java&amp;lt;/sourceFolder&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;modelPackage&amp;gt;be.ordina.conference.api.model&amp;lt;/modelPackage&amp;gt;&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Only the API models will be generated, with markdown documentation and no test classes.
+That’s a combination of:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;generateModels&amp;gt;true&amp;lt;/generateModels&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;generateModelTests&amp;gt;false&amp;lt;/generateModelTests&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;generateModelDocumentation&amp;gt;true&amp;lt;/generateModelDocumentation&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;generateApis&amp;gt;false&amp;lt;/generateApis&amp;gt;&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;generateSupportingFiles&amp;gt;false&amp;lt;/generateSupportingFiles&amp;gt;&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Check out &lt;a href=&quot;https://gist.github.com/Nxtra/4c92fa9a6c2fb62a8c606128ae8ca87f&quot; target=&quot;_blank&quot;&gt;this gist&lt;/a&gt; for the xml.&lt;/p&gt;
+
+&lt;h1 id=&quot;testing-your-api&quot;&gt;Testing your API&lt;/h1&gt;
+&lt;p&gt;Testing you API would normally involve setting up a larger integration test.
+In the case of AWS Lambda this means that you’d have to deploy your application since you cannot run it locally (Not that easily at least).
+Luckily we have set the &lt;code class=&quot;highlighter-rouge&quot;&gt;useBeanValidation&lt;/code&gt; property to true.
+This allows us to write unit tests that validate the incoming and outgoing requests of our function.&lt;/p&gt;
+
+&lt;p&gt;After you deserialize the incoming request you can validate it against your API specs:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ConstraintViolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SessionDto&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;violations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Validation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;buildDefaultValidatorFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sessionDto&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If some violations are detected you can return them wrapped in a 400 response.
+You could easily check this functionality by writing a unit test that:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;checks that no violations are found in the case of a valid request body&lt;/li&gt;
+  &lt;li&gt;checks that violations are found in case a payload is sent which is not compliant with the API specs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The same goes for the responses. 
+In your code validate the response against your API specifications by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;responseDto&lt;/code&gt; that was generated from the specs:&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ConstraintViolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CreateSessionResponseDto&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;violations&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Validation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;buildDefaultValidatorFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If this finds any violations throw a &lt;code class=&quot;highlighter-rouge&quot;&gt;ConstraintValidationException&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Again a unit test can validate that:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;no violations are found when the response is validated&lt;/li&gt;
+  &lt;li&gt;no exception is thrown&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;serverless-on-aws-openapi-api-gateway-lambda-and-sam&quot;&gt;Serverless on AWS: OpenAPI, API Gateway Lambda and SAM&lt;/h1&gt;
+&lt;p&gt;It’s fairly easy to create an API Gateway from an openAPI specification.
+In the API Gateway console under &lt;em&gt;Create&lt;/em&gt; select &lt;em&gt;Import from Swagger or Open API 3&lt;/em&gt; and upload your specification.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/create-apigateway.gif&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Of course we want to use the specification programmatically.
+Suppose we create our backend service with AWS Lambda (serverless).
+I’ll be using AWS native tools and use SAM to deploy the Lambda functions and my API.
+SAM allows you to use an OpenAPI specification to create your API Gateway.&lt;/p&gt;
+
+&lt;p&gt;In your SAM template define the API Gateway resource by referencing your OAS.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;na&quot;&gt;ConferenceApiGateway&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; 
+    &lt;span class=&quot;na&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;AWS::Serverless::Api&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;Properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;StageName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;dev&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;DefinitionBody&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;Fn::Transform:&lt;/span&gt;
+          &lt;span class=&quot;s&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;AWS::Include&lt;/span&gt;
+          &lt;span class=&quot;s&quot;&gt;Parameters&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Location&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./openapi.yaml&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the Lambda function resource specify that the lambda should be triggered from this API Gateway.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;na&quot;&gt;GetAllSessionsFunction&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;AWS::Serverless::Function&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;Properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;Events&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;CreateSessionApi&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Api&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;Properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;RestApiId&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;!Ref&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ConferenceApiGateway&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/sessions&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;GET&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add the &lt;code class=&quot;highlighter-rouge&quot;&gt;x-amazon-apigateway-integration&lt;/code&gt; extension in your &lt;code class=&quot;highlighter-rouge&quot;&gt;api.yml&lt;/code&gt; to specify how the api has to integrate with the backend Lambda service.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/sessions&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;x-amazon-apigateway-integration&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;aws_proxy&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;httpMethod&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;POST&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;s&quot;&gt;Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For a full template example including the Lambda resources, check out this &lt;a href=&quot;https://gist.github.com/Nxtra/3600ccab85d92faebf3c465701ba7c21&quot; target=&quot;_blank&quot;&gt;gist&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;code-first-with-springfox&quot;&gt;Code First with Springfox&lt;/h1&gt;
+&lt;p&gt;I promised you an example of a code first approach.
+Here I set up a Spring boot application with Springfox dependencies.&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.springfox&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;springfox-swagger2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${springfox.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.springfox&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;springfox-swagger-ui&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${springfox.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.springfox&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;springfox-bean-validators&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${springfox.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Implementing the API and using the right annotations leads to an endpoint of your application on which your API spec is visualised: &lt;code class=&quot;highlighter-rouge&quot;&gt;/swagger-ui.html&lt;/code&gt;
+There is also an endpoint to download the Swagger / OpenAPI specification:  &lt;code class=&quot;highlighter-rouge&quot;&gt;api-docs&lt;/code&gt;&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/springfox.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Here are some takeaways about API first development:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Design the API before implementing it&lt;/li&gt;
+  &lt;li&gt;Visualize your API so that dependent teams can easily consult it&lt;/li&gt;
+  &lt;li&gt;API first development implies a top-down approach&lt;/li&gt;
+  &lt;li&gt;Swagger/OpenAPI can help you with API first development&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Below the pros and cons of practising API first development using Swagger/OpenAPI.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Pros&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Strong tooling support — AWS, Postman, visualizing the API, generate skeleton classes, …&lt;/li&gt;
+  &lt;li&gt;Strong consistency between API spec and Web layer of the code&lt;/li&gt;
+  &lt;li&gt;Example support&lt;/li&gt;
+  &lt;li&gt;Documenting API descriptions separated from code (not really separated, because they’re added to the generated classes, but you won’t need to change them&lt;/li&gt;
+  &lt;li&gt;Functional analyst can assist with creating the API specs because it’s a human readable format&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Cons&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;No support for complex/variable request/response scenarios&lt;/li&gt;
+  &lt;li&gt;Little extra documentation can be added in the API specs&lt;/li&gt;
+  &lt;li&gt;Development can only start after API is designed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://scratchpad.blog/serverless/howto/configure-aws-api-gateway-with-swagger/&quot;&gt;https://scratchpad.blog/serverless/howto/configure-aws-api-gateway-with-swagger/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jthomerson/cloudformation-template-for-lambda-backed-api-gateway-with-dynamodb&quot;&gt;https://github.com/jthomerson/cloudformation-template-for-lambda-backed-api-gateway-with-dynamodb&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/capital-one-tech/how-to-make-swagger-codegen-work-for-your-team-32194f7d97e4&quot;&gt;https://medium.com/capital-one-tech/how-to-make-swagger-codegen-work-for-your-team-32194f7d97e4&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/OpenAPITools/openapi-generator&quot;&gt;https://github.com/OpenAPITools/openapi-generator&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://howtodoinjava.com/swagger2/code-generation-for-rest-api/&quot;&gt;https://howtodoinjava.com/swagger2/code-generation-for-rest-api/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section&quot;&gt;https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/&quot;&gt;https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://swagger.io/blog/api-design/design-first-or-code-first-api-development/&quot;&gt;https://swagger.io/blog/api-design/design-first-or-code-first-api-development/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is a Java &amp; JavaScript developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build his expertise by contributing to valuable projects. Serverless, microservices and IoT fascinate him the most.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="API" /><category term="cloud" /><summary type="html">Table of content</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png" /></entry><entry><title type="html">Home Automation part 1</title><link href="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html" rel="alternate" type="text/html" title="Home Automation part 1" /><published>2019-09-30T00:00:00+00:00</published><updated>2019-09-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1</id><content type="html" xml:base="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
 
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
 
@@ -3246,73 +3822,4 @@ Just append the other options you want to override from the &lt;code class=&quot
 Cypress provides us with a new amazing test runner and manager. It strips all the hassles of previous setups and provides us with a real robust framework.
 It is providing us with cool but effective features like the snapshot time travel, easy debugging, headful/headless mode for CI and more.&lt;/p&gt;
 
-&lt;p&gt;Cypress is too good to not take a look at!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learning how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="Continuous Integration" /><category term="E2E" /><category term="JavaScript" /><category term="Testing" /><category term="Selenium" /><category term="Cypress" /><summary type="html">Table of contents Intro Cypress Comparison Setting up Cypress Amazing features Continuous Integration Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/cypress/cypress-logo.png" /></entry><entry><title type="html">Fishbones for Tomorrow</title><link href="https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow.html" rel="alternate" type="text/html" title="Fishbones for Tomorrow" /><published>2019-07-16T00:00:00+00:00</published><updated>2019-07-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2019/07/16/Fishbones-for-tomorrow.html">&lt;p&gt;For quite a few years now, I have been going steady with Japan, the birthplace of so many philosophies, teachings and practices preceding and gearing up to the Agile movement. 
-This is how I came to discover the well-hidden connection between work and fish. 
-In Eastern Asia, the carp or koi is a deeply symbolic and highly respected animal, the presence and/or representation of which is considered a placeholder for luck, prosperity and a long life. 
-No surprise then, that the fish is sometimes used as a metaphor for good business practice and process improvement.&lt;/p&gt;
-
-&lt;p&gt;Well, here is another piece of Japanese fish for you to fry.&lt;/p&gt;
-
-&lt;h3 id=&quot;fish-that-were-yesterday&quot;&gt;Fish that were yesterday&lt;/h3&gt;
-
-&lt;p&gt;Without any doubt, Kaoru Ishikawa 石川馨 (1915-1989) was one of the game changing Japanese organizational theorists of our time. 
-With his near-contemporaries Noriaki Kano (of the famous Kano MVP and customer satisfaction model), W. Edwards Deming (of 14 points and PDCA cycle fame), and Hirotaka Takeuchi and Ikujiro Nonaka (who were the first to come up with SCRUM in ‘The New New Product Development Game’, 1986), Ishikawa sort of laid the foundations of organisational models as we know and use them today. 
-Also, Ishikawa-sama is considered a key figure in the development of quality initiatives in Japan and elsewhere.&lt;/p&gt;
-
-&lt;p&gt;As a baseline, Ishikawa had in mind to change the way people think about life, including work. 
-His notion of organisation-wide quality control, cross-functional and cross-departmental, implied awareness of everybody always being one another’s supplier and customer, which in turn called for continued, multi-directional customer service. 
-This meant that a customer would continue receiving service even after receiving the product. 
-This service would extend across the organisation itself, infecting not just the work and the output but even the everyday lives of those involved.&lt;/p&gt;
-
-&lt;p&gt;To this end, Ishikawa thought of a set of useful and relevant methods. 
-One of these, and what Ishikawa is mostly famous for, is the fishbone diagram, a.k.a. the Ishikawa or cause-and-effect diagram, often used in the analysis of industrial processes.&lt;/p&gt;
-
-&lt;p&gt;Most commonly, Ishikawa diagrams are created to brainstorm over the multiple causes for a specific current event or defect. 
-The current status, default status, or, perhaps in most cases, the defect, is shown as the fish’s head, with the causes extending to the left as fishbones; the ribs branching off the backbone for major causes, with sub-branches for root-causes, up to as many levels as required, brainstormed or identified.
-An example of a fishbone diagram is shown below:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Sushi&quot; src=&quot;/img/fishbones-for-tomorrow/fishbone-example.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You could try doing fishbones at home with your children. 
-They are a lot of fun to do – and they help your children understand that situations are mere results of a chain of previous events, and that nobody really is to blame for them.&lt;/p&gt;
-
-&lt;p&gt;Fishbone structures with the head at the right side are beautiful – because they are in some way a reflection of evolution and natural selection. 
-They can also be viewed as a representation of complexity, where multiple minute events, small circumstances and off-chance happenings, all contribute to ‘what is’, in the here and the now.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Fishbones&quot; src=&quot;/img/fishbones-for-tomorrow/fishbones.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;turning-around-the-arrow-of-time&quot;&gt;Turning around the arrow of time&lt;/h3&gt;
-
-&lt;p&gt;Okay. 
-This is all pretty useful of course – but somehow, sometimes, in my work as an Agile Coach, I have been coming across teams more keen on exploring ahead and discovering further possibilities and opportunities, than teams that keep looking backward. 
-And recently, in such a case, I thought I might permit myself and the team I was working with to even meddle with the arrow of time.&lt;/p&gt;
-
-&lt;p&gt;Kaoru Ishikawa-sama might not have approved, but I decided to use a fishbone diagram to focus on the future rather than digging up causes of a problem from the past.&lt;/p&gt;
-
-&lt;p&gt;For future orientation, one might keep the fish with its head at the right side, now representing an envisioned state, and work out suggested pre-conditions – or one might turn the fish around altogether and make the head the starting point of an ever widening array of possibilities.&lt;/p&gt;
-
-&lt;p&gt;In my practice, I have noticed that the cause-and-effect method is in fact a really powerful tool to facilitate teams in parallel thinking. 
-After formulating a goal statement that everyone agrees on, defining the cause areas is a helpful step towards discovering shared and alternative trains of thought. 
-But once these areas are clear, every participant makes a deep dive into their personal knowledge and experience with regard to the goal and tries to gather as many ideas as possible, in silence.
-Then, one by one, the team members present their ideas while others detect and formulate connections, doubles and insights.&lt;/p&gt;
-
-&lt;p&gt;This technique helps the team to orderly gather a myriad of ideas, and it really sets things in motion. 
-Because from then onwards, with prioritisation and some concrete actions and owners, the fishbone forms the backbone for team improvement towards a self-defined goal.&lt;/p&gt;
-
-&lt;h3 id=&quot;collaboration-is-a-whole-new-piece-of-fish&quot;&gt;Collaboration is a whole new piece of fish&lt;/h3&gt;
-
-&lt;p&gt;For us, Agilists and assorted kindred souls, the virtues of thinking and making stuff together are obvious. 
-After all, there is hardly an approach in the Agile framework where co-creation is not written into the very DNA of who we are and what we do.&lt;/p&gt;
-
-&lt;p&gt;Does it need saying that being out in the world hunting for appropriate liberating structures permitting cooperation and collaboration has become a second nature for me?&lt;/p&gt;
-
-&lt;p&gt;It could be for you, too. 
-Think of this: when turning around the arrow of time is permitted, if it facilitates working together - then everything else is permitted too, all the way up to imagining a world upside down.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Sushi&quot; src=&quot;/img/fishbones-for-tomorrow/sushi.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;credit&quot;&gt;Credit&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Artwork in the main image by &lt;a href=&quot;http://heatherfortner.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heather Fortner&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Fishbone example taken from &lt;a href=&quot;https://www.24point0.com/powerpoint-business-templates/applications-fishbone-diagram/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;24point0.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaëla&quot;, &quot;last_name&quot;=&gt;&quot;Broeckx&quot;, &quot;permalink&quot;=&gt;&quot;/author/michaela-broeckx/&quot;, &quot;title&quot;=&gt;&quot;Agile Coach&quot;, &quot;email&quot;=&gt;&quot;michaela.broeckx@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;michaelabroeckx&quot;, &quot;avatar&quot;=&gt;&quot;michaela-broeckx.jpg&quot;, &quot;bio&quot;=&gt;&quot;Michaëla is an Agile coach with a focus on value and the human aspects of work. She is devoted to Agile &amp; Scrum, not just as a mindset and framework for collaborative product delivery, but also for their general quality as ways to unlearn innate/inbred habits that prevent us from learning efficiently. A true Agile mindset enables enterprises to break down siloes, and build professional human networks throughout the company and beyond.&quot;}</name><email>michaela.broeckx@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="AgileWorks" /><category term="Agile Coaching" /><category term="Liberating Structures" /><category term="Root Cause Analysis" /><category term="Powerful Techniques" /><summary type="html">For quite a few years now, I have been going steady with Japan, the birthplace of so many philosophies, teachings and practices preceding and gearing up to the Agile movement. This is how I came to discover the well-hidden connection between work and fish. In Eastern Asia, the carp or koi is a deeply symbolic and highly respected animal, the presence and/or representation of which is considered a placeholder for luck, prosperity and a long life. No surprise then, that the fish is sometimes used as a metaphor for good business practice and process improvement.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/fishbones-for-tomorrow/main-image.jpg" /></entry></feed>
+&lt;p&gt;Cypress is too good to not take a look at!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learning how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="Continuous Integration" /><category term="E2E" /><category term="JavaScript" /><category term="Testing" /><category term="Selenium" /><category term="Cypress" /><summary type="html">Table of contents Intro Cypress Comparison Setting up Cypress Amazing features Continuous Integration Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/cypress/cypress-logo.png" /></entry></feed>

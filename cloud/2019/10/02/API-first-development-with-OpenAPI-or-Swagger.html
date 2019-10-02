@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="API first development with OpenAPI/Swagger - Nick Van Hoof">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="API first development with OpenAPI/Swagger - Nick Van Hoof"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png"/>
+
+    
+    <title>API first development with OpenAPI/Swagger - Nick Van Hoof &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>API first development with OpenAPI/Swagger</h2>
+                
+
+                
+                    Posted Oct 2, 2019
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/nick-van-hoof">Nick Van Hoof</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/api/">API</a>, 
+    
+        <a href="/tags/cloud/">cloud</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-content">Table of content</h1>
+
+<p>1.<a href="#api-first-development---why-how-and-what">API first development - Why, how and what</a><br />
+2.<a href="#api-design-an-example">API design: an example</a><br />
+3.<a href="#api-first-development-with-openapiswagger">API first development with OpenAPI/Swagger</a><br />
+4.<a href="#hosting-your-visualisations">Hosting your visualisations</a><br />
+5.<a href="#integrating-with-postman">Integrating with Postman</a><br />
+6.<a href="#openapi-generator-generate-api-compliant-code">OpenAPI Generator: generate API compliant code</a><br />
+7.<a href="#integrating-swaggeropenapi-with-your-build-process-maven-or-gradle-plugin">Integrating with your build process: maven or gradle plugin</a><br />
+8.<a href="#serverless-on-aws-openapi-api-gateway-lambda-and-sam">Serverless on AWS: OpenAPI, API Gateway Lambda and SAM</a><br />
+9.<a href="#code-first-with-springfox">Springfox</a> <br />
+10.<a href="#conclusion">Conclusion</a></p>
+
+<h1 id="intro">Intro</h1>
+<ul>
+  <li>I’ll start of with a lecture about API first development and it’s advantages.(<a href="#api-first-development---why-how-and-what">Jump to section</a>)</li>
+  <li>We will discover how to visualize our API specs. (<a href="#api-first-development-with-openapiswagger">Jump to section</a>)</li>
+  <li>Generate a postman collection from your OpenAPI definition. (<a href="#integrating-with-postman">Jump to section</a>)</li>
+  <li>Next I’ll show you how to generate code that is completely compliant with your API specs. (<a href="#openapi-generator-generate-api-compliant-code">Jump to section</a>)</li>
+  <li>We then dive into how to integrate this in your build process by using maven or gradle plugins. (<a href="#integrating-with-your-build-process-maven-or-gradle-plugin">Jump to section</a>)</li>
+  <li>To finish it up I’ll demonstrate how to use it in a cloud native serverless product with <code class="highlighter-rouge">AWS SAM</code> and <code class="highlighter-rouge">AWS Lambda</code>. (<a href="#serverless-on-aws-openapi-api-gateway-lambda-and-sam">Jump to section</a>)</li>
+  <li>Wrapping it up with a conclusion.</li>
+</ul>
+
+<blockquote>
+  <p>An API or Application Programming Interface is a way of exposing your company’s digital services.</p>
+</blockquote>
+
+<p>It is the layer through which your services communicate with other services.</p>
+
+<h1 id="api-first-development---why-how-and-what">API first development - Why, how and what</h1>
+<blockquote>
+  <p>Great communication is key to great software engineering.</p>
+</blockquote>
+
+<p>That also goes for applications and services.
+If your applications cannot communicate properly, you’ll never be able to expose the functionality that is key to a good product.</p>
+
+<p>We also see the following trends in software engineering:</p>
+<ul>
+  <li>
+    <p><strong>Shift towards the cloud.</strong><br />
+Instead of big monolitic applications we are building lot’s of smaller (micro)services.
+All communication between those services goes through the API.</p>
+  </li>
+  <li>
+    <p><strong>Multiple frontend applications use the same backend.</strong><br />
+Often these applications are created by separate teams.</p>
+  </li>
+  <li>
+    <p><strong>An API carry business value.</strong>  <br />
+There is real money in your API.<br />
+Defining APIs gives us the opportunity to expose our application’s functionality and create bridges between our provider and consumers.
+The easier it is to integrate with your API, the higher the acceptance rate of consumers for your product will be.</p>
+  </li>
+</ul>
+
+<p>In all of the cases above, there is value in good communication between services.
+And that’s why you should practice API first development.
+Put your communication first!</p>
+
+<blockquote>
+  <p>The first priority in your API first development story is a clear API definition</p>
+</blockquote>
+
+<p><strong><em>How do you practice API first development?</em></strong></p>
+<ul>
+  <li><em>Design your API before implementing it.</em><br />
+This will allow teams to develop their applications separately because they both know and understand how communication between the services will happen.
+The contract between services is set.</li>
+  <li><em>Understand that the API is the interface for your application.</em><br />
+It is the intersection where multiple services join hands to couple their functionality.</li>
+  <li><em>Visualize your API</em><br />
+An image says more then a thousand words. We’ll see how OpenAPI can help you with this.</li>
+</ul>
+
+<blockquote>
+  <p>API first development allows teams to develop separately against a common interface, the API.</p>
+</blockquote>
+
+<p>Now that we understand the importance of and value of API first design let’s see how the Swagger/OpenAPI spec can help you with that.</p>
+
+<h2 id="top-down-vs-bottom-up">Top-down vs bottom-up</h2>
+<blockquote>
+  <p>API first development implies a top-down approach to build your API.</p>
+</blockquote>
+
+<p>Basically there are two approaches:</p>
+<ul>
+  <li>Top-down aka Design First</li>
+  <li>Bottom-up aka Code First</li>
+</ul>
+
+<p>To quote <code class="highlighter-rouge">Swagger.io</code>:</p>
+<blockquote>
+  <p>Design First: The plan is converted to a human and machine readable contract, such as a Swagger document, from which the code is built.</p>
+</blockquote>
+
+<blockquote>
+  <p>Code First: Based on the business plan, API is directly coded, from which a human or machine readable document, such as a Swagger document can be generated.</p>
+</blockquote>
+
+<p>In this blog post I am using the Top-down Design First approach to facilitate API first development.
+In the last paragraph of this blog I’ll briefly show an example of a Code First approach with <code class="highlighter-rouge">Springfox</code>.</p>
+
+<h1 id="api-design-an-example">API design: an example</h1>
+<p>Suppose that we, <strong><em>Ordina</em></strong>, are hosting a conference where multiple technical and agile sessions will be given.
+Users can check session information and register for sessions.
+The backend service is accessed by a web application and two mobile apps.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/design.png" width="40%" height="40%" target="_blank" />
+</div>
+
+<p>The applications are created by different teams and they all embrace the <strong>API first</strong> approach.</p>
+
+<p>They read this blog and realised that by agreeing on the common interface first, they could develop separately without impacting each other.
+So hooray for API first development!</p>
+
+<h1 id="api-first-development-with-openapiswagger">API first development with OpenAPI/Swagger</h1>
+<p>Let’s continue with creating the backend application.</p>
+
+<p>The functional analysts and a couple of developers of the team are sitting together to agree on how the API should be defined.</p>
+<ul>
+  <li>A client should be able to fetch all sessions via the API</li>
+  <li>A client should be able to create a new session via the API</li>
+</ul>
+
+<p>This is a crucial part of the API first mindset.
+We need to clearly define and communicate the API before starting to implement.
+Designing an API is easier when you can visualise the API.
+Let’s bring in the OpenAPI spec.</p>
+
+<blockquote>
+  <p>The OpenAPI specification allows you to define your API in a descriptive language (JSON or Yaml) and nicely visualise it</p>
+</blockquote>
+
+<p>Let’s now use OAS to help us with our API First approach and design our API.
+Note that by OAS I mean OpenAPI Specification.</p>
+
+<p>Let me introduce you to <a href="https://editor.swagger.io" target="_blank">https://editor.swagger.io</a>, a portal to visualise…
+Easy to use and offering all the functionality we need for this example.</p>
+
+<p>I’ll keep it simple, we will create the OAS for exposing the endpoint to let consumers fetch the sessions of the conference.<br />
+The OAS allows you to use JSON or Yaml to describe your API.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/swagger-layout.png" width="100%" height="100%" />
+</div>
+
+<p>Find the descriptive yaml via <a href="https://gist.github.com/Nxtra/8ff9a7fd33186309e909df8f5a20cb28" target="_blank">this</a> gist.</p>
+
+<p>As you can see from the example, the OpenAPI specification is very readable.
+Even if it’s new to you, you should be able to deduct what is written in the yaml.<br />
+You like looking at raw yaml?
+Sure you don’t! 
+There is a great visualisation to the right of it.
+This clearly visualises what your API can do.
+Clear visualisations mean clear communication.</p>
+
+<p>The API in the example is small.
+When describing a whole real-world API, the file might become quite large.
+But that’s no problem.
+The OpenAPI spec allows you to split your definitions over multiple files which you can reference from within other files.</p>
+
+<blockquote>
+  <p>OpenAPI Takeaways: Easy descriptive language &amp; great visualisations</p>
+</blockquote>
+
+<p>You want to expose your beautiful visualisation to your clients.
+They shouldn’t have to paste a <code class="highlighter-rouge">yaml</code> file in a window of their browser all the time.
+How do we do that? 
+Let’s find out next.</p>
+
+<h1 id="hosting-your-visualisations">Hosting your visualisations</h1>
+<p>The API specifications should be easily accessible for you and your clients.
+The specification which you agreed upon, should be hosted somewhere for everyone to see.
+Sometimes companies have there own in-house tools to visualise OAS.
+If your company has no such tool there are plenty of other tools to visualize your API defined with OAS.</p>
+
+<blockquote>
+  <p>Choose a visualisation solution that allows you to show a diff between versions of your API</p>
+</blockquote>
+
+<p>A couple of hosted solutions:</p>
+<ul>
+  <li>
+    <p><a href="https://swagger.io/tools/swaggerhub/" target="_blank">swaggerhub.com</a>: Platform for API design and hosting by <code class="highlighter-rouge">SMARTBEAR</code> itself</p>
+  </li>
+  <li>
+    <p><a href="https://next.stoplight.io/" target="_blank">next.stoplight.io</a></p>
+  </li>
+</ul>
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/next-stoplight.png" width="100%" height="100%" />
+</div>
+
+<ul>
+  <li><a href="https://readme.com/" target="_blank">readme.io</a></li>
+</ul>
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/readme-io.png" width="100%" height="100%" />
+</div>
+
+<ul>
+  <li>
+    <p><a href="https://apiary.io/" target="_blank">apiary</a></p>
+  </li>
+  <li>
+    <p>Redocly:  Redoc allows you to host via github pages. 
+You can also host locally and integrate with Github pages for publishing your API.
+Use this <a href="https://github.com/Redocly/create-openapi-repo" target="_blank">Generator</a> to create a repository for your API spec.</p>
+  </li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/redocly.gif" width="70%" height="70%" />
+</div>
+
+<h1 id="integrating-with-postman">Integrating with Postman</h1>
+<blockquote>
+  <p>You can create a working Postman collection from the OpenAPI spec</p>
+</blockquote>
+
+<p>You don’t have to tell me how difficult it is to keep a Postman collection up to date with an evolving API!
+More so, you have to make sure that every member of your team has the latest version of your API collection.</p>
+
+<p>Good news!
+Postman can import a collection directly from the OAS.
+In the Postman UI go to <code class="highlighter-rouge">import</code> and import from <code class="highlighter-rouge">raw text</code>.
+Just like I did in the image below.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/postman-oas.png" width="100%" height="100%" />
+</div>
+
+<p>As you can see on the background of the image above, the request was correctly imported from the Swagger file.</p>
+
+<h1 id="openapi-generator-generate-api-compliant-code">OpenAPI Generator: generate API compliant code</h1>
+<blockquote>
+  <p>Generate code that is compliant with your API spec with OpenAPI Generator</p>
+</blockquote>
+
+<p>When you’ve agreed upon the specification of your API it is time to start implementing it!
+The specification is shared across the different teams and they can each start implementing separately.</p>
+
+<p>Time to code!<br />
+If I write code, I might make mistakes.
+So let’s generate code that is completely compliant with the specs.</p>
+
+<p>OpenAPI Generator is a hugely popular <a href="https://github.com/OpenAPITools/openapi-generator" target="_blank">repository</a> on github.
+It allows you to generate code that is completely in line with your API specification.</p>
+
+<p>On <code class="highlighter-rouge">mac</code> you can just install the <code class="highlighter-rouge">openapi-generator-cli</code> by installing it via brew.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>openapi-generator-cli
+</code></pre></div></div>
+
+<p>You can also checkout the github project, build it and use that jar.</p>
+
+<p>You have the cli installed and created a directory which contains your api.yml file.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/repo-dir.png" width="100%" height="100%" />
+</div>
+
+<p>Let’s generate the code!</p>
+
+<p>You could generate a whole project.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openapi-generator generate <span class="nt">-i</span> api.yml <span class="nt">-g</span> java
+</code></pre></div></div>
+
+<p>That would generate a whole Java project with a bunch of files.
+Let’s start a little smaller.</p>
+
+<p>If you followed along clear the directory with</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="o">!</span> <span class="nt">-name</span> api.yml <span class="nt">-delete</span>
+</code></pre></div></div>
+
+<p>For starters we only want to generate the model classes:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openapi-generator generate <span class="nt">-i</span> api.yml <span class="nt">-g</span> java <span class="nt">-Dmodels</span>
+</code></pre></div></div>
+<p>Models here refer to your DTO’s (Data Transfer Objects) or Resources.
+These are different from your domain models or entity models.</p>
+
+<p>Let’s see what we did here:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>generate
+</code></pre></div></div>
+
+<p>Generate is the command that we give to the openapi-generator cli to instruct it to generate the code.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-i</span> api.yml
+</code></pre></div></div>
+
+<p>The input file that contains our API specifications.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-g</span> java
+</code></pre></div></div>
+
+<p>The generator to use.
+Here we specify that we want Java as output language.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-Dmodels</span>
+</code></pre></div></div>
+
+<p>We are telling the generator to only generate the models for our API.</p>
+
+<p>If you want help or you forgot one of the options you can look <a href="https://github.com/OpenAPITools/openapi-generator/blob/master/README.md#3---usage" target="_blank">here</a> or execute:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openapi-generator <span class="nb">help </span>generate
+</code></pre></div></div>
+
+<p>If you execute this command you’ll see that there are a lot more options.
+We could for example do the following</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openapi-generator generate <span class="se">\</span>
+<span class="nt">-i</span> api.yml <span class="se">\</span>
+<span class="nt">-g</span> java <span class="se">\</span>
+<span class="nt">-Dmodels</span> <span class="se">\</span>
+<span class="nt">-DmodelTests</span><span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+<span class="nt">--model-name-suffix</span> Dto <span class="se">\</span>
+<span class="nt">--model-package</span> <span class="s2">"com.ordina.conference_app.model"</span>  <span class="se">\</span>
+<span class="nt">-p</span> <span class="nv">useBeanValidation</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
+
+<p>This generates the <code class="highlighter-rouge">java</code> models without creating test classes and puts them in a package <code class="highlighter-rouge">com.ordina.conference_app.model</code>.
+It suffixes them with <code class="highlighter-rouge">Dto</code> since that’s what they are.
+These classes are used to transfer data in and out of the application (<code class="highlighter-rouge">Dto</code> aka Data Transfer Object).</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/generate-dtos-in-package-with-beanvalidation.png" width="100%" height="100%" />
+</div>
+
+<h3 id="bean-validation">Bean Validation</h3>
+<blockquote>
+  <p>Keep your generated class files in sync with the requirements of the API specs by setting the useBeanValidation option to true.</p>
+</blockquote>
+
+<p>In the last example I also specified a property <code class="highlighter-rouge">useBeanValidation=true</code>.<br />
+Requirements specified in the API documentation like a required field are now translated to the code.
+The <code class="highlighter-rouge">getter</code> on the  <code class="highlighter-rouge">speaker</code> field in the <code class="highlighter-rouge">SessionDto</code> class is now annotated with <code class="highlighter-rouge">@NotNull</code>.<br />
+You can now use a framework like <code class="highlighter-rouge">JSR 380</code>, known as <code class="highlighter-rouge">Bean Validation 2.0.</code>, to validate input and output.<br />
+This is a <code class="highlighter-rouge">Java</code> specific example, but the same will happen when you change to other languages by using eg. <code class="highlighter-rouge">-g python</code>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/SessionDto.png" width="80%" height="80%" />
+</div>
+
+<p>Now that we got acquainted with code generation I am going to show you how to include it in your build process.</p>
+
+<h1 id="integrating-swaggeropenapi-with-your-build-process-maven-or-gradle-plugin">Integrating Swagger/OpenAPI with your build process: maven or gradle plugin</h1>
+<p>There are maven and gradle plugins that support the <code class="highlighter-rouge">openapi-generator</code> project. 
+(<a href="https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin" target="_blank">maven</a> and <a href="https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin" target="_blank">gradle</a>)</p>
+
+<p>I started a maven project and included our <code class="highlighter-rouge">api.yml</code> on the classpath.
+Now it is a matter of configuring the <code class="highlighter-rouge">openapi-generator-build-plugin</code> in our maven <code class="highlighter-rouge">pom.xml</code>.</p>
+
+<p>I want to configure it to behave the same way as the example above.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.openapitools<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>openapi-generator-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;executions&gt;</span>
+        <span class="nt">&lt;execution&gt;</span>
+            <span class="nt">&lt;goals&gt;</span>
+                <span class="nt">&lt;goal&gt;</span>generate<span class="nt">&lt;/goal&gt;</span>
+            <span class="nt">&lt;/goals&gt;</span>
+            <span class="nt">&lt;configuration&gt;</span>
+                <span class="nt">&lt;inputSpec&gt;</span>openapi.yaml<span class="nt">&lt;/inputSpec&gt;</span>
+                <span class="nt">&lt;output&gt;</span>${project.basedir}<span class="nt">&lt;/output&gt;</span>
+                <span class="nt">&lt;generatorName&gt;</span>java<span class="nt">&lt;/generatorName&gt;</span>
+                <span class="nt">&lt;addCompileSourceRoot&gt;</span>true<span class="nt">&lt;/addCompileSourceRoot&gt;</span>
+                <span class="nt">&lt;skipOverwrite&gt;</span>false<span class="nt">&lt;/skipOverwrite&gt;</span>
+
+                <span class="nt">&lt;modelNameSuffix&gt;</span>Dto<span class="nt">&lt;/modelNameSuffix&gt;</span>
+                <span class="nt">&lt;modelPackage&gt;</span>be.ordina.conference.api.model<span class="nt">&lt;/modelPackage&gt;</span>
+                <span class="nt">&lt;generateModels&gt;</span>true<span class="nt">&lt;/generateModels&gt;</span>
+                <span class="nt">&lt;generateModelTests&gt;</span>false<span class="nt">&lt;/generateModelTests&gt;</span>
+                <span class="nt">&lt;generateModelDocumentation&gt;</span>true<span class="nt">&lt;/generateModelDocumentation&gt;</span>
+
+                <span class="nt">&lt;generateApis&gt;</span>false<span class="nt">&lt;/generateApis&gt;</span>
+                <span class="nt">&lt;generateSupportingFiles&gt;</span>false<span class="nt">&lt;/generateSupportingFiles&gt;</span>
+
+                <span class="nt">&lt;library&gt;</span>jersey2<span class="nt">&lt;/library&gt;</span>
+
+                <span class="nt">&lt;configOptions&gt;</span>
+                    <span class="nt">&lt;dateLibrary&gt;</span>java8-localdatetime<span class="nt">&lt;/dateLibrary&gt;</span>
+                    <span class="nt">&lt;java8&gt;</span>true<span class="nt">&lt;/java8&gt;</span>
+                    <span class="nt">&lt;useBeanValidation&gt;</span>true<span class="nt">&lt;/useBeanValidation&gt;</span>
+                    <span class="nt">&lt;sourceFolder&gt;</span>src/java<span class="nt">&lt;/sourceFolder&gt;</span>
+                <span class="nt">&lt;/configOptions&gt;</span>
+            <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/execution&gt;</span>
+    <span class="nt">&lt;/executions&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div></div>
+
+<p>Important to note:</p>
+
+<ul>
+  <li>The generated models will appear in the current module under <code class="highlighter-rouge">/src/java/be/ordina/conference/api/model</code>
+That is caused by the combination of multiple options:
+    <ul>
+      <li><code class="highlighter-rouge">&lt;output&gt;${project.basedir}&lt;/output&gt;</code></li>
+      <li><code class="highlighter-rouge">&lt;sourceFolder&gt;src/java&lt;/sourceFolder&gt;</code></li>
+      <li><code class="highlighter-rouge">&lt;modelPackage&gt;be.ordina.conference.api.model&lt;/modelPackage&gt;</code></li>
+    </ul>
+  </li>
+  <li>Only the API models will be generated, with markdown documentation and no test classes.
+That’s a combination of:
+    <ul>
+      <li><code class="highlighter-rouge">&lt;generateModels&gt;true&lt;/generateModels&gt;</code></li>
+      <li><code class="highlighter-rouge">&lt;generateModelTests&gt;false&lt;/generateModelTests&gt;</code></li>
+      <li><code class="highlighter-rouge">&lt;generateModelDocumentation&gt;true&lt;/generateModelDocumentation&gt;</code></li>
+      <li><code class="highlighter-rouge">&lt;generateApis&gt;false&lt;/generateApis&gt;</code></li>
+      <li><code class="highlighter-rouge">&lt;generateSupportingFiles&gt;false&lt;/generateSupportingFiles&gt;</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Check out <a href="https://gist.github.com/Nxtra/4c92fa9a6c2fb62a8c606128ae8ca87f" target="_blank">this gist</a> for the xml.</p>
+
+<h1 id="testing-your-api">Testing your API</h1>
+<p>Testing you API would normally involve setting up a larger integration test.
+In the case of AWS Lambda this means that you’d have to deploy your application since you cannot run it locally (Not that easily at least).
+Luckily we have set the <code class="highlighter-rouge">useBeanValidation</code> property to true.
+This allows us to write unit tests that validate the incoming and outgoing requests of our function.</p>
+
+<p>After you deserialize the incoming request you can validate it against your API specs:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">ConstraintViolation</span><span class="o">&lt;</span><span class="nc">SessionDto</span><span class="o">&gt;&gt;</span> <span class="n">violations</span> <span class="o">=</span> <span class="nc">Validation</span><span class="o">.</span><span class="na">buildDefaultValidatorFactory</span><span class="o">().</span><span class="na">getValidator</span><span class="o">().</span><span class="na">validate</span><span class="o">(</span><span class="n">sessionDto</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If some violations are detected you can return them wrapped in a 400 response.
+You could easily check this functionality by writing a unit test that:</p>
+<ul>
+  <li>checks that no violations are found in the case of a valid request body</li>
+  <li>checks that violations are found in case a payload is sent which is not compliant with the API specs.</li>
+</ul>
+
+<p>The same goes for the responses. 
+In your code validate the response against your API specifications by using the <code class="highlighter-rouge">responseDto</code> that was generated from the specs:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">ConstraintViolation</span><span class="o">&lt;</span><span class="nc">CreateSessionResponseDto</span><span class="o">&gt;&gt;</span> <span class="n">violations</span> <span class="o">=</span> <span class="nc">Validation</span><span class="o">.</span><span class="na">buildDefaultValidatorFactory</span><span class="o">().</span><span class="na">getValidator</span><span class="o">().</span><span class="na">validate</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+</code></pre></div></div>
+<p>If this finds any violations throw a <code class="highlighter-rouge">ConstraintValidationException</code>.</p>
+
+<p>Again a unit test can validate that:</p>
+<ul>
+  <li>no violations are found when the response is validated</li>
+  <li>no exception is thrown</li>
+</ul>
+
+<h1 id="serverless-on-aws-openapi-api-gateway-lambda-and-sam">Serverless on AWS: OpenAPI, API Gateway Lambda and SAM</h1>
+<p>It’s fairly easy to create an API Gateway from an openAPI specification.
+In the API Gateway console under <em>Create</em> select <em>Import from Swagger or Open API 3</em> and upload your specification.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/create-apigateway.gif" width="100%" height="100%" />
+</div>
+
+<p>Of course we want to use the specification programmatically.
+Suppose we create our backend service with AWS Lambda (serverless).
+I’ll be using AWS native tools and use SAM to deploy the Lambda functions and my API.
+SAM allows you to use an OpenAPI specification to create your API Gateway.</p>
+
+<p>In your SAM template define the API Gateway resource by referencing your OAS.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">ConferenceApiGateway</span><span class="pi">:</span> 
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">AWS::Serverless::Api</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="na">StageName</span><span class="pi">:</span> <span class="s">dev</span>
+      <span class="na">DefinitionBody</span><span class="pi">:</span>
+        <span class="s">Fn::Transform:</span>
+          <span class="s">Name</span><span class="pi">:</span> <span class="s">AWS::Include</span>
+          <span class="s">Parameters</span><span class="pi">:</span>
+            <span class="na">Location</span><span class="pi">:</span> <span class="s">./openapi.yaml</span>
+</code></pre></div></div>
+
+<p>In the Lambda function resource specify that the lambda should be triggered from this API Gateway.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">GetAllSessionsFunction</span><span class="pi">:</span>
+    <span class="na">Type</span><span class="pi">:</span> <span class="s">AWS::Serverless::Function</span>
+    <span class="na">Properties</span><span class="pi">:</span>
+      <span class="s">...</span>
+      <span class="s">Events</span><span class="pi">:</span>
+        <span class="na">CreateSessionApi</span><span class="pi">:</span>
+          <span class="na">Type</span><span class="pi">:</span> <span class="s">Api</span>
+          <span class="na">Properties</span><span class="pi">:</span>
+            <span class="na">RestApiId</span><span class="pi">:</span> <span class="kt">!Ref</span> <span class="s2">"</span><span class="s">ConferenceApiGateway"</span>
+            <span class="na">Path</span><span class="pi">:</span> <span class="s">/sessions</span>
+            <span class="na">Method</span><span class="pi">:</span> <span class="s">GET</span>
+</code></pre></div></div>
+
+<p>Add the <code class="highlighter-rouge">x-amazon-apigateway-integration</code> extension in your <code class="highlighter-rouge">api.yml</code> to specify how the api has to integrate with the backend Lambda service.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">paths</span><span class="pi">:</span>
+  <span class="s2">"</span><span class="s">/sessions"</span><span class="pi">:</span>
+    <span class="na">get</span><span class="pi">:</span>
+      <span class="s">...</span>
+      <span class="s">x-amazon-apigateway-integration</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">aws_proxy"</span>
+        <span class="na">httpMethod</span><span class="pi">:</span> <span class="s2">"</span><span class="s">POST"</span>
+        <span class="na">uri</span><span class="pi">:</span>
+          <span class="s">Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations</span>
+</code></pre></div></div>
+
+<p>For a full template example including the Lambda resources, check out this <a href="https://gist.github.com/Nxtra/3600ccab85d92faebf3c465701ba7c21" target="_blank">gist</a>.</p>
+
+<h1 id="code-first-with-springfox">Code First with Springfox</h1>
+<p>I promised you an example of a code first approach.
+Here I set up a Spring boot application with Springfox dependencies.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.springfox<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>springfox-swagger2<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>${springfox.version}<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.springfox<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>springfox-swagger-ui<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>${springfox.version}<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>io.springfox<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>springfox-bean-validators<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>${springfox.version}<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></div>
+
+<p>Implementing the API and using the right annotations leads to an endpoint of your application on which your API spec is visualised: <code class="highlighter-rouge">/swagger-ui.html</code>
+There is also an endpoint to download the Swagger / OpenAPI specification:  <code class="highlighter-rouge">api-docs</code></p>
+<div style="text-align: center;">
+  <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/springfox.png" width="100%" height="100%" />
+</div>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Here are some takeaways about API first development:</p>
+<ul>
+  <li>Design the API before implementing it</li>
+  <li>Visualize your API so that dependent teams can easily consult it</li>
+  <li>API first development implies a top-down approach</li>
+  <li>Swagger/OpenAPI can help you with API first development</li>
+</ul>
+
+<p>Below the pros and cons of practising API first development using Swagger/OpenAPI.</p>
+
+<p><strong>Pros</strong></p>
+<ul>
+  <li>Strong tooling support — AWS, Postman, visualizing the API, generate skeleton classes, …</li>
+  <li>Strong consistency between API spec and Web layer of the code</li>
+  <li>Example support</li>
+  <li>Documenting API descriptions separated from code (not really separated, because they’re added to the generated classes, but you won’t need to change them</li>
+  <li>Functional analyst can assist with creating the API specs because it’s a human readable format</li>
+</ul>
+
+<p><strong>Cons</strong></p>
+<ul>
+  <li>No support for complex/variable request/response scenarios</li>
+  <li>Little extra documentation can be added in the API specs</li>
+  <li>Development can only start after API is designed</li>
+</ul>
+
+<h1 id="resources">Resources</h1>
+<ul>
+  <li><a href="https://scratchpad.blog/serverless/howto/configure-aws-api-gateway-with-swagger/">https://scratchpad.blog/serverless/howto/configure-aws-api-gateway-with-swagger/</a></li>
+  <li><a href="https://github.com/jthomerson/cloudformation-template-for-lambda-backed-api-gateway-with-dynamodb">https://github.com/jthomerson/cloudformation-template-for-lambda-backed-api-gateway-with-dynamodb</a></li>
+  <li><a href="https://medium.com/capital-one-tech/how-to-make-swagger-codegen-work-for-your-team-32194f7d97e4">https://medium.com/capital-one-tech/how-to-make-swagger-codegen-work-for-your-team-32194f7d97e4</a></li>
+  <li><a href="https://github.com/OpenAPITools/openapi-generator">https://github.com/OpenAPITools/openapi-generator</a></li>
+  <li><a href="https://howtodoinjava.com/swagger2/code-generation-for-rest-api/">https://howtodoinjava.com/swagger2/code-generation-for-rest-api/</a></li>
+  <li><a href="https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section">https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section</a></li>
+  <li><a href="https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/">https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/</a></li>
+  <li><a href="https://swagger.io/blog/api-design/design-first-or-code-first-api-development/">https://swagger.io/blog/api-design/design-first-or-code-first-api-development/</a></li>
+</ul>
+
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html&title=API first development with OpenAPI/Swagger&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=API first development with OpenAPI/Swagger&url=https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/nick-van-hoof" class="image spotlight-image" title="">
+            <img src="/img/author/nick-van-hoof.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Nick is a Java &amp; JavaScript developer with a lot of hunger for knowledge. He is continuously looking for ways to improve. He wants to build his expertise by contributing to valuable projects. Serverless, microservices and IoT fascinate him the most.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
