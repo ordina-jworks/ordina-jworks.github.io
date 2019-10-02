@@ -49,11 +49,8 @@ The advances which still need to be made mostly consist of making sure the quant
 Nevertheless Jessica really .. the point that the age of quantum computers is in the near future if not now already. She even showed a [github repository](https://github.com/johanvos/quantumjava) which enables everybody to experiment and write
 algorithms or programs which can be run on quantum computers (in Java offcourse). 
 
-<video width="75%"
-data-video-name="Java Luminary Jessica Pointing: Oracle Code One 2019" 
-src="https://video.oracle.com/detail/video/6086803412001"></video>
 
-<video width="75%" id="performPlayer_html5_api" data-video-id="6086803412001" data-video-source="brightcove" data-video-name="Java Luminary Jessica Pointing: Oracle Code One 2019" data-video-description="Stanford University quantum computing researcher Jessica Pointing shares how Java gives her the ability to address new opportunities. See how Oracle’s stewardship drives innovation at Oracle Code One 2019. " data-bc-experience="Video Gallery | Videos &amp; Resources | Oracle" class="vjs-tech" data-account="1460825906" data-player="BkemOQ0R8x" data-embed="default" tabindex="-1" preload="auto" aria-labelledby="vjs-dock-title-1" aria-describedby="vjs-dock-description-2" poster="https://oracle-a.akamaihd.net/aug2014/1460825906/201909/3080/1460825906_6086807524001_6086803412001-vs.jpg?pubId=1460825906" src="blob:https://video.oracle.com/4e14f4cc-5048-4e59-8036-07615b54141f"></video>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/81gujFcs3fU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Next Georges Saab officially announced what was already expected, namely that Java 13 was out as of that day:
 
