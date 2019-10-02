@@ -12,7 +12,9 @@ comments: true
 > Our colleague Tom van den Bulck and ex-colleague Tim Ysewyn were invited to give their Workshop on Kafka Streams and enjoy the rest of the coference.
 > In this blog post we share our impressions and experiences.
 
-<img class="image fit" src="{{ '/img/oracle-code-one-2019/sf-jworks.jpg' | prepend: site.baseurl }}" alt="Jworks Represent" width="60%" />
+<div style="display: flex; justify-content: center;">
+<img class="image" src="{{ '/img/oracle-code-one-2019/sf-jworks.jpg' | prepend: site.baseurl }}" alt="Jworks Represent" width="60%" />
+</div>
 
 # Table of contents
 
@@ -47,8 +49,11 @@ The advances which still need to be made mostly consist of making sure the quant
 Nevertheless Jessica really .. the point that the age of quantum computers is in the near future if not now already. She even showed a [github repository](https://github.com/johanvos/quantumjava) which enables everybody to experiment and write
 algorithms or programs which can be run on quantum computers (in Java offcourse). 
 
-<video id="performPlayer_html5_api" data-video-id="6086803412001" data-video-source="brightcove" data-video-name="Java Luminary Jessica Pointing: Oracle Code One 2019" data-video-description="Stanford University quantum computing researcher Jessica Pointing shares how Java gives her the ability to address new opportunities. See how Oracle’s stewardship drives innovation at Oracle Code One 2019. " data-bc-experience="Video Gallery | Videos &amp; Resources | Oracle" class="vjs-tech" data-account="1460825906" data-player="BkemOQ0R8x" data-embed="default" tabindex="-1" preload="auto" aria-labelledby="vjs-dock-title-1" aria-describedby="vjs-dock-description-2" poster="https://oracle-a.akamaihd.net/aug2014/1460825906/201909/3080/1460825906_6086807524001_6086803412001-vs.jpg?pubId=1460825906" src="blob:https://video.oracle.com/d06e8ee4-d895-4c04-a10a-b52ea534bb86"></video>
+<video width="75%"
+data-video-name="Java Luminary Jessica Pointing: Oracle Code One 2019" 
+src="https://video.oracle.com/detail/video/6086803412001"></video>
 
+<video width="75%" id="performPlayer_html5_api" data-video-id="6086803412001" data-video-source="brightcove" data-video-name="Java Luminary Jessica Pointing: Oracle Code One 2019" data-video-description="Stanford University quantum computing researcher Jessica Pointing shares how Java gives her the ability to address new opportunities. See how Oracle’s stewardship drives innovation at Oracle Code One 2019. " data-bc-experience="Video Gallery | Videos &amp; Resources | Oracle" class="vjs-tech" data-account="1460825906" data-player="BkemOQ0R8x" data-embed="default" tabindex="-1" preload="auto" aria-labelledby="vjs-dock-title-1" aria-describedby="vjs-dock-description-2" poster="https://oracle-a.akamaihd.net/aug2014/1460825906/201909/3080/1460825906_6086807524001_6086803412001-vs.jpg?pubId=1460825906" src="blob:https://video.oracle.com/4e14f4cc-5048-4e59-8036-07615b54141f"></video>
 
 Next Georges Saab officially announced what was already expected, namely that Java 13 was out as of that day:
 
@@ -76,10 +81,12 @@ coding on a VM running Windows '95 while chatting to his past self via a chatbot
 
 There was a lot of buzz on Twitter about the event:
 
+<div style="display: flex; flex-direction: row; justify-content: space-around; flex-wrap: wrap;">
+
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">AN OUTSTANDINGLY HILARIOUS <a href="https://twitter.com/hashtag/CodeOne?src=hash&amp;ref_src=twsrc%5Etfw">#CodeOne</a> <a href="https://twitter.com/hashtag/community?src=hash&amp;ref_src=twsrc%5Etfw">#community</a> KEYNOTE - <a href="https://twitter.com/hashtag/JUG?src=hash&amp;ref_src=twsrc%5Etfw">#JUG</a> leaders <a href="https://twitter.com/Java_Champions?ref_src=twsrc%5Etfw">@Java_Champions</a> <a href="https://twitter.com/groundbreakers?ref_src=twsrc%5Etfw">@groundbreakers</a> celebrated the grande finale with shirts <a href="https://twitter.com/starbuxman?ref_src=twsrc%5Etfw">@starbuxman</a> <a href="https://twitter.com/venkat_s?ref_src=twsrc%5Etfw">@venkat_s</a> <a href="https://twitter.com/brjavaman?ref_src=twsrc%5Etfw">@brjavaman</a> <a href="https://twitter.com/eMalaGupta?ref_src=twsrc%5Etfw">@eMalaGupta</a> <a href="https://twitter.com/RafaDelNero?ref_src=twsrc%5Etfw">@RafaDelNero</a> <a href="https://twitter.com/_tamanm?ref_src=twsrc%5Etfw">@_tamanm</a> <a href="https://twitter.com/neugens?ref_src=twsrc%5Etfw">@neugens</a> <a href="https://twitter.com/miragemiko?ref_src=twsrc%5Etfw">@miragemiko</a> <a href="https://twitter.com/dervis_m?ref_src=twsrc%5Etfw">@dervis_m</a> <a href="https://twitter.com/nljug?ref_src=twsrc%5Etfw">@nljug</a> + <a href="https://twitter.com/hashtag/usualsuspects?src=hash&amp;ref_src=twsrc%5Etfw">#usualsuspects</a> <a href="https://twitter.com/OracleCodeOne?ref_src=twsrc%5Etfw">@OracleCodeOne</a> <a href="https://t.co/I1gCVrfVVC">pic.twitter.com/I1gCVrfVVC</a></p>&mdash; Benjamin Nothdurft (@DataDuke) <a href="https://twitter.com/DataDuke/status/1174527021034008577?ref_src=twsrc%5Etfw">September 19, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/venkat_s?ref_src=twsrc%5Etfw">@venkat_s</a> live coding in an angry bird suit at the community keynote 😂 <a href="https://twitter.com/hashtag/CodeOne2019?src=hash&amp;ref_src=twsrc%5Etfw">#CodeOne2019</a> <a href="https://t.co/TUtVADuhCx">pic.twitter.com/TUtVADuhCx</a></p>&mdash; Billy Korando (@BillyKorando) <a href="https://twitter.com/BillyKorando/status/1174363407178297344?ref_src=twsrc%5Etfw">September 18, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Game on community keynote <a href="https://twitter.com/hashtag/codeone?src=hash&amp;ref_src=twsrc%5Etfw">#codeone</a> thanks to the participants! <a href="https://t.co/la6vOYy2Xg">pic.twitter.com/la6vOYy2Xg</a></p>&mdash; Oracle Code One (@OracleCodeOne) <a href="https://twitter.com/OracleCodeOne/status/1174369836127776768?ref_src=twsrc%5Etfw">September 18, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+</div>
 
 ## Usual Suspects
 
@@ -107,11 +114,11 @@ with arcade game consoles to relax, and also a [Raspberry Pi supercomputer](http
 
 
 A few impressions on Twitter:
-
+<div style="display: flex; flex-direction: row; justify-content: space-around;">
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Shout out to all <a href="https://twitter.com/OracleCodeOne?ref_src=twsrc%5Etfw">@OracleCodeOne</a> <a href="https://twitter.com/oracleopenworld?ref_src=twsrc%5Etfw">@oracleopenworld</a> attendees. The real action with the fun people is in the <a href="https://twitter.com/groundbreakers?ref_src=twsrc%5Etfw">@groundbreakers</a> Hub. Come join us and remind yourself of why you got into tech in the first place 🤓 All are welcome 🤗 <a href="https://twitter.com/hashtag/CommmityFirst?src=hash&amp;ref_src=twsrc%5Etfw">#CommmityFirst</a> <a href="https://t.co/W1rQgH8oWv">pic.twitter.com/W1rQgH8oWv</a></p>&mdash; Vincent Mayers (@vincentmayers) <a href="https://twitter.com/vincentmayers/status/1174033804937187328?ref_src=twsrc%5Etfw">September 17, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">LIFE IS GOOD at the <a href="https://twitter.com/groundbreakers?ref_src=twsrc%5Etfw">@groundbreakers</a> hub at <a href="https://twitter.com/OracleCodeOne?ref_src=twsrc%5Etfw">@OracleCodeOne</a> - we have arcade machines, <a href="https://twitter.com/Hackergarten?ref_src=twsrc%5Etfw">@hackergarten</a>, a beer blockchain, a 1k <a href="https://twitter.com/hashtag/RaspberryPi?src=hash&amp;ref_src=twsrc%5Etfw">#RaspberryPi</a> cluster, escape rooms, code cards and IoT devices. Let&#39;s <a href="https://twitter.com/hashtag/BreakNewGround?src=hash&amp;ref_src=twsrc%5Etfw">#BreakNewGround</a> <a href="https://twitter.com/hashtag/CodeOne?src=hash&amp;ref_src=twsrc%5Etfw">#CodeOne</a> <a href="https://t.co/p5PI4q1XI4">pic.twitter.com/p5PI4q1XI4</a></p>&mdash; Benjamin Nothdurft (@DataDuke) <a href="https://twitter.com/DataDuke/status/1174118535565438976?ref_src=twsrc%5Etfw">September 18, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+</div>
 ## Streams Workshop
 
 Workshop nog beschrijven of gewoon linken naar hier?
@@ -160,7 +167,7 @@ Instead, we should analyze were we are (as an organisation) and determine which 
 conferences give nice demos and workshops and tell you all will be alright. 
 Before we take a decision like this we first need to be aware of the answers to The Four Questions:
 
-![](/img/oracle-code-one-2019/four-questions.png)
+<img src="/img/oracle-code-one-2019/four-questions.png" alt="" width="75%">
 
 Answering the last 2 questions require an entirely different talk, but the first one we can try and tackly using a maturity model, popularized by [Martin Fowler](https://www.martinfowler.com/bliki/MaturityModel.html).
 Maturity models have their own share of problems and critics, but Baruch and Viktor pose that, if done right, they can help your organization or team make signifant 
@@ -174,7 +181,8 @@ take into account for a maturity model are:
 - It should focus on outcomes, not specific tools to use.
 - It should constantly be evaluated and evolve, not written once and then forgotten.
 
-![](/img/oracle-code-one-2019/dos-donts.png)
+<img src="/img/oracle-code-one-2019/dos-donts.png" alt="" width="75%">
+
 
 The answer to the question "Is it even a good tech?" can be answered by advisory / research companies like Forrester or Gartner but because these are for-profit
 companies their suggestions might be skewed towards the companies which are already established / rich or more in the limelight. A better option might be to look
