@@ -170,8 +170,73 @@ Rental is part of the aggregate of RentalCompany.
 ### Querying the database
 
 #### Spring jdbc
+If you want to query the database using spring jdbc, then spring jdbc will provide some utilities for that.
+The main utility stays the jdbc template. You need to use this for the connection to the jdbc and therefore the database.
+The downside of using this is that it only provides the connection, everything else you need to do yourself.
+If you search for objects, the mapping to java objects will need to be done by you using a self-written Rowmapper.
+The exception handling will also need to done by yourself by creating a ExceptionTranslator.
+
+I will show you a simple example of how you can create a simple query that will contain data of objects.
+
+##### Examples
+
+This response coming from jdbc needs to be converted by using a mapper.
+
+{% highlight java %}
+
+    public class CarRowMapper implements RowMapper<Car> {
+    
+        @Override
+        public Car mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
+            Car car = new Car();
+     
+            car.setId(resultSet.getInt("ID"));
+            car.setColor(resultSet.getString("COLOR"));
+            car.setBrand(resultSet.getString("BRAND"));
+            car.setModel(resultSet.getString("MODEL"));
+     
+            return car;
+        }
+    }
+    
+{% endhighlight %}
+
+This mapper can be passed to the jdbc template so the conversion can be used to get populated java objects.
+
+{% highlight java %}
+
+    List<Car> cars = jdbcTemplate.queryForObject(
+        "SELECT * FROM CAR WHERE ID = ?", new Object[] {id}, new CarRowMapper());
+    
+{% endhighlight %}
 
 #### Spring data jpa
+
+When you use the spring data framework, it will help you with building your queries and getting the right information.
+The spring data jpa framework uses hibernate. They make it possible to query the database using user friendly interfaces.
+When you want to query the database, instead of writing the entire query yourself, hibernate will help you. 
+To query the database you need to define a repository interface for the entity that you want to query. 
+In that repository you need to define which methods you want to use. 
+
+Some basic queries can be written using derived queries. An example of this is findById. 
+For these methods spring data will generate the sql entirely on its own.
+
+If you need to write more advanced queries that can't easily be defined as a derived query, you can define the query yourself using the @Query annotation.
+Inside the @Query annotation you write jpql or sql statements. Jpql is an SQL like syntax which provides a layer on top regular sql. 
+This makes it possible to let spring data help you with for example sorting and paging.
+
+If you want to be a bit more in control, you can use sql by setting the the property native = true. 
+Then you don't use this extra layer, but it then also can't help you anymore. 
+
+Apart from helping you with more easily defining which query you want to execute, it also helps you with finetuning performance.
+You are using entities when you query using spring data jpa. These entities have connections to other entities.
+Spring data jpa will help you with defining if you want to return these connected entities directly or if you don't want to do that, help you with searching for these entities when you do need them.
+This is called eager and lazy loading and this can all be managed by spring data jpa.
+
+It will also try to improve performance by giving you the option to cache the results of these queries.
+If you would have the same query, this cache can return the result instead of letting the database calculate it again.
+
+Be aware that even though you use sql directly, you will still return entitities that are managed by hibernate.
 
 #### Spring data jdbc
 @query is anders (jpql). Er is geen lazy loading. Geen caching.
