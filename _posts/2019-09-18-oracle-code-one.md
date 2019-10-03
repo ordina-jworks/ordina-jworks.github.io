@@ -90,13 +90,13 @@ There was a lot of buzz on Twitter about the event:
 As always, there are a few speakers at every conference who are household names and who always delivery. Some of these you can also go and experience in Belgium at Devoxx or our very own [JOIN](https://ordina-jworks.github.io/join/) conference, like
 [Benjamin Nothdurft](https://twitter.com/DataDuke). These talks are always very interesting and of a high standard, but we will only highlight these very briefly.
 
-[Venkat Subramanian](https://twitter.com/venkat_s) gave no less than 6 talks at the conference, 2 of which we were able to attend. These talked about "A Dozen Cool Things You Can Do With JVM Languages"
+[Venkat Subramanian](https://twitter.com/venkat_s) gave no less than 6 talks at the conference, 2 of which we were able to attend. These talked about []A Dozen Cool Things You Can Do With JVM Languages](https://youtu.be/pWW8uqAPT-s)
 and "Functional Programming Idioms in Java" in which Venkat shows you things which are really useful but look obvious and vanzeflsprekend when he points them out in his incomparable style.
 
 [Mark Heckler](https://twitter.com/mkheck/status/1174413471674294272) talked about [How to Use Messaging Platforms for Scalabiliy and Performance](https://speakerdeck.com/mkheck/drinking-from-the-stream) and did an impressive live demo
 in which he built an application which produced, transformed and consumed events in 3 seperate projects in less than 15 minutes, using Spring Cloud Stream.
 
-Furthermore [Josh Long](https://twitter.com/starbuxman) talked about "The Reactive Revolution" and "Bootiful Testing" while [Stephane Maldini](https://twitter.com/smaldini) gave us an overview of the reasons
+Furthermore [Josh Long](https://twitter.com/starbuxman) talked about [The Reactive Revolution](https://youtu.be/Y-r_S2UAzGY) and "Bootiful Testing" while [Stephane Maldini](https://twitter.com/smaldini) gave us an overview of the reasons
 why you should (or should not) start using reactive programming.
 
 Reactive Performance on GraalVM @christhalinger @OlehDokuka https://twitter.com/christhalinger/status/1173734585659609088
@@ -125,22 +125,29 @@ https://ordina-jworks.github.io/conference/2018/12/17/Devoxx-MA.html#stream-proc
 
 Another workshop which we followed (which was guided by [Ray Tsang](https://twitter.com/saturnism)) showed us how to easily set up an Istio service mesh on a Kubernetes cluster on Google Cloud. 
 
--- what is istio --
+[What is Istio?](https://istio.io/docs/concepts/what-is-istio/)
+
+> Istio is an open platform-independent service mesh that provides traffic management, policy enforcement, and telemetry collection.
+> 
+> Open: Istio is being developed and maintained as open-source software. We encourage contributions and feedback from the community at-large.
+> 
+> Platform-independent: Istio is not targeted at any specific deployment environment. During the initial stages of development, Istio will support Kubernetes-based deployments. However, Istio is being built to enable rapid and easy adaptation to other environments.
+> 
+> Service mesh: Istio is designed to manage communications between microservices and applications. Without requiring changes to the underlying services, Istio provides automated baseline traffic resilience, service metrics collection, distributed tracing, traffic encryption, protocol upgrades, and advanced routing functionality for all service-to-service communication.
 
 It was surprisingly easy to set up an entire K8s cluster with service mesh in less than an hour, after which there was still time to try out some of the nice features of a service mesh, like setting up
 special routing rules to enable for example Canary deployments or A/B testing scenarios, fault injection / circuit breaking, tracing, ... Which can all be handled by Istio itself without making any
 changes to your application (except for propagating the headers which are required for tracing). Also a lot of added on applications like Prometheus, Grafana, Jaeger, ... all worked straight out of the box.
 
-For the workshop we received special temporary accounts but if you use your own account (which has a free trial option) you can certainly try and follow the steps in the very extensive [Read-through](https://github.com/retroryan/istio-workshop)
+For the workshop we received special temporary accounts but if you use your own account (which has a free trial option) you can certainly try and follow the steps in the very extensive [Slides](http://bit.ly/istio2019) and [Read-through](https://github.com/retroryan/istio-workshop)
 to set this up yourselves.
-
-@saturnism
-http://bit.ly/istio2019
-https://github.com/retroryan/istio-workshop
 
 ## Quarkus Trivia Night
 
-https://twitter.com/JaapCoomans/status/1174150552156069888
+All work and no plays makes us dull boys so there was also time for some relaxation. We were invited for a Trivia Night organised by OpenShift and Quarkus
+at a brewery close to the conference center, which was a nice change of pace from all serious presentations.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Good food and beer at the <a href="https://twitter.com/QuarkusIO?ref_src=twsrc%5Etfw">@QuarkusIO</a> trivia reception <a href="https://twitter.com/hashtag/CodeOne?src=hash&amp;ref_src=twsrc%5Etfw">#CodeOne</a> <a href="https://t.co/zUKamBK08L">pic.twitter.com/zUKamBK08L</a></p>&mdash; Jaap Coomans (@JaapCoomans) <a href="https://twitter.com/JaapCoomans/status/1174150552156069888?ref_src=twsrc%5Etfw">September 18, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Monitor Kafka Like a Pro
 
@@ -189,4 +196,49 @@ technologies and determines if you should Adopt, Asses, Trial or Hold these.
 Moreover, you could argue that it's even better to extend the question to "Is this even a good tech *for our team*", in which case it's a good idea to [build your own tech radar](https://www.thoughtworks.com/radar/how-to-byor)
 which of course at Jworks we [already did](https://ordina-jworks.github.io/tech-radar).
 
+## Progressive Web Applications VS Native
+
+One of the few Frontend (but still a bit Oracle) -related talks was about PWA's, a topic which we are also starting to explore at Jworks, given by Marta Hawkins.
+
+Ionic gives a good definition of a Progressive Web Application:
+
+> A Progressive Web App (PWA) is a web app that uses modern web capabilities to deliver an app-like experience to users. These apps meet certain requirements (see below), are deployed to servers, accessible through URLs, and indexed by search engines.
+
+The premise of the talk was mainly about comparing the capabilities of a PWA compared to a classic native application, and in most cases refuting the arguments which could be brought against PWA's.
+The first such argument is that you cannot access all native phone functionality, but recently the support for almost all of these functions, like taking pictures, watching videos, 
+using location information, using gestures, ... have been made available for PWA's. 
+
+All major browsers are now also supporting almost all PWA functionality. The next obvious argument is that if you choose to write a native application you have to maintain multiple code bases,
+whereas you only need to write one application and distribute it independently of app stores in the other case. This also means you can release new functionality
+without having to go through the process of getting it approved on the respective app stores, and your application will be more easily discoverable on your 
+search engine of choice. All of these arguments result in the fact that PWA's are better to drive user engagement.
+
+Next Marta talked about the preconditions you need to have your web application recognized as 'progressive', of which there are only 3:
+
+<img src="/img/oracle-code-one-2019/pwa-conditions.png" alt="" width="75%">
+
+A service worker is what provides the PWA with it's special capabilities. This is what enables offline functionality, installability, notifcations, request caching, ...
+
+Google's [developer guide](https://developers.google.com/web/ilt/pwa/introduction-to-service-worker) describes it as follows:
+
+> A service worker is a type of web worker. It's essentially a JavaScript file that runs separately from the main browser thread, intercepting network requests, caching or retrieving resources from the cache, and delivering push messages.
+
+Of course not all is sunshine and rainbows, so next Marta also warned for some pitfalls they already encountered in the past:
+
+- Browser support is good, but not complete. Chrome is the frontrunner and Safari is notably lagging behind.
+- The same is true for the different OS's. Android treats PWA's as first class citizens, on iOS you need to really go and find the ability to install the app to your home screen.
+- Developing and debugging the applications is also not trivial. Chrome is developing and delivering better debugging tools.
+- Caching is never trivial, but especially in service workers it sometimes seems to behave in mysterious ways.
+
+[Slides](https://static.rainfocus.com/oracle/oow19/sess/1552707018783001LVCE/PF/PWA_final_1568924085498001Vope.pdf)
+
+## Sarcasm as a Service
+
+https://youtu.be/jk-l-D5cmKY
+
 ## Conclusion
+
+
+downsides:
+- too many talks
+- MOAR COFFEE
