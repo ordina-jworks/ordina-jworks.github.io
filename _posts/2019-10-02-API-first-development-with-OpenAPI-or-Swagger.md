@@ -121,7 +121,11 @@ Let's bring in the OpenAPI spec.
 Let's now use OAS to help us with our API First approach and design our API.
 Note that by OAS I mean OpenAPI Specification.  
 
-Let me introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}, a portal to visualise...
+> OAS stands for OpenAPI Specification (formerly known as Swagger Specification)
+
+If you are confused about the difference between OpenAPI and Swagger check out [this page](https://swagger.io/docs/specification/about/){:target="_blank"}.
+
+Time to introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}, a portal to visualise...
 Easy to use and offering all the functionality we need for this example.
 
 I'll keep it simple, we will create the OAS for exposing the endpoint to let consumers fetch the sessions of the conference.  
