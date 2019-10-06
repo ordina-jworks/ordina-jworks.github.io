@@ -531,12 +531,13 @@ Below the pros and cons of practising API first development using Swagger/OpenAP
  * Strong tooling support — AWS, Postman, visualizing the API, generate skeleton classes, ... 
  * Strong consistency between API spec and Web layer of the code
  * Example support 
- * Documenting API descriptions separated from code (not really separated, because they’re added to the generated classes, but you won’t need to change them 
+ * Documenting API descriptions is separated from code. Annotations are added to the generated code but you won't be responsible for constantly updating them to keep documentation in sync.
  * Functional analyst can assist with creating the API specs because it's a human readable format
 
 **Cons** 
  * No support for complex/variable request/response scenarios
  * Little extra documentation can be added in the API specs
+ * If you add a new `enum` in the specification your clients have to regenerate their code in order to be able to accept the enum.
  * Development can only start after API is designed
 
 
