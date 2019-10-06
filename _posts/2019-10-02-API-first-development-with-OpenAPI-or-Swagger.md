@@ -51,7 +51,7 @@ All communication between those services goes through the API.
 * **Multiple frontend applications use the same backend.**  
 Often these applications are created by separate teams.
 
-* **An API carry business value.**    
+* **An API carries business value.**    
 There is real money in your API.  
 Defining APIs gives us the opportunity to expose our application's functionality and create bridges between our provider and consumers.
 The easier it is to integrate with your API, the higher the acceptance rate of consumers for your product will be.
