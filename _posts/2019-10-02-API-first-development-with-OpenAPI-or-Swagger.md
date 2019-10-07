@@ -123,7 +123,7 @@ Note that by OAS I mean OpenAPI Specification.
 
 > OAS stands for OpenAPI Specification (formerly known as Swagger Specification)
 
-If you are confused about the difference between OpenAPI and Swagger check out [this page](https://swagger.io/docs/specification/about/){:target="_blank"}.
+If you are confused about the difference between OpenAPI and Swagger, check out [this page](https://swagger.io/docs/specification/about/){:target="_blank"}.
 
 Time to introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}, a portal to visualise...
 Easy to use and offering all the functionality we need for this example.
@@ -537,7 +537,7 @@ Below the pros and cons of practising API first development using Swagger/OpenAP
 **Cons** 
  * No support for complex/variable request/response scenarios
  * Little extra documentation can be added in the API specs
- * If you add a new `enum` in the specification your clients have to regenerate their code in order to be able to accept the enum.
+ * If you add a new `enum` in the specification, your clients have to regenerate their code in order to be able to accept the enum.
  * Development can only start after API is designed
 
 
