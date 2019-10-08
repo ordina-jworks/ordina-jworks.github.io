@@ -51,7 +51,7 @@ All communication between those services goes through the API.
 * **Multiple frontend applications use the same backend.**  
 Often these applications are created by separate teams.
 
-* **An API carry business value.**    
+* **An API carries business value.**    
 There is real money in your API.  
 Defining APIs gives us the opportunity to expose our application's functionality and create bridges between our provider and consumers.
 The easier it is to integrate with your API, the higher the acceptance rate of consumers for your product will be.
@@ -121,7 +121,11 @@ Let's bring in the OpenAPI spec.
 Let's now use OAS to help us with our API First approach and design our API.
 Note that by OAS I mean OpenAPI Specification.  
 
-Let me introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}, a portal to visualise...
+> OAS stands for OpenAPI Specification (formerly known as Swagger Specification)
+
+If you are confused about the difference between OpenAPI and Swagger, check out [this page](https://swagger.io/docs/specification/about/){:target="_blank"}.
+
+Time to introduce you to [https://editor.swagger.io](https://editor.swagger.io){:target="_blank"}, a portal to visualise...
 Easy to use and offering all the functionality we need for this example.
 
 I'll keep it simple, we will create the OAS for exposing the endpoint to let consumers fetch the sessions of the conference.  
@@ -527,12 +531,13 @@ Below the pros and cons of practising API first development using Swagger/OpenAP
  * Strong tooling support — AWS, Postman, visualizing the API, generate skeleton classes, ... 
  * Strong consistency between API spec and Web layer of the code
  * Example support 
- * Documenting API descriptions separated from code (not really separated, because they’re added to the generated classes, but you won’t need to change them 
+ * Documenting API descriptions is separated from code. Annotations are added to the generated code but you won't be responsible for constantly updating them to keep documentation in sync.
  * Functional analyst can assist with creating the API specs because it's a human readable format
 
 **Cons** 
  * No support for complex/variable request/response scenarios
  * Little extra documentation can be added in the API specs
+ * If you add a new `enum` in the specification, your clients have to regenerate their code in order to be able to accept the enum.
  * Development can only start after API is designed
 
 
