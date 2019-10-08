@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-10-03T08:39:41+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-10-08T03:50:21+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">API first development with OpenAPI/Swagger</title><link href="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html" rel="alternate" type="text/html" title="API first development with OpenAPI/Swagger" /><published>2019-10-02T00:00:00+00:00</published><updated>2019-10-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
 
 &lt;p&gt;1.&lt;a href=&quot;#api-first-development---why-how-and-what&quot;&gt;API first development - Why, how and what&lt;/a&gt;&lt;br /&gt;
@@ -49,7 +49,7 @@ All communication between those services goes through the API.&lt;/p&gt;
 Often these applications are created by separate teams.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;An API carry business value.&lt;/strong&gt;  &lt;br /&gt;
+    &lt;p&gt;&lt;strong&gt;An API carries business value.&lt;/strong&gt;  &lt;br /&gt;
 There is real money in your API.&lt;br /&gt;
 Defining APIs gives us the opportunity to expose our application’s functionality and create bridges between our provider and consumers.
 The easier it is to integrate with your API, the higher the acceptance rate of consumers for your product will be.&lt;/p&gt;
@@ -139,7 +139,13 @@ Let’s bring in the OpenAPI spec.&lt;/p&gt;
 &lt;p&gt;Let’s now use OAS to help us with our API First approach and design our API.
 Note that by OAS I mean OpenAPI Specification.&lt;/p&gt;
 
-&lt;p&gt;Let me introduce you to &lt;a href=&quot;https://editor.swagger.io&quot; target=&quot;_blank&quot;&gt;https://editor.swagger.io&lt;/a&gt;, a portal to visualise…
+&lt;blockquote&gt;
+  &lt;p&gt;OAS stands for OpenAPI Specification (formerly known as Swagger Specification)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you are confused about the difference between OpenAPI and Swagger, check out &lt;a href=&quot;https://swagger.io/docs/specification/about/&quot; target=&quot;_blank&quot;&gt;this page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Time to introduce you to &lt;a href=&quot;https://editor.swagger.io&quot; target=&quot;_blank&quot;&gt;https://editor.swagger.io&lt;/a&gt;, a portal to visualise…
 Easy to use and offering all the functionality we need for this example.&lt;/p&gt;
 
 &lt;p&gt;I’ll keep it simple, we will create the OAS for exposing the endpoint to let consumers fetch the sessions of the conference.&lt;br /&gt;
@@ -554,7 +560,7 @@ There is also an endpoint to download the Swagger / OpenAPI specification:  &lt;
   &lt;li&gt;Strong tooling support — AWS, Postman, visualizing the API, generate skeleton classes, …&lt;/li&gt;
   &lt;li&gt;Strong consistency between API spec and Web layer of the code&lt;/li&gt;
   &lt;li&gt;Example support&lt;/li&gt;
-  &lt;li&gt;Documenting API descriptions separated from code (not really separated, because they’re added to the generated classes, but you won’t need to change them&lt;/li&gt;
+  &lt;li&gt;Documenting API descriptions is separated from code. Annotations are added to the generated code but you won’t be responsible for constantly updating them to keep documentation in sync.&lt;/li&gt;
   &lt;li&gt;Functional analyst can assist with creating the API specs because it’s a human readable format&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -562,6 +568,7 @@ There is also an endpoint to download the Swagger / OpenAPI specification:  &lt;
 &lt;ul&gt;
   &lt;li&gt;No support for complex/variable request/response scenarios&lt;/li&gt;
   &lt;li&gt;Little extra documentation can be added in the API specs&lt;/li&gt;
+  &lt;li&gt;If you add a new &lt;code class=&quot;highlighter-rouge&quot;&gt;enum&lt;/code&gt; in the specification, your clients have to regenerate their code in order to be able to accept the enum.&lt;/li&gt;
   &lt;li&gt;Development can only start after API is designed&lt;/li&gt;
 &lt;/ul&gt;
 
