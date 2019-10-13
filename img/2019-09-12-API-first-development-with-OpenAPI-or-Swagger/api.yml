@@ -1,0 +1,214 @@
+---
+openapi: 3.0.0
+info:
+  description: API for the Ordina conference event
+  version: '1'
+  title: Conference-API
+servers:
+  - url: "https://your-conference-domain.com/api/"
+    description: 'Base URL for the API'
+paths:
+  "/sessions":
+    get:
+      description: Get all sessions of the conference
+      operationId: getAllSessions
+      tags:
+        - sessions
+      responses:
+        '200':
+          description: "The list of sessions is returned"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetAllSessionsResponse"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations
+        responses:
+          default:
+            statusCode: 200
+    post:
+      description: Create a new session on the conference
+      operationId: createSession
+      tags:
+        - sessions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Session"
+      responses:
+        '202':
+          description: "Session accepted for creation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSessionResponse'
+        '400':
+          description: "You made a bad request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateSessionFunction.Arn}/invocations
+        responses:
+          default:
+            statusCode: 200
+  "/sessions/{sessionId}":
+    get:
+      description: Get session of the conference by sessionId
+      operationId: getSessionByUuid
+      tags:
+        - sessions
+      parameters:
+        - in: path
+          name: sessionId
+          schema:
+            type: string
+          required: true
+          description: Numeric ID of the session to get
+      responses:
+        '200':
+          description: "The session is returned"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSessionResponse"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetOneSessionFunction.Arn}/invocations
+        responses:
+          default:
+            statusCode: 200
+
+components:
+  schemas:
+    Session:
+      type: object
+      required:
+        - subject
+        - speaker
+      properties:
+        subject:
+          type: string
+          minLength: 1
+          example: "API first development with OAS"
+        duration:
+          type: number
+          description: "The duration of the session in minutes"
+          example: 20
+        timestamp:
+          type: string
+          description: "Timestamp in milliseconds at which this session will take place"
+          example: "1570202335000"
+        speaker:
+          $ref: '#/components/schemas/Speaker'
+    Speaker:
+      type: object
+      required:
+        - firstName
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+          example: "Nick"
+        lastName:
+          type: string
+          example: "Van Hoof"
+        company:
+          $ref: '#/components/schemas/Company'
+    Company:
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: "Ordina"
+        companyCity:
+          type: string
+          description: "City where the company is based"
+          example: "Mechelen"
+
+    GetAllSessionsResponse:
+      type: object
+      required:
+        - sessions
+      properties:
+        sessions:
+          type: array
+          description: "List of sessions"
+          items:
+            $ref: '#/components/schemas/GetSessionResponse'
+
+    GetSessionResponse:
+      required:
+        - sessionId
+      allOf:
+        - $ref: '#/components/schemas/Session'
+        - type: object
+          properties:
+            sessionId:
+              type: string
+              example: "11313"
+
+    CreateSessionResponse:
+      required:
+        - sessionId
+      allOf:
+        - $ref: '#/components/schemas/Session'
+        - type: object
+          properties:
+            sessionId:
+              type: string
+              example: "11313"
+
+    GenericResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: "This is the response message"
+
+    NotFoundResponse:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/GenericResponse'
+
+    BadRequestResponse:
+      type: object
+      required:
+        - problems
+      properties:
+        problems:
+          type: array
+          description: list of problems
+          items:
+            $ref: '#/components/schemas/BadRequestItem'
+
+    BadRequestItem:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 1
+          description: message that explains what is wrong with this field
+          example: Incorrect data type
+
+  responses:
+    BadRequest:
+      description: Request was not conform the API specifications
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestResponse'
