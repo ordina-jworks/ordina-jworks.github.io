@@ -20,11 +20,32 @@ comments: true
 [Conclusion](#conclusion)
 [Resources](#resources)
 
+# What about?
+Serverless is a great technology that comes with the advantage of being scalable, durable and high availability.  
+It allows you to decouple functionality into multiple serverless Functions.  
+You'll read about these advantages everywhere.  
+What you'll read less about is the challenges that come with it.
+Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.  
+I mean that a lot of stuff happens in a lot of different places.  
+We still want to be able to monitor our landscape though.  
+This means that a distributed serverless landscape has to be observable.  
+Let's see some of the best practices on how to make your serverless landscape observable. 
+
 # Challenges of Serverless applications
 What does a typical serverless application look like?  
-[comment]: <> (TODO: add picture of a serverless landscape)
+Let's look at an app that was build for a conference. 
+Speakers can create a session that they want to speak about. 
+People can also retrieve all sessions that have already been submitted
 
-* heavily distributed distributed
+
+<div style="text-align: center;">
+  <img src="/img/2019-08-31-Monitoring-serverless-apps-on-AWS/simpler-architecture.png" width="100%" height="100%">
+</div>
+
+The serverless architecture above is actually quite small.
+I've seen architectures containing tens of Lambda Functions and other AWS services.
+
+* heavily distributed landscape
 * each service is producing there own logs
 * each service is running concurrently
 * how do you relate all these logs
@@ -32,10 +53,8 @@ What does a typical serverless application look like?
 * What if it goes wrong? Where did it go wrong? Can you find the culprit(s)? 
 * How can I be alerted in case in case it goes wrong? 
 
-All these questions trace back to:
-* monitoring
-* visibility
-* observability
+All these questions trace back to having a landscape that is observable.
+Thus allowing you to monitor it which gives you visibility on what happened in your landscape.
 
 I can do this myself. I know my technical landscape!
 Yes, but!?
@@ -101,7 +120,7 @@ The goal of structured logging is to solve these sorts of problems and allow add
 
 * filter log messages, searching log files (4)
 * structured format (3): This makes it possible for you to analyze your logs like you would analyse data. 
-A log is no longer just text, it became kind of like a database that can be queried. 
+A log is no longer just text, it became kind of like a database entry that can be queried. 
 This allows summaries and analytics to take place and help you monitor your application and troubleshoot issues faster.
 * Process log files for further analytics or BI applications
 * Use an other lambda that subscribes to the logGroup to process this data into a metric 
@@ -134,7 +153,7 @@ But recently: query over multiple log groups!
 
 # Monitoring with AWS CloudWatch Dashboards: Metrics, Dashboards, Alerting
 CloudWatch has this metrics tab.
-Out of the box AWS provides four lambda metrics: Erros, Duration, Throttles and Invocations.
+Out of the box AWS provides four lambda metrics: Errors, Duration, Throttles and Invocations.
 [comment]: <> (TODO: visualize the metrics )
 
 These are the standard Metrics for a serverless application.
@@ -158,10 +177,10 @@ You can then listen on these events and send out an email or a slack notificatio
 
 # Xray: distributed tracing
 Serverless architectures are like microservices: distributed systems.
-Remember the schema of the technical landscape I showed abowe?
+Remember the schema of the technical landscape I showed above?
 You need ID which you can use to correlate requests in different services and thereby trace a full transaction that started with an incoming event.
 A function can receive an http request and put a message on a SNS topic.
-A second functio listens on this topic and puts an item in a database.
+A second function listens on this topic and puts an item in a database.
 The database stream triggers an other function.
 This third function asynchronously calls a fourth function.
 I can go on like this for quite a while. 
@@ -181,7 +200,7 @@ Searching for a needle in a haystack. For example a problem with a sales number 
 *You cannot trace asynchronous requests: no tracing over DynamoDB Streams, SQS, SNS topics.
 AWS is working on this however I heard.
 
-XRay is all about behavior.
+Xray is all about behavior.
 It makes it easy to analyze the behavior of your distributed serverless applications. 
 AWS X-Ray is a great tool which allows you to trace and instrument your code to gain extra visibility into what’s going on.
  It also enables you to zoom in on different parts of your code and identify the parts that are lacking.
@@ -190,7 +209,7 @@ AWS X-Ray is a great tool which allows you to trace and instrument your code to 
 # Implement your own tracing solution
 Since Xray is not tracing async requests, you could implement your own tracing solution.
 However, is that really what you want to be doing?
-I always here all this fuzz about focussing on the business value. 
+I always here all this fuzz about focusing on the business value. 
 Plus, implementing your own tracing solution is hard.
 You'll find enough battle stories online.
 On this point I'm agreeing with the third party monitoring solutions.
