@@ -13,12 +13,12 @@ comments: false
 * [What about](#what-about)
 * [Challenges of Serverless applications](#challenges-of-serverless-applications)
 * [Challenge 1: Finding the error in a distributed serverless landscape](#challenge-1-finding-the-error-in-a-distributed-serverless-landscape)
-* [Structured logging](#structured-logging)
+* [Solution 1: Structured logging](#solution-1-structured-logging)
 * [Challenge 2: Finding performance bottlenecks](#challenge-2-finding-performance-bottlenecks)
-* [Distributed tracing with Xray](#distributed-tracing-with-aws-xray)
+* [Solution 2: Distributed tracing with Xray](#solution-2-distributed-tracing-with-aws-xray)
 * [Challenge 3: Testing whether our application still behaves as expected](#challenge-3-testing-whether-our-application-still-behaves-as-expected)
-* [Smoke Testing](#smoke-testing)
-* [Load Testing](#load-testing)
+* [Solution 3a: Smoke Testing](#solution-3a-smoke-testing)
+* [Solution 3b: Load Testing](#solution-3b-load-testing)
 * [Side note on CloudWatch Dashboards](#side-note-on-cloudwatch-dashboards)
 * [Conclusion](#conclusion)
 * [Resources](#resources)
@@ -35,9 +35,11 @@ comments: false
 Serverless is a great technology that comes with the advantage of being scalable, durable and high availability.  
 It allows you to decouple functionality into multiple serverless Functions.  
 You'll read about these advantages everywhere.  
+
 What you'll read less about is the challenges that come with it.
 Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.  
 I mean that a lot of stuff happens in a lot of different places.  
+
 We still want to be able to monitor our landscape though.  
 This means that a distributed serverless landscape has to be observable.  
 Let's see some of the best practices on how to make your serverless landscape observable. 
@@ -91,7 +93,7 @@ We need two things:
 * We need to correlate the logs coming from different places.
 * We need to get the valuable information out of our logs.
 
-## Structured logging
+## Solution 1: structured logging
 Structured logging to the rescue!
 
 Below you see a normal log versus a structured log.
@@ -180,7 +182,7 @@ fields @timestamp, @message
 We see that even when the system is warm, it still takes us up to 10 seconds to send out a slack notification.
 We need to dig into the performance of our lambda functions using `AWS Xray`.
 
-## Distributed tracing with AWS Xray
+## Solution 2: distributed tracing with AWS Xray
 
 <div style="text-align: center;">
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray.png" width="10%" height="10%">
@@ -266,7 +268,7 @@ This includes:
 * running smoke tests to detect hazards
 * running load tests to view if the system can handle the load
 
-## Smoke testing
+## Solution 3a: smoke testing
 You should automate testing your system.
 In the image below you see how I automate a test to check if a new session that is entered via the API is still forwarded.
 
@@ -303,7 +305,7 @@ curl -X POST \
 }'
 ```
 
-## Load testing
+## Solution 3b: load testing
 Yes, serverless scales automatically.
 But things might not always behave as expected.
 Listening on events of a `Kinesis` stream for example is only possible with one Lambda function per `Shard`.
