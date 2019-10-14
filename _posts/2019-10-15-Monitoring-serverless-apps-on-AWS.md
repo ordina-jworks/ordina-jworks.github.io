@@ -297,7 +297,7 @@ In the image below you see how I automate a test to check if a new session that 
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/smoke-test.png" width="100%" height="100%">
 </div>
 
-I create this test using `JUnit` and mocked the http endpoints with [wiremock](http://wiremock.org/).
+I create this test using `JUnit` and mocked the http endpoints with [wiremock](http://wiremock.org/){:target="_blank"}.
 `Wiremock` is a great tool to mock http endpoints that I personally use a lot.  
 You can ask Wiremock to create certain endpoints and configure the response for it.  
 Below you see me creating the `/sessions/forward` endpoint.
@@ -332,7 +332,7 @@ But things might not always behave as expected.
 Listening on events of a `Kinesis` stream for example is only possible with one Lambda function per `Shard`.
 Thus limiting your throughput if you don't watch out.
 
-To run my loaddtest I use [artillery](https://artillery.io). 
+To run my loaddtest I use [artillery](https://artillery.io){:target="_blank"}. 
 Below you find the file that I use to configure this load test.
 It ramps up the amount of request per second from 1 to 10 during 2 minutes.
 
@@ -434,11 +434,12 @@ Remember that:
 * you can create smoke tests and load tests to check if your system is behaving as it is supposed to.
  
 # Resources
-1. https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/
-2. https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/
-3. https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/
-4. https://stackify.com/what-is-structured-logging-and-why-developers-need-it/
-6. https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html
-7. https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html
-8. https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html
-9. https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017
+1. [https://lumigo.io/blog/](https://lumigo.io/blog/){:target="_blank"}
+2. [https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/](https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/){:target="_blank"}
+3. [https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/](https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/){:target="_blank"}
+4. [https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/](https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/){:target="_blank"}
+5. [https://stackify.com/what-is-structured-logging-and-why-developers-need-it/](https://stackify.com/what-is-structured-logging-and-why-developers-need-it/){:target="_blank"}
+6. [https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html){:target="_blank"}
+7. [https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html){:target="_blank"}
+8. [https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html](https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html){:target="_blank"}
+9. [https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017](https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017){:target="_blank"}
