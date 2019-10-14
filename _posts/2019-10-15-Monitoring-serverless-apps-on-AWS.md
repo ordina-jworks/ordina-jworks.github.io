@@ -31,7 +31,7 @@ comments: false
 Serverless is a great technology that comes with the advantage of being scalable, durable and high available.  
 It allows you to decouple functionality into multiple serverless Functions.  
 
-Of course with new technologies come also new challenges.
+But with new technologies come new challenges.
 Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.  
 I mean that a lot of stuff happens in a lot of different places.  
 
