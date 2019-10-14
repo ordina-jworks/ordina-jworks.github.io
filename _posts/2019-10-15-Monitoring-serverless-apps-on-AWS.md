@@ -11,32 +11,27 @@ comments: false
 
 # Table of content
 * [What about](#what-about)
+
 * [Challenges of Serverless applications](#challenges-of-serverless-applications)
 * [Challenge 1: Finding the error in a distributed serverless landscape](#challenge-1-finding-the-error-in-a-distributed-serverless-landscape)
 * [Solution 1: Structured logging](#solution-1-structured-logging)
+
 * [Challenge 2: Finding performance bottlenecks](#challenge-2-finding-performance-bottlenecks)
 * [Solution 2: Distributed tracing with Xray](#solution-2-distributed-tracing-with-aws-xray)
+
 * [Challenge 3: Testing whether our application still behaves as expected](#challenge-3-testing-whether-our-application-still-behaves-as-expected)
 * [Solution 3a: Smoke Testing](#solution-3a-smoke-testing)
 * [Solution 3b: Load Testing](#solution-3b-load-testing)
+
 * [Side note on CloudWatch Dashboards](#side-note-on-cloudwatch-dashboards)
 * [Conclusion](#conclusion)
 * [Resources](#resources)
 
-[CloudWatch logs](#cloudwatch-logs)
-[Monitoring with AWS CloudWatch Dashboards](#monitoring-with-aws-cloudwatch-dashboards-metrics-dashboards-alerting)
-[Xray Distributed Tracing](#xray-distributed-tracing)
-[Monitoring your serverless environment](#monitoring-your-serverless-environment)
-[Third Party Tools](#third-party-tools)
-[Conclusion](#conclusion)
-[Resources](#resources)
-
 # What about?
-Serverless is a great technology that comes with the advantage of being scalable, durable and high availability.  
+Serverless is a great technology that comes with the advantage of being scalable, durable and high available.  
 It allows you to decouple functionality into multiple serverless Functions.  
-You'll read about these advantages everywhere.  
 
-What you'll read less about is the challenges that come with it.
+Of course with new technologies come also new challenges.
 Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.  
 I mean that a lot of stuff happens in a lot of different places.  
 
@@ -46,6 +41,7 @@ Let's see some of the best practices on how to make your serverless landscape ob
 
 # Challenges of Serverless applications
 What does a typical serverless application look like?  
+
 Let's look at an app that was build for a conference. 
 Speakers can create a session that they want to speak about. 
 People can also retrieve all sessions that have already been submitted.  
@@ -65,11 +61,13 @@ We can identify certain milestones that indicate that a request has passed this 
 The serverless architecture above is actually quite small.
 I've seen architectures containing tens of Lambda Functions and other AWS services.
 
-The challenges that come with a serverless architecture:
-1.  If it goes wrong somewhere in my distributed landscape, where did it go wrong?
-* Which part of my flow is performing poorly.
-2. Let's find the performance bottlenecks.
-3.  I can't run my system locally anymore since I cannot run all cloud services at my computer.
+Some of the challenges that come with a serverless architecture are:
+1. It might wrong somewhere in my distributed landscape.
+if it does, where did it go wrong?
+2. Which part of my flow is performing poorly. 
+Let's find the performance bottlenecks.
+3. I cannot run all cloud services at my computer.
+So I can't run my system locally anymore.
 How do I test whether my system is behaving as it is supposed to?
  
 In the next part we'll focus on solving these challenges.
@@ -80,7 +78,6 @@ We check the logs!
 
 Right, logging tells us the story of what happened in our application.
 The logs contain information about this story.  
-
 Only now the logs are not coming from one place. 
 The story is told in multiple Lambda functions.
 
@@ -90,32 +87,35 @@ This is that scalability of the cloud.
 Lambda functions can run concurrently.
 
 We need two things: 
-* We need to correlate the logs coming from different places.
-* We need to get the valuable information out of our logs.
+1. We need to correlate the logs coming from different places.
+2. We need to get the valuable information out of our logs.
 
 ## Solution 1: structured logging
 Structured logging to the rescue!
 
 Below you see a normal log versus a structured log.
 
+Normal plain text log:
 <div style="text-align: center;">
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/normal-log.png" width="100%" height="100%">
-</div>
+</div>  
 
+
+Structured log:
 <div style="text-align: center;">
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/structured-log.png" width="100%" height="100%">
 </div>
 
 Yes, the structured log is a lot more bloated.
-But it is also a lot more machine readable.
+But it is also a lot more machine readable and contains much more information.
 
 You recognize the `JSON` format.  
-* It contains contextual information like `functionName`, which is the function that created the log and `AWSRequestId` which is the identifier for the invocation of the lambda function.
+* It contains contextual information like `functionName` which is the function that created the log and `AWSRequestId` which is the identifier for the invocation of the lambda function.
 * We see the `milestone` key which refers to a certain milestone that the request passed while processing.
 * We still recognize the `message` and `timestamp`
 * The logs contain a `traceId` which we can use to correlate logs.
 
-`CloudWatch Logs Insights` is a service that gives us insights in our logs (what's in a name right?).
+AWS offers us a service to get insights in our logs, `CloudWatch Logs Insights`. (What's in a name right?)
 
 Since we used structured logging CloudWatch will pick up all `JSON` fields from our logs automatically.
 
@@ -123,6 +123,26 @@ Now we can use these logs to query the milestones that a request passed.
 We can correlate these milestones since we have the traceId correlating logs over multiple functions.
 Our logs are generated by multiple functions.
 `CloudWatch Logs Insights` allows you to query over multiple logGroups related to these functions.
+
+Suppose that something went wrong for session with sessionId: `a2db023e-6565-4a5c-b7dc-b53a420898e7`.  
+We now can lookup the traceId to track the concerning request in our landscape.
+
+```bash
+fields traceId
+| filter sessionId="865ccaad-ced0-4de5-aec3-b3692b2e06a0"
+| limit 1
+```
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/traceId-by-sessionId.png" width="100%" height="100%">
+</div>
+
+Then we can use this traceId to find the milestones that the request has already passed.
+
+```bash
+fields milestone, functionName, timestamp
+| filter traceId="bf769e94-4d48-4994-8c04-ebd00b51ecbd" and ispresent(milestone)
+| sort timestamp asc
+```
 
 <div style="text-align: center;">
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/milestones.png" width="100%" height="100%">
@@ -140,7 +160,7 @@ fields @message
 
 Or we could check for an exception that occurred.
 
-```
+```bash
 fields exception, traceId, functionName
 | filter traceId="bf769e94-4d48-4994-8c04-ebd00b51ecbd"
 | limit 1
@@ -164,9 +184,9 @@ Challenge 1 completed!
 
 # Challenge 2: Finding performance bottlenecks
 I wrote a `Logs Insights` query that allows me to check how long it took for a request to pass through the whole landscape.
-That means from the moment the request to create the session arrived till the moment we send out a slack notification for it.
+That means from the moment the creation request arrived till the moment we send out a slack notification for it.
 
-```
+```bash
 fields @timestamp, @message
 | filter  milestone="CREATE_REQUEST_RECEIVED" or milestone="SLACK_NOTIFICATION_NEW_SESSION_SENT"
 | stats (latest(@timestamp) - earliest(@timestamp))/1000 as LeadTimeInSeconds by traceId
@@ -179,7 +199,7 @@ fields @timestamp, @message
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/slack-notification-lead-time.png" width="100%" height="100%">
 </div>
 
-We see that even when the system is warm, it still takes us up to 10 seconds to send out a slack notification.
+We see that even when the system is warm, it takes us up to 10 seconds to send out a slack notification.
 We need to dig into the performance of our lambda functions using `AWS Xray`.
 
 ## Solution 2: distributed tracing with AWS Xray
@@ -215,6 +235,7 @@ AWSXRay.endSubsegment();
 
 
 Here is an example of the Xray service map.
+
 <div style="text-align: center;">
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-service-map.png" width="100%" height="100%">
 </div>
@@ -261,12 +282,12 @@ Challenge 2 completed.
 
 
 # Challenge 3: Testing whether our application still behaves as expected
-We can't run our complete Cloud infrastructure on our local machine.  
-So when we deploy, we should test if our system is still behaving as it should.
+We can't run our complete cloud infrastructure on our local machine.  
+So when we change an redeploy, we should test if our system is still behaving as it should.
 
 This includes:
-* running smoke tests to detect hazards
-* running load tests to view if the system can handle the load
+* Running smoke tests to detect hazards.
+* Running load tests to view if the system can still handle the load.
 
 ## Solution 3a: smoke testing
 You should automate testing your system.
@@ -277,11 +298,11 @@ In the image below you see how I automate a test to check if a new session that 
 </div>
 
 I create this test using `JUnit` and mocked the http endpoints with [wiremock](http://wiremock.org/).
-Wiremock is a great tool to mock http endpoints that I personally use a lot.  
-You can ask wiremock to create certain endpoints and configure the response for it.  
+`Wiremock` is a great tool to mock http endpoints that I personally use a lot.  
+You can ask Wiremock to create certain endpoints and configure the response for it.  
 Below you see me creating the `/sessions/forward` endpoint.
 
-```
+```bash
 curl -X POST \
   $wiremock_url \
   -H 'Content-Type: application/json' \
@@ -311,8 +332,8 @@ But things might not always behave as expected.
 Listening on events of a `Kinesis` stream for example is only possible with one Lambda function per `Shard`.
 Thus limiting your throughput if you don't watch out.
 
-To run my loaddtest I use [artillery](. 
-Below is the file that I use for this load test.
+To run my loaddtest I use [artillery](https://artillery.io). 
+Below you find the file that I use to configure this load test.
 It ramps up the amount of request per second from 1 to 10 during 2 minutes.
 
 ```yaml
@@ -355,7 +376,8 @@ Again I checked the lead time (time between incoming request and sending out the
 </div>
 
 Using structured logging and `CloudWatch Logs Insights` we could start looking deeper into the cause of this delay.
-I already showed you how to werk with `Logs Insights` above so I'll get straight to the cause here.
+I already showed you how to work with `Logs Insights`, so I'll get straight to the cause here.  
+
 The reason it takes so much time to send out all slack notifications is that the Lambda function which listens on the `DynamoDB stream` is sending out these requests one by one.
 It takes about 1 second for every request.  
 But the requests come in much faster. This means that they are queueing up in front of the `conference-slack-notification-lambda` to be send out.
@@ -364,7 +386,7 @@ But the requests come in much faster. This means that they are queueing up in fr
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture-with-milestones.png" width="100%" height="100%">
 </div>
 
-We reach our goal.
+We reached our goal.
 We found another bottleneck in our system by running the load tests.
 Challenge 3 completed!
 
@@ -373,7 +395,7 @@ Challenge 3 completed!
 </div>
 
 # Side note on CloudWatch Dashboards
-Along the way we wrote a lot of queries.  
+Along the way we wrote a lot of `Logs Insights` queries.  
 AWS allows you to bundle the results of these queries into dashboards via `CloudWatch Dashboards`.
 
 Below you see how I made a dashboard that visualizes the number of invocations and associated costs per lambda function.
@@ -383,14 +405,14 @@ Below you see how I made a dashboard that visualizes the number of invocations a
 </div>
 
 To find the total cost I used the following query:
-```
+```bash
 filter @type = "REPORT"
 | fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000*MemorySetInMB/1024 as BilledDurationInGBSeconds, @logStream
 | stats sum(BilledDurationInGBSeconds) as TotalBilledDurationInGBSeconds, sum(BilledDurationInGBSeconds) * 0.00001667 as TotalCostInDollar
 ```
 
 To get the stats per Lambda function I did:
-```
+```bash
 filter @type="REPORT"
 | fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000*MemorySetInMB/1024 as BilledDurationInGBSeconds
 | stats 
@@ -406,10 +428,10 @@ We improved the observability of our system by implementing structured logs and 
 By doing this it becomes way easier to monitor your system and create visibility on it's behavior.
 
 Remember that:
-* You need structured logging to get the maximum out of your logs.
+* you need structured logging to get the maximum out of your logs.
 * CloudWatch Logs Insights allows you to query your logs and analyze them for errors.
-* Distributed tracing with AWS Xray helps you identifying bottlenecks in your system.
-* Create smoke tests and load tests to check if your system is behaving as it is supposed to.
+* distributed tracing with AWS Xray helps you identifying bottlenecks in your system.
+* you can create smoke tests and load tests to check if your system is behaving as it is supposed to.
  
 # Resources
 1. https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/
