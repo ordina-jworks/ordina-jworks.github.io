@@ -30,9 +30,9 @@ comments: false
 Serverless is a great technology that comes with the advantage of being scalable, durable and high available.  
 It allows you to decouple functionality into multiple serverless Functions.  
 
-Of course with new technologies come also new challenges.
+But with new technologies come new challenges.
 Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.  
-I mean that a lot of stuff happens in a lot of different places.  
+I mean that there is a lot of stuff happening in a lot of different places.  
 
 We still want to be able to monitor our landscape though.  
 This means that a distributed serverless landscape has to be observable.  
@@ -61,7 +61,7 @@ The serverless architecture above is actually quite small.
 I've seen architectures containing tens of Lambda Functions and other AWS services.
 
 Some of the challenges that come with a serverless architecture are:
-1. It might wrong somewhere in my distributed landscape.
+1. It might crash somewhere in my distributed landscape.
 if it does, where did it go wrong?
 2. Which part of my flow is performing poorly. 
 Let's find the performance bottlenecks.
