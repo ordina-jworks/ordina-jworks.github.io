@@ -155,6 +155,9 @@ A subject close to our own workshop was presented by [Viktor Gamov](https://twit
 in a very interesting [presentation](--). 
 
 Presentation not available => https://speaking.gamov.io/presentations
+Similar presentation: https://www.slideshare.net/ChesterChen/sfbiganalytics20190724-monitor-kafka-like-a-pro
+Talk: https://www.youtube.com/watch?v=tL6DtN0zhrQ
+
 
 Broker monitoring>
 Can you producers or consumer write or read from Kafka.
