@@ -156,6 +156,70 @@ in a very interesting [presentation](--).
 
 Presentation not available => https://speaking.gamov.io/presentations
 
+Broker monitoring>
+Can you producers or consumer write or read from Kafka.
+
+A specific topic to read / write to, every 15 seconds => after 4 failures, throw an error.
+Measuring latency is already more advanced, but always check your latency when you have performance issues.
+
+Check if the brokers are up: grep java
+Kafka exposes JMX metrics, there exists a jmx exporter for Prometheus which is also used by Confluent in the cloud.
+
+Are the partitions up:
+Offline partitions is an actionable metric
+Under replicated partitions is the most important metric, something is wrong.
+
+Old producer / consumer versions => this forces the broker to convert messages, the heap memory use will rise.
+
+Under min.isr partitions, producer can no longer produce.
+
+Are there enough resources?
+Have enough resources, CPU / Bandwith / Disk, if resources > 90% ... bad
+Always monitor disk.
+
+Other metrics
+Active controller, most important node of the cluster
+1 = ok, 0 = not ok, 2 = very not ok
+zookeeper disconnects
+unclean leader election, this is disabled by default though
+
+ISR shrink expand
+
+network / request idle %
+
+Kafka producer and consumer performance => set a baseline performance to test
+When you have set this baseline you can also verify config changes.
+
+Consumers
+Consumer lag: current offset <> highwatermark might indicate that the consumers are too slow.
+
+Tools to use: async profiler.
+
+## Distributed Tracing in Kafka
+
+Book: A philosophy of software design Johan Ousterhout (https://www.amazon.com/Philosophy-Software-Design-John-Ousterhout/dp/1732102201)
+
+Tracing with zipkin
+A span is a traced task
+
+Send zipkin to DB (by default support for either Elastic or Cassandra) or use your own DB.
+
+Producer
+kafkaTracing.Producer
+tracedProducer
+
+Consumer
+kafkaTracing.consumer
+tracedConsumer
+then extra spans
+
+Streams
+This is still somewhat experimental
+
+Hystrix: tracing platform
+Open source
+Nice UI
+
 ## DevOps Theory vs. Practice: A Song of Ice and Tire Fire
 
 One of the last, slightly more lighthearted talks took place on the last afternoon of the conference. [Baruch Sadogursky](https://twitter.com/jbaruch) and [Viktor Gamov](https://twitter.com/gamussa) opened
