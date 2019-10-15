@@ -482,10 +482,10 @@ We improved the observability of our system by implementing structured logs and 
 By doing this, it becomes way easier to monitor your system and create visibility on its behavior.
 
 Remember that:
-* you need structured logging to get the maximum out of your logs.
-* CloudWatch Logs Insights allows you to query your logs and analyze them for errors.
-* distributed tracing with AWS Xray helps you identifying bottlenecks in your system.
-* you can create smoke tests and load tests to check if your system is behaving as it is supposed to.
+* you need structured logging to get the maximum out of your logs
+* CloudWatch Logs Insights allows you to query your logs and analyze them for errors
+* distributed tracing with AWS Xray helps you identifying bottlenecks in your system
+* you can create smoke tests and load tests to check if your system is behaving as it is supposed to
 
 In case you want some of these things being done for you automatically choose a third party monitoring tool to help you with it.
  
