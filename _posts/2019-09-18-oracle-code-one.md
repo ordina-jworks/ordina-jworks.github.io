@@ -196,6 +196,9 @@ Consumer lag: current offset <> highwatermark might indicate that the consumers 
 Tools to use: async profiler.
 
 ## Distributed Tracing in Kafka
+https://www.youtube.com/watch?v=W0JYx7erh_0&feature=youtu.be&t=3634
+
+https://speaking.gamov.io/Y8yrHk/bringing-observability-to-your-stream-processing#sHXi414
 
 Book: A philosophy of software design Johan Ousterhout (https://www.amazon.com/Philosophy-Software-Design-John-Ousterhout/dp/1732102201)
 
