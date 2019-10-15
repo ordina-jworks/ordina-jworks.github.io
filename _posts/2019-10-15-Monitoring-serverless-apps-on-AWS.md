@@ -13,17 +13,16 @@ comments: false
 * [What about](#what-about)
 
 * [Challenges of Serverless applications](#challenges-of-serverless-applications)
-* [Challenge 1: Finding the error in a distributed serverless landscape](#challenge-1-finding-the-error-in-a-distributed-serverless-landscape)
-* [Solution 1: Structured logging](#solution-1-structured-logging)
-
-* [Challenge 2: Finding performance bottlenecks](#challenge-2-finding-performance-bottlenecks)
-* [Solution 2: Distributed tracing with Xray](#solution-2-distributed-tracing-with-aws-xray)
-
-* [Challenge 3: Testing whether our application still behaves as expected](#challenge-3-testing-whether-our-application-still-behaves-as-expected)
-* [Solution 3a: Smoke Testing](#solution-3a-smoke-testing)
-* [Solution 3b: Load Testing](#solution-3b-load-testing)
+    * [Challenge 1: Finding the error in a distributed serverless landscape](#challenge-1-finding-the-error-in-a-distributed-serverless-landscape)
+    * [Solution 1: Structured logging](#solution-1-structured-logging)
+    * [Challenge 2: Finding performance bottlenecks](#challenge-2-finding-performance-bottlenecks)
+    * [Solution 2: Distributed tracing with Xray](#solution-2-distributed-tracing-with-aws-xray)
+    * [Challenge 3: Testing whether our application still behaves as expected](#challenge-3-testing-whether-our-application-still-behaves-as-expected)
+    * [Solution 3a: Smoke Testing](#solution-3a-smoke-testing)
+    * [Solution 3b: Load Testing](#solution-3b-load-testing)
 
 * [Side note on CloudWatch Dashboards](#side-note-on-cloudwatch-dashboards)
+* [Third party tools](#)
 * [Conclusion](#conclusion)
 * [Resources](#resources)
 
@@ -422,6 +421,46 @@ max(@duration) as MaxExecutionTime,
 sum(BilledDurationInGBSeconds) * 0.00001667 as TotalCostInDollar
 ```
 
+# Third party tools
+We just saw a the things that we can do to increase the observability of our serverless landscape.  
+To achieve this you'll have to do some custom work:
+* setup structured logging
+* pass on a traceId
+* create dashboards in CloudWatch
+* get familiar with the `Logs Insights` query language
+* configure the right alarms in CloudWatch
+* setup the infrastructure to notify you when an error appears in your landscape
+
+These are things that take time.  
+And time is money.  
+
+You can also consider using this money to work with a third party tool.
+This tool then allows you to monitor and troubleshoot your serverless applications.
+
+Personally I have used [Lumigo](https://lumigo.io){:target="_blank"}  to achieve just that.  
+Many of the things that you have to custom build will be provided out of the box.
+
+You get an high level dashboard to visualize the problems in your application.
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-dashboard.png" width="80%" height="80%">
+</div>
+
+It will also automatically trace a request through your landscape by creating a transaction.
+This is about the same as we did by forwarding traceIds. 
+ 
+It comes with a handy visualization.
+On the left you see the transaction while on the right it gives you the logs that correspond with the error that appeared.
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-transaction-and-error.png" width="80%" height="80%">
+</div>
+
+This allows you to drill down to the source of the error quickly.  
+On top of that you can also create the necessary alerts to notify you in case things go south.
+
+These tools often have a [free tier](https://platform.lumigo.io/signup){:target="_blank"}  that allows you to explore the product.
+
 # Conclusion
 
 We improved the observability of our system by implementing structured logs and using appropriate testing and tooling.
@@ -432,6 +471,8 @@ Remember that:
 * CloudWatch Logs Insights allows you to query your logs and analyze them for errors.
 * distributed tracing with AWS Xray helps you identifying bottlenecks in your system.
 * you can create smoke tests and load tests to check if your system is behaving as it is supposed to.
+
+In case you want some of these things being done for you automatically choose a third party monitoring tool to help you with it.
  
 # Resources
 1. [https://lumigo.io/blog/](https://lumigo.io/blog/){:target="_blank"}
