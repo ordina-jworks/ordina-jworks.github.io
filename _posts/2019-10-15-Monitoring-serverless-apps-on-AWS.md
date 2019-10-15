@@ -11,7 +11,6 @@ comments: false
 
 # Table of content
 * [What about](#what-about)
-
 * [Challenges of Serverless applications](#challenges-of-serverless-applications)
     * [Challenge 1: Finding the error in a distributed serverless landscape](#challenge-1-finding-the-error-in-a-distributed-serverless-landscape)
     * [Solution 1: Structured logging](#solution-1-structured-logging)
@@ -20,9 +19,8 @@ comments: false
     * [Challenge 3: Testing whether our application still behaves as expected](#challenge-3-testing-whether-our-application-still-behaves-as-expected)
     * [Solution 3a: Smoke Testing](#solution-3a-smoke-testing)
     * [Solution 3b: Load Testing](#solution-3b-load-testing)
-
 * [Side note on CloudWatch Dashboards](#side-note-on-cloudwatch-dashboards)
-* [Third party tools](#)
+* [Third party tools](#third-party-tools)
 * [Conclusion](#conclusion)
 * [Resources](#resources)
 
@@ -72,6 +70,23 @@ How do I test whether my system is behaving as it is supposed to?
 In the next part we'll focus on solving these challenges.
 
 # Challenge 1: Finding the error in a distributed serverless landscape
+
+When things go wrong we want to be notified.
+We can do this by configuring a CloudWatch alarm that will go of when an error appears.  
+
+Below we see that Cloudwatch is 'watching' our cloud for errors.
+When an error event appears an alarm will go of and message will be pushed to a topic.
+We can then listen on this topic using a Lambda function.
+This Lambda function will send out the notification to our slack channel.
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/cloudwatch-alarm-notification.png" width="100%" height="100%">
+</div>
+
+AWS provides a Lambda function that can send out these alerts that are triggered by an alarm.  
+If you look in the Lambda blueprints via the AWS Lambda Console you'll find the `cloudwatch-alarm-to-slack-python` Lambda function that you can use.
+
+## Digging into the logs
 What do we do when stuff goes south?  
 We check the logs!
 
