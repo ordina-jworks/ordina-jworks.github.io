@@ -63,7 +63,7 @@ Some of the challenges that come with a serverless architecture are:
 If it does, where did it go wrong?
 2. Which part of my flow is performing poorly. 
 Let's find the performance bottlenecks.
-3. I cannot run all cloud services at my computer.
+3. I cannot run all cloud services on my computer.
 So I can't run my system locally anymore.
 How do I test whether my system is behaving as it is supposed to?
  
@@ -297,7 +297,7 @@ Challenge 2 completed.
 
 # Challenge 3: Testing whether our application still behaves as expected
 We can't run our complete cloud infrastructure on our local machine.  
-So when we change and redeploy, we should test if our system is still behaving as it should.
+So when we make changes and redeploy, we should test if our system is still behaving as it should.
 
 This includes:
 * Running smoke tests to detect hazards.
@@ -487,7 +487,7 @@ Remember that:
 * distributed tracing with AWS Xray helps you identifying bottlenecks in your system
 * you can create smoke tests and load tests to check if your system is behaving as it is supposed to
 
-In case you want some of these things being done for you automatically choose a third party monitoring tool to help you with it.
+In case you want some of these things being done for you automatically, choose a third party monitoring tool to help you with it.
  
 # Resources
 1. [https://lumigo.io/blog/](https://lumigo.io/blog/){:target="_blank"}
