@@ -60,7 +60,7 @@ I've seen architectures containing tens of Lambda Functions and other AWS servic
 
 Some of the challenges that come with a serverless architecture are:
 1. It might crash somewhere in my distributed landscape.
-if it does, where did it go wrong?
+If it does, where did it go wrong?
 2. Which part of my flow is performing poorly. 
 Let's find the performance bottlenecks.
 3. I cannot run all cloud services at my computer.
