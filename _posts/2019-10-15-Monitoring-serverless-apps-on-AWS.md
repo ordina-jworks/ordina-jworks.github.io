@@ -222,7 +222,7 @@ We need to dig into the performance of our lambda functions using `AWS Xray`.
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray.png" width="10%" height="10%">
 </div>
 
-Xray helps us understand the behaviour of our system and thus allows us to analyze the performance of specific parts.
+Xray helps us understand the behavior of our system and thus allows us to analyze the performance of specific parts.
 It does this by visualizing the flow and dividing the flow into traces and segments.
 A trace is actually build up from multiple segments.
 
@@ -259,7 +259,7 @@ That means that publishing on an `SNS` topic or going via a `DynamoDB Stream` is
 Recently tracing over `SQS` was added.
 
 When we click the lambda service we can see the response distribution.
-This visualizes how quickly this lambda function responded.
+This visualizes how quickly the lambda function responded.
 
 <div style="text-align: center;">
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-response-distribution.png" width="100%" height="100%">
@@ -282,7 +282,7 @@ Below we see that first some data was saved to the `caching table`.
 This happened blazingly quick in 8.0 ms.  
 
 We see however that the `Sessions.saveSessionDynamoDB` segment took over 3.0 seconds.
-Of these 3 seconds only 8 ms where spend actually saving the request.
+Of these 3 seconds, only 8 ms was spent actually saving the request.
 We found our performance bottleneck.
 Something is waiting around in the `Sessions.saveSessionDynamoDB` segment.
 In this case it was me introducing an artificial `Thread.sleep()`.
@@ -297,7 +297,7 @@ Challenge 2 completed.
 
 # Challenge 3: Testing whether our application still behaves as expected
 We can't run our complete cloud infrastructure on our local machine.  
-So when we change an redeploy, we should test if our system is still behaving as it should.
+So when we change and redeploy, we should test if our system is still behaving as it should.
 
 This includes:
 * Running smoke tests to detect hazards.
@@ -346,7 +346,7 @@ But things might not always behave as expected.
 Listening on events of a `Kinesis` stream for example is only possible with one Lambda function per `Shard`.
 Thus limiting your throughput if you don't watch out.
 
-To run my loaddtest I use [artillery](https://artillery.io){:target="_blank"}. 
+To run my load test I use [artillery](https://artillery.io){:target="_blank"}. 
 Below you find the file that I use to configure this load test.
 It ramps up the amount of request per second from 1 to 10 during 2 minutes.
 
@@ -437,8 +437,8 @@ sum(BilledDurationInGBSeconds) * 0.00001667 as TotalCostInDollar
 ```
 
 # Third party tools
-We just saw a the things that we can do to increase the observability of our serverless landscape.  
-To achieve this you'll have to do some custom work:
+We just saw the things that we can do to increase the observability of our serverless landscape.  
+To achieve this, you'll have to do some custom work:
 * setup structured logging
 * pass on a traceId
 * create dashboards in CloudWatch
@@ -453,9 +453,9 @@ You can also consider using this money to work with a third party tool.
 This tool then allows you to monitor and troubleshoot your serverless applications.
 
 Personally I have used [Lumigo](https://lumigo.io){:target="_blank"}  to achieve just that.  
-Many of the things that you have to custom build will be provided out of the box.
+The things you have to customize, will be provided out of the box.
 
-You get an high level dashboard to visualize the problems in your application.
+You get a high-level dashboard to visualize the problems in your application.
 
 <div style="text-align: center;">
   <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-dashboard.png" width="80%" height="80%">
@@ -479,7 +479,7 @@ These tools often have a [free tier](https://platform.lumigo.io/signup){:target=
 # Conclusion
 
 We improved the observability of our system by implementing structured logs and using appropriate testing and tooling.
-By doing this it becomes way easier to monitor your system and create visibility on it's behavior.
+By doing this, it becomes way easier to monitor your system and create visibility on its behavior.
 
 Remember that:
 * you need structured logging to get the maximum out of your logs.
