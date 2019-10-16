@@ -1,5 +1,502 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-10-15T07:21:44+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">API first development with OpenAPI/Swagger</title><link href="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html" rel="alternate" type="text/html" title="API first development with OpenAPI/Swagger" /><published>2019-10-02T00:00:00+00:00</published><updated>2019-10-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-10-16T06:54:45+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Monitoring serverless apss on AWS</title><link href="https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html" rel="alternate" type="text/html" title="Monitoring serverless apss on AWS" /><published>2019-10-15T00:00:00+00:00</published><updated>2019-10-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-about&quot;&gt;What about&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#challenges-of-serverless-applications&quot;&gt;Challenges of Serverless applications&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#challenge-1-finding-the-error-in-a-distributed-serverless-landscape&quot;&gt;Challenge 1: Finding the error in a distributed serverless landscape&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#solution-1-structured-logging&quot;&gt;Solution 1: Structured logging&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#challenge-2-finding-performance-bottlenecks&quot;&gt;Challenge 2: Finding performance bottlenecks&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#solution-2-distributed-tracing-with-aws-xray&quot;&gt;Solution 2: Distributed tracing with Xray&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#challenge-3-testing-whether-our-application-still-behaves-as-expected&quot;&gt;Challenge 3: Testing whether our application still behaves as expected&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#solution-3a-smoke-testing&quot;&gt;Solution 3a: Smoke Testing&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#solution-3b-load-testing&quot;&gt;Solution 3b: Load Testing&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#side-note-on-cloudwatch-dashboards&quot;&gt;Side note on CloudWatch Dashboards&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#third-party-tools&quot;&gt;Third party tools&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;what-about&quot;&gt;What about?&lt;/h1&gt;
+&lt;p&gt;Serverless is a great technology that comes with the advantage of being scalable, durable and high available.&lt;br /&gt;
+It allows you to decouple functionality into multiple serverless Functions.&lt;/p&gt;
+
+&lt;p&gt;But with new technologies come new challenges.
+Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.&lt;br /&gt;
+I mean that there is a lot of stuff happening in a lot of different places.&lt;/p&gt;
+
+&lt;p&gt;We still want to be able to monitor our landscape though.&lt;br /&gt;
+This means that a distributed serverless landscape has to be observable.&lt;br /&gt;
+Let’s see some of the best practices on how to make your serverless landscape observable.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenges-of-serverless-applications&quot;&gt;Challenges of Serverless applications&lt;/h1&gt;
+&lt;p&gt;What does a typical serverless application look like?&lt;/p&gt;
+
+&lt;p&gt;Let’s look at an app that was build for a conference. 
+Speakers can create a session that they want to speak about. 
+People can also retrieve all sessions that have already been submitted.&lt;br /&gt;
+When a new session is created a slack notification is sent out.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can identify certain milestones that indicate that a request has passed this milestone.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture-with-milestones.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The serverless architecture above is actually quite small.
+I’ve seen architectures containing tens of Lambda Functions and other AWS services.&lt;/p&gt;
+
+&lt;p&gt;Some of the challenges that come with a serverless architecture are:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;It might crash somewhere in my distributed landscape.
+If it does, where did it go wrong?&lt;/li&gt;
+  &lt;li&gt;Which part of my flow is performing poorly. 
+Let’s find the performance bottlenecks.&lt;/li&gt;
+  &lt;li&gt;I cannot run all cloud services on my computer.
+So I can’t run my system locally anymore.
+How do I test whether my system is behaving as it is supposed to?&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In the next part we’ll focus on solving these challenges.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenge-1-finding-the-error-in-a-distributed-serverless-landscape&quot;&gt;Challenge 1: Finding the error in a distributed serverless landscape&lt;/h1&gt;
+
+&lt;p&gt;When things go wrong we want to be notified.
+We can do this by configuring a CloudWatch alarm that will go of when an error appears.&lt;/p&gt;
+
+&lt;p&gt;Below we see that Cloudwatch is ‘watching’ our cloud for errors.
+When an error event appears an alarm will go of and message will be pushed to a topic.
+We can then listen on this topic using a Lambda function.
+This Lambda function will send out the notification to our slack channel.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/cloudwatch-alarm-notification.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;AWS provides a Lambda function that can send out these alerts that are triggered by an alarm.&lt;br /&gt;
+If you look in the Lambda blueprints via the AWS Lambda Console you’ll find the &lt;code class=&quot;highlighter-rouge&quot;&gt;cloudwatch-alarm-to-slack-python&lt;/code&gt; Lambda function that you can use.&lt;/p&gt;
+
+&lt;h2 id=&quot;digging-into-the-logs&quot;&gt;Digging into the logs&lt;/h2&gt;
+&lt;p&gt;What do we do when stuff goes south?&lt;br /&gt;
+We check the logs!&lt;/p&gt;
+
+&lt;p&gt;Right, logging tells us the story of what happened in our application.
+The logs contain information about this story.&lt;br /&gt;
+Only now the logs are not coming from one place. 
+The story is told in multiple Lambda functions.&lt;/p&gt;
+
+&lt;p&gt;On top of that the logging might tell multiple stories at once.
+Multiple execution environments of the same Lambda function can run at the same time.
+This is that scalability of the cloud.
+Lambda functions can run concurrently.&lt;/p&gt;
+
+&lt;p&gt;We need two things:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;We need to correlate the logs coming from different places.&lt;/li&gt;
+  &lt;li&gt;We need to get the valuable information out of our logs.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;solution-1-structured-logging&quot;&gt;Solution 1: structured logging&lt;/h2&gt;
+&lt;p&gt;Structured logging to the rescue!&lt;/p&gt;
+
+&lt;p&gt;Below you see a normal log versus a structured log.&lt;/p&gt;
+
+&lt;p&gt;Normal plain text log:&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/normal-log.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Structured log:&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/structured-log.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Yes, the structured log is a lot more bloated.
+But it is also a lot more machine readable and contains much more information.&lt;/p&gt;
+
+&lt;p&gt;You recognize the &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON&lt;/code&gt; format.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;It contains contextual information like &lt;code class=&quot;highlighter-rouge&quot;&gt;functionName&lt;/code&gt; which is the function that created the log and &lt;code class=&quot;highlighter-rouge&quot;&gt;AWSRequestId&lt;/code&gt; which is the identifier for the invocation of the lambda function.&lt;/li&gt;
+  &lt;li&gt;We see the &lt;code class=&quot;highlighter-rouge&quot;&gt;milestone&lt;/code&gt; key which refers to a certain milestone that the request passed while processing.&lt;/li&gt;
+  &lt;li&gt;We still recognize the &lt;code class=&quot;highlighter-rouge&quot;&gt;message&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;timestamp&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The logs contain a &lt;code class=&quot;highlighter-rouge&quot;&gt;traceId&lt;/code&gt; which we can use to correlate logs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;AWS offers us a service to get insights in our logs, &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Logs Insights&lt;/code&gt;. (What’s in a name right?)&lt;/p&gt;
+
+&lt;p&gt;Since we used structured logging CloudWatch will pick up all &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON&lt;/code&gt; fields from our logs automatically.&lt;/p&gt;
+
+&lt;p&gt;Now we can use these logs to query the milestones that a request passed.
+We can correlate these milestones since we have the traceId correlating logs over multiple functions.
+Our logs are generated by multiple functions.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Logs Insights&lt;/code&gt; allows you to query over multiple logGroups related to these functions.&lt;/p&gt;
+
+&lt;p&gt;Suppose that something went wrong for session with sessionId: &lt;code class=&quot;highlighter-rouge&quot;&gt;a2db023e-6565-4a5c-b7dc-b53a420898e7&lt;/code&gt;.&lt;br /&gt;
+We now can lookup the traceId to track the concerning request in our landscape.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields traceId
+| filter &lt;span class=&quot;nv&quot;&gt;sessionId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;865ccaad-ced0-4de5-aec3-b3692b2e06a0&quot;&lt;/span&gt;
+| limit 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/traceId-by-sessionId.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then we can use this traceId to find the milestones that the request has already passed.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields milestone, functionName, timestamp
+| filter &lt;span class=&quot;nv&quot;&gt;traceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bf769e94-4d48-4994-8c04-ebd00b51ecbd&quot;&lt;/span&gt; and ispresent&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;milestone&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+| &lt;span class=&quot;nb&quot;&gt;sort &lt;/span&gt;timestamp asc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/milestones.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We see that we never got the milestone &lt;code class=&quot;highlighter-rouge&quot;&gt;SAVED_IN_DATABASE&lt;/code&gt;.
+So it went wrong somewhere in the &lt;code class=&quot;highlighter-rouge&quot;&gt;conference-save-session-dynamodb-lambda&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can checkout the logs of this faulty execution using the &lt;code class=&quot;highlighter-rouge&quot;&gt;traceId&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields @message
+| filter &lt;span class=&quot;nv&quot;&gt;traceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bf769e94-4d48-4994-8c04-ebd00b51ecbd&quot;&lt;/span&gt; and &lt;span class=&quot;nv&quot;&gt;functionName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;conference-save-session-dynamodb-lambda&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or we could check for an exception that occurred.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields exception, traceId, functionName
+| filter &lt;span class=&quot;nv&quot;&gt;traceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bf769e94-4d48-4994-8c04-ebd00b51ecbd&quot;&lt;/span&gt;
+| limit 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Both will lead us to the exception.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/exception-found-by-looking-for-exception.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The outcome of this queries can be visualized and added to a &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Dashboard&lt;/code&gt;.
+More on that later.&lt;/p&gt;
+
+&lt;p&gt;Structured logging helped us querying our logs for information and finding the error in our flow.&lt;br /&gt;
+Challenge 1 completed!&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;challenge-2-finding-performance-bottlenecks&quot;&gt;Challenge 2: Finding performance bottlenecks&lt;/h1&gt;
+&lt;p&gt;I wrote a &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt; query that allows me to check how long it took for a request to pass through the whole landscape.
+That means from the moment the creation request arrived till the moment we send out a slack notification for it.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields @timestamp, @message
+| filter  &lt;span class=&quot;nv&quot;&gt;milestone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CREATE_REQUEST_RECEIVED&quot;&lt;/span&gt; or &lt;span class=&quot;nv&quot;&gt;milestone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SLACK_NOTIFICATION_NEW_SESSION_SENT&quot;&lt;/span&gt;
+| stats &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;latest&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@timestamp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - earliest&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@timestamp&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;/1000 as LeadTimeInSeconds by traceId
+| filter LeadTimeInSeconds!&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+| &lt;span class=&quot;nb&quot;&gt;sort &lt;/span&gt;LeadTimeInSeconds desc
+| limit 20
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/slack-notification-lead-time.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We see that even when the system is warm, it takes us up to 10 seconds to send out a slack notification.
+We need to dig into the performance of our lambda functions using &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS Xray&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;solution-2-distributed-tracing-with-aws-xray&quot;&gt;Solution 2: distributed tracing with AWS Xray&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Xray helps us understand the behavior of our system and thus allows us to analyze the performance of specific parts.
+It does this by visualizing the flow and dividing the flow into traces and segments.
+A trace is actually build up from multiple segments.&lt;/p&gt;
+
+&lt;p&gt;It does this by:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sampling your requests. 
+By default Xray will trace 5% of your requests.&lt;/li&gt;
+  &lt;li&gt;Tracing calls made by ths AWS SDK.
+This happens automatically when you use Xray as a dependency for your project.&lt;/li&gt;
+  &lt;li&gt;Creating custom segments.
+You can create your own segments as you see below.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Subsegment&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsegment&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AWSXRay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;beginSubsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sessions.saveSessionDynamoDB&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;subsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;putAnnotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;storeInDatabase&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;DynamoDB&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;subsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;putMetadata&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;company&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Ordina&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;mockingIssues&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sessionDynamoDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;saveSession&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sessionDynamoDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;AWSXRay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;endSubsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is an example of the Xray service map.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-service-map.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Xray doesn’t trace async requests (yet).
+That means that publishing on an &lt;code class=&quot;highlighter-rouge&quot;&gt;SNS&lt;/code&gt; topic or going via a &lt;code class=&quot;highlighter-rouge&quot;&gt;DynamoDB Stream&lt;/code&gt; is not part of the full trace but will show up as a new client in the service map.
+Recently tracing over &lt;code class=&quot;highlighter-rouge&quot;&gt;SQS&lt;/code&gt; was added.&lt;/p&gt;
+
+&lt;p&gt;When we click the lambda service we can see the response distribution.
+This visualizes how quickly the lambda function responded.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-response-distribution.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Something is definitely wrong here since even the quickest executions take more than 3 seconds.
+We can dig deeper by clicking &lt;code class=&quot;highlighter-rouge&quot;&gt;view traces&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-overview-traces.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Digging even deeper into one of these traces we can see how long every segment of this trace took.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-segments-of-trace.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Below we see that first some data was saved to the &lt;code class=&quot;highlighter-rouge&quot;&gt;caching table&lt;/code&gt;.
+This happened blazingly quick in 8.0 ms.&lt;/p&gt;
+
+&lt;p&gt;We see however that the &lt;code class=&quot;highlighter-rouge&quot;&gt;Sessions.saveSessionDynamoDB&lt;/code&gt; segment took over 3.0 seconds.
+Of these 3 seconds, only 8 ms was spent actually saving the request.
+We found our performance bottleneck.
+Something is waiting around in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Sessions.saveSessionDynamoDB&lt;/code&gt; segment.
+In this case it was me introducing an artificial &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Hooray, we found the performance bottleneck.&lt;br /&gt;
+Challenge 2 completed.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;challenge-3-testing-whether-our-application-still-behaves-as-expected&quot;&gt;Challenge 3: Testing whether our application still behaves as expected&lt;/h1&gt;
+&lt;p&gt;We can’t run our complete cloud infrastructure on our local machine.&lt;br /&gt;
+So when we make changes and redeploy, we should test if our system is still behaving as it should.&lt;/p&gt;
+
+&lt;p&gt;This includes:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Running smoke tests to detect hazards.&lt;/li&gt;
+  &lt;li&gt;Running load tests to view if the system can still handle the load.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution-3a-smoke-testing&quot;&gt;Solution 3a: smoke testing&lt;/h2&gt;
+&lt;p&gt;You should automate testing your system.
+In the image below you see how I automate a test to check if a new session that is entered via the API is still forwarded.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/smoke-test.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I create this test using &lt;code class=&quot;highlighter-rouge&quot;&gt;JUnit&lt;/code&gt; and mocked the http endpoints with &lt;a href=&quot;http://wiremock.org/&quot; target=&quot;_blank&quot;&gt;wiremock&lt;/a&gt;.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;Wiremock&lt;/code&gt; is a great tool to mock http endpoints that I personally use a lot.&lt;br /&gt;
+You can ask Wiremock to create certain endpoints and configure the response for it.&lt;br /&gt;
+Below you see me creating the &lt;code class=&quot;highlighter-rouge&quot;&gt;/sessions/forward&lt;/code&gt; endpoint.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$wiremock_url&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{
+    &quot;request&quot;: {
+        &quot;method&quot;: &quot;POST&quot;,
+        &quot;url&quot;: &quot;/session/forward&quot;
+    },
+    &quot;response&quot;: {
+        &quot;status&quot;: 200,
+        &quot;body&quot;: &quot;I have received the session correctly&quot;,
+         &quot;delayDistribution&quot;: {
+                    &quot;type&quot;: &quot;lognormal&quot;,
+                    &quot;median&quot;: 100,
+                    &quot;sigma&quot;: 0.1
+           },
+        &quot;headers&quot;: {
+            &quot;Content-Type&quot;: &quot;text/plain&quot;
+        }
+    }
+}'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;solution-3b-load-testing&quot;&gt;Solution 3b: load testing&lt;/h2&gt;
+&lt;p&gt;Yes, serverless scales automatically.
+But things might not always behave as expected.
+Listening on events of a &lt;code class=&quot;highlighter-rouge&quot;&gt;Kinesis&lt;/code&gt; stream for example is only possible with one Lambda function per &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt;.
+Thus limiting your throughput if you don’t watch out.&lt;/p&gt;
+
+&lt;p&gt;To run my load test I use &lt;a href=&quot;https://artillery.io&quot; target=&quot;_blank&quot;&gt;artillery&lt;/a&gt;. 
+Below you find the file that I use to configure this load test.
+It ramps up the amount of request per second from 1 to 10 during 2 minutes.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://your-own-url.com'&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;phases&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;120&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;arrivalRate&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;rampTo&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Ramp&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;warm&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;application&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;sessions.csv&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;subject&quot;&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;firstName&quot;&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;lastName&quot;&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;companyName&quot;&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;companyCity&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;scenarios&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/sessions&quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1570202335000&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;speaker&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;company&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;companyName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;companyCity&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;questionPhrase&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Again I checked the lead time (time between incoming request and sending out the notification) and found these huge numbers.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/huge-lead-time.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Using structured logging and &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Logs Insights&lt;/code&gt; we could start looking deeper into the cause of this delay.
+I already showed you how to work with &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt;, so I’ll get straight to the cause here.&lt;/p&gt;
+
+&lt;p&gt;The reason it takes so much time to send out all slack notifications is that the Lambda function which listens on the &lt;code class=&quot;highlighter-rouge&quot;&gt;DynamoDB stream&lt;/code&gt; is sending out these requests one by one.
+It takes about 1 second for every request.&lt;br /&gt;
+But the requests come in much faster. This means that they are queueing up in front of the &lt;code class=&quot;highlighter-rouge&quot;&gt;conference-slack-notification-lambda&lt;/code&gt; to be send out.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture-with-milestones.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We reached our goal.
+We found another bottleneck in our system by running the load tests.
+Challenge 3 completed!&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;side-note-on-cloudwatch-dashboards&quot;&gt;Side note on CloudWatch Dashboards&lt;/h1&gt;
+&lt;p&gt;Along the way we wrote a lot of &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt; queries.&lt;br /&gt;
+AWS allows you to bundle the results of these queries into dashboards via &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Dashboards&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Below you see how I made a dashboard that visualizes the number of invocations and associated costs per lambda function.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/billing-overview.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To find the total cost I used the following query:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filter @type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;REPORT&quot;&lt;/span&gt;
+| fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;MemorySetInMB/1024 as BilledDurationInGBSeconds, @logStream
+| stats &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BilledDurationInGBSeconds&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; as TotalBilledDurationInGBSeconds, &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BilledDurationInGBSeconds&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 0.00001667 as TotalCostInDollar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To get the stats per Lambda function I did:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filter @type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;REPORT&quot;&lt;/span&gt;
+| fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;MemorySetInMB/1024 as BilledDurationInGBSeconds
+| stats 
+count&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@billedDuration&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; as NumberOfInvocations,
+ceil&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;avg&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@duration&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; as AverageExecutionTime,
+max&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@duration&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; as MaxExecutionTime,
+&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BilledDurationInGBSeconds&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 0.00001667 as TotalCostInDollar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;third-party-tools&quot;&gt;Third party tools&lt;/h1&gt;
+&lt;p&gt;We just saw the things that we can do to increase the observability of our serverless landscape.&lt;br /&gt;
+To achieve this, you’ll have to do some custom work:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;setup structured logging&lt;/li&gt;
+  &lt;li&gt;pass on a traceId&lt;/li&gt;
+  &lt;li&gt;create dashboards in CloudWatch&lt;/li&gt;
+  &lt;li&gt;get familiar with the &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt; query language&lt;/li&gt;
+  &lt;li&gt;configure the right alarms in CloudWatch&lt;/li&gt;
+  &lt;li&gt;setup the infrastructure to notify you when an error appears in your landscape&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These are things that take time.&lt;br /&gt;
+And time is money.&lt;/p&gt;
+
+&lt;p&gt;You can also consider using this money to work with a third party tool.
+This tool then allows you to monitor and troubleshoot your serverless applications.&lt;/p&gt;
+
+&lt;p&gt;Personally I have used &lt;a href=&quot;https://lumigo.io&quot; target=&quot;_blank&quot;&gt;Lumigo&lt;/a&gt;  to achieve just that.&lt;br /&gt;
+The things you have to customize, will be provided out of the box.&lt;/p&gt;
+
+&lt;p&gt;You get a high-level dashboard to visualize the problems in your application.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-dashboard.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It will also automatically trace a request through your landscape by creating a transaction.
+This is about the same as we did by forwarding traceIds.&lt;/p&gt;
+
+&lt;p&gt;It comes with a handy visualization.
+On the left you see the transaction while on the right it gives you the logs that correspond with the error that appeared.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-transaction-and-error.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This allows you to drill down to the source of the error quickly.&lt;br /&gt;
+On top of that you can also create the necessary alerts to notify you in case things go south.&lt;/p&gt;
+
+&lt;p&gt;These tools often have a &lt;a href=&quot;https://platform.lumigo.io/signup&quot; target=&quot;_blank&quot;&gt;free tier&lt;/a&gt;  that allows you to explore the product.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;We improved the observability of our system by implementing structured logs and using appropriate testing and tooling.
+By doing this, it becomes way easier to monitor your system and create visibility on its behavior.&lt;/p&gt;
+
+&lt;p&gt;Remember that:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;you need structured logging to get the maximum out of your logs&lt;/li&gt;
+  &lt;li&gt;CloudWatch Logs Insights allows you to query your logs and analyze them for errors&lt;/li&gt;
+  &lt;li&gt;distributed tracing with AWS Xray helps you identifying bottlenecks in your system&lt;/li&gt;
+  &lt;li&gt;you can create smoke tests and load tests to check if your system is behaving as it is supposed to&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In case you want some of these things being done for you automatically, choose a third party monitoring tool to help you with it.&lt;/p&gt;
+
+&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://lumigo.io/blog/&quot; target=&quot;_blank&quot;&gt;https://lumigo.io/blog/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/&quot; target=&quot;_blank&quot;&gt;https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/&quot; target=&quot;_blank&quot;&gt;https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/&quot; target=&quot;_blank&quot;&gt;https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackify.com/what-is-structured-logging-and-why-developers-need-it/&quot; target=&quot;_blank&quot;&gt;https://stackify.com/what-is-structured-logging-and-why-developers-need-it/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html&quot; target=&quot;_blank&quot;&gt;https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html&quot; target=&quot;_blank&quot;&gt;https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html&quot; target=&quot;_blank&quot;&gt;https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017&quot; target=&quot;_blank&quot;&gt;https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://lumigo.io&quot; target=&quot;_blank&quot;&gt;https://lumigo.io&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he's also working with IoT and AI.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Lambda" /><category term="DynamoDB" /><category term="API Gateway" /><category term="CloudWatch" /><category term="Distributed Tracing" /><category term="Monitoring" /><summary type="html">Table of content What about Challenges of Serverless applications Challenge 1: Finding the error in a distributed serverless landscape Solution 1: Structured logging Challenge 2: Finding performance bottlenecks Solution 2: Distributed tracing with Xray Challenge 3: Testing whether our application still behaves as expected Solution 3a: Smoke Testing Solution 3b: Load Testing Side note on CloudWatch Dashboards Third party tools Conclusion Resources</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-10-15-Monitoring-serverless-apps-on-AWS/featured-image.png" /></entry><entry><title type="html">API first development with OpenAPI/Swagger</title><link href="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html" rel="alternate" type="text/html" title="API first development with OpenAPI/Swagger" /><published>2019-10-02T00:00:00+00:00</published><updated>2019-10-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/10/02/API-first-development-with-OpenAPI-or-Swagger.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
 
 &lt;p&gt;1.&lt;a href=&quot;#api-first-development---why-how-and-what&quot;&gt;API first development - Why, how and what&lt;/a&gt;&lt;br /&gt;
 2.&lt;a href=&quot;#api-design-an-example&quot;&gt;API design: an example&lt;/a&gt;&lt;br /&gt;
@@ -3440,393 +3937,4 @@ service/kubernetesdemo created
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;There is a lot of documentation available on the internet if you want to learn more about the power of Kubernetes. Think about the options and features that are available when using this platform. You can integrate it with your CI / CD tools (automated deployments!), autoscaling, … . The options are endless. 
-If you have any questions or feedback, I would love to hear them from you.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Kubernetes" /><category term="Spring" /><category term="Spring Boot" /><category term="Docker" /><category term="AWS" /><category term="EKS" /><category term="Google" /><category term="GKE" /><category term="DigitalOcean" /><category term="Azure" /><category term="AKS" /><category term="kubectl" /><category term="Minikube" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-07-11-deploy-spring-boot-kubernetes/banner.jpg" /></entry><entry><title type="html">Cypress: a new kid on the E2E block</title><link href="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html" rel="alternate" type="text/html" title="Cypress: a new kid on the E2E block" /><published>2019-07-18T00:00:00+00:00</published><updated>2019-07-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2019/07/18/Cypress</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Intro&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#cypress&quot;&gt;Cypress&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#comparison&quot;&gt;Comparison&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#setting-up-cypress&quot;&gt;Setting up Cypress&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#amazing-features&quot;&gt;Amazing features&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#continuous-integration&quot;&gt;Continuous Integration&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;intro&quot;&gt;Intro&lt;/h1&gt;
-
-&lt;p&gt;Those of us familiar with E2E testing a user interface, we all know the struggle.
-Not only coding with waits and timeouts but setups that were harder to manage especially when running it on a continuous integration platform.
-Maintaining versions, network issues, browser support, …&lt;/p&gt;
-
-&lt;p&gt;For as long as I can remember, there was one constant in this setup!
-Selenium was always there.
-No matter what framework you used, Nightwatch, Protractor, Gauge, Robot, …
-Selenium was the man in the middle.
-All I can remember from building a Selenium setup a few years ago, are all the difficulties and frustrations.
-Communication was not working, versions were not matching, timeout issues due to network lag, ….
-But still, Selenium was a dependency that was needed!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/selenium-setup.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Not that I am not grateful for Selenium and its team of developers and maintainers, because let’s be honest, what would we have done without it?
-But now, ohh yeah, there’s a new kid in town.&lt;/p&gt;
-
-&lt;h1 id=&quot;cypress&quot;&gt;Cypress&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Fast, easy and reliable testing for anything that runs in a browser
-~&lt;a target=&quot;\_blank&quot; href=&quot;https://www.cypress.io/&quot;&gt;Cypress&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Cypress is aiming to provide its users with a bundled experience for writing end-to-end tests for web applications.
-While lots of other frameworks (as mentioned above) are all interacting over a Selenium server,
-for remote communication and by definition, running its tests outside of the browser, Cypress is executed inside the browser.
-Therefore Cypress is executed in the same runtime as your application itself.
-Because of this, Cypress has native access to every single object. The &lt;code class=&quot;highlighter-rouge&quot;&gt;window&lt;/code&gt;, the &lt;code class=&quot;highlighter-rouge&quot;&gt;document&lt;/code&gt;, a &lt;code class=&quot;highlighter-rouge&quot;&gt;DOM&lt;/code&gt;-element, a &lt;code class=&quot;highlighter-rouge&quot;&gt;service worker&lt;/code&gt;, … .
-Cypress does not need to send commands over-the-wire and can just access everything.&lt;/p&gt;
-
-&lt;h1 id=&quot;comparison&quot;&gt;Comparison&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Selenium&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Cypress&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Debugging:&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Hard/Remote&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Easy/Access to everything/Nice tool&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Speed:&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Remote = slow&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;In browser = Fast&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Parallel:&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Headless:&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;V&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Language support:&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Java, Perl PHP, Python, Ruby, C#, Javascript&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Javascript&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Browser support:&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Everything&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Only webkit&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;basic-architecture&quot;&gt;Basic Architecture&lt;/h2&gt;
-
-&lt;p&gt;Cypress consists of a few different building blocks.
-One of them is its own Nodejs process.
-You can look at this as being a backend.
-This backend then launches a browser window, sets up a proxy to this browser window and sets the domain to localhost.
-The browser window has two iFrames inside.
-One is for Cypress itself.
-The second one will hold the application under test.
-To make it possible to communicate with the application’s iFrame, it injects a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;-tag that also sets its domain to localhost.
-Because now, both iFrames are running on ‘localhost’, it is possible to access everything of the application.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/cypress-setup.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The proxy is proxying all requests from the web application itself to its backend.
-Because the proxy is part of the Cypress-setup, Cypress can act as the man-in-the-middle and spy on, mock or modify the requests and responses.&lt;/p&gt;
-
-&lt;p&gt;Communication between the Cypress Nodejs-backend and the Cypress iFrame, that is running the tests, is through a websocket.&lt;/p&gt;
-
-&lt;p&gt;There are a few downsides as seen in the comparison.
-Because Cypress is running inside of the browser, the language is Javascript.
-Cypress only supports Chrome so far. Although Cypress is working on supporting other browsers.
-Today there is no way of testing in Safari, Ìnternet Explorer, Edge, …
-Cypress tests are written using Mocha and Chai.&lt;/p&gt;
-
-&lt;h1 id=&quot;setting-up-cypress&quot;&gt;Setting Up Cypress&lt;/h1&gt;
-
-&lt;h2 id=&quot;installing-cypress&quot;&gt;Installing Cypress&lt;/h2&gt;
-
-&lt;p&gt;Installation of Cypress is really simple.
-You can install it through Yarn:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ yarn add cypress --dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Or plain npm:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ npm install cypress --save-dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You can also install it globally.
-This way you do not need a local &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; to run Cypress and all Cypress commands can be run straight from the command line.&lt;/p&gt;
-
-&lt;h2 id=&quot;running-cypress&quot;&gt;Running Cypress&lt;/h2&gt;
-
-&lt;p&gt;Depending on how you just installed Cypress, you can run Cypress by:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$ yarn run cypress open&lt;/code&gt;
-of
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$ $(npm bin)/cypress open&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Or globally:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$ cypress open&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The first positive surprise!
-When opening Cypress for the first time, it notices that you haven’t run it before and it kindly scaffolds a &lt;code class=&quot;highlighter-rouge&quot;&gt;/cypress&lt;/code&gt; folder with examples into your project.
-This way, you already have a configured &lt;code class=&quot;highlighter-rouge&quot;&gt;base&lt;/code&gt; to start from.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/firsttime.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/firsttime2.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;As you can see, Cypress opens its own application.
-This is kind of a backend application that will orchestrate the tests.
-Running one of the tests, means that Cypress will open a second window, which is actually just a new browser window.
-It will then inject itself into that window in one frame, and load the application under test in another frame.&lt;/p&gt;
-
-&lt;h2 id=&quot;configuring-cypress&quot;&gt;Configuring Cypress&lt;/h2&gt;
-
-&lt;p&gt;You can custom configure Cypress by adding a &lt;code class=&quot;highlighter-rouge&quot;&gt;cypress.json&lt;/code&gt; file in the root of your project.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;baseUrl&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;http://demo-app.localtest.me/demo-app&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;integrationFolder&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;testFiles&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;**.spec.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reporter&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;mochawesome&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reporterOptions&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;overwrite&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reportDir&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;results&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;reportFilename&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;report.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;You can always override these settings on the command-line:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$ cypress run --spec src/** -c baseUrl=http://localhost&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;For a full overview of the configuration options, just check out the &lt;a href=&quot;https://docs.cypress.io/guides/references/configuration.html#Options&quot; target=&quot;blank&quot;&gt;docs&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;reporters&quot;&gt;Reporters&lt;/h2&gt;
-
-&lt;p&gt;Just like other frameworks, Cypress lets you add custom reporters for the test results.
-As you can see above, we’ve added &lt;code class=&quot;highlighter-rouge&quot;&gt;mochawesome&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Install it via Yarn:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;yarn add mochawesome &lt;span class=&quot;nt&quot;&gt;--dev&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;And then manually add it to the &lt;code class=&quot;highlighter-rouge&quot;&gt;cypress.json&lt;/code&gt; config file.&lt;/p&gt;
-
-&lt;p&gt;Take a look at the &lt;a href=&quot;https://www.npmjs.com/package/mochawesome&quot; target=&quot;blank&quot;&gt;documentation&lt;/a&gt; for the configuration.&lt;/p&gt;
-
-&lt;h2 id=&quot;cypress-and-typescript&quot;&gt;Cypress and TypeScript&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Cypress ships with official type declarations for TypeScript. This allows you to write your tests in TypeScript. All that is required is a little bit of configuration. ~docs&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The documentation itself is linking to some different examples.
-You can read all about the setup &lt;a target=&quot;blank&quot; href=&quot;https://docs.cypress.io/guides/tooling/typescript-support.html&quot;&gt;here&lt;/a&gt;.
-And you can also take a look at the &lt;code class=&quot;highlighter-rouge&quot;&gt;npm package add-typescript-to-cypress&lt;/code&gt; &lt;a href=&quot;https://www.npmjs.com/package/@bahmutov/add-typescript-to-cypress&quot; target=&quot;blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;writing-your-first-tests&quot;&gt;Writing your first tests&lt;/h2&gt;
-
-&lt;p&gt;As shown above, you can configure the path to your &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-files.
-In our case, we are using &lt;code class=&quot;highlighter-rouge&quot;&gt;/src&lt;/code&gt;.
-Cypress will go through that directory and show all the spec files when using Cypress in development mode.
-When running Cypress command line to only run the tests, it will just run all those &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-files and then create the report.&lt;/p&gt;
-
-&lt;p&gt;In our small example we have an Angular demo app that has a material &lt;code class=&quot;highlighter-rouge&quot;&gt;sidenav&lt;/code&gt; with three links.
-Dashboard, clients and products.
-The latter two both have a material &lt;code class=&quot;highlighter-rouge&quot;&gt;datatable&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/demo-app.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Let’s say we want to test our clients navigation and &lt;code class=&quot;highlighter-rouge&quot;&gt;datatable&lt;/code&gt;.
-Create a &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt; file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;/src&lt;/code&gt; directory, in our case, named &lt;code class=&quot;highlighter-rouge&quot;&gt;clients.spec.js&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;/// &amp;lt;reference types=&quot;Cypress&quot; /&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients test&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients page should have Clients as a title&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.table-container-header h1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients table should initially have 20 rows&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.mat-row&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Clients table should show 10 rows when pagesize is set to 10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mat-select&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mat-option&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;nx&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-            &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;mat-select&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.mat-row&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;nx&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-              &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;running-your-first-tests&quot;&gt;Running your first tests&lt;/h2&gt;
-
-&lt;p&gt;If you would now run &lt;code class=&quot;highlighter-rouge&quot;&gt;$ yarn run cypress open&lt;/code&gt;.
-Cypress will open itself, showing you your new &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-file.
-You can now run your &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-file by double clicking it, or click the ‘run all’ option on the top right of your Cypress application.&lt;/p&gt;
-
-&lt;p&gt;Changing the &lt;code class=&quot;highlighter-rouge&quot;&gt;spec&lt;/code&gt;-file will trigger a reload/retest in your Cypress-environment.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/main-app.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;amazing-features&quot;&gt;Amazing features&lt;/h1&gt;
-
-&lt;p&gt;The purpose of this post is not to provide you with some sample code, but trying to convince you to take a look at Cypress.
-To do so, I’ll quickly go over some really nice features because besides the easy setup and nice main application, Cypress has much more to offer.&lt;/p&gt;
-
-&lt;h2 id=&quot;debugging-with-cypress&quot;&gt;Debugging with Cypress&lt;/h2&gt;
-
-&lt;p&gt;One of the hardest things when writing E2E tests is debugging.
-Running tests over and over again, while logging everything to check what is going on, is now history.
-Cypress injects itself in the same window as the application under test, so it has access to everything.
-Everything, including the debugger.&lt;/p&gt;
-
-&lt;p&gt;This means that you can actually debug your test code as you would debug the application itself.
-Although using the debugger is not that straight forward, it’s a great help.
-Check out out the documentation &lt;a href=&quot;https://docs.cypress.io/guides/guides/debugging.html#Using-debugger&quot; target=&quot;blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;snapshots&quot;&gt;Snapshots&lt;/h2&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/snapshot.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Take a look at the image above.
-As you can see, Cypress takes a snapshot at every stage of the test.
-You can navigate through them later and see the snapshot at a specific time and even see the difference in the state of the application before a request and after its response when running &lt;code class=&quot;highlighter-rouge&quot;&gt;XHR requests&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;network-accessibility&quot;&gt;Network accessibility&lt;/h2&gt;
-
-&lt;p&gt;As mentioned above, Cypress can take snapshots before and after each &lt;code class=&quot;highlighter-rouge&quot;&gt;XHR request&lt;/code&gt;.
-Cypress knows what is going on under the hood because it is running in the same window.
-This makes it easy to implement stubs and spies.&lt;/p&gt;
-
-&lt;p&gt;A simple example for our use case would be intercepting the &lt;code class=&quot;highlighter-rouge&quot;&gt;client-service&lt;/code&gt; calls and return mocked data.
-To do so, Cypress needs to run a server.
-This can be done by just running &lt;code class=&quot;highlighter-rouge&quot;&gt;cy.server()&lt;/code&gt;.
-Next step is to define the route you want to listen on and attach new data to it.
-Cypress enables this with its &lt;code class=&quot;highlighter-rouge&quot;&gt;route&lt;/code&gt; configuration.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;route&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;**/*/api/client-service/**/*&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Tatiana&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Velez&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;diam.dictum@Proin.net&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;birthday&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;626286135&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Dumfries&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;694245&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;pageable&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;
-        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-          &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;unsorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;pageSize&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;pageNumber&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;offset&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;paged&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;unpaged&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;totalElements&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;totalPages&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;
-         &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-         &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;unsorted&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;numberOfElements&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;stub-clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;   
-  &lt;span class=&quot;nx&quot;&gt;cy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/clients&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/network-stub.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;screenshots-and-videos&quot;&gt;Screenshots and videos&lt;/h2&gt;
-
-&lt;p&gt;Another cool embedded feature is the ability to capture screenshots or record videos.
-Cypress comes with screenshot and video recording out of the box.
-Screenshots always come in handy when trying to find a bug.
-Cypress even lets you take a screenshot, manually, from within your code.
-Before, we were always setting this up using ‘yet another plugin’ (and dependency).&lt;/p&gt;
-
-&lt;h1 id=&quot;continuous-integration&quot;&gt;Continuous integration&lt;/h1&gt;
-
-&lt;p&gt;Running Cypress on a continuous integration platform is also pretty easy.
-You just want Cypress to run the tests and not to open its Electron test manager for development.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$ cypress run&lt;/code&gt; just does that.
-Just append the other options you want to override from the &lt;code class=&quot;highlighter-rouge&quot;&gt;cypress.json&lt;/code&gt; and you are good to go.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;$ yarn run cypress run --spec 'src/**/*' --reporter mochawesome --reporter-options reportDir=results,reportFilename=report.html&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Example &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;scripts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;cypress:ci&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;cypress run --spec 'src/**/*' --reporter mochawesome --reporter-options reportDir=results,reportFilename=report.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/command-line.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/cypress/mochawesome.png&quot; width=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Although there are still some downsides to this new player in the E2E testing field, such as only supporting JavaScript and Chrome, there are just too many positives to keep it on the sideline.
-Cypress provides us with a new amazing test runner and manager. It strips all the hassles of previous setups and provides us with a real robust framework.
-It is providing us with cool but effective features like the snapshot time travel, easy debugging, headful/headless mode for CI and more.&lt;/p&gt;
-
-&lt;p&gt;Cypress is too good to not take a look at!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Vierbergen&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-vierbergen/&quot;, &quot;avatar&quot;=&gt;&quot;tim-vierbergen.jpg&quot;, &quot;twitter&quot;=&gt;&quot;vierbergentim&quot;, &quot;linkedin&quot;=&gt;&quot;tim-vierbergen-82557834&quot;, &quot;github&quot;=&gt;&quot;VeeTeeDev&quot;, &quot;title&quot;=&gt;&quot;Software Engineer&quot;, &quot;title2&quot;=&gt;&quot;Principal Consultant &amp; Competence Lead CI/CD&quot;, &quot;email&quot;=&gt;&quot;tim.vierbergen@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Tim is a senior developer and architect at JWorks Ordina Belgium. Tim has a DevOps culture mindset and is experienced in many different domains. From frontend to backend to pipelining and automation. Tim is keen on learning new technologies.&lt;br /&gt;&lt;br /&gt;Tim is a true sportsman and spends part of his free time running and working out. Tim is also very passionate about surfing and is learning how to snowboard.&quot;}</name><email>tim.vierbergen@ordina.be</email></author><category term="Testing" /><category term="Continuous Integration" /><category term="E2E" /><category term="JavaScript" /><category term="Testing" /><category term="Selenium" /><category term="Cypress" /><summary type="html">Table of contents Intro Cypress Comparison Setting up Cypress Amazing features Continuous Integration Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/cypress/cypress-logo.png" /></entry></feed>
+If you have any questions or feedback, I would love to hear them from you.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Kubernetes" /><category term="Spring" /><category term="Spring Boot" /><category term="Docker" /><category term="AWS" /><category term="EKS" /><category term="Google" /><category term="GKE" /><category term="DigitalOcean" /><category term="Azure" /><category term="AKS" /><category term="kubectl" /><category term="Minikube" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-07-11-deploy-spring-boot-kubernetes/banner.jpg" /></entry></feed>

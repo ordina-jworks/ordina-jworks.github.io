@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Monitoring serverless apss on AWS - Nick Van Hoof">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-10-15-Monitoring-serverless-apps-on-AWS/featured-image.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Monitoring serverless apss on AWS - Nick Van Hoof"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-10-15-Monitoring-serverless-apps-on-AWS/featured-image.png"/>
+
+    
+    <title>Monitoring serverless apss on AWS - Nick Van Hoof &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Monitoring serverless apss on AWS</h2>
+                
+
+                
+                    Posted Oct 15, 2019
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/nick-van-hoof">Nick Van Hoof</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/aws/">AWS</a>, 
+    
+        <a href="/tags/lambda/">Lambda</a>, 
+    
+        <a href="/tags/dynamodb/">DynamoDB</a>, 
+    
+        <a href="/tags/api-gateway/">API Gateway</a>, 
+    
+        <a href="/tags/cloudwatch/">CloudWatch</a>, 
+    
+        <a href="/tags/distributed-tracing/">Distributed Tracing</a>, 
+    
+        <a href="/tags/monitoring/">Monitoring</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-content">Table of content</h1>
+<ul>
+  <li><a href="#what-about">What about</a></li>
+  <li><a href="#challenges-of-serverless-applications">Challenges of Serverless applications</a>
+    <ul>
+      <li><a href="#challenge-1-finding-the-error-in-a-distributed-serverless-landscape">Challenge 1: Finding the error in a distributed serverless landscape</a></li>
+      <li><a href="#solution-1-structured-logging">Solution 1: Structured logging</a></li>
+      <li><a href="#challenge-2-finding-performance-bottlenecks">Challenge 2: Finding performance bottlenecks</a></li>
+      <li><a href="#solution-2-distributed-tracing-with-aws-xray">Solution 2: Distributed tracing with Xray</a></li>
+      <li><a href="#challenge-3-testing-whether-our-application-still-behaves-as-expected">Challenge 3: Testing whether our application still behaves as expected</a></li>
+      <li><a href="#solution-3a-smoke-testing">Solution 3a: Smoke Testing</a></li>
+      <li><a href="#solution-3b-load-testing">Solution 3b: Load Testing</a></li>
+    </ul>
+  </li>
+  <li><a href="#side-note-on-cloudwatch-dashboards">Side note on CloudWatch Dashboards</a></li>
+  <li><a href="#third-party-tools">Third party tools</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ul>
+
+<h1 id="what-about">What about?</h1>
+<p>Serverless is a great technology that comes with the advantage of being scalable, durable and high available.<br />
+It allows you to decouple functionality into multiple serverless Functions.</p>
+
+<p>But with new technologies come new challenges.
+Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.<br />
+I mean that there is a lot of stuff happening in a lot of different places.</p>
+
+<p>We still want to be able to monitor our landscape though.<br />
+This means that a distributed serverless landscape has to be observable.<br />
+Let’s see some of the best practices on how to make your serverless landscape observable.</p>
+
+<h1 id="challenges-of-serverless-applications">Challenges of Serverless applications</h1>
+<p>What does a typical serverless application look like?</p>
+
+<p>Let’s look at an app that was build for a conference. 
+Speakers can create a session that they want to speak about. 
+People can also retrieve all sessions that have already been submitted.<br />
+When a new session is created a slack notification is sent out.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture.png" width="100%" height="100%" />
+</div>
+
+<p>We can identify certain milestones that indicate that a request has passed this milestone.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture-with-milestones.png" width="100%" height="100%" />
+</div>
+
+<p>The serverless architecture above is actually quite small.
+I’ve seen architectures containing tens of Lambda Functions and other AWS services.</p>
+
+<p>Some of the challenges that come with a serverless architecture are:</p>
+<ol>
+  <li>It might crash somewhere in my distributed landscape.
+If it does, where did it go wrong?</li>
+  <li>Which part of my flow is performing poorly. 
+Let’s find the performance bottlenecks.</li>
+  <li>I cannot run all cloud services on my computer.
+So I can’t run my system locally anymore.
+How do I test whether my system is behaving as it is supposed to?</li>
+</ol>
+
+<p>In the next part we’ll focus on solving these challenges.</p>
+
+<h1 id="challenge-1-finding-the-error-in-a-distributed-serverless-landscape">Challenge 1: Finding the error in a distributed serverless landscape</h1>
+
+<p>When things go wrong we want to be notified.
+We can do this by configuring a CloudWatch alarm that will go of when an error appears.</p>
+
+<p>Below we see that Cloudwatch is ‘watching’ our cloud for errors.
+When an error event appears an alarm will go of and message will be pushed to a topic.
+We can then listen on this topic using a Lambda function.
+This Lambda function will send out the notification to our slack channel.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/cloudwatch-alarm-notification.png" width="100%" height="100%" />
+</div>
+
+<p>AWS provides a Lambda function that can send out these alerts that are triggered by an alarm.<br />
+If you look in the Lambda blueprints via the AWS Lambda Console you’ll find the <code class="highlighter-rouge">cloudwatch-alarm-to-slack-python</code> Lambda function that you can use.</p>
+
+<h2 id="digging-into-the-logs">Digging into the logs</h2>
+<p>What do we do when stuff goes south?<br />
+We check the logs!</p>
+
+<p>Right, logging tells us the story of what happened in our application.
+The logs contain information about this story.<br />
+Only now the logs are not coming from one place. 
+The story is told in multiple Lambda functions.</p>
+
+<p>On top of that the logging might tell multiple stories at once.
+Multiple execution environments of the same Lambda function can run at the same time.
+This is that scalability of the cloud.
+Lambda functions can run concurrently.</p>
+
+<p>We need two things:</p>
+<ol>
+  <li>We need to correlate the logs coming from different places.</li>
+  <li>We need to get the valuable information out of our logs.</li>
+</ol>
+
+<h2 id="solution-1-structured-logging">Solution 1: structured logging</h2>
+<p>Structured logging to the rescue!</p>
+
+<p>Below you see a normal log versus a structured log.</p>
+
+<p>Normal plain text log:</p>
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/normal-log.png" width="100%" height="100%" />
+</div>
+
+<p>Structured log:</p>
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/structured-log.png" width="100%" height="100%" />
+</div>
+
+<p>Yes, the structured log is a lot more bloated.
+But it is also a lot more machine readable and contains much more information.</p>
+
+<p>You recognize the <code class="highlighter-rouge">JSON</code> format.</p>
+<ul>
+  <li>It contains contextual information like <code class="highlighter-rouge">functionName</code> which is the function that created the log and <code class="highlighter-rouge">AWSRequestId</code> which is the identifier for the invocation of the lambda function.</li>
+  <li>We see the <code class="highlighter-rouge">milestone</code> key which refers to a certain milestone that the request passed while processing.</li>
+  <li>We still recognize the <code class="highlighter-rouge">message</code> and <code class="highlighter-rouge">timestamp</code></li>
+  <li>The logs contain a <code class="highlighter-rouge">traceId</code> which we can use to correlate logs.</li>
+</ul>
+
+<p>AWS offers us a service to get insights in our logs, <code class="highlighter-rouge">CloudWatch Logs Insights</code>. (What’s in a name right?)</p>
+
+<p>Since we used structured logging CloudWatch will pick up all <code class="highlighter-rouge">JSON</code> fields from our logs automatically.</p>
+
+<p>Now we can use these logs to query the milestones that a request passed.
+We can correlate these milestones since we have the traceId correlating logs over multiple functions.
+Our logs are generated by multiple functions.
+<code class="highlighter-rouge">CloudWatch Logs Insights</code> allows you to query over multiple logGroups related to these functions.</p>
+
+<p>Suppose that something went wrong for session with sessionId: <code class="highlighter-rouge">a2db023e-6565-4a5c-b7dc-b53a420898e7</code>.<br />
+We now can lookup the traceId to track the concerning request in our landscape.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fields traceId
+| filter <span class="nv">sessionId</span><span class="o">=</span><span class="s2">"865ccaad-ced0-4de5-aec3-b3692b2e06a0"</span>
+| limit 1
+</code></pre></div></div>
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/traceId-by-sessionId.png" width="100%" height="100%" />
+</div>
+
+<p>Then we can use this traceId to find the milestones that the request has already passed.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fields milestone, functionName, timestamp
+| filter <span class="nv">traceId</span><span class="o">=</span><span class="s2">"bf769e94-4d48-4994-8c04-ebd00b51ecbd"</span> and ispresent<span class="o">(</span>milestone<span class="o">)</span>
+| <span class="nb">sort </span>timestamp asc
+</code></pre></div></div>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/milestones.png" width="100%" height="100%" />
+</div>
+
+<p>We see that we never got the milestone <code class="highlighter-rouge">SAVED_IN_DATABASE</code>.
+So it went wrong somewhere in the <code class="highlighter-rouge">conference-save-session-dynamodb-lambda</code>.</p>
+
+<p>We can checkout the logs of this faulty execution using the <code class="highlighter-rouge">traceId</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fields @message
+| filter <span class="nv">traceId</span><span class="o">=</span><span class="s2">"bf769e94-4d48-4994-8c04-ebd00b51ecbd"</span> and <span class="nv">functionName</span><span class="o">=</span><span class="s2">"conference-save-session-dynamodb-lambda"</span>
+</code></pre></div></div>
+
+<p>Or we could check for an exception that occurred.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fields exception, traceId, functionName
+| filter <span class="nv">traceId</span><span class="o">=</span><span class="s2">"bf769e94-4d48-4994-8c04-ebd00b51ecbd"</span>
+| limit 1
+</code></pre></div></div>
+
+<p>Both will lead us to the exception.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/exception-found-by-looking-for-exception.png" width="100%" height="100%" />
+</div>
+
+<p>The outcome of this queries can be visualized and added to a <code class="highlighter-rouge">CloudWatch Dashboard</code>.
+More on that later.</p>
+
+<p>Structured logging helped us querying our logs for information and finding the error in our flow.<br />
+Challenge 1 completed!</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png" width="10%" height="10%" />
+</div>
+
+<h1 id="challenge-2-finding-performance-bottlenecks">Challenge 2: Finding performance bottlenecks</h1>
+<p>I wrote a <code class="highlighter-rouge">Logs Insights</code> query that allows me to check how long it took for a request to pass through the whole landscape.
+That means from the moment the creation request arrived till the moment we send out a slack notification for it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fields @timestamp, @message
+| filter  <span class="nv">milestone</span><span class="o">=</span><span class="s2">"CREATE_REQUEST_RECEIVED"</span> or <span class="nv">milestone</span><span class="o">=</span><span class="s2">"SLACK_NOTIFICATION_NEW_SESSION_SENT"</span>
+| stats <span class="o">(</span>latest<span class="o">(</span>@timestamp<span class="o">)</span> - earliest<span class="o">(</span>@timestamp<span class="o">))</span>/1000 as LeadTimeInSeconds by traceId
+| filter LeadTimeInSeconds!<span class="o">=</span>0
+| <span class="nb">sort </span>LeadTimeInSeconds desc
+| limit 20
+</code></pre></div></div>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/slack-notification-lead-time.png" width="100%" height="100%" />
+</div>
+
+<p>We see that even when the system is warm, it takes us up to 10 seconds to send out a slack notification.
+We need to dig into the performance of our lambda functions using <code class="highlighter-rouge">AWS Xray</code>.</p>
+
+<h2 id="solution-2-distributed-tracing-with-aws-xray">Solution 2: distributed tracing with AWS Xray</h2>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray.png" width="10%" height="10%" />
+</div>
+
+<p>Xray helps us understand the behavior of our system and thus allows us to analyze the performance of specific parts.
+It does this by visualizing the flow and dividing the flow into traces and segments.
+A trace is actually build up from multiple segments.</p>
+
+<p>It does this by:</p>
+<ul>
+  <li>Sampling your requests. 
+By default Xray will trace 5% of your requests.</li>
+  <li>Tracing calls made by ths AWS SDK.
+This happens automatically when you use Xray as a dependency for your project.</li>
+  <li>Creating custom segments.
+You can create your own segments as you see below.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Subsegment</span> <span class="n">subsegment</span> <span class="o">=</span> <span class="nc">AWSXRay</span><span class="o">.</span><span class="na">beginSubsegment</span><span class="o">(</span><span class="s">"Sessions.saveSessionDynamoDB"</span><span class="o">);</span>
+
+<span class="n">subsegment</span><span class="o">.</span><span class="na">putAnnotation</span><span class="o">(</span><span class="s">"storeInDatabase"</span><span class="o">,</span> <span class="s">"DynamoDB"</span><span class="o">);</span>
+<span class="n">subsegment</span><span class="o">.</span><span class="na">putMetadata</span><span class="o">(</span><span class="s">"company"</span><span class="o">,</span> <span class="s">"Ordina"</span><span class="o">);</span>
+
+<span class="n">mockingIssues</span><span class="o">(</span><span class="n">sessionDynamoDao</span><span class="o">);</span>
+
+<span class="n">repository</span><span class="o">.</span><span class="na">saveSession</span><span class="o">(</span><span class="n">sessionDynamoDao</span><span class="o">);</span>
+
+<span class="nc">AWSXRay</span><span class="o">.</span><span class="na">endSubsegment</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Here is an example of the Xray service map.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-service-map.png" width="100%" height="100%" />
+</div>
+
+<p>Xray doesn’t trace async requests (yet).
+That means that publishing on an <code class="highlighter-rouge">SNS</code> topic or going via a <code class="highlighter-rouge">DynamoDB Stream</code> is not part of the full trace but will show up as a new client in the service map.
+Recently tracing over <code class="highlighter-rouge">SQS</code> was added.</p>
+
+<p>When we click the lambda service we can see the response distribution.
+This visualizes how quickly the lambda function responded.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-response-distribution.png" width="100%" height="100%" />
+</div>
+
+<p>Something is definitely wrong here since even the quickest executions take more than 3 seconds.
+We can dig deeper by clicking <code class="highlighter-rouge">view traces</code>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-overview-traces.png" width="100%" height="100%" />
+</div>
+
+<p>Digging even deeper into one of these traces we can see how long every segment of this trace took.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-segments-of-trace.png" width="100%" height="100%" />
+</div>
+
+<p>Below we see that first some data was saved to the <code class="highlighter-rouge">caching table</code>.
+This happened blazingly quick in 8.0 ms.</p>
+
+<p>We see however that the <code class="highlighter-rouge">Sessions.saveSessionDynamoDB</code> segment took over 3.0 seconds.
+Of these 3 seconds, only 8 ms was spent actually saving the request.
+We found our performance bottleneck.
+Something is waiting around in the <code class="highlighter-rouge">Sessions.saveSessionDynamoDB</code> segment.
+In this case it was me introducing an artificial <code class="highlighter-rouge">Thread.sleep()</code>.</p>
+
+<p>Hooray, we found the performance bottleneck.<br />
+Challenge 2 completed.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png" width="10%" height="10%" />
+</div>
+
+<h1 id="challenge-3-testing-whether-our-application-still-behaves-as-expected">Challenge 3: Testing whether our application still behaves as expected</h1>
+<p>We can’t run our complete cloud infrastructure on our local machine.<br />
+So when we make changes and redeploy, we should test if our system is still behaving as it should.</p>
+
+<p>This includes:</p>
+<ul>
+  <li>Running smoke tests to detect hazards.</li>
+  <li>Running load tests to view if the system can still handle the load.</li>
+</ul>
+
+<h2 id="solution-3a-smoke-testing">Solution 3a: smoke testing</h2>
+<p>You should automate testing your system.
+In the image below you see how I automate a test to check if a new session that is entered via the API is still forwarded.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/smoke-test.png" width="100%" height="100%" />
+</div>
+
+<p>I create this test using <code class="highlighter-rouge">JUnit</code> and mocked the http endpoints with <a href="http://wiremock.org/" target="_blank">wiremock</a>.
+<code class="highlighter-rouge">Wiremock</code> is a great tool to mock http endpoints that I personally use a lot.<br />
+You can ask Wiremock to create certain endpoints and configure the response for it.<br />
+Below you see me creating the <code class="highlighter-rouge">/sessions/forward</code> endpoint.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
+  <span class="nv">$wiremock_url</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "request": {
+        "method": "POST",
+        "url": "/session/forward"
+    },
+    "response": {
+        "status": 200,
+        "body": "I have received the session correctly",
+         "delayDistribution": {
+                    "type": "lognormal",
+                    "median": 100,
+                    "sigma": 0.1
+           },
+        "headers": {
+            "Content-Type": "text/plain"
+        }
+    }
+}'</span>
+</code></pre></div></div>
+
+<h2 id="solution-3b-load-testing">Solution 3b: load testing</h2>
+<p>Yes, serverless scales automatically.
+But things might not always behave as expected.
+Listening on events of a <code class="highlighter-rouge">Kinesis</code> stream for example is only possible with one Lambda function per <code class="highlighter-rouge">Shard</code>.
+Thus limiting your throughput if you don’t watch out.</p>
+
+<p>To run my load test I use <a href="https://artillery.io" target="_blank">artillery</a>. 
+Below you find the file that I use to configure this load test.
+It ramps up the amount of request per second from 1 to 10 during 2 minutes.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">config</span><span class="pi">:</span>
+  <span class="na">target</span><span class="pi">:</span> <span class="s1">'</span><span class="s">https://your-own-url.com'</span>
+  <span class="na">phases</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">duration</span><span class="pi">:</span> <span class="m">120</span>
+      <span class="na">arrivalRate</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">rampTo</span><span class="pi">:</span> <span class="m">10</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Ramp</span><span class="nv"> </span><span class="s">up</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">warm</span><span class="nv"> </span><span class="s">up</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">application"</span>
+  <span class="na">payload</span><span class="pi">:</span>
+    <span class="na">path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">sessions.csv"</span>
+    <span class="na">fields</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">subject"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">firstName"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">lastName"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">companyName"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">companyCity"</span>
+<span class="na">scenarios</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">flow</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">post</span><span class="pi">:</span>
+          <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/sessions"</span>
+          <span class="na">json</span><span class="pi">:</span>
+            <span class="na">subject</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+            <span class="na">duration</span><span class="pi">:</span> <span class="m">20</span>
+            <span class="na">timestamp</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1570202335000"</span>
+            <span class="na">speaker</span><span class="pi">:</span>
+              <span class="na">firstName</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+              <span class="na">lastName</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+              <span class="na">company</span><span class="pi">:</span>
+                <span class="na">companyName</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+                <span class="na">companyCity</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+              <span class="na">questionPhrase</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+</code></pre></div></div>
+
+<p>Again I checked the lead time (time between incoming request and sending out the notification) and found these huge numbers.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/huge-lead-time.png" width="70%" height="70%" />
+</div>
+
+<p>Using structured logging and <code class="highlighter-rouge">CloudWatch Logs Insights</code> we could start looking deeper into the cause of this delay.
+I already showed you how to work with <code class="highlighter-rouge">Logs Insights</code>, so I’ll get straight to the cause here.</p>
+
+<p>The reason it takes so much time to send out all slack notifications is that the Lambda function which listens on the <code class="highlighter-rouge">DynamoDB stream</code> is sending out these requests one by one.
+It takes about 1 second for every request.<br />
+But the requests come in much faster. This means that they are queueing up in front of the <code class="highlighter-rouge">conference-slack-notification-lambda</code> to be send out.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture-with-milestones.png" width="100%" height="100%" />
+</div>
+
+<p>We reached our goal.
+We found another bottleneck in our system by running the load tests.
+Challenge 3 completed!</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png" width="10%" height="10%" />
+</div>
+
+<h1 id="side-note-on-cloudwatch-dashboards">Side note on CloudWatch Dashboards</h1>
+<p>Along the way we wrote a lot of <code class="highlighter-rouge">Logs Insights</code> queries.<br />
+AWS allows you to bundle the results of these queries into dashboards via <code class="highlighter-rouge">CloudWatch Dashboards</code>.</p>
+
+<p>Below you see how I made a dashboard that visualizes the number of invocations and associated costs per lambda function.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/billing-overview.png" width="100%" height="100%" />
+</div>
+
+<p>To find the total cost I used the following query:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>filter @type <span class="o">=</span> <span class="s2">"REPORT"</span>
+| fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000<span class="k">*</span>MemorySetInMB/1024 as BilledDurationInGBSeconds, @logStream
+| stats <span class="nb">sum</span><span class="o">(</span>BilledDurationInGBSeconds<span class="o">)</span> as TotalBilledDurationInGBSeconds, <span class="nb">sum</span><span class="o">(</span>BilledDurationInGBSeconds<span class="o">)</span> <span class="k">*</span> 0.00001667 as TotalCostInDollar
+</code></pre></div></div>
+
+<p>To get the stats per Lambda function I did:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>filter @type<span class="o">=</span><span class="s2">"REPORT"</span>
+| fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000<span class="k">*</span>MemorySetInMB/1024 as BilledDurationInGBSeconds
+| stats 
+count<span class="o">(</span>@billedDuration<span class="o">)</span> as NumberOfInvocations,
+ceil<span class="o">(</span>avg<span class="o">(</span>@duration<span class="o">))</span> as AverageExecutionTime,
+max<span class="o">(</span>@duration<span class="o">)</span> as MaxExecutionTime,
+<span class="nb">sum</span><span class="o">(</span>BilledDurationInGBSeconds<span class="o">)</span> <span class="k">*</span> 0.00001667 as TotalCostInDollar
+</code></pre></div></div>
+
+<h1 id="third-party-tools">Third party tools</h1>
+<p>We just saw the things that we can do to increase the observability of our serverless landscape.<br />
+To achieve this, you’ll have to do some custom work:</p>
+<ul>
+  <li>setup structured logging</li>
+  <li>pass on a traceId</li>
+  <li>create dashboards in CloudWatch</li>
+  <li>get familiar with the <code class="highlighter-rouge">Logs Insights</code> query language</li>
+  <li>configure the right alarms in CloudWatch</li>
+  <li>setup the infrastructure to notify you when an error appears in your landscape</li>
+</ul>
+
+<p>These are things that take time.<br />
+And time is money.</p>
+
+<p>You can also consider using this money to work with a third party tool.
+This tool then allows you to monitor and troubleshoot your serverless applications.</p>
+
+<p>Personally I have used <a href="https://lumigo.io" target="_blank">Lumigo</a>  to achieve just that.<br />
+The things you have to customize, will be provided out of the box.</p>
+
+<p>You get a high-level dashboard to visualize the problems in your application.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-dashboard.png" width="80%" height="80%" />
+</div>
+
+<p>It will also automatically trace a request through your landscape by creating a transaction.
+This is about the same as we did by forwarding traceIds.</p>
+
+<p>It comes with a handy visualization.
+On the left you see the transaction while on the right it gives you the logs that correspond with the error that appeared.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-transaction-and-error.png" width="80%" height="80%" />
+</div>
+
+<p>This allows you to drill down to the source of the error quickly.<br />
+On top of that you can also create the necessary alerts to notify you in case things go south.</p>
+
+<p>These tools often have a <a href="https://platform.lumigo.io/signup" target="_blank">free tier</a>  that allows you to explore the product.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>We improved the observability of our system by implementing structured logs and using appropriate testing and tooling.
+By doing this, it becomes way easier to monitor your system and create visibility on its behavior.</p>
+
+<p>Remember that:</p>
+<ul>
+  <li>you need structured logging to get the maximum out of your logs</li>
+  <li>CloudWatch Logs Insights allows you to query your logs and analyze them for errors</li>
+  <li>distributed tracing with AWS Xray helps you identifying bottlenecks in your system</li>
+  <li>you can create smoke tests and load tests to check if your system is behaving as it is supposed to</li>
+</ul>
+
+<p>In case you want some of these things being done for you automatically, choose a third party monitoring tool to help you with it.</p>
+
+<h1 id="resources">Resources</h1>
+<ol>
+  <li><a href="https://lumigo.io/blog/" target="_blank">https://lumigo.io/blog/</a></li>
+  <li><a href="https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/" target="_blank">https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/</a></li>
+  <li><a href="https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/" target="_blank">https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/</a></li>
+  <li><a href="https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/" target="_blank">https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/</a></li>
+  <li><a href="https://stackify.com/what-is-structured-logging-and-why-developers-need-it/" target="_blank">https://stackify.com/what-is-structured-logging-and-why-developers-need-it/</a></li>
+  <li><a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html" target="_blank">https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html</a></li>
+  <li><a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html" target="_blank">https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html</a></li>
+  <li><a href="https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html" target="_blank">https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html</a></li>
+  <li><a href="https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017" target="_blank">https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017</a></li>
+  <li><a href="https://lumigo.io" target="_blank">https://lumigo.io</a></li>
+</ol>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html&title=Monitoring serverless apss on AWS&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Monitoring serverless apss on AWS&url=https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+    
+    <div class="outbound">
+        <div class="outbound__inner">
+            <h3 class="outbound__inner-title">Explore some more</h3>
+            
+            <figure class="effect-bubba">
+                <img src="/img/outbound/infrastructure-as-code-terraform-and-aws-serverless.jpg" alt="Create a Serverless Application with AWS Lambda and DynamoDB"/>
+                <figcaption>
+                    <h2>Create a Serverless Application with AWS Lambda and DynamoDB</h2>
+                    
+                    
+                    
+                    <a href="/cloud/2018/10/01/How-to-build-a-Serverless-Application-with-AWS-Lambda-and-DynamoDB.html" title="Create a Serverless Application with AWS Lambda and DynamoDB">View more</a>
+                    
+                </figcaption>			
+            </figure>
+            
+            <figure class="effect-bubba">
+                <img src="/img/outbound/infrastructure-as-code-terraform-and-aws-serverless.jpg" alt="Infrastructure as code: Terraform and AWS Serverless"/>
+                <figcaption>
+                    <h2>Infrastructure as code: Terraform and AWS Serverless</h2>
+                    
+                    
+                    
+                    <a href="/cloud/2019/01/14/Infrastructure-as-code-with-terraform-and-aws-serverless.html" title="Infrastructure as code: Terraform and AWS Serverless">View more</a>
+                    
+                </figcaption>			
+            </figure>
+            
+        </div>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/nick-van-hoof" class="image spotlight-image" title="">
+            <img src="/img/author/nick-van-hoof.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he’s also working with IoT and AI.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-10-15-Monitoring-serverless-apps-on-AWS/featured-image.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
