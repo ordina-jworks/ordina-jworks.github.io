@@ -16,8 +16,8 @@ During the Kickstarter program, we were introduced to a wide range of technologi
 The courses were focused mainly on providing a very hands-on experience as to learn how the different technologies work in practice.
 
 During the 3 months kickstarter trajectory, there were 2 main periods:
-* The first 1.5 months were filled with various trainings: security, backend, frontend, soft skill trainings,...
-* The last part, 2 DevCases were organized: Chatbot Dina and Zero Plastic Rivers
+* The first six weeks were filled with various trainings: security, backend, frontend, soft skill trainings,...
+* The last, 2 DevCases were organized: Chatbot Dina and Zero Plastic Rivers
 
 This blogpost will talk about both periods separately below. The first period is further separated into technical and non-technical trainings.
 
@@ -35,7 +35,7 @@ Finally, we were given the keys to our cars, and our laptops, so that the next d
 
 # Technical trainings
 
-During the month and a half of trainings, there were a lot of very interesting technical sessions. 
+During the six weeks of trainings, there were a lot of very interesting technical sessions. 
 The most important ones to us are discussed below.
 Other than those mentioned below, there are a lot of others, such as the course on Git, DevOps, Java,... 
 
@@ -113,6 +113,9 @@ We’ve used the method in our Zero Plastic Rivers DevCase, and it worked out gr
 </div>
 
 # Non-technical trainings
+
+Ordina organised some non-technical trainings alongside the ones above. 
+These were focused on Agile and Scrum, as well as some soft skills like how to present yourself in front of others.
 
 ## Agile & Scrum
 
