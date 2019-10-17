@@ -31,7 +31,7 @@ We were introduced to the structure of Ordina and got to know some of the other 
 After the introduction, we were given a tour of the entire building, during which we met some of the colleagues at JWorks.
 Four of the Kickstarters already did an internship at Ordina before coming to work officially, so they already knew a lot of the colleagues in Mechelen.
 This didn't make any difference however, since everyone was very open and welcoming.
-Finally, we were given the keys to our cars, and our laptops, so that the next day we could get started with the courses, focused on both technical and soft skills.
+Finally, we got our laptops and the keys to our cars so that the next day, we could get started with the courses focused on both technical and soft skills.
 
 # Technical trainings
 
@@ -70,12 +70,12 @@ The theoretical start on Spring was a very useful refresh to get up to speed aga
 ## Docker
 The Docker course, given by [Tom Verelst](/author/tom-verelst), started with a theoretical explanation about the advantages of containerization, the difference with virtual machines and how a container is built. 
 The main part of the course was a hands-on session. 
-We learned to create an image of our application and push it to Docker hub, spin up a docker container and write efficient Docker compose files.
+We learned to create an image of our application and push it to Docker hub, spin up a Docker container and write efficient Docker compose files.
 
 #### [Brecht Porrez](/author/brecht-porrez)
 >During this training I really experienced the advantages of Docker. 
 I now use it almost daily during the Zero Plastic Rivers DevCase.
-For example, if I need a test database, I quickly start up a docker container.
+For example, if I need a test database, I quickly start up a Docker container.
 If I have written a backend application, I quickly turn it into a container so my front-end colleagues can test with it and so on.
 
 ## Kubernetes
@@ -102,7 +102,8 @@ After pouring those requirements into unit tests, you can start developing and i
 There are many advantages of working with TDD, but it mainly makes it easier later on in the development process. 
 In the beginning, there's more work involved because you need to write all the tests. 
 In the long run however, it saves a lot of time because you can immediately spot mistakes using your unit tests.
-Another good use case is refactoring code. With the test already in place, you have a great test to see if you did the refactoring correct.
+Another good use case is refactoring code. 
+With the test already in place, you have a great test to see if you did the refactoring correctly.
 
 #### [Lennert Peeters](/author/lennert-peeters)
 >I’ll be looking more into TDD in the future and continue to develop using this philosophy. 
@@ -155,7 +156,7 @@ At the end we refreshed a couple of famous agile practices such as the SCRUM fra
 
 #### [Lore Vanderlinden](/author/lore-vanderlinden)
 >The agile session was a very enriching experience. We learned the basic concepts of agile the right way. 
-Michaele was a very inspiring agile coach, making the learning process easier by using a hands-on way of teaching. 
+Michaëla was a very inspiring agile coach, making the learning process easier by using a hands-on way of teaching. 
 She used real life examples to show us the advantages of working in an agile manner.
 
 # Final day
