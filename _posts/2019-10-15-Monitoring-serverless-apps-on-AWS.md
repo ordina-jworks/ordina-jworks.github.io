@@ -2,7 +2,7 @@
 layout: post
 authors: [nick_van_hoof]
 outbound: [tech_blog_how-to-build-a-serverless-application-with-aws-lambda-and-dynamodb, tech_blog_infrastructure_as_code_with_terraform_and_aws_serverless]
-title: 'Monitoring serverless apss on AWS'
+title: 'Monitoring serverless apps on AWS'
 image: /img/2019-10-15-Monitoring-serverless-apps-on-AWS/featured-image.png
 tags: [AWS, Lambda, DynamoDB, API Gateway, CloudWatch, Distributed Tracing, Monitoring]
 category: Cloud
