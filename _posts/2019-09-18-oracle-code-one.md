@@ -158,45 +158,50 @@ Presentation not available => https://speaking.gamov.io/presentations
 Similar presentation: https://www.slideshare.net/ChesterChen/sfbiganalytics20190724-monitor-kafka-like-a-pro
 Talk: https://www.youtube.com/watch?v=tL6DtN0zhrQ
 
+Some basic monitoring is just to verify that your producers and consumers are able to write and read data from Kafka.
+A specific topic to where you just send and consume a message from every 15 seconds, raise an error after 4 failures et voilla, basic monitoring.
 
-Broker monitoring>
-Can you producers or consumer write or read from Kafka.
+Measuring latency is already more advanced, but everytime you experience performance issues always check your latency>
+As it might be a waste of time to start looking into Kafka or your own service when your network connection is acting up.
 
-A specific topic to read / write to, every 15 seconds => after 4 failures, throw an error.
-Measuring latency is already more advanced, but always check your latency when you have performance issues.
+In order to check if your brokers are up, just execute a 'grep java' on the brokers.
 
-Check if the brokers are up: grep java
-Kafka exposes JMX metrics, there exists a jmx exporter for Prometheus which is also used by Confluent in the cloud.
+Kafka exposes a ton of [JMX metrics](https://docs.confluent.io/current/kafka/monitoring.html), which you can export with Prometheus, the Confluent cloud uses the same mechanism to acquire metrics.
 
-Are the partitions up:
-Offline partitions is an actionable metric
-Under replicated partitions is the most important metric, something is wrong.
+The most import metrics to monitor are to verify the state of your partitions:
 
-Old producer / consumer versions => this forces the broker to convert messages, the heap memory use will rise.
+'kafka.controller:type=KafkaController,name=OfflinePartitionsCount' Offline partitions is an actionable metric, as this indicates that a partition has no leader and thus is no longer readable or writeable.
 
-Under min.isr partitions, producer can no longer produce.
+'kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions': Under replicated partitions is the most important metric, something is cleary wrong.
 
-Are there enough resources?
-Have enough resources, CPU / Bandwith / Disk, if resources > 90% ... bad
-Always monitor disk.
+'kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions': Whenever there are no longer enough replicas of a partitions in sync you can no longer produce messages to that topic. This corresponds to the configured 'min.isr.partitions' of a broker.
 
-Other metrics
-Active controller, most important node of the cluster
-1 = ok, 0 = not ok, 2 = very not ok
-zookeeper disconnects
-unclean leader election, this is disabled by default though
+It is also important to verify if your brokers have enough resources like; CPU, Bandwidth, Disk, ...
+Always monitor your disk usage, always.
 
-ISR shrink expand
+Other metrics which are pretty important:
+'kafka.controller:type=KafkaController,name=ActiveControllerCount': this indicates wether an [Ative Controller](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals) is present, this is the most important node of your kafka cluster.
+1 = OK, 0 is not ok, 2 is VERY NOT ok.
 
-network / request idle %
+'kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectsPerSec': Zookeeper disconnects.
 
-Kafka producer and consumer performance => set a baseline performance to test
-When you have set this baseline you can also verify config changes.
+'kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec': the rate at which unclear leader election occurs, though this option is disabled by default.
 
-Consumers
-Consumer lag: current offset <> highwatermark might indicate that the consumers are too slow.
+'kafka.server:type=ReplicaManager,name=IsrShrinksPerSec': When a broker goes down the Isr will shrink, when it comes back it will expand again ('kafka.server:type=ReplicaManager,name=IsrExpandsPerSec')
 
-Tools to use: async profiler.
+'kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent' / 'kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent' as this verifies how often your request and processor threads are idle. 
+
+For your consumers and important metric is 'records-lag-max', because when this is growing it will indicate that your consumers are lagging behind and can not process the same amount of messages as your producers are producing.
+
+It is also important to set a performance baseline for your producers and consumers, this then also allows you to verify configuration changes you have made and their impact on your Kafka system.
+
+Finally it is also important is to pay attention to old producer and consumer versions, as these forces the broker to convert messages which will have an impact on the heap memory usage.
+
+Victor also pointed us to nice tool to use when you want to profile your java application: [async-profiler](https://github.com/jvm-profiling-tools/async-profiler)
+
+https://github.com/jvm-profiling-tools/async-profiler/blob/master/demo/SwingSet2.svg
+
+Besides creating cool flame graphs, this tool can inform you about what your java application is doing and where you might have a problem.
 
 ## Distributed Tracing in Kafka
 https://www.youtube.com/watch?v=W0JYx7erh_0&feature=youtu.be&t=3634
