@@ -155,6 +155,10 @@ The game worked as follows:
 Playing this game for 6 rounds, the productivity went up exponentially. The team had matters in its own hands, which made them think for themselves.
 At the end we refreshed a couple of famous agile practices such as the SCRUM framework, which is a popular way of working together to quickly and reliably release new features.
 
+<div style="text-align: center;">
+  <img src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/Agile%20game.png" width="80%" height="80%" target="_blank">
+</div>
+
 #### [Lore Vanderlinden](/author/lore-vanderlinden)
 >The agile session was a very enriching experience. We learned the basic concepts of agile the right way. 
 Michaëla was a very inspiring agile coach, making the learning process easier by using a hands-on way of teaching. 
