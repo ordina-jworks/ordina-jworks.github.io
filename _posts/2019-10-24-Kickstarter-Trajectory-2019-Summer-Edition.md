@@ -44,7 +44,7 @@ During our Kickstarter trajectory, the Spring Boot course was taught by [Ken Coe
 He explained what sits at the core of Spring and how Spring Boot works. 
 Before taking a deep dive into Spring Boot, we were taught the ins and outs of the Spring Framework. 
 
-<img class="image right" alt="SpringBoot" src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/SpringBoot.png" width="20%" height="20%" target="_blank">
+<img class="image right" alt="SpringBoot" src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/SpringBoot.png" width="20%" height="20%" target="_blank">
 
 Spring Boot takes away a lot of configuration by providing defaults based on industry standards. 
 Therefore, Spring Boot makes it easy to create stand-alone, production grade Spring based applications that need minimum configuration. 
@@ -80,7 +80,7 @@ If I have written a backend application, I quickly turn it into a container so m
 
 ## Kubernetes
 
-<img class="image right" alt="Kubernetes" src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/Kubernetes.png" width="40%" height="40%" target="_blank">
+<img class="image right" alt="Kubernetes" src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/Kubernetes.png" width="40%" height="40%" target="_blank">
 
 To better understand the use of Docker, Tom also gave us an introduction to Kubernetes (K8s). 
 In the K8s session, we learned to work with the commands of Kubernetes by using them on Minikube, a tool to run Kubernetes locally. 
@@ -111,7 +111,7 @@ We’ve used the method in our Zero Plastic Rivers dev case.
 It worked out great, saving us quite some time.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/TDD.png" width="40%" height="40%" target="_blank">
+  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/TDD.png" width="40%" height="40%" target="_blank">
 </div>
 
 # Non-technical trainings
@@ -135,7 +135,7 @@ Frequent meetings with the Product Owner and keeping him close to the project is
 I will definitely look more into it in the future, since I'm aiming to become a Scrum Master.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/ScrumLayout.jpg" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/ScrumLayout.jpg" width="80%" height="80%" target="_blank">
 </div>
 
 ## Agile Hands-On
@@ -156,7 +156,7 @@ Playing this game for 6 rounds, the productivity went up exponentially. The team
 At the end we refreshed a couple of famous agile practices such as the SCRUM framework, which is a popular way of working together to quickly and reliably release new features.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/Agile%20game.png" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/Agile%20game.png" width="80%" height="80%" target="_blank">
 </div>
 
 #### [Lore Vanderlinden](/author/lore-vanderlinden)
@@ -172,7 +172,7 @@ Afterwards, there was a moment for networking and socializing with everyone, and
 The next day, the dev cases started, which we’ll explain below!
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/FinalDay.png" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/FinalDay.png" width="80%" height="80%" target="_blank">
 </div>
 
 # Dev cases 
@@ -183,7 +183,7 @@ The team of 8 JWorks Kickstarters was divided into two teams, and thus 2 dev cas
 
 ##  Zero Plastic Rivers
 
-<img class="image right" alt="ZeroPlasticRivers" src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/ZeroPlasticRivers.png" width="40%" height="40%" target="_blank">
+<img class="image right" alt="ZeroPlasticRivers" src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/ZeroPlasticRivers.png" width="40%" height="40%" target="_blank">
 
 At the end of the Kickstarter trajectory, we were asked to develop a web application to monitor the plastic as it travels through the Schelde. 
 For this purpose, we'd be using GPS trackers alongside QR-scanners.
@@ -215,7 +215,7 @@ Dina can also ask questions to get more information, use API calls to look up ti
 Using a well-designed chatbot, conversations should feel natural to the user, as if he was talking to a human. An example can be found below.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-25-Kickstarter-Trajectory-2019-Summer-Edition/Chatlayer.png" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/Chatlayer.png" width="80%" height="80%" target="_blank">
 </div>
 
 # Conclusion
