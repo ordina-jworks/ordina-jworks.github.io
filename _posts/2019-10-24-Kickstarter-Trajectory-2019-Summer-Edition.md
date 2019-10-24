@@ -12,7 +12,8 @@ comments: true
 >65 young professionals started the Ordina kickstarter trajectory this summer, on the 1st of August. 
 JWorks counted 8 kickstarters: Mohammed, Jasper, Nicholas, Lennert, Duncan, Lore, Brecht and Imad. 
 All looking for a challenge and a fresh start. Most of them just graduated, Brecht on the other hand already had other work experience. 
-During the Kickstarter program, we were introduced to a wide range of technologies, technologies that play an important role in IT. 
+During the Kickstarter program, we were introduced to a wide range of technologies.
+Technologies that play an important role in IT. 
 The courses were focused mainly on providing a very hands-on experience as to learn how the different technologies work in practice.
 
 During the three months kickstarter trajectory, there were two main periods:
@@ -27,11 +28,11 @@ This blogpost will talk about both periods separately below. The first period is
 
 ## First Day
 On our first arrival at Ordina, we were warmly welcomed by Anja, our Resource Manager, and two of the Practice Managers: Ken and Yannick. 
-We were introduced to the structure of Ordina and got to know some of the other Kickstarters. 
+We were introduced to the structure of Ordina and got to know some of the other kickstarters. 
 After the introduction, we were given a tour of the entire building, during which we met some of the colleagues at JWorks.
-Four of the Kickstarters already did an internship at Ordina before coming to work officially, so they already knew a lot of the colleagues in Mechelen.
+Four of the kickstarters already did an internship at Ordina before coming to work officially, so they already knew a lot of the colleagues in Mechelen.
 This didn't make any difference however, since everyone was very open and welcoming.
-Finally, we got our laptops and the keys to our cars so that the next day, we could get started with the courses focused on both technical and soft skills.
+Finally, we got our laptops and the keys to our cars so that the next day we could get started with the courses focused on both technical and soft skills.
 
 # Technical trainings
 
@@ -40,7 +41,7 @@ The most important ones to us are discussed below.
 Other than those mentioned below, there are a lot of others, such as the course on Git, DevOps, Java,... 
 
 ## Spring Boot
-During our Kickstarter trajectory, the Spring Boot course was taught by [Ken Coenen](/author/ken-coenen){:target="_blank" rel="noopener noreferrer"}.
+During our kickstarter trajectory, the Spring Boot course was taught by [Ken Coenen](/author/ken-coenen){:target="_blank" rel="noopener noreferrer"}.
 He explained what sits at the core of Spring and how Spring Boot works. 
 Before taking a deep dive into Spring Boot, we were taught the ins and outs of the Spring Framework. 
 
@@ -57,7 +58,7 @@ In the afternoon, we went further and looked into Spring Web Services and Spring
 
 ### Day 2
 The second day, we built a small application to test the range of possibilities Spring Boot offers. 
-The app was built to provide a system to save houses with their address, the inhabitants and some of the features it has like the type of garage.
+The app was built to provide a system to save houses with their address, the inhabitants and some of the features it has, like the type of garage.
 It was a fun little project which taught us a lot of what Spring Boot can be used for. 
 We've all used Spring Boot in our dev case, so it was definitely worth following.
 
@@ -76,7 +77,7 @@ We learned to create an image of our application and push it to Docker hub, spin
 >During this training I really experienced the advantages of Docker. 
 I now use it almost daily during the Zero Plastic Rivers dev case.
 For example, if I need a test database, I quickly start up a Docker container.
-If I have written a backend application, I quickly turn it into a container so my front-end colleagues can test with it and so on.
+If I have written a backend application, I quickly turn it into a container so my frontend colleagues can test with it and so on.
 
 ## Kubernetes
 
@@ -129,7 +130,7 @@ This is a very powerful and important part about how a Scrum Team works, since h
 This gives the project a more versatile approach with less frequent congestions and problems compared to the Waterfall methodology.
 
 #### [Jasper Rosiers](/author/jasper-rosiers)
->What I found most interesting about the Scrum framework and the Agile way of working, is that there’s many moments to reflect on how the work is going and how well the team is working together. 
+>What I found most interesting about the Scrum framework and the Agile way of working is that there are many moments to reflect on how the work is going and how well the team is working together. 
 The daily scrum is a very powerful moment, which made us use it in our Chatbot dev case. 
 Frequent meetings with the Product Owner and keeping him close to the project is another aspect I love about the Scrum framework. 
 I will definitely look more into it in the future, since I'm aiming to become a Scrum Master.
@@ -166,7 +167,7 @@ She used real life examples to show us the advantages of working in an agile man
 
 # Final day
 
-On the day after the final course day, all the Kickstarters gave a short presentation about themselves in front of the others and the management. 
+On the day after the final course day, all the kickstarters gave a short presentation about themselves in front of the others and the management. 
 This way, everyone present got to know the others, with both their professional interests and achievements, as well as a little on the personal side. 
 Afterwards, there was a moment for networking and socializing with everyone, and an official graduation. 
 The next day, the dev cases started, which we’ll explain below!
@@ -177,7 +178,7 @@ The next day, the dev cases started, which we’ll explain below!
 
 # Dev cases 
 
-The team of 8 JWorks Kickstarters was divided into two teams, and thus 2 dev cases:
+With two different dev cases, the team of 8 JWorks kickstarters was divided into two:
 * Brecht, Imad, Lennert, Lore and Mohammed worked together on the Zero Plastic Rivers case for the University of Antwerp
 * Duncan, Jasper and Nicholas were set on the task of designing Chatbot Dina for internal use
 
@@ -185,7 +186,7 @@ The team of 8 JWorks Kickstarters was divided into two teams, and thus 2 dev cas
 
 <img class="image right" alt="ZeroPlasticRivers" src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/ZeroPlasticRivers.png" width="40%" height="40%" target="_blank">
 
-At the end of the Kickstarter trajectory, we were asked to develop a web application to monitor the plastic as it travels through the Schelde. 
+At the end of the kickstarter trajectory, we were asked to develop a web application to monitor the plastic as it travels through the Schelde. 
 For this purpose, we'd be using GPS trackers alongside QR-scanners.
 This application is aimed at a PhD carried out at the University of Antwerp that consists of visualizing the plastic flow through the entire river, from the basin to the mouth. 
 After visualizing it, an efficient remediation strategy could be made.
