@@ -3,7 +3,7 @@ layout: post
 authors: [nick_geudens]
 title: 'Make your own CLI with golang and cobra'
 image: /img/make-your-own-cli-with-golang-and-cobra/banner.jpg
-tags: [Golang,Cobra,CLI,Go]
+tags: [Cobra, CLI, Go]
 category: Development
 comments: true
 ---

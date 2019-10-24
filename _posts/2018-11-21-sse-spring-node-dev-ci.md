@@ -3,7 +3,7 @@ layout: post
 authors: [tim_vierbergen]
 title: 'Mocking server sent events: Development and CI'
 image: /img/2018-11-21-sse-spring-node-dev-ci/sse-front.png
-tags: [sse,Spring,Nodejs,Angular,Node-RED,ci,mock]
+tags: [Server-Sent Events, Spring, Node.js, Angular, Node-RED, Continuous Integration, Mocking]
 category: Testing
 comments: true
 ---

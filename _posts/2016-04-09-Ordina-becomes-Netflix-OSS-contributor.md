@@ -3,7 +3,7 @@ layout: post
 authors: [andreas_evers]
 title: 'Ordina becomes Netflix OSS contributor'
 image: /img/netflix.jpg
-tags: [Netflix,Spring,Microservices]
+tags: [Netflix, Spring, Microservices]
 category: Microservices
 comments: true
 ---

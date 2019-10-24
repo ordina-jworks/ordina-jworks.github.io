@@ -3,7 +3,7 @@ layout: post
 authors: [martijn_willekens]
 title: "Testing Angular with Karma 101"
 image: /img/2017-10-02-testing-angular-with-karma/unit-tests.png
-tags: [Angular,Karma,Unit testing,Jasmine,TypeScript]
+tags: [Angular, Karma, Unit testing, Jasmine, TypeScript]
 category: Angular
 comments: true
 ---

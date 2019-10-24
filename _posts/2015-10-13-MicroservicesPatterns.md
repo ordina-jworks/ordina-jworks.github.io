@@ -14,7 +14,7 @@ comments: true
 ----------
 
 <span class="image left small"><img  class="p-image" alt="Chris Richardson" src="{{ '/img/2015-10-13-MicroservicesPatterns/chris-richardson.jpg' | prepend: site.baseurl }}"></span>
-[Chris Richardson](http://www.chrisrichardson.net/) is the author of [POJOs in Action](https://www.manning.com/books/pojos-in-action) and is founder of the original CloudFoundry, which was later acquired by VMWare and then SpringSource. Nowadays he is constantly thinking about microservices and founded a startup that is creating a platform for aiding the development of event-driven microservices (http://eventuate.io/). He also launched http://microservices.io/, describing microservice responsibilities and commonly accepted solutions as patterns.
+[Chris Richardson](http://www.chrisrichardson.net/) is the author of [POJOs in Action](https://www.manning.com/books/pojos-in-action) and is founder of the original Cloud Foundry, which was later acquired by VMWare and then SpringSource. Nowadays he is constantly thinking about microservices and founded a startup that is creating a platform for aiding the development of event-driven microservices (http://eventuate.io/). He also launched http://microservices.io/, describing microservice responsibilities and commonly accepted solutions as patterns.
 
 <p style="clear:both;"></p>
 

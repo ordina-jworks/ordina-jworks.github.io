@@ -3,7 +3,7 @@ layout: post
 authors: [tom_verelst]
 title: 'Azure Draft'
 image: /img/2018-02-12-Azure-Draft/draft-logo.png
-tags: [Azure, Draft, Kubernetes, Helm, Docker, CloudFoundry, PaaS]
+tags: [Azure, Draft, Kubernetes, Helm, Docker, Cloud Foundry, PaaS]
 category: Docker
 comments: true
 ---
@@ -30,7 +30,7 @@ and writes out a Dockerfile and a [Kubernetes Helm](https://github.com/kubernete
 These files are generated based on Draft "packs".
 These packs are simple scripts that only detect the language
 and write out the Dockerfile and Helm charts.
-The idea is based on some features of PaaS systems like the CloudFoundry's *buildpacks*.
+The idea is based on some features of PaaS systems like the Cloud Foundry's *buildpacks*.
 The only difference is that the build and deployment descriptors are stored in the source tree.
 
 The second command is `draft up`.
@@ -417,7 +417,7 @@ Azure Draft is still experimental for now,
 but the development team is active, 
 and I have not run into many issues yet.
 
-It brings one of CloudFoundry's best features, namely build packs, to Kubernetes.
+It brings one of Cloud Foundry's best features, namely build packs, to Kubernetes.
 It's definitely worth a try!
 
 ## Resources

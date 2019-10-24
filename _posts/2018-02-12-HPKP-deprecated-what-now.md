@@ -3,7 +3,7 @@ layout: post
 authors: [tim_de_grande]
 title: "HPKP is deprecated. What now?"
 image: /img/security/padlock_code.jpg
-tags: [Security,Browser features, Response headers, HPKP, CAA, Expect-CT]
+tags: [Security, Browser features, Response headers, HPKP, CAA, Expect-CT]
 category: Security
 comments: true
 permalink: security/2018/02/12/HPKP-deprecated-what-now.html

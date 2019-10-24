@@ -3,7 +3,7 @@ layout: post
 authors: [tim_ysewyn]
 title: 'SpringOne Platform - A birds-eye view'
 image: /img/2018-09-27-SpringOne-Platform/post-image.jpg
-tags: [SpringOne, S1P]
+tags: [SpringOne Platform, Conference]
 category: Spring
 comments: true
 ---
