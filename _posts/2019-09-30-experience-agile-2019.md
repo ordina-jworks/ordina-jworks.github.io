@@ -127,8 +127,8 @@ PICTURE TFS...
 
 Key takeaways were:
 - Teams need to learn *how* to do team work and be more than the sum of the team members. Teams do not have the set of skills and behaviors automatically, and so they need coaching to focus on team communication and collaboration aspects as well as team personality dynamics.
-- Intent based leadership - as coined by D.Marquett - helps you to move authority where the information is available.
-- Scrum is disciplined PDCA (Plan/Do/Check/Act or Adjust approach from William Edwards Deming)
+- Intent based leadership - as coined by D.Marquet - helps you to move authority where the information is available. It is about designing an environment where people give intent to each other and they feel valued and proud of their work. It is about actively giving control to people who maintain the information so they can make informed decisions.
+- Scrum is disciplined PDCA - the Plan/Do/Check/Act (or Adjust) approach from William Edwards Deming
 - Beware of *failure demand*, which is waste disguised as value for the customer and service excellence.
 - People are spending the best years of their lives in companies.. take up the responsabilty to make is as enjoyable as possible.
 
