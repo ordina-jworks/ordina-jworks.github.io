@@ -14,7 +14,7 @@ This year, it was already the 6th edition of eXperienceAgile, organised in Portu
 # Table of content
 
 * [Half-Agile:  5 Leadership mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
-* [The toyota Flow system, by Nigel Thurlow]
+* [The Toyota Flow System, by Nigel Thurlow](#the-toyota-flow-system-by-nigel-thurlow)
 
 ## Half-Agile:  5 Leadership mistakes Diluting Your Transformation, by Jesse Fewell
 
@@ -111,13 +111,13 @@ Just like a train company should focus on timely arrival and departure and not o
 For Toyota, as well as for any development team, the key is to ensure a *flexible workforce, with engaged cross-trained employees* that have a thorough understanding of the value adding processes throughout the company. This enables them to flexibly partake in flow efficiency whenever and wherever needed.
 
 ### Toyota Flow System, the DNA for organisations
-The TFS model aims to *sustain* the flow of value to the customer. And Toyota offers a body of knowledge that helps companies to understand the different aspects of **customer first value delivery** and optimze for the whole, and not the subparts, or silos.
+The TFS model aims to *sustain* the flow of value to the customer. And Toyota offers a body of knowledge that helps companies to understand the different aspects of **customer first value delivery** with a systemic approach to optimize for the whole, and not the subparts, or silos.
 
-Three pillars are supporting this motto, but let it be clear that these 3 cannot exists without each other. The helix structure of the pillars points to their intertwined importance, making the structure stronger.
+These aspects - visualised as three *pillars* - are supporting this motto and form the DNA of the Toyota Flow System. But let it be clear that these 3 cannot exist without each other. The helix structure of the pillars points to their intertwined importance, making the structure trustworthier and stronger.
 
-1. Complexity thinking
-2. Distributed Leadership
-3. Team Science
+1. Complexity thinking: understanding uncertainty and complex adaptive systems
+2. Distributed Leadership: the behavior patterns of those who lead people and teams
+3. Team Science: the science of teams, their interdependencies and interactions
 
 For every pillar, Toyota has listed a number of possible theories and practices that need to be considered when trying to achieve the motto. For every context, the combination of selected theories, practices and models can be different. By giving this list of researched and tested material, they offer a good starting point for companies on a transformation journey, allowing them make the founded decisions within their own particular business context.
 
