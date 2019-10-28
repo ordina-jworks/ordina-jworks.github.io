@@ -2,7 +2,7 @@
 layout: post
 authors: [kristof_eekhaut, michaela_broeckx]
 title: 'eXperience Agile 2019'
-image: TODO: add image
+image: /img/2019-09-30-experience-agile-2019/ExperienceAgile2019.png
 tags: [Agile, Conference]
 category: Conference
 comments: true
@@ -123,7 +123,7 @@ For every pillar, Toyota has listed a number of possible theories and practices 
 
 Take a good look at what Toyota suggests for every pillar. There sure is a lot to discover!
 
-PICTURE TFS...
+<img alt="Sushi" src="{{ '/img/2019-09-30-experience-agile-2019/Toyota-Flow-System.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 Key takeaways were:
 - Teams need to learn *how* to do team work and be more than the sum of the team members. Teams do not have the set of skills and behaviors automatically, and so they need coaching to focus on team communication and collaboration aspects as well as team personality dynamics.
