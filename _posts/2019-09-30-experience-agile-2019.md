@@ -133,5 +133,6 @@ Key takeaways were:
 - People are spending the best years of their lives in companies.. take up the responsabilty to make is as enjoyable as possible.
 
 More reading: https://planet-lean.com/introducing-the-toyota-flow-system/
+
 The author of the mentioned article wraps it up saying:
-<This is the first time someone has brought all these elements together and made sense of them, explaining how they fit within a company like Toyota. Complexity thinking is a change in mental models and management practices. The Toyota Flow System is the first to externalize it with tools and in a contextual setting. The next step will be testing it in the field in different contextual settings, to see what works and what doesn’t. It will be exciting to see how it evolves, which we are sure it will. That’s the beauty of it.
+> This is the first time someone has brought all these elements together and made sense of them, explaining how they fit within a company like Toyota. Complexity thinking is a change in mental models and management practices. The Toyota Flow System is the first to externalize it with tools and in a contextual setting. The next step will be testing it in the field in different contextual settings, to see what works and what doesn’t. It will be exciting to see how it evolves, which we are sure it will. That’s the beauty of it.
