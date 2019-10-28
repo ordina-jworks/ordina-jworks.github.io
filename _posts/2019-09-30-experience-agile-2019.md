@@ -92,12 +92,39 @@ Nigel Thurlow puts it this way:
 > There are fantastic lessons to be learned all around, from Systems Thinking to Scrum. The body of knowledge at our disposal is immense, and there are countless ways to apply it. But to truly leverage this wealth of information, we must **change the narrative** and realize that *context* is everything: different environments call for different approaches and tools, and with something as complex as a business transformation, sticking to a one-size-fits-all methodology is dangerous. Instead, we need to be able to **mix and match** the techniques that best suit our situation, while ensuring that key aspects of a transformation are considered." 
 
 ### Get the basics right
-With the *Red Bead experiment* we experienced that we need to verify that companies apply the right kind of Lean, and not te *evil* version, when trying to **eliminate waste**. Waste is not caused by the workers most of the time, but by the system. Failing to recognise this can bring leadership to take the wrong decisions and apply counterproductive measures - like hiring or firing employees, or introducing contradictive KPI's among workers, thus creating steady erosion of psychological safety within teams - and in the meantime not tackling the actual process issues in the pipeline.  
+With the *Red Bead experiment* we experienced that we need to verify that companies apply the right kind of Lean, and not te *evil* version, when trying to **eliminate waste**. 
+Waste is not caused by the workers most of the time, but by the system. 
+Failing to recognise this can bring leadership to take the wrong decisions and apply counterproductive measures - like hiring or firing employees, or introducing contradictive KPI's among workers, thus creating steady erosion of psychological safety within teams - and in the meantime not tackling the actual process issues in the pipeline.  
 
 Three questions can help us define waste explained Dirk:
 - What is value for the customer?
 - What products are we making?
 - Which activities contribute to this result?
-Listing activities and highlighting the ones that are simply 'useslessly getting tired' is a very important exercise for every contributor in the process, whether it be workers in a factory, developers, consultants or managers. Show respect for people by allowing them to focus on value adding activities. Since the management and people with leadership roles often organise the system, it is key they recognise this responsability. 
 
-Once the activities are inspected and the process of value creation is established, the next step is to enable flow, by designing your *value stream like a river*, allowing the value to grow withouth interruption, withoug waiting time or blockages. Here again, managers have a task to focus on not being a flow stopper. It is important for them to acknowledge that resource efficiency can kill flow efficiency. Just like a train company should focus on timely arrival and departure and not on getting as much travelers in one train by waiting until it's completely full before taking off again.
+Listing activities and highlighting the ones that are simply *useslessly getting tired* is a very important exercise for every contributor in the process, whether it be workers in a factory, developers, testers, consultants,  or third parties or managers. 
+Show respect for people by allowing them to focus on value adding activities. Since the management and people with leadership roles often organise the system, it is key they recognise this responsability. 
+
+Once the activities are inspected and the process of value creation is established, the next step is to enable flow, by designing your *value stream like a river*, allowing the value to grow withouth interruption, withoug waiting time or blockages. 
+Here again, managers have a task to focus on not being a flow stopper. 
+It is important for them to acknowledge that **resource efficiency can kill flow efficiency**. 
+Just like a train company should focus on timely arrival and departure and not on getting as much travelers in one train by waiting until it's completely full before taking off again.
+For Toyota, as well as for any development team, the key is to ensure a *flexible workforce, with engaged cross-trained employees* that have a thorough understanding of the value adding processes throughout the company. This enables them to flexibly partake in flow efficiency whenever and wherever needed.
+
+### Toyota Flow System, the DNA for organisations
+The TFS model aims to *sustain* the flow of value to the customer. And Toyota offers a body of knowledge that helps companies to understand the different aspects of **customer first value delivery** and optimze for the whole, and not the subparts, or silos.
+
+Three pillars are supporting this motto, but let it be clear that these 3 cannot exists without each other. The helix structure of the pillars points to their intertwined importance, making the structure stronger.
+
+1. Complexity thinking
+2. Distributed Leadership
+3. Team Science
+
+For every pillar, Toyota has listed a number of possible theories and practices that need to be considered when trying to achieve the motto. For every context, the combination of selected theories, practices and models can be different. By giving this list of researched and tested material, they offer a good starting point for companies on a transformation journey, allowing them make the founded decisions within their own particular business context.
+
+Key takeaways were:
+- Teams need to learn *how* to do team work and be more than the sum of the team members. Teams do not have the set of skills and behaviors automatically, and so they need coaching to focus on team communication and collaboration aspects as well as team personality dynamics.
+- Intent based leadership - as coined by D.Marquett - helps you to move authority where the information is available.
+- Scrum is disciplined PDCA (Plan/Do/Check/Act or Adjust approach from William Edwards Deming)
+- Beware of *failure demand*, which is waste disguised as value for the customer and service excellence.
+- people are spending the best years of their lives in companies.. take up the responsabilty to make is as enjoyable as possible.
+
