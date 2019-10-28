@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [kristof_eekhaut]
+authors: [kristof_eekhaut, michaela_broeckx]
 title: 'eXperience Agile 2019'
 image: TODO: add image
 tags: [Agile, Conference]
@@ -8,11 +8,13 @@ category: Conference
 comments: true
 ---
 
-> TODO: write intro
+This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço -a DevOps and Enterprise Agility Advisor. This global conference focusses gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect gathering for Agile & DevOps practitioners from JWorks. The first day contained 14 talks on Team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deepdive workshops with some of the speakers.
+@experienceagile / #xa19 / experienceagile.org
 
 # Table of content
 
 * [Half-Agile:  5 Leadership mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
+* [The toyota Flow system, by Nigel Thurlow]
 
 ## Half-Agile:  5 Leadership mistakes Diluting Your Transformation, by Jesse Fewell
 
@@ -77,3 +79,7 @@ Maybe you need to think about:
  - instead of telling people what to do, give them the **ability to do it themselves**
 
 This personal growth requires that you go on a long term journey of transforming yourself as a leader.
+
+## The Toyota Flow System, by Nigel Thurlow
+We all know that Toyota has always been a frontrunner with regard to Lean thinking, bringing the customer in the centre point of attention and establishing flow in the value creation pipeline. The Toyota Production System (TPS) - with its two pillars: continuous improvement & respect for people - as developed by Taiichi Ohno and Eiji Toyoda, is globally recognised as a strategic and human centered foundation to become a Lean and thriving entreprise. On this foundation 'the Toyota Way' has been developed as a philosophy with a set of principles and behaviors that can guide companies through their change and towards the right mindset. Recently, with the Toyota Flow System (TFS) the Toyota thinkers take this strategy yet a few steps further. Nigel Thurlow - xxx - has given us an hands-on introduction to the extra dimension that this upgrade entails.
+
