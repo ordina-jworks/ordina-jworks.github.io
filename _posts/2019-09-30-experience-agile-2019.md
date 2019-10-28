@@ -121,10 +121,15 @@ Three pillars are supporting this motto, but let it be clear that these 3 cannot
 
 For every pillar, Toyota has listed a number of possible theories and practices that need to be considered when trying to achieve the motto. For every context, the combination of selected theories, practices and models can be different. By giving this list of researched and tested material, they offer a good starting point for companies on a transformation journey, allowing them make the founded decisions within their own particular business context.
 
+Take a good look at what Toyota suggests for every pillar. There sure is a lot to discover!
+
+PICTURE TFS...
+
 Key takeaways were:
 - Teams need to learn *how* to do team work and be more than the sum of the team members. Teams do not have the set of skills and behaviors automatically, and so they need coaching to focus on team communication and collaboration aspects as well as team personality dynamics.
 - Intent based leadership - as coined by D.Marquett - helps you to move authority where the information is available.
 - Scrum is disciplined PDCA (Plan/Do/Check/Act or Adjust approach from William Edwards Deming)
 - Beware of *failure demand*, which is waste disguised as value for the customer and service excellence.
-- people are spending the best years of their lives in companies.. take up the responsabilty to make is as enjoyable as possible.
+- People are spending the best years of their lives in companies.. take up the responsabilty to make is as enjoyable as possible.
 
+More reading: https://planet-lean.com/introducing-the-toyota-flow-system/
