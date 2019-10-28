@@ -8,7 +8,7 @@ category: Conference
 comments: true
 ---
 
-This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço -a DevOps and Enterprise Agility Advisor. This global conference focusses gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect gathering for Agile & DevOps practitioners from JWorks. The first day contained 14 talks on Team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deepdive workshops with some of the speakers.
+This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço - a DevOps and Enterprise Agility Advisor. This global conference focusses on gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect gathering for Agile & DevOps practitioners from JWorks. The first day contained 14 talks on Team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deepdive workshops with some of the speakers.
 @experienceagile / #xa19 / experienceagile.org
 
 # Table of content
@@ -36,7 +36,7 @@ As leaders it's your job to create context for the change and communicate method
 ### Impact
 
 The first good step, as a leader, is to take initiative. 
-Other departments may not want to be Agile, so you will start alone. You'll be the role model to set the tone of for the organisation.
+Other departments may not want to be Agile, so you will start alone. You'll be the role model to set the tone for the organisation.
 
 However, this leads to a team trying to be Agile in an environment that is not Agile. And you end up doing Water-SCRUM-Fall or Modern Waterfall.
 
@@ -101,10 +101,10 @@ Three questions can help us define waste explained Dirk:
 - What products are we making?
 - Which activities contribute to this result?
 
-Listing activities and highlighting the ones that are simply *useslessly getting tired* is a very important exercise for every contributor in the process, whether it be workers in a factory, developers, testers, consultants,  or third parties or managers. 
+Listing activities and highlighting the ones that are simply *useslessly getting tired* is a very important exercise for every contributor in the process, whether it be workers in a factory, developers, testers, consultants, or third parties or managers. 
 Show respect for people by allowing them to focus on value adding activities. Since the management and people with leadership roles often organise the system, it is key they recognise this responsability. 
 
-Once the activities are inspected and the process of value creation is established, the next step is to enable flow, by designing your *value stream like a river*, allowing the value to grow withouth interruption, withoug waiting time or blockages. 
+Once the activities are inspected and the process of value creation is established, the next step is to enable flow, by designing your *value stream like a river*, allowing the value to grow without interruption, without waiting time or blockages. 
 Here again, managers have a task to focus on not being a flow stopper. 
 It is important for them to acknowledge that **resource efficiency can kill flow efficiency**. 
 Just like a train company should focus on timely arrival and departure and not on getting as much travelers in one train by waiting until it's completely full before taking off again.
