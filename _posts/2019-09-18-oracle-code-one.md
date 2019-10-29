@@ -144,8 +144,7 @@ to set this up yourselves.
 
 ## Quarkus Trivia Night
 
-All work and no plays makes us dull boys so there was also time for some relaxation. We were invited for a Trivia Night organised by OpenShift and Quarkus
-at a brewery close to the conference center, which was a nice change of pace from all serious presentations.
+All work and no plays makes us dull boys so there was also time for some relaxation. We were invited for a Trivia Night organised by [OpenShift](https://www.openshift.com/) and [Quarkus](https://quarkus.io/) at a brewery close to the conference center, which was a nice change of pace from all serious presentations.
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Good food and beer at the <a href="https://twitter.com/QuarkusIO?ref_src=twsrc%5Etfw">@QuarkusIO</a> trivia reception <a href="https://twitter.com/hashtag/CodeOne?src=hash&amp;ref_src=twsrc%5Etfw">#CodeOne</a> <a href="https://t.co/zUKamBK08L">pic.twitter.com/zUKamBK08L</a></p>&mdash; Jaap Coomans (@JaapCoomans) <a href="https://twitter.com/JaapCoomans/status/1174150552156069888?ref_src=twsrc%5Etfw">September 18, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -204,32 +203,34 @@ https://github.com/jvm-profiling-tools/async-profiler/blob/master/demo/SwingSet2
 Besides creating cool flame graphs, this tool can inform you about what your java application is doing and where you might have a problem.
 
 ## Distributed Tracing in Kafka
+Another workshop by [Viktor Gamov](https://twitter.com/gamussa), you can review the recording at
+
 https://www.youtube.com/watch?v=W0JYx7erh_0&feature=youtu.be&t=3634
 
-https://speaking.gamov.io/Y8yrHk/bringing-observability-to-your-stream-processing#sHXi414
+And you can review his slides [here](https://speaking.gamov.io/Y8yrHk/bringing-observability-to-your-stream-processing#sHXi414).
 
-Book: A philosophy of software design Johan Ousterhout (https://www.amazon.com/Philosophy-Software-Design-John-Ousterhout/dp/1732102201)
+Over time the complexity of your system and subsystems start to grow and it becomes too complex to contain all the logic in your head.
 
-Tracing with zipkin
-A span is a traced task
+In the past each system would have its own monitoring system, every system was different in the how, what and when something is monitored.
+Troubleshooting could take hours, days, weeks, etc.
 
-Send zipkin to DB (by default support for either Elastic or Cassandra) or use your own DB.
+Observability - just a fancy word for monitoring because monitoring sounds boring to devs.
+Cindy Sridharan has made a nice [book](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/) about distributed tracing, she also write nice blogposts like [distributed tracing weve been doing it wrong](https://medium.com/@copyconstruct/distributed-tracing-weve-been-doing-it-wrong-39fc92a857df)
 
-Producer
-kafkaTracing.Producer
-tracedProducer
+From her book comes to the pillars of observability:
+* a log: a raw, immutable sequence of events of a single instance of a service.
+* metrics: numerical measures aggregated in a given point of time, sourced by your log events and these tend to be actionable.
+* distributed tracing: allows us to have a total picture of a request within your application it answers: which services are involved, were there failures.
 
-Consumer
-kafkaTracing.consumer
-tracedConsumer
-then extra spans
+Kafka tends to become the defacto standard to handle data within organizations, becoming the central nervous system of any company, which makes it more and more important to include Kafka within your tracing.
 
-Streams
-This is still somewhat experimental
+Some ways how you can implement tracing in kafka are: 
 
-Hystrix: tracing platform
-Open source
-Nice UI
+* Opentracing java API for Kafka can be found on [https://github.com/opentracing-contrib/java-kafka-client](https://github.com/opentracing-contrib/java-kafka-client)
+
+* Another approach is to use interceptors like [https://github.com/riferrei/kafka-tracing-support](https://github.com/riferrei/kafka-tracing-support)
+
+Tracing can be visualized with [jaeger](https://github.com/jaegertracing/jaeger-ui).
 
 ## DevOps Theory vs. Practice: A Song of Ice and Tire Fire
 
