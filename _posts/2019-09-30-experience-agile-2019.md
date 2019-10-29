@@ -51,7 +51,7 @@ These are the practices that everyone uses. So if you want to be like everyone e
 If you try to be like everyone else, you'll never be ahead of everyone else!
 
 You need to experiment, try things out. Not just do things because others do them or because you read them in a book.
-You need to find YOUR Agile. Don't just copy-past your Agile. 
+You need to find YOUR Agile. Don't just copy-paste your Agile. 
 
 ### Workload
 
@@ -81,7 +81,7 @@ Maybe you need to think about:
 This personal growth requires that you go on a long term journey of transforming yourself as a leader.
 
 ## The Toyota Flow System, by Nigel Thurlow
-We all know that Toyota has always been a frontrunner with regard to Lean thinking, bringing the customer in the centre point of attention and establishing flow in the value creation pipeline. 
+We all know that Toyota has always been a frontrunner with regard to Lean thinking, bringing the customer in the center point of attention and establishing flow in the value creation pipeline. 
 The Toyota Production System (TPS) - with its two pillars: continuous improvement & respect for people - as developed by Taiichi Ohno and Eiji Toyoda, is globally recognised as a strategic and human centered foundation to become a Lean and thriving enterprise. 
 On this foundation 'the Toyota Way' has been developed as a philosophy with a set of principles and behaviors that can guide companies through their change and towards the right mindset. 
 
@@ -89,12 +89,15 @@ Recently, with the Toyota Flow System (TFS) the Toyota thinkers take this strate
 
 ### Building on lessons learnt and extensive research
 Nigel Thurlow puts it this way:
-> There are fantastic lessons to be learned all around, from Systems Thinking to Scrum. The body of knowledge at our disposal is immense, and there are countless ways to apply it. But to truly leverage this wealth of information, we must **change the narrative** and realize that *context* is everything: different environments call for different approaches and tools, and with something as complex as a business transformation, sticking to a one-size-fits-all methodology is dangerous. Instead, we need to be able to **mix and match** the techniques that best suit our situation, while ensuring that key aspects of a transformation are considered." 
+> There are fantastic lessons to be learned all around, from Systems Thinking to Scrum. 
+> The body of knowledge at our disposal is immense, and there are countless ways to apply it. 
+> But to truly leverage this wealth of information, we must **change the narrative** and realize that *context* is everything: different environments call for different approaches and tools, and with something as complex as a business transformation, sticking to a one-size-fits-all methodology is dangerous. 
+> Instead, we need to be able to **mix and match** the techniques that best suit our situation, while ensuring that key aspects of a transformation are considered." 
 
 ### Get the basics right
-With the *Red Bead experiment* we experienced that we need to verify that companies apply the right kind of Lean, and not te *evil* version, when trying to **eliminate waste**. 
+With the *Red Bead experiment* we experienced that we need to verify that companies apply the right kind of Lean, and not the *evil* version, when trying to **eliminate waste**. 
 Waste is not caused by the workers most of the time, but by the system. 
-Failing to recognise this can bring leadership to take the wrong decisions and apply counterproductive measures - like hiring or firing employees, or introducing contradictive KPI's among workers, thus creating steady erosion of psychological safety within teams - and in the meantime not tackling the actual process issues in the pipeline.  
+Failing to recognise this can bring leadership to take the wrong decisions and apply counterproductive measures - like hiring or firing employees, or introducing contradictory KPIs among workers, thus creating steady erosion of psychological safety within teams - and in the meantime not tackling the actual process issues in the pipeline.  
 
 Three questions can help us define waste explained Dirk:
 - What is value for the customer?
