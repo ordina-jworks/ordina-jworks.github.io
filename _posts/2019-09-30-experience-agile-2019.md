@@ -8,15 +8,15 @@ category: Conference
 comments: true
 ---
 
-This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço - a DevOps and Enterprise Agility Advisor. This global conference focusses on gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect gathering for Agile & DevOps practitioners from JWorks. The first day contained 14 talks on Team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deepdive workshops with some of the speakers.
+This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço - a DevOps and Enterprise Agility Advisor. This global conference focuses on gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect gathering for Agile & DevOps practitioners from JWorks. The first day contained fourteen talks on team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deep-dive workshops with some of the speakers.
 @experienceagile / #xa19 / experienceagile.org
 
-# Table of content
+# Table of contents
 
 * [Half-Agile:  5 Leadership mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
 * [The Toyota Flow System, by Nigel Thurlow](#the-toyota-flow-system-by-nigel-thurlow)
 
-## Half-Agile:  5 Leadership mistakes Diluting Your Transformation, by Jesse Fewell
+## Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell
 
 Jesse shares with us 5 patterns on our journey to an Agile organisation. 
 He explains why this journey can be so hard, especially for leaders (team leads, scrum masters, technical leads, managers or executives).
@@ -45,7 +45,7 @@ If you want the Agile journey to move forward it has to be about Agile, not just
 
 ### Practices
 
-You often tell colleagues to follow standard techniques, like: Daily Standups, Spring Planning, Retrospectives, ... 
+You often tell colleagues to follow standard techniques, like: Daily Stand-ups, Spring Planning, Retrospectives, ... 
 These are the practices that everyone uses. So if you want to be like everyone else, you should apply these techniques.
 
 If you try to be like everyone else, you'll never be ahead of everyone else!
@@ -82,7 +82,7 @@ This personal growth requires that you go on a long term journey of transforming
 
 ## The Toyota Flow System, by Nigel Thurlow
 We all know that Toyota has always been a frontrunner with regard to Lean thinking, bringing the customer in the centre point of attention and establishing flow in the value creation pipeline. 
-The Toyota Production System (TPS) - with its two pillars: continuous improvement & respect for people - as developed by Taiichi Ohno and Eiji Toyoda, is globally recognised as a strategic and human centered foundation to become a Lean and thriving entreprise. 
+The Toyota Production System (TPS) - with its two pillars: continuous improvement & respect for people - as developed by Taiichi Ohno and Eiji Toyoda, is globally recognised as a strategic and human centered foundation to become a Lean and thriving enterprise. 
 On this foundation 'the Toyota Way' has been developed as a philosophy with a set of principles and behaviors that can guide companies through their change and towards the right mindset. 
 
 Recently, with the Toyota Flow System (TFS) the Toyota thinkers take this strategy yet a few steps further with the purpose of being an inspiration for companies with human centricity, continuous improvement in their strategic roadmap. Together with co-facilitator Dirk van Goubergen, Nigel Thurlow - Chief of Agile, Toyota Connected - has given us a hands-on introduction to the extra dimension that this evolution entails. 
@@ -101,8 +101,8 @@ Three questions can help us define waste explained Dirk:
 - What products are we making?
 - Which activities contribute to this result?
 
-Listing activities and highlighting the ones that are simply *useslessly getting tired* is a very important exercise for every contributor in the process, whether it be workers in a factory, developers, testers, consultants, or third parties or managers. 
-Show respect for people by allowing them to focus on value adding activities. Since the management and people with leadership roles often organise the system, it is key they recognise this responsability. 
+Listing activities and highlighting the ones that are simply *uselessly getting tired* is a very important exercise for every contributor in the process, whether it be workers in a factory, developers, testers, consultants, or third parties or managers. 
+Show respect for people by allowing them to focus on value adding activities. Since the management and people with leadership roles often organise the system, it is key they recognise this responsibility. 
 
 Once the activities are inspected and the process of value creation is established, the next step is to enable flow, by designing your *value stream like a river*, allowing the value to grow without interruption, without waiting time or blockages. 
 Here again, managers have a task to focus on not being a flow stopper. 
@@ -130,7 +130,7 @@ Key takeaways were:
 - Intent based leadership - as coined by D.Marquet - helps you to move authority where the information is available. It is about designing an environment where people give intent to each other and they feel valued and proud of their work. It is about actively giving control to people who maintain the information so they can make informed decisions.
 - Scrum is disciplined PDCA - the Plan/Do/Check/Act (or Adjust) approach from William Edwards Deming
 - Beware of *failure demand*, which is waste disguised as value for the customer and service excellence.
-- People are spending the best years of their lives in companies.. take up the responsabilty to make is as enjoyable as possible.
+- People are spending the best years of their lives in companies.. take up the responsibility to make is as enjoyable as possible.
 
 More reading: https://planet-lean.com/introducing-the-toyota-flow-system/
 
