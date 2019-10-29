@@ -13,7 +13,7 @@ This year, it was already the 6th edition of eXperienceAgile, organised in Portu
 
 # Table of contents
 
-* [Half-Agile:  5 Leadership mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
+* [Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
 * [The Toyota Flow System, by Nigel Thurlow](#the-toyota-flow-system-by-nigel-thurlow)
 
 ## Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell
