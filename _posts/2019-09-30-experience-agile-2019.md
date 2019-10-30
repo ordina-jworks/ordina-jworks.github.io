@@ -8,7 +8,10 @@ category: Conference
 comments: true
 ---
 
-This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço - a DevOps and Enterprise Agility Advisor. This global conference focuses on gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect gathering for Agile & DevOps practitioners from JWorks. The first day contained fourteen talks on team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deep-dive workshops with some of the speakers.
+This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço - a DevOps and Enterprise Agility Advisor. This global conference focuses on gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect conference for Jworks Agile & DevOps practitioners and enthousiasts. 
+
+The first day contained fourteen talks on team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deep-dive workshops with some of the speakers.
+
 @experienceagile / #xa19 / experienceagile.org
 
 # Table of contents
@@ -139,3 +142,60 @@ More reading: https://planet-lean.com/introducing-the-toyota-flow-system/
 
 The author of the mentioned article wraps it up saying:
 > This is the first time someone has brought all these elements together and made sense of them, explaining how they fit within a company like Toyota. Complexity thinking is a change in mental models and management practices. The Toyota Flow System is the first to externalize it with tools and in a contextual setting. The next step will be testing it in the field in different contextual settings, to see what works and what doesn’t. It will be exciting to see how it evolves, which we are sure it will. That’s the beauty of it.
+
+## The Agile Futurist, by Maria Moreira
+This was an energizing talk, giving us a view on the trends in the Agile movement for the coming 10 years. 
+Mario Moreira is an enthusing and influential Agile transformation Leader, Agile enterprise coach and change agent who has written 4 books a.o *Being Agile: Your Roadmap to Successful Adoption of Agile*, and *The Agile enterprise: Building and Running Agile organizations*.
+
+Wat is Agile?... is what he asked the eager crowd. 
+- It's a set of Values and Principles 
+- focused on the delivery of value to the customer
+
+What is Agile not?... on the other hand.
+- a certification
+- a tool
+- a silver bullet
+- a process
+- it's also not merely *redifining roles*
+- and... it is definitely not *undisciplined*.
+
+### Agile trends for 2029
+Agile’s Future?
+• We will Bring Back the Basics
+• We will Stop doing Agile for Agile’s sake
+• We will Lead with Uncertainty
+• We will Apply Agile across an enterprise
+• We will Solve holistic problems
+
+1. Bring Back the Basics.
+
+We will all go back to the core, to rediscover and be inspired by the central purpose and initial intent of the Agile movement.
+Returning to the core implies that we need to make sure we understand the heart of the Agile manifesto, that we try and urge to live the priciples and lead with the items on the left in mind. 
+
+2. Stop doing Agile for Agile’s sake.
+
+Agile is not the goal or outcome. So let's stop talking about it as is it were.
+Rather we should look at the purpose for applying Agile
+- Better interactions
+- Better working software (or services and products for that matter)
+- Better customer collaboration
+- Ability to respond to change
+
+Instead people will focus on etter Business Ouotcomes:
+• Deliver increased Customer **Value**
+• Optimize the **Flow** for faster delivery
+• Increase **Quality** with Feedback Loops
+
+
+
+Leading for uncertainty 
+
+Because leading for uncertainty is the smarter thing to do, in a world where we as customers don't always know what we want, and we as product creators don't always know exaclty how to build the stuff, and things and people tend to change along the way.
+
+Uncertainty requires the right behavior and mindset to tackle it: e.g. cultivate and kindle a discovery mindset, experimental and incremental thinking, and implementing feedback loops.
+We all need to practice and keep on practicing, to walk the talk and eventually lead by example. 
+
+Agile troughout the enterprise
+
+
+
