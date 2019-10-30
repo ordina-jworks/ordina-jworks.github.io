@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [kristof_eekhaut, michaela_broeckx]
+authors: [kristof_eekhaut, michaela_broeckx, wouter_nivelle]
 title: 'eXperience Agile 2019'
 image: /img/2019-09-30-experience-agile-2019/ExperienceAgile2019.png
 tags: [Agile, Conference]
@@ -18,6 +18,7 @@ The first day contained fourteen talks on team and business agility with speaker
 
 * [Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
 * [The Toyota Flow System, by Nigel Thurlow](#the-toyota-flow-system-by-nigel-thurlow)
+* [Escape Velocity, by Doc Norton](#escape-velocity-by-doc-norton)
 
 ## Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell
 
@@ -195,5 +196,70 @@ We all need to practice and keep on practicing, to walk the talk and eventually 
 
 4. Agile troughout the enterprise
 
+## Escape Velocity, by Doc Norton
 
+<img alt="doc-norton-introduction" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-introduction.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+A recurring problem with agile projects is reporting. When you go search for information online, everyone seems to have the same problem.
+- What metrics should I use?
+- How can I make the team's performance visible?
+- How can I identify possible bottlenecks?
+- How do I forecast?
+
+The most common metric that everyone uses is velocity. And as the title of this section already indicates, that's not always a good idea. [Doc Norton](http://docondev.com){:target="_blank"} had a good talk at this conference as well as the accompanying workshop the day after.
+
+In short, velocity is a lagging indicator and thus not good for predictions. Now, what does this mean, a lagging indicator? It indicates data from the past, it lags behind.
+
+Another problem when using only velocity as a metric is that it tries to explain a complex system. A dip or peak in velocity doesn't explain anything, it's just an indication that something might be wrong. To find the real cause, more metrics are needed.
+
+So as Doc said:
+> Velocity is a **lagging indicator** of a **complex system**
+
+And as a result:
+> Velocity is **not good for predictions** and **not good for diagnostics**
+
+### Predictions
+Everyone has already experienced the typical management question during the lifecycle of a project:
+> How long will it take to deliver feature X?
+
+The usual solution is to take the velocity of the past sprints, estimate the feature and then simply divide the feature by the velocity. That gives you the amount of sprints needed to complete the feature.
+Now, think about this:
+- Are these forecasts accurate? *They might be, we don't know for sure.*
+- Are these forecasts definite? *Possibly.*
+- Are these forecasts probable? *Again, they might be.*
+
+An example given by Doc was the following:
+> Velocity (11, 10, 9), backlog size of 130 and start date is today
+
+Now, the velocity in this case is 10. ```130 / 10 = 13```.  
+So the estimation would be that the backlog is finished in 13 sprints. My experience is that these estimations are usually incorrect since 13 weeks is too far in the future.  
+A great tool that he showed was the Throughput Forecaster, an Excel file in  which you can enter a lot of data and in return it shows the probability of achieving the goal.
+
+<img alt="throughput-forecasting" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-throughput.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+More details about the tool above will follow in a future blogpost.
+
+### Diagnostics
+As I've already said above, a dip or peak in velocity can indicate that there might be a problem with the team.
+
+<img alt="velocity-chart" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-velocity-chart.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+But when seeing this chart, how you do know what's going on?
+Exactly, you don't. You just know something's probably not okay.
+
+A metric that helps is the cumulative flow diagram.
+
+<img alt="cumulative-flow-chart" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-cumulative-chart.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+It shows the different stages of sprint items during the lifecycle of the sprint. You could see that it takes too long to validate an item or to deploy it.  
+The image above for example shows that the items stay too long in *Ready for Approval*. The team can use this to address the problem.
+
+<img alt="velocity-workshop" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-workshop-cumulative.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+
+This picture was taken during the workshop from Doc about this subject where he went more into detail.
+### Conclusion
+Velocity is a metric for agile teams, but only velocity doesn't indicate much. It needs to be combined with other metrics in order to resolve problems.
+And use the metrics together with the team so they can detect themselves when there are problems, so they can be resolved as soon as possible.
+
+> Metrics are not **just** for managers, metrics are for teams.
 
