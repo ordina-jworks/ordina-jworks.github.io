@@ -160,12 +160,12 @@ What is Agile not?... on the other hand.
 - and... it is definitely not *undisciplined*.
 
 ### Agile trends for 2029
-Agile’s Future?
-• We will Bring Back the Basics
-• We will Stop doing Agile for Agile’s sake
-• We will Lead with Uncertainty
-• We will Apply Agile across an enterprise
-• We will Solve holistic problems
+> Agile’s Future?
+> - We will Bring Back the Basics
+> - We will Stop doing Agile for Agile’s sake
+> - We will Lead with Uncertainty
+> - We will Apply Agile across an enterprise
+> - We will Solve holistic problems
 
 1. Bring Back the Basics.
 
@@ -181,21 +181,19 @@ Rather we should look at the purpose for applying Agile
 - Better customer collaboration
 - Ability to respond to change
 
-Instead people will focus on etter Business Ouotcomes:
+Instead people will focus on etter Business Outcomes:
 • Deliver increased Customer **Value**
 • Optimize the **Flow** for faster delivery
 • Increase **Quality** with Feedback Loops
 
-
-
-Leading for uncertainty 
+3. Leading for uncertainty 
 
 Because leading for uncertainty is the smarter thing to do, in a world where we as customers don't always know what we want, and we as product creators don't always know exaclty how to build the stuff, and things and people tend to change along the way.
 
 Uncertainty requires the right behavior and mindset to tackle it: e.g. cultivate and kindle a discovery mindset, experimental and incremental thinking, and implementing feedback loops.
 We all need to practice and keep on practicing, to walk the talk and eventually lead by example. 
 
-Agile troughout the enterprise
+4. Agile troughout the enterprise
 
 
 
