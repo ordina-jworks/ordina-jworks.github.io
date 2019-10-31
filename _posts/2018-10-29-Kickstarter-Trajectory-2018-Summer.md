@@ -3,7 +3,7 @@ layout: post
 authors: [wout_meskens, sander_smets, michael_dewree, steven_deleye, ken_keymolen]
 title: "Kickstarter Trajectory 2018 Summer Edition"
 image: /img/kicks.png
-tags: [Spring, Spring Boot, Angular, Unit testing, Mocking, Microservices, Git, DevOps, Docker, TypeScript, Kickstarter, Security]
+tags: [Spring, Spring Boot, Angular, Unit testing, Mocking, Microservices, Git, DevOps, Docker, TypeScript, Kickstarter, Young Professional Program, Security]
 category: Kickstarters
 comments: true
 ---

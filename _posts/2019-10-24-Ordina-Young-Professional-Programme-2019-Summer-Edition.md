@@ -1,22 +1,23 @@
 ---
 layout: post
 authors: [brecht_porrez, duncan_casteleyn, imad_hamroun, jasper_rosiers, lennert_peeters, lore_vanderlinden, mohammed_laghzaoui, nicholas_meyers]
-title: "Kickstarter Trajectory 2019 Summer Edition"
+title: "Ordina Young Professional Programme 2019 Summer Edition"
 image: /img/kicks.png
-tags: [Spring, Spring Boot, Angular, Unit testing, Mocking, Microservices, Git, DevOps, Docker, TypeScript, Kickstarter, Security]
-category: Kickstarters
+tags: [Spring, Spring Boot, Angular, Unit testing, Mocking, Microservices, Git, DevOps, Docker, TypeScript, Kickstarter, Young Professional Program, Security]
+category: Young Professional Programme
 comments: true
+redirect_from: /kickstarters/2019/10/24/Kickstarter-Trajectory-2019-Summer-Edition.html
 ---
 
 # Introduction
->65 young professionals started the Ordina kickstarter trajectory this summer, on the 1st of August. 
-JWorks counted 8 kickstarters: Mohammed, Jasper, Nicholas, Lennert, Duncan, Lore, Brecht and Imad. 
+>65 young professionals started the Ordina Young Professional Programme this summer, on the 1st of August. 
+JWorks counted 8 trainees: Mohammed, Jasper, Nicholas, Lennert, Duncan, Lore, Brecht and Imad. 
 All looking for a challenge and a fresh start. Most of them just graduated, Brecht on the other hand already had other work experience. 
-During the Kickstarter program, we were introduced to a wide range of technologies.
+During the young professional programme, we were introduced to a wide range of technologies.
 Technologies that play an important role in IT. 
 The courses were focused mainly on providing a very hands-on experience as to learn how the different technologies work in practice.
 
-During the three months kickstarter trajectory, there were two main periods:
+During the three months long programme there were two main periods:
 * The first six weeks were filled with various trainings: security, backend, frontend, soft skill trainings,...
 * During the remaining six weeks we got split up into two teams to work on different dev cases: Chatbot Dina and Zero Plastic Rivers
 
@@ -28,9 +29,9 @@ This blogpost will talk about both periods separately below. The first period is
 
 ## First Day
 On our first arrival at Ordina, we were warmly welcomed by Anja, our Resource Manager, and two of the Practice Managers: Ken and Yannick. 
-We were introduced to the structure of Ordina and got to know some of the other kickstarters. 
+We were introduced to the structure of Ordina and got to know some of the other trainees. 
 After the introduction, we were given a tour of the entire building, during which we met some of the colleagues at JWorks.
-Four of the kickstarters already did an internship at Ordina before coming to work officially, so they already knew a lot of the colleagues in Mechelen.
+Four of the trainees already did an internship at Ordina before coming to work officially, so they already knew a lot of the colleagues in Mechelen.
 This didn't make any difference however, since everyone was very open and welcoming.
 Finally, we got our laptops and the keys to our cars so that the next day we could get started with the courses focused on both technical and soft skills.
 
@@ -41,11 +42,11 @@ The most important ones to us are discussed below.
 Other than those mentioned below, there are a lot of others, such as the course on Git, DevOps, Java,... 
 
 ## Spring Boot
-During our kickstarter trajectory, the Spring Boot course was taught by [Ken Coenen](/author/ken-coenen){:target="_blank" rel="noopener noreferrer"}.
+During the young professional programme the Spring Boot course was taught by [Ken Coenen](/author/ken-coenen){:target="_blank" rel="noopener noreferrer"}.
 He explained what sits at the core of Spring and how Spring Boot works. 
 Before taking a deep dive into Spring Boot, we were taught the ins and outs of the Spring Framework. 
 
-<img class="image right" alt="SpringBoot" src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/SpringBoot.png" width="20%" height="20%" target="_blank">
+<img class="image right" alt="SpringBoot" src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/SpringBoot.png" width="20%" height="20%" target="_blank">
 
 Spring Boot takes away a lot of configuration by providing defaults based on industry standards. 
 Therefore, Spring Boot makes it easy to create stand-alone, production grade Spring based applications that need minimum configuration. 
@@ -81,7 +82,7 @@ If I have written a backend application, I quickly turn it into a container so m
 
 ## Kubernetes
 
-<img class="image right" alt="Kubernetes" src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/Kubernetes.png" width="40%" height="40%" target="_blank">
+<img class="image right" alt="Kubernetes" src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/Kubernetes.png" width="40%" height="40%" target="_blank">
 
 To better understand the use of Docker, Tom also gave us an introduction to Kubernetes (K8s). 
 In the K8s session, we learned to work with the commands of Kubernetes by using them on Minikube, a tool to run Kubernetes locally. 
@@ -112,7 +113,7 @@ We’ve used the method in our Zero Plastic Rivers dev case.
 It worked out great, saving us quite some time.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/TDD.png" width="40%" height="40%" target="_blank">
+  <img src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/TDD.png" width="40%" height="40%" target="_blank">
 </div>
 
 # Non-technical trainings
@@ -136,7 +137,7 @@ Frequent meetings with the Product Owner and keeping him close to the project is
 I will definitely look more into it in the future, since I'm aiming to become a Scrum Master.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/ScrumLayout.jpg" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/ScrumLayout.jpg" width="80%" height="80%" target="_blank">
 </div>
 
 ## Agile Hands-On
@@ -157,7 +158,7 @@ Playing this game for 6 rounds, the productivity went up exponentially. The team
 At the end we refreshed a couple of famous agile practices such as the SCRUM framework, which is a popular way of working together to quickly and reliably release new features.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/Agile%20game.png" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/Agile%20game.png" width="80%" height="80%" target="_blank">
 </div>
 
 #### [Lore Vanderlinden](/author/lore-vanderlinden)
@@ -167,26 +168,26 @@ She used real life examples to show us the advantages of working in an agile man
 
 # Final day
 
-On the day after the final course day, all the kickstarters gave a short presentation about themselves in front of the others and the management. 
+On the day after the final course day, all the trainees gave a short presentation about themselves in front of the others and the management. 
 This way, everyone present got to know the others, with both their professional interests and achievements, as well as a little on the personal side. 
 Afterwards, there was a moment for networking and socializing with everyone, and an official graduation. 
 The next day, the dev cases started, which we’ll explain below!
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/FinalDay.png" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/FinalDay.png" width="80%" height="80%" target="_blank">
 </div>
 
 # Dev cases 
 
-With two different dev cases, the team of 8 JWorks kickstarters was divided into two:
+With two different dev cases, the team of 8 JWorks trainees was divided into two:
 * Brecht, Imad, Lennert, Lore and Mohammed worked together on the Zero Plastic Rivers case for the University of Antwerp
 * Duncan, Jasper and Nicholas were set on the task of designing Chatbot Dina for internal use
 
 ##  Zero Plastic Rivers
 
-<img class="image right" alt="ZeroPlasticRivers" src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/ZeroPlasticRivers.png" width="40%" height="40%" target="_blank">
+<img class="image right" alt="ZeroPlasticRivers" src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/ZeroPlasticRivers.png" width="40%" height="40%" target="_blank">
 
-At the end of the kickstarter trajectory, we were asked to develop a web application to monitor the plastic as it travels through the Schelde. 
+At the end of the young professional programme, we were asked to develop a web application to monitor the plastic as it travels through the Schelde. 
 For this purpose, we'd be using GPS trackers alongside QR-scanners.
 This application is aimed at a PhD carried out at the University of Antwerp that consists of visualizing the plastic flow through the entire river, from the basin to the mouth. 
 After visualizing it, an efficient remediation strategy could be made.
@@ -216,7 +217,7 @@ Dina can also ask questions to get more information, use API calls to look up ti
 Using a well-designed chatbot, conversations should feel natural to the user, as if he was talking to a human. An example can be found below.
 
 <div style="text-align: center;">
-  <img src="/img/2019-10-24-Kickstarter-Trajectory-2019-Summer-Edition/Chatlayer.png" width="80%" height="80%" target="_blank">
+  <img src="/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/Chatlayer.png" width="80%" height="80%" target="_blank">
 </div>
 
 # Conclusion
