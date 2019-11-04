@@ -18,6 +18,7 @@ The first day contained fourteen talks on team and business agility with speaker
 
 * [Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
 * [The Toyota Flow System, by Nigel Thurlow](#the-toyota-flow-system-by-nigel-thurlow)
+* [The Agile Futurist, by Maria Moreira](#the-agile-futurist-by-maria-moreira)
 * [Escape Velocity, by Doc Norton](#escape-velocity-by-doc-norton)
 
 ## Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell
