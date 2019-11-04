@@ -18,7 +18,7 @@ The first day contained fourteen talks on team and business agility with speaker
 
 * [Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell](#half-agile--5-leadership-mistakes-diluting-your-transformation-by-jesse-fewell)
 * [The Toyota Flow System, by Nigel Thurlow](#the-toyota-flow-system-by-nigel-thurlow)
-* [The Agile Futurist, by Maria Moreira](#the-agile-futurist-by-maria-moreira)
+* [The Agile Futurist, by Mario Moreira](#the-agile-futurist-by-mario-moreira)
 * [Escape Velocity, by Doc Norton](#escape-velocity-by-doc-norton)
 
 ## Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell
@@ -168,9 +168,9 @@ The author of the mentioned article wraps it up saying:
 > It will be exciting to see how it evolves, which we are sure it will. 
 > That’s the beauty of it.
 
-## The Agile Futurist, by Maria Moreira
+## The Agile Futurist, by Mario Moreira
 This was an energizing talk, giving us a view on the trends in the Agile movement for the coming ten years. 
-Mario Moreira is an enthusing and influential Agile transformation Leader, Agile enterprise coach and change agent who has written four books a.o *Being Agile: Your Roadmap to Successful Adoption of Agile*, and *The Agile enterprise: Building and Running Agile organizations*.
+Mario Moreira is an enthusing and influential Agile transformation Leader, Agile enterprise coach and change agent who has written four books a.o. *Being Agile: Your Roadmap to Successful Adoption of Agile*, and *The Agile enterprise: Building and Running Agile organizations*.
 
 What is Agile?... is what he asked the eager crowd. 
 - It's a set of Values and Principles 
