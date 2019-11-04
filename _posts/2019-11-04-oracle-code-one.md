@@ -25,8 +25,7 @@ comments: true
 * [Using Istio and Kubernetes to Build a Cloud Native Service Mesh](#using-istio-and-kubernetes-to-build-a-cloud-native-service-mesh)
 * [Monitor Kafka Like a Pro](#monitor-kafka-like-a-pro)
 * [Distributed Tracing in Kafka](#distributed-tracing-in-kafka)
-* [DevOps Theory vs. Practice: A Song of Ice and Tire Fire](#devops-theory-vs.-practice:-a-song-of-ice-and-tire-fire)
-
+* [DevOps Theory vs. Practice: A Song of Ice and Tire Fire](#devops-theory-vs-practice-a-song-of-ice-and-tire-fire)
 * [Progressive Web Applications VS Native](#progressive-web-applications-vs-native)
 * [Conclusion](#conclusion)
 
@@ -59,6 +58,7 @@ Next Georges Saab officially announced what was already expected, namely that Ja
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Java 13 is live: <a href="https://t.co/YqCVg3CTSg">https://t.co/YqCVg3CTSg</a></p>&mdash; Brian Goetz (@BrianGoetz) <a href="https://twitter.com/BrianGoetz/status/1174008054813081600?ref_src=twsrc%5Etfw">September 17, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<br/>
 
 After that he invited a lot of people from different backgrounds on stage (or on video) to talk about how they experienced the new, faster release cadence of the Java language, which means there is a new version of
 Java out every 6 months. These were people who worked on Java at Oracle, with Java on Open Source projects, were part of the JCP, ...
@@ -117,6 +117,10 @@ A few impressions on Twitter:
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">LIFE IS GOOD at the <a href="https://twitter.com/groundbreakers?ref_src=twsrc%5Etfw">@groundbreakers</a> hub at <a href="https://twitter.com/OracleCodeOne?ref_src=twsrc%5Etfw">@OracleCodeOne</a> - we have arcade machines, <a href="https://twitter.com/Hackergarten?ref_src=twsrc%5Etfw">@hackergarten</a>, a beer blockchain, a 1k <a href="https://twitter.com/hashtag/RaspberryPi?src=hash&amp;ref_src=twsrc%5Etfw">#RaspberryPi</a> cluster, escape rooms, code cards and IoT devices. Let&#39;s <a href="https://twitter.com/hashtag/BreakNewGround?src=hash&amp;ref_src=twsrc%5Etfw">#BreakNewGround</a> <a href="https://twitter.com/hashtag/CodeOne?src=hash&amp;ref_src=twsrc%5Etfw">#CodeOne</a> <a href="https://t.co/p5PI4q1XI4">pic.twitter.com/p5PI4q1XI4</a></p>&mdash; Benjamin Nothdurft (@DataDuke) <a href="https://twitter.com/DataDuke/status/1174118535565438976?ref_src=twsrc%5Etfw">September 18, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
 
+
+<br/>
+
+
 ## Kafka Streams Workshop
 
 The workshop we gave ourselves was once again a success, with about 30 people from around the world attending. An explanation of what the workshop contains has already been given in [a previous blogpost](https://ordina-jworks.github.io/conference/2018/12/17/Devoxx-MA.html#stream-processing-live-traffic-data-with-kafka-streams-by-tom-van-den-bulck-and-tim-ysewyn)
@@ -148,6 +152,10 @@ All work and no plays makes us dull boys so there was also time for some relaxat
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Good food and beer at the <a href="https://twitter.com/QuarkusIO?ref_src=twsrc%5Etfw">@QuarkusIO</a> trivia reception <a href="https://twitter.com/hashtag/CodeOne?src=hash&amp;ref_src=twsrc%5Etfw">#CodeOne</a> <a href="https://t.co/zUKamBK08L">pic.twitter.com/zUKamBK08L</a></p>&mdash; Jaap Coomans (@JaapCoomans) <a href="https://twitter.com/JaapCoomans/status/1174150552156069888?ref_src=twsrc%5Etfw">September 18, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+
+<br/>
+
+
 ## Monitor Kafka Like a Pro
 
 A subject close to our own workshop was presented by [Viktor Gamov](https://twitter.com/gamussa), a developer advocate for Confluent. He talked about best practices for monitoring your Kafka clusters
@@ -168,10 +176,10 @@ The most import metrics to monitor are to verify the state of your partitions:
 
 * `kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions`: Underreplicated partitions is the most important metric, something is cleary wrong. Whenever there are no longer enough replicas of a partition in sync you can no longer produce messages to that topic. This corresponds to the configured 'min.isr.partitions' of a broker.
 
-It is also important to verify if your brokers have enough resources like: CPU, Bandwidth, Disk, ...
+* It is also important to verify if your brokers have enough resources like: CPU, Bandwidth, Disk, ...
 Always monitor your disk usage, always.
 
-Other metrics which are pretty important:
+* Other metrics which are pretty important:
 'kafka.controller:type=KafkaController,name=ActiveControllerCount': this indicates wether an [Active Controller](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals) is present, this is the most important node of your kafka cluster.
 1 = OK, 0 is not ok, 2 is VERY NOT ok.
 
@@ -183,15 +191,15 @@ Other metrics which are pretty important:
 
 * `kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent` / `kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent` as this verifies how often your request and processor threads are idle. 
 
-For your consumers an important metric is `records-lag-max`, because when this is growing it will indicate that your consumers are lagging behind and can not process the same amount of messages as your producers are producing.
+* For your consumers an important metric is `records-lag-max`, because when this is growing it will indicate that your consumers are lagging behind and can not process the same amount of messages as your producers are producing.
 
-It is also important to set a performance baseline for your producers and consumers, this then also allows you to verify configuration changes you have made and their impact on your Kafka system.
+* It is also important to set a performance baseline for your producers and consumers, this then also allows you to verify configuration changes you have made and their impact on your Kafka system.
 
-Finally you should also pay attention to old producer and consumer versions, as these force the broker to convert messages between these versions everytime, which will have an impact on the heap memory usage.
+* Finally you should also pay attention to old producer and consumer versions, as these force the broker to convert messages between these versions everytime, which will have an impact on the heap memory usage.
 
 Victor also pointed us to a nice tool to use when you want to profile your java application: [async-profiler](https://github.com/jvm-profiling-tools/async-profiler)
 
-<span class="image left"><img class="p-image" alt="Flame Graph" src="https://github.com/jvm-profiling-tools/async-profiler/blob/master/demo/SwingSet2.svg"></span>
+<img src="/img/oracle-code-one-2019/flame-graph.svg" alt="" width="75%">
 
 Besides creating cool flame graphs, this tool can inform you about what your java application is doing and where you might have a problem.
 
@@ -289,10 +297,6 @@ Of course not everything is sunshine and rainbows, so next Marta also warned for
 - Caching is never trivial, but especially in service workers it sometimes seems to behave in mysterious ways.
 
 [Slides](https://static.rainfocus.com/oracle/oow19/sess/1552707018783001LVCE/PF/PWA_final_1568924085498001Vope.pdf)
-
-## Sarcasm as a Service
-
-https://youtu.be/jk-l-D5cmKY
 
 ## Conclusion
 
