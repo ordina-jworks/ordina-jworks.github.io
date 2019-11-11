@@ -8,7 +8,7 @@ category: Conference
 comments: true
 ---
 
-> [Oracle Code One](https://www.oracle.com/code-one//){:target="_blank" rel="noopener noreferrer"} is the successor of the well-known JavaOne conference, organised each year in San Francisco, California.
+> [Oracle Code One](https://www.oracle.com/code-one/){:target="_blank" rel="noopener noreferrer"} is the successor of the well-known JavaOne conference, organised each year in San Francisco, California.
 > Although still quite Oracle- and Java-heavy, the rebranding (and collocation with Oracle Open World) means that there were also a lot of talks about other programming languages, developer tools, ... 
 > Our colleague Tom van den Bulck and ex-colleague Tim Ysewyn were invited to give their Workshop on Kafka Streams and enjoy the rest of the conference.
 > In this blog post we share our impressions and experiences.
