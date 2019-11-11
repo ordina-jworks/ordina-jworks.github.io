@@ -45,7 +45,7 @@ She gave an explanation of what Quantum Computing actually is, and how modern co
 A qubit or quantum bit is a unit which can exist in a superposition of states, which means it can be 0 and 1 at the same time, as opposed to a classical bit, which can only be one or the other. 
 You can use these properties to devise really specific algorithms like Shor's or Grover's algorithm which can solve certain problems like prime factorization much faster than classical algorithms (here's a really good explanation on how Shor's algorithm can break encryption on [Youtube](https://www.youtube.com/watch?v=lvTqbM5Dq4Q){:target="_blank" rel="noopener noreferrer"}).
 
-Keeping the title of the keynote in mind one of the most important questions is "When will we have Quantum Computers?" and as you've already guessed the answer is indeed "Now".  
+Keeping the title of the keynote in mind, one of the most important questions is "When will we have Quantum Computers?" and as you've already guessed the answer is indeed "Now".  
 
 A fun part of this talk was that there was a live link for the audience to answer a poll to estimate how far along the technology stands in this area. Most of the audience correctly guessed that at present 
 we have quantum computers which consist of 10-100 qubits. Current quantum computers do come with the caveat that they can still only keep their state for a short time.
@@ -56,29 +56,27 @@ algorithms or programs which can theoretically be run on quantum computers (in J
 <div class="responsive-video">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/81gujFcs3fU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
-
-Next Georges Saab officially announced what was already expected, namely that Java 13 was out as of that day:
+<br/>
+Next Georges Saab, Vice President of the Java Platform Group at Oracle, officially announced what was already expected, namely that Java 13 was out as of that day:
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Java 13 is live: <a href="https://t.co/YqCVg3CTSg">https://t.co/YqCVg3CTSg</a></p>&mdash; Brian Goetz (@BrianGoetz) <a href="https://twitter.com/BrianGoetz/status/1174008054813081600?ref_src=twsrc%5Etfw">September 17, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <br/>
-
 After that he invited a lot of people from different backgrounds on stage (or on video) to talk about how they experienced the new, faster release cadence of the Java language, which means there is a new version of
 Java out every 6 months. These were people who worked on Java at Oracle, with Java on Open Source projects, were part of the JCP, ...
 
-The conclusion of most of these testimonials was that almost everybody was quite suspicious at first about the idea to do a release every 6 months but that all were pleasantly surprised by how well it seemed to work and
-and that they urged everybody to upgrade to the latest versions as soon as possible because there are almost no downsides to it.
+The conclusion of most of these testimonials was that almost everybody was quite suspicious at first about the idea to do a release every 6 months but that all were pleasantly surprised by how well it seemed to work and that they urged everybody to upgrade to the latest versions as soon as possible because there are almost no downsides to it.
 
 Lastly it was [Brian Goetz'](https://twitter.com/BrianGoetz/){:target="_blank" rel="noopener noreferrer"} turn to talk about the future of Java, in which he demonstrated some of the new language features which have been included in the releases
 since Java 10, as well as previewed some upcoming stuff. He also gave an extended version of this talk [later](https://t.co/dzzuWze3gX?amp=1){:target="_blank" rel="noopener noreferrer"}.
 
 ### Code One Community Keynote: Game On
 
-One of the less serious but certainly entertaining talks was the community keynote, in which a lot (and we do mean A LOT) of well known people in the Java community (Java Champions, developer advocates, JCP members, ...)
+One of the less serious but certainly entertaining talks was the community keynote, in which a lot (and we do mean A LOT) of well-known people in the Java community (Java Champions, developer advocates, JCP members, ...)
 came on stage and acted out a history of the Java language as it has been used in the past. The through line was the idea that Java has been used through the years to help develop video games and 
 it continues to be relevant today thanks to a host of new projects which are springing up everywhere.
 
-It was a bit of a silly show but it was good fun and at the same time interesting to see how far the Java community has come. At some point [Henri Tremblay](https://twitter.com/henri_tremblay){:target="_blank" rel="noopener noreferrer"} even did some live
+It was a bit of a silly show but it was good fun and at the same time interesting to see how far the Java community has come. At some point, [Henri Tremblay](https://twitter.com/henri_tremblay){:target="_blank" rel="noopener noreferrer"} even did some live
 coding on a VM running Windows '95 while chatting to his past self via a chatbot, which was truly impressive.
 
 There was a lot of buzz on Twitter about the event:
@@ -92,17 +90,18 @@ There was a lot of buzz on Twitter about the event:
 
 ## Usual Suspects
 
-As always, there are a few speakers at every conference who are household names and who always deliver. Some of these you can also go and experience in Belgium at Devoxx or our very own [JOIN](https://ordina-jworks.github.io/join/){:target="_blank" rel="noopener noreferrer"} conference, like
-[Benjamin Nothdurft](https://twitter.com/DataDuke){:target="_blank" rel="noopener noreferrer"}.
+As always, there are a few speakers at every conference who are household names and who always deliver.
+Some of these you can also meet and experience in Belgium at Devoxx or at our very own [JOIN](https://ordina-jworks.github.io/join/){:target="_blank" rel="noopener noreferrer"} conference, like [Benjamin Nothdurft](https://twitter.com/DataDuke){:target="_blank" rel="noopener noreferrer"}.
 These talks are always very interesting and of a high standard, therefore we will only highlight them briefly.
 
-[Venkat Subramanian](https://twitter.com/venkat_s){:target="_blank" rel="noopener noreferrer"} gave no less than 6 talks at the conference, 2 of which we were able to attend. These talked about [A Dozen Cool Things You Can Do With JVM Languages](https://youtu.be/pWW8uqAPT-s){:target="_blank" rel="noopener noreferrer"}
+[Venkat Subramanian](https://twitter.com/venkat_s){:target="_blank" rel="noopener noreferrer"} gave no less than six talks at the conference, two of which we were able to attend.
+These were about [A Dozen Cool Things You Can Do With JVM Languages](https://youtu.be/pWW8uqAPT-s){:target="_blank" rel="noopener noreferrer"}
 and "Functional Programming Idioms in Java" in which Venkat shows you things which are really useful but look so obvious when he points them out in his incomparable style.
 
 [Mark Heckler](https://twitter.com/mkheck/status/1174413471674294272){:target="_blank" rel="noopener noreferrer"} talked about [How to Use Messaging Platforms for Scalabiliy and Performance](https://speakerdeck.com/mkheck/drinking-from-the-stream){:target="_blank" rel="noopener noreferrer"} and did an impressive live demo
-in which he built an application which produced, transformed and consumed events in 3 seperate projects in less than 15 minutes, using Spring Cloud Stream.
+in which he built an application which produced, transformed and consumed events in three seperate projects in less than 15 minutes, using Spring Cloud Stream.
 
-Furthermore [Josh Long](https://twitter.com/starbuxman){:target="_blank" rel="noopener noreferrer"} talked about [The Reactive Revolution](https://youtu.be/Y-r_S2UAzGY){:target="_blank" rel="noopener noreferrer"} and "Bootiful Testing" while [Stephane Maldini](https://twitter.com/smaldini){:target="_blank" rel="noopener noreferrer"} gave us an overview of the reasons
+Furthermore, [Josh Long](https://twitter.com/starbuxman){:target="_blank" rel="noopener noreferrer"} talked about [The Reactive Revolution](https://youtu.be/Y-r_S2UAzGY){:target="_blank" rel="noopener noreferrer"} and "Bootiful Testing" while [Stephane Maldini](https://twitter.com/smaldini){:target="_blank" rel="noopener noreferrer"} gave us an overview of the reasons
 why you should (or should not) start using reactive programming.
 
 ## Groundbreakers Hub
@@ -127,7 +126,7 @@ A few impressions on Twitter:
 
 ## Kafka Streams Workshop
 
-The workshop we gave ourselves was once again a success, with about 30 people from around the world attending. An explanation of what the workshop contains has already been given in [a previous blogpost](https://ordina-jworks.github.io/conference/2018/12/17/Devoxx-MA.html#stream-processing-live-traffic-data-with-kafka-streams-by-tom-van-den-bulck-and-tim-ysewyn){:target="_blank" rel="noopener noreferrer"}.
+The workshop we gave ourselves was once again a success, with about 30 people from around the world attending. An explanation of what the workshop contains has already been given in [a previous blogpost](/conference/2018/12/17/Devoxx-MA.html#stream-processing-live-traffic-data-with-kafka-streams-by-tom-van-den-bulck-and-tim-ysewyn){:target="_blank" rel="noopener noreferrer"}.
 
 ## Using Istio and Kubernetes to Build a Cloud Native Service Mesh
 
@@ -164,43 +163,46 @@ All work and no plays makes us dull boys so there was also time for some relaxat
 
 A subject close to our own workshop was presented by [Viktor Gamov](https://twitter.com/gamussa){:target="_blank" rel="noopener noreferrer"}, a developer advocate for Confluent.
 He talked about best practices for monitoring your Kafka clusters in a very interesting presentation.
-The exact slides were not made available but very similar to [these](https://www.slideshare.net/ChesterChen/sfbiganalytics20190724-monitor-kafka-like-a-pro){:target="_blank" rel="noopener noreferrer"}.
+The exact slides were not made available but are very similar to [these](https://www.slideshare.net/ChesterChen/sfbiganalytics20190724-monitor-kafka-like-a-pro){:target="_blank" rel="noopener noreferrer"}.
 
 Some basic monitoring is just to verify that your producers and consumers are able to read and write data from Kafka.
-You can set up a specific topic on which you can just send a message and consume it again every 15 seconds, then raise an error after for example 4 failures et voila, you have basic monitoring.
+You can set up a specific topic on which you can just send a message and consume it again every 15 seconds, then raise an error after for example four failures et voila, you have basic monitoring.
 
-Measuring latency is already more advanced, but everytime you experience performance issues always check your latency because it might be a waste of time to start looking into Kafka errors or your own service when your network connection is acting up.
+Measuring latency is already more advanced, but every time you experience performance issues, always check your latency because it might be a waste of time to start looking into Kafka errors or your own service when your network connection is acting up.
 
 In order to check if your brokers are up, just execute a `grep java` on the brokers.
 
 Kafka exposes a ton of [JMX metrics](https://docs.confluent.io/current/kafka/monitoring.html){:target="_blank" rel="noopener noreferrer"}, which you can export with Prometheus, the Confluent cloud uses the same mechanism to acquire metrics.
 
-The most import metrics to monitor are to verify the state of your partitions:
+The most important metrics to monitor are to verify the state of your partitions:
 
 * `kafka.controller:type=KafkaController, name=OfflinePartitionsCount` Offline partitions is an actionable metric, as this indicates that a partition has no leader and thus is no longer readable or writeable.
 
-* `kafka.server:type=ReplicaManager, name=UnderReplicatedPartitions`: Underreplicated partitions is the most important metric, something is cleary wrong. Whenever there are no longer enough replicas of a partition in sync you can no longer produce messages to that topic. This corresponds to the configured 'min.isr.partitions' of a broker.
+* `kafka.server:type=ReplicaManager, name=UnderReplicatedPartitions`: Underreplicated partitions is the most important metric, something is cleary wrong. Whenever there are no longer enough replicas of a partition in sync you can no longer produce messages to that topic.
+This corresponds to the configured `min.isr.partitions` of a broker.
 
 * It is also important to verify if your brokers have enough resources like: CPU, Bandwidth, Disk, ...
 Always monitor your disk usage, always.
 
 * Other metrics which are pretty important:
-`kafka.controller:type=KafkaController, name=ActiveControllerCount`: this indicates wether an [Active Controller](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals){:target="_blank" rel="noopener noreferrer"} is present, this is the most important node of your kafka cluster.
-1 = OK, 0 is not ok, 2 is VERY NOT ok.
+`kafka.controller:type=KafkaController, name=ActiveControllerCount`: this indicates wether an [Active Controller](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals){:target="_blank" rel="noopener noreferrer"} is present.
+This is the most important node of your kafka cluster.
+1 = OK, 0 is NOT OK, 2 is VERY NOT OK.
 
 * `kafka.server:type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec`: Zookeeper disconnects.
 
 * `kafka.controller:type=ControllerStats, name=UncleanLeaderElectionsPerSec`: the rate at which unclear leader election occurs, though this option is disabled by default.
 
-* `kafka.server:type=ReplicaManager, name=IsrShrinksPerSec`: When a broker goes down the Isr will shrink, when it comes back it will expand again (`kafka.server:type=ReplicaManager, name=IsrExpandsPerSec`)
+* `kafka.server:type=ReplicaManager, name=IsrShrinksPerSec`: When a broker goes down the ISR will shrink, when it comes back it will expand again (`kafka.server:type=ReplicaManager, name=IsrExpandsPerSec`).
 
 * `kafka.server:type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent` / `kafka.network:type=SocketServer, name=NetworkProcessorAvgIdlePercent` as this verifies how often your request and processor threads are idle. 
 
 * For your consumers an important metric is `records-lag-max`, because when this is growing it will indicate that your consumers are lagging behind and can not process the same amount of messages as your producers are producing.
 
-* It is also important to set a performance baseline for your producers and consumers, this then also allows you to verify configuration changes you have made and their impact on your Kafka system.
+* It is also important to set a performance baseline for your producers and consumers.
+This allows you to verify configuration changes you have made and their impact on your Kafka system.
 
-* Finally you should also pay attention to old producer and consumer versions, as these force the broker to convert messages between these versions everytime, which will have an impact on the heap memory usage.
+* Finally, you should also pay attention to old producer and consumer versions, as these force the broker to convert messages between these versions everytime, which will have an impact on the heap memory usage.
 
 Victor also pointed us to a nice tool to use when you want to profile your java application: [async-profiler](https://github.com/jvm-profiling-tools/async-profiler){:target="_blank" rel="noopener noreferrer"}.
 
@@ -212,30 +214,33 @@ Besides creating cool flame graphs, this tool can inform you about what your jav
 
 This was another workshop by [Viktor Gamov](https://twitter.com/gamussa){:target="_blank" rel="noopener noreferrer"}, of which the [recording](https://www.youtube.com/watch?v=W0JYx7erh_0&feature=youtu.be&t=3634){:target="_blank" rel="noopener noreferrer"} and [slides](https://speaking.gamov.io/Y8yrHk/bringing-observability-to-your-stream-processing#sHXi414){:target="_blank" rel="noopener noreferrer"} are shared.
 
-Over time the complexity of your system and subsystems starts to grow and it becomes too complex to contain all the logic in your head. In the past each system would have its own monitoring system, every system was different in the how, what and when something is monitored. Troubleshooting therefore could take hours, days, weeks, ...
+Over time the complexity of your system and subsystems starts to grow and it becomes too complex to contain all the logic in your head.
+In the past, each system would have its own monitoring system, every system was different in the how, what and when something is monitored.
+Troubleshooting therefore could take hours, days, weeks, ...
 
 Observability is just a fancy word for monitoring because monitoring sounds boring to devs.
-Cindy Sridharan wrote a nice [book](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/){:target="_blank" rel="noopener noreferrer"} about distributed tracing, she also writes blogposts like [distributed tracing weve been doing it wrong](https://medium.com/@copyconstruct/distributed-tracing-weve-been-doing-it-wrong-39fc92a857df){:target="_blank" rel="noopener noreferrer"}.
+Cindy Sridharan wrote a nice [book](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/){:target="_blank" rel="noopener noreferrer"} about distributed tracing.
+She also writes blogposts like [Distributed tracing - we've been doing it wrong](https://medium.com/@copyconstruct/distributed-tracing-weve-been-doing-it-wrong-39fc92a857df){:target="_blank" rel="noopener noreferrer"}.
 
 From her book come the pillars of observability:
-* a log: a raw, immutable sequence of events of a single instance of a service.
-* metrics: numerical measures aggregated at a given point of time, sourced by your log events. These tend to be actionable.
-* distributed tracing: allows us to have a total picture of a request within the application. This answers which services are involved and were there are failures.
+* A log: A raw, immutable sequence of events of a single instance of a service.
+* Metrics: Numerical measures aggregated at a given point of time, sourced by your log events. These tend to be actionable.
+* Distributed tracing: Allows us to have a total picture of a request within the application. This answers which services are involved and where there are failures.
 
 Kafka tends to become the de facto standard to handle data within organizations, becoming the central nervous system of any company, which makes it more and more important to include Kafka within your tracing.
 
 Some ways how you can implement tracing in kafka are: 
 
-* Opentracing java API for Kafka can be found on [https://github.com/opentracing-contrib/java-kafka-client](https://github.com/opentracing-contrib/java-kafka-client){:target="_blank" rel="noopener noreferrer"}
+* OpenTracing Java API for Kafka can be found on [https://github.com/opentracing-contrib/java-kafka-client](https://github.com/opentracing-contrib/java-kafka-client){:target="_blank" rel="noopener noreferrer"}
 
 * Another approach is to use interceptors like [https://github.com/riferrei/kafka-tracing-support](https://github.com/riferrei/kafka-tracing-support){:target="_blank" rel="noopener noreferrer"}
 
-Tracing can be visualized with [jaeger](https://github.com/jaegertracing/jaeger-ui){:target="_blank" rel="noopener noreferrer"}.
+Tracing can be visualized with [Jaeger UI](https://github.com/jaegertracing/jaeger-ui){:target="_blank" rel="noopener noreferrer"}.
 
 ## DevOps Theory vs. Practice: A Song of Ice and Tire Fire
 
-One of the last, slightly more light-hearted talks took place on the last afternoon of the conference. [Baruch Sadogursky](https://twitter.com/jbaruch){:target="_blank" rel="noopener noreferrer"} and [Viktor Gamov](https://twitter.com/gamussa){:target="_blank" rel="noopener noreferrer"} opened
-their talk with a skit in which Baruch spouted well known DevOps clichés, like "Everything must be 100% automated", "We do Continuous Security well" or "You're problems are so unique, no vendor can possibly understand them"
+One of the last, slightly more light-hearted talks took place in the last afternoon of the conference. [Baruch Sadogursky](https://twitter.com/jbaruch){:target="_blank" rel="noopener noreferrer"} and [Viktor Gamov](https://twitter.com/gamussa){:target="_blank" rel="noopener noreferrer"} opened
+their talk with a skit in which Baruch spouted well-known DevOps clichés, like "Everything must be 100% automated", "We do Continuous Security well" or "Your problems are so unique, no vendor can possibly understand them"
 while Viktor translated this into the harsh truth that none of these are absolute or applicable in every situation and you have to adopt your approach accordingly. While entertaining, it also laid bare the truth that none of these
 devops principles act as a Silver Bullet. 
 
@@ -244,13 +249,13 @@ They believed that this was the cause of the technological advancements and pros
 The analogy with the modern tech landscape, is that some people might believe that by merely adopting the latest techniques and tools (Kubernetes, Docker, DevOps, ...), all other problems will automatically solve themselves.
 From experience, we all know this isn't true.
 
-Instead, we should analyse were we are as an organisation and determine which steps to take to progress to where we want to be before just adopting something like Kafka because people at 
+Instead, we should analyse where we are as an organisation and determine which steps to take to progress to where we want to be before just adopting something like Kafka because people at 
 conferences give nice demos and workshops and tell you all will be fine. 
-Before we take a decision like this we first need to be aware of the answers to The Four Questions:
+Before we take a decision like this, we first need to be aware of the answers to The Four Questions:
 
 <img src="/img/oracle-code-one-2019/four-questions.png" alt="" width="75%">
 
-Answering the last 2 questions requires an entirely different talk, but the first one we can try and tackle using a maturity model, popularized by [Martin Fowler](https://www.martinfowler.com/bliki/MaturityModel.html){:target="_blank" rel="noopener noreferrer"}.
+Answering the last two questions requires an entirely different talk, but the first one we can try and tackle using a maturity model, popularized by [Martin Fowler](https://www.martinfowler.com/bliki/MaturityModel.html){:target="_blank" rel="noopener noreferrer"}.
 Maturity models have their own share of problems and critics, but Baruch and Viktor pose that, if done right, they can help your organization or team make signifant 
 advancements towards being ready to tackle your business problems in a more efficient way.
 
@@ -267,14 +272,14 @@ take into account for a maturity model are:
 The answer to the question "Is it even a good tech?" can be answered by advisory / research companies like Forrester or Gartner but because these are for-profit
 companies their suggestions might be skewed towards the companies which are already established / rich or more in the limelight. A better option might be to look
 at the [Thoughtworks Tech Radar](https://www.thoughtworks.com/radar){:target="_blank" rel="noopener noreferrer"} which is publicly available and provides an assesment of a whole array of modern
-technologies and determines if you should Adopt, Asses, Trial or Hold these.
+technologies and determines if you should Adopt, Assess, Trial or Hold these.
 
 Moreover, you could argue that it's even better to extend the question to "Is this even a good tech *for our team*", in which case it's a good idea to [build your own tech radar](https://www.thoughtworks.com/radar/how-to-byor){:target="_blank" rel="noopener noreferrer"}
 which at JWorks we [also did](https://ordina-jworks.github.io/tech-radar){:target="_blank" rel="noopener noreferrer"}.
 
 ## Progressive Web Applications VS Native
 
-One of the few frontend (but still a bit Oracle) related talks was about PWA's, a topic which we are also starting to explore at Jworks, given by Marta Hawkins.
+One of the few frontend (but still a bit Oracle) related talks was about PWA's, a topic which we are also starting to explore at JWorks, given by Marta Hawkins.
 
 Ionic gives a good definition of a Progressive Web Application:
 
@@ -289,11 +294,12 @@ whereas you only need to write one application and distribute it independently o
 without having to go through the process of getting it approved on the respective app stores, and your application will be more easily discoverable on your 
 search engine of choice. All of these arguments result in the fact that PWA's are better to drive user engagement.
 
-Next Marta talked about the preconditions you need to have your web application recognized as 'progressive', of which there are only 3:
+Next Marta talked about the preconditions you need to have your web application recognized as 'progressive', of which there are only three:
 
 <img src="/img/oracle-code-one-2019/pwa-conditions.png" alt="" width="75%">
 
-A service worker is what provides the PWA with it's special capabilities. This is what enables offline functionality, installability, notifications, request caching, ... Google's [developer guide](https://developers.google.com/web/ilt/pwa/introduction-to-service-worker){:target="_blank" rel="noopener noreferrer"} describes it as follows:
+A service worker is what provides the PWA with its special capabilities.
+This is what enables offline functionality, installability, notifications, request caching, ... Google's [developer guide](https://developers.google.com/web/ilt/pwa/introduction-to-service-worker){:target="_blank" rel="noopener noreferrer"} describes it as follows:
 
 > A service worker is a type of web worker. It's essentially a JavaScript file that runs separately from the main browser thread, intercepting network requests, caching or retrieving resources from the cache, and delivering push messages.
 
@@ -304,12 +310,13 @@ Of course not everything is sunshine and rainbows, so next Marta also warned for
 - Developing and debugging the applications is also not trivial. Chrome is developing and delivering better debugging tools.
 - Caching is never trivial, but especially in service workers it sometimes seems to behave in mysterious ways.
 
-[Slides](https://static.rainfocus.com/oracle/oow19/sess/1552707018783001LVCE/PF/PWA_final_1568924085498001Vope.pdf){:target="_blank" rel="noopener noreferrer"}.
+[Slides](https://static.rainfocus.com/oracle/oow19/sess/1552707018783001LVCE/PF/PWA_final_1568924085498001Vope.pdf){:target="_blank" rel="noopener noreferrer"} of this talk are also available.
 
 ## Conclusion
 
 In conclusion, we had a great time in San Francisco (and also at the conference).
 It was noticeable that Oracle products were given preferential treatment, and the fact that it is so big means that sometimes it was not easy to keep track of which talks were interesting to follow.
-On the other hand almost all the talks we followed were of a high standard and we learned a lot, and the Groundbreakers Hub was an awesome place to connect with other developers. 
+On the other hand, almost all the talks we followed were of a high standard and we learned a lot.
+And the Groundbreakers Hub was an awesome place to connect with other developers. 
 
 10/10 would go again.
