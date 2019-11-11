@@ -173,24 +173,24 @@ Kafka exposes a ton of [JMX metrics](https://docs.confluent.io/current/kafka/mon
 
 The most import metrics to monitor are to verify the state of your partitions:
 
-* `kafka.controller:type=KafkaController,name=OfflinePartitionsCount` Offline partitions is an actionable metric, as this indicates that a partition has no leader and thus is no longer readable or writeable.
+* `kafka.controller:type=KafkaController, name=OfflinePartitionsCount` Offline partitions is an actionable metric, as this indicates that a partition has no leader and thus is no longer readable or writeable.
 
-* `kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions`: Underreplicated partitions is the most important metric, something is cleary wrong. Whenever there are no longer enough replicas of a partition in sync you can no longer produce messages to that topic. This corresponds to the configured 'min.isr.partitions' of a broker.
+* `kafka.server:type=ReplicaManager, name=UnderReplicatedPartitions`: Underreplicated partitions is the most important metric, something is cleary wrong. Whenever there are no longer enough replicas of a partition in sync you can no longer produce messages to that topic. This corresponds to the configured 'min.isr.partitions' of a broker.
 
 * It is also important to verify if your brokers have enough resources like: CPU, Bandwidth, Disk, ...
 Always monitor your disk usage, always.
 
 * Other metrics which are pretty important:
-'kafka.controller:type=KafkaController,name=ActiveControllerCount': this indicates wether an [Active Controller](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals) is present, this is the most important node of your kafka cluster.
+`kafka.controller:type=KafkaController, name=ActiveControllerCount`: this indicates wether an [Active Controller](https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals) is present, this is the most important node of your kafka cluster.
 1 = OK, 0 is not ok, 2 is VERY NOT ok.
 
-* `kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectsPerSec`: Zookeeper disconnects.
+* `kafka.server:type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec`: Zookeeper disconnects.
 
-* `kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec`: the rate at which unclear leader election occurs, though this option is disabled by default.
+* `kafka.controller:type=ControllerStats, name=UncleanLeaderElectionsPerSec`: the rate at which unclear leader election occurs, though this option is disabled by default.
 
-* `kafka.server:type=ReplicaManager,name=IsrShrinksPerSec`: When a broker goes down the Isr will shrink, when it comes back it will expand again (`kafka.server:type=ReplicaManager,name=IsrExpandsPerSec`)
+* `kafka.server:type=ReplicaManager, name=IsrShrinksPerSec`: When a broker goes down the Isr will shrink, when it comes back it will expand again (`kafka.server:type=ReplicaManager, name=IsrExpandsPerSec`)
 
-* `kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent` / `kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent` as this verifies how often your request and processor threads are idle. 
+* `kafka.server:type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent` / `kafka.network:type=SocketServer, name=NetworkProcessorAvgIdlePercent` as this verifies how often your request and processor threads are idle. 
 
 * For your consumers an important metric is `records-lag-max`, because when this is growing it will indicate that your consumers are lagging behind and can not process the same amount of messages as your producers are producing.
 
