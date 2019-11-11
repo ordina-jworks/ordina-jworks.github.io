@@ -12,7 +12,7 @@ This year, it was already the 6th edition of eXperienceAgile, organised in Portu
 
 The first day contained fourteen talks on team and business agility with speakers from Europe and America, whereas the second day contained DevOps talks and deep-dive workshops with some of the speakers.
 
-@experienceagile / #xa19 / experienceagile.org
+[@experienceagile](https://twitter.com/experienceagile){:target="_blank" rel="noopener noreferrer"} / [#xa19](https://twitter.com/hashtag/XA19){:target="_blank" rel="noopener noreferrer"} / [experienceagile.org](http://www.experienceagile.org){:target="_blank" rel="noopener noreferrer"}
 
 # Table of contents
 
