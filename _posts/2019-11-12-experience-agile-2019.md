@@ -2,7 +2,7 @@
 layout: post
 authors: [kristof_eekhaut, michaela_broeckx, wouter_nivelle]
 title: 'eXperience Agile 2019'
-image: /img/2019-09-30-experience-agile-2019/ExperienceAgile2019.png
+image: /img/2019-11-12-experience-agile-2019/ExperienceAgile2019.png
 tags: [Agile, Conference]
 category: Conference
 comments: true
@@ -28,7 +28,7 @@ He explains why this journey can be so hard, especially for leaders (team leads,
 
 You start with a good decision, then for some reason you get frustrated and agitated. Once you discover the mistake made, you can take action to correct it.
 
-<img alt="Jessy Fewell" src="{{ '/img/2019-09-30-experience-agile-2019/jesse-fewell.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="Jessy Fewell" src="{{ '/img/2019-11-12-experience-agile-2019/jesse-fewell.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 ### Buy-in, Engagement
 
@@ -146,7 +146,7 @@ By giving this list of researched and tested material, they offer a good startin
 Take a good look at what Toyota suggests for every pillar. 
 There sure is a lot to discover!
 
-<img alt="TFS" src="{{ '/img/2019-09-30-experience-agile-2019/Toyota-Flow-System.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="TFS" src="{{ '/img/2019-11-12-experience-agile-2019/Toyota-Flow-System.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 Key takeaways were:
 - Teams need to learn *how* to do team work and be more than the sum of the team members. 
@@ -226,7 +226,7 @@ We all need to practice and keep on practicing, to walk the talk, and eventually
 
 ## Escape Velocity, by Doc Norton
 
-<img alt="doc-norton-introduction" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-introduction.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="doc-norton-introduction" src="{{ '/img/2019-11-12-experience-agile-2019/doc-norton-introduction.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 A recurring problem with agile projects is reporting. 
 When you search for information online, everyone seems to encounter the same problems.
@@ -272,14 +272,14 @@ So the estimation would be that the backlog is finished in 13 sprints.
 My experience is that these estimations are usually incorrect since 13 weeks is too far in the future.  
 A great tool that he showed was the Throughput Forecaster, an Excel file in which you can enter a lot of data and in return it shows the probability of achieving the goal.
 
-<img alt="throughput-forecasting" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-throughput.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="throughput-forecasting" src="{{ '/img/2019-11-12-experience-agile-2019/doc-norton-throughput.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 More details about the tool above will follow in a future blogpost.
 
 ### Diagnostics
 As we have already said above, a dip or peak in velocity can indicate that there might be a problem with the team.
 
-<img alt="velocity-chart" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-velocity-chart.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="velocity-chart" src="{{ '/img/2019-11-12-experience-agile-2019/doc-norton-velocity-chart.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 But when looking at this chart, how you do know what's going on?
 Exactly, you don't. 
@@ -287,14 +287,14 @@ You just know something's probably not okay.
 
 A metric that helps is the cumulative flow diagram.
 
-<img alt="cumulative-flow-chart" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-cumulative-chart.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="cumulative-flow-chart" src="{{ '/img/2019-11-12-experience-agile-2019/doc-norton-cumulative-chart.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 It shows the different stages of sprint items during the lifecycle of the sprint. 
 You could see that it takes too long to validate an item or to deploy it.  
 For example, the image above shows that the items stay too long in *Ready for Approval*. 
 The team can use this to address the problem.
 
-<img alt="velocity-workshop" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-workshop-cumulative.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+<img alt="velocity-workshop" src="{{ '/img/2019-11-12-experience-agile-2019/doc-norton-workshop-cumulative.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 This picture was taken during the workshop from Doc about this subject where he went into more detail.
 
