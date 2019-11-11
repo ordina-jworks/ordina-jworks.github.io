@@ -51,8 +51,9 @@ The advances which still need to be made mostly consist of making sure the quant
 Nevertheless Jessica really made the point that the age of quantum computers is in the near future if not now already. She even showed a [github repository](https://github.com/johanvos/quantumjava) which enables everybody to experiment and write
 algorithms or programs which can theoretically be run on quantum computers (in Java of course). 
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/81gujFcs3fU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="responsive-video">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/81gujFcs3fU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 Next Georges Saab officially announced what was already expected, namely that Java 13 was out as of that day:
 
