@@ -12,9 +12,9 @@ comments: true
 > Our colleague Tom van den Bulck and ex-colleague Tim Ysewyn were invited to give their Workshop on Kafka Streams and enjoy the rest of the coference.
 > In this blog post we share our impressions and experiences.
 
-<div style="display: flex; justify-content: center;">
-<img class="image" src="{{ '/img/oracle-code-one-2019/sf-jworks.jpg' | prepend: site.baseurl }}" alt="Jworks Represent" width="60%" />
-</div>
+<p class="align-center">
+    <img class="image fit-contain" src="{{ '/img/oracle-code-one-2019/sf-jworks.jpg' | prepend: site.baseurl }}" alt="JWorks Represent" width="60%" />
+</p>
 
 # Table of contents
 
