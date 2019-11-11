@@ -90,7 +90,7 @@ Maybe you need to think about:
  - shifting from explaining methods to articulating **goals**; or
  - instead of telling people what to do, give them the **ability to do it themselves**
 
-This personal growth requires that you go on a long term journey of transforming yourself as a leader.
+This personal growth requires that you go on a long-term journey of transforming yourself as a leader.
 
 ## The Toyota Flow System, by Nigel Thurlow
 We all know that Toyota has always been a frontrunner with regard to Lean thinking, bringing the customer in the center point of attention and establishing flow in the value creation pipeline. 
@@ -151,14 +151,14 @@ There sure is a lot to discover!
 Key takeaways were:
 - Teams need to learn *how* to do team work and be more than the sum of the team members. 
 Teams do not have the set of skills and behaviors automatically, and so they need coaching to focus on team communication and collaboration aspects as well as team personality dynamics.
-- Intent based leadership - as coined by D.Marquet - helps you to move authority where the information is available. 
+- Intent based leadership - as coined by D. Marquet - helps you to move authority where the information is available. 
 It is about designing an environment where people give intent to each other and they feel valued and proud of their work. 
 It is about actively giving control to people who maintain the information so they can make informed decisions.
 - Scrum is disciplined PDCA - the Plan/Do/Check/Act (or Adjust) approach from William Edwards Deming
 - Beware of *failure demand*, which is waste disguised as value for the customer and service excellence.
 - People are spending the best years of their lives in companies.. take up the responsibility to make it as enjoyable as possible.
 
-More reading: https://planet-lean.com/introducing-the-toyota-flow-system/
+More reading: [https://planet-lean.com/introducing-the-toyota-flow-system/](https://planet-lean.com/introducing-the-toyota-flow-system/){:target="_blank" rel="noopener noreferrer"}.
 
 The author of the mentioned article wraps it up saying:
 > This is the first time someone has brought all these elements together and made sense of them, explaining how they fit within a company like Toyota. 
@@ -197,21 +197,23 @@ What is Agile not?... on the other hand.
 We will all go back to the core, to rediscover and be inspired by the central purpose and initial intent of the Agile movement.
 Returning to the core implies that we need to make sure we understand the heart of the [Agile manifesto](https://agilemanifesto.org/){:target="_blank" rel="noopener noreferrer"}, that we try and urge to live the principles and lead with the items on the left in mind. 
 
+{:start="2"}
 2. Stop doing Agile for Agile’s sake.
 
 Agile is not the goal or outcome. 
 So let's stop talking about it as if it were.
-Rather we should look at the purpose for applying Agile
+Rather we should look at the purpose for applying Agile.
 - Better interactions
 - Better working software (or services and products for that matter)
 - Better customer collaboration
 - Ability to respond to change
 
 Instead, people will focus on better Business Outcomes:
-• Deliver increased Customer **Value**
-• Optimize the **Flow** for faster delivery
-• Increase **Quality** with Feedback Loops
+- Deliver increased Customer **Value**
+- Optimize the **Flow** for faster delivery
+- Increase **Quality** with Feedback Loops
 
+{:start="3"}
 3. Leading for uncertainty 
 
 Because leading for uncertainty is the smarter thing to do, in a world where we as customers don't always know what we want, we as product creators don't always know exactly how to build the product, and things and people tend to change along the way.
@@ -219,6 +221,7 @@ Because leading for uncertainty is the smarter thing to do, in a world where we 
 Uncertainty requires the right behavior and mindset to tackle it: e.g. cultivate and kindle a discovery mindset, experimental and incremental thinking, and implementing feedback loops.
 We all need to practice and keep on practicing, to walk the talk, and eventually lead by example. 
 
+{:start="4"}
 4. Agile throughout the enterprise
 
 ## Escape Velocity, by Doc Norton
@@ -245,10 +248,10 @@ A dip or peak in velocity doesn't explain anything, it's just an indication that
 To find the real cause, more metrics are needed.
 
 So as Doc said:
-> Velocity is a **lagging indicator** of a **complex system**
+> Velocity is a **lagging indicator** of a **complex system**.
 
 And as a result:
-> Velocity is **not good for predictions** and **not good for diagnostics**
+> Velocity is **not good for predictions** and **not good for diagnostics**.
 
 ### Predictions
 Everyone has already experienced the typical management question during the lifecycle of a project:
@@ -262,9 +265,9 @@ Now, think about this:
 - Are these forecasts probable? *Again, they might be.*
 
 An example given by Doc was the following:
-> Velocity (11, 10, 9), backlog size of 130 and start date is today
+> Velocity (11, 10, 9), backlog size of 130 and start date is today.
 
-Now, the velocity in this case is 10. ```130 / 10 = 13```.  
+Now, the velocity in this case is 10: ```130 / 10 = 13```.  
 So the estimation would be that the backlog is finished in 13 sprints. 
 My experience is that these estimations are usually incorrect since 13 weeks is too far in the future.  
 A great tool that he showed was the Throughput Forecaster, an Excel file in which you can enter a lot of data and in return it shows the probability of achieving the goal.
@@ -274,7 +277,7 @@ A great tool that he showed was the Throughput Forecaster, an Excel file in whic
 More details about the tool above will follow in a future blogpost.
 
 ### Diagnostics
-As I've already said above, a dip or peak in velocity can indicate that there might be a problem with the team.
+As we have already said above, a dip or peak in velocity can indicate that there might be a problem with the team.
 
 <img alt="velocity-chart" src="{{ '/img/2019-09-30-experience-agile-2019/doc-norton-velocity-chart.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
