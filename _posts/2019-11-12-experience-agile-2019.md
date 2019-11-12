@@ -222,10 +222,10 @@ We all need to practice and keep on practicing, to walk the talk, and eventually
 
 #### Agile throughout the enterprise
 
-The way organisations are structured today, is a remnant of what was required in the industrial age. 
+The way organisations are structured today is a remnant of what was required in the industrial age. 
 But focusing on the customer and tracking the value stream has led to insights on how work and collaboration should be organised in a smarter, more valuable way, for all parties involved. 
 Working together cross-departmental with an empowered team, focusing on a common *customer inspired* goal, helps to limit handovers, approval flows and delayed communication. 
-To make this happen, every person who's directly involved in this end-to-end value stream, from any silo throughout the company, needs to be allowed and be able to work dedicatedly, and transparantly as well as make local decisions on matters that require her/his expertise.
+To make this happen, every person who's directly involved in this end-to-end value stream, from any silo throughout the company, needs to be allowed and be able to work dedicatedly, and transparently as well as make local decisions on matters that require her/his expertise.
 
 This way of working depends upon efficient alignment and trust... in people and their abilities, to make the magic happen. 
 Trust is not given, it should be *a given* that people perceive and recognise, from the moment they first enter the company building.
@@ -238,7 +238,8 @@ No business domain or sector is simple and predictable enough to allow it to acq
 With IT and AI permeating every nook and cranny of this global society, and with companies being ushered by market disruptions to the verge of survival, we need to realise that focusing on value creation and optimizing the whole (the team, the company, the system) to service the customer is the smartest way forward.
 
 Seeing and understanding the bigger picture of what we - as a team, as a company, as a sector - deliver to society is the next step.
-From then on we will be solving holistic problems, in a holistic way. With our thriving society as the customer.
+From then on we will be solving holistic problems, in a holistic way. 
+With our thriving society as the customer.
 
 ## Escape Velocity, by Doc Norton
 
