@@ -21,7 +21,7 @@ The first day contained fourteen talks on team and business agility with speaker
 * [The Agile Futurist, by Mario Moreira](#the-agile-futurist-by-mario-moreira)
 * [Escape Velocity, by Doc Norton](#escape-velocity-by-doc-norton)
 
-## Half-Agile:  5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell
+## Half-Agile: 5 Leadership Mistakes Diluting Your Transformation, by Jesse Fewell
 
 Jesse shares with us five patterns on our journey to an Agile organisation. 
 He explains why this journey can be so hard, especially for leaders (team leads, scrum masters, technical leads, managers or executives).
@@ -185,12 +185,7 @@ What is Agile not?... on the other hand.
 - and... it is definitely not *undisciplined*
 
 ### Agile trends for 2029
-> Agile’s Future?
-> - We will Bring Back the Basics
-> - We will Stop doing Agile for Agile’s sake
-> - We will Lead with Uncertainty
-> - We will Apply Agile across an Enterprise
-> - We will Solve Holistic Problems
+<img alt="agiles-future" src="{{ '/img/2019-11-12-experience-agile-2019/Agiles-Future.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 #### Bring Back the Basics
 
