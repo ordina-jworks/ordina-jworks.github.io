@@ -192,37 +192,53 @@ What is Agile not?... on the other hand.
 > - We will Apply Agile across an Enterprise
 > - We will Solve Holistic Problems
 
-#### Bring Back the Basics.
+#### Bring Back the Basics
 
 We will all go back to the core, to rediscover and be inspired by the central purpose and initial intent of the Agile movement.
 Returning to the core implies that we need to make sure we understand the heart of the [Agile manifesto](https://agilemanifesto.org/){:target="_blank" rel="noopener noreferrer"}, that we try and urge to live the principles and lead with the items on the left in mind. 
 
-{:start="2"}
-2. Stop doing Agile for Agile’s sake.
+#### Stop doing Agile for Agile’s sake
 
 Agile is not the goal or outcome. 
 So let's stop talking about it as if it were.
+
 Rather we should look at the purpose for applying Agile.
 - Better interactions
 - Better working software (or services and products for that matter)
 - Better customer collaboration
 - Ability to respond to change
 
-Instead, people will focus on better Business Outcomes:
+And people will gradually focus on better business outcomes:
 - Deliver increased Customer **Value**
 - Optimize the **Flow** for faster delivery
 - Increase **Quality** with Feedback Loops
 
-{:start="3"}
-3. Leading for uncertainty 
+#### Leading with uncertainty 
 
-Because leading for uncertainty is the smarter thing to do, in a world where we as customers don't always know what we want, we as product creators don't always know exactly how to build the product, and things and people tend to change along the way.
+Because leading with uncertainty is the smarter thing to do, in a world where we - as customers - don't always know what we want, we - as product creators - don't always know exactly how to build the product, and where things and people tend to change along the way.
 
 Uncertainty requires the right behavior and mindset to tackle it: e.g. cultivate and kindle a discovery mindset, experimental and incremental thinking, and implementing feedback loops.
 We all need to practice and keep on practicing, to walk the talk, and eventually lead by example. 
 
-{:start="4"}
-4. Agile throughout the enterprise
+#### Agile throughout the enterprise
+
+The way organisations are structured today, is a remnant of what was required in the industrial age. 
+But focusing on the customer and tracking the value stream has led to insights on how work and collaboration should be organised in a smarter, more valuable way, for all parties involved. 
+Working together cross-departmental with an empowered team, focusing on a common *customer inspired* goal, helps to limit handovers, approval flows and delayed communication. 
+To make this happen, every person who's directly involved in this end-to-end value stream, from any silo throughout the company, needs to be allowed and be able to work dedicatedly, and transparantly as well as make local decisions on matters that require her/his expertise.
+
+This way of working depends upon efficient alignment and trust... in people and their abilities, to make the magic happen. 
+Trust is not given, it should be *a given* that people perceive and recognise, from the moment they first enter the company building.
+When trust is present, people take decisions, and cultivate ownership.  
+
+#### Solve Holistic Problems
+
+The sky is the limit. And it always has been for the intrepid.
+No business domain or sector is simple and predictable enough to allow it to acquiesce in the industrial way of working.
+With IT and AI permeating every nook and cranny of this global society, and with companies being ushered by market disruptions to the verge of survival, we need to realise that focusing on value creation and optimizing the whole (the team, the company, the system) to service the customer is the smartest way forward.
+
+Seeing and understanding the bigger picture of what we - as a team, as a company, as a sector - deliver to society is the next step.
+From then on we will be solving holistic problems, in a holistic way. With our thriving society as the customer.
 
 ## Escape Velocity, by Doc Norton
 
