@@ -74,7 +74,7 @@ The backlog keeps growing, which is normal as we continue to learn about the bus
 ## What
 
 So during the course of the project, I've had to report the progress to management.  
-For this, I used the velocity of the team to generate a burndown chart so that they could see by what date we would arrive at the end. 
+For this, I used the velocity of the team to generate a burnup chart so that they could see by what date we would arrive at the end. 
 That's called forecasting.  
 
 <span class="image left"><img class="p-image" alt="Timeline" src="{{ '/img/2019-11-20-agile-reporting/reporting-timeline.png' | prepend: site.baseurl }}"></span>
