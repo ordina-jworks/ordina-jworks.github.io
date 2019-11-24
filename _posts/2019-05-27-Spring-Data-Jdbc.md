@@ -303,7 +303,7 @@ But if that happens, it could be that the boundary of your aggregate is too big 
 
 ##### Examples
 
-When we try to do the same thing as spring data jpa in spring data jdbc, then you need to go at it differently.
+When we try to do the same thing as we did in spring data jpa in spring data jdbc, then you need to go at it differently.
 The first difference is that we can't use the RentalRepository because it does not exist. 
 It does not exist because Rental is not an aggregate root, but is part of the aggregate with aggregate root RentalCompany. 
 This is why we now need to use the RentalCompanyRepository.
@@ -330,9 +330,14 @@ The other difference is that we cannot use derived queries, so we need to use th
 
 {% highlight java %}
 
-    public interface RentalRepository extends PagingAndSortingRepository<Rental, Long> {
+    public interface RentalCompanyRepository extends CrudRepository<RentalCompany, Long> {
     
-        List<Rental> findByCompanyIdAndCarType(Long rentalCompanyId, CarType carType);
+        @Query(value = "SELECT * " +
+                "FROM Rental rental " +
+                "JOIN Car car ON car.id = rental.car_id " +
+                "WHERE rental.rental_company = :companyId " +
+                "AND car.type = :carType")
+        List<Rental> findRentalsByIdAndCarType(@Param("companyId") Long companyId, @Param("carType")String carType);
     }
     
 {% endhighlight %}
@@ -343,11 +348,197 @@ There are also different ways to update the data inside the applications.
 
 #### Spring jdbc
 
+Spring jdbc again only provides a framework when updating data from the database. 
+The jdbc template exposes an update method. This method can accept a query and optional parameters.
+
+##### Example
+
+A simple code example where we update the color of a given car. 
+
+{% highlight java %}
+
+    String query = "update Car set color = ? where id = ?";
+    jdbcTemplateObject.update(query, color, id);
+
+{% endhighlight %}
+
 
 #### Spring data jpa
 
+In spring data jpa we have managed entities.
+These are entities where all changes are tracked. These changes are stored in a persistence context.
+Instead of always needing to create queries to update data in the database, we can edit these entities. 
+These changes will than always be persisted automatically. 
+This tracking is called dirty tracking because when you change the entities, these updates are making the entity "dirty" because the state is different than the data from the database.
+When the hibernate session will be flushed, these changes will be persisted so they will be clean again.
+This will only be done in transactional methods. 
+If methods are not in a transactional context, it is the responsibility of the program to persist the changes.
+This can be done by calling the save method on the repository. 
+
+If you want to make bigger changes, it is also possible to create methods in the repositories. 
+Like querying the database and creating entities, you can also create methods in the repository. 
+Using jpql you can create a query which can update multiple entities at once. 
+Please make sure to add the @modifying annotation. 
+This is a security measure so you can not modify something by mistake.
+
+##### Example
+
+If you should want to change the color on all hatchback cars, you can do this in different ways. I will give three.
+
+If you do it in a transaction, the dirty tracking will take care of the changes.
+
+{% highlight java %}
+
+       @Service
+       public class CarService {
+       
+           public CarRepository carRepository;
+       
+           public CarService(CarRepository carRepository){
+               this.carRepository = carRepository;
+           }
+       
+            @Transactional
+           public List<Car> updateColorOfCarsWithCarType(CarType carType, String color) {
+               List<Car> carsWithType = carRepository.findByCarType(rentalCompanyId, carType);
+               for(Car currentCar : carsWithType){
+                    currentCar.setColor(color);
+               }
+           }
+       }
+
+{% endhighlight %}
+
+if you do it without a transaction, you need to also add implementation to instruct hibernate to persist the changes.
+
+{% highlight java %}
+
+       @Service
+       public class CarService {
+       
+           public CarRepository carRepository;
+       
+           public CarService(CarRepository carRepository){
+               this.carRepository = carRepository;
+           }
+       
+           public List<Car> updateColorOfCarsWithCarType(CarType carType, String color) {
+               List<Car> carsWithType = carRepository.findByCarType(rentalCompanyId, carType);
+               for(Car currentCar : carsWithType){
+                    currentCar.setColor(color);
+                    carRepository.save(currentCar);
+               }
+           }
+       }
+
+{% endhighlight %}
+
+A third way you can do this is by queries.
+
+{% highlight java %}
+
+       @Service
+       public class CarService {
+       
+           public CarRepository carRepository;
+       
+           public CarService(CarRepository carRepository){
+               this.carRepository = carRepository;
+           }
+       
+           @Transactional
+           public List<Car> updateColorOfCarsWithCarType(CarType carType, String color) {
+               List<Car> carsWithType = carRepository.updateColorOfCarsWithCarType(rentalCompanyId, carType);
+           }
+       }
+       
+       public interface CarRepository extends CrudRepository<Rental, Long> {
+       
+           @Modifying
+           @Query(value = "Update Car car " +
+                   "SET car.color = :color "
+                   "WHERE car.type = :carType ")
+           List<Car> updateColorOfCarsWithCarType(@Param("color") String color, @Param("carType")String carType);
+       }
+
+{% endhighlight %}
+
+
 #### Spring data jdbc
-Geen dirty tracking
+Spring data jdbc does not have a persistence context like spring data jpa.
+This makes Spring data jdbc in my opinion more straightforward than spring data jpa.
+If you want to make changes to the data, you are responsible for handling the persistence.
+If you do not call the save method in the repository, the changes will not be persisted.
+
+You also have the choice to update the aggregates using self written queries. 
+Like I already mentioned are these queries executed directly on the jdbc instead of using a hibernate layer.
+
+##### Examples
+
+If we want to change the colors of all colors of a same type like we did in the example of spring data jpa.
+
+You can do it like example 2 of spring data jpa.
+
+{% highlight java %}
+
+       @Service
+       public class CarService {
+       
+           public CarRepository carRepository;
+       
+           public CarService(CarRepository carRepository){
+               this.carRepository = carRepository;
+           }
+       
+           public List<Car> updateColorOfCarsWithCarType(CarType carType, String color) {
+               List<Car> carsWithType = carRepository.findByCarType(rentalCompanyId, carType);
+               for(Car currentCar : carsWithType){
+                    currentCar.setColor(color);
+                    carRepository.save(currentCar);
+               }
+           }
+       }
+       
+       public interface CarRepository extends CrudRepository<Rental, Long> {
+              
+          @Query(value = "SELECT * "
+                  "FROM Car car " +
+                  "WHERE car.type = :carType ")
+          List<Car> findByCarType(@Param("color") String color, @Param("carType")String carType);
+      }
+
+{% endhighlight %}
+
+A other way you can do this is by an update query which is the same to spring data jpa in this example. 
+If we would have wanted to update a part of an aggregate apart from the aggregate root, 
+we would have needed to go through the aggregate root since the aggregate root manages the aggregate and there are only repositories for the aggregate roots.
+
+{% highlight java %}
+
+       @Service
+       public class CarService {
+       
+           public CarRepository carRepository;
+       
+           public CarService(CarRepository carRepository){
+               this.carRepository = carRepository;
+           }
+       
+           @Transactional
+           public List<Car> updateColorOfCarsWithCarType(CarType carType, String color) {
+               List<Car> carsWithType = carRepository.updateColorOfCarsWithCarType(rentalCompanyId, carType);
+           }
+       }
+       
+       public interface CarRepository extends CrudRepository<Rental, Long> {
+       
+           @Query(value = "UPDATE Car car " +
+                   "SET car.color = :color
+                   "WHERE car.type = :carType ")
+           List<Rental> updateColorOfCarsWithCarType(@Param("color") String color, @Param("carType")String carType);
+       }
+
+{% endhighlight %}
 
 
 ## Advantages of using spring data jdbc
