@@ -365,8 +365,11 @@ A simple code example where we update the color of a given car.
 
 #### Spring data jpa
 
-In spring data jpa we have managed entities.
-These are entities where all changes are tracked. These changes are stored in a persistence context.
+Spring data jpa provides more tools to update the data. As already mentioned does spring data jpa have an abstraction layer above the data, entities.
+The state of these entities is stored in a persistence context.
+By using this, spring data jpa is able to keep track of the changes to these entities.
+It uses the information of these changes to keep the database up to date. 
+Spring data jpa makes from these entities, managed entities.
 Instead of always needing to create queries to update data in the database, we can edit these entities. 
 These changes will than always be persisted automatically. 
 This tracking is called dirty tracking because when you change the entities, these updates are making the entity "dirty" because the state is different than the data from the database.
@@ -375,7 +378,7 @@ This will only be done in transactional methods.
 If methods are not in a transactional context, it is the responsibility of the program to persist the changes.
 This can be done by calling the save method on the repository. 
 
-If you want to make bigger changes, it is also possible to create methods in the repositories. 
+If you want to make bigger changes, it is also possible to create update methods in the repositories. 
 Like querying the database and creating entities, you can also create methods in the repository. 
 Using jpql you can create a query which can update multiple entities at once. 
 Please make sure to add the @modifying annotation. 
@@ -473,6 +476,9 @@ If you do not call the save method in the repository, the changes will not be pe
 You also have the choice to update the aggregates using self written queries. 
 Like I already mentioned are these queries executed directly on the jdbc instead of using a hibernate layer.
 
+Upating the data is done with the help of the aggregate abstraction where the aggregate root is responsible for persisting the aggregates under this root.
+If you call the save method on the aggregate root, the entire aggregate will be persisted.
+
 ##### Examples
 
 If we want to change the colors of all colors of a same type like we did in the example of spring data jpa.
@@ -543,20 +549,44 @@ we would have needed to go through the aggregate root since the aggregate root m
 
 ## Advantages of using spring data jdbc
 ### Better design
-I have mentioned multiple times that spring data jdbc will help you with following Domain driven design principles. A great explanation why this design can help you can be found here: https://dddcommunity.org/library/vernon_2011/
-small entities, only one-to-many relationships. Otherwise you need to use id's. You can easily see what is in aggregate. When you use objects it is in aggregate. 
-If it is an id, it is not part of the aggregate. 1 repository per aggregate.
+One of the biggest advantages that you can get from using spring data jdbc is that it will force you to follow the rules of DDD design like using aggregates.
+A great explanation why this design can help you can be found here: https://dddcommunity.org/library/vernon_2011/
+
+Because only one-to-many relationships are used, it makes it more easy to see what exactly are the relationships between the classes.
+Classes can only be part of 1 aggregate. Together with the one-to-many rule makes it also impossible to create circle dependencies.
+If you need to create relationships between aggregates, you need to use id's. This makes the coupling between the aggregates as small as possible.
+
+I is also clear where the logic of the interactions with the data can be found because only the aggregate roots have repositories because they are responsible for these interactions.
 
 
 ### Easier to understand
-No lazy loading, no caches, ... You need to do more yourself. If you want to save something, you will need to call save. If you want to update something you 
+Only the aggregate roots are responsible for handling the persistence. This makes it clear what needs to be persisted and who is responsible for doing this.
+Because the persistence always needs to be initiated by calling the save method, it makes it easier to understand when changes will be persisted than with spring data jpa.
 
+It is easy to see what classes are part of of an aggregate since aggregates are connected using object references. When id's are used, those classes are part of different aggregates.
+When you query the database, instead of the lazy loading which is standard in spring data jpa, every call using spring data jdbc is done using eager loading. 
+Every time you need data, a call to the database will be done because no caches are used.
+Together these rules give that it is easy to know when a call to the database will be done (always), what parts of the data are returned from the database calls (entire aggregate) and it is easy to know what these aggregates are composed of.
+
+Because you are responsible for saving when something needs to be saved, and when you do a call trough a repository, the entire aggregate is returned. 
+This makes that you need to do a little bit more yourself, but it also makes that you are in complete control of the entire data flow.
 
 ### Performance
-You can write your queries yourself which will executed exactly as you specified them into the database. 
-This is for example different to spring data jpa which uses jpql.
+With spring data jdbc you have a little more control which query will be executed on the database since it is executed directly on the jdbc instead of going through a middle layer.
+All the queries are eager, this is also an advantage because less queries need to be sent to the database.
+With spring data jpa you have more possibilities for fine tuning performance because of the possibility of using the lazy loading and the usage of a cache.
+Because of these possibilities it is also more difficult to create a configuration for a good performance.
 
 ## Should I use it?
-Spring data jdbc is in my opinion a very nice addition to the spring data family with lot of potential. But currently I wouldn't yet recommend to use it in a live project because it still has some "children diseases" like some bugs.
-It still doesn't offer named queries and some other functionalities that are very usefull when you want to use is.
-But I would recommend to already play with it a bit because I think that it will have a bright future and currently the basis is already laid so when it breaks through you will have an advantage because you looked at it.
+Spring data jdbc is in my opinion a very nice addition to the spring data family with lots of potential. 
+With the release of spring data jdbc 1.1 it became a lot more stable. If you know the rules to follow, it is now very easy to create a simple application using this technology.
+There are already a lot of advantages of using spring data jdbc and these advantages will only grow when features will be added to it.
+
+There are also some drawbacks. The biggest drawback is that it is rather new, version 1.0 was released less than 2 years ago. 
+It is also still rather difficult to find a lot of information about this technology so if you will use this technology you will need to reserve some time to experiment.
+
+In this case I would advise to at least try the technology out because of the big potential.
+I have had a lot of fun trying out this technology and I noticed that it really helped me creating a good application.
+This technology hits a sweet spot between spring jdbc and spring data jpa by using the good parts of both. On top of that they also added some nice DDD principles.
+
+So in short, go out and try out this technology!
