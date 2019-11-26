@@ -3,7 +3,7 @@ layout: post
 authors: [tim_vierbergen]
 title: 'Observables: The right way'
 image: /img/observables-the-right-way/cover.png
-tags: [Angular,rxjs,Observables,Nodejs]
+tags: [Angular, RxJS, Observables, Node.js]
 category: Frontend
 comments: true
 ---

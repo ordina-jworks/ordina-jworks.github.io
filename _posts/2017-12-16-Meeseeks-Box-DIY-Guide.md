@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: 'Building a Meeseeks Box!'
 image: /img/meeseeks/wallpaper.jpg
-tags: [NodeJS, Node, V8, JavaScript, Prototyping, 3D print, 3D printing, Raspberry Pi, Raspberry, Pi, Johnny-Five, Smart, Internet of Things, Meeseeks, Rick & Morty, Ricky and Morty, Wubba lubba dub dub, spring cloud, spring cloud stream, streams]
+tags: [Node.js, V8, JavaScript, Prototyping, 3D printing, Raspberry Pi, Raspberry, Pi, Smart tech, Internet of Things, Spring Cloud, Spring Cloud Stream, Streaming]
 category: IoT
 comments: true
 ---

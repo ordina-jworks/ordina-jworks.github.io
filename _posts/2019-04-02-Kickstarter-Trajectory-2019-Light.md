@@ -3,7 +3,7 @@ layout: post
 authors: [yolan_vloeberghs, seppe_berghmans, giel_reynders, jago_staes]
 title: "Kickstarter Trajectory 2019 Light Edition"
 image: /img/kicks.png
-tags: [Spring, Spring Boot, Angular, Unit Test, Mocking, Microservices, Git, DevOps, Docker, Kubernetes, OpenShift, Typescript, Kickstarter, Security]
+tags: [Spring, Spring Boot, Angular, Unit testing, Mocking, Microservices, Git, DevOps, Docker, Kubernetes, OpenShift, TypeScript, Kickstarter, Young Professional Program, Security]
 category: Kickstarters
 comments: true
 ---

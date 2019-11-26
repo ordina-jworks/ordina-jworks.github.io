@@ -3,7 +3,7 @@ layout: post
 authors: [martijn_willekens]
 title: "Automated testing with Gauge"
 image: /img/2018-01-05-gauge-automated-testing/gauge.png
-tags: [Gauge,E2E,End to end,Testing,Test automation,Automation]
+tags: [Gauge, E2E, Testing, Test Automation, Automation]
 category: Testing
 comments: true
 ---
