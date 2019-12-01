@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_houtte]
 title: 'Securing your cloud-native microservice architecture in Spring: part 2'
 image: /img/microservices/part2/part2logo.jpg
-tags: [Microservices, Security, Encryption, Spring, Cloud, Config]
+tags: [Microservices, Security, Encryption, Spring, Cloud, Spring Cloud, Config]
 category: Microservices
 comments: true
 ---

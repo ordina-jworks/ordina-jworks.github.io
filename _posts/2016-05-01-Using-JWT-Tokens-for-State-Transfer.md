@@ -3,7 +3,7 @@ layout: post
 authors: [andreas_evers]
 title: 'Using JWT for state transfer'
 image: /img/JWT/jwt-logo.png
-tags: [JWT,State,Cache]
+tags: [JWT, State, Cache]
 category: Microservices
 comments: true
 ---

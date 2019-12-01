@@ -3,7 +3,7 @@ layout: post
 authors: [martin_kwee]
 title: 'Spring I/O 16: Bridging the worlds of DDD & REST'
 image: /img/springio.jpg
-tags: [Spring IO,Spring,Conference]
+tags: [Spring IO, Spring, Conference]
 category: Conference
 comments: true
 ---

@@ -1,18 +1,18 @@
 ---
 layout: post
 authors: [andreas_evers]
-title: '"Bootiful" Microservices in CloudFoundry & One on One with Josh Long'
+title: '"Bootiful" Microservices in Cloud Foundry & One on One with Josh Long'
 image: /img/springio.jpg
-tags: [Spring]
+tags: [Spring, Spring IO, Conference]
 category: Spring
 comments: true
 ---
 
->Spring Boot, Spring Cloud and CloudFoundry: a perfect match. Josh Long explains how to build Spring Boot microservices, deploy them in CloudFoundry and manage them using the Netflix OSS stack through Spring Cloud. Including a One on One talk.
+>Spring Boot, Spring Cloud and Cloud Foundry: a perfect match. Josh Long explains how to build Spring Boot microservices, deploy them in Cloud Foundry and manage them using the Netflix OSS stack through Spring Cloud. Including a One on One talk.
 
 <img class="image fit" alt="Sagan: The Spring.io website" src="{{ '/img/SpringIO2015/hystrix-sample.png' | prepend: site.baseurl }}">
 
-### Can Your Cloud Do This - CloudFoundry talk
+### Can Your Cloud Do This - Cloud Foundry talk
 
 *Speaker: Josh Long - [Talk & speaker description](http://www.springio.net/can-your-cloud-do-this-getting-started-with-cloud-foundry/)*
 

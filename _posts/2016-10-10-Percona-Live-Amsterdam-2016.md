@@ -3,7 +3,7 @@ layout: post
 authors: [dieter_wallecan]
 title: 'Percona Live Amsterdam 2016'
 image: /img/2016-10-16-Percona-Live/PLAM-16-01.png
-tags: [Percona Live, MySql, MongoDB, MariaDB, DBA, PostgreSQL]
+tags: [Percona Live, MySQL, MongoDB, MariaDB, DBA, PostgreSQL]
 category: Conference
 comments: true
 ---

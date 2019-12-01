@@ -3,7 +3,7 @@ layout: post
 authors: [tim_vierbergen]
 title: '3 Stages of API testing'
 image: /img/3-stages-api-testing/overview.png
-tags: [Node-RED,angular,nestjs,jest,GoCD,docker,ci]
+tags: [Node-RED, Angular, NestJS, Jest, GoCD, Docker, Continuous Integration]
 category: Testing
 comments: true
 ---

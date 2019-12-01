@@ -3,7 +3,7 @@ layout: post
 authors: [michael_vervloet, axel_bergmans]
 title: 'Stairway to Health 2.0 (the Ordina version)'
 image: /img/stairwaytohealth2/banner.jpg
-tags: [NodeJS, nestJs, MongoDB, Angular, ExpressJS, Express, TypeScript, Angular-CLI, Internet of Things, IoT, LoRa]
+tags: [Node.js, NestJS, MongoDB, Angular, Express, TypeScript, Angular-CLI, Internet of Things, LoRa]
 category: IoT
 comments: true
 ---

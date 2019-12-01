@@ -3,7 +3,7 @@ layout: post
 authors: [yannick_de_turck]
 title: 'Mocking in Kotlin with MockK'
 image: /img/writing-tests-in-kotlin-with-mockk/mockk.png
-tags: [Kotlin, MockK, Unit Testing, Mocking, Mockito, TDD, Test-Driven Development]
+tags: [Kotlin, MockK, Unit testing, Mocking, Mockito, Test-Driven Development]
 category: Testing
 comments: true
 ---
