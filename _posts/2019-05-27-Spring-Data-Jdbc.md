@@ -8,8 +8,8 @@ category: Java
 comments: true
 ---
 
-> A new member is added to the spring data family. Spring data jdbc is positioned between Spring data jpa and Spring jdbc.
-> This post will describe the current state and the future of this product. It will also explain what problems this product is trying to solve.
+> A new member is added to the spring data family. Spring data jdbc is positioned between Spring data jpa and Spring jdbc with the best elements of both.
+> This post will describe the current state and the future of this product. It will also explain what problems this product is trying to solve and how.
 
 # Table of content
 
@@ -20,52 +20,39 @@ comments: true
 ## Introduction
 Spring data jdbc is a new member of the spring data family. 
 It is created to fill a void that sits between spring jdbc and spring data jpa.
-Spring data jdbc contains a lot of features that other spring data products also possess. 
-The creators also wanted to make this product more easy to understand and use than spring data jpa and they want to force you to use DDD principles in your project.
-In the rest of this article the differences with spring data jpa and sping jdbc will be shown.
+If you look at spring jdbc, you could argue that it is too low level to work with and spring data jdbc could seem too complex.
+Spring data jdbc is a framework that tries to give you the same power you get from using spring data jpa but makes it more understandable by using DDD principles.
+It also gives you more control by working on a lower level and by letting you decide when database interactions need to be done like spring jdbc, just more user friendly. 
+In the rest of this article the differences between spring data jpa, spring data jdbc and sping jdbc will be shown.
 This will hopefully show that spring data jdbc is a very nice product with a lot of potential that is designed to help you.
 
 ## Spring jdbc vs Spring data jdbc vs Spring data jpa
 
-### Setting up the database
-A lot of projects still use sql databases. The setup of these databases can be a lot of work especially if you have a more complex project. 
-All these frameworks can help you with this, but they do it in a different way.
+### Project structure
+One of the biggest differences is how the structure is different of projects using these 3 frameworks.
+The differences in structure will show you the approach of how these frameworks will help you.
+Spring jdbc only helps with executing sql statements, so it is totally up to you to create a structure for handling your data.
+At the opposite side there also exists spring data jpa which uses a domain model and repository classes to let you reason on a higher level.
+Spring data jdbc also needs a domain model like spring data jpa to work, but needs to comply to some other rules based on DDD principles.
 
 #### Spring jdbc
 The help that Spring jdbc provides is by providing a framework to execute SQL. 
-You can use jdbc templates to create tables and even fill them up. To do this, you need to write SQL statements and execute them with a JdbcTemplate.
-When you use spring jdbc, you need to think about how you want that the database looks like and it will help you with creating these databases.
-Because you are working on a rather low level, this also means that you have complete control over what will be created.
-
-##### Example:
-{% highlight java %}
-
-    SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
-    dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
-    dataSource.setUrl("jdbc:hsqldb:data/jdbcexample");
-    dataSource.setUsername("sa");
-    dataSource.setPassword("");
-        
-    JdbcTemplate template = new JdbcTemplate(ds);
-    template.execute("create table car (id int, model varchar)");
-    template.execute("insert into car (id, model) values (1, 'Volkswagen Beetle')");
-    
-    dataSource.destroy();
-    
-{% endhighlight %}
+Spring jdbc handles the connection with the database and lets you execute queries using JdbcTemplates.
+Since this is rather low level, this also means that it provides almost to no help for structuring your project regarding data management.
 
 #### Spring data jpa
-Spring data jpa helps with the creation of your database structure. 
-Spring data uses the concept of entities to determine which classes need to be saved to the database.
+Spring data jpa uses entities to structure you data management.
+These entities are classes that are used as a mapping for the database.
+Instead of defining the database structure using sql queries, spring data jpa uses the information in these entities to create it.
+It not only contains a direct mapping to the database tables, but by using annotations, these also contain information about the links between databases.
+
 A class is seen as an Entity when it is annotated with the @Entity annotation.
-The data of each entity class will standard be saved in a separate database table.
-To define how the links in the classes need to be created in the database structure, other annotations can be added inside the entity classes.
 The most common links are @OneToMany, @ManyToOne and @ManyToMany.
 For example if class A has a @OneToMany relationship to class B then the database scheme will have a foreign key in table B to table A and hibernate will keep a list of linked B elements in entity A. 
 
-These were just the basics of how to define your data structure. 
-This was to illustrate how spring data jpa uses annotations on classes to create a database.
+These were just the basics of how to define your data structure in your project. 
 So with spring data jpa you don't have to write all the sql statements yourself to create your database schema, because this can be done automatically by spring data jpa.
+This structure can after the creation also be used for all other interactions with the database which will be shown later in this blog.
 
 This system has also some disadvantages. 
 Spring data jpa gives you so many options that it is very easy to make a complicated, not easily understandable, schema.
@@ -108,35 +95,36 @@ In that example you need a intermediate table and reference use a reference to t
 
 
 #### Spring data jdbc
-When you use spring data jdbc, this will also help you with creating your database.
-When you write spring data jdbc, like spring data jpa, you need to define a model and this model will be translated to create a database structure.
+When you use spring data jdbc, this will also help you with creating the data structure of your project.
+With spring data jdbc, like spring data jpa, you need to define a model and this model will be translated to create a database structure.
 This model is somewhat different than the model of spring data jpa and you need to follow some other rules.
 Before the explanation of the practical differences, you should know why the developers of spring data jdbc made most of the changes to this spring data framework.
-They wanted to make a framework that is more understandable than spring data jpa and helps you with creating a better data design.
+They wanted to make a framework that is more understandable than spring data jpa and that helps you with creating a better data design.
 Therefore they tried to implements some concepts of DDD.
 
-The first big difference is that we work with aggregates instead of entities.
+The first big difference is that we work with an aggregate structure on top of the entity structure which is used in spring data jpa.
 If you don't know this concept or why it is useful, you can check some very good article about this: Effective Aggregate Design by Vaugn Vernon.
 https://dddcommunity.org/library/vernon_2011/
-Because we use aggregates we don't want a table for each class/entity, but one for each aggregate. 
+Basically we group different entities together which have a strong coupling and we call them aggregates.
+The top entity of the aggregate is called the aggregate root.
+There are some other rules that needs to be followed:
+An entity can only be part of 1 aggregate and all relations inside an aggregate need to be unidirectional and the aggregate root need to manage the top relation.
 
-We link classes together to form an aggregate with at the top the aggregate root, by using object references and the @ManyToOne annotation.
-This makes it easy to define boundaries of the aggregate. 
-If a class can't reach another class by using object references than they are not part of the same aggregate.
-We can link aggregates together by using the id's of the aggregate roots. 
+This means that by following links starting from the aggregate root, every entity inside the aggregate can be found.
+Because of this, we do not need a repository for each entity like in spring data jpa, but only for the aggregate roots.
+To link entity classes together to form an aggregate, you need to use object references.
+Entity classes inside an aggregate can only have one-to-one relationships and one-to-many relationships. 
+If you have a one-to-one relationship your entity only needs an object reference to the other object. 
+When you have a one-to-many relationship your entity needs to contain a collection of object references.
+To create relations to entities outside the aggregate, id's need to be used to get a low coupling between these classes.
 
-When spring data jdbc is used, @Entity annotations don't need to be used. 
-When a class is used in a repository, spring data jdbc knows this is an aggregate root. 
-Aggregate roots can also contain references to other classes, if they do, spring data jdbc knows that these are part of the aggregate.
-
-You should also notice that only the @OneToMany and @OneToOne relations are supported in spring data jdbc.
-This is done according to the theory behind aggregates. 
-If spring data jdbc would allow to use @ManyToMany or @ManyToOne relations then it would be possible to reference aggregate root object from its child objects.
-This would make it more unstructured than when only @OneToMany relations are allowed.
-Again we don't use annotations to define what kind of relation it is, but it is implied when we use collections or reference another class.
+A big difference in creating the domain model that is used in spring data jdbc versus spring data jpa is that no @Entity and no relation annotations like @OneToMany need to be used.
+Spring data jdbc knows a class is an aggregate root when it contains a repository for that class. 
+And because of the rules that the aggregate entities are connected through object references, spring data jdbc also knows what the aggregates are and create a database structure that corresponds to this structure.
 
 In the following example you can see 2 aggregate roots RentalCompany and Car. 
-Rental is part of the aggregate of RentalCompany.
+Rental is part of the aggregate of RentalCompany. 
+This domain model will also be used in the other examples inside this article to compare the differences between the three frameworks.
 
 ##### Example:
 
@@ -177,6 +165,34 @@ Rental is part of the aggregate of RentalCompany.
     
 
 {% endhighlight %}
+
+### Inserting data
+
+#### Spring jdbc
+You can use jdbc templates to create tables and even fill them up. To do this, you need to write SQL statements and execute them with a JdbcTemplate.
+When you use spring jdbc, you need to think about how you want that the database looks like and it will help you with creating these databases.
+Because you are working on a rather low level, this also means that you have complete control over what will be created.
+
+##### Example:
+{% highlight java %}
+
+    SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
+    dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+    dataSource.setUrl("jdbc:hsqldb:data/jdbcexample");
+    dataSource.setUsername("sa");
+    dataSource.setPassword("");
+        
+    JdbcTemplate template = new JdbcTemplate(ds);
+    template.execute("create table car (id int, model varchar)");
+    template.execute("insert into car (id, model) values (1, 'Volkswagen Beetle')");
+    
+    dataSource.destroy();
+    
+{% endhighlight %}
+
+#### Spring data jpa
+
+#### Spring data jdbc
 
 ### Querying the database
 To know what information is stored inside our database, we need to query the database. The three frameworks I am comparing each have tools to help you with this.
