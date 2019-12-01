@@ -167,6 +167,9 @@ This domain model will also be used in the other examples inside this article to
 {% endhighlight %}
 
 ### Inserting data
+For the insertion of data you need to use the tools that were created in the previous section. 
+If you use Spring jdbc you will use queries that are executed directly on the jdbc using the jdbcTemplate.
+If you insert data with Spring data jpa or Spring data jdbc, you can use the entity or aggregate system that was created.
 
 #### Spring jdbc
 You can use jdbc templates to create tables and even fill them up. To do this, you need to write SQL statements and execute them with a JdbcTemplate.
@@ -191,11 +194,71 @@ Because you are working on a rather low level, this also means that you have com
 {% endhighlight %}
 
 #### Spring data jpa
+If you use spring data jpa for inserting data, you will need to use the repositories and the entities.
+This makes it possible to think on a higher level and let spring data jpa handle the creation of queries.
+When you want to create data for an entity, the only think you need to do is create an object with the correct values and save this object using the repository.
+Spring data jpa will then use the configuration stored in the entities to create the necessary queries.
+The handling of the repositories is normally done inside a service.
+
+##### Example
+
+To show how this is done in spring data jpa, I have added a simple example of how you can create a rental.
+
+{% highlight java %}
+
+    @Service
+    public class RentalService{
+        
+        private RentalRepository rentalRepository;
+        
+        public RentalService(RentalRepository rentalRepository){
+            this.rentalRepository = rentalRepository;
+        }
+        
+        public Rental create(Rental rental){
+            return rentalRepository.save(rental);
+        }
+    }
+    
+{% endhighlight %}
 
 #### Spring data jdbc
+Spring data jdbc uses a syntax that is comparable to spring data jpa.
+The biggest differences are under the hood.
+The management of the persistence is handled by the repository like in spring data jpa, but only the aggregate root has a repository.
+This means that if you want to create data, the entire aggregate needs to be saved.
+You will need to to call the save method of the repository of the aggregate root and this will first save the aggregate root and then all of the referenced entities get saved.
+If you want to insert only a part of an aggregate where the aggregate root exists, for example only create a new Rental, then the aggregate root will be updated and the referenced entities will be deleted and inserted again.
+
+##### Example
+
+The example shows how a rental can be added. If you should want to create a new instance of an aggregate root, then the code is comparable to that of Spring data jpa.
+
+{% highlight java %}
+
+    @Service
+    public class RentalCompanyService{
+        
+        private RentalCompanyRepository rentalCompanyRepository;
+        
+        public RentalCompanyService(RentalCompanyRepository rentalCompanyRepository){
+            this.rentalCompanyRepository = rentalCompanyRepository;
+        }
+        
+        public RentalCompany addRental(Rental rental, Long rentalCompanyId){
+            RentalCompany rentalCompany = rentalRepository.findById(rentalCompanyId);
+            rentalCompany.getRentals().add(rental);
+            return rentalRepository.save(rentalCompany);
+        }
+    }
+
+{% endhighlight %}
+
 
 ### Querying the database
-To know what information is stored inside our database, we need to query the database. The three frameworks I am comparing each have tools to help you with this.
+To know what information is stored inside our database, we need to query the database.
+Spring jdbc will let you use the jdbc template and let you convert the result yourself using a rowmappers.
+Spring data jdbc and Spring data jpa will also let you create queries, using jpql or jdbc queries, but you will write them in an extension in the repositories and they will help you with the mapping.
 
 #### Spring jdbc
 The main tool that spring jdbc uses for querying is the jdbc template. You can use this for connecting to the jdbc and therefore the database.
@@ -242,8 +305,7 @@ This mapper can be passed to the jdbc template so the conversion can be used to 
 When you use the spring data framework, it will help you with building your queries and getting the right information.
 The spring data jpa framework uses hibernate. They make it possible to query the database using user friendly interfaces.
 When you want to query the database, instead of writing the entire query yourself, hibernate will help you. 
-To query the database you need to define a repository interface for the entity that you want to query. 
-In that repository you need to define which methods you want to use. 
+There are multiple ways to query the database using Spring data jpa, but they all need you to extend the repository of the entity you want to query.
 
 Some basic queries can be written using derived queries. An example of this is findById. 
 For these methods spring data will generate the sql entirely on its own.
@@ -275,7 +337,7 @@ The service that calls a repository to get all rentals with a given CarType.
     @Service
     public class RentalService {
     
-        public RentalRepository rentalRepository;
+        private RentalRepository rentalRepository;
     
         public RentalService(RentalRepository rentalRepository){
             this.rentalRepository = rentalRepository;
@@ -300,11 +362,11 @@ The repository uses a derived query to expose this functionality.
 {% endhighlight %}
 
 #### Spring data jdbc
-@query is anders (jpql). Er is geen lazy loading. Geen caching.
-
 Spring data jdbc sits closer to the database than spring data jpa but uses spring data concepts to make it easier for its users than spring jdbc. 
 
-It sits closer to the database because it doesn't contain the most part of the spring data magic when querying the database. 
+It sits closer to the database because it does not contain the most part of the spring data magic when querying the database.
+Every query is executed directly on the jdbc and there is no lazy loading or caching, so when you query the database, it will return the entire aggregate.
+
 Currently when you want to add a method to your repository in spring data jdbc, you need to add an @Query annotation which contains the query.
 This needs to be pure sql instead of jpql which is used in spring data jpa. You can compare this best with the native queries that are added to spring data jpa.
 Because spring data jdbc sits so close to the database, it is like native queries in spring data jpa not possible to have paging and sorting repositories.
@@ -312,8 +374,8 @@ These types of repositories will be added in the future. This is like the derive
 
 When you query the application using spring data jdbc, instead of entities, you will receive the entire aggregate. 
 This makes the application easier to understand. 
-The application doesn't need to rely on an application context to keep the state of the entities updated. 
-Because the entire objects are fetched, there aren't extra calls needed to receive the field values of objects that weren't loaded yet because all the fields are already filled in.
+The application doesn't need to rely on an application context to get the state of properties of returned entities.
+Because the entire objects are fetched, there are no extra calls needed to receive the field values of objects that were not loaded yet because all the fields are already filled in.
 The disadvantage of this system could be that too much data will be loaded. 
 But if that happens, it could be that the boundary of your aggregate is too big and it is possible that you need to split up your aggregate.
 
@@ -360,7 +422,7 @@ The other difference is that we cannot use derived queries, so we need to use th
 
 ### updating an instance
 
-There are also different ways to update the data inside the applications.
+When you want to update an instance in the database, you will need to write a query and execute it using the jdbcTemplate or use the domain model in spring data jpa or spring data jdbc.
 
 #### Spring jdbc
 
@@ -490,10 +552,15 @@ If you want to make changes to the data, you are responsible for handling the pe
 If you do not call the save method in the repository, the changes will not be persisted.
 
 You also have the choice to update the aggregates using self written queries. 
-Like I already mentioned are these queries executed directly on the jdbc instead of using a hibernate layer.
+Like I already mentioned, these queries are executed directly on the jdbc instead of using a hibernate layer.
 
-Upating the data is done with the help of the aggregate abstraction where the aggregate root is responsible for persisting the aggregates under this root.
+Upating the data is done with the help of the aggregate abstraction where the repository of the aggregate root is responsible for persisting the data of its aggregates.
 If you call the save method on the aggregate root, the entire aggregate will be persisted.
+
+Because spring data jdbc does not contain a persistence context like spring data jpa, it does not know which part of the aggregate is updated. 
+Therefore it will update the aggregate root and delete all the referenced entities and save them all again.
+This has as a downside that sometimes entities will be deleted and saved without that they were changed and could be a waste of resources.
+The big advantage is that you are sure that the entire entity will be up to date after saving the aggregate.
 
 ##### Examples
 
@@ -590,7 +657,8 @@ This makes that you need to do a little bit more yourself, but it also makes tha
 ### Performance
 With spring data jdbc you have a little more control which query will be executed on the database since it is executed directly on the jdbc instead of going through a middle layer.
 All the queries are eager, this is also an advantage because less queries need to be sent to the database.
-With spring data jpa you have more possibilities for fine tuning performance because of the possibility of using the lazy loading and the usage of a cache.
+But because spring data jdbc does not have a persistence context, when creating or updating entities in an aggregate, currently this is accomplished by deleting and again saving these entities which could mean that sometimes unnecessary operations will be executed.
+With spring data jpa you have more possibilities for fine tuning performance. For example with the possibility of using the lazy loading and the usage of a cache.
 Because of these possibilities it is also more difficult to create a configuration for a good performance.
 
 ## Should I use it?
