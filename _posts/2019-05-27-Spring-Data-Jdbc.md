@@ -23,9 +23,9 @@ It is created to fill a void that sits between Spring JDBC and Spring Data JPA.
 If you look at Spring JDBC, you could argue that it is too low level to work because it only helps with the connection to the database.
 Spring Data JPA could seem too complex because it gives you a lot of options and it can be difficult to master all these options. 
 Spring Data JDBC is a framework that tries to give you the same power you get from using Spring Data JPA but makes it more understandable by using DDD principles.
-It also gives you more control by working on a lower level and by letting you decide when database interactions need to be done like Spring JDBC, just more user friendly. 
+It also gives you more control by working on a lower level and by letting you decide when database interactions need to be done like Spring JDBC, but in an easier way. 
 In the rest of this article the differences between Spring Data JPA, Spring Data JDBC and Spring JDBC will be shown.
-This will hopefully show that Spring Data JDBC is a very nice product with a lot of potential that is designed to help you.
+This will hopefully show you that Spring Data JDBC is a very nice product with a lot of potential that is designed to help you.
 
 ## Spring JDBC vs Spring Data JDBC vs Spring Data JPA
 
@@ -104,7 +104,7 @@ They wanted to make a framework that is more understandable than Spring Data JPA
 Therefore they tried to implements some concepts of DDD.
 
 The first big difference is that we work with an aggregate structure on top of the entity structure which is used in Spring Data JPA.
-If you don't know this concept or why it is useful, you can check some very good article about this: Effective Aggregate Design by Vaugn Vernon.
+If you don't know this concept or why it is useful, you can check some very good article about this: [Effective Aggregate Design by Vaugn Vernon](https://dddcommunity.org/library/vernon_2011/){:target="_blank" rel="noopener noreferrer"}.
 https://dddcommunity.org/library/vernon_2011/
 Basically we group different entities together which have a strong coupling and we call them aggregates.
 The top entity of the aggregate is called the aggregate root.
@@ -169,13 +169,12 @@ This domain model will also be used in the other examples inside this article to
 
 ### Inserting data
 For the insertion of data you need to use the tools that were created in the previous section. 
-If you use Spring JDBC you will use queries that are executed directly on the JDBC using the JdbcTemplate.
+If you use Spring JDBC you will write queries that are executed directly on the database by JdbcTemplate.
 If you insert data with Spring Data JPA or Spring Data JDBC, you can use the entity or aggregate system that was created.
 
 #### Spring JDBC
-You can use JDBC templates to create tables and even fill them up. To do this, you need to write SQL statements and execute them with a JdbcTemplate.
-When you use Spring JDBC, you need to think about how you want that the database looks like and it will help you with creating these databases.
-Because you are working on a rather low level, this also means that you have complete control over what will be created.
+With Spring JDBC you write your insert statements yourself and execute them with a JdbcTemplate.
+The advantage of writing all the queries yourself, is that you have complete control over them.
 
 ##### Example:
 {% highlight java %}
@@ -197,13 +196,12 @@ Because you are working on a rather low level, this also means that you have com
 #### Spring Data JPA
 If you use Spring Data JPA for inserting data, you will need to use the repositories and the entities.
 This makes it possible to think on a higher level and let Spring Data JPA handle the creation of queries.
-When you want to create data for an entity, the only think you need to do is create an object with the correct values and save this object using the repository.
-Spring Data JPA will then use the configuration stored in the entities to create the necessary queries.
-The handling of the repositories is normally done inside a service.
+When you want to create data for an entity, the only thing you need to do is create an object with the correct values and call the save method on your Spring Data repository.
+Spring Data JPA will then look at your entities with all their annotations to map them to the necessary insert or update statements.
 
 ##### Example
 
-To show how this is done in Spring Data JPA, I have added a simple example of how you can create a rental.
+The example below shows how to insert `Rental` data in the database with Spring Data JPA.
 
 {% highlight java %}
 
@@ -227,13 +225,13 @@ To show how this is done in Spring Data JPA, I have added a simple example of ho
 Spring Data JDBC uses a syntax that is comparable to Spring Data JPA.
 The biggest differences are under the hood.
 The management of the persistence is handled by the repository like in Spring Data JPA, but only the aggregate root has a repository.
-This means that if you want to create data, the entire aggregate needs to be saved.
+This means that if you want to insert or update data, the entire aggregate needs to be saved.
 You will need to to call the save method of the repository of the aggregate root and this will first save the aggregate root and then all of the referenced entities get saved.
-If you want to insert only a part of an aggregate where the aggregate root exists, for example only create a new Rental, then the aggregate root will be updated and the referenced entities will be deleted and inserted again.
+If you want to insert only a part of an aggregate, for example only create a new Rental, then the whole aggregate will be updated and the referenced entities will be deleted and inserted again.
 
 ##### Example
 
-The example shows how a rental can be added. If you should want to create a new instance of an aggregate root, then the code is comparable to that of Spring Data JPA.
+The example shows how a `Rental` is added. If you want to create a new instance of the aggregate root, then the code is comparable to that of Spring Data JPA.
 
 {% highlight java %}
 
@@ -257,12 +255,12 @@ The example shows how a rental can be added. If you should want to create a new 
 
 
 ### Querying the database
-To know what information is stored inside our database, we need to query the database.
-Spring JDBC will let you use the JDBC template and let you convert the result yourself using a rowmappers.
-Spring Data JDBC and Spring Data JPA will also let you create queries, using jpql or JDBC queries, but you will write them in an extension in the repositories and they will help you with the mapping.
+To retrieve data from our database, we write queries.
+Spring JDBC will let you use the `JdbcTemplate` and let you map the result with a rowmapper.
+Spring Data JDBC and Spring Data JPA will also let you create queries, using JPQL or SQL queries, but you will write them in the repositories and the frameworks will help you with the mapping.
 
 #### Spring JDBC
-The main tool that Spring JDBC uses for querying is the JDBC template. You can use this for connecting to the JDBC and therefore the database.
+The main tool that Spring JDBC uses for querying is the `JdbcTemplate`.
 The downside of using this is that it only provides the connection, everything else you need to do yourself.
 If you search for objects, the mapping to java objects will need to be done by you using a self-written Rowmapper.
 You will also need to do the exception handling yourself by creating a ExceptionTranslator.
@@ -292,7 +290,7 @@ This response coming from JDBC needs to be converted by using a mapper.
     
 {% endhighlight %}
 
-This mapper can be passed to the JDBC template so the conversion can be used to get populated java objects.
+This mapper can be passed to the `JdbcTemplate` so the conversion can be used to get populated java objects.
 
 {% highlight java %}
 
@@ -423,12 +421,12 @@ The other difference is that we cannot use derived queries, so we need to use th
 
 ### updating an instance
 
-When you want to update an instance in the database, you will need to write a query and execute it using the JdbcTemplate or use the domain model in Spring Data JPA or Spring Data JDBC.
+When you want to update an instance in the database, you will need to write a query and execute it using the `JdbcTemplate` or use the domain model in Spring Data JPA or Spring Data JDBC.
 
 #### Spring JDBC
 
 Spring JDBC again only provides a framework when updating data from the database. 
-The JDBC template exposes an update method. This method can accept a query and optional parameters.
+The `JdbcTemplate` exposes an update method. This method can accept a query and optional parameters.
 
 ##### Example
 
