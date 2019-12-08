@@ -49,7 +49,7 @@ It not only contains a direct mapping to the database tables, but by using annot
 
 A class is seen as an Entity when it is annotated with the @Entity annotation.
 The most common links are @OneToMany, @ManyToOne and @ManyToMany.
-For example if class A has a @OneToMany relationship to class B then the database scheme will have a foreign key in table B to table A and hibernate will keep a list of linked B elements in entity A. 
+For example if class A has a @OneToMany relationship to class B then the database scheme will have a foreign key in table B to table A and Hibernate will keep a list of linked B elements in entity A. 
 
 These were just the basics of how to define your data structure in your project. 
 So with Spring Data JPA you don't have to write all the SQL statements yourself to create your database schema, because this can be done automatically by Spring Data JPA.
@@ -262,14 +262,14 @@ Spring Data JDBC and Spring Data JPA will also let you create queries, using JPQ
 #### Spring JDBC
 The main tool that Spring JDBC uses for querying is the `JdbcTemplate`.
 The downside of using this is that it only provides the connection, everything else you need to do yourself.
-If you search for objects, the mapping to java objects will need to be done by you using a self-written Rowmapper.
-You will also need to do the exception handling yourself by creating a ExceptionTranslator.
+If you search for objects, you will need to map the results to java objects by implementing a `RowMapper`.
+You will also need to do the exception handling by creating a ExceptionTranslator.
 
-I will show you a simple example of how a simple query is created that will contain data of objects.
+I will show you a simple example of how a query is created.
 
 ##### Examples
 
-This response coming from JDBC needs to be converted by using a mapper.
+This response needs to be mapped by implementing a `RowMapper`.
 
 {% highlight java %}
 
@@ -290,7 +290,7 @@ This response coming from JDBC needs to be converted by using a mapper.
     
 {% endhighlight %}
 
-This mapper can be passed to the `JdbcTemplate` so the conversion can be used to get populated java objects.
+This mapper can be passed to the `JdbcTemplate` that will use it to create populated java objects.
 
 {% highlight java %}
 
@@ -301,9 +301,9 @@ This mapper can be passed to the `JdbcTemplate` so the conversion can be used to
 
 #### Spring Data JPA
 
-When you use the Spring Data framework, it will help you with building your queries and getting the right information.
-The Spring Data JPA framework uses hibernate. They make it possible to query the database using user friendly interfaces.
-When you want to query the database, instead of writing the entire query yourself, hibernate will help you. 
+When you use the Spring Data framework, it will help you with building your queries and fetching the right data.
+The Spring Data JPA framework uses implementations of the jpa specifications like Hibernate. They make it possible to query the database using user friendly interfaces.
+When you want to query the database, instead of writing the entire query yourself, Hibernate will help you. 
 There are multiple ways to query the database using Spring Data JPA, but they all need you to extend the repository of the entity you want to query.
 
 Some basic queries can be written using derived queries. An example of this is findById. 
@@ -325,7 +325,7 @@ This is called eager and lazy loading and this can all be managed by Spring Data
 It will also try to improve performance by giving you the option to cache the results of these queries.
 If you would have the same query, this cache can return the result instead of letting the database calculate it again.
 
-Be aware that even though you use SQL directly, you will still return entities that are managed by hibernate.
+Be aware that even though you use SQL directly, you will still return entities that are managed by Hibernate.
 
 ##### Examples
 
@@ -450,7 +450,7 @@ Spring Data JPA makes from these entities, managed entities.
 Instead of always needing to create queries to update data in the database, we can edit these entities. 
 These changes will than always be persisted automatically. 
 This tracking is called dirty tracking because when you change the entities, these updates are making the entity "dirty" because the state is different than the data from the database.
-When the hibernate session will be flushed, these changes will be persisted so they will be clean again.
+When the Hibernate session will be flushed, these changes will be persisted so they will be clean again.
 This will only be done in transactional methods. 
 If methods are not in a transactional context, it is the responsibility of the program to persist the changes.
 This can be done by calling the save method on the repository. 
