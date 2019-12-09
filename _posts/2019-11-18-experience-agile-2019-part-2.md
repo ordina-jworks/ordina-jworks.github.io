@@ -8,7 +8,7 @@ category: Conference
 comments: true
 ---
 
-Our first blogpost about the eXperienceAgile conference (TODO insert link how?) covered 4 interesting talks.  
+Our first blogpost about the [eXperienceAgile conference](https://www.experienceagile.org/){:target="_blank" rel="noopener noreferrer"} covered 4 interesting talks.  
 However, those were not the only talks so this post will dive deeper into some of the other talks.
 
 # Table of contents
@@ -136,7 +136,9 @@ As an analyst within a SCRUM team, my work can be structured around the 5 R's mo
 Let’s use a concrete example of my work. 
 The 'UnIt' application we are building automates as much as possible the management and payments of the indemnities to insured members when they are unable to work.
 
-This automation has however limitations. For instance, not all claim amounts can be calculated automatically in some complex cases. The idea of allowing users to make certain calculations manually has therefore been evoked and added to the pool of ideas. The idea has been discussed and challenged.
+This automation has however limitations. For instance, not all claim amounts can be calculated automatically in some complex cases. 
+The idea of allowing users to make certain calculations manually has therefore been evoked and added to the pool of ideas. 
+The idea has been discussed and challenged.
 
 #### Revealing the idea
 The idea is now in the pool of ideas, the backlog, according to its value and priority. 
@@ -155,7 +157,8 @@ The functionality needed to implement the manual calculations is now better unde
 The functionality is discussed, refined and cut into smaller increments to obtain workable user stories. 
 All user stories together make possible the manual calculations but can be developed separately. 
 
-The user stories are described in detail with preconditions, post-conditions, use cases for testing and dependencies if any. The user stories are also technically discussed at this stage.
+The user stories are described in detail with preconditions, post-conditions, use cases for testing and dependencies if any. 
+The user stories are also technically discussed at this stage.
 
 #### Realizing the idea
 User stories about the manual calculations have been presented to the entire team during a backlog refinement. 
