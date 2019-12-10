@@ -75,74 +75,74 @@ The image below describes it perfectly.
 The agile transformation is a challenge, but there's hopeful news.  
 It's a long journey, but it is possible to achieve.
 
-> Every change, no matter how big or small, starts with the same word …. YOU!
+> Every change, no matter how big or small, starts with the same word... YOU!
 
 ## Building a Customer Value Engine for a more Successful Company, by Mario Moreira
 
 ### Intro
-**Building a Customer Value Engine for a more Successful Company** aims to give enterprise leaders tools
-and advice to maximize customer value with a high level of agility in their companies. 
+**Building a Customer Value Engine for a more Successful Company** aims to give enterprise leaders tools and advice to maximize customer value with a high level of agility in their companies. 
  
-Some methods explained during this workshop can also be easily used at a project level like for instance 
-the five Rs model that helps to visualize the enterprise idea pipeline. 
- 
-This tool allows to visualize the ideas and treat them from the moment the idea is evoked until the moment it is realized.  
+Some methods explained during this workshop can also be easily used at a project level like, for instance, the five Rs model that helps to visualize the enterprise idea pipeline. 
+
+This tool allows to visualize ideas and treat them from the moment the idea is evoked until the moment it is realized.  
 This process consists of five stages, Record – Reveal – Refine – Realize and Release, which corresponds to a **break down** of the idea into a piece of work.
 
 <img alt="5R Model 1" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/5R-model-1.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 #### Recording an idea
 At this stage of the process, when a new idea arises, it is documented. 
-No decision has yet been taken on it, we do not know yet if this idea will be useful, if it will be accepted, developed, if it is a priority or if there are sufficient resources to work on it. 
+No decision has been taken on it so far, we do not know yet if this idea will be useful, if it will be accepted, developed, if it is a priority or if there are sufficient resources to work on it. 
 
-At this first stage, the idea is simply recorded and documented. In an agile environment, too much time shouldn’t be invested in this stage and particularly in the documentation because we don’t know if this idea we go further through the process.  
-This stage should then allow to understand the idea, to determine who are the users and beneficiaries and to quickly estimate the costs linked to this idea.
+During this first stage, the idea is simply recorded and documented. 
+In an agile environment, not much time should be invested in this stage and particularly in the documentation because we don't know if this idea will go further through the process.  
+This stage should then allow to understand the idea, to determine who the users and beneficiaries are and to quickly estimate the costs linked to this idea.
 
 #### Revealing the idea
-At this stage of the process, the idea is added to the pool of ideas based on its value and priority. 
-This is the moment when the idea is discussed and challenged among the stakeholders.
+During this stage of the process, the idea is added to the pool of ideas based on its value and priority. 
+This is the moment when it is discussed and challenged among the stakeholders.
 
 The idea is refined in order to decide if the team will continue to work on it. 
-Even if this idea is great, this doesn’t mean that the idea will be developed as constraints and dependencies may exist.
+Even if the idea is great, it doesn't mean that the idea will be developed as constraints and dependencies may exist.
 
 It is at this stage of the process that those constraints are highlighted by the stakeholders or product owners. 
 Following the discussions, the idea can be adapted in order to be realized and a team is selected to work on it.
 
 #### Refining the idea
 During the third stage, the idea is going to be more and more understood by the dedicated team. 
-The idea is broken down into smaller and more precise increments in order to have a clear and detailed view of the idea. 
+It is broken down into smaller and more precise increments in order to have a clear and detailed view of the idea. 
 
-The idea is challenged and cut into new pieces of increments that are also challenged and refined in order to create a backlog of clear functionalities the team will work on. 
+It is challenged and cut into new pieces of increments that are challenged as well and refined in order to create a backlog of clear functionalities the team will work on. 
 
 <img alt="5R Model 2" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/5R-model-2.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 #### Realizing the idea
-The idea as it has been refined during the previous stage is decomposed into user stories.  
+This refined idea is then decomposed into user stories.  
 Those user stories are documented and prepared by the team with the purpose to be developed.  
 The user stories are then added to a sprint, developed and tested in a team effort.  
 
 <img alt="5R Model 3" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/5R-model-3.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 #### Releasing the idea
-The idea has been transformed into a product that will be presented to end users. 
-At this stage, the plan drafted by marketing and sales is executed and the new increment that is now on the market ready to be used is communicated to the potential customers.
+The idea has now been transformed into a product that will be presented to end users. 
+At this stage, the plan drafted by marketing and sales is executed and the new increment that is now on the market, ready to be used is communicated to the potential customers.
 
 <img alt="5R Model 4" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/5R-model-4.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-### Use of the five R's in my daily work
-As an analyst within a SCRUM team, my work can be structured around the 5 R's model as explained below. 
+### Use of the five Rs in my daily work
+As an analyst within a Scrum team, my work can be structured around the 5 Rs model as explained below. 
 
 #### Recording the idea
-Let’s use a concrete example of my work. 
+Let's use a concrete example of my work. 
 The 'UnIt' application we are building automates as much as possible the management and payments of the indemnities to insured members when they are unable to work.
 
-This automation has however limitations. For instance, not all claim amounts can be calculated automatically in some complex cases. 
+However, this automation has limitations. 
+For instance, not all claim amounts can be calculated automatically in some complex cases. 
 The idea of allowing users to make certain calculations manually has therefore been evoked and added to the pool of ideas. 
 The idea has been discussed and challenged.
 
 #### Revealing the idea
 The idea is now in the pool of ideas, the backlog, according to its value and priority. 
-Discussions over the idea are going on and questions are raised.
+Discussions over the idea are ongoing and questions are raised.
 * Should users be allowed to make (all) calculations manually?
 * What are the risks? Are there limitations to this idea?
 * Are there legal constraints?
@@ -150,14 +150,14 @@ Discussions over the idea are going on and questions are raised.
 
 Those discussions are conducted among product owners, analysts and developers. 
 A sub-team is then created (with one analyst and developers) and is dedicated to the topic.  
-The needs are refined, and the amount of work needed to develop the whole concept of manual calculations is estimated.  
+The needs are refined and the amount of work needed to develop the whole concept of manual calculations is estimated.  
 
 #### Refining the idea
 The functionality needed to implement the manual calculations is now better understood by the sub-team responsible for this idea.  
 The functionality is discussed, refined and cut into smaller increments to obtain workable user stories. 
-All user stories together make possible the manual calculations but can be developed separately. 
+All user stories together make the manual calculations possible, but can be developed separately. 
 
-The user stories are described in detail with preconditions, post-conditions, use cases for testing and dependencies if any. 
+The user stories are described in detail with preconditions, post-conditions, use cases for testing and dependencies, if any. 
 The user stories are also technically discussed at this stage.
 
 #### Realizing the idea
@@ -165,7 +165,7 @@ User stories about the manual calculations have been presented to the entire tea
 They have been estimated with story points and because they were ready according to our Definition of Ready, they have been developed through several sprints.
 
 #### Releasing the idea
-In my example, this stage consists in the demo of the new functionality for the manual calculations at the end of the sprints.  
+In my example, this stage happens in the demo of the new functionality for the manual calculations at the end of the sprints.  
 The manual calculations can be tested in the acceptance environment by the product owners and the final users.
 
 > An enterprise idea pipeline provides transparency of your options and allows you to quickly be aware of and respond to high-value work  
