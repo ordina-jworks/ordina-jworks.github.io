@@ -19,8 +19,9 @@ comments: true
 1. [Introduction](#introduction)
 2. [Overview](#overview)
 3. [Setup](#setup)
-4. [Conclusion](#conclusion)
-5. [Resources](#resources)
+4. [Examples](#examples)
+5. [Conclusion](#conclusion)
+6. [Resources](#resources)
 
 ## Introduction
 
@@ -52,7 +53,57 @@ The demo uses the following technologies:
   Needed for npm and building the demo app, electron also provides the option to use bare node code/packages in the code, more on that later.
   
 
-## Example
+## Setup
+
+The demo app uses Electron as the main 'framework'.
+The setup for the application is pretty simple, there are just a few dependencies in the package.json:
+
+```json
+"engines": {
+    "node": ">=12.13.0"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^1.2.11",
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "electron": "7.0.0",
+    "electron-packager": "^14.0.6"
+  }
+```
+
+The main entry point for the application is just under the src folder of the root folder of the project.
+
+The bootstrapping code is also very simple:
+
+``` javascript
+const { app, BrowserWindow } = require('electron');
+
+function createWindow () {
+    let win = new BrowserWindow({
+        width: 1920,
+        height: 1080,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
+
+    //win.webContents.openDevTools();
+    win.loadFile('./src/devoxx/site/index.html');
+}
+
+app.on('ready', createWindow);
+```
+
+We import the `app` and `BrowserWindow` and create a function that creates a new instance of the `BrowserWindow` class.
+This instance specifies the configuration for the Electron app.
+We set the width & height and set the `nodeIntegration` to true so we can use the file system from within the browser code.
+We also tell the `BrowserWindow` instance to load a certain html resource.
+Finally we bind the `app` ready event to create the `BrowserWindow` instance.
+
+Additionally for debugging it can be handy to uncomment the line `win.webContents.openDevTools();` as that will open a chrome devtools window when the application launches.
+
+## Examples
 
 TODO
 
@@ -66,9 +117,9 @@ Im my opinion these pre-trained models and other machine learning 'building bloc
 
 ## Resources
 
-[Demo github repo](https://github.com/ordina-jworks/devoxx-webcam-ml){:target="_blank" rel="noopener noreferrer"}
-[TensorFlow.js](https://www.tensorflow.org/js){:target="_blank" rel="noopener noreferrer"}
-[CoCo Dataset](http://cocodataset.org/#home){:target="_blank" rel="noopener noreferrer"}
-[tfjs-CoCo-SSD](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd){:target="_blank" rel="noopener noreferrer"}
-[YoLo](https://pjreddie.com/darknet/yolo/){:target="_blank" rel="noopener noreferrer"}
-[tfjs-YoLo-V3](https://github.com/zqingr/tfjs-yolov3/blob/master/README_EN.md){:target="_blank" rel="noopener noreferrer"}
+- [Demo github repo](https://github.com/ordina-jworks/devoxx-webcam-ml){:target="_blank" rel="noopener noreferrer"}
+- [TensorFlow.js](https://www.tensorflow.org/js){:target="_blank" rel="noopener noreferrer"}
+- [CoCo Dataset](http://cocodataset.org/#home){:target="_blank" rel="noopener noreferrer"}
+- [tfjs-CoCo-SSD](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd){:target="_blank" rel="noopener noreferrer"}
+- [YoLo](https://pjreddie.com/darknet/yolo/){:target="_blank" rel="noopener noreferrer"}
+- [tfjs-YoLo-V3](https://github.com/zqingr/tfjs-yolov3/blob/master/README_EN.md){:target="_blank" rel="noopener noreferrer"}
