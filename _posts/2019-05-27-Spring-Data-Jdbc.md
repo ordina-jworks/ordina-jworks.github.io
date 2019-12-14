@@ -105,7 +105,6 @@ Therefore they tried to implements some concepts of DDD.
 
 The first big difference is that we work with an aggregate structure on top of the entity structure which is used in Spring Data JPA.
 If you don't know this concept or why it is useful, you can check some very good article about this: [Effective Aggregate Design by Vaugn Vernon](https://dddcommunity.org/library/vernon_2011/){:target="_blank" rel="noopener noreferrer"}.
-https://dddcommunity.org/library/vernon_2011/
 Basically we group different entities together which have a strong coupling and we call them aggregates.
 The top entity of the aggregate is called the aggregate root.
 There are some other rules that needs to be followed:
@@ -307,25 +306,24 @@ When you want to query the database, instead of writing the entire query yoursel
 There are multiple ways to query the database using Spring Data JPA, but they all need you to extend the repository of the entity you want to query.
 
 Some basic queries can be written using derived queries. An example of this is findById. 
-For these methods Spring Data will generate the SQL entirely on its own.
+For these methods Spring Data will generate the SQL entirely on its own. More information about how derived queries can be defined can be found in the [spring data documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.details){:target="_blank" rel="noopener noreferrer"}.
 
 If you need to write more advanced queries that can't easily be defined as a derived query, you can define the query yourself using the @Query annotation.
-Inside the @Query annotation you write jpql or SQL statements. Jpql is an SQL like syntax which provides a layer on top regular SQL. 
-When jpql is used, it is possible for Spring Data to help you with handling the data. For example paging and sorting can be done by simply adding a parameter.
+Inside the @Query annotation you write JPQL or SQL statements. JPQL is an SQL like syntax that provides an abstraction layer on top regular SQL. 
+When JPQL is used, it is possible for Spring Data to help you with handling the data. For example paging and sorting can be done by simply adding a parameter.
 
-If you want to be a bit more in control, you can use SQL by setting the the property native = true. 
+If you want to have a bit more control, you can use SQL by setting the native property of the `@Query` annotation to true. 
 Then you don't use this extra layer, but it then also can't help you anymore.
+Be aware that even though you use SQL directly, you will still return entities that are managed by Hibernate.
 
 Apart from helping you with more easily defining which query you want to execute, it also helps you with fine tuning performance.
 You are using entities when you query using Spring Data JPA. These entities have connections to other entities.
-Spring Data JPA will help you with defining if you want to return these connected entities directly or if you don't want to do that. 
+Spring Data JPA will help you with defining whether you want to return these connected entities directly or not. 
 It can help you with searching for these entities when you do need them.
 This is called eager and lazy loading and this can all be managed by Spring Data JPA.
 
-It will also try to improve performance by giving you the option to cache the results of these queries.
-If you would have the same query, this cache can return the result instead of letting the database calculate it again.
-
-Be aware that even though you use SQL directly, you will still return entities that are managed by Hibernate.
+It will also try to improve performance by giving you the option to turn on the query cache.
+When this is turned on, Spring Data JPA will try to reuse the generated SQL queries, and if possible the results of these queries.
 
 ##### Examples
 
@@ -361,7 +359,7 @@ The repository uses a derived query to expose this functionality.
 {% endhighlight %}
 
 #### Spring Data JDBC
-Spring Data JDBC sits closer to the database than Spring Data JPA but uses Spring Data concepts to make it easier for its users than Spring JDBC. 
+Spring Data JDBC has less abstractions than Spring Data JPA, but uses Spring Data concepts to make it easier to do CRUD operations than Spring JDBC.
 
 It sits closer to the database because it does not contain the most part of the Spring Data magic when querying the database.
 Every query is executed directly on the JDBC and there is no lazy loading or caching, so when you query the database, it will return the entire aggregate.
@@ -442,18 +440,17 @@ A simple code example where we update the color of a given car.
 
 #### Spring Data JPA
 
-Spring Data JPA provides more tools to update the data. As already mentioned does Spring Data JPA have an abstraction layer above the data, entities.
+Spring Data JPA provides more tools to update the data, like the proxy around the entities.
 The state of these entities is stored in a persistence context.
 By using this, Spring Data JPA is able to keep track of the changes to these entities.
 It uses the information of these changes to keep the database up to date. 
-Spring Data JPA makes from these entities, managed entities.
+Spring Data JPA makes managed entities from these entities.
 Instead of always needing to create queries to update data in the database, we can edit these entities. 
 These changes will than always be persisted automatically. 
-This tracking is called dirty tracking because when you change the entities, these updates are making the entity "dirty" because the state is different than the data from the database.
-When the Hibernate session will be flushed, these changes will be persisted so they will be clean again.
-This will only be done in transactional methods. 
-If methods are not in a transactional context, it is the responsibility of the program to persist the changes.
-This can be done by calling the save method on the repository. 
+This tracking is called dirty tracking because when you change the entities, these updates are making the entity "dirty" because the state is different than in the database.
+When the Hibernate session is flushed, these changes will be persisted, and the entity will be "clean" again.
+This will only be done for changes within a transaction. 
+If the changes are not done within a transactional context, you will have to call the save method of the repository to persist those changes.
 
 If you want to make bigger changes, it is also possible to create update methods in the repositories. 
 Like querying the database and creating entities, you can also create methods in the repository. 
@@ -463,7 +460,7 @@ This is a security measure so you can not modify something by mistake.
 
 ##### Example
 
-If you should want to change the color on all hatchback cars, you can do this in different ways. I will give three.
+If you want to change the color on all hatchback cars, you can do this in different ways. I will give three.
 
 If you do it in a transaction, the dirty tracking will take care of the changes.
 
@@ -490,7 +487,7 @@ If you do it in a transaction, the dirty tracking will take care of the changes.
 
 {% endhighlight %}
 
-if you do it without a transaction, you need to also add implementation to instruct Hibernate to persist the changes.
+If you do it without a transaction, you need to also add an implementation to instruct Hibernate to persist the changes.
 
 {% highlight java %}
 
@@ -553,14 +550,12 @@ If you want to make changes to the data, you are responsible for handling the pe
 If you do not call the save method in the repository, the changes will not be persisted.
 
 You also have the choice to update the aggregates using self written queries. 
-Like I already mentioned, these queries are executed directly on the JDBC instead of using a Hibernate layer.
-
-Upating the data is done with the help of the aggregate abstraction where the repository of the aggregate root is responsible for persisting the data of its aggregates.
-If you call the save method on the aggregate root, the entire aggregate will be persisted.
+Like I already mentioned, these queries are executed directly on the database, without the use of an abstraction like Hibernate.
+Updating the data is done by calling the save method on the repository of the aggregate.
 
 Because Spring Data JDBC does not contain a persistence context like Spring Data JPA, it does not know which part of the aggregate is updated. 
 Therefore it will update the aggregate root and delete all the referenced entities and save them all again.
-This has as a downside that sometimes entities will be deleted and saved without that they were changed and could be a waste of resources.
+This has as a downside that sometimes entities will be deleted and inserted event if they were not updated, which could be a waste of resources.
 The big advantage is that you are sure that the entire entity will be up to date after saving the aggregate.
 
 ##### Examples
