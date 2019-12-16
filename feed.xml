@@ -1,5 +1,226 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-11-29T17:36:50+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">AWS Dev Day 2019</title><link href="https://ordina-jworks.github.io/conference/2019/11/29/AWS-Dev-Day-2019.html" rel="alternate" type="text/html" title="AWS Dev Day 2019" /><published>2019-11-29T00:00:00+00:00</published><updated>2019-11-29T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2019/11/29/AWS-Dev-Day-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2019/11/29/AWS-Dev-Day-2019.html">&lt;h1 id=&quot;awsome-dev-day-2019&quot;&gt;AWSome Dev Day 2019!&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-12-16T10:46:29+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Our Devoxx Demo App with realtime object detection</title><link href="https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html" rel="alternate" type="text/html" title="Our Devoxx Demo App with realtime object detection" /><published>2019-12-16T00:00:00+00:00</published><updated>2019-12-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App</id><content type="html" xml:base="https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#overview&quot;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setup&quot;&gt;Setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#code&quot;&gt;Code&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Like every year we were present with Ordina at Devoxx as a sponsor.
+For this edition I had prepared a demo application with realtime object detection.
+Our demo was a huge success and is the reason I’m writing this blog post.&lt;/p&gt;
+
+&lt;p&gt;In this blog post I’ll explain how to get everything set up to make your own application that uses realtime object detection!
+All code is available online on our &lt;a href=&quot;https://github.com/ordina-jworks/devoxx-webcam-ml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ordina-jworks Github&lt;/a&gt; and contains a number of branches with specific implementations.&lt;/p&gt;
+
+&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Before we dive into the actual code, I’ll explain what technologies I’ve used and how they all come together to form this demo application.&lt;/p&gt;
+
+&lt;p&gt;The demo uses the following technologies:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Electron: &lt;br /&gt;
+This serves as the multi-platform app container which allows us to write what is essentially a web application, and run it on a variety of operating systems.&lt;/li&gt;
+  &lt;li&gt;TensorFlow.js: &lt;br /&gt;
+This is the machine learning library used to run the model for object detection.&lt;/li&gt;
+  &lt;li&gt;CoCo Dataset: &lt;br /&gt;
+Stands for &lt;code class=&quot;highlighter-rouge&quot;&gt;Common Objects in Context&lt;/code&gt; and is a very large, highly curated dataset of images which have been annotated with one or more of 90 classes.
+    &lt;ul&gt;
+      &lt;li&gt;CoCo-SSD: &lt;br /&gt;
+A default implementation by TensorFlow itself utilizing an SSD detector (Single Shot MultiBox Detection).
+I have downloaded the pre-trained model and it is included in the Github repo&lt;/li&gt;
+      &lt;li&gt;YoLo V3: &lt;br /&gt;
+Is an object detection system that looks at the whole image at test time and derives its predictions based on the global context of said image.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Node.js: &lt;br /&gt;
+Needed for npm and building the demo app, Electron also provides the option to use bare Node code/packages in the code.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;The demo app uses Electron as the main ‘framework’.
+The setup for the application is pretty simple, there are just a few dependencies in the &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;engines&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;node&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;gt;=12.13.0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;@tensorflow/tfjs-node&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^1.2.11&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;typescript&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^3.6.4&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;electron&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;7.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;electron-packager&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^14.0.6&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The main entry point for the application is just under the &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; folder of the root folder of the project.&lt;/p&gt;
+
+&lt;p&gt;The bootstrapping code is also very simple:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserWindow&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;electron&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createWindow&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;win&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1920&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1080&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;webPreferences&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;nodeIntegration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//win.webContents.openDevTools();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loadFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./src/devoxx/site/index.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ready&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We import the &lt;code class=&quot;highlighter-rouge&quot;&gt;app&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; and create a function that creates a new instance of the &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; class.
+This instance specifies the configuration for the Electron app.
+We set the &lt;code class=&quot;highlighter-rouge&quot;&gt;width&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;height&lt;/code&gt; and set the &lt;code class=&quot;highlighter-rouge&quot;&gt;nodeIntegration&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; so we can use the file system from within the browser code.
+We also tell the &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; instance to load a certain html resource.
+Finally we bind the &lt;code class=&quot;highlighter-rouge&quot;&gt;app&lt;/code&gt; ready event to create the &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; instance.&lt;/p&gt;
+
+&lt;p&gt;Additionally for debugging it can be handy to uncomment the line &lt;code class=&quot;highlighter-rouge&quot;&gt;win.webContents.openDevTools();&lt;/code&gt; as that will open a Chrome DevTools window when the application launches.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2019-12-16-devoxx-demo/demo.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Devoxx Demo&quot;&gt;
+        &lt;img alt=&quot;Devoxx Demo&quot; src=&quot;/img/2019-12-16-devoxx-demo/demo.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 55%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2019-12-16-devoxx-demo/devoxx-demo.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Devoxx Demo in action&quot;&gt;
+        &lt;img alt=&quot;Devoxx Demo in action&quot; src=&quot;/img/2019-12-16-devoxx-demo/devoxx-demo.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 43%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
+
+&lt;p&gt;The basic code is not too difficult:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loadCoco&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;../../../&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;navigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mediaDevices&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getUserMedia&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1280&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;720&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;frameRate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;framerate&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;srcObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onloadedmetadata&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1280&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;720&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;2d&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;drawImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the page is loaded we create our detector instance.
+This will be used to feed in the image data from the webcam.
+We also need to fetch a video stream from the webcam, in this example at 720P, as that’s the max resolution for my webcam.
+Please note that a higher resolution will require considerably more processing power.
+After we have a stream, we fetch the &lt;code class=&quot;highlighter-rouge&quot;&gt;video&lt;/code&gt; tag from the page, assign the stream to it and let it play.
+We also get our canvas in which we will display the actual video output, the video tag itself is hidden.
+The canvas allows us to annotate the image with a bounding box and some extra information about the detected objects.
+Finally we call the &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; method which will be called for each update.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;drawImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detectedClasses&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;detect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;Loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;anotateCanvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detectedClasses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;updateList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;detectedClasses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enableLiveUpdate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;framerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This function will function as our update loop/tick.
+We draw the image to the canvas, just as it was seen by the webcam.
+We then pass the canvas into the detector which will detect any objects in the image data contained in the canvas.
+This returns an array of detected classes which contain the type of objects, the score and a bounding box.
+That information is fed to a utility method that will annotate the canvas with a red rectangle with the coordinates of the bounding and the type of object with its score.
+The update function will be called again with a very basic (and very limited) framerate timeout.&lt;/p&gt;
+
+&lt;p&gt;There is other code, mainly in the &lt;code class=&quot;highlighter-rouge&quot;&gt;coco&lt;/code&gt; folder which is mostly taken from the &lt;a href=&quot;https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;default google implementation&lt;/a&gt; and modified to match the needs of this application.
+One thing worth noting is the changes required to a small piece of code to make the model work faster by allowing it to work asynchronously:&lt;/p&gt;
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;classes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calculateMaxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tidy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tensor2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nonMaxSuppression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxNumBoxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dataSync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Float32Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Needs to be changed into:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;classes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calculateMaxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tensor2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]);&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nonMaxSuppressionAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxNumBoxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tidy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dataSync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Float32Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Because the &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.image.nonMaxSuppressionAsync&lt;/code&gt;returns a &lt;code class=&quot;highlighter-rouge&quot;&gt;Promise&lt;/code&gt; the replacement is not as simple as just replacing the method call to the async variant.
+This however is the only big change that needs to be done (apart from changing some dependencies) to get the application working with full WebGL acceleration.&lt;/p&gt;
+
+&lt;p&gt;The application is actually really simple and very easy to understand and tinker with. I strongly encourage you to check out the repo and have a go at getting it up and running by yourself.
+The other branches contain different solutions with some tweaked code, be sure to also check those out!&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Making a cool demo that utilizes machine learning and pre-trained models is not at all that hard. 
+Rapid prototyping with these pre-trained models allows one to quickly see if a certain strategy or desired functionality is workable and merits further development effort.
+It also provides a way to get started easily in a matter that is extremely hard to master. 
+Retraining or tweaking these models can be very hard and time consuming as it requires an in-depth knowledge of the matter at hand (both mathematics and the actual data).
+Im my opinion these pre-trained models and other machine learning ‘building blocks’ provide an extremely valuable toolset for developers.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ordina-jworks/devoxx-webcam-ml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Demo Github repo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.tensorflow.org/js&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;TensorFlow.js&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://cocodataset.org/#home&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CoCo Dataset&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;tfjs-CoCo-SSD&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pjreddie.com/darknet/yolo/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YoLo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/zqingr/tfjs-yolov3/blob/master/README_EN.md&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;tfjs-YoLo-V3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="Machine Learning" /><category term="Internet of Things" /><category term="Smart Tech" /><category term="Home" /><category term="AI" /><category term="ML" /><category term="Computer vision" /><category term="object detection" /><category term="electron" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-12-16-devoxx-demo/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-12-16-devoxx-demo/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AWS Dev Day 2019</title><link href="https://ordina-jworks.github.io/conference/2019/11/29/AWS-Dev-Day-2019.html" rel="alternate" type="text/html" title="AWS Dev Day 2019" /><published>2019-11-29T00:00:00+00:00</published><updated>2019-11-29T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2019/11/29/AWS-Dev-Day-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2019/11/29/AWS-Dev-Day-2019.html">&lt;h1 id=&quot;awsome-dev-day-2019&quot;&gt;AWSome Dev Day 2019!&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;The AWS Dev Day is a free conference day hosted by Amazon where architects and developers from Amazon and other companies talk about the most popular AWS services, the newest features and everything related to cloud development. These sessions explain a lot about what AWS has to offer and you will see live demos on how you can implement them in your own use cases.&lt;/p&gt;
@@ -3401,247 +3622,4 @@ There is also an endpoint to download the Swagger / OpenAPI specification:  &lt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section&quot;&gt;https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#globals-section&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/&quot;&gt;https://www.47northlabs.com/knowledge-base/generate-spring-boot-rest-api-using-swagger-openapi/&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://swagger.io/blog/api-design/design-first-or-code-first-api-development/&quot;&gt;https://swagger.io/blog/api-design/design-first-or-code-first-api-development/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he's also working with IoT and AI.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="API" /><category term="cloud" /><summary type="html">Table of content</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Home Automation part 1</title><link href="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html" rel="alternate" type="text/html" title="Home Automation part 1" /><published>2019-09-30T00:00:00+00:00</published><updated>2019-09-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1</id><content type="html" xml:base="https://ordina-jworks.github.io/machine%20learning/2019/09/30/Home-automation-part-1.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
-
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#platforms&quot;&gt;Platforms&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#example&quot;&gt;Example&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;In this series of blogposts we are going to take a deeper look into home automation.
-Home automation is the wonderful art of automating your home so it becomes easier to do certain tasks.
-It is a very wide field where there are many available options, platforms and devices.
-If you are willing to get creative almost everything can be automated!&lt;/p&gt;
-
-&lt;p&gt;In this first blogpost we’ll present some of the platforms that are available and some of the pros &amp;amp; cons of each one.
-To close off this blogpost we’ll start by looking into Apple’s HomeKit and by extension HomeBridge.&lt;/p&gt;
-
-&lt;h2 id=&quot;platforms&quot;&gt;Platforms&lt;/h2&gt;
-
-&lt;p&gt;In the world of home automation there are many ways to automate stuff.
-We will be focussing on either cloud-enabled platforms or those that can be run on premise.
-The hardware vendor based platforms (e.g.: Niko) will not be included!&lt;/p&gt;
-
-&lt;p&gt;The platforms can be split up into two main parts:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Cloud enabled, mainly from manufacturers and larger phone companies&lt;/li&gt;
-  &lt;li&gt;On-premise platforms (that do not require internet/cloud access)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Security is a very important aspect in the home automation world!
-The best way one would go about to automating one’s home would be completely independent from any cloud-based services/APIs.
-Internet access can be intermittent, cloud based API’s can be down or even be shut down permanently.
-Even worse, accounts could be breached giving unknown third parties access to your home’s devices!&lt;/p&gt;
-
-&lt;p&gt;However, most people already have some smart devices and most of these have their own app, so ditching any cloud-based systems is going to be a lot harder/more expensive.
-As with any online service use a strong unique password for each different service and enable multifactor authentication whenever possible!
-Using all these different apps can be very cumbersome: using app A to turn on the lights, using app B to turn on the TV, using app C to change the thermostat, you get the picture.
-Some of these smart devices support home automation platforms, some do not.
-As we will see later on, even those that do not support a home automation platform out of the box can mostly be made to do so!&lt;/p&gt;
-
-&lt;p&gt;The platforms:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Cloud enabled (more well known):
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.apple.com/be-nl/shop/accessories/all-accessories/homekit&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Apple HomeKit&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://assistant.google.com/explore/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Assistant/Google Home&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&amp;amp;pf_rd_m=ATVPDKIKX0DER&amp;amp;pf_rd_s=merchandised-search-6&amp;amp;pf_rd_r=0E90B2MD8KGD1D7KVEM1&amp;amp;pf_rd_t=101&amp;amp;pf_rd_p=02147624-e148-4901-b449-773097cfa62e&amp;amp;pf_rd_i=17934672011&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Alexa&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://xiaomi-mi.com/mi-smart-home/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Xiaomi Mi Smart Home&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;On-premise solutions (lesser known, but safer)
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Home Assistant&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://www.openhab.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;openHAB&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;apple-homekit&quot;&gt;Apple HomeKit&lt;/h3&gt;
-
-&lt;p&gt;&lt;img alt=&quot;HomeKit&quot; src=&quot;/img/2019-09-30-home-automation/homekit.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Apple’s home automation platform is called HomeKit.
-It can be used on all iOS and macOS X devices, giving us access to it from everywhere.
-By default, HomeKit control is limited to your local network only.
-If we add an Apple TV/HomePod/iPad as a hub it will allow for remote access through iCloud.
-For the best results I would recommend to use an Apple TV (gen 4 or later) connected through ethernet.&lt;/p&gt;
-
-&lt;p&gt;Automations can be made using the app (some special automations require a hub though).
-These automations can be based on a number of different triggers &amp;amp; conditions (sensors/state change/people coming home or leaving/time of day/…)
-An automation can change the state of a device, or change the state of multiple devices if they have been grouped into a scene.&lt;/p&gt;
-
-&lt;p&gt;HomeKit supports many devices, which can be identified by ‘works with Apple HomeKit’ logo.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Works with HomeKit&quot; src=&quot;/img/2019-09-30-home-automation/works-with-homekit.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 250px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Some of these include:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Hue&lt;/li&gt;
-  &lt;li&gt;Tadoo&lt;/li&gt;
-  &lt;li&gt;Eve&lt;/li&gt;
-  &lt;li&gt;and many others…&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If your device is not supported but has its own app/API there is a big chance you can get it to work by installing Homebridge and adding that to your home app in iOS.
-Scroll down to the example section of this blogpost if you want to learn more on how to set this up yourself.&lt;/p&gt;
-
-&lt;h3 id=&quot;google-home&quot;&gt;Google Home&lt;/h3&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Google Assistant&quot; src=&quot;/img/2019-09-30-home-automation/google.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Google’s home automation platform is called Google Assistant / Google Home. Both assistant and home are used to control smart devices.
-It can be used on Android and iOS devices.&lt;/p&gt;
-
-&lt;p&gt;To make best use of all the features, a Google Home Hub or a Google Home (Mini) is required.
-Google Assistant supports many devices (much more than HomeKit), these can be added via the app.
-After setup you can ask the assistant to perform certain tasks and change the state of devices.&lt;/p&gt;
-
-&lt;p&gt;Automations with Google Assistant are called &lt;a href=&quot;https://support.google.com/googlenest/answer/7029585&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;routines&lt;/a&gt;.
-For the time being, these are not quite as extensive as HomeKit or Home Assistant/openHAB.
-You can make routines that are based on a time of day event or people coming home/leaving.
-Triggering routines based on state changes of the smart devices is not supported for now.
-This will supposedly be added in the future.&lt;/p&gt;
-
-&lt;h3 id=&quot;amazon-alexa&quot;&gt;Amazon Alexa&lt;/h3&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Alexa&quot; src=&quot;/img/2019-09-30-home-automation/alexa.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Amazon’s home automation platform is part of its Alexa assistant.
-It can be used on Android and iOS devices.&lt;/p&gt;
-
-&lt;p&gt;To make best use of all the features an echo device is required.
-Alexa supports many devices, much more than HomeKit.
-These can be added via the app.
-After setup you can ask Alexa to perform certain tasks and change the state of devices.&lt;/p&gt;
-
-&lt;p&gt;Automations with Alexa are called routines.
-These routines are like the scenes and routines that exist with HomeKit &amp;amp; Google Assistant.
-The routines can be triggered like in HomeKit, by devices/sensors, coming home or leaving, time of day.&lt;/p&gt;
-
-&lt;p&gt;You can get very creative with the routines, a funny example below, pity the intruder that is caught up in this encounter!&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Alexa routine example&quot; src=&quot;/img/2019-09-30-home-automation/alexa-intruder-meme.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;home-assistant&quot;&gt;Home Assistant&lt;/h3&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Home Assistant&quot; src=&quot;/img/2019-09-30-home-automation/home-assistant.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Home Assistant is a fully open source home automation platform that is fully focussed on the user’s privacy.
-It can be used in the browser as well as on iOS and Android devices.&lt;/p&gt;
-
-&lt;p&gt;It can be run locally with no need of any cloud service. A Raspberry Pi 3B is all you need.
-Home Assistant has support for over a thousand integrations that are supported by the platform.
-If you want to create your own integration, a fully documented &lt;a href=&quot;https://developers.home-assistant.io/en/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;developer portal&lt;/a&gt; will assist you.
-The integrations are written in Python 3.&lt;/p&gt;
-
-&lt;p&gt;Automations are called as what they are, automations.
-They can control devices or perform actions (calling services etc.) based on triggers.
-These triggers can be various things like in the previously mentioned platforms, but Home Assistant takes it one step further and allows for very fine-grained and very detailed/specific triggers.&lt;/p&gt;
-
-&lt;p&gt;Location tracking &amp;amp; presence detection is also possible but requires the integration and use of &lt;a href=&quot;https://owntracks.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Owntracks&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;openhab&quot;&gt;openHAB&lt;/h3&gt;
-
-&lt;p&gt;&lt;img alt=&quot;openHAB&quot; src=&quot;/img/2019-09-30-home-automation/openhab.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Like Home Assistant, openHAB is a fully open source home automation platform.
-It can be used in the browser as well as on iOS and Android devices.&lt;/p&gt;
-
-&lt;p&gt;It can be run locally with no need of any cloud service.
-A Raspberry Pi 3B is all you need.
-It also supports well over a thousand existing integrations and can easily be extended.
-It is written in Java and can be configured with a DSL.&lt;/p&gt;
-
-&lt;p&gt;Automations are called rules.
-These can be configured with the platform’s DSL.
-They can control devices or perform actions (calling services etc.) based on triggers.
-These triggers can really be anything you can think of, any integration or trigger action you can think of, it can be done.&lt;/p&gt;
-
-&lt;p&gt;OpenHAB does require quite a bit of research.
-Do not jump into this platform without doing some digging beforehand.
-Its documentation is very extensive and is very well made.&lt;/p&gt;
-
-&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
-
-&lt;h3 id=&quot;homekit--homebridge&quot;&gt;HomeKit &amp;amp; Homebridge&lt;/h3&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/2019-09-30-home-automation/homekit-1.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;HomeKit devices 1&quot;&gt;
-        &lt;img alt=&quot;HomeKit devices 1&quot; src=&quot;/img/2019-09-30-home-automation/homekit-1.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2019-09-30-home-automation/homekit-2.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;HomeKit devices 2&quot;&gt;
-        &lt;img alt=&quot;HomeKit devices 2&quot; src=&quot;/img/2019-09-30-home-automation/homekit-2.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2019-09-30-home-automation/homekit-3.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;HomeKit automations&quot;&gt;
-        &lt;img alt=&quot;HomeKit automations&quot; src=&quot;/img/2019-09-30-home-automation/homekit-3.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32.7%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Below is how my home is set up, which plugins I use (and made myself).&lt;/p&gt;
-
-&lt;p&gt;The only official HomeKit device I own is my thermostat, all other devices are exposed to HomeKit through Homebridge.
-Homebridge is a NodeJS server that exposes custom devices to be used inside the HomeKit platform.
-It can be installed and configured easily, for example on a Raspberry Pi and provides a code or QR code during startup which you can use to add the HomeKit bridge to your setup.&lt;/p&gt;
-
-&lt;p&gt;A list of all devices I use through Homebridge with their according plugins:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Nest protects - &lt;a href=&quot;https://www.npmjs.com/package/homebridge-nest&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-nest plugin&lt;/a&gt;, only possible now if you already have a nest developer account and the required keys.&lt;/li&gt;
-  &lt;li&gt;Unifi protect cameras &lt;a href=&quot;https://www.npmjs.com/package/homebridge-camera-ffmpeg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-camera-ffmpeg plugin&lt;/a&gt;&lt;a href=&quot;https://www.npmjs.com/package/homebridge-unifi-protect-motion-sensors&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-unifi-protect-motion-sensors plugin&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Smartwares smart wifi switch &amp;amp; RF outlets &lt;a href=&quot;https://www.npmjs.com/package/homebridge-homewizard-flamingo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-homewizard-flamingo plugin&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Somfy based shutters &lt;a href=&quot;https://www.npmjs.com/package/homebridge-somfy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-somfy&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;LG Airco unit &lt;a href=&quot;https://www.npmjs.com/package/homebridge-lg-airco&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;homebridge-lg-airco&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;There are many, many more devices and integrations available for use with Homebridge.
-You can find these by looking on the &lt;a href=&quot;https://www.npmjs.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NPM plugin repository&lt;/a&gt; and searching for &lt;code class=&quot;highlighter-rouge&quot;&gt;homebridge-PLUGINNAME&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;These plugins can be installed by installing the NPM package globally and adding said package to the &lt;code class=&quot;highlighter-rouge&quot;&gt;config.json&lt;/code&gt; of the Homebridge instance.
-The main page of the &lt;a href=&quot;https://github.com/nfarina/homebridge&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub repo&lt;/a&gt; explains in detail how to set everything up so you too can get started quickly.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Home automation is a wonderful thing.
-It can make your live easier in various ways.
-It is however required to think things through and to do some research before jumping into this.
-Looking into what devices are supported, out of the box, or via custom integrations/plugins is very important.
-If you have some programming experience and some time to spare you can very easily make your own integrations for devices that are not supported.&lt;/p&gt;
-
-&lt;p&gt;In the coming months we’ll be diving a bit deeper into the wonderful world of home automation with more in-depth blog posts about HomeKit with Homebridge and openHAB.&lt;/p&gt;
-
-&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.apple.com/be-nl/shop/accessories/all-accessories/homekit&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Apple HomeKit&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://assistant.google.com/explore/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Assistant/Google Home&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/b/ref=aeg_lp_sh_d/ref=s9_acss_bw_cg_aegflp_4b1_w?node=17934679011&amp;amp;pf_rd_m=ATVPDKIKX0DER&amp;amp;pf_rd_s=merchandised-search-6&amp;amp;pf_rd_r=0E90B2MD8KGD1D7KVEM1&amp;amp;pf_rd_t=101&amp;amp;pf_rd_p=02147624-e148-4901-b449-773097cfa62e&amp;amp;pf_rd_i=17934672011&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Alexa&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://xiaomi-mi.com/mi-smart-home/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Xiaomi Mi Smart Home&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Home Assistant&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developers.home-assistant.io/en/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Home Assistant developer portal&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://owntracks.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Owntracks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.openhab.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;openHAB&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://homebridge.io/&quot;&gt;Homebridge&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/nfarina/homebridge&quot;&gt;Homebridge GitHub&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developer.apple.com/documentation/homekit/configuring_a_home_automation_device&quot;&gt;HomeKit catalog, Apple&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/KhaosT/HAP-NodeJS/&quot;&gt;HomeKit application protocol&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.npmjs.com/search?q=homebridge-plugin&quot;&gt;Homebridge plugins&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="Machine Learning" /><category term="Internet of Things" /><category term="Smart Tech" /><category term="Home" /><category term="Smart Home" /><category term="Automation" /><category term="Home Automation" /><category term="Siri" /><category term="Apple" /><category term="Google Assistant" /><category term="Amazon" /><category term="Alexa" /><category term="HomeKit" /><category term="Home Assistant" /><category term="openHAB" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-09-30-home-automation/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-09-30-home-automation/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he's also working with IoT and AI.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="API" /><category term="cloud" /><summary type="html">Table of content</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/featured-image.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Our Devoxx Demo App with realtime object detection - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-12-16-devoxx-demo/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Our Devoxx Demo App with realtime object detection - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-12-16-devoxx-demo/banner.jpg"/>
+
+    
+    <title>Our Devoxx Demo App with realtime object detection - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Our Devoxx Demo App with realtime object detection</h2>
+                
+
+                
+                    Posted Dec 16, 2019
+
+
+    in <a href="/categories/machine-learning/">Machine Learning</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/internet-of-things/">Internet of Things</a>, 
+    
+        <a href="/tags/smart-tech/">Smart Tech</a>, 
+    
+        <a href="/tags/home/">Home</a>, 
+    
+        <a href="/tags/ai/">AI</a>, 
+    
+        <a href="/tags/ml/">ML</a>, 
+    
+        <a href="/tags/computer-vision/">Computer vision</a>, 
+    
+        <a href="/tags/object-detection/">object detection</a>, 
+    
+        <a href="/tags/electron/">electron</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#setup">Setup</a></li>
+  <li><a href="#code">Code</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Like every year we were present with Ordina at Devoxx as a sponsor.
+For this edition I had prepared a demo application with realtime object detection.
+Our demo was a huge success and is the reason I’m writing this blog post.</p>
+
+<p>In this blog post I’ll explain how to get everything set up to make your own application that uses realtime object detection!
+All code is available online on our <a href="https://github.com/ordina-jworks/devoxx-webcam-ml" target="_blank" rel="noopener noreferrer">ordina-jworks Github</a> and contains a number of branches with specific implementations.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>Before we dive into the actual code, I’ll explain what technologies I’ve used and how they all come together to form this demo application.</p>
+
+<p>The demo uses the following technologies:</p>
+
+<ul>
+  <li>Electron: <br />
+This serves as the multi-platform app container which allows us to write what is essentially a web application, and run it on a variety of operating systems.</li>
+  <li>TensorFlow.js: <br />
+This is the machine learning library used to run the model for object detection.</li>
+  <li>CoCo Dataset: <br />
+Stands for <code class="highlighter-rouge">Common Objects in Context</code> and is a very large, highly curated dataset of images which have been annotated with one or more of 90 classes.
+    <ul>
+      <li>CoCo-SSD: <br />
+A default implementation by TensorFlow itself utilizing an SSD detector (Single Shot MultiBox Detection).
+I have downloaded the pre-trained model and it is included in the Github repo</li>
+      <li>YoLo V3: <br />
+Is an object detection system that looks at the whole image at test time and derives its predictions based on the global context of said image.</li>
+    </ul>
+  </li>
+  <li>Node.js: <br />
+Needed for npm and building the demo app, Electron also provides the option to use bare Node code/packages in the code.</li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<p>The demo app uses Electron as the main ‘framework’.
+The setup for the application is pretty simple, there are just a few dependencies in the <code class="highlighter-rouge">package.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"engines"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&gt;=12.13.0"</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@tensorflow/tfjs-node"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.2.11"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"typescript"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.6.4"</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"electron"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"electron-packager"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^14.0.6"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The main entry point for the application is just under the <code class="highlighter-rouge">src</code> folder of the root folder of the project.</p>
+
+<p>The bootstrapping code is also very simple:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">BrowserWindow</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">electron</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">createWindow</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">win</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BrowserWindow</span><span class="p">({</span>
+        <span class="na">width</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
+        <span class="na">height</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+        <span class="na">webPreferences</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">nodeIntegration</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="c1">//win.webContents.openDevTools();</span>
+    <span class="nx">win</span><span class="p">.</span><span class="nx">loadFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">./src/devoxx/site/index.html</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">ready</span><span class="dl">'</span><span class="p">,</span> <span class="nx">createWindow</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>We import the <code class="highlighter-rouge">app</code> and <code class="highlighter-rouge">BrowserWindow</code> and create a function that creates a new instance of the <code class="highlighter-rouge">BrowserWindow</code> class.
+This instance specifies the configuration for the Electron app.
+We set the <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> and set the <code class="highlighter-rouge">nodeIntegration</code> to <code class="highlighter-rouge">true</code> so we can use the file system from within the browser code.
+We also tell the <code class="highlighter-rouge">BrowserWindow</code> instance to load a certain html resource.
+Finally we bind the <code class="highlighter-rouge">app</code> ready event to create the <code class="highlighter-rouge">BrowserWindow</code> instance.</p>
+
+<p>Additionally for debugging it can be handy to uncomment the line <code class="highlighter-rouge">win.webContents.openDevTools();</code> as that will open a Chrome DevTools window when the application launches.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2019-12-16-devoxx-demo/demo.jpg" data-lightbox="ui" data-title="Devoxx Demo">
+        <img alt="Devoxx Demo" src="/img/2019-12-16-devoxx-demo/demo.jpg" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;" />
+    </a>
+    <a href="/img/2019-12-16-devoxx-demo/devoxx-demo.jpg" data-lightbox="ui" data-title="Devoxx Demo in action">
+        <img alt="Devoxx Demo in action" src="/img/2019-12-16-devoxx-demo/devoxx-demo.jpg" class="image fit" style="margin:0px auto; width: 43%; display: inline-block;" />
+    </a>
+</div>
+
+<h2 id="code">Code</h2>
+
+<p>The basic code is not too difficult:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">detector</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Loader</span><span class="p">.</span><span class="nx">loadCoco</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">../../../</span><span class="dl">'</span><span class="p">));</span>
+    <span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">await</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">mediaDevices</span>
+        <span class="p">.</span><span class="nx">getUserMedia</span><span class="p">({</span>
+            <span class="na">video</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">width</span><span class="p">:</span> <span class="mi">1280</span><span class="p">,</span>
+                <span class="na">height</span><span class="p">:</span> <span class="mi">720</span><span class="p">,</span>
+                <span class="na">frameRate</span><span class="p">:</span> <span class="nx">framerate</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+    <span class="kd">let</span> <span class="nx">video</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">video</span><span class="p">.</span><span class="nx">srcObject</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">;</span>
+    <span class="nx">video</span><span class="p">.</span><span class="nx">onloadedmetadata</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">video</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+    <span class="p">};</span>
+
+    <span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">canvas</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="mi">1280</span><span class="p">;</span>
+    <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="mi">720</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">2d</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">video</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+
+    <span class="k">await</span> <span class="nx">update</span><span class="p">(</span><span class="nx">video</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">detector</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Once the page is loaded we create our detector instance.
+This will be used to feed in the image data from the webcam.
+We also need to fetch a video stream from the webcam, in this example at 720P, as that’s the max resolution for my webcam.
+Please note that a higher resolution will require considerably more processing power.
+After we have a stream, we fetch the <code class="highlighter-rouge">video</code> tag from the page, assign the stream to it and let it play.
+We also get our canvas in which we will display the actual video output, the video tag itself is hidden.
+The canvas allows us to annotate the image with a bounding box and some extra information about the detected objects.
+Finally we call the <code class="highlighter-rouge">update</code> method which will be called for each update.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">video</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">detector</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">video</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+
+    <span class="kd">const</span> <span class="nx">detectedClasses</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">detector</span><span class="p">.</span><span class="nx">detect</span><span class="p">(</span><span class="nx">canvas</span><span class="p">);</span>
+    <span class="nx">Loader</span><span class="p">.</span><span class="nx">anotateCanvas</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="nx">detectedClasses</span><span class="p">);</span>
+    <span class="nx">updateList</span><span class="p">(</span><span class="nx">detectedClasses</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">enableLiveUpdate</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">/</span> <span class="nx">framerate</span><span class="p">,</span> <span class="nx">video</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">detector</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>This function will function as our update loop/tick.
+We draw the image to the canvas, just as it was seen by the webcam.
+We then pass the canvas into the detector which will detect any objects in the image data contained in the canvas.
+This returns an array of detected classes which contain the type of objects, the score and a bounding box.
+That information is fed to a utility method that will annotate the canvas with a red rectangle with the coordinates of the bounding and the type of object with its score.
+The update function will be called again with a very basic (and very limited) framerate timeout.</p>
+
+<p>There is other code, mainly in the <code class="highlighter-rouge">coco</code> folder which is mostly taken from the <a href="https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd" target="_blank" rel="noopener noreferrer">default google implementation</a> and modified to match the needs of this application.
+One thing worth noting is the changes required to a small piece of code to make the model work faster by allowing it to work asynchronously:</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="p">[</span><span class="nx">maxScores</span><span class="p">,</span> <span class="nx">classes</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateMaxScores</span><span class="p">(</span><span class="nx">scores</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+
+    <span class="kd">const</span> <span class="nx">indexTensor</span> <span class="o">=</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">tidy</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">boxes2</span> <span class="o">=</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">tensor2d</span><span class="p">(</span><span class="nx">boxes</span><span class="p">,</span> <span class="p">[</span><span class="nx">result</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">result</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]]);</span>
+        <span class="k">return</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">nonMaxSuppression</span><span class="p">(</span><span class="nx">boxes2</span><span class="p">,</span> <span class="nx">maxScores</span><span class="p">,</span> <span class="nx">maxNumBoxes</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="kd">const</span> <span class="nx">indexes</span> <span class="o">=</span> <span class="nx">indexTensor</span><span class="p">.</span><span class="nx">dataSync</span><span class="p">()</span> <span class="k">as</span> <span class="nb">Float32Array</span><span class="p">;</span>
+    <span class="nx">indexTensor</span><span class="p">.</span><span class="nx">dispose</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Needs to be changed into:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="p">[</span><span class="nx">maxScores</span><span class="p">,</span> <span class="nx">classes</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateMaxScores</span><span class="p">(</span><span class="nx">scores</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+
+    <span class="kd">const</span> <span class="nx">boxes2</span> <span class="o">=</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">tensor2d</span><span class="p">(</span><span class="nx">boxes</span><span class="p">,</span> <span class="p">[</span><span class="nx">result</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">result</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]]);</span>
+    <span class="kd">const</span> <span class="nx">temp</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">image</span><span class="p">.</span><span class="nx">nonMaxSuppressionAsync</span><span class="p">(</span><span class="nx">boxes2</span><span class="p">,</span> <span class="nx">maxScores</span><span class="p">,</span> <span class="nx">maxNumBoxes</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">indexTensor</span> <span class="o">=</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">tidy</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">temp</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="kd">const</span> <span class="nx">indexes</span> <span class="o">=</span> <span class="nx">indexTensor</span><span class="p">.</span><span class="nx">dataSync</span><span class="p">()</span> <span class="k">as</span> <span class="nb">Float32Array</span><span class="p">;</span>
+    <span class="nx">indexTensor</span><span class="p">.</span><span class="nx">dispose</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Because the <code class="highlighter-rouge">tf.image.nonMaxSuppressionAsync</code>returns a <code class="highlighter-rouge">Promise</code> the replacement is not as simple as just replacing the method call to the async variant.
+This however is the only big change that needs to be done (apart from changing some dependencies) to get the application working with full WebGL acceleration.</p>
+
+<p>The application is actually really simple and very easy to understand and tinker with. I strongly encourage you to check out the repo and have a go at getting it up and running by yourself.
+The other branches contain different solutions with some tweaked code, be sure to also check those out!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Making a cool demo that utilizes machine learning and pre-trained models is not at all that hard. 
+Rapid prototyping with these pre-trained models allows one to quickly see if a certain strategy or desired functionality is workable and merits further development effort.
+It also provides a way to get started easily in a matter that is extremely hard to master. 
+Retraining or tweaking these models can be very hard and time consuming as it requires an in-depth knowledge of the matter at hand (both mathematics and the actual data).
+Im my opinion these pre-trained models and other machine learning ‘building blocks’ provide an extremely valuable toolset for developers.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://github.com/ordina-jworks/devoxx-webcam-ml" target="_blank" rel="noopener noreferrer">Demo Github repo</a></li>
+  <li><a href="https://www.tensorflow.org/js" target="_blank" rel="noopener noreferrer">TensorFlow.js</a></li>
+  <li><a href="http://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">CoCo Dataset</a></li>
+  <li><a href="https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd" target="_blank" rel="noopener noreferrer">tfjs-CoCo-SSD</a></li>
+  <li><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener noreferrer">YoLo</a></li>
+  <li><a href="https://github.com/zqingr/tfjs-yolov3/blob/master/README_EN.md" target="_blank" rel="noopener noreferrer">tfjs-YoLo-V3</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html&title=Our Devoxx Demo App with realtime object detection&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Our Devoxx Demo App with realtime object detection&url=https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image" title="">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-12-16-devoxx-demo/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
