@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_van_den_abeele]
 title: "Our Devoxx Demo App with realtime object detection"
-image: /img/2019-12-20-devoxx-demo/banner.jpg
+image: /img/2019-12-16-devoxx-demo/banner.jpg
 tags: [Internet of Things, Smart Tech, Home, AI, ML, Computer vision, object detection, electron]
 category: Machine Learning
 comments: true
@@ -104,11 +104,11 @@ Finally we bind the `app` ready event to create the `BrowserWindow` instance.
 Additionally for debugging it can be handy to uncomment the line `win.webContents.openDevTools();` as that will open a Chrome DevTools window when the application launches.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2019-12-20-devoxx-demo/demo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Devoxx Demo">
-        <img alt="Devoxx Demo" src="{{ '/img/2019-12-20-devoxx-demo/demo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
+    <a href="{{ '/img/2019-12-16-devoxx-demo/demo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Devoxx Demo">
+        <img alt="Devoxx Demo" src="{{ '/img/2019-12-16-devoxx-demo/demo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2019-12-20-devoxx-demo/devoxx-demo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Devoxx Demo in action">
-        <img alt="Devoxx Demo in action" src="{{ '/img/2019-12-20-devoxx-demo/devoxx-demo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 43%; display: inline-block;">
+    <a href="{{ '/img/2019-12-16-devoxx-demo/devoxx-demo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Devoxx Demo in action">
+        <img alt="Devoxx Demo in action" src="{{ '/img/2019-12-16-devoxx-demo/devoxx-demo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 43%; display: inline-block;">
     </a>
 </div>
 
