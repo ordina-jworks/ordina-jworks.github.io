@@ -103,7 +103,14 @@ Finally we bind the `app` ready event to create the `BrowserWindow` instance.
 
 Additionally for debugging it can be handy to uncomment the line `win.webContents.openDevTools();` as that will open a chrome dev tools window when the application launches.
 
-<img alt="Devoxx Demo" src="{{ '/img/2019-12-20-devoxx-demo/demo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2019-12-20-devoxx-demo/demo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Devoxx Demo">
+        <img alt="Devoxx Demo" src="{{ '/img/2019-12-20-devoxx-demo/demo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2019-12-20-devoxx-demo/devoxx-demo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Devoxx Demo in action">
+        <img alt="Devoxx Demo in action" src="{{ '/img/2019-12-20-devoxx-demo/devoxx-demo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 43%; display: inline-block;">
+    </a>
+</div>
 
 ## Code
 
