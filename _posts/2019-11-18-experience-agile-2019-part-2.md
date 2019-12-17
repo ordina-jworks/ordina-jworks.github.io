@@ -15,6 +15,7 @@ However, those were not the only talks so this post will dive deeper into some o
 
 * [Leadership in a scaling agile environment, by Leonoor Koomen](#leadership-in-a-scaling-agile-environment-by-leonoor-koomen)
 * [Building a Customer Value Engine for a more Successful Company, by Mario Moreira](#building-a-customer-value-engine-for-a-more-successful-company-by-mario-moreira)
+* [Agile Fluency Project - Why focusing team rock, by Diana Larsen](#agile-fluency-project---why-focusing-teams-rock-by-diana-larsen)
 
 ## Leadership in a scaling agile environment, by Leonoor Koomen
 Another great talk from the eXperience Agile conference came from [Leonoor Koomen](https://twitter.com/agileonoor){:target="_blank" rel="noopener noreferrer"}.  
@@ -170,3 +171,21 @@ The manual calculations can be tested in the acceptance environment by the produ
 
 > An enterprise idea pipeline provides transparency of your options and allows you to quickly be aware of and respond to high-value work  
 > M. Moreira
+
+
+## Agile Fluency Project - Why focusing teams rock, by Diana Larsen
+
+Diana Larsen, or @DianaOfPortland, was an honourable guest at eXperience Agile conference. Browsing her website FutureWorks Consulting, and googling her name, it becomes clear she had an amazing journey leading up to this *Agile Fluency Project*, throughout which you can move the *Agile Fluency Model* from idea to implementation, a model she co-created with James Shore. 
+
+The concept of *fluency* is omnipresent in most of her talks and articles, and related to that *team collaboration* has been one of her primary topics throughout her career. 
+
+### What is fluency?
+
+Fluency is routine practice mastery that persists under stress. In Lean, we would call this *kata*.
+You could say it is the skillful ease that comes from investing in learning. 
+
+That investment comes down to taking the time and making the effort for deliberate practice. By regularly and consistently practicing a skill with increasing levels of challenge and with the intention of mastering that skill, a state of fluency can be reached. The key is to not give up easily, and with that intent, to keep up your practice until it becomes a second nature... a bit like practicing your cylcing skills as a kid, because you long to get rid of those silly training wheels.  
+
+The Agile Fluency Model focuses of *team fluency*, a form of fluency that transcends the individual practice, and just like a team is more than the sum of its parts, team fluency also depends on management structures, relationships, and organizational culture, as well as the tools, technologies, and practices the teams use.is also more than the sum of its parts.
+
+That would imply that a team is so naturally skilled that **  can be some team chemistry 
