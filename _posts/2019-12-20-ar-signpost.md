@@ -40,9 +40,9 @@ One of the terms that will appear a lot in this blogpost is Augmented Reality or
 AR allows us to add layers of visual information about the real world around us using devices like as our own smartphones.
 This helps us to generate experiences that provide relevant knowledge about our environment, and we also receive that information in real time.
 
-Speaking of AR what better example to give than Pokémon Go.
+Speaking of AR what better example to give than [Pokémon Go](https://www.pokemongo.com).
 This game has revolutionized the industry of AR-based games and has become, in a matter of days, the most popular Smartphone game in history.
-Another good example is IKEA Place which is an application that includes a wide variety of furniture, sofas, armchairs and stools in 3D so that we can see thanks to the AR how they would look in our house, showing the size that would occupy each product.
+Another good example is [IKEA Place](https://www.ikea.com/be/nl/customer-service/shopping-at-ikea/applis-ikea-pub1fb256d1) which is an application that includes a wide variety of furniture, sofas, armchairs and stools in 3D so that we can see thanks to the AR how they would look in our house, showing the size that would occupy each product.
 Isn't it amazing?
 
 <div style="text-align: center; margin: 0px auto;">
@@ -76,11 +76,12 @@ Later Below I will explain how we did it.
 
 This PoC project consists of two frontend applications and a backend:
 
-- A mobile application with react native
-- A web based application for administrators
-- a REST API and of course a database that work together to accomplish the goal of helping people to navigate inside large buildings with the help of AR.
-  This parts of this PoC project are presented below along with a brief description of the role each plays and its most important functionalities.
-  The interaction between them will be explained later in order to understand the functioning of the system as a whole.
+* Mobile application
+* Web application
+* REST API
+* Database
+
+This parts work together to accomplish the goal of helping people to navigate inside large buildings with the help of AR and they are presented below along with a brief description of the role each plays and its most important functionalities. The interaction between them will be explained later in order to understand the functioning of the system as a whole.
 
 ### Mobile application
 
@@ -107,14 +108,14 @@ Next, the technical parts of these technologies are explained in more detail.
 <span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-react-native.png" style="max-width: 100px;"></span>
 ##### React Native
 
-React Native is a multi platform framework to develop native mobile applications that is based on JavaScript and React that uses a concept similar to React's VirtualDOM, since we also have JSX components, which will be different from HTML components and will have other tags and other names because HTML is not used.
+[React Native](https://facebook.github.io/react-native/) is a multi platform framework to develop native mobile applications that is based on JavaScript and React that uses a concept similar to React's VirtualDOM, since we also have JSX components, which will be different from HTML components and will have other tags and other names because HTML is not used.
 
 What happens is that the React Native compiler will convert them into native interface elements for Android and iOS, which will allow these applications to have a look and feel similar to native applications, a practically equal performance and a navigation and user experience very similar to native applications, since what is being generated is native interface.
 
 <span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-viroreact.png" style="max-width: 100px;"></span>
 ##### ViroReact
 
-The technology used to create AR in this project is ViroReact which is a platform to develop augmented reality and virtual reality applications using React Native.
+The technology used to create AR in this project is [ViroReact](https://viromedia.com/viroreact) which is a platform to develop augmented reality and virtual reality applications using React Native.
 The platform supports ARKit and ARCore for the development of AR, thus encompassing the two major augmented reality development platforms under one platform.
 ViroReact consists of two main components, a native 3D rendering engine and a custom React extension for AR and VR development.
 
@@ -126,6 +127,8 @@ Some of the advantages of ViroReact are:
 * Easy to learn as it uses a markup language, which makes it quite intuitive.
 * It is an open source platform, which provides that you can find codes that can be reused in our application.
 * It is not necessary to use Xcode or Android Studio.
+
+In 2018, [Ryan De Gruyter](https://ordina-jworks.github.io/author/ryan-de-gruyter/){:target="_blank" rel="noopener noreferrer"} together with [Michael Vandendriessche](https://ordina-jworks.github.io/author/michael-vandendriessche/){:target="_blank" rel="noopener noreferrer"}  wrote an interesting [blogpost](https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html){:target="_blank" rel="noopener noreferrer"} that teaches how to create augmented reality with ViroReact.
 
 ### Web application
 
@@ -144,7 +147,7 @@ Main functionalities are:
 <span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-react.png" style="max-width: 100px;"></span>
 ##### React
 
-React is a library written in JavaScript, developed on Facebook to facilitate the creation of web applications in a more orderly way and with less code than if you use pure Javascript or libraries like jQuery focused on the manipulation of the DOM.
+[React](https://reactjs.org/) is a library written in JavaScript, developed on Facebook to facilitate the creation of web applications in a more orderly way and with less code than if you use pure Javascript or libraries like jQuery focused on the manipulation of the DOM.
 It allows views to be associated with data, so if the data changes, so do the views.
 
 React uses what is called the virtual DOM which is a representation of the DOM but in memory, which React uses to significantly increase the performance of components and front-end applications.
@@ -162,9 +165,9 @@ Our goal here was to develop a REST API capable of carrying CRUD operations to s
 <span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-nestjs.png" style="max-width: 100px;"></span>
 ##### NestJS
 
-The framework used to create our backend is NestJS which is a framework based on NodeJS and TypeScript that abstracts you from the use of Express and Socket.io through decorators, has injection of dependencies "inspired" in Angular and allows to modularize our applications applying concepts of orientation to objects and functional and reactive programming.
+The framework used to create our backend is [NestJS](https://nestjs.com/) which is a framework based on NodeJS and TypeScript that abstracts you from the use of Express and Socket.io through decorators, has injection of dependencies "inspired" in Angular and allows to modularize our applications applying concepts of orientation to objects and functional and reactive programming.
 
-The official documentation is another of its strong points that you can find here and there is an official repository with many didactic examples.
+The official documentation is another of its strong points that you can find [here](https://docs.nestjs.com/) and there is an [official repository](https://github.com/nestjs/nest) with many didactic examples.
 
 
 ### Database
@@ -176,7 +179,7 @@ We needed a database capable of representing real-world entities such as points 
 <span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-neo4j.png" style="max-width: 100px;"></span>
 ##### Neo4j
 
-Neo4j uses graphs to represent data and the relationships between them.
+[Neo4j](https://neo4j.com/) uses graphs to represent data and the relationships between them.
 A graph is defined as any graphical representation formed by vertices (illustrated by circles) and edges (shown by intersection lines).
 As shown in the image below.
 
@@ -184,10 +187,6 @@ Databases oriented to graphs such as Neo4j perform better than relational (SQL) 
 The key is that, although data queries increase exponentially, Neo4j's performance does not decrease, as opposed to relational DBs such as MySQL.
 
 ## How it works
-
-At this point of blogpost, I will explain what this PoC project consists of and how it works in general terms.
-That said, let's get down to business!
-
 
 Now that these applications have been introduced, we are going to look at the interaction between them in order to better understand the functioning of the system as a whole.
 
@@ -251,4 +250,10 @@ From navigating airports to shopping malls, AR can take us to our destination mu
 
 ## Resources
 
-<!-- TODO -->
+* [The 10+ Best Real-World Examples Of Augmented Reality](https://www.forbes.com/sites/bernardmarr/2019/03/01/the-10-best-real-world-examples-of-augmented-reality/#6aa2816b42d8)
+* [Positioning system](https://en.wikipedia.org/wiki/Positioning_system)
+* [React Native](https://facebook.github.io/react-native/docs/getting-started)
+* [ViroReact](https://github.com/viromedia/viro)
+* [React](https://reactjs.org/docs/getting-started.html)
+* [NestJS](https://docs.nestjs.com/)
+* [Neo4j](https://neo4j.com/developer/)
