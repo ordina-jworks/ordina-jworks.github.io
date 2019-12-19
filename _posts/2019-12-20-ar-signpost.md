@@ -31,11 +31,11 @@ In this blogpost, I will introduce the concept of using augmented reality with t
 
 ## Context 
 
-Before beginning to explain the workings of this PoC project, let me introduce the two main concepts, which are augmented reality and Indoor Positioning Systems, to give a little context so you can better understand the overall working.
+Before beginning to explain the workings of this PoC project, let me introduce the two main concepts, which are **augmented reality** and **Indoor Positioning Systems**, to give a little context so you can better understand the overall working.
 
 ### Augmented reality
 
-One of the terms that will appear a lot on this blog is Augmented Reality or AR which is the foundation of this PoC.
+One of the terms that will appear a lot on this blogpost is Augmented Reality or AR which is the foundation of this PoC.
 AR allows us to add layers of visual information about the real world around us using technology, devices such as our own smartphones.
 This helps us to generate experiences that provide relevant knowledge about our environment, and we also receive that information in real time.
 
@@ -211,6 +211,11 @@ The process is shown in the following video.
 </div>
 
 ## Conclusion
+
+As shopping malls, hospitals, airports, universities and other indoor spaces become more complex, the need for indoor navigation systems increases. The lack of GPS support in indoor environments has always made this a challenge. But with augmented reality, it is able to solve this problem as demonstrated in this blogpost.
+
+
+Applications based on AR augmented reality are able to improve the user experience through their numerous current applications and the potential they offer for the future. These systems can significantly improve many areas of our lives. From navigating airports to shopping malls, AR can take us to our destination much faster than ever before.
 
 ## Resources
 
