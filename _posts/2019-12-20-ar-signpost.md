@@ -13,12 +13,12 @@ comments: true
 
 ## Table of Contents
 
-1.[Introduction](#introduction)
-2.[Context](#context)
-4.[Overview](#overview)
-4.[How it works](#how-it-works)
-5.[Conclusion](#conclusion)
-5.[Resources](#resources)
+1. [Introduction](#introduction)
+2. [Context](#context)
+3. [Overview](#overview)
+4. [How it works](#how-it-works)
+5. [Conclusion](#conclusion)
+6. [Resources](#resources)
 
 ## Introduction
 
