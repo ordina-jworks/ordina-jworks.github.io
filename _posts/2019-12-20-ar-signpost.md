@@ -36,8 +36,8 @@ Before beginning to explain the workings of this PoC project, let me introduce t
 
 ### Augmented reality
 
-One of the terms that will appear a lot on this blogpost is Augmented Reality or AR which is the foundation of this PoC.
-AR allows us to add layers of visual information about the real world around us using technology, devices such as our own smartphones.
+One of the terms that will appear a lot in this blogpost is Augmented Reality or AR which is the foundation of this PoC.
+AR allows us to add layers of visual information about the real world around us using devices like as our own smartphones.
 This helps us to generate experiences that provide relevant knowledge about our environment, and we also receive that information in real time.
 
 Speaking of AR what better example to give than Pokémon Go.
@@ -61,20 +61,26 @@ These systems are mechanisms that allow us to detect the position of objects or 
 
 We can differentiate between global and local:
 
-* Global Positioning Systems (GPS) consist of a series of satellites located around the Earth that send signals that allow the receiver to calculate the distance at which these satellites are located and thus be able to calculate their position.
+* Global Positioning Systems (GPS) consist of a network of satellites in geosynchronous Earth orbits that send signals that allow the receiver to calculate the distance at which these satellites are located and thus be able to calculate their position.
 
-* Local Positioning Systems (LPS) allow us to reach the same objective in a similar way but using local mechanisms instead of satellites (telephone towers, wifi access points, ...) and calculating the position locally.
+* Local Positioning Systems (LPS) allow us to reach the same objective in a similar way but using local mechanisms instead of satellites (telephone towers, WiFi access points, ...) and calculating the position locally.
 
 **Indoor Positioning Systems (IPS)** are specific cases of LPS whose particularity is that they aim to position objects or events within a space not exposed to the open air as shown in the image below. The principles are similar in all cases, but their particularities make them different.
 
 <img alt="IPS" src="{{ '/img/2019-12-20-ar-signpost/ar-signpost-IPS.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-In this PoC we combine IPS with augmented reality without any external mechanism like sensors to determine the position, just the IPS principle.Later Below I will explain how we do it.
+In this PoC we combine IPS with augmented reality without any external mechanism like sensors to determine the position, just the IPS principle.
+Later Below I will explain how we did it.
 
 ## Overview
 
-This PoC project consists of two frontend applications, a REST API and of course a database that work together to accomplish the goal of helping people to navigate inside large buildings with the help of AR.This parts of this PoC project are presented below along with a brief description of the role each plays and its most important functionalities.
-The interaction between them will be explained later in order to understand the functioning of the system as a whole.
+This PoC project consists of two frontend applications and a backend:
+
+- A mobile application with react native
+- A web based application for administrators
+- a REST API and of course a database that work together to accomplish the goal of helping people to navigate inside large buildings with the help of AR.
+  This parts of this PoC project are presented below along with a brief description of the role each plays and its most important functionalities.
+  The interaction between them will be explained later in order to understand the functioning of the system as a whole.
 
 ### Mobile application
 
@@ -88,9 +94,9 @@ The main functionality of this application is to guide users with signals and pa
 
 Main functionalities are:
 
-* The ability to scan QR code markers to locate users within a building.
-* Guide users to their destination with visual indications such as lines and arrows using AR.
-* The possibility to search and select destinations within a building.
+- The ability to scan QR code markers to locate users within a building.
+- Guide users to their destination with visual indications such as lines and arrows using AR.
+- The possibility to search and select destinations within a building.
 
 #### Used technologies
 
@@ -101,7 +107,7 @@ Next, the technical parts of these technologies are explained in more detail.
 <span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-react-native.png" style="max-width: 100px;"></span>
 ##### React Native
 
-React Native is a multiplatform framework to develop native mobile applications that is based on JavaScript and React that uses a concept similar to React's VirtualDOM, since we also have JSX components, which will be different from HTML components and will have other tags and other names because HTML is not used.
+React Native is a multi platform framework to develop native mobile applications that is based on JavaScript and React that uses a concept similar to React's VirtualDOM, since we also have JSX components, which will be different from HTML components and will have other tags and other names because HTML is not used.
 
 What happens is that the React Native compiler will convert them into native interface elements for Android and iOS, which will allow these applications to have a look and feel similar to native applications, a practically equal performance and a navigation and user experience very similar to native applications, since what is being generated is native interface.
 
@@ -115,7 +121,7 @@ ViroReact consists of two main components, a native 3D rendering engine and a cu
 Some of the advantages of ViroReact are:
 
 * Create an application from scratch or add AR/VR features to an existing application.
-* Possibility of mobile multiplatform using the same base code.
+* Possibility of mobile multi platform using the same base code.
 * Like React Native, it allows to check the changes made only by updating the app.
 * Easy to learn as it uses a markup language, which makes it quite intuitive.
 * It is an open source platform, which provides that you can find codes that can be reused in our application.
@@ -141,7 +147,8 @@ Main functionalities are:
 React is a library written in JavaScript, developed on Facebook to facilitate the creation of web applications in a more orderly way and with less code than if you use pure Javascript or libraries like jQuery focused on the manipulation of the DOM.
 It allows views to be associated with data, so if the data changes, so do the views.
 
-React uses what is called the virtual DOM which is a representation of the DOM but in memory, which React uses to significantly increase the performance of components and front-end applications.Basically, when a view is updated, React takes care of updating the Virtual DOM, which is much faster than updating the browser's DOM (real DOM).
+React uses what is called the virtual DOM which is a representation of the DOM but in memory, which React uses to significantly increase the performance of components and front-end applications.
+Basically, when a view is updated, React takes care of updating the Virtual DOM, which is much faster than updating the browser's DOM (real DOM).
 When React compares the Virtual DOM with the DOM of the browser, it knows exactly which parts of the page to update and saves the need to update the entire view.
 
 ### REST API
@@ -182,9 +189,9 @@ At this point of blogpost, I will explain what this PoC project consists of and 
 That said, let's get down to business!
 
 
-Now that these applications have been introduced, we are going to see the interaction between them in order to better understand the functioning of the system as a whole.
+Now that these applications have been introduced, we are going to look at the interaction between them in order to better understand the functioning of the system as a whole.
 
-Let's start from the perspective of the user who has access to the mobile application as can be seen in the image below.
+Let's start from the perspective of the user who has access to the mobile application as seen in the image below.
 
 <div style="text-align: center; margin: 0px auto;">
  <a href="{{ '/img/2019-12-20-ar-signpost/ar-signpost-general-architecture.png' | prepend: site.baseurl }}" data-lightbox="ui" >
@@ -219,9 +226,11 @@ The AR scene starts from the point where the camera is located, which is usually
 In this case we are going to focus only on x and z-axis because y-axis represents the height of the objects so it will be constant.
 
 The points of interest we receive contain geographic coordinates (latitude and longitude) where they are located in the real world.
-The AR world does not understand geographic coordinates, so we have to convert these GPS coordinates to point x, z and y-axis in meters taking as reference the initial position of the AR camera.For this we use a technique called Web Mercator projection and in this way, we have our points of interest integrated into the real world as shown in the video above.
+The AR world does not understand geographic coordinates, so we have to convert these GPS coordinates to point x, z and y-axis in meters taking as reference the initial position of the AR camera.
+For this we use a technique called Web Mercator projection and in this way, we have our points of interest integrated into the real world as shown in the video above.
 
-Going back to our example before the mall, you wondered how this system would be implemented in a mall, didn't you? Well there the web application intended for administrators or operators who are responsible for indicating where each point of interest is located in the building comes into play.
+Going back to our example before the mall, you wondered how this system would be implemented in a mall, didn't you? 
+Well there the web application intended for administrators or operators who are responsible for indicating where each point of interest is located in the building comes into play.
 The process is shown in the following video.
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
