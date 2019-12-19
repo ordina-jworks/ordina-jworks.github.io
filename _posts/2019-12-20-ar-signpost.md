@@ -25,7 +25,7 @@ comments: true
 Mobile applications based on GPS such as Waze or Google Maps have proven to be very useful in guiding us to our destination.
 With such applications, it's easy to find your way to a destination, even in an unfamiliar city.
 However, it is still easy to get lost indoors, where GPS satellite signals are not accurately trackable for navigation applications.
-For example, I'm sure that more than one of us has been lost more than once in a shopping mall or airport looking for our way to our destination and not knowing in which direction to go, is it a frustrating situation right? 
+For example, I'm sure that more than one of us has been lost more than once in a shopping mall or airport looking for our way to our destination and not knowing in which direction to go, it's a frustrating situation right? 
 Well this is the problem we are trying to solve with this proof of concept (PoC) project.
  
 In this blogpost, I will introduce the concept of using augmented reality with the aim of creating a navigation system that can help people orient themselves and navigate within large buildings.
@@ -37,7 +37,7 @@ Before beginning to explain the workings of this PoC project, let me introduce t
 ### Augmented reality
 
 One of the terms that will appear a lot in this blogpost is Augmented Reality or AR which is the foundation of this PoC.
-AR allows us to add layers of visual information about the real world around us using devices like as our own smartphones.
+AR allows us to add layers of visual information about the real world around us using devices such as our own smartphones.
 This helps us to generate experiences that provide relevant knowledge about our environment, and we also receive that information in real time.
 
 Speaking of AR what better example to give than [Pokémon Go](https://www.pokemongo.com).
@@ -70,7 +70,7 @@ We can differentiate between global and local:
 <img alt="IPS" src="{{ '/img/2019-12-20-ar-signpost/ar-signpost-IPS.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 In this PoC we combine IPS with augmented reality without any external mechanism like sensors to determine the position, just the IPS principle.
-Later Below I will explain how we did it.
+Later below I will explain how we did it.
 
 ## Overview
 
@@ -81,7 +81,7 @@ This PoC project consists of two frontend applications and a backend:
 * REST API
 * Database
 
-This parts work together to accomplish the goal of helping people to navigate inside large buildings with the help of AR and they are presented below along with a brief description of the role each plays and its most important functionalities. The interaction between them will be explained later in order to understand the functioning of the system as a whole.
+These parts work together to accomplish the goal of helping people to navigate inside large buildings with the help of AR and they are presented below along with a brief description of the role each plays and its most important functionalities. The interaction between them will be explained later in order to understand the functioning of the system as a whole.
 
 ### Mobile application
 
@@ -122,10 +122,10 @@ ViroReact consists of two main components, a native 3D rendering engine and a cu
 Some of the advantages of ViroReact are:
 
 * Create an application from scratch or add AR/VR features to an existing application.
-* Possibility of mobile multi platform using the same base code.
+* Possibility of mobile multi platform using the same code base.
 * Like React Native, it allows to check the changes made only by updating the app.
 * Easy to learn as it uses a markup language, which makes it quite intuitive.
-* It is an open source platform, which provides that you can find codes that can be reused in our application.
+* It is an open source platform, which allows you to find code that can be reused in your application.
 * It is not necessary to use Xcode or Android Studio.
 
 In 2018, [Ryan De Gruyter](https://ordina-jworks.github.io/author/ryan-de-gruyter/){:target="_blank" rel="noopener noreferrer"} together with [Michael Vandendriessche](https://ordina-jworks.github.io/author/michael-vandendriessche/){:target="_blank" rel="noopener noreferrer"}  wrote an interesting [blogpost](https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html){:target="_blank" rel="noopener noreferrer"} that teaches how to create augmented reality with ViroReact.
@@ -150,7 +150,7 @@ Main functionalities are:
 [React](https://reactjs.org/) is a library written in JavaScript, developed on Facebook to facilitate the creation of web applications in a more orderly way and with less code than if you use pure Javascript or libraries like jQuery focused on the manipulation of the DOM.
 It allows views to be associated with data, so if the data changes, so do the views.
 
-React uses what is called the virtual DOM which is a representation of the DOM but in memory, which React uses to significantly increase the performance of components and front-end applications.
+React uses what is called the virtual DOM which is a representation of the DOM but in memory, which React uses to significantly increase the performance of components and frontend applications.
 Basically, when a view is updated, React takes care of updating the Virtual DOM, which is much faster than updating the browser's DOM (real DOM).
 When React compares the Virtual DOM with the DOM of the browser, it knows exactly which parts of the page to update and saves the need to update the entire view.
 
@@ -172,7 +172,7 @@ The official documentation is another of its strong points that you can find [he
 
 ### Database
 
-We needed a database capable of representing real-world entities such as points of interest and their relationships in a graphical way and that's when we came across the fantastic database Neo4j.Below are the advantages offered by this graphical database.
+We needed a database capable of representing real-world entities such as points of interest and their relationships in a graphical way and that's when we came across the fantastic database Neo4j. Below are the advantages offered by this graphical database.
 
 #### Used technologies
 
@@ -200,8 +200,7 @@ Let's start from the perspective of the user who has access to the mobile applic
 
 
 Let's put your favorite mall on the scene for a moment.
-In this mall you would find markers with QR codes strategically placed so that they are visible, and you have easy access to them.
-Each QR contains contextual information such as a unique identifier, the building in which it is located and the floor in which it is located.
+In this mall you would find markers with QR codes strategically placed so that they are visible, and you have easy access to them. Each QR contains contextual information such as a unique identifier and the building and floor in which it is located.
 
 Imagine you are looking for a particular shop, the first step would be to scan the marker closest to you with the mobile application.
 This would send the information contained in the QR to our REST API and it would take care of obtaining the necessary information from the database by querying the information obtained from the QR.
@@ -226,10 +225,10 @@ In this case we are going to focus only on x and z-axis because y-axis represent
 
 The points of interest we receive contain geographic coordinates (latitude and longitude) where they are located in the real world.
 The AR world does not understand geographic coordinates, so we have to convert these GPS coordinates to point x, z and y-axis in meters taking as reference the initial position of the AR camera.
-For this we use a technique called Web Mercator projection and in this way, we have our points of interest integrated into the real world as shown in the video above.
+For this we use a technique called [Web Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection) and in this way, we have our points of interest integrated into the real world as shown in the video above.
 
 Going back to our example before the mall, you wondered how this system would be implemented in a mall, didn't you? 
-Well there the web application intended for administrators or operators who are responsible for indicating where each point of interest is located in the building comes into play.
+Well there, the web application intended for administrators or operators who are responsible for indicating where each point of interest is located in the building comes into play.
 The process is shown in the following video.
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
@@ -252,6 +251,7 @@ From navigating airports to shopping malls, AR can take us to our destination mu
 
 * [The 10+ Best Real-World Examples Of Augmented Reality](https://www.forbes.com/sites/bernardmarr/2019/03/01/the-10-best-real-world-examples-of-augmented-reality/#6aa2816b42d8)
 * [Positioning system](https://en.wikipedia.org/wiki/Positioning_system)
+* [Mercator projection](https://en.wikipedia.org/wiki/Mercator_projection)
 * [React Native](https://facebook.github.io/react-native/docs/getting-started)
 * [ViroReact](https://github.com/viromedia/viro)
 * [React](https://reactjs.org/docs/getting-started.html)
