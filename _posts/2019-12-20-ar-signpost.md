@@ -204,19 +204,24 @@ In this case we are going to focus only on x and z-axis because y-axis represent
 The points of interest we receive contain geographic coordinates (latitude and longitude) where they are located in the real world.
 The AR world does not understand geographic coordinates, so we have to convert these GPS coordinates to point x, z and y-axis in meters taking as reference the initial position of the AR camera.For this we use a technique called Web Mercator projection and in this way, we have our points of interest integrated into the real world as shown in the video above.
 
-Going back to our example before the mall, you wondered how this system would be implemented in a mall, didn't you? Well there comes into play the web application intended for administrators or operators who are responsible for indicating where each point of interest is located in the building.
+Going back to our example before the mall, you wondered how this system would be implemented in a mall, didn't you? Well there the web application intended for administrators or operators who are responsible for indicating where each point of interest is located in the building comes into play.
 The process is shown in the following video.
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
     <iframe src="https://www.youtube.com/embed/h1IWW1Jx5yE" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
 </div>
+<br/>
 
 ## Conclusion
 
-As shopping malls, hospitals, airports, universities and other indoor spaces become more complex, the need for indoor navigation systems increases. The lack of GPS support in indoor environments has always made this a challenge. But with augmented reality, it is able to solve this problem as demonstrated in this blogpost.
+As shopping malls, hospitals, airports, universities and other indoor spaces become more complex, the need for indoor navigation systems increases. 
+The lack of GPS support in indoor environments has always made this a challenge. 
+But with augmented reality, it is possible to solve this problem as demonstrated in this blogpost.
 
 
-Applications based on AR augmented reality are able to improve the user experience through their numerous current applications and the potential they offer for the future. These systems can significantly improve many areas of our lives. From navigating airports to shopping malls, AR can take us to our destination much faster than ever before.
+Applications that implement Augmented Reality are able to improve the user experience through their numerous current applications and the potential they offer for the future. 
+These systems can significantly improve many areas of our lives. 
+From navigating airports to shopping malls, AR can take us to our destination much faster than ever before.
 
 ## Resources
 
