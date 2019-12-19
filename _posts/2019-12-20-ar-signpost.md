@@ -144,7 +144,7 @@ The REST API is responsible for connecting the two frontend applications with th
 
 #### Used technologies
 
-Our goal here was to develop a REST API capable of carrying CRUID operations to serve our frontend with the necessary data and functionalities such as providing points of interest to the mobile application or creating them from the web application with the help of an administrator.
+Our goal here was to develop a REST API capable of carrying CRUD operations to serve our frontend with the necessary data and functionalities such as providing points of interest to the mobile application or creating them from the web application with the help of an administrator.
 
 ##### NestJS
 
