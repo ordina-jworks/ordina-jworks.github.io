@@ -2,7 +2,7 @@
 layout: post
 authors: [mohammed_laghzaoui]
 title: 'Using Augmented Reality to create an indoor navigation system with ViroReact'
-image: /img/virtualreality/banner.jpg 
+image: /img/2019-12-20-ar-signpost/ar-signpost-banner.jpg 
 tags: [React, React Native, ViroReact, Virtual Reality, Augmented Reality, Mixed Reality]
 category: IoT
 comments: true
