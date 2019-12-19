@@ -45,9 +45,9 @@ This game has revolutionized the industry of AR-based games and has become, in a
 Another good example is IKEA Place which is an application that includes a wide variety of furniture, sofas, armchairs and stools in 3D so that we can see thanks to the AR how they would look in our house, showing the size that would occupy each product.
 Isn't it amazing?
 
-<div style="display: flex; justify-content: center; margin:0px auto; max-width: 750px;">
-<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/pokemon-go.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 325px;">
-<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/ikea-place.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 325px;">
+<div style="text-align: center; margin: 0px auto;">
+<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/pokemon-go.gif' | prepend: site.baseurl }}" class="image fit"  style="margin:5px auto; width: 50%; height: display: inline-block;">
+<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/ikea-place.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;">
 </div>
 
 These two examples show that AR can be as much fun as it is useful.
@@ -65,8 +65,7 @@ We can differentiate between global and local:
 
 * Local Positioning Systems (LPS) allow us to reach the same objective in a similar way but using local mechanisms instead of satellites (telephone towers, wifi access points, ...) and calculating the position locally.
 
-**Indoor Positioning Systems (IPS)** are specific cases of LPS whose particularity is that they aim to position objects or events within a space not exposed to the open air.
-The principles are similar in all cases, but their particularities make them different.
+**Indoor Positioning Systems (IPS)** are specific cases of LPS whose particularity is that they aim to position objects or events within a space not exposed to the open air as shown in the image below. The principles are similar in all cases, but their particularities make them different.
 
 <img alt="IPS" src="{{ '/img/2019-12-20-ar-signpost/ar-signpost-IPS.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
@@ -81,7 +80,11 @@ The interaction between them will be explained later in order to understand the 
 
 The main functionality of this application is to guide users with signals and paths drawn visually with the help of AR as you can see in the image below.
 
-<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/ar-signpost-mobile-app.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 325px;">
+<div style="text-align: center; margin: 0px auto; max-width: 25%">
+ <a href="{{ '/img/2019-12-20-ar-signpost/ar-signpost-mobile-app.png' | prepend: site.baseurl }}" data-lightbox="ui" >
+<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/ar-signpost-mobile-app.png' | prepend: site.baseurl }}" class="image fit"  style="margin:0px auto;">
+</a>
+</div>
 
 Main functionalities are:
 
@@ -95,12 +98,14 @@ The reason for choosing React Native for the mobile application is due to its co
 Another reason is its native performance as our goal was to develop an application capable of general AR natively on Android and iOS and that was thanks to the ViroReact platform.
 Next, the technical parts of these technologies are explained in more detail.
 
+<span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-react-native.png" style="max-width: 100px;"></span>
 ##### React Native
 
 React Native is a multiplatform framework to develop native mobile applications that is based on JavaScript and React that uses a concept similar to React's VirtualDOM, since we also have JSX components, which will be different from HTML components and will have other tags and other names because HTML is not used.
 
 What happens is that the React Native compiler will convert them into native interface elements for Android and iOS, which will allow these applications to have a look and feel similar to native applications, a practically equal performance and a navigation and user experience very similar to native applications, since what is being generated is native interface.
 
+<span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-viroreact.png" style="max-width: 100px;"></span>
 ##### ViroReact
 
 The technology used to create AR in this project is ViroReact which is a platform to develop augmented reality and virtual reality applications using React Native.
@@ -130,6 +135,7 @@ Main functionalities are:
 
 #### Used technologies
 
+<span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-react.png" style="max-width: 100px;"></span>
 ##### React
 
 React is a library written in JavaScript, developed on Facebook to facilitate the creation of web applications in a more orderly way and with less code than if you use pure Javascript or libraries like jQuery focused on the manipulation of the DOM.
@@ -146,6 +152,7 @@ The REST API is responsible for connecting the two frontend applications with th
 
 Our goal here was to develop a REST API capable of carrying CRUD operations to serve our frontend with the necessary data and functionalities such as providing points of interest to the mobile application or creating them from the web application with the help of an administrator.
 
+<span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-nestjs.png" style="max-width: 100px;"></span>
 ##### NestJS
 
 The framework used to create our backend is NestJS which is a framework based on NodeJS and TypeScript that abstracts you from the use of Express and Socket.io through decorators, has injection of dependencies "inspired" in Angular and allows to modularize our applications applying concepts of orientation to objects and functional and reactive programming.
@@ -159,6 +166,7 @@ We needed a database capable of representing real-world entities such as points 
 
 #### Used technologies
 
+<span class="image left"><img class="image fit" alt="AWS Fargate" src="/img/2019-12-20-ar-signpost/logo-neo4j.png" style="max-width: 100px;"></span>
 ##### Neo4j
 
 Neo4j uses graphs to represent data and the relationships between them.
@@ -178,7 +186,12 @@ Now that these applications have been introduced, we are going to see the intera
 
 Let's start from the perspective of the user who has access to the mobile application as can be seen in the image below.
 
+<div style="text-align: center; margin: 0px auto;">
+ <a href="{{ '/img/2019-12-20-ar-signpost/ar-signpost-general-architecture.png' | prepend: site.baseurl }}" data-lightbox="ui" >
 <img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/ar-signpost-general-architecture.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
+</a>
+</div>
+
 
 Let's put your favorite mall on the scene for a moment.
 In this mall you would find markers with QR codes strategically placed so that they are visible, and you have easy access to them.
@@ -196,7 +209,11 @@ Now it's time for the funniest part of the process, to visualize these points of
 Are you wondering how this happens? Well this process is carried out with the ViroReact platform.
 First of all, we must take into account that the AR world is three-dimensional, so we have x, z and y-axis as shown in the image below.
 
-<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/x-y-z-axis.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 325px;">
+<div style="text-align: center; margin: 0px auto; width: 50%">
+ <a href="{{ '/img/2019-12-20-ar-signpost/x-y-z-axis.png' | prepend: site.baseurl }}" data-lightbox="ui" >
+<img alt="ikea space" src="{{ '/img/2019-12-20-ar-signpost/x-y-z-axis.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 325px;" style="background-color: white">
+</a>
+</div>
 
 The AR scene starts from the point where the camera is located, which is usually [x=0, y=0, z=0] and the objects are located around it with different coordinates.
 In this case we are going to focus only on x and z-axis because y-axis represents the height of the objects so it will be constant.
