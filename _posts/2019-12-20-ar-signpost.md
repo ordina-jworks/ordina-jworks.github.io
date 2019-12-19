@@ -13,19 +13,20 @@ comments: true
 
 ## Table of Contents
 
-1.[Introduction](#introduction)
-2.[Context](#context)
-4.[Overview](#overview)
-4.[How it works](#how-it-works)
-5.[Conclusion](#conclusion)
-5.[Resources](#resources)
+1. [Introduction](#introduction)
+2. [Context](#context)
+3. [Overview](#overview)
+4. [How it works](#how-it-works)
+5. [Conclusion](#conclusion)
+6. [Resources](#resources)
 
 ## Introduction
 
 Mobile applications based on GPS such as Waze or Google Maps have proven to be very useful in guiding us to our destination.
 With such applications, it's easy to find your way to a destination, even in an unfamiliar city.
 However, it is still easy to get lost indoors, where GPS satellite signals are not accurately trackable for navigation applications.
-For example, I'm sure that more than one of us has been lost more than once in a shopping mall or airport looking for our way to our destination and not knowing in which direction to go, is it a frustrating situation right? Well this is the problem we are trying to solve with this proof of concept (PoC) project.
+For example, I'm sure that more than one of us has been lost more than once in a shopping mall or airport looking for our way to our destination and not knowing in which direction to go, is it a frustrating situation right? 
+Well this is the problem we are trying to solve with this proof of concept (PoC) project.
  
 In this blogpost, I will introduce the concept of using augmented reality with the aim of creating a navigation system that can help people orient themselves and navigate within large buildings.
 
@@ -50,8 +51,8 @@ Isn't it amazing?
 </div>
 
 These two examples show that AR can be as much fun as it is useful.
-Here's an [interesting article](https://www.forbes.com/sites/bernardmarr/2019/03/01/the-10-best-real-world-examples-of-augmented-reality/#6aa2816b42d8) from Forbes showing how revolutionary this technology can be in industries like education, health care, tourism and more.
-Also in 2017, [Kevin Van Den Abeele](https://ordina-jworks.github.io/author/kevin-van-den-abeele/) together with [Michael Vandendriessche](https://ordina-jworks.github.io/author/michael-vandendriessche/) wrote a fantastic [blogpost](https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html) that introduces the concept of Augmented Reality in an understandable way.
+Here's an [interesting article](https://www.forbes.com/sites/bernardmarr/2019/03/01/the-10-best-real-world-examples-of-augmented-reality/#6aa2816b42d8){:target="_blank" rel="noopener noreferrer"} from Forbes showing how revolutionary this technology can be in industries like education, health care, tourism and more.
+Also in 2017, [Kevin Van den Abeele](https://ordina-jworks.github.io/author/kevin-van-den-abeele/){:target="_blank" rel="noopener noreferrer"} together with [Michael Vandendriessche](https://ordina-jworks.github.io/author/michael-vandendriessche/){:target="_blank" rel="noopener noreferrer"} wrote a fantastic [blogpost](https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html){:target="_blank" rel="noopener noreferrer"} that introduces the concept of Augmented Reality in an understandable way.
 
 ### Indoor Positioning System
 
@@ -143,7 +144,7 @@ The REST API is responsible for connecting the two frontend applications with th
 
 #### Used technologies
 
-Our goal here was to develop a REST API capable of carrying CRUID operations to serve our frontend with the necessary data and functionalities such as providing points of interest to the mobile application or creating them from the web application with the help of an administrator.
+Our goal here was to develop a REST API capable of carrying CRUD operations to serve our frontend with the necessary data and functionalities such as providing points of interest to the mobile application or creating them from the web application with the help of an administrator.
 
 ##### NestJS
 
