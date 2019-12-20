@@ -1,5 +1,270 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-12-18T09:03:44+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">KotlinConf 2019</title><link href="https://ordina-jworks.github.io/conference/2019/12/18/KotlinConf-2019.html" rel="alternate" type="text/html" title="KotlinConf 2019" /><published>2019-12-18T00:00:00+00:00</published><updated>2019-12-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2019/12/18/KotlinConf-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2019/12/18/KotlinConf-2019.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-12-20T07:52:38+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Using Augmented Reality to create an indoor navigation system with ViroReact</title><link href="https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost.html" rel="alternate" type="text/html" title="Using Augmented Reality to create an indoor navigation system with ViroReact" /><published>2019-12-20T00:00:00+00:00</published><updated>2019-12-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#context&quot;&gt;Context&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#overview&quot;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-it-works&quot;&gt;How it works&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Mobile applications based on GPS such as Waze or Google Maps have proven to be very useful in guiding us to our destination.
+With such applications, it’s easy to find your way to a destination, even in an unfamiliar city.
+However, it is still easy to get lost indoors, where GPS satellite signals are not accurately trackable for navigation applications.
+For example, I’m sure that more than one of us has been lost more than once in a shopping mall or airport looking for our way to our destination and not knowing in which direction to go, it’s a frustrating situation right? 
+Well this is the problem we are trying to solve with this proof of concept (PoC) project.&lt;/p&gt;
+
+&lt;p&gt;In this blogpost, I will introduce the concept of using augmented reality with the aim of creating a navigation system that can help people orient themselves and navigate within large buildings.&lt;/p&gt;
+
+&lt;h2 id=&quot;context&quot;&gt;Context&lt;/h2&gt;
+
+&lt;p&gt;Before beginning to explain the workings of this PoC project, let me introduce the two main concepts, which are &lt;strong&gt;augmented reality&lt;/strong&gt; and &lt;strong&gt;Indoor Positioning Systems&lt;/strong&gt;, to give a little context so you can better understand the overall working.&lt;/p&gt;
+
+&lt;h3 id=&quot;augmented-reality&quot;&gt;Augmented reality&lt;/h3&gt;
+
+&lt;p&gt;One of the terms that will appear a lot in this blogpost is Augmented Reality or AR which is the foundation of this PoC.
+AR allows us to add layers of visual information about the real world around us using devices such as our own smartphones.
+This helps us to generate experiences that provide relevant knowledge about our environment, and we also receive that information in real time.&lt;/p&gt;
+
+&lt;p&gt;Speaking of AR what better example to give than &lt;a href=&quot;https://www.pokemongo.com&quot;&gt;Pokémon Go&lt;/a&gt;.
+This game has revolutionized the industry of AR-based games and has become, in a matter of days, the most popular Smartphone game in history.
+Another good example is &lt;a href=&quot;https://www.ikea.com/be/nl/customer-service/shopping-at-ikea/applis-ikea-pub1fb256d1&quot;&gt;IKEA Place&lt;/a&gt; which is an application that includes a wide variety of furniture, sofas, armchairs and stools in 3D so that we can see thanks to the AR how they would look in our house, showing the size that would occupy each product.
+Isn’t it amazing?&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+&lt;img alt=&quot;ikea space&quot; src=&quot;/img/2019-12-20-ar-signpost/pokemon-go.gif&quot; class=&quot;image fit&quot; style=&quot;margin:5px auto; width: 50%; height: display: inline-block;&quot; /&gt;
+&lt;img alt=&quot;ikea space&quot; src=&quot;/img/2019-12-20-ar-signpost/ikea-place.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 50%; display: inline-block;&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;These two examples show that AR can be as much fun as it is useful.
+Here’s an &lt;a href=&quot;https://www.forbes.com/sites/bernardmarr/2019/03/01/the-10-best-real-world-examples-of-augmented-reality/#6aa2816b42d8&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;interesting article&lt;/a&gt; from Forbes showing how revolutionary this technology can be in industries like education, health care, tourism and more.
+Also in 2017, &lt;a href=&quot;https://ordina-jworks.github.io/author/kevin-van-den-abeele/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kevin Van den Abeele&lt;/a&gt; together with &lt;a href=&quot;https://ordina-jworks.github.io/author/michael-vandendriessche/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Michael Vandendriessche&lt;/a&gt; wrote a fantastic &lt;a href=&quot;https://ordina-jworks.github.io/iot/2017/12/20/Virtual-Reality.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;blogpost&lt;/a&gt; that introduces the concept of Augmented Reality in an understandable way.&lt;/p&gt;
+
+&lt;h3 id=&quot;indoor-positioning-system&quot;&gt;Indoor Positioning System&lt;/h3&gt;
+
+&lt;p&gt;Before explaining what Indoor Positioning Systems is, let’s first look at the types of Positioning Systems that exist today and their uses.
+These systems are mechanisms that allow us to detect the position of objects or events in a context or in a coordinate system.&lt;/p&gt;
+
+&lt;p&gt;We can differentiate between global and local:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Global Positioning Systems (GPS) consist of a network of satellites in geosynchronous Earth orbits that send signals that allow the receiver to calculate the distance at which these satellites are located and thus be able to calculate their position.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Local Positioning Systems (LPS) allow us to reach the same objective in a similar way but using local mechanisms instead of satellites (telephone towers, WiFi access points, …) and calculating the position locally.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Indoor Positioning Systems (IPS)&lt;/strong&gt; are specific cases of LPS whose particularity is that they aim to position objects or events within a space not exposed to the open air as shown in the image below. The principles are similar in all cases, but their particularities make them different.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;IPS&quot; src=&quot;/img/2019-12-20-ar-signpost/ar-signpost-IPS.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this PoC we combine IPS with augmented reality without any external mechanism like sensors to determine the position, just the IPS principle.
+Later below I will explain how we did it.&lt;/p&gt;
+
+&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;This PoC project consists of two frontend applications and a backend:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mobile application&lt;/li&gt;
+  &lt;li&gt;Web application&lt;/li&gt;
+  &lt;li&gt;REST API&lt;/li&gt;
+  &lt;li&gt;Database&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These parts work together to accomplish the goal of helping people to navigate inside large buildings with the help of AR and they are presented below along with a brief description of the role each plays and its most important functionalities. The interaction between them will be explained later in order to understand the functioning of the system as a whole.&lt;/p&gt;
+
+&lt;h3 id=&quot;mobile-application&quot;&gt;Mobile application&lt;/h3&gt;
+
+&lt;p&gt;The main functionality of this application is to guide users with signals and paths drawn visually with the help of AR as you can see in the image below.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto; max-width: 25%&quot;&gt;
+ &lt;a href=&quot;/img/2019-12-20-ar-signpost/ar-signpost-mobile-app.png&quot; data-lightbox=&quot;ui&quot;&gt;
+&lt;img alt=&quot;ikea space&quot; src=&quot;/img/2019-12-20-ar-signpost/ar-signpost-mobile-app.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Main functionalities are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The ability to scan QR code markers to locate users within a building.&lt;/li&gt;
+  &lt;li&gt;Guide users to their destination with visual indications such as lines and arrows using AR.&lt;/li&gt;
+  &lt;li&gt;The possibility to search and select destinations within a building.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;used-technologies&quot;&gt;Used technologies&lt;/h4&gt;
+
+&lt;p&gt;The reason for choosing React Native for the mobile application is due to its compatibility with the two major mobile platforms, Android and iOS.
+Another reason is its native performance as our goal was to develop an application capable of general AR natively on Android and iOS and that was thanks to the ViroReact platform.
+Next, the technical parts of these technologies are explained in more detail.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;image fit&quot; alt=&quot;AWS Fargate&quot; src=&quot;/img/2019-12-20-ar-signpost/logo-react-native.png&quot; style=&quot;max-width: 100px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h5 id=&quot;react-native&quot;&gt;React Native&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://facebook.github.io/react-native/&quot;&gt;React Native&lt;/a&gt; is a multi platform framework to develop native mobile applications that is based on JavaScript and React that uses a concept similar to React’s VirtualDOM, since we also have JSX components, which will be different from HTML components and will have other tags and other names because HTML is not used.&lt;/p&gt;
+
+&lt;p&gt;What happens is that the React Native compiler will convert them into native interface elements for Android and iOS, which will allow these applications to have a look and feel similar to native applications, a practically equal performance and a navigation and user experience very similar to native applications, since what is being generated is native interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;image fit&quot; alt=&quot;AWS Fargate&quot; src=&quot;/img/2019-12-20-ar-signpost/logo-viroreact.png&quot; style=&quot;max-width: 100px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h5 id=&quot;viroreact&quot;&gt;ViroReact&lt;/h5&gt;
+
+&lt;p&gt;The technology used to create AR in this project is &lt;a href=&quot;https://viromedia.com/viroreact&quot;&gt;ViroReact&lt;/a&gt; which is a platform to develop augmented reality and virtual reality applications using React Native.
+The platform supports ARKit and ARCore for the development of AR, thus encompassing the two major augmented reality development platforms under one platform.
+ViroReact consists of two main components, a native 3D rendering engine and a custom React extension for AR and VR development.&lt;/p&gt;
+
+&lt;p&gt;Some of the advantages of ViroReact are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create an application from scratch or add AR/VR features to an existing application.&lt;/li&gt;
+  &lt;li&gt;Possibility of mobile multi platform using the same code base.&lt;/li&gt;
+  &lt;li&gt;Like React Native, it allows to check the changes made only by updating the app.&lt;/li&gt;
+  &lt;li&gt;Easy to learn as it uses a markup language, which makes it quite intuitive.&lt;/li&gt;
+  &lt;li&gt;It is an open source platform, which allows you to find code that can be reused in your application.&lt;/li&gt;
+  &lt;li&gt;It is not necessary to use Xcode or Android Studio.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In 2018, &lt;a href=&quot;https://ordina-jworks.github.io/author/ryan-de-gruyter/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ryan De Gruyter&lt;/a&gt; together with &lt;a href=&quot;https://ordina-jworks.github.io/author/michael-vandendriessche/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Michael Vandendriessche&lt;/a&gt;  wrote an interesting &lt;a href=&quot;https://ordina-jworks.github.io/iot/2018/06/27/viroreact.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;blogpost&lt;/a&gt; that teaches how to create augmented reality with ViroReact.&lt;/p&gt;
+
+&lt;h3 id=&quot;web-application&quot;&gt;Web application&lt;/h3&gt;
+
+&lt;p&gt;This web application is intended for administrators who are allowed to manage the system as a whole as you can see in the image below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;ikea space&quot; src=&quot;/img/2019-12-20-ar-signpost/ar-signpost-web-app.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Main functionalities are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Upload a plan of a building to have a reference on which to work.&lt;/li&gt;
+  &lt;li&gt;Ability to manage destinations and routes within a building having as reference the plan of a building.&lt;/li&gt;
+  &lt;li&gt;Ability to manage and print QR code markers to be used as reference points in the physical world.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;used-technologies-1&quot;&gt;Used technologies&lt;/h4&gt;
+
+&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;image fit&quot; alt=&quot;AWS Fargate&quot; src=&quot;/img/2019-12-20-ar-signpost/logo-react.png&quot; style=&quot;max-width: 100px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h5 id=&quot;react&quot;&gt;React&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://reactjs.org/&quot;&gt;React&lt;/a&gt; is a library written in JavaScript, developed on Facebook to facilitate the creation of web applications in a more orderly way and with less code than if you use pure Javascript or libraries like jQuery focused on the manipulation of the DOM.
+It allows views to be associated with data, so if the data changes, so do the views.&lt;/p&gt;
+
+&lt;p&gt;React uses what is called the virtual DOM which is a representation of the DOM but in memory, which React uses to significantly increase the performance of components and frontend applications.
+Basically, when a view is updated, React takes care of updating the Virtual DOM, which is much faster than updating the browser’s DOM (real DOM).
+When React compares the Virtual DOM with the DOM of the browser, it knows exactly which parts of the page to update and saves the need to update the entire view.&lt;/p&gt;
+
+&lt;h3 id=&quot;rest-api&quot;&gt;REST API&lt;/h3&gt;
+
+&lt;p&gt;The REST API is responsible for connecting the two frontend applications with the database to provide the functionalities and data necessary to carry out navigation in a building.&lt;/p&gt;
+
+&lt;h4 id=&quot;used-technologies-2&quot;&gt;Used technologies&lt;/h4&gt;
+
+&lt;p&gt;Our goal here was to develop a REST API capable of carrying CRUD operations to serve our frontend with the necessary data and functionalities such as providing points of interest to the mobile application or creating them from the web application with the help of an administrator.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;image fit&quot; alt=&quot;AWS Fargate&quot; src=&quot;/img/2019-12-20-ar-signpost/logo-nestjs.png&quot; style=&quot;max-width: 100px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h5 id=&quot;nestjs&quot;&gt;NestJS&lt;/h5&gt;
+
+&lt;p&gt;The framework used to create our backend is &lt;a href=&quot;https://nestjs.com/&quot;&gt;NestJS&lt;/a&gt; which is a framework based on NodeJS and TypeScript that abstracts you from the use of Express and Socket.io through decorators, has injection of dependencies “inspired” in Angular and allows to modularize our applications applying concepts of orientation to objects and functional and reactive programming.&lt;/p&gt;
+
+&lt;p&gt;The official documentation is another of its strong points that you can find &lt;a href=&quot;https://docs.nestjs.com/&quot;&gt;here&lt;/a&gt; and there is an &lt;a href=&quot;https://github.com/nestjs/nest&quot;&gt;official repository&lt;/a&gt; with many didactic examples.&lt;/p&gt;
+
+&lt;h3 id=&quot;database&quot;&gt;Database&lt;/h3&gt;
+
+&lt;p&gt;We needed a database capable of representing real-world entities such as points of interest and their relationships in a graphical way and that’s when we came across the fantastic database Neo4j. Below are the advantages offered by this graphical database.&lt;/p&gt;
+
+&lt;h4 id=&quot;used-technologies-3&quot;&gt;Used technologies&lt;/h4&gt;
+
+&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;image fit&quot; alt=&quot;AWS Fargate&quot; src=&quot;/img/2019-12-20-ar-signpost/logo-neo4j.png&quot; style=&quot;max-width: 100px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h5 id=&quot;neo4j&quot;&gt;Neo4j&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://neo4j.com/&quot;&gt;Neo4j&lt;/a&gt; uses graphs to represent data and the relationships between them.
+A graph is defined as any graphical representation formed by vertices (illustrated by circles) and edges (shown by intersection lines).
+As shown in the image below.&lt;/p&gt;
+
+&lt;p&gt;Databases oriented to graphs such as Neo4j perform better than relational (SQL) and non-relational (NoSQL).
+The key is that, although data queries increase exponentially, Neo4j’s performance does not decrease, as opposed to relational DBs such as MySQL.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-it-works&quot;&gt;How it works&lt;/h2&gt;
+
+&lt;p&gt;Now that these applications have been introduced, we are going to look at the interaction between them in order to better understand the functioning of the system as a whole.&lt;/p&gt;
+
+&lt;p&gt;Let’s start from the perspective of the user who has access to the mobile application as seen in the image below.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+ &lt;a href=&quot;/img/2019-12-20-ar-signpost/ar-signpost-general-architecture.png&quot; data-lightbox=&quot;ui&quot;&gt;
+&lt;img alt=&quot;ikea space&quot; src=&quot;/img/2019-12-20-ar-signpost/ar-signpost-general-architecture.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s put your favorite mall on the scene for a moment.
+In this mall you would find markers with QR codes strategically placed so that they are visible, and you have easy access to them. Each QR contains contextual information such as a unique identifier and the building and floor in which it is located.&lt;/p&gt;
+
+&lt;p&gt;Imagine you are looking for a particular shop, the first step would be to scan the marker closest to you with the mobile application.
+This would send the information contained in the QR to our REST API and it would take care of obtaining the necessary information from the database by querying the information obtained from the QR.
+This information will be sent back to the mobile application, which contains all the points of interest around you, such as shops, escalators and much more.
+Now it’s time for the funniest part of the process, to visualize these points of interest with AR as shown in the following video.&lt;/p&gt;
+
+&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/Gmcl8uDneng&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Are you wondering how this happens? Well this process is carried out with the ViroReact platform.
+First of all, we must take into account that the AR world is three-dimensional, so we have x, z and y-axis as shown in the image below.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto; width: 50%&quot;&gt;
+ &lt;a href=&quot;/img/2019-12-20-ar-signpost/x-y-z-axis.png&quot; data-lightbox=&quot;ui&quot;&gt;
+&lt;img alt=&quot;ikea space&quot; src=&quot;/img/2019-12-20-ar-signpost/x-y-z-axis.png&quot; class=&quot;image fit&quot; style=&quot;background-color: white&quot; /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The AR scene starts from the point where the camera is located, which is usually [x=0, y=0, z=0] and the objects are located around it with different coordinates.
+In this case we are going to focus only on x and z-axis because y-axis represents the height of the objects so it will be constant.&lt;/p&gt;
+
+&lt;p&gt;The points of interest we receive contain geographic coordinates (latitude and longitude) where they are located in the real world.
+The AR world does not understand geographic coordinates, so we have to convert these GPS coordinates to point x, z and y-axis in meters taking as reference the initial position of the AR camera.
+For this we use a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Web_Mercator_projection&quot;&gt;Web Mercator projection&lt;/a&gt; and in this way, we have our points of interest integrated into the real world as shown in the video above.&lt;/p&gt;
+
+&lt;p&gt;Going back to our example before the mall, you wondered how this system would be implemented in a mall, didn’t you? 
+Well there, the web application intended for administrators or operators who are responsible for indicating where each point of interest is located in the building comes into play.
+The process is shown in the following video.&lt;/p&gt;
+
+&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/h1IWW1Jx5yE&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;As shopping malls, hospitals, airports, universities and other indoor spaces become more complex, the need for indoor navigation systems increases. 
+The lack of GPS support in indoor environments has always made this a challenge. 
+But with augmented reality, it is possible to solve this problem as demonstrated in this blogpost.&lt;/p&gt;
+
+&lt;p&gt;Applications that implement Augmented Reality are able to improve the user experience through their numerous current applications and the potential they offer for the future. 
+These systems can significantly improve many areas of our lives. 
+From navigating airports to shopping malls, AR can take us to our destination much faster than ever before.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.forbes.com/sites/bernardmarr/2019/03/01/the-10-best-real-world-examples-of-augmented-reality/#6aa2816b42d8&quot;&gt;The 10+ Best Real-World Examples Of Augmented Reality&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Positioning_system&quot;&gt;Positioning system&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Mercator_projection&quot;&gt;Mercator projection&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://facebook.github.io/react-native/docs/getting-started&quot;&gt;React Native&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/viromedia/viro&quot;&gt;ViroReact&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://reactjs.org/docs/getting-started.html&quot;&gt;React&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.nestjs.com/&quot;&gt;NestJS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neo4j.com/developer/&quot;&gt;Neo4j&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Mohammed&quot;, &quot;last_name&quot;=&gt;&quot;Laghzaoui&quot;, &quot;github&quot;=&gt;&quot;laghzaouim&quot;, &quot;linkedin&quot;=&gt;&quot;mohammed-laghzaoui&quot;, &quot;permalink&quot;=&gt;&quot;/author/mohammed-laghzaoui/&quot;, &quot;avatar&quot;=&gt;&quot;mohammed-laghzaoui.png&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;title2&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;mohammed.laghzaoui@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Mohammed is a software engineer with a passion for developing innovative applications. He is well-versed in technology and writing code to create systems that are reliable and user-friendly. He is a skilled developer who has a capacity to solve problems and the ability to work excellently within a team. He loves to develop software customized to meet a company’s organizational needs, focusing on their core competencies, and their success. He is very passionate about artificial intelligence and automation.&quot;}</name><email>mohammed.laghzaoui@ordina.be</email></author><category term="IoT" /><category term="React" /><category term="React Native" /><category term="ViroReact" /><category term="Virtual Reality" /><category term="Augmented Reality" /><category term="Neo4j" /><category term="NestJS" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-12-20-ar-signpost/ar-signpost-banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-12-20-ar-signpost/ar-signpost-banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">KotlinConf 2019</title><link href="https://ordina-jworks.github.io/conference/2019/12/18/KotlinConf-2019.html" rel="alternate" type="text/html" title="KotlinConf 2019" /><published>2019-12-18T00:00:00+00:00</published><updated>2019-12-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2019/12/18/KotlinConf-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2019/12/18/KotlinConf-2019.html">&lt;blockquote&gt;
   &lt;p&gt;KotlinConf is thé conference to visit if you’re into Kotlin development.
 JetBrains introduced KotlinConf in 2017 in San Francisco with over 1.200 participants and 50 speakers.
 In 2018 it took place in Amsterdam with over 1.300 participants and 60 speakers.
@@ -3614,501 +3879,4 @@ Since almost everybody present had been at the conference the day before and the
 &lt;p&gt;London was a great city to visit and with an excellent organised conference, this was a pleasant experience.
 With the future release of Vue 3, it was no surprise that most of the conference was focused on Vue 3.
 I’ve learned a lot and with the help of the workshop given by the Vue Vixens, I am convinced that Vue 3 has a bright future ahead.
-I look forward to putting this new knowledge into practice.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Elke&quot;, &quot;last_name&quot;=&gt;&quot;Heymans&quot;, &quot;github&quot;=&gt;&quot;ElkeBxl&quot;, &quot;linkedin&quot;=&gt;&quot;elkeheymans&quot;, &quot;permalink&quot;=&gt;&quot;/author/elke-heymans/&quot;, &quot;avatar&quot;=&gt;&quot;elke-heymans.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;elke.heymans@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Elke is a Frontend Developer with a focus on Vue, Angular and is very interested in other frontend technologies. In her spare time you can find her taking photographs at events, training for half marathons or enjoying music by collecting records and attending concerts.&quot;}</name><email>elke.heymans@ordina.be</email></author><category term="Conference" /><category term="Conference" /><category term="Vue.js" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/vuejs-london-2019/vuejs-london.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/vuejs-london-2019/vuejs-london.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Monitoring serverless apps on AWS</title><link href="https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html" rel="alternate" type="text/html" title="Monitoring serverless apps on AWS" /><published>2019-10-15T00:00:00+00:00</published><updated>2019-10-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2019/10/15/Monitoring-serverless-apps-on-AWS.html">&lt;h1 id=&quot;table-of-content&quot;&gt;Table of content&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-about&quot;&gt;What about&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#challenges-of-serverless-applications&quot;&gt;Challenges of Serverless applications&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#challenge-1-finding-the-error-in-a-distributed-serverless-landscape&quot;&gt;Challenge 1: Finding the error in a distributed serverless landscape&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#solution-1-structured-logging&quot;&gt;Solution 1: Structured logging&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#challenge-2-finding-performance-bottlenecks&quot;&gt;Challenge 2: Finding performance bottlenecks&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#solution-2-distributed-tracing-with-aws-xray&quot;&gt;Solution 2: Distributed tracing with Xray&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#challenge-3-testing-whether-our-application-still-behaves-as-expected&quot;&gt;Challenge 3: Testing whether our application still behaves as expected&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#solution-3a-smoke-testing&quot;&gt;Solution 3a: Smoke Testing&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#solution-3b-load-testing&quot;&gt;Solution 3b: Load Testing&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#side-note-on-cloudwatch-dashboards&quot;&gt;Side note on CloudWatch Dashboards&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#third-party-tools&quot;&gt;Third party tools&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;what-about&quot;&gt;What about?&lt;/h1&gt;
-&lt;p&gt;Serverless is a great technology that comes with the advantage of being scalable, durable and high available.&lt;br /&gt;
-It allows you to decouple functionality into multiple serverless Functions.&lt;/p&gt;
-
-&lt;p&gt;But with new technologies come new challenges.
-Having an application that exist of a lot of decoupled lambda functions means that your serverless landscape will be heavily distributed.&lt;br /&gt;
-I mean that there is a lot of stuff happening in a lot of different places.&lt;/p&gt;
-
-&lt;p&gt;We still want to be able to monitor our landscape though.&lt;br /&gt;
-This means that a distributed serverless landscape has to be observable.&lt;br /&gt;
-Let’s see some of the best practices on how to make your serverless landscape observable.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenges-of-serverless-applications&quot;&gt;Challenges of Serverless applications&lt;/h1&gt;
-&lt;p&gt;What does a typical serverless application look like?&lt;/p&gt;
-
-&lt;p&gt;Let’s look at an app that was build for a conference. 
-Speakers can create a session that they want to speak about. 
-People can also retrieve all sessions that have already been submitted.&lt;br /&gt;
-When a new session is created a slack notification is sent out.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We can identify certain milestones that indicate that a request has passed this milestone.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture-with-milestones.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The serverless architecture above is actually quite small.
-I’ve seen architectures containing tens of Lambda Functions and other AWS services.&lt;/p&gt;
-
-&lt;p&gt;Some of the challenges that come with a serverless architecture are:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;It might crash somewhere in my distributed landscape.
-If it does, where did it go wrong?&lt;/li&gt;
-  &lt;li&gt;Which part of my flow is performing poorly. 
-Let’s find the performance bottlenecks.&lt;/li&gt;
-  &lt;li&gt;I cannot run all cloud services on my computer.
-So I can’t run my system locally anymore.
-How do I test whether my system is behaving as it is supposed to?&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;In the next part we’ll focus on solving these challenges.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenge-1-finding-the-error-in-a-distributed-serverless-landscape&quot;&gt;Challenge 1: Finding the error in a distributed serverless landscape&lt;/h1&gt;
-
-&lt;p&gt;When things go wrong we want to be notified.
-We can do this by configuring a CloudWatch alarm that will go of when an error appears.&lt;/p&gt;
-
-&lt;p&gt;Below we see that Cloudwatch is ‘watching’ our cloud for errors.
-When an error event appears an alarm will go of and message will be pushed to a topic.
-We can then listen on this topic using a Lambda function.
-This Lambda function will send out the notification to our slack channel.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/cloudwatch-alarm-notification.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;AWS provides a Lambda function that can send out these alerts that are triggered by an alarm.&lt;br /&gt;
-If you look in the Lambda blueprints via the AWS Lambda Console you’ll find the &lt;code class=&quot;highlighter-rouge&quot;&gt;cloudwatch-alarm-to-slack-python&lt;/code&gt; Lambda function that you can use.&lt;/p&gt;
-
-&lt;h2 id=&quot;digging-into-the-logs&quot;&gt;Digging into the logs&lt;/h2&gt;
-&lt;p&gt;What do we do when stuff goes south?&lt;br /&gt;
-We check the logs!&lt;/p&gt;
-
-&lt;p&gt;Right, logging tells us the story of what happened in our application.
-The logs contain information about this story.&lt;br /&gt;
-Only now the logs are not coming from one place. 
-The story is told in multiple Lambda functions.&lt;/p&gt;
-
-&lt;p&gt;On top of that the logging might tell multiple stories at once.
-Multiple execution environments of the same Lambda function can run at the same time.
-This is that scalability of the cloud.
-Lambda functions can run concurrently.&lt;/p&gt;
-
-&lt;p&gt;We need two things:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;We need to correlate the logs coming from different places.&lt;/li&gt;
-  &lt;li&gt;We need to get the valuable information out of our logs.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;solution-1-structured-logging&quot;&gt;Solution 1: structured logging&lt;/h2&gt;
-&lt;p&gt;Structured logging to the rescue!&lt;/p&gt;
-
-&lt;p&gt;Below you see a normal log versus a structured log.&lt;/p&gt;
-
-&lt;p&gt;Normal plain text log:&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/normal-log.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Structured log:&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/structured-log.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Yes, the structured log is a lot more bloated.
-But it is also a lot more machine readable and contains much more information.&lt;/p&gt;
-
-&lt;p&gt;You recognize the &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON&lt;/code&gt; format.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;It contains contextual information like &lt;code class=&quot;highlighter-rouge&quot;&gt;functionName&lt;/code&gt; which is the function that created the log and &lt;code class=&quot;highlighter-rouge&quot;&gt;AWSRequestId&lt;/code&gt; which is the identifier for the invocation of the lambda function.&lt;/li&gt;
-  &lt;li&gt;We see the &lt;code class=&quot;highlighter-rouge&quot;&gt;milestone&lt;/code&gt; key which refers to a certain milestone that the request passed while processing.&lt;/li&gt;
-  &lt;li&gt;We still recognize the &lt;code class=&quot;highlighter-rouge&quot;&gt;message&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;timestamp&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;The logs contain a &lt;code class=&quot;highlighter-rouge&quot;&gt;traceId&lt;/code&gt; which we can use to correlate logs.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;AWS offers us a service to get insights in our logs, &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Logs Insights&lt;/code&gt;. (What’s in a name right?)&lt;/p&gt;
-
-&lt;p&gt;Since we used structured logging CloudWatch will pick up all &lt;code class=&quot;highlighter-rouge&quot;&gt;JSON&lt;/code&gt; fields from our logs automatically.&lt;/p&gt;
-
-&lt;p&gt;Now we can use these logs to query the milestones that a request passed.
-We can correlate these milestones since we have the traceId correlating logs over multiple functions.
-Our logs are generated by multiple functions.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Logs Insights&lt;/code&gt; allows you to query over multiple logGroups related to these functions.&lt;/p&gt;
-
-&lt;p&gt;Suppose that something went wrong for session with sessionId: &lt;code class=&quot;highlighter-rouge&quot;&gt;a2db023e-6565-4a5c-b7dc-b53a420898e7&lt;/code&gt;.&lt;br /&gt;
-We now can lookup the traceId to track the concerning request in our landscape.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields traceId
-| filter &lt;span class=&quot;nv&quot;&gt;sessionId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;865ccaad-ced0-4de5-aec3-b3692b2e06a0&quot;&lt;/span&gt;
-| limit 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/traceId-by-sessionId.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Then we can use this traceId to find the milestones that the request has already passed.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields milestone, functionName, timestamp
-| filter &lt;span class=&quot;nv&quot;&gt;traceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bf769e94-4d48-4994-8c04-ebd00b51ecbd&quot;&lt;/span&gt; and ispresent&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;milestone&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-| &lt;span class=&quot;nb&quot;&gt;sort &lt;/span&gt;timestamp asc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/milestones.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We see that we never got the milestone &lt;code class=&quot;highlighter-rouge&quot;&gt;SAVED_IN_DATABASE&lt;/code&gt;.
-So it went wrong somewhere in the &lt;code class=&quot;highlighter-rouge&quot;&gt;conference-save-session-dynamodb-lambda&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;We can checkout the logs of this faulty execution using the &lt;code class=&quot;highlighter-rouge&quot;&gt;traceId&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields @message
-| filter &lt;span class=&quot;nv&quot;&gt;traceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bf769e94-4d48-4994-8c04-ebd00b51ecbd&quot;&lt;/span&gt; and &lt;span class=&quot;nv&quot;&gt;functionName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;conference-save-session-dynamodb-lambda&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Or we could check for an exception that occurred.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields exception, traceId, functionName
-| filter &lt;span class=&quot;nv&quot;&gt;traceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bf769e94-4d48-4994-8c04-ebd00b51ecbd&quot;&lt;/span&gt;
-| limit 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Both will lead us to the exception.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/exception-found-by-looking-for-exception.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The outcome of this queries can be visualized and added to a &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Dashboard&lt;/code&gt;.
-More on that later.&lt;/p&gt;
-
-&lt;p&gt;Structured logging helped us querying our logs for information and finding the error in our flow.&lt;br /&gt;
-Challenge 1 completed!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;challenge-2-finding-performance-bottlenecks&quot;&gt;Challenge 2: Finding performance bottlenecks&lt;/h1&gt;
-&lt;p&gt;I wrote a &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt; query that allows me to check how long it took for a request to pass through the whole landscape.
-That means from the moment the creation request arrived till the moment we send out a slack notification for it.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fields @timestamp, @message
-| filter  &lt;span class=&quot;nv&quot;&gt;milestone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;CREATE_REQUEST_RECEIVED&quot;&lt;/span&gt; or &lt;span class=&quot;nv&quot;&gt;milestone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SLACK_NOTIFICATION_NEW_SESSION_SENT&quot;&lt;/span&gt;
-| stats &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;latest&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@timestamp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - earliest&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@timestamp&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;/1000 as LeadTimeInSeconds by traceId
-| filter LeadTimeInSeconds!&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
-| &lt;span class=&quot;nb&quot;&gt;sort &lt;/span&gt;LeadTimeInSeconds desc
-| limit 20
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/slack-notification-lead-time.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We see that even when the system is warm, it takes us up to 10 seconds to send out a slack notification.
-We need to dig into the performance of our lambda functions using &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS Xray&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;solution-2-distributed-tracing-with-aws-xray&quot;&gt;Solution 2: distributed tracing with AWS Xray&lt;/h2&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Xray helps us understand the behavior of our system and thus allows us to analyze the performance of specific parts.
-It does this by visualizing the flow and dividing the flow into traces and segments.
-A trace is actually build up from multiple segments.&lt;/p&gt;
-
-&lt;p&gt;It does this by:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Sampling your requests. 
-By default Xray will trace 5% of your requests.&lt;/li&gt;
-  &lt;li&gt;Tracing calls made by ths AWS SDK.
-This happens automatically when you use Xray as a dependency for your project.&lt;/li&gt;
-  &lt;li&gt;Creating custom segments.
-You can create your own segments as you see below.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Subsegment&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subsegment&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AWSXRay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;beginSubsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sessions.saveSessionDynamoDB&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;subsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;putAnnotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;storeInDatabase&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;DynamoDB&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;subsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;putMetadata&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;company&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Ordina&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;mockingIssues&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sessionDynamoDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;saveSession&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sessionDynamoDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;nc&quot;&gt;AWSXRay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;endSubsegment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Here is an example of the Xray service map.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-service-map.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Xray doesn’t trace async requests (yet).
-That means that publishing on an &lt;code class=&quot;highlighter-rouge&quot;&gt;SNS&lt;/code&gt; topic or going via a &lt;code class=&quot;highlighter-rouge&quot;&gt;DynamoDB Stream&lt;/code&gt; is not part of the full trace but will show up as a new client in the service map.
-Recently tracing over &lt;code class=&quot;highlighter-rouge&quot;&gt;SQS&lt;/code&gt; was added.&lt;/p&gt;
-
-&lt;p&gt;When we click the lambda service we can see the response distribution.
-This visualizes how quickly the lambda function responded.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-response-distribution.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Something is definitely wrong here since even the quickest executions take more than 3 seconds.
-We can dig deeper by clicking &lt;code class=&quot;highlighter-rouge&quot;&gt;view traces&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-overview-traces.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Digging even deeper into one of these traces we can see how long every segment of this trace took.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/xray-segments-of-trace.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Below we see that first some data was saved to the &lt;code class=&quot;highlighter-rouge&quot;&gt;caching table&lt;/code&gt;.
-This happened blazingly quick in 8.0 ms.&lt;/p&gt;
-
-&lt;p&gt;We see however that the &lt;code class=&quot;highlighter-rouge&quot;&gt;Sessions.saveSessionDynamoDB&lt;/code&gt; segment took over 3.0 seconds.
-Of these 3 seconds, only 8 ms was spent actually saving the request.
-We found our performance bottleneck.
-Something is waiting around in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Sessions.saveSessionDynamoDB&lt;/code&gt; segment.
-In this case it was me introducing an artificial &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Hooray, we found the performance bottleneck.&lt;br /&gt;
-Challenge 2 completed.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;challenge-3-testing-whether-our-application-still-behaves-as-expected&quot;&gt;Challenge 3: Testing whether our application still behaves as expected&lt;/h1&gt;
-&lt;p&gt;We can’t run our complete cloud infrastructure on our local machine.&lt;br /&gt;
-So when we make changes and redeploy, we should test if our system is still behaving as it should.&lt;/p&gt;
-
-&lt;p&gt;This includes:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Running smoke tests to detect hazards.&lt;/li&gt;
-  &lt;li&gt;Running load tests to view if the system can still handle the load.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution-3a-smoke-testing&quot;&gt;Solution 3a: smoke testing&lt;/h2&gt;
-&lt;p&gt;You should automate testing your system.
-In the image below you see how I automate a test to check if a new session that is entered via the API is still forwarded.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/smoke-test.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I create this test using &lt;code class=&quot;highlighter-rouge&quot;&gt;JUnit&lt;/code&gt; and mocked the http endpoints with &lt;a href=&quot;http://wiremock.org/&quot; target=&quot;_blank&quot;&gt;wiremock&lt;/a&gt;.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;Wiremock&lt;/code&gt; is a great tool to mock http endpoints that I personally use a lot.&lt;br /&gt;
-You can ask Wiremock to create certain endpoints and configure the response for it.&lt;br /&gt;
-Below you see me creating the &lt;code class=&quot;highlighter-rouge&quot;&gt;/sessions/forward&lt;/code&gt; endpoint.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$wiremock_url&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{
-    &quot;request&quot;: {
-        &quot;method&quot;: &quot;POST&quot;,
-        &quot;url&quot;: &quot;/session/forward&quot;
-    },
-    &quot;response&quot;: {
-        &quot;status&quot;: 200,
-        &quot;body&quot;: &quot;I have received the session correctly&quot;,
-         &quot;delayDistribution&quot;: {
-                    &quot;type&quot;: &quot;lognormal&quot;,
-                    &quot;median&quot;: 100,
-                    &quot;sigma&quot;: 0.1
-           },
-        &quot;headers&quot;: {
-            &quot;Content-Type&quot;: &quot;text/plain&quot;
-        }
-    }
-}'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;solution-3b-load-testing&quot;&gt;Solution 3b: load testing&lt;/h2&gt;
-&lt;p&gt;Yes, serverless scales automatically.
-But things might not always behave as expected.
-Listening on events of a &lt;code class=&quot;highlighter-rouge&quot;&gt;Kinesis&lt;/code&gt; stream for example is only possible with one Lambda function per &lt;code class=&quot;highlighter-rouge&quot;&gt;Shard&lt;/code&gt;.
-Thus limiting your throughput if you don’t watch out.&lt;/p&gt;
-
-&lt;p&gt;To run my load test I use &lt;a href=&quot;https://artillery.io&quot; target=&quot;_blank&quot;&gt;artillery&lt;/a&gt;. 
-Below you find the file that I use to configure this load test.
-It ramps up the amount of request per second from 1 to 10 during 2 minutes.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://your-own-url.com'&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;phases&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;120&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;arrivalRate&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;rampTo&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Ramp&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;warm&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;application&quot;&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;sessions.csv&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;subject&quot;&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;firstName&quot;&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;lastName&quot;&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;companyName&quot;&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;companyCity&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;scenarios&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;flow&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/sessions&quot;&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1570202335000&quot;&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;speaker&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;company&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;companyName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;companyCity&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;questionPhrase&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Again I checked the lead time (time between incoming request and sending out the notification) and found these huge numbers.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/huge-lead-time.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Using structured logging and &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Logs Insights&lt;/code&gt; we could start looking deeper into the cause of this delay.
-I already showed you how to work with &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt;, so I’ll get straight to the cause here.&lt;/p&gt;
-
-&lt;p&gt;The reason it takes so much time to send out all slack notifications is that the Lambda function which listens on the &lt;code class=&quot;highlighter-rouge&quot;&gt;DynamoDB stream&lt;/code&gt; is sending out these requests one by one.
-It takes about 1 second for every request.&lt;br /&gt;
-But the requests come in much faster. This means that they are queueing up in front of the &lt;code class=&quot;highlighter-rouge&quot;&gt;conference-slack-notification-lambda&lt;/code&gt; to be send out.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/simpler-architecture-with-milestones.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We reached our goal.
-We found another bottleneck in our system by running the load tests.
-Challenge 3 completed!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/completed.png&quot; width=&quot;10%&quot; height=&quot;10%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;side-note-on-cloudwatch-dashboards&quot;&gt;Side note on CloudWatch Dashboards&lt;/h1&gt;
-&lt;p&gt;Along the way we wrote a lot of &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt; queries.&lt;br /&gt;
-AWS allows you to bundle the results of these queries into dashboards via &lt;code class=&quot;highlighter-rouge&quot;&gt;CloudWatch Dashboards&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Below you see how I made a dashboard that visualizes the number of invocations and associated costs per lambda function.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/billing-overview.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;To find the total cost I used the following query:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filter @type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;REPORT&quot;&lt;/span&gt;
-| fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;MemorySetInMB/1024 as BilledDurationInGBSeconds, @logStream
-| stats &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BilledDurationInGBSeconds&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; as TotalBilledDurationInGBSeconds, &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BilledDurationInGBSeconds&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 0.00001667 as TotalCostInDollar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To get the stats per Lambda function I did:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filter @type&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;REPORT&quot;&lt;/span&gt;
-| fields @memorySize/1000000 as MemorySetInMB, @billedDuration/1000&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;MemorySetInMB/1024 as BilledDurationInGBSeconds
-| stats 
-count&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@billedDuration&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; as NumberOfInvocations,
-ceil&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;avg&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@duration&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; as AverageExecutionTime,
-max&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;@duration&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; as MaxExecutionTime,
-&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;BilledDurationInGBSeconds&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 0.00001667 as TotalCostInDollar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;third-party-tools&quot;&gt;Third party tools&lt;/h1&gt;
-&lt;p&gt;We just saw the things that we can do to increase the observability of our serverless landscape.&lt;br /&gt;
-To achieve this, you’ll have to do some custom work:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;setup structured logging&lt;/li&gt;
-  &lt;li&gt;pass on a traceId&lt;/li&gt;
-  &lt;li&gt;create dashboards in CloudWatch&lt;/li&gt;
-  &lt;li&gt;get familiar with the &lt;code class=&quot;highlighter-rouge&quot;&gt;Logs Insights&lt;/code&gt; query language&lt;/li&gt;
-  &lt;li&gt;configure the right alarms in CloudWatch&lt;/li&gt;
-  &lt;li&gt;setup the infrastructure to notify you when an error appears in your landscape&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;These are things that take time.&lt;br /&gt;
-And time is money.&lt;/p&gt;
-
-&lt;p&gt;You can also consider using this money to work with a third party tool.
-This tool then allows you to monitor and troubleshoot your serverless applications.&lt;/p&gt;
-
-&lt;p&gt;Personally I have used &lt;a href=&quot;https://lumigo.io&quot; target=&quot;_blank&quot;&gt;Lumigo&lt;/a&gt;  to achieve just that.&lt;br /&gt;
-The things you have to customize, will be provided out of the box.&lt;/p&gt;
-
-&lt;p&gt;You get a high-level dashboard to visualize the problems in your application.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-dashboard.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;It will also automatically trace a request through your landscape by creating a transaction.
-This is about the same as we did by forwarding traceIds.&lt;/p&gt;
-
-&lt;p&gt;It comes with a handy visualization.
-On the left you see the transaction while on the right it gives you the logs that correspond with the error that appeared.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-15-Monitoring-serverless-apps-on-AWS/lumigo-transaction-and-error.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This allows you to drill down to the source of the error quickly.&lt;br /&gt;
-On top of that you can also create the necessary alerts to notify you in case things go south.&lt;/p&gt;
-
-&lt;p&gt;These tools often have a &lt;a href=&quot;https://platform.lumigo.io/signup&quot; target=&quot;_blank&quot;&gt;free tier&lt;/a&gt;  that allows you to explore the product.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;We improved the observability of our system by implementing structured logs and using appropriate testing and tooling.
-By doing this, it becomes way easier to monitor your system and create visibility on its behavior.&lt;/p&gt;
-
-&lt;p&gt;Remember that:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;you need structured logging to get the maximum out of your logs&lt;/li&gt;
-  &lt;li&gt;CloudWatch Logs Insights allows you to query your logs and analyze them for errors&lt;/li&gt;
-  &lt;li&gt;distributed tracing with AWS Xray helps you identifying bottlenecks in your system&lt;/li&gt;
-  &lt;li&gt;you can create smoke tests and load tests to check if your system is behaving as it is supposed to&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In case you want some of these things being done for you automatically, choose a third party monitoring tool to help you with it.&lt;/p&gt;
-
-&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://lumigo.io/blog/&quot; target=&quot;_blank&quot;&gt;https://lumigo.io/blog/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/&quot; target=&quot;_blank&quot;&gt;https://theburningmonk.com/2017/09/tips-and-tricks-for-logging-and-monitoring-aws-lambda-functions/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/&quot; target=&quot;_blank&quot;&gt;https://theburningmonk.com/2018/01/you-need-to-use-structured-logging-with-aws-lambda/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/&quot; target=&quot;_blank&quot;&gt;https://www.loggly.com/blog/why-json-is-the-best-application-log-format-and-how-to-switch/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://stackify.com/what-is-structured-logging-and-why-developers-need-it/&quot; target=&quot;_blank&quot;&gt;https://stackify.com/what-is-structured-logging-and-why-developers-need-it/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html&quot; target=&quot;_blank&quot;&gt;https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html&quot; target=&quot;_blank&quot;&gt;https://docs.aws.amazon.com/xray/latest/devguide/xray-concepts.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html&quot; target=&quot;_blank&quot;&gt;https://docs.aws.amazon.com/xray/latest/devguide/xray-sdk-nodejs-subsegments.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017&quot; target=&quot;_blank&quot;&gt;https://www.slideshare.net/AmazonWebServices/monitoring-and-troubleshooting-in-a-serverless-world-srv303-reinvent-2017&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://lumigo.io&quot; target=&quot;_blank&quot;&gt;https://lumigo.io&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he's also working with IoT and AI.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Lambda" /><category term="DynamoDB" /><category term="API Gateway" /><category term="CloudWatch" /><category term="Distributed Tracing" /><category term="Monitoring" /><summary type="html">Table of content What about Challenges of Serverless applications Challenge 1: Finding the error in a distributed serverless landscape Solution 1: Structured logging Challenge 2: Finding performance bottlenecks Solution 2: Distributed tracing with Xray Challenge 3: Testing whether our application still behaves as expected Solution 3a: Smoke Testing Solution 3b: Load Testing Side note on CloudWatch Dashboards Third party tools Conclusion Resources</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-10-15-Monitoring-serverless-apps-on-AWS/featured-image.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-10-15-Monitoring-serverless-apps-on-AWS/featured-image.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+I look forward to putting this new knowledge into practice.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Elke&quot;, &quot;last_name&quot;=&gt;&quot;Heymans&quot;, &quot;github&quot;=&gt;&quot;ElkeBxl&quot;, &quot;linkedin&quot;=&gt;&quot;elkeheymans&quot;, &quot;permalink&quot;=&gt;&quot;/author/elke-heymans/&quot;, &quot;avatar&quot;=&gt;&quot;elke-heymans.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;elke.heymans@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Elke is a Frontend Developer with a focus on Vue, Angular and is very interested in other frontend technologies. In her spare time you can find her taking photographs at events, training for half marathons or enjoying music by collecting records and attending concerts.&quot;}</name><email>elke.heymans@ordina.be</email></author><category term="Conference" /><category term="Conference" /><category term="Vue.js" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/vuejs-london-2019/vuejs-london.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/vuejs-london-2019/vuejs-london.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
