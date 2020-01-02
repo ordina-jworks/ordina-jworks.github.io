@@ -2,7 +2,7 @@
 layout: post
 authors: [wout_meskens]
 title: 'An Introduction to Spring Data JDBC'
-image: /img/spring-ecosystem/spring-data.png
+image: /img/spring.png
 tags: [Java, Spring, Data, JDBC, JPA]
 category: Java
 comments: true
