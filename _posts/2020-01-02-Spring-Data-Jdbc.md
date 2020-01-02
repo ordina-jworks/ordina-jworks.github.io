@@ -665,7 +665,7 @@ With Spring Data JDBC you have a little more control which query will be execute
 All the queries are eager, this is also an advantage because less queries need to be sent to the database.
 
 When you create or update entities in an aggregate through Spring Data JDBC, it will do this by deleting and again saving these entities.
-Spring Data JDBC need to do this since it does not have a persistence context and wants to make sure that everything is up-to-date. 
+Spring Data JDBC needs to do this since it does not have a persistence context and wants to make sure that everything is up-to-date. 
 The downside of this is that it is possible that sometimes unnecessary operations will be executed.
 
 With Spring Data JPA you have more possibilities for fine tuning performance. For example with the possibility of using the lazy loading and the usage of a cache.
