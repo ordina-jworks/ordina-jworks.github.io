@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="An Introduction to Spring Data JDBC - Wout Meskens">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/spring.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="An Introduction to Spring Data JDBC - Wout Meskens"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/spring.png"/>
+
+    
+    <title>An Introduction to Spring Data JDBC - Wout Meskens &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>An Introduction to Spring Data JDBC</h2>
+                
+
+                
+                    Posted Jan 2, 2020
+
+
+    in <a href="/categories/java/">Java</a>
+
+
+
+    by
+    
+        <a href="/author/wout-meskens/">Wout Meskens</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/java/">Java</a>, 
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/data/">Data</a>, 
+    
+        <a href="/tags/jdbc/">JDBC</a>, 
+    
+        <a href="/tags/jpa/">JPA</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>A new member is added to the Spring Data family. Spring Data JDBC is positioned between Spring Data JPA and Spring JDBC using the best elements of both.
+This post will describe the current state and the future of this product. It will also explain which problems this product is trying to solve and how.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of Contents</h1>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#spring-jdbc-vs-spring-data-jdbc-vs-spring-data-jpa">Spring JDBC vs Spring Data JDBC vs Spring Data JPA</a>
+    <ul>
+      <li><a href="#project-differences">Project Differences</a></li>
+      <li><a href="#inserting-data">Inserting Data</a></li>
+      <li><a href="#querying-the-database">Querying The Database</a></li>
+      <li><a href="#updating-an-instance">Updating an Instance</a></li>
+    </ul>
+  </li>
+  <li><a href="#advantages-of-using-spring-data-jdbc">Advantages of Using Spring Data JDBC</a>
+    <ul>
+      <li><a href="#better-design">Better Design</a></li>
+      <li><a href="#easier-to-understand">Easier to Understand</a></li>
+      <li><a href="#performance">Performance</a></li>
+    </ul>
+  </li>
+  <li><a href="#should-i-use-it">Should I Use It</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+<p>Spring Data JDBC is a new member of the Spring Data family. 
+It is created to fill a void that sits between Spring JDBC and Spring Data JPA.
+If you look at Spring JDBC, you could argue that it is too low level to work because it only helps with the connection to the database.
+Spring Data JPA could seem too complex because it gives you a lot of options and it can be difficult to master all these options. 
+Spring Data JDBC is a framework that tries to give you the same power you get from using Spring Data JPA but makes it more understandable by using DDD principles.
+It also gives you more control by working on a lower level and by letting you decide when database interactions need to be done like Spring JDBC, but in an easier way. 
+In the rest of this article the differences between Spring Data JPA, Spring Data JDBC and Spring JDBC will be shown.
+This will hopefully show you that Spring Data JDBC is a very nice product with a lot of potential that is designed to help you.</p>
+
+<h2 id="spring-jdbc-vs-spring-data-jdbc-vs-spring-data-jpa">Spring JDBC vs Spring Data JDBC vs Spring Data JPA</h2>
+
+<h3 id="project-differences">Project Differences</h3>
+<p>Spring JDBC, Spring Data JPA and Spring Data JDBC are all three based on a different mindset. 
+Based on these mindsets, you can see differences in how these technologies need to be used and how some parts need to be structured.
+Spring JDBC only helps with the connection to the database and with executing queries on this database.
+Spring Data JPA wants to help you manage your JPA based repositories. 
+It wants to remove boilerplate code, make implementation speed higher and provide help for the performance of your application.
+Spring Data JDBC also wants to provide help with access to relational databases, but wants to keep the implementations less complex.</p>
+
+<h4 id="spring-jdbc">Spring JDBC</h4>
+<p>The help that Spring JDBC provides is by providing a framework to execute SQL. 
+Spring JDBC handles the connection with the database and lets you execute queries using JdbcTemplates.
+This solution is very flexible because you have complete control over the executed queries.
+You are also free to define your class structure because you are in complete control of the mapping.</p>
+
+<h4 id="spring-data-jpa">Spring Data JPA</h4>
+<p>Spring Data JPA uses entities, so the class structure needs to be comparable with the database structure because some mapping is done automatically.
+In the most simple form, the database tables will each represent an entity and can be mapped almost directly on an entity class.
+This mapping can be done by using Java configuration. By using annotations you can define on which table the class is mapped but also how the tables are linked together.</p>
+
+<p>A class is seen as an Entity when it is annotated with the @Entity annotation.
+The most common links are @OneToMany, @ManyToOne and @ManyToMany.
+For example if class A has a @OneToMany relationship to class B then the database scheme will have a foreign key in table B to table A and the JPA implementation will keep a list of linked B elements in entity A.
+There are almost no restrictions on how entities can be linked together.
+This means there is total freedom to design your class structure how you want, but it also means that you need to be wary that you don’t cause problems like circular dependencies.
+It also means that nothing prevents you from creating a complex structure which is not easily understandable, especially understanding how your class structure translates to your database structure.
+So you will always need to think how your class structure decisions impact your database.</p>
+
+<p>For example it is easy to define a data structure with a many-to-many relationship or with bi-directional relationships. 
+When you translate this to your database structure you will need intermediate tables and create references to the unidirectional relationships.</p>
+
+<h5 id="example">Example:</h5>
+
+<p>In this example there are some classes that can be used in Spring Data JPA. 
+They represent a part of the domain model that will also be used in the rest of this article.
+A RentalCompany contains rentals. These rentals hold the information about which Car is rented and when.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Entity</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rental</span> <span class="o">{</span>
+     
+        <span class="nd">@Id</span>
+        <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
+        <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+     
+        <span class="nd">@ManyToOne</span><span class="o">(</span><span class="n">fetch</span> <span class="o">=</span> <span class="nc">FetchType</span><span class="o">.</span><span class="na">LAZY</span><span class="o">)</span>
+        <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"company_id"</span><span class="o">)</span>
+        <span class="kd">private</span> <span class="nc">RentalCompany</span> <span class="n">company</span><span class="o">;</span>
+     
+        <span class="c1">// ...</span>
+     
+    <span class="o">}</span>
+    
+    <span class="nd">@Entity</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalCompany</span> <span class="o">{</span>
+     
+        <span class="nd">@Id</span>
+        <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
+        <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+     
+        <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">fetch</span> <span class="o">=</span> <span class="nc">FetchType</span><span class="o">.</span><span class="na">LAZY</span><span class="o">,</span> <span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"company"</span><span class="o">)</span>
+        <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">&gt;</span> <span class="n">rentals</span><span class="o">;</span>
+         
+        <span class="c1">// ...</span>
+    <span class="o">}</span></code></pre></figure>
+
+<h4 id="spring-data-jdbc">Spring Data JDBC</h4>
+<p>When you use Spring Data JDBC, you will also need to create entity classes which will be mapped to the database.
+The big difference is that there are more rules that you need to follow when you create the class structure.
+The class structure needs to follow the rules of aggregate design of DDD.
+Spring Data enforces this because this will lead to the creation of more simple and understandable projects.
+If you don’t know this concept or why it is useful, you can check a very good article about this: <a href="https://dddcommunity.org/library/vernon_2011/" target="_blank" rel="noopener noreferrer">Effective Aggregate Design by Vaugn Vernon</a>.
+Basically we group different entities together which have a strong coupling and we call them aggregates.
+The top entity of the aggregate is called the aggregate root.
+There are some other rules that need to be followed:</p>
+<ul>
+  <li>An entity can only be part of 1 aggregate.</li>
+  <li>All relations inside an aggregate need to be unidirectional.</li>
+  <li>The aggregate root needs to manage the top relation.</li>
+</ul>
+
+<p>This means that by following links starting from the aggregate root, every entity inside the aggregate can be found.
+Because of this, we do not need a repository for each entity like in Spring Data JPA, but only for the aggregate roots.
+To link entity classes together to form an aggregate, you need to use object references.
+Entity classes inside an aggregate can only have one-to-one relationships and one-to-many relationships. 
+If you have a one-to-one relationship your entity only needs an object reference to the other object. 
+When you have a one-to-many relationship your entity needs to contain a collection of object references.
+To create relations to entities outside the aggregate, id’s need to be used to get a low coupling between these classes.</p>
+
+<p>A big difference in creating the classes used by Spring Data JDBC versus Spring Data JPA is that no @Entity and no relation annotations like @OneToMany need to be used.
+Spring Data JDBC knows a class is an aggregate root when it contains a repository for that class. 
+And because of the rules that the aggregate entities are connected through object references, Spring Data JDBC also knows what the aggregates are and can transfer data to the database as aggregates.</p>
+
+<h5 id="example-1">Example:</h5>
+<p>In the following example you can see how the domain model that was introduced in the example of Spring Data JPA can be implemented in Spring Data JDBC.
+In this implementation there are 2 aggregate roots RentalCompany and Car. 
+Rental is part of the aggregate of RentalCompany. 
+This domain model will also be used in the other examples inside this article to compare the differences between the three frameworks.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalCompany</span> <span class="o">{</span>
+    
+        <span class="nd">@Id</span>
+        <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">&gt;</span> <span class="n">rentals</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rental</span> <span class="o">{</span>
+    
+        <span class="nd">@Id</span>
+        <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+        
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">renter</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">Long</span> <span class="n">carId</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">LocalDate</span> <span class="n">startDate</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">LocalDate</span> <span class="n">endDate</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    
+        <span class="nd">@Id</span>
+        <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+        
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">brand</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">model</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">licensePlate</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="nc">CarType</span> <span class="n">type</span><span class="o">;</span>
+    <span class="o">}</span>
+    </code></pre></figure>
+
+<h3 id="inserting-data">Inserting Data</h3>
+<p>For the insertion of data you need to use the tools that were created in the previous section. 
+If you use Spring JDBC you will write queries that are executed directly on the database by JdbcTemplate.
+If you insert data with Spring Data JPA or Spring Data JDBC, you can use the entity or aggregate system that was created.</p>
+
+<h4 id="spring-jdbc-1">Spring JDBC</h4>
+<p>With Spring JDBC you write your insert statements yourself and execute them with a JdbcTemplate.
+The advantage of writing all the queries yourself is that you have complete control over them.</p>
+
+<h5 id="example-2">Example:</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">SingleConnectionDataSource</span> <span class="n">dataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SingleConnectionDataSource</span><span class="o">();</span>
+    <span class="n">dataSource</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="s">"org.hsqldb.jdbcDriver"</span><span class="o">);</span>
+    <span class="n">dataSource</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">"jdbc:hsqldb:data/jdbcexample"</span><span class="o">);</span>
+    <span class="n">dataSource</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"sa"</span><span class="o">);</span>
+    <span class="n">dataSource</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="s">""</span><span class="o">);</span>
+        
+    <span class="nc">JdbcTemplate</span> <span class="n">template</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JdbcTemplate</span><span class="o">(</span><span class="n">ds</span><span class="o">);</span>
+    <span class="n">template</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="s">"create table car (id int, model varchar)"</span><span class="o">);</span>
+    <span class="n">template</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="s">"insert into car (id, model) values (1, 'Volkswagen Beetle')"</span><span class="o">);</span>
+    
+    <span class="n">dataSource</span><span class="o">.</span><span class="na">destroy</span><span class="o">();</span>
+    </code></pre></figure>
+
+<h4 id="spring-data-jpa-1">Spring Data JPA</h4>
+<p>If you use Spring Data JPA for inserting data, you will need to use the repositories and the entities.
+This makes it possible to think on a higher level and let Spring Data JPA handle the creation of queries.
+When you want to create data for an entity, the only thing you need to do is create an object with the correct values and call the save method on your Spring Data repository.
+Spring Data JPA will then look at your entities with all their annotations to map them to the necessary insert or update statements.</p>
+
+<h5 id="example-3">Example</h5>
+
+<p>The example below shows how to insert <code class="highlighter-rouge">Rental</code> data in the database with Spring Data JPA.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalService</span><span class="o">{</span>
+        
+        <span class="kd">private</span> <span class="nc">RentalRepository</span> <span class="n">rentalRepository</span><span class="o">;</span>
+        
+        <span class="kd">public</span> <span class="nf">RentalService</span><span class="o">(</span><span class="nc">RentalRepository</span> <span class="n">rentalRepository</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">rentalRepository</span> <span class="o">=</span> <span class="n">rentalRepository</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="kd">public</span> <span class="nc">Rental</span> <span class="nf">create</span><span class="o">(</span><span class="nc">Rental</span> <span class="n">rental</span><span class="o">){</span>
+            <span class="k">return</span> <span class="n">rentalRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">rental</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    </code></pre></figure>
+
+<h4 id="spring-data-jdbc-1">Spring Data JDBC</h4>
+<p>Spring Data JDBC uses a syntax that is comparable to Spring Data JPA.
+The biggest differences are under the hood.
+The management of the persistence is handled by the repository like in Spring Data JPA, but only the aggregate root has a repository.
+This means that if you want to insert or update data, the entire aggregate needs to be saved.
+You will need to call the save method of the repository of the aggregate root and this will first save the aggregate root and then all of the referenced entities get saved.
+If you want to insert only a part of an aggregate, for example only create a new Rental, then the whole aggregate will be updated and the referenced entities will be deleted and inserted again.</p>
+
+<h5 id="example-4">Example</h5>
+
+<p>The example shows how a <code class="highlighter-rouge">Rental</code> is added. If you want to create a new instance of the aggregate root, then the code is comparable to that of Spring Data JPA.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalCompanyService</span><span class="o">{</span>
+        
+        <span class="kd">private</span> <span class="nc">RentalCompanyRepository</span> <span class="n">rentalCompanyRepository</span><span class="o">;</span>
+        
+        <span class="kd">public</span> <span class="nf">RentalCompanyService</span><span class="o">(</span><span class="nc">RentalCompanyRepository</span> <span class="n">rentalCompanyRepository</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">rentalCompanyRepository</span> <span class="o">=</span> <span class="n">rentalCompanyRepository</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="kd">public</span> <span class="nc">RentalCompany</span> <span class="nf">addRental</span><span class="o">(</span><span class="nc">Rental</span> <span class="n">rental</span><span class="o">,</span> <span class="nc">Long</span> <span class="n">rentalCompanyId</span><span class="o">){</span>
+            <span class="nc">RentalCompany</span> <span class="n">rentalCompany</span> <span class="o">=</span> <span class="n">rentalRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">);</span>
+            <span class="n">rentalCompany</span><span class="o">.</span><span class="na">getRentals</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">rental</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">rentalRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">rentalCompany</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span></code></pre></figure>
+
+<h3 id="querying-the-database">Querying The Database</h3>
+<p>To retrieve data from our database, we write queries.
+Spring JDBC will let you use the <code class="highlighter-rouge">JdbcTemplate</code> and let you map the result with a RowMapper.
+Spring Data JDBC and Spring Data JPA will also let you create queries, using JPQL or SQL queries, but you will write them in the repositories and the frameworks will help you with the mapping.</p>
+
+<h4 id="spring-jdbc-2">Spring JDBC</h4>
+<p>The main tool that Spring JDBC uses for querying is the <code class="highlighter-rouge">JdbcTemplate</code>.
+The downside of using this is that it only provides the connection, everything else you need to do yourself.
+If you search for objects, you will need to map the results to Java objects by implementing a <code class="highlighter-rouge">RowMapper</code>.
+You will also need to do the exception handling by creating a ExceptionTranslator.</p>
+
+<p>I will show you a simple example of how a query is created.</p>
+
+<h5 id="examples">Examples</h5>
+
+<p>This response needs to be mapped by implementing a <code class="highlighter-rouge">RowMapper</code>.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CarRowMapper</span> <span class="kd">implements</span> <span class="nc">RowMapper</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="nc">Car</span> <span class="nf">mapRow</span><span class="o">(</span><span class="nc">ResultSet</span> <span class="n">resultSet</span><span class="o">,</span> <span class="kt">int</span> <span class="n">rowNumber</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">SQLException</span> <span class="o">{</span>
+            <span class="nc">Car</span> <span class="n">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">();</span>
+     
+            <span class="n">car</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">resultSet</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">"ID"</span><span class="o">));</span>
+            <span class="n">car</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">resultSet</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"COLOR"</span><span class="o">));</span>
+            <span class="n">car</span><span class="o">.</span><span class="na">setBrand</span><span class="o">(</span><span class="n">resultSet</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"BRAND"</span><span class="o">));</span>
+            <span class="n">car</span><span class="o">.</span><span class="na">setModel</span><span class="o">(</span><span class="n">resultSet</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"MODEL"</span><span class="o">));</span>
+     
+            <span class="k">return</span> <span class="n">car</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    </code></pre></figure>
+
+<p>This mapper can be passed to the <code class="highlighter-rouge">JdbcTemplate</code> that will use it to create populated Java objects.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="n">cars</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">queryForObject</span><span class="o">(</span>
+        <span class="s">"SELECT * FROM CAR WHERE ID = ?"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">id</span><span class="o">},</span> <span class="k">new</span> <span class="nc">CarRowMapper</span><span class="o">());</span>
+    </code></pre></figure>
+
+<h4 id="spring-data-jpa-2">Spring Data JPA</h4>
+
+<p>When you use the Spring Data framework, it will help you with building your queries and fetching the right data.
+The Spring Data JPA framework uses implementations of the JPA specifications like Hibernate. They make it possible to query the database using user friendly interfaces.
+When you want to query the database, instead of writing the entire query yourself, Hibernate will help you. 
+There are multiple ways to query the database using Spring Data JPA, but they all need you to extend the repository of the entity you want to query.</p>
+
+<p>Some basic queries can be written using derived queries. An example of this is findById. 
+For these methods Spring Data will generate the SQL entirely on its own. More information about how derived queries can be defined can be found in the <a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.details" target="_blank" rel="noopener noreferrer">Spring Data documentation</a>.</p>
+
+<p>If you need to write more advanced queries that can’t easily be defined as a derived query, you can define the query yourself using the @Query annotation.
+Inside the @Query annotation you write JPQL or SQL statements. JPQL is an SQL-like syntax that provides an abstraction layer on top of regular SQL. 
+When JPQL is used, it is possible for Spring Data to help you with handling the data. For example paging and sorting can be done by simply adding a parameter.</p>
+
+<p>If you want to have a bit more control, you can use SQL by setting the native property of the <code class="highlighter-rouge">@Query</code> annotation to true. 
+Then you don’t use this extra layer, but it then also can’t help you anymore.
+Be aware that even though you use SQL directly, you will still return entities that are managed by Hibernate.</p>
+
+<p>Apart from helping you with more easily defining which query you want to execute, it also helps you with fine tuning performance.
+You are using entities when you query using Spring Data JPA. These entities have connections to other entities.
+Spring Data JPA will help you with defining whether you want to return these connected entities directly or not. 
+It can help you with searching for these entities when you do need them.
+This is called eager and lazy loading and this can all be managed by Spring Data JPA.</p>
+
+<p>It will also try to improve performance by giving you the option to turn on the query cache.
+When this is turned on, Spring Data JPA will try to reuse the generated SQL queries, and if possible the results of these queries.</p>
+
+<h5 id="examples-1">Examples</h5>
+
+<p>The service that calls a repository to get all rentals with a given CarType.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalService</span> <span class="o">{</span>
+    
+        <span class="kd">private</span> <span class="nc">RentalRepository</span> <span class="n">rentalRepository</span><span class="o">;</span>
+    
+        <span class="kd">public</span> <span class="nf">RentalService</span><span class="o">(</span><span class="nc">RentalRepository</span> <span class="n">rentalRepository</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">rentalRepository</span> <span class="o">=</span> <span class="n">rentalRepository</span><span class="o">;</span>
+        <span class="o">}</span>
+    
+        <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">&gt;</span> <span class="nf">getRentalsByCarType</span><span class="o">(</span><span class="nc">Long</span> <span class="n">rentalCompanyId</span><span class="o">,</span> <span class="nc">CarType</span> <span class="n">carType</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">rentalRepository</span><span class="o">.</span><span class="na">findByCompanyIdAndCarType</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">,</span> <span class="n">carType</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    </code></pre></figure>
+
+<p>The repository uses a derived query to expose this functionality.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">RentalRepository</span> <span class="kd">extends</span> <span class="nc">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">&gt;</span> <span class="nf">findByCompanyIdAndCarType</span><span class="o">(</span><span class="nc">Long</span> <span class="n">rentalCompanyId</span><span class="o">,</span> <span class="nc">CarType</span> <span class="n">carType</span><span class="o">);</span>
+    <span class="o">}</span>
+    </code></pre></figure>
+
+<h4 id="spring-data-jdbc-2">Spring Data JDBC</h4>
+<p>Spring Data JDBC has less abstractions than Spring Data JPA, but uses Spring Data concepts to make it easier to do CRUD operations than Spring JDBC.</p>
+
+<p>It sits closer to the database because it does not contain the most part of the Spring Data magic when querying the database.
+Every query is executed directly on the JDBC and there is no lazy loading or caching, so when you query the database, it will return the entire aggregate.</p>
+
+<p>Currently when you want to add a method to your repository in Spring Data JDBC, you need to add an @Query annotation which contains the query.
+This needs to be pure SQL instead of JPQL which is used in Spring Data JPA. You can compare this best with the native queries that are added to Spring Data JPA.
+Because Spring Data JDBC sits so close to the database, it is, like native queries in Spring Data JPA, not possible to have paging and sorting repositories.
+These types of repositories will be added in the future. This is like the derived queries functionality which is also not yet implemented but will be in the future.</p>
+
+<p>When you query the application using Spring Data JDBC, instead of entities, you will receive the entire aggregate. 
+This makes the application easier to understand. 
+The application doesn’t need to rely on an application context to get the state of properties of returned entities.
+Because the entire objects are fetched, there are no extra calls needed to receive the field values of objects that were not loaded yet because all the fields are already filled in.
+The disadvantage of this system could be that too much data will be loaded. 
+But if that happens, it could be that the boundary of your aggregate is too big and it is possible that you need to split up your aggregate.</p>
+
+<h5 id="examples-2">Examples</h5>
+
+<p>When we try to do the same thing as we did in Spring Data JPA in Spring Data JDBC, then you need to go at it differently.
+The first difference is that we can’t use the RentalRepository because it does not exist. 
+It does not exist because Rental is not an aggregate root, but is part of the aggregate with aggregate root RentalCompany. 
+This is why we now need to use the RentalCompanyRepository.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalCompanyService</span> <span class="o">{</span>
+    
+        <span class="kd">public</span> <span class="nc">RentalCompanyRepository</span> <span class="n">rentalCompanyRepository</span><span class="o">;</span>
+    
+        <span class="kd">public</span> <span class="nf">RentalCompanyService</span><span class="o">(</span><span class="nc">RentalCompanyRepository</span> <span class="n">rentalCompanyRepository</span><span class="o">){</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">rentalCompanyRepository</span> <span class="o">=</span> <span class="n">rentalCompanyRepository</span><span class="o">;</span>
+        <span class="o">}</span>
+    
+        <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">&gt;</span> <span class="nf">getRentalsByCarType</span><span class="o">(</span><span class="nc">Long</span> <span class="n">rentalCompanyId</span><span class="o">,</span> <span class="nc">CarType</span> <span class="n">carType</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">rentalRepository</span><span class="o">.</span><span class="na">findByIdAndCarType</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">,</span> <span class="n">carType</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    </code></pre></figure>
+
+<p>The other difference is that we cannot use derived queries, so we need to use the @Query annotation.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">RentalCompanyRepository</span> <span class="kd">extends</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="nc">RentalCompany</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+        <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"SELECT * "</span> <span class="o">+</span>
+                <span class="s">"FROM Rental rental "</span> <span class="o">+</span>
+                <span class="s">"JOIN Car car ON car.id = rental.car_id "</span> <span class="o">+</span>
+                <span class="s">"WHERE rental.rental_company = :companyId "</span> <span class="o">+</span>
+                <span class="s">"AND car.type = :carType"</span><span class="o">)</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">&gt;</span> <span class="nf">findRentalsByIdAndCarType</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"companyId"</span><span class="o">)</span> <span class="nc">Long</span> <span class="n">companyId</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">"carType"</span><span class="o">)</span><span class="nc">String</span> <span class="n">carType</span><span class="o">);</span>
+    <span class="o">}</span>
+    </code></pre></figure>
+
+<h3 id="updating-an-instance">Updating an Instance</h3>
+
+<p>When you want to update an instance in the database, you will need to write a query and execute it using the <code class="highlighter-rouge">JdbcTemplate</code> or use the domain model in Spring Data JPA or Spring Data JDBC.</p>
+
+<h4 id="spring-jdbc-3">Spring JDBC</h4>
+
+<p>Spring JDBC again only provides a framework when updating data from the database. 
+The <code class="highlighter-rouge">JdbcTemplate</code> exposes an update method. This method can accept a query and optional parameters.</p>
+
+<h5 id="example-5">Example</h5>
+
+<p>A simple code example where we update the color of a given car.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">String</span> <span class="n">query</span> <span class="o">=</span> <span class="s">"update Car set color = ? where id = ?"</span><span class="o">;</span>
+    <span class="n">jdbcTemplateObject</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">query</span><span class="o">,</span> <span class="n">color</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span></code></pre></figure>
+
+<h4 id="spring-data-jpa-3">Spring Data JPA</h4>
+
+<p>Spring Data JPA provides more tools to update the data, like the proxy around the entities.
+The state of these entities is stored in a persistence context.
+By using this, Spring Data JPA is able to keep track of the changes to these entities.
+It uses the information of these changes to keep the database up to date. 
+Spring Data JPA makes managed entities from these entities.
+Instead of always needing to create queries to update data in the database, we can edit these entities. 
+These changes will then always be persisted automatically. 
+This tracking is called dirty tracking because when you change the entities, these updates are making the entity “dirty” since the state is different than in the database.
+When the Hibernate session is flushed, these changes will be persisted and the entity will be “clean” again.
+This will only be done for changes within a transaction. 
+If the changes are not done within a transactional context, you will have to call the save method of the repository to persist those changes.</p>
+
+<p>If you want to make bigger changes, it is also possible to create update methods in the repositories. 
+Like querying the database and creating entities, you can also create methods in the repository. 
+Using JPQL you can create a query which can update multiple entities at once. 
+Please make sure to add the @Modifying annotation. 
+This is a security measure so you cannot modify something by mistake.</p>
+
+<h5 id="example-6">Example</h5>
+
+<p>If you want to change the color on all hatchback cars, you can do this in different ways. I will give three.</p>
+
+<p>If you do it in a transaction, the dirty tracking will take care of the changes.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">       <span class="nd">@Service</span>
+       <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CarService</span> <span class="o">{</span>
+       
+           <span class="kd">public</span> <span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">;</span>
+       
+           <span class="kd">public</span> <span class="nf">CarService</span><span class="o">(</span><span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">){</span>
+               <span class="k">this</span><span class="o">.</span><span class="na">carRepository</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">;</span>
+           <span class="o">}</span>
+       
+           <span class="nd">@Transactional</span>
+           <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="nc">CarType</span> <span class="n">carType</span><span class="o">,</span> <span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+               <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="n">carsWithType</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">.</span><span class="na">findByCarType</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">,</span> <span class="n">carType</span><span class="o">);</span>
+               <span class="k">for</span><span class="o">(</span><span class="nc">Car</span> <span class="n">currentCar</span> <span class="o">:</span> <span class="n">carsWithType</span><span class="o">){</span>
+                    <span class="n">currentCar</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">color</span><span class="o">);</span>
+               <span class="o">}</span>
+               <span class="k">return</span> <span class="n">carsWithType</span><span class="o">;</span>
+           <span class="o">}</span>
+       <span class="o">}</span></code></pre></figure>
+
+<p>If you do it without a transaction, you also need to add an implementation to instruct Hibernate to persist the changes.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">       <span class="nd">@Service</span>
+       <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CarService</span> <span class="o">{</span>
+       
+           <span class="kd">public</span> <span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">;</span>
+       
+           <span class="kd">public</span> <span class="nf">CarService</span><span class="o">(</span><span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">){</span>
+               <span class="k">this</span><span class="o">.</span><span class="na">carRepository</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">;</span>
+           <span class="o">}</span>
+       
+           <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="nc">CarType</span> <span class="n">carType</span><span class="o">,</span> <span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+               <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="n">carsWithType</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">.</span><span class="na">findByCarType</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">,</span> <span class="n">carType</span><span class="o">);</span>
+               <span class="k">for</span><span class="o">(</span><span class="nc">Car</span> <span class="n">currentCar</span> <span class="o">:</span> <span class="n">carsWithType</span><span class="o">){</span>
+                    <span class="n">currentCar</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">color</span><span class="o">);</span>
+                    <span class="n">carRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">currentCar</span><span class="o">);</span>
+               <span class="o">}</span>
+               <span class="k">return</span> <span class="n">carsWithType</span><span class="o">;</span>
+           <span class="o">}</span>
+       <span class="o">}</span></code></pre></figure>
+
+<p>A third way you can do this is by queries.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">       <span class="nd">@Service</span>
+       <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CarService</span> <span class="o">{</span>
+       
+           <span class="kd">public</span> <span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">;</span>
+       
+           <span class="kd">public</span> <span class="nf">CarService</span><span class="o">(</span><span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">){</span>
+               <span class="k">this</span><span class="o">.</span><span class="na">carRepository</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">;</span>
+           <span class="o">}</span>
+       
+           <span class="nd">@Transactional</span>
+           <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="nc">CarType</span> <span class="n">carType</span><span class="o">,</span> <span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+               <span class="k">return</span> <span class="n">carRepository</span><span class="o">.</span><span class="na">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">,</span> <span class="n">carType</span><span class="o">);</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+       
+       <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CarRepository</span> <span class="kd">extends</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+       
+           <span class="nd">@Modifying</span>
+           <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"Update Car car "</span> <span class="o">+</span>
+                   <span class="s">"SET car.color = :color "</span>
+                   <span class="s">"WHERE car.type = :carType "</span><span class="o">)</span>
+           <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"color"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">"carType"</span><span class="o">)</span><span class="nc">String</span> <span class="n">carType</span><span class="o">);</span>
+       <span class="o">}</span></code></pre></figure>
+
+<h4 id="spring-data-jdbc-3">Spring Data JDBC</h4>
+<p>Spring Data JDBC does not have a persistence context like Spring Data JPA.
+This makes Spring Data JDBC in my opinion more straightforward than Spring Data JPA.
+If you want to make changes to the data, you are responsible for handling the persistence.
+If you do not call the save method in the repository, the changes will not be persisted.</p>
+
+<p>You also have the choice to update the aggregates using self-written queries. 
+Like I already mentioned, these queries are executed directly on the database, without the use of an abstraction like Hibernate.
+Updating the data is done by calling the save method on the repository of the aggregate.</p>
+
+<p>Because Spring Data JDBC does not contain a persistence context like Spring Data JPA, it does not know which part of the aggregate is updated. 
+Therefore it will update the aggregate root and delete all the referenced entities and save them all again.
+As a downside, entities will sometimes be deleted and inserted even if they were not updated, which could be a waste of resources.
+The big advantage is that you are sure that the entire entity will be up to date after saving the aggregate.</p>
+
+<h5 id="examples-3">Examples</h5>
+
+<p>Suppose we want to change the colors of all colors of a same type like we did in the example of Spring Data JPA.</p>
+
+<p>You can do it like example 2 of Spring Data JPA.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">       <span class="nd">@Service</span>
+       <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CarService</span> <span class="o">{</span>
+       
+           <span class="kd">public</span> <span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">;</span>
+       
+           <span class="kd">public</span> <span class="nf">CarService</span><span class="o">(</span><span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">){</span>
+               <span class="k">this</span><span class="o">.</span><span class="na">carRepository</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">;</span>
+           <span class="o">}</span>
+       
+           <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="nc">CarType</span> <span class="n">carType</span><span class="o">,</span> <span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+               <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="n">carsWithType</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">.</span><span class="na">findByCarType</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">,</span> <span class="n">carType</span><span class="o">);</span>
+               <span class="k">for</span><span class="o">(</span><span class="nc">Car</span> <span class="n">currentCar</span> <span class="o">:</span> <span class="n">carsWithType</span><span class="o">){</span>
+                    <span class="n">currentCar</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">color</span><span class="o">);</span>
+                    <span class="n">carRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">currentCar</span><span class="o">);</span>
+               <span class="o">}</span>
+               <span class="k">return</span> <span class="n">carsWithType</span><span class="o">;</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+       
+       <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CarRepository</span> <span class="kd">extends</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+              
+          <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"SELECT * "</span>
+                  <span class="s">"FROM Car car "</span> <span class="o">+</span>
+                  <span class="s">"WHERE car.type = :carType "</span><span class="o">)</span>
+          <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">findByCarType</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"color"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">"carType"</span><span class="o">)</span><span class="nc">String</span> <span class="n">carType</span><span class="o">);</span>
+      <span class="o">}</span></code></pre></figure>
+
+<p>Another way you can do this is by an update query which is the same as the Spring Data JPA example. 
+If we want to update a part of an aggregate, 
+we would need to go through the aggregate root since the aggregate root maintains consistency for the whole aggregate.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">       <span class="nd">@Service</span>
+       <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CarService</span> <span class="o">{</span>
+       
+           <span class="kd">public</span> <span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">;</span>
+       
+           <span class="kd">public</span> <span class="nf">CarService</span><span class="o">(</span><span class="nc">CarRepository</span> <span class="n">carRepository</span><span class="o">){</span>
+               <span class="k">this</span><span class="o">.</span><span class="na">carRepository</span> <span class="o">=</span> <span class="n">carRepository</span><span class="o">;</span>
+           <span class="o">}</span>
+       
+           <span class="nd">@Transactional</span>
+           <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="nc">CarType</span> <span class="n">carType</span><span class="o">,</span> <span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+               <span class="k">return</span> <span class="n">carRepository</span><span class="o">.</span><span class="na">updateColorOfCarsWithCarType</span><span class="o">(</span><span class="n">rentalCompanyId</span><span class="o">,</span> <span class="n">carType</span><span class="o">);</span>
+           <span class="o">}</span>
+       <span class="o">}</span>
+       
+       <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CarRepository</span> <span class="kd">extends</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="nc">Rental</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+       
+           <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"UPDATE Car car "</span> <span class="o">+</span>
+                   <span class="s">"SET car.color = :color
+                   "</span><span class="no">WHERE</span> <span class="n">car</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="o">:</span><span class="n">carType</span> <span class="s">")
+           List&lt;Rental&gt; updateColorOfCarsWithCarType(@Param("</span><span class="n">color</span><span class="s">") String color, @Param("</span><span class="n">carType</span><span class="err">"</span><span class="o">)</span><span class="nc">String</span> <span class="n">carType</span><span class="o">);</span>
+       <span class="o">}</span></code></pre></figure>
+
+<h2 id="advantages-of-using-spring-data-jdbc">Advantages of Using Spring Data JDBC</h2>
+<h3 id="better-design">Better design</h3>
+<p>One of the biggest advantages that you can get from using Spring Data JDBC is that it will force you to follow the rules of DDD design like using aggregates.
+A great explanation why this design can help you can be found <a href="https://dddcommunity.org/library/vernon_2011/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<p>Because only one-to-many relationships are used, it makes it easier to see what the exact relationships are between the classes.
+Classes can only be part of 1 aggregate. Together with the one-to-many rule this makes it impossible to create circular dependencies.
+If you need to create relationships between aggregates, you need to use id’s. This makes the coupling between the aggregates as small as possible.</p>
+
+<p>It is also clear where the logic of the interactions with the data can be found because only the aggregate roots have repositories because they are responsible for these interactions.</p>
+
+<h3 id="easier-to-understand">Easier to Understand</h3>
+<p>Only the aggregate roots are responsible for handling the persistence. This makes it clear what needs to be persisted and who is responsible for doing this.
+Because the persistence always needs to be initiated by calling the save method, it makes it easier to understand when changes will be persisted than with Spring Data JPA.</p>
+
+<p>It is easy to see what classes are part of an aggregate since aggregates are connected using object references. When id’s are used, those classes are part of different aggregates.
+When you query the database, instead of the lazy loading which is standard in Spring Data JPA, every call using Spring Data JDBC is done using eager loading. 
+Every time you need data, a call to the database will be done because no caches are used.
+Together these rules make sure that it is easy to know when a call to the database will be done (always), what parts of the data are returned from the database calls (entire aggregate) and it is easy to know what these aggregates are composed of.</p>
+
+<p>Because you are responsible for saving when something needs to be saved, and when you do a call through a repository, the entire aggregate is returned. 
+The result of this is that you need to do a little bit more yourself, but it also gives you complete control of the entire data flow.</p>
+
+<h3 id="performance">Performance</h3>
+<p>With Spring Data JDBC you have a little more control which query will be executed on the database since it is executed directly on the JDBC instead of going through a middle layer.
+All the queries are eager, this is also an advantage because less queries need to be sent to the database.</p>
+
+<p>When you create or update entities in an aggregate through Spring Data JDBC, it will do this by deleting and again saving these entities.
+Spring Data JDBC needs to do this since it does not have a persistence context and wants to make sure that everything is up-to-date. 
+The downside of this is that it is possible that sometimes unnecessary operations will be executed.</p>
+
+<p>With Spring Data JPA you have more possibilities for fine tuning performance. For example with the possibility of using the lazy loading and the usage of a cache.
+Because of these possibilities it is also more difficult to create a configuration for a good performance.</p>
+
+<h2 id="should-i-use-it">Should I Use It?</h2>
+<p>Spring Data JDBC is in my opinion a very nice addition to the Spring Data family with lots of potential. 
+With the release of Spring Data JDBC 1.1 it became a lot more stable. If you know the rules to follow, it is now very easy to create a simple application using this technology.
+There are already a lot of advantages to using Spring Data JDBC and these advantages will only grow when features will be added to it.</p>
+
+<p>There are also some drawbacks. The biggest drawback is that it is rather new, version 1.0 was released less than 2 years ago. 
+It is also still rather difficult to find a lot of information about this technology so if you will use this technology you will need to reserve some time to experiment.</p>
+
+<p>In this case I would advise to at least try the technology out because of the big potential.
+I have had a lot of fun trying out this technology and I noticed that it really helped me create a good application.
+This technology hits a sweet spot between Spring JDBC and Spring Data JPA by using the best of both worlds. On top of that they also added some nice DDD principles.</p>
+
+<p>So in short, go out and try it out!</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html&title=An Introduction to Spring Data JDBC&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=An Introduction to Spring Data JDBC&url=https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/wout-meskens/" class="image spotlight-image" title="">
+            <img src="/img/author/wout-meskens.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Wout is a Java Developer at Ordina Belgium who also is interested in cloud technologies. He likes to keep learning new things and improve his knowledge about the newest technologies.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/spring.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

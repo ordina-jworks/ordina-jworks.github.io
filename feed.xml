@@ -1,5 +1,627 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2019-12-20T07:52:38+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Using Augmented Reality to create an indoor navigation system with ViroReact</title><link href="https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost.html" rel="alternate" type="text/html" title="Using Augmented Reality to create an indoor navigation system with ViroReact" /><published>2019-12-20T00:00:00+00:00</published><updated>2019-12-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-01-02T12:23:33+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">An Introduction to Spring Data JDBC</title><link href="https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html" rel="alternate" type="text/html" title="An Introduction to Spring Data JDBC" /><published>2020-01-02T00:00:00+00:00</published><updated>2020-01-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc</id><content type="html" xml:base="https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html">&lt;blockquote&gt;
+  &lt;p&gt;A new member is added to the Spring Data family. Spring Data JDBC is positioned between Spring Data JPA and Spring JDBC using the best elements of both.
+This post will describe the current state and the future of this product. It will also explain which problems this product is trying to solve and how.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#spring-jdbc-vs-spring-data-jdbc-vs-spring-data-jpa&quot;&gt;Spring JDBC vs Spring Data JDBC vs Spring Data JPA&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#project-differences&quot;&gt;Project Differences&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#inserting-data&quot;&gt;Inserting Data&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#querying-the-database&quot;&gt;Querying The Database&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#updating-an-instance&quot;&gt;Updating an Instance&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#advantages-of-using-spring-data-jdbc&quot;&gt;Advantages of Using Spring Data JDBC&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#better-design&quot;&gt;Better Design&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#easier-to-understand&quot;&gt;Easier to Understand&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#performance&quot;&gt;Performance&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#should-i-use-it&quot;&gt;Should I Use It&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Spring Data JDBC is a new member of the Spring Data family. 
+It is created to fill a void that sits between Spring JDBC and Spring Data JPA.
+If you look at Spring JDBC, you could argue that it is too low level to work because it only helps with the connection to the database.
+Spring Data JPA could seem too complex because it gives you a lot of options and it can be difficult to master all these options. 
+Spring Data JDBC is a framework that tries to give you the same power you get from using Spring Data JPA but makes it more understandable by using DDD principles.
+It also gives you more control by working on a lower level and by letting you decide when database interactions need to be done like Spring JDBC, but in an easier way. 
+In the rest of this article the differences between Spring Data JPA, Spring Data JDBC and Spring JDBC will be shown.
+This will hopefully show you that Spring Data JDBC is a very nice product with a lot of potential that is designed to help you.&lt;/p&gt;
+
+&lt;h2 id=&quot;spring-jdbc-vs-spring-data-jdbc-vs-spring-data-jpa&quot;&gt;Spring JDBC vs Spring Data JDBC vs Spring Data JPA&lt;/h2&gt;
+
+&lt;h3 id=&quot;project-differences&quot;&gt;Project Differences&lt;/h3&gt;
+&lt;p&gt;Spring JDBC, Spring Data JPA and Spring Data JDBC are all three based on a different mindset. 
+Based on these mindsets, you can see differences in how these technologies need to be used and how some parts need to be structured.
+Spring JDBC only helps with the connection to the database and with executing queries on this database.
+Spring Data JPA wants to help you manage your JPA based repositories. 
+It wants to remove boilerplate code, make implementation speed higher and provide help for the performance of your application.
+Spring Data JDBC also wants to provide help with access to relational databases, but wants to keep the implementations less complex.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-jdbc&quot;&gt;Spring JDBC&lt;/h4&gt;
+&lt;p&gt;The help that Spring JDBC provides is by providing a framework to execute SQL. 
+Spring JDBC handles the connection with the database and lets you execute queries using JdbcTemplates.
+This solution is very flexible because you have complete control over the executed queries.
+You are also free to define your class structure because you are in complete control of the mapping.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-data-jpa&quot;&gt;Spring Data JPA&lt;/h4&gt;
+&lt;p&gt;Spring Data JPA uses entities, so the class structure needs to be comparable with the database structure because some mapping is done automatically.
+In the most simple form, the database tables will each represent an entity and can be mapped almost directly on an entity class.
+This mapping can be done by using Java configuration. By using annotations you can define on which table the class is mapped but also how the tables are linked together.&lt;/p&gt;
+
+&lt;p&gt;A class is seen as an Entity when it is annotated with the @Entity annotation.
+The most common links are @OneToMany, @ManyToOne and @ManyToMany.
+For example if class A has a @OneToMany relationship to class B then the database scheme will have a foreign key in table B to table A and the JPA implementation will keep a list of linked B elements in entity A.
+There are almost no restrictions on how entities can be linked together.
+This means there is total freedom to design your class structure how you want, but it also means that you need to be wary that you don’t cause problems like circular dependencies.
+It also means that nothing prevents you from creating a complex structure which is not easily understandable, especially understanding how your class structure translates to your database structure.
+So you will always need to think how your class structure decisions impact your database.&lt;/p&gt;
+
+&lt;p&gt;For example it is easy to define a data structure with a many-to-many relationship or with bi-directional relationships. 
+When you translate this to your database structure you will need intermediate tables and create references to the unidirectional relationships.&lt;/p&gt;
+
+&lt;h5 id=&quot;example&quot;&gt;Example:&lt;/h5&gt;
+
+&lt;p&gt;In this example there are some classes that can be used in Spring Data JPA. 
+They represent a part of the domain model that will also be used in the rest of this article.
+A RentalCompany contains rentals. These rentals hold the information about which Car is rented and when.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+     
+        &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@GeneratedValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strategy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GenerationType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;AUTO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+     
+        &lt;span class=&quot;nd&quot;&gt;@ManyToOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FetchType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LAZY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@JoinColumn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;company_id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompany&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;company&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+     
+        &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+     
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompany&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+     
+        &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;@GeneratedValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strategy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GenerationType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;AUTO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+     
+        &lt;span class=&quot;nd&quot;&gt;@OneToMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FetchType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LAZY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mappedBy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;company&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+         
+        &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;spring-data-jdbc&quot;&gt;Spring Data JDBC&lt;/h4&gt;
+&lt;p&gt;When you use Spring Data JDBC, you will also need to create entity classes which will be mapped to the database.
+The big difference is that there are more rules that you need to follow when you create the class structure.
+The class structure needs to follow the rules of aggregate design of DDD.
+Spring Data enforces this because this will lead to the creation of more simple and understandable projects.
+If you don’t know this concept or why it is useful, you can check a very good article about this: &lt;a href=&quot;https://dddcommunity.org/library/vernon_2011/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Effective Aggregate Design by Vaugn Vernon&lt;/a&gt;.
+Basically we group different entities together which have a strong coupling and we call them aggregates.
+The top entity of the aggregate is called the aggregate root.
+There are some other rules that need to be followed:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;An entity can only be part of 1 aggregate.&lt;/li&gt;
+  &lt;li&gt;All relations inside an aggregate need to be unidirectional.&lt;/li&gt;
+  &lt;li&gt;The aggregate root needs to manage the top relation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This means that by following links starting from the aggregate root, every entity inside the aggregate can be found.
+Because of this, we do not need a repository for each entity like in Spring Data JPA, but only for the aggregate roots.
+To link entity classes together to form an aggregate, you need to use object references.
+Entity classes inside an aggregate can only have one-to-one relationships and one-to-many relationships. 
+If you have a one-to-one relationship your entity only needs an object reference to the other object. 
+When you have a one-to-many relationship your entity needs to contain a collection of object references.
+To create relations to entities outside the aggregate, id’s need to be used to get a low coupling between these classes.&lt;/p&gt;
+
+&lt;p&gt;A big difference in creating the classes used by Spring Data JDBC versus Spring Data JPA is that no @Entity and no relation annotations like @OneToMany need to be used.
+Spring Data JDBC knows a class is an aggregate root when it contains a repository for that class. 
+And because of the rules that the aggregate entities are connected through object references, Spring Data JDBC also knows what the aggregates are and can transfer data to the database as aggregates.&lt;/p&gt;
+
+&lt;h5 id=&quot;example-1&quot;&gt;Example:&lt;/h5&gt;
+&lt;p&gt;In the following example you can see how the domain model that was introduced in the example of Spring Data JPA can be implemented in Spring Data JDBC.
+In this implementation there are 2 aggregate roots RentalCompany and Car. 
+Rental is part of the aggregate of RentalCompany. 
+This domain model will also be used in the other examples inside this article to compare the differences between the three frameworks.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompany&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;renter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LocalDate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;startDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LocalDate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;brand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;licensePlate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;inserting-data&quot;&gt;Inserting Data&lt;/h3&gt;
+&lt;p&gt;For the insertion of data you need to use the tools that were created in the previous section. 
+If you use Spring JDBC you will write queries that are executed directly on the database by JdbcTemplate.
+If you insert data with Spring Data JPA or Spring Data JDBC, you can use the entity or aggregate system that was created.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-jdbc-1&quot;&gt;Spring JDBC&lt;/h4&gt;
+&lt;p&gt;With Spring JDBC you write your insert statements yourself and execute them with a JdbcTemplate.
+The advantage of writing all the queries yourself is that you have complete control over them.&lt;/p&gt;
+
+&lt;h5 id=&quot;example-2&quot;&gt;Example:&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nc&quot;&gt;SingleConnectionDataSource&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SingleConnectionDataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setDriverClassName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;org.hsqldb.jdbcDriver&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jdbc:hsqldb:data/jdbcexample&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;sa&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+    &lt;span class=&quot;nc&quot;&gt;JdbcTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JdbcTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;create table car (id int, model varchar)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;insert into car (id, model) values (1, 'Volkswagen Beetle')&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;dataSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;destroy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;spring-data-jpa-1&quot;&gt;Spring Data JPA&lt;/h4&gt;
+&lt;p&gt;If you use Spring Data JPA for inserting data, you will need to use the repositories and the entities.
+This makes it possible to think on a higher level and let Spring Data JPA handle the creation of queries.
+When you want to create data for an entity, the only thing you need to do is create an object with the correct values and call the save method on your Spring Data repository.
+Spring Data JPA will then look at your entities with all their annotations to map them to the necessary insert or update statements.&lt;/p&gt;
+
+&lt;h5 id=&quot;example-3&quot;&gt;Example&lt;/h5&gt;
+
+&lt;p&gt;The example below shows how to insert &lt;code class=&quot;highlighter-rouge&quot;&gt;Rental&lt;/code&gt; data in the database with Spring Data JPA.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RentalService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RentalRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rentalRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;spring-data-jdbc-1&quot;&gt;Spring Data JDBC&lt;/h4&gt;
+&lt;p&gt;Spring Data JDBC uses a syntax that is comparable to Spring Data JPA.
+The biggest differences are under the hood.
+The management of the persistence is handled by the repository like in Spring Data JPA, but only the aggregate root has a repository.
+This means that if you want to insert or update data, the entire aggregate needs to be saved.
+You will need to call the save method of the repository of the aggregate root and this will first save the aggregate root and then all of the referenced entities get saved.
+If you want to insert only a part of an aggregate, for example only create a new Rental, then the whole aggregate will be updated and the referenced entities will be deleted and inserted again.&lt;/p&gt;
+
+&lt;h5 id=&quot;example-4&quot;&gt;Example&lt;/h5&gt;
+
+&lt;p&gt;The example shows how a &lt;code class=&quot;highlighter-rouge&quot;&gt;Rental&lt;/code&gt; is added. If you want to create a new instance of the aggregate root, then the code is comparable to that of Spring Data JPA.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompanyService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompanyRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RentalCompanyService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RentalCompanyRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rentalCompanyRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompany&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addRental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;RentalCompany&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompany&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;rentalCompany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRentals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;querying-the-database&quot;&gt;Querying The Database&lt;/h3&gt;
+&lt;p&gt;To retrieve data from our database, we write queries.
+Spring JDBC will let you use the &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcTemplate&lt;/code&gt; and let you map the result with a RowMapper.
+Spring Data JDBC and Spring Data JPA will also let you create queries, using JPQL or SQL queries, but you will write them in the repositories and the frameworks will help you with the mapping.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-jdbc-2&quot;&gt;Spring JDBC&lt;/h4&gt;
+&lt;p&gt;The main tool that Spring JDBC uses for querying is the &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcTemplate&lt;/code&gt;.
+The downside of using this is that it only provides the connection, everything else you need to do yourself.
+If you search for objects, you will need to map the results to Java objects by implementing a &lt;code class=&quot;highlighter-rouge&quot;&gt;RowMapper&lt;/code&gt;.
+You will also need to do the exception handling by creating a ExceptionTranslator.&lt;/p&gt;
+
+&lt;p&gt;I will show you a simple example of how a query is created.&lt;/p&gt;
+
+&lt;h5 id=&quot;examples&quot;&gt;Examples&lt;/h5&gt;
+
+&lt;p&gt;This response needs to be mapped by implementing a &lt;code class=&quot;highlighter-rouge&quot;&gt;RowMapper&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRowMapper&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RowMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mapRow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ResultSet&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rowNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SQLException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;car&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+     
+            &lt;span class=&quot;n&quot;&gt;car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resultSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ID&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resultSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;COLOR&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setBrand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resultSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;BRAND&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setModel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resultSet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MODEL&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+     
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This mapper can be passed to the &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcTemplate&lt;/code&gt; that will use it to create populated Java objects.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jdbcTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queryForObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;SELECT * FROM CAR WHERE ID = ?&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRowMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;spring-data-jpa-2&quot;&gt;Spring Data JPA&lt;/h4&gt;
+
+&lt;p&gt;When you use the Spring Data framework, it will help you with building your queries and fetching the right data.
+The Spring Data JPA framework uses implementations of the JPA specifications like Hibernate. They make it possible to query the database using user friendly interfaces.
+When you want to query the database, instead of writing the entire query yourself, Hibernate will help you. 
+There are multiple ways to query the database using Spring Data JPA, but they all need you to extend the repository of the entity you want to query.&lt;/p&gt;
+
+&lt;p&gt;Some basic queries can be written using derived queries. An example of this is findById. 
+For these methods Spring Data will generate the SQL entirely on its own. More information about how derived queries can be defined can be found in the &lt;a href=&quot;https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.details&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Data documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you need to write more advanced queries that can’t easily be defined as a derived query, you can define the query yourself using the @Query annotation.
+Inside the @Query annotation you write JPQL or SQL statements. JPQL is an SQL-like syntax that provides an abstraction layer on top of regular SQL. 
+When JPQL is used, it is possible for Spring Data to help you with handling the data. For example paging and sorting can be done by simply adding a parameter.&lt;/p&gt;
+
+&lt;p&gt;If you want to have a bit more control, you can use SQL by setting the native property of the &lt;code class=&quot;highlighter-rouge&quot;&gt;@Query&lt;/code&gt; annotation to true. 
+Then you don’t use this extra layer, but it then also can’t help you anymore.
+Be aware that even though you use SQL directly, you will still return entities that are managed by Hibernate.&lt;/p&gt;
+
+&lt;p&gt;Apart from helping you with more easily defining which query you want to execute, it also helps you with fine tuning performance.
+You are using entities when you query using Spring Data JPA. These entities have connections to other entities.
+Spring Data JPA will help you with defining whether you want to return these connected entities directly or not. 
+It can help you with searching for these entities when you do need them.
+This is called eager and lazy loading and this can all be managed by Spring Data JPA.&lt;/p&gt;
+
+&lt;p&gt;It will also try to improve performance by giving you the option to turn on the query cache.
+When this is turned on, Spring Data JPA will try to reuse the generated SQL queries, and if possible the results of these queries.&lt;/p&gt;
+
+&lt;h5 id=&quot;examples-1&quot;&gt;Examples&lt;/h5&gt;
+
+&lt;p&gt;The service that calls a repository to get all rentals with a given CarType.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RentalService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RentalRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rentalRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getRentalsByCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByCompanyIdAndCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The repository uses a derived query to expose this functionality.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalRepository&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PagingAndSortingRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByCompanyIdAndCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;spring-data-jdbc-2&quot;&gt;Spring Data JDBC&lt;/h4&gt;
+&lt;p&gt;Spring Data JDBC has less abstractions than Spring Data JPA, but uses Spring Data concepts to make it easier to do CRUD operations than Spring JDBC.&lt;/p&gt;
+
+&lt;p&gt;It sits closer to the database because it does not contain the most part of the Spring Data magic when querying the database.
+Every query is executed directly on the JDBC and there is no lazy loading or caching, so when you query the database, it will return the entire aggregate.&lt;/p&gt;
+
+&lt;p&gt;Currently when you want to add a method to your repository in Spring Data JDBC, you need to add an @Query annotation which contains the query.
+This needs to be pure SQL instead of JPQL which is used in Spring Data JPA. You can compare this best with the native queries that are added to Spring Data JPA.
+Because Spring Data JDBC sits so close to the database, it is, like native queries in Spring Data JPA, not possible to have paging and sorting repositories.
+These types of repositories will be added in the future. This is like the derived queries functionality which is also not yet implemented but will be in the future.&lt;/p&gt;
+
+&lt;p&gt;When you query the application using Spring Data JDBC, instead of entities, you will receive the entire aggregate. 
+This makes the application easier to understand. 
+The application doesn’t need to rely on an application context to get the state of properties of returned entities.
+Because the entire objects are fetched, there are no extra calls needed to receive the field values of objects that were not loaded yet because all the fields are already filled in.
+The disadvantage of this system could be that too much data will be loaded. 
+But if that happens, it could be that the boundary of your aggregate is too big and it is possible that you need to split up your aggregate.&lt;/p&gt;
+
+&lt;h5 id=&quot;examples-2&quot;&gt;Examples&lt;/h5&gt;
+
+&lt;p&gt;When we try to do the same thing as we did in Spring Data JPA in Spring Data JDBC, then you need to go at it differently.
+The first difference is that we can’t use the RentalRepository because it does not exist. 
+It does not exist because Rental is not an aggregate root, but is part of the aggregate with aggregate root RentalCompany. 
+This is why we now need to use the RentalCompanyRepository.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompanyService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompanyRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RentalCompanyService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RentalCompanyRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;rentalCompanyRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getRentalsByCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rentalRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByIdAndCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The other difference is that we cannot use derived queries, so we need to use the @Query annotation.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RentalCompanyRepository&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CrudRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RentalCompany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    
+        &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SELECT * &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;FROM Rental rental &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;JOIN Car car ON car.id = rental.car_id &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;WHERE rental.rental_company = :companyId &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;AND car.type = :carType&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findRentalsByIdAndCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;companyId&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;companyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;carType&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;updating-an-instance&quot;&gt;Updating an Instance&lt;/h3&gt;
+
+&lt;p&gt;When you want to update an instance in the database, you will need to write a query and execute it using the &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcTemplate&lt;/code&gt; or use the domain model in Spring Data JPA or Spring Data JDBC.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-jdbc-3&quot;&gt;Spring JDBC&lt;/h4&gt;
+
+&lt;p&gt;Spring JDBC again only provides a framework when updating data from the database. 
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcTemplate&lt;/code&gt; exposes an update method. This method can accept a query and optional parameters.&lt;/p&gt;
+
+&lt;h5 id=&quot;example-5&quot;&gt;Example&lt;/h5&gt;
+
+&lt;p&gt;A simple code example where we update the color of a given car.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;update Car set color = ? where id = ?&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;jdbcTemplateObject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;spring-data-jpa-3&quot;&gt;Spring Data JPA&lt;/h4&gt;
+
+&lt;p&gt;Spring Data JPA provides more tools to update the data, like the proxy around the entities.
+The state of these entities is stored in a persistence context.
+By using this, Spring Data JPA is able to keep track of the changes to these entities.
+It uses the information of these changes to keep the database up to date. 
+Spring Data JPA makes managed entities from these entities.
+Instead of always needing to create queries to update data in the database, we can edit these entities. 
+These changes will then always be persisted automatically. 
+This tracking is called dirty tracking because when you change the entities, these updates are making the entity “dirty” since the state is different than in the database.
+When the Hibernate session is flushed, these changes will be persisted and the entity will be “clean” again.
+This will only be done for changes within a transaction. 
+If the changes are not done within a transactional context, you will have to call the save method of the repository to persist those changes.&lt;/p&gt;
+
+&lt;p&gt;If you want to make bigger changes, it is also possible to create update methods in the repositories. 
+Like querying the database and creating entities, you can also create methods in the repository. 
+Using JPQL you can create a query which can update multiple entities at once. 
+Please make sure to add the @Modifying annotation. 
+This is a security measure so you cannot modify something by mistake.&lt;/p&gt;
+
+&lt;h5 id=&quot;example-6&quot;&gt;Example&lt;/h5&gt;
+
+&lt;p&gt;If you want to change the color on all hatchback cars, you can do this in different ways. I will give three.&lt;/p&gt;
+
+&lt;p&gt;If you do it in a transaction, the dirty tracking will take care of the changes.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;       &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CarService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;carRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+           &lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+               &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you do it without a transaction, you also need to add an implementation to instruct Hibernate to persist the changes.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;       &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CarService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;carRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+               &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;A third way you can do this is by queries.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;       &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CarService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;carRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+           &lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CrudRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       
+           &lt;span class=&quot;nd&quot;&gt;@Modifying&lt;/span&gt;
+           &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Update Car car &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                   &lt;span class=&quot;s&quot;&gt;&quot;SET car.color = :color &quot;&lt;/span&gt;
+                   &lt;span class=&quot;s&quot;&gt;&quot;WHERE car.type = :carType &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+           &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;color&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;carType&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;spring-data-jdbc-3&quot;&gt;Spring Data JDBC&lt;/h4&gt;
+&lt;p&gt;Spring Data JDBC does not have a persistence context like Spring Data JPA.
+This makes Spring Data JDBC in my opinion more straightforward than Spring Data JPA.
+If you want to make changes to the data, you are responsible for handling the persistence.
+If you do not call the save method in the repository, the changes will not be persisted.&lt;/p&gt;
+
+&lt;p&gt;You also have the choice to update the aggregates using self-written queries. 
+Like I already mentioned, these queries are executed directly on the database, without the use of an abstraction like Hibernate.
+Updating the data is done by calling the save method on the repository of the aggregate.&lt;/p&gt;
+
+&lt;p&gt;Because Spring Data JDBC does not contain a persistence context like Spring Data JPA, it does not know which part of the aggregate is updated. 
+Therefore it will update the aggregate root and delete all the referenced entities and save them all again.
+As a downside, entities will sometimes be deleted and inserted even if they were not updated, which could be a waste of resources.
+The big advantage is that you are sure that the entire entity will be up to date after saving the aggregate.&lt;/p&gt;
+
+&lt;h5 id=&quot;examples-3&quot;&gt;Examples&lt;/h5&gt;
+
+&lt;p&gt;Suppose we want to change the colors of all colors of a same type like we did in the example of Spring Data JPA.&lt;/p&gt;
+
+&lt;p&gt;You can do it like example 2 of Spring Data JPA.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;       &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CarService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;carRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentCar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+               &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carsWithType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CrudRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+              
+          &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SELECT * &quot;&lt;/span&gt;
+                  &lt;span class=&quot;s&quot;&gt;&quot;FROM Car car &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                  &lt;span class=&quot;s&quot;&gt;&quot;WHERE car.type = :carType &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;color&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;carType&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Another way you can do this is by an update query which is the same as the Spring Data JPA example. 
+If we want to update a part of an aggregate, 
+we would need to go through the aggregate root since the aggregate root maintains consistency for the whole aggregate.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;       &lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+       
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CarService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;carRepository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+           &lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
+           &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CarType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;updateColorOfCarsWithCarType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rentalCompanyId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+           &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+       
+       &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CarRepository&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CrudRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Rental&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+       
+           &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;UPDATE Car car &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+                   &lt;span class=&quot;s&quot;&gt;&quot;SET car.color = :color
+                   &quot;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;car&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;)
+           List&amp;lt;Rental&amp;gt; updateColorOfCarsWithCarType(@Param(&quot;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;) String color, @Param(&quot;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;advantages-of-using-spring-data-jdbc&quot;&gt;Advantages of Using Spring Data JDBC&lt;/h2&gt;
+&lt;h3 id=&quot;better-design&quot;&gt;Better design&lt;/h3&gt;
+&lt;p&gt;One of the biggest advantages that you can get from using Spring Data JDBC is that it will force you to follow the rules of DDD design like using aggregates.
+A great explanation why this design can help you can be found &lt;a href=&quot;https://dddcommunity.org/library/vernon_2011/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Because only one-to-many relationships are used, it makes it easier to see what the exact relationships are between the classes.
+Classes can only be part of 1 aggregate. Together with the one-to-many rule this makes it impossible to create circular dependencies.
+If you need to create relationships between aggregates, you need to use id’s. This makes the coupling between the aggregates as small as possible.&lt;/p&gt;
+
+&lt;p&gt;It is also clear where the logic of the interactions with the data can be found because only the aggregate roots have repositories because they are responsible for these interactions.&lt;/p&gt;
+
+&lt;h3 id=&quot;easier-to-understand&quot;&gt;Easier to Understand&lt;/h3&gt;
+&lt;p&gt;Only the aggregate roots are responsible for handling the persistence. This makes it clear what needs to be persisted and who is responsible for doing this.
+Because the persistence always needs to be initiated by calling the save method, it makes it easier to understand when changes will be persisted than with Spring Data JPA.&lt;/p&gt;
+
+&lt;p&gt;It is easy to see what classes are part of an aggregate since aggregates are connected using object references. When id’s are used, those classes are part of different aggregates.
+When you query the database, instead of the lazy loading which is standard in Spring Data JPA, every call using Spring Data JDBC is done using eager loading. 
+Every time you need data, a call to the database will be done because no caches are used.
+Together these rules make sure that it is easy to know when a call to the database will be done (always), what parts of the data are returned from the database calls (entire aggregate) and it is easy to know what these aggregates are composed of.&lt;/p&gt;
+
+&lt;p&gt;Because you are responsible for saving when something needs to be saved, and when you do a call through a repository, the entire aggregate is returned. 
+The result of this is that you need to do a little bit more yourself, but it also gives you complete control of the entire data flow.&lt;/p&gt;
+
+&lt;h3 id=&quot;performance&quot;&gt;Performance&lt;/h3&gt;
+&lt;p&gt;With Spring Data JDBC you have a little more control which query will be executed on the database since it is executed directly on the JDBC instead of going through a middle layer.
+All the queries are eager, this is also an advantage because less queries need to be sent to the database.&lt;/p&gt;
+
+&lt;p&gt;When you create or update entities in an aggregate through Spring Data JDBC, it will do this by deleting and again saving these entities.
+Spring Data JDBC needs to do this since it does not have a persistence context and wants to make sure that everything is up-to-date. 
+The downside of this is that it is possible that sometimes unnecessary operations will be executed.&lt;/p&gt;
+
+&lt;p&gt;With Spring Data JPA you have more possibilities for fine tuning performance. For example with the possibility of using the lazy loading and the usage of a cache.
+Because of these possibilities it is also more difficult to create a configuration for a good performance.&lt;/p&gt;
+
+&lt;h2 id=&quot;should-i-use-it&quot;&gt;Should I Use It?&lt;/h2&gt;
+&lt;p&gt;Spring Data JDBC is in my opinion a very nice addition to the Spring Data family with lots of potential. 
+With the release of Spring Data JDBC 1.1 it became a lot more stable. If you know the rules to follow, it is now very easy to create a simple application using this technology.
+There are already a lot of advantages to using Spring Data JDBC and these advantages will only grow when features will be added to it.&lt;/p&gt;
+
+&lt;p&gt;There are also some drawbacks. The biggest drawback is that it is rather new, version 1.0 was released less than 2 years ago. 
+It is also still rather difficult to find a lot of information about this technology so if you will use this technology you will need to reserve some time to experiment.&lt;/p&gt;
+
+&lt;p&gt;In this case I would advise to at least try the technology out because of the big potential.
+I have had a lot of fun trying out this technology and I noticed that it really helped me create a good application.
+This technology hits a sweet spot between Spring JDBC and Spring Data JPA by using the best of both worlds. On top of that they also added some nice DDD principles.&lt;/p&gt;
+
+&lt;p&gt;So in short, go out and try it out!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Wout&quot;, &quot;last_name&quot;=&gt;&quot;Meskens&quot;, &quot;github&quot;=&gt;&quot;meskensw&quot;, &quot;linkedin&quot;=&gt;&quot;meskenswout&quot;, &quot;permalink&quot;=&gt;&quot;/author/wout-meskens/&quot;, &quot;avatar&quot;=&gt;&quot;wout-meskens.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;wout.meskens@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wout is a Java Developer at Ordina Belgium who also is interested in cloud technologies. He likes to keep learning new things and improve his knowledge about the newest technologies.&quot;}</name><email>wout.meskens@ordina.be</email></author><category term="Java" /><category term="Java" /><category term="Spring" /><category term="Data" /><category term="JDBC" /><category term="JPA" /><summary type="html">A new member is added to the Spring Data family. Spring Data JDBC is positioned between Spring Data JPA and Spring JDBC using the best elements of both. This post will describe the current state and the future of this product. It will also explain which problems this product is trying to solve and how.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/spring.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/spring.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Using Augmented Reality to create an indoor navigation system with ViroReact</title><link href="https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost.html" rel="alternate" type="text/html" title="Using Augmented Reality to create an indoor navigation system with ViroReact" /><published>2019-12-20T00:00:00+00:00</published><updated>2019-12-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2019/12/20/ar-signpost.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
 
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
 
@@ -3373,510 +3995,4 @@ Using a well-designed chatbot, conversations should feel natural to the user, as
 
 &lt;p&gt;The past three months have been a really busy, but great experience. 
 We met new people every day, got to learn (and teach!) new things every day and dive deeper into our interests. 
-We would like to thank Ordina and the whole JWorks unit for welcoming us to the team and for giving us this opportunity!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Brecht&quot;, &quot;last_name&quot;=&gt;&quot;Porrez&quot;, &quot;github&quot;=&gt;&quot;BrechtPorrez&quot;, &quot;linkedin&quot;=&gt;&quot;brecht-porrez-a952a98&quot;, &quot;permalink&quot;=&gt;&quot;/author/brecht-porrez/&quot;, &quot;avatar&quot;=&gt;&quot;brecht-porrez.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;brecht.porrez@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Brecht is a Java Developer at Ordina with a passion for IoT and related technologies. He also has a special interest in writing clean and maintainable code.&quot;}</name><email>brecht.porrez@ordina.be</email></author><category term="Young Professional Programme" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit testing" /><category term="Mocking" /><category term="Microservices" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="TypeScript" /><category term="Kickstarter" /><category term="Young Professional Program" /><category term="Security" /><summary type="html">Introduction 65 young professionals started the Ordina Young Professional Programme this summer, on the 1st of August. JWorks counted 8 trainees: Mohammed, Jasper, Nicholas, Lennert, Duncan, Lore, Brecht and Imad. All looking for a challenge and a fresh start. Most of them just graduated, Brecht on the other hand already had other work experience. During the young professional programme, we were introduced to a wide range of technologies. Technologies that play an important role in IT. The courses were focused mainly on providing a very hands-on experience as to learn how the different technologies work in practice.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kicks.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">VueJS London 2019</title><link href="https://ordina-jworks.github.io/conference/2019/10/18/vuejs-london-2019.html" rel="alternate" type="text/html" title="VueJS London 2019" /><published>2019-10-18T00:00:00+00:00</published><updated>2019-10-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2019/10/18/vuejs-london-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2019/10/18/vuejs-london-2019.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#vuejs-london-2019-time-to-get-hyped-about-composition-api-and-vue-3&quot;&gt;VueJS London 2019: time to get hyped about Composition API and Vue 3&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#animations-any-vue-app-can-use-by-adam-jahr&quot;&gt;Animations any Vue app can use&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#scripting-in-style-whats-your-vue-by-maya-shavin&quot;&gt;Scripting in style, what’s your Vue?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#identifying-and-solving-performance-issues-in-vue-applications-by-filip-rakowski&quot;&gt;Identifying and solving performance issues in Vue applications&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#scalable-data-visualisation-with-d3-and-vue-by-ramona-biscoveanu&quot;&gt;Scalable data visualisation with D3 and Vue&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#a-new-router-to-guide-your-apps-by-eduardo-san-martin-morote&quot;&gt;A new router to guide your apps&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#lightning-talks&quot;&gt;Lightning talks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#vue3s-composition-api-explained-visually-by-gregg-pollack&quot;&gt;Vue3’s Composition API explained visually&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-new-composition-api-by-thorsten-luenborg&quot;&gt;The new Composition API&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#live-coding-the-new-composition-api-by-jason-yu&quot;&gt;Live coding: the new Composition API&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#evan-yous-keynote-launch-of-vue3-open-source-by-evan-you&quot;&gt;Evan You’s keynote: launch of Vue3 open-source&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#workshop-hands-on-with-the-composition-api-by-vue-vixens&quot;&gt;Workshop: hands-on with the Composition API, by Vue Vixens&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;vuejs-london-2019-time-to-get-hyped-about-composition-api-and-vue-3&quot;&gt;VueJS London 2019: time to get hyped about Composition API and Vue 3&lt;/h2&gt;
-
-&lt;p&gt;As it is a goal of me to focus more on Vue this year, I had the opportunity to travel to London to attend &lt;a href=&quot;https://vuejs.london&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;VueJS London 2019&lt;/a&gt;.
-With a conference on the 4th of October and a workshop provided by &lt;a href=&quot;https://vuevixens.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;VueVixens&lt;/a&gt; on the 5th October, I was hoping to learn a lot about the future developments of Vue.
-The conference and the workshop delivered on my expectations as we learned about accessibility, animations, data visualisations, performance, the new Composition API and much more.
-We even had a conference call with Evan You where he announced that Vue 3 was going open source.
-During the workshop, I had the opportunity to play around with the brand new Composition API.
-In this blog post, I will highlight some key elements that I have learned during the conference and workshop.&lt;/p&gt;
-
-&lt;h1 id=&quot;conference-day&quot;&gt;Conference day&lt;/h1&gt;
-
-&lt;p&gt;With 8 talks, 1 keynote and 4 lightning talks, the conference day promised to be quite busy.
-The conference was held at O2 Cineworld, which is not that far from the city center.
-As a venue this was exquisite as the accommodation was top-notch, the visuals were beautiful, the talks were clearly audible and the food was great.&lt;/p&gt;
-
-&lt;p class=&quot;align-center&quot;&gt;
-  &lt;img src=&quot;/img/vuejs-london-2019/venue.jpg&quot; class=&quot;image fit&quot; alt=&quot;The VueJS London venue&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Before noon, a total of 5 talks were planned with topics ranging from animations, styling, visualisations and performance to the future of the Vue router.&lt;/p&gt;
-
-&lt;h2 id=&quot;animations-any-vue-app-can-use-by-adam-jahr&quot;&gt;Animations any Vue app can use, by &lt;a href=&quot;https://twitter.com/adamjahr&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Adam Jahr&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;In a scattered world, the attention of the user of our web applications is often lost quickly.
-We really need to capture the user’s attention and make sure that they focus on what we want them to focus on.
-For example in a web shop when the user is looking at the details of a product, we want to make sure he knows exactly where the buy button is.
-To achieve this, we can divert his attention to this button by adding a small but effective animation.
-We want to inspire a certain action that will keep the user on the happy path of our application, whether that is selling a product, successfully entering the details for a client registration or something other specific to our application.
-With the help of the Vue directives &lt;code class=&quot;highlighter-rouge&quot;&gt;v-enter&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;v-enter-active&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;v-enter-to&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;v-leave&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;v-leave-active&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;v-leave-to&lt;/code&gt; we have the tools to add the necessary CSS classes that define certain states such as the default state, the hovered state and others.&lt;/p&gt;
-
-&lt;p class=&quot;align-center&quot;&gt;
-  &lt;img src=&quot;/img/vuejs-london-2019/animation-transitions.png&quot; class=&quot;image fit&quot; alt=&quot;Diagram showing the animation transition directives that are available in Vue&quot; /&gt;
-&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.vuemastery.com/courses/animating-vue/why-animate&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Course on VueMastery&lt;/a&gt; and an introduction on &lt;a href=&quot;https://medium.com/vue-mastery/intro-to-vue-animations-df9594b48800&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;VueMastery’s Medium&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;scripting-in-style-whats-your-vue-by-maya-shavin&quot;&gt;Scripting in style, what’s your Vue?, by &lt;a href=&quot;https://twitter.com/MayaShavin&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maya Shavin&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Currently CSS has a lot of scaling issues:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Everything is put into a global namespace&lt;/li&gt;
-  &lt;li&gt;There are implicit dependencies&lt;/li&gt;
-  &lt;li&gt;A lot of dead code can exist and is not easily found&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;With the use of scoped CSS, we can already tackle a lot of these issues.
-Vue not only provides us with the tools to add CSS styling next to our component definition but also CSS that is specific for a component.
-This is with the help of the &lt;code class=&quot;highlighter-rouge&quot;&gt;scoped&lt;/code&gt; attribute that we can add to our styling:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;style &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scoped&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;/* your CSS here */&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;But we still need to watch out as some other rules might be more specific from within another component that is not scoped.
-We are also lacking certain functionalities such as scripting in our styles.
-So is there a way to be able to script in our CSS while also solving certain issues currently present in CSS?&lt;/p&gt;
-
-&lt;p&gt;With the use of &lt;a href=&quot;https://github.com/css-modules/css-modules&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CSS modules&lt;/a&gt;, we can already alleviate several scaling issues as we get certain functionalities such as composition.
-Sadly we can not solve all CSS scaling issues such as the fact we do not have an easy way for theming.
-Also, scripting is still not possible.&lt;/p&gt;
-
-&lt;p&gt;One method of solving the remaining problems is by using &lt;a href=&quot;https://www.styled-components.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Styled Components&lt;/a&gt; for which there exists a Vue plugin called &lt;a href=&quot;https://github.com/styled-components/vue-styled-components&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;vue-styled-components&lt;/a&gt;.
-The idea behind styled components is to utilise tagged template literals to write actual CSS in your JS.
-We can thus write a styled &lt;code class=&quot;highlighter-rouge&quot;&gt;input&lt;/code&gt; tag that has a switch to set a primary and secondary state like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styled&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;vue-styled-components&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;btnProps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;primary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;StyledButton&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;btnProps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
-  background: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;primary&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;palevioletred&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;white&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;
-  color: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;primary&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;white&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;palevioletred&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;
-`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;StyledButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So with CSS in JS we can script in our styles.
-It also allows us to solve certain scaling issues since we now have typing, composition and more.&lt;/p&gt;
-
-&lt;p&gt;But does this mean that we should use CSS in JS by default? 
-Is there still a place for vanilla CSS?
-CSS in JS is ideal if you need full control over component styling and when you want dynamic styling via props.
-Using the scoped CSS that is available in Vue is a good option as you isolate the styling per component.
-If you reuse components between projects, you have all relevant styling close to your reused component.
-The conclusion is that you should use the right tool for the right job.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://slides.com/mayashavin/styling-with-vue/fullscreen#/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;View slides&lt;/a&gt; and &lt;a href=&quot;https://codesandbox.io/embed/style-with-vue-fzzci&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;code demos&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;identifying-and-solving-performance-issues-in-vue-applications-by-filip-rakowski&quot;&gt;Identifying and solving performance issues in Vue applications, by &lt;a href=&quot;https://twitter.com/filrakowski&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Filip Rakowski&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;“Every millisecond counts”, a statement that holds a lot of truth as &lt;a href=&quot;https://developers.google.com/web/fundamentals/performance/why-performance-matters&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;studies have shown&lt;/a&gt;.
-To make sure that every millisecond is won and that you get the most out of your application, there are certain actions we can take on our source code to directly improve the speed of our application.&lt;/p&gt;
-
-&lt;h3 id=&quot;lazy-loading-routes&quot;&gt;Lazy loading routes&lt;/h3&gt;
-
-&lt;p&gt;By default most people will define their routes as such:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;pages/foo.vue&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;pages/bar.vue&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;routes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/foo&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/bar&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Bar&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;By changing our import statements for our components we can directly impact the bundle size.
-When we used to have this:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;pages/foo.vue&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;we can now rewrite it to this:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;pages/foo.vue&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The result is that our bundle size can get a lot smaller as components are only loaded when they are actually requested for that specific page.
-With the help of &lt;a href=&quot;https://www.npmjs.com/package/webpack-bundle-analyzer&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Webpack Bundle Analyzer&lt;/a&gt;, we can visualise this.&lt;/p&gt;
-
-&lt;h3 id=&quot;using-tree-shakeable-packages&quot;&gt;Using tree-shakeable packages&lt;/h3&gt;
-
-&lt;p&gt;A package that is often used in web applications is &lt;code class=&quot;highlighter-rouge&quot;&gt;lodash&lt;/code&gt;.
-By default, &lt;code class=&quot;highlighter-rouge&quot;&gt;lodash&lt;/code&gt; is not tree-shakeable but with the introduction of &lt;code class=&quot;highlighter-rouge&quot;&gt;lodash-es&lt;/code&gt;, we now have access to all functions of &lt;code class=&quot;highlighter-rouge&quot;&gt;lodash&lt;/code&gt; that are tree-shakeable.
-So instead of:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;zip&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;lodash&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can now use:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;zip&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;lodash-es&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;With the help of &lt;a href=&quot;https://bundlephobia.com/result?p=lodash-es&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;bundlephobia.com&lt;/a&gt;, we can see the individual sizes of all the lodash packages.
-If we do not use functions such as &lt;code class=&quot;highlighter-rouge&quot;&gt;differenceBy&lt;/code&gt; from lodash, we can shave of a couple of kilobytes from our bundle size.&lt;/p&gt;
-
-&lt;h3 id=&quot;activate-dynamic-imports-of-child-components&quot;&gt;Activate dynamic imports of child components&lt;/h3&gt;
-
-&lt;p&gt;When a page is loaded, not all child components are required to already be loaded in.
-The reason for this is that not all child components are directly visible.
-For example when they are somewhere on the bottom of the page or they are off screen.
-But another big reason is that they are used to render a modal.
-As not all modals are always needed from the moment the page is opened, we can add a &lt;code class=&quot;highlighter-rouge&quot;&gt;v-if&lt;/code&gt; to that component.
-For example in a product page where we can have a modal with more product details, we might have something like:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;template&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;product&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-		...
-		&lt;span class=&quot;nt&quot;&gt;&amp;lt;ProductDetails&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;product&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-		...
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/template&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;By adding a &lt;code class=&quot;highlighter-rouge&quot;&gt;v-if&lt;/code&gt; that holds a boolean to tell if the model should be visible, we delay the actual execution of all the &lt;code class=&quot;highlighter-rouge&quot;&gt;ProductDetails&lt;/code&gt; code, thus achieving a performance increase:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;template&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;product&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-		...
-		&lt;span class=&quot;nt&quot;&gt;&amp;lt;ProductDetails&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;isProductDetailsOpened&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;product&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-		...
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/template&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The reason behind this, is that Vue doesn’t render elements contained in a &lt;code class=&quot;highlighter-rouge&quot;&gt;v-if&lt;/code&gt; until the &lt;code class=&quot;highlighter-rouge&quot;&gt;v-if&lt;/code&gt; returns true.&lt;/p&gt;
-
-&lt;h3 id=&quot;prefetching&quot;&gt;Prefetching&lt;/h3&gt;
-
-&lt;p&gt;Prefetching is a technique in which we use the idle time of our web page to load other assets.
-This is a much used technique in for example an infinite scroll where we can already preload one of the next elements that would be shown when the user scrolls down.
-Another example is to prefetch the components that we are lazy loading for our pages.
-Thanks to Webpack we can &lt;a href=&quot;https://webpack.js.org/guides/code-splitting/#prefetchingpreloading-modules&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;add a specific comment&lt;/a&gt; to accommodate this behaviour:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Product&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/* webpackPrefetch:true */&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;product.vue&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;more-performance-wins&quot;&gt;More performance wins&lt;/h3&gt;
-
-&lt;p&gt;In order to further improve the performance of our web application, we can:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Lazy load images&lt;/li&gt;
-  &lt;li&gt;Use functional components for lists&lt;/li&gt;
-  &lt;li&gt;Optimise initial state when using ServerSide Rendering&lt;/li&gt;
-  &lt;li&gt;Cache static assets in a Service Worker&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;With some basic changes, we can already achieve a lot of performance improvement.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;More information can be found on his &lt;a href=&quot;https://medium.com/@frakowski&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Medium blog&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;scalable-data-visualisation-with-d3-and-vue-by-ramona-biscoveanu&quot;&gt;Scalable data visualisation with D3 and Vue, by &lt;a href=&quot;https://twitter.com/CodesOfRa&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ramona Biscoveanu&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;When wanting to do data visualistions with D3 in a Vue web application, it often happens that Vue is only used as a shelf for the actual D3 code.
-This is inherently a bad idea as the D3 code gets complex, not maintainable and it is also not reactive.
-We can use the functionalities of Vue to generate part of our D3 code.
-Since a lot of D3 can be rendered declaratively in HTML code, we can use Vue to bind all the data to the necessary attributes.
-In our component, we could have something like:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;template&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;svg&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;:width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;width&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;:height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;height&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-		&lt;span class=&quot;nt&quot;&gt;&amp;lt;path&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;v-for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;(d, index) in data&quot;&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;:d=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;generateLine(d.values, index)&quot;&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;:key=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;d.country&quot;&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;:stroke=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;colours(index)&quot;&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;:stroke-width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;selected(index)&quot;&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;fill=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;none&quot;&lt;/span&gt;
-			&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mouseover=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;onSelected(d, index)&quot;&lt;/span&gt;
-			&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;click=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;onClick(d)&quot;&lt;/span&gt;
-		&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/path&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/svg&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/template&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;By using &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;computed&lt;/code&gt; we can retrieve the correct data from within our Vue component.
-In our &lt;code class=&quot;highlighter-rouge&quot;&gt;mounted&lt;/code&gt; lifecycle hook, we can do all necessary D3 code to use all of our generated SVGs to create the diagrams that we want.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://github.com/CodesOfRa/d3-vue-graph/blob/master/src/components/Tree.vue&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Code example on Ramona’s GitHub&lt;/a&gt; with the &lt;a href=&quot;https://outofmylens-flowers.netlify.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;live application available online&lt;/a&gt; and the &lt;a href=&quot;https://slides.com/codesofra/data-visualization-in-2#/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;slides of her talk&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;a-new-router-to-guide-your-apps-by-eduardo-san-martin-morote&quot;&gt;A new router to guide your apps, by &lt;a href=&quot;https://twitter.com/posva&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Eduardo San Martin Morote&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;There are three kinds of routers possible:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Imperative: we define the routes and add a callback function to determine how the page should be rendered. An example of this is &lt;a href=&quot;https://github.com/visionmedia/page.js&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;page.js&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;Declarative: routes are defined on a component level by using for example a specific attribute. The &lt;a href=&quot;https://reach.tech/router/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Reach Router&lt;/a&gt; is an example of this.&lt;/li&gt;
-  &lt;li&gt;Configuration based: routes are defined separately with the components that they are linked to. The Vue router is a configuration based router.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Because of this configuration based nature of the &lt;code class=&quot;highlighter-rouge&quot;&gt;vue-router&lt;/code&gt;, we are missing the option to add or remove routes and we also lack declarative routing.&lt;/p&gt;
-
-&lt;p&gt;The current implementation of &lt;code class=&quot;highlighter-rouge&quot;&gt;vue-router&lt;/code&gt; has a lot of functionalities built in that are specific to managing the history while we actually want to separate this.
-In an ideal situation, we want the router to be the connection between the components and the code that manages the browser history.
-When a user navigates to a new page, the router calls the history code to add the new page to the history.
-When the user navigates back, the router retrieves the previous page from the history.
-In the current implementation, this is all not clearly separated.&lt;/p&gt;
-
-&lt;p&gt;So what are the next steps for the Vue router?
-One major improvement would be the use of TypeScript as this would help developers on using and extending the Vue router in the right way.
-This is in the same spirit as Vue 3 that is also written fully in TypeScript.&lt;/p&gt;
-
-&lt;p&gt;Another improvement lies in the use of a ranking system for the routes.
-Currently routes are checked for a match based on the order in which they are defined.
-This means that a catch-all route such as &lt;code class=&quot;highlighter-rouge&quot;&gt;(.*)&lt;/code&gt; in the beginning of the routes definition would render the other routes useless.&lt;/p&gt;
-
-&lt;p&gt;A major addition to Vue router would be the ability to have dynamic routing.
-Components could thus add or remove routes.
-A final addition would be the full use of the Composition API so we have functionalities such as &lt;code class=&quot;highlighter-rouge&quot;&gt;useLink&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;useLocation&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;onBeforeRouteLeave&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;onBeforeRouteUpdate&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The focus of the new router will be mainly on supporting Vue 3 while smaller improvements will be done for Vue 2.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://slides.com/posva/a-new-router-to-guide-your-apps&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;View slides&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;lightning-talks&quot;&gt;Lightning talks&lt;/h2&gt;
-
-&lt;h3 id=&quot;how-to-get-your-product-owners-to-write-your-functional-tests-by-callum-silcock&quot;&gt;How to get your product owners to write your functional tests, by &lt;a href=&quot;https://twitter.com/csiilk&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Callum Silcock&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;With the help of the &lt;a href=&quot;https://github.com/TheBrainFamily/cypress-cucumber-preprocessor&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cypress Cucumber preprocessor&lt;/a&gt; Callum was able to demonstrate how code like this could be processed by Cypress:&lt;/p&gt;
-
-&lt;div class=&quot;language-cucumber highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;Feature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; Logging In
-
-  Tests the user can successfully login and log out
-
-  &lt;span class=&quot;kn&quot;&gt;Scenario&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; Logging In Sucessfully
-    &lt;span class=&quot;nf&quot;&gt;Given &lt;/span&gt;I am on the &lt;span class=&quot;s&quot;&gt;&quot;login&quot;&lt;/span&gt; page
-    &lt;span class=&quot;nf&quot;&gt;When &lt;/span&gt;I input my &lt;span class=&quot;s&quot;&gt;&quot;email&quot;&lt;/span&gt; as &lt;span class=&quot;s&quot;&gt;&quot;contact@csi.lk&quot;&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;And &lt;/span&gt;I input my &lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt; as &lt;span class=&quot;s&quot;&gt;&quot;hunter2&quot;&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;And &lt;/span&gt;I click the &lt;span class=&quot;s&quot;&gt;&quot;login&quot;&lt;/span&gt; button
-    &lt;span class=&quot;nf&quot;&gt;Then &lt;/span&gt;I should be on the &lt;span class=&quot;s&quot;&gt;&quot;dashboard&quot;&lt;/span&gt; page
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The idea behind this, is that functional tests can be written in a very clear and understandable format so that even product owners can help with writing them.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://speakerdeck.com/csilk/then-with-cypress&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;View slides&lt;/a&gt; and an &lt;a href=&quot;https://github.com/csi-lk/cypress-gwt-example&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;example implementation&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;awesome-js-is-awesome-by-guillaume-chau&quot;&gt;Awesome JS is Awesome, by &lt;a href=&quot;https://twitter.com/Akryum&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Guillaume Chau&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;In the &lt;a href=&quot;https://github.com/vuejs/awesome-vue&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;awesome-vue&lt;/a&gt; repository we can already find a curated list of interesting resources for when you want to develop an application with Vue.
-Guillaume decided to create a specific website that has an overview of all good packages for your project, whether it is a Vue project or a Nuxt project or others.
-The website will keep on growing with new project types and packages added regularly so that it could grown into a knowledge base on what good packages would be for your future projects.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The website is available at &lt;a href=&quot;https://awesomejs.dev/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;awesomejs.dev&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;focus-management-with-vue-by-maria-lamardo&quot;&gt;Focus Management with Vue, by &lt;a href=&quot;https://twitter.com/MariaLamardo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maria Lamardo&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;Maria is very enthousiastic about accessibility on the web.
-One of the quirks she has found is that when a page is loaded or something dynamic happens on the page like opening a modal, the focus is incorrect.
-Basically this means that people who rely on a screen reader, often have issues with navigating when for example a modal is opened.
-By adding a basic directive to your component that uses the &lt;code class=&quot;highlighter-rouge&quot;&gt;inserted&lt;/code&gt; &lt;a href=&quot;https://vuejs.org/v2/guide/custom-directive.html#Hook-Functions&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;hook&lt;/a&gt;, you can alleviate this issue:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;// ... other component code&lt;/span&gt;
-	&lt;span class=&quot;na&quot;&gt;directives&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;na&quot;&gt;focus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;inserted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;focus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;She also talked about how you can have hidden HTML elements to help users with a screen reader to have feedback on what just happened when they for example submitted a form.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Maria’s &lt;a href=&quot;https://github.com/mlama007/FocusManagement&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;repository for her talk&lt;/a&gt; and for working examples&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;application-shortcuts-with-a-renderless-event-component-by-rolf-haug&quot;&gt;Application Shortcuts with a Renderless Event Component, by &lt;a href=&quot;https://twitter.com/rahaug&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Rolf Haug&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;By using &lt;code class=&quot;highlighter-rouge&quot;&gt;$listeners&lt;/code&gt; in a Vue component, Rolf managed to create a renderless event component that handles everything you need to act on global events.
-The sourcecode can be found on his &lt;a href=&quot;https://github.com/vueschool/application-shortcuts/blob/master/src/components/EventListenerFinal.vue&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;One example use could be this in the template of a video player component:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;event-listener&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;keydown.space=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;toggleVideo&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now whenever the user presses on the spacebar of his keyboard, the handler &lt;code class=&quot;highlighter-rouge&quot;&gt;toggleVideo&lt;/code&gt; will be called to toggle the video from/to playing/pausing.&lt;/p&gt;
-
-&lt;p&gt;The same can be achieved by using the &lt;a href=&quot;https://www.npmjs.com/package/vue-global-events&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;vue-global-events package&lt;/a&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Rolf’s &lt;a href=&quot;https://github.com/vueschool/application-shortcuts&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;repository for his talk&lt;/a&gt; and the &lt;a href=&quot;https://www.npmjs.com/package/vue-global-events&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;vue-global-events package&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;vue3s-composition-api-explained-visually-by-gregg-pollack&quot;&gt;Vue3’s Composition API explained visually, by &lt;a href=&quot;https://twitter.com/greggpollack&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gregg Pollack&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;With the upcoming arrival of the Composition API, a visual explanation of the possible changes to your code was very useful.
-The Composition API allows you to focus more on the features instead of only the components.
-If we would colour code every feature in our code, a component in the options-based API with a lot of features would end up having elements of the same feature all over the component.
-For example our sorting feature would be red, our searching feature would be purple and so on.
-This is because the current options-based API forces you to group everything into elements such as &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;methods&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;computed&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;watch&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p class=&quot;align-center&quot;&gt;
-  &lt;img src=&quot;/img/vuejs-london-2019/options-api-vs-composition-api.png&quot; class=&quot;image fit&quot; alt=&quot;Comparison of options-based API and Composition API with each feature colour coded&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With the Composition API we would introduce the use of a &lt;code class=&quot;highlighter-rouge&quot;&gt;setup&lt;/code&gt; method for each component.
-In this &lt;code class=&quot;highlighter-rouge&quot;&gt;setup&lt;/code&gt;, we declare the scope that will be available to our template.
-While in the options-based API we defined our scope in the &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;methods&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;computed&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;watch&lt;/code&gt; properties and they are bound to the object instance, we now can group all this scope into &lt;code class=&quot;highlighter-rouge&quot;&gt;setup&lt;/code&gt;.
-With the Composition API we have the freedom to group our features in the &lt;code class=&quot;highlighter-rouge&quot;&gt;setup&lt;/code&gt; method and even extract them into separate functions so they can be reused in other components.
-This is because &lt;code class=&quot;highlighter-rouge&quot;&gt;setup&lt;/code&gt; returns the scope that can be used in our template.
-Parts of that scope could be retrieved from separate functions.
-Each colour in the image above can thus be potentially extracted into separate functions such as &lt;code class=&quot;highlighter-rouge&quot;&gt;useSorting&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;useSearch&lt;/code&gt; and so on.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.vuemastery.com/pdf/Vue-3-Cheat-Sheet.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Vue 3 Composition API cheat sheet&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;the-new-composition-api-by-thorsten-luenborg&quot;&gt;The new Composition API, by &lt;a href=&quot;https://twitter.com/linus_borg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Thorsten Luenborg&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;After we had the visual explanation of what the Composition API encompasses, it was time to dive into more details and see some example code as can be found on &lt;a href=&quot;https://github.com/LinusBorg/composition-api-demos&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Thorsten’s GitHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;While in the past your components would become a clutter of all your features together spread out over your component, the Composition API allows them to be grouped together.
-For example when you have a component that supports multiple features such as sorting and pagination, these features would be spread out over the component.
-The data necessary for the sorting and pagination would be put into &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt;.
-The functions that actually implement these functionalities would be scattered over &lt;code class=&quot;highlighter-rouge&quot;&gt;methods&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;computed&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;watch&lt;/code&gt;.
-Thanks to the portable reactivity of the Composition API, we can simplify our components that use for example pagination to:&lt;/p&gt;
-
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;usePagination&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./use-pagination&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;nx&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pagination&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;usePagination&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;perPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-			&lt;span class=&quot;na&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;// other features defined here&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;nx&quot;&gt;pagination&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-			&lt;span class=&quot;c1&quot;&gt;// other scopes returned here&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;usePagination&lt;/code&gt; is a function that encapsulates all functionality specific for pagination:&lt;/p&gt;
-&lt;div class=&quot;language-ts highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;usePagination&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-		&lt;span class=&quot;na&quot;&gt;perPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-		&lt;span class=&quot;na&quot;&gt;currentPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;settings&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;amountOfPages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;computed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ceil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;items&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;perPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;// other functionalities here&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toRefs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-		&lt;span class=&quot;nx&quot;&gt;amountOfPages&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In our component we will then be able to use &lt;code class=&quot;highlighter-rouge&quot;&gt;currentPage&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;amountOfPages&lt;/code&gt; and such, just like when we would have defined them in &lt;code class=&quot;highlighter-rouge&quot;&gt;data&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;computed&lt;/code&gt;.
-Currently Composition API is already available in Vue 2 thanks to the &lt;a href=&quot;https://github.com/vuejs/composition-api&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;@vue/composition-api package&lt;/a&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://github.com/LinusBorg/talks/raw/master/2019-10-04%20Vuejs%20London/New%20composition%20API%20%20-%20Vue.js%20London%202019-10-04.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;View slides&lt;/a&gt; and a full explanation can be found in the &lt;a href=&quot;https://vue-composition-api-rfc.netlify.com/#summary&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Composition API RFC&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;live-coding-the-new-composition-api-by-jason-yu&quot;&gt;Live coding: the new Composition API, by &lt;a href=&quot;https://twitter.com/ycmjason&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jason Yu&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p class=&quot;align-right&quot;&gt;
-  &lt;img src=&quot;/img/vuejs-london-2019/keyboard-keyboard.jpg&quot; class=&quot;image right&quot; alt=&quot;The KeyboardKeyboard app Jason was building&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;The best way to get to know the new Composition API is seeing it live in action.
-So Jason took the challenge upon himself to live code something called a &lt;code class=&quot;highlighter-rouge&quot;&gt;KeyboardKeyboard&lt;/code&gt;.
-As a musician and a programmer, he is very enthusiastic about keyboards.
-So he decided to program his computer keyboard to sound like a piano keyboard.
-With the use of Web Audio API he managed to program a web app in Vue with Composition API in just over 30 minutes.
-He mainly used Composition API to encapsulate certain key features such as &lt;code class=&quot;highlighter-rouge&quot;&gt;useMusicNote&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;useKeyDown&lt;/code&gt;. 
-It was a fun live coding session as he was able to really captive the audience’s attention.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://github.com/ycmjason-talks/2019-10-04-vuejs-london-conference-2019/tree/completed&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The source code is on his GitHub&lt;/a&gt; and a screen capture can be found on &lt;a href=&quot;https://www.youtube.com/watch?v=_K5zbgJ_z9w&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;evan-yous-keynote-launch-of-vue3-open-source-by-evan-you&quot;&gt;Evan You’s keynote: launch of Vue3 open-source, by &lt;a href=&quot;https://twitter.com/youyuxi&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Evan You&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p class=&quot;align-right&quot;&gt;
-  &lt;img src=&quot;/img/vuejs-london-2019/evan-you-during-keynote.jpg&quot; class=&quot;image right&quot; alt=&quot;Evan You during his keynote&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We ended the conference with a keynote from Evan You, the creator of Vue.
-There was already a lot of talk about Vue 3 in the last couple of months and in this keynote he had a great preview of what the power of Vue 3 will look like.
-For Vue 3, he and his core team have been very active to rewrite the whole project.
-By rewriting the whole runtime and compiler from scratch, they were able to add native TypeScript support everywhere.
-They were also able to make the compiler completely modular.
-With some clever tricks during compilation time such as hoisting static elements in the DOM tree, the runtime can be optimised to only take the dynamic elements into account.
-A major announcement about the upcoming Vue 3 is the fact that it is fully tree shakeable.&lt;/p&gt;
-
-&lt;p&gt;Tree shakeability in combination with all the other upcoming features will result in a major performance improvement as Evan briefly demonstrated.
-The current speed improvement is already sevenfold.
-With some features still in development, Evan expects an even bigger improvement in speed before the actual release of Vue 3.&lt;/p&gt;
-
-&lt;p&gt;As a special treat, Evan had set the visibility of the repository from private to public.
-From the 4th of October onwards, Vue 3 is fully open source.&lt;/p&gt;
-
-&lt;h1 id=&quot;workshop-hands-on-with-the-composition-api-by-vue-vixens&quot;&gt;Workshop: hands-on with the Composition API, by &lt;a href=&quot;https://twitter.com/VueVixens&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Vue Vixens&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p class=&quot;align-right&quot;&gt;
-  &lt;img src=&quot;/img/vuejs-london-2019/vuevixens-logo.png&quot; class=&quot;image right&quot; alt=&quot;The Vue Vixens logo&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;With almost half of the conference day spent on talks about the new Composition API, the opportunity to actually incorporate it into a workshop was taken by the Vue Vixens.
-Vue Vixens are foxy people who identify as women and who want to learn Vue.js to make websites and mobile apps.
-The workshop was held at CCT Venues, not that far from the O2 Cineworld.&lt;/p&gt;
-
-&lt;p&gt;The first goal of the workshop was to implement our own version of a Spotify client in the browser, built with the Composition API in Vue.
-Sadly Spotify has limited the use of their SDK to only premium users of Spotify.
-So after having gotten a good explanation about what the Composition API is made of along with some interesting discussions on how to use it, we changed it up a bit.&lt;/p&gt;
-
-&lt;p&gt;As Vue Vixens also organises other workshops, we took one of the solutions for one of those workshops.
-We rewrote that solution from an implementation in the options-based API to the Composition API.
-Since almost everybody present had been at the conference the day before and the Composition API was well explained, we were able to finish up quickly.&lt;/p&gt;
-
-&lt;p class=&quot;align-center&quot;&gt;
-  &lt;img src=&quot;/img/vuejs-london-2019/vuevixens-workshop.jpg&quot; class=&quot;image fit&quot; alt=&quot;The people who attended the Vue Vixens workshop&quot; /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Thanks to the organisers &lt;a href=&quot;https://twitter.com/marialamardo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maria Lamardo&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/kristinruben&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kristin Ruben&lt;/a&gt; for the great workshop!&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://vuevixens.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Vue Vixens website&lt;/a&gt; and the &lt;a href=&quot;https://workshops.vuevixens.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Vue Vixens workshops&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;London was a great city to visit and with an excellent organised conference, this was a pleasant experience.
-With the future release of Vue 3, it was no surprise that most of the conference was focused on Vue 3.
-I’ve learned a lot and with the help of the workshop given by the Vue Vixens, I am convinced that Vue 3 has a bright future ahead.
-I look forward to putting this new knowledge into practice.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Elke&quot;, &quot;last_name&quot;=&gt;&quot;Heymans&quot;, &quot;github&quot;=&gt;&quot;ElkeBxl&quot;, &quot;linkedin&quot;=&gt;&quot;elkeheymans&quot;, &quot;permalink&quot;=&gt;&quot;/author/elke-heymans/&quot;, &quot;avatar&quot;=&gt;&quot;elke-heymans.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;elke.heymans@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Elke is a Frontend Developer with a focus on Vue, Angular and is very interested in other frontend technologies. In her spare time you can find her taking photographs at events, training for half marathons or enjoying music by collecting records and attending concerts.&quot;}</name><email>elke.heymans@ordina.be</email></author><category term="Conference" /><category term="Conference" /><category term="Vue.js" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/vuejs-london-2019/vuejs-london.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/vuejs-london-2019/vuejs-london.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+We would like to thank Ordina and the whole JWorks unit for welcoming us to the team and for giving us this opportunity!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Brecht&quot;, &quot;last_name&quot;=&gt;&quot;Porrez&quot;, &quot;github&quot;=&gt;&quot;BrechtPorrez&quot;, &quot;linkedin&quot;=&gt;&quot;brecht-porrez-a952a98&quot;, &quot;permalink&quot;=&gt;&quot;/author/brecht-porrez/&quot;, &quot;avatar&quot;=&gt;&quot;brecht-porrez.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;brecht.porrez@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Brecht is a Java Developer at Ordina with a passion for IoT and related technologies. He also has a special interest in writing clean and maintainable code.&quot;}</name><email>brecht.porrez@ordina.be</email></author><category term="Young Professional Programme" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit testing" /><category term="Mocking" /><category term="Microservices" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="TypeScript" /><category term="Kickstarter" /><category term="Young Professional Program" /><category term="Security" /><summary type="html">Introduction 65 young professionals started the Ordina Young Professional Programme this summer, on the 1st of August. JWorks counted 8 trainees: Mohammed, Jasper, Nicholas, Lennert, Duncan, Lore, Brecht and Imad. All looking for a challenge and a fresh start. Most of them just graduated, Brecht on the other hand already had other work experience. During the young professional programme, we were introduced to a wide range of technologies. Technologies that play an important role in IT. The courses were focused mainly on providing a very hands-on experience as to learn how the different technologies work in practice.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kicks.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
