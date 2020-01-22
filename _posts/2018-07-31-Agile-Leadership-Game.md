@@ -63,4 +63,4 @@ Because there are fourty-two cards in the game and you won’t discuss them all,
 
 If you would like to try this game but don't yet have an experienced facilitator available, don't hesitate to reach out to us! We'd love to help!
 
-More information about the game can be found [here](https://www.agileconsortium.net/leadership-game/){:target="_blank"}.
+More information about the game can be found [here](https://www.agileconsortium.nl/news/leadership-game/){:target="_blank"}.
