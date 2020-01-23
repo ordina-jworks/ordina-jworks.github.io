@@ -1,5 +1,169 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-01-16T08:13:17+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">An Introduction to Spring Data JDBC</title><link href="https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html" rel="alternate" type="text/html" title="An Introduction to Spring Data JDBC" /><published>2020-01-02T00:00:00+00:00</published><updated>2020-01-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc</id><content type="html" xml:base="https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-01-23T12:18:58+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">One repo to rule them all</title><link href="https://ordina-jworks.github.io/architecture/2020/01/23/Nx.html" rel="alternate" type="text/html" title="One repo to rule them all" /><published>2020-01-23T00:00:00+00:00</published><updated>2020-01-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/01/23/Nx</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/01/23/Nx.html">&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Intro&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#monorepo&quot;&gt;Monorepo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#nx&quot;&gt;Nx&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#full-stack-applications&quot;&gt;Full stack applications&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;intro&quot;&gt;Intro&lt;/h1&gt;
+
+&lt;p&gt;Imagine yourself working in a large organization with multiple teams, all working on an application that is part of the platform that the organization offers to its clients.
+You get a set of requirements and start implementing your features.
+After setting up your repository and all the tooling, you’re ready to go.
+All goes well during the development process and you’ve come to the end to deliver your hard work.
+After you’ve deployed your application on the platform, you’re introduced with a blank screen and a console log full of errors.&lt;/p&gt;
+
+&lt;p&gt;How can this happen?
+Your team followed the requirements and all the contracts that were defined to communicate with several services.
+Maybe these contracts got outdated in the meantime without you knowing it?
+Were there breaking changes introduced?
+Or does a library you are using locally differ from the ones used in production and isn’t compatible anymore?
+It’s really difficult for a large organization to manage all the separate projects and to maintain the overview of all of them.
+The complexity will increase and after a while the whole platform becomes unmanageable.&lt;/p&gt;
+
+&lt;h1 id=&quot;monorepo&quot;&gt;Monorepo&lt;/h1&gt;
+
+&lt;p&gt;The problems mentioned above led large software companies to transition the management of their separate projects by bringing them together under one repository: the monorepo.
+Inside the monorepo, you have all the applications working together while you’re developing your app.
+You’ll get feedback immediately when the service you’re calling returns a different answer than expected or when the page you are navigating to is located on another path.
+When you’re not sure how a service of the platform is working, you can just hop in the source code inside the repo to find out more about it.
+Code sharing becomes a breeze, because all the code is available in one repository.
+You don’t have to deal anymore with npm packages for shared code in your organization or with the separate configurations, pipelines and versions of the shared libs.
+Because there is only one &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file, you can easily manage the versions and don’t have to deal with conflicting versions of the same dependency inside of your project.&lt;/p&gt;
+
+&lt;p&gt;But how can you start setting up a monorepo and what tools are required to do so?
+Having to manage all this code in one repo can be really tedious to set up but this is where Nx comes into play!&lt;/p&gt;
+
+&lt;h1 id=&quot;nx&quot;&gt;Nx&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://nx.dev/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nx&lt;/a&gt; provides you with the tools needed to help you develop in a monorepo.
+Based on their own experiences, the creators of Nx set up the best practices to structure your repository in a maintainable way.
+Nx is built on top of the Angular CLI, offering you a way to create workspaces and scaffolding out of your apps.
+Next to Angular apps, Nx does support creating React apps, NestJS apps, and more.
+You can even write your own builder to configure creating an app with the technology of your choice.&lt;/p&gt;
+
+&lt;p&gt;The setup of the repo has to happen only once, so you don’t have the hassle of doing it yourself each time when starting a new app.
+Moreover, you won’t have the risk of teams using a whole set of different tools.
+This makes it more convenient to switch projects as well, because the experience over the monorepo will be more consistent.
+The versions of dependencies will be consistent over the whole repository because you only have one &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file, so you don’t have to deal anymore with version conflicts of libraries that are being used in different apps.&lt;/p&gt;
+
+&lt;p&gt;Starting with a new workspace is pretty straightforward.
+Let’s imagine we want to start a webshop where we will sell Nx-phones:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx create-nx-workspace@latest nx-phone
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Nx will scaffold our workspace.
+The root of the project contains &lt;code class=&quot;highlighter-rouge&quot;&gt;apps&lt;/code&gt; where our applications will reside, &lt;code class=&quot;highlighter-rouge&quot;&gt;libs&lt;/code&gt; for code sharing between our apps and &lt;code class=&quot;highlighter-rouge&quot;&gt;tools&lt;/code&gt; that enables us to write our own schematics.
+You will write most of your code inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;apps&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;libs&lt;/code&gt; directories.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2019-12-02-Nx/nx-workspace.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width: 360px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;apps&quot;&gt;Apps&lt;/h2&gt;
+&lt;p&gt;Now that our workspace is set up, we can add apps to it.
+This can be done by different ways.
+We will focus now on using the &lt;a href=&quot;https://cli.angular.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Angular CLI&lt;/a&gt;.
+To add an Angular app, we first have to include the capability to create Angular apps with Nx.
+Afterwards, we can create our first app called “shop”.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ng add @nrwl/angular &lt;span class=&quot;nt&quot;&gt;--defaults&lt;/span&gt; // Add Angular capability
+ng g @nrwl/angular:application shop // Add the shop app
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You can choose the stylesheet format and automatically set up routing while doing so.
+When creating a new app inside your workspace, Nx will generate both the &lt;code class=&quot;highlighter-rouge&quot;&gt;shop&lt;/code&gt; and a &lt;code class=&quot;highlighter-rouge&quot;&gt;shop-e2e&lt;/code&gt; folder for your end-to-end tests. 
+Running the following command using the Nx CLI will start up the shop app locally:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nx serve shop
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;libs&quot;&gt;Libs&lt;/h2&gt;
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;libs&lt;/code&gt; folder is where your shared code will reside.
+If your organisation has a component library or a design system, then that would be a good candidate to be placed under &lt;code class=&quot;highlighter-rouge&quot;&gt;libs&lt;/code&gt;.
+You can also add all your code to the libs in separate modules like feature modules while using the app as a container.
+Later on, you can use the features in the modules to compose your app.&lt;/p&gt;
+
+&lt;p&gt;If you want to take a look at the full example, please check out the nx-phone workspace here:
+&lt;a href=&quot;https://github.com/DimiDeKerf/nx-phone&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/DimiDeKerf/nx-phone&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;testing&quot;&gt;Testing&lt;/h2&gt;
+
+&lt;p&gt;Nx supports modern tools that you’re familiar with, without the sometimes tedious way of setting them up.
+You can easily use Jest and Cypress to cover your testing needs, with great CLI support.
+The unit and end-to-end tests are both configured for the shop app that we’ve just created. They can be run by using &lt;code class=&quot;highlighter-rouge&quot;&gt;nx test shop&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;nx e2e shop&lt;/code&gt;, respectively.
+If you want to learn more about Jest or Cypress, be sure to check out the awesome blog posts that my colleagues have wrote:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Testing Angular with Jest&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cypress: a new kid on the E2E block&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;code-formatting&quot;&gt;Code formatting&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2019-12-02-Nx/prettier.png&quot; alt=&quot;Prettier&quot; class=&quot;image right&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;How do you like to have your code formatted?
+There will be some differences between how others within your organization like to format their code.
+Just thinking about the merge conflicts that will arise when people use different indentations may already give you shivers.&lt;/p&gt;
+
+&lt;p&gt;Prettier comes included with Nx and is here to help you out with this.
+It’s an opinionated code formatter that integrates well with most editors.
+You’re tired of formatting your code before you want to commit something?
+Prettier can also run in a pre-commit hook, so your code will get formatted before your commit.
+More info can be found &lt;a href=&quot;https://prettier.io/docs/en/precommit.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;dependency-graph&quot;&gt;Dependency graph&lt;/h2&gt;
+&lt;p&gt;What if you change something in your code?
+How can you be sure that your modification didn’t break another app?
+This is hard to do when your apps live in separate repositories but becomes much more convenient with the help of Nx.
+All your apps and libraries will be part of a dependency graph.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2019-12-02-nx/dependency_graph.png&quot; alt=&quot;Dependency graph&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The dependency graph will give you an up-to-date version of all the applications and services, and the dependencies between them.
+It can also help you to get a better understanding of the architecture.&lt;/p&gt;
+
+&lt;h2 id=&quot;building&quot;&gt;Building&lt;/h2&gt;
+&lt;p&gt;When new code is introduced or something has been refactored, Nx will be able to find out which dependencies are affected by your changes.
+This gives you the opportunity to only build the affected dependencies and only run the tests of those affected ones.
+For your build pipeline, that means that testing the affected apps can greatly improve the build time when dealing with large workspaces.&lt;/p&gt;
+
+&lt;p&gt;For example, if we edit something in the shop app, our dependency graph will look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2019-12-02-nx/dependency_graph_affected.png&quot; alt=&quot;Dependency graph of affected apps&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Targeting the affected code can be done using the affected command.
+For example, if you want to run the unit tests for the affected code:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nx affected:test
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Inside of your CI, you would like to compare the changes between your branch and master.
+This can be done by appending the two branches to the previous command:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nx affected:test &lt;span class=&quot;nt&quot;&gt;--base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;origin/master &lt;span class=&quot;nt&quot;&gt;--head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;your-branch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;restrictions&quot;&gt;Restrictions&lt;/h2&gt;
+&lt;p&gt;You may want to categorize libraries in different domains and limit the dependencies between those domains to improve maintainability.
+Nx can help you with this, by restricting access between domains or by allowing the dependency flow to go only one way around.
+To configure and manage these restrictions, you can apply tags in the &lt;code class=&quot;highlighter-rouge&quot;&gt;nx.json&lt;/code&gt; file for apps and libraries.
+Be aware to also update the linting rules in &lt;code class=&quot;highlighter-rouge&quot;&gt;tslint.json&lt;/code&gt; to get feedback in your editor when violating those rules.&lt;/p&gt;
+
+&lt;h1 id=&quot;full-stack-applications&quot;&gt;Full stack applications&lt;/h1&gt;
+&lt;p&gt;With a monorepo, you can have both your frontend and your backend applications under the same repository.
+This enables you to share code between them.
+With Nx, you can do this by using libraries like mentioned before.
+These libraries will expose the code using a public API.&lt;/p&gt;
+
+&lt;p&gt;The code inside these libraries can be imported afterwards in your apps, without having to fetch them from a npm registry.
+Think about how easily you can share an interface between your frontend and backend, without having to break it on one side.
+Whenever something changes in the API, both sides will get updated so they will both remain in sync.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Having worked within a monorepo myself for the last months, I really appreciate the way it improved the daily workflow.
+It encourages me to write more reusable code and to keep features small.
+Other teams may have the same requirements, so code can be easily migrated to libs.
+It is important to manage the different features and libs though, before they turn up to be a massive dump of code that isn’t maintainable anymore.
+Switching between features is much easier and accessible, since I don’t have to check out another repository or getting familiar with the way of working of another team.
+Overall, I feel more connected with other developers and with the platform while building apps in the same repository.&lt;/p&gt;
+
+&lt;p&gt;If you’re interested in setting up a monorepo, be sure to check out Nx!
+It will help you tremendously with getting started.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dimitri&quot;, &quot;last_name&quot;=&gt;&quot;De Kerf&quot;, &quot;permalink&quot;=&gt;&quot;/author/dimitri-de-kerf&quot;, &quot;avatar&quot;=&gt;&quot;dimitri-de-kerf.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;dimitri.de.kerf@ordina.be&quot;, &quot;github&quot;=&gt;&quot;DimiDeKerf&quot;, &quot;bio&quot;=&gt;&quot;Dimitri is a Frontend and Mobile developer at Ordina Belgium. He enjoys writing user friendly apps in a clean, maintainable way. Dimitri loves new technologies and is eager to try them out.&quot;}</name><email>dimitri.de.kerf@ordina.be</email></author><category term="Architecture" /><category term="Monorepo" /><category term="Nx" /><category term="Angular" /><category term="NestJS" /><summary type="html">Intro Monorepo Nx Full stack applications Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-12-02-Nx/nx-logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-12-02-Nx/nx-logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">An Introduction to Spring Data JDBC</title><link href="https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html" rel="alternate" type="text/html" title="An Introduction to Spring Data JDBC" /><published>2020-01-02T00:00:00+00:00</published><updated>2020-01-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc</id><content type="html" xml:base="https://ordina-jworks.github.io/java/2020/01/02/Spring-Data-Jdbc.html">&lt;blockquote&gt;
   &lt;p&gt;A new member is added to the Spring Data family. Spring Data JDBC is positioned between Spring Data JPA and Spring JDBC using the best elements of both.
 This post will describe the current state and the future of this product. It will also explain which problems this product is trying to solve and how.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -3758,241 +3922,4 @@ And use the metrics together with the team so they can detect themselves when th
 
 &lt;blockquote&gt;
   &lt;p&gt;Metrics are not &lt;strong&gt;just&lt;/strong&gt; for managers, metrics are for teams.&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kristof&quot;, &quot;last_name&quot;=&gt;&quot;Eekhaut&quot;, &quot;github&quot;=&gt;&quot;kristof-eekhaut&quot;, &quot;permalink&quot;=&gt;&quot;/author/kristof-eekhaut/&quot;, &quot;avatar&quot;=&gt;&quot;kristof-eekhaut.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Java consultant&quot;, &quot;email&quot;=&gt;&quot;kristof.eekhaut@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kristof is a senior Java consultant and architect, who has a passion for Agile software development, Domain-Driven Design and Collaborative modelling. He is eager to learn new technologies and architectures. He loves working with a team to build complex applications that users enjoy.&quot;}</name><email>kristof.eekhaut@ordina.be</email></author><category term="Conference" /><category term="Agile" /><category term="Conference" /><summary type="html">This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço - a DevOps and Enterprise Agility Advisor. This global conference focuses on gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect conference for JWorks Agile &amp;amp; DevOps practitioners and enthusiasts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-11-12-experience-agile-2019/ExperienceAgile2019.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-11-12-experience-agile-2019/ExperienceAgile2019.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ordina Young Professional Programme 2019 Summer Edition</title><link href="https://ordina-jworks.github.io/young%20professional%20programme/2019/10/24/Ordina-Young-Professional-Programme-2019-Summer-Edition.html" rel="alternate" type="text/html" title="Ordina Young Professional Programme 2019 Summer Edition" /><published>2019-10-24T00:00:00+00:00</published><updated>2019-10-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/young%20professional%20programme/2019/10/24/Ordina-Young-Professional-Programme-2019-Summer-Edition</id><content type="html" xml:base="https://ordina-jworks.github.io/young%20professional%20programme/2019/10/24/Ordina-Young-Professional-Programme-2019-Summer-Edition.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;65 young professionals started the Ordina Young Professional Programme this summer, on the 1st of August. 
-JWorks counted 8 trainees: Mohammed, Jasper, Nicholas, Lennert, Duncan, Lore, Brecht and Imad. 
-All looking for a challenge and a fresh start. Most of them just graduated, Brecht on the other hand already had other work experience. 
-During the young professional programme, we were introduced to a wide range of technologies.
-Technologies that play an important role in IT. 
-The courses were focused mainly on providing a very hands-on experience as to learn how the different technologies work in practice.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;During the three months long programme there were two main periods:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The first six weeks were filled with various trainings: security, backend, frontend, soft skill trainings,…&lt;/li&gt;
-  &lt;li&gt;During the remaining six weeks we got split up into two teams to work on different dev cases: Chatbot Dina and Zero Plastic Rivers&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This blogpost will talk about both periods separately below. The first period is further separated into technical and non-technical trainings.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#technical-trainings&quot;&gt;Technical trainings&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#non-technical-trainings&quot;&gt;Non-technical trainings&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#dev-cases&quot;&gt;Dev cases&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;first-day&quot;&gt;First Day&lt;/h2&gt;
-&lt;p&gt;On our first arrival at Ordina, we were warmly welcomed by Anja, our Resource Manager, and two of the Practice Managers: Ken and Yannick. 
-We were introduced to the structure of Ordina and got to know some of the other trainees. 
-After the introduction, we were given a tour of the entire building, during which we met some of the colleagues at JWorks.
-Four of the trainees already did an internship at Ordina before coming to work officially, so they already knew a lot of the colleagues in Mechelen.
-This didn’t make any difference however, since everyone was very open and welcoming.
-Finally, we got our laptops and the keys to our cars so that the next day we could get started with the courses focused on both technical and soft skills.&lt;/p&gt;
-
-&lt;h1 id=&quot;technical-trainings&quot;&gt;Technical trainings&lt;/h1&gt;
-
-&lt;p&gt;During the six weeks of trainings there were a lot of very interesting technical sessions. 
-The most important ones to us are discussed below.
-Other than those mentioned below, there are a lot of others, such as the course on Git, DevOps, Java,…&lt;/p&gt;
-
-&lt;h2 id=&quot;spring-boot&quot;&gt;Spring Boot&lt;/h2&gt;
-&lt;p&gt;During the young professional programme the Spring Boot course was taught by &lt;a href=&quot;/author/ken-coenen&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ken Coenen&lt;/a&gt;.
-He explained what sits at the core of Spring and how Spring Boot works. 
-Before taking a deep dive into Spring Boot, we were taught the ins and outs of the Spring Framework.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right&quot; alt=&quot;SpringBoot&quot; src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/SpringBoot.png&quot; width=&quot;20%&quot; height=&quot;20%&quot; target=&quot;_blank&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Spring Boot takes away a lot of configuration by providing defaults based on industry standards. 
-Therefore, Spring Boot makes it easy to create stand-alone, production grade Spring based applications that need minimum configuration. 
-They still allow you to take the whole configuration in your own hands and of course provide a handful of third-party libraries to get you started. 
-When generating a new Spring Boot project, you get to pick between a Maven or Gradle based project.&lt;/p&gt;
-
-&lt;h3 id=&quot;day-1&quot;&gt;Day 1&lt;/h3&gt;
-&lt;p&gt;On the first day, we took a first dive into the core fundamentals: Inversion Of Control (IOC), Bean Injection, and so on. 
-In the afternoon, we went further and looked into Spring Web Services and Spring Security.&lt;/p&gt;
-
-&lt;h3 id=&quot;day-2&quot;&gt;Day 2&lt;/h3&gt;
-&lt;p&gt;The second day, we built a small application to test the range of possibilities Spring Boot offers. 
-The app was built to provide a system to save houses with their address, the inhabitants and some of the features it has, like the type of garage.
-It was a fun little project which taught us a lot of what Spring Boot can be used for. 
-We’ve all used Spring Boot in our dev case, so it was definitely worth following.&lt;/p&gt;
-
-&lt;h4 id=&quot;duncan-casteleyn&quot;&gt;&lt;a href=&quot;/author/duncan-casteleyn&quot;&gt;Duncan Casteleyn&lt;/a&gt;&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;What I really liked about Ken’s Spring Boot session was that we did a lot of hands-on live coding.
-This made the course very interactive, providing possibilities for both feedback to Ken as input of our own.
-I learned a lot from this session, even though I already had a lot of prior knowledge of Spring Boot.
-The theoretical start on Spring was a very useful refresh to get up to speed again.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;docker&quot;&gt;Docker&lt;/h2&gt;
-&lt;p&gt;The Docker course, given by &lt;a href=&quot;/author/tom-verelst&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tom Verelst&lt;/a&gt;, started with a theoretical explanation about the advantages of containerization, the difference with virtual machines and how a container is built. 
-The main part of the course was a hands-on session. 
-We learned to create an image of our application and push it to Docker hub, spin up a Docker container and write efficient Docker compose files.&lt;/p&gt;
-
-&lt;h4 id=&quot;brecht-porrez&quot;&gt;&lt;a href=&quot;/author/brecht-porrez&quot;&gt;Brecht Porrez&lt;/a&gt;&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;During this training I really experienced the advantages of Docker. 
-I now use it almost daily during the Zero Plastic Rivers dev case.
-For example, if I need a test database, I quickly start up a Docker container.
-If I have written a backend application, I quickly turn it into a container so my frontend colleagues can test with it and so on.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;kubernetes&quot;&gt;Kubernetes&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right&quot; alt=&quot;Kubernetes&quot; src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/Kubernetes.png&quot; width=&quot;40%&quot; height=&quot;40%&quot; target=&quot;_blank&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;To better understand the use of Docker, Tom also gave us an introduction to Kubernetes (K8s). 
-In the K8s session, we learned to work with the commands of Kubernetes by using them on Minikube, a tool to run Kubernetes locally. 
-Later that day we learned to deploy a prebuilt application to Minikube. 
-We wrote our own deployment files for the frontend, backend and RabbitMQ. 
-By doing this we had more insight into the possibilities of Kubernetes.&lt;/p&gt;
-
-&lt;h4 id=&quot;nicholas-meyers&quot;&gt;&lt;a href=&quot;/author/nicholas-meyers&quot;&gt;Nicholas Meyers&lt;/a&gt;&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;I’m very interested in how applications are built and deployed, which is why I found the Kubernetes session very interesting. 
-I’d love to learn more about this technology in the future. 
-The hands-on way of working helped me a lot, because this was quite new to me, which made it not the easiest course to follow.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;test-driven-development&quot;&gt;Test-Driven Development&lt;/h2&gt;
-
-&lt;p&gt;In the DevOps track, we received an interesting lesson about Test-Driven Development from &lt;a href=&quot;/author/pieter-van-hees&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Pieter Van Hees&lt;/a&gt;.
-In school, TDD is usually not taught and testing comes after developing. 
-What TDD aims to do is speeding up the development process by thinking about what exactly you want your program to do and which exact results you want.
-After pouring those requirements into unit tests, you can start developing and immediately testing whatever you wrote. 
-There are many advantages of working with TDD, but it mainly makes it easier later on in the development process. 
-In the beginning, there’s more work involved because you need to write all the tests. 
-In the long run however, it saves a lot of time because you can immediately spot mistakes using your unit tests.
-Another good use case is refactoring code. 
-With the test already in place, you can be sure that the behaviour of the functionality is still the same and no regressions are introduced as a result of the refactoring.&lt;/p&gt;
-
-&lt;h4 id=&quot;lennert-peeters&quot;&gt;&lt;a href=&quot;/author/lennert-peeters&quot;&gt;Lennert Peeters&lt;/a&gt;&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;I’ll be looking more into TDD in the future and continue to develop using this philosophy. 
-We’ve used the method in our Zero Plastic Rivers dev case.
-It worked out great, saving us quite some time.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/TDD.png&quot; width=&quot;40%&quot; height=&quot;40%&quot; target=&quot;_blank&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;non-technical-trainings&quot;&gt;Non-technical trainings&lt;/h1&gt;
-
-&lt;p&gt;Ordina organised some non-technical trainings alongside the ones above. 
-These were focused on Agile and Scrum, as well as some soft skills like how to present yourself in front of others.&lt;/p&gt;
-
-&lt;h2 id=&quot;agile--scrum&quot;&gt;Agile &amp;amp; Scrum&lt;/h2&gt;
-
-&lt;p&gt;The first of the courses in the soft skill department was an introduction into Agile and Scrum. 
-Projects ran by Ordina teams get planned in short sprints of two weeks (or even less), making sure the Product Owner is able to give frequent feedback and the team has preplanned time slots for reflection. 
-A Scrum team consists of three major parts: the developer team, the Product Owner and the Scrum Master. 
-The dev team isn’t broken down into multiple roles but works as one whole. 
-This is a very powerful and important part about how a Scrum Team works, since having the team work as a whole allows them to be fluent in their activities. 
-This gives the project a more versatile approach with less frequent congestions and problems compared to the Waterfall methodology.&lt;/p&gt;
-
-&lt;h4 id=&quot;jasper-rosiers&quot;&gt;&lt;a href=&quot;/author/jasper-rosiers&quot;&gt;Jasper Rosiers&lt;/a&gt;&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;What I found most interesting about the Scrum framework and the Agile way of working is that there are many moments to reflect on how the work is going and how well the team is working together. 
-The daily scrum is a very powerful moment, which made us use it in our Chatbot dev case. 
-Frequent meetings with the Product Owner and keeping him close to the project is another aspect I love about the Scrum framework. 
-I will definitely look more into it in the future, since I’m aiming to become a Scrum Master.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/ScrumLayout.jpg&quot; width=&quot;80%&quot; height=&quot;80%&quot; target=&quot;_blank&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;agile-hands-on&quot;&gt;Agile Hands-On&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;/author/michaela-broeckx&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Michaëla Broeckx&lt;/a&gt; gave us an introduction to how Agile development works in practice. 
-It was a very hands-on session that helped us gain more knowledge and experience in the world of Agile development. 
-First, we saw how the waterfall method worked, but then quickly noticed it wasn’t perfect and had a lot of flaws. 
-This is why Michaëla introduced us to Agile which helped us to communicate and work better as a team.&lt;/p&gt;
-
-&lt;p&gt;She did this by means of a productivity game.
-The game worked as follows:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Everyone stands in a circle and the group gets one (small) ball.&lt;/li&gt;
-  &lt;li&gt;The team was to throw around the ball during two minutes, while a metronome was ticking in the background.&lt;/li&gt;
-  &lt;li&gt;Every time the ball got caught on a tick, one task was completed.&lt;/li&gt;
-  &lt;li&gt;After two minutes, the team got 30 seconds to decide on a new strategy, but were only allowed to change one thing at a time (an extra amount of balls, a different way of throwing, reverting back to a previous way of working,…)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Playing this game for 6 rounds, the productivity went up exponentially. The team had matters in its own hands, which made them think for themselves.
-At the end we refreshed a couple of famous agile practices such as the SCRUM framework, which is a popular way of working together to quickly and reliably release new features.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/Agile%20game.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; target=&quot;_blank&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;lore-vanderlinden&quot;&gt;&lt;a href=&quot;/author/lore-vanderlinden&quot;&gt;Lore Vanderlinden&lt;/a&gt;&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;The agile session was a very enriching experience. We learned the basic concepts of agile the right way. 
-Michaëla was a very inspiring agile coach, making the learning process easier by using a hands-on way of teaching. 
-She used real life examples to show us the advantages of working in an agile manner.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;final-day&quot;&gt;Final day&lt;/h1&gt;
-
-&lt;p&gt;On the day after the final course day, all the trainees gave a short presentation about themselves in front of the others and the management. 
-This way, everyone present got to know the others, with both their professional interests and achievements, as well as a little on the personal side. 
-Afterwards, there was a moment for networking and socializing with everyone, and an official graduation. 
-The next day, the dev cases started, which we’ll explain below!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/FinalDay.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; target=&quot;_blank&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;dev-cases&quot;&gt;Dev cases&lt;/h1&gt;
-
-&lt;p&gt;With two different dev cases, the team of 8 JWorks trainees was divided into two:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Brecht, Imad, Lennert, Lore and Mohammed worked together on the Zero Plastic Rivers case for the University of Antwerp&lt;/li&gt;
-  &lt;li&gt;Duncan, Jasper and Nicholas were set on the task of designing Chatbot Dina for internal use&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;zero-plastic-rivers&quot;&gt;Zero Plastic Rivers&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right&quot; alt=&quot;ZeroPlasticRivers&quot; src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/ZeroPlasticRivers.png&quot; width=&quot;40%&quot; height=&quot;40%&quot; target=&quot;_blank&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;At the end of the young professional programme, we were asked to develop a web application to monitor the plastic as it travels through the Schelde. 
-For this purpose, we’d be using GPS trackers alongside QR-scanners.
-This application is aimed at a PhD carried out at the University of Antwerp that consists of visualizing the plastic flow through the entire river, from the basin to the mouth. 
-After visualizing it, an efficient remediation strategy could be made.&lt;/p&gt;
-
-&lt;p&gt;The main objective of the application is to create a monitoring network to collect plastic waste, for example, in dams, locks or water treatment plants. 
-This way, plastic flows can be calculated for example in sub-basins or piers to estimate the total flow to the estuary.
-To activate this system, plastic bottles in the Schelde river will be released at different strategic points with GPS trackers and personalized labels. 
-These contain relevant information such as the identifier or the url to the application.&lt;/p&gt;
-
-&lt;p&gt;The application consists of two parts.
-The first part is aimed at citizens who wish to help the cause, who can notify this surveillance network when they find a bottle as shown in the image on the right.
-The second part is aimed at the researchers, and could be seen as the “backend” of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.&lt;/p&gt;
-
-&lt;h2 id=&quot;chatbot-dina&quot;&gt;Chatbot Dina&lt;/h2&gt;
-
-&lt;p&gt;In the second DevCase, we built chatbot Dina for the Fleet department of Ordina. 
-The Chatbot team set off using the Chatlayer bot framework, later to be joined by an implementation in Dialogflow. 
-Since chatbots are a relatively new technology, we wanted to keep our options open and look for the best possible implementation.&lt;/p&gt;
-
-&lt;p&gt;The Fleet department at Ordina gets a lot of repetitive questions on a daily basis, which often have easy to research answers. 
-To reduce this workload and make possible a better layout of their time, we designed a chatbot using two different bot services. 
-The chatbot is made accessible via multiple online channels, such as Microsoft Teams, Telegram and Slack. 
-The implementations of these social media weren’t integrated within Chatlayer natively, so we had to build adapters to take care of the communication back and forth between the different platforms.&lt;/p&gt;
-
-&lt;p&gt;The bot interprets what the user says and formulates its reply depending on the subject. 
-Dina can also ask questions to get more information, use API calls to look up tire centers etc. 
-Using a well-designed chatbot, conversations should feel natural to the user, as if he was talking to a human. An example can be found below.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition/Chatlayer.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; target=&quot;_blank&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;The past three months have been a really busy, but great experience. 
-We met new people every day, got to learn (and teach!) new things every day and dive deeper into our interests. 
-We would like to thank Ordina and the whole JWorks unit for welcoming us to the team and for giving us this opportunity!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Brecht&quot;, &quot;last_name&quot;=&gt;&quot;Porrez&quot;, &quot;github&quot;=&gt;&quot;BrechtPorrez&quot;, &quot;linkedin&quot;=&gt;&quot;brecht-porrez-a952a98&quot;, &quot;permalink&quot;=&gt;&quot;/author/brecht-porrez/&quot;, &quot;avatar&quot;=&gt;&quot;brecht-porrez.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;brecht.porrez@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Brecht is a Java Developer at Ordina with a passion for IoT and related technologies. He also has a special interest in writing clean and maintainable code.&quot;}</name><email>brecht.porrez@ordina.be</email></author><category term="Young Professional Programme" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit testing" /><category term="Mocking" /><category term="Microservices" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="TypeScript" /><category term="Kickstarter" /><category term="Young Professional Program" /><category term="Security" /><summary type="html">Introduction 65 young professionals started the Ordina Young Professional Programme this summer, on the 1st of August. JWorks counted 8 trainees: Mohammed, Jasper, Nicholas, Lennert, Duncan, Lore, Brecht and Imad. All looking for a challenge and a fresh start. Most of them just graduated, Brecht on the other hand already had other work experience. During the young professional programme, we were introduced to a wide range of technologies. Technologies that play an important role in IT. The courses were focused mainly on providing a very hands-on experience as to learn how the different technologies work in practice.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kicks.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/blockquote&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kristof&quot;, &quot;last_name&quot;=&gt;&quot;Eekhaut&quot;, &quot;github&quot;=&gt;&quot;kristof-eekhaut&quot;, &quot;permalink&quot;=&gt;&quot;/author/kristof-eekhaut/&quot;, &quot;avatar&quot;=&gt;&quot;kristof-eekhaut.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Java consultant&quot;, &quot;email&quot;=&gt;&quot;kristof.eekhaut@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kristof is a senior Java consultant and architect, who has a passion for Agile software development, Domain-Driven Design and Collaborative modelling. He is eager to learn new technologies and architectures. He loves working with a team to build complex applications that users enjoy.&quot;}</name><email>kristof.eekhaut@ordina.be</email></author><category term="Conference" /><category term="Agile" /><category term="Conference" /><summary type="html">This year, it was already the 6th edition of eXperienceAgile, organised in Portugal, Lisbon by Radtac and Hugo Lourenço - a DevOps and Enterprise Agility Advisor. This global conference focuses on gathering wisdom and best practices on business agility as well as technical agility, and therefor it was the perfect conference for JWorks Agile &amp;amp; DevOps practitioners and enthusiasts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-11-12-experience-agile-2019/ExperienceAgile2019.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-11-12-experience-agile-2019/ExperienceAgile2019.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

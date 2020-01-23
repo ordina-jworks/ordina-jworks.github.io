@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="One repo to rule them all - Dimitri De Kerf">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2019-12-02-Nx/nx-logo.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/architecture/2020/01/23/Nx.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="One repo to rule them all - Dimitri De Kerf"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2019-12-02-Nx/nx-logo.png"/>
+
+    
+    <title>One repo to rule them all - Dimitri De Kerf &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>One repo to rule them all</h2>
+                
+
+                
+                    Posted Jan 23, 2020
+
+
+    in <a href="/categories/architecture/">Architecture</a>
+
+
+
+    by
+    
+        <a href="/author/dimitri-de-kerf">Dimitri De Kerf</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/monorepo/">Monorepo</a>, 
+    
+        <a href="/tags/nx/">Nx</a>, 
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/nestjs/">NestJS</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <ol>
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#monorepo">Monorepo</a></li>
+  <li><a href="#nx">Nx</a></li>
+  <li><a href="#full-stack-applications">Full stack applications</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ol>
+
+<h1 id="intro">Intro</h1>
+
+<p>Imagine yourself working in a large organization with multiple teams, all working on an application that is part of the platform that the organization offers to its clients.
+You get a set of requirements and start implementing your features.
+After setting up your repository and all the tooling, you’re ready to go.
+All goes well during the development process and you’ve come to the end to deliver your hard work.
+After you’ve deployed your application on the platform, you’re introduced with a blank screen and a console log full of errors.</p>
+
+<p>How can this happen?
+Your team followed the requirements and all the contracts that were defined to communicate with several services.
+Maybe these contracts got outdated in the meantime without you knowing it?
+Were there breaking changes introduced?
+Or does a library you are using locally differ from the ones used in production and isn’t compatible anymore?
+It’s really difficult for a large organization to manage all the separate projects and to maintain the overview of all of them.
+The complexity will increase and after a while the whole platform becomes unmanageable.</p>
+
+<h1 id="monorepo">Monorepo</h1>
+
+<p>The problems mentioned above led large software companies to transition the management of their separate projects by bringing them together under one repository: the monorepo.
+Inside the monorepo, you have all the applications working together while you’re developing your app.
+You’ll get feedback immediately when the service you’re calling returns a different answer than expected or when the page you are navigating to is located on another path.
+When you’re not sure how a service of the platform is working, you can just hop in the source code inside the repo to find out more about it.
+Code sharing becomes a breeze, because all the code is available in one repository.
+You don’t have to deal anymore with npm packages for shared code in your organization or with the separate configurations, pipelines and versions of the shared libs.
+Because there is only one <code class="highlighter-rouge">package.json</code> file, you can easily manage the versions and don’t have to deal with conflicting versions of the same dependency inside of your project.</p>
+
+<p>But how can you start setting up a monorepo and what tools are required to do so?
+Having to manage all this code in one repo can be really tedious to set up but this is where Nx comes into play!</p>
+
+<h1 id="nx">Nx</h1>
+
+<p><a href="https://nx.dev/" target="_blank" rel="noopener noreferrer">Nx</a> provides you with the tools needed to help you develop in a monorepo.
+Based on their own experiences, the creators of Nx set up the best practices to structure your repository in a maintainable way.
+Nx is built on top of the Angular CLI, offering you a way to create workspaces and scaffolding out of your apps.
+Next to Angular apps, Nx does support creating React apps, NestJS apps, and more.
+You can even write your own builder to configure creating an app with the technology of your choice.</p>
+
+<p>The setup of the repo has to happen only once, so you don’t have the hassle of doing it yourself each time when starting a new app.
+Moreover, you won’t have the risk of teams using a whole set of different tools.
+This makes it more convenient to switch projects as well, because the experience over the monorepo will be more consistent.
+The versions of dependencies will be consistent over the whole repository because you only have one <code class="highlighter-rouge">package.json</code> file, so you don’t have to deal anymore with version conflicts of libraries that are being used in different apps.</p>
+
+<p>Starting with a new workspace is pretty straightforward.
+Let’s imagine we want to start a webshop where we will sell Nx-phones:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx create-nx-workspace@latest nx-phone
+</code></pre></div></div>
+<p>Nx will scaffold our workspace.
+The root of the project contains <code class="highlighter-rouge">apps</code> where our applications will reside, <code class="highlighter-rouge">libs</code> for code sharing between our apps and <code class="highlighter-rouge">tools</code> that enables us to write our own schematics.
+You will write most of your code inside the <code class="highlighter-rouge">apps</code> and <code class="highlighter-rouge">libs</code> directories.</p>
+
+<p><img src="/img/2019-12-02-Nx/nx-workspace.png" alt="Workspace" class="image" style="margin:0px auto; max-width: 360px;" /></p>
+
+<h2 id="apps">Apps</h2>
+<p>Now that our workspace is set up, we can add apps to it.
+This can be done by different ways.
+We will focus now on using the <a href="https://cli.angular.io/" target="_blank" rel="noopener noreferrer">Angular CLI</a>.
+To add an Angular app, we first have to include the capability to create Angular apps with Nx.
+Afterwards, we can create our first app called “shop”.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ng add @nrwl/angular <span class="nt">--defaults</span> // Add Angular capability
+ng g @nrwl/angular:application shop // Add the shop app
+</code></pre></div></div>
+<p>You can choose the stylesheet format and automatically set up routing while doing so.
+When creating a new app inside your workspace, Nx will generate both the <code class="highlighter-rouge">shop</code> and a <code class="highlighter-rouge">shop-e2e</code> folder for your end-to-end tests. 
+Running the following command using the Nx CLI will start up the shop app locally:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nx serve shop
+</code></pre></div></div>
+
+<h2 id="libs">Libs</h2>
+<p>The <code class="highlighter-rouge">libs</code> folder is where your shared code will reside.
+If your organisation has a component library or a design system, then that would be a good candidate to be placed under <code class="highlighter-rouge">libs</code>.
+You can also add all your code to the libs in separate modules like feature modules while using the app as a container.
+Later on, you can use the features in the modules to compose your app.</p>
+
+<p>If you want to take a look at the full example, please check out the nx-phone workspace here:
+<a href="https://github.com/DimiDeKerf/nx-phone" target="_blank" rel="noopener noreferrer">https://github.com/DimiDeKerf/nx-phone</a></p>
+
+<h2 id="testing">Testing</h2>
+
+<p>Nx supports modern tools that you’re familiar with, without the sometimes tedious way of setting them up.
+You can easily use Jest and Cypress to cover your testing needs, with great CLI support.
+The unit and end-to-end tests are both configured for the shop app that we’ve just created. They can be run by using <code class="highlighter-rouge">nx test shop</code> and <code class="highlighter-rouge">nx e2e shop</code>, respectively.
+If you want to learn more about Jest or Cypress, be sure to check out the awesome blog posts that my colleagues have wrote:</p>
+
+<ul>
+  <li><a href="https://ordina-jworks.github.io/testing/2018/08/03/testing-angular-with-jest.html" target="_blank" rel="noopener noreferrer">Testing Angular with Jest</a></li>
+  <li><a href="https://ordina-jworks.github.io/testing/2019/07/18/Cypress.html" target="_blank" rel="noopener noreferrer">Cypress: a new kid on the E2E block</a></li>
+</ul>
+
+<h2 id="code-formatting">Code formatting</h2>
+
+<p><img src="/img/2019-12-02-Nx/prettier.png" alt="Prettier" class="image right" /></p>
+
+<p>How do you like to have your code formatted?
+There will be some differences between how others within your organization like to format their code.
+Just thinking about the merge conflicts that will arise when people use different indentations may already give you shivers.</p>
+
+<p>Prettier comes included with Nx and is here to help you out with this.
+It’s an opinionated code formatter that integrates well with most editors.
+You’re tired of formatting your code before you want to commit something?
+Prettier can also run in a pre-commit hook, so your code will get formatted before your commit.
+More info can be found <a href="https://prettier.io/docs/en/precommit.html" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<h2 id="dependency-graph">Dependency graph</h2>
+<p>What if you change something in your code?
+How can you be sure that your modification didn’t break another app?
+This is hard to do when your apps live in separate repositories but becomes much more convenient with the help of Nx.
+All your apps and libraries will be part of a dependency graph.</p>
+
+<p><img src="/img/2019-12-02-nx/dependency_graph.png" alt="Dependency graph" class="image fit" style="margin:0px auto; max-width: 500px;" /></p>
+
+<p>The dependency graph will give you an up-to-date version of all the applications and services, and the dependencies between them.
+It can also help you to get a better understanding of the architecture.</p>
+
+<h2 id="building">Building</h2>
+<p>When new code is introduced or something has been refactored, Nx will be able to find out which dependencies are affected by your changes.
+This gives you the opportunity to only build the affected dependencies and only run the tests of those affected ones.
+For your build pipeline, that means that testing the affected apps can greatly improve the build time when dealing with large workspaces.</p>
+
+<p>For example, if we edit something in the shop app, our dependency graph will look like this:</p>
+
+<p><img src="/img/2019-12-02-nx/dependency_graph_affected.png" alt="Dependency graph of affected apps" class="image fit" style="margin:0px auto; max-width: 500px;" /></p>
+
+<p>Targeting the affected code can be done using the affected command.
+For example, if you want to run the unit tests for the affected code:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nx affected:test
+</code></pre></div></div>
+<p>Inside of your CI, you would like to compare the changes between your branch and master.
+This can be done by appending the two branches to the previous command:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nx affected:test <span class="nt">--base</span><span class="o">=</span>origin/master <span class="nt">--head</span><span class="o">=</span>your-branch
+</code></pre></div></div>
+
+<h2 id="restrictions">Restrictions</h2>
+<p>You may want to categorize libraries in different domains and limit the dependencies between those domains to improve maintainability.
+Nx can help you with this, by restricting access between domains or by allowing the dependency flow to go only one way around.
+To configure and manage these restrictions, you can apply tags in the <code class="highlighter-rouge">nx.json</code> file for apps and libraries.
+Be aware to also update the linting rules in <code class="highlighter-rouge">tslint.json</code> to get feedback in your editor when violating those rules.</p>
+
+<h1 id="full-stack-applications">Full stack applications</h1>
+<p>With a monorepo, you can have both your frontend and your backend applications under the same repository.
+This enables you to share code between them.
+With Nx, you can do this by using libraries like mentioned before.
+These libraries will expose the code using a public API.</p>
+
+<p>The code inside these libraries can be imported afterwards in your apps, without having to fetch them from a npm registry.
+Think about how easily you can share an interface between your frontend and backend, without having to break it on one side.
+Whenever something changes in the API, both sides will get updated so they will both remain in sync.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Having worked within a monorepo myself for the last months, I really appreciate the way it improved the daily workflow.
+It encourages me to write more reusable code and to keep features small.
+Other teams may have the same requirements, so code can be easily migrated to libs.
+It is important to manage the different features and libs though, before they turn up to be a massive dump of code that isn’t maintainable anymore.
+Switching between features is much easier and accessible, since I don’t have to check out another repository or getting familiar with the way of working of another team.
+Overall, I feel more connected with other developers and with the platform while building apps in the same repository.</p>
+
+<p>If you’re interested in setting up a monorepo, be sure to check out Nx!
+It will help you tremendously with getting started.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/architecture/2020/01/23/Nx.html&title=One repo to rule them all&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=One repo to rule them all&url=https://ordina-jworks.github.io/architecture/2020/01/23/Nx.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/architecture/2020/01/23/Nx.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/dimitri-de-kerf" class="image spotlight-image" title="">
+            <img src="/img/author/dimitri-de-kerf.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Dimitri is a Frontend and Mobile developer at Ordina Belgium. He enjoys writing user friendly apps in a clean, maintainable way. Dimitri loves new technologies and is eager to try them out.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2019-12-02-Nx/nx-logo.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
