@@ -19,7 +19,7 @@ The architect doesn’t guide action, he guides thought. Normally, thought prece
 When thinking about when during a project the architect should play a role, the tried and tested methodology of the Stage Gate Process immediately pops up. This approach divides product development process into five main stages. In between these stages, a number of gates are defined as guardians of the progression to the next stage. They outline the considerations to be taken into account in the decision to move forward to the next stage in the process. These considerations range from quality checklists to budgetary assessment, resources availability, market competence and even compliance with company guidelines and policies. The list can be quite extensive. The architect alongside several other stakeholders is an essential gatekeeper. He enhances the list of quality assurances with considerations from an architectural standpoint and makes sure they are met before moving on to the next phase of the project.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2020-01-24-Architecture-in-Projects/stage-gate-process.jpg' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto;">
+<img src="{{ '/img/2020-01-24-Architecture-in-Projects/stage-gate-process.jpg' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
 {:refdef: style="text-align: center;"}
 The Standard Stage-Gate process (Source: Stage-Gate International)
@@ -37,7 +37,7 @@ The stages typically used in this approach are the following:
 This approach is very much keyed on the waterfall approach of software development. In order to take this approach to the new insights gathered from iterative development and agile thinking, where there is a need for smaller iterations, greater scalability and accelerated development, the people at [Stage-Gate International](https://www.stage-gate.com/){:target="_blank" rel="noopener noreferrer"} developed a NexGen Stage Gate Model which allows for reduced stages after the initial Minimum Viable Product (MVP) launch. These smaller iterations are however also guarded by gates between each iteration.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2020-01-24-Architecture-in-Projects/stage-gate-nexgen.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto;">
+<img src="{{ '/img/2020-01-24-Architecture-in-Projects/stage-gate-nexgen.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
 {:refdef: style="text-align: center;"}
 The NexGen Stage-Gate process (Source: Stage-Gate International)
@@ -48,7 +48,7 @@ It might seem from the different illustrations that there is no gate after the L
 Although the architect should and can play a role in every stage of the project, he tends to regard the project in a slightly different set of stages. It starts in the Plan phase where it aligns with the global analyses. It goes along with the entire design portion of the Build phase and extends further till the architecture is constructed, documented, validated and accepted. The effort ends when the solution enters the last step in its lifecycle and enters the Dispose phase. Its main activities do however change depending on which phase of the project is currently happening.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2020-01-24-Architecture-in-Projects/archphases.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto;">
+<img src="{{ '/img/2020-01-24-Architecture-in-Projects/archphases.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
 {:refdef: style="text-align: center;"}
 Architectural Phases of a Project
@@ -56,7 +56,7 @@ Architectural Phases of a Project
 
 The first activities of the architecture effort focus mainly on gathering all relevant requirements that might influence the design. These requirements will also form the basis for the acceptance criteria stipulated by the gates between the phases. They can be divided into functional and non-functional requirements, where the latter can be divided into technical (such as integration, quality, and infrastructure requirements) and operational requirements (such as documentation, training, and managed services requirements).
 
-The solution architect works together with domain specialists, both business and technical, to guide and constrain the business and technical analyses from a technical perspective and should assist the analysts by informing them of technical information and possibilities. Through this exercise business knowledge is acquired and high-level business and technical requirements are produced. The requirements should be listed as SMART statements: Specific, Measurable, Achievable, Realistic, and Timely. These requirements do not only structure the technical effort, but other disciplines such as business architecture and testing as well.
+The solution architect works together with domain specialists, both business and technical, to guide and constrain the business and technical analyses from a technical perspective and should assist the analysts by informing them of technical information and possibilities. Through this exercise, business knowledge is acquired and high-level business and technical requirements are produced. The requirements should be listed as SMART statements: Specific, Measurable, Achievable, Realistic, and Timely. These requirements do not only structure the technical effort, but other disciplines such as business architecture and testing as well.
 
 The first version of a Solution Architecture (and its corresponding document) should be drafted as early as the Plan phase, when a first set of requirements becomes known, and an attempt at setting the scope ensues. This is sometimes called the Solution Architecture Blueprint. Next, throughout the project lifecycle the architecture version matures with the architect gaining more insight and detail of the to-be situation of the solution. As with most deliverables of a project, the solution architecture document will mature well into the Operate phase and even a bit of the Dispose phase with activities to keep the documentation up to date with reality.
 
