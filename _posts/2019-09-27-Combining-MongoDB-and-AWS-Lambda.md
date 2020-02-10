@@ -15,8 +15,8 @@ comments: false
 * [MongoDB and AWS Lambda: Why?](#mongodb-and-aws-lambda-why)
 * [MongoDB and AWS Lambda: Performance](#mongodb-and-aws-lambda-performance)
 * [Cold start vs warm performance](#cold-start-vs-warm-performance)
-* [Performce conclusions](#performance-conclusion)
-* [Connect your Lambda Functions with your MongoDB Atlas Cluster](#connect-your-lambda-functions-with-your-mongodb-atlas-cluster)
+* [Performance conclusions](#performance-conclusion)
+* [VPC peering between AWS and MongoDB Atlas](#vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster)
 * [Useful links](#useful-links)
 
 
@@ -32,16 +32,17 @@ This blog concerns mainly two things:
 # MongoDB and AWS Lambda: Why?
 As I am both a fan of AWS Lambda and MongoDB Atlas it was fun for me to marry them.  
 However in the real world we don't do things for fun alone.  
-What could be the motives to combine MongoDB Atlas and AWS Lambda?
+
+What are the motives to combine MongoDB Atlas and AWS Lambda?
 
 * In case of MongoDB you provision your cluster and you know what you'll pay for it.
-* MongoDB has a rich query language to query within a collection
-* MongoDB supports a join over collections.
+* MongoDB has a rich language to query within a collection
+* On top of your data in MongoDB you can build rich dashboards for business intelligence.
+* MongoDB supports joins over collections.
 * Support for lot's of indexes
 * Large documents allowed. A MongoDB document can be up to 16 Mb.
-* More metrics, more insights, but also more management. That's why it's not serverless.
-* Flexible data access. Also in a NoSQL world it is important to new your data access model. 
-Data modeling is an important step to take carefully before you start persisting your data.
+* Flexible data access. Also in a NoSQL world it is important to know your data access model. 
+Data modeling is an important step that needs to be taken carefully before you start persisting your data.
 The way your data is modelled will limit the access patterns that can be used on your data.
 MongoDB offers you more flexibility to access your data in different ways after you have stored it.
 
@@ -82,7 +83,7 @@ Here is a graph showing you the `Response Distribution` of the `SaveMongoDBLambd
 Hence, this is the time that the Lambda Function took to execute.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png" width="60%" height="60%">
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png" width="50%" height="50%">
 </div>
 
 We notice two things.
@@ -106,30 +107,30 @@ We can further dissect a coldstart with XRAY.
 
 We see that:
 * Bootstrapping the runtime and code in the vpc lambda took 1.7 seconds.
-* Next the initial connection is being made to the database which takes 5 seconds. 
-This connection overhead is also there when using AWS native database.
+* The initial connection is being made to the database which takes 5 seconds. 
+This connection overhead is also there when using AWS native databases.
 Though then it will be smaller.
 * Saving the actual item took 1.1 second.
 
 That's for the first execution of the Lambda Function.
-How does this compare against a Lambda function that is already "warm".
+How does this compare against a Lambda function that is already "warm".  
+We can also analyse a warm lambda with XRAY.
 
 <div style="text-align: center;" >
   <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png" width="80%" height="80%">
 </div>
 
 Now we notice:
-* Total execution took only 18 ms.
+* Total execution took only 18 ms!
 * There is no longer any initialization overhead.
-* Storing the item took 6 ms.
+* Storing the item took 6 ms!
 
 ## Performance conclusions
 
 * Storing items in the database when the Lambda Function is already warm is blazingly fast.
 * Initializing the connection in case of a coldstart adds time to the coldstart.
 
-
-# Connect your Lambda Functions with your MongoDB Atlas Cluster
+# VPC peering: connect your Lambda Functions with your MongoDB Atlas Cluster
 Wanna know how to set up a VPC peering connection between your AWS VPC and MongoDB Atlas Cluster?
 Read on.. 
 
@@ -237,7 +238,7 @@ Go back to AWS.
 In the VPC service of AWS go to `Peering Connections`.  
 You will a new peering request with stats `Pending Acceptance`.
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="70%" height="70%">
+  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%">
 </div>
 
 Accept this peering request!
