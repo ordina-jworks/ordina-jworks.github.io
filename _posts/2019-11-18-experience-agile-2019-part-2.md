@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [wouter_nivelle, astrid_legrand]
+authors: [wouter_nivelle, astrid_legrand, michaela_broeckx]
 title: 'eXperience Agile 2019 - Part 2'
 image: /img/2019-11-18-experience-agile-2019-part-2/ExperienceAgile2019Part2.png
 tags: [Agile, Conference]
