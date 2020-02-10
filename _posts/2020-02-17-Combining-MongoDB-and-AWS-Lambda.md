@@ -21,17 +21,26 @@ comments: false
 
 
 # MongoDB and AWS Lambda: a successful marriage?
+
+<div style="text-align: center;" >
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/rings.png" width="15%" height="15%">
+</div>
+
 Can we use MongoDB Atlas when working with AWS Lambda?  
 Yes we can!   
 It's simple enough to setup and above all also performing well!  
 
 This blog concerns mainly two things:
-* Why would you use MongoDB + AWS Lambda and how does it perfom
+* Why would you use MongoDB + AWS Lambda and how does it perform
 * How to create a production grade setup with vpc-peering
 
 # MongoDB and AWS Lambda: Why?
 As I am both a fan of AWS Lambda and MongoDB Atlas it was fun for me to marry them.  
 However in the real world we don't do things for fun alone.  
+
+<div style="text-align: center;" >
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/mongodb-plus-aws-lambda.png" width="70%" height="70%">
+</div>
 
 What are the motives to combine MongoDB Atlas and AWS Lambda?
 
@@ -90,7 +99,7 @@ We notice two things.
 * The graph is heavily balanced to the left. 
 Most of the requests took very little time.
 * On the right end of the spectrum we also see a couple of request. 
-This are the coldstarts that occur the first time a Lambda Function is invoked.
+This are the cold starts that occur the first time a Lambda Function is invoked.
 
 From the XRAY service map we can see that on average the Lambda Function took 174 milliseconds to execute.
  
@@ -99,7 +108,7 @@ From the XRAY service map we can see that on average the Lambda Function took 17
 </div>
 
 ### Cold start vs warm performance
-We can further dissect a coldstart with XRAY.
+We can further dissect a cold start with XRAY.
 
 <div style="text-align: center;" >
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png" width="80%" height="80%">
@@ -128,7 +137,7 @@ Now we notice:
 ## Performance conclusions
 
 * Storing items in the database when the Lambda Function is already warm is blazingly fast.
-* Initializing the connection in case of a coldstart adds time to the coldstart.
+* Initializing the connection in case of a cold start adds time to the cold start.
 
 # VPC peering: connect your Lambda Functions with your MongoDB Atlas Cluster
 Wanna know how to set up a VPC peering connection between your AWS VPC and MongoDB Atlas Cluster?
