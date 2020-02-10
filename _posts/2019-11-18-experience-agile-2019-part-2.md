@@ -190,7 +190,9 @@ You could say it is the skillful ease that comes from investing in learning.
 
 That investment comes down to taking the time and making the effort for deliberate practice. By regularly and consistently practicing a skill with increasing levels of challenge and with the intention of mastering that skill, a state of fluency can be reached. The key is to not give up easily, and with that intent, to keep up your practice until it becomes a second nature... a bit like practicing your cylcing skills as a kid, because you long to get rid of those silly training wheels.  
 
-The Agile Fluency Model focuses on *team fluency*, a form of fluency that transcends the individual practice, and just like a team is more than the sum of its parts, team fluency also depends on management structures, relationships, and organizational culture, as well as the tools, technologies, and practices the teams use. Team fluency is what you get when highly performant teams become unconsciously competent at collaborating and cocreating. Fluency comes only after investment in learning, and for team fluency this means learning together as a team.
+The Agile Fluency Model focuses on *team fluency*, a form of fluency that transcends the individual practice, and just like a team is more than the sum of its parts, team fluency also depends on management structures, relationships, and organizational culture, as well as the tools, technologies, and practices the teams use. Team fluency is what you get when highly performant teams become unconsciously competent at collaborating and cocreating. Fluency comes only after investment in learning, and for team fluency this means learning together as a team. 
+
+There is a few stages before your team gets to fluency. They first need a team culture shift and start focusing...
 
 
 ### What is the aim of this model?
