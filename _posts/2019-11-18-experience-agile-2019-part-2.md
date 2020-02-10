@@ -18,6 +18,8 @@ However, those were not the only talks so this post will dive deeper into some o
 * [Agile Fluency Project - Why focusing team rock, by Diana Larsen](#agile-fluency-project---why-focusing-teams-rock-by-diana-larsen)
 
 ## Leadership in a scaling agile environment, by Leonoor Koomen
+- written by Wouter Nivelle
+
 Another great talk from the eXperience Agile conference came from [Leonoor Koomen](https://twitter.com/agileonoor){:target="_blank" rel="noopener noreferrer"}.  
 She talked about how leadership works in an agile environment.
 
@@ -79,6 +81,7 @@ It's a long journey, but it is possible to achieve.
 > Every change, no matter how big or small, starts with the same word... YOU!
 
 ## Building a Customer Value Engine for a more Successful Company, by Mario Moreira
+- written by Astrid Legrand
 
 ### Intro
 **Building a Customer Value Engine for a more Successful Company** aims to give enterprise leaders tools and advice to maximize customer value with a high level of agility in their companies. 
@@ -174,6 +177,7 @@ The manual calculations can be tested in the acceptance environment by the produ
 
 
 ## Agile Fluency Project - Why focusing teams rock, by Diana Larsen
+- written by Michaela Broeckx
 
 Diana Larsen, or @DianaOfPortland, was an honourable guest at eXperience Agile conference. Browsing her website FutureWorks Consulting, and googling her name, it becomes clear she had an amazing journey leading up to this *Agile Fluency Project*, throughout which you can move the *Agile Fluency Model* from idea to implementation, a model she co-created with James Shore. 
 
@@ -186,6 +190,11 @@ You could say it is the skillful ease that comes from investing in learning.
 
 That investment comes down to taking the time and making the effort for deliberate practice. By regularly and consistently practicing a skill with increasing levels of challenge and with the intention of mastering that skill, a state of fluency can be reached. The key is to not give up easily, and with that intent, to keep up your practice until it becomes a second nature... a bit like practicing your cylcing skills as a kid, because you long to get rid of those silly training wheels.  
 
-The Agile Fluency Model focuses of *team fluency*, a form of fluency that transcends the individual practice, and just like a team is more than the sum of its parts, team fluency also depends on management structures, relationships, and organizational culture, as well as the tools, technologies, and practices the teams use.is also more than the sum of its parts.
+The Agile Fluency Model focuses on *team fluency*, a form of fluency that transcends the individual practice, and just like a team is more than the sum of its parts, team fluency also depends on management structures, relationships, and organizational culture, as well as the tools, technologies, and practices the teams use. Team fluency is what you get when highly performant teams become unconsciously competent at collaborating and cocreating. Fluency comes only after investment in learning, and for team fluency this means learning together as a team.
 
-That would imply that a team is so naturally skilled that **  can be some team chemistry 
+
+### What is the aim of this model?
+There are no recipes for the *perfect* Agile transformation. And so the creators of this model wanted to move beyond the Agile methodologies 'wars' on what is the best way to implement Agile. They wanted it to be a positive, inclusive model that promotes improvement, in order to continuously grow towards more agility, as a team, as an organisation. In that sense it is a model that can guide you to chart your own Agile pathway.
+
+
+Discover more about this topic on the [Agile Fluency Project website](https://www.agilefluency.org/) 
