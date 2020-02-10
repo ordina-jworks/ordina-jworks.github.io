@@ -2,7 +2,7 @@
 layout: post
 authors: [nick_van_hoof]
 title: 'Marrying MongoDB Atlas and AWS Lambda'
-image: /img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png
+image: /img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png
 tags: [MongoDB, Cloud, AWS, AWS Lambda, Serverless]
 category: Cloud
 comments: false
@@ -56,7 +56,7 @@ MongoDB mentions on there website that there is an initial startup due to this.
 I am testing using the following setup:
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/Architecture.png">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/Architecture.png">
 </div>
 
 Items are coming in via requests through the API.
@@ -83,7 +83,7 @@ Here is a graph showing you the `Response Distribution` of the `SaveMongoDBLambd
 Hence, this is the time that the Lambda Function took to execute.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png" width="50%" height="50%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png" width="50%" height="50%">
 </div>
 
 We notice two things.
@@ -95,14 +95,14 @@ This are the coldstarts that occur the first time a Lambda Function is invoked.
 From the XRAY service map we can see that on average the Lambda Function took 174 milliseconds to execute.
  
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/service-map.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/service-map.png" width="70%" height="70%">
 </div>
 
 ### Cold start vs warm performance
 We can further dissect a coldstart with XRAY.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png" width="80%" height="80%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png" width="80%" height="80%">
 </div>
 
 We see that:
@@ -117,7 +117,7 @@ How does this compare against a Lambda function that is already "warm".
 We can also analyse a warm lambda with XRAY.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png" width="80%" height="80%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png" width="80%" height="80%">
 </div>
 
 Now we notice:
@@ -147,13 +147,13 @@ In the route table we'll define that we want to route all database traffic throu
 In the AWS User Interface navigate to the VPC dashboard and click `Launch VPC Wizard`.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png" width="70%" height="70%">
 </div>
 
 Select that you want to create a VPC with a single public subnet.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/2-VPC-with-single-public-subnet.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/2-VPC-with-single-public-subnet.png" width="70%" height="70%">
 </div>
 
 Specify how big you want the IP range of this VPC to be.
@@ -162,24 +162,24 @@ Give your VPC and public subnet a name.
 Make sure that `enable DNS hostnames` is enabled.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="100%" height="100%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="100%" height="100%">
 </div>
 
 Your VPC has been successfully created.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png" width="70%" height="70%">
 </div>
 
 You will now notice that a new subnet and two new route tables have been created.  
 That is a route table for your VPC and a route table specifically for your public subnet.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png" width="70%" height="70%">
 </div>
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png" width="70%" height="70%">
 </div>
 
 Before we go to MongoDB Atlas get some specific data about your VPC:
@@ -189,7 +189,7 @@ Before we go to MongoDB Atlas get some specific data about your VPC:
 Under security groups fetch the id of the security group that is associated with your vpc.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png" width="70%" height="70%">
 </div>
 
 
@@ -199,13 +199,13 @@ Setup the MongoDB cluster.
 **This has to be a dedicated cluster which means you'll need at least an M10.**
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/Setup-m10-cluster.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/Setup-m10-cluster.png" width="70%" height="70%">
 </div>
 
 Wait till your cluster is set up.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png" width="70%" height="70%">
 </div>
 
 In the Atlas UI navigate to `Security` -> `Network Access`.  
@@ -217,14 +217,14 @@ The below screen will pop up. Here you have to specify some configuration.
 * region: the region where you created the AWS vpc
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png" width="70%" height="70%">
 </div>
 
 Hit `Instantiate peering` !
 
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png" width="70%" height="70%">
 </div>
 
 Notice that MongoDB created an `Atlas CIDR` which specifies the IP range in which your Atlas cluster will reside.  
@@ -238,7 +238,7 @@ Go back to AWS.
 In the VPC service of AWS go to `Peering Connections`.  
 You will a new peering request with stats `Pending Acceptance`.
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%">
 </div>
 
 Accept this peering request!
@@ -250,7 +250,7 @@ So we want to modify the route table that is associated with that subnet.
 You can recognize that route table because it has an **explicit subnet association**.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%">
 </div>
 
 Click `edit routes` and add a route towards your Atlas cluster.  
@@ -258,14 +258,14 @@ What we are actually saying here is that we want to route all traffic to our Atl
 As `Destination` choose the Atlas CIDR and under `Target` choose your VPC peering connection.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png" width="100%" height="100%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png" width="100%" height="100%">
 </div>
 
 Updating the route table will update the status of the peering connection to **available** in the Atlas UI.  
 This takes a couple of minutes.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/13-peering-available.png" width="100%" height="100%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/13-peering-available.png" width="100%" height="100%">
 </div>
 
 ### Deploy your lambda functions!
@@ -275,7 +275,7 @@ Deploy them into the public subnet that we just created and as security group sp
 In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
 
 <div style="text-align: center;" >
-  <img src="/img/2019-09-27-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
 </div>
 
 
