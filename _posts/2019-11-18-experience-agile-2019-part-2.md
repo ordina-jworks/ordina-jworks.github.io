@@ -196,7 +196,7 @@ There is a few stages before your team gets to fluency. They first need a team c
 
 
 ### What is the aim of this model?
-There are no recipes for the *perfect* Agile transformation. And so the creators of this model wanted to move beyond the Agile methodologies 'wars' on what is the best way to implement Agile. They wanted it to be a positive, inclusive model that promotes improvement, in order to continuously grow towards more agility, as a team, as an organisation. In that sense it is a model that can guide you to chart your own Agile pathway.
-
+There are no recipes for the *perfect* Agile transformation. And so the creators of this model wanted to move beyond the Agile methodologies 'wars' on what is the best way to implement Agile. They wanted it to be a positive, inclusive model that promotes improvement, so that it can be used to continuously grow towards more agility, as an individual, as a team, as an organisation. In that sense it is a model that can guide you to chart your own Agile pathway. But it doesn't have to be. The way James Shore puts it, the idea is that you get of at the right bus stop, the one that fits your needs, and offers the benefit you want for your company. No need to go all the way to the terminal bus stop if that is not required in your story or context. Therfore it is not a maturity model, but more of a map for a hop-on-hop-off bus.
 
 Discover more about this topic on the [Agile Fluency Project website](https://www.agilefluency.org/) 
+Or buy a ticket to ride at Ordina. AgileWorks can help you to get on that bus!
