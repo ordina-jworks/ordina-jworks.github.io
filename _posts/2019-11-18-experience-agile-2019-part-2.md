@@ -9,7 +9,7 @@ comments: true
 ---
 
 Our first blogpost about the [eXperienceAgile conference](https://www.experienceagile.org/){:target="_blank" rel="noopener noreferrer"} covered four interesting talks.  
-However, those were not the only talks so this post will dive deeper into some of the other talks.
+However, those were not the only talks so this post will dive deeper into some of the other ones.
 
 # Table of contents
 
@@ -28,7 +28,7 @@ It could be these 3 very important reasons:
 - It **breaks down silos**. People need to work together and share knowledge.
 - It **increases engagement** from the people working in the company.
 
-But very often, it's more because **Agile is in fashion and because of the myth that agile will bring twice as much in half the time**.
+But very often, it's more because **agile is in fashion and because of the myth that agile will bring twice as much in half the time**.
 
 When you read the above, it's no surprise that agile projects often fail, as shown below.
 
@@ -43,11 +43,11 @@ Leaders should:
 
 <img alt="leadership-why" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/leadership-why.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-- Bring focus, have a clarity on what needs to be done, a certain direction, with measurable goals!
+- Bring focus, give clarity on what needs to be done, a certain direction, with measurable goals.
 
 <img alt="leadership-focus" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/leadership-focus.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-- Break silos, give the example. Make teams work together.
+- Break silos, make teams work together.
 
 <img alt="leadership-break-silos" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/leadership-silos.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
@@ -197,7 +197,7 @@ Team fluency is what you get when highly performant teams become unconsciously c
 Fluency is the outcome of investment in learning and deliberate practice, and for team fluency this means learning together as a team. 
 
 There are a few stages before your team gets to fluency. 
-You need to invest in mastering the Agile fundamentals to help focus as a team and you need a shift in team skills to be able to build sustainability while delivering value. 
+You need to invest in mastering the agile fundamentals to help focus as a team and you need a shift in team skills to be able to build sustainability while delivering value. 
 The Fluency model helps you discover the topics you can explore and practice to improve these aspects and make these shifts. 
 
 From there onwards the picture becomes broader, and from teams we move to the organisational structure and culture. 
@@ -207,10 +207,10 @@ To embed fluency in the organisations, they point out the need to invest in a cr
 <img alt="velocity-chart" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/team-to-organisation.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 ### What is the aim of this model?
-There are no recipes for the *perfect* Agile transformation. 
-And so the creators of this model wanted to move beyond the Agile methodology 'wars' on what is the best way to implement Agile. 
+There are no recipes for the *perfect* agile transformation. 
+And so the creators of this model wanted to move beyond the agile methodology 'wars' on what is the best way to implement agile. 
 They wanted it to be a positive, inclusive model that promotes improvement, so that it can be used to continuously grow towards more agility, as an individual, as a team, as an organisation. 
-In that sense it is a model that can guide your team to help create alignment with management, and chart your own Agile pathway. 
+In that sense it is a model that can guide your team to help create alignment with management, and chart your own agile pathway. 
 But it doesn't have to be a path to perfection. 
 The way James Shore puts it, the idea is that you get off at the right bus stop, the one that fits your needs, and offers the benefit you want for your company. 
 No need to go all the way to the terminal bus stop if that is not required in your story or context. 
