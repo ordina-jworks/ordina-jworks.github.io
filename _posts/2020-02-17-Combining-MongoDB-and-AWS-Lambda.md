@@ -280,13 +280,26 @@ This takes a couple of minutes.
 ### Deploy your lambda functions!
 
 Deploy your Lambda functions to your VPC and test them out!  
-Deploy them into the public subnet that we just created and as security group specify the security group of your AWS VPC.  
+To deploy them in our vpc you have to configure there VPC config:
+* use the pubic subnet that we just created
+* specify the security group of you AWS vpc
+
+With AWS `SAM` that looks like this: 
+```yaml
+  Resources:
+    YourFunction:
+      ...
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-01004aee8e2eb4f33
+        SubnetIds:
+          - subnet-028397e077f1f8e7a
+```
 In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
 
 <div style="text-align: center;" >
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
 </div>
-
 
 
 ## Useful links
