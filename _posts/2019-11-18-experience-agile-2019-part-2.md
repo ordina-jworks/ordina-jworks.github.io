@@ -17,8 +17,7 @@ However, those were not the only talks so this post will dive deeper into some o
 * [Building a Customer Value Engine for a more Successful Company, by Mario Moreira](#building-a-customer-value-engine-for-a-more-successful-company-by-mario-moreira)
 * [Agile Fluency Project - Why focusing team rock, by Diana Larsen](#agile-fluency-project---why-focusing-teams-rock-by-diana-larsen)
 
-## Leadership in a scaling agile environment, by Leonoor Koomen
-- written by Wouter Nivelle
+## Leadership in a scaling agile environment, by Leonoor Koomen - written by Wouter Nivelle
 
 Another great talk from the eXperience Agile conference came from [Leonoor Koomen](https://twitter.com/agileonoor){:target="_blank" rel="noopener noreferrer"}.  
 She talked about how leadership works in an agile environment.
@@ -80,8 +79,7 @@ It's a long journey, but it is possible to achieve.
 
 > Every change, no matter how big or small, starts with the same word... YOU!
 
-## Building a Customer Value Engine for a more Successful Company, by Mario Moreira
-- written by Astrid Legrand
+## Building a Customer Value Engine for a more Successful Company, by Mario Moreira - written by Astrid Legrand
 
 ### Intro
 **Building a Customer Value Engine for a more Successful Company** aims to give enterprise leaders tools and advice to maximize customer value with a high level of agility in their companies. 
@@ -176,8 +174,7 @@ The manual calculations can be tested in the acceptance environment by the produ
 > M. Moreira
 
 
-## Agile Fluency Project - Why focusing teams rock, by Diana Larsen
-- written by Michaela Broeckx
+## Agile Fluency Project - Why focusing teams rock, by Diana Larsen - written by Michaela Broeckx
 
 Diana Larsen, or @DianaOfPortland, was an honourable guest at eXperience Agile conference. Browsing her website FutureWorks Consulting, and googling her name, it becomes clear she had an amazing journey leading up to this *Agile Fluency Project*, throughout which you can move the *Agile Fluency Model* from idea to implementation, a model she co-created with James Shore. 
 
