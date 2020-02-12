@@ -12,8 +12,8 @@ comments: false
 
 # Table of contents
 * [MongoDB and AWS Lambda: a successful marriage?](#mongodb-and-aws-lambda-a-successful-marriage)
-* [MongoDB and AWS Lambda: Why?](#mongodb-and-aws-lambda-why)
-* [MongoDB and AWS Lambda: Performance](#mongodb-and-aws-lambda-performance)
+* [Why?](#mongodb-and-aws-lambda-why)
+* [Performance](#mongodb-and-aws-lambda-performance)
 * [Cold start vs warm performance](#cold-start-vs-warm-performance)
 * [Performance conclusions](#performance-conclusion)
 * [VPC peering between AWS and MongoDB Atlas](#vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster)
@@ -34,7 +34,7 @@ This blog concerns mainly two things:
 * Why would you use MongoDB + AWS Lambda and how does it perform
 * How to create a production grade setup with vpc-peering
 
-# MongoDB and AWS Lambda: Why?
+# Why?
 As I am both a fan of AWS Lambda and MongoDB Atlas it was fun for me to marry them.  
 However in the real world we don't do things for fun alone.  
 
@@ -51,12 +51,13 @@ What are the motives to combine MongoDB Atlas and AWS Lambda?
 * Supports up to 64 indexes per collection
 * A wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes
 * Large documents allowed. A MongoDB document can be up to 16 Mb.
+* Use MongoDB Stich and GraphQL to query your data.
 * Flexible data access. Also in a NoSQL world it is important to know your data access model. 
 Data modeling is an important step that needs to be taken carefully before you start persisting your data.
 The way your data is modelled will limit the access patterns that can be used on your data.
 MongoDB offers you more flexibility to access your data in different ways after you have stored it.
 
-# MongoDB and AWS Lambda: Performance
+# Performance
 Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how, read more about it in the second part of this post).
 
 Since we are dealing with Lambda Functions we also have to deal with a phenomenon called "cold start". 
@@ -72,9 +73,12 @@ I am testing using the following setup:
 Items are coming in via requests through the API.
 The `APILambda` drops the items on a queue.  
 A second Lambda Function `SaveMongoDBLambda` stores the items in the MongoDB database.
+Of this second Lambda Function I will measure the performance:
+* during a cold start
+* when the Lambda is already warm
 
 Other things important to know:
-* In the above setup I limit the maximum number of concurrently running Lambda Functions instances of `SaveMongoDBLambda` to 10.
+* In the above setup I limit the maximum number of concurrently running Lambda Functions instances of the `SaveMongoDBLambda` to 10.
 * The Lambda Functions are written in `Java` which will add time to the coldstart performance compared to `Python` or `NodeJS`.
 * In this case I am reading the items from the queue one by one. 
   Also storing them one by one.
@@ -135,6 +139,7 @@ Now we notice:
 * There is no longer any initialization overhead.
 * Storing the item took 6 ms!
 
+
 ## Performance conclusions
 
 * Storing items in the database when the Lambda Function is already warm is blazingly fast.
@@ -181,26 +186,28 @@ Your VPC has been successfully created.
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png" width="70%" height="70%">
 </div>
 
-You will now notice that a new subnet and two new route tables have been created.  
+If you now navigate to the subnet tab you see that a new subnet has been created.  
+When going to the route tables tab you see two new rout tables.
 That is a route table for your VPC and a route table specifically for your public subnet.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png" width="90%" height="90%">
 </div>
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png" width="90%" height="90%">
 </div>
 
 Before we go to MongoDB Atlas get some specific data about your VPC:
-* Write down the VPC-id
-* Write down the IPv4 CIDR of your VPC
-* Write down the security group associated with this vpc.
-Under security groups fetch the id of the security group that is associated with your vpc.
+* From the subnet tab write down the VPC-id and IPv4 CIDR.
+* Under the security group tab find the security group that is associated with your vpc.
+Write this security group identifier down.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png" width="70%" height="70%">
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png" width="90%" height="90%">
 </div>
+
+
 
 
 ## The MongoDB side
@@ -246,7 +253,7 @@ Go back to AWS.
 
 ## The AWS side (again)
 In the VPC service of AWS go to `Peering Connections`.  
-You will a new peering request with stats `Pending Acceptance`.
+You will notice a new peering request with status `Pending Acceptance`.
 <div style="text-align: center;" >
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%">
 </div>
@@ -263,7 +270,8 @@ You can recognize that route table because it has an **explicit subnet associati
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%">
 </div>
 
-Click `edit routes` and add a route towards your Atlas cluster.  
+Click `edit routes` when selecting the route table with an **explicit subnet association**
+Add a route towards your Atlas cluster as indicated in the image below.  
 What we are actually saying here is that we want to route all traffic to our Atlas cluster through the VPC peering connection.  
 As `Destination` choose the Atlas CIDR and under `Target` choose your VPC peering connection.
 
@@ -280,28 +288,61 @@ This takes a couple of minutes.
 
 ### Deploy your lambda functions!
 
-Deploy your Lambda functions to your VPC and test them out!  
-To deploy them in your VPC you have to configure the VPC config:
+Now it is time to deploy your Lambda Function in the VPC that you just configured.
+This Lambda Function will connect to your MongoDB Atlas Cluster via the vpc-peering we have set up.
+
+I created a project that you can use to deploy a Lambda Function in your own vpc.
+You can then use it to store items in your MongoDB collection.
+The repository can be found [here](https://github.com/Nxtra/awslambda-mongodb-vpc-peering)
+
+You need to update certain config values in this project to make it work for your own vpc!
+To deploy a Lambda Function in your VPC you have to configure the VPC config:
 * use the pubic subnet that we just created
 * specify the security group of you AWS vpc
+You also have to update the connection string.
 
-With AWS `SAM` that looks like this: 
-```yaml
-  Resources:
-    YourFunction:
-      ...
+The following instructions can also be found in the `README` of the project.
+
+In `template.yaml`: 
+* update the environment variable that specifies the connection string, database  and collection to your own connection string, database and connection.
+    ``
+      Environment:
+        Variables:
+          MONGODB_CONNECTION_STRING: mongodb+srv://<user>:<password>@<your-cluster>.mongodb.net/test?retryWrites=true&w=majority
+          DATABASE: yourDatabaseName
+          COLLECTION: yourCollectionName
+    ```
+* update the `VpcConfig` with your own vpc security group and subnet:
+    ```
       VpcConfig:
         SecurityGroupIds:
           - sg-01004aee8e2eb4f33
         SubnetIds:
           - subnet-028397e077f1f8e7a
-```
+    ```
+  
+Deploy your Lambda functions to your VPC and test them out!
+Run `./deploy.sh` to deploy the Lambda Function to your account.
+Running this script successfully will output the URL on which you can send an item through the API towards the Lambda Function.
+
+<div style="text-align: center;" >
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/stack-outputs.png" width="100%" height="100%">
+</div>
+
+Use this URL to trigger the Lambda Function.
+This will return the `ObjectId` of the item in your MongoDB collection!
+
+<div style="text-align: center;" >
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png" width="100%" height="100%">
+</div>
+
 In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
 
 <div style="text-align: center;" >
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
 </div>
 
+Yihaa! MongoDB and AWS Lambda are happily married!
 
 ## Useful links
 * [https://docs.atlas.mongodb.com/security-vpc-peering/](https://docs.atlas.mongodb.com/security-vpc-peering/)
