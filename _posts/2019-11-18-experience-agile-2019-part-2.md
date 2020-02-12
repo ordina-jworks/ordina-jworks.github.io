@@ -55,7 +55,7 @@ Leaders should:
 
 So leadership is very important and needs to inspire the various teams. Spotify is a big name and is used as an example for many companies. 
 But Leonoor said:
-> I hate to break it to you, but you are NOT Spotify
+> I hate to break it to you, but you are NOT Spotify!
 
 While Spotify can be used for ideas, you probably have different dependencies, stakeholders, situational problems and so on.  
 It's thus very important to come up with a plan to scale.  
@@ -88,7 +88,7 @@ It's a long journey, but it is possible to achieve.
 Some methods explained during this workshop can also be easily used at a project level like, for instance, the five Rs model that helps to visualize the enterprise idea pipeline. 
 
 This tool allows to visualize ideas and treat them from the moment the idea is evoked until the moment it is realized.  
-This process consists of five stages, Record – Reveal – Refine – Realize and Release, which corresponds to a **break down** of the idea into a piece of work.
+The process consists of five stages, Record – Reveal – Refine – Realize and Release, which corresponds to a **break down** of the idea into a piece of work.
 
 <img alt="5R Model 1" src="{{ '/img/2019-11-18-experience-agile-2019-part-2/5R-model-1.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
@@ -105,7 +105,7 @@ During this stage of the process, the idea is added to the pool of ideas based o
 This is the moment when it is discussed and challenged among the stakeholders.
 
 The idea is refined in order to decide if the team will continue to work on it. 
-Even if the idea is great, it doesn't mean that the idea will be developed as constraints and dependencies may exist.
+Even if the idea is great, it doesn't mean that it will be developed as constraints and dependencies may exist.
 
 It is at this stage of the process that those constraints are highlighted by the stakeholders or product owners. 
 Following the discussions, the idea can be adapted in order to be realized and a team is selected to work on it.
@@ -177,7 +177,7 @@ The manual calculations can be tested in the acceptance environment by the produ
 
 ## Agile Fluency Project - Why focusing teams rock, by Diana Larsen - written by Michaela Broeckx
 
-Diana Larsen, or @DianaOfPortland, was an honourable guest at eXperience Agile conference. 
+Diana Larsen, or [@DianaOfPortland](https://twitter.com/DianaOfPortland){:target="_blank" rel="noopener noreferrer"}, was an honourable guest at eXperience Agile conference. 
 Browsing her website FutureWorks Consulting, and googling her name, it becomes clear she had an amazing journey leading up to this *Agile Fluency Project*, throughout which you can move the *Agile Fluency Model* from idea to implementation, a model she co-created with James Shore. 
 
 The concept of *fluency* is omnipresent in most of her talks and articles, and related to that *team collaboration* has been one of her primary topics throughout her career. 
@@ -200,7 +200,7 @@ There are a few stages before your team gets to fluency.
 You need to invest in mastering the agile fundamentals to help focus as a team and you need a shift in team skills to be able to build sustainability while delivering value. 
 The Fluency model helps you discover the topics you can explore and practice to improve these aspects and make these shifts. 
 
-From there onwards the picture becomes broader, and from teams we move to the organisational structure and culture. 
+From there onwards, the picture becomes broader and from teams we move to the organisational structure and culture. 
 In the model, Diana and James offer the tools to help you dig deeper into these topics, and make it more clear for organisations what could be worth investing in to optimise organisational Agility, on a systemic level. 
 To embed fluency in the organisations, they point out the need to invest in a cross-organisation focus and generate a shift in organisational culture. 
 
