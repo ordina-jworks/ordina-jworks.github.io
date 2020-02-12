@@ -48,7 +48,8 @@ What are the motives to combine MongoDB Atlas and AWS Lambda?
 * MongoDB has a rich language to query within a collection
 * On top of your data in MongoDB you can build rich dashboards for business intelligence.
 * MongoDB supports joins over collections.
-* Support for lot's of indexes
+* Supports up to 64 indexes per collection
+* A wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes
 * Large documents allowed. A MongoDB document can be up to 16 Mb.
 * Flexible data access. Also in a NoSQL world it is important to know your data access model. 
 Data modeling is an important step that needs to be taken carefully before you start persisting your data.
@@ -58,9 +59,9 @@ MongoDB offers you more flexibility to access your data in different ways after 
 # MongoDB and AWS Lambda: Performance
 Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how, read more about it in the second part of this post).
 
-Since we are dealing with Lambda Functions we also have to deal with cold start. 
+Since we are dealing with Lambda Functions we also have to deal with a phenomenon called "cold start". 
 This is the case for any Lambda Function no matter what database it connects to.
-MongoDB mentions on there website that there is an initial startup due to this.
+MongoDB mentions on there website that there is an initial startup delay due to this.
 
 I am testing using the following setup:
 
@@ -140,7 +141,7 @@ Now we notice:
 * Initializing the connection in case of a cold start adds time to the cold start.
 
 # VPC peering: connect your Lambda Functions with your MongoDB Atlas Cluster
-Wanna know how to set up a VPC peering connection between your AWS VPC and MongoDB Atlas Cluster?
+Want to know how to set up a VPC peering connection between your AWS VPC and MongoDB Atlas Cluster?
 Read on.. 
 
 We want to deploy a production grade setup.  
@@ -236,7 +237,7 @@ Hit `Instantiate peering` !
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png" width="70%" height="70%">
 </div>
 
-Notice that MongoDB created an `Atlas CIDR` which specifies the IP range in which your Atlas cluster will reside.  
+Notice that MongoDB created an `Atlas CIDR` which specifies the IP range in which your Atlas cluster will reside.  Write this down, you will need it later on.
 We are connecting the Atlas IP range with the IP range of our AWS VPC, hence VPC peering.
 
 The peering connection is now pending.   
@@ -253,7 +254,7 @@ You will a new peering request with stats `Pending Acceptance`.
 Accept this peering request!
 
 Now you have to update your routing tables.
-AWS will also ask you `Do you want to update your routing tables` when you accept the peering request.  
+AWS will also ask you `Do you want to update your routing tables` when you accept the peering request.  Click `Modify my route tables now`.
 We will deploy our Lambda Functions in the public subnet of our VPC.
 So we want to modify the route table that is associated with that subnet.
 You can recognize that route table because it has an **explicit subnet association**.
@@ -280,7 +281,7 @@ This takes a couple of minutes.
 ### Deploy your lambda functions!
 
 Deploy your Lambda functions to your VPC and test them out!  
-To deploy them in our vpc you have to configure there VPC config:
+To deploy them in your VPC you have to configure the VPC config:
 * use the pubic subnet that we just created
 * specify the security group of you AWS vpc
 
