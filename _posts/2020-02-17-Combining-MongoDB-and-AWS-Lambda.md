@@ -292,8 +292,10 @@ Now it is time to deploy your Lambda Function in the VPC that you just configure
 This Lambda Function will connect to your MongoDB Atlas Cluster via the vpc-peering we have set up.
 
 I created a project that you can use to deploy a Lambda Function in your own vpc.
-You can then use it to store items in your MongoDB collection.
-The repository can be found [here](https://github.com/Nxtra/awslambda-mongodb-vpc-peering)
+You can then use it to store items in your MongoDB collection.  
+The repository can be found [here](https://github.com/Nxtra/awslambda-mongodb-vpc-peering).  
+Let me be clear and state that in a real world project you don't want the password hard coded in the connection string.
+For example, you should put it into `AWS Secret Manager` and have your lambda retrieve it there.
 
 You need to update certain config values in this project to make it work for your own vpc!
 To deploy a Lambda Function in your VPC you have to configure the VPC config:
