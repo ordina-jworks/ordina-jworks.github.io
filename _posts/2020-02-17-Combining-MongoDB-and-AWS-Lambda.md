@@ -305,7 +305,7 @@ The following instructions can also be found in the `README` of the project.
 
 In `template.yaml`: 
 * update the environment variable that specifies the connection string, database  and collection to your own connection string, database and connection.
-    ``
+    ```
       Environment:
         Variables:
           MONGODB_CONNECTION_STRING: mongodb+srv://<user>:<password>@<your-cluster>.mongodb.net/test?retryWrites=true&w=majority
