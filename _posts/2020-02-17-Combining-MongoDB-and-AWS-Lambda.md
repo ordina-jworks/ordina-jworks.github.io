@@ -51,7 +51,7 @@ What are the motives to combine MongoDB Atlas and AWS Lambda?
 * Supports up to 64 indexes per collection
 * A wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes
 * Large documents allowed. A MongoDB document can be up to 16 Mb.
-* Use MongoDB Stich and GraphQL to query your data.
+* Use MongoDB Stitch and GraphQL to query your data.
 * Flexible data access. Also in a NoSQL world it is important to know your data access model. 
 Data modeling is an important step that needs to be taken carefully before you start persisting your data.
 The way your data is modelled will limit the access patterns that can be used on your data.
