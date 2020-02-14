@@ -331,18 +331,19 @@ Running this script successfully will output the URL on which you can send an it
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/stack-outputs.png" width="100%" height="100%">
 </div>
 
-Use this URL to trigger the Lambda Function.
+In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
+
+<div style="text-align: center;" >
+  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
+</div>
+
+Use this URL that was outputted to trigger the Lambda Function.
 This will return the `ObjectId` of the item in your MongoDB collection!
 
 <div style="text-align: center;" >
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png" width="100%" height="100%">
 </div>
 
-In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
-
-<div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
-</div>
 
 Yihaa! MongoDB and AWS Lambda are happily married!
 
