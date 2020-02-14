@@ -62,7 +62,7 @@ Suppose you have setup access from your Lambda Functions to your MongoDB Atlas C
 
 Since we are dealing with Lambda Functions we also have to deal with a phenomenon called "cold start". 
 This is the case for any Lambda Function no matter what database it connects to.
-MongoDB mentions on there website that there is an initial startup delay due to this.
+MongoDB mentions on there [website](https://docs.atlas.mongodb.com/best-practices-connecting-to-aws-lambda/) that there is an initial startup delay due to this.
 
 I am testing using the following setup:
 
@@ -270,7 +270,7 @@ You can recognize that route table because it has an **explicit subnet associati
   <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%">
 </div>
 
-Click `edit routes` when selecting the route table with an **explicit subnet association**
+Selecting the route table with an **explicit subnet association** and click `edit routes`.
 Add a route towards your Atlas cluster as indicated in the image below.  
 What we are actually saying here is that we want to route all traffic to our Atlas cluster through the VPC peering connection.  
 As `Destination` choose the Atlas CIDR and under `Target` choose your VPC peering connection.
@@ -295,7 +295,7 @@ I created a project that you can use to deploy a Lambda Function in your own vpc
 You can then use it to store items in your MongoDB collection.  
 The repository can be found [here](https://github.com/Nxtra/awslambda-mongodb-vpc-peering).  
 Let me be clear and state that in a real world project you don't want the password hard coded in the connection string.
-For example, you should put it into `AWS Secret Manager` and have your lambda retrieve it there.
+An option is to put it into `AWS Secret Manager` and have your lambda retrieve it there.
 
 You need to update certain config values in this project to make it work for your own vpc!
 To deploy a Lambda Function in your VPC you have to configure the VPC config:
