@@ -44,19 +44,15 @@ However in the real world we don't do things for fun alone.
 
 What are the motives to combine MongoDB Atlas and AWS Lambda?
 
-* In case of MongoDB you provision your cluster and you know what you'll pay for it, clusters can grow with your business without downtime or code changes.
-* MongoDB has a rich query language and aggregation framework. On top of your data in MongoDB you can build nice dashboards for business intelligence. (eg. [MongoDB Charts](https://www.mongodb.com/products/charts))
-* When rich documents that are loosely coupled (users and invoices for instance) need to be queried, MongoDB can join documents together inside the database, making your code more light.
-* Supports up to 64 indexes per collection with a wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes
-* Large documents allowed. A MongoDB document can be up to 16 Mb.
-* Flexible data access. 
+* Payment model - In case of MongoDB you provision your cluster and you know what you'll pay for it, clusters can grow with your business without downtime or code changes.
+* Flexible Data Acces - MongoDB has a rich query language and aggregation framework. On top of your data in MongoDB you can build nice dashboards for business intelligence. (eg. [MongoDB Charts](https://www.mongodb.com/products/charts))
+* Indexes - Supports up to 64 indexes per collection with a wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes
+* Large documents allowed. A MongoDB document can be up to 16 Mb. 
 * Performance - a built-in cache and support for lots of secondary indexes that can span across arrays and subdocuments, making virtually all queries very fast
-* Tunable consistency - from fire-and-forget over a quorum-based strong consistency up to full ACID-compliant transactions across globally distributed databases, you are in control. 
-In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.
-We hence call MongoDB a strong consistent database.
+* Tunable consistency[^1] 
 * Observability - MongoDB exposes more than 100 different metrics and has a built-in performance advisor. Because "you can't optimize what you can't measure."
-* Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector
-
+* Platform capabilities[^2]
+* Joinable documents[ˆ3]
 
 # Performance
 Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how, read more about it in the second part of this post).
@@ -355,3 +351,11 @@ Yihaa! MongoDB and AWS Lambda are happily married!
 * [https://www.mongodb.com/compare/mongodb-dynamodb](https://www.mongodb.com/compare/mongodb-dynamodb)
 * [https://www.educba.com/mongodb-vs-dynamodb/](https://www.educba.com/mongodb-vs-dynamodb/)
 * [https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs](https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs)
+
+
+## Footnotes
+[^1]: Tunable consistency: from fire-and-forget over a quorum-based strong consistency up to full ACID-compliant transactions across globally distributed databases, you are in control. 
+In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.
+We hence call MongoDB a strong consistent database.
+[^2]: Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector
+[^3]: Joining documents: when rich documents that are loosely coupled (users and invoices for instance) need to be queried, MongoDB can join documents together inside the database, making your code more light.
