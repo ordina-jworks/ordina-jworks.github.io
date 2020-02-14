@@ -44,18 +44,19 @@ However in the real world we don't do things for fun alone.
 
 What are the motives to combine MongoDB Atlas and AWS Lambda?
 
-* In case of MongoDB you provision your cluster and you know what you'll pay for it.
-* MongoDB has a rich language to query within a collection
-* On top of your data in MongoDB you can build rich dashboards for business intelligence.
-* MongoDB supports joins over collections.
-* Supports up to 64 indexes per collection
-* A wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes
+* In case of MongoDB you provision your cluster and you know what you'll pay for it, clusters can grow with your business without downtime or code changes.
+* MongoDB has a rich query language and aggregation framework. On top of your data in MongoDB you can build nice dashboards for business intelligence. (eg. [MongoDB Charts](https://www.mongodb.com/products/charts))
+* When rich documents that are loosely coupled (users and invoices for instance) need to be queried, MongoDB can join documents together inside the database, making your code more light.
+* Supports up to 64 indexes per collection with a wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes
 * Large documents allowed. A MongoDB document can be up to 16 Mb.
-* Use MongoDB Stitch and GraphQL to query your data.
-* Flexible data access. Also in a NoSQL world it is important to know your data access model. 
-Data modeling is an important step that needs to be taken carefully before you start persisting your data.
-The way your data is modelled will limit the access patterns that can be used on your data.
-MongoDB offers you more flexibility to access your data in different ways after you have stored it.
+* Flexible data access. 
+* Performance - a built-in cache and support for lots of secondary indexes that can span across arrays and subdocuments, making virtually all queries very fast
+* Tunable consistency - from fire-and-forget over a quorum-based strong consistency up to full ACID-compliant transactions across globally distributed databases, you are in control. 
+In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.
+We hence call MongoDB a strong consistent database.
+* Observability - MongoDB exposes more than 100 different metrics and has a built-in performance advisor. Because "you can't optimize what you can't measure."
+* Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector
+
 
 # Performance
 Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how, read more about it in the second part of this post).
@@ -127,7 +128,8 @@ Though then it will be smaller.
 * Saving the actual item took 1.1 second.
 
 That's for the first execution of the Lambda Function.
-How does this compare against a Lambda function that is already "warm".  
+How does this compare against a Lambda function that is already "warm".
+This means the boostrapping is already done and the connections are initialised.  
 We can also analyse a warm lambda with XRAY.
 
 <div style="text-align: center;" >
