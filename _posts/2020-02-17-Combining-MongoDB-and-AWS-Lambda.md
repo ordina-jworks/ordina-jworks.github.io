@@ -357,7 +357,7 @@ Yihaa! MongoDB and AWS Lambda are happily married!
 ## Footnotes
 [^1]: Tunable consistency: from fire-and-forget over a quorum-based strong consistency up to full ACID-compliant transactions across globally distributed databases, you are in control. 
     In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.
-    We hence call MongoDB a strong consistent database.  
+    Hence, we call MongoDB a strong consistent database.  
 
 [^2]: Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector
   
