@@ -56,7 +56,15 @@ What are the motives to combine MongoDB Atlas and AWS Lambda?
 * Joinable documents [^3] 
 
 # Performance
-Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how, read more about it in the second part of this post).
+We are using AWS Lambda to store items in our MongoDB collection.  
+I want to measure the performance in two ways:
+* Our Lambda Function has to setup a connection with the MongoDB cluster.
+Since we are using Lambda we have to deal with a cold start if the lambda has not been invoked shortly before.
+**How is the cold start behavior when connections to the cluster have to be setup?**
+* When the Lambda has been invoked shortly before the connection is cached. 
+**How quickly does a save to the database happen when the Lambda Function is warm?**  
+
+Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how to do just that, read more about it in the second part of this post).
 
 Since we are dealing with Lambda Functions we also have to deal with a phenomenon called "cold start". 
 This is the case for any Lambda Function no matter what database it connects to.
@@ -126,6 +134,7 @@ Though then it will be smaller.
 
 That's for the first execution of the Lambda Function.
 How does this compare against a Lambda function that is already "warm".
+This is how most invocations typically hit your Lambda Function.
 This means the boostrapping is already done and the connections are initialised.  
 We can also analyse a warm lambda with XRAY.
 
