@@ -186,7 +186,7 @@ Your VPC has been successfully created.
 </div>
 
 If you now navigate to the subnet tab you see that a new subnet has been created.  
-When going to the route tables tab you see two new rout tables.
+When going to the route tables tab you see two new route tables.
 That is a route table for your VPC and a route table specifically for your public subnet.
 
 <div style="text-align: center;" >
@@ -198,7 +198,7 @@ That is a route table for your VPC and a route table specifically for your publi
 </div>
 
 Before we go to MongoDB Atlas get some specific data about your VPC:
-* From the subnet tab write down the VPC-id and IPv4 CIDR.
+* From the subnet tab write down the VPC-id and IPv4 CIDR for the new subnet that was just created.
 * Under the security group tab find the security group that is associated with your vpc.
 Write this security group identifier down.
 
@@ -292,7 +292,7 @@ This Lambda Function will connect to your MongoDB Atlas Cluster via the vpc-peer
 
 I created a project that you can use to deploy a Lambda Function in your own vpc.
 You can then use it to store items in your MongoDB collection.  
-The repository can be found [here](https://github.com/Nxtra/awslambda-mongodb-vpc-peering).  
+The repository can be found [here](https://github.com/Nxtra/awslambda-mongodb-vpc-peering){:target="_blank" rel="noopener noreferrer"}.  
 Let me be clear and state that in a real world project you don't want the password hard coded in the connection string.
 An option is to put it into `AWS Secret Manager` and have your lambda retrieve it there.
 
