@@ -2,7 +2,7 @@
 layout: post
 authors: [nick_van_hoof]
 title: 'Marrying MongoDB Atlas and AWS Lambda'
-image: /img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png
+image: /img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png
 tags: [MongoDB, Cloud, AWS, AWS Lambda, Serverless]
 category: Cloud
 comments: false
@@ -23,7 +23,7 @@ comments: false
 # MongoDB and AWS Lambda: a successful marriage?
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/rings.png" width="15%" height="15%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/rings.png" width="15%" height="15%">
 </div>
 
 Can we use MongoDB Atlas when working with AWS Lambda?  
@@ -39,7 +39,7 @@ As I am both a fan of AWS Lambda and MongoDB Atlas it was fun for me to marry th
 However in the real world we don't do things for fun alone.  
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/mongodb-plus-aws-lambda.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/mongodb-plus-aws-lambda.png" width="70%" height="70%">
 </div>
 
 What are the motives to combine MongoDB Atlas and AWS Lambda?
@@ -73,7 +73,7 @@ MongoDB mentions on there [website](https://docs.atlas.mongodb.com/best-practice
 I am testing using the following setup:
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/Architecture.png">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Architecture.png">
 </div>
 
 Items are coming in via requests through the API.
@@ -103,7 +103,7 @@ Here is a graph showing you the `Response Distribution` of the `SaveMongoDBLambd
 Hence, this is the time that the Lambda Function took to execute.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png" width="50%" height="50%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png" width="50%" height="50%">
 </div>
 
 We notice two things.
@@ -115,14 +115,14 @@ This are the cold starts that occur the first time a Lambda Function is invoked.
 From the XRAY service map we can see that on average the Lambda Function took 174 milliseconds to execute.
  
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/service-map.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/service-map.png" width="70%" height="70%">
 </div>
 
 ### Cold start vs warm performance
 We can further dissect a cold start with XRAY.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png" width="80%" height="80%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png" width="80%" height="80%">
 </div>
 
 We see that:
@@ -139,7 +139,7 @@ This means the boostrapping is already done and the connections are initialised.
 We can also analyse a warm lambda with XRAY.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png" width="80%" height="80%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png" width="80%" height="80%">
 </div>
 
 Now we notice:
@@ -170,13 +170,13 @@ In the route table we'll define that we want to route all database traffic throu
 In the AWS User Interface navigate to the VPC dashboard and click `Launch VPC Wizard`.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png" width="70%" height="70%">
 </div>
 
 Select that you want to create a VPC with a single public subnet.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/2-VPC-with-single-public-subnet.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/2-VPC-with-single-public-subnet.png" width="70%" height="70%">
 </div>
 
 Specify how big you want the IP range of this VPC to be.
@@ -185,13 +185,13 @@ Give your VPC and public subnet a name.
 Make sure that `enable DNS hostnames` is enabled.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="100%" height="100%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="100%" height="100%">
 </div>
 
 Your VPC has been successfully created.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png" width="70%" height="70%">
 </div>
 
 If you now navigate to the subnet tab you see that a new subnet has been created.  
@@ -199,11 +199,11 @@ When going to the route tables tab you see two new route tables.
 That is a route table for your VPC and a route table specifically for your public subnet.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png" width="90%" height="90%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png" width="90%" height="90%">
 </div>
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png" width="90%" height="90%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png" width="90%" height="90%">
 </div>
 
 Before we go to MongoDB Atlas get some specific data about your VPC:
@@ -212,7 +212,7 @@ Before we go to MongoDB Atlas get some specific data about your VPC:
 Write this security group identifier down.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png" width="90%" height="90%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png" width="90%" height="90%">
 </div>
 
 
@@ -224,13 +224,13 @@ Setup the MongoDB cluster.
 **This has to be a dedicated cluster which means you'll need at least an M10.**
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/Setup-m10-cluster.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Setup-m10-cluster.png" width="70%" height="70%">
 </div>
 
 Wait till your cluster is set up.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png" width="70%" height="70%">
 </div>
 
 In the Atlas UI navigate to `Security` -> `Network Access`.  
@@ -242,14 +242,14 @@ The below screen will pop up. Here you have to specify some configuration.
 * region: the region where you created the AWS vpc
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png" width="70%" height="70%">
 </div>
 
 Hit `Instantiate peering` !
 
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png" width="70%" height="70%">
 </div>
 
 Notice that MongoDB created an `Atlas CIDR` which specifies the IP range in which your Atlas cluster will reside.  Write this down, you will need it later on.
@@ -263,7 +263,7 @@ Go back to AWS.
 In the VPC service of AWS go to `Peering Connections`.  
 You will notice a new peering request with status `Pending Acceptance`.
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%">
 </div>
 
 Accept this peering request!
@@ -275,7 +275,7 @@ So we want to modify the route table that is associated with that subnet.
 You can recognize that route table because it has an **explicit subnet association**.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%">
 </div>
 
 Selecting the route table with an **explicit subnet association** and click `edit routes`.
@@ -284,14 +284,14 @@ What we are actually saying here is that we want to route all traffic to our Atl
 As `Destination` choose the Atlas CIDR and under `Target` choose your VPC peering connection.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png" width="100%" height="100%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png" width="100%" height="100%">
 </div>
 
 Updating the route table will update the status of the peering connection to **available** in the Atlas UI.  
 This takes a couple of minutes.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/13-peering-available.png" width="100%" height="100%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/13-peering-available.png" width="100%" height="100%">
 </div>
 
 ### Deploy your lambda functions!
@@ -336,20 +336,20 @@ Run `./deploy.sh` to deploy the Lambda Function to your account.
 Running this script successfully will output the URL on which you can send an item through the API towards the Lambda Function.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/stack-outputs.png" width="100%" height="100%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/stack-outputs.png" width="100%" height="100%">
 </div>
 
 In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%">
 </div>
 
 Use this URL that was outputted to trigger the Lambda Function.
 This will return the `ObjectId` of the item in your MongoDB collection!
 
 <div style="text-align: center;" >
-  <img src="/img/2020-02-17-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png" width="100%" height="100%">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png" width="100%" height="100%">
 </div>
 
 
@@ -364,9 +364,9 @@ Yihaa! MongoDB and AWS Lambda are happily married!
 
 
 ## Footnotes
-[^1]: Tunable consistency: from fire-and-forget over a quorum-based strong consistency up to full ACID-compliant transactions across globally distributed databases, you are in control. 
-    In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.
-    Hence, we call MongoDB a strong consistent database.  
+[^1]: Tunable consistency: a variety of consistency levels allowing client applications to select the trade-offs they want to make when it comes to the strongest consistency or the lowest latency. 
+Operations can be grouped in full ACID-compliant transactions at any scale. 
+In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.
 
 [^2]: Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector
   
