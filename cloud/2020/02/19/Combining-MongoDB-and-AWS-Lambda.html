@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Marrying MongoDB Atlas and AWS Lambda - Nick Van Hoof">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Marrying MongoDB Atlas and AWS Lambda - Nick Van Hoof"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png"/>
+
+    
+    <title>Marrying MongoDB Atlas and AWS Lambda - Nick Van Hoof &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Marrying MongoDB Atlas and AWS Lambda</h2>
+                
+
+                
+                    Posted Feb 19, 2020
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/nick-van-hoof">Nick Van Hoof</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/mongodb/">MongoDB</a>, 
+    
+        <a href="/tags/cloud/">Cloud</a>, 
+    
+        <a href="/tags/aws/">AWS</a>, 
+    
+        <a href="/tags/aws-lambda/">AWS Lambda</a>, 
+    
+        <a href="/tags/serverless/">Serverless</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h3 id="reading-time-10-min-30-sec">Reading time: 10 min 30 sec</h3>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ul>
+  <li><a href="#mongodb-and-aws-lambda-a-successful-marriage">MongoDB and AWS Lambda: a successful marriage?</a></li>
+  <li><a href="#mongodb-and-aws-lambda-why">Why?</a></li>
+  <li><a href="#mongodb-and-aws-lambda-performance">Performance</a></li>
+  <li><a href="#cold-start-vs-warm-performance">Cold start vs warm performance</a></li>
+  <li><a href="#performance-conclusion">Performance conclusions</a></li>
+  <li><a href="#vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster">VPC peering between AWS and MongoDB Atlas</a></li>
+  <li><a href="#useful-links">Useful links</a></li>
+</ul>
+
+<h1 id="mongodb-and-aws-lambda-a-successful-marriage">MongoDB and AWS Lambda: a successful marriage?</h1>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/rings.png" width="15%" height="15%" />
+</div>
+
+<p>Can we use MongoDB Atlas when working with AWS Lambda?<br />
+Yes we can! <br />
+It’s simple enough to setup and above all also performing well!</p>
+
+<p>This blog concerns mainly two things:</p>
+<ul>
+  <li>Why would you use MongoDB + AWS Lambda and how does it perform</li>
+  <li>How to create a production grade setup with vpc-peering</li>
+</ul>
+
+<h1 id="why">Why?</h1>
+<p>As I am both a fan of AWS Lambda and MongoDB Atlas it was fun for me to marry them.<br />
+However in the real world we don’t do things for fun alone.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/mongodb-plus-aws-lambda.png" width="70%" height="70%" />
+</div>
+
+<p>What are the motives to combine MongoDB Atlas and AWS Lambda?</p>
+
+<ul>
+  <li>Combine the serverless capabilities of Lambda with the MongoDB strong points</li>
+  <li>Payment model - In case of MongoDB you provision your cluster and you know what you’ll pay for it, clusters can grow with your business without downtime or code changes.</li>
+  <li>Flexible Data Acces - MongoDB has a rich query language and aggregation framework. On top of your data in MongoDB you can build nice dashboards for business intelligence. (eg. <a href="https://www.mongodb.com/products/charts">MongoDB Charts</a>)</li>
+  <li>Indexes - Supports up to 64 indexes per collection with a wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes</li>
+  <li>Large documents allowed. A MongoDB document can be up to 16 Mb.</li>
+  <li>Performance - a built-in cache and support for lots of secondary indexes that can span across arrays and subdocuments, making virtually all queries very fast</li>
+  <li>Tunable consistency<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></li>
+  <li>Observability - MongoDB exposes more than 100 different metrics and has a built-in performance advisor. Because “you can’t optimize what you can’t measure.”</li>
+  <li>Platform capabilities<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></li>
+  <li>Joinable documents <sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup></li>
+</ul>
+
+<h1 id="performance">Performance</h1>
+<p>We are using AWS Lambda to store items in our MongoDB collection.<br />
+I want to measure the performance in two ways:</p>
+<ul>
+  <li>Our Lambda Function has to setup a connection with the MongoDB cluster.
+Since we are using Lambda we have to deal with a cold start if the lambda has not been invoked shortly before.
+<strong>How is the cold start behavior when connections to the cluster have to be setup?</strong></li>
+  <li>When the Lambda has been invoked shortly before the connection is cached. 
+<strong>How quickly does a save to the database happen when the Lambda Function is warm?</strong></li>
+</ul>
+
+<p>Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how to do just that, read more about it in the second part of this post).</p>
+
+<p>Since we are dealing with Lambda Functions we also have to deal with a phenomenon called “cold start”. 
+This is the case for any Lambda Function no matter what database it connects to.
+MongoDB mentions on there <a href="https://docs.atlas.mongodb.com/best-practices-connecting-to-aws-lambda/">website</a> that there is an initial startup delay due to this.</p>
+
+<p>I am testing using the following setup:</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Architecture.png" />
+</div>
+
+<p>Items are coming in via requests through the API.
+The <code class="highlighter-rouge">APILambda</code> drops the items on a queue.<br />
+A second Lambda Function <code class="highlighter-rouge">SaveMongoDBLambda</code> stores the items in the MongoDB database.
+Of this second Lambda Function I will measure the performance:</p>
+<ul>
+  <li>during a cold start</li>
+  <li>when the Lambda is already warm</li>
+</ul>
+
+<p>Other things important to know:</p>
+<ul>
+  <li>In the above setup I limit the maximum number of concurrently running Lambda Functions instances of the <code class="highlighter-rouge">SaveMongoDBLambda</code> to 10.</li>
+  <li>The Lambda Functions are written in <code class="highlighter-rouge">Java</code> which will add time to the coldstart performance compared to <code class="highlighter-rouge">Python</code> or <code class="highlighter-rouge">NodeJS</code>.</li>
+  <li>In this case I am reading the items from the queue one by one. 
+Also storing them one by one.
+To optimize we would do this in batch.<br />
+Here we want to measure performance and we don’t want the batch size to vary.
+So we store them one by one.</li>
+  <li>The lambda function runs in a VPC to be able to make a peering connection to the MongoDB Atlas Cluster.</li>
+  <li>The items that are being stored are only a few tens of bytes large.</li>
+  <li>In total 1000 items were inserted</li>
+</ul>
+
+<h2 id="the-results-analyzing-the-results-using-xray">The results: analyzing the results using XRAY</h2>
+<p>I am using the AWS Xray SDK to trace and analyze the requests flowing through the application.</p>
+
+<p>Here is a graph showing you the <code class="highlighter-rouge">Response Distribution</code> of the <code class="highlighter-rouge">SaveMongoDBLambda</code>. 
+Hence, this is the time that the Lambda Function took to execute.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png" width="50%" height="50%" />
+</div>
+
+<p>We notice two things.</p>
+<ul>
+  <li>The graph is heavily balanced to the left. 
+Most of the requests took very little time.</li>
+  <li>On the right end of the spectrum we also see a couple of request. 
+This are the cold starts that occur the first time a Lambda Function is invoked.</li>
+</ul>
+
+<p>From the XRAY service map we can see that on average the Lambda Function took 174 milliseconds to execute.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/service-map.png" width="70%" height="70%" />
+</div>
+
+<h3 id="cold-start-vs-warm-performance">Cold start vs warm performance</h3>
+<p>We can further dissect a cold start with XRAY.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png" width="80%" height="80%" />
+</div>
+
+<p>We see that:</p>
+<ul>
+  <li>Bootstrapping the runtime and code in the vpc lambda took 1.7 seconds.</li>
+  <li>The initial connection is being made to the database which takes 5 seconds. 
+This connection overhead is also there when using AWS native databases.
+Though then it will be smaller.</li>
+  <li>Saving the actual item took 1.1 second.</li>
+</ul>
+
+<p>That’s for the first execution of the Lambda Function.
+How does this compare against a Lambda function that is already “warm”.
+This is how most invocations typically hit your Lambda Function.
+This means the boostrapping is already done and the connections are initialised.<br />
+We can also analyse a warm lambda with XRAY.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png" width="80%" height="80%" />
+</div>
+
+<p>Now we notice:</p>
+<ul>
+  <li>Total execution took only 18 ms!</li>
+  <li>There is no longer any initialization overhead.</li>
+  <li>Storing the item took 6 ms!</li>
+</ul>
+
+<h2 id="performance-conclusions">Performance conclusions</h2>
+
+<ul>
+  <li>Storing items in the database when the Lambda Function is already warm is blazingly fast.</li>
+  <li>Initializing the connection in case of a cold start adds time to the cold start.</li>
+</ul>
+
+<h1 id="vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster">VPC peering: connect your Lambda Functions with your MongoDB Atlas Cluster</h1>
+<p>Want to know how to set up a VPC peering connection between your AWS VPC and MongoDB Atlas Cluster?
+Read on..</p>
+
+<p>We want to deploy a production grade setup.<br />
+This means we won’t connect over the open internet.
+We’ll setup a VPC peering connection between our Atlas Cluster and our AWS VPC.</p>
+
+<h2 id="the-aws-side">The AWS side</h2>
+<p>Let’s setup a new VPC.
+In this VPC we will create a public subnet.<br />
+A route table will be associated with that subnet.
+In the route table we’ll define that we want to route all database traffic through the VPC peering connection towards the Atlas cluster.</p>
+
+<p>In the AWS User Interface navigate to the VPC dashboard and click <code class="highlighter-rouge">Launch VPC Wizard</code>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png" width="70%" height="70%" />
+</div>
+
+<p>Select that you want to create a VPC with a single public subnet.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/2-VPC-with-single-public-subnet.png" width="70%" height="70%" />
+</div>
+
+<p>Specify how big you want the IP range of this VPC to be.
+If you have trouble figuring out the relation between the <code class="highlighter-rouge">CIDR block</code> and the <code class="highlighter-rouge">Network Range</code> use one of the online converters to help you. (<a href="https://www.ipaddressguide.com/cidr" target="_blank" rel="noopener noreferrer">https://www.ipaddressguide.com/cidr</a>) )<br />
+Give your VPC and public subnet a name.<br />
+Make sure that <code class="highlighter-rouge">enable DNS hostnames</code> is enabled.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="100%" height="100%" />
+</div>
+
+<p>Your VPC has been successfully created.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png" width="70%" height="70%" />
+</div>
+
+<p>If you now navigate to the subnet tab you see that a new subnet has been created.<br />
+When going to the route tables tab you see two new route tables.
+That is a route table for your VPC and a route table specifically for your public subnet.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png" width="90%" height="90%" />
+</div>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png" width="90%" height="90%" />
+</div>
+
+<p>Before we go to MongoDB Atlas get some specific data about your VPC:</p>
+<ul>
+  <li>From the subnet tab write down the VPC-id and IPv4 CIDR for the new subnet that was just created.</li>
+  <li>Under the security group tab find the security group that is associated with your vpc.
+Write this security group identifier down.</li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png" width="90%" height="90%" />
+</div>
+
+<h2 id="the-mongodb-side">The MongoDB side</h2>
+
+<p>Setup the MongoDB cluster.
+<strong>This has to be a dedicated cluster which means you’ll need at least an M10.</strong></p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Setup-m10-cluster.png" width="70%" height="70%" />
+</div>
+
+<p>Wait till your cluster is set up.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png" width="70%" height="70%" />
+</div>
+
+<p>In the Atlas UI navigate to <code class="highlighter-rouge">Security</code> -&gt; <code class="highlighter-rouge">Network Access</code>.<br />
+Hit <code class="highlighter-rouge">+ new peering connection</code> and select AWS as cloud provider.<br />
+The below screen will pop up. Here you have to specify some configuration.</p>
+<ul>
+  <li>Account ID: your AWS account Id which you can find under the ‘My Account’ in the AWS console</li>
+  <li>VPC-id: Fill in the VPC-id that you copied from the vpc that you just created in AWS</li>
+  <li>VPC CIDR: specify the CIDR block that you used to configure your vpc with on AWS</li>
+  <li>region: the region where you created the AWS vpc</li>
+</ul>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png" width="70%" height="70%" />
+</div>
+
+<p>Hit <code class="highlighter-rouge">Instantiate peering</code> !</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png" width="70%" height="70%" />
+</div>
+
+<p>Notice that MongoDB created an <code class="highlighter-rouge">Atlas CIDR</code> which specifies the IP range in which your Atlas cluster will reside.  Write this down, you will need it later on.
+We are connecting the Atlas IP range with the IP range of our AWS VPC, hence VPC peering.</p>
+
+<p>The peering connection is now pending.</p>
+
+<p>Go back to AWS.</p>
+
+<h2 id="the-aws-side-again">The AWS side (again)</h2>
+<p>In the VPC service of AWS go to <code class="highlighter-rouge">Peering Connections</code>.<br />
+You will notice a new peering request with status <code class="highlighter-rouge">Pending Acceptance</code>.</p>
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%" />
+</div>
+
+<p>Accept this peering request!</p>
+
+<p>Now you have to update your routing tables.
+AWS will also ask you <code class="highlighter-rouge">Do you want to update your routing tables</code> when you accept the peering request.  Click <code class="highlighter-rouge">Modify my route tables now</code>.
+We will deploy our Lambda Functions in the public subnet of our VPC.
+So we want to modify the route table that is associated with that subnet.
+You can recognize that route table because it has an <strong>explicit subnet association</strong>.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%" />
+</div>
+
+<p>Selecting the route table with an <strong>explicit subnet association</strong> and click <code class="highlighter-rouge">edit routes</code>.
+Add a route towards your Atlas cluster as indicated in the image below.<br />
+What we are actually saying here is that we want to route all traffic to our Atlas cluster through the VPC peering connection.<br />
+As <code class="highlighter-rouge">Destination</code> choose the Atlas CIDR and under <code class="highlighter-rouge">Target</code> choose your VPC peering connection.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png" width="100%" height="100%" />
+</div>
+
+<p>Updating the route table will update the status of the peering connection to <strong>available</strong> in the Atlas UI.<br />
+This takes a couple of minutes.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/13-peering-available.png" width="100%" height="100%" />
+</div>
+
+<h3 id="deploy-your-lambda-functions">Deploy your lambda functions!</h3>
+
+<p>Now it is time to deploy your Lambda Function in the VPC that you just configured.
+This Lambda Function will connect to your MongoDB Atlas Cluster via the vpc-peering we have set up.</p>
+
+<p>I created a project that you can use to deploy a Lambda Function in your own vpc.
+You can then use it to store items in your MongoDB collection.<br />
+The repository can be found <a href="https://github.com/Nxtra/awslambda-mongodb-vpc-peering" target="_blank" rel="noopener noreferrer">here</a>.<br />
+Let me be clear and state that in a real world project you don’t want the password hard coded in the connection string.
+An option is to put it into <code class="highlighter-rouge">AWS Secret Manager</code> and have your lambda retrieve it there.</p>
+
+<p>You need to update certain config values in this project to make it work for your own vpc!
+To deploy a Lambda Function in your VPC you have to configure the VPC config:</p>
+<ul>
+  <li>use the pubic subnet that we just created</li>
+  <li>specify the security group of you AWS vpc
+You also have to update the connection string.</li>
+</ul>
+
+<p>The following instructions can also be found in the <code class="highlighter-rouge">README</code> of the project.</p>
+
+<p>In <code class="highlighter-rouge">template.yaml</code>:</p>
+<ul>
+  <li>update the environment variable that specifies the connection string, database  and collection to your own connection string, database and connection.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Environment:
+      Variables:
+        MONGODB_CONNECTION_STRING: mongodb+srv://&lt;user&gt;:&lt;password&gt;@&lt;your-cluster&gt;.mongodb.net/test?retryWrites=true&amp;w=majority
+        DATABASE: yourDatabaseName
+        COLLECTION: yourCollectionName
+</code></pre></div>    </div>
+  </li>
+  <li>update the <code class="highlighter-rouge">VpcConfig</code> with your own vpc security group and subnet:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    VpcConfig:
+      SecurityGroupIds:
+        - sg-01004aee8e2eb4f33
+      SubnetIds:
+        - subnet-028397e077f1f8e7a
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Deploy your Lambda functions to your VPC and test them out!
+Run <code class="highlighter-rouge">./deploy.sh</code> to deploy the Lambda Function to your account.
+Running this script successfully will output the URL on which you can send an item through the API towards the Lambda Function.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/stack-outputs.png" width="100%" height="100%" />
+</div>
+
+<p>In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png" width="70%" height="70%" />
+</div>
+
+<p>Use this URL that was outputted to trigger the Lambda Function.
+This will return the <code class="highlighter-rouge">ObjectId</code> of the item in your MongoDB collection!</p>
+
+<div style="text-align: center;">
+  <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png" width="100%" height="100%" />
+</div>
+
+<p>Yihaa! MongoDB and AWS Lambda are happily married!</p>
+
+<h2 id="useful-links">Useful links</h2>
+<ul>
+  <li><a href="https://docs.atlas.mongodb.com/security-vpc-peering/">https://docs.atlas.mongodb.com/security-vpc-peering/</a></li>
+  <li><a href="https://aws.amazon.com/xray/">https://aws.amazon.com/xray/</a></li>
+  <li><a href="https://www.mongodb.com/compare/mongodb-dynamodb">https://www.mongodb.com/compare/mongodb-dynamodb</a></li>
+  <li><a href="https://www.educba.com/mongodb-vs-dynamodb/">https://www.educba.com/mongodb-vs-dynamodb/</a></li>
+  <li><a href="https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs">https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs</a></li>
+</ul>
+
+<h2 id="footnotes">Footnotes</h2>
+<p>Operations can be grouped in full ACID-compliant transactions at any scale. 
+In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Tunable consistency: a variety of consistency levels allowing client applications to select the trade-offs they want to make when it comes to the strongest consistency or the lowest latency. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>Joining documents: when rich documents that are loosely coupled (users and invoices for instance) need to be queried, MongoDB can join documents together inside the database, making your code more light. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html&title=Marrying MongoDB Atlas and AWS Lambda&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Marrying MongoDB Atlas and AWS Lambda&url=https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/nick-van-hoof" class="image spotlight-image" title="">
+            <img src="/img/author/nick-van-hoof.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he’s also working with IoT and AI.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

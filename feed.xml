@@ -1,5 +1,397 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-02-12T21:05:24+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">eXperience Agile 2019 - Part 2</title><link href="https://ordina-jworks.github.io/conference/2020/02/12/experience-agile-2019-part-2.html" rel="alternate" type="text/html" title="eXperience Agile 2019 - Part 2" /><published>2020-02-12T00:00:00+00:00</published><updated>2020-02-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2020/02/12/experience-agile-2019-part-2</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2020/02/12/experience-agile-2019-part-2.html">&lt;p&gt;Our first blogpost about the &lt;a href=&quot;https://www.experienceagile.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;eXperienceAgile conference&lt;/a&gt; covered four interesting talks.&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-02-19T07:42:45+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Marrying MongoDB Atlas and AWS Lambda</title><link href="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html" rel="alternate" type="text/html" title="Marrying MongoDB Atlas and AWS Lambda" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html">&lt;h3 id=&quot;reading-time-10-min-30-sec&quot;&gt;Reading time: 10 min 30 sec&lt;/h3&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#mongodb-and-aws-lambda-a-successful-marriage&quot;&gt;MongoDB and AWS Lambda: a successful marriage?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mongodb-and-aws-lambda-why&quot;&gt;Why?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mongodb-and-aws-lambda-performance&quot;&gt;Performance&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#cold-start-vs-warm-performance&quot;&gt;Cold start vs warm performance&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#performance-conclusion&quot;&gt;Performance conclusions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster&quot;&gt;VPC peering between AWS and MongoDB Atlas&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#useful-links&quot;&gt;Useful links&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;mongodb-and-aws-lambda-a-successful-marriage&quot;&gt;MongoDB and AWS Lambda: a successful marriage?&lt;/h1&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/rings.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Can we use MongoDB Atlas when working with AWS Lambda?&lt;br /&gt;
+Yes we can! &lt;br /&gt;
+It’s simple enough to setup and above all also performing well!&lt;/p&gt;
+
+&lt;p&gt;This blog concerns mainly two things:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Why would you use MongoDB + AWS Lambda and how does it perform&lt;/li&gt;
+  &lt;li&gt;How to create a production grade setup with vpc-peering&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;why&quot;&gt;Why?&lt;/h1&gt;
+&lt;p&gt;As I am both a fan of AWS Lambda and MongoDB Atlas it was fun for me to marry them.&lt;br /&gt;
+However in the real world we don’t do things for fun alone.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/mongodb-plus-aws-lambda.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;What are the motives to combine MongoDB Atlas and AWS Lambda?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Combine the serverless capabilities of Lambda with the MongoDB strong points&lt;/li&gt;
+  &lt;li&gt;Payment model - In case of MongoDB you provision your cluster and you know what you’ll pay for it, clusters can grow with your business without downtime or code changes.&lt;/li&gt;
+  &lt;li&gt;Flexible Data Acces - MongoDB has a rich query language and aggregation framework. On top of your data in MongoDB you can build nice dashboards for business intelligence. (eg. &lt;a href=&quot;https://www.mongodb.com/products/charts&quot;&gt;MongoDB Charts&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Indexes - Supports up to 64 indexes per collection with a wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes&lt;/li&gt;
+  &lt;li&gt;Large documents allowed. A MongoDB document can be up to 16 Mb.&lt;/li&gt;
+  &lt;li&gt;Performance - a built-in cache and support for lots of secondary indexes that can span across arrays and subdocuments, making virtually all queries very fast&lt;/li&gt;
+  &lt;li&gt;Tunable consistency&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+  &lt;li&gt;Observability - MongoDB exposes more than 100 different metrics and has a built-in performance advisor. Because “you can’t optimize what you can’t measure.”&lt;/li&gt;
+  &lt;li&gt;Platform capabilities&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+  &lt;li&gt;Joinable documents &lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;performance&quot;&gt;Performance&lt;/h1&gt;
+&lt;p&gt;We are using AWS Lambda to store items in our MongoDB collection.&lt;br /&gt;
+I want to measure the performance in two ways:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Our Lambda Function has to setup a connection with the MongoDB cluster.
+Since we are using Lambda we have to deal with a cold start if the lambda has not been invoked shortly before.
+&lt;strong&gt;How is the cold start behavior when connections to the cluster have to be setup?&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;When the Lambda has been invoked shortly before the connection is cached. 
+&lt;strong&gt;How quickly does a save to the database happen when the Lambda Function is warm?&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how to do just that, read more about it in the second part of this post).&lt;/p&gt;
+
+&lt;p&gt;Since we are dealing with Lambda Functions we also have to deal with a phenomenon called “cold start”. 
+This is the case for any Lambda Function no matter what database it connects to.
+MongoDB mentions on there &lt;a href=&quot;https://docs.atlas.mongodb.com/best-practices-connecting-to-aws-lambda/&quot;&gt;website&lt;/a&gt; that there is an initial startup delay due to this.&lt;/p&gt;
+
+&lt;p&gt;I am testing using the following setup:&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Architecture.png&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Items are coming in via requests through the API.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;APILambda&lt;/code&gt; drops the items on a queue.&lt;br /&gt;
+A second Lambda Function &lt;code class=&quot;highlighter-rouge&quot;&gt;SaveMongoDBLambda&lt;/code&gt; stores the items in the MongoDB database.
+Of this second Lambda Function I will measure the performance:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;during a cold start&lt;/li&gt;
+  &lt;li&gt;when the Lambda is already warm&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Other things important to know:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;In the above setup I limit the maximum number of concurrently running Lambda Functions instances of the &lt;code class=&quot;highlighter-rouge&quot;&gt;SaveMongoDBLambda&lt;/code&gt; to 10.&lt;/li&gt;
+  &lt;li&gt;The Lambda Functions are written in &lt;code class=&quot;highlighter-rouge&quot;&gt;Java&lt;/code&gt; which will add time to the coldstart performance compared to &lt;code class=&quot;highlighter-rouge&quot;&gt;Python&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;NodeJS&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;In this case I am reading the items from the queue one by one. 
+Also storing them one by one.
+To optimize we would do this in batch.&lt;br /&gt;
+Here we want to measure performance and we don’t want the batch size to vary.
+So we store them one by one.&lt;/li&gt;
+  &lt;li&gt;The lambda function runs in a VPC to be able to make a peering connection to the MongoDB Atlas Cluster.&lt;/li&gt;
+  &lt;li&gt;The items that are being stored are only a few tens of bytes large.&lt;/li&gt;
+  &lt;li&gt;In total 1000 items were inserted&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-results-analyzing-the-results-using-xray&quot;&gt;The results: analyzing the results using XRAY&lt;/h2&gt;
+&lt;p&gt;I am using the AWS Xray SDK to trace and analyze the requests flowing through the application.&lt;/p&gt;
+
+&lt;p&gt;Here is a graph showing you the &lt;code class=&quot;highlighter-rouge&quot;&gt;Response Distribution&lt;/code&gt; of the &lt;code class=&quot;highlighter-rouge&quot;&gt;SaveMongoDBLambda&lt;/code&gt;. 
+Hence, this is the time that the Lambda Function took to execute.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We notice two things.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The graph is heavily balanced to the left. 
+Most of the requests took very little time.&lt;/li&gt;
+  &lt;li&gt;On the right end of the spectrum we also see a couple of request. 
+This are the cold starts that occur the first time a Lambda Function is invoked.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;From the XRAY service map we can see that on average the Lambda Function took 174 milliseconds to execute.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/service-map.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;cold-start-vs-warm-performance&quot;&gt;Cold start vs warm performance&lt;/h3&gt;
+&lt;p&gt;We can further dissect a cold start with XRAY.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We see that:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Bootstrapping the runtime and code in the vpc lambda took 1.7 seconds.&lt;/li&gt;
+  &lt;li&gt;The initial connection is being made to the database which takes 5 seconds. 
+This connection overhead is also there when using AWS native databases.
+Though then it will be smaller.&lt;/li&gt;
+  &lt;li&gt;Saving the actual item took 1.1 second.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That’s for the first execution of the Lambda Function.
+How does this compare against a Lambda function that is already “warm”.
+This is how most invocations typically hit your Lambda Function.
+This means the boostrapping is already done and the connections are initialised.&lt;br /&gt;
+We can also analyse a warm lambda with XRAY.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we notice:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Total execution took only 18 ms!&lt;/li&gt;
+  &lt;li&gt;There is no longer any initialization overhead.&lt;/li&gt;
+  &lt;li&gt;Storing the item took 6 ms!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;performance-conclusions&quot;&gt;Performance conclusions&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Storing items in the database when the Lambda Function is already warm is blazingly fast.&lt;/li&gt;
+  &lt;li&gt;Initializing the connection in case of a cold start adds time to the cold start.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster&quot;&gt;VPC peering: connect your Lambda Functions with your MongoDB Atlas Cluster&lt;/h1&gt;
+&lt;p&gt;Want to know how to set up a VPC peering connection between your AWS VPC and MongoDB Atlas Cluster?
+Read on..&lt;/p&gt;
+
+&lt;p&gt;We want to deploy a production grade setup.&lt;br /&gt;
+This means we won’t connect over the open internet.
+We’ll setup a VPC peering connection between our Atlas Cluster and our AWS VPC.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-aws-side&quot;&gt;The AWS side&lt;/h2&gt;
+&lt;p&gt;Let’s setup a new VPC.
+In this VPC we will create a public subnet.&lt;br /&gt;
+A route table will be associated with that subnet.
+In the route table we’ll define that we want to route all database traffic through the VPC peering connection towards the Atlas cluster.&lt;/p&gt;
+
+&lt;p&gt;In the AWS User Interface navigate to the VPC dashboard and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Launch VPC Wizard&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Select that you want to create a VPC with a single public subnet.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/2-VPC-with-single-public-subnet.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Specify how big you want the IP range of this VPC to be.
+If you have trouble figuring out the relation between the &lt;code class=&quot;highlighter-rouge&quot;&gt;CIDR block&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;Network Range&lt;/code&gt; use one of the online converters to help you. (&lt;a href=&quot;https://www.ipaddressguide.com/cidr&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.ipaddressguide.com/cidr&lt;/a&gt;) )&lt;br /&gt;
+Give your VPC and public subnet a name.&lt;br /&gt;
+Make sure that &lt;code class=&quot;highlighter-rouge&quot;&gt;enable DNS hostnames&lt;/code&gt; is enabled.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Your VPC has been successfully created.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If you now navigate to the subnet tab you see that a new subnet has been created.&lt;br /&gt;
+When going to the route tables tab you see two new route tables.
+That is a route table for your VPC and a route table specifically for your public subnet.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Before we go to MongoDB Atlas get some specific data about your VPC:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;From the subnet tab write down the VPC-id and IPv4 CIDR for the new subnet that was just created.&lt;/li&gt;
+  &lt;li&gt;Under the security group tab find the security group that is associated with your vpc.
+Write this security group identifier down.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;the-mongodb-side&quot;&gt;The MongoDB side&lt;/h2&gt;
+
+&lt;p&gt;Setup the MongoDB cluster.
+&lt;strong&gt;This has to be a dedicated cluster which means you’ll need at least an M10.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Setup-m10-cluster.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Wait till your cluster is set up.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the Atlas UI navigate to &lt;code class=&quot;highlighter-rouge&quot;&gt;Security&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Network Access&lt;/code&gt;.&lt;br /&gt;
+Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;+ new peering connection&lt;/code&gt; and select AWS as cloud provider.&lt;br /&gt;
+The below screen will pop up. Here you have to specify some configuration.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Account ID: your AWS account Id which you can find under the ‘My Account’ in the AWS console&lt;/li&gt;
+  &lt;li&gt;VPC-id: Fill in the VPC-id that you copied from the vpc that you just created in AWS&lt;/li&gt;
+  &lt;li&gt;VPC CIDR: specify the CIDR block that you used to configure your vpc with on AWS&lt;/li&gt;
+  &lt;li&gt;region: the region where you created the AWS vpc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;Instantiate peering&lt;/code&gt; !&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Notice that MongoDB created an &lt;code class=&quot;highlighter-rouge&quot;&gt;Atlas CIDR&lt;/code&gt; which specifies the IP range in which your Atlas cluster will reside.  Write this down, you will need it later on.
+We are connecting the Atlas IP range with the IP range of our AWS VPC, hence VPC peering.&lt;/p&gt;
+
+&lt;p&gt;The peering connection is now pending.&lt;/p&gt;
+
+&lt;p&gt;Go back to AWS.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-aws-side-again&quot;&gt;The AWS side (again)&lt;/h2&gt;
+&lt;p&gt;In the VPC service of AWS go to &lt;code class=&quot;highlighter-rouge&quot;&gt;Peering Connections&lt;/code&gt;.&lt;br /&gt;
+You will notice a new peering request with status &lt;code class=&quot;highlighter-rouge&quot;&gt;Pending Acceptance&lt;/code&gt;.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Accept this peering request!&lt;/p&gt;
+
+&lt;p&gt;Now you have to update your routing tables.
+AWS will also ask you &lt;code class=&quot;highlighter-rouge&quot;&gt;Do you want to update your routing tables&lt;/code&gt; when you accept the peering request.  Click &lt;code class=&quot;highlighter-rouge&quot;&gt;Modify my route tables now&lt;/code&gt;.
+We will deploy our Lambda Functions in the public subnet of our VPC.
+So we want to modify the route table that is associated with that subnet.
+You can recognize that route table because it has an &lt;strong&gt;explicit subnet association&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Selecting the route table with an &lt;strong&gt;explicit subnet association&lt;/strong&gt; and click &lt;code class=&quot;highlighter-rouge&quot;&gt;edit routes&lt;/code&gt;.
+Add a route towards your Atlas cluster as indicated in the image below.&lt;br /&gt;
+What we are actually saying here is that we want to route all traffic to our Atlas cluster through the VPC peering connection.&lt;br /&gt;
+As &lt;code class=&quot;highlighter-rouge&quot;&gt;Destination&lt;/code&gt; choose the Atlas CIDR and under &lt;code class=&quot;highlighter-rouge&quot;&gt;Target&lt;/code&gt; choose your VPC peering connection.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Updating the route table will update the status of the peering connection to &lt;strong&gt;available&lt;/strong&gt; in the Atlas UI.&lt;br /&gt;
+This takes a couple of minutes.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/13-peering-available.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;deploy-your-lambda-functions&quot;&gt;Deploy your lambda functions!&lt;/h3&gt;
+
+&lt;p&gt;Now it is time to deploy your Lambda Function in the VPC that you just configured.
+This Lambda Function will connect to your MongoDB Atlas Cluster via the vpc-peering we have set up.&lt;/p&gt;
+
+&lt;p&gt;I created a project that you can use to deploy a Lambda Function in your own vpc.
+You can then use it to store items in your MongoDB collection.&lt;br /&gt;
+The repository can be found &lt;a href=&quot;https://github.com/Nxtra/awslambda-mongodb-vpc-peering&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;br /&gt;
+Let me be clear and state that in a real world project you don’t want the password hard coded in the connection string.
+An option is to put it into &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS Secret Manager&lt;/code&gt; and have your lambda retrieve it there.&lt;/p&gt;
+
+&lt;p&gt;You need to update certain config values in this project to make it work for your own vpc!
+To deploy a Lambda Function in your VPC you have to configure the VPC config:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;use the pubic subnet that we just created&lt;/li&gt;
+  &lt;li&gt;specify the security group of you AWS vpc
+You also have to update the connection string.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following instructions can also be found in the &lt;code class=&quot;highlighter-rouge&quot;&gt;README&lt;/code&gt; of the project.&lt;/p&gt;
+
+&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;template.yaml&lt;/code&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;update the environment variable that specifies the connection string, database  and collection to your own connection string, database and connection.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Environment:
+      Variables:
+        MONGODB_CONNECTION_STRING: mongodb+srv://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;your-cluster&amp;gt;.mongodb.net/test?retryWrites=true&amp;amp;w=majority
+        DATABASE: yourDatabaseName
+        COLLECTION: yourCollectionName
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;update the &lt;code class=&quot;highlighter-rouge&quot;&gt;VpcConfig&lt;/code&gt; with your own vpc security group and subnet:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    VpcConfig:
+      SecurityGroupIds:
+        - sg-01004aee8e2eb4f33
+      SubnetIds:
+        - subnet-028397e077f1f8e7a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Deploy your Lambda functions to your VPC and test them out!
+Run &lt;code class=&quot;highlighter-rouge&quot;&gt;./deploy.sh&lt;/code&gt; to deploy the Lambda Function to your account.
+Running this script successfully will output the URL on which you can send an item through the API towards the Lambda Function.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/stack-outputs.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Use this URL that was outputted to trigger the Lambda Function.
+This will return the &lt;code class=&quot;highlighter-rouge&quot;&gt;ObjectId&lt;/code&gt; of the item in your MongoDB collection!&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Yihaa! MongoDB and AWS Lambda are happily married!&lt;/p&gt;
+
+&lt;h2 id=&quot;useful-links&quot;&gt;Useful links&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.atlas.mongodb.com/security-vpc-peering/&quot;&gt;https://docs.atlas.mongodb.com/security-vpc-peering/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/xray/&quot;&gt;https://aws.amazon.com/xray/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.mongodb.com/compare/mongodb-dynamodb&quot;&gt;https://www.mongodb.com/compare/mongodb-dynamodb&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.educba.com/mongodb-vs-dynamodb/&quot;&gt;https://www.educba.com/mongodb-vs-dynamodb/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs&quot;&gt;https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
+&lt;p&gt;Operations can be grouped in full ACID-compliant transactions at any scale. 
+In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;Tunable consistency: a variety of consistency levels allowing client applications to select the trade-offs they want to make when it comes to the strongest consistency or the lowest latency. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;Joining documents: when rich documents that are loosely coupled (users and invoices for instance) need to be queried, MongoDB can join documents together inside the database, making your code more light. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he's also working with IoT and AI.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="MongoDB" /><category term="Cloud" /><category term="AWS" /><category term="AWS Lambda" /><category term="Serverless" /><summary type="html">Reading time: 10 min 30 sec</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">eXperience Agile 2019 - Part 2</title><link href="https://ordina-jworks.github.io/conference/2020/02/12/experience-agile-2019-part-2.html" rel="alternate" type="text/html" title="eXperience Agile 2019 - Part 2" /><published>2020-02-12T00:00:00+00:00</published><updated>2020-02-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2020/02/12/experience-agile-2019-part-2</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2020/02/12/experience-agile-2019-part-2.html">&lt;p&gt;Our first blogpost about the &lt;a href=&quot;https://www.experienceagile.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;eXperienceAgile conference&lt;/a&gt; covered four interesting talks.&lt;br /&gt;
 However, those were not the only talks so this post will dive deeper into some of the other ones.&lt;/p&gt;
 
 &lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
@@ -3020,508 +3412,4 @@ In this blogpost, I have given some examples of metrics and tools that I use to 
 
 &lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Great Success&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-great-success.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;As with all things agile, they might or might not work for your situation, but at the least, it might have given you some ideas!&lt;/strong&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Scrum Master&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Scrum Master at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>wouter.nivelle@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Reporting" /><summary type="html">Thoughts and ideas about reporting for agile projects.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-11-20-agile-reporting/agile-reporting.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-11-20-agile-reporting/agile-reporting.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Devoxx Belgium 2019</title><link href="https://ordina-jworks.github.io/conference/2019/11/18/devoxx-2019.html" rel="alternate" type="text/html" title="Devoxx Belgium 2019" /><published>2019-11-18T00:00:00+00:00</published><updated>2019-11-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2019/11/18/devoxx-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2019/11/18/devoxx-2019.html">&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#keynotes&quot;&gt;Keynotes&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#talks&quot;&gt;Talks&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;Devoxx Belgium is a Java community conference in Antwerp, Belgium.
-Every year in November it is organised and always has a great assortment of bleeding edge technology talks, methodology talks and architectual insights.&lt;/p&gt;
-
-&lt;p&gt;During this edition, about 30 JWorks colleagues joined talks at Devoxx.
-Ordina again had a very popular booth by providing attendees nachos, the venue is a cinema after all.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; alt=&quot;Ordina booth&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/booth.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;keynotes&quot;&gt;Keynotes&lt;/h2&gt;
-
-&lt;h3 id=&quot;the-hitchhikers-guide-to-diversity-dont-panic&quot;&gt;The Hitchhiker’s Guide to Diversity (Don’t panic!)&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/audrey_neveu&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Audrey Neveu&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/audrey_neveu.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/audrey_neveu&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Audrey Neveu&lt;/a&gt; gave this inspirational keynote.&lt;/p&gt;
-
-&lt;p&gt;This talks, following the same format as the similarly titled book, provides a chapter by chapter overview of the struggles and issues with diversity in our industry and what steps our community can take to improve.
-The key takeaway is to be at least aware of the issue and to try to be sensitive to undertones in jokes and messages towards all members of our community, especially as they might not seem harmful at first sight.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=DSzDFZ0Ue1w&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;qualities-of-a-highly-effective-architect&quot;&gt;Qualities of a Highly Effective Architect&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/venkat_s&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Venkat Subramaniam&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/venkat.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;A typical &lt;a href=&quot;https://twitter.com/venkat_s&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Venkat Subramaniam&lt;/a&gt; talk.
-In a funny but straightforward way he explained the pitfalls, do’s and don’ts for architects.
-He provided a 12 point guideline that all architects should adhere to.
-‘Prototype beats any arguments’ and ‘Every technical decision should have an expiration label’ are just a few examples.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; alt=&quot;12 point guideline&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/venkat-12-points.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This talk is a definitely must-see as he provides his view on how architects should behave in an organisation with the usual portion of humor.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=QeKheNfO3Yg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;talks&quot;&gt;Talks&lt;/h2&gt;
-
-&lt;h3 id=&quot;running-kafka-in-kubernetes-a-practical-guide&quot;&gt;Running Kafka in Kubernetes: a practical guide&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/katestanley91&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Kate Stanley&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/kate_stanley.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This is a talk by &lt;a href=&quot;https://twitter.com/katestanley91&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kate Stanley&lt;/a&gt; from IBM.
-She works in the IBM Event Streams project.&lt;/p&gt;
-
-&lt;p&gt;This talk provides a good overview of common pitfalls with setting up Kafka on a Kubernetes cluster.
-Katherine introduces all basic concepts, so following this talk is possible without a ton of Kafka and Kubernetes knowledge.
-She discusses how several Kubernetes constructs are used to support and enabled the usage of Kafka and Zookeeper.
-Liveness and readiness probes, Stateful sets, Pod anti-affinity, Persistent volumes and headless services are all discussed.
-Lastly Katherine discusses the different options for running and managing a Kafka cluster on Kubernetes.
-Both the &lt;a href=&quot;https://github.com/IBM/charts/tree/master/stable/ibm-eventstreams-dev&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;IBM Events Helm charts&lt;/a&gt; and the &lt;a href=&quot;https://strimzi.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Strimzi operator&lt;/a&gt; are shown and discussed.
-Strimzi is an operator that allows Kafka cluster to be created and managed through CRDs in Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;She also provided us with some tips about what you need to monitor when running your Kafka cluster:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Make sure to verify your brokers on the In Sync Replicas (ISR) &lt;a href=&quot;https://docs.confluent.io/current/kafka/monitoring.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;metrics&lt;/a&gt;, especially when doing rolling upgrades so you will not lose any data.&lt;/li&gt;
-  &lt;li&gt;Verify that your Zookeeper instances have reached a quorum.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=aO2pv8W6oZU&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;best-practices-to-spring-to-kubernetes-easier-and-faster&quot;&gt;Best Practices to Spring to Kubernetes Easier and Faster&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/saturnism&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Ray Tsang&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/ray_tsang.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/saturnism&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ray Tsang&lt;/a&gt; is a developer advocate for the Google Cloud Platform.
-He is a Java Champion and works on improving the usability of GCP for Java use cases.&lt;/p&gt;
-
-&lt;p&gt;Ray shows some tools and their use cases when developing Java applications on Kubernetes.
-Most tools are shown in a small demo.&lt;/p&gt;
-
-&lt;p&gt;Discussed tools&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.testcontainers.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Testcontainers&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/cloudfoundry/java-buildpack-memory-calculator&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Java Memory Calculator&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/GoogleContainerTools/jib&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jib&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://k3s.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;k3s&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/kind&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kind&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/GoogleContainerTools/skaffold&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Skaffold&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/SchweizerischeBundesbahnen/springboot-graceful-shutdown&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Graceful shutdown library&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;He also provides some common pitfalls when developing Java for Kubernetes.
-He refers to his talk about common &lt;a href=&quot;https://saturnism.me/talk/docker-tips-and-tricks/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;docker pitfalls&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Finally, he showed a demo of how an IntelliJ plugin, when combined with Skaffold, can allow a developer to debug a container running on an actual Kubernetes cluster, straight from their local machine.
-Side note, this is super cool!&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=c16oOeTfFXM&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;apache-pulsar-101-architecture-concepts--benchmarks&quot;&gt;Apache Pulsar 101: architecture, concepts &amp;amp; benchmarks&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/@waxzce&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Quentin Adam&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/quentin_adam.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;A talk by &lt;a href=&quot;https://twitter.com/@waxzce&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Quentin Adam&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/@StevenLeRoux&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Steven Le Roux&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://pulsar.apache.org/en/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Apache Pulsar&lt;/a&gt; is a pub sub messaging system built on top of &lt;a href=&quot;https://bookkeeper.apache.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Apache Zookeeper&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Bookkeeper is a distributed writer log on which Twitter Manhattan has been based.
-Because Pulsar uses Bookkeeper as the underlying storage engine, its brokers are by design stateless freeing them up from having to deal with storage constraints.&lt;/p&gt;
-
-&lt;p&gt;A broker can have different roles:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pulsar.apache.org/docs/en/concepts-architecture-overview/#brokers&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;broker&lt;/a&gt;: this is the default option and can be compared in functionally with a Kafka broker.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pulsar.apache.org/docs/en/concepts-architecture-overview/#pulsar-proxy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;proxy&lt;/a&gt;: this deals with external communication between the brokers.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Currently a proxy just handles outside communication with the brokers, but there is a proposal &lt;a href=&quot;https://github.com/apache/pulsar/wiki/PIP-46:-Next-gen-Proxy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PIP-46&lt;/a&gt; to let it handle much more, including dealing with the Kafka binary protocol and MQTT.&lt;/p&gt;
-
-&lt;p&gt;By default, a topic will not be partitioned, but if you want you can create these without any problem as you can see &lt;a href=&quot;https://pulsar.apache.org/docs/en/concepts-messaging/#partitioned-topics&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.
-A difference with Kafka is that a partition is subdivided in segments, with the oldest segment containing the oldest entries.&lt;/p&gt;
-
-&lt;p&gt;Pulsar feels like a nice mix between streaming and standard message queuing patterns, something worth looking into.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=De6avNyQUMw&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;observing-chaos&quot;&gt;Observing Chaos&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/jpkrohling&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;jpkrohling&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/jp_krohling.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/jpkrohling&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Juraci Paixão Kröhling&lt;/a&gt; is a SE at RedHat working on the Kiali team and a maintainer of Jaeger Tracing.&lt;/p&gt;
-
-&lt;p&gt;He provides a brief overview of the basic concepts of a services mesh, its inner workings with a sidecar and their advantages and issues.
-Next, he discussed how different features of a service mesh can solve common concerns w.r.t. routing, resiliency, security, observability and distributed tracing.&lt;/p&gt;
-
-&lt;p&gt;The last part of the talk is an extensive demo of the four tools/technologies discussed in the talk: Jaeger, Istio, Quarkus and Kiala.
-A demo service is deployed and a distributed tracing example scenario is shown and discussed.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=FJ_YuUgIt8E&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;top-tips-for-terrible-tech-talks&quot;&gt;Top Tips for Terrible Tech Talks&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/chethaase&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Chet Haase&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/chethaase.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;In this talk by &lt;a href=&quot;https://twitter.com/@chethaase&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chet Haase&lt;/a&gt;, he provides us with the guidelines for what makes a good technical talk for him.&lt;/p&gt;
-
-&lt;p&gt;Don’t provide an agenda, your material should speak for itself and have a logical begin, middle and end.&lt;/p&gt;
-
-&lt;p&gt;Make sure that you are not reading slides or even speaker notes, as at that moment you will loose the focus of the audience.&lt;/p&gt;
-
-&lt;p&gt;A lot of hints also focus on simplification:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;a small, catchy title&lt;/li&gt;
-  &lt;li&gt;no walls of text&lt;/li&gt;
-  &lt;li&gt;no complicated diagrams&lt;/li&gt;
-  &lt;li&gt;simplify code, it doesn’t need to compile&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Have eye contact with the audience, but not with an individual as that might become creepy.
-Finally, learn how to project with your voice and movement, bring some power into your talk.&lt;/p&gt;
-
-&lt;p&gt;Be in the room before your talk and have a chat with some of the audience, it can be pretty rewarding for the attendees, but most importantly the first words you utter will be the most nervous ones.&lt;/p&gt;
-
-&lt;p&gt;Don’t follow a rehearsed script, do not fake emotions which you don’t have.
-But by no means skip on practice and preparation, as you need to own the material you are bringing.&lt;/p&gt;
-
-&lt;p&gt;And most importantly, be real and have fun.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=DtP9jjQJjt8&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;what-happens-after-your-startup-is-acquired&quot;&gt;What happens after your startup is acquired&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/renatatamasi&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Renata Tamasi&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/renatatamasi.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This was an amazing talk by &lt;a href=&quot;https://twitter.com/renatatamasi&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Renata Tamasi&lt;/a&gt;, founder of Samebug and currently working at Rollbar.&lt;/p&gt;
-
-&lt;p&gt;During this talk, she took us through the journey of running and later-on selling her start-up to Rollbar.
-She starts by showing the struggles they had to get the start-up going in Europe and what the pitfalls they uncovered during journey.
-Simply put, getting a SaaS based start-up off the ground and making is successful in Europe is almost impossible without the founders moving to the US.
-During their journey, Renata explained the different paths they tried with Samebug ranging from trying to raise funding for their start-up to finally getting acquired by Rollbar.&lt;/p&gt;
-
-&lt;p&gt;This is a must see talk for everyone who wants to join a start-up and it will be very familiar for anyone who was in a start-up at one point in time.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=TcP7OWbmY8Q&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;resiliency-and-availability-design-patterns-for-the-cloud&quot;&gt;Resiliency and Availability Design Patterns for the Cloud&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/sebsto&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Sebastien Stormacq&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/sebsto.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/sebsto&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Sebastien Stormacq&lt;/a&gt; is a senior Technical Evangelist as AWS.&lt;/p&gt;
-
-&lt;p&gt;Your system should still work when a failure occurs, even if it’s just in a degraded state.
-Your business should not rely on a single person being available and present.&lt;/p&gt;
-
-&lt;p&gt;Geo redundancy is explained and how you can use availability zones (AZs) to have geo redundancy.
-He also explained a scenario where an AZ fails and a hot failover is performed using an Elastic Load Balancer.
-Always spread architectures over multiple AZs or use regionless services (S3, ELB) which are multi-az by default.&lt;/p&gt;
-
-&lt;p&gt;Load shedding is a technique to drop all traffic once a service becomes loaded beyond a preset point of healthy load.
-This prevents the service from being overloaded and crashing.&lt;/p&gt;
-
-&lt;p&gt;Shuffle sharding is a technique to reduce the blast radius for an outage by creating isolated compartments in the infrastructure.&lt;/p&gt;
-
-&lt;p&gt;Finally Sebastian provides two very good resources:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/architecture/well-architected/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Well-Architected&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://medium.com/@adhorn&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chaos engineering blog&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Takeaways:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Use Availability zones to achieve Geo redundancy&lt;/li&gt;
-  &lt;li&gt;Use autoscaling mechanisms to have self-healing VMs&lt;/li&gt;
-  &lt;li&gt;Test your backups&lt;/li&gt;
-  &lt;li&gt;Use a split database setup. Split logically or functionally (read-write / sharding)&lt;/li&gt;
-  &lt;li&gt;Set and sync timeouts&lt;/li&gt;
-  &lt;li&gt;Implement backoffs for retries with jitter&lt;/li&gt;
-  &lt;li&gt;Make sure database operations are idempotent&lt;/li&gt;
-  &lt;li&gt;Use circuit breaks to prevent overloading an already degraded system&lt;/li&gt;
-  &lt;li&gt;Implement health checks&lt;/li&gt;
-  &lt;li&gt;Reject traffic when load is high on the service (load shedding and throttling)&lt;/li&gt;
-  &lt;li&gt;Apply shuffle sharding techniques to limit blast radius of outage&lt;/li&gt;
-  &lt;li&gt;Perform GameDays&lt;/li&gt;
-  &lt;li&gt;Experiment with Chaos engineering&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=MCpjEiemsRg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;ssltls-for-mortals&quot;&gt;SSL/TLS for mortals&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/mthmulders&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Maarten Mulders&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/mthmulders.png&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/mthmulders&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maarten Mulders&lt;/a&gt; provides this talk for mortals.&lt;/p&gt;
-
-&lt;p&gt;SSL is outdated and should be not be used anymore.
-Documentation can be confusing as SSL is sometimes used to discuss SSL and TLS setups.
-Only TLS should be used as SSL has been broken (cracked) multiple times.&lt;/p&gt;
-
-&lt;p&gt;Maarten goes on to explain the basic concepts of public and private keys.
-He also explains all the mathematics behind the RSA key creation.&lt;/p&gt;
-
-&lt;p&gt;This talk is ideal for people wanting to get a brief overview of how TLS works.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=yJrJEvvW_HA&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;back-to-the-future-how-80s-arcade-games-taught-me-clojure&quot;&gt;Back to the Future: How 80s Arcade Games Taught me Clojure&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/ladymeyy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Mey Beisaron&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/ladymeyy.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;In this talk &lt;a href=&quot;https://twitter.com/@ladymeyy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mey Beisaron&lt;/a&gt; explained how she learned &lt;a href=&quot;https://clojure.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Clojure&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you often learn a new programming language, it becomes much easier.
-For her latest position she needed to start using Clojure.&lt;/p&gt;
-
-&lt;p&gt;A very good book to get started with learning Clojure is &lt;a href=&quot;braveclojure.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Clojure for the brave and true&lt;/a&gt;, which is actually a funny book.
-After the book the website &lt;a href=&quot;http://www.4clojure.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;4clojure&lt;/a&gt; is a good source of exercises you can follow.&lt;/p&gt;
-
-&lt;p&gt;But she still felt that that wasn’t enough to understand the language completely.&lt;/p&gt;
-
-&lt;p&gt;Some years ago, for Java, she was able to learn it in one weekend, by writing a simple 2D game.
-Writing the game made her feel the need to use objects much more naturally.
-Not only that, with the game you also need other concepts likes threads, etc.&lt;/p&gt;
-
-&lt;p&gt;When writing a game, do focus on a simple game, so you can truly focus on the language you need to learn.&lt;/p&gt;
-
-&lt;p&gt;But Clojure did take more then a weekend, immutability changes everything, it messes with your head.&lt;/p&gt;
-
-&lt;p&gt;In order to write a game there are several steps you need to follow:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Understand the 2d game structure
-It should be pretty simple, identify the framework functions and the game logic.
-The framework functions deal with the outside world: network connections, loading resources, player input, …
-While the game logic identifies the win conditions.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Find code of a game written in Clojure.
-So you can learn from an existing source.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;An interesting game library to use with Clojure is &lt;a href=&quot;https://github.com/oakes/play-clj&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Oaks/Play.clj&lt;/a&gt;.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Map that game
-Find the code which moves the character, which loads the assets, …&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Add a feature
-Start coding&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Write a new game
-Write your own game with the knowledge you have acquired.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Dream big, start with tiny steps!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;A nice talk brought with great enthusiasm.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=UilS1ctYUP4&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;defence-against-the-docker-arts&quot;&gt;Defence Against the Docker Arts&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/codefinger&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Mey Beisaron&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/codefinger.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/codefinger&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Joe Kutner&lt;/a&gt; works at Heroku and is a core maintainer of &lt;a href=&quot;https://buildpacks.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Buildpacks.io&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;He starts this talk by providing a set of common pitfalls and best practises for creating Dockerfiles in Rapidfire.
-Multi-stage builds, combining multiple run commands into one and using proper base images for all docker builds are just a few examples.&lt;/p&gt;
-
-&lt;p&gt;Joe then discusses the pros and cons of &lt;a href=&quot;https://github.com/moby/buildkit&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Buildkit&lt;/a&gt; and &lt;a href=&quot;https://github.com/GoogleContainerTools/jib&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jib&lt;/a&gt; as tools for building Docker images.&lt;/p&gt;
-
-&lt;p&gt;Lastly, Joe explains what Buildpacks are, their origin, their use cases and what the architecture is.
-The different advantages of Buildpacks are extensively explained and the lifecycle of a typical Buildpack is shown.
-Pack is discussed as an easy way to use Buildpacks for a Spring Boot application.
-Joe demos the usefulness of Buildpacks with the use case of the HeartBlead CVE.&lt;/p&gt;
-
-&lt;p&gt;This talk is recommended for an audience that is interested in building Docker images without having to deal with Dockerfiles.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=ofH9_sE2qy0&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;flowable-business-processing-from-kafka-events&quot;&gt;Flowable business processing from Kafka events&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/tijsrademakers&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Tijs Rademakers&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/tijsrademakers.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;a href=&quot;https://twitter.com/jbarrez&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Joram Barrez&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/jbarrez.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/tijsrademakers&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tijs Rademakers&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/jbarrez&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Joram Barrez&lt;/a&gt; are both employees of Flowable.&lt;/p&gt;
-
-&lt;p&gt;The talk starts by providing a brief overview of Flowable as a product.
-They introduce the different standards that Flowable supports: BPMN, CMMN and DMN.
-Tijs continues by explaining the architecture of Flowable and its evolution.&lt;/p&gt;
-
-&lt;p&gt;Next, Joram explains how (Kafka) events can be used in the Engine.
-He goes on by providing a demo of the platform using an example process.
-A flow diagram of the information flow and the use of Kafka and Flowable is shown.
-He also explains all code that is required to execute the demo process.&lt;/p&gt;
-
-&lt;p&gt;This talk provides a good starting point for Flowable, even for people who have very little to no experience with BPM engines.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=nX0dRiPqOmk&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;api-first-development-with-openapi---should-you-practise-it--by-nick-van-hoof&quot;&gt;API First development with OpenAPI - Should you practise it !? by Nick Van Hoof&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://ordina-jworks.github.io/author/nick-van-hoof/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; style=&quot;max-width: 206px&quot; alt=&quot;Nick Van Hoof&quot; src=&quot;/img/author/nick-van-hoof.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Our very own &lt;a href=&quot;https://ordina-jworks.github.io/author/nick-van-hoof/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nick Van Hoof&lt;/a&gt; gave a talk at Devoxx as well.
-Nick is a Cloud Engineer at Ordina, currently working at Nike.&lt;/p&gt;
-
-&lt;p&gt;In this 15 minute quickie, Nick explains why API first development is a good practise.
-He start by explaining the advantages through an example.
-Next, he goes on to show a short demo and some examples of an Open API design and tooling that can be used to ease the usage of Open API.&lt;/p&gt;
-
-&lt;p&gt;This talk gives a good introduction into why you should embrace API first development and what tooling and benefits you can expect.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; alt=&quot;Nick on stage&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/nick.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=F9iF3a1Z8Y8&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;a-container-platform-for-the-banking-industry---why-what--how&quot;&gt;A container platform for the banking industry - why, what &amp;amp; how&lt;/h3&gt;
-
-&lt;p&gt;This talk is presented by &lt;a href=&quot;https://www.linkedin.com/in/wiebe-de-roos&quot;&gt;Wiebe de Roos&lt;/a&gt;, an CI/CD Consultant and Engineer at ABN AMRO Bank.&lt;/p&gt;
-
-&lt;p&gt;Wiebe starts by sketching the scale of the project and their container journey.
-The different requirements are discussed and platform landscape was used.
-Next, he discusses what pipelines are used to provide the end-to-end CI/CD workflow.&lt;/p&gt;
-
-&lt;p&gt;He continues to explain what measure they have taken to adhere to the hard audit requirements in their regulated banking environment.
-Container security, compliancy, monitoring and logging and their solutions for these requirements are shown and explained.&lt;/p&gt;
-
-&lt;p&gt;This is an amazing talk, a definately must watch for anyone using Kubernetes in a regulated environment.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=4ACat8H69_I&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;how-to-get-hacked-properly&quot;&gt;How to get hacked properly&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/julientopcu&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Julien Topcu&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/julientopcu.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This talk is presented by &lt;a href=&quot;https://twitter.com/julientopcu&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Julien Topcu&lt;/a&gt;, a member of OWASP.&lt;/p&gt;
-
-&lt;p&gt;Julien uses an example Spring Boot webapp to showcase a few common security issues.
-For each of the issue, he also presents and live codes the remediation.
-These exploits are all part of the OWASP top 10.&lt;/p&gt;
-
-&lt;p&gt;This is a nice talk to get an interesting overview of a few common security issues and their fixes in Spring Boot.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=ipM1_7uPC38&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;scaling-sustainable-innovation-through-team-autonomy&quot;&gt;Scaling Sustainable Innovation through Team Autonomy&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/bol_com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Bol.com&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/bol_com.png&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Tom Stoepkens from &lt;a href=&quot;https://twitter.com/bol_com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Bol.com&lt;/a&gt; gives this talk.&lt;/p&gt;
-
-&lt;p&gt;(Tech) Innovations should be used as a highly potent enabler for business goals.
-A common culture and goal is key to be able to use team autonomy.
-Tom provides an overview of how they automate and the technologies they use in his team.
-Next, he explains how testing helps with supporting sustainable innovation.&lt;/p&gt;
-
-&lt;p&gt;This talk provides an insight into how Bol.com and especially the team of Tom actually uses automation to allow their team to innovate quickly.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cncIlzKQp9Y&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;better-software-faster-principles-of-continuous-delivery-and-devops&quot;&gt;Better software, faster: principles of Continuous Delivery and DevOps&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/bjschrijver&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Bert Jan Schrijver&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/bjschrijver.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This talk is presented by &lt;a href=&quot;https://twitter.com/bjschrijver&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Bert Jan Schrijver&lt;/a&gt;, the CTO of OpenValue.&lt;/p&gt;
-
-&lt;p&gt;He starts his talk be providing definitions for CI, the two types of CD and DevOps.
-Next, he dissects CD into the required components and explains how these can be fulfilled.
-He defines all the different components and what the ideal setup would look like.&lt;/p&gt;
-
-&lt;p&gt;It’s a nice overview of the requirements for a DevOps / CD organisation.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=BlQ3MyoDOR4&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;broken-buildtools-and-bad-behaviors-the-maven-story&quot;&gt;Broken Buildtools and Bad Behaviors; The Maven Story&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/rfscholte&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Robert Scholte&quot; src=&quot;/img/2019-11-18-devoxx-belgium-2019/rfscholte.jpg&quot; /&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;We tend to keep doing things the same way because they were required in the past.&lt;/p&gt;
-
-&lt;p&gt;Eventually something breaks and we go to Stack Overflow or we ask our colleagues and we find a fix or workaround,
-but how long are we going to use this workaround?&lt;/p&gt;
-
-&lt;p&gt;These workarounds become a pattern and these patterns control people.&lt;/p&gt;
-
-&lt;p&gt;“Works on my machine” is mostly caused by local code changes, different OS, JDK, Maven, Files and/or Properties.&lt;/p&gt;
-
-&lt;p&gt;Maven manages files for your through the Local Repository. The local repository is a dependency cache without time-to-live and can be located at &lt;code class=&quot;highlighter-rouge&quot;&gt;${user.home}/.m2/repository&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The local repository of Maven is actually broken.
-Maven 2 had a dumb cache, once something was downloaded it would stay there forever.
-Maven 3 introduced cached artifacts that got verified for existence with &lt;code class=&quot;highlighter-rouge&quot;&gt;_remote.repositories&lt;/code&gt;.
-Artifacts that got deleted from Maven Central will be detected and fail your build.
-The Maven repository has checksums, but they are not being checked by default.
-You can enable this using &lt;code class=&quot;highlighter-rouge&quot;&gt;-C&lt;/code&gt; for strict checksum checking causing a build failure or lax checksum checking using &lt;code class=&quot;highlighter-rouge&quot;&gt;-c&lt;/code&gt; which will only warn for checksum mismatches.&lt;/p&gt;
-
-&lt;p&gt;Are you running &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn clean install&lt;/code&gt; by default?
-You probably said “yes” like most developers.
-This a workaround for Maven 2 which is no longer needed in Maven 3.&lt;/p&gt;
-
-&lt;p&gt;Dependency resolution in Maven 2 was broken.
-It was unaware of the reactor and dependencies had to exist in the local repository.
-Maven 3 is reactor aware meaning install is no longer required.&lt;/p&gt;
-
-&lt;p&gt;I/O is slow, so logging, files and downloading the internet with Maven is slow as well.&lt;/p&gt;
-
-&lt;p&gt;As logging is slow, you should aim for a clean Maven output.
-So use your logging framework and do not use &lt;code class=&quot;highlighter-rouge&quot;&gt;System.out&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;System.err&lt;/code&gt;.
-Disable logging during testing (using &lt;code class=&quot;highlighter-rouge&quot;&gt;loglevel=off&lt;/code&gt;) and in the extreme run Maven with &lt;code class=&quot;highlighter-rouge&quot;&gt;-q&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;–quiet&lt;/code&gt; which will disable all output and just tell you when it’s done.
-When you enable debugging on Maven you’ll notice your build time will increase even though nothing has changed.&lt;/p&gt;
-
-&lt;p&gt;As files are slow, we should not use &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn clean&lt;/code&gt;.
-Most of the Maven plugins are aware if they must execute their task.&lt;/p&gt;
-
-&lt;p&gt;The Maven CI extension (stands for Maven &lt;code class=&quot;highlighter-rouge&quot;&gt;clean install&lt;/code&gt; extension) which will register clean and install when you keep executing &lt;code class=&quot;highlighter-rouge&quot;&gt;clean install&lt;/code&gt;, your build will eventually fail as this is a bad practice.
-Properties resolution are mostly defined in your &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;, but also in your &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.xml&lt;/code&gt; and system properties.
-By adding a parameter to &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn deploy -Dspring.version&lt;/code&gt; you can change your deployed Spring version.
-This is however not limited to Spring.
-You can also set this for the Java version, but please NEVER EVER do this.&lt;/p&gt;
-
-&lt;p&gt;Versions could also break your builds due to conflicts with branch merging.
-You should isolate versions and make them unique.
-Maven 3.5.0 introduces CI-friendly placeholders which allow you to use placeholders for revision, SHA1 and change list, but multi-modules require a hack to rewrite your pom.
-To resolve this issue, there will be something new called &lt;code class=&quot;highlighter-rouge&quot;&gt;maven.experimental.buildconsumer&lt;/code&gt; which will land in Maven 3.7.0 and it will require Java 8 or above.&lt;/p&gt;
-
-&lt;p&gt;Treat your pom as production code so remove dead code like unused dependencies, plugins, properties and reports.&lt;/p&gt;
-
-&lt;p&gt;Keep improving and locate and optimize time consuming processes, automate as much as possible and keep having fun.&lt;/p&gt;
-
-&lt;p&gt;Be like a responsible pilot and try to understand every plugin and think if you still need it.
-Stay curious and keep yourself informed.
-Watch out for questions with outdated answers (on Stack Overflow) and find information at the source.&lt;/p&gt;
-
-&lt;p&gt;Maven is up for grabs.
-About &lt;code class=&quot;highlighter-rouge&quot;&gt;60~80%&lt;/code&gt; of Java project/developers use Maven.
-About &lt;code class=&quot;highlighter-rouge&quot;&gt;95%&lt;/code&gt; (sub)projects have just ~5-10 active volunteers, there is no company behind this project.
-If you feel like contributing to the Maven project check out &lt;a href=&quot;https://s.apache.org/up-for-grabs_maven&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Maven’s up for grabs&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://youtu.be/2HyGxtsDf60&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YouTube VOD&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;One of the takeaways from this conference is that Kubernetes now is the de facto deployment platform for Java applications moving forward.
-During the conference a lot of tools, Jib popped up a few times, and integrations with IDEs have been showcased and every talk seems to assume that the deployment platform is Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;Event-driven talks are also in a lift.
-There were quite a few talks about Kafka or talks about software that can integrate with Kafka.&lt;/p&gt;
-
-&lt;p&gt;Finally, the conference was a great success again.
-Ordina handed out tons of nachos, every attendee has caught up with the trends in our community and all vendors have been able to showcase their newest products.&lt;/p&gt;
-
-&lt;p&gt;See you next year, Devoxx people!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Conference" /><category term="Conference" /><category term="Java" /><category term="Kubernetes" /><category term="Devoxx" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-11-18-devoxx-belgium-2019/logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-11-18-devoxx-belgium-2019/logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;&lt;strong&gt;As with all things agile, they might or might not work for your situation, but at the least, it might have given you some ideas!&lt;/strong&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Scrum Master&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Scrum Master at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>wouter.nivelle@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Reporting" /><summary type="html">Thoughts and ideas about reporting for agile projects.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-11-20-agile-reporting/agile-reporting.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-11-20-agile-reporting/agile-reporting.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
