@@ -180,7 +180,8 @@ Using the gateway, we can easily route the response from chatlayer to the adapte
 
 The image below shows the production environment of the FleetBot in MS Teams. 
 As you can see, Teams sends an API call to our adapter, which then converts it to a message format Chatlayer accepts.
-For these API calls, as well as testing, we used [NestJS](https://nestjs.com/){:target="_blank" rel="noopener noreferrer"} an extension of NodeJS.
+For these API calls, as well as testing, we used [NestJS](https://nestjs.com/){:target="_blank" rel="noopener noreferrer"} an extension of NodeJS in TypeScript.
+For the Telegram adapter, we used [Spring Boot](https://spring.io/projects/spring-boot){:target="_blank" rel="noopener noreferrer"} and Java instead to experiment with different technologies.
 
 To get all useful information out of the Teams message, we use the [Microsoft BotFramework](https://docs.microsoft.com/en-gb/azure/bot-service/javascript/bot-builder-javascript-quickstart?view=azure-bot-service-4.0){:target="_blank" rel="noopener noreferrer"}. 
 During this conversion, we add a prefix to the id: "teams-prod:". 
