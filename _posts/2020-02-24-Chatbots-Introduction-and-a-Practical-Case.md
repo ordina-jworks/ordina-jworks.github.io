@@ -9,7 +9,7 @@ comments: true
 ---
 
 > Chatbots, they seem to be everywhere, and yet, there are a lot of people who have no idea what they are.
-> When I came home one day in October and told my parents and sisters I was building a chatbot at work.
+> I came home one day in October and told my parents and sisters I was building a chatbot at work.
 > Their reaction: "You're building a what now?". 
 > So I took ten minutes to explain them what a chatbot is and does.
 > In the end, they just said "So... It is a computer person?". <br/> <br/>
