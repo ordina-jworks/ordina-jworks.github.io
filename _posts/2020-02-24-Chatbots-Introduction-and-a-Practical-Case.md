@@ -33,7 +33,7 @@ The test proposes a way to measure if the testee can know whether he's talking t
 Joseph Weizenbaum was the first to design a real chatbot, ELIZA, in 1966 at the MIT AI laboratory, which he called a 'chatterbot'.
 Even though it failed the Turing test, the main idea behind a chatbot has since then remained the same: recognise what a user says using pre-programmed keywords and phrases, and respond accordingly.
 
-<img alt="ELIZA" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/ELIZA.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+<img alt="ELIZA" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/ELIZA.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
 Technology has obviously evolved a lot since 1966. 
 Modern chatbots do not only look at keywords and phrases anymore.
@@ -44,7 +44,7 @@ This way, not only can a chatbot understand what a user says, but it can also do
 An example, when the user says *"Damn, someone drove into my **Car Brand** earlier today, but it wasn't my fault. I don't know what I should do now."*, the chatbot would know that the user was quite angry, he had an accident, and he drives a **Car Brand**. 
 The bot's response could be: *"I hope you're okay. Here is a list of garages you can go to. Since it wasn't your fault, insurance will help you figure this out."*
 
-<img alt="NLP" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/NLP.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+<img alt="NLP" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/NLP.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
 In 2006, the world saw the first big tech company launch a chatbot called Watson.
 IBM's Watson went on to winning a game of "Jeopardy!" against all-time champions Ken Jennings and Brad Rutter in 2011.
@@ -89,7 +89,7 @@ Below, the biggest chatbot providers of today are listed with their properties (
 We will not discuss each in detail with how bots are built, since it is equivalent for all, only varying in the UI.
 There will be links in the [Resources](#resources) section of this blogpost.
 
-<span class="image right"><img alt="Dialogflow" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/DIALOGFLOW.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
+<span class="image right"><img alt="Dialogflow" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/DIALOGFLOW.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
 * **[Google DialogFlow](https://dialogflow.cloud.google.com/){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up;
@@ -102,7 +102,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 > * **About 20 integrations supported for free out of the box**, both chat and voice, possible to code custom integrations via API;
 > * **Multilingual**, Dutch relatively ok, Flemish is difficult.
 
-<span class="image right"><img alt="AmazonLex" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/AMAZONLEX.png' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
+<span class="image right"><img alt="AmazonLex" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/AMAZONLEX.png' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
 * **[Amazon Alexa/Lex](https://aws.amazon.com/lex/){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and (practically) free to start up (you do have to make an account linked to credit card);
@@ -114,7 +114,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 > * Integration with Messenger, Slack and Twilio + API;
 > * **Single-language -- only English.**
 
-<span class="image right"><img alt="AmazonLex" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/MICROSOFTPOWERVA.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
+<span class="image right"><img alt="AmazonLex" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/MICROSOFTPOWERVA.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
 * **[Microsoft Luis/Power Virtual Agents](https://powervirtualagents.microsoft.com/en-us/){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up;
@@ -125,7 +125,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 > * **About 15 integrations supported for free out of the box**, both chat and voice, possible to code custom integrations via API;
 > * **Single-language -- only English**.
 
-<span class="image right"><img alt="IBMWATSON" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/IBMWATSON.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
+<span class="image right"><img alt="IBMWATSON" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/IBMWATSON.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
 * **[IBM Watson](https://www.ibm.com/watson/how-to-build-a-chatbot){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up (30 day trial);
@@ -133,7 +133,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 > * Integration with Messenger, Slack, WordPress and Intercom + API;
 > * **Multilingual with Watson Language Translator**, Dutch relatively ok, Flemish is difficult.
 
-<span class="image right"><img alt="CHATLAYER" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/CHATLAYER.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
+<span class="image right"><img alt="CHATLAYER" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CHATLAYER.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
 * **[Chatlayer](https://www.chatlayer.ai){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up (30 day trial, Chatlayer has to manually approve your request for a trial);
@@ -176,7 +176,7 @@ As you can see, both the Teams and Telegram adapter have their own repo & deploy
 The reason behind this is that we wanted to be able to provide custom connections for any chat client without having to edit in an adapter used for another one.
 Using the gateway, we can easily route the response from chatlayer to the adapter it is supposed to go to.
 
-<img alt="GENERALLAYOUT" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/GENERALLAYOUT.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+<img alt="GENERALLAYOUT" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/GENERALLAYOUT.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
 The image below shows the production environment of the FleetBot in MS Teams. 
 As you can see, Teams sends an API call to our adapter, which then converts it to a message format Chatlayer accepts.
@@ -186,19 +186,19 @@ To get all useful information out of the Teams message, we use the [Microsoft Bo
 During this conversion, we add a prefix to the id: "teams-prod:". 
 This prefix makes it possible for the Gateway to know the message came from the Teams bot in the production environment and thus send it back to the correct bot.
 
-<img alt="TEAMSINDETAIL" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/TEAMSINDETAIL.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+<img alt="TEAMSINDETAIL" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMSINDETAIL.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
 The BotFramework provides methods to get a conversation's context, and reply to the correct user using that context.
 Hence, we see the `turnContext.sendActivities()` method used to reply to a user.
 We used the NodeJS version of the BotFramework, and used a map to save the conversation references. 
 The reference gets deleted right after the reply has been sent, so we didn't need to worry about using a database to save the conversation.
 
-<img alt="CONVERSATIONREF" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/CONVERSATIONREF.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+<img alt="CONVERSATIONREF" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONVERSATIONREF.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
 Since Chatlayer supports many types of replies, all of these had to be converted to the possible Teams messages.
 Depending on the message type Chatlayer sent, the `sendActivities()` method has to send a different Activity. 
 
-<img alt="CONTINUECONV" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/CONTINUECONV.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto">
+<img alt="CONTINUECONV" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONTINUECONV.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto">
 
 As you can see, there are the normal text messages, but also carousels and cards (of which there are multiple types). 
 This variety can deliver very fun and engaging conversations, which can improve your user retention and experience.
@@ -206,8 +206,8 @@ Of course, the use of all these features depends heavily on the conversation top
 You can see an example of all possible messages below.
 
 <table><tr>
-<td><img alt="TEAMS1" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/TEAMS1.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto"></td>
-<td><img alt="TEAMS2" src="{{ '/img/2020-02-21-Chatbots-Introduction-and-a-Practical-Case/TEAMS2.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto"></td>
+<td><img alt="TEAMS1" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMS1.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto"></td>
+<td><img alt="TEAMS2" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMS2.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto"></td>
 </tr></table>
 
 # Conclusion
