@@ -165,9 +165,9 @@ We felt that Chatlayer offered the best UI for maintenance by non-developers.
 
 Below is a short example of the Fleetbot in MS Teams.
 
-<figure class="video_container">
+<div class="responsive-video">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/zgIOB8djVrM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</figure>
+</div>
 
 # Technical implementation
 The general program structure is shown in the image below. 
