@@ -1,5 +1,280 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-02-19T07:42:45+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Marrying MongoDB Atlas and AWS Lambda</title><link href="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html" rel="alternate" type="text/html" title="Marrying MongoDB Atlas and AWS Lambda" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html">&lt;h3 id=&quot;reading-time-10-min-30-sec&quot;&gt;Reading time: 10 min 30 sec&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-02-24T09:43:50+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Chatbots - Introduction and a practical use case</title><link href="https://ordina-jworks.github.io/machine%20learning/2020/02/24/Chatbots-Introduction-and-a-Practical-Case.html" rel="alternate" type="text/html" title="Chatbots - Introduction and a practical use case" /><published>2020-02-24T00:00:00+00:00</published><updated>2020-02-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/machine%20learning/2020/02/24/Chatbots-Introduction-and-a-Practical-Case</id><content type="html" xml:base="https://ordina-jworks.github.io/machine%20learning/2020/02/24/Chatbots-Introduction-and-a-Practical-Case.html">&lt;blockquote&gt;
+  &lt;p&gt;Chatbots, they seem to be everywhere, and yet, there are a lot of people who have no idea what they are.
+I came home one day in October and told my parents and sisters I was building a chatbot at work.
+Their reaction: “You’re building a what now?”. 
+So I took ten minutes to explain them what a chatbot is and does.
+In the end, they just said “So… It is a computer person?”. &lt;br /&gt; &lt;br /&gt;
+This post will feature a high-level explanation of what chatbots are and what they do, as well as a deep dive into chatbot providers and a technical implementation. 
+In the end, we’ll look at a practical case of a chatbot: FleetBot Dina.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#essential-terminology&quot;&gt;Essential terminology&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chatbot-providers&quot;&gt;Chatbot providers&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#practical-case-fleetbot-dina&quot;&gt;Practical case: FleetBot Dina&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#technical-implementation&quot;&gt;Technical implementation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;The concept of chatbots has existed ever since Alan Turing designed the Turing test in 1950, with the original concept of the test dating back to 1936.
+The question asked in this test was “Can machines think?”. 
+The test proposes a way to measure if the testee can know whether he’s talking to a human or a machine.
+Joseph Weizenbaum was the first to design a real chatbot, ELIZA, in 1966 at the MIT AI laboratory, which he called a ‘chatterbot’.
+Even though it failed the Turing test, the main idea behind a chatbot has since then remained the same: recognise what a user says using pre-programmed keywords and phrases, and respond accordingly.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;ELIZA&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/ELIZA.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Technology has obviously evolved a lot since 1966. 
+Modern chatbots do not only look at keywords and phrases anymore.
+They use a technology called &lt;a href=&quot;https://mobilecoach.com/chatterbots-6-what-is-natural-language-processing/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Natural Language Processing&lt;/a&gt; (NLP) and Understanding (NLU) to understand the meaning behind what a user says. 
+NLU uses complex algorithms to analyse the input, not only with predefined keywords but by using various aspects of the language and the sentence structure of the given input.&lt;/p&gt;
+
+&lt;p&gt;This way, not only can a chatbot understand what a user says, but it can also do a sentiment analysis and extract useful information out of the input.
+An example, when the user says &lt;em&gt;“Damn, someone drove into my &lt;strong&gt;Car Brand&lt;/strong&gt; earlier today, but it wasn’t my fault. I don’t know what I should do now.”&lt;/em&gt;, the chatbot would know that the user was quite angry, he had an accident, and he drives a &lt;strong&gt;Car Brand&lt;/strong&gt;. 
+The bot’s response could be: &lt;em&gt;“I hope you’re okay. Here is a list of garages you can go to. Since it wasn’t your fault, insurance will help you figure this out.”&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;NLP&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/NLP.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In 2006, the world saw the first big tech company launch a chatbot called Watson.
+IBM’s Watson went on to winning a game of “Jeopardy!” against all-time champions Ken Jennings and Brad Rutter in 2011.
+Since then, tech giants like Apple (Siri), Google (Google Now), Amazon (Alexa) and Microsoft (Cortana) have all launched their own personal assistant chatbots with their respective NLPs.
+In Belgium, Antwerp company &lt;a href=&quot;https://www.chatlayer.ai&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chatlayer&lt;/a&gt; provides a custom platform to build chatbots. 
+They use whichever NLP is best in a given language.
+For Flemish &amp;amp; Dutch, they built a custom NLP.&lt;/p&gt;
+
+&lt;p&gt;Like all chatbots, these personal assistants have a specified set of use cases, setting alarms, playing music, reading the weather report, telling jokes,… 
+If they don’t know the answer to a question, they will usually just look up whatever you asked on the internet, and give you the best response.&lt;/p&gt;
+
+&lt;h1 id=&quot;essential-terminology&quot;&gt;Essential terminology&lt;/h1&gt;
+&lt;p&gt;These are a few terms you should know when studying or working with chatbots.
+They will be used throughout this blog.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Natural Language Understanding&lt;/strong&gt;&lt;br /&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;NLU is the Artificial Intelligence (AI) which tries to understand the meaning behind what a user says.
+It can do a sentiment analysis, extract relations between words and phrasing, do semantic parsing,…&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Natural Language Processing&lt;/strong&gt;&lt;br /&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;NLP consists of NLU, along with extra factors like syntactic parsing. 
+The key takeaway here is that NLP translates the user input to machine language and determines what a user has said.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Natural Language Generation (NLG)&lt;/strong&gt;&lt;br /&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;NLG comes after the computer has understood the meaning behind the input and formulates an answer. 
+This answer is usually predefined, but can vary depending on the input and the entities the bot has saved so far.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Entities&lt;/strong&gt;&lt;br /&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Entities are data that a chatbot can save during a conversation, e.g. your car brand, your tire type,…&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Expressions&lt;/strong&gt;&lt;br /&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;An expression is anything that a user sends or says to the bot.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Intents&lt;/strong&gt;&lt;br /&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;The intent is the purpose behind a user’s message, e.g. does the user ask for a garage, does he want to know about how to refill his AdBlue,…&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Context&lt;/strong&gt;&lt;br /&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;A context is used when you expect the user to reply to a bot question.
+By using contexts, you can direct the conversation into a certain flow, helping both the user and the computer along.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;chatbot-providers&quot;&gt;Chatbot providers&lt;/h1&gt;
+&lt;p&gt;There are multiple chatbot providers you can use when building bots. 
+Each bot has its own NLP and User Interface (UI), but to the core, they all expect the developer to provide the same things: expressions, intents and flows to guide a user through the conversation.
+Chatbots can be implemented via various chat clients: Messenger, Microsoft Teams, Slack, Google Assistant,…
+Chatbot providers provide you with integrations in different of these clients, and usually enable you to program a custom integration using (REST) APIs.&lt;/p&gt;
+
+&lt;p&gt;Below, the biggest chatbot providers of today are listed with their properties (at the time of writing). 
+We will not discuss each in detail with how bots are built, since it is equivalent for all, only varying in the UI.
+There will be links in the &lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt; section of this blogpost.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img alt=&quot;Dialogflow&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/DIALOGFLOW.jpg&quot; style=&quot;margin:0px auto; max-width: 200px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://dialogflow.cloud.google.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google DialogFlow&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Easy and free to start up;&lt;/li&gt;
+    &lt;li&gt;Events possible to trigger via API, making it able to move the conversation into a certain flow easily depending on user input;&lt;/li&gt;
+    &lt;li&gt;Parameters can all be asked within same intent;&lt;/li&gt;
+    &lt;li&gt;Intent structure can become very complicated for bigger bots, especially when first getting into an existing project;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Responses can be customised&lt;/strong&gt; based on the supported chat clients;&lt;/li&gt;
+    &lt;li&gt;Complicated responses with images, buttons, cards,… and jumping from intent to intent requires a &lt;strong&gt;lot of coding&lt;/strong&gt;;&lt;/li&gt;
+    &lt;li&gt;No sentiment analysis;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;About 20 integrations supported for free out of the box&lt;/strong&gt;, both chat and voice, possible to code custom integrations via API;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Multilingual&lt;/strong&gt;, Dutch relatively ok, Flemish is difficult.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img alt=&quot;AmazonLex&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/AMAZONLEX.png&quot; style=&quot;margin:0px auto; max-width: 200px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://aws.amazon.com/lex/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Alexa/Lex&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Easy and (practically) free to start up (you do have to make an account linked to a credit card);&lt;/li&gt;
+    &lt;li&gt;Built to work with &lt;strong&gt;Amazon Lambdas&lt;/strong&gt;, booking appointments etc;&lt;/li&gt;
+    &lt;li&gt;Integration with Amazon Connect, CRM tools,…;&lt;/li&gt;
+    &lt;li&gt;Parameters can all be asked within same intent;&lt;/li&gt;
+    &lt;li&gt;No easy way to build big flows, no context possibilities;&lt;/li&gt;
+    &lt;li&gt;Best for small conversations like booking an appointment;&lt;/li&gt;
+    &lt;li&gt;Integration with Messenger, Slack and Twilio + API;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Single-language – only English.&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img alt=&quot;AmazonLex&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/MICROSOFTPOWERVA.jpg&quot; style=&quot;margin:0px auto; max-width: 200px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://powervirtualagents.microsoft.com/en-us/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Microsoft Luis/Power Virtual Agents&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Easy and free to start up;&lt;/li&gt;
+    &lt;li&gt;Built to work with &lt;strong&gt;Dynamics 365&lt;/strong&gt;;&lt;/li&gt;
+    &lt;li&gt;Easy off-handing to live chat when bot fails;&lt;/li&gt;
+    &lt;li&gt;Parameters can all be asked within same block;&lt;/li&gt;
+    &lt;li&gt;Easy to build big flows – Tree structure using various blocks depending on use case;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;About 15 integrations supported for free out of the box&lt;/strong&gt;, both chat and voice, possible to code custom integrations via API;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Single-language – only English&lt;/strong&gt;.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img alt=&quot;IBMWATSON&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/IBMWATSON.jpg&quot; style=&quot;margin:0px auto; max-width: 200px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://www.ibm.com/watson/how-to-build-a-chatbot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;IBM Watson&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Easy and free to start up (30 day trial);&lt;/li&gt;
+    &lt;li&gt;Relatively easy to build big flows – Treelike structure using various blocks depending on use case;&lt;/li&gt;
+    &lt;li&gt;Integration with Messenger, Slack, WordPress and Intercom + API;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Multilingual with Watson Language Translator&lt;/strong&gt;, Dutch relatively ok, Flemish is difficult.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;span class=&quot;image right&quot;&gt;&lt;img alt=&quot;CHATLAYER&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CHATLAYER.jpg&quot; style=&quot;margin:0px auto; max-width: 200px;&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://www.chatlayer.ai&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chatlayer&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Easy and free to start up (30 day trial, Chatlayer has to manually approve your request for a trial);&lt;/li&gt;
+    &lt;li&gt;Easy to build big flows – Tree structure using various blocks depending on use case;&lt;/li&gt;
+    &lt;li&gt;Parameters can be asked using ‘Input Validation’, on faulty type of answer. 
+You can reply with a custom message to make sure the user uses the correct format;&lt;/li&gt;
+    &lt;li&gt;Extensive reply capabilities;&lt;/li&gt;
+    &lt;li&gt;Integration with Messenger, Google Home, WhatsApp and Intercom + API;&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Multilingual&lt;/strong&gt;, Custom NLP for Dutch/Flemish, uses best available NLP for other languages. 
+Can automatically detect and understand all languages, regardless of the language you programmed the bot to understand. 
+Can answer only in the languages you programmed.;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;practical-case-fleetbot-dina&quot;&gt;Practical case: FleetBot Dina&lt;/h1&gt;
+&lt;p&gt;At Ordina, we have about 800 cars in our Fleet. 
+These, along with everything concerning alternative modes of transport and phone subscriptions, are managed by only two people.
+As you’re probably thinking right now, this sounds like quite a hefty workload, and you would be quite right.
+At the time of writing this blogpost, they have to deal with up to 150 emails on a daily basis, which is only expected to rise as Ordina is constantly growing.
+Since we at JWorks also have questions from time to time, but wanted to lift a bit of their workload, we decided to pitch them the idea of building a chatbot.&lt;/p&gt;
+
+&lt;p&gt;The chatbot is to be launched to Ordina’s Microsoft Teams.
+This way, everyone at Ordina could contact it without having to bother with adding it as a separate user or having to create an account on a chat client they don’t use.
+Since JWorks uses Telegram for a lot of their internal communications, and we like experimenting, we decided to also build a connection to a Telegram bot.
+This Telegram connection was only used in the testing of the FleetBot and to improve the accuracy of the NLP.&lt;/p&gt;
+
+&lt;p&gt;We tested all of the chatbot providers listed in the &lt;a href=&quot;#chatbot-providers&quot;&gt;Chatbot providers&lt;/a&gt; section, and ended up choosing Chatlayer for its outstanding Flemish/Dutch NLP, because most of Ordina Belgium’s employees are Flemish speaking.
+The possibility to extend that functionality to Ordina in the Netherlands was an attractive bonus.
+We also wanted to be able to hand the bot over to the Fleet division when it was finished, so they could keep it up to date without us.
+We felt that Chatlayer offered the best UI for maintenance by non-developers.&lt;/p&gt;
+
+&lt;p&gt;Below is a short example of the Fleetbot in MS Teams.&lt;/p&gt;
+
+&lt;div class=&quot;responsive-video&quot;&gt;
+  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/zgIOB8djVrM&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;technical-implementation&quot;&gt;Technical implementation&lt;/h1&gt;
+&lt;p&gt;The general program structure is shown in the image below. 
+We will discuss the MS Teams bot in detail later on. 
+As you can see, both the Teams and Telegram adapter have their own repo &amp;amp; deployment. 
+The reason behind this is that we wanted to be able to provide custom connections for any chat client without having to edit in an adapter used for another one.
+Using the gateway, we can easily route the response from chatlayer to the adapter it is supposed to go to.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;GENERALLAYOUT&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/GENERALLAYOUT.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The image below shows the production environment of the FleetBot in MS Teams. 
+As you can see, Teams sends an API call to our adapter, which then converts it to a message format Chatlayer accepts.
+For these API calls, as well as testing, we used &lt;a href=&quot;https://nestjs.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NestJS&lt;/a&gt;, an extension of NodeJS in TypeScript.
+For the Telegram adapter, we used &lt;a href=&quot;https://spring.io/projects/spring-boot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Boot&lt;/a&gt; and Java instead to experiment with different technologies.&lt;/p&gt;
+
+&lt;p&gt;To get all useful information out of the Teams message, we use the &lt;a href=&quot;https://docs.microsoft.com/en-gb/azure/bot-service/javascript/bot-builder-javascript-quickstart?view=azure-bot-service-4.0&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Microsoft BotFramework&lt;/a&gt;. 
+During this conversion, we add a prefix to the id: &lt;code class=&quot;highlighter-rouge&quot;&gt;teams-prod:&lt;/code&gt;. 
+This prefix makes it possible for the Gateway to know that the message came from the Teams bot in the production environment and thus send it back to the correct bot.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;TEAMSINDETAIL&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMSINDETAIL.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The BotFramework provides methods to get a conversation’s context, and reply to the correct user using that context.
+Hence, we see the &lt;code class=&quot;highlighter-rouge&quot;&gt;turnContext.sendActivities()&lt;/code&gt; method used to reply to a user.
+We used the NodeJS version of the BotFramework, and used a map to save the conversation references. 
+The reference gets deleted right after the reply has been sent, so we didn’t need to worry about using a database to save the conversation.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;CONVERSATIONREF&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONVERSATIONREF.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Since Chatlayer supports many types of replies, all of these had to be converted to the possible Teams messages.
+Depending on the message type Chatlayer sent, the &lt;code class=&quot;highlighter-rouge&quot;&gt;sendActivities()&lt;/code&gt; method has to send a different Activity.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;CONTINUECONV&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONTINUECONV.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, there are the normal text messages, but also carousels and cards (of which there are multiple types). 
+This variety can deliver very fun and engaging conversations, which can improve your user retention and experience.
+Of course, the use of all these features depends heavily on the conversation topic and context.
+You can see an example of all possible messages below.&lt;/p&gt;
+
+&lt;table&gt;&lt;tr&gt;
+&lt;td&gt;&lt;img alt=&quot;TEAMS1&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMS1.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto&quot; /&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img alt=&quot;TEAMS2&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMS2.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto&quot; /&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;After working with chatbots during the past 6 months, I’m proud of what we’ve achieved so far. 
+The FleetBot is being actively tested at JWorks and looking to go live for all Ordina Belgium employees.
+Because of working closely with Chatlayer on the FleetBot project, we have initiated a partnership for future chatbot projects.
+There already are a number of interesting projects coming up that we’re happy to be part of.
+Having tested many chatbot providers, we can confidently make an assessment of which one would be best in any use case.&lt;/p&gt;
+
+&lt;p&gt;What I’m most excited about is the versatility of chatbots. 
+Want one in Telegram or Slack? &lt;br /&gt;
+No problem, we can build that connection! &lt;br /&gt;
+Want one that speaks Chinese, German and English? &lt;br /&gt;
+Can do!&lt;/p&gt;
+
+&lt;p&gt;Do you think your company could use a chatbot to raise user satisfaction, reduce your FAQ workload, or for anything else it could help out with?
+Get in touch with &lt;a href=&quot;mailto:frederickbousson@ordina.be?subject=[Chatbots]%20Interest%20in%20chatbot%20project&quot;&gt;Frederick Bousson&lt;/a&gt;! &lt;br /&gt;
+We can help you evaluate if a chatbot is indeed the way to go for your specific case and choose the correct provider for your needs.
+After that, we will assist you in building the bot and build all necessary chat client connections.&lt;/p&gt;
+
+&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mobilecoach.com/chatterbots-2-history-of-chatbots/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chatbot History&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.nytimes.com/2011/02/17/science/17jeopardy-watson.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Watson Jeopardy!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://becominghuman.ai/a-simple-introduction-to-natural-language-processing-ea66a1747b32&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NLP Intro&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://nlp.stanford.edu/~wcmac/papers/20140716-UNLU.pdf#page=8&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NLP vs NLU&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.chatlayer.ai/wp-content/uploads/downloads/big-bots-guide-20190626.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;10 Lessons Learned From Building Big Chatbots&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jasper&quot;, &quot;last_name&quot;=&gt;&quot;Rosiers&quot;, &quot;github&quot;=&gt;&quot;jasperrosiers&quot;, &quot;linkedin&quot;=&gt;&quot;jasper-rosiers&quot;, &quot;permalink&quot;=&gt;&quot;/author/jasper-rosiers/&quot;, &quot;avatar&quot;=&gt;&quot;jasper-rosiers.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;jasper.rosiers@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jasper is a Java Developer with a love for IoT and innovative tech. He has a lot of experience in building chatbots using various platforms and coupling them to different chat clients. He also has a passion for the Agile way of working, Scrum and communication, both inside and outside the team.&quot;}</name><email>jasper.rosiers@ordina.be</email></author><category term="Machine Learning" /><category term="Chatbots" /><category term="Chatlayer" /><category term="DialogFlow" /><category term="Spring Boot" /><category term="NestJS" /><category term="Mocking" /><category term="TypeScript" /><summary type="html">Chatbots, they seem to be everywhere, and yet, there are a lot of people who have no idea what they are. I came home one day in October and told my parents and sisters I was building a chatbot at work. Their reaction: “You’re building a what now?”. So I took ten minutes to explain them what a chatbot is and does. In the end, they just said “So… It is a computer person?”. This post will feature a high-level explanation of what chatbots are and what they do, as well as a deep dive into chatbot providers and a technical implementation. In the end, we’ll look at a practical case of a chatbot: FleetBot Dina.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/chatbot.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/chatbot.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Marrying MongoDB Atlas and AWS Lambda</title><link href="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html" rel="alternate" type="text/html" title="Marrying MongoDB Atlas and AWS Lambda" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html">&lt;h3 id=&quot;reading-time-10-min-30-sec&quot;&gt;Reading time: 10 min 30 sec&lt;/h3&gt;
 
 &lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ul&gt;
@@ -3111,305 +3386,4 @@ A monolith is basically one big application that handles everything that your pr
 &lt;p&gt;He gave a lot more hints and associated AWS components that can help you achieve your goals in splitting up your monolith. Make sure that you take your time with this, as this is a very important factor in your project that needs to be done right. When done right, you will see an exponential rise in productivity and the addition of features and thus, making your end users happy with your service. AWS has a lot of services that can help you and you should take your time to get familiar with them.&lt;/p&gt;
 
 &lt;h1 id=&quot;ending&quot;&gt;Ending&lt;/h1&gt;
-&lt;p&gt;We ended the day with a Gouden Carolus, which is the most famous beer that is brewed in Mechelen. Overall, it was a very nice experience which I would love to attend again in the future. You get familiar with a lot of AWS components that you didn’t know before and they showcase a lot of services.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Conference" /><category term="AWS" /><category term="Cloud" /><category term="Conference" /><summary type="html">AWSome Dev Day 2019!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/AWS-Dev-Day-2019/aws-dev-day-2019-banner.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/AWS-Dev-Day-2019/aws-dev-day-2019-banner.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Agile And Reporting - 101</title><link href="https://ordina-jworks.github.io/agile/2019/11/25/agile-reporting.html" rel="alternate" type="text/html" title="Agile And Reporting - 101" /><published>2019-11-25T00:00:00+00:00</published><updated>2019-11-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/agile/2019/11/25/agile-reporting</id><content type="html" xml:base="https://ordina-jworks.github.io/agile/2019/11/25/agile-reporting.html">&lt;blockquote&gt;
-  &lt;p&gt;Thoughts and ideas about reporting for agile projects.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#my-situation&quot;&gt;My situation&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#context&quot;&gt;Context&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#forecasting&quot;&gt;Forecasting&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#what&quot;&gt;What&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#throughput-forecasting&quot;&gt;Throughput Forecasting&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#metrics&quot;&gt;Metrics&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#velocity&quot;&gt;Velocity&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#team-happiness&quot;&gt;Team Happiness&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#sprint-spread&quot;&gt;Sprint Spread&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#cumulative-flow-diagram&quot;&gt;Cumulative Flow Diagram&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;h2 id=&quot;my-situation&quot;&gt;My situation&lt;/h2&gt;
-
-&lt;p&gt;Three years ago, Ordina presented me the opportunity to start with a new team for a new project, as team lead.&lt;br /&gt;
-Up until then, I was a programmer who participated in Scrum teams.&lt;br /&gt;
-Of course, I accepted the proposition and at the time of writing this article, our project is entering its last phase and approaching the production deadline.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;The Team&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-team.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Over the course of these three years, I’ve learned a lot:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Managing a team&lt;/li&gt;
-  &lt;li&gt;Coaching&lt;/li&gt;
-  &lt;li&gt;Handling discussions&lt;/li&gt;
-  &lt;li&gt;Making decisions&lt;/li&gt;
-  &lt;li&gt;Reporting&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;While the first four have been a challenge, the last one, reporting, remains a big challenge up to today.&lt;br /&gt;
-Which is exactly why I’m writing this, in the hopes that someone might learn from it.&lt;/p&gt;
-
-&lt;p&gt;Another reason why I’m writing this is because I’ve recently been to the eXperience Agile conference in Lisbon, Portugal.&lt;br /&gt;
-I went to a talk of &lt;a href=&quot;http://docondev.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Doc Norton&lt;/a&gt; that was called &lt;a href=&quot;https://www.leanpub.com/escapevelocity&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Escape velocity&lt;/a&gt;. 
-The talk was essentially about how and why velocity is incorrectly used as a forecasting and diagnostics tool.
-The day after, I also followed his workshop about the subject and so you’ll see references to his talk throughout this blogpost.&lt;/p&gt;
-
-&lt;h2 id=&quot;context&quot;&gt;Context&lt;/h2&gt;
-
-&lt;p&gt;The project started as an agile project, so the whole Scrum framework was used. 
-But in hindsight, there were a few problems:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;It would replace an existing product.&lt;/li&gt;
-  &lt;li&gt;It could not go into production until the functionalities of the old product were implemented.&lt;/li&gt;
-  &lt;li&gt;It had an enormous backlog of around 2.500 story points.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This blocked a major feature of Scrum, being able to quickly release a product and gather valuable feedback from the end-users.&lt;br /&gt;
-We estimated the entire backlog to give management a rough estimation, 1.5 years of work with five developers and two analysts.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;This is fine&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-this-is-fine.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Now, for those reading this and having done such an estimation before, you know that the 1.5 years was probably wrong. 
-And it was.&lt;br /&gt;
-After about a year of development, we had to re-estimate the entire backlog which resulted in doubling the amount of story points to 5000. 
-And right now, we’re at 6000.&lt;br /&gt;
-The backlog keeps growing, which is normal as we continue to learn about the business and the requirements.&lt;/p&gt;
-
-&lt;h1 id=&quot;forecasting&quot;&gt;Forecasting&lt;/h1&gt;
-
-&lt;h2 id=&quot;what&quot;&gt;What&lt;/h2&gt;
-
-&lt;p&gt;So during the course of the project, I’ve had to report the progress to management.&lt;br /&gt;
-For this, I used the velocity of the team to generate a burnup chart so that they could see by what date we would arrive at the end. 
-That’s called forecasting.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Timeline&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-timeline.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;But there’s immediately a problem there, velocity is a &lt;strong&gt;lagging indicator&lt;/strong&gt;.&lt;br /&gt;
-It shows long-term patterns and can confirm such patterns - for example every December, the velocity would drop due to team members going on holidays.
-It is difficult to use velocity as a planning tool since you can’t see in the future. 
-And it’s based on estimations of a backlog, which are subject to change.&lt;/p&gt;
-
-&lt;p&gt;So the end date I had to report to management would typically move forward each meeting.&lt;br /&gt;
-Needless to say, they weren’t happy with that. 
-Every single time, I had to explain the fundamentals of Scrum, the backlog, refinements, story splitting, etc…&lt;/p&gt;
-
-&lt;h2 id=&quot;throughput-forecasting&quot;&gt;Throughput Forecasting&lt;/h2&gt;
-
-&lt;p&gt;A useful tool I learned with Doc Norton’s talk is the &lt;a href=&quot;https://github.com/FocusedObjective/FocusedObjective.Resources/raw/master/Spreadsheets/Throughput%20Forecaster.xlsx&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;throughput forecasting tool&lt;/a&gt;.&lt;br /&gt;
-It’s an Excel file where you can enter the following data:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The min/max backlog/feature size.&lt;/li&gt;
-  &lt;li&gt;The % of story splitting (hard to calculate, not required).&lt;/li&gt;
-  &lt;li&gt;The start date (typically today).&lt;/li&gt;
-  &lt;li&gt;The duration of your sprints.&lt;/li&gt;
-  &lt;li&gt;The min/max velocity.&lt;/li&gt;
-  &lt;li&gt;With an estimate.&lt;/li&gt;
-  &lt;li&gt;Or with actual data from your project.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The tool then runs 500 simulations where it randomly picks numbers between the minimum and maximum you provided. 
-Those simulations are then used to give you a probability chance of reaching a certain date.&lt;/p&gt;
-
-&lt;p&gt;The past few meetings I’ve started to use this tool and it helped me to provide a better, probable end date of the features.&lt;/p&gt;
-
-&lt;p&gt;Let’s take an example. 
-In our backlog, we have three features waiting, a total of 150 story points. 
-Now, you have to estimate how many sprints it would take to finish and by what date.&lt;/p&gt;
-
-&lt;p&gt;Assume we start 01-01-2019 and work with sprints of two weeks. 
-The past five velocities were 60, 55, 40, 45, 51, averaging in 50. Three sprints, great!&lt;br /&gt;
-Estimated end date = 01-01-2019 + six weeks = 12-02-2019
-Now, let’s put that in the tool.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Throughput Tool Input&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-throughput-input.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The result:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Throughput Tool Result&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-throughput-results.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So there’s a 55% probability that the features will be done in three sprints.&lt;br /&gt;
-However, there’s a 100% probability that it will be done in four sprints. And that’s just for three features worth of 150 story points.&lt;/p&gt;
-
-&lt;h1 id=&quot;metrics&quot;&gt;Metrics&lt;/h1&gt;
-
-&lt;p&gt;During my role as team lead, I’ve also had to measure the performance and happiness of the team. 
-To do so, it helps to have raw data to analyse.&lt;/p&gt;
-
-&lt;h2 id=&quot;velocity&quot;&gt;Velocity&lt;/h2&gt;
-
-&lt;p&gt;The tool we use for managing our scrum process is Jira. 
-It contains various reports that can be generated based on your agile board.&lt;br /&gt;
-But mostly,  I used the export to spreadsheet functionality.
-This provided me with a spreadsheet file with all the raw data of the entire backlog in Jira.&lt;/p&gt;
-
-&lt;p&gt;With that spreadsheet, it’s just a matter of using the various functions to analyse the data. 
-This gave me results such as the image below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Raw Velocity&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-velocity-raw.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I also asked all team members to enter their hours per sprint in another spreadsheet. 
-Which resulted in the following:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Hours Per Sprint&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-hours-input.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;All that data can then be combined into a chart.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Velocity Chart&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-velocities-chart.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As always with velocity, it tells us what happened in the past. 
-But what does the chart above tell us?&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The story points done per sprint are rising.&lt;/li&gt;
-  &lt;li&gt;The last 2 sprints, the team did a very good estimation as they reached or surpassed their forecasted story points.&lt;/li&gt;
-  &lt;li&gt;The relative velocity (what the team could have done if everyone was present) is always much higher
-    &lt;ul&gt;
-      &lt;li&gt;This could for example indicate that team members are often absent, which explains the difference between the velocity and the relative velocity.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;What you do with this data is, as always, up to your team. 
-It can for example help to determine the impact of certain decisions in the past.&lt;/p&gt;
-
-&lt;h2 id=&quot;team-happiness&quot;&gt;Team Happiness&lt;/h2&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Happy Team&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-team-happy.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;For measuring the happiness of the team, I used five questions with a score of 1 (not great) - 5 (great) and used that data in another spreadsheet.&lt;br /&gt;
-Every sprint, the team had to fill it in and I gathered the data.&lt;/p&gt;
-
-&lt;p&gt;As with velocity, this is a lagging indicator so you can see what happened in the past, but it can’t predict the future.&lt;/p&gt;
-
-&lt;p&gt;But it’s useful to see patterns.&lt;br /&gt;
-For example, you can see happiness peaks in sprints where team activities were done. 
-Difficult sprints create happiness lows, due to stress and pressure.&lt;/p&gt;
-
-&lt;p&gt;The questions I used were:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Quality of meetings&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Did we have too many meetings? Not enough? Were the ones we had meaningful?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Team collaboration&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;How did the team members work together? Were there any problems?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Correct focus&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Did the team focus on the correct backlog items? Or did they do useless items?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Team flexibility&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;How well did the team respond to change?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Velocity team&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Did the team achieve what they forecasted during the planning?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Created value&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Did the team have the feeling that they produced extra value?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;When you put all this data in a chart, it could look like the chart below for the last few sprints.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Short-term Team Happiness&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-happiness-short.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If you use the last five sprints, it can help to locate problems in the team. 
-The chart below shows that the team wasn’t happy about the achieved velocity. 
-So it could help to find out why and avoid that problem in future sprints.&lt;/p&gt;
-
-&lt;p&gt;If you do it for a longer period, it could look like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Long-term Team Happiness&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-happiness-long.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It shows that sprint 7 was a very bad sprint, together with 13.&lt;br /&gt;
-The longer we worked together, the more stable the chart gets. 
-Which is a normal evolution as everyone needs to get used to each other in the beginning.&lt;/p&gt;
-
-&lt;h2 id=&quot;sprint-spread&quot;&gt;Sprint Spread&lt;/h2&gt;
-
-&lt;p&gt;A chart that I started to use in the last few months is the spread of the various types of backlog items in sprints.&lt;br /&gt;
-The extracted data from Jira can be used to filter on types and then combine it in a chart.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Sprint Spread&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-sprint-spread.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;What does the image above tell?&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Sprint 56
-    &lt;ul&gt;
-      &lt;li&gt;No bugs, but a lot of stories and a few tasks, as well as some stories that were rejected by the business&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Sprint 57
-    &lt;ul&gt;
-      &lt;li&gt;Quite a few bugs and stories, mixed with some tasks and few rejected stories&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Sprint 58
-    &lt;ul&gt;
-      &lt;li&gt;We did a lot of tasks due to a technical refactoring, with less stories and some bugs&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;And so on&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I find this very interesting to report to management, as it clearly shows that the team did a lot of work, even if that doesn’t translate in raw velocity.&lt;/p&gt;
-
-&lt;h2 id=&quot;cumulative-flow-diagram&quot;&gt;Cumulative Flow Diagram&lt;/h2&gt;
-
-&lt;p&gt;During the workshop with Doc Norton in Lisbon, I also learned of the cumulative flow diagram.&lt;br /&gt;
-This is a diagram that can be automatically generated in most Scrum tools, such as Jira.&lt;/p&gt;
-
-&lt;p&gt;Unfortunately, I’ve not been able to generate a readable diagram for my project due to Jira malfunctioning, but for completeness, I will include it here as well.&lt;/p&gt;
-
-&lt;p&gt;So, what does the diagram look like? (Information taken from &lt;a href=&quot;https://zepel.io/agile/reports/cumulative-flow-diagram/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Zepel&lt;/a&gt;)&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Cumulative Flow Diagram Example&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-flow-example.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It basically shows you the process of an item from backlog to completed.&lt;br /&gt;
-And more importantly, it can tell you when there are problems in that process. 
-The image above shows lines that go up evenly, with no drastic changes.&lt;/p&gt;
-
-&lt;p&gt;The image below however, shows that the development line is straightening out, which means no new stories are picked up for development from the backlog. 
-This could be due to a number of reasons, such as impediments or unforeseen complexity and generates a bottleneck. 
-This creates hiccups in the value flow, and a lower flow rate in the next statuses, such as QA and Deployed.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Blocking Cumulative Flow Diagram&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-flow-blocking.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The chart does not explain how to fix it, but it does tell that there’s a problem.
-And so the Cumulative Flow Diagram is therefor a perfect tool for a scrum master to start a good discussion with the team, about flow, blockages and dependencies. 
-Eventually this will most definitely lead to better flow management, more t-shaping, an optimized WIP limit… and a happier team!&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Reporting in an agile environment remains difficult. 
-There are a lot of possible options, but it always depends on your specific situation.&lt;br /&gt;
-In more traditional, waterfall projects, reporting is a bit easier as everything should be known beforehand (although that produces other problems…).&lt;br /&gt;
-In this blogpost, I have given some examples of metrics and tools that I use to report progress and performance of my project, which work for me.&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Great Success&quot; src=&quot;/img/2019-11-20-agile-reporting/reporting-great-success.png&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;As with all things agile, they might or might not work for your situation, but at the least, it might have given you some ideas!&lt;/strong&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Scrum Master&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Scrum Master at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>wouter.nivelle@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Reporting" /><summary type="html">Thoughts and ideas about reporting for agile projects.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-11-20-agile-reporting/agile-reporting.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-11-20-agile-reporting/agile-reporting.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;We ended the day with a Gouden Carolus, which is the most famous beer that is brewed in Mechelen. Overall, it was a very nice experience which I would love to attend again in the future. You get familiar with a lot of AWS components that you didn’t know before and they showcase a lot of services.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Conference" /><category term="AWS" /><category term="Cloud" /><category term="Conference" /><summary type="html">AWSome Dev Day 2019!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/AWS-Dev-Day-2019/aws-dev-day-2019-banner.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/AWS-Dev-Day-2019/aws-dev-day-2019-banner.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

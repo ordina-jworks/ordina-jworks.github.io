@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Chatbots - Introduction and a practical use case - Jasper Rosiers">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/chatbot.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/machine%20learning/2020/02/24/Chatbots-Introduction-and-a-Practical-Case.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Chatbots - Introduction and a practical use case - Jasper Rosiers"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/chatbot.png"/>
+
+    
+    <title>Chatbots - Introduction and a practical use case - Jasper Rosiers &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Chatbots - Introduction and a practical use case</h2>
+                
+
+                
+                    Posted Feb 24, 2020
+
+
+    in <a href="/categories/machine-learning/">Machine Learning</a>
+
+
+
+    by
+    
+        <a href="/author/jasper-rosiers/">Jasper Rosiers</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/chatbots/">Chatbots</a>, 
+    
+        <a href="/tags/chatlayer/">Chatlayer</a>, 
+    
+        <a href="/tags/dialogflow/">DialogFlow</a>, 
+    
+        <a href="/tags/spring-boot/">Spring Boot</a>, 
+    
+        <a href="/tags/nestjs/">NestJS</a>, 
+    
+        <a href="/tags/mocking/">Mocking</a>, 
+    
+        <a href="/tags/typescript/">TypeScript</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>Chatbots, they seem to be everywhere, and yet, there are a lot of people who have no idea what they are.
+I came home one day in October and told my parents and sisters I was building a chatbot at work.
+Their reaction: “You’re building a what now?”. 
+So I took ten minutes to explain them what a chatbot is and does.
+In the end, they just said “So… It is a computer person?”. <br /> <br />
+This post will feature a high-level explanation of what chatbots are and what they do, as well as a deep dive into chatbot providers and a technical implementation. 
+In the end, we’ll look at a practical case of a chatbot: FleetBot Dina.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table Of Contents</h1>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#essential-terminology">Essential terminology</a></li>
+  <li><a href="#chatbot-providers">Chatbot providers</a></li>
+  <li><a href="#practical-case-fleetbot-dina">Practical case: FleetBot Dina</a></li>
+  <li><a href="#technical-implementation">Technical implementation</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+<p>The concept of chatbots has existed ever since Alan Turing designed the Turing test in 1950, with the original concept of the test dating back to 1936.
+The question asked in this test was “Can machines think?”. 
+The test proposes a way to measure if the testee can know whether he’s talking to a human or a machine.
+Joseph Weizenbaum was the first to design a real chatbot, ELIZA, in 1966 at the MIT AI laboratory, which he called a ‘chatterbot’.
+Even though it failed the Turing test, the main idea behind a chatbot has since then remained the same: recognise what a user says using pre-programmed keywords and phrases, and respond accordingly.</p>
+
+<p><img alt="ELIZA" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/ELIZA.jpg" class="image fit" style="margin:0px auto;" /></p>
+
+<p>Technology has obviously evolved a lot since 1966. 
+Modern chatbots do not only look at keywords and phrases anymore.
+They use a technology called <a href="https://mobilecoach.com/chatterbots-6-what-is-natural-language-processing/" target="_blank" rel="noopener noreferrer">Natural Language Processing</a> (NLP) and Understanding (NLU) to understand the meaning behind what a user says. 
+NLU uses complex algorithms to analyse the input, not only with predefined keywords but by using various aspects of the language and the sentence structure of the given input.</p>
+
+<p>This way, not only can a chatbot understand what a user says, but it can also do a sentiment analysis and extract useful information out of the input.
+An example, when the user says <em>“Damn, someone drove into my <strong>Car Brand</strong> earlier today, but it wasn’t my fault. I don’t know what I should do now.”</em>, the chatbot would know that the user was quite angry, he had an accident, and he drives a <strong>Car Brand</strong>. 
+The bot’s response could be: <em>“I hope you’re okay. Here is a list of garages you can go to. Since it wasn’t your fault, insurance will help you figure this out.”</em></p>
+
+<p><img alt="NLP" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/NLP.png" class="image fit" style="margin:0px auto;" /></p>
+
+<p>In 2006, the world saw the first big tech company launch a chatbot called Watson.
+IBM’s Watson went on to winning a game of “Jeopardy!” against all-time champions Ken Jennings and Brad Rutter in 2011.
+Since then, tech giants like Apple (Siri), Google (Google Now), Amazon (Alexa) and Microsoft (Cortana) have all launched their own personal assistant chatbots with their respective NLPs.
+In Belgium, Antwerp company <a href="https://www.chatlayer.ai" target="_blank" rel="noopener noreferrer">Chatlayer</a> provides a custom platform to build chatbots. 
+They use whichever NLP is best in a given language.
+For Flemish &amp; Dutch, they built a custom NLP.</p>
+
+<p>Like all chatbots, these personal assistants have a specified set of use cases, setting alarms, playing music, reading the weather report, telling jokes,… 
+If they don’t know the answer to a question, they will usually just look up whatever you asked on the internet, and give you the best response.</p>
+
+<h1 id="essential-terminology">Essential terminology</h1>
+<p>These are a few terms you should know when studying or working with chatbots.
+They will be used throughout this blog.</p>
+
+<ul>
+  <li><strong>Natural Language Understanding</strong><br />
+    <blockquote>
+      <p>NLU is the Artificial Intelligence (AI) which tries to understand the meaning behind what a user says.
+It can do a sentiment analysis, extract relations between words and phrasing, do semantic parsing,…</p>
+    </blockquote>
+  </li>
+  <li><strong>Natural Language Processing</strong><br />
+    <blockquote>
+      <p>NLP consists of NLU, along with extra factors like syntactic parsing. 
+The key takeaway here is that NLP translates the user input to machine language and determines what a user has said.</p>
+    </blockquote>
+  </li>
+  <li><strong>Natural Language Generation (NLG)</strong><br />
+    <blockquote>
+      <p>NLG comes after the computer has understood the meaning behind the input and formulates an answer. 
+This answer is usually predefined, but can vary depending on the input and the entities the bot has saved so far.</p>
+    </blockquote>
+  </li>
+  <li><strong>Entities</strong><br />
+    <blockquote>
+      <p>Entities are data that a chatbot can save during a conversation, e.g. your car brand, your tire type,…</p>
+    </blockquote>
+  </li>
+  <li><strong>Expressions</strong><br />
+    <blockquote>
+      <p>An expression is anything that a user sends or says to the bot.</p>
+    </blockquote>
+  </li>
+  <li><strong>Intents</strong><br />
+    <blockquote>
+      <p>The intent is the purpose behind a user’s message, e.g. does the user ask for a garage, does he want to know about how to refill his AdBlue,…</p>
+    </blockquote>
+  </li>
+  <li><strong>Context</strong><br />
+    <blockquote>
+      <p>A context is used when you expect the user to reply to a bot question.
+By using contexts, you can direct the conversation into a certain flow, helping both the user and the computer along.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h1 id="chatbot-providers">Chatbot providers</h1>
+<p>There are multiple chatbot providers you can use when building bots. 
+Each bot has its own NLP and User Interface (UI), but to the core, they all expect the developer to provide the same things: expressions, intents and flows to guide a user through the conversation.
+Chatbots can be implemented via various chat clients: Messenger, Microsoft Teams, Slack, Google Assistant,…
+Chatbot providers provide you with integrations in different of these clients, and usually enable you to program a custom integration using (REST) APIs.</p>
+
+<p>Below, the biggest chatbot providers of today are listed with their properties (at the time of writing). 
+We will not discuss each in detail with how bots are built, since it is equivalent for all, only varying in the UI.
+There will be links in the <a href="#resources">Resources</a> section of this blogpost.</p>
+
+<p><span class="image right"><img alt="Dialogflow" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/DIALOGFLOW.jpg" style="margin:0px auto; max-width: 200px;" /></span></p>
+
+<p><strong><a href="https://dialogflow.cloud.google.com/" target="_blank" rel="noopener noreferrer">Google DialogFlow</a></strong><br /></p>
+<blockquote>
+  <ul>
+    <li>Easy and free to start up;</li>
+    <li>Events possible to trigger via API, making it able to move the conversation into a certain flow easily depending on user input;</li>
+    <li>Parameters can all be asked within same intent;</li>
+    <li>Intent structure can become very complicated for bigger bots, especially when first getting into an existing project;</li>
+    <li><strong>Responses can be customised</strong> based on the supported chat clients;</li>
+    <li>Complicated responses with images, buttons, cards,… and jumping from intent to intent requires a <strong>lot of coding</strong>;</li>
+    <li>No sentiment analysis;</li>
+    <li><strong>About 20 integrations supported for free out of the box</strong>, both chat and voice, possible to code custom integrations via API;</li>
+    <li><strong>Multilingual</strong>, Dutch relatively ok, Flemish is difficult.</li>
+  </ul>
+</blockquote>
+
+<p><span class="image right"><img alt="AmazonLex" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/AMAZONLEX.png" style="margin:0px auto; max-width: 200px;" /></span></p>
+
+<p><strong><a href="https://aws.amazon.com/lex/" target="_blank" rel="noopener noreferrer">Amazon Alexa/Lex</a></strong><br /></p>
+<blockquote>
+  <ul>
+    <li>Easy and (practically) free to start up (you do have to make an account linked to a credit card);</li>
+    <li>Built to work with <strong>Amazon Lambdas</strong>, booking appointments etc;</li>
+    <li>Integration with Amazon Connect, CRM tools,…;</li>
+    <li>Parameters can all be asked within same intent;</li>
+    <li>No easy way to build big flows, no context possibilities;</li>
+    <li>Best for small conversations like booking an appointment;</li>
+    <li>Integration with Messenger, Slack and Twilio + API;</li>
+    <li><strong>Single-language – only English.</strong></li>
+  </ul>
+</blockquote>
+
+<p><span class="image right"><img alt="AmazonLex" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/MICROSOFTPOWERVA.jpg" style="margin:0px auto; max-width: 200px;" /></span></p>
+
+<p><strong><a href="https://powervirtualagents.microsoft.com/en-us/" target="_blank" rel="noopener noreferrer">Microsoft Luis/Power Virtual Agents</a></strong><br /></p>
+<blockquote>
+  <ul>
+    <li>Easy and free to start up;</li>
+    <li>Built to work with <strong>Dynamics 365</strong>;</li>
+    <li>Easy off-handing to live chat when bot fails;</li>
+    <li>Parameters can all be asked within same block;</li>
+    <li>Easy to build big flows – Tree structure using various blocks depending on use case;</li>
+    <li><strong>About 15 integrations supported for free out of the box</strong>, both chat and voice, possible to code custom integrations via API;</li>
+    <li><strong>Single-language – only English</strong>.</li>
+  </ul>
+</blockquote>
+
+<p><span class="image right"><img alt="IBMWATSON" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/IBMWATSON.jpg" style="margin:0px auto; max-width: 200px;" /></span></p>
+
+<p><strong><a href="https://www.ibm.com/watson/how-to-build-a-chatbot" target="_blank" rel="noopener noreferrer">IBM Watson</a></strong><br /></p>
+<blockquote>
+  <ul>
+    <li>Easy and free to start up (30 day trial);</li>
+    <li>Relatively easy to build big flows – Treelike structure using various blocks depending on use case;</li>
+    <li>Integration with Messenger, Slack, WordPress and Intercom + API;</li>
+    <li><strong>Multilingual with Watson Language Translator</strong>, Dutch relatively ok, Flemish is difficult.</li>
+  </ul>
+</blockquote>
+
+<p><span class="image right"><img alt="CHATLAYER" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CHATLAYER.jpg" style="margin:0px auto; max-width: 200px;" /></span></p>
+
+<p><strong><a href="https://www.chatlayer.ai" target="_blank" rel="noopener noreferrer">Chatlayer</a></strong><br /></p>
+<blockquote>
+  <ul>
+    <li>Easy and free to start up (30 day trial, Chatlayer has to manually approve your request for a trial);</li>
+    <li>Easy to build big flows – Tree structure using various blocks depending on use case;</li>
+    <li>Parameters can be asked using ‘Input Validation’, on faulty type of answer. 
+You can reply with a custom message to make sure the user uses the correct format;</li>
+    <li>Extensive reply capabilities;</li>
+    <li>Integration with Messenger, Google Home, WhatsApp and Intercom + API;</li>
+    <li><strong>Multilingual</strong>, Custom NLP for Dutch/Flemish, uses best available NLP for other languages. 
+Can automatically detect and understand all languages, regardless of the language you programmed the bot to understand. 
+Can answer only in the languages you programmed.;</li>
+  </ul>
+</blockquote>
+
+<h1 id="practical-case-fleetbot-dina">Practical case: FleetBot Dina</h1>
+<p>At Ordina, we have about 800 cars in our Fleet. 
+These, along with everything concerning alternative modes of transport and phone subscriptions, are managed by only two people.
+As you’re probably thinking right now, this sounds like quite a hefty workload, and you would be quite right.
+At the time of writing this blogpost, they have to deal with up to 150 emails on a daily basis, which is only expected to rise as Ordina is constantly growing.
+Since we at JWorks also have questions from time to time, but wanted to lift a bit of their workload, we decided to pitch them the idea of building a chatbot.</p>
+
+<p>The chatbot is to be launched to Ordina’s Microsoft Teams.
+This way, everyone at Ordina could contact it without having to bother with adding it as a separate user or having to create an account on a chat client they don’t use.
+Since JWorks uses Telegram for a lot of their internal communications, and we like experimenting, we decided to also build a connection to a Telegram bot.
+This Telegram connection was only used in the testing of the FleetBot and to improve the accuracy of the NLP.</p>
+
+<p>We tested all of the chatbot providers listed in the <a href="#chatbot-providers">Chatbot providers</a> section, and ended up choosing Chatlayer for its outstanding Flemish/Dutch NLP, because most of Ordina Belgium’s employees are Flemish speaking.
+The possibility to extend that functionality to Ordina in the Netherlands was an attractive bonus.
+We also wanted to be able to hand the bot over to the Fleet division when it was finished, so they could keep it up to date without us.
+We felt that Chatlayer offered the best UI for maintenance by non-developers.</p>
+
+<p>Below is a short example of the Fleetbot in MS Teams.</p>
+
+<div class="responsive-video">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/zgIOB8djVrM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+
+<h1 id="technical-implementation">Technical implementation</h1>
+<p>The general program structure is shown in the image below. 
+We will discuss the MS Teams bot in detail later on. 
+As you can see, both the Teams and Telegram adapter have their own repo &amp; deployment. 
+The reason behind this is that we wanted to be able to provide custom connections for any chat client without having to edit in an adapter used for another one.
+Using the gateway, we can easily route the response from chatlayer to the adapter it is supposed to go to.</p>
+
+<p><img alt="GENERALLAYOUT" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/GENERALLAYOUT.png" class="image fit" style="margin:0px auto;" /></p>
+
+<p>The image below shows the production environment of the FleetBot in MS Teams. 
+As you can see, Teams sends an API call to our adapter, which then converts it to a message format Chatlayer accepts.
+For these API calls, as well as testing, we used <a href="https://nestjs.com/" target="_blank" rel="noopener noreferrer">NestJS</a>, an extension of NodeJS in TypeScript.
+For the Telegram adapter, we used <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a> and Java instead to experiment with different technologies.</p>
+
+<p>To get all useful information out of the Teams message, we use the <a href="https://docs.microsoft.com/en-gb/azure/bot-service/javascript/bot-builder-javascript-quickstart?view=azure-bot-service-4.0" target="_blank" rel="noopener noreferrer">Microsoft BotFramework</a>. 
+During this conversion, we add a prefix to the id: <code class="highlighter-rouge">teams-prod:</code>. 
+This prefix makes it possible for the Gateway to know that the message came from the Teams bot in the production environment and thus send it back to the correct bot.</p>
+
+<p><img alt="TEAMSINDETAIL" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMSINDETAIL.png" class="image fit" style="margin:0px auto;" /></p>
+
+<p>The BotFramework provides methods to get a conversation’s context, and reply to the correct user using that context.
+Hence, we see the <code class="highlighter-rouge">turnContext.sendActivities()</code> method used to reply to a user.
+We used the NodeJS version of the BotFramework, and used a map to save the conversation references. 
+The reference gets deleted right after the reply has been sent, so we didn’t need to worry about using a database to save the conversation.</p>
+
+<p><img alt="CONVERSATIONREF" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONVERSATIONREF.png" class="image fit" style="margin:0px auto;" /></p>
+
+<p>Since Chatlayer supports many types of replies, all of these had to be converted to the possible Teams messages.
+Depending on the message type Chatlayer sent, the <code class="highlighter-rouge">sendActivities()</code> method has to send a different Activity.</p>
+
+<p><img alt="CONTINUECONV" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONTINUECONV.png" class="image fit" style="margin:0px auto" /></p>
+
+<p>As you can see, there are the normal text messages, but also carousels and cards (of which there are multiple types). 
+This variety can deliver very fun and engaging conversations, which can improve your user retention and experience.
+Of course, the use of all these features depends heavily on the conversation topic and context.
+You can see an example of all possible messages below.</p>
+
+<table><tr>
+<td><img alt="TEAMS1" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMS1.png" class="image fit" style="margin:0px auto" /></td>
+<td><img alt="TEAMS2" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMS2.png" class="image fit" style="margin:0px auto" /></td>
+</tr></table>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>After working with chatbots during the past 6 months, I’m proud of what we’ve achieved so far. 
+The FleetBot is being actively tested at JWorks and looking to go live for all Ordina Belgium employees.
+Because of working closely with Chatlayer on the FleetBot project, we have initiated a partnership for future chatbot projects.
+There already are a number of interesting projects coming up that we’re happy to be part of.
+Having tested many chatbot providers, we can confidently make an assessment of which one would be best in any use case.</p>
+
+<p>What I’m most excited about is the versatility of chatbots. 
+Want one in Telegram or Slack? <br />
+No problem, we can build that connection! <br />
+Want one that speaks Chinese, German and English? <br />
+Can do!</p>
+
+<p>Do you think your company could use a chatbot to raise user satisfaction, reduce your FAQ workload, or for anything else it could help out with?
+Get in touch with <a href="mailto:frederickbousson@ordina.be?subject=[Chatbots]%20Interest%20in%20chatbot%20project">Frederick Bousson</a>! <br />
+We can help you evaluate if a chatbot is indeed the way to go for your specific case and choose the correct provider for your needs.
+After that, we will assist you in building the bot and build all necessary chat client connections.</p>
+
+<h1 id="resources">Resources</h1>
+<ul>
+  <li><a href="https://mobilecoach.com/chatterbots-2-history-of-chatbots/" target="_blank" rel="noopener noreferrer">Chatbot History</a></li>
+  <li><a href="https://www.nytimes.com/2011/02/17/science/17jeopardy-watson.html" target="_blank" rel="noopener noreferrer">Watson Jeopardy!</a></li>
+  <li><a href="https://becominghuman.ai/a-simple-introduction-to-natural-language-processing-ea66a1747b32" target="_blank" rel="noopener noreferrer">NLP Intro</a></li>
+  <li><a href="https://nlp.stanford.edu/~wcmac/papers/20140716-UNLU.pdf#page=8" target="_blank" rel="noopener noreferrer">NLP vs NLU</a></li>
+  <li><a href="https://www.chatlayer.ai/wp-content/uploads/downloads/big-bots-guide-20190626.pdf" target="_blank" rel="noopener noreferrer">10 Lessons Learned From Building Big Chatbots</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/machine%20learning/2020/02/24/Chatbots-Introduction-and-a-Practical-Case.html&title=Chatbots - Introduction and a practical use case&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Chatbots - Introduction and a practical use case&url=https://ordina-jworks.github.io/machine%20learning/2020/02/24/Chatbots-Introduction-and-a-Practical-Case.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/machine%20learning/2020/02/24/Chatbots-Introduction-and-a-Practical-Case.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/jasper-rosiers/" class="image spotlight-image" title="">
+            <img src="/img/author/jasper-rosiers.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Jasper is a Java Developer with a love for IoT and innovative tech. He has a lot of experience in building chatbots using various platforms and coupling them to different chat clients. He also has a passion for the Agile way of working, Scrum and communication, both inside and outside the team.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/chatbot.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
