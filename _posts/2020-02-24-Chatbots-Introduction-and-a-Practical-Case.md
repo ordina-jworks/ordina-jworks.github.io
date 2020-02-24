@@ -4,7 +4,7 @@ authors: [jasper_rosiers]
 title: "Chatbots - Introduction and a practical use case"
 image: /img/chatbot.png
 tags: [Chatbots, Chatlayer, DialogFlow, Spring Boot, NestJS, Mocking, TypeScript]
-category: Smart tech, Machine Learning
+category: Machine Learning
 comments: true
 ---
 
@@ -70,7 +70,7 @@ They will be used throughout this blog.
 > NLG comes after the computer has understood the meaning behind the input and formulates an answer. 
 > This answer is usually predefined, but can vary depending on the input and the entities the bot has saved so far. 
 * **Entities**<br/>
-> Entities are data that that a chatbot can save during a conversation, e.g. your car brand, your tire type,...
+> Entities are data that a chatbot can save during a conversation, e.g. your car brand, your tire type,...
 * **Expressions**<br/>
 > An expression is anything that a user sends or says to the bot.
 * **Intents**<br/>
@@ -91,7 +91,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 
 <span class="image right"><img alt="Dialogflow" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/DIALOGFLOW.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
-* **[Google DialogFlow](https://dialogflow.cloud.google.com/){:target="_blank" rel="noopener noreferrer"}**<br/>
+**[Google DialogFlow](https://dialogflow.cloud.google.com/){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up;
 > * Events possible to trigger via API, making it able to move the conversation into a certain flow easily depending on user input;
 > * Parameters can all be asked within same intent;
@@ -104,8 +104,8 @@ There will be links in the [Resources](#resources) section of this blogpost.
 
 <span class="image right"><img alt="AmazonLex" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/AMAZONLEX.png' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
-* **[Amazon Alexa/Lex](https://aws.amazon.com/lex/){:target="_blank" rel="noopener noreferrer"}**<br/>
-> * Easy and (practically) free to start up (you do have to make an account linked to credit card);
+**[Amazon Alexa/Lex](https://aws.amazon.com/lex/){:target="_blank" rel="noopener noreferrer"}**<br/>
+> * Easy and (practically) free to start up (you do have to make an account linked to a credit card);
 > * Built to work with **Amazon Lambdas**, booking appointments etc;
 > * Integration with Amazon Connect, CRM tools,...;
 > * Parameters can all be asked within same intent;
@@ -116,7 +116,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 
 <span class="image right"><img alt="AmazonLex" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/MICROSOFTPOWERVA.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
-* **[Microsoft Luis/Power Virtual Agents](https://powervirtualagents.microsoft.com/en-us/){:target="_blank" rel="noopener noreferrer"}**<br/>
+**[Microsoft Luis/Power Virtual Agents](https://powervirtualagents.microsoft.com/en-us/){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up;
 > * Built to work with **Dynamics 365**;
 > * Easy off-handing to live chat when bot fails;
@@ -127,7 +127,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 
 <span class="image right"><img alt="IBMWATSON" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/IBMWATSON.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
-* **[IBM Watson](https://www.ibm.com/watson/how-to-build-a-chatbot){:target="_blank" rel="noopener noreferrer"}**<br/>
+**[IBM Watson](https://www.ibm.com/watson/how-to-build-a-chatbot){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up (30 day trial);
 > * Relatively easy to build big flows -- Treelike structure using various blocks depending on use case;
 > * Integration with Messenger, Slack, WordPress and Intercom + API;
@@ -135,7 +135,7 @@ There will be links in the [Resources](#resources) section of this blogpost.
 
 <span class="image right"><img alt="CHATLAYER" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CHATLAYER.jpg' | prepend: site.baseurl }}" style="margin:0px auto; max-width: 200px;"></span>
 
-* **[Chatlayer](https://www.chatlayer.ai){:target="_blank" rel="noopener noreferrer"}**<br/>
+**[Chatlayer](https://www.chatlayer.ai){:target="_blank" rel="noopener noreferrer"}**<br/>
 > * Easy and free to start up (30 day trial, Chatlayer has to manually approve your request for a trial);
 > * Easy to build big flows -- Tree structure using various blocks depending on use case;
 > * Parameters can be asked using 'Input Validation', on faulty type of answer. 
@@ -149,12 +149,12 @@ Can answer only in the languages you programmed.;
 # Practical case: FleetBot Dina
 At Ordina, we have about 800 cars in our Fleet. 
 These, along with everything concerning alternative modes of transport and phone subscriptions, are managed by only two people.
-As you're probably thinking right now, this sounds like quite the amount of work to be handled, and you would be quite right.
+As you're probably thinking right now, this sounds like quite a hefty workload, and you would be quite right.
 At the time of writing this blogpost, they have to deal with up to 150 emails on a daily basis, which is only expected to rise as Ordina is constantly growing.
 Since we at JWorks also have questions from time to time, but wanted to lift a bit of their workload, we decided to pitch them the idea of building a chatbot.
 
 The chatbot is to be launched to Ordina's Microsoft Teams.
-This way, everyone at Ordina could contact it without having to bother with adding it as a separate user or create an account on a chat client they don't use.
+This way, everyone at Ordina could contact it without having to bother with adding it as a separate user or having to create an account on a chat client they don't use.
 Since JWorks uses Telegram for a lot of their internal communications, and we like experimenting, we decided to also build a connection to a Telegram bot.
 This Telegram connection was only used in the testing of the FleetBot and to improve the accuracy of the NLP.
 
@@ -165,9 +165,9 @@ We felt that Chatlayer offered the best UI for maintenance by non-developers.
 
 Below is a short example of the Fleetbot in MS Teams.
 
-<figure class="video_container">
+<div class="responsive-video">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/zgIOB8djVrM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</figure>
+</div>
 
 # Technical implementation
 The general program structure is shown in the image below. 
@@ -180,12 +180,12 @@ Using the gateway, we can easily route the response from chatlayer to the adapte
 
 The image below shows the production environment of the FleetBot in MS Teams. 
 As you can see, Teams sends an API call to our adapter, which then converts it to a message format Chatlayer accepts.
-For these API calls, as well as testing, we used [NestJS](https://nestjs.com/){:target="_blank" rel="noopener noreferrer"} an extension of NodeJS in TypeScript.
+For these API calls, as well as testing, we used [NestJS](https://nestjs.com/){:target="_blank" rel="noopener noreferrer"}, an extension of NodeJS in TypeScript.
 For the Telegram adapter, we used [Spring Boot](https://spring.io/projects/spring-boot){:target="_blank" rel="noopener noreferrer"} and Java instead to experiment with different technologies.
 
 To get all useful information out of the Teams message, we use the [Microsoft BotFramework](https://docs.microsoft.com/en-gb/azure/bot-service/javascript/bot-builder-javascript-quickstart?view=azure-bot-service-4.0){:target="_blank" rel="noopener noreferrer"}. 
-During this conversion, we add a prefix to the id: "teams-prod:". 
-This prefix makes it possible for the Gateway to know the message came from the Teams bot in the production environment and thus send it back to the correct bot.
+During this conversion, we add a prefix to the id: `teams-prod:`. 
+This prefix makes it possible for the Gateway to know that the message came from the Teams bot in the production environment and thus send it back to the correct bot.
 
 <img alt="TEAMSINDETAIL" src="{{ '/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMSINDETAIL.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
