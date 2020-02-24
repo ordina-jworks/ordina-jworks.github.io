@@ -148,7 +148,7 @@ Can answer only in the languages you programmed.;
 
 # Practical case: FleetBot Dina
 At Ordina, we have about 800 cars in our Fleet. 
-These, along with everything concerning alternative modes of transport and phone subscriptions, are managed by only two people: Anja and Hélène.
+These, along with everything concerning alternative modes of transport and phone subscriptions, are managed by only two people.
 As you're probably thinking right now, this sounds like quite the amount of work to be handled, and you would be quite right.
 At the time of writing this blogpost, they have to deal with up to 150 emails on a daily basis, which is only expected to rise as Ordina is constantly growing.
 Since we at JWorks also have questions from time to time, but wanted to lift a bit of their workload, we decided to pitch them the idea of building a chatbot.
@@ -158,7 +158,7 @@ This way, everyone at Ordina could contact it without having to bother with addi
 Since JWorks uses Telegram for a lot of their internal communications, and we like experimenting, we decided to also build a connection to a Telegram bot.
 This Telegram connection was only used in the testing of the FleetBot and to improve the accuracy of the NLP.
 
-We tested all of the chatbot providers listed in the [Chatbot providers](#chatbot-providers) section, and ended up choosing Chatlayer for its outstanding Flemish/Dutch NLP, because most of Ordina Belgium's employees are Flemish speaking. 
+We tested all of the chatbot providers listed in the [Chatbot providers](#chatbot-providers) section, and ended up choosing Chatlayer for its outstanding Flemish/Dutch NLP, because most of Ordina Belgium's employees are Flemish speaking.
 The possibility to extend that functionality to Ordina in the Netherlands was an attractive bonus.
 We also wanted to be able to hand the bot over to the Fleet division when it was finished, so they could keep it up to date without us.
 We felt that Chatlayer offered the best UI for maintenance by non-developers.
@@ -214,14 +214,20 @@ You can see an example of all possible messages below.
 # Conclusion
 After working with chatbots during the past 6 months, I'm proud of what we've achieved so far. 
 The FleetBot is being actively tested at JWorks and looking to go live for all Ordina Belgium employees.
-Other than that, there are a number of interesting projects using chatbots coming up that we're happy to be part of.
+Because of working closely with Chatlayer on the FleetBot project, we have initiated a partnership for future chatbot projects.
+There already are a number of interesting projects coming up that we're happy to be part of.
 Having tested many chatbot providers, we can confidently make an assessment of which one would be best in any use case.
 
 What I'm most excited about is the versatility of chatbots. 
-Want one in Telegram or Slack? 
-No problem, we can build that connection!
-Want one that speaks Chinese, German and English?
+Want one in Telegram or Slack? <br/>
+No problem, we can build that connection! <br/>
+Want one that speaks Chinese, German and English? <br/>
 Can do!
+
+Do you think your company could use a chatbot to raise user satisfaction, reduce your FAQ workload, or for anything else it could help out with?
+Get in touch with [Frederick Bousson](mailto:frederickbousson@ordina.be?subject=[Chatbots]%20Interest%20in%20chatbot%20project)! <br/>
+We can help you evaluate if a chatbot is indeed the way to go for your specific case and choose the correct provider for your needs.
+After that, we will assist you in building the bot and build all necessary chat client connections.
 
 # Resources
 * [Chatbot History](https://mobilecoach.com/chatterbots-2-history-of-chatbots/){:target="_blank" rel="noopener noreferrer"}
