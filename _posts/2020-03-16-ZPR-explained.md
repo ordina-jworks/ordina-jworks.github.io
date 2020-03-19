@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [bas_moorkens]
+authors: [bas_moorkens, mohammed_laghzaoui]
 title: "Zero Plastic Rivers - explained"
 image: /img/chatbot.png
 tags: [AWS]
@@ -87,6 +87,25 @@ The interaction between our frontend and backend happens over REST services prov
 Beanstalk + IOT -- Bousson interesse?
 
 # security
+
+One key element of the security is controlling who has access to an application. To strengthen security, reduce risk and improve compliance, it is essential that only authorized users get access specific data in an application and that authentication is required before that access is granted. This means that authentication is a critical component for most applications and in this project, it was no exception as we needed to secure the researcher's part of the application so that only researchers have access to advanced functionality.
+
+To perform this authentication, we have chosen to use AWS Cognito as it dramatically simplifies application development by providing an authentication service that is simple to integrate into any modern application. In addition to storing password and e-mail information, Cognito can store standard and custom user account settings. Learn more about AWS Cognito and its advantages [here](https://aws.amazon.com/cognito/).
+
+Another advantage of AWS Cognito is that it supports OpenID Connect which is a simple identity layer built on top of the OAuth 2.0 protocol, which allows clients to verify the identity of an end user based on the authentication performed by an authorization server or identity provider (IdP), as well as to obtain basic profile information about the end user in an interoperable and REST-like manner. Learn more about OpenID Connect [here](https://openid.net/connect/).
+
+### AWS Cognito and OpenID Connect
+
+To carry out authentication using the OpenID Connect standard with Cognito we have chosen to use the Authorization Code Grant which is the preferred and most secure method for authorizing end users. Instead of directly providing user pool tokens to an end user upon authentication, an authorization code is provided. This code is then sent to a custom application that can exchange it for the desired tokens. Because the tokens are never exposed directly to an end user, they are less likely to become compromised.
+
+The image below illustrates the flow, and, in this [blogpost](https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-user-pool-oauth-2-0-grants/), you can find more information about this approach.
+
+<img alt="Authorization Code Grant Diagram" src="{{ '/img/2020-03-16-ZPR-explained/zpr_aws_cognito.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+
+To secure our frontend we have used Manfred Steyer's [Angular-oauth2-oidc](https://github.com/manfredsteyer/angular-oauth2-oidc) library but you could use any library as long as it is [OpenID certified](https://openid.net/certification/). 
+
+Our colleague Jeroen wrote a fantastic [blogpost](https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html#setting-up-the-front-end-and-back-end-applications) that was very helpful to us. Jeroen shows the necessary steps to follow to secure any web application using OpenID Connect.
+
 
 # developer-experience
 
