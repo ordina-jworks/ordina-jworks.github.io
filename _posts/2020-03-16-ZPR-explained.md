@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez]
+authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez, björn de craemer]
 title: "Zero Plastic Rivers - explained"
 image: /img/chatbot.png
 tags: [AWS]
@@ -24,8 +24,8 @@ comments: true
 
 # architecture
 
-To realise this social relevant project we opted to build and run this solution on top of the AWS platform.  
-At Jworks we have been working for some while now in order to build reference cases regarding frontend and backend application hosting on AWS and the ZPR project has proven to be an excellent candidate to put our reference architectures into practice.  
+To realise this socially relevant project we opted to build and run this solution on top of the AWS platform.  
+At Jworks we have been working for some time now ibuilding reference cases regarding frontend and backend application hosting on AWS and the ZPR project has proven to be an excellent candidate to put our reference architectures into practice.  
 
 This is the architectural big picture overview of the ZPR solution.  
 In the following sections we will zoom in on several parts of this architecture to explain certain choices we made.  
@@ -47,19 +47,23 @@ An RDS instance is used as the persistent storage behind the application.
 And to reduce response times on our backend we put in place an elasticache Redis cluster to cache database queries and results.  
 The backend application deployment is connected to a service on kubernetes and is attached to an ingress.  
 The ingress controller running on our cluster is tied to the AWS Elastic Load Balancing service.  
-Whenever we expose an application or our cluster it get's tied to an ALB automatically so it can be exposed to the outside world.  
-This is important for our backend application as the application exposes REST service.  
+Whenever we expose an application or our cluster it gets tied to an ALB automatically so it can be exposed to the outside world.  
+This is important for our backend application as the application exposes REST services.  
 These REST services are used by the frontend application to power the Ionic app. 
 
 ## Frontend
 
-Our frontend application consists of two parts. The first part is aimed at citizens who wish to help the cause, who can notify this surveillance network when they find a bottle as shown in the image below. The second part is aimed at the researchers, and could be seen as the “backend” of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.
+Our frontend application consists of two parts. The first part is aimed at citizens who wish to help the cause, who can notify this surveillance network when they find a bottle as shown in the image below. 
+This is the first way location data about the plastic containers gets into our system.
+Citizens get the option to send a picture of the found container along with their notification.
+This image ends up in an S3 bucket.
+The second part is aimed at the researchers, and could be seen as the “backend” of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.
 
 <div style="text-align: center;">
   <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr-frontend-application.png" width="auto" height="40%" target="_blank">
 </div>
 
-To develop this application we have chosen to use Ionic. [Ionic](https://ionicframework.com/) is a free-to-use web-based framework that allows you to build mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.
+To develop this application we have chosen to use Ionic. [Ionic](https://ionicframework.com/) is a free-to-use web-based framework that allows you to build hybrid mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.
 
 ### Data visualization
 
@@ -98,7 +102,16 @@ The S3 service which acts as the origin for our Cloudfront distribution is **nea
 The interaction between our frontend and backend happens over REST services provided by our backend in the EKS cluster which is exposed over an ALB so we are very confident that we can scale up as needed.  
 
 ## Data ingestion
-Beanstalk + IOT -- Bousson interesse?
+Some of our containers send their location via the cellular network at regular intervals. 
+These messages reach us via an external partner through the tcp protocol.
+The sensors can receive instructions and updates, but this has to happen inside of the same open tcp connection withinn a very short timeframe.
+This is why we have chosen to develop a seperate java sensor gateway to handle these incoming messages. This is deployed on an elastic beanstalk.
+This gateway consults the elastic cache for any needed instructions or updates.
+If a return message is needed, it is sent through the open tcp connection.
+The sensor detection message is then passed on to an SQS queue. From here on, the focus of handling the message is less time-sensitive
+A Lambda function decodes the message on the queue and then pushes it to another SQS message queue.
+A spring boot backend that is deployed in our kubernetes cluster handles these last events and persists them to our database 
+
 
 # security
 
