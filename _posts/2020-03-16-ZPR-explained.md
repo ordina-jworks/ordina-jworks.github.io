@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [bas_moorkens, mohammed_laghzaoui]
+authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez]
 title: "Zero Plastic Rivers - explained"
 image: /img/chatbot.png
 tags: [AWS]
@@ -120,8 +120,20 @@ To secure our frontend we have used Manfred Steyer's [Angular-oauth2-oidc](https
 
 Our colleague Jeroen wrote a fantastic [blogpost](https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html#setting-up-the-front-end-and-back-end-applications) that was very helpful to us. Jeroen shows the necessary steps to follow to secure any web application using OpenID Connect.
 
+# D-Day
+
+Tuesday December 17th was D-day. Then the bottles and sensors were finally thrown into the water. We had a tight timing because the bottles had to be thrown in the Scheldt at high tide, at 3 different locations. 
+It was a nice dry day and our client was quite nervous. Are all the signals coming in properly, is the sensor packed waterproof, ...?  Especially because we were not able to test so much with the sensors due to the tight timing. 
+High tide, time to throw the bottles in the water and register the sensor via our Ionic App. Everything runs smoothly and the signals from the sensors come in. You see the customer cheer up and leave satisfied to the next location. Everything goes as planned all day long and after just a few days the first users start registering the objects on our website.
+And today, so many weeks later, we still receive new registrations. 
+It was a nice ending of a fascinating and instructive project. 
 
 # developer-experience
+
+Zero Plastic Rivers was my first experience with AWS and actually my first cloud project. In the beginning it was quite intimidating because a lot of different technologies of AWS are used.But soon it turned out to be quite easy to configure and with some help from some colleagues (thanks guys) I got everything up and running pretty quickly.
+In the beginning I was quite sceptical about the use of lambdas in our application, I didn't immediately see the advantage of it but in the end it turned out to be the best option, especially if we want to build applications with many more sensors in the future. Although it was sometimes difficult to find the correct documentation.
+My favorite technology was definitely Cognito. In a few lines of code you have a user administration of an entire application without having to worry about possible security holes.
+In the end it was a very pleasant experience to get started with AWS, now I just have to find some free time to study for my AWS certificate.
 
 
 # Conclusion
