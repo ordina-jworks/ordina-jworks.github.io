@@ -51,32 +51,46 @@ Whenever we expose an application or our cluster it get's tied to an ALB automat
 This is important for our backend application as the application exposes REST service.  
 These REST services are used by the frontend application to power the Ionic app. 
 
+## Frontend
+
+Our frontend application consists of two parts. The first part is aimed at citizens who wish to help the cause, who can notify this surveillance network when they find a bottle as shown in the image below. The second part is aimed at the researchers, and could be seen as the “backend” of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr-frontend-application.png" width="auto" height="40%" target="_blank">
+</div>
+
+To develop this application we have chosen to use Ionic. [Ionic](https://ionicframework.com/) is a free-to-use web-based framework that allows you to build mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.
+
+### Data visualization
+
+One of the most relevant components in this application is the map where the sensors and the plastic bottles in the river are visualized by means of the coordinates registered in these items as shown in the image above. For this we have chosen to use [Leaflet](https://leafletjs.com/) which is a JavaScript Open Source library for adding interactivity to maps. They have a ton of features and plugins to support doing pretty much anything with a map that you can think of.
+
+Ionic offers a wide variety of ready to use plug-ins and one of them is the camera that enables users who decide to participate in this project to take pictures of the bottles to update the status and deterioration of each bottle in the river.
+
+### Frontend Testing
+
+In reference to software testing we have mainly used Unit Testing to reduce the number of errors that are released during deployment, which we consider critical for effective software development. 
+
+### Frontend deployment
+
+Originally the plan was to host this application in a nginx webserver in our EKS cluster. We changed to S3 as it is an easier to maintain solution than running your own webserver on kubernetes. We have setup a hosted zone in Route53 which serves as the entry point of users into our application. Route53 then forwards users who visit zpr.one to our Cloudfront distribution. Cloudfront serves the ionic app from our S3 bucket which has static webhosting enabled. This setup seems optimal as it is low maintenance, tightly secured and highly scalable.
 
 
-## Frontend 
-Our frontend application is an Ionic app that is hosted on S3 and cloudfront.  
-Originally the plan was to host this application in a nginx webserver in our EKS cluster.  
-We changed to S3 as it is an easier to maintain solution than running your own webserver on kubernetes.  
-We have setup a hosted zone in Route53 which serves as the entry point of users into our application.  
-Route53 then forwards users who visit zpr.one to our Cloudfront distribution.  
-Cloudfront serves the ionic app from our S3 bucket which has static webhosting enabled.  
-This setup seems optimal as it is **low maintenance**, **tightly secured** and **highly scalable**.  
-
-### Low maintenance
+#### Low maintenance
 To explain why this setup is low maintenance let's take a look at the components used in this architecture.  
 We are making use of Cloudfront, S3 and Route53 in this setup.  
 All of these services are managed services provided by AWS.  
 This means that there is no maintenance required on our part as AWS guarantees uptime and makes sure that everything is running smoothly.  
 The only manual actions that have occurred on our side in this setup so far was to clear the Cloudfront cache after releasing a new version to have the new version more quickly available to users of the app.  
 
-### Tightly secured
+#### Tightly secured
 Since we are using only managed services from AWS the burden of patching those services and making sure they are secured is on AWS itself.  
 AWS has an excellent reputation on this regard so we feel very comfertable in this regard.  
 We also make use of several additional features provided by AWS to secure our application further.  
 For example the S3 bucket that is used to host the website is only accessible through the Cloudfront distribution.  
 So users do not need access to the S3 resources itself, we implemented this nicely through Bucket policies and IAM access control.  
 
-### Highly scalable
+#### Highly scalable
 Since we are only allowing traffic to our application from the Cloudfront distribution this means that we get all the benefits from this global CDN.  
 Cloudfront operates on the AWS edge locations which are spread throughout the world.  
 Since our application is mostly Belgium based this was not as important to us but the fact that Cloudfront routes its requests over the internal AWS backbone makes a huge difference in speed which is a nice feature if you are working with global applications.  
