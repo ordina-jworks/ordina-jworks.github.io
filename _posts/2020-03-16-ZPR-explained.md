@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez, björn de craemer]
+authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez, bjorn_de_craemer]
 title: "Zero Plastic Rivers - explained"
 image: /img/chatbot.png
 tags: [AWS]
