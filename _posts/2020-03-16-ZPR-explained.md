@@ -24,34 +24,54 @@ comments: true
 
 # architecture
 
-To realise this social relevant project we opted to build and run this solution on top of the AWS platform.  
-At Jworks we have been working for some while now in order to build reference cases regarding frontend and backend application hosting on AWS and the ZPR project has proven to be an excellent candidate to put our reference architectures into practice.  
+To build and run this modern, complex project we opted to use the AWS platform.  
+At Jworks we have been investing our time and resources for more then a year now in order to build up our AWS portfolio.  
+This means we work on building up the AWS skills of our people and in parallel we work on building up our portfolio of AWS enabled solutions.  
+We have worked out several reference architectures that we prefer to use now.  
+The advantage of these architectures is that every consultant within our unit knows how to use them and develop applications using them.  
 
-This is the architectural big picture overview of the ZPR solution.  
-In the following sections we will zoom in on several parts of this architecture to explain certain choices we made.  
+The Zero Plastic Rives project proved to be an excellent opportunity to put some of our reference architectures into practice.  
+You can view the architecture we opted to build in the following picture.  
 
-<img alt="ELIZA" src="{{ '/img/2020-03-16-ZPR-explained/zpr_architecture.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_architecture.jpg" width="auto" height="40%" target="_blank">
+</div>
 
-This big architectural picture can be divided in 3 big sections which we will highlight below:
+This big architectural picture can be divided in 3 big sections:
 
 * Backend java application
 * Frontend ionic app
 * Data ingestion
 
+We will highlight some key features of each architectural section in the following paragraphs.
+
 ## Backend application
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_backend.jpg" width="auto" height="40%" target="_blank">
+</div>
+
+### The backend itself
 Since we are called Jworks and we mainly focus on Java/Javacript development it should be no surprise that our backend application is written in java with the spring boot framework.  
-The spring boot application is hosted on our Kubernetes cluster in the AWS cloud. This cluster is an EKS cluster that we use to run several projects for customers and is also used for some of our internal applications.  
-The EKS cluster itself is running with worker nodes in multiple ASGs so we can guarantuee almost 100% uptime on our applications that run on this cluster.  
-The backend uses several other AWS services to store and retrieve it's data.  
-An RDS instance is used as the persistent storage behind the application.  
-And to reduce response times on our backend we put in place an elasticache Redis cluster to cache database queries and results.  
-The backend application deployment is connected to a service on kubernetes and is attached to an ingress.  
-The ingress controller running on our cluster is tied to the AWS Elastic Load Balancing service.  
-Whenever we expose an application or our cluster it get's tied to an ALB automatically so it can be exposed to the outside world.  
-This is important for our backend application as the application exposes REST service.  
-These REST services are used by the frontend application to power the Ionic app. 
+In general we prefer to write backend's in the microservices paradigm, but in this case the backend was sufficient small that it only consists of 1 microservice.  
+The application itself is a pretty standard spring boot application.  
+We use a postgreSQL server hosted in RDS as our persistent datastore on the backend, supplemented with an elasticache Redis cluster to cache database queries and configurations for the IOT sensors used in the data ingestion part.  
+Our backend service is reachable over a REST interface for the outside world, we will talk more about this interface when we discuss the frontend application.  
+
+### Hosting of the application
+The backend application is hosted on our Kubernetes cluster in the AWS cloud. This cluster is an EKS cluster that we use to run several projects for customers and is also used for some of our internal applications.  
+The EKS cluster is a multi-worker node cluster setup with multiple Auto Scaling Groups so we can guarantuee almost 100% uptime on our applications that run on this cluster.  
+We have been using Kubernetes in different forms ( on-premise, AKS, PKS,  ...) for a long time now which means we have a very clear image of how to use it and how to run applications on a cluster.  
+We make heavy use of several key features like: secrets, configmaps, ...  
+Our EKS cluster is running several plugins that allow us to quickly configure infrastructure components on the AWS cloud from within our cluster.  
+For example the REST interface of the application is exposed through a Kubernetes ingress which is hooked up to the ALB controller plugin.  
+This means that whenever we create a new ingress a new Application Load Balancer will be automatically provisioned in the AWS cloud to expose our deployment to the outside world. This makes it very easy to work with and allows us a lot of flexibility.  
 
 ## Frontend
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_frontend.jpg" width="auto" height="40%" target="_blank">
+</div>
 
 Our frontend application consists of two parts. The first part is aimed at citizens who wish to help the cause, who can notify this surveillance network when they find a bottle as shown in the image below. The second part is aimed at the researchers, and could be seen as the “backend” of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.
 
@@ -62,6 +82,10 @@ Our frontend application consists of two parts. The first part is aimed at citiz
 To develop this application we have chosen to use Ionic. [Ionic](https://ionicframework.com/) is a free-to-use web-based framework that allows you to build mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.
 
 ### Data visualization
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_data_ingestion.jpg" width="auto" height="40%" target="_blank">
+</div>
 
 One of the most relevant components in this application is the map where the sensors and the plastic bottles in the river are visualized by means of the coordinates registered in these items as shown in the image above. For this we have chosen to use [Leaflet](https://leafletjs.com/) which is a JavaScript Open Source library for adding interactivity to maps. They have a ton of features and plugins to support doing pretty much anything with a map that you can think of.
 
