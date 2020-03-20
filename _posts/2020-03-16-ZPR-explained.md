@@ -2,7 +2,7 @@
 layout: post
 authors: [bas_moorkens, mohammed_laghzaoui]
 title: "Zero Plastic Rivers - explained"
-image: /img/chatbot.png
+image: /img/2020-03-16-ZPR-explained/zpr-banner.jpg
 tags: [AWS]
 category: Machine Learning
 comments: true
