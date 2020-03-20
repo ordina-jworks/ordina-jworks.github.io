@@ -24,16 +24,11 @@ comments: true
 
 # architecture
 
-<<<<<<< HEAD
 To build and run this modern, complex project we opted to use the AWS platform.  
 At Jworks we have been investing our time and resources for more then a year now in order to build up our AWS portfolio.  
 This means we work on building up the AWS skills of our people and in parallel we work on building up our portfolio of AWS enabled solutions.  
 We have worked out several reference architectures that we prefer to use now.  
 The advantage of these architectures is that every consultant within our unit knows how to use them and develop applications using them.  
-=======
-To realise this socially relevant project we opted to build and run this solution on top of the AWS platform.  
-At Jworks we have been working for some time now ibuilding reference cases regarding frontend and backend application hosting on AWS and the ZPR project has proven to be an excellent candidate to put our reference architectures into practice.  
->>>>>>> a71a280e751a408e56bfb26dbf76d97446f31868
 
 The Zero Plastic Rives project proved to be an excellent opportunity to put some of our reference architectures into practice.  
 You can view the architecture we opted to build in the following picture.  
