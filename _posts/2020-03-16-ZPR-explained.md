@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [bas_moorkens, mohammed_laghzaoui]
+authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez, bjorn_de_craemer]
 title: "Zero Plastic Rivers - explained"
 image: /img/chatbot.png
 tags: [AWS]
@@ -24,11 +24,16 @@ comments: true
 
 # architecture
 
+<<<<<<< HEAD
 To build and run this modern, complex project we opted to use the AWS platform.  
 At Jworks we have been investing our time and resources for more then a year now in order to build up our AWS portfolio.  
 This means we work on building up the AWS skills of our people and in parallel we work on building up our portfolio of AWS enabled solutions.  
 We have worked out several reference architectures that we prefer to use now.  
 The advantage of these architectures is that every consultant within our unit knows how to use them and develop applications using them.  
+=======
+To realise this socially relevant project we opted to build and run this solution on top of the AWS platform.  
+At Jworks we have been working for some time now ibuilding reference cases regarding frontend and backend application hosting on AWS and the ZPR project has proven to be an excellent candidate to put our reference architectures into practice.  
+>>>>>>> a71a280e751a408e56bfb26dbf76d97446f31868
 
 The Zero Plastic Rives project proved to be an excellent opportunity to put some of our reference architectures into practice.  
 You can view the architecture we opted to build in the following picture.  
@@ -79,7 +84,7 @@ Our frontend application consists of two parts. The first part is aimed at citiz
   <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr-frontend-application.png" width="auto" height="40%" target="_blank">
 </div>
 
-To develop this application we have chosen to use Ionic. [Ionic](https://ionicframework.com/) is a free-to-use web-based framework that allows you to build mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.
+To develop this application we have chosen to use Ionic. [Ionic](https://ionicframework.com/) is a free-to-use web-based framework that allows you to build hybrid mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.
 
 ### Data visualization
 
@@ -122,7 +127,16 @@ The S3 service which acts as the origin for our Cloudfront distribution is **nea
 The interaction between our frontend and backend happens over REST services provided by our backend in the EKS cluster which is exposed over an ALB so we are very confident that we can scale up as needed.  
 
 ## Data ingestion
-Beanstalk + IOT -- Bousson interesse?
+Some of our containers send their location via the cellular network at regular intervals. 
+These messages reach us via an external partner through the tcp protocol.
+The sensors can receive instructions and updates, but this has to happen inside of the same open tcp connection withinn a very short timeframe.
+This is why we have chosen to develop a seperate java sensor gateway to handle these incoming messages. This is deployed on an elastic beanstalk.
+This gateway consults the elastic cache for any needed instructions or updates.
+If a return message is needed, it is sent through the open tcp connection.
+The sensor detection message is then passed on to an SQS queue. From here on, the focus of handling the message is less time-sensitive
+A Lambda function decodes the message on the queue and then pushes it to another SQS message queue.
+A spring boot backend that is deployed in our kubernetes cluster handles these last events and persists them to our database 
+
 
 # security
 
@@ -144,8 +158,20 @@ To secure our frontend we have used Manfred Steyer's [Angular-oauth2-oidc](https
 
 Our colleague Jeroen wrote a fantastic [blogpost](https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html#setting-up-the-front-end-and-back-end-applications) that was very helpful to us. Jeroen shows the necessary steps to follow to secure any web application using OpenID Connect.
 
+# D-Day
+
+Tuesday December 17th was D-day. Then the bottles and sensors were finally thrown into the water. We had a tight timing because the bottles had to be thrown in the Scheldt at high tide, at 3 different locations. 
+It was a nice dry day and our client was quite nervous. Are all the signals coming in properly, is the sensor packed waterproof, ...?  Especially because we were not able to test so much with the sensors due to the tight timing. 
+High tide, time to throw the bottles in the water and register the sensor via our Ionic App. Everything runs smoothly and the signals from the sensors come in. You see the customer cheer up and leave satisfied to the next location. Everything goes as planned all day long and after just a few days the first users start registering the objects on our website.
+And today, so many weeks later, we still receive new registrations. 
+It was a nice ending of a fascinating and instructive project. 
 
 # developer-experience
+
+Zero Plastic Rivers was my first experience with AWS and actually my first cloud project. In the beginning it was quite intimidating because a lot of different technologies of AWS are used.But soon it turned out to be quite easy to configure and with some help from some colleagues (thanks guys) I got everything up and running pretty quickly.
+In the beginning I was quite sceptical about the use of lambdas in our application, I didn't immediately see the advantage of it but in the end it turned out to be the best option, especially if we want to build applications with many more sensors in the future. Although it was sometimes difficult to find the correct documentation.
+My favorite technology was definitely Cognito. In a few lines of code you have a user administration of an entire application without having to worry about possible security holes.
+In the end it was a very pleasant experience to get started with AWS, now I just have to find some free time to study for my AWS certificate.
 
 
 # Conclusion
