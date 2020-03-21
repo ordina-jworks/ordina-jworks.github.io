@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez, bjorn_de_craemer]
+authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez, bjorn_de_craemer, frederick_bousson]
 title: "Zero Plastic Rivers - explained"
 image: /img/2020-03-16-ZPR-explained/zpr-banner.jpg
 tags: [AWS]
@@ -21,7 +21,7 @@ comments: true
 # architecture
 
 To build and run this modern, complex project we opted to use the AWS platform.  
-At JWorks we have been investing our time and resources for more then a year now in order to build up our AWS portfolio.  
+At JWorks we have been investing our effort and resources for a considerable amount of time in order to build up our AWS portfolio.  
 This means we work on building up the AWS skills of our people and in parallel we work on building up our portfolio of AWS enabled solutions.  
 We have worked out several reference architectures that we prefer to use now.  
 The advantage of these architectures is that every consultant within our unit knows how to use them and develop applications using them.  
@@ -37,7 +37,7 @@ This big architectural picture can be divided in 3 big sections:
 
 * Backend java application
 * Frontend ionic app
-* IOT sensor data ingestion
+* IoT sensor data ingestion
 
 We will highlight some key features of each architectural section in the following paragraphs.
 
@@ -48,10 +48,10 @@ We will highlight some key features of each architectural section in the followi
 </div>
 
 ### The backend itself
-Since we are called Jworks and we mainly focus on Java/Javacript development it should be no surprise that our backend application is written in java with the spring boot framework.  
+Since we are called JWorks and we mainly focus on Java/Javacript development it should be no surprise that our backend application is written in Java with the Spring Boot framework.  
 In general we prefer to write backends in the microservices paradigm, but in this case the backend was sufficiently small that it only consists of 1 microservice.  
 The application itself is a pretty standard spring boot application.  
-We use a postgreSQL server hosted in RDS as our persistent datastore on the backend, supplemented with an elasticache Redis cluster to cache database queries and configurations for the IOT sensors used in the IOT sensor data ingestion part.  
+We use a postgreSQL server hosted in RDS as our persistent datastore on the backend, supplemented with an elasticache Redis cluster to cache database queries and configurations for the IoT sensors used in the IoT sensor data ingestion part.  
 Our backend service is reachable over a REST interface for the outside world, we will talk more about this interface when we discuss the frontend application.  
 
 ### Hosting of the application
@@ -70,9 +70,9 @@ This means that whenever we create a new ingress a new Application Load Balancer
 </div>
 
 Our frontend application consists of two parts.  
-The first part is aimed at citizens who wish to help the cause, who can notify this surveillance network when they find a bottle as shown in the image below.  
-This is the first way that data from the plastic bottles comes into our system. We allow the user to upload an optional image when submitting this data. These images are stored in a secured S3 bucket.  
-The second part is aimed at the researchers, and could be seen as the “backend” of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.
+The first part is aimed at citizens who wish to help the cause. They can feed data in the system via the citizen science application when they find a bottle as shown in the image below.  
+This is the first way that data from the plastic bottles comes into our system. We allow the user to upload an optional image when submitting this data. These images are stored in a secure S3 bucket.  
+The second part is aimed at the researchers, and could be seen as the backoffice of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.
 
 <div style="text-align: center;">
   <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr-frontend-application.png" width="auto" height="40%" target="_blank">
@@ -162,12 +162,13 @@ It was a nice ending of a fascinating and instructive project.
 
 # Developer-experience
 
-Zero Plastic Rivers was my first experience with AWS and actually my first cloud project.  
+Zero Plastic Rivers was for some developers on the team the first experience with AWS and actually their first cloud project.  
 In the beginning it was quite intimidating because a lot of different technologies of AWS are used.  
 But soon it turned out to be quite easy to configure and with some help from some colleagues (thanks guys) I got everything up and running pretty quickly.  
 In the beginning I was quite sceptical about the use of lambdas in our application, I didn't immediately see the advantage of it but in the end it turned out to be the best option, especially if we want to build applications with many more sensors in the future. Although it was sometimes difficult to find the correct documentation.  
 My favorite technology was definitely Cognito. In a few lines of code you have a user administration of an entire application without having to worry about possible security holes.  
-In the end it was a very pleasant experience to get started with AWS, now I just have to find some free time to study for my AWS certificate.
+In the end it was a very pleasant experience to get started with AWS.
+Due to this eye-opening experience several developers are looking forward to becoming AWS certified and gaining a deeper and more complete AWS skillset.
 
 
 # Conclusion
