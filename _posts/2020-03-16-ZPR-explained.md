@@ -46,12 +46,24 @@ Bert came up with different ways to gather this data: using citizen science and 
 
 
 ## Citizen science
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers Plastic" src="/img/2020-03-16-ZPR-explained/zpr_allplastic.jpg" width="auto" height="40%" target="_blank">
+</div>
+
+
 A large quantity of plastic objects were dipped in fluorescent paint and were tagged with water resistant stickers containing metadata about that object. 
 These objects were released in the waterways with the assumption they would wash ashore eventually. 
 Because they were brightly colored, they would be easy to spot by passers-by.
 These people could then enter various information about the object such as the unique object identifier, GPS location, pictures, description, ... 
 
 ## IoT
+
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers Sensor" src="/img/2020-03-16-ZPR-explained/zpr_tracker.jpg" width="auto" height="40%" target="_blank">
+</div>
+
 Another great way to gather datapoints was through GPS trackers. 
 Various industrial grade battery powered GPS trackers were put in a waterproof casing and then deployed into the river.
 Using a 2G network, these GPS trackers would travel along the river and transmit a new GPS fix every hour. 
@@ -260,6 +272,22 @@ To secure our frontend we have used Manfred Steyer's [Angular-oauth2-oidc](https
 Our colleague Jeroen wrote a fantastic [blogpost](https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html#setting-up-the-front-end-and-back-end-applications) that was very helpful to us. Jeroen shows the necessary steps to follow to secure any web application using OpenID Connect.
 
 # D-Day
+
+
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers release" src="/img/2020-03-16-ZPR-explained/zpr_release.jpg" width="auto" height="40%" target="_blank">
+</div>
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers trail" src="/img/2020-03-16-ZPR-explained/zpr_plastictrail.jpg" width="auto" height="40%" target="_blank">
+</div>
+
+
+<div style="text-align: center;">
+  <img alt="Zero Plastic Rivers trail2" src="/img/2020-03-16-ZPR-explained/zpr_plastictrail2.jpg" width="auto" height="40%" target="_blank">
+</div>
+
 
 Tuesday December 17th was D-day. That day the bottles and sensors were finally thrown into the water. We had a tight timing because the bottles had to be thrown in the Scheldt river at high tide, at 3 different locations. 
 It was a nice dry day and our client was quite nervous. Are all the signals coming in properly, is the sensor packed waterproof, ...?  Especially because we were not able to test all that much with the sensors due to the tight timing. 
