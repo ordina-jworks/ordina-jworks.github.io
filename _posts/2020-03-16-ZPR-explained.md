@@ -72,12 +72,27 @@ With our multi-disciplinairy team we were able to tackle following domains: user
 
 # User Experience
 
-TODO fbousson
-Technology oriented company.
-Wireframes
-User testing
-QR code validation -> shorter url
-PWA instead of native app.
+From the get-go it seemed very crucial to nail the user experience for the citizen science part of the application.
+
+The success of the project depended on benevolent strangers to pick up our brightly colored plastic waste, read the instruction and input a significant amount of data into our system.
+This process needed to be clear, painless and concise. 
+Bad user interaction would lead to no datapoints. This would doom the project.
+
+
+The initial idea was to put QR tags on all the plastic objects and have users scan them.
+Altough everyone deemed this an elegant and efficient way of working, we decided to test this on "regular people".
+This was done by conducting guerilla testing: talking to random people outside our office building, showing them a ZPR plastic object with a tag and seeing what they would do.
+
+Turns out very few people instinctively know what to do with a QR code.
+
+To counter this, we opted to add a very short url on the object: www.zpr.one
+This allowed more users to reach our application and fill in all the data we needed.
+
+Once they were in the application we had to make it straightforward for them to collect all the data we needed. Various rapid iteration of the UI were made using wireframes and mockups. These were tested and validated to create an optimal flow through the various screens as we wanted a very low threshold for users to input the data.
+
+We opted to create a Progressive Web Application (PWA) instead of a native application as we felt that users did not want to install yet another app.
+As we required access to native features such as GPS and camera a PWA seemed perfect for the job!
+
 
 # Architecture
 
