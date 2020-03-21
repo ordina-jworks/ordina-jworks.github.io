@@ -108,13 +108,13 @@ As we required access to native features such as GPS and camera a PWA seemed per
 
 # Architecture
 
-To build and run this modern, complex project we opted to use the AWS platform.  
-At JWorks we have been investing our effort and resources for a considerable amount of time in order to build up our AWS portfolio.  
+To build and run this modern and complex project we opted to use the AWS platform.  
+For a considerable amount of time we at JWorks have been investing our efforts and resources to build up our AWS portfolio.  
 This means we work on building up the AWS skills of our people and in parallel we work on building up our portfolio of AWS enabled solutions.  
 We have worked out several reference architectures that we prefer to use now.  
 The advantage of these architectures is that every consultant within our unit knows how to use them and develop applications using them.  
 
-The Zero Plastic Rivers project proved to be an excellent opportunity to put some of our reference architectures into practice.  
+The Zero Plastic Rivers project proved to be an excellent opportunity to put some of these into practice.  
 You can view the architecture we opted to build in the following picture.  
 
 <div style="text-align: center;">
@@ -211,7 +211,7 @@ The interaction between our frontend and backend happens over REST services prov
 ## IoT sensor data ingestion
 
 
-IoT is all about processing a large quanitity of messages. 
+IoT is all about processing a large quantity of messages. 
 
 What makes IoT data challenging from a developer perspective is threefold:
 
@@ -222,18 +222,17 @@ What makes IoT data challenging from a developer perspective is threefold:
 Imagine you have a device that captures and delivers GPS data. 
 Seems simple enough right? Guess again!
 
-As each hardware vendor can decide to mix and match these 3 compontents:
-
-Over which protocol he wants to send the data, what data format he wants to use for the payload and how he structures the message content, it becomes quite complex. 
+A hardware vendor can decide to mix and match these 3 components.
 
 The vendor can those over which protocol he wants to send the data.
 Some examples are: HTTP(S), TCP, UDP, MQTT, COAP, ...
 
-He can also use different kinds of data-serialization formats to get the information accross the network of choice: JSON, XML, Hex, Binary, something proprietary, ... Different kinds of parsers will be needed.
+He can also use different kinds of data-serialization formats to get the information across the network of choice: JSON, XML, Hex, Binary, something proprietary, ... Different kinds of parsers will be needed.
  
 And last but not least: he can organise the way a message is structured. He can name fields any way he wants and use any kind of data type. Imagine two vendors reporting battery capacity. One could report it by sending a field called "battery" and reporting battery voltage.
 Another could use a field called "power" and return a battery fill level percentage. 
-Things get messy quite fast as you can imagine.
+
+Soon, it can become quite complex due to the number of combinations possible.
 
 
 Some of our plastic containers send their location via the 2G cellular network at regular intervals.  
@@ -242,13 +241,13 @@ These messages reach us via a public network through the tcp protocol.
 As various protocols such as TCP and UDP are quite prevalent in IoT solutions, we do see that they are not yet first class citizens in the cloud.
 Eventhough it is possible to modify the ingress to kubernetes on our NGINX to allow TCP data to pass through, this is not a scalable solution. Imagine having thousands upon thousands of devices starting new TCP connections. This would kill our NGINX.
 To solve this problem we used a native AWS component: the network load balancer. 
-This allowed limitless scaling of TCP connections. These TCP connections would then end up on an Spring Boot application hosted on AWS Beanstalk, which is basically a managed horizontally scalable Tomcat server. This application had to handle the interactions with the devices and acts as a "sensor gateway".
+This allowed limitless scaling of TCP connections. These TCP connections would then end up on an Spring Boot application hosted on AWS Beanstalk, which is basically a managed horizontally scalable Tomcat server. This application has to handle the interactions with the devices and acts as a "sensor gateway".
 The sensors can receive instructions and updates, but this has to happen inside the same open tcp connection within a very short timeframe.  
-This gateway consults the elasticache for any needed instructions or updates.  
+This gateway consults the Elasticache for any needed instructions or updates.  
 If a return message is needed, it is sent through the open tcp connection.  
-The sensor detection message is then passed on to an SQS queue. From here on, the focus of handling the message is less time-sensitive.  
+The sensor detection message is then passed on to an SQS queue. From here on out, the focus of handling the message is less time-sensitive.  
 A Lambda function decodes the message on the queue and then pushes it to another SQS message queue.  
-A spring boot backend that is deployed in our kubernetes cluster handles these last events and persists them to our database.  
+A Spring Boot backend that is deployed in our kubernetes cluster handles these last events and persists them to our database.  
 
 
 # Security
@@ -297,9 +296,9 @@ It was a nice ending of a fascinating and instructive project.
 
 # Developer-experience
 
-Zero Plastic Rivers was for some developers on the team the first experience with AWS and actually their first cloud project.  
-In the beginning it was quite intimidating because a lot of different technologies of AWS are used.  
-But soon it turned out to be quite easy to configure and with some help from some colleagues (thanks guys) I got everything up and running pretty quickly.  
+For some developers on the team, Zero Plastic Rivers was the first experience with AWS and even their first cloud project.  
+In the beginning it was quite intimidating because a lot of different technologies of AWS were used.  
+But soon it turned out to be quite easy to configure and with some help from other colleagues (thanks guys) I got everything up and running pretty quickly.  
 In the beginning I was quite sceptical about the use of lambdas in our application, I didn't immediately see the advantage of it but in the end it turned out to be the best option, especially if we want to build applications with many more sensors in the future. Although it was sometimes difficult to find the correct documentation.  
 My favorite technology was definitely Cognito. In a few lines of code you have a user administration of an entire application without having to worry about possible security holes.  
 In the end it was a very pleasant experience to get started with AWS.
@@ -309,14 +308,14 @@ Due to this eye-opening experience several developers are looking forward to bec
 # Conclusion
 
 All in all we were very pleased with how we delivered this project. As this project was fully staffed with an Ordina High Performance Team, we were able to do everything by the book. We used the best methodologies for software delivery coupled with our preferred technology stack to build a true cloud native application.
-We embraced the devops mindset: you build it you run it.
+We embraced the devops mindset: you build it, you run it.
 Next to that we also embraced the agile mindset: respect, collaboration, improvement and learning cycles, pride in ownership, focus on delivering value, and the ability to adapt to change.
 
 We had a great team dynamic: experienced developers coaching and mentoring younger colleagues and helping them grow.
 Meanwhile the senior developers could work on their coaching and mentoring skills while discussing advanced architectures, also allowing them to grow.
 Seems like a win-win, right?
 
-This scientific project will run for at least 2 years and we can't wait to see what kind of insights will be revealed and what kind of impact we will make on our environment and society!
+This scientific project will run for at least two years and we can't wait to see what kind of insights will be revealed and the impact we will make on our environment and society!
 
 We also ended up getting some national press coverage. As you can imagine, this made us very proud!
 
