@@ -18,7 +18,26 @@ comments: true
 
 # Introduction
 
-# architecture
+TODO fbousson explain Zero Plastic River initiative
+Explain link with University of Antwerpen.
+
+Multi year project, citizen science, IoT
+
+https://www.vrt.be/vrtnws/nl/2020/02/28/opnieuw-fluoplastic-in-schelde/
+https://zeroplasticrivers.com/samenwerken/schelde-track-trace/
+https://www.hln.be/in-de-buurt/antwerpen/wetenschappers-gooien-plastic-in-de-schelde-in-strijd-tegen-plasticvervuiling~a39b64e0/
+
+
+# User Experience
+
+TODO fbousson
+Technology oriented company.
+Wireframes
+User testing
+QR code validation -> shorter url
+PWA instead of native app.
+
+# Architecture
 
 To build and run this modern, complex project we opted to use the AWS platform.  
 At JWorks we have been investing our effort and resources for a considerable amount of time in order to build up our AWS portfolio.  
@@ -120,7 +139,27 @@ Because our application is mostly Belgium based this was not as important to us 
 The S3 service which acts as the origin for our Cloudfront distribution is **nearly infinitely scalable** as proclaimed by AWS itself.  
 The interaction between our frontend and backend happens over REST services provided by our backend in the EKS cluster which is exposed over an ALB so we are very confident that we can scale up as needed.  
 
-## IOT sensor data ingestion
+## IoT sensor data ingestion
+
+
+TODO fbousson
+IoT is all about processing a large quanitity messages... 
+
+What makes IoT data challenging from a developer perspective is threefold:
+
+* Protocol
+* Data format
+* Message Content
+
+Imagine you have a device that captures and delivers GPS data. 
+Seems simple enough right? Guess again!
+
+
+that these messages can be delivered over a variety of protocols (HTTP(S), TCP, UDP, MQTT, COAP, ...). On top of that, these messages are delivered in various formats (JSON, XML, HEX, ...)
+
+TODO fbousson insert image of different communication stacks.
+
+
 Some of our plastic containers send their location via the cellular network at regular intervals.  
 These messages reach us via an external partner through the tcp protocol.  
 The sensors can receive instructions and updates, but this has to happen inside the same open tcp connection within a very short timeframe.  
