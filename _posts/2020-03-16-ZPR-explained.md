@@ -199,8 +199,7 @@ The interaction between our frontend and backend happens over REST services prov
 ## IoT sensor data ingestion
 
 
-TODO fbousson
-IoT is all about processing a large quanitity messages... 
+IoT is all about processing a large quanitity of messages. 
 
 What makes IoT data challenging from a developer perspective is threefold:
 
@@ -211,16 +210,28 @@ What makes IoT data challenging from a developer perspective is threefold:
 Imagine you have a device that captures and delivers GPS data. 
 Seems simple enough right? Guess again!
 
+As each hardware vendor can decide to mix and match these 3 compontents:
 
-that these messages can be delivered over a variety of protocols (HTTP(S), TCP, UDP, MQTT, COAP, ...). On top of that, these messages are delivered in various formats (JSON, XML, HEX, ...)
+Over which protocol he wants to send the data, what data format he wants to use for the payload and how he structures the message content, it becomes quite complex. 
 
-TODO fbousson insert image of different communication stacks.
+The vendor can those over which protocol he wants to send the data.
+Some examples are: HTTP(S), TCP, UDP, MQTT, COAP, ...
+
+He can also use different kinds of data-serialization formats to get the information accross the network of choice: JSON, XML, Hex, Binary, something proprietary, ... Different kinds of parsers will be needed.
+ 
+And last but not least: he can organise the way a message is structured. He can name fields any way he wants and use any kind of data type. Imagine two vendors reporting battery capacity. One could report it by sending a field called "battery" and reporting battery voltage.
+Another could use a field called "power" and return a battery fill level percentage. 
+Things get messy quite fast as you can imagine.
 
 
-Some of our plastic containers send their location via the cellular network at regular intervals.  
-These messages reach us via an external partner through the tcp protocol.  
+Some of our plastic containers send their location via the 2G cellular network at regular intervals.  
+These messages reach us via a public network through the tcp protocol.  
+
+As various protocols such as TCP and UDP are quite prevalent in IoT solutions, we do see that they are not yet first class citizens in the cloud.
+Eventhough it is possible to modify the ingress to kubernetes on our NGINX to allow TCP data to pass through, this is not a scalable solution. Imagine having thousands upon thousands of devices starting new TCP connections. This would kill our NGINX.
+To solve this problem we used a native AWS component: the network load balancer. 
+This allowed limitless scaling of TCP connections. These TCP connections would then end up on an Spring Boot application hosted on AWS Beanstalk, which is basically a managed horizontally scalable Tomcat server. This application had to handle the interactions with the devices and acts as a "sensor gateway".
 The sensors can receive instructions and updates, but this has to happen inside the same open tcp connection within a very short timeframe.  
-This is why we have chosen to develop a seperate java aplication that functions as "sensor gateway" to handle these incoming messages. This is deployed on an elastic beanstalk.  
 This gateway consults the elasticache for any needed instructions or updates.  
 If a return message is needed, it is sent through the open tcp connection.  
 The sensor detection message is then passed on to an SQS queue. From here on, the focus of handling the message is less time-sensitive.  
