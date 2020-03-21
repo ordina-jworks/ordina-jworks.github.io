@@ -23,14 +23,14 @@ As a society we treat plastic irresponsibly. Because of us, enormous amounts of 
 
 # Zero Plastic Rivers
 
-The Zero Plastic Rivers (ZPR) initiative tries to solve this problem by doing three things: measure, prevent and clean up.
+The Zero Plastic Rivers (ZPR) initiative ( https://zeroplasticrivers.com ) tries to solve this problem by doing three things: measure, prevent and clean up.
 
 
 ##Plastic Soup
 Plastic pollutes our seas and oceans. Currently at least 150 million tons of plastic waste floats in our oceans, forming the infamous plastic soup. And it's getting worse: an estimated 8 million tons a year. That's about one truck of plastic per minute.
 
 ##Approach
-The Zero Plastic Rivers initiative wants to make sure that our rivers no longer bring plastic waste to our seas. And we want to do this based on a scientific and structured approach inspired by the principles of quantitative optimisation as defined by Six Sigma.
+The Zero Plastic Rivers initiative  wants to make sure that our rivers no longer bring plastic waste to our seas. And we want to do this based on a scientific and structured approach inspired by the principles of quantitative optimisation as defined by Six Sigma.
 
 
 ## Endgoal
@@ -280,10 +280,18 @@ Due to this eye-opening experience several developers are looking forward to bec
 
 # Conclusion
 
-TODO fbousson
+All in all we were very pleased with how we delivered this project. As this project was fully staffed with an Ordina High Performance Team, we were able to do everything by the book. We used the best methodologies for software delivery coupled with our preferred technology stack to build a true cloud native application.
+We embraced the devops mindset: you build it you run it.
+Next to that we also embraced the agile mindset: respect, collaboration, improvement and learning cycles, pride in ownership, focus on delivering value, and the ability to adapt to change.
 
-We all learned a lot, made an impact, got press coverage
+We had a great team dynamic: experienced developers coaching and mentoring younger colleagues and helping them grow.
+Meanwhile the senior developers could work on their coaching and mentoring skills while discussing advanced architectures, also allowing them to grow.
+Seems like a win-win, right?
+
+This scientific project will run for at least 2 years and we can't wait to see what kind of insights will be revealed and what kind of impact we will make on our environment and society!
+
+We also ended up getting some national press coverage. As you can imagine, this made us very proud!
 
 https://www.vrt.be/vrtnws/nl/2020/02/28/opnieuw-fluoplastic-in-schelde/
-https://zeroplasticrivers.com/samenwerken/schelde-track-trace/
 https://www.hln.be/in-de-buurt/antwerpen/wetenschappers-gooien-plastic-in-de-schelde-in-strijd-tegen-plasticvervuiling~a39b64e0/
+
