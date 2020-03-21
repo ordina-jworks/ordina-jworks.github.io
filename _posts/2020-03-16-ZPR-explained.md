@@ -18,10 +18,59 @@ comments: true
 
 # Introduction
 
-TODO fbousson explain Zero Plastic River initiative
-Explain link with University of Antwerpen.
+As a society we treat plastic irresponsibly. Because of us, enormous amounts of plastic waste end up in our rivers. And if we don't remove this plastic from the rivers before it reaches the estuary, this plastic will inevitably end up in the plastic soup, which in turn gets bigger.
 
-Multi year project, citizen science, IoT
+
+
+# Zero Plastic Rivers
+
+The Zero Plastic Rivers (ZPR) initiative tries to solve this problem by doing three things: measure, prevent and clean up.
+
+
+##Plastic Soup
+Plastic pollutes our seas and oceans. Currently at least 150 million tons of plastic waste floats in our oceans, forming the infamous plastic soup. And it's getting worse: an estimated 8 million tons a year. That's about one truck of plastic per minute.
+
+##Approach
+The Zero Plastic Rivers initiative wants to make sure that our rivers no longer bring plastic waste to our seas. And we want to do this based on a scientific and structured approach inspired by the principles of quantitative optimisation as defined by Six Sigma.
+
+
+## Endgoal
+Our rivers are severely polluted with plastic, making them the largest source of plastic soup in our oceans, even up to 80%. We can only solve this problem by ensuring that our rivers no longer supply plastic to the sea. And that is why we are striving for Zero Plastic Rivers.
+
+
+To be more effective in the fight against the plastic soup it is important to get more insight in how plastic move through the rivers.
+This is where Bert Teunkens together with the University of Antwerp comes into play.
+The subject of his Phd is: Quantification and characterization of the plastic fluxes in the Scheldt basin, with the ultimate goal of  setting-up an efficient remediation.
+
+To help him reach his goal of creating strategies to combat the plastic pollution he needs insights in how different kinds of plastic moves through our waterways.
+Bert came up with different ways to gather this data: using citizen science and IoT.
+
+
+## Citizen science
+A large quantity of plastic objects were dipped in flourescend paint and were tagged with water resistant stickers containing metadata about that object. 
+These objects were released in the waterways with the idea they would wash ashore eventually. 
+Because they were brightly colored, they would be easy to spot by passers-by.
+These people could then enter various information about the object such as the unique object identifier, GPS location, pictures, description, ... 
+
+## IoT
+Another great way to gather datapoints was through GPS trackers. 
+Various industrial grade battery powered GPS trackers were put in a waterproof casing and then deployed into the river.
+Using a 2G network, these GPS trackers would travel along the river and transmitting a new GPS fix every hour. 
+Various measures were taken to optimize battery consumption as we expected the trackers to travel for an extended period of time. This was done by putting a specific configuration on these devices.
+
+
+## Partnering
+
+Bert approached Ordina because of our deep IoT knowledge and user centric end-to-end project approach.
+
+Ordina helped create an application to gather the datapoints and visualise them so that it 
+
+This was quite an exciting and important project for Ordina and the JWorks crew as it check 2 boxes at the same time: doing a project with the latest and greatest technology while having a significant impact on society!
+
+It would allow us to use all our skills to build a solution that would solve a major problem for society.
+With our multi-disiplairy team we were able to tackle following domains: User experience, application architecture, frontend and backend development, security and managed application hosting.
+
+
 
 https://www.vrt.be/vrtnws/nl/2020/02/28/opnieuw-fluoplastic-in-schelde/
 https://zeroplasticrivers.com/samenwerken/schelde-track-trace/
