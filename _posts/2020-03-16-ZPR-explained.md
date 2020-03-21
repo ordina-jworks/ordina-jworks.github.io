@@ -27,10 +27,10 @@ The Zero Plastic Rivers (ZPR) initiative ( https://zeroplasticrivers.com ) tries
 
 
 ##Plastic Soup
-Plastic pollutes our seas and oceans. Currently at least 150 million tons of plastic waste floats in our oceans, forming the infamous plastic soup. And it's getting worse: an estimated 8 million tons a year. That's about one truck of plastic per minute.
+Plastic pollutes our seas and oceans. Currently at least 150 million tons of plastic waste floats in our oceans, forming the infamous plastic soup. And it is getting worse: it's estimated another 8 million tons is added every year. That's about one truck of plastic per minute.
 
 ##Approach
-The Zero Plastic Rivers initiative  wants to make sure that our rivers no longer bring plastic waste to our seas. And we want to do this based on a scientific and structured approach inspired by the principles of quantitative optimisation as defined by Six Sigma.
+The Zero Plastic Rivers initiative  wants to make sure that our rivers no longer bring plastic waste to the seas. And we want to do this based on a scientific and structured approach inspired by the principles of quantitative optimization as defined by Six Sigma.
 
 
 ## Endgoal
@@ -39,22 +39,22 @@ Our rivers are severely polluted with plastic, making them the largest source of
 
 To be more effective in the fight against the plastic soup it is important to get more insight in how plastic move through the rivers.
 This is where Bert Teunkens together with the University of Antwerp comes into play.
-The subject of his Phd is: Quantification and characterization of the plastic fluxes in the Scheldt basin, with the ultimate goal of  setting-up an efficient remediation.
+The subject of his PhD is: Quantification and characterization of the plastic fluxes in the Scheldt basin, with the ultimate goal of setting-up an efficient remediation.
 
 To help him reach his goal of creating strategies to combat the plastic pollution he needs insights in how different kinds of plastic moves through our waterways.
 Bert came up with different ways to gather this data: using citizen science and IoT.
 
 
 ## Citizen science
-A large quantity of plastic objects were dipped in flourescend paint and were tagged with water resistant stickers containing metadata about that object. 
-These objects were released in the waterways with the idea they would wash ashore eventually. 
+A large quantity of plastic objects were dipped in fluorescent paint and were tagged with water resistant stickers containing metadata about that object. 
+These objects were released in the waterways with the assumption they would wash ashore eventually. 
 Because they were brightly colored, they would be easy to spot by passers-by.
 These people could then enter various information about the object such as the unique object identifier, GPS location, pictures, description, ... 
 
 ## IoT
 Another great way to gather datapoints was through GPS trackers. 
 Various industrial grade battery powered GPS trackers were put in a waterproof casing and then deployed into the river.
-Using a 2G network, these GPS trackers would travel along the river and transmitting a new GPS fix every hour. 
+Using a 2G network, these GPS trackers would travel along the river and transmit a new GPS fix every hour. 
 Various measures were taken to optimize battery consumption as we expected the trackers to travel for an extended period of time. This was done by putting a specific configuration on these devices.
 
 
@@ -64,10 +64,10 @@ Bert approached Ordina because of our deep IoT knowledge and user centric end-to
 
 Ordina helped create an application to gather the datapoints and visualise them so that he could formulate ways of setting up efficient remediation.
 
-This was quite an exciting and important project for Ordina and the JWorks crew as it check 2 boxes at the same time: doing a project with the latest and greatest technology while having a significant impact on society!
+This was quite an exciting and important project for Ordina and the JWorks crew as it checks 2 boxes at the same time: doing a project with the latest and greatest technology while having a significant impact on society!
 
 This project would allow us to use all our skills to build a solution that would solve a major problem for society.
-With our multi-disciplinairy team we were able to tackle following domains: user experience, application and cloud architecture, frontend and backend development, security and managed application hosting.
+With our multi-disciplinary team we were able to tackle following domains: user experience, application and cloud architecture, frontend and backend development, security and managed application hosting.
 
 
 # User Experience
@@ -76,7 +76,7 @@ From the get-go it seemed very crucial to nail the user experience for the citiz
 
 The success of the project depended on benevolent strangers to pick up our brightly colored plastic waste, read the instruction and input a significant amount of data into our system.
 This process needed to be clear, painless and concise. 
-Bad user interaction would lead to no datapoints. This would doom the project.
+Bad user interaction would lead to no datapoints and thus doom the project.
 
 
 The initial idea was to put QR tags on all the plastic objects and have users scan them.
