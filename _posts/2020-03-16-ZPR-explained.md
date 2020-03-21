@@ -21,7 +21,6 @@ comments: true
 As a society we treat plastic irresponsibly. Because of us, enormous amounts of plastic waste end up in our rivers. And if we don't remove this plastic from the rivers before it reaches the estuary, this plastic will inevitably end up in the plastic soup, which in turn gets bigger.
 
 
-
 # Zero Plastic Rivers
 
 The Zero Plastic Rivers (ZPR) initiative tries to solve this problem by doing three things: measure, prevent and clean up.
@@ -63,18 +62,12 @@ Various measures were taken to optimize battery consumption as we expected the t
 
 Bert approached Ordina because of our deep IoT knowledge and user centric end-to-end project approach.
 
-Ordina helped create an application to gather the datapoints and visualise them so that it 
+Ordina helped create an application to gather the datapoints and visualise them so that he could formulate ways of setting up efficient remediation.
 
 This was quite an exciting and important project for Ordina and the JWorks crew as it check 2 boxes at the same time: doing a project with the latest and greatest technology while having a significant impact on society!
 
-It would allow us to use all our skills to build a solution that would solve a major problem for society.
-With our multi-disiplairy team we were able to tackle following domains: User experience, application architecture, frontend and backend development, security and managed application hosting.
-
-
-
-https://www.vrt.be/vrtnws/nl/2020/02/28/opnieuw-fluoplastic-in-schelde/
-https://zeroplasticrivers.com/samenwerken/schelde-track-trace/
-https://www.hln.be/in-de-buurt/antwerpen/wetenschappers-gooien-plastic-in-de-schelde-in-strijd-tegen-plasticvervuiling~a39b64e0/
+This project would allow us to use all our skills to build a solution that would solve a major problem for society.
+With our multi-disciplinairy team we were able to tackle following domains: user experience, application and cloud architecture, frontend and backend development, security and managed application hosting.
 
 
 # User Experience
@@ -260,3 +253,11 @@ Due to this eye-opening experience several developers are looking forward to bec
 
 
 # Conclusion
+
+TODO fbousson
+
+We all learned a lot, made an impact, got press coverage
+
+https://www.vrt.be/vrtnws/nl/2020/02/28/opnieuw-fluoplastic-in-schelde/
+https://zeroplasticrivers.com/samenwerken/schelde-track-trace/
+https://www.hln.be/in-de-buurt/antwerpen/wetenschappers-gooien-plastic-in-de-schelde-in-strijd-tegen-plasticvervuiling~a39b64e0/
