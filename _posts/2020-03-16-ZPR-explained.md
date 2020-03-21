@@ -3,8 +3,8 @@ layout: post
 authors: [bas_moorkens, mohammed_laghzaoui, brecht_porrez, bjorn_de_craemer, frederick_bousson]
 title: "Zero Plastic Rivers - explained"
 image: /img/2020-03-16-ZPR-explained/zpr-banner.jpg
-tags: [AWS]
-category: Machine Learning
+tags: [AWS, EKS, Architecture, Ionic, Beanstalk, Cloudfront]
+category: Cloud
 comments: true
 ---
 
@@ -18,93 +18,88 @@ comments: true
 
 # Introduction
 
-As a society we treat plastic irresponsibly. Because of us, enormous amounts of plastic waste end up in our rivers. And if we don't remove this plastic from the rivers before it reaches the estuary, this plastic will inevitably end up in the plastic soup, which in turn gets bigger.
+As a society we treat plastic irresponsibly. Because of us, enormous amounts of plastic waste end up in our rivers.  
+And if we don't remove this plastic from the rivers before it reaches the estuary, this plastic will inevitably end up in the plastic soup, which in turn gets bigger.
 
+[The Zero Plastic Rivers (ZPR) initiative](https://zeroplasticrivers.com){:target="_blank" rel="noopener noreferrer"}  tries to solve this problem by doing three things: measure, prevent and clean up.  
+Plastic pollutes our seas and oceans.  
+Currently at least 150 million tons of plastic waste floats in our oceans, forming the infamous plastic soup.  
+And it is getting worse; it's estimated another 8 million tons is added every year.  
+That's about one truck of plastic per minute that get's dumped into our oceans.
 
-# Zero Plastic Rivers
-
-The Zero Plastic Rivers (ZPR) initiative ( https://zeroplasticrivers.com ) tries to solve this problem by doing three things: measure, prevent and clean up.
-
-
-##Plastic Soup
-Plastic pollutes our seas and oceans. Currently at least 150 million tons of plastic waste floats in our oceans, forming the infamous plastic soup. And it is getting worse: it's estimated another 8 million tons is added every year. That's about one truck of plastic per minute.
-
-##Approach
-The Zero Plastic Rivers initiative  wants to make sure that our rivers no longer bring plastic waste to the seas. And we want to do this based on a scientific and structured approach inspired by the principles of quantitative optimization as defined by Six Sigma.
-
+## Approach
+**The Zero Plastic Rivers initiative**  wants to make sure that our rivers no longer bring plastic waste to the seas.  
+We want to do this based on a scientific and structured approach, inspired by the principles of quantitative optimization as defined by **Six Sigma.**
 
 ## Endgoal
-Our rivers are severely polluted with plastic, making them the largest source of plastic soup in our oceans, even up to 80%. We can only solve this problem by ensuring that our rivers no longer supply plastic to the sea. And that is why we are striving for Zero Plastic Rivers.
+Our rivers are severely polluted with plastic, making them the largest source of plastic soup in our oceans, even up to 80%.  
+We can only solve this problem by ensuring that our rivers no longer supply plastic to the sea.  
+And that is why we are striving for Zero Plastic Rivers.
+
+To be more effective in the fight against the plastic soup it is important to get more insight in how plastic moves through the rivers.  
+This is where Bert Teunkens together with the University of Antwerp comes into play.  
+The subject of his PhD is: Quantification and characterization of the plastic fluxes in the Scheldt basin, with the ultimate goal of setting-up an efficient remediation.  
+
+To help him reach his goal of creating strategies to combat the plastic pollution he needs insights in how different kinds of plastic moves through our waterways.  
+Bert came up with different ways to gather this data: 
+
+* using citizen science 
+* IoT
 
 
-To be more effective in the fight against the plastic soup it is important to get more insight in how plastic move through the rivers.
-This is where Bert Teunkens together with the University of Antwerp comes into play.
-The subject of his PhD is: Quantification and characterization of the plastic fluxes in the Scheldt basin, with the ultimate goal of setting-up an efficient remediation.
-
-To help him reach his goal of creating strategies to combat the plastic pollution he needs insights in how different kinds of plastic moves through our waterways.
-Bert came up with different ways to gather this data: using citizen science and IoT.
-
-
-## Citizen science
+### Citizen science
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers Plastic" src="/img/2020-03-16-ZPR-explained/zpr_allplastic.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers Plastic" src="/img/2020-03-16-ZPR-explained/zpr_allplastic.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 
-A large quantity of plastic objects were dipped in fluorescent paint and were tagged with water resistant stickers containing metadata about that object. 
-These objects were released in the waterways with the assumption they would wash ashore eventually. 
-Because they were brightly colored, they would be easy to spot by passers-by.
+A large quantity of plastic objects were dipped in fluorescent paint and were tagged with water resistant stickers containing metadata about that object.  
+These objects were released in the waterways with the assumption they would wash ashore eventually.  
+Because they were brightly colored, they would be easy to spot by passers-by.  
 These people could then enter various information about the object such as the unique object identifier, GPS location, pictures, description, ... 
 
-## IoT
-
+### IoT
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers Sensor" src="/img/2020-03-16-ZPR-explained/zpr_tracker.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers Sensor" src="/img/2020-03-16-ZPR-explained/zpr_tracker.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
-Another great way to gather datapoints was through GPS trackers. 
-Various industrial grade battery powered GPS trackers were put in a waterproof casing and then deployed into the river.
-Using a 2G network, these GPS trackers would travel along the river and transmit a new GPS fix every hour. 
-Various measures were taken to optimize battery consumption as we expected the trackers to travel for an extended period of time. This was done by putting a specific configuration on these devices.
-
+Another great way to gather datapoints was through GPS trackers.  
+Various industrial grade battery powered GPS trackers were put in a waterproof casing and then deployed into the river.  
+Using a 2G network, these GPS trackers would travel along the river and transmit a new GPS fix every hour.  
+Various measures were taken to optimize battery consumption as we expected the trackers to travel for an extended period of time. This was done by putting a specific configuration on these devices.  
 
 ## Partnering
+Bert approached Ordina because of our deep IoT knowledge and user centric end-to-end project approach.  
 
-Bert approached Ordina because of our deep IoT knowledge and user centric end-to-end project approach.
+Ordina helped create an application to gather the datapoints and visualise them so that he could formulate ways of setting up efficient remediation.  
 
-Ordina helped create an application to gather the datapoints and visualise them so that he could formulate ways of setting up efficient remediation.
+This was quite an exciting and important project for Ordina and the JWorks crew as it checks 2 boxes at the same time: doing a project with the latest and greatest technology while having a significant impact on society!  
 
-This was quite an exciting and important project for Ordina and the JWorks crew as it checks 2 boxes at the same time: doing a project with the latest and greatest technology while having a significant impact on society!
-
-This project would allow us to use all our skills to build a solution that would solve a major problem for society.
-With our multi-disciplinary team we were able to tackle following domains: user experience, application and cloud architecture, frontend and backend development, security and managed application hosting.
-
+This project would allow us to use all our skills to build a solution that would solve a major problem for society.  
+With our multi-disciplinary team we were able to tackle following domains: user experience, application and cloud architecture, frontend and backend development, security and managed application hosting.  
 
 # User Experience
+From the get-go it seemed very crucial to nail the user experience for the citizen science part of the application.  
+The success of the project depended on benevolent strangers to pick up our brightly colored plastic waste, read the instruction and input a significant amount of data into our system.  
+This process needed to be clear, painless and concise.   
+Bad user interaction would lead to no datapoints and thus doom the project.  
 
-From the get-go it seemed very crucial to nail the user experience for the citizen science part of the application.
+The initial idea was to put QR tags on all the plastic objects and have users scan them.  
+Altough everyone deemed this an elegant and efficient way of working, we decided to test this on "regular people".  
+This was done by conducting guerilla testing: talking to random people outside our office building, showing them a ZPR plastic object with a tag and seeing what they would do.  
 
-The success of the project depended on benevolent strangers to pick up our brightly colored plastic waste, read the instruction and input a significant amount of data into our system.
-This process needed to be clear, painless and concise. 
-Bad user interaction would lead to no datapoints and thus doom the project.
+Turns out very few people instinctively know what to do with a QR code.  
+To counter this, we opted to add a very short url on the object: www.zpr.one  
+This allowed more users to reach our application and fill in all the data we needed.  
 
-
-The initial idea was to put QR tags on all the plastic objects and have users scan them.
-Altough everyone deemed this an elegant and efficient way of working, we decided to test this on "regular people".
-This was done by conducting guerilla testing: talking to random people outside our office building, showing them a ZPR plastic object with a tag and seeing what they would do.
-
-Turns out very few people instinctively know what to do with a QR code.
-
-To counter this, we opted to add a very short url on the object: www.zpr.one
-This allowed more users to reach our application and fill in all the data we needed.
-
-Once they were in the application we had to make it straightforward for them to collect all the data we needed. Various rapid iteration of the UI were made using wireframes and mockups. These were tested and validated to create an optimal flow through the various screens as we wanted a very low threshold for users to input the data.
+Once they were in the application we had to make it straightforward for them to collect all the data we needed.  
+Various rapid iteration of the UI were made using wireframes and mockups.  
+These were tested and validated to create an optimal flow through the various screens as we wanted a very low threshold for users to input the data.  
 
 We opted to create a Progressive Web Application (PWA) instead of a native application as we felt that users did not want to install yet another app.
 As we required access to native features such as GPS and camera a PWA seemed perfect for the job!
-
 
 # Architecture
 
@@ -118,7 +113,7 @@ The Zero Plastic Rivers project proved to be an excellent opportunity to put som
 You can view the architecture we opted to build in the following picture.  
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_architecture.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_architecture.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 This big architectural picture can be divided in 3 big sections:
@@ -132,7 +127,7 @@ We will highlight some key features of each architectural section in the followi
 ## Backend application
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_backend.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_backend.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 ### The backend itself
@@ -154,7 +149,7 @@ This means that whenever we create a new ingress a new Application Load Balancer
 ## Frontend
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_frontend.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_frontend.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 Our frontend application consists of two parts.  
@@ -163,7 +158,7 @@ This is the first way that data from the plastic bottles comes into our system. 
 The second part is aimed at the researchers, and could be seen as the backoffice of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr-frontend-application.png" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr-frontend-application.png" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 To develop this application we have chosen to use Ionic. [Ionic](https://ionicframework.com/) is a free-to-use web-based framework that allows you to build hybrid mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.
@@ -171,7 +166,7 @@ To develop this application we have chosen to use Ionic. [Ionic](https://ionicfr
 ### Data visualization
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_data_ingestion.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers" src="/img/2020-03-16-ZPR-explained/zpr_arch_data_ingestion.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 One of the most relevant components in this application is the map where the sensors and the plastic bottles in the river are visualized by means of the coordinates registered in these items as shown in the image above. For this we have chosen to use [Leaflet](https://leafletjs.com/) which is an open source JavaScript library for adding interactivity to maps. They have a ton of features and plugins to support doing pretty much anything with a map that you can think of.
@@ -275,16 +270,16 @@ Our colleague Jeroen wrote a fantastic [blogpost](https://ordina-jworks.github.i
 
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers release" src="/img/2020-03-16-ZPR-explained/zpr_release.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers release" src="/img/2020-03-16-ZPR-explained/zpr_release.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers trail" src="/img/2020-03-16-ZPR-explained/zpr_plastictrail.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers trail" src="/img/2020-03-16-ZPR-explained/zpr_plastictrail.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 
 <div style="text-align: center;">
-  <img alt="Zero Plastic Rivers trail2" src="/img/2020-03-16-ZPR-explained/zpr_plastictrail2.jpg" width="auto" height="40%" target="_blank">
+  <img alt="Zero Plastic Rivers trail2" src="/img/2020-03-16-ZPR-explained/zpr_plastictrail2.jpg" width="auto" height="40%" target="_blank" class="image fit">
 </div>
 
 
