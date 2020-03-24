@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [peter_dekinder]
-title: 'Architecture Effort in Projects'
+title: 'Charting the Non-Functional Waters'
 image: /img/2020-03-24-Charting-non-functionals/nonfunc_background.jpg
 tags: [Architecture]
 category: Architecture
