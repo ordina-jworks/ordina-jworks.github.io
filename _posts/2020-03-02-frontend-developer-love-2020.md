@@ -86,7 +86,10 @@ PlayWright is built by the same Puppeteer people who now work for Microsoft.
 
 # Practical a11y for web apps, by Bob Bijvoet
 Even before you start writing a11y specific HTML such as aria-labels, we can take certain tips into consideration to make our web apps more accessible.
+As a start, our pages should be perceivable:
 
+* Logical ordering of elements
+* 
 // TODO
 
 > [Bob's talk](https://www.youtube.com/watch?v=btxOl52LTns){:target="_blank" rel="noopener noreferrer"}
@@ -106,26 +109,97 @@ Micro-interactions are important in your web app as they have a lot of added val
 > [Emma's talk](https://www.youtube.com/watch?v=NBb5Dt-uc40){:target="_blank" rel="noopener noreferrer"}, [Emma's Twitter](https://twitter.com/EmmaBostian){:target="_blank" rel="noopener noreferrer"}, [React-spring](https://www.react-spring.io/){:target="_blank" rel="noopener noreferrer"}
 
 # But, you're not Facebook, by [Kitze](https://twitter.com/thekitze){:target="_blank" rel="noopener noreferrer"}
+"This is going to be the most entertaining talk of the day, mark my words", said the friend next to me.
+And he was right, Kitze was able to give a fun yet very interesting talk about the current culture in IT companies.
+We tend to aim for certain goals that are just not necessary to achieve.
+Why should you have a PWA portfolio for example?
+Or what's the point in having a 100 score on all Lighthouse tests?
+
+<img alt="Lighthouse scores all 100%" src="{{ '/img/frontend-love-2020/kitze-lighthouse-100.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+
+But what should you do?
+Stop solving solved problems! 
+There's already enough methods to implement button styling, state management and so on.
+There are complete design systems that you can reuse, so why not reuse them?
+Because ultimately, your end-users don't care about the technology.
+Look at your analytics once in a while and see if your users like your app or not.
+Because even if you have overengineered your app, if the end-users don't like it then there's no point.
 
 > [Kitze's Twitter](https://twitter.com/thekitze){:target="_blank" rel="noopener noreferrer"}, [Sizzy](https://sizzy.co/){:target="_blank" rel="noopener noreferrer"} , [Kitze's Twitch](https://www.twitch.tv/thekitze){:target="_blank" rel="noopener noreferrer"}
 
 # Beats, rhymes and unit tests, by [Tony Edwards](https://twitter.com/tonyedwardspz){:target="_blank" rel="noopener noreferrer"}
 
+The [Web Speech API](https://wicg.github.io/speech-api/){:target="_blank" rel="noopener noreferrer"} consists of 2 parts: the [Speech Recognition API](https://wicg.github.io/speech-api/#api_description){:target="_blank" rel="noopener noreferrer"} and the [Speech Synthesis API](https://wicg.github.io/speech-api/#tts-section){:target="_blank" rel="noopener noreferrer"}.
+In short, the Speech Recognition API allows you to transform speech into text and the Speech Synthesis API allows you to transform text into speech.
+In his talk, Tony asked himself: how good would the Speech Recognition API be in analysing hiphop lyrics.
+Tony showcased his abilities to bring a live demo of the implementation of the Speech Recognition API.
+Would it be able to transform his live lyrics into text?
+Even though the technology still has a long way to go, it was still impressive that I was able to transcribe more than half of his live lyrics.
+
+<img alt="55% end result of his live lyrics correctly transcribed" src="{{ '/img/frontend-love-2020/beats-rhymes-unit-tests-results.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+
 > [Tony's talk](https://www.youtube.com/watch?v=x_L1eQT6TyA){:target="_blank" rel="noopener noreferrer"}, [Tony's Twitter](https://twitter.com/tonyedwardspz){:target="_blank" rel="noopener noreferrer"} and a Spotify list with [songs from the talk](https://open.spotify.com/playlist/6kCeuSEq5PE7qrMebN8uNf){:target="_blank" rel="noopener noreferrer"} 
 
 # GraphQL without a database, by [Roy Derks](https://twitter.com/gethackteam){:target="_blank" rel="noopener noreferrer"}
 
-> [Roy's talk](https://www.youtube.com/watch?v=yygC60yamh8){:target="_blank" rel="noopener noreferrer"}, [Roy's Twitter](https://twitter.com/gethackteam){:target="_blank" rel="noopener noreferrer"} and his [slides](https://www.slideshare.net/RoyDerks1/graphql-without-a-database-frontend-developer-love){:target="_blank" rel="noopener noreferrer"}
+GraphQL is one of those technologies that frontenders want to use but most backenders rather would not add a GraphQL API to their existing REST APIs.
+But why would that stop you?
+There are multiple options to integrate a GraphQL API in your project without having to bother your backenders.
+Roy highlighted two of them.
+
+The first one was `apollo-link-rest`.
+This allows you to call REST endpoints from within your GraphQL queries while having all your data managed by `ApolloClient`.
+These REST endpoints can be bundled together in the same GraphQL query so that getting information about a product with ID 3 and data about its rating and categories, might end up like this:§
+
+```
+query getProduct {
+	product @rest(type: "Product", path: "product/3") {
+		id
+		name
+		price
+		thumbnail
+		categories @rest(type: "Category", path: "products/3/categories") {
+			name
+		}
+		rating @rest(type: "Rating", path: "products/3/rating") {
+			average
+			count
+		}
+	}
+}
+```
+
+Another way to integrate a GraphQL API is to use the package [OpenAPI-to-graphql](https://www.npmjs.com/package/openapi-to-graphql){:target="_blank" rel="noopener noreferrer"}.
+The idea behind this is to use an OpenAPI specification coming from something like [Swagger](https://swagger.io/){:target="_blank" rel="noopener noreferrer"} that will be used to generate a schema which will build a GraphQL server.
+To help with all this, there even is a [CLI](https://github.com/IBM/openapi-to-graphql/tree/master/packages/openapi-to-graphql-cli){:target="_blank" rel="noopener noreferrer"} to make your life even more easy.
+
+With these two tools, you can already start integrating the usage of GraphQL in your frontend code without having to rely on backend also immediately making the transition.
+This is the perfect way to test out if GraphQL brings added value to your project.
+
+> [Roy's talk](https://www.youtube.com/watch?v=yygC60yamh8){:target="_blank" rel="noopener noreferrer"}, [Roy's Twitter](https://twitter.com/gethackteam){:target="_blank" rel="noopener noreferrer"}, [his slides](https://www.slideshare.net/RoyDerks1/graphql-without-a-database-frontend-developer-love){:target="_blank" rel="noopener noreferrer"}, [apollo-link-rest](https://www.apollographql.com/docs/link/links/rest/){:target="_blank" rel="noopener noreferrer"}
 
 # DX is the new black. Learnings from using Nuxt and Storybook at scale, by [Aurélie Violette](https://twitter.com/purple_orwel){:target="_blank" rel="noopener noreferrer"}
+
+// TODO
 
 > [Aurélie's talk](https://www.youtube.com/watch?v=R9NXT_qU7qM){:target="_blank" rel="noopener noreferrer"}, [Aurélie's Twitter](https://twitter.com/purple_orwel){:target="_blank" rel="noopener noreferrer"} and her [slides](https://slides.com/aurelieviolette-1/dx-is-the-new-black#/){:target="_blank" rel="noopener noreferrer"}
 
 # Refactor your life, by Noer Paanakker & Sima Milli
 
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+<iframe src="https://www.youtube.com/embed/GSyQayMEID8?rel=0" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
+</div>
+
+Noer and Sima talked about [Hack Your Future](https://www.hackyourfuture.net/){:target="_blank" rel="noopener noreferrer"}, a coding school for people that have limited access to education and the labor market.
+They talked about a few of the heartbreaking stories of their students and highlighted how the program helped these people try to build a brighter future for themselves.
+In just over 4 years, they've helped get 120+ people land a good tech job.
+With Behind The Source, they highlight a couple of the other stories on how being a refugee wasn't a choice but becoming a developer was a choice.
+
 > [Noer & Sima's talk](https://www.youtube.com/watch?v=jczJ9IPH-Aw){:target="_blank" rel="noopener noreferrer"}, [Hack Your Future](https://www.hackyourfuture.net/){:target="_blank" rel="noopener noreferrer"}, [Behind The Source video](https://www.youtube.com/watch?v=GSyQayMEID8){:target="_blank" rel="noopener noreferrer"}
 
 # Blazor with WebAssembly, by [Don Wibier](https://twitter.com/donwibier){:target="_blank" rel="noopener noreferrer"}
+
+// TODO
 
 > [Don's talk](https://www.youtube.com/watch?v=ZAFqw952GQM){:target="_blank" rel="noopener noreferrer"}, [Don's Twitter](https://twitter.com/donwibier){:target="_blank" rel="noopener noreferrer"}
 
@@ -179,3 +253,4 @@ So the tools are already there to write WASM code but the future looks really br
 
 # Conclusion
 
+// TODO
