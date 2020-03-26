@@ -1,5 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-03-21T20:19:12+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Zero Plastic Rivers - explained</title><link href="https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained.html" rel="alternate" type="text/html" title="Zero Plastic Rivers - explained" /><published>2020-03-16T00:00:00+00:00</published><updated>2020-03-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-03-26T20:36:38+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Charting the Non-Functional Waters</title><link href="https://ordina-jworks.github.io/architecture/2020/03/24/Charting-non-functionals.html" rel="alternate" type="text/html" title="Charting the Non-Functional Waters" /><published>2020-03-24T00:00:00+00:00</published><updated>2020-03-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/03/24/Charting-non-functionals</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/03/24/Charting-non-functionals.html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Where functional requirements are relatable to most stakeholders as they are derived from their areas of expertise, specifying the brunt of the non-functionals tends to fall to the solution architect. 
+As these requirements are more technical in nature, the affinity of other stakeholders with them is not as pronounced. 
+When inquiring about their relevance, the typical answer will be in very generic fashion, for example: “The application needs to be fast.” 
+Trying to get more concrete and measurable statements is not an easy endeavor. 
+We’ll get back to this further on in the blog post.&lt;/p&gt;
+
+&lt;h1 id=&quot;formalizing-the-requirements&quot;&gt;Formalizing the Requirements&lt;/h1&gt;
+
+&lt;p&gt;Once we have the appropriate numbers, we need to formalize them and get them validated. 
+Just as the structure and formalization of the functional requirements is expressed as user stories, or in some cases even more detailed in the form of Business Processes and use cases, in a similar manner will we structure and formalize the non-functionals based on the ISO 25010 standard. 
+Some older architecture documents could also still make a reference to the ISO 9126 standard, which is its predecessor.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2020-03-24-Charting-non-functionals/iso25010.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;ISO 25010 Standard&lt;/p&gt;
+
+&lt;p&gt;Since the ISO standard focuses on quality and acceptance of the delivered product, the same model should be the basis to compose requirements as well. 
+As a result, the quality attributes can be considered as the non-functional requirements of the product focusing on expectations about functionality, usability, reliability, efficiency, maintainability and portability. 
+However, in order to make the factors more complete and representative, each of the characteristics has been split up into its proper set of sub-characteristics.&lt;/p&gt;
+
+&lt;h1 id=&quot;prioritizing-the-requirements&quot;&gt;Prioritizing the Requirements&lt;/h1&gt;
+
+&lt;p&gt;Note however that not all characteristics and associated sub-characteristics are as important to each and every project. 
+On a case-by-case basis, some of them can be given a very low priority or even entirely neglected. 
+Hence, the priority indication is very important in the specification for every requirement. 
+These are the tradeoffs that an architect needs to chart to arrive at the proper solution. 
+One of the ways to weigh them was described in the &lt;a href=&quot;https://www.amazon.co.uk/Software-Requirements-Developer-Best-Practices/dp/0735679665/ref=sr_1_1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;book “Software Requirements” by Karl Wiegers and Joy Beatty&lt;/a&gt;. 
+The idea is to chart them in a matrix which marks the requirements that take precedence over others when they have conflicting impacts on the solution. 
+For example: When business stakeholders ask for a speed of delivery that is contradicted by security concerns demanding a mandatory waiting period for customer due diligence purposes, a decision needs to be taken on which of these requirements gets the upper hand for the implementation.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2020-03-24-Charting-non-functionals/nonfuncprios.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A reflection of this type of requirements contradiction can be found in the CAP theorem. 
+The CAP theorem, also named Brewer’s theorem after computer scientist Eric Brewer, states that it is impossible for a distributed computer system to simultaneously provide more than two out of three of the following guarantees: Consistency. Availability. Partition tolerance. 
+Consistency is the characteristic that determines that a service will always give the same answer across multiple nodes. 
+Availability reflects that every service request should get a response. Partition tolerance is the ability to handle the occasional failure in communication between two services. 
+A balance matching the needs of the solution must be determined between these three requirements in order to implement a solution that fits the bill.&lt;/p&gt;
+
+&lt;p&gt;There are some frameworks that already have some form of priority already built in. They implement this by reducing the number of non-functional categories to only those relevant in their point of view. For example, when we take the AWS Well-Architected Framework, the determining non-functionals are reduced to five categories based on Amazon’s experiences and best practices. For each of these pillars AWS has published a white paper on how to improve and optimize them. IT also provides tooling and labs to help the architect make the proper tradeoffs.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2020-03-24-Charting-non-functionals/awswellarch.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;Pillars of the AWS Well-Architected Framework&lt;/p&gt;
+
+&lt;p&gt;When maturing the requirement list set out for the solution, it might become a difficult and complex task to get accurate numbers to quantify the requirements and make them measurable. We can gather the logs of existing systems that we are replacing to get a grip on what traffic we can expect. But this is not always an option. Suppose we are developing a solution for registering timesheets of employees in a small business that have just gotten a significant enough growth in its sales to justify the cost of such a solution. It doesn’t have numbers on how many times the services of such a system should be called and it doesn’t have an existing system from which to extract them. This is where we start to rely on deduction. We start from relevant data that we do have access to or make assumptions based on experience and we extrapolate from there. In the case of our timesheet solution, we count the number of employees (relevant data) and multiply it by the number of times a week we assume they will access the timesheet solution resulting in a quantified requirement.&lt;/p&gt;
+
+&lt;h1 id=&quot;data-solution-requirements&quot;&gt;Data Solution Requirements&lt;/h1&gt;
+
+&lt;p&gt;Most of the requirements stipulated by the ISO 25010 standard apply to software solutions. The game changes a bit if this solution is primarily or even solely focused on the data facet. When designing a data solution such as for example a solution that gathers and evaluates the available data for a specific topic, we look at a sister standard of the one previously mentioned. The ISO 25012 is part of the same family and offers requirements fitting two categories with some these shared by both. These categories are:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Inherent Data Quality: This category gathers all requirements that deal with the inherent data quality of the data sets that are being used in the solution.&lt;/li&gt;
+  &lt;li&gt;System-Dependent Data Quality: This category deals with the requirements that have to do with the capabilities of maintaining the quality inherent in the data sets.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2020-03-24-Charting-non-functionals/iso25012.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;ISO 25012 Standard&lt;/p&gt;
+
+&lt;h1 id=&quot;operational-requirements&quot;&gt;Operational Requirements&lt;/h1&gt;
+
+&lt;p&gt;When a solution finally goes live, it will have an impact on the existing way of working within the organization. 
+Not only are its users a stakeholder, but there is also the team that will support the solution to consider as well. 
+Therefore, a set of operational requirements is usually determined by analyzing how the managed services team will keep the solution up and running, how they will cope with bug fixing and evolutionary maintenance, and how to cope with negative impact.&lt;/p&gt;
+
+&lt;p&gt;As with non-functional requirements, so can these requirements be categorized by using an ISO standard, in this case the ISO 25022 standard, or the “Quality in Use” Model. 
+This standard defines measures for the characteristics of the previously mentioned ISO 25010 standard and consists of a basic set of impact measures and methodologies to quantify each of them. 
+This standard is a collection of suggested measures and is by no means an exhaustive list. A visual representation of these requirements can be seen in the illustration below.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2020-03-24-Charting-non-functionals/iso25022.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;ISO 25022 Standard&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;In summary, an architect needs to be able to get a handle on all the angles of the solution as soon as possible in the development process, and requirements, both functional and non-functional, allow him or her the overarching vision to guide development along. 
+Be wary of analysis paralysis though. 
+To quote the former US Secretary of Defence Donald Rumsfeld: “There are known unknowns, that is to say, there are things that we now know we don’t know them.” 
+So, avoid trying to get the perfect picture of the requirements, and instead factor into your solution that new requirements can pop up and hidden ones can be revealed during the later stages of the project.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="Architecture" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-03-24-Charting-non-functionals/nonfunc_background.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-03-24-Charting-non-functionals/nonfunc_background.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Zero Plastic Rivers - explained</title><link href="https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained.html" rel="alternate" type="text/html" title="Zero Plastic Rivers - explained" /><published>2020-03-16T00:00:00+00:00</published><updated>2020-03-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
@@ -3380,225 +3455,4 @@ Definitely worth another visit!&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://kotlinconf.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;KotlinConf website&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Lv5WcWNIDrw&amp;amp;list=PLQ176FUIyIUY6SKGl3Cj9yeYibBuRr3Hl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;KotlinConf 2019 YouTube playlist&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and practice manager at Ordina Belgium. He's passionate about everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Conference" /><category term="KotlinConf" /><category term="Kotlin" /><category term="Android" /><category term="Coroutines" /><category term="Conference" /><category term="Serverless" /><summary type="html">KotlinConf is thé conference to visit if you’re into Kotlin development. JetBrains introduced KotlinConf in 2017 in San Francisco with over 1.200 participants and 50 speakers. In 2018 it took place in Amsterdam with over 1.300 participants and 60 speakers. This year the conference was hosted in Denmark’s Copenhagen at the Bella Center, Scandinavia’s largest conference center. Five colleagues of Ordina Belgium’s JWorks unit were very enthusiastic to attend the conference for the first time.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kotlinconf-2019/kotlinconf-2019.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kotlinconf-2019/kotlinconf-2019.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Our Devoxx Demo App with realtime object detection</title><link href="https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html" rel="alternate" type="text/html" title="Our Devoxx Demo App with realtime object detection" /><published>2019-12-16T00:00:00+00:00</published><updated>2019-12-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App</id><content type="html" xml:base="https://ordina-jworks.github.io/machine%20learning/2019/12/16/Our-Devoxx-Demo-App.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
-
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#overview&quot;&gt;Overview&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#setup&quot;&gt;Setup&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#code&quot;&gt;Code&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;Like every year we were present with Ordina at Devoxx as a sponsor.
-For this edition I had prepared a demo application with realtime object detection.
-Our demo was a huge success and is the reason I’m writing this blog post.&lt;/p&gt;
-
-&lt;p&gt;In this blog post I’ll explain how to get everything set up to make your own application that uses realtime object detection!
-All code is available online on our &lt;a href=&quot;https://github.com/ordina-jworks/devoxx-webcam-ml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ordina-jworks Github&lt;/a&gt; and contains a number of branches with specific implementations.&lt;/p&gt;
-
-&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
-
-&lt;p&gt;Before we dive into the actual code, I’ll explain what technologies I’ve used and how they all come together to form this demo application.&lt;/p&gt;
-
-&lt;p&gt;The demo uses the following technologies:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Electron: &lt;br /&gt;
-This serves as the multi-platform app container which allows us to write what is essentially a web application, and run it on a variety of operating systems.&lt;/li&gt;
-  &lt;li&gt;TensorFlow.js: &lt;br /&gt;
-This is the machine learning library used to run the model for object detection.&lt;/li&gt;
-  &lt;li&gt;CoCo Dataset: &lt;br /&gt;
-Stands for &lt;code class=&quot;highlighter-rouge&quot;&gt;Common Objects in Context&lt;/code&gt; and is a very large, highly curated dataset of images which have been annotated with one or more of 90 classes.
-    &lt;ul&gt;
-      &lt;li&gt;CoCo-SSD: &lt;br /&gt;
-A default implementation by TensorFlow itself utilizing an SSD detector (Single Shot MultiBox Detection).
-I have downloaded the pre-trained model and it is included in the Github repo&lt;/li&gt;
-      &lt;li&gt;YoLo V3: &lt;br /&gt;
-Is an object detection system that looks at the whole image at test time and derives its predictions based on the global context of said image.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Node.js: &lt;br /&gt;
-Needed for npm and building the demo app, Electron also provides the option to use bare Node code/packages in the code.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;The demo app uses Electron as the main ‘framework’.
-The setup for the application is pretty simple, there are just a few dependencies in the &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;engines&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;node&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;gt;=12.13.0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;@tensorflow/tfjs-node&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^1.2.11&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;typescript&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^3.6.4&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;devDependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;electron&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;7.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;electron-packager&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^14.0.6&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The main entry point for the application is just under the &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; folder of the root folder of the project.&lt;/p&gt;
-
-&lt;p&gt;The bootstrapping code is also very simple:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserWindow&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;electron&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createWindow&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;win&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1920&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1080&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;webPreferences&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;nodeIntegration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;//win.webContents.openDevTools();&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loadFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./src/devoxx/site/index.html&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ready&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createWindow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We import the &lt;code class=&quot;highlighter-rouge&quot;&gt;app&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; and create a function that creates a new instance of the &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; class.
-This instance specifies the configuration for the Electron app.
-We set the &lt;code class=&quot;highlighter-rouge&quot;&gt;width&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;height&lt;/code&gt; and set the &lt;code class=&quot;highlighter-rouge&quot;&gt;nodeIntegration&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; so we can use the file system from within the browser code.
-We also tell the &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; instance to load a certain html resource.
-Finally we bind the &lt;code class=&quot;highlighter-rouge&quot;&gt;app&lt;/code&gt; ready event to create the &lt;code class=&quot;highlighter-rouge&quot;&gt;BrowserWindow&lt;/code&gt; instance.&lt;/p&gt;
-
-&lt;p&gt;Additionally for debugging it can be handy to uncomment the line &lt;code class=&quot;highlighter-rouge&quot;&gt;win.webContents.openDevTools();&lt;/code&gt; as that will open a Chrome DevTools window when the application launches.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/2019-12-16-devoxx-demo/demo.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Devoxx Demo&quot;&gt;
-        &lt;img alt=&quot;Devoxx Demo&quot; src=&quot;/img/2019-12-16-devoxx-demo/demo.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 55%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2019-12-16-devoxx-demo/devoxx-demo.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Devoxx Demo in action&quot;&gt;
-        &lt;img alt=&quot;Devoxx Demo in action&quot; src=&quot;/img/2019-12-16-devoxx-demo/devoxx-demo.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 43%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
-
-&lt;p&gt;The basic code is not too difficult:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loadCoco&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;../../../&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;navigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mediaDevices&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getUserMedia&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1280&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;720&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                &lt;span class=&quot;na&quot;&gt;frameRate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;framerate&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;srcObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onloadedmetadata&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1280&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;720&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;2d&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;drawImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Once the page is loaded we create our detector instance.
-This will be used to feed in the image data from the webcam.
-We also need to fetch a video stream from the webcam, in this example at 720P, as that’s the max resolution for my webcam.
-Please note that a higher resolution will require considerably more processing power.
-After we have a stream, we fetch the &lt;code class=&quot;highlighter-rouge&quot;&gt;video&lt;/code&gt; tag from the page, assign the stream to it and let it play.
-We also get our canvas in which we will display the actual video output, the video tag itself is hidden.
-The canvas allows us to annotate the image with a bounding box and some extra information about the detected objects.
-Finally we call the &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; method which will be called for each update.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;drawImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detectedClasses&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;detect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;Loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;anotateCanvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detectedClasses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;updateList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;detectedClasses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;enableLiveUpdate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;framerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This function will function as our update loop/tick.
-We draw the image to the canvas, just as it was seen by the webcam.
-We then pass the canvas into the detector which will detect any objects in the image data contained in the canvas.
-This returns an array of detected classes which contain the type of objects, the score and a bounding box.
-That information is fed to a utility method that will annotate the canvas with a red rectangle with the coordinates of the bounding and the type of object with its score.
-The update function will be called again with a very basic (and very limited) framerate timeout.&lt;/p&gt;
-
-&lt;p&gt;There is other code, mainly in the &lt;code class=&quot;highlighter-rouge&quot;&gt;coco&lt;/code&gt; folder which is mostly taken from the &lt;a href=&quot;https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;default google implementation&lt;/a&gt; and modified to match the needs of this application.
-One thing worth noting is the changes required to a small piece of code to make the model work faster by allowing it to work asynchronously:&lt;/p&gt;
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;classes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calculateMaxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tidy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tensor2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nonMaxSuppression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxNumBoxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dataSync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Float32Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Needs to be changed into:&lt;/p&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;classes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;calculateMaxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tensor2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]);&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nonMaxSuppressionAsync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boxes2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;maxNumBoxes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tidy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dataSync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Float32Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;indexTensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Because the &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.image.nonMaxSuppressionAsync&lt;/code&gt;returns a &lt;code class=&quot;highlighter-rouge&quot;&gt;Promise&lt;/code&gt; the replacement is not as simple as just replacing the method call to the async variant.
-This however is the only big change that needs to be done (apart from changing some dependencies) to get the application working with full WebGL acceleration.&lt;/p&gt;
-
-&lt;p&gt;The application is actually really simple and very easy to understand and tinker with. I strongly encourage you to check out the repo and have a go at getting it up and running by yourself.
-The other branches contain different solutions with some tweaked code, be sure to also check those out!&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;Making a cool demo that utilizes machine learning and pre-trained models is not at all that hard. 
-Rapid prototyping with these pre-trained models allows one to quickly see if a certain strategy or desired functionality is workable and merits further development effort.
-It also provides a way to get started easily in a matter that is extremely hard to master. 
-Retraining or tweaking these models can be very hard and time consuming as it requires an in-depth knowledge of the matter at hand (both mathematics and the actual data).
-Im my opinion these pre-trained models and other machine learning ‘building blocks’ provide an extremely valuable toolset for developers.&lt;/p&gt;
-
-&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/ordina-jworks/devoxx-webcam-ml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Demo Github repo&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.tensorflow.org/js&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;TensorFlow.js&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://cocodataset.org/#home&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CoCo Dataset&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;tfjs-CoCo-SSD&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://pjreddie.com/darknet/yolo/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YoLo&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/zqingr/tfjs-yolov3/blob/master/README_EN.md&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;tfjs-YoLo-V3&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a Principal Java consultant at Ordina, passionate about all Java and JavaScript related technologies. In his role as Competence Leader Internet of Things he uses his knowledge of building custom software to build innovative solutions using new technologies. Currently focussing on the internet of things and sensor networks using LoRa. Loves to tinker with gadgets.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="Machine Learning" /><category term="Internet of Things" /><category term="Smart Tech" /><category term="Home" /><category term="AI" /><category term="ML" /><category term="Computer vision" /><category term="object detection" /><category term="electron" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-12-16-devoxx-demo/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-12-16-devoxx-demo/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yannick&quot;, &quot;last_name&quot;=&gt;&quot;De Turck&quot;, &quot;twitter&quot;=&gt;&quot;YannickDeTurck&quot;, &quot;linkedin&quot;=&gt;&quot;yannickdeturck&quot;, &quot;github&quot;=&gt;&quot;yannickdeturck&quot;, &quot;permalink&quot;=&gt;&quot;/author/yannick-de-turck/&quot;, &quot;avatar&quot;=&gt;&quot;yannick-de-turck.jpg&quot;, &quot;title&quot;=&gt;&quot;Senior Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Lead JVM Languages&quot;, &quot;email&quot;=&gt;&quot;Yannick.DeTurck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yannick is a senior Java consultant and practice manager at Ordina Belgium. He's passionate about everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.&quot;}</name><email>Yannick.DeTurck@ordina.be</email></author><category term="Conference" /><category term="KotlinConf" /><category term="Kotlin" /><category term="Android" /><category term="Coroutines" /><category term="Conference" /><category term="Serverless" /><summary type="html">KotlinConf is thé conference to visit if you’re into Kotlin development. JetBrains introduced KotlinConf in 2017 in San Francisco with over 1.200 participants and 50 speakers. In 2018 it took place in Amsterdam with over 1.300 participants and 60 speakers. This year the conference was hosted in Denmark’s Copenhagen at the Bella Center, Scandinavia’s largest conference center. Five colleagues of Ordina Belgium’s JWorks unit were very enthusiastic to attend the conference for the first time.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kotlinconf-2019/kotlinconf-2019.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kotlinconf-2019/kotlinconf-2019.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
