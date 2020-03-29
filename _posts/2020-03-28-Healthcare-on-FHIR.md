@@ -36,7 +36,7 @@ The introduction of the FHIR specification was driven by the following:
 >  *- HL7 (Health Level Seven International)*
 
 This relatively new protocol has several advantages:
-- The FHIR specification is free for use, open source with no restrictions and entirely available online at [https://www.hl7.org/fhir/](https://www.hl7.org/fhir){:target="_blank" rel="noopener noreferrer"}.
+- The FHIR specification is free to use, open source with no restrictions and entirely available online at [https://www.hl7.org/fhir/](https://www.hl7.org/fhir){:target="_blank" rel="noopener noreferrer"}.
   It has been licensed under the Creative Commons Public Domain License, a license that permits the following: “You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.”
 - It has a strong focus on fast and easy implementation by using common tools, formats and web-based technologies without a steep learning curve. 
   Multiple implementation libraries are available with many examples to kickstart development.
@@ -58,10 +58,10 @@ It allows connecting PGHD to streamlined healthcare provider workflows and filte
 Patients who see multiple care providers in different health systems might no longer have to worry about having three or four patient portals from organizations using different EHRs.
 One single personal health record, which integrates data from different formats, can deliver a comprehensive view of all medications, problems, and allergies. 
 
-FHIR includes all aspects of healthcare-related interoperability through RESTful APIs and a common format for hundreds of clinical data models. This is useful ...
-- for healthcare integrators: Transitioning to FHIR formatted XML/JSON objects in a RESTful architecture will enable you to have atomic data access to individual items within a resource, for example the Patient demographics or Observations for lab results.
-- for healthcare systems: Building and running applications on this API standard will result in richer products with data connected from external systems.
-- as a patient: You can get and share your medical data in more ways than ever before, including with apps that you use.
+FHIR includes all aspects of healthcare-related interoperability through RESTful APIs and a common format for hundreds of clinical data models. This is useful for:
+- healthcare integrators: Transitioning to FHIR formatted XML/JSON objects in a RESTful architecture will enable you to have atomic data access to individual items within a resource, for example the Patient demographics or Observations for lab results.
+- healthcare systems: Building and running applications on this API standard will result in richer products with data connected from external systems.
+- patients: You can get and share your medical data in more ways than ever before, including with apps that you use.
 
 # What about the tech giants?
 - Microsoft recently released [FHIR server for Azure](https://docs.microsoft.com/en-gb/azure/healthcare-apis/overview){:target="_blank" rel="noopener noreferrer"}, an easy way to manage and persist health information in the cloud.
