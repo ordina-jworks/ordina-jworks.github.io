@@ -9,14 +9,14 @@ comments: true
 ---
 
 # And then there was FHIR
-The healthcare industry is currently buried under mountains of data, and much of it is unorganized or out of reach. For instance, care givers who are responsible for emergency care may not always have the patient's history they need.
+The healthcare industry is currently buried under mountains of data, and much of it is unorganized or out of reach. For instance, care givers who are responsible for emergency care may not always have access to the patient's history they need.
 This might force them to resort to guessing or basing their treatment on the information the patient provides. If the patient is unable to give a medical history or other information such as allergies, the problem gets worse.
 
 Exchanging healthcare information in a safer and faster manner is therefore a primary goal in the healthcare industry.
 Software developers and IT professionals in this industry are tasked with integrating software applications without sacrificing security of sensitive patient information.
 
 Today's health IT environment is also very fragmented. 
-Integrating with different health systems as well as sharing data has been a difficult and expensive process.
+Integrating with different health systems as well as sharing data is a difficult and expensive process.
 Each of these systems tend to favor flexibility of their specific function or department over interoperability with external applications.
 
 **Fast Healthcare Interoperability Resources** (FHIR, pronounced “fire”) is a set of standards providing a mechanism for exchanging data between healthcare applications. 
@@ -87,7 +87,7 @@ Definitely check out this demo app!
 ## FHIR Resources
 A resource is the smallest unit of exchange with a defined behavior and meaning in interoperability, such as a Patient, a Device, an Observation, an Allergy Intolerance, ... .
 It has an identity and location (URI) where it can be found.
-Furthermore is it made up of elements of a particular datatype, and can be represented either as an XML document or a JSON document.
+Furthermore, it is made up of elements of a particular datatype, and can be represented either as an XML document or a JSON document.
 
 An exhaustive list of FHIR base resources is described here: [http://www.hl7.org/implement/standards/fhir/resourcelist.html](http://www.hl7.org/implement/standards/fhir/resourcelist.html){:target="_blank" rel="noopener noreferrer"}. 
 The FHIR development team has adopted the 80% rule for resources: only define and include concepts applicable to 80% of normal implementations.
@@ -150,7 +150,7 @@ Native FHIR server with FHIR back-end
 # Summary
 Today, there's lots of buzz about FHIR.
 You might find it anywhere from federal agencies to major technology companies.
-Google, Microsoft and Apple all have thrown their considerable weight and cloud-based resources behind FHIR and are improving interoperability in healthcare.
+Google, Microsoft and Apple have all thrown in their considerable weight and cloud-based resources behind FHIR and are improving interoperability in healthcare.
 The underlying concepts behind FHIR are important drivers of the push towards interoperability.
 It supports the exchange of data between software applications in healthcare, combining the best features of HL7’s existing interoperability protocols while leveraging the latest web standards and applying a tight focus on implementability. 
 FHIR is worth paying attention to because it is a huge step forward in working with healthcare data and is likely to have a significant impact on health IT.
