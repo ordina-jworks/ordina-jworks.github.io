@@ -10,7 +10,7 @@ category: Architecture
 ## The problem
 
 Using a monorepo has some great advantages, including no longer having to manage npm dependencies for each individual project and the ability to easily create libraries and reuse them between applications.
-You can create libraries for example about authentication that each team in your organisation can include in their application and if an update should be needed to that library, the tooling you use can automatically build each (and only those) application that include that library.
+You can create libraries, for example about authentication, that each team in your organisation can include in their application and if an update should be needed to that library, the tooling you use can automatically build each (and only those) application that include that library.
 
 When talking about monorepo's within frontend development communities, Nrwl's Nx solution will certainly be mentioned.
 It allows to create a workspace in which all your applications might exist together, using one single `package.json`, no longer solely focused on Angular, but also React, simple web applications or NodeJS applications.
@@ -46,7 +46,7 @@ If you want to know more details and some extra commands, read [this GitHub blog
 
 Of course it's always better to automate these things to reduce errors.
 I developed a tool [nx-sparse-checkout](https://www.npmjs.com/package/nx-sparse-checkout), which can be added to a workspace using Nx 8.11 and above.
-I borrowed the idea from [KwintenP](https://twitter.com/kwintenp), updated it for use in Nx 8 and made some other enhancements to better the user experience.
+I used the idea from [KwintenP](https://twitter.com/kwintenp), updated it for use in Nx 8 and made some other enhancements to improve the user experience.
 
 <div style="text-align: center;">
   <img src="/img/2020-03-31-nx-sparse-checkout/example.gif" alt="Example of nx-sparse-checkout" width="100%" height="100%">
