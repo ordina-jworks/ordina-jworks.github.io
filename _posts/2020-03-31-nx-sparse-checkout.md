@@ -17,8 +17,8 @@ It allows to create a workspace in which all your applications might exist toget
 It also includes some useful tslint extensions and scripts to automate build steps using a dependency graph.
 
 But what happens when you have a lot of applications in your organisation?
-Your IDE might start to work slower, it's intellisense might get cluttered, or when searching for a specific file you receive a lot of results you don't need for the application you're working on.
-This happens because there are just too much files in your repository.
+Your IDE might start to work slower, its intellisense might get cluttered, or when searching for a specific file you receive a lot of results you don't need for the application you're working on.
+This happens because there are just too many files in your repository.
 
 ## The solution
 
@@ -54,7 +54,7 @@ I used the idea from [KwintenP](https://twitter.com/kwintenp), updated it for us
 
 The tool allows you to choose the projects you want to checkout (either comma-separated or interactive) and then uses Nx's dependency graph to determine which projects your selection is depending on and adds those to the list of projects to checkout.
 It then sets all projects that are not needed to be ignored using the `sparse-checkout` file.
-This way all other files (like package.json, tsconfig.json, etc...) and other folders (like tools) are still available to you.
+This way all other files (like `package.json`, `tsconfig.json`, etc...) and other folders (like tools) are still available to you.
 Resetting can be done by either selecting everything or passing the `--all` parameter.
 
 Using this technique, you have the advantages of a monorepo, while not having to deal with an enormous folder structure.
