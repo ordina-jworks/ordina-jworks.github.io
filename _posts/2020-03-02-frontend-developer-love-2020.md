@@ -41,16 +41,31 @@ These days we developers face mainly two challenges: the speed at which we have 
 With the constant changing technology landscape, we can expect that software will not survive for 1000 years.
 Regularly adapting and delivering is a key component of delivering quality software.
 Sander talked about his current and previous experiences in the volatile world of software development.
+Like how a 9-to-5 mentality is not always the right choice as not everybody is that productive during the day.
+<img alt="Graph depicting productivity of a geek during the day" src="{{ '/img/frontend-love-2020/geek-productivity-at-work.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+Factors such as strict working hours ruin productivity.
+But the same can be said about the usage of open floor plans for example which explains the popularity of noise-cancelling headphones.
+We need to think for ourselves and don't copy what other big corporations might be doing.
 In the end, it all boils down to trying to release as fast, as often and as small as you can.
-// TODO
+Even if that means following weird office hours.
 
-> [Sander's talk](https://www.youtube.com/watch?v=64LI5v470VY){:target="_blank" rel="noopener noreferrer"}, [Sander's Twitter](https://twitter.com/aahogendoorn){:target="_blank" rel="noopener noreferrer"} and his [slides](https://speakerdeck.com/aahoogendoorn/its-a-small-world-after-all-full-edition-fall-2019){:target="_blank" rel="noopener noreferrer"}
+> [Sander's talk](https://www.youtube.com/watch?v=64LI5v470VY){:target="_blank" rel="noopener noreferrer"}, [Sander's Twitter](https://twitter.com/aahogendoorn){:target="_blank" rel="noopener noreferrer"}, [his slides](https://speakerdeck.com/aahoogendoorn/its-a-small-world-after-all-full-edition-fall-2019){:target="_blank" rel="noopener noreferrer"} and the [geek productivity chart resource](https://www.insanityworks.org/acme/2013/5/14/geek-productivity-chart.html){:target="_blank" rel="noopener noreferrer"}
 
 # How to pack your Webpack, by [Johannes Ewald](https://twitter.com/jhnns){:target="_blank" rel="noopener noreferrer"}
 In this talk, Johannes explained more what Webpack is and how you can define your own Webpack config.
 While most frontend developers use CLIs these days, a lot can be learned from actually writing a Webpack config so that you know what your favorite CLI is generating.
 With the latest Webpack we now have TypeScript support in our Webpack config file.
-// TODO
+He also described the several key components of a Webpack config.
+Such as the `entry` element which denotes the base of your module tree.
+
+In the end Johannes gave a couple of tips to create a good Webpack along with some tips for your code to decrease the bundle size that Webpack will generate: 
+
+* Most apps will have a good bundle size just be setting the Webpack `mode` to `production`. You don't need to overthink your configuration, Webpack already optimizes a lot for you
+* Lazy load modules with the use of `import()`
+* Check [bundlephobia.com](https://bundlephobia.com){:target="_blank" rel="noopener noreferrer"} to determine if a bundle could be replaced by something more lightweight or more tree-shakeable
+* Measure the performance with a tool like Lighthouse
+* Don't overestimate longterm caching. It is ok for fonts, images and CSS but caching whole pages could be not as rewarding for the amount of effort you need to put into it
+* Minify your CSS with a tool like [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin){:target="_blank" rel="noopener noreferrer"}
 
 > [Johannes' talk](https://www.youtube.com/watch?v=z8YP5ZEUIxA){:target="_blank" rel="noopener noreferrer"}, [Johannes's Twitter](https://twitter.com/jhnns){:target="_blank" rel="noopener noreferrer"} and his [slides](https://peerigon.github.io/talks/2020-02-19-frontend-developer-love-how-to-pack-your-webpack/slides/#/){:target="_blank" rel="noopener noreferrer"}
 
@@ -61,14 +76,47 @@ Alexander tried to explain why Svelte is such a great framework.
 To start with, Svelte is [truly reactive](https://svelte.dev/blog/svelte-3-rethinking-reactivity){:target="_blank" rel="noopener noreferrer"} .
 While in most frameworks you need to call certain functions like a 'set' or 'setState', Svelte parses your JS to add reactivity.
 So a basic statement like `count += 1;` will be reactive as all code that relies on the value of `count` will be updated.
+An example Svelte component could look like this:
+```html
+<script>
+	let count = 0;
 
-// TODO
+	function handleClick() {
+		count += 1;
+	}
+</script>
 
-> [Alexander's talk](https://www.youtube.com/watch?v=U4ll3QWkpD4){:target="_blank" rel="noopener noreferrer"}, [Alexander's Twitter](https://twitter.com/DexterLabsNL){:target="_blank" rel="noopener noreferrer"}
+<button on:click={handleClick}>
+	Clicked {count} {count === 1 ? 'time' : 'times'}
+</button>
+<style>
+button {
+	border: 1px solid red;
+}
+</style>
+```
+As you can see we have grouped everything of the component into one file: style, the script and the HTML code.
+Between the style tags, you can put your regular CSS.
+Between the script tags, you can put JavaScript while your HTML can reference anything that you've defined within your script tag such as `count`.
+This allows for the creation of small readable components that anybody, even without prior knowledge of Svelte can read.
+
+> [Alexander's talk](https://www.youtube.com/watch?v=U4ll3QWkpD4){:target="_blank" rel="noopener noreferrer"}, [Alexander's Twitter](https://twitter.com/DexterLabsNL){:target="_blank" rel="noopener noreferrer"}, [Svelte.dev](https://svelte.dev/){:target="_blank" rel="noopener noreferrer"}
 
 # Serverless gives you wings, by [Yan Cui](https://twitter.com/theburningmonk){:target="_blank" rel="noopener noreferrer"}
 These days we can expect that we will have users of our web applications that are distributed around the world and will use our web app 24/7.
-// TODO
+Because of this, deploying your web application into the cloud is very interesting.
+It is resilient, scalable, fast and secure.
+As we always need to prepare for success, these are all contributing elements to choose for something in the cloud.
+For some, using Docker seems to be the holy grail, especially in combination with container services like Kubernetes.
+But to quote Matt Klein: "Unless you're an infrastructure company, infrastructure is basically overhead".
+
+Going serverless means that:
+* you don't pay for it if no-one uses it
+* you don't need to worry about scaling
+* you don't need to provision and manage servers
+
+With the help of Functions-as-a-Service tools like Google Cloud Functions, AWS Lambda and more, frontend developers can leverage whole blocks of business logic into functions that live in the cloud.
+As a result, they can decrease the amount of work that backenders need to, thus allowing them to focus on more critical stuff and not being occupied with providing some basic API.
 
 > [Yan's talk](https://www.youtube.com/watch?v=A6wbpkSmhrA){:target="_blank" rel="noopener noreferrer"}, [Yan's Twitter](https://twitter.com/theburningmonk){:target="_blank" rel="noopener noreferrer"} and his [slides](https://www.slideshare.net/theburningmonk/serverless-gives-you-wings){:target="_blank" rel="noopener noreferrer"}
 
@@ -88,9 +136,23 @@ PlayWright is built by the same Puppeteer people who now work for Microsoft.
 Even before you start writing a11y specific HTML such as aria-labels, we can take certain tips into consideration to make our web apps more accessible.
 As a start, our pages should be perceivable:
 
-* Logical ordering of elements
-* 
-// TODO
+* Logical ordering of elements: what's important such as an article header should come first
+* Don't rely on colour: be aware that not everybody can perceive colour the same way as you can. Use shapes and different sizes to distinguish between elements, colour in itself is not enough
+* Use contrast: all different element should be distinguishable one from the other
+* Don't rely on orientation: with the rise of number of mobile users, you should keep in mind that not everybody uses their phone in portrait mode, make sure that your web application also works in landscape mode
+
+While trying to make your page as perceivable as possible, don't forget to focus on making your page operable.
+A lot of users rely on a keyboard so make sure that they can tab through your content easily.
+Having a logical focus order makes most sense.
+To make your page more operable, add labels to UI elements to help them describe what they do.
+For example it is of no use to add a search icon to a search button without adding the "Search" text somewhere.
+Screenreader users will be very grateful.
+
+Most of the tips that Bob gave were easy to verify on your own.
+Try to use your web application with only your keyboard to check if it's easy to operate.
+How about turning of your CSS to see if the order is logical and if your application is still usable.
+And if you can, try to use your web application with just a screen reader.
+On a Windows, [NVDA](https://www.nvaccess.org/){:target="_blank" rel="noopener noreferrer"} is a good option while MacOS X has the [VoiceOver](https://www.apple.com/voiceover/info/guide/_1121.html){:target="_blank" rel="noopener noreferrer"} option.
 
 > [Bob's talk](https://www.youtube.com/watch?v=btxOl52LTns){:target="_blank" rel="noopener noreferrer"}
 
@@ -104,9 +166,45 @@ Micro-interactions are important in your web app as they have a lot of added val
 * They build habits
 * They delight our users
 
-// TODO
+Ideally, for each interaction where you have a state change you should have an animation.
+This will help improve the user experience as the user will better percieve what has changed.
 
-> [Emma's talk](https://www.youtube.com/watch?v=NBb5Dt-uc40){:target="_blank" rel="noopener noreferrer"}, [Emma's Twitter](https://twitter.com/EmmaBostian){:target="_blank" rel="noopener noreferrer"}, [React-spring](https://www.react-spring.io/){:target="_blank" rel="noopener noreferrer"}
+It is best to keep in mind that:
+
+* Animations should be accessible. Accessibility should never suffer from the introduction of an animation
+* You should make them relatable
+* You should be intentional with the placement
+* You don't let your users wait. Why not already start an animation while for example your backend call is going?
+
+During her talk, Emma showcased her live coding skills as she took a full screen menu and animated it with the use of [React-spring](https://www.react-spring.io/){:target="_blank" rel="noopener noreferrer"}.
+React-spring looks to be an interesting library that exposes hooks such as `useSpring()` to easily configure animations.
+Having for example a menu slide in from the top of your page with a change in opacity, could be something as simple as this in your component:
+
+```javascript
+const [fullMenuVisible, setFullMenuVisible] = useState(false);
+const fullMenuAnimation = useSpring({
+	transform: fullMenuVisible ? `translateY(0)` : `translateY(-100%)`,
+	opacity: fullMenuVisible ? 1 : 0
+});
+```
+
+After that you can add `fullMenuAnimation` to your HTML with the react-spring factory `animated`.
+A menu can thus end up like this:
+
+```html
+<animated.div className="menu menu--full" style={fullMenuAnimation}>
+	<nav>
+		<ul className="menu-list menu-list--full">
+			<li className="menu-list-item menu-list-item--full">
+				<a href="/">Home</a>
+			</li>
+			<!-- more elements -->
+		</ul>
+	</nav>
+</animated.div>
+```
+
+> [Emma's talk](https://www.youtube.com/watch?v=NBb5Dt-uc40){:target="_blank" rel="noopener noreferrer"}, [Emma's Twitter](https://twitter.com/EmmaBostian){:target="_blank" rel="noopener noreferrer"}, [React-spring](https://www.react-spring.io/){:target="_blank" rel="noopener noreferrer"}, [Codesandbox with the end result](https://codesandbox.io/s/boring-sun-qe6kn?fontsize=14&hidenavigation=1&theme=dark){:target="_blank" rel="noopener noreferrer"}, [Emma's blog post about micro interactions part 1](https://stackoverflow.blog/2020/01/16/how-to-create-micro-interactions-with-react-spring-part-1/){:target="_blank" rel="noopener noreferrer"}, [Emma's blog post about micro interactions part 2](https://stackoverflow.blog/2020/01/23/micro-interactions-with-react-spring-part-2/){:target="_blank" rel="noopener noreferrer"}
 
 # But, you're not Facebook, by [Kitze](https://twitter.com/thekitze){:target="_blank" rel="noopener noreferrer"}
 "This is going to be the most entertaining talk of the day, mark my words", said the friend next to me.
@@ -180,7 +278,48 @@ This is the perfect way to test out if GraphQL brings added value to your projec
 
 # DX is the new black. Learnings from using Nuxt and Storybook at scale, by [Aurélie Violette](https://twitter.com/purple_orwel){:target="_blank" rel="noopener noreferrer"}
 
-// TODO
+Aurélie used [Storybook](https://storybook.js.org/) in her projects as a tool to demo stuff, have live documentation and to enable visually driven development.
+Storybook in itself is already a great tool to showcase your components with their different use cases.
+But Aurélie extended its functionality by adding the [Knobs addon](https://www.npmjs.com/package/@storybook/addon-knobs) as well as the [Docs addon](https://www.npmjs.com/package/@storybook/addon-docs).
+
+The concepts that she uses, is to bring "Nuxt logic" to your Storybook project.  
+By adding components into Storybook, developers are tempted to just write the visualisation of their components with some mock data.
+But why not add some business logic into it?
+If your actual component uses data coming from a store, why not implement a store in your Storybook stories to help you mimick the real usecase of your components?
+Storybook's functionality can be extended by writing decorators.
+An example she gave of a decorator to add a store to your components is this:
+
+```javascript
+	
+import addons, { makeDecorator } from '@storybook/addons'
+import { STORY_CHANGED } from '@storybook/core-events'
+ 
+export const withStore = makeDecorator({
+  name: 'withStore',
+  parameterName: 'store',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context, { parameters = {} }) => {
+    const { modules = {} } = parameters
+    return {
+      created() {
+        for (name in modules) {
+          this.$store.registerModule(name, modules[name])
+        }
+        const channel = addons.getChannel()
+        channel.on(STORY_CHANGED, () => {
+          for (name in modules) {
+            this.$store.unregisterModule(name)
+          }
+        })
+      },
+      template: '<story></story>',
+    }
+  },
+})
+```
+
+After activating the decorator with `addDecorator(withStore)`, your components will have access to the store.
+So now you can make your examples in Storybook even more linked to the real use of the components.
 
 > [Aurélie's talk](https://www.youtube.com/watch?v=R9NXT_qU7qM){:target="_blank" rel="noopener noreferrer"}, [Aurélie's Twitter](https://twitter.com/purple_orwel){:target="_blank" rel="noopener noreferrer"} and her [slides](https://slides.com/aurelieviolette-1/dx-is-the-new-black#/){:target="_blank" rel="noopener noreferrer"}
 
@@ -253,4 +392,7 @@ So the tools are already there to write WASM code but the future looks really br
 
 # Conclusion
 
-// TODO
+The first of three days in Amsterdam was packed with lots of great talks on a multitude of subjects.
+Combine those interesting topics with a great venue and you have a killer combination.
+If this was day 1, I could not wait for day 2 and 3 that were going to be more focused on VueJS.
+I returned to my hotel satisfied with the amount of stuff I had learned that day.
