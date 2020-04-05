@@ -122,13 +122,39 @@ As a result, they can decrease the amount of work that backenders need to, thus 
 
 # Modern solutions for e2e testing, by Anastasiia Dragich
 During her talk, Anastasiia gave an overview of all current end-to-end testing frameworks.
-While Selenium can be considered as being Genesis, we have seen a steady rise of different e2e frameworks.
-If you're looking for an all-in-one solution, Cypress is the obvious choice.
+While the [Selenium WebDriver](https://www.selenium.dev/projects/){:target="_blank" rel="noopener noreferrer"} can be considered as Genesis, we have seen a steady rise of different e2e frameworks.
+If you're looking for an all-in-one solution, [Cypress](https://www.cypress.io/){:target="_blank" rel="noopener noreferrer"} is the obvious choice.
 But we have some other options although they might not be all-in-one solutions.
-Puppeteer for example is a quicker alternative as its only task is to control a browser so you can add your own testrunner like `jest`.
-But while Puppeteer is a valid choice, there is a new kid on the block called PlayWright.
+[Puppeteer](https://pptr.dev/){:target="_blank" rel="noopener noreferrer"} for example is a quicker alternative as its only task is to control a browser so you can add your own testrunner like `jest`.
+But while Puppeteer is a valid choice, there is a new kid on the block called [PlayWright](https://github.com/microsoft/playwright){:target="_blank" rel="noopener noreferrer"}.
 PlayWright is built by the same Puppeteer people who now work for Microsoft.
-// TODO
+It is a Node library to automate the Chromium, Webkit and Firefox browsers with a single API.
+
+An example of how powerful PlayWright is, lies in the fact we have full control over the browser context.
+For example, we can emulate that we visit a website from a specific location with a specific type of mobile browser and take a screenshot:
+
+```javascript
+const { webkit, devices } = require('playwright');
+const iPhone11 = devices['iPhone 11 Pro'];
+
+(async () => {
+  const browser = await webkit.launch();
+  const context = await browser.newContext({
+    viewport: iPhone11.viewport,
+    userAgent: iPhone11.userAgent,
+    geolocation: { longitude: 12.492507, latitude: 41.889938 },
+    permissions: ['geolocation']
+  });
+  const page = await context.newPage();
+  await page.goto('https://maps.google.com');
+  await page.click('text="Your location"');
+  await page.waitForRequest(/.*preview\/pwa/);
+  await page.screenshot({ path: 'colosseum-iphone.png' });
+  await browser.close();
+})();
+```
+
+In the end, there are multiple tools available to perform e2e tests on your web application, you just have to pick the one that best fits your needs.
 
 > [Anastassiia's talk](https://www.youtube.com/watch?v=KdjYUtjVs3I){:target="_blank" rel="noopener noreferrer"}, [PlayWright](https://github.com/microsoft/playwright){:target="_blank" rel="noopener noreferrer"}
 
@@ -278,9 +304,9 @@ This is the perfect way to test out if GraphQL brings added value to your projec
 
 # DX is the new black. Learnings from using Nuxt and Storybook at scale, by [Aurélie Violette](https://twitter.com/purple_orwel){:target="_blank" rel="noopener noreferrer"}
 
-Aurélie used [Storybook](https://storybook.js.org/) in her projects as a tool to demo stuff, have live documentation and to enable visually driven development.
+Aurélie used [Storybook](https://storybook.js.org/){:target="_blank" rel="noopener noreferrer"} in her projects as a tool to demo stuff, have live documentation and to enable visually driven development.
 Storybook in itself is already a great tool to showcase your components with their different use cases.
-But Aurélie extended its functionality by adding the [Knobs addon](https://www.npmjs.com/package/@storybook/addon-knobs) as well as the [Docs addon](https://www.npmjs.com/package/@storybook/addon-docs).
+But Aurélie extended its functionality by adding the [Knobs addon](https://www.npmjs.com/package/@storybook/addon-knobs){:target="_blank" rel="noopener noreferrer"} as well as the [Docs addon](https://www.npmjs.com/package/@storybook/addon-docs){:target="_blank" rel="noopener noreferrer"}.
 
 The concepts that she uses, is to bring "Nuxt logic" to your Storybook project.  
 By adding components into Storybook, developers are tempted to just write the visualisation of their components with some mock data.
@@ -338,20 +364,71 @@ With Behind The Source, they highlight a couple of the other stories on how bein
 
 # Blazor with WebAssembly, by [Don Wibier](https://twitter.com/donwibier){:target="_blank" rel="noopener noreferrer"}
 
-// TODO
+Blazor lets you build interactive web applications in C\# instead of JavaScript.
+In fact, it allows you to create a component based UI with a combination of C\#, HTML and CSS.
+Both the client and server-side code are written in C\#.
+This has one big benefit: you can share code and libraries between your front- and backend code.
 
-> [Don's talk](https://www.youtube.com/watch?v=ZAFqw952GQM){:target="_blank" rel="noopener noreferrer"}, [Don's Twitter](https://twitter.com/donwibier){:target="_blank" rel="noopener noreferrer"}
+A really basic example of Blazor code would be this:
+```javascript
+<h1>Counter</h1>
+<p>Current count: @currentCount</p>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+	private int currentCount = 0;
+
+	private void IncrementCount()
+	{
+		currentCount++;
+	}
+}
+```
+
+Those familiar with C# and mainly .Net Razor pages, will recognize the syntax.
+Razor allows you to write both your HTML and C\# in the same file.
+
+One of the interesting features of Blazor is the ability to compile it to WebAssembly.
+In fact, your client-side C\# code is being run by WebAssembly in your browser.
+
+In a Blazor project, you even have your client-side and server-side code right besides each other.
+A typical Blazor project has the following structure: 
+
+* /Client
+* /Server
+* /Shared
+
+In this structure, your whole frontend is situated in /Client while all your backend code is situated in /Server.
+If you are in need of any code sharing, you can put it into /Shared and it will be availabled in both /Client and /Server.  
+
+> [Don's talk](https://www.youtube.com/watch?v=ZAFqw952GQM){:target="_blank" rel="noopener noreferrer"}, [Don's Twitter](https://twitter.com/donwibier){:target="_blank" rel="noopener noreferrer"}, [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor){:target="_blank" rel="noopener noreferrer"}
 
 # Audio Streaming - Using WebRTC for building your own Voice AIs, by [Lee Boonstra](https://twitter.com/ladysign){:target="_blank" rel="noopener noreferrer"}
 
 Tools like the [Google Assistant](https://assistant.google.com/){:target="_blank" rel="noopener noreferrer"}, [Amazon Alexa](https://developer.amazon.com/en-US/alexa){:target="_blank" rel="noopener noreferrer"} and [Apple's Siri](https://www.apple.com/siri/){:target="_blank" rel="noopener noreferrer"} are becoming more popular.
-The usage of voice assistants is becoming more mainstream.
-And while there are a lot of developer tools available to integrate your app with these voice assistants, this might not be your best course of action.
+The usage of voice assistants is becoming more mainstream as prices are dropping and they are becoming less of a gimmick and more of a tool to use during your everyday life.
+
+And while there are lots of developer tools available to integrate your app with these particular voice assistants, this might not be your best course of action.
 You're limited to the technical requirements of these assistants, they might be overkill for your usecase or they might not fit for your enterprise usage.
 
-// TODO
+[WebRTC](https://webrtc.org/){:target="_blank" rel="noopener noreferrer"} is an open web standard and is available as a regular JavaScript API in all major browsers.
+It allows for real-time communication (RTC) in the form of audio and video communication via direct peer-to-peer communication.
+[RecordRTC](https://github.com/muaz-khan/RecordRTC){:target="_blank" rel="noopener noreferrer"} is a WebRTC JavaScript library for audio, video, screen and canvas recording.
+By combining RecordRTC together with a tool such as [Dialogflow](https://dialogflow.com/){:target="_blank" rel="noopener noreferrer"} that can parse voice recordings to text, we can create our very own voice assistant.
 
-> [Lee's talk](https://www.youtube.com/watch?v=6JD8WC1LV7g){:target="_blank" rel="noopener noreferrer"}, [Lee's Twitter](https://twitter.com/ladysign){:target="_blank" rel="noopener noreferrer"} and her [slides](https://speakerdeck.com/savelee/implementing-a-custom-ai-voice-assistant-by-streaming-webrtc-to-dialogflow-and-cloud-speech){:target="_blank" rel="noopener noreferrer"}
+You see, tools such as Dialogflow use machine learning to parse voice recordings to achieve intent matching.
+An intent categorizes an end-user's intention for one conversation turn.
+By trying to match phrases or parts of phrases, Dialogflow tries to classify the end-user expression to the best intent.
+It then tries to parse the input with the help of the intent to extract information.
+For the example of weather forecase queries, if Dialogflow is able to match the queries to the forecast intent, it knows it can try to extract information such as time and location.
+
+<img alt="Intent matching diagram for weather forecast queries" src="{{ '/img/frontend-love-2020/intent-match-forecast.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
+
+Linked to this intent, one can add actions to perform or responses to give.
+By training the system, the classification of intents can be improved as to ensure that the voice assistant gives back the correct answer.
+During her talk, Lee demonstrated the [Airport SelfService Kiosk](https://github.com/dialogflow/selfservicekiosk-audio-streaming){:target="_blank" rel="noopener noreferrer"}, a demo in which microphone streaming is used to give the end-user information linked to their flight in an airport.
+
+> [Lee's talk](https://www.youtube.com/watch?v=6JD8WC1LV7g){:target="_blank" rel="noopener noreferrer"}, [Lee's Twitter](https://twitter.com/ladysign){:target="_blank" rel="noopener noreferrer"}, her [slides](https://speakerdeck.com/savelee/implementing-a-custom-ai-voice-assistant-by-streaming-webrtc-to-dialogflow-and-cloud-speech){:target="_blank" rel="noopener noreferrer"}, [RecordRTC](https://www.webrtc-experiment.com/RecordRTC/){:target="_blank" rel="noopener noreferrer"}
 
 # The future of real-time, offline, data, by [Nader Dabit](https://twitter.com/dabit3){:target="_blank" rel="noopener noreferrer"}
 When trying to write an offline-first app, you should take three things into account:
@@ -365,7 +442,24 @@ Your app should feel real-time:
 * Give your user a sense of real-time: don't delay things and add animations to enhance the feeling of real-time
 * Allow for synchronisation between multiple devices
 
-// TODO
+Tools such as [AWS AppSync](https://aws.amazon.com/appsync/){:target="_blank" rel="noopener noreferrer"} and [AWS Amplify](https://aws.amazon.com/amplify/){:target="_blank" rel="noopener noreferrer"} can help you with that.
+AppSync is a managed service that uses GraphQL to make it easy for applications to get the data they need from multiple sources with the option to have real-time updates.
+Amplify is a framework to build cloud-based full-stack serverless apps.
+By combining the forces of these two tools, we can create real-time, offline data, especially if we combine it with GraphQL.
+
+Your data model can be defined by a GraphQL schema.
+In your application, you can use GraphQL subscriptions to have real-time updates for your application data.
+There are options to get updates such as long polling, server sent events and web sockets.
+It depends on your use case to choose what option is best for you.
+
+But getting real-time updates also forces you to think about conflict detection and resolution.
+Like what do you do when you get multiple updates at the same time?
+What if your connection is down for a while?
+Their are a couple of popular ways to tackle these issues.
+
+AppSync already uses the solution of monotonic counters combined with a base table that contains all your base data while also maintaining a change table to log all operations that happen on the base data.
+AppSync will automerge everything for you while also offering other options if necessary.
+Check the [Amplify DataStore documentation](https://aws-amplify.github.io/docs/js/datastore){:target="_blank" rel="noopener noreferrer"} for more information.
 
 > [Nader's talk](https://www.youtube.com/watch?v=dkMEkD9OsPY){:target="_blank" rel="noopener noreferrer"}, [Nader's Twitter](https://twitter.com/dabit3){:target="_blank" rel="noopener noreferrer"}
 
