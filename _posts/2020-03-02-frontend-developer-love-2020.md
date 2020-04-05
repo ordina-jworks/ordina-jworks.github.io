@@ -489,7 +489,7 @@ So the tools are already there to write WASM code but the future looks really br
 
 All this will lead to an even better performance of WebAssembly combined with more usecases so that WASM can become a more popular standard on the web.
 
-> [Sendil's talk](https://www.youtube.com/watch?v=2KDU1qdIobA){:target="_blank" rel="noopener noreferrer"}, [Sendil's Twitter](https://twitter.com/sendilkumarn){:target="_blank" rel="noopener noreferrer"}, [WASM.org getting started with Emscripten](https://webassembly.org/getting-started/developers-guide/){:target="_blank" rel="noopener noreferrer"}, [wasm-bindgen library](https://rustwasm.github.io/wasm-bindgen/){:target="_blank" rel="noopener noreferrer"} and [AssemblyScript](https://docs.assemblyscript.org/){:target="_blank" rel="noopener noreferrer"}
+> Check out [Sendil's talk](https://www.youtube.com/watch?v=2KDU1qdIobA){:target="_blank" rel="noopener noreferrer"}, [Sendil's Twitter](https://twitter.com/sendilkumarn){:target="_blank" rel="noopener noreferrer"}, [WASM.org getting started with Emscripten](https://webassembly.org/getting-started/developers-guide/){:target="_blank" rel="noopener noreferrer"}, [wasm-bindgen library](https://rustwasm.github.io/wasm-bindgen/){:target="_blank" rel="noopener noreferrer"} and [AssemblyScript](https://docs.assemblyscript.org/){:target="_blank" rel="noopener noreferrer"}
 
 # Conclusion
 The first of three days in Amsterdam was packed with lots of great talks on a multitude of subjects.
