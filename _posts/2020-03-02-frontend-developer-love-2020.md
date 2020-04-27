@@ -32,7 +32,7 @@ comments: true
 # Introduction
 
 The Frontend Developer Love conference day was the first of 3 conference days that I was visiting in Amsterdam.
-While the other 2 days were focussed on VueJS, the first day was a day filled with more generic frontend topics.
+While the last 2 days were focussed on VueJS, the first day was filled with more generic frontend topics.
 These topics ranged from Webpack, serverless to micro-interactions and more inspirational talks.
 With a big countdown clock, the conference was about to start.
 
