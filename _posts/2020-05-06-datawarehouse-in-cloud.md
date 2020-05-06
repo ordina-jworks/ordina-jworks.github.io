@@ -2,7 +2,7 @@
 layout: post
 authors: [dennis_herremans, koen_vandenbossche]
 title: 'Data Warehouse in the Cloud'
-image: /img/2020-04-29-datawarehouse_in_cloud/datascience.jpg
+image: /img/2020-04-29-datawarehouse-in-cloud/datascience.jpg
 tags: [Architecture]
 category: Architecture
 comments: true
@@ -21,7 +21,7 @@ DataOps can help to give better insights, reduce the time to go to production an
 Different teams will work more intense together to im-prove the quality of the delivered value. 
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2020-04-29-datawarehouse_in_cloud/dataops.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2020-04-29-datawarehouse-in-cloud/dataops.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 Data is moved from the source to the Factory (Data Warehouse). 
@@ -50,7 +50,7 @@ The tools to use, the platform that is needed, are less important.
 The picture below shows the different phases and how the data flows
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2020-04-29-datawarehouse_in_cloud/dataphases.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2020-04-29-datawarehouse-in-cloud/dataphases.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
  
 ### Source Systems
@@ -82,7 +82,7 @@ After the global picture is completed, and all the phases are cleared out, it is
 The picture below shows an example of a Modern Data Warehouse in the Azure Cloud. 
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2020-04-29-datawarehouse_in_cloud/moderndwh.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2020-04-29-datawarehouse-in-cloud/moderndwh.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 1.	The structured and unstructured data will be ingested in the Data Lake Storage Gen2 using Azure Data Factory.
@@ -105,7 +105,7 @@ To secure your resources, Azure Private links enables you to access resources ov
 The architecture can easily be extended to enable Data Science.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2020-04-29-datawarehouse_in_cloud/dwhdatascience.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2020-04-29-datawarehouse-in-cloud/dwhdatascience.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 Scalable machine learning/deep learning techniques will derive deeper insights in the data using Python, Scala or R using notebooks in Azure Databricks. 
