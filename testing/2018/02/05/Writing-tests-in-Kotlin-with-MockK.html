@@ -405,7 +405,7 @@ You have the same three parts in which your tests are divided:</p>
     <span class="nd">@Test</span>
     <span class="k">fun</span> <span class="nf">myTest</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">val</span> <span class="py">mockedRecord</span> <span class="p">=</span> <span class="s">"mocked String"</span>
-        <span class="nf">every</span> <span class="p">{</span> <span class="n">generator</span><span class="p">.</span><span class="nf">generate</span><span class="p">()</span> <span class="p">}</span> <span class="n">returns</span> <span class="n">mockedRecord</span>
+        <span class="nf">every</span> <span class="p">{</span> <span class="n">generator</span><span class="p">.</span><span class="nf">generate</span><span class="p">()</span> <span class="p">}</span> <span class="k">return</span><span class="n">s</span> <span class="n">mockedRecord</span>
         <span class="nf">every</span> <span class="p">{</span> <span class="n">dao</span><span class="p">.</span><span class="nf">insert</span><span class="p">(</span><span class="n">mockedRecord</span><span class="p">)</span> <span class="p">}</span> <span class="n">just</span> <span class="nc">Runs</span>
 
         <span class="n">service</span><span class="p">.</span><span class="nf">calculate</span><span class="p">()</span>
