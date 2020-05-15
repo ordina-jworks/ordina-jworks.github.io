@@ -63,11 +63,11 @@ Such as the `entry` element which denotes the base of your module tree.
 
 In the end Johannes gave a couple of tips to create a good Webpack along with some tips for your code to decrease the bundle size that Webpack will generate: 
 
-* Most apps will have a good bundle size just be setting the Webpack `mode` to `production`. You don't need to overthink your configuration, Webpack already optimises a lot for you
+* Most apps will have a good bundle size just by setting the Webpack `mode` to `production`. You don't need to overthink your configuration, Webpack already optimises a lot for you
 * Lazy load modules with the use of `import()`
 * Check [bundlephobia.com](https://bundlephobia.com){:target="_blank" rel="noopener noreferrer"} to determine if a bundle could be replaced by something more lightweight or more tree-shakeable
-* Measure the performance with a tool like Lighthouse
-* Don't overestimate longterm caching. It is ok for fonts, images and CSS but caching whole pages could be not as rewarding for the amount of effort you need to put into it
+* Measure the performance with a tool like [Lighthouse](https://developers.google.com/web/tools/lighthouse/){:target="_blank" rel="noopener noreferrer"}
+* Don't overestimate long-term caching. It is ok for fonts, images and CSS but caching whole pages could be not as rewarding for the amount of effort you need to put into it
 * Minify your CSS with a tool like [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin){:target="_blank" rel="noopener noreferrer"}
 
 > Check out [Johannes' talk](https://www.youtube.com/watch?v=z8YP5ZEUIxA){:target="_blank" rel="noopener noreferrer"}, [Johannes's Twitter](https://twitter.com/jhnns){:target="_blank" rel="noopener noreferrer"} and his [slides](https://peerigon.github.io/talks/2020-02-19-frontend-developer-love-how-to-pack-your-webpack/slides/#/){:target="_blank" rel="noopener noreferrer"}
@@ -98,7 +98,7 @@ button {
 }
 </style>
 ```
-As you can see we have grouped everything of the component into one file: styling, the script and the HTML code.
+As you can see, we have grouped everything of the component into one file: styling, the script and the HTML code.
 Between the style tags, you can put your regular CSS.
 Between the script tags, you can put JavaScript while your HTML can reference anything that you've defined within your script tag such as `count`.
 This allows for the creation of small readable components that anybody, even someone without prior knowledge of Svelte can read.
@@ -174,8 +174,8 @@ While trying to make your page as perceivable as possible, don't forget to focus
 A lot of users rely on a keyboard so make sure that they can tab through your content easily.
 Having a logical focus order makes most sense.
 To make your page more operable, add labels to UI elements to help them describe what they do.
-For example it is of no use to add a search icon to a search button without adding the "Search" text somewhere.
-Screenreader users will be very grateful for such small adaptations.
+For example, it is of no use to add a search icon to a search button without adding the "Search" text somewhere.
+Screen reader users will be very grateful for such small adaptations.
 
 Most of the tips that Bob gave were easy to verify on your own.
 For example, try to use your web application with only your keyboard to check if it's easy to operate.
@@ -197,7 +197,7 @@ They are important in your web app as they have a lot of added value.
 * They delight our users
 
 Ideally, for each interaction that results in a state change you should have an animation.
-This will help improve the user experience as the user will better percieve what has changed.
+This will help improve the user experience as the user will better perceive what has changed.
 It is best to keep in mind that:
 
 * Animations should be accessible. Accessibility should never suffer from the introduction of an animation
@@ -246,7 +246,7 @@ Or what's the point in having a 100 score on all Lighthouse tests?
 
 But what should you do?
 Stop solving solved problems! 
-There's already enough methods to implement button styling, state management and so on.
+There are already enough methods to implement button styling, state management and so on.
 There are complete design systems that you can reuse, so why not reuse them?
 Because ultimately, your end-users don't care about the technology.
 Look at your analytics once in a while and see if your users like your app or not.
@@ -258,7 +258,7 @@ Because even if you have overengineered your app, if the end-users don't like it
 
 The [Web Speech API](https://wicg.github.io/speech-api/){:target="_blank" rel="noopener noreferrer"} consists of 2 parts: the [Speech Recognition API](https://wicg.github.io/speech-api/#api_description){:target="_blank" rel="noopener noreferrer"} and the [Speech Synthesis API](https://wicg.github.io/speech-api/#tts-section){:target="_blank" rel="noopener noreferrer"}.
 In short, the Speech Recognition API allows you to transform speech into text and the Speech Synthesis API allows you to transform text into speech.
-In his talk, Tony asked himself: how good would the Speech Recognition API be in analysing hiphop lyrics.
+In his talk, Tony asked himself: how good would the Speech Recognition API be in analysing hip-hop lyrics.
 Tony showcased his abilities to bring a live demo of the implementation of the Speech Recognition API.
 Would it be able to transform his live lyrics into text?
 Even though the technology still has a long way to go, it was still impressive that it was able to transcribe more than half of his live lyrics.
@@ -297,7 +297,7 @@ query getProduct {
 }
 ```
 
-Another way to integrate a GraphQL API is to use the package [OpenAPI-to-graphql](https://www.npmjs.com/package/openapi-to-graphql){:target="_blank" rel="noopener noreferrer"}.
+Another way to integrate a GraphQL API is to use the package [OpenAPI-to-GraphQL](https://www.npmjs.com/package/openapi-to-graphql){:target="_blank" rel="noopener noreferrer"}.
 The idea behind this is to use an OpenAPI specification coming from something like [Swagger](https://swagger.io/){:target="_blank" rel="noopener noreferrer"} that will be used to generate a schema which will build a GraphQL server.
 To help with all this, there even is a [CLI](https://github.com/IBM/openapi-to-graphql/tree/master/packages/openapi-to-graphql-cli){:target="_blank" rel="noopener noreferrer"} to make your life even more easy.
 
@@ -316,7 +316,7 @@ But Aurélie extended its functionality by adding the [Knobs addon](https://www.
 The concepts that she uses, is to bring "Nuxt logic" to your Storybook project.
 By adding components into Storybook, developers are tempted to just write the visualisation of their components with some mock data.
 But why not add some business logic into it instead of just being occupied with showcasing your components?
-If your actual component uses data coming from a store, why not implement a store in your Storybook stories to help you mimick the real usecase of your components?
+If your actual component uses data coming from a store, why not implement a store in your Storybook stories to help you mimic the real use case of your components?
 Storybook's functionality can be extended by writing decorators.
 An example she gave of a decorator to add a store to your components is this:
 
@@ -361,16 +361,16 @@ So now you can make your examples in Storybook even more linked to the real use 
 </div>
 
 Noer and Sima talked about [Hack Your Future](https://www.hackyourfuture.net/){:target="_blank" rel="noopener noreferrer"}, a coding school for people that have limited access to education and the labour market.
-They talked about a few of the heartbreaking stories of their students and highlighted how the program helped these people try to build a brighter future for themselves.
+They talked about a few of the heart breaking stories of their students and highlighted how the program helped these people try to build a brighter future for themselves.
 In just over 4 years, they've helped get 120+ people land a good tech job.
-With Behind The Source, they highlight a couple of the other stories on how being a refugee wasn't a choice but becoming a developer was a choice.
+With *Behind The Source*, they highlight a couple of the other stories on how being a refugee wasn't a choice but becoming a developer was a choice.
 
 > Check out [Noer & Sima's talk](https://www.youtube.com/watch?v=jczJ9IPH-Aw){:target="_blank" rel="noopener noreferrer"}, [Hack Your Future](https://www.hackyourfuture.net/){:target="_blank" rel="noopener noreferrer"} and the [Behind The Source video](https://www.youtube.com/watch?v=GSyQayMEID8){:target="_blank" rel="noopener noreferrer"}
 
 # Blazor with WebAssembly, by [Don Wibier](https://twitter.com/donwibier){:target="_blank" rel="noopener noreferrer"}
 
 Blazor lets you build interactive web applications in C\# instead of JavaScript.
-In fact, it allows you to create a component based UI with a combination of C\#, HTML and CSS.
+In fact, it allows you to create a component-based UI with a combination of C\#, HTML and CSS.
 Both the client and server-side code are written in C\#.
 This has one big benefit: you can share code and libraries between your front- and backend code.
 
@@ -404,7 +404,7 @@ A typical Blazor project has the following structure:
 * /Shared
 
 In this structure, your whole frontend is situated in `/Client` while all your backend code is situated in `/Server`.
-If you are in need of any code sharing, you can put it into `/Shared` and it will be availabled in both `/Client` and `/Server`.  
+If you are in need of any code sharing, you can put it into `/Shared` and it will be available in both `/Client` and `/Server`.  
 
 > Check out [Don's talk](https://www.youtube.com/watch?v=ZAFqw952GQM){:target="_blank" rel="noopener noreferrer"}, [Don's Twitter](https://twitter.com/donwibier){:target="_blank" rel="noopener noreferrer"} and [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor){:target="_blank" rel="noopener noreferrer"}
 
@@ -414,7 +414,7 @@ Tools like the [Google Assistant](https://assistant.google.com/){:target="_blank
 The usage of voice assistants is becoming more mainstream as prices are dropping and they are becoming less of a gimmick and more of a tool to use during your everyday life.
 
 And while there are lots of developer tools available to integrate your app with these particular voice assistants, this might not be your best course of action.
-You're limited to the technical requirements of these assistants, they might be overkill for your usecase or they might not fit for your enterprise usage.
+You're limited to the technical requirements of these assistants, they might be overkill for your use case or they might not fit for your enterprise usage.
 
 [WebRTC](https://webrtc.org/){:target="_blank" rel="noopener noreferrer"} is an open web standard and is available as a regular JavaScript API in all major browsers.
 It allows for real-time communication (RTC) in the form of audio and video communication via direct peer-to-peer communication.
@@ -425,7 +425,7 @@ Tools such as Dialogflow use machine learning to parse voice recordings to achie
 An intent categorizes an end-user's intention for one conversation turn.
 By trying to match phrases or parts of phrases, Dialogflow tries to classify the end-user expression to the best intent.
 It then tries to parse the input with the help of the intent to extract information.
-For the example of weather forecase queries, if Dialogflow is able to match the queries to the forecast intent, it knows it can try to extract information such as time and location.
+For the example of weather forecast queries, if Dialogflow is able to match the queries to the forecast intent, it knows it can try to extract information such as time and location.
 
 <img alt="Intent matching diagram for weather forecast queries" src="{{ '/img/frontend-love-2020/intent-match-forecast.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto;">
 
@@ -463,15 +463,15 @@ What if your connection is down for a while?
 There are a couple of popular ways to tackle these issues.
 
 AppSync already uses the solution of monotonic counters combined with a base table that contains all your base data while also maintaining a change table to log all operations that happen on the base data.
-AppSync will automerge everything for you while also offering other options if necessary.
+AppSync will auto-merge everything for you while also offering other options if necessary.
 Check the [Amplify DataStore documentation](https://aws-amplify.github.io/docs/js/datastore){:target="_blank" rel="noopener noreferrer"} for more information.
 
 > Check out [Nader's talk](https://www.youtube.com/watch?v=dkMEkD9OsPY){:target="_blank" rel="noopener noreferrer"}, [Nader's Twitter](https://twitter.com/dabit3){:target="_blank" rel="noopener noreferrer"}, [AWS AppSync](https://aws.amazon.com/appsync/){:target="_blank" rel="noopener noreferrer"}, [AWS Amplify](https://aws.amazon.com/amplify/){:target="_blank" rel="noopener noreferrer"} and the [Amplify DataStore documentation](https://aws-amplify.github.io/docs/js/datastore){:target="_blank" rel="noopener noreferrer"}
 
 # The state of WebAssembly, by [Sendil Kumarn](https://twitter.com/sendilkumarn){:target="_blank" rel="noopener noreferrer"}
 The final talk of the day was by Sendil who came to explain what the current state of WebAssembly is.
-WASM, short for WebAssembly, is a highlevel definition of how to run bytecode in your JavaScript engine.
-At its core, it's a stackmachine that uses a linear memory model by using a shared array buffer.
+WASM, short for WebAssembly, is a high-level definition of how to run bytecode in your JavaScript engine.
+At its core, it's a stack machine that uses a linear memory model by using a shared array buffer.
 Contrary to what you might expect, WASM is not faster if you would use it for lots of DOM operations.
 The advantage of WASM lies in the fast calculations that can be done.
 
@@ -487,7 +487,7 @@ So the tools are already there to write WASM code but the future looks really br
 * Garbage collection
 * ... and more!
 
-All this will lead to an even better performance of WebAssembly combined with more usecases so that WASM can become a more popular standard on the web.
+All this will lead to an even better performance of WebAssembly combined with more use cases so that WASM can become a more popular standard on the web.
 
 > Check out [Sendil's talk](https://www.youtube.com/watch?v=2KDU1qdIobA){:target="_blank" rel="noopener noreferrer"}, [Sendil's Twitter](https://twitter.com/sendilkumarn){:target="_blank" rel="noopener noreferrer"}, [WASM.org getting started with Emscripten](https://webassembly.org/getting-started/developers-guide/){:target="_blank" rel="noopener noreferrer"}, [wasm-bindgen library](https://rustwasm.github.io/wasm-bindgen/){:target="_blank" rel="noopener noreferrer"} and [AssemblyScript](https://docs.assemblyscript.org/){:target="_blank" rel="noopener noreferrer"}
 
