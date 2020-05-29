@@ -21,6 +21,7 @@ comments: true
 3. [Can 3D printing help](#can-3d-printing-help)
 4. [Experimenting with TPU](#experimenting-with-tpu)
 5. [Gallery](#gallery)
+6. [Resources](#resources)
 
 ## Introduction
 
@@ -45,7 +46,19 @@ While the situation was very serious in the hospitals we never had a lack of ven
 
 ## Can 3D printing help
 
-TODO
+3D printing is a very handy technology. 
+It allows for rapid prototyping and small scale production without the need to set up a full production line.
+The 3D printing community is a very large one, and also a very active one.
+
+Very soon after reports about a lack of components for ventilators there were people in Italy who designed the valve required for the respirator
+
+TODO: Pictures of valve design and printed valved
+
+Masks designs were also popping up in the online communities, at first very basic and rudimentary designs but over the following days/weeks the designs became more specialized and optimized.
+
+TODO: Pictures of valve design and printed valved
+
+Note: These masks are not the real deal, they are not meant to be used in hospitals, they are meant to provide a means to protect oneself when not better materials/equipment is at hand.
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print1.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Multiple eiffel towers printed at once with DLP/MSLA">
