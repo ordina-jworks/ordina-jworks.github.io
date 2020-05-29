@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: "3D Printing During Times of Corona"
 image: /img/2020-06-15-3D-Printing-during-corona/banner.jpg
-tags: [3D printing, Printing, Building, Technology, Internet of Things, FDM, PLA, TPU, ABS, PETG, corona, masks, ventilator]
+tags: [3D printing, Printing, Building, Technology, Smart Technology, FDM, PLA, TPU, corona, masks, ventilator, respirator, corona, covid, covid-19, sars-cov-2, FFP2, FFP3, N95, Surgical mask]
 category: IoT
 comments: true
 ---
@@ -35,7 +35,12 @@ In this blog post I'll dig a little deeper in using 3D printing tech to make mas
 
 ## Shortage in equipment
 
-TODO
+The strain on our healthcare system and the supplies has been massive.
+Masks were kept for healthcare workers even if they were just surgical masks and not the FFP2/3 masks.
+Masks are slowly becoming more widely available for the general population again, however the government relied on people to make their own masks in the beginning.  
+
+Luckily our country was spared the overwhelming load on the hospitals like in Italy.
+While the situation was very serious in the hospitals we never had a lack of ventilators or had to turn people away because the hospitals were at or already beyond their capacity.
 
 
 ## Can 3D printing help
