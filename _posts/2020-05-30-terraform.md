@@ -14,8 +14,9 @@ comments: true
 
 * [How much infrastructure can you get in 6 weeks time](#how-much-infrastructure-can-you-get-in-6-weeks-time)
 * [Why use Terraform to supercharge infrastructure provisioning](#why-use-terraform-to-supercharge-infrastructure-provisioning)
-* [How to structure Terraform to allow for a 2 second tire change](#how-to-structure-terraform-to-allow-for-a-2-second-tire-change)
+* [How to structure Terraform to allow for a two second tire change](#how-to-structure-terraform-to-allow-for-a-two-second-tire-change)
 * [How can you beat us](#how-can-you-beat-us)
+* [Finally, two golden tips when using Terraform](#finally-two-golden-tips-when-using-terraform)
 
 ## How much infrastructure can you get in 6 weeks time
 
@@ -75,7 +76,7 @@ It adhered to the vision of declarative definitions and all the components requi
 Some basic setups were created and it showed great potential for the required setup.
 So Terraform to the rescue!
 
-## How to structure Terraform to allow for a 2-second tire change
+## How to structure Terraform to allow for a two second tire change
 
 One of the challenges of creating a Terraform setup is to determine a way to structure the code.
 Looking online provided more questions than answers.
@@ -119,7 +120,7 @@ They release new versions of the provider every week.
 They aren't at feature parity with ARM, not by a long shot, but at the pace they are adding support for features, they will catch up very fast.
 The provider is also very stable and if an issue occurs (like [this](https://github.com/terraform-providers/terraform-provider-azurerm/issues/6525) AKS bug) it's fixed within the next release.
 
-Finally, two golden tips when using Terraform.
+## Finally, two golden tips when using Terraform
 
 The first is to start using remote state storage as soon as possible when using Terraform.
 It provides an easy way to get an accurate Terraform plan which in turn provides an accurate overview of the actions Terraform will execute during the roll-out.
