@@ -2,19 +2,19 @@
 layout: post
 authors: [pieter_vincken]
 title: 'From 6 weeks to 90 minutes: let Terraform do your work'
-image: /img/2020-05-30-terraform/banner.png
+image: /img/2020-05-30-terraform/terraform.png
 tags: [Terraform, Configuration Management, Infrastructure-as-code, Cloud]
 category: Cloud
 comments: true
 ---
 
-### Reading time: 8 min 29 sec
+### Reading time: 7 minutes and 2 seconds
 
 # Table of contents
 
 * [How much infrastructure can you get in 6 weeks time](#how-much-infrastructure-can-you-get-in-6-weeks-time)
-* [Why use Terraform to supercharge infrastructure provisioning](#why-use-Terraform-to-supercharge-infrastructure-provisioning)
-* [How to structure Terraform to allow for a 2 second tire change](#How-to-structure-Terraform-to-allow-for-a-2-second-tire-change)
+* [Why use Terraform to supercharge infrastructure provisioning](#why-use-terraform-to-supercharge-infrastructure-provisioning)
+* [How to structure Terraform to allow for a 2 second tire change](#how-to-structure-terraform-to-allow-for-a-2-second-tire-change)
 * [How can you beat us](#how-can-you-beat-us)
 
 ## How much infrastructure can you get in 6 weeks time
