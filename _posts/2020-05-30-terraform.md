@@ -110,6 +110,7 @@ Creating specific modules for development, acceptance and production also allows
 
 ## How can you beat us
 
+With this setup, lead-time for provisioning an environment went down from 6 weeks of ticketing magic to just a 90 minute Jenkins run.
 The decision to adopt Terraform still seems the correct one.
 Infrastructure upgrades have become more and more stable over the adoption period and the different modules have matured to the point where they barely change anymore.
 
