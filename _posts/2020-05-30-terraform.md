@@ -31,18 +31,18 @@ In order to spin up a new environment to onboard a new development team the foll
 1. Order a database: ticket 3 for the database team
 1. Order a DNS record for the environment to point to OpenShift routers: ticket 4 for the DNS team
 1. Create a new environment in environment repository
-1. Run a Jenkins job to create certificates for the environment.
+1. Run a Jenkins job to create certificates for the environment
 1. Update the credentials for the new database in online tooling
 1. Update the credentials for the new database in offline password storage
 1. Git-encrypt the database credentials and put them in the environment repository
 1. Update the database connection details in environment repository
-1. Run an Ansible playbook to create a new namespace in OpenShift and setup default configuration for the namespace (Docker registry credentials, custom service accounts, ...)
+1. Run an Ansible playbook to create a new namespace in OpenShift and set up default configuration for the namespace (Docker registry credentials, custom service accounts, ...)
 1. Sync OpenShift service account credentials into Jenkins credential store
-1. Roll-out Jenkins to add the new credentials by starting a Jenkins job executing an Ansible playbook
+1. Roll out Jenkins to add the new credentials by starting a Jenkins job executing an Ansible playbook
 1. Create reverse proxy configuration in reverse proxy repository
 1. Use a self-service portal to request access for Jenkins to update the configuration on the reverse proxy
-1. Roll-out the reverse proxy configuration using a Jenkins job
-1. Roll-out the environment configuration and application landscape to the new namespace through a Jenkins job that runs OC process and OC applies using the configuration.
+1. Roll out the reverse proxy configuration using a Jenkins job
+1. Roll out the environment configuration and application landscape to the new namespace through a Jenkins job that runs OC process and OC applies using the configuration
 
 This sums up the best-case scenario.
 Since it requires multiple teams to perform disconnected tasks at different times, errors are frequent and slow to resolve.
@@ -88,22 +88,22 @@ The setup was divided into two different categories: managed services wrappers a
 The first category is quite straight forward.
 For every managed service that is being used, a module is created.
 This module includes all the required Terraform resources for that service to operate.
-For example, the Key vault module contains the Azure Keyvault Terraform resource, but also the role assignments for the different Active Directory groups that require access to that Key vault.
+For example, the key vault module contains the Azure Key Vault Terraform resource, but also the role assignments for the different Active Directory groups that require access to that key vault.
 Another example is the container registry module.
 It contains the Azure Container Registry (ACR) Terraform resource, some role assignments and the Azure Monitoring Diagnostics Settings for making sure the ACR logs are shipped into the correct logs analytics bucket.
 This abstraction allows for opinionated grouping of resources that are required for a managed service to operate.
 
 The second category is a grouping of modules of the first category.
 This set of modules are the ones that are actually provisioned during a deployment.
-Currently, only two of these modules exist a cluster module and a namespace module.
+Currently, only two of these modules exist: a cluster module and a namespace module.
 
 The cluster module contains all modules required to set up the shared resources for all environments with a similar purpose.
 For example, all resources shared by all development environments.
-This module contains the Kubernetes cluster module, multiple resource group modules, a Keyvault module, some networking modules and some identity and role management modules.
+This module contains the Kubernetes cluster module, multiple resource group modules, a key vault module, some networking modules and some identity and role management modules.
 This module is used once per cluster, meaning once for development, acceptance and production respectively.
 
 The second module, namespace, is used to configure a namespace for a specific purpose: an environment for a development team, a specific testing environment or a rock-solid production environment.
-This module contains the DNS zone configuration, an API gateway module, another Keyvault module and a database module.
+This module contains the DNS zone configuration, an API gateway module, another key vault module and a database module.
 
 These cluster and namespace modules are then used in a single Terraform module per cluster: so a single module for the development cluster together with all namespaces in that cluster.
 This makes making changes to the infrastructure as easy as running a single Jenkins job executing that module.
@@ -118,14 +118,14 @@ Infrastructure upgrades have become more and more stable over the adoption perio
 The work being done by the Azure Terraform provider community has helped tremendously.
 They release new versions of the provider every week.
 They aren't at feature parity with ARM, not by a long shot, but at the pace they are adding support for features, they will catch up very fast.
-The provider is also very stable and if an issue occurs (like [this](https://github.com/terraform-providers/terraform-provider-azurerm/issues/6525) AKS bug) it's fixed within the next release.
+The provider is also very stable and if an issue occurs (like [this](https://github.com/terraform-providers/terraform-provider-azurerm/issues/6525){:target="_blank" rel="noopener noreferrer"} AKS bug) it's fixed within the next release.
 
 ## Finally, two golden tips when using Terraform
 
 The first is to start using remote state storage as soon as possible when using Terraform.
 It provides an easy way to get an accurate Terraform plan which in turn provides an accurate overview of the actions Terraform will execute during the roll-out.
 
-The second one is roll-out the modules often and validate their effects by running tests against them.
+The second one is to roll out the modules often and validate their effects by running tests against them.
 Test either outcome, not just the configuration.
 The further up the application stack these tests run, the better.
 In our current setup, the infrastructure runs are part of a nightly test which performs the following steps:
