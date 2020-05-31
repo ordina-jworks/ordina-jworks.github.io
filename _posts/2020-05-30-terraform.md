@@ -89,7 +89,7 @@ The first category is quite straight forward.
 For every managed service that is being used, a module is created.
 This module includes all the required Terraform resources for that service to operate.
 For example, the Key vault module contains the Azure Keyvault Terraform resource, but also the role assignments for the different Active Directory groups that require access to that Key vault.
-Another example is the Container Registry module.
+Another example is the container registry module.
 It contains the Azure Container Registry (ACR) Terraform resource, some role assignments and the Azure Monitoring Diagnostics Settings for making sure the ACR logs are shipped into the correct logs analytics bucket.
 This abstraction allows for opinionated grouping of resources that are required for a managed service to operate.
 
