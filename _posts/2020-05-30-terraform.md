@@ -21,7 +21,7 @@ comments: true
 ## How much infrastructure can you get in 6 weeks time
 
 The landscape discussed in this post is used to host a set of applications for a large corporation to assist one of their core products.
-The end-goal is to support about a dozen counties in Europe with this platform.
+The end-goal is to support about a dozen countries in Europe with this platform.
 
 A single environment consists of a namespace on a shared OpenShift cluster, a database and a reverse proxy.
 In order to spin up a new environment to onboard a new development team the following steps need to be executed:
