@@ -74,6 +74,7 @@ A clear no-go.
 As a third option, Terraform was investigated.
 It adhered to the vision of declarative definitions and all the components required by the landscape were available in the Azure Terraform provider.
 Some basic setups were created and it showed great potential for the required setup.
+Terraform roll outs proved to be more stable and the import mechanism properly supports using components which aren't fully managed by Terraform.
 So Terraform to the rescue!
 
 ## How to structure Terraform to allow for a two second tire change
