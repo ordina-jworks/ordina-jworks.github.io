@@ -115,7 +115,7 @@ These cluster and namespace modules are then used in a single Terraform module p
 This makes making changes to the infrastructure as easy as running a single Jenkins job executing that module.
 We decided to version the modules and created specific modules for development, acceptance and production.
 This separation, in combination with the versioning, has allowed us to test module updates and upgrades of the configuration upfront.
-Similar to deploying application code to an acceptence or test environment before rolling it into production.
+Similar to deploying application code to an acceptance or test environment before rolling it into production.
 
 ## Where to draw a line, everything in terraform
 
@@ -124,15 +124,20 @@ A good example was the API manager setup we were using.
 The Terraform setup included detailed configuration of the application it was hosting.
 Another example was a Kubernetes Terraform module we created, that beside infrastructure related setup for storage classes, was also creating service accounts for operators we were running.
 This leakage of concerns made it hard to maintain, but it also introduced duplication of configuration towards the application deployment.
+
 We decided to take a stricter approach, and consider two main responsibilities: orchestration and provisioning.
+
 Orchestration could be translated to an engineer that would take a screwdriver and set up all the required infrastructure.
 The outcome of this work would be the minimum needed setup to start using the services and configure them for actual use.
+
 Provisioning is the work that comes after this, and doesn't require a screwdriver, or being near the box.
 We decided that the orchestration part, setting up the infrastructure, is where we use Terraform exclusively.
 The provisioning part, where we start to configure the infrastructure to work with our application, is where we use tools that are native to the application deployment.
+
 We didn't get there immediately though.
 In early iterations, we had split it into two Terraform runs: an orchestration run and a configuration run.
 In later iterations we were able to replace the configuration runs with components that were closer to the application landscape, which was a combination of privileged Kustomize deployment runs and building our own Kubernetes operators.
+
 A good rule of thumb is; if you can tie the component you are configuring to something that has meaning in the application domain, it should be managed in the application landscape.
 Another good indication that the application domain leaked into the infrastructure domain is when you have to re-orchestrate your infrastructure together with application changes.
 
@@ -164,4 +169,4 @@ In our current setup, the infrastructure runs are part of a nightly test which p
 
 Every morning the team smiles when the build is green or (less often now) starts figuring out which component broke and fix it immediately.
 
-Special thanks to Vincent van Dam for co-writing this post and the amazing Unicorn team for creating this setup!
+Special thanks to the amazing Unicorn team for creating this setup and to [Vincent van Dam](https://twitter.com/joyrex2001){:target="_blank" rel="noopener noreferrer"} for co-writing this post!
