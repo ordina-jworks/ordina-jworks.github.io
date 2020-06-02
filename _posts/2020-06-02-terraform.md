@@ -126,7 +126,6 @@ Another example was a Kubernetes Terraform module we created, that beside infras
 This leakage of concerns made it hard to maintain, but it also introduced duplication of configuration towards the application deployment.
 
 We decided to take a stricter approach, and consider two main responsibilities: orchestration and provisioning.
-
 Orchestration could be translated to an engineer that would take a screwdriver and set up all the required infrastructure.
 The outcome of this work would be the minimum needed setup to start using the services and configure them for actual use.
 
