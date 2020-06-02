@@ -341,8 +341,8 @@ This is the application that will be detailed below!</li>
 This is the entry point for the application.
 This file contains the actual master instance code.
 The master instance is in charge of forking the workers and reviving them if they die.
-The master is also used to pass messages between the workers For this a specialized <code class="highlighter-rouge">MessageHandler</code> singleton is used.
-This <code class="highlighter-rouge">MessageHandler</code> instance (one per worker) is used to relay messages.
+The master is also used to pass messages between the workers For this a specialized <code class="language-plaintext highlighter-rouge">MessageHandler</code> singleton is used.
+This <code class="language-plaintext highlighter-rouge">MessageHandler</code> instance (one per worker) is used to relay messages.
 The master instance itself will not execute any application logic.
 Its purpose is to manage the other workers and be the message bridge.
 <br /><br /></p>
@@ -379,30 +379,30 @@ Its purpose is to manage the other workers and be the message bridge.
 
 <p>The master will create a number of workers:</p>
 <ul>
-  <li><code class="highlighter-rouge">HttpWorker</code>: Each <code class="highlighter-rouge">HttpWorker</code> is an endpoint for requests to be received.
+  <li><code class="language-plaintext highlighter-rouge">HttpWorker</code>: Each <code class="language-plaintext highlighter-rouge">HttpWorker</code> is an endpoint for requests to be received.
 There will always be a minimum of two HttpWorkers created.
 If more CPU cores are available, more HttpWorkers are created.</li>
-  <li><code class="highlighter-rouge">DataBroker</code>: For the application there is one <code class="highlighter-rouge">DataBroker</code> worker instance.
+  <li><code class="language-plaintext highlighter-rouge">DataBroker</code>: For the application there is one <code class="language-plaintext highlighter-rouge">DataBroker</code> worker instance.
 This worker handles CRUD operations for data (for now in memory only).</li>
-  <li><code class="highlighter-rouge">IntervalWorker</code>: For the application there is one <code class="highlighter-rouge">IntervalWorker</code> instance.
+  <li><code class="language-plaintext highlighter-rouge">IntervalWorker</code>: For the application there is one <code class="language-plaintext highlighter-rouge">IntervalWorker</code> instance.
 This worker can run code periodically and is used to connect to other devices such as Arduino’s and the Raspberry Pi I/O pins.
 <br />
-These workers are created by a <code class="highlighter-rouge">WorkerFactory</code>, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
-Each type of worker instance implements the basic <code class="highlighter-rouge">NodeWorker</code> interface.
+These workers are created by a <code class="language-plaintext highlighter-rouge">WorkerFactory</code>, as the master forks new Node instances, a process variable is set, the factory uses this to see which type the node instance should become.
+Each type of worker instance implements the basic <code class="language-plaintext highlighter-rouge">NodeWorker</code> interface.
 Each implementation will be detailed below.</li>
 </ul>
 
 <h2 id="handling-http-requests-the-httpworker">Handling HTTP requests: The HttpWorker</h2>
-<p>Each <code class="highlighter-rouge">HttpWorker</code> instance will create a <code class="highlighter-rouge">Server</code> instance.
+<p>Each <code class="language-plaintext highlighter-rouge">HttpWorker</code> instance will create a <code class="language-plaintext highlighter-rouge">Server</code> instance.
 This instance will be used to receive HTTP requests.
 Node will automatically load balance requests between all instances that register a server on the same port.
 Simply put all HttpWorkers compete for the next request, the least burdened process (depending on OS/CPU process affinity) will be given the next Http request to handle.</p>
 
-<p>The <code class="highlighter-rouge">Server</code> class will also register the endpoints that are known to the application and can be handled.
-The <code class="highlighter-rouge">EndpointManager</code> is used to register endpoints.
-An <code class="highlighter-rouge">EndPoint</code> has a path, a method to execute and optional parameters.
-A <code class="highlighter-rouge">Parameter</code> is provided with a Generic type for compile time type checking, a name which should be used in the url, a description that provides information what the parameter should contain and an optional <code class="highlighter-rouge">ParameterValidator</code>.
-A <code class="highlighter-rouge">ParameterValidator</code> is used to validate the <code class="highlighter-rouge">Parameter</code> at runtime.
+<p>The <code class="language-plaintext highlighter-rouge">Server</code> class will also register the endpoints that are known to the application and can be handled.
+The <code class="language-plaintext highlighter-rouge">EndpointManager</code> is used to register endpoints.
+An <code class="language-plaintext highlighter-rouge">EndPoint</code> has a path, a method to execute and optional parameters.
+A <code class="language-plaintext highlighter-rouge">Parameter</code> is provided with a Generic type for compile time type checking, a name which should be used in the url, a description that provides information what the parameter should contain and an optional <code class="language-plaintext highlighter-rouge">ParameterValidator</code>.
+A <code class="language-plaintext highlighter-rouge">ParameterValidator</code> is used to validate the <code class="language-plaintext highlighter-rouge">Parameter</code> at runtime.
 If the check fails an error is shown to the user.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="cm">/**
@@ -444,31 +444,31 @@ If the check fails an error is shown to the user.</p>
 
     </code></pre></figure>
 
-<p>The <code class="highlighter-rouge">Server</code> instance forwards all requests to the <code class="highlighter-rouge">Router</code> instance.
+<p>The <code class="language-plaintext highlighter-rouge">Server</code> instance forwards all requests to the <code class="language-plaintext highlighter-rouge">Router</code> instance.
 As the name suggests this will perform the routing.
 It will see if a resource is requested or and endpoint has been called.
 If a resource is requested it will be served if found.
 If an endpoint has been called, that endpoint will be executed and passed the parameters that were entered, but only after the correct amount of parameters has been passed and they are all valid.</p>
 
 <h2 id="handling-data-the-databroker">Handling data: The DataBroker</h2>
-<p>The <code class="highlighter-rouge">DataBroker</code> is the Node instance in the application that will save and retrieve data.
+<p>The <code class="language-plaintext highlighter-rouge">DataBroker</code> is the Node instance in the application that will save and retrieve data.
 For the time being it is sufficient to only have in memory ‘caches’ on which basic CRUD operations can be performed.
-All methods on the <code class="highlighter-rouge">DataBroker</code> are called by sending an <code class="highlighter-rouge">IPCRequest</code> with the data that needs to be saved of the instruction for what data should be retrieved.
-The <code class="highlighter-rouge">DataBroker</code> will reply to the original worker by sending an <code class="highlighter-rouge">IPCReply</code> with the result of the operation.</p>
+All methods on the <code class="language-plaintext highlighter-rouge">DataBroker</code> are called by sending an <code class="language-plaintext highlighter-rouge">IPCRequest</code> with the data that needs to be saved of the instruction for what data should be retrieved.
+The <code class="language-plaintext highlighter-rouge">DataBroker</code> will reply to the original worker by sending an <code class="language-plaintext highlighter-rouge">IPCReply</code> with the result of the operation.</p>
 
-<p>The <code class="highlighter-rouge">DataBroker</code> for now only has a concept of caches.
+<p>The <code class="language-plaintext highlighter-rouge">DataBroker</code> for now only has a concept of caches.
 A cache has a name, type and values (of said type).
 Values can be retrieved, added, updated and deleted from the caches.
 Caches can be retrieved, added and deleted at runtime.</p>
 
 <h2 id="handling-asynchronous-tasks-the-intervalworker">Handling asynchronous tasks: The IntervalWorker</h2>
-<p>The <code class="highlighter-rouge">IntervalWorker</code> as its name suggest performs tasks at a certain interval.
+<p>The <code class="language-plaintext highlighter-rouge">IntervalWorker</code> as its name suggest performs tasks at a certain interval.
 It is also used for other asynchronous workloads, such as connecting to an Arduino and running Arduino/Raspberry pi Johhny-Five scenarios.
-The <code class="highlighter-rouge">IntervalWorker</code> is handy when you need for example to update the content of a cache every so often.
+The <code class="language-plaintext highlighter-rouge">IntervalWorker</code> is handy when you need for example to update the content of a cache every so often.
 <br /><br />
 It can also run Arduino scenarios.
 These are Implementations that contain logic to perform actions on the Arduino or in response to something that happens on the Arduino.
-The <code class="highlighter-rouge">IntervalWorker</code> picks up what type of Arduino <code class="highlighter-rouge">Scenario</code> you want to run and starts the logic.</p>
+The <code class="language-plaintext highlighter-rouge">IntervalWorker</code> picks up what type of Arduino <code class="language-plaintext highlighter-rouge">Scenario</code> you want to run and starts the logic.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="cm">/**
      * Sets up the connection to the Arduino and starts the desired Arduino Scenario.
@@ -494,7 +494,7 @@ The <code class="highlighter-rouge">IntervalWorker</code> picks up what type of 
     </code></pre></figure>
 
 <p>There are two Arduino implementations available.
-Both can execute a <code class="highlighter-rouge">Scenario</code>.
+Both can execute a <code class="language-plaintext highlighter-rouge">Scenario</code>.
 The first and simplest implementation is the Johnny-Five Arduino implementation.
 This allows you to make use of the Johnny-Five framework to write dynamic code for the Arduino that can change at runtime.
 This is possible because it uses the StandardFirmata firmware.
@@ -514,17 +514,17 @@ However they are of not much use if there cannot be any communication between th
 Each Node instance has its own allocated memory and cannot access variables or call methods on other instances.
 The Node cluster and process framework provide the option to send messages between Node instances.
 <br /><br />
-The <code class="highlighter-rouge">IPCMessage</code> instances that are sent exist in two forms.</p>
+The <code class="language-plaintext highlighter-rouge">IPCMessage</code> instances that are sent exist in two forms.</p>
 <ul>
-  <li><code class="highlighter-rouge">IPCRequest</code>: This is the initial message that is sent to a target.</li>
-  <li><code class="highlighter-rouge">IPCReply</code>: This is the response (if any) from the target back to the original caller.
+  <li><code class="language-plaintext highlighter-rouge">IPCRequest</code>: This is the initial message that is sent to a target.</li>
+  <li><code class="language-plaintext highlighter-rouge">IPCReply</code>: This is the response (if any) from the target back to the original caller.
 <br /><br /></li>
 </ul>
 
 <p>This allows for easy two way communication and identification whether the message was a reply to an earlier message.
 Messages can be sent with or without a callback.
 The callback is executed when a reply to the original message is received.
-Because only basic data types can be sent across Node instances the <code class="highlighter-rouge">MessageManager</code> instance of the caller stores the callback reference and generates an unique id for said callback.
+Because only basic data types can be sent across Node instances the <code class="language-plaintext highlighter-rouge">MessageManager</code> instance of the caller stores the callback reference and generates an unique id for said callback.
 This allows the application to send the callback ID across Node instances and execute it when it arrives back at the caller.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="cm">/**
@@ -626,7 +626,7 @@ This allows the application to send the callback ID across Node instances and ex
 
     </code></pre></figure>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;br/&gt; &lt;br/&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;br/&gt; &lt;br/&gt;
 </code></pre></div></div>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">    <span class="cm">/**
@@ -788,7 +788,7 @@ This allows the application to send the callback ID across Node instances and ex
 
     </code></pre></figure>
 
-<p>Every worker has an instance of the <code class="highlighter-rouge">MessageHandler</code>, it in its turn has an event emitter on which events from the messages are broadcast.
+<p>Every worker has an instance of the <code class="language-plaintext highlighter-rouge">MessageHandler</code>, it in its turn has an event emitter on which events from the messages are broadcast.
 The actual worker implementations register themselves on the emitter to receive said events.
 In a future version the message handling should be split up, because now a single file (with an instance on each Node instance) handles both master and slave messages.</p>
 

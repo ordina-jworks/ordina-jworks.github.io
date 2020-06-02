@@ -208,7 +208,7 @@ For the majority of use cases single document transactions suffice.
 This is because the data model you use with a document database is quite different from what you would use with an RDBMS.</p>
 
 <p>In a relational database system you typically normalize data in order to avoid duplication.
-A single <code class="highlighter-rouge">entity</code> more often than not has data spanning multiple tables, so when you perform updates to a single entity you have to update multiple rows in multiple tables concurrently, which necessitates transactions.</p>
+A single <code class="language-plaintext highlighter-rouge">entity</code> more often than not has data spanning multiple tables, so when you perform updates to a single entity you have to update multiple rows in multiple tables concurrently, which necessitates transactions.</p>
 
 <p>In a document database like MongoDB though, you typically embed all data that represents one entity within a single document, in which case updates to that entity are also limited to a single document.
 You can see that there’s less need for transactions.</p>
@@ -223,9 +223,9 @@ Let’s see what some of those scenarios might be…</p>
 <h3 id="relationships">Relationships</h3>
 <p>In the case that your datamodel does have relationships between separate entitites, you may want to use transactions to update both of them at the same time.</p>
 
-<p>An example of this could be a <code class="highlighter-rouge">customer</code> and a <code class="highlighter-rouge">car</code> that the customer owns.
+<p>An example of this could be a <code class="language-plaintext highlighter-rouge">customer</code> and a <code class="language-plaintext highlighter-rouge">car</code> that the customer owns.
 They are distinct entities, but there is a relationship between them in the form of ownership information.
-If you update the ownership information on the <code class="highlighter-rouge">customer</code> document, you probably need to update it on the <code class="highlighter-rouge">car</code> document (or documents) as well.</p>
+If you update the ownership information on the <code class="language-plaintext highlighter-rouge">customer</code> document, you probably need to update it on the <code class="language-plaintext highlighter-rouge">car</code> document (or documents) as well.</p>
 
 <p>The only way to do this with guaranteed consistency is through a multi-document transaction.</p>
 
@@ -260,9 +260,9 @@ This structure grows as writes occur to the database and is only evicted from th
 The implication of this is that long running transactions or a high write volume can put pressure on the cache.
 It’s therefore recommended to keep the duration of any transaction as low as possible.</p>
 
-<p>To minimize cache pressure, you can use the server parameter <code class="highlighter-rouge">transactionLifeTimeLimitSeconds</code> to set a sensible maximum transaction time.
+<p>To minimize cache pressure, you can use the server parameter <code class="language-plaintext highlighter-rouge">transactionLifeTimeLimitSeconds</code> to set a sensible maximum transaction time.
 If a transaction runs for a longer time than this value, it will be aborted.
-The default value of <code class="highlighter-rouge">transactionLifeTimeLimitSeconds</code> is 60 seconds.</p>
+The default value of <code class="language-plaintext highlighter-rouge">transactionLifeTimeLimitSeconds</code> is 60 seconds.</p>
 
 <p>A sidenote for those DBAs or developers who are already familiar with Oracle: the update structure in the WiredTiger cache is similar to how rollback segments and undo tablespaces work in Oracle.
 The differences are that the snapshot information is kept entirely in memory instead of on disk, and that you don’t have to actively manage it by allocating a tablespace for it.</p>
@@ -334,7 +334,7 @@ If they are, you’re doing it wrong.</li>
   <li>Implement retry logic.
 MongoDB returns errorcodes that tell you if a transaction has failed and if it failed with a retryable error or not.</li>
   <li>To reduce WiredTiger cache pressure, keep transactions short and don’t leave them open, even read only transactions.</li>
-  <li>Take into account that long running DDL operations (e.g. <code class="highlighter-rouge">createIndex()</code> ) block transactions and vice versa.</li>
+  <li>Take into account that long running DDL operations (e.g. <code class="language-plaintext highlighter-rouge">createIndex()</code> ) block transactions and vice versa.</li>
 </ul>
 
 <h2 id="conclusion">Conclusion</h2>

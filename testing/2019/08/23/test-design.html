@@ -321,7 +321,7 @@ Now we could have made it easier for ourselves by using some IntelliJ refactorin
 <p>A few months later, after adding some more features, we noticed that there was too much logic inside the constructor of our aggregate. 
 The constructor became too big and complex so we decided to use the factory pattern to create new instances of the aggregate.</p>
 
-<p>Since we already used a <code class="highlighter-rouge">CreateOrderData</code> as parameter of our constructor, all our tests still compiled and we were happy.
+<p>Since we already used a <code class="language-plaintext highlighter-rouge">CreateOrderData</code> as parameter of our constructor, all our tests still compiled and we were happy.
 That is, until we ran our tests.</p>
 
 <p>Because we moved all construction logic from the constructor to the factory, the tests still compiled, but as they relied on this construction logic to create the instance the way we need it, they now failed.
@@ -346,7 +346,7 @@ Instead it would be better to put some sort of API in between our tests and the 
 <p>We didn’t take Uncle Bob’s solution too literally and gave our own twist to it.</p>
 
 <p>For the specific problem of creating aggregate instances we decided to create a class that acts as a scenario builder.
-In this <code class="highlighter-rouge">CreateOrderScenario</code> we have a static factory method that will create a scenario that returns a valid <code class="highlighter-rouge">Order</code> when executed.
+In this <code class="language-plaintext highlighter-rouge">CreateOrderScenario</code> we have a static factory method that will create a scenario that returns a valid <code class="language-plaintext highlighter-rouge">Order</code> when executed.
 This means that when you need an order that is consistent and it doesn’t matter for your test which data is in the order, you can just use the default scenario when it’s executed.</p>
 
 <p>You could also create other default scenarios.
@@ -401,7 +401,7 @@ We implemented this by adding some methods to our scenario class that allows the
 In the first test, we use the default scenario without modifying anything, meaning, we test the happy path and verify that all data in the created order is correct.</p>
 
 <p>In the second test we verify that if we try to create an order for a customer that doesn’t exist, we get a validation exception.
-We do this by creating a default scenario, then modifying the input data to use a <code class="highlighter-rouge">customerId</code> defined in the test, and then overriding the behaviour of the <code class="highlighter-rouge">CustomerRepository</code> mock.</p>
+We do this by creating a default scenario, then modifying the input data to use a <code class="language-plaintext highlighter-rouge">customerId</code> defined in the test, and then overriding the behaviour of the <code class="language-plaintext highlighter-rouge">CustomerRepository</code> mock.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">CreateOrderTest</span> <span class="o">{</span>
     
@@ -434,7 +434,7 @@ We do this by creating a default scenario, then modifying the input data to use 
 <ul>
   <li>the use of a factory to create orders,</li>
   <li>a validator class, used by the factory to validate the input for creating an order,</li>
-  <li>and how the constructor of the <code class="highlighter-rouge">Order</code> aggregate should be called.</li>
+  <li>and how the constructor of the <code class="language-plaintext highlighter-rouge">Order</code> aggregate should be called.</li>
 </ul>
 
 <p>With this example, it’s easy to see that our new tests are much less likely to break than our original <strong>design</strong>. 
@@ -442,11 +442,11 @@ There is a clean layer between the implementation/design of our application, and
 This lower coupling makes it easier to refactor the application, and implement new features at a higher pace.</p>
 
 <p>Also notice that we didn’t create a test class that maps one-to-one to a production code class.
-Rather than testing our <code class="highlighter-rouge">Order</code> object, our <code class="highlighter-rouge">OrderFactory</code>, or our <code class="highlighter-rouge">OrderValidator</code>, we test the creation of an aggregate instance. 
+Rather than testing our <code class="language-plaintext highlighter-rouge">Order</code> object, our <code class="language-plaintext highlighter-rouge">OrderFactory</code>, or our <code class="language-plaintext highlighter-rouge">OrderValidator</code>, we test the creation of an aggregate instance. 
 We test what we expect our application to do, not what we expect our class to do.</p>
 
-<p>Whenever we have to change the logic of how an <code class="highlighter-rouge">Order</code> is created, we know that we have to look in the <code class="highlighter-rouge">CreateOrderTest</code> class.
-We don’t have to look at the <code class="highlighter-rouge">OrderTest</code> class, the <code class="highlighter-rouge">OrderFactoryTest</code> class, or the <code class="highlighter-rouge">OrderValidator</code> test class to see where we should add some tests.</p>
+<p>Whenever we have to change the logic of how an <code class="language-plaintext highlighter-rouge">Order</code> is created, we know that we have to look in the <code class="language-plaintext highlighter-rouge">CreateOrderTest</code> class.
+We don’t have to look at the <code class="language-plaintext highlighter-rouge">OrderTest</code> class, the <code class="language-plaintext highlighter-rouge">OrderFactoryTest</code> class, or the <code class="language-plaintext highlighter-rouge">OrderValidator</code> test class to see where we should add some tests.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 <p>In no way is this design perfect, nor will it be suitable in every project.

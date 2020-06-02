@@ -256,7 +256,7 @@ If you’re interested, you can read all about it <a target="_blank" href="https
 <h1 id="node-red-to-the-rescue">Node-RED to the rescue</h1>
 
 <p>In both cases, Node-RED can help us providing a real API that responds with test data.
-For the test data, I prefer test data getting delivered by the business or the client, but if that is not an option, you can create your <code class="highlighter-rouge">json</code> data based on the API contracts and model designs.
+For the test data, I prefer test data getting delivered by the business or the client, but if that is not an option, you can create your <code class="language-plaintext highlighter-rouge">json</code> data based on the API contracts and model designs.
 Again, I’m mentioning the API contracts and model design, because often, organisations fail at this.
 Let’s setup a real easy API.</p>
 
@@ -266,9 +266,9 @@ Let’s setup a real easy API.</p>
 
 <ul>
   <li>Make sure you have a Node.js (incl npm) environment</li>
-  <li><code class="highlighter-rouge">sudo npm install -g --unsafe-perm node-red</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sudo npm install -g --unsafe-perm node-red</code></li>
   <li>A running Docker daemon</li>
-  <li><code class="highlighter-rouge">docker pull nodered/node-red-docker</code></li>
+  <li><code class="language-plaintext highlighter-rouge">docker pull nodered/node-red-docker</code></li>
 </ul>
 
 <p>NOTE: To be honest, you only need one of those 2 environments.
@@ -304,7 +304,7 @@ The debug sidebar provides a structured view of the messages it has sent, making
 <h2 id="functions">Functions</h2>
 
 <p>Node-RED comes with a lot of predefined function blocks.
-The ones we are using most are the regular <code class="highlighter-rouge">function</code>-block itself and the <code class="highlighter-rouge">json</code>- or <code class="highlighter-rouge">xml</code>-function to parse json and xml.
+The ones we are using most are the regular <code class="language-plaintext highlighter-rouge">function</code>-block itself and the <code class="language-plaintext highlighter-rouge">json</code>- or <code class="language-plaintext highlighter-rouge">xml</code>-function to parse json and xml.
 Besides those, there are function blocks that lets you run calls to external platforms, delay, reroute or redefine messages, etc.
 If you need more information about one of them, Node-RED show an information screen when selecting one of them.</p>
 
@@ -316,9 +316,9 @@ I’ve personally never used one of them, but I can imagine they can come in han
 <h2 id="storage">Storage</h2>
 
 <p>File (input/output) is self explanatory.
-The <code class="highlighter-rouge">tail</code> function, lets you add a watcher to a file.
+The <code class="language-plaintext highlighter-rouge">tail</code> function, lets you add a watcher to a file.
 As the docs describe, this cannot be used on Windows systems.
-It’s based on the <code class="highlighter-rouge">$ tail -f fileName</code> command on Unix systems and watches for changes.</p>
+It’s based on the <code class="language-plaintext highlighter-rouge">$ tail -f fileName</code> command on Unix systems and watches for changes.</p>
 
 <h2 id="analysis">Analysis</h2>
 
@@ -327,9 +327,9 @@ You can read all about it <a target="_blank" href="https://github.com/thisandaga
 
 <h2 id="advanced">Advanced</h2>
 
-<p>Like the tail function, the <code class="highlighter-rouge">watch</code>-block watches for directory or file changes.
-The <code class="highlighter-rouge">feedparse</code> can be used to monitor an RSS/atom feed for new entries.
-The last one, the <code class="highlighter-rouge">exec</code>-block lets you run a system command and returns its output.</p>
+<p>Like the tail function, the <code class="language-plaintext highlighter-rouge">watch</code>-block watches for directory or file changes.
+The <code class="language-plaintext highlighter-rouge">feedparse</code> can be used to monitor an RSS/atom feed for new entries.
+The last one, the <code class="language-plaintext highlighter-rouge">exec</code>-block lets you run a system command and returns its output.</p>
 
 <h1 id="running-an-instance">Running an instance</h1>
 
@@ -337,7 +337,7 @@ The last one, the <code class="highlighter-rouge">exec</code>-block lets you run
 (We are going to start with the npm package version)
 To start using or initiating an instance of Node-RED by using the npm repositories, just run:</p>
 
-<p><code class="highlighter-rouge">$ node-red</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ node-red</code></p>
 
 <p>If installed correctly, you should see the following log:</p>
 
@@ -349,9 +349,9 @@ To start using or initiating an instance of Node-RED by using the npm repositori
 The first three of them are the settings file, the user dir and the flows file.
 The last line shows us where the service is available.</p>
 
-<p>We’ll come back to the config later, and we are going to take a look at the User Interface based on the <code class="highlighter-rouge">uri</code> in the last line.
+<p>We’ll come back to the config later, and we are going to take a look at the User Interface based on the <code class="language-plaintext highlighter-rouge">uri</code> in the last line.
 As mentioned before, Node-RED offers a user interface, to configure the service.
-Open your browser and navigate to <code class="highlighter-rouge">http://127.0.0.1:1880</code> (default setup config).</p>
+Open your browser and navigate to <code class="language-plaintext highlighter-rouge">http://127.0.0.1:1880</code> (default setup config).</p>
 
 <p>You’ll see all the components mentioned above on the left side of the screen.
 In the middle you have a tabbed structure for your flow chart(s), and on the right you have debug, info and detail windows.</p>
@@ -361,12 +361,12 @@ In the middle you have a tabbed structure for your flow chart(s), and on the rig
 <h1 id="creating-your-first-flow">Creating your first flow</h1>
 
 <p>Let’s use the Node-RED user interface to create a simple flow.
-In this case a simple <code class="highlighter-rouge">http</code>-input connected to a function that returns its data through an <code class="highlighter-rouge">http</code>-output.</p>
+In this case a simple <code class="language-plaintext highlighter-rouge">http</code>-input connected to a function that returns its data through an <code class="language-plaintext highlighter-rouge">http</code>-output.</p>
 
-<p>Start by dragging the <code class="highlighter-rouge">http</code> from the input list onto the chart.
-Then, drag and drop a <code class="highlighter-rouge">function</code> block from the function list and the <code class="highlighter-rouge">http</code> from the output list onto the chart.
-Connect the <code class="highlighter-rouge">http</code>-input with the function block by dragging a line starting from the input node, to the function block.
-Repeat this for the <code class="highlighter-rouge">function</code>-block to the output.</p>
+<p>Start by dragging the <code class="language-plaintext highlighter-rouge">http</code> from the input list onto the chart.
+Then, drag and drop a <code class="language-plaintext highlighter-rouge">function</code> block from the function list and the <code class="language-plaintext highlighter-rouge">http</code> from the output list onto the chart.
+Connect the <code class="language-plaintext highlighter-rouge">http</code>-input with the function block by dragging a line starting from the input node, to the function block.
+Repeat this for the <code class="language-plaintext highlighter-rouge">function</code>-block to the output.</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/initial-flow.png" width="100%" />
@@ -377,7 +377,7 @@ Let’s configure our flow!</p>
 
 <h3 id="input">Input</h3>
 
-<p>Double click the <code class="highlighter-rouge">http</code>-input block.
+<p>Double click the <code class="language-plaintext highlighter-rouge">http</code>-input block.
 This action will open a window on the right where you can set some properties.</p>
 
 <ul>
@@ -394,7 +394,7 @@ This action will open a window on the right where you can set some properties.</
 
 <h3 id="function-block">Function block</h3>
 
-<p>Double click the <code class="highlighter-rouge">function</code>-block.
+<p>Double click the <code class="language-plaintext highlighter-rouge">function</code>-block.
 Again, a window will open!</p>
 
 <ul>
@@ -413,7 +413,7 @@ Again, a window will open!</p>
 </code></pre></div></div>
 
 <p>NOTE:
-The information section on the right comes in handy while configuring the <code class="highlighter-rouge">function</code>-block</p>
+The information section on the right comes in handy while configuring the <code class="language-plaintext highlighter-rouge">function</code>-block</p>
 
 <blockquote>
   <p>A JavaScript function block to run against the messages being received by the node.
@@ -421,7 +421,7 @@ The messages are passed in as a JavaScript object called msg.
 By convention it will have a msg.payload property containing the body of the message.</p>
 </blockquote>
 
-<p>This explains why we are setting the <code class="highlighter-rouge">msg.payload</code> property.</p>
+<p>This explains why we are setting the <code class="language-plaintext highlighter-rouge">msg.payload</code> property.</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/config-function.png" width="30%" />
@@ -431,7 +431,7 @@ By convention it will have a msg.payload property containing the body of the mes
 
 <h3 id="output">Output</h3>
 
-<p>Open the config for the <code class="highlighter-rouge">http-response</code>-output block.</p>
+<p>Open the config for the <code class="language-plaintext highlighter-rouge">http-response</code>-output block.</p>
 
 <ul>
   <li>Name: return all</li>
@@ -443,13 +443,13 @@ By convention it will have a msg.payload property containing the body of the mes
 </div>
 
 <p>As you can see, the output lets you choose the return status code.
-This can be used later if you would like to implement failed <code class="highlighter-rouge">REST</code>-calls for mocking purposes.
+This can be used later if you would like to implement failed <code class="language-plaintext highlighter-rouge">REST</code>-calls for mocking purposes.
 Confirm these settings by clicking ‘Done’.</p>
 
 <h3 id="deploy">Deploy</h3>
 
 <p>On the top right of your screen, you have the deploy-dropdown.
-Clicking <code class="highlighter-rouge">deploy</code> will deploy this flow onto the running server, but you can also use the arrow to open up the menu and choose a more accurate scenario.
+Clicking <code class="language-plaintext highlighter-rouge">deploy</code> will deploy this flow onto the running server, but you can also use the arrow to open up the menu and choose a more accurate scenario.
 Since this is our first deploy and we only have one flow, we don’t have a choice.</p>
 
 <div style="text-align: center;">
@@ -464,7 +464,7 @@ Since this is our first deploy and we only have one flow, we don’t have a choi
   <img src="/img/node-red-dev-ci/test-browser.png" width="30%" />
 </div>
 
-<p><code class="highlighter-rouge">$ curl -X GET http://localhost:1880/data</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ curl -X GET http://localhost:1880/data</code></p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/test-curl.png" width="100%" />
@@ -472,8 +472,8 @@ Since this is our first deploy and we only have one flow, we don’t have a choi
 
 <h1 id="spicing-things-up">Spicing things up</h1>
 
-<p>Let’s try and implement a <code class="highlighter-rouge">DELETE</code>.
-We would first drag and drop an <code class="highlighter-rouge">http</code>-input, a <code class="highlighter-rouge">function</code>-block and an <code class="highlighter-rouge">http-response</code>-output onto the flow chart.</p>
+<p>Let’s try and implement a <code class="language-plaintext highlighter-rouge">DELETE</code>.
+We would first drag and drop an <code class="language-plaintext highlighter-rouge">http</code>-input, a <code class="language-plaintext highlighter-rouge">function</code>-block and an <code class="language-plaintext highlighter-rouge">http-response</code>-output onto the flow chart.</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/delete.png" width="100%" />
@@ -484,7 +484,7 @@ We would first drag and drop an <code class="highlighter-rouge">http</code>-inpu
   <img src="/img/node-red-dev-ci/delete-input.png" width="30%" />
 </div>
 
-<p>Notice the <code class="highlighter-rouge">:id</code>.
+<p>Notice the <code class="language-plaintext highlighter-rouge">:id</code>.
 This way we tell Node-RED that this is a path parameter.</p>
 
 <p>The output would look like:</p>
@@ -492,7 +492,7 @@ This way we tell Node-RED that this is a path parameter.</p>
   <img src="/img/node-red-dev-ci/delete-output.png" width="30%" />
 </div>
 
-<p>But what about the <code class="highlighter-rouge">function</code>-block ? We could come up with something like:</p>
+<p>But what about the <code class="language-plaintext highlighter-rouge">function</code>-block ? We could come up with something like:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span>
  <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Title 1</span><span class="dl">"</span><span class="p">},</span>
@@ -541,25 +541,25 @@ For a flow context this will look like:</p>
 
 <p>Now that we know how we can store data, we need to find a way to initialise the data.
 We could for example launch a call to trigger a function that would store data in the flow context.
-We could build this by using an <code class="highlighter-rouge">http</code>-input, a <code class="highlighter-rouge">function</code>-block and an <code class="highlighter-rouge">http-response</code>-output.
+We could build this by using an <code class="language-plaintext highlighter-rouge">http</code>-input, a <code class="language-plaintext highlighter-rouge">function</code>-block and an <code class="language-plaintext highlighter-rouge">http-response</code>-output.
 But this doesn’t feel right.
-Luckily, Node-RED provides us with an <code class="highlighter-rouge">inject</code>-input.</p>
+Luckily, Node-RED provides us with an <code class="language-plaintext highlighter-rouge">inject</code>-input.</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/inject.png" width="100%" />
 </div>
 
-<p>This input will get triggered periodically, or just one time. <code class="highlighter-rouge">inject</code>-input is made for injecting messages of almost any type into the next component.
+<p>This input will get triggered periodically, or just one time. <code class="language-plaintext highlighter-rouge">inject</code>-input is made for injecting messages of almost any type into the next component.
 This message can be a string, a number, the current timestamp, …
 We are going to use it as a trigger on startup to initialise our data into our flow.</p>
 
-<h3 id="inject-input"><code class="highlighter-rouge">inject</code>-input:</h3>
+<h3 id="inject-input"><code class="language-plaintext highlighter-rouge">inject</code>-input:</h3>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/inject-input.png" width="30%" />
 </div>
 
-<h3 id="inject-function"><code class="highlighter-rouge">inject</code>-function:</h3>
+<h3 id="inject-function"><code class="language-plaintext highlighter-rouge">inject</code>-function:</h3>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/inject-function.png" width="30%" />
@@ -567,12 +567,12 @@ We are going to use it as a trigger on startup to initialise our data into our f
 
 <h2 id="refactoring">Refactoring</h2>
 
-<p>Now we know how we can inject and persist data in a context, let’s refactor our <code class="highlighter-rouge">GET</code> and <code class="highlighter-rouge">DELETE</code>.
-And while we are at it, add a second <code class="highlighter-rouge">GET</code> so we can query one record by ‘id’.</p>
+<p>Now we know how we can inject and persist data in a context, let’s refactor our <code class="language-plaintext highlighter-rouge">GET</code> and <code class="language-plaintext highlighter-rouge">DELETE</code>.
+And while we are at it, add a second <code class="language-plaintext highlighter-rouge">GET</code> so we can query one record by ‘id’.</p>
 
 <h3 id="get">GET</h3>
 
-<p>Our two <code class="highlighter-rouge">http</code>-inputs are exactly the same except for the parameter (id).
+<p>Our two <code class="language-plaintext highlighter-rouge">http</code>-inputs are exactly the same except for the parameter (id).
 The function-block on the other hand, will have some build-in logic:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">flow</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">);</span>
@@ -590,8 +590,8 @@ The function-block on the other hand, will have some build-in logic:</p>
 </code></pre></div></div>
 
 <p>We are retrieve the data from the context and storing it in a local variable.
-Based on the existence of the <code class="highlighter-rouge">id</code> parameter, we are going to search for a single record, or return all records.
-Notice the <code class="highlighter-rouge">==</code> instead of <code class="highlighter-rouge">===</code>.
+Based on the existence of the <code class="language-plaintext highlighter-rouge">id</code> parameter, we are going to search for a single record, or return all records.
+Notice the <code class="language-plaintext highlighter-rouge">==</code> instead of <code class="language-plaintext highlighter-rouge">===</code>.
 This is because the id in the data is a number, where the id from the params is a string.</p>
 
 <p>Based on the logic, we could add a query parameter to the endpoint that let’s us filter the data on the title property for example, but that is out of scope.</p>
@@ -615,7 +615,7 @@ Don’t forget to rewrite the new data to the flow context, so other components 
 
 <h3 id="all-together">All together</h3>
 
-<p>Now we should have an <code class="highlighter-rouge">inject</code>-input and 3 <code class="highlighter-rouge">http</code>-inputs (2 GET’s and 1 DELETE).
+<p>Now we should have an <code class="language-plaintext highlighter-rouge">inject</code>-input and 3 <code class="language-plaintext highlighter-rouge">http</code>-inputs (2 GET’s and 1 DELETE).
 Our flow should look like:</p>
 
 <div style="text-align: center;">
@@ -624,7 +624,7 @@ Our flow should look like:</p>
 
 <p>Let’s deploy and test this setup.
 First click the deploy button and wait a second.
-Then navigate with your browser to <code class="highlighter-rouge">http://localhost:1880/data</code>.
+Then navigate with your browser to <code class="language-plaintext highlighter-rouge">http://localhost:1880/data</code>.
 This should display your data in your browser.</p>
 
 <div style="text-align: center;">
@@ -633,7 +633,7 @@ This should display your data in your browser.</p>
 
 <p>Now, let’s try to delete a record.</p>
 
-<p><code class="highlighter-rouge">$ curl -X DELETE http://localhost:1880/data/3</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ curl -X DELETE http://localhost:1880/data/3</code></p>
 
 <p>And refresh your browser:</p>
 
@@ -645,19 +645,19 @@ This should display your data in your browser.</p>
 Not exactly.
 Try and delete records 1, 2, 4 and 5.
 Now what?
-Our data is gone and we don’t have a <code class="highlighter-rouge">POST</code> nor a <code class="highlighter-rouge">PUT</code> implemented.</p>
+Our data is gone and we don’t have a <code class="language-plaintext highlighter-rouge">POST</code> nor a <code class="language-plaintext highlighter-rouge">PUT</code> implemented.</p>
 
-<p>Implementing a <code class="highlighter-rouge">POST</code> and a <code class="highlighter-rouge">PUT</code> is really straightforward.</p>
+<p>Implementing a <code class="language-plaintext highlighter-rouge">POST</code> and a <code class="language-plaintext highlighter-rouge">PUT</code> is really straightforward.</p>
 
 <h3 id="post-and-put">POST and PUT</h3>
 
-<p>For the example, we are going to work with an <code class="highlighter-rouge">upsert</code>. <code class="highlighter-rouge">POST</code> and <code class="highlighter-rouge">PUT</code> will trigger the same function block that will be smart enough to update (if exists) or insert.</p>
+<p>For the example, we are going to work with an <code class="language-plaintext highlighter-rouge">upsert</code>. <code class="language-plaintext highlighter-rouge">POST</code> and <code class="language-plaintext highlighter-rouge">PUT</code> will trigger the same function block that will be smart enough to update (if exists) or insert.</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/post-put.png" width="100%" />
 </div>
 
-<p>The upsert <code class="highlighter-rouge">function</code>-block can look like:</p>
+<p>The upsert <code class="language-plaintext highlighter-rouge">function</code>-block can look like:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">flow</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">let</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">;</span>
@@ -689,22 +689,22 @@ Wouldn’t it be nice that we can refresh the data to its initial state before r
 
 <h2 id="resetting-data">Resetting data</h2>
 
-<p>When you look at your flow chart, you’ll see there is something that looks like a button on the left side of our <code class="highlighter-rouge">inject</code>-input.
+<p>When you look at your flow chart, you’ll see there is something that looks like a button on the left side of our <code class="language-plaintext highlighter-rouge">inject</code>-input.
 When you click it, you’ll notice a toast message appearing on the top of your user interface:</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/refresh-toast.png" width="40%" />
 </div>
 
-<p>But what if we don’t have access to the user interface, or we don’t have control over it what so ever? For example, when running automated tests against this mock backend, somewhere on a dynamic Jenkins Docker slave? To overcome this, we are using an <code class="highlighter-rouge">http</code>-input to trigger the reset of our data.
+<p>But what if we don’t have access to the user interface, or we don’t have control over it what so ever? For example, when running automated tests against this mock backend, somewhere on a dynamic Jenkins Docker slave? To overcome this, we are using an <code class="language-plaintext highlighter-rouge">http</code>-input to trigger the reset of our data.
 Let’s take a look at our implementation:</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/refresh-http.png" width="100%" />
 </div>
 
-<p>The <code class="highlighter-rouge">http</code>-input is listening on <code class="highlighter-rouge">/rest</code>.
-As you can see, we’ve added an <code class="highlighter-rouge">http-response</code>-output.
+<p>The <code class="language-plaintext highlighter-rouge">http</code>-input is listening on <code class="language-plaintext highlighter-rouge">/rest</code>.
+As you can see, we’ve added an <code class="language-plaintext highlighter-rouge">http-response</code>-output.
 REST-calls are expecting a response! Don’t forget to deploy your new setup</p>
 
 <p>Making sure this works:</p>
@@ -726,14 +726,14 @@ REST-calls are expecting a response! Don’t forget to deploy your new setup</p>
 
 <h1 id="json">JSON</h1>
 
-<p>The last refactoring we are going to do in this tutorial is switching from an hardcoded data json object to an external <code class="highlighter-rouge">json</code>-file.
+<p>The last refactoring we are going to do in this tutorial is switching from an hardcoded data json object to an external <code class="language-plaintext highlighter-rouge">json</code>-file.
 As mentioned before, Node-RED provides ways of integrating storage and databases, but that is out of the scope of this post.
 Still, we don’t want to include real data in this setup.
 We should loosely couple our data provider and the backend mock implementation.
 If some analysts, for example, provide us with new test data, we don’t want to change anything in this setup.
-One way to overcome this, is to work with <code class="highlighter-rouge">json</code>-files.</p>
+One way to overcome this, is to work with <code class="language-plaintext highlighter-rouge">json</code>-files.</p>
 
-<p>Assume we have a <code class="highlighter-rouge">json</code>-file, called <code class="highlighter-rouge">data.json</code> with content:</p>
+<p>Assume we have a <code class="language-plaintext highlighter-rouge">json</code>-file, called <code class="language-plaintext highlighter-rouge">data.json</code> with content:</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
   <span class="p">{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Title 1</span><span class="dl">"</span><span class="p">},</span>
   <span class="p">{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Title 2</span><span class="dl">"</span><span class="p">},</span>
@@ -745,9 +745,9 @@ One way to overcome this, is to work with <code class="highlighter-rouge">json</
 
 <p>Remember when I mentioned some important lines in the console at startup?
 One of those lines was referring to the User directory:
-<code class="highlighter-rouge">User directory : /Path/To/Your/Home/.node-red</code> (which is the default)
-Because we didn’t change anything in the <code class="highlighter-rouge">settings.js</code> file (or didn’t point to a custom one), Node-RED creates a context folder for the current instance.
-Copy your <code class="highlighter-rouge">data.json</code> to this folder.
+<code class="language-plaintext highlighter-rouge">User directory : /Path/To/Your/Home/.node-red</code> (which is the default)
+Because we didn’t change anything in the <code class="language-plaintext highlighter-rouge">settings.js</code> file (or didn’t point to a custom one), Node-RED creates a context folder for the current instance.
+Copy your <code class="language-plaintext highlighter-rouge">data.json</code> to this folder.
 I will explain later why we are doing this.</p>
 
 <div style="text-align: center;">
@@ -760,7 +760,7 @@ I will explain later why we are doing this.</p>
 
 <p>On the left of the user interface, there is a storage section with an input file option.
 Drag this onto the flow chart.
-Unlink the connections from the <code class="highlighter-rouge">inject</code>-input and the reset <code class="highlighter-rouge">http</code>-input with the ‘store’ <code class="highlighter-rouge">function</code>-block and connect both with the <code class="highlighter-rouge">file</code>-storage component.
+Unlink the connections from the <code class="language-plaintext highlighter-rouge">inject</code>-input and the reset <code class="language-plaintext highlighter-rouge">http</code>-input with the ‘store’ <code class="language-plaintext highlighter-rouge">function</code>-block and connect both with the <code class="language-plaintext highlighter-rouge">file</code>-storage component.
 Open the details and set the properties:</p>
 
 <div style="text-align: center;">
@@ -779,11 +779,11 @@ Because we will be sending this component a ‘single UTF-8 string’, it will p
   <img src="/img/node-red-dev-ci/parse.png" width="30%" />
 </div>
 
-<p>Integrate this component in between the <code class="highlighter-rouge">file</code>-storage component and the store <code class="highlighter-rouge">function</code>-block.</p>
+<p>Integrate this component in between the <code class="language-plaintext highlighter-rouge">file</code>-storage component and the store <code class="language-plaintext highlighter-rouge">function</code>-block.</p>
 
 <h3 id="refactor-the-store-function">Refactor the store function</h3>
 
-<p>We are now ready to refactor the store <code class="highlighter-rouge">function</code>-block.
+<p>We are now ready to refactor the store <code class="language-plaintext highlighter-rouge">function</code>-block.
 Remove the data and replace it with the content of the json-parse function.</p>
 
 <div style="text-align: center;">
@@ -802,13 +802,13 @@ Remove the data and replace it with the content of the json-parse function.</p>
 
 <h1 id="node-red-persistent-config">Node-RED persistent config</h1>
 
-<p>As mentioned before, Node-RED uses a user directory, a <code class="highlighter-rouge">flow.json</code> file and a <code class="highlighter-rouge">settings.js</code> file.
-If those do not exist, it will create default ones for you in the default node-red path <code class="highlighter-rouge">%USERPROFILE/.node-red</code>.
+<p>As mentioned before, Node-RED uses a user directory, a <code class="language-plaintext highlighter-rouge">flow.json</code> file and a <code class="language-plaintext highlighter-rouge">settings.js</code> file.
+If those do not exist, it will create default ones for you in the default node-red path <code class="language-plaintext highlighter-rouge">%USERPROFILE/.node-red</code>.
 Going through the settings file is also out of the scope of this post.
 Advanced users can just read all about it in the docs or just open it and modify it.</p>
 
 <p>Why I’m mentioning this directory, is because of the config persistence of Node-RED.
-Go ahead and kill your Node-RED server (<code class="highlighter-rouge">CTRL-C</code> in terminal).
+Go ahead and kill your Node-RED server (<code class="language-plaintext highlighter-rouge">CTRL-C</code> in terminal).
 And now just restart it:</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">node</span><span class="o">-</span><span class="nx">red</span>
 </code></pre></div></div>
@@ -818,15 +818,15 @@ When more people need to work with this config, we need to share it.
 The easiest way to share this config, is to wrap it in a Git repository.
 Keep in mind that this may not be best practice to wrap the whole directory, but this way, your colleagues and continuous integration platform can just checkout the repository and run the server, including the data files.</p>
 
-<p>When running <code class="highlighter-rouge">$ node-red --help</code> it shows the command line params.</p>
+<p>When running <code class="language-plaintext highlighter-rouge">$ node-red --help</code> it shows the command line params.</p>
 
 <div style="text-align: center;">
   <img src="/img/node-red-dev-ci/man-node-red.png" width="40%" />
 </div>
 
-<p>Look at the <code class="highlighter-rouge">-s</code> and <code class="highlighter-rouge">-u</code> option.
+<p>Look at the <code class="language-plaintext highlighter-rouge">-s</code> and <code class="language-plaintext highlighter-rouge">-u</code> option.
 Node-RED provides us with cli parameters to run custom configs.
-Let’s assume we clone our newly created Git repository in <code class="highlighter-rouge">~/repositories/node-red</code>.</p>
+Let’s assume we clone our newly created Git repository in <code class="language-plaintext highlighter-rouge">~/repositories/node-red</code>.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>node-red <span class="nt">-s</span> ~/repositories/node-red/settings.js <span class="nt">-u</span> ~/repositories/node-red
 </code></pre></div></div>
@@ -844,7 +844,7 @@ This way you do not even need a Node.js environment preinstalled.</p>
 <p>What about our persistent config?</p>
 <blockquote>
   <p>Node-RED is started using NPM start from this /usr/src/node-red, with the –userDir
-parameter pointing to the <code class="highlighter-rouge">/data</code> directory on the container.
+parameter pointing to the <code class="language-plaintext highlighter-rouge">/data</code> directory on the container.
 The flows configuration file is set using an environment parameter (FLOWS),
 which defaults to ‘flows.json’.
 This can be changed at runtime using the
@@ -853,9 +853,9 @@ following command-line flag. – from docs https://hub.docker.com/r/nodered/node
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-it</span> <span class="nt">-p</span> 1880:1880 <span class="nt">-e</span> <span class="nv">FLOWS</span><span class="o">=</span>my_flows.json nodered/node-red-docker
 </code></pre></div></div>
-<p>So we can choose only to provide the <code class="highlighter-rouge">flows.json</code> file or we could map our user directory from our repository as a volume to the <code class="highlighter-rouge">/data</code> in the container, providing the container our context.</p>
+<p>So we can choose only to provide the <code class="language-plaintext highlighter-rouge">flows.json</code> file or we could map our user directory from our repository as a volume to the <code class="language-plaintext highlighter-rouge">/data</code> in the container, providing the container our context.</p>
 
-<p>An other option is to bake your <code class="highlighter-rouge">userDir</code> into your image.
+<p>An other option is to bake your <code class="language-plaintext highlighter-rouge">userDir</code> into your image.
 This way you can provide your CI with a ready to go Docker image for this particular case.
 This is probably not the best solution, but in some cases it can be very helpful.</p>
 

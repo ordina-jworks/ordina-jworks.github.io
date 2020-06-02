@@ -237,20 +237,20 @@ When a value is inserted into the DOM from a template, via property, attribute, 
 <span class="p">}</span></code></pre></figure>
 
 <p>As you can see, there are two kinds of method patterns.
-The first one is the <code class="highlighter-rouge">sanitize</code> method, which gets the <em>context</em> and an <em>untrusted value</em> and returns a trusted value.
-The other ones are the <code class="highlighter-rouge">bypassSecurityTrustX</code> methods which are getting the <em>untrusted value</em> according to the value usage and are returning a trusted object.</p>
+The first one is the <code class="language-plaintext highlighter-rouge">sanitize</code> method, which gets the <em>context</em> and an <em>untrusted value</em> and returns a trusted value.
+The other ones are the <code class="language-plaintext highlighter-rouge">bypassSecurityTrustX</code> methods which are getting the <em>untrusted value</em> according to the value usage and are returning a trusted object.</p>
 
 <h4 id="the-sanitize-method">The sanitize method</h4>
-<p>If a value is trusted for the context, this sanitize method will (in case of a <code class="highlighter-rouge">SafeValue</code>) unwrap the contained safe value and use it directly.
+<p>If a value is trusted for the context, this sanitize method will (in case of a <code class="language-plaintext highlighter-rouge">SafeValue</code>) unwrap the contained safe value and use it directly.
 Otherwise, the value will be sanitized to be safe according to the security context.</p>
 
 <p>There are three main helper functions for sanitizing the values.
-The <code class="highlighter-rouge">sanitizeHtml</code> function sanitizes the untrusted HTML value by parsing the value and checks its tokens.
-The <code class="highlighter-rouge">sanitizeStyle</code> and <code class="highlighter-rouge">sanitizeUrl</code> functions sanitize the untrusted style or URL value by regular expressions.</p>
+The <code class="language-plaintext highlighter-rouge">sanitizeHtml</code> function sanitizes the untrusted HTML value by parsing the value and checks its tokens.
+The <code class="language-plaintext highlighter-rouge">sanitizeStyle</code> and <code class="language-plaintext highlighter-rouge">sanitizeUrl</code> functions sanitize the untrusted style or URL value by regular expressions.</p>
 
 <h4 id="how-can-we-disable-the-sanitization-logic">How can we disable the sanitization logic?</h4>
 <p>In specific situations, it might be necessary to disable sanitization.
-Users can bypass security by constructing a value with one of the <code class="highlighter-rouge">bypassSecurityTrustX</code> methods, and then binding to that value from the template.</p>
+Users can bypass security by constructing a value with one of the <code class="language-plaintext highlighter-rouge">bypassSecurityTrustX</code> methods, and then binding to that value from the template.</p>
 
 <p>An example:</p>
 
@@ -277,7 +277,7 @@ Users can bypass security by constructing a value with one of the <code class="h
 <p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks.
 These attacks are used for everything from data theft to site defacement or distribution of malware.</p>
 
-<p>To enable CSP, configure your web server to return an appropriate <code class="highlighter-rouge">Content-Security-Policy</code> HTTP header.
+<p>To enable CSP, configure your web server to return an appropriate <code class="language-plaintext highlighter-rouge">Content-Security-Policy</code> HTTP header.
 You can find a very detailed manual how to enable CSP on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="blank" rel="noopener noreferrer">MDN website</a>.
 To check if your CSP is valid you can use the <a href="https://csp-evaluator.withgoogle.com" target="blank" rel="noopener noreferrer">CSP evaluator from google</a>.</p>
 
@@ -330,11 +330,11 @@ That means only your application can read this cookie token and set the custom h
 <h3 id="22-cross-site-script-inclusion-xssi">2.2. Cross-site script inclusion (XSSI)</h3>
 
 <p>Cross-site script inclusion (also known as <strong>JSON vulnerability</strong>) can allow an attacker’s website to read data from a JSON API.
-The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <code class="highlighter-rouge">&lt;script&gt;</code> tag.
+The attack works on older browsers by overriding native JavaScript object constructors, and then including an API URL using a <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tag.
 This attack is only successful if the returned JSON is executable as JavaScript.</p>
 
-<p>Servers can prevent an attack by prefixing all JSON responses to make them non-executable, by convention, using the well-known string <code class="highlighter-rouge">")]}',\n"</code>.
-Angular’s HttpClient library recognizes this convention and automatically strips the string <code class="highlighter-rouge">")]}',\n"</code> from all responses before further parsing.</p>
+<p>Servers can prevent an attack by prefixing all JSON responses to make them non-executable, by convention, using the well-known string <code class="language-plaintext highlighter-rouge">")]}',\n"</code>.
+Angular’s HttpClient library recognizes this convention and automatically strips the string <code class="language-plaintext highlighter-rouge">")]}',\n"</code> from all responses before further parsing.</p>
 
 
         </div>

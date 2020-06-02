@@ -217,15 +217,15 @@ Lagom 1.4 uses Play Framework’s latest version, 2.6 for which we will also nee
 When upgrading multiple minor versions, it is advised to upgrade one minor version at a time to smoothen the process.
 In our case we are only limited to upgrading a single minor version so we can just use the latest migration guide right away.</p>
 
-<p>Upgrade the Lagom version in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+<p>Upgrade the Lagom version in <code class="language-plaintext highlighter-rouge">project/plugins.sbt</code>:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">addSbtPlugin</span><span class="o">(</span><span class="s">"com.lightbend.lagom"</span> <span class="o">%</span> <span class="s">"lagom-sbt-plugin"</span> <span class="o">%</span> <span class="s">"1.4.5"</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>Upgrade the sbt version in <code class="highlighter-rouge">project/build.properties</code>:</p>
+<p>Upgrade the sbt version in <code class="language-plaintext highlighter-rouge">project/build.properties</code>:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">sbt</span><span class="o">.</span><span class="py">version</span><span class="k">=</span><span class="mf">0.13</span><span class="o">.</span><span class="mi">16</span>
 </code></pre></div></div>
 
-<p>Upgrade the Scala version to <code class="highlighter-rouge">2.12.4</code> in <code class="highlighter-rouge">build.sbt</code>:</p>
+<p>Upgrade the Scala version to <code class="language-plaintext highlighter-rouge">2.12.4</code> in <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scalaVersion</span> <span class="n">in</span> <span class="nc">ThisBuild</span> <span class="o">:=</span> <span class="s">"2.12.4"</span>
 </code></pre></div></div>
 
@@ -233,9 +233,9 @@ In our case we are only limited to upgrading a single minor version so we can ju
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">playJsonDerivedCodecs</span> <span class="k">=</span> <span class="s">"org.julienrf"</span> <span class="o">%%</span> <span class="s">"play-json-derived-codecs"</span> <span class="o">%</span> <span class="s">"4.0.0"</span>
 </code></pre></div></div>
 
-<p>Replace <code class="highlighter-rouge">play.api.data.validation.ValidationError</code> with <code class="highlighter-rouge">play.api.libs.json.JsonValidationError</code>.</p>
+<p>Replace <code class="language-plaintext highlighter-rouge">play.api.data.validation.ValidationError</code> with <code class="language-plaintext highlighter-rouge">play.api.libs.json.JsonValidationError</code>.</p>
 
-<p>Mix in <code class="highlighter-rouge">LagomConfigComponent</code>, <code class="highlighter-rouge">HttpFiltersComponents</code> and <code class="highlighter-rouge">AssetsComponents</code> and remove <code class="highlighter-rouge">lazy val assets: Assets = wire[Assets]</code> in the application loader class extending <code class="highlighter-rouge">BuiltInComponentsFromContext</code> in the Play frontend project.</p>
+<p>Mix in <code class="language-plaintext highlighter-rouge">LagomConfigComponent</code>, <code class="language-plaintext highlighter-rouge">HttpFiltersComponents</code> and <code class="language-plaintext highlighter-rouge">AssetsComponents</code> and remove <code class="language-plaintext highlighter-rouge">lazy val assets: Assets = wire[Assets]</code> in the application loader class extending <code class="language-plaintext highlighter-rouge">BuiltInComponentsFromContext</code> in the Play frontend project.</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="k">class</span> <span class="nc">Frontend</span><span class="o">(</span><span class="n">context</span><span class="k">:</span> <span class="kt">Context</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">BuiltInComponentsFromContext</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
   <span class="k">with</span> <span class="n">I18nComponents</span>
   <span class="k">with</span> <span class="nc">AhcWSComponents</span>
@@ -246,11 +246,11 @@ In our case we are only limited to upgrading a single minor version so we can ju
   <span class="k">with</span> <span class="nc">AssetsComponents</span> <span class="o">{</span>
 </code></pre></div></div>
 
-<p>Change <code class="highlighter-rouge">override def describeServices</code> to <code class="highlighter-rouge">override def describeService</code> in each Lagom project’s class extending <code class="highlighter-rouge">LagomServerComponents</code> as the other one has become deprecated.</p>
+<p>Change <code class="language-plaintext highlighter-rouge">override def describeServices</code> to <code class="language-plaintext highlighter-rouge">override def describeService</code> in each Lagom project’s class extending <code class="language-plaintext highlighter-rouge">LagomServerComponents</code> as the other one has become deprecated.</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">override</span> <span class="k">def</span> <span class="nf">describeService</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">readDescriptor</span><span class="o">[</span><span class="kt">ItemService</span><span class="o">])</span>
 </code></pre></div></div>
 
-<p>Implement CSRF security in the frontend project by utilising CSRF form fields (<code class="highlighter-rouge">@CSRF.formField</code>) or <a href="https://www.playframework.com/documentation/2.6.x/ScalaCsrf#Protecting-against-Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">one of the other approaches</a>.</p>
+<p>Implement CSRF security in the frontend project by utilising CSRF form fields (<code class="language-plaintext highlighter-rouge">@CSRF.formField</code>) or <a href="https://www.playframework.com/documentation/2.6.x/ScalaCsrf#Protecting-against-Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">one of the other approaches</a>.</p>
 
 <p>Note that Lagom’s development mode service locator now listens on port 9008 instead of 8000 although this can still be changed by <a href="https://www.lagomframework.com/documentation/1.4.x/scala/ServiceLocator.html#Default-port" target="_blank" rel="noopener noreferrer">overriding the default port</a>.</p>
 
@@ -279,11 +279,11 @@ It allows your application to perform service discovery, access secrets, define 
 </ul>
 
 <h2 id="adding-kubernetes-support-to-our-lagom-shop-scala-application">Adding Kubernetes support to our Lagom Shop Scala application</h2>
-<p>We start off with adding the <code class="highlighter-rouge">sbt-reactive-app</code> sbt plugin in the <code class="highlighter-rouge">project/plugins.sbt</code> file:</p>
+<p>We start off with adding the <code class="language-plaintext highlighter-rouge">sbt-reactive-app</code> sbt plugin in the <code class="language-plaintext highlighter-rouge">project/plugins.sbt</code> file:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">addSbtPlugin</span><span class="o">(</span><span class="s">"com.lightbend.rp"</span> <span class="o">%</span> <span class="s">"sbt-reactive-app"</span> <span class="o">%</span> <span class="s">"1.1.0"</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>Now enable the plugin for each module in the <code class="highlighter-rouge">build.sbt</code> file:</p>
+<p>Now enable the plugin for each module in the <code class="language-plaintext highlighter-rouge">build.sbt</code> file:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">itemImpl</span> <span class="k">=</span> <span class="o">(</span><span class="n">project</span> <span class="n">in</span> <span class="nf">file</span><span class="o">(</span><span class="s">"item-impl"</span><span class="o">))</span>
   <span class="o">.</span><span class="py">dependsOn</span><span class="o">(</span><span class="n">itemApi</span><span class="o">)</span>
   <span class="o">.</span><span class="py">settings</span><span class="o">(</span><span class="n">commonSettings</span><span class="k">:</span> <span class="k">_</span><span class="kt">*</span><span class="o">)</span>
@@ -324,9 +324,9 @@ It allows your application to perform service discovery, access secrets, define 
   <span class="o">)</span>
 </code></pre></div></div>
 
-<p>If you also have a frontend module it is important to define the <code class="highlighter-rouge">httpIngressPaths</code>, as you might have seen in the code sample above, in order to have your frontend be accessible from outside the cluster.</p>
+<p>If you also have a frontend module it is important to define the <code class="language-plaintext highlighter-rouge">httpIngressPaths</code>, as you might have seen in the code sample above, in order to have your frontend be accessible from outside the cluster.</p>
 
-<p>Mix in the <code class="highlighter-rouge">LagomServiceLocatorComponents</code> trait in each module’s application loader:</p>
+<p>Mix in the <code class="language-plaintext highlighter-rouge">LagomServiceLocatorComponents</code> trait in each module’s application loader:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.lightbend.rp.servicediscovery.lagom.scaladsl.LagomServiceLocatorComponents</span>
 
 <span class="k">class</span> <span class="nc">ItemApplicationLoader</span> <span class="k">extends</span> <span class="nc">LagomApplicationLoader</span> <span class="o">{</span>
@@ -388,7 +388,7 @@ http://192.168.99.100
 <p>Underneath, <a href="https://github.com/sbt/sbt-native-packager" target="_blank" rel="noopener noreferrer">SBT Native Packager</a> is being used.
 Check out its <a href="http://www.scala-sbt.org/sbt-native-packager/" target="_blank" rel="noopener noreferrer">documentation</a> for Docker related configurations.</p>
 
-<p>Publishing to a Docker Registry is also possible by defining the <code class="highlighter-rouge">dockerRepository</code> sbt setting in the project and after authenticating to the registry, see <a href="https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/building.html#publishing-to-a-docker-registry" target="_blank" rel="noopener noreferrer">Publishing to a Docker Registry</a>.
+<p>Publishing to a Docker Registry is also possible by defining the <code class="language-plaintext highlighter-rouge">dockerRepository</code> sbt setting in the project and after authenticating to the registry, see <a href="https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/building.html#publishing-to-a-docker-registry" target="_blank" rel="noopener noreferrer">Publishing to a Docker Registry</a>.
 After doing so you can execute the publish command:</p>
 <pre><code class="language-sbtshell">docker:publish
 </code></pre>
@@ -402,7 +402,7 @@ frontend               1.0-SNAPSHOT        7251c13a5373        6 days ago       
 </code></pre>
 
 <p>As for the <a href="https://github.com/lightbend/reactive-app-maven-plugin" target="_blank" rel="noopener noreferrer">Maven equivalent plugin</a>, the Docker images can be build by executing:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn install
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn install
 </code></pre></div></div>
 
 <h2 id="locally-deploying-to-kubernetes-using-minikube">Locally deploying to Kubernetes using Minikube</h2>
@@ -448,8 +448,8 @@ The task however is not yet supported on Windows unfortunately.</p>
 <pre><code class="language-sbtshell">$ kubectl --namespace=kube-system create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
 </code></pre>
 
-<p>If all went well your application should be accessible at <code class="highlighter-rouge">https://192.168.99.100</code>.
-You can use the Minikube dashboard to inspect everything at <code class="highlighter-rouge">http://192.168.99.100:30000</code>.</p>
+<p>If all went well your application should be accessible at <code class="language-plaintext highlighter-rouge">https://192.168.99.100</code>.
+You can use the Minikube dashboard to inspect everything at <code class="language-plaintext highlighter-rouge">http://192.168.99.100:30000</code>.</p>
 
 <p style="text-align: center;">
   <img class="image" style="width: 100%; max-width: 550px" src="/img/lagom-kubernetes/frontend.png" alt="Frontend" />
@@ -524,7 +524,7 @@ For example if we only want to deploy the frontend, you simply switch to the spe
 [success] Total time: 19 s, completed May 11, 2018 1:23:31 PM
 </code></pre>
 
-<p>We can inspect everything with <code class="highlighter-rouge">kubectl</code>:</p>
+<p>We can inspect everything with <code class="language-plaintext highlighter-rouge">kubectl</code>:</p>
 
 <pre><code class="language-sbtshell">$ kubectl get pods
 NAME                                     READY     STATUS    RESTARTS   AGE
@@ -556,7 +556,7 @@ reactive-sandbox         1         1         1            1           6d
 In the next section however, we will look at how we can utilise the reactive-cli tool for generating resource and configuration files, and deploying everything to Kubernetes which is also the way to go for development in this case.</p>
 
 <h2 id="generating-kubernetes-resources-for-production">Generating Kubernetes resources for production</h2>
-<p>The following workflow could also be used for development but it is more suited for deploying to your production environment as the <code class="highlighter-rouge">deploy minikube</code> workflow in the previous section simplifies a lot of things for you.</p>
+<p>The following workflow could also be used for development but it is more suited for deploying to your production environment as the <code class="language-plaintext highlighter-rouge">deploy minikube</code> workflow in the previous section simplifies a lot of things for you.</p>
 
 <p>We will make use of the <a href="https://github.com/lightbend/reactive-cli" target="_blank" rel="noopener noreferrer">reactive-cli</a> command-line tool to have it generate the Kubernetes resource and configuration files.
 Installing is easy, as described in the <a href="https://developer.lightbend.com/docs/lightbend-orchestration-kubernetes/latest/cli-installation.html" target="_blank" rel="noopener noreferrer">documentation</a>.
@@ -753,7 +753,7 @@ spec:
     appName: order
 </code></pre>
 
-<p>You could store the generated resources and tune it, but it is also possible to just generate everything that is necessary and just deploy it right away by chaining <code class="highlighter-rouge">kubectl apply</code>:</p>
+<p>You could store the generated resources and tune it, but it is also possible to just generate everything that is necessary and just deploy it right away by chaining <code class="language-plaintext highlighter-rouge">kubectl apply</code>:</p>
 <pre><code class="language-sbtshell">$ rp generate-kubernetes-resources "orderimpl:1.0-SNAPSHOT" --generate-services --generate-pod-controllers --pod-controller-replicas 2 --env JAVA_OPTS="-Dplay.http.secret.key=simple" | kubectl apply -f -
 deployment.apps "order-v1-0-snapshot" created
 service "order" created
@@ -781,8 +781,8 @@ reactive-sandbox-74fd955ddd-cjpw8        1/1       Running   7          6d
 Integrating the tool suite into our project went smoothly.
 Kubernetes has gained a lot of popularity lately and with this, Lagom shows that it wants to embrace Kubernetes to deploy your applications onto next to ConductR.</p>
 
-<p>The single <code class="highlighter-rouge">deploy minikube</code> command is not yet supported on Windows but we imagine that it will be in the near future.
-Windows users can still utilise the <code class="highlighter-rouge">reactive-cli</code> command-line tool to generate the resource and configuration files and deploy it themselves via <code class="highlighter-rouge">kubectl</code> on their Minikube.
+<p>The single <code class="language-plaintext highlighter-rouge">deploy minikube</code> command is not yet supported on Windows but we imagine that it will be in the near future.
+Windows users can still utilise the <code class="language-plaintext highlighter-rouge">reactive-cli</code> command-line tool to generate the resource and configuration files and deploy it themselves via <code class="language-plaintext highlighter-rouge">kubectl</code> on their Minikube.
 Maven users will only need to wait a little bit longer to take advantage of most things the tool suite has to offer as the plugin is nearing its first release version.</p>
 
 <h2 id="extra-resources">Extra resources</h2>

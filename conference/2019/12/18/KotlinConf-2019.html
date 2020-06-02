@@ -446,8 +446,8 @@ Getting things done, and turning your thoughts into working software without jum
 <p>Kotlin has a smart compiler that can infer things like the type of a variable.
 The hinting feature in IntelliJ helps a lot with showing the exact type of a value or object as sometimes it might be possible that you expected a certain type but it’s actually a different one.</p>
 
-<p>For example, when declaring a list of numbers but also adding a string to it, causes it to change the list’s type to a list of <code class="highlighter-rouge">Any</code>.
-If we would want to have a compiler error for this we would need to define the type explicitly like <code class="highlighter-rouge">val crewlist: List&lt;String&gt;</code>.</p>
+<p>For example, when declaring a list of numbers but also adding a string to it, causes it to change the list’s type to a list of <code class="language-plaintext highlighter-rouge">Any</code>.
+If we would want to have a compiler error for this we would need to define the type explicitly like <code class="language-plaintext highlighter-rouge">val crewlist: List&lt;String&gt;</code>.</p>
 
 <p>Something to keep in mind in this case is that we should not depend too much on the hinting feature as you can only see these in IntelliJ and not for example when reviewing a pull request.
 It is important to have the code speak for itself.
@@ -457,14 +457,14 @@ In that way it is important to explicitly specify the type in certain cases.</p>
 
 <p><img class="image fit" src="/img/kotlinconf-2019/golden-hammer-2-implicit-parameter.jpg" alt="Implicit parameter" /></p>
 
-<p>Depending on the context, it is not always easy to tell what the <code class="highlighter-rouge">it</code> stands for.
+<p>Depending on the context, it is not always easy to tell what the <code class="language-plaintext highlighter-rouge">it</code> stands for.
 Especially in a complex context, you should rather specify the variables to be more explicit.</p>
 
 <h3 id="scope-functions">Scope functions</h3>
 <p><img class="image fit" src="/img/kotlinconf-2019/golden-hammer-3-scope-function.jpg" alt="Scope functions" /></p>
 
-<p>It is easy to exaggerate in the usage of scope functions such as <code class="highlighter-rouge">apply</code>, <code class="highlighter-rouge">also</code>, <code class="highlighter-rouge">let</code>, <code class="highlighter-rouge">run</code>, <code class="highlighter-rouge">with</code>.
-We should be weary of combining too much of these as it causes us to lose track of what <code class="highlighter-rouge">this</code> exactly represents and it creates unnecessary complexity making maintenance more difficult.</p>
+<p>It is easy to exaggerate in the usage of scope functions such as <code class="language-plaintext highlighter-rouge">apply</code>, <code class="language-plaintext highlighter-rouge">also</code>, <code class="language-plaintext highlighter-rouge">let</code>, <code class="language-plaintext highlighter-rouge">run</code>, <code class="language-plaintext highlighter-rouge">with</code>.
+We should be weary of combining too much of these as it causes us to lose track of what <code class="language-plaintext highlighter-rouge">this</code> exactly represents and it creates unnecessary complexity making maintenance more difficult.</p>
 
 <p>Do not feel obligated to stretch yourself or your code because it does not feel Kotlin-y enough as Kotlin is meant to be a pragmatic language.
 The code above can be rewritten as follows:</p>
@@ -484,14 +484,14 @@ We should think about what makes a good utility to a class and we should not mak
 
 <p><img class="image fit" src="/img/kotlinconf-2019/golden-hammer-5-nullability.jpg" alt="Nullability" /></p>
 
-<p><code class="highlighter-rouge">?</code> and <code class="highlighter-rouge">!!</code> can be valid ways of handling nulls <strong>with</strong> thought to intentionality and maintainability.
+<p><code class="language-plaintext highlighter-rouge">?</code> and <code class="language-plaintext highlighter-rouge">!!</code> can be valid ways of handling nulls <strong>with</strong> thought to intentionality and maintainability.
 Kotlin has nullable types whereas Java does not.
 If you pull in Java methods into the Kotlin world, you can stumble upon cases where it is not clear if something is nullable or not, resulting into unchecked nullability issues.</p>
 
-<p>Null safety checks with <code class="highlighter-rouge">?</code> can be bad too and can obfuscate both good assumptions and bad assumptions.
+<p>Null safety checks with <code class="language-plaintext highlighter-rouge">?</code> can be bad too and can obfuscate both good assumptions and bad assumptions.
 Failing silently is often a bad and undesired thing.
-Because of that, it can be a good approach to prefer to use <code class="highlighter-rouge">!!</code>.
-<code class="highlighter-rouge">!!</code> is not inherently evil but requires careful use based on good assumption or because you just KNOW that a value is non-null.</p>
+Because of that, it can be a good approach to prefer to use <code class="language-plaintext highlighter-rouge">!!</code>.
+<code class="language-plaintext highlighter-rouge">!!</code> is not inherently evil but requires careful use based on good assumption or because you just KNOW that a value is non-null.</p>
 
 <p><img class="image fit" src="/img/kotlinconf-2019/golden-hammer-6-nullability-tips.jpg" alt="Nullability tips" /></p>
 
@@ -547,11 +547,11 @@ Then when it is time to deploy to the cloud, Kotless will split your application
 <h3 id="kotless-code-analysis">Kotless code analysis</h3>
 <p>By analyzing your application code, Kotless can automatically configure the following things in your cloud environment:</p>
 <ul>
-  <li>API interactions - based on annotations like <code class="highlighter-rouge">@Get</code></li>
-  <li>Events handling - based on the <code class="highlighter-rouge">@Scheduled</code> annotation</li>
+  <li>API interactions - based on annotations like <code class="language-plaintext highlighter-rouge">@Get</code></li>
+  <li>Events handling - based on the <code class="language-plaintext highlighter-rouge">@Scheduled</code> annotation</li>
   <li>Permissions requirements</li>
-  <li>Queueing systems - based on usage of <code class="highlighter-rouge">Queue</code> and <code class="highlighter-rouge">List</code> types</li>
-  <li>Calls of other serverless apps - based on <code class="highlighter-rouge">async {...}</code></li>
+  <li>Queueing systems - based on usage of <code class="language-plaintext highlighter-rouge">Queue</code> and <code class="language-plaintext highlighter-rouge">List</code> types</li>
+  <li>Calls of other serverless apps - based on <code class="language-plaintext highlighter-rouge">async {...}</code></li>
 </ul>
 
 <h3 id="conclusion">Conclusion</h3>
@@ -664,7 +664,7 @@ It is similar to the <a href="https://www.vavr.io/">Vavr</a> library for Java de
 <p>Before starting, it is required that you install the IntelliJ Ktor plugin via the Plugins menu.
 After doing so, you can start a new Ktor project from within IntelliJ.
 An alternative way of doing so is by going via the <a href="https://start.ktor.io" target="_blank" rel="noopener noreferrer">Ktor Project Generator</a>.
-Something worth noting is that the <code class="highlighter-rouge">application.conf</code> file is written in <a href="https://github.com/lightbend/config/blob/master/HOCON.md" target="_blank" rel="noopener noreferrer">HOCON</a>.</p>
+Something worth noting is that the <code class="language-plaintext highlighter-rouge">application.conf</code> file is written in <a href="https://github.com/lightbend/config/blob/master/HOCON.md" target="_blank" rel="noopener noreferrer">HOCON</a>.</p>
 
 <p>The <a href="https://drive.google.com/file/d/18VFCLxl_1hNMvKi1lLDKMr0bIaJ2gIll/view" target="_blank" rel="noopener noreferrer">instructions</a> of the workshops together with the <a href="https://drive.google.com/file/d/1tRv2le4PllBT_NC-ipY7WUySPe1NV41Z/view" target="_blank" rel="noopener noreferrer">TXT file</a> that is supposed to be read during the exercises can both be found on Google Drive.
 You will learn how to set up your IDE, starting your Ktor application, and routing and serving data.</p>
@@ -986,7 +986,7 @@ Coroutines are a new way to consume the reactive stack and have following charac
 </ul>
 
 <h3 id="spring-boot">Spring Boot</h3>
-<p>There is now support for loading <code class="highlighter-rouge">val</code>s from properties without using <code class="highlighter-rouge">lateinit</code>.
+<p>There is now support for loading <code class="language-plaintext highlighter-rouge">val</code>s from properties without using <code class="language-plaintext highlighter-rouge">lateinit</code>.
 This means the following code:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ConfigurationProperties</span><span class="p">(</span><span class="s">"blog"</span><span class="p">)</span>
@@ -1001,7 +1001,7 @@ This means the following code:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Can now be re-written using <code class="highlighter-rouge">@ConstructorBinding</code> as:</p>
+<p>Can now be re-written using <code class="language-plaintext highlighter-rouge">@ConstructorBinding</code> as:</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ConstructorBinding</span>
 <span class="nd">@ConfigurationProperties</span><span class="p">(</span><span class="s">"blog"</span><span class="p">)</span>
@@ -1066,7 +1066,7 @@ making it an interesting alternative for the mainstream data science languages s
 Jake Wharton takes a look into the future to see what features Java could have in 2022, which is when Java 19 will be released, and compare it with the current state of Kotlin.</p>
 
 <h3 id="variable-type-inference">Variable Type Inference</h3>
-<p>Java 10 already has type inference for local variables although there are limitations to when you can replace the type with <code class="highlighter-rouge">var</code>.
+<p>Java 10 already has type inference for local variables although there are limitations to when you can replace the type with <code class="language-plaintext highlighter-rouge">var</code>.
 Kotlin has no such limitations.</p>
 
 <h3 id="local-functions">Local functions</h3>
@@ -1114,14 +1114,14 @@ Java is getting a similar feature, but without smart casting.</p>
 </code></pre></div></div>
 
 <p>You can extract the individual components of the class into local properties.
-You can also use this in a for each loop (<code class="highlighter-rouge">for ((name, age)) in people { }</code>) or on lambda arguments.</p>
+You can also use this in a for each loop (<code class="language-plaintext highlighter-rouge">for ((name, age)) in people { }</code>) or on lambda arguments.</p>
 
 <p>Java will also support destructuring in the future, although its usage might be restricted.</p>
 
 <h3 id="coroutines-1">Coroutines</h3>
 <p>Coroutines are a great feature of Kotlin, allowing lightweight asynchronous tasks without starting up new threads.
 Java might get a similar feature (virtual threads) in the distant future.
-They will take blocking methods (e.g. <code class="highlighter-rouge">Thread.sleep()</code>) and turn them into asynchronous methods.</p>
+They will take blocking methods (e.g. <code class="language-plaintext highlighter-rouge">Thread.sleep()</code>) and turn them into asynchronous methods.</p>
 
 <h3 id="the-end-of-kotlin">The end of Kotlin?</h3>
 <p>While Java might catch up on some features in the future, Kotlin will also evolve in the meantime.
@@ -1156,13 +1156,13 @@ Basically everything besides the UI, as it was always an important factor to hav
 
 <p><a href="https://github.com/JetBrains/Exposed" target="_blank" rel="noopener noreferrer">Exposed</a> allows you to have type-safe SQL and ORM.
 Initialize your database in an easy way and have it track your model to help you with migration scripts.
-You define entities that map to tables, for example <code class="highlighter-rouge">EUser</code>.</p>
+You define entities that map to tables, for example <code class="language-plaintext highlighter-rouge">EUser</code>.</p>
 
 <p><a href="https://ktor.io" target="_blank" rel="noopener noreferrer">Ktor</a> provides asynchronous servers and clients.
 It makes it easy to initialize and run a server from code.
-You specify routes in a simple way based on a path and a <code class="highlighter-rouge">suspend</code> code block.
+You specify routes in a simple way based on a path and a <code class="language-plaintext highlighter-rouge">suspend</code> code block.
 There is also WebSocket support.
-The <code class="highlighter-rouge">onConnect</code>, <code class="highlighter-rouge">onMessage</code>, <code class="highlighter-rouge">onClose</code> and <code class="highlighter-rouge">onError</code> are all implemented in a single flow thanks to Coroutines instead of having to implement separate methods.</p>
+The <code class="language-plaintext highlighter-rouge">onConnect</code>, <code class="language-plaintext highlighter-rouge">onMessage</code>, <code class="language-plaintext highlighter-rouge">onClose</code> and <code class="language-plaintext highlighter-rouge">onError</code> are all implemented in a single flow thanks to Coroutines instead of having to implement separate methods.</p>
 
 <h3 id="kotlin-full-stack">Kotlin full-stack</h3>
 <p>Having a Kotlin full-stack architecture makes it easy to check for usages to find dead pieces of code.
@@ -1170,12 +1170,12 @@ Within Space there is an administrator playground API to play around with things
 OpenAPI (Swagger) JSON is generated in case you want to use something else other than Kotlin.</p>
 
 <p>JetBrains has a GitHub repository <a href="https://github.com/JetBrains/kotlin-wrappers" target="_blank" rel="noopener noreferrer">kotlin-wrapper</a> that contains a bunch of Kotlin wrapper for popular JavaScript frameworks.
-<code class="highlighter-rouge">kotlin-react</code>, <code class="highlighter-rouge">kotlin-css</code> and <code class="highlighter-rouge">kotlin-styled</code> are used:</p>
+<code class="language-plaintext highlighter-rouge">kotlin-react</code>, <code class="language-plaintext highlighter-rouge">kotlin-css</code> and <code class="language-plaintext highlighter-rouge">kotlin-styled</code> are used:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">kotlin-react</code>: inherit from components and implementing a render function.</li>
-  <li><code class="highlighter-rouge">kotlin-styled</code>: a Kotlin DSL for styled components.</li>
-  <li><code class="highlighter-rouge">kotlin-css</code>: offers type-safe CSS declarations.</li>
+  <li><code class="language-plaintext highlighter-rouge">kotlin-react</code>: inherit from components and implementing a render function.</li>
+  <li><code class="language-plaintext highlighter-rouge">kotlin-styled</code>: a Kotlin DSL for styled components.</li>
+  <li><code class="language-plaintext highlighter-rouge">kotlin-css</code>: offers type-safe CSS declarations.</li>
 </ul>
 
 <h3 id="testing">Testing</h3>
@@ -1225,30 +1225,30 @@ The fruits of her labor proved successful as she was able to port her 60+ Androi
 
 <p>There are two ways how Ana used shared code for leveraging platform specific APIs.
 One way is to make an interface in Kotlin/Native and implement it separately for each platform.
-The preferred way is to make use of <code class="highlighter-rouge">expect</code> and <code class="highlighter-rouge">actual</code> to call the native APIs from Kotlin.
+The preferred way is to make use of <code class="language-plaintext highlighter-rouge">expect</code> and <code class="language-plaintext highlighter-rouge">actual</code> to call the native APIs from Kotlin.
 This way you don’t need to write a wrapper for functionality that is already supported.
 This method was used for implementing drawing images, playing sound, fonts and transformations.</p>
 
 <p><img class="image fit" src="/img/kotlinconf-2019/going_native_2_two_ways.jpg" alt="Two ways of sharing code" /></p>
 
 <p>Since the back button works differently in Android and iOS, she had to fall back on using an interface.
-The back button exits the game and returns to the <code class="highlighter-rouge">View</code> or <code class="highlighter-rouge">Activity</code> in Android or the <code class="highlighter-rouge">Controller</code> in iOS to clear everything up.
-In the code of her game she then just has to write <code class="highlighter-rouge">gameplayer.back()</code> which will call the correct implementation depending on the platform.
+The back button exits the game and returns to the <code class="language-plaintext highlighter-rouge">View</code> or <code class="language-plaintext highlighter-rouge">Activity</code> in Android or the <code class="language-plaintext highlighter-rouge">Controller</code> in iOS to clear everything up.
+In the code of her game she then just has to write <code class="language-plaintext highlighter-rouge">gameplayer.back()</code> which will call the correct implementation depending on the platform.
 She then stumbled on memory leaks in iOS because of a cyclic reference.
 This was easily solved using a weak reference.</p>
 
 <p>In the process of porting her 60+ games to Kotlin she learned some valuable lessons.</p>
 <ol>
   <li>Don’t use mutable objects<br />
-Using a mutable Singleton, like the <code class="highlighter-rouge">SoundManager</code> from the example, led to threading issues as only immutable objects can be shared among threads.</li>
-  <li>Use <code class="highlighter-rouge">List</code> instead of <code class="highlighter-rouge">Array</code><br />
-This is because the <code class="highlighter-rouge">Array</code> in Swift works like a <code class="highlighter-rouge">List</code>.
-So wherever Kotlin code is called from Swift code, it’s better to use <code class="highlighter-rouge">List</code> instead.</li>
+Using a mutable Singleton, like the <code class="language-plaintext highlighter-rouge">SoundManager</code> from the example, led to threading issues as only immutable objects can be shared among threads.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">List</code> instead of <code class="language-plaintext highlighter-rouge">Array</code><br />
+This is because the <code class="language-plaintext highlighter-rouge">Array</code> in Swift works like a <code class="language-plaintext highlighter-rouge">List</code>.
+So wherever Kotlin code is called from Swift code, it’s better to use <code class="language-plaintext highlighter-rouge">List</code> instead.</li>
   <li>Initialization order<br />
-Something strange happens with parent-child classes where the parent uses a function to initialize the child in an <code class="highlighter-rouge">init</code> block which the child overrides and sets a property of the child class.
+Something strange happens with parent-child classes where the parent uses a function to initialize the child in an <code class="language-plaintext highlighter-rouge">init</code> block which the child overrides and sets a property of the child class.
 Ana discovered a situation where a property is overridden as expected in Android but not on iOS.
 This was caused by the initializations of the child class being run in a different order.
-She recommends not creating child classes this way and to just use the <code class="highlighter-rouge">init</code> blocks for initialization.
+She recommends not creating child classes this way and to just use the <code class="language-plaintext highlighter-rouge">init</code> blocks for initialization.
 Because she already had a lot of code written in the above way, she opted to just move the property from the child class to the parent class.</li>
 </ol>
 

@@ -221,7 +221,7 @@ This serves as the multi-platform app container which allows us to write what is
   <li>TensorFlow.js: <br />
 This is the machine learning library used to run the model for object detection.</li>
   <li>CoCo Dataset: <br />
-Stands for <code class="highlighter-rouge">Common Objects in Context</code> and is a very large, highly curated dataset of images which have been annotated with one or more of 90 classes.
+Stands for <code class="language-plaintext highlighter-rouge">Common Objects in Context</code> and is a very large, highly curated dataset of images which have been annotated with one or more of 90 classes.
     <ul>
       <li>CoCo-SSD: <br />
 A default implementation by TensorFlow itself utilizing an SSD detector (Single Shot MultiBox Detection).
@@ -237,7 +237,7 @@ Needed for npm and building the demo app, Electron also provides the option to u
 <h2 id="setup">Setup</h2>
 
 <p>The demo app uses Electron as the main ‘framework’.
-The setup for the application is pretty simple, there are just a few dependencies in the <code class="highlighter-rouge">package.json</code>:</p>
+The setup for the application is pretty simple, there are just a few dependencies in the <code class="language-plaintext highlighter-rouge">package.json</code>:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"engines"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"node"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&gt;=12.13.0"</span><span class="w">
@@ -252,7 +252,7 @@ The setup for the application is pretty simple, there are just a few dependencie
   </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<p>The main entry point for the application is just under the <code class="highlighter-rouge">src</code> folder of the root folder of the project.</p>
+<p>The main entry point for the application is just under the <code class="language-plaintext highlighter-rouge">src</code> folder of the root folder of the project.</p>
 
 <p>The bootstrapping code is also very simple:</p>
 
@@ -274,13 +274,13 @@ The setup for the application is pretty simple, there are just a few dependencie
 <span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">ready</span><span class="dl">'</span><span class="p">,</span> <span class="nx">createWindow</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>We import the <code class="highlighter-rouge">app</code> and <code class="highlighter-rouge">BrowserWindow</code> and create a function that creates a new instance of the <code class="highlighter-rouge">BrowserWindow</code> class.
+<p>We import the <code class="language-plaintext highlighter-rouge">app</code> and <code class="language-plaintext highlighter-rouge">BrowserWindow</code> and create a function that creates a new instance of the <code class="language-plaintext highlighter-rouge">BrowserWindow</code> class.
 This instance specifies the configuration for the Electron app.
-We set the <code class="highlighter-rouge">width</code> and <code class="highlighter-rouge">height</code> and set the <code class="highlighter-rouge">nodeIntegration</code> to <code class="highlighter-rouge">true</code> so we can use the file system from within the browser code.
-We also tell the <code class="highlighter-rouge">BrowserWindow</code> instance to load a certain html resource.
-Finally we bind the <code class="highlighter-rouge">app</code> ready event to create the <code class="highlighter-rouge">BrowserWindow</code> instance.</p>
+We set the <code class="language-plaintext highlighter-rouge">width</code> and <code class="language-plaintext highlighter-rouge">height</code> and set the <code class="language-plaintext highlighter-rouge">nodeIntegration</code> to <code class="language-plaintext highlighter-rouge">true</code> so we can use the file system from within the browser code.
+We also tell the <code class="language-plaintext highlighter-rouge">BrowserWindow</code> instance to load a certain html resource.
+Finally we bind the <code class="language-plaintext highlighter-rouge">app</code> ready event to create the <code class="language-plaintext highlighter-rouge">BrowserWindow</code> instance.</p>
 
-<p>Additionally for debugging it can be handy to uncomment the line <code class="highlighter-rouge">win.webContents.openDevTools();</code> as that will open a Chrome DevTools window when the application launches.</p>
+<p>Additionally for debugging it can be handy to uncomment the line <code class="language-plaintext highlighter-rouge">win.webContents.openDevTools();</code> as that will open a Chrome DevTools window when the application launches.</p>
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="/img/2019-12-16-devoxx-demo/demo.jpg" data-lightbox="ui" data-title="Devoxx Demo">
@@ -326,10 +326,10 @@ Finally we bind the <code class="highlighter-rouge">app</code> ready event to cr
 This will be used to feed in the image data from the webcam.
 We also need to fetch a video stream from the webcam, in this example at 720P, as that’s the max resolution for my webcam.
 Please note that a higher resolution will require considerably more processing power.
-After we have a stream, we fetch the <code class="highlighter-rouge">video</code> tag from the page, assign the stream to it and let it play.
+After we have a stream, we fetch the <code class="language-plaintext highlighter-rouge">video</code> tag from the page, assign the stream to it and let it play.
 We also get our canvas in which we will display the actual video output, the video tag itself is hidden.
 The canvas allows us to annotate the image with a bounding box and some extra information about the detected objects.
-Finally we call the <code class="highlighter-rouge">update</code> method which will be called for each update.</p>
+Finally we call the <code class="language-plaintext highlighter-rouge">update</code> method which will be called for each update.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">video</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">detector</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">context</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">video</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
@@ -350,7 +350,7 @@ This returns an array of detected classes which contain the type of objects, the
 That information is fed to a utility method that will annotate the canvas with a red rectangle with the coordinates of the bounding and the type of object with its score.
 The update function will be called again with a very basic (and very limited) framerate timeout.</p>
 
-<p>There is other code, mainly in the <code class="highlighter-rouge">coco</code> folder which is mostly taken from the <a href="https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd" target="_blank" rel="noopener noreferrer">default google implementation</a> and modified to match the needs of this application.
+<p>There is other code, mainly in the <code class="language-plaintext highlighter-rouge">coco</code> folder which is mostly taken from the <a href="https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd" target="_blank" rel="noopener noreferrer">default google implementation</a> and modified to match the needs of this application.
 One thing worth noting is the changes required to a small piece of code to make the model work faster by allowing it to work asynchronously:</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="p">[</span><span class="nx">maxScores</span><span class="p">,</span> <span class="nx">classes</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateMaxScores</span><span class="p">(</span><span class="nx">scores</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 
@@ -377,7 +377,7 @@ One thing worth noting is the changes required to a small piece of code to make 
     <span class="nx">indexTensor</span><span class="p">.</span><span class="nx">dispose</span><span class="p">();</span>
 </code></pre></div></div>
 
-<p>Because the <code class="highlighter-rouge">tf.image.nonMaxSuppressionAsync</code>returns a <code class="highlighter-rouge">Promise</code> the replacement is not as simple as just replacing the method call to the async variant.
+<p>Because the <code class="language-plaintext highlighter-rouge">tf.image.nonMaxSuppressionAsync</code>returns a <code class="language-plaintext highlighter-rouge">Promise</code> the replacement is not as simple as just replacing the method call to the async variant.
 This however is the only big change that needs to be done (apart from changing some dependencies) to get the application working with full WebGL acceleration.</p>
 
 <p>The application is actually really simple and very easy to understand and tinker with. I strongly encourage you to check out the repo and have a go at getting it up and running by yourself.

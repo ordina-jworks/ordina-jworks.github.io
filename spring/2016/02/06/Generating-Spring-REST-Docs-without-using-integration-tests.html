@@ -223,7 +223,7 @@ For some undisclosed reasons we simply couldn’t write integration tests, so we
 <p><br />
 Since this is a Spring Boot application both classes will automagically be instantiated.
 Because you need to annotate your unit tests at class level with <strong>@WebAppConfiguration</strong> and <strong>@SpringApplicationConfiguration</strong>, we can easily create a new Spring Boot application and use this for our documentation.
-In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our <code class="highlighter-rouge">DeviceService</code>.</p>
+In this new application we set the base package that needs to be scanned to our controller sub package, and create a mock implementation of our <code class="language-plaintext highlighter-rouge">DeviceService</code>.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@SpringBootApplication</span><span class="o">(</span><span class="n">scanBasePackages</span> <span class="o">=</span> <span class="o">{</span> <span class="s">"be.ordina.blog.controller"</span> <span class="o">}</span> <span class="o">)</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
@@ -236,7 +236,7 @@ In this new application we set the base package that needs to be scanned to our 
     </code></pre></figure>
 
 <p><br />
-Our <code class="highlighter-rouge">DeviceControllerTests</code> class will then look something like this:</p>
+Our <code class="language-plaintext highlighter-rouge">DeviceControllerTests</code> class will then look something like this:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@RunWith</span><span class="o">(</span><span class="nc">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
     <span class="nd">@SpringApplicationConfiguration</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="o">{</span> <span class="nc">Application</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>

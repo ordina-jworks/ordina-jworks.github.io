@@ -237,7 +237,7 @@ We have chosen for Keycloak because <a href="https://github.com/keycloak/keycloa
 For non-production purposes, it’s easiest to just <a href="https://www.keycloak.org/downloads.html" target="_blank" rel="noopener noreferrer">download</a> and run the standalone, which we will do here. 
 For actual deployments that are going to be run in production you’ll need to configure a shared database for Keycloak storage and set up Keycloak to run in a cluster to avoid a <a href="https://en.wikipedia.org/wiki/Single_point_of_failure" target="_blank" rel="noopener noreferrer">single point of failure</a>.</p>
 
-<p>At the time of writing, the latest release version was <code class="highlighter-rouge">6.0.1</code>.</p>
+<p>At the time of writing, the latest release version was <code class="language-plaintext highlighter-rouge">6.0.1</code>.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl https://downloads.jboss.org/keycloak/6.0.1/keycloak-6.0.1.zip <span class="nt">--output</span> keycloak-6.0.1.zip
 <span class="nv">$ </span>unzip keycloak-6.0.1.zip
@@ -246,18 +246,18 @@ For actual deployments that are going to be run in production you’ll need to c
 </code></pre></div></div>
 
 <blockquote>
-  <p>For Windows users, there is also a <code class="highlighter-rouge">standalone.bat</code> in the same folder.</p>
+  <p>For Windows users, there is also a <code class="language-plaintext highlighter-rouge">standalone.bat</code> in the same folder.</p>
 </blockquote>
 
 <p>The Keycloak server is now running on port 8080.</p>
 
 <blockquote>
-  <p>Use <code class="highlighter-rouge">-Djboss.socket.binding.port-offset</code> to change the port.<br />
-<code class="highlighter-rouge">-Djboss.socket.binding.port-offset=1000</code> will run the server on port 8080 + 1000 = 9080</p>
+  <p>Use <code class="language-plaintext highlighter-rouge">-Djboss.socket.binding.port-offset</code> to change the port.<br />
+<code class="language-plaintext highlighter-rouge">-Djboss.socket.binding.port-offset=1000</code> will run the server on port 8080 + 1000 = 9080</p>
 </blockquote>
 
 <p>Go to <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a> and create an administrator account.
-You can now click on <code class="highlighter-rouge">Administration Console &gt;</code> and log in using the account you’ve just created.</p>
+You can now click on <code class="language-plaintext highlighter-rouge">Administration Console &gt;</code> and log in using the account you’ve just created.</p>
 
 <p>You are now on the pre-defined Master realm. A realm manages a set of users, credentials, roles, and groups. 
 A user belongs to and logs into a realm and they are isolated from one another and can only manage and authenticate the users that they control.</p>
@@ -278,7 +278,7 @@ It’s best to create a new realm to manage our application and users.</p>
     <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_realm_2.png" alt="" width="60%" />
 </div>
 
-<p>In this example, <code class="highlighter-rouge">heroes</code> is chosen as the name of the realm.
+<p>In this example, <code class="language-plaintext highlighter-rouge">heroes</code> is chosen as the name of the realm.
 Feel free to change this to the name of your organisation if you have one.</p>
 
 <h2 id="creating-a-client">Creating a Client</h2>
@@ -286,9 +286,9 @@ Feel free to change this to the name of your organisation if you have one.</p>
 <p>Every application that interacts with Keycloak is considered to be a client.<br />
 Let’s create one for the <a href="https://en.wikipedia.org/wiki/Single-page_application" target="_blank" rel="noopener noreferrer">Single-Page App</a> (SPA).</p>
 
-<p>Look for the <code class="highlighter-rouge">Clients</code> tab in the menu and hit <code class="highlighter-rouge">Create</code>.<br />
+<p>Look for the <code class="language-plaintext highlighter-rouge">Clients</code> tab in the menu and hit <code class="language-plaintext highlighter-rouge">Create</code>.<br />
 Pick a name you think is suitable and choose <a href="https://openid.net/connect/">OpenID Connect</a> (OIDC) as protocol.<br />
-The <code class="highlighter-rouge">Root URL</code> can remain blank.</p>
+The <code class="language-plaintext highlighter-rouge">Root URL</code> can remain blank.</p>
 
 <div style="text-align: center;">
   <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_client.png" alt="" width="50%" />
@@ -296,10 +296,10 @@ The <code class="highlighter-rouge">Root URL</code> can remain blank.</p>
 
 <p>After saving, we can see all the configuration options of the client.</p>
 <ul>
-  <li><code class="highlighter-rouge">Valid Redirect URIs</code> should be set to <code class="highlighter-rouge">http://localhost:4200/*</code> as this is the address of our SPA</li>
+  <li><code class="language-plaintext highlighter-rouge">Valid Redirect URIs</code> should be set to <code class="language-plaintext highlighter-rouge">http://localhost:4200/*</code> as this is the address of our SPA</li>
   <li>Allow all origins for testing purposes</li>
-  <li>Single-page apps use a <code class="highlighter-rouge">public client</code> because they can not securely hide client credentials</li>
-  <li>Make sure the <code class="highlighter-rouge">Standard Flow</code> is enabled. All other flows can be disabled</li>
+  <li>Single-page apps use a <code class="language-plaintext highlighter-rouge">public client</code> because they can not securely hide client credentials</li>
+  <li>Make sure the <code class="language-plaintext highlighter-rouge">Standard Flow</code> is enabled. All other flows can be disabled</li>
 </ul>
 
 <div style="text-align: center;">
@@ -311,31 +311,31 @@ The <code class="highlighter-rouge">Root URL</code> can remain blank.</p>
 </blockquote>
 
 <blockquote>
-  <p><code class="highlighter-rouge">Direct Access Grants Enabled</code> may remain enabled for now. It will be easy to test our configuration later.</p>
+  <p><code class="language-plaintext highlighter-rouge">Direct Access Grants Enabled</code> may remain enabled for now. It will be easy to test our configuration later.</p>
 </blockquote>
 
-<p>Don’t forget to hit <code class="highlighter-rouge">Save</code> at the bottom of the form!</p>
+<p>Don’t forget to hit <code class="language-plaintext highlighter-rouge">Save</code> at the bottom of the form!</p>
 
 <h2 id="creating-roles-and-scopes">Creating Roles and Scopes</h2>
 <p>Roles and scopes can be used to provide fine-grained access control to resources. 
 We want them to be present when handling requests with our Spring Boot application. 
 This part is optional, but can provide better insight in managing access to resources down the road.</p>
 
-<p>Under <code class="highlighter-rouge">Roles</code> &gt; <code class="highlighter-rouge">Add Role</code>, enter any name you like. 
+<p>Under <code class="language-plaintext highlighter-rouge">Roles</code> &gt; <code class="language-plaintext highlighter-rouge">Add Role</code>, enter any name you like. 
 Some standard roles are typically user or admin.</p>
 
 <div style="text-align: center;">
   <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_role.png" alt="" width="80%" />
 </div>
 
-<p>A scope is created in a similar way under <code class="highlighter-rouge">Client Scopes</code> &gt; <code class="highlighter-rouge">Create</code>.<br />
+<p>A scope is created in a similar way under <code class="language-plaintext highlighter-rouge">Client Scopes</code> &gt; <code class="language-plaintext highlighter-rouge">Create</code>.<br />
 We will not show a consent screen, so you can uncheck this option.</p>
 
 <div style="text-align: center;">
   <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_scope.png" alt="" width="80%" />
 </div>
 
-<p>Now add the scope to the client we created earlier under <code class="highlighter-rouge">Clients</code> &gt; <code class="highlighter-rouge">Client Scopes</code>.</p>
+<p>Now add the scope to the client we created earlier under <code class="language-plaintext highlighter-rouge">Clients</code> &gt; <code class="language-plaintext highlighter-rouge">Client Scopes</code>.</p>
 
 <div style="text-align: center;">
   <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/assign_scope.png" alt="" width="80%" />
@@ -348,13 +348,13 @@ We will not show a consent screen, so you can uncheck this option.</p>
 In most corporate environments, users are stored in Active Directory (AD) or LDAP.
 Keycloak can connect to both AD and LDAP but for our example, we will simply create a user in Keycloak itself.</p>
 
-<p>Search for the <code class="highlighter-rouge">Users</code> tab in the menu on the left and click <code class="highlighter-rouge">Add User</code>.</p>
+<p>Search for the <code class="language-plaintext highlighter-rouge">Users</code> tab in the menu on the left and click <code class="language-plaintext highlighter-rouge">Add User</code>.</p>
 
 <div style="text-align: center;">
   <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/create_user.png" alt="" width="60%" />
 </div>
 
-<p>Check <code class="highlighter-rouge">Email Verified</code> as we do not have email configured on our Keycloak server.<br />
+<p>Check <code class="language-plaintext highlighter-rouge">Email Verified</code> as we do not have email configured on our Keycloak server.<br />
 After creation, you still have to set a password.
 Go to the Credentials tab and enter a new one.</p>
 
@@ -366,7 +366,7 @@ Go to the Credentials tab and enter a new one.</p>
   <p>Make sure the password is not a temporary one.</p>
 </blockquote>
 
-<p>If you created a new role in the previous section, you can assign it to your user under the <code class="highlighter-rouge">Role Mappings</code> tab.</p>
+<p>If you created a new role in the previous section, you can assign it to your user under the <code class="language-plaintext highlighter-rouge">Role Mappings</code> tab.</p>
 
 <p>That’s all for the Keycloak part.
 Now let’s look at some applications to secure.</p>
@@ -381,8 +381,8 @@ Now let’s look at some applications to secure.</p>
 
 <h2 id="spring-boot-back-end">Spring Boot Back End</h2>
 
-<p>You can clone the base setup <a href="https://github.com/jmeys/heroes-api" target="_blank" rel="noopener noreferrer">here</a> and switch to the <code class="highlighter-rouge">unsecured</code> branch.
-It is a very simple application which serves some heroes on <code class="highlighter-rouge">/api/heroes</code> and <code class="highlighter-rouge">/api/heroes/{id}</code> on port 9090.</p>
+<p>You can clone the base setup <a href="https://github.com/jmeys/heroes-api" target="_blank" rel="noopener noreferrer">here</a> and switch to the <code class="language-plaintext highlighter-rouge">unsecured</code> branch.
+It is a very simple application which serves some heroes on <code class="language-plaintext highlighter-rouge">/api/heroes</code> and <code class="language-plaintext highlighter-rouge">/api/heroes/{id}</code> on port 9090.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.CrossOrigin</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
@@ -429,7 +429,7 @@ It is a very simple application which serves some heroes on <code class="highlig
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>For this example, every application may request these resources, hence the <code class="highlighter-rouge">@CrossOrigin("*")</code>.
+<p>For this example, every application may request these resources, hence the <code class="language-plaintext highlighter-rouge">@CrossOrigin("*")</code>.
 Open the project in your favourite IDE and run it. 
 The application will run on port 9090.</p>
 
@@ -448,7 +448,7 @@ And most importantly, it’s kept up to date with the latest version of Angular.
 </code></pre></div></div>
 
 <p>The example app uses an in-memory service to return some heroes. 
-Since you’ll want to serve them from Spring Boot instead, change the url in <code class="highlighter-rouge">hero.service.ts</code> from <code class="highlighter-rouge">"api/heroes"</code> into <code class="highlighter-rouge">"http://localhost:9090/api/heroes"</code>.</p>
+Since you’ll want to serve them from Spring Boot instead, change the url in <code class="language-plaintext highlighter-rouge">hero.service.ts</code> from <code class="language-plaintext highlighter-rouge">"api/heroes"</code> into <code class="language-plaintext highlighter-rouge">"http://localhost:9090/api/heroes"</code>.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
 
@@ -457,7 +457,7 @@ Since you’ll want to serve them from Spring Boot instead, change the url in <c
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>It will still try to fetch preloaded heroes from memory, so delete the <code class="highlighter-rouge">HttpClientInMemoryWebApiModule</code> from <code class="highlighter-rouge">app.module.ts</code>.</p>
+<p>It will still try to fetch preloaded heroes from memory, so delete the <code class="language-plaintext highlighter-rouge">HttpClientInMemoryWebApiModule</code> from <code class="language-plaintext highlighter-rouge">app.module.ts</code>.</p>
 
 <p>Now you can run the application with</p>
 
@@ -502,17 +502,17 @@ This is well-explained by <a href="https://twitter.com/nbarbettini" target="_bla
 It is already in use for native and mobile clients. 
 PKCE boils down to this:</p>
 <ol>
-  <li>Give <code class="highlighter-rouge">hash</code> of random value to authorization server when logging in to ask for <code class="highlighter-rouge">code</code></li>
-  <li>Hand over the <code class="highlighter-rouge">random value</code> to authorization server when exchanging <code class="highlighter-rouge">code</code> for <code class="highlighter-rouge">access token</code></li>
-  <li>Authorization server returns <code class="highlighter-rouge">access token</code> after verifying that <code class="highlighter-rouge">hash</code> belongs to <code class="highlighter-rouge">random value</code>.</li>
+  <li>Give <code class="language-plaintext highlighter-rouge">hash</code> of random value to authorization server when logging in to ask for <code class="language-plaintext highlighter-rouge">code</code></li>
+  <li>Hand over the <code class="language-plaintext highlighter-rouge">random value</code> to authorization server when exchanging <code class="language-plaintext highlighter-rouge">code</code> for <code class="language-plaintext highlighter-rouge">access token</code></li>
+  <li>Authorization server returns <code class="language-plaintext highlighter-rouge">access token</code> after verifying that <code class="language-plaintext highlighter-rouge">hash</code> belongs to <code class="language-plaintext highlighter-rouge">random value</code>.</li>
 </ol>
 
 <div style="text-align: center;">
   <img class="image fit-contain" src="/img/securing-web-applications-with-keycloak/pkce.png" alt="" width="70%" />
 </div>
 
-<p>If a fraudster were to intercept our authorization grant (the code), he or she would still not have the <code class="highlighter-rouge">code_verifier</code>, which is stored in our SPA client. 
-If he/she tries to exchange the stolen authorization grant without this value, the response would not be a token but rather an <code class="highlighter-rouge">HTTP 400</code>:</p>
+<p>If a fraudster were to intercept our authorization grant (the code), he or she would still not have the <code class="language-plaintext highlighter-rouge">code_verifier</code>, which is stored in our SPA client. 
+If he/she tries to exchange the stolen authorization grant without this value, the response would not be a token but rather an <code class="language-plaintext highlighter-rouge">HTTP 400</code>:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid_grant"</span><span class="p">,</span><span class="w">
@@ -521,7 +521,7 @@ If he/she tries to exchange the stolen authorization grant without this value, t
 </span></code></pre></div></div>
 
 <p>This is why the code flow + PKCE is more secure than the implicit flow. 
-Even if an attacker manages to obtain the authorization grant, it’s worthless without the <code class="highlighter-rouge">code_verifier</code>.</p>
+Even if an attacker manages to obtain the authorization grant, it’s worthless without the <code class="language-plaintext highlighter-rouge">code_verifier</code>.</p>
 
 <blockquote>
   <p>Note that the HTTP 400 will only occur when using PKCE. 
@@ -537,20 +537,20 @@ What this means is that it’s a special kind of object which has some data in i
 <p>In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">Header</code>:  the type of the token and the signing algorithm being used</li>
-  <li><code class="highlighter-rouge">Payload</code>: the payload, which contains the claims and additional data</li>
-  <li><code class="highlighter-rouge">Signature</code>: to verify if the token was not tampered with</li>
+  <li><code class="language-plaintext highlighter-rouge">Header</code>:  the type of the token and the signing algorithm being used</li>
+  <li><code class="language-plaintext highlighter-rouge">Payload</code>: the payload, which contains the claims and additional data</li>
+  <li><code class="language-plaintext highlighter-rouge">Signature</code>: to verify if the token was not tampered with</li>
 </ul>
 
 <p>Therefore, a JWT typically looks like the following:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xxxxx.yyyyy.zzzzz
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xxxxx.yyyyy.zzzzz
 </code></pre></div></div>
 
 <p>The header (xxx) and payload (yyy) are base64 encoded. 
 An access token is a good example of a JWT:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkdE9JZkY2NGZRYnlwWVRFdGV2eV83NUdIWTdQMmNHU1o2a2ZXWDdFblBJIn0.eyJqdGkiOiIxY2EzZTZkYS1kM2Y2LTRiYTMtYjNjZC1iMDExYmRlM2JmNmIiLCJleHAiOjE1NjYzMjk1NTYsIm5iZiI6MCwiaWF0IjoxNTY2MzI5MjU2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvaGVyb2VzIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjBkNjg0OWI4LWUyZmEtNGU3My04NjlhLTE1ZDVhOTE1YzdhMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InNwYS1oZXJvZXMiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiI4NWRjYTg0Ny00YmQzLTRiOTUtOTNiYy01MjE5ZjUzYWNiMzciLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBoZXJvZXMgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmVyb2VuIE1leXMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqZXJvZW4iLCJnaXZlbl9uYW1lIjoiSmVyb2VuIiwiZmFtaWx5X25hbWUiOiJNZXlzIiwiZW1haWwiOiJtZUBhY21lLmJlIn0.cvn79d-n0aFYqDB3p-htDNeeYOdkvqEsmDhGKp9V3a4i6nJx7dU0_r7zicQe26ZgDsM65ILx_X-buWv-e5_eraFo1OOveCGtBbrrLwrQ0Z7SlVMHJrDooJrLEE_m8Qlz_-iLcEC2-ODroEwyLRej_Du626B48QL2bcq-8ADqGSaLf7Y4ZTVMiP_p6dsCi4GDQLq1WOy-g6--z47FKTJVuAl2yY_JNNuEd5aofw0FTE38EoEinIdcy5NXCXDhtGHr_k5lA2Swu4JvK84YB6usECigCb1_zO_c6LhZQkRTCcCojxC6Qn1trQH9epcFEKTkDCHrNf6BLp4X9rH2URWJcA
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkdE9JZkY2NGZRYnlwWVRFdGV2eV83NUdIWTdQMmNHU1o2a2ZXWDdFblBJIn0.eyJqdGkiOiIxY2EzZTZkYS1kM2Y2LTRiYTMtYjNjZC1iMDExYmRlM2JmNmIiLCJleHAiOjE1NjYzMjk1NTYsIm5iZiI6MCwiaWF0IjoxNTY2MzI5MjU2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvaGVyb2VzIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjBkNjg0OWI4LWUyZmEtNGU3My04NjlhLTE1ZDVhOTE1YzdhMiIsInR5cCI6IkJlYXJlciIsImF6cCI6InNwYS1oZXJvZXMiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiI4NWRjYTg0Ny00YmQzLTRiOTUtOTNiYy01MjE5ZjUzYWNiMzciLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBoZXJvZXMgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmVyb2VuIE1leXMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqZXJvZW4iLCJnaXZlbl9uYW1lIjoiSmVyb2VuIiwiZmFtaWx5X25hbWUiOiJNZXlzIiwiZW1haWwiOiJtZUBhY21lLmJlIn0.cvn79d-n0aFYqDB3p-htDNeeYOdkvqEsmDhGKp9V3a4i6nJx7dU0_r7zicQe26ZgDsM65ILx_X-buWv-e5_eraFo1OOveCGtBbrrLwrQ0Z7SlVMHJrDooJrLEE_m8Qlz_-iLcEC2-ODroEwyLRej_Du626B48QL2bcq-8ADqGSaLf7Y4ZTVMiP_p6dsCi4GDQLq1WOy-g6--z47FKTJVuAl2yY_JNNuEd5aofw0FTE38EoEinIdcy5NXCXDhtGHr_k5lA2Swu4JvK84YB6usECigCb1_zO_c6LhZQkRTCcCojxC6Qn1trQH9epcFEKTkDCHrNf6BLp4X9rH2URWJcA
 </code></pre></div></div>
 
 <p>We can easily decode them using online tools like <a href="https://jwt.io/" target="_blank" rel="noopener noreferrer">jwt.io</a>.</p>
@@ -563,7 +563,7 @@ An access token is a good example of a JWT:</p>
 Since our tokens are used for OAuth and OIDC, they have all kinds of claims, which are key-value statements about an entity. 
 You can compare this to something like a coupon. A coupon has claims about how much it is worth, which product(s) it applies to and when it expires.</p>
 
-<p>In our example token there is a claim that <code class="highlighter-rouge">name</code> is <code class="highlighter-rouge">Jeroen Meys</code> and also that <code class="highlighter-rouge">scope</code> is <code class="highlighter-rouge">email profile heroes</code>. 
+<p>In our example token there is a claim that <code class="language-plaintext highlighter-rouge">name</code> is <code class="language-plaintext highlighter-rouge">Jeroen Meys</code> and also that <code class="language-plaintext highlighter-rouge">scope</code> is <code class="language-plaintext highlighter-rouge">email profile heroes</code>. 
 This scope claim means we can use this token to know my email, some profile info and whatever heroes is needed for (hint: keep on reading to find out!). 
 If you are interested in other JWT use-cases, you should definitely give <a href="https://ordina-jworks.github.io/microservices/2016/05/01/Using-JWT-Tokens-for-State-Transfer.html" target="_blank" rel="noopener noreferrer">Using JWT for State Transfer</a> a read.</p>
 
@@ -588,7 +588,7 @@ The de facto standard for securing Spring Boot applications is Spring Boot Secur
 It has resource server support, so this is what we’ll be using.</p>
 
 <h3 id="resource-server-imports">Resource Server Imports</h3>
-<p>Let’s add the dependecies to our <code class="highlighter-rouge">build.gradle</code> file:</p>
+<p>Let’s add the dependecies to our <code class="language-plaintext highlighter-rouge">build.gradle</code> file:</p>
 
 <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">dependencies</span> <span class="o">{</span>
 	<span class="o">...</span>
@@ -599,9 +599,9 @@ It has resource server support, so this is what we’ll be using.</p>
 </code></pre></div></div>
 
 <ul>
-  <li><code class="highlighter-rouge">spring-boot-starter-security</code>: starter dependency for Spring Security</li>
-  <li><code class="highlighter-rouge">spring-security-oauth2-resource-server</code>: dependency to use our application as a Resource Server</li>
-  <li><code class="highlighter-rouge">spring-security-oauth2-jose</code>: support for the Javascript Object Signing and Encryption framework</li>
+  <li><code class="language-plaintext highlighter-rouge">spring-boot-starter-security</code>: starter dependency for Spring Security</li>
+  <li><code class="language-plaintext highlighter-rouge">spring-security-oauth2-resource-server</code>: dependency to use our application as a Resource Server</li>
+  <li><code class="language-plaintext highlighter-rouge">spring-security-oauth2-jose</code>: support for the Javascript Object Signing and Encryption framework</li>
 </ul>
 
 <h3 id="configuration-of-the-resource-server">Configuration of the Resource Server</h3>
@@ -628,12 +628,12 @@ It has resource server support, so this is what we’ll be using.</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>With these few lines of code, a lot is happening. We told Spring Security that all endpoints are forbidden, except for <code class="highlighter-rouge">/api/heroes/**</code> when the heroes scope is present. This will be checked against the JWT access token.</p>
+<p>With these few lines of code, a lot is happening. We told Spring Security that all endpoints are forbidden, except for <code class="language-plaintext highlighter-rouge">/api/heroes/**</code> when the heroes scope is present. This will be checked against the JWT access token.</p>
 
-<p>The <code class="highlighter-rouge">oauth2ResourceServer()</code> sets up the application as a resource server. It will check if there is an access token on every request and whether it is valid or not. 
+<p>The <code class="language-plaintext highlighter-rouge">oauth2ResourceServer()</code> sets up the application as a resource server. It will check if there is an access token on every request and whether it is valid or not. 
 In order to verify that a token hasn’t been tampered with, we need some information from Keycloak, which it exposes via a REST endpoint.</p>
 
-<p>We add the endpoint to our <code class="highlighter-rouge">application.properties</code>:</p>
+<p>We add the endpoint to our <code class="language-plaintext highlighter-rouge">application.properties</code>:</p>
 
 <div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">server.port</span><span class="p">=</span><span class="s">9090</span>
 <span class="py">spring.security.oauth2.resourceserver.jwt.jwk-set-uri</span><span class="p">=</span><span class="s">http://localhost:8080/auth/realms/heroes/protocol/openid-connect/certs</span>
@@ -702,7 +702,7 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
 
 <p>When we now look at our Tour Of Heroes application again, it’s complaining a bit:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HeroService: getHeroes failed: Http failure response for http://localhost:9090/api/heroes: 401 OK
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HeroService: getHeroes failed: Http failure response for http://localhost:9090/api/heroes: 401 OK
 </code></pre></div></div>
 
 <p>We didn’t log in (HTTP 401), so we can’t see the content. Time to fix it!</p>
@@ -714,7 +714,7 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>npm i angular-oauth2-oidc <span class="nt">--save</span>
 </code></pre></div></div>
 
-<p>Then add it to the imports of <code class="highlighter-rouge">app.module.ts</code></p>
+<p>Then add it to the imports of <code class="language-plaintext highlighter-rouge">app.module.ts</code></p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">HttpClientModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/common/http</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">OAuthModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
@@ -731,9 +731,9 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
   <span class="p">})</span>
 </code></pre></div></div>
 
-<p>Notice how we configure <code class="highlighter-rouge">localhost:9090/api</code> to be the only URL where we will send our access token to.</p>
+<p>Notice how we configure <code class="language-plaintext highlighter-rouge">localhost:9090/api</code> to be the only URL where we will send our access token to.</p>
 
-<p>Next up, let’s add log in and log out buttons in <code class="highlighter-rouge">app.component.html</code>.</p>
+<p>Next up, let’s add log in and log out buttons in <code class="language-plaintext highlighter-rouge">app.component.html</code>.</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-default"</span> <span class="na">(click)=</span><span class="s">"login()"</span><span class="nt">&gt;</span>
   Login
@@ -743,7 +743,7 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
 <span class="nt">&lt;/button&gt;</span>
 </code></pre></div></div>
 
-<p>Now all there is left to do is to configure the <code class="highlighter-rouge">OAuthService</code>. We do this in <code class="highlighter-rouge">app.component.ts</code>:</p>
+<p>Now all there is left to do is to configure the <code class="language-plaintext highlighter-rouge">OAuthService</code>. We do this in <code class="language-plaintext highlighter-rouge">app.component.ts</code>:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">OAuthService</span><span class="p">,</span> <span class="nx">NullValidationHandler</span><span class="p">,</span> <span class="nx">AuthConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
@@ -790,18 +790,18 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
 
 <p>Make sure that the name of the realm (heroes) and the client id (spa-heroes) correspond to the ones you defined in Keycloak. 
 Remember how we required the heroes scope to be present in our back end? The scope property is how we fix this. 
-If we omit <code class="highlighter-rouge">heroes</code> from the scope list, we will be getting a 403 response from our resource server.</p>
+If we omit <code class="language-plaintext highlighter-rouge">heroes</code> from the scope list, we will be getting a 403 response from our resource server.</p>
 
 <blockquote>
-  <p>Keycloak is not returning the <code class="highlighter-rouge">at_hash</code> claim in the access token. For this reason, the client library would crash while parsing it.
-This is why we disable it in the config but also use the <code class="highlighter-rouge">NullValidationHandler</code> instead of the <code class="highlighter-rouge">JwksValidationHandler</code> as it would also make the application crash.</p>
+  <p>Keycloak is not returning the <code class="language-plaintext highlighter-rouge">at_hash</code> claim in the access token. For this reason, the client library would crash while parsing it.
+This is why we disable it in the config but also use the <code class="language-plaintext highlighter-rouge">NullValidationHandler</code> instead of the <code class="language-plaintext highlighter-rouge">JwksValidationHandler</code> as it would also make the application crash.</p>
 </blockquote>
 
-<p>We can now try to log in and if all went well, we should see our heroes appear again when browsing to <code class="highlighter-rouge">/dashboard</code> or <code class="highlighter-rouge">/heroes</code>.</p>
+<p>We can now try to log in and if all went well, we should see our heroes appear again when browsing to <code class="language-plaintext highlighter-rouge">/dashboard</code> or <code class="language-plaintext highlighter-rouge">/heroes</code>.</p>
 
 <blockquote>
-  <p>Don’t worry if you do not immediatly see the heroes appear. This is because we load the <code class="highlighter-rouge">/heroes</code> page before our code was exchanged for an access token.
-This results in the first <code class="highlighter-rouge">/heroes</code> call getting a 401 response. You can create a new endpoint and use it as the redirectUri to get rid of this problem.</p>
+  <p>Don’t worry if you do not immediatly see the heroes appear. This is because we load the <code class="language-plaintext highlighter-rouge">/heroes</code> page before our code was exchanged for an access token.
+This results in the first <code class="language-plaintext highlighter-rouge">/heroes</code> call getting a 401 response. You can create a new endpoint and use it as the redirectUri to get rid of this problem.</p>
 </blockquote>
 
 <div style="text-align: center;">

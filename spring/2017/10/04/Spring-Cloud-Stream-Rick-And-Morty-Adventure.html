@@ -180,7 +180,7 @@
 <p>One of the most interesting aspects of the Spring Framework and its ecosystem is <strong>abstraction</strong>.
 The Spring project maintainers and contributors have always succeeded in hiding complexity from the application developer, by adding different layers of abstraction.</p>
 
-<p>For example, the way a Spring <code class="highlighter-rouge">Bean</code> of a certain Interface can be autowired and how Spring will find a suitable implementation class at runtime, is a very obvious example of the <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle" target="_blank">Liskov Substitution Principle</a> or <strong>how to abstract away implementation from specification</strong>.</p>
+<p>For example, the way a Spring <code class="language-plaintext highlighter-rouge">Bean</code> of a certain Interface can be autowired and how Spring will find a suitable implementation class at runtime, is a very obvious example of the <a href="https://en.wikipedia.org/wiki/Liskov_substitution_principle" target="_blank">Liskov Substitution Principle</a> or <strong>how to abstract away implementation from specification</strong>.</p>
 
 <p>A second, higher level example is the <a href="http://projects.spring.io/spring-data/" target="_blank">Spring Data</a> project which offers a common programming model for SQL as well as NoSQL databases, abstracting away the specifics of the database internals.</p>
 
@@ -205,7 +205,7 @@ Spring Cloud Stream abstracts away the complexity of connecting to different mid
 It does this <em>the Spring Boot way</em>: by <strong>automatically configuring sensible defaults</strong> and allowing the developer to adapt the parts he wants.</p>
 
 <p>It might be surprising, but <a href="https://cloud.spring.io/spring-cloud-stream/" target="_blank">Spring Cloud Stream</a> is not <em>that</em> new in the Spring Cloud ecosystem.
-The project was called <code class="highlighter-rouge">spring-bus</code> during its prototype phase and the first real commit was on May 28th 2015.
+The project was called <code class="language-plaintext highlighter-rouge">spring-bus</code> during its prototype phase and the first real commit was on May 28th 2015.
 <a href="https://twitter.com/david_syer" target="_blank">Dave Syer</a> performed the commit that changed it to its current name on <strong>July 8th 2015</strong>, so I will call that <strong>the birth of Spring Cloud Stream</strong>!</p>
 
 <p>The most active contributor up until now is probably <a href="https://twitter.com/mariusbogoevici" target="_blank">Marius Bogoevici</a>.
@@ -217,8 +217,8 @@ Questions about the project can be directed to the most active contributors and 
 
 <p><img alt="Spring Cloud Stream application model" style="max-width: 367px" src="/img/spring-cloud-stream/application-core.png" class="image fit" /></p>
 
-<p>An application defines <code class="highlighter-rouge">Input</code> and <code class="highlighter-rouge">Output</code> channels which are injected by Spring Cloud Stream at runtime.
-Through the use of so-called <code class="highlighter-rouge">Binder</code> implementations, the system connects these channels to external brokers.</p>
+<p>An application defines <code class="language-plaintext highlighter-rouge">Input</code> and <code class="language-plaintext highlighter-rouge">Output</code> channels which are injected by Spring Cloud Stream at runtime.
+Through the use of so-called <code class="language-plaintext highlighter-rouge">Binder</code> implementations, the system connects these channels to external brokers.</p>
 
 <p>So once again, the difficult parts are abstracted away by Spring, leaving it up to the developer to simply define the inputs and outputs of the application.
 How messages are being transformed, directed, transported, received and ingested are all up to the binder implementations.</p>
@@ -300,14 +300,14 @@ We end up with the following dependencies:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Looks pretty familiar, doesn’t it? That’s because the only new thing in the snippet above is the <code class="highlighter-rouge">@EnableBinding</code> annotation, which automagically converts your application into a <strong>full-fledged messaging beast</strong>!
-The <code class="highlighter-rouge">InputChannels</code> and <code class="highlighter-rouge">OutputChannels</code> interfaces are specific to my application.</p>
+<p>Looks pretty familiar, doesn’t it? That’s because the only new thing in the snippet above is the <code class="language-plaintext highlighter-rouge">@EnableBinding</code> annotation, which automagically converts your application into a <strong>full-fledged messaging beast</strong>!
+The <code class="language-plaintext highlighter-rouge">InputChannels</code> and <code class="language-plaintext highlighter-rouge">OutputChannels</code> interfaces are specific to my application.</p>
 
 <p>Very simply explained, we can describe the Rick microservice with the following diagram:</p>
 
 <p><img alt="Rick Microservice" style="max-width: 640px" src="/img/spring-cloud-stream/diagram/rick.png" class="image fit" /></p>
 
-<p>As you can see, we have defined one input channel called <code class="highlighter-rouge">rick</code> and one output channel called <code class="highlighter-rouge">microverse</code>.
+<p>As you can see, we have defined one input channel called <code class="language-plaintext highlighter-rouge">rick</code> and one output channel called <code class="language-plaintext highlighter-rouge">microverse</code>.
 These are implemented in a Spring Cloud Stream application like this:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">InputChannels</span> <span class="o">{</span>
@@ -380,7 +380,7 @@ First, let me show you the evil, brilliant piece of code which is gonna get us t
 </code></pre></div></div>
 
 <p>Isn’t that some of the most evil code you’ve ever seen?
-Nothing more evil than static variables controlling state of an application, or precisely placed <code class="highlighter-rouge">Thread.sleep()</code> commands.</p>
+Nothing more evil than static variables controlling state of an application, or precisely placed <code class="language-plaintext highlighter-rouge">Thread.sleep()</code> commands.</p>
 
 <p>Okay, we’ve got a messaging microservice, pumping out messages at an increasing rate (up until 20 per second).
 How will we know if our <em>meeseeks</em>, whatever that is, has found the szechuan sauce?</p>
@@ -404,10 +404,10 @@ How will we know if our <em>meeseeks</em>, whatever that is, has found the szech
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Since the <code class="highlighter-rouge">rick</code> input channel is a <code class="highlighter-rouge">SubscribableChannel</code>, we can subscribe to it.
+<p>Since the <code class="language-plaintext highlighter-rouge">rick</code> input channel is a <code class="language-plaintext highlighter-rouge">SubscribableChannel</code>, we can subscribe to it.
 Well <a href="http://pa1.narvii.com/6422/b662846ee28e630dd9661ecca86bd9c4ee0275ef_hq.gif" target="_blank">duh</a> Sherlock!
-A <code class="highlighter-rouge">message</code> can be of any type but we do need to cast it to our own format, a <a href="https://www.youtube.com/watch?v=G9Ebl9vEKx0&amp;t=28s" target="_blank">GlipGlop</a>, but Spring has <a href="https://docs.spring.io/spring-cloud-stream/docs/Elmhurst.BUILD-SNAPSHOT/reference/htmlsingle/#_using_streamlistener_for_automatic_content_type_handling" target="_blank">ways to make this easier</a> for us.
-We could have created a method annotated with the new <code class="highlighter-rouge">@StreamListener</code> annotation, which would look like this:</p>
+A <code class="language-plaintext highlighter-rouge">message</code> can be of any type but we do need to cast it to our own format, a <a href="https://www.youtube.com/watch?v=G9Ebl9vEKx0&amp;t=28s" target="_blank">GlipGlop</a>, but Spring has <a href="https://docs.spring.io/spring-cloud-stream/docs/Elmhurst.BUILD-SNAPSHOT/reference/htmlsingle/#_using_streamlistener_for_automatic_content_type_handling" target="_blank">ways to make this easier</a> for us.
+We could have created a method annotated with the new <code class="language-plaintext highlighter-rouge">@StreamListener</code> annotation, which would look like this:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@StreamListener</span><span class="o">(</span><span class="nc">InputChannels</span><span class="o">.</span><span class="na">RICK</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="nc">GlipGlop</span> <span class="n">glipGlop</span><span class="o">)</span> <span class="o">{</span>
@@ -433,7 +433,7 @@ If I were to draw a very simple diagram of this application, it would look somet
 <p><img alt="Mr Meeseeks Microservice" style="max-width: 640px" src="/img/spring-cloud-stream/diagram/meeseeks.png" class="image fit" /></p>
 
 <p>Same story as with the Rick microservice.
-We need a very simple Spring Cloud Stream application with one input channel called <code class="highlighter-rouge">meeseeks</code>.
+We need a very simple Spring Cloud Stream application with one input channel called <code class="language-plaintext highlighter-rouge">meeseeks</code>.
 In this case, we want to send GlipGlops to McDonalds, Rick and the Microverse, so we’re gonna need three output channels.</p>
 
 <p>The only thing we really need to put some effort in - <em>if you can even call it effort, I’ve had more effort tying my velcro shoes the other day</em> - is the <strong>business logic</strong>:</p>
@@ -472,7 +472,7 @@ In this case, we want to send GlipGlops to McDonalds, Rick and the Microverse, s
 What I’m <a href="http://1.media.dorkly.cvcdn.com/23/26/c8f59cfc0bef4b6f164072daa2727e71.jpg" target="_blank"><em>obviously</em></a> doing here, is:</p>
 
 <ul>
-  <li>subscribe to the <code class="highlighter-rouge">meeseeks</code> input channel</li>
+  <li>subscribe to the <code class="language-plaintext highlighter-rouge">meeseeks</code> input channel</li>
   <li>fetch the incoming GlipGlop</li>
   <li>if its from Rick, comply and send a GlipGlop to the McDonalds channel requesting some Szechuan sauce</li>
   <li>if its from McDonalds and a confirmation that we have just won some sauce, we let Rick know our task has been fulfilled</li>
@@ -493,8 +493,8 @@ So I guess my demo just got a bit more relevant and my powers of clairvoyance ar
 
 <ul>
   <li>Spring Cloud Stream application</li>
-  <li>one input channel <code class="highlighter-rouge">mcdonalds</code></li>
-  <li>one output channel <code class="highlighter-rouge">meeseeks</code></li>
+  <li>one input channel <code class="language-plaintext highlighter-rouge">mcdonalds</code></li>
+  <li>one output channel <code class="language-plaintext highlighter-rouge">meeseeks</code></li>
 </ul>
 
 <p>You get it by now.</p>
@@ -580,7 +580,7 @@ We do this using <a href="https://www.w3schools.com/html/html5_serversentevents.
 <p>As you can see, even <a href="http://rickandmorty.wikia.com/wiki/Jerry_Smith" target="_blank">Jerry</a> could figure this stuff out.
 In the example above, nothing is actually being emitted.
 When someone browses to the endpoint, it opens an HTTP connection and waits for messages.
-It’s up to the server to actually start sending data messages from this emitter, which will trigger an <code class="highlighter-rouge">onMessage</code> JavaScript event at client-side.</p>
+It’s up to the server to actually start sending data messages from this emitter, which will trigger an <code class="language-plaintext highlighter-rouge">onMessage</code> JavaScript event at client-side.</p>
 
 <p>Let’s see how we implemented this for our Morty microservice:</p>
 
@@ -636,7 +636,7 @@ This code is for demo purposes only.</p>
 
 <ul>
   <li>we subscribe to the four input channels and attach the same message handler since we want to handle all the GlipGlops equally</li>
-  <li>when a client performs a GET request to the <code class="highlighter-rouge">/events</code> endpoint, it is assigned an <code class="highlighter-rouge">SseEmitter</code> which is added to a list</li>
+  <li>when a client performs a GET request to the <code class="language-plaintext highlighter-rouge">/events</code> endpoint, it is assigned an <code class="language-plaintext highlighter-rouge">SseEmitter</code> which is added to a list</li>
   <li>whenever a GlipGlop on any of the four input channels is received, it is sent to all the registered SseEmitters</li>
   <li>exactly nothing is done when errors occur - totally <em>intentional</em></li>
 </ul>
@@ -653,7 +653,7 @@ This code is for demo purposes only.</p>
 In this case, I’m using a paid account on <a href="https://run.pivotal.io/" target="_blank">Pivotal Web Services</a>, their online version of PCF.
 Inside this powerful Platform as a Service (PaaS) offering, there’s this concept of <strong>organizations and spaces</strong>.</p>
 
-<p>Inside of our Ordina JWorks organization, I have created a space called <code class="highlighter-rouge">microverse</code> to house all of the applications in my demo.
+<p>Inside of our Ordina JWorks organization, I have created a space called <code class="language-plaintext highlighter-rouge">microverse</code> to house all of the applications in my demo.
 This way, my wacky adventures cannot interfere with any of our actually useful applications.</p>
 
 <p>Through the powerful <strong>service broker</strong> mechanism, I provisioned a RabbitMQ service and bound it to my applications.
@@ -670,7 +670,7 @@ This means the freshly created RabbitMQ instance’s connection details are auto
 <p>As you can see, I have drawn <strong>multiple Meeseeks instances</strong> in this diagram.
 That’s because I want to spawn multiple Meeseeks to perform my task.</p>
 
-<p>Without any extra configuration, <strong>every Meeseeks instance will pick up every GlipGlop</strong> posted to the <code class="highlighter-rouge">meeseeks</code> input channel.
+<p>Without any extra configuration, <strong>every Meeseeks instance will pick up every GlipGlop</strong> posted to the <code class="language-plaintext highlighter-rouge">meeseeks</code> input channel.
 This means adding additional Meeseeks instances won’t help us very much (it will increase the total number of GlipGlops in the system and probably overload the server even faster).
 We want every separate Meeseeks instance to pick up a unique message on that input channel.</p>
 
@@ -685,7 +685,7 @@ Only <em>one</em> property is required to do this:</p>
           group: szechuan-finder
 </code></pre></div></div>
 
-<p>This indicates we want the <code class="highlighter-rouge">meeseeks</code> message channel to be part of a consumer group called <code class="highlighter-rouge">szechuan-finder</code>.</p>
+<p>This indicates we want the <code class="language-plaintext highlighter-rouge">meeseeks</code> message channel to be part of a consumer group called <code class="language-plaintext highlighter-rouge">szechuan-finder</code>.</p>
 
 <h1 id="demo">Demo</h1>
 

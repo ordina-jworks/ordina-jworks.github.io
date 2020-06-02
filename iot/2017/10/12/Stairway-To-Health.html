@@ -354,8 +354,8 @@ Also for the charts and translations we choose for easy to use libraries like Hi
 
 <p>For the backend we decided to go with gulp. 
 We added some tasks to transpile our server site TypeScript files to JavaScript so that node can execute it. 
-For local serving we created a sequence task that combines running <code class="highlighter-rouge">ng build</code> from the angular-cli and a gulp task to use <code class="highlighter-rouge">nodemon</code> for running our server and restarting on changes. 
-When working on the frontend, doing an ‘ng build’ was a bit too slow, therefore we added a <code class="highlighter-rouge">--standalone</code> flag, to the serve task so that we could just build the backend application and do the frontend serve with <code class="highlighter-rouge">ng serve</code> which is a lot more performant than having to do a ‘ng build’ on every change.
+For local serving we created a sequence task that combines running <code class="language-plaintext highlighter-rouge">ng build</code> from the angular-cli and a gulp task to use <code class="language-plaintext highlighter-rouge">nodemon</code> for running our server and restarting on changes. 
+When working on the frontend, doing an ‘ng build’ was a bit too slow, therefore we added a <code class="language-plaintext highlighter-rouge">--standalone</code> flag, to the serve task so that we could just build the backend application and do the frontend serve with <code class="language-plaintext highlighter-rouge">ng serve</code> which is a lot more performant than having to do a ‘ng build’ on every change.
 Since we are using TypeScript throughout the application, it only felt right to use the TypeScript version of gulp as well. 
 It takes a little effort to get used to, but once you get the hang of it, it makes writing gulp tasks a lot more fun and less error prone.
 Using the provided decorators, our gulp tasks look something like the following:</p>
@@ -373,7 +373,7 @@ Using the provided decorators, our gulp tasks look something like the following:
         <span class="k">return</span> <span class="p">[</span><span class="dl">'</span><span class="s1">buildApp</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">runMochaTests</span><span class="dl">'</span><span class="p">];</span>
     <span class="p">}</span>
 </code></pre></div></div>
-<p>Now that we have a <code class="highlighter-rouge">gulpfile.ts</code> file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use TypeScript compiler with the <code class="highlighter-rouge">tsc</code> command to transpile the file and make sure we are using the latest changes every time we use gulp.
+<p>Now that we have a <code class="language-plaintext highlighter-rouge">gulpfile.ts</code> file, we need to ensure that the gulpfile gets transpiled as well, we did this by adding an npm script, so that we can use TypeScript compiler with the <code class="language-plaintext highlighter-rouge">tsc</code> command to transpile the file and make sure we are using the latest changes every time we use gulp.
 (to get the tsc command, install typescript globally with npm)</p>
 
 <h2 id="building-stairway-to-health">Building Stairway to Health</h2>
@@ -384,11 +384,11 @@ So first things first, on MyThings we took a look at how we were going to struct
 
 <p><img alt="stream.png" src="/img/stairwaytohealth/stream.png" class="image fit" style="margin:0px auto; max-width:800px;" /></p>
 
-<p>In the MyThings application every sensor can have a <code class="highlighter-rouge">friendlyName1</code> and <code class="highlighter-rouge">friendlyName2</code>, we used these to specify which tower and which floor they represent. 
-The sensors send a lot more data than just the magnetic pulse counts, therefore we needed the <code class="highlighter-rouge">container</code> field, to be able to filter on <code class="highlighter-rouge">counter</code> logs only (however, we store the other messages as well, maybe for future use). 
-The <code class="highlighter-rouge">value</code> field is the amount of times the sensor was triggered, in other words, the actual counts. And of course a <code class="highlighter-rouge">timestamp</code> since we will show the data in time based graphs.</p>
+<p>In the MyThings application every sensor can have a <code class="language-plaintext highlighter-rouge">friendlyName1</code> and <code class="language-plaintext highlighter-rouge">friendlyName2</code>, we used these to specify which tower and which floor they represent. 
+The sensors send a lot more data than just the magnetic pulse counts, therefore we needed the <code class="language-plaintext highlighter-rouge">container</code> field, to be able to filter on <code class="language-plaintext highlighter-rouge">counter</code> logs only (however, we store the other messages as well, maybe for future use). 
+The <code class="language-plaintext highlighter-rouge">value</code> field is the amount of times the sensor was triggered, in other words, the actual counts. And of course a <code class="language-plaintext highlighter-rouge">timestamp</code> since we will show the data in time based graphs.</p>
 
-<p>The <code class="highlighter-rouge">timestamp</code> represents the time that the sensor has sent its message to the MyThings application, we also wanted to keep track of when our application has received the log, so before saving we added one extra field to store this in our database.</p>
+<p>The <code class="language-plaintext highlighter-rouge">timestamp</code> represents the time that the sensor has sent its message to the MyThings application, we also wanted to keep track of when our application has received the log, so before saving we added one extra field to store this in our database.</p>
 
 <p>After we defined our model/schema of our logs, it was simply adding an endpoint to our express router and our first feature was ready. 
 Well not exactly, we needed to trigger an event to refresh the data on our dashboard, but we’ll get back to this later.</p>
@@ -403,18 +403,18 @@ Finally after adding all the charts we started on adding the different languages
 ALso we had to quickly create a translation list that the business could translate for us.</p>
 
 <p><strong>Mongo Aggregates</strong><br />
-As for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blog post, 1.4 million over 4 months). We had to make sure it was performant. This is where the Mongo aggregates come in handy. Instead of looping over the results and adding them up, we let Mongo take care of this with the <code class="highlighter-rouge">$sum</code> operator which in code looks like the following:</p>
+As for displaying the daily, weekly and total counts below the buildings, we had to get this data from the database, keeping in mind that we would have to iterate over millions of sensor logs (at the time of writing this blog post, 1.4 million over 4 months). We had to make sure it was performant. This is where the Mongo aggregates come in handy. Instead of looping over the results and adding them up, we let Mongo take care of this with the <code class="language-plaintext highlighter-rouge">$sum</code> operator which in code looks like the following:</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">sensorLogModel</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">([</span>
                 <span class="p">{</span><span class="na">$match</span><span class="p">:</span> <span class="p">{</span><span class="na">container</span><span class="p">:</span> <span class="dl">'</span><span class="s1">counter</span><span class="dl">'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="p">{</span><span class="na">$ne</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}},</span>
                 <span class="c1">// group them by fn1 (tower) and add up all 'value' fields</span>
                 <span class="p">{</span><span class="na">$group</span><span class="p">:</span> <span class="p">{</span><span class="na">_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$friendlyName1</span><span class="dl">'</span><span class="p">,</span> <span class="na">total</span><span class="p">:</span> <span class="p">{</span><span class="na">$sum</span><span class="p">:</span> <span class="dl">'</span><span class="s1">$value</span><span class="dl">'</span><span class="p">}}}</span>
             <span class="p">]);</span>
 </code></pre></div></div>
-<p><em>Remember, we store all the logs, but we only need counter logs. So for a little more performance, we leave out the ones with value 0 (a lot of them in the weekends), that’s what the <code class="highlighter-rouge">$match</code> is for</em>
-The result: an array with objects that have an <code class="highlighter-rouge">_id</code> field with <code class="highlighter-rouge">friendlyName1</code> as value and a <code class="highlighter-rouge">total</code> field with the sum of all (counter) values per tower. We repeat this for daily and weekly, but add a start and end date (which we simply create with TypeScript). <code class="highlighter-rouge">$match</code> then looks something like this:</p>
+<p><em>Remember, we store all the logs, but we only need counter logs. So for a little more performance, we leave out the ones with value 0 (a lot of them in the weekends), that’s what the <code class="language-plaintext highlighter-rouge">$match</code> is for</em>
+The result: an array with objects that have an <code class="language-plaintext highlighter-rouge">_id</code> field with <code class="language-plaintext highlighter-rouge">friendlyName1</code> as value and a <code class="language-plaintext highlighter-rouge">total</code> field with the sum of all (counter) values per tower. We repeat this for daily and weekly, but add a start and end date (which we simply create with TypeScript). <code class="language-plaintext highlighter-rouge">$match</code> then looks something like this:</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">$match</span><span class="p">:</span> <span class="p">{</span><span class="na">container</span><span class="p">:</span> <span class="dl">'</span><span class="s1">counter</span><span class="dl">'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="p">{</span><span class="na">$ne</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="na">timestamp</span><span class="p">:</span> <span class="p">{</span><span class="na">$gt</span><span class="p">:</span> <span class="nx">start</span><span class="p">,</span> <span class="na">$lt</span><span class="p">:</span> <span class="nx">end</span><span class="p">}}}</span>
 </code></pre></div></div>
-<p>Later on we added some more calls to get the data by time span and location for the more detailed chart data, but you get the idea, we simply edit the timestamps or <code class="highlighter-rouge">friendlyName1</code> (also by <code class="highlighter-rouge">friendlyName2</code> on the hourly chart, which displays the hourly data per floor).</p>
+<p>Later on we added some more calls to get the data by time span and location for the more detailed chart data, but you get the idea, we simply edit the timestamps or <code class="language-plaintext highlighter-rouge">friendlyName1</code> (also by <code class="language-plaintext highlighter-rouge">friendlyName2</code> on the hourly chart, which displays the hourly data per floor).</p>
 
 <p><strong>Socket.IO</strong><br />
 Now that we have data that can be retrieved and displayed on the frontend, time to implement some way to let our frontend application know when we receive some new data, so that it in turn can do a request for that new data.</p>
@@ -426,16 +426,16 @@ Now that we have data that can be retrieved and displayed on the frontend, time 
 </a></p>
 
 <p>The bin (js) file is where we create our http, https and socket servers. To communicate between them, we use the node event emitter. 
-The <code class="highlighter-rouge">server.ts</code> file (let’s call it the app) gets bootstrapped onto these servers and when creating the app, we pass the created event emitter to it. 
+The <code class="language-plaintext highlighter-rouge">server.ts</code> file (let’s call it the app) gets bootstrapped onto these servers and when creating the app, we pass the created event emitter to it. 
 This enables us to listen and broadcast events back and forward. 
 The event emitter emits events between the backend services and the socket.io server emits events to our frontend application.</p>
 
-<p>So in our case, to let the frontend know when the sensor-log endpoint has received a message, we emit a <code class="highlighter-rouge">log-received</code> event on the node event emitter. 
-In the socket IO server we are listening on this event and we broadcast a <code class="highlighter-rouge">data</code> event to every connected frontend application. 
-The frontend applications are listening for this <code class="highlighter-rouge">data</code> event and refresh their data by calling the dashboard endpoints.
-However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the <code class="highlighter-rouge">log-received</code> in a timeout so that we would only refresh it once every 30 seconds (if a log was received).</p>
+<p>So in our case, to let the frontend know when the sensor-log endpoint has received a message, we emit a <code class="language-plaintext highlighter-rouge">log-received</code> event on the node event emitter. 
+In the socket IO server we are listening on this event and we broadcast a <code class="language-plaintext highlighter-rouge">data</code> event to every connected frontend application. 
+The frontend applications are listening for this <code class="language-plaintext highlighter-rouge">data</code> event and refresh their data by calling the dashboard endpoints.
+However, since we have about 60 sensors sending data, this event was triggering quite a lot and with the chart rendering animations on our frontend application we had to wrap the <code class="language-plaintext highlighter-rouge">log-received</code> in a timeout so that we would only refresh it once every 30 seconds (if a log was received).</p>
 
-<p>I’ve picked a few lines of code from our bin file to demonstrate how we pass the <code class="highlighter-rouge">eventEmitter</code> when bootstrapping our application on to the http and https services from node.</p>
+<p>I’ve picked a few lines of code from our bin file to demonstrate how we pass the <code class="language-plaintext highlighter-rouge">eventEmitter</code> when bootstrapping our application on to the http and https services from node.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../dist/app/server</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
@@ -447,14 +447,14 @@ However, since we have about 60 sensors sending data, this event was triggering 
 <span class="kd">const</span> <span class="nx">httpsServer</span> <span class="o">=</span> <span class="nx">https</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">server</span><span class="p">.</span><span class="nx">Server</span><span class="p">.</span><span class="nx">bootstrap</span><span class="p">(</span><span class="nx">eventEmitter</span><span class="p">).</span><span class="nx">app</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>After that, we bootstrap the created https server on to the socket.io application. It too gets the same <code class="highlighter-rouge">EventEmitter</code> instance passed into its constructor.</p>
+<p>After that, we bootstrap the created https server on to the socket.io application. It too gets the same <code class="language-plaintext highlighter-rouge">EventEmitter</code> instance passed into its constructor.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">socket.io</span><span class="dl">'</span><span class="p">)(</span><span class="nx">httpsServer</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">sockets</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../dist/app/sockets</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">ioApp</span> <span class="o">=</span> <span class="nx">sockets</span><span class="p">.</span><span class="nx">Sockets</span><span class="p">.</span><span class="nx">bootstrap</span><span class="p">(</span><span class="nx">io</span><span class="p">,</span> <span class="nx">eventEmitter</span><span class="p">).</span><span class="nx">io</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>In our sockets file, the method that gets executed will listen on the <code class="highlighter-rouge">logsReceived</code> from our passed EventEmitter, and emits a <code class="highlighter-rouge">data</code> event on our <code class="highlighter-rouge">io</code> instance.</p>
+<p>In our sockets file, the method that gets executed will listen on the <code class="language-plaintext highlighter-rouge">logsReceived</code> from our passed EventEmitter, and emits a <code class="language-plaintext highlighter-rouge">data</code> event on our <code class="language-plaintext highlighter-rouge">io</code> instance.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">sockets</span><span class="p">(</span><span class="nx">eventEmitter</span><span class="p">,</span> <span class="nx">io</span><span class="p">){</span>
     <span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">logsReceived</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nx">io</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">/socket/</span><span class="dl">'</span><span class="p">).</span><span class="nx">emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
@@ -480,7 +480,7 @@ To make sure the ratios are fair, we made sure that every tower has a ‘weight�
 These weights are calculated by the amount of employees/tower, with the largest tower having a weight of 1.</p>
 
 <p>Let’s take a look at how we set up our backend structure for creating crud endpoints.
-In our <code class="highlighter-rouge">/routes</code> directory we keep all files that define the urls and methods of every endpoint, and tell it which controller and method to use:<br />
+In our <code class="language-plaintext highlighter-rouge">/routes</code> directory we keep all files that define the urls and methods of every endpoint, and tell it which controller and method to use:<br />
 <em>timespan.route.ts</em></p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/timespan/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">res</span><span class="p">:</span> <span class="nx">Response</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span> <span class="nx">NextFunction</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">timespanController</span><span class="p">.</span><span class="nx">getTimespanList</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
@@ -490,7 +490,7 @@ In our <code class="highlighter-rouge">/routes</code> directory we keep all file
 <span class="p">});</span>
 </code></pre></div></div>
 
-<p>next under our <code class="highlighter-rouge">/controllers</code> directory we have our controllers where all our functionality/logic is<br />
+<p>next under our <code class="language-plaintext highlighter-rouge">/controllers</code> directory we have our controllers where all our functionality/logic is<br />
 <em>timespan.controller.ts</em></p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">getTimespanList</span><span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">res</span><span class="p">:</span> <span class="nx">Response</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span> <span class="nx">NextFunction</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">timespanModel</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">[],</span> <span class="p">{</span><span class="na">sort</span><span class="p">:</span> <span class="p">{</span><span class="na">start</span><span class="p">:</span> <span class="mi">1</span><span class="p">}})</span>
@@ -506,16 +506,16 @@ In our <code class="highlighter-rouge">/routes</code> directory we keep all file
 
 <h2 id="authentication">Authentication</h2>
 <p>To prevent everyone from changing these configurations of course we had to add some authentication functionality. 
-As you can see in the router code above, we created an authentication middleware so that on every route that we want the user to be authenticated, we can simply add <code class="highlighter-rouge">this.authenticate()</code> to the route. 
+As you can see in the router code above, we created an authentication middleware so that on every route that we want the user to be authenticated, we can simply add <code class="language-plaintext highlighter-rouge">this.authenticate()</code> to the route. 
 This checks a JWT token in the headers. 
 We check the token to be valid. 
-If it’s not valid, we send an <code class="highlighter-rouge">unauthorized</code> response, and if it is valid, we decode it and add it as a user object on the request. 
+If it’s not valid, we send an <code class="language-plaintext highlighter-rouge">unauthorized</code> response, and if it is valid, we decode it and add it as a user object on the request. 
 This way we can access it in the controller and do some logic depending on its role, etc.
-<code class="highlighter-rouge">this.authenticate</code> is a method we added to the <code class="highlighter-rouge">core.route.ts</code>.
+<code class="language-plaintext highlighter-rouge">this.authenticate</code> is a method we added to the <code class="language-plaintext highlighter-rouge">core.route.ts</code>.
 Every route extends this super class so that we can put common code and middleware in this file.</p>
 
 <p>JWT stands for JSON Web Token and is a JSON-based open standard for creating access tokens that assert some number of claims. 
-For example, a server could generate a token that has the claim <code class="highlighter-rouge">logged in as admin</code> and provide that to a client. 
+For example, a server could generate a token that has the claim <code class="language-plaintext highlighter-rouge">logged in as admin</code> and provide that to a client. 
 The client could then use that token to prove that he is logged in as admin.</p>
 
 <h2 id="deploy">Deploy</h2>

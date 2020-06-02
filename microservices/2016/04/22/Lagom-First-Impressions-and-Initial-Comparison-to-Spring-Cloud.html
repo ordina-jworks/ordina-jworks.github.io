@@ -303,17 +303,17 @@ The <a href="https://www.lightbend.com/activator/template/lagom-java">Lagom Java
 
 <p>Creating a new Lagom application is as simple as using the following command:</p>
 
-<p><code class="highlighter-rouge">$ activator new my-first-system lagom-java</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ activator new my-first-system lagom-java</code></p>
 
 <p>Afterwards the project can be imported in any of the prominent IDEs as an sbt project.</p>
 
 <p>In order to boot the system, we first need to navigate to the root of the project and start the Activator console:</p>
 
-<p><code class="highlighter-rouge">$ activator</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ activator</code></p>
 
 <p>After which we can start all our services using a single simple command:</p>
 
-<p><code class="highlighter-rouge">$ runAll</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ runAll</code></p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">&gt;</span> runAll
 <span class="o">[</span>info] Starting embedded Cassandra server
@@ -330,7 +330,7 @@ The <a href="https://www.lightbend.com/activator/template/lagom-java">Lagom Java
 
 <p>This command starts a <strong>Cassandra server</strong>, <strong>service locator</strong> and <strong>service gateway</strong>.
 Each of our microservices is started in parallel while also registering them in the service locator.
-Additionally, a <code class="highlighter-rouge">run</code> command to individually start services is available as well.
+Additionally, a <code class="language-plaintext highlighter-rouge">run</code> command to individually start services is available as well.
 Note that the ports are assigned to each microservice by an <a href="http://www.lagomframework.com/documentation/1.0.x/java/ServicePort.html#How-are-ports-assigned-to-services?">algorithm</a> and are consistent even on different machines.
 The possibility to assign a specific port is available though.</p>
 
@@ -340,7 +340,7 @@ In general, a restart is only required when adding a new microservice API and im
 
 <h2 id="anatomy-of-a-lagom-project">Anatomy of a Lagom project</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helloworld-api           → Microservice API submodule
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helloworld-api           → Microservice API submodule
  └ src/main/java         → Java source code interfaces with model objects
 helloworld-impl          → Microservice implementation submodule
  └ logs                  → Logs of the microservice
@@ -359,7 +359,7 @@ build.sbt                → Application build script
 <p>In order to write a new microservice you create a new API and implementation project.
 In the API project you define the interface of your microservice:</p>
 
-<p><code class="highlighter-rouge">HelloService.java</code></p>
+<p><code class="language-plaintext highlighter-rouge">HelloService.java</code></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloService</span> <span class="kd">extends</span> <span class="nc">Service</span> <span class="o">{</span>
   <span class="nc">ServiceCall</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">NotUsed</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">hello</span><span class="o">();</span>
@@ -375,16 +375,16 @@ In the API project you define the interface of your microservice:</p>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>A <code class="highlighter-rouge">Descriptor</code> defines the service name and the endpoints offered by a service. 
+<p>A <code class="language-plaintext highlighter-rouge">Descriptor</code> defines the service name and the endpoints offered by a service. 
 In our case we define two REST endpoints, a GET and a POST.</p>
 
-<p><code class="highlighter-rouge">GreetingMessage</code> is basically an immutable class with a single String <code class="highlighter-rouge">message</code> instance variable.
+<p><code class="language-plaintext highlighter-rouge">GreetingMessage</code> is basically an immutable class with a single String <code class="language-plaintext highlighter-rouge">message</code> instance variable.
 On the subject of immutability the <a href="http://www.lagomframework.com/documentation/1.0.x/java/ImmutablesInIDEs.html#Set-up-Immutables-in-your-IDE">Lagom documentation</a> mentions <a href="https://immutables.github.io">Immutables</a>, a Java library that helps you create immutable objects via annotation processing.
 Definitely worth a look seeing as it helps you get rid of boilerplate code.</p>
 
 <p>In the implementation submodule we implement our API’s interface.</p>
 
-<p><code class="highlighter-rouge">HelloServiceImpl.java</code></p>
+<p><code class="language-plaintext highlighter-rouge">HelloServiceImpl.java</code></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="nc">HelloService</span> <span class="o">{</span>
   <span class="nd">@Override</span>
@@ -406,7 +406,7 @@ Definitely worth a look seeing as it helps you get rid of boilerplate code.</p>
 Interesting to know is that Lagom also provides support for the <a href="http://www.lagomframework.com/documentation/1.0.x/java/PubSub.html#Publish-Subscribe">Publish-subscribe pattern</a> out of the box.
 We also need to implement the module that binds the HelloService so that it can be served.</p>
 
-<p><code class="highlighter-rouge">HelloServiceModule.java</code></p>
+<p><code class="language-plaintext highlighter-rouge">HelloServiceModule.java</code></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceModule</span> <span class="kd">extends</span> <span class="nc">AbstractModule</span> <span class="kd">implements</span> <span class="nc">ServiceGuiceSupport</span> <span class="o">{</span>
   <span class="nd">@Override</span>
@@ -415,11 +415,11 @@ We also need to implement the module that binds the HelloService so that it can 
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>We define our module in the <code class="highlighter-rouge">application.config</code>:</p>
+<p>We define our module in the <code class="language-plaintext highlighter-rouge">application.config</code>:</p>
 
 <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">play</span><span class="o">.</span><span class="py">modules</span><span class="o">.</span><span class="py">enabled</span> <span class="o">+=</span> <span class="nv">sample</span><span class="o">.</span><span class="py">helloworld</span><span class="o">.</span><span class="py">impl</span><span class="o">.</span><span class="py">HelloServiceModule</span></code></pre></figure>
 
-<p>And finally register our microservice in <code class="highlighter-rouge">build.sbt</code> with its dependencies and settings:</p>
+<p>And finally register our microservice in <code class="language-plaintext highlighter-rouge">build.sbt</code> with its dependencies and settings:</p>
 
 <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">lazy</span> <span class="k">val</span> <span class="nv">helloworldApi</span> <span class="k">=</span> <span class="nf">project</span><span class="o">(</span><span class="s">"helloworld-api"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">settings</span><span class="o">(</span>
@@ -491,7 +491,7 @@ Hello World</code></pre></figure>
 <span class="o">}</span></code></pre></figure>
 
 <p>Tests can be executed in Activator via the following command:
-<code class="highlighter-rouge">$ test</code></p>
+<code class="language-plaintext highlighter-rouge">$ test</code></p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">&gt;</span> <span class="nb">test</span>
 <span class="o">[</span>info] Test run started
@@ -517,7 +517,7 @@ It is perfectly possible to, for example, plug in a PostgreSQL database for our 
 Someone has already set up <a href="https://github.com/dsl-platform/lagom-postgres">PostgreSQL integration using Revenj persistence</a>.
 However, Lightbend suggests that for best scalability preference must be given to asynchronous APIs because using blocking APIs like JDBC and JPA will have an impact on that.</p>
 
-<p>By default, when launching our development environment, a Cassandra server will be booted without having to do any setup ourselves besides adding the <code class="highlighter-rouge">lagomJavadslPersistence</code> dependency to our implementation in our <code class="highlighter-rouge">build.sbt</code>.</p>
+<p>By default, when launching our development environment, a Cassandra server will be booted without having to do any setup ourselves besides adding the <code class="language-plaintext highlighter-rouge">lagomJavadslPersistence</code> dependency to our implementation in our <code class="language-plaintext highlighter-rouge">build.sbt</code>.</p>
 
 <p>Regarding the code, a <strong>persistent entity</strong> needs to be defined, combined with a related <strong>command</strong>, <strong>event</strong> and <strong>state</strong>.
 Note that the following code samples are mainly here to give an idea of the work needed for implementing all this.
@@ -531,7 +531,7 @@ Each event has its own event handler registered.</p>
 
 <p>Example of a PersistentEntity:</p>
 
-<p><code class="highlighter-rouge">HelloWorld.java</code></p>
+<p><code class="language-plaintext highlighter-rouge">HelloWorld.java</code></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorld</span> <span class="kd">extends</span> <span class="nc">PersistentEntity</span><span class="o">&lt;</span><span class="nc">HelloCommand</span><span class="o">,</span> <span class="nc">HelloEvent</span><span class="o">,</span> <span class="nc">WorldState</span><span class="o">&gt;</span> <span class="o">{</span>
   <span class="nd">@Override</span>
@@ -554,7 +554,7 @@ Each event has its own event handler registered.</p>
 
 <p>Our PersistentEntity requires a state to be defined:</p>
 
-<p><code class="highlighter-rouge">WorldState.java</code></p>
+<p><code class="language-plaintext highlighter-rouge">WorldState.java</code></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Immutable</span>
 <span class="nd">@JsonDeserialize</span>
@@ -595,7 +595,7 @@ Each event has its own event handler registered.</p>
 <p>In our command interface we define all the commands that our entity supports.
 In order to get a complete picture of the commands an entity supports, it is the convention to specify all supported commands as inner classes of the interface.</p>
 
-<p><code class="highlighter-rouge">HelloCommand.java</code></p>
+<p><code class="language-plaintext highlighter-rouge">HelloCommand.java</code></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloCommand</span> <span class="kd">extends</span> <span class="nc">Jsonable</span> <span class="o">{</span>
   <span class="nd">@Immutable</span>
@@ -673,7 +673,7 @@ In order to get a complete picture of the commands an entity supports, it is the
 <p>And finally we want to define all events that the entity supports in an event interface.
 It follows the same convention as with commands, specifying all events as inner classes of the interface.</p>
 
-<p><code class="highlighter-rouge">HelloEvent.java</code></p>
+<p><code class="language-plaintext highlighter-rouge">HelloEvent.java</code></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloEvent</span> <span class="kd">extends</span> <span class="nc">Jsonable</span> <span class="o">{</span>
   <span class="nd">@Immutable</span>
@@ -711,7 +711,7 @@ It follows the same convention as with commands, specifying all events as inner 
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>The <code class="highlighter-rouge">HelloServiceImpl.java</code> class will look like the following:</p>
+<p>The <code class="language-plaintext highlighter-rouge">HelloServiceImpl.java</code> class will look like the following:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServiceImpl</span> <span class="kd">implements</span> <span class="nc">HelloService</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="nc">PersistentEntityRegistry</span> <span class="n">persistentEntityRegistry</span><span class="o">;</span>
@@ -810,7 +810,7 @@ Additionally it should also be possible to integrate <a href="https://github.com
 
     <blockquote>
       <p>The deployment unit in ConductR is a bundle which is an abstract term that can mean a Docker image or a zip file with a certain structure.
-By default, when you have multiple services in one project, it will create multiple bundles. You call <code class="highlighter-rouge">bundle:dist</code> once on the top level and it will create a separate bundle for each service which can then be deployed to ConductR.
+By default, when you have multiple services in one project, it will create multiple bundles. You call <code class="language-plaintext highlighter-rouge">bundle:dist</code> once on the top level and it will create a separate bundle for each service which can then be deployed to ConductR.
 You can put multiple components in one bundle so you could have multiple services in one bundle, but we think that it is unusual.
 Ideally, each service needs to be its own bundle managed in isolation by ConductR, for it to be able to be able to be developed, rolled out, upgraded and failed in isolation.</p>
     </blockquote>

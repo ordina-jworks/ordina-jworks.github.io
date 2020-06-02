@@ -191,7 +191,7 @@ Hostile pinning hasn’t been observed <em>yet</em>, but it’s an attack that a
 <p>Because of the first 2 reasons, adoption rates of HPKP have remained very low and browser vendors have been looking for a viable replacement.</p>
 
 <h2 id="expect-ct">Expect-CT</h2>
-<p>One of the new headers thought up to replace HPKP is <code class="highlighter-rouge">Expect-CT</code> (Expect Certificate Transparency).
+<p>One of the new headers thought up to replace HPKP is <code class="language-plaintext highlighter-rouge">Expect-CT</code> (Expect Certificate Transparency).
 This tells the browser to check the <a href="https://www.certificate-transparency.org/" target="blank" rel="noopener noreferrer">Certificate Transparency</a> (CT) logs to make sure the presented certificate is properly logged.</p>
 
 <h3 id="certificate-transparency">Certificate Transparency</h3>
@@ -232,23 +232,23 @@ Fortunately, there are plenty of companies and tools out there that can help you
 
 <h3 id="use-the-header">Use the header</h3>
 <p>Since (to my knowledge) browsers don’t have psychic powers (yet?), you still need to tell it that you expect the CA to have CT enabled.
-For that you’ll need to add the <code class="highlighter-rouge">Expect-CT</code> header on your responses.
+For that you’ll need to add the <code class="language-plaintext highlighter-rouge">Expect-CT</code> header on your responses.
 Obviously it will only look for these on an HTTPS URL, since on a simple HTTP connection it can easily be added or removed by a MitM.</p>
 
 <p>The header looks like this:</p>
 
-<p><code class="highlighter-rouge">Expect-CT: enforce, max-age=31536000, report-uri="https://example.com"</code></p>
+<p><code class="language-plaintext highlighter-rouge">Expect-CT: enforce, max-age=31536000, report-uri="https://example.com"</code></p>
 
 <p>This tells the browser to <strong>enforce</strong> the CT rule and to do so for the next year.
-Any infractions will be sent to the <code class="highlighter-rouge">report-uri</code> you mentioned.
-As with all headers that contain a <code class="highlighter-rouge">report-uri</code>, you can also use <a href="https://report-uri.io" target="blank" rel="noopener noreferrer">report-uri.io</a> to aggregate these logs.</p>
+Any infractions will be sent to the <code class="language-plaintext highlighter-rouge">report-uri</code> you mentioned.
+As with all headers that contain a <code class="language-plaintext highlighter-rouge">report-uri</code>, you can also use <a href="https://report-uri.io" target="blank" rel="noopener noreferrer">report-uri.io</a> to aggregate these logs.</p>
 
 <p>As with most things that stand a chance of rendering your site inaccessible, it pays to be cautious when adding this header.
 Typically you don’t want to start by adding this header as defined above.
-Instead, you want to deploy it first <em>without</em> the <code class="highlighter-rouge">enforce</code> directive (and preferably a very low <code class="highlighter-rouge">max-age</code> such as 0)
-Doing so will tell the browser that you don’t want it to <strong>block</strong> connections with a bad certificate, but just to send the error to the <code class="highlighter-rouge">report-uri</code>.
+Instead, you want to deploy it first <em>without</em> the <code class="language-plaintext highlighter-rouge">enforce</code> directive (and preferably a very low <code class="language-plaintext highlighter-rouge">max-age</code> such as 0)
+Doing so will tell the browser that you don’t want it to <strong>block</strong> connections with a bad certificate, but just to send the error to the <code class="language-plaintext highlighter-rouge">report-uri</code>.
 This setup allows you to test without impacting your users: you can now monitor this for a while to see if everything still works as expected.
-After that, enable the <code class="highlighter-rouge">enforce</code> directive and slowly increase the <code class="highlighter-rouge">max-age</code> to the point you want it to be.</p>
+After that, enable the <code class="language-plaintext highlighter-rouge">enforce</code> directive and slowly increase the <code class="language-plaintext highlighter-rouge">max-age</code> to the point you want it to be.</p>
 
 <h3 id="risks">Risks</h3>
 <p>The risk of adding this header is quite low, if you follow the procedure above.
@@ -286,9 +286,9 @@ You simply add the correct record to your DNS like this:</p>
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">example.com.</code></td>
-      <td><code class="highlighter-rouge">CAA</code></td>
-      <td><code class="highlighter-rouge">0 issue ";"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">example.com.</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CAA</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0 issue ";"</code></td>
     </tr>
   </tbody>
 </table>
@@ -303,30 +303,30 @@ Since this is a bit cryptic, lets look a bit more in detail at what’s happenin
 
 <p>The value above consists of 3 parts:</p>
 <ul>
-  <li>the flag (<code class="highlighter-rouge">0</code>)</li>
-  <li>the tag (<code class="highlighter-rouge">issue</code>)</li>
-  <li>the value (<code class="highlighter-rouge">";"</code>)</li>
+  <li>the flag (<code class="language-plaintext highlighter-rouge">0</code>)</li>
+  <li>the tag (<code class="language-plaintext highlighter-rouge">issue</code>)</li>
+  <li>the value (<code class="language-plaintext highlighter-rouge">";"</code>)</li>
 </ul>
 
 <p>The combination of tag and value can be referred to as “the property”.
 The whole of CAA is governed by <a href="https://tools.ietf.org/html/rfc6844" target="blank" rel="noopener noreferrer">RFC 6844</a></p>
 
 <h4 id="flags">Flags</h4>
-<p>Currently, flags can have 2 values: <code class="highlighter-rouge">0</code> or <code class="highlighter-rouge">128</code>.
-A value of <code class="highlighter-rouge">0</code> means the property is non-critical, while a value of <code class="highlighter-rouge">128</code> means that is is critical.
+<p>Currently, flags can have 2 values: <code class="language-plaintext highlighter-rouge">0</code> or <code class="language-plaintext highlighter-rouge">128</code>.
+A value of <code class="language-plaintext highlighter-rouge">0</code> means the property is non-critical, while a value of <code class="language-plaintext highlighter-rouge">128</code> means that is is critical.
 If a property is marked as critical, the CA must completely understand it before it proceeds.
-Generally it’s correct to use <code class="highlighter-rouge">0</code>, so it’s advised to always use that value.
+Generally it’s correct to use <code class="language-plaintext highlighter-rouge">0</code>, so it’s advised to always use that value.
 There is support for customized flags in the RFC, but that’s beyond the scope of this post.</p>
 
 <h4 id="tags">Tags</h4>
 <p>The current specification has 3 tags you can define:</p>
 <ul>
-  <li><code class="highlighter-rouge">issue</code> specifies which CA is authorized to issue certificates</li>
-  <li><code class="highlighter-rouge">issuewild</code> indicates which CA is authorized to issue <strong>wildcard</strong> certificates (e.g. for <code class="highlighter-rouge">*.example.com</code>)</li>
-  <li><code class="highlighter-rouge">iodef</code> similar to report-uri you can use this to get reports on invalid requests (either to an email address or to an http endpoint)</li>
+  <li><code class="language-plaintext highlighter-rouge">issue</code> specifies which CA is authorized to issue certificates</li>
+  <li><code class="language-plaintext highlighter-rouge">issuewild</code> indicates which CA is authorized to issue <strong>wildcard</strong> certificates (e.g. for <code class="language-plaintext highlighter-rouge">*.example.com</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">iodef</code> similar to report-uri you can use this to get reports on invalid requests (either to an email address or to an http endpoint)</li>
 </ul>
 
-<h5 id="issue"><code class="highlighter-rouge">issue</code></h5>
+<h5 id="issue"><code class="language-plaintext highlighter-rouge">issue</code></h5>
 <p>This tag specifies which CA is allowed to issue certificates for the domain and its subdomains.
 This includes the wildcard subdomain (meaning that the certificate would be valid for <em>all</em> subdomains).
 A value of “;” indicates that no issuance is allowed.
@@ -342,24 +342,24 @@ You’re allowed to define multiple CAs, but you’ll need to use a new DNS reco
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">example.com.</code></td>
-      <td><code class="highlighter-rouge">CAA</code></td>
-      <td><code class="highlighter-rouge">0 issue "ca1.com"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">example.com.</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CAA</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0 issue "ca1.com"</code></td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">example.com.</code></td>
-      <td><code class="highlighter-rouge">CAA</code></td>
-      <td><code class="highlighter-rouge">0 issue "otherca.net"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">example.com.</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CAA</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0 issue "otherca.net"</code></td>
     </tr>
   </tbody>
 </table>
 
-<h5 id="issuewild"><code class="highlighter-rouge">issuewild</code></h5>
+<h5 id="issuewild"><code class="language-plaintext highlighter-rouge">issuewild</code></h5>
 <p>This one is used explicitly for wildcard certificates.
-If <code class="highlighter-rouge">issuewild</code> is present, any values in <code class="highlighter-rouge">issue</code> may not be used in the issuance of a wildcard certificate.
+If <code class="language-plaintext highlighter-rouge">issuewild</code> is present, any values in <code class="language-plaintext highlighter-rouge">issue</code> may not be used in the issuance of a wildcard certificate.
 You can use this in case you never want a wildcard certificate to be issued or when the list of CAs that are allowed to issue wildcard certificates differs from the original list.</p>
 
-<h5 id="iodef"><code class="highlighter-rouge">iodef</code></h5>
+<h5 id="iodef"><code class="language-plaintext highlighter-rouge">iodef</code></h5>
 <p>You can use this tag to report invalid certificate requests:</p>
 
 <table>
@@ -372,14 +372,14 @@ You can use this in case you never want a wildcard certificate to be issued or w
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">example.com.</code></td>
-      <td><code class="highlighter-rouge">CAA</code></td>
-      <td><code class="highlighter-rouge">0 iodef "mailto:certificates@example.com"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">example.com.</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CAA</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0 iodef "mailto:certificates@example.com"</code></td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">example.com.</code></td>
-      <td><code class="highlighter-rouge">CAA</code></td>
-      <td><code class="highlighter-rouge">0 iodef "https://certificate.example.com/endpoint"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">example.com.</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CAA</code></td>
+      <td><code class="language-plaintext highlighter-rouge">0 iodef "https://certificate.example.com/endpoint"</code></td>
     </tr>
   </tbody>
 </table>

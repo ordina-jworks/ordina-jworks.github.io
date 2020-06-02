@@ -625,16 +625,16 @@ but how long are we going to use this workaround?</p>
 
 <p>“Works on my machine” is mostly caused by local code changes, different OS, JDK, Maven, Files and/or Properties.</p>
 
-<p>Maven manages files for your through the Local Repository. The local repository is a dependency cache without time-to-live and can be located at <code class="highlighter-rouge">${user.home}/.m2/repository</code>.</p>
+<p>Maven manages files for your through the Local Repository. The local repository is a dependency cache without time-to-live and can be located at <code class="language-plaintext highlighter-rouge">${user.home}/.m2/repository</code>.</p>
 
 <p>The local repository of Maven is actually broken.
 Maven 2 had a dumb cache, once something was downloaded it would stay there forever.
-Maven 3 introduced cached artifacts that got verified for existence with <code class="highlighter-rouge">_remote.repositories</code>.
+Maven 3 introduced cached artifacts that got verified for existence with <code class="language-plaintext highlighter-rouge">_remote.repositories</code>.
 Artifacts that got deleted from Maven Central will be detected and fail your build.
 The Maven repository has checksums, but they are not being checked by default.
-You can enable this using <code class="highlighter-rouge">-C</code> for strict checksum checking causing a build failure or lax checksum checking using <code class="highlighter-rouge">-c</code> which will only warn for checksum mismatches.</p>
+You can enable this using <code class="language-plaintext highlighter-rouge">-C</code> for strict checksum checking causing a build failure or lax checksum checking using <code class="language-plaintext highlighter-rouge">-c</code> which will only warn for checksum mismatches.</p>
 
-<p>Are you running <code class="highlighter-rouge">mvn clean install</code> by default?
+<p>Are you running <code class="language-plaintext highlighter-rouge">mvn clean install</code> by default?
 You probably said “yes” like most developers.
 This a workaround for Maven 2 which is no longer needed in Maven 3.</p>
 
@@ -645,23 +645,23 @@ Maven 3 is reactor aware meaning install is no longer required.</p>
 <p>I/O is slow, so logging, files and downloading the internet with Maven is slow as well.</p>
 
 <p>As logging is slow, you should aim for a clean Maven output.
-So use your logging framework and do not use <code class="highlighter-rouge">System.out</code> or <code class="highlighter-rouge">System.err</code>.
-Disable logging during testing (using <code class="highlighter-rouge">loglevel=off</code>) and in the extreme run Maven with <code class="highlighter-rouge">-q</code> and <code class="highlighter-rouge">–quiet</code> which will disable all output and just tell you when it’s done.
+So use your logging framework and do not use <code class="language-plaintext highlighter-rouge">System.out</code> or <code class="language-plaintext highlighter-rouge">System.err</code>.
+Disable logging during testing (using <code class="language-plaintext highlighter-rouge">loglevel=off</code>) and in the extreme run Maven with <code class="language-plaintext highlighter-rouge">-q</code> and <code class="language-plaintext highlighter-rouge">–quiet</code> which will disable all output and just tell you when it’s done.
 When you enable debugging on Maven you’ll notice your build time will increase even though nothing has changed.</p>
 
-<p>As files are slow, we should not use <code class="highlighter-rouge">mvn clean</code>.
+<p>As files are slow, we should not use <code class="language-plaintext highlighter-rouge">mvn clean</code>.
 Most of the Maven plugins are aware if they must execute their task.</p>
 
-<p>The Maven CI extension (stands for Maven <code class="highlighter-rouge">clean install</code> extension) which will register clean and install when you keep executing <code class="highlighter-rouge">clean install</code>, your build will eventually fail as this is a bad practice.
-Properties resolution are mostly defined in your <code class="highlighter-rouge">pom.xml</code>, but also in your <code class="highlighter-rouge">settings.xml</code> and system properties.
-By adding a parameter to <code class="highlighter-rouge">mvn deploy -Dspring.version</code> you can change your deployed Spring version.
+<p>The Maven CI extension (stands for Maven <code class="language-plaintext highlighter-rouge">clean install</code> extension) which will register clean and install when you keep executing <code class="language-plaintext highlighter-rouge">clean install</code>, your build will eventually fail as this is a bad practice.
+Properties resolution are mostly defined in your <code class="language-plaintext highlighter-rouge">pom.xml</code>, but also in your <code class="language-plaintext highlighter-rouge">settings.xml</code> and system properties.
+By adding a parameter to <code class="language-plaintext highlighter-rouge">mvn deploy -Dspring.version</code> you can change your deployed Spring version.
 This is however not limited to Spring.
 You can also set this for the Java version, but please NEVER EVER do this.</p>
 
 <p>Versions could also break your builds due to conflicts with branch merging.
 You should isolate versions and make them unique.
 Maven 3.5.0 introduces CI-friendly placeholders which allow you to use placeholders for revision, SHA1 and change list, but multi-modules require a hack to rewrite your pom.
-To resolve this issue, there will be something new called <code class="highlighter-rouge">maven.experimental.buildconsumer</code> which will land in Maven 3.7.0 and it will require Java 8 or above.</p>
+To resolve this issue, there will be something new called <code class="language-plaintext highlighter-rouge">maven.experimental.buildconsumer</code> which will land in Maven 3.7.0 and it will require Java 8 or above.</p>
 
 <p>Treat your pom as production code so remove dead code like unused dependencies, plugins, properties and reports.</p>
 
@@ -672,8 +672,8 @@ Stay curious and keep yourself informed.
 Watch out for questions with outdated answers (on Stack Overflow) and find information at the source.</p>
 
 <p>Maven is up for grabs.
-About <code class="highlighter-rouge">60~80%</code> of Java project/developers use Maven.
-About <code class="highlighter-rouge">95%</code> (sub)projects have just ~5-10 active volunteers, there is no company behind this project.
+About <code class="language-plaintext highlighter-rouge">60~80%</code> of Java project/developers use Maven.
+About <code class="language-plaintext highlighter-rouge">95%</code> (sub)projects have just ~5-10 active volunteers, there is no company behind this project.
 If you feel like contributing to the Maven project check out <a href="https://s.apache.org/up-for-grabs_maven" target="_blank" rel="noopener noreferrer">Maven’s up for grabs</a>.</p>
 
 <p><a href="https://youtu.be/2HyGxtsDf60" target="_blank" rel="noopener noreferrer">YouTube VOD</a></p>

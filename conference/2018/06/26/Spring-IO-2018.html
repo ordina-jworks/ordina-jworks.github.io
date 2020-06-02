@@ -290,7 +290,7 @@ We will use <em>Strategic Design</em> to find a solution that takes into account
 <h3 id="bounded-context">Bounded Context</h3>
 
 <p>Every sophisticated business (sub-) domain consists of a bunch of Bounded Contexts.
-We can, for example, create linguistic boundaries using Bounded Contexts if the solution has two types of “accounts”: a <code class="highlighter-rouge">BankAccount</code> and a <code class="highlighter-rouge">UserAccount</code>.
+We can, for example, create linguistic boundaries using Bounded Contexts if the solution has two types of “accounts”: a <code class="language-plaintext highlighter-rouge">BankAccount</code> and a <code class="language-plaintext highlighter-rouge">UserAccount</code>.
 Each Bounded Context contains a domain model and is also a boundary for the meaning of a given model. We don’t nest Bounded Contexts.</p>
 
 <p><em>Inside</em> of a Bounded Context, it’s important to not repeat yourself.
@@ -329,7 +329,7 @@ Each Entity also has its own lifecycle.</p>
 As an example, Michael brought up the representer object he was holding: it costs 80 euros so this representer object could be identified by the value of 80 and the currency Euros. We do not care about <em>which</em> ‘80 euros’.
 Value Objects do not have their own lifecycle: they inherit it from Entities that are referencing them.</p>
 
-<p>It’s also important to note that for example a <code class="highlighter-rouge">Customer</code> can be an Entity in one Boundary Context but be a Value Object in a totally different Boundary Context.</p>
+<p>It’s also important to note that for example a <code class="language-plaintext highlighter-rouge">Customer</code> can be an Entity in one Boundary Context but be a Value Object in a totally different Boundary Context.</p>
 
 <p>Take note that your DDD Entity is <em>not</em> your JPA Entity.
 Because the JPA Entity is a <em>data</em> entity while the DDD Entity is a <em>business</em> entity. Don’t mix these types.</p>
@@ -378,8 +378,8 @@ This is, in Michael’s words, the “shortcut from hell” because you aren’t
 
 <p>Michael prefers Aggregates that do not reference themselves.
 They are hooked together with a few shared Value Objects which leads to more decoupling.
-There are 4 Aggregates in the application and we add a Value Object, <code class="highlighter-rouge">personID</code>, to hook <code class="highlighter-rouge">AgencyResult</code> and <code class="highlighter-rouge">Applicant</code> together.
-The <code class="highlighter-rouge">ApplicationNumber</code> object brings <code class="highlighter-rouge">Applicant</code>, <code class="highlighter-rouge">Financial Situation</code> and <code class="highlighter-rouge">ScoringResult</code> together.</p>
+There are 4 Aggregates in the application and we add a Value Object, <code class="language-plaintext highlighter-rouge">personID</code>, to hook <code class="language-plaintext highlighter-rouge">AgencyResult</code> and <code class="language-plaintext highlighter-rouge">Applicant</code> together.
+The <code class="language-plaintext highlighter-rouge">ApplicationNumber</code> object brings <code class="language-plaintext highlighter-rouge">Applicant</code>, <code class="language-plaintext highlighter-rouge">Financial Situation</code> and <code class="language-plaintext highlighter-rouge">ScoringResult</code> together.</p>
 
 <h6 id="keep-your-aggregates-spring-free">Keep your Aggregates Spring free.</h6>
 
@@ -402,7 +402,7 @@ The <code class="highlighter-rouge">ApplicationNumber</code> object brings <code
 
 <p>The Builder pattern works very well with Aggregates as a substitute to the DDD factory. All Aggregates have Builders in this author’s project.</p>
 
-<h6 id="use-an-annotation-aggregate-and-aggregatebuilder">Use an annotation <code class="highlighter-rouge">@Aggregate</code> and <code class="highlighter-rouge">@AggregateBuilder</code>.</h6>
+<h6 id="use-an-annotation-aggregate-and-aggregatebuilder">Use an annotation <code class="language-plaintext highlighter-rouge">@Aggregate</code> and <code class="language-plaintext highlighter-rouge">@AggregateBuilder</code>.</h6>
 
 <p>Why?
 To have a code review system in place that checks whether Aggregates are publicly visible and other non-Aggregate classes are packaged protected.
@@ -494,8 +494,8 @@ Many people think that migrating these kinds of applications is impossible or ve
   <li>Generate a new skeleton project from <a href="https://start.spring.io" target="_blank">start.spring.io</a></li>
   <li>Use schema.sql and data.sql data sheets to migrate and test your database</li>
   <li>Use Kotlin to vastly simplify your code by using data classes to simplify access to members and constructors, and by moving the constructor definition in the same line as the class definition</li>
-  <li>Using Spring Data, no more need to use <code class="highlighter-rouge">PersistenceContext</code> or <code class="highlighter-rouge">EntityManager</code></li>
-  <li>Using Spring MVC with <code class="highlighter-rouge">@RestController</code>, no more need to declare <code class="highlighter-rouge">@Produces</code> or <code class="highlighter-rouge">@Consumes</code></li>
+  <li>Using Spring Data, no more need to use <code class="language-plaintext highlighter-rouge">PersistenceContext</code> or <code class="language-plaintext highlighter-rouge">EntityManager</code></li>
+  <li>Using Spring MVC with <code class="language-plaintext highlighter-rouge">@RestController</code>, no more need to declare <code class="language-plaintext highlighter-rouge">@Produces</code> or <code class="language-plaintext highlighter-rouge">@Consumes</code></li>
 </ul>
 
 <h3 id="benefits">Benefits</h3>
@@ -535,7 +535,7 @@ Though there are 7 areas of refinement within 5.0 that aren’t widely known to 
 
 <h3 id="commons-logging-bridge">Commons Logging Bridge</h3>
 
-<p>So the Spring team came up with a new dependency called <code class="highlighter-rouge">spring-jcl</code> which is actually a reimplementation of a logging bridge.
+<p>So the Spring team came up with a new dependency called <code class="language-plaintext highlighter-rouge">spring-jcl</code> which is actually a reimplementation of a logging bridge.
 It is a required dependency and is here to help streamline the logging functionality.
 The main difference with this way of working is that you don’t need to go through a dependency hell where you would manually add exclusions to ignore certain logging dependencies.
 Just add the logging library to your classpath and everything will switch to the logging implementation of your choice.
@@ -543,16 +543,16 @@ It now has first class support for Log4J 2 (version 1 has reached its end of lif
 
 <h3 id="build-time-components-indexer">Build-Time Components Indexer</h3>
 
-<p>The file system traversal for classpath scanning of all packages within the specified base packages using either <code class="highlighter-rouge">&lt;context:component-scan&gt;</code> or <code class="highlighter-rouge">@ComponentScan</code> might be slow on startup.
+<p>The file system traversal for classpath scanning of all packages within the specified base packages using either <code class="language-plaintext highlighter-rouge">&lt;context:component-scan&gt;</code> or <code class="language-plaintext highlighter-rouge">@ComponentScan</code> might be slow on startup.
 This is especially true if your application is started for a small period of time or where I/O is very expensive.
 Think short-running batch processes and functions, or applications being started and stopped on Google App Engine every 2 minutes.
 The common solution was to narrow your base packages, or even to fully enumerate your component classes so you would skip scanning all together.
-Starting with 5.0 there is a new build-time annotation processor that will generate a <code class="highlighter-rouge">META-INF/spring.components</code> file per JAR containing all the classes which in turn will be used automatically at runtime for compatible component-scan declarations.</p>
+Starting with 5.0 there is a new build-time annotation processor that will generate a <code class="language-plaintext highlighter-rouge">META-INF/spring.components</code> file per JAR containing all the classes which in turn will be used automatically at runtime for compatible component-scan declarations.</p>
 
 <h3 id="nullability">Nullability</h3>
 
 <p>The new version contains comprehensive nullability declarations across the codebase.
-Fields, method parameters and method return values are still by default non-null, but now there are individual <code class="highlighter-rouge">@Nullable</code> declarations for actually nullable return values for example.
+Fields, method parameters and method return values are still by default non-null, but now there are individual <code class="language-plaintext highlighter-rouge">@Nullable</code> declarations for actually nullable return values for example.
 For Java this means that we have nullability validation in IntelliJ IDEA and Eclipse.
 This allows the Spring Team to find subtle bugs or gaps within the framework’s codebase.
 It will also allow us, as developers, to validate our interactions with the Spring APIs.
@@ -563,27 +563,27 @@ When you’re writing code in Kotlin it will give you straightforward assignment
 <p>Spring Data can now work with immutable classes.
 No need for setters anymore since it can work with named constructor arguments!
 The property names are matched against the constructor parameter names.
-You can do this by explicitly using <code class="highlighter-rouge">@ConstructorProperties</code> or they are simply inferred from the class bytecode (if you pass <code class="highlighter-rouge">-parameters</code> or <code class="highlighter-rouge">-debug</code> as compilation argument).
+You can do this by explicitly using <code class="language-plaintext highlighter-rouge">@ConstructorProperties</code> or they are simply inferred from the class bytecode (if you pass <code class="language-plaintext highlighter-rouge">-parameters</code> or <code class="language-plaintext highlighter-rouge">-debug</code> as compilation argument).
 This is a perfect match with Kotlin and Lombok data classes where the getter and setters are generated at compile time.</p>
 
 <h3 id="programmatic-lookup-via-objectprovider">Programmatic Lookup via ObjectProvider</h3>
 
-<p>The <code class="highlighter-rouge">ObjectProvider</code> is a variant of <code class="highlighter-rouge">ObjectFactory</code>, which is designed specifically for injection points, allowing for programmatic optionality and lenient not-unique handling.
-This class had the following original methods: <code class="highlighter-rouge">@Nullable getIfAvailable()</code> and <code class="highlighter-rouge">@Nullable getIfUnique()</code>.
-With the new version of Spring these methods have been overloaded with <code class="highlighter-rouge">java.util.function</code> callbacks which empowers the developer to return a default value instead of returning <code class="highlighter-rouge">null</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">ObjectProvider</code> is a variant of <code class="language-plaintext highlighter-rouge">ObjectFactory</code>, which is designed specifically for injection points, allowing for programmatic optionality and lenient not-unique handling.
+This class had the following original methods: <code class="language-plaintext highlighter-rouge">@Nullable getIfAvailable()</code> and <code class="language-plaintext highlighter-rouge">@Nullable getIfUnique()</code>.
+With the new version of Spring these methods have been overloaded with <code class="language-plaintext highlighter-rouge">java.util.function</code> callbacks which empowers the developer to return a default value instead of returning <code class="language-plaintext highlighter-rouge">null</code>.</p>
 
 <h3 id="refined-resource-interaction">Refined Resource Interaction</h3>
 
-<p>Spring’s <code class="highlighter-rouge">Resource</code> abstraction in <code class="highlighter-rouge">core.io</code> has been overhauled to expose the NIO.2 API at application level, eg. <code class="highlighter-rouge">Resource.getReadableChannel()</code> or <code class="highlighter-rouge">WritableResource.getWritableChannel()</code>.
-They are also using the NIO.2 API internally wherever possible, eg. <code class="highlighter-rouge">FileSystemResource.getInput/OutputStream()</code> or <code class="highlighter-rouge">FileCopyUtils.copy(File, File)</code>.</p>
+<p>Spring’s <code class="language-plaintext highlighter-rouge">Resource</code> abstraction in <code class="language-plaintext highlighter-rouge">core.io</code> has been overhauled to expose the NIO.2 API at application level, eg. <code class="language-plaintext highlighter-rouge">Resource.getReadableChannel()</code> or <code class="language-plaintext highlighter-rouge">WritableResource.getWritableChannel()</code>.
+They are also using the NIO.2 API internally wherever possible, eg. <code class="language-plaintext highlighter-rouge">FileSystemResource.getInput/OutputStream()</code> or <code class="language-plaintext highlighter-rouge">FileCopyUtils.copy(File, File)</code>.</p>
 
 <h3 id="asynchronous-execution">Asynchronous Execution</h3>
 
 <p>Spring 5.0 comes with a couple of interface changes that will help you with asynchrous execution:</p>
 <ul>
-  <li>The <code class="highlighter-rouge">ListenableFuture</code> now has a <code class="highlighter-rouge">completable()</code> method which exposes the instance as a JDK <code class="highlighter-rouge">CompletableFuture</code>.</li>
-  <li>The <code class="highlighter-rouge">TaskScheduler</code> interface has new methods as an alternative to <code class="highlighter-rouge">Date</code> and <code class="highlighter-rouge">long</code> arguments: <code class="highlighter-rouge">scheduleAtFixedRate(Runnable, Instant, Duration)</code> and <code class="highlighter-rouge">scheduleWithFixedDelay(Runnable, Instant, Duration)</code>.</li>
-  <li>The new <code class="highlighter-rouge">ScheduledTaskHolder</code> interface for monitoring the current tasks, eg. <code class="highlighter-rouge">ScheduledTaskRegistrar.getScheduledTasks()</code> and <code class="highlighter-rouge">ScheduledAnnotationBeanPostProcessor.getScheduledTasks()</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">ListenableFuture</code> now has a <code class="language-plaintext highlighter-rouge">completable()</code> method which exposes the instance as a JDK <code class="language-plaintext highlighter-rouge">CompletableFuture</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">TaskScheduler</code> interface has new methods as an alternative to <code class="language-plaintext highlighter-rouge">Date</code> and <code class="language-plaintext highlighter-rouge">long</code> arguments: <code class="language-plaintext highlighter-rouge">scheduleAtFixedRate(Runnable, Instant, Duration)</code> and <code class="language-plaintext highlighter-rouge">scheduleWithFixedDelay(Runnable, Instant, Duration)</code>.</li>
+  <li>The new <code class="language-plaintext highlighter-rouge">ScheduledTaskHolder</code> interface for monitoring the current tasks, eg. <code class="language-plaintext highlighter-rouge">ScheduledTaskRegistrar.getScheduledTasks()</code> and <code class="language-plaintext highlighter-rouge">ScheduledAnnotationBeanPostProcessor.getScheduledTasks()</code>.</li>
 </ul>
 
 <h2 id="google-cloud-native-with-spring-boot-by-ray-tsang">Google Cloud Native with Spring Boot by <a href="https://twitter.com/saturnism" target="_blank">Ray Tsang</a></h2>
@@ -662,14 +662,14 @@ processing happens until someone subscribes</strong>.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="k">this</span><span class="o">.</span><span class="na">myFlux</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span></code></pre></figure>
 
-<p>When the <code class="highlighter-rouge">subscribe</code> method is called the actual chain is executed and the length of the string is printed in the console.</p>
+<p>When the <code class="language-plaintext highlighter-rouge">subscribe</code> method is called the actual chain is executed and the length of the string is printed in the console.</p>
 
 <p>For those familiar with Java 8 it’s basically the same as Java 8 streams,
-nothing really happens until a terminal operation is used (<code class="highlighter-rouge">collect</code>, <code class="highlighter-rouge">reduce</code>, <code class="highlighter-rouge">count</code>, …).</p>
+nothing really happens until a terminal operation is used (<code class="language-plaintext highlighter-rouge">collect</code>, <code class="language-plaintext highlighter-rouge">reduce</code>, <code class="language-plaintext highlighter-rouge">count</code>, …).</p>
 
 <p>One of the drawbacks of this is error handling.
 Since the error doesn’t happen until the subscription, it’s harder to see where the error actually happens.
-To alleviate this, Reactor provides a feature called <strong>assembly tracing</strong> which can be enabled with the <code class="highlighter-rouge">checkpoint()</code> operator.</p>
+To alleviate this, Reactor provides a feature called <strong>assembly tracing</strong> which can be enabled with the <code class="language-plaintext highlighter-rouge">checkpoint()</code> operator.</p>
 
 <blockquote>
   <p>Nothing happens until you subscribe.</p>
@@ -688,18 +688,18 @@ A hot observable is constantly producing data and will only give the elements to
 <p>Reactor is concurrency agnostic which means it doesn’t impose a concurrency model while it does give the developer the tools to change Reactor’s executor behavior.</p>
 
 <p>This is done using the scheduler abstraction: a scheduler defines the execution context, this can be the same thread, another thread or using a threadpool.
-The special operators <code class="highlighter-rouge">publishOn()</code> and <code class="highlighter-rouge">subscribeOn()</code> allow you to change the execution context of the current chain.</p>
+The special operators <code class="language-plaintext highlighter-rouge">publishOn()</code> and <code class="language-plaintext highlighter-rouge">subscribeOn()</code> allow you to change the execution context of the current chain.</p>
 
-<p>The <code class="highlighter-rouge">publishOn()</code> changes the execution context of the downstream operators.</p>
+<p>The <code class="language-plaintext highlighter-rouge">publishOn()</code> changes the execution context of the downstream operators.</p>
 
 <p>For example:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">flux</span><span class="o">.</span><span class="na">op1</span><span class="o">().</span><span class="na">op2</span><span class="o">().</span><span class="na">publishOn</span><span class="o">(</span><span class="n">scheduler1</span><span class="o">).</span><span class="na">op3</span><span class="o">().</span><span class="na">subscribe</span><span class="o">((</span><span class="n">result</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">doSomethingWith</span><span class="o">(</span><span class="n">result</span><span class="o">));</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">op1</code> and <code class="highlighter-rouge">op2</code> will execute in the original execution context(usually the thread in which the subscribe is called).
-<code class="highlighter-rouge">op3</code> and the action defined in the <code class="highlighter-rouge">subscribe</code> method itself will execute in <code class="highlighter-rouge">scheduler1</code>’s execution context.</p>
+<p><code class="language-plaintext highlighter-rouge">op1</code> and <code class="language-plaintext highlighter-rouge">op2</code> will execute in the original execution context(usually the thread in which the subscribe is called).
+<code class="language-plaintext highlighter-rouge">op3</code> and the action defined in the <code class="language-plaintext highlighter-rouge">subscribe</code> method itself will execute in <code class="language-plaintext highlighter-rouge">scheduler1</code>’s execution context.</p>
 
-<p>The <code class="highlighter-rouge">subscribeOn()</code> changes the execution context of the subscription, meaning of the start of the execution of the chain.</p>
+<p>The <code class="language-plaintext highlighter-rouge">subscribeOn()</code> changes the execution context of the subscription, meaning of the start of the execution of the chain.</p>
 
 <p>For example:</p>
 
@@ -751,7 +751,7 @@ Also when reading, data is directly copied over from the disk buffer into the ne
 
 <p><a href="https://spring.io/projects/spring-kafka" target="_blank">Spring Kafka</a> integrates Kafka with Spring giving you all the benefits of the Spring ecosystem.
 It also supports <a href="https://kafka.apache.org/documentation/streams/" target="_blank">Kafka Streams</a> since a few months.
-<a href="https://docs.spring.io/spring-kafka/docs/2.1.6.RELEASE/reference/html/_reference.html#testing" target="_blank">Testing</a> is made easier by providing an <code class="highlighter-rouge">@EmbeddedKafka</code> and a <code class="highlighter-rouge">TestUtils</code> class:</p>
+<a href="https://docs.spring.io/spring-kafka/docs/2.1.6.RELEASE/reference/html/_reference.html#testing" target="_blank">Testing</a> is made easier by providing an <code class="language-plaintext highlighter-rouge">@EmbeddedKafka</code> and a <code class="language-plaintext highlighter-rouge">TestUtils</code> class:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@EmbeddedKafka</span><span class="o">(</span><span class="n">partitions</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span>
          <span class="n">topics</span> <span class="o">=</span> <span class="o">{</span>
@@ -796,7 +796,7 @@ It stated:</p>
 
 <ul>
   <li>Make your code package protected whenever it does not need to be accessed from the outside, a good starting point is to make your repositories no longer public.</li>
-  <li>Whenever there is leakage over the bounded contexts, for example when <code class="highlighter-rouge">LineItems</code> contains <code class="highlighter-rouge">Products</code>, try to use IDs and not the actual objects of another bounded context, because whenever you update an object used within another bounded context, you will also leak into that context.</li>
+  <li>Whenever there is leakage over the bounded contexts, for example when <code class="language-plaintext highlighter-rouge">LineItems</code> contains <code class="language-plaintext highlighter-rouge">Products</code>, try to use IDs and not the actual objects of another bounded context, because whenever you update an object used within another bounded context, you will also leak into that context.</li>
 </ul>
 
 <p>It is also noted that badly structured applications tend to be built from the bottom up, from DB to the top.
@@ -846,7 +846,7 @@ This doesn’t mean that suddenly all your problems have been solved.</p>
 
 <h3 id="modulith">Modulith</h3>
 
-<p>We will start using events inside our modulith, as well as more domain specific methods, like an <code class="highlighter-rouge">add()</code> on an <code class="highlighter-rouge">Order</code>.
+<p>We will start using events inside our modulith, as well as more domain specific methods, like an <code class="language-plaintext highlighter-rouge">add()</code> on an <code class="language-plaintext highlighter-rouge">Order</code>.
 This makes everything more abstract, making your domain objects much more than glorified getters and setters.</p>
 
 <blockquote>
@@ -876,7 +876,7 @@ This has the advantage that your business services no longer needs to know about
 This also applies for JEE eventing.</p>
 
 <p>The <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/event/TransactionalEventListener.html" target="_blank">@TransactionalEventListener</a> annotation allows you to delay the execution of events,
-so for example, you can send out an email when an <code class="highlighter-rouge">Order</code> has truly been completed.</p>
+so for example, you can send out an email when an <code class="language-plaintext highlighter-rouge">Order</code> has truly been completed.</p>
 
 <blockquote>
   <p>Side Step: Error Scenarios</p>
@@ -991,7 +991,7 @@ These are configurable via properties and common tags such as the application na
 
 <h3 id="tracing">Tracing</h3>
 
-<p>Local tracing happens via the Actuator <code class="highlighter-rouge">/httptrace</code> endpoint and displays the latency data.
+<p>Local tracing happens via the Actuator <code class="language-plaintext highlighter-rouge">/httptrace</code> endpoint and displays the latency data.
 With distributed tracing you can go across process boundaries which is useful as metrics lack request context and as logs have a local context but limited distributed info.
 You define the sample size of the request to trace yourself as you don’t want to trace everything especially if you have a high load.
 This sample size is configurable at runtime, especially handy to debug errors in production.
@@ -1110,8 +1110,8 @@ It was split up into two parts:</p>
 <h3 id="testing-a-single-microservice-with-cucumber-and-junit">Testing a single microservice with Cucumber and JUnit</h3>
 
 <p>The presentation started off with some of the new features that JUnit 5 has to offer.
-Since JUnit 5 supports Java 8, it allows you to use lambdas in assertions, as well as using group assertions with the <code class="highlighter-rouge">assertAll()</code> method.
-It’s also possible to run tests multiple times with different parameters, by annotating them with the <code class="highlighter-rouge">@ParameterizedTest</code> and <code class="highlighter-rouge">@ValueSource</code> for the arguments.</p>
+Since JUnit 5 supports Java 8, it allows you to use lambdas in assertions, as well as using group assertions with the <code class="language-plaintext highlighter-rouge">assertAll()</code> method.
+It’s also possible to run tests multiple times with different parameters, by annotating them with the <code class="language-plaintext highlighter-rouge">@ParameterizedTest</code> and <code class="language-plaintext highlighter-rouge">@ValueSource</code> for the arguments.</p>
 
 <h4 id="behaviour-driven-testing-with-cucumber">Behaviour driven testing with Cucumber</h4>
 
@@ -1121,7 +1121,7 @@ Usually it’s the developer who writes such tests, but it’s also possible for
 <p>How does this work exactly?</p>
 
 <p>Cucumber achieves this by using Gherkin, an English plain text language.
-It has <code class="highlighter-rouge">.feature</code> files where the different scenarios for a certain feature are described.</p>
+It has <code class="language-plaintext highlighter-rouge">.feature</code> files where the different scenarios for a certain feature are described.</p>
 
 <pre>
 <code>
@@ -1135,19 +1135,19 @@ It has <code class="highlighter-rouge">.feature</code> files where the different
 
 <p>The above is a simple example of how to describe a feature and scenario.
 The words in bold represent <a href="https://github.com/cucumber/cucumber/wiki/Feature-Introduction" target="_blank">Cucumber keywords</a>, called step definitions.
-It’s also possible to substitute <code class="highlighter-rouge">Scenario</code> with <code class="highlighter-rouge">Scenario outline</code> in case you need to test the same scenario with different values.
-You can put parameters inside angle brackets (<code class="highlighter-rouge">&lt;&gt;</code>), which are substituted with values that you define in an <a href="https://github.com/cucumber/cucumber/wiki/Scenario-Outlines" target="_blank">Examples data-table</a>.</p>
+It’s also possible to substitute <code class="language-plaintext highlighter-rouge">Scenario</code> with <code class="language-plaintext highlighter-rouge">Scenario outline</code> in case you need to test the same scenario with different values.
+You can put parameters inside angle brackets (<code class="language-plaintext highlighter-rouge">&lt;&gt;</code>), which are substituted with values that you define in an <a href="https://github.com/cucumber/cucumber/wiki/Scenario-Outlines" target="_blank">Examples data-table</a>.</p>
 
-<p>The next step is to annotate your methods with the Cucumber step definitions (e.g. <code class="highlighter-rouge">@Given</code> <code class="highlighter-rouge">@When</code>).
-The text that you provide the annotations with, should match the text in your <code class="highlighter-rouge">.feature</code> file so that Cucumber can glue the two together.
+<p>The next step is to annotate your methods with the Cucumber step definitions (e.g. <code class="language-plaintext highlighter-rouge">@Given</code> <code class="language-plaintext highlighter-rouge">@When</code>).
+The text that you provide the annotations with, should match the text in your <code class="language-plaintext highlighter-rouge">.feature</code> file so that Cucumber can glue the two together.
 In this case, the <code><b>When</b> the user creates a new Basket</code> of the example above matches with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@When("^the user creates a new Basket$")
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@When("^the user creates a new Basket$")
 </code></pre></div></div>
 
 <p>The annotated methods should execute what you described in the feature files, so in this case the method looks something like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void theUserCreatesANewBasket() {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public void theUserCreatesANewBasket() {
     userBasketManagement.createNewBasket();
   }
 </code></pre></div></div>
@@ -1166,7 +1166,7 @@ Spring Cloud Contract enables Consumer Driven Contract development, where one se
 
 <p>Next, add the Spring Cloud Starter Contract Verifier dependency and maven plugin to your producer.
 Create a base test class to the test package that loads the Spring Context.
-Make sure to annotate it with <code class="highlighter-rouge">@AutoConfigureMessageVerifier</code>.</p>
+Make sure to annotate it with <code class="language-plaintext highlighter-rouge">@AutoConfigureMessageVerifier</code>.</p>
 
 <p>We should also add the contract to our resources on the producer-side:</p>
 
@@ -1205,15 +1205,15 @@ Contract.make{
 </pre>
 
 <p>The above is an example of how a contract is defined, written in Groovy (although YAML is a possibility as well).
-It simply specifies that a GET request to <code class="highlighter-rouge">/tapas</code> should return the provided body as application/json.</p>
+It simply specifies that a GET request to <code class="language-plaintext highlighter-rouge">/tapas</code> should return the provided body as application/json.</p>
 
 <p>Now it’s time to create the stub.
 Since you’ve already added the dependency and plugin to your producer, simply run your build for the plugin to generate the stubs.
 The built stub artifact will be stored in your local maven repository.
 The plugin will also create a test class that extends the base test class we created earlier containing the necessary setup to run your tests.</p>
 
-<p>The next step is to add the Spring Cloud Contract Stub Runner dependency to the consumer and annotate your test class with <code class="highlighter-rouge">@AutoConfigureStubRunner</code>.
-By annotating your class with <code class="highlighter-rouge">@AutoConfigureStubRunner</code> and providing the <code class="highlighter-rouge">groupId</code>, <code class="highlighter-rouge">artifactId</code> and <code class="highlighter-rouge">port</code> on which the stub will run, your test class is configured to use the producer’s generated stub.</p>
+<p>The next step is to add the Spring Cloud Contract Stub Runner dependency to the consumer and annotate your test class with <code class="language-plaintext highlighter-rouge">@AutoConfigureStubRunner</code>.
+By annotating your class with <code class="language-plaintext highlighter-rouge">@AutoConfigureStubRunner</code> and providing the <code class="language-plaintext highlighter-rouge">groupId</code>, <code class="language-plaintext highlighter-rouge">artifactId</code> and <code class="language-plaintext highlighter-rouge">port</code> on which the stub will run, your test class is configured to use the producer’s generated stub.</p>
 
 <p>Interested to try out this Spring Cloud Contract workshop?
 You can find the Github repo <a href="https://github.com/faros/spring-cloud-contract/" target="_blank">here</a>.</p>

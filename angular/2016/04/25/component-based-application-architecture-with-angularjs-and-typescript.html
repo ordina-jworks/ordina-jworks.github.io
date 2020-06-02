@@ -208,7 +208,7 @@ The sample code in this article and the sample application are created together 
 
 <p>More specifically we call it a <strong>component directive</strong> or <strong>template directive</strong>.
 It is an approach to writing your own custom HTML elements which browsers are able to read and render.
-HTML comes with a set of pre-defined elements, for example the <code class="highlighter-rouge">&lt;div&gt;&lt;/div&gt;</code> element or the <code class="highlighter-rouge">&lt;span&gt;&lt;/span&gt;</code> element.</p>
+HTML comes with a set of pre-defined elements, for example the <code class="language-plaintext highlighter-rouge">&lt;div&gt;&lt;/div&gt;</code> element or the <code class="language-plaintext highlighter-rouge">&lt;span&gt;&lt;/span&gt;</code> element.</p>
 
 <p>By combing and nesting these standard HTML tags we can build complex UI widgets.
 We can change their appearance and behavior dynamically with JavaScript and CSS.</p>
@@ -232,8 +232,8 @@ My advice is to be sure to use correct naming conventions and a module system so
 <p>To create and register a custom element in AngularJS, we can use either methods:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">.directive (name, factoryFunction)</code></li>
-  <li><code class="highlighter-rouge">.component (name, object)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">.directive (name, factoryFunction)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">.component (name, object)</code></li>
 </ul>
 
 <p>While components are restricted to custom elements, directives can be used to create both elements as well as custom attributes.</p>
@@ -247,14 +247,14 @@ My advice is to be sure to use correct naming conventions and a module system so
 </ul>
 
 <p>A <strong>Component directive</strong> is a directive with a template.
-The <code class="highlighter-rouge">.component()</code> method is a helper method which creates a directive set with default properties.</p>
+The <code class="language-plaintext highlighter-rouge">.component()</code> method is a helper method which creates a directive set with default properties.</p>
 
-<p>An <strong>Attribute directive</strong> is declared as an element attribute and they can change the appearance or behavior of an element (<code class="highlighter-rouge">ng-change</code>, <code class="highlighter-rouge">ng-click</code>, …).</p>
+<p>An <strong>Attribute directive</strong> is declared as an element attribute and they can change the appearance or behavior of an element (<code class="language-plaintext highlighter-rouge">ng-change</code>, <code class="language-plaintext highlighter-rouge">ng-click</code>, …).</p>
 
-<p>A <strong>Structural directive</strong> is an attribute or element that manipulates the DOM by adding or removing DOM elements (<code class="highlighter-rouge">ng-if</code>, <code class="highlighter-rouge">ng-repeat</code>, …).</p>
+<p>A <strong>Structural directive</strong> is an attribute or element that manipulates the DOM by adding or removing DOM elements (<code class="language-plaintext highlighter-rouge">ng-if</code>, <code class="language-plaintext highlighter-rouge">ng-repeat</code>, …).</p>
 
 <h2 id="when-do-we-use-directive-and-when-do-we-use-component">When do we use .directive(), and when do we use .component()?</h2>
-<p>Custom UI elements should be created with the <code class="highlighter-rouge">.component()</code> helper method because it:</p>
+<p>Custom UI elements should be created with the <code class="language-plaintext highlighter-rouge">.component()</code> helper method because it:</p>
 
 <ul>
   <li>enforces best practices and provides optimizations (isolate scope, bindings)</li>
@@ -264,7 +264,7 @@ The <code class="highlighter-rouge">.component()</code> method is a helper metho
 </ul>
 
 <blockquote>
-  <p>Use the <code class="highlighter-rouge">.directive()</code> method when you want to manipulate the DOM by adding or removing elements (Structural directive) or when you want to change the appearance or behavior of an element (Attribute directive).</p>
+  <p>Use the <code class="language-plaintext highlighter-rouge">.directive()</code> method when you want to manipulate the DOM by adding or removing elements (Structural directive) or when you want to change the appearance or behavior of an element (Attribute directive).</p>
 </blockquote>
 
 <h2 id="creating-a-component-based-angularjs-application">Creating a component-based AngularJS application</h2>
@@ -275,7 +275,7 @@ Before creating a component you have to decide if it will be a  <strong>Presenta
 <p>Also known as a dumb component.
 They are used to visualize data and can easily be reused.
 They don’t manipulate application state nor do they fetch any data.
-Instead they define a public API in which they can receive inputs (<code class="highlighter-rouge">&lt;</code> and <code class="highlighter-rouge">@</code> bindings), and communicate any outputs (<code class="highlighter-rouge">&amp;</code> binding) with their direct parent.</p>
+Instead they define a public API in which they can receive inputs (<code class="language-plaintext highlighter-rouge">&lt;</code> and <code class="language-plaintext highlighter-rouge">@</code> bindings), and communicate any outputs (<code class="language-plaintext highlighter-rouge">&amp;</code> binding) with their direct parent.</p>
 
 <blockquote>
   <p>Designers can easily work on Presentational components because they don’t interfere with application logic.</p>
@@ -302,12 +302,12 @@ Instead they define a public API in which they can receive inputs (<code class="
             <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">'</span><span class="s1">currencyConverterApp, []</span><span class="dl">'</span><span class="p">)</span>
             <span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">());</span></code></pre></figure>
 
-<p>This component has a very simple API with one input -  <code class="highlighter-rouge">title</code> - and zero outputs.
+<p>This component has a very simple API with one input -  <code class="language-plaintext highlighter-rouge">title</code> - and zero outputs.
 It doesn’t call a service or fetch any data.
 It doesn’t update any outside resources or make any requests to manipulate application state.
 Also notice how easy it was to register this component directive.</p>
 
-<p><em>Let’s create the same component directive but register it with the <code class="highlighter-rouge">.directive()</code> method.</em></p>
+<p><em>Let’s create the same component directive but register it with the <code class="language-plaintext highlighter-rouge">.directive()</code> method.</em></p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">RootComponent</span> <span class="kr">implements</span> <span class="nx">IDirective</span> <span class="p">{</span>
     <span class="kd">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">;</span>
@@ -332,12 +332,12 @@ Also notice how easy it was to register this component directive.</p>
 <span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="dl">'</span><span class="s1">currencyConverterApp, []</span><span class="dl">'</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="nx">Rootcomponent</span><span class="p">.</span><span class="nx">NAME</span><span class="p">,</span> <span class="nx">RootComponent</span><span class="p">.</span><span class="nx">instance</span><span class="p">());</span></code></pre></figure>
 
-<p>As you can see, this has a lot more configuration compared to using the <code class="highlighter-rouge">.component()</code> helper method.
-Although it offers more power and flexibility, its more practical to have the <code class="highlighter-rouge">.component()</code> method when creating custom UI elements.</p>
+<p>As you can see, this has a lot more configuration compared to using the <code class="language-plaintext highlighter-rouge">.component()</code> helper method.
+Although it offers more power and flexibility, its more practical to have the <code class="language-plaintext highlighter-rouge">.component()</code> method when creating custom UI elements.</p>
 
 <ul>
   <li>bindings are automatically bound to the controller</li>
-  <li><code class="highlighter-rouge">controllerAs</code> defaults to <code class="highlighter-rouge">$ctrl</code></li>
+  <li><code class="language-plaintext highlighter-rouge">controllerAs</code> defaults to <code class="language-plaintext highlighter-rouge">$ctrl</code></li>
   <li>always creates an isolate scope</li>
 </ul>
 
@@ -345,7 +345,7 @@ Although it offers more power and flexibility, its more practical to have the <c
 <p>Also known as smart components.
 This type of component is more tightly coupled to the application and not intended for reusability.
 It fetches data, manages part of the application state and provides the data to its child components.
-The child component communicates any update on the data through its output bindings (<code class="highlighter-rouge">&amp;</code>).
+The child component communicates any update on the data through its output bindings (<code class="language-plaintext highlighter-rouge">&amp;</code>).
 The container component eventually decides what action to take with the data, not the child component.</p>
 
 <p>Let’s look at an example of a container component, I will leave out the complete template for brevity’s sake, you can view the complete code in the companion repository.</p>
@@ -375,8 +375,8 @@ The container component eventually decides what action to take with the data, no
     <span class="nl">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="nx">CurrencyConverterComponentController</span><span class="p">;</span>
     <span class="p">}</span></code></pre></figure>
 
-<p>The template contains two declarations of a presentational component <code class="highlighter-rouge">&lt;currencies-select&gt;</code>.
-When we look at the attributes of the currencies-select element, the component API consists of <strong>three inputs</strong> (<code class="highlighter-rouge">title</code>, <code class="highlighter-rouge">show-values-as-rates</code> and <code class="highlighter-rouge">currencies</code>) and <strong>one output</strong> (<code class="highlighter-rouge">on-selected</code>).
+<p>The template contains two declarations of a presentational component <code class="language-plaintext highlighter-rouge">&lt;currencies-select&gt;</code>.
+When we look at the attributes of the currencies-select element, the component API consists of <strong>three inputs</strong> (<code class="language-plaintext highlighter-rouge">title</code>, <code class="language-plaintext highlighter-rouge">show-values-as-rates</code> and <code class="language-plaintext highlighter-rouge">currencies</code>) and <strong>one output</strong> (<code class="language-plaintext highlighter-rouge">on-selected</code>).
 Our container component can bind a callback method on the on-selected attribute which offers an opportunity for the currencies-select component to <strong>communicate with its parent component</strong>.</p>
 
 <p>Below we define our components controller, here we can set and manipulate our template’s view model.</p>
@@ -419,12 +419,12 @@ Our container component can bind a callback method on the on-selected attribute 
 <span class="p">}</span></code></pre></figure>
 
 <p>This component injects a data service to fetch a list of currencies.
-We pass this list to each <code class="highlighter-rouge">&lt;currencies-select&gt;</code> element in the <code class="highlighter-rouge">$onInit</code> method.</p>
+We pass this list to each <code class="language-plaintext highlighter-rouge">&lt;currencies-select&gt;</code> element in the <code class="language-plaintext highlighter-rouge">$onInit</code> method.</p>
 
-<p>The <code class="highlighter-rouge">$onInit</code> is a component lifecycle method that gets called by the framework each time the component gets instantiated.
-In this method we set our view model properties <code class="highlighter-rouge">_fromCurrencies_</code> and <code class="highlighter-rouge">_toCurrencies_</code> equal to a list of currencies fetched from the data service.</p>
+<p>The <code class="language-plaintext highlighter-rouge">$onInit</code> is a component lifecycle method that gets called by the framework each time the component gets instantiated.
+In this method we set our view model properties <code class="language-plaintext highlighter-rouge">_fromCurrencies_</code> and <code class="language-plaintext highlighter-rouge">_toCurrencies_</code> equal to a list of currencies fetched from the data service.</p>
 
-<p>The <code class="highlighter-rouge">fromSelected</code> and <code class="highlighter-rouge">toSelected</code> methods are passed down as callbacks for the <code class="highlighter-rouge">&lt;currencies-select on-selected&gt;</code> output.</p>
+<p>The <code class="language-plaintext highlighter-rouge">fromSelected</code> and <code class="language-plaintext highlighter-rouge">toSelected</code> methods are passed down as callbacks for the <code class="language-plaintext highlighter-rouge">&lt;currencies-select on-selected&gt;</code> output.</p>
 
 <p>So how does our presentational component definition look like?</p>
 
@@ -462,7 +462,7 @@ In this method we set our view model properties <code class="highlighter-rouge">
 
 <p>Bindings define the components API, in the above case there are four bindings.
 Our previous example declared this component but we only noticed three inputs and one output.
-Apparently there is a fourth input called <code class="highlighter-rouge">_showSelected_</code>.
+Apparently there is a fourth input called <code class="language-plaintext highlighter-rouge">_showSelected_</code>.
 We can guess that it’s a flag for showing the selected currency.
 But as a new developer, we cannot be sure.</p>
 
@@ -476,14 +476,14 @@ Your component will become more transparent and not just an abstract definition.
 It only receives data through its input bindings:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">@</code> stands for one way string binding</li>
-  <li><code class="highlighter-rouge">&lt;</code> stands for one way any other primitive/type binding</li>
+  <li><code class="language-plaintext highlighter-rouge">@</code> stands for one way string binding</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;</code> stands for one way any other primitive/type binding</li>
 </ul>
 
-<p>The output binding <code class="highlighter-rouge">public onSelected:Function;</code> gets called each time the <code class="highlighter-rouge">onCurrencyClick</code> method gets called, it passes the selected currency which gets communicated back to the parent component.</p>
+<p>The output binding <code class="language-plaintext highlighter-rouge">public onSelected:Function;</code> gets called each time the <code class="language-plaintext highlighter-rouge">onCurrencyClick</code> method gets called, it passes the selected currency which gets communicated back to the parent component.</p>
 
 <p><strong>Make sure the parameter object key matches the parameter name in the parent component’s viewmodel</strong>, or the component will not be able to communicate any data.
-in this case <code class="highlighter-rouge">selectedCurrency</code>:</p>
+in this case <code class="language-plaintext highlighter-rouge">selectedCurrency</code>:</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nx">onCurrencyClick</span><span class="p">(</span><span class="nx">currency</span><span class="p">:</span><span class="nx">Currency</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">selected</span> <span class="o">=</span> <span class="nx">currency</span><span class="p">;</span>
@@ -494,10 +494,10 @@ in this case <code class="highlighter-rouge">selectedCurrency</code>:</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span> <span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="dl">"</span><span class="s2">$ctrl.toSelected(selectedCurrency)</span><span class="dl">"</span> <span class="p">...</span></code></pre></figure>
 
-<p>Another way of accessing selectedCurrency, is to use <code class="highlighter-rouge">$locals</code>.
+<p>Another way of accessing selectedCurrency, is to use <code class="language-plaintext highlighter-rouge">$locals</code>.
 This is useful when you want to send multiple types of data back.
 The advantage is you don’t have to specify each parameter separately in the component’s template.
-The disadvantage is <code class="highlighter-rouge">$locals</code> is not descriptive.</p>
+The disadvantage is <code class="language-plaintext highlighter-rouge">$locals</code> is not descriptive.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="o">&lt;</span><span class="nx">currencies</span><span class="o">-</span><span class="nx">select</span>
 	<span class="nx">on</span><span class="o">-</span><span class="nx">selected</span><span class="o">=</span><span class="dl">"</span><span class="s2">$ctrl.toSelected($locals)</span><span class="dl">"</span><span class="p">...</span></code></pre></figure>
@@ -529,8 +529,8 @@ The disadvantage is <code class="highlighter-rouge">$locals</code> is not descri
 <span class="p">}</span></code></pre></figure>
 
 <p>The <strong>^</strong> symbol is important here.
-You should replace <code class="highlighter-rouge">parentComponentName</code> with the correct component name, you are free to choose a different name for the key, in this case <code class="highlighter-rouge">parentCtrl</code>.
-The parent controller will get bound on to the property <code class="highlighter-rouge">parentCtrl</code>.</p>
+You should replace <code class="language-plaintext highlighter-rouge">parentComponentName</code> with the correct component name, you are free to choose a different name for the key, in this case <code class="language-plaintext highlighter-rouge">parentCtrl</code>.
+The parent controller will get bound on to the property <code class="language-plaintext highlighter-rouge">parentCtrl</code>.</p>
 
 <p>Be aware that this creates a tight coupling between the child and parent component.</p>
 
@@ -572,7 +572,7 @@ You can implement a custom observer pattern inside the service, or use the roots
 <h3 id="summary">Summary</h3>
 
 <p>Start with a root component and work your way down building components that are composed of either <strong>presentational</strong> and <strong>container</strong> components.
-Data should flow down in one direction (<code class="highlighter-rouge">&lt;</code> and <code class="highlighter-rouge">@</code> input bindings), and events should propagate back up (<code class="highlighter-rouge">&amp;</code> output binding).</p>
+Data should flow down in one direction (<code class="language-plaintext highlighter-rouge">&lt;</code> and <code class="language-plaintext highlighter-rouge">@</code> input bindings), and events should propagate back up (<code class="language-plaintext highlighter-rouge">&amp;</code> output binding).</p>
 
 <blockquote>
   <p><strong>Services</strong> manage application state</p>
@@ -587,9 +587,9 @@ Data should flow down in one direction (<code class="highlighter-rouge">&lt;</co
 </blockquote>
 
 <ul>
-  <li>Use <code class="highlighter-rouge">.component()</code> when writing custom HTML elements in AngularJS</li>
-  <li>Use <code class="highlighter-rouge">.directive()</code> when you need to manipulate the DOM or need to change the appearance or behavior of a DOM element</li>
-  <li>Minimize 2 way binding (<code class="highlighter-rouge">ngModel</code> and <code class="highlighter-rouge">=</code> binding)</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">.component()</code> when writing custom HTML elements in AngularJS</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">.directive()</code> when you need to manipulate the DOM or need to change the appearance or behavior of a DOM element</li>
+  <li>Minimize 2 way binding (<code class="language-plaintext highlighter-rouge">ngModel</code> and <code class="language-plaintext highlighter-rouge">=</code> binding)</li>
   <li>Presentational components can contain both container components and presentational components and vice versa</li>
   <li>Use the <strong>component router</strong>, which makes it easy to bind URL paths to components. A component can contain its own relative routes too</li>
   <li>Document your component’s API so new developers and designers know how to use it correctly</li>

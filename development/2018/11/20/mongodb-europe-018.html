@@ -339,7 +339,7 @@ Compass tells me the full aggregate will look like :</p>
 <p>Generally speaking, there are three major causes of query slowness:</p>
 <ul>
   <li>Blocking operations</li>
-  <li>Using the <code class="highlighter-rouge">$or</code> operator</li>
+  <li>Using the <code class="language-plaintext highlighter-rouge">$or</code> operator</li>
   <li>Case insensitive searches</li>
 </ul>
 
@@ -348,7 +348,7 @@ So it’s definitely worth investigating.</p>
 
 <h3 id="problem-1-blocking-operations">Problem 1: blocking operations</h3>
 <p>This happens when you use an operator that needs all the data before producing results, so results can’t be streamed.
-The most common culprits are the aggregation operators such as <code class="highlighter-rouge">$sort</code>, <code class="highlighter-rouge">$group</code>, <code class="highlighter-rouge">$bucket</code>, <code class="highlighter-rouge">$count</code> and <code class="highlighter-rouge">$facet</code>.</p>
+The most common culprits are the aggregation operators such as <code class="language-plaintext highlighter-rouge">$sort</code>, <code class="language-plaintext highlighter-rouge">$group</code>, <code class="language-plaintext highlighter-rouge">$bucket</code>, <code class="language-plaintext highlighter-rouge">$count</code> and <code class="language-plaintext highlighter-rouge">$facet</code>.</p>
 
 <p>Possible solutions:</p>
 <ul>
@@ -357,13 +357,13 @@ The most common culprits are the aggregation operators such as <code class="high
   <li>Work around the issue by using a precalculated count.</li>
 </ul>
 
-<h3 id="problem-2-and-is-fast-or-is-slow">Problem 2: <code class="highlighter-rouge">$and</code> is fast, <code class="highlighter-rouge">$or</code> is slow</h3>
-<p>Sometimes a query is fast when you use the <code class="highlighter-rouge">$and</code> operator but slow when you use the <code class="highlighter-rouge">$or</code> operator.</p>
+<h3 id="problem-2-and-is-fast-or-is-slow">Problem 2: <code class="language-plaintext highlighter-rouge">$and</code> is fast, <code class="language-plaintext highlighter-rouge">$or</code> is slow</h3>
+<p>Sometimes a query is fast when you use the <code class="language-plaintext highlighter-rouge">$and</code> operator but slow when you use the <code class="language-plaintext highlighter-rouge">$or</code> operator.</p>
 
 <p>Solution:</p>
 <ul>
-  <li>Use a compound index to support <code class="highlighter-rouge">$and</code> queries.</li>
-  <li>Use separate single field indexes to support <code class="highlighter-rouge">$or</code> queries.</li>
+  <li>Use a compound index to support <code class="language-plaintext highlighter-rouge">$and</code> queries.</li>
+  <li>Use separate single field indexes to support <code class="language-plaintext highlighter-rouge">$or</code> queries.</li>
 </ul>
 
 <h3 id="problem-3-case-insensitive-searches-are-slow">Problem 3: case insensitive searches are slow!</h3>
@@ -380,11 +380,11 @@ For example, if you do a case insensitive search for the string “ace”, it ha
 <ul>
   <li>Create an index on an element you are interested in instead of scanning the whole table.</li>
   <li>When you query on a combination of fields create a compound index for these fields and not separate indices on each field.</li>
-  <li>…but be careful with the usage of <code class="highlighter-rouge">$or</code>!</li>
+  <li>…but be careful with the usage of <code class="language-plaintext highlighter-rouge">$or</code>!</li>
   <li>Build indices in the background instead of making it a blocking operation.</li>
   <li>Do not index all fields as this will negatively impact write performance. 
 Investigate what you really need!</li>
-  <li>Use <code class="highlighter-rouge">.explain()</code> to analyze queries.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">.explain()</code> to analyze queries.</li>
   <li>Ops Manager and Atlas have a <a href="https://docs.atlas.mongodb.com/performance-advisor/">Performance Advisor</a> to help you identify problematic queries.</li>
   <li>Train your people.</li>
   <li>Work smarter, not harder!</li>

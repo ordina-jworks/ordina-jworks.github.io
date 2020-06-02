@@ -198,7 +198,7 @@ For the full example please refer to <a href="http://learn.ionicframework.com/fo
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">ionic start &lt;your app name&gt; tabs</code></pre></figure>
 
-<p><em>You can also choose <code class="highlighter-rouge">blank</code> or <code class="highlighter-rouge">sidemenu</code> instead of <code class="highlighter-rouge">tabs</code></em></p>
+<p><em>You can also choose <code class="language-plaintext highlighter-rouge">blank</code> or <code class="language-plaintext highlighter-rouge">sidemenu</code> instead of <code class="language-plaintext highlighter-rouge">tabs</code></em></p>
 
 <h2 id="2-running-the-app-in-the-browser">2. Running the app in the browser</h2>
 
@@ -253,9 +253,9 @@ The first thing I did was refactor the code from technical to functional modules
 
 <p>After refactoring, I implemented a sign-in page, which has no access to the tabs.
 The code can be seen below.
-If you work in functional modules like I do, it is as easy as referring to the controller and the service from index.html, then pass <code class="highlighter-rouge">starter.sign-in</code> as a module to your application.</p>
+If you work in functional modules like I do, it is as easy as referring to the controller and the service from index.html, then pass <code class="language-plaintext highlighter-rouge">starter.sign-in</code> as a module to your application.</p>
 
-<p><code class="highlighter-rouge">sign-in/sign-in-controller.js</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">sign-in/sign-in-controller.js</code>:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">angular</span>
@@ -279,7 +279,7 @@ If you work in functional modules like I do, it is as easy as referring to the c
     <span class="p">}</span>
 <span class="p">})();</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">sign-in/signin.html</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">sign-in/signin.html</code>:</p>
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;ion-view</span> <span class="na">view-title=</span><span class="s">"Sign in"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;ion-content&gt;</span>
@@ -317,7 +317,7 @@ If you work in functional modules like I do, it is as easy as referring to the c
     <span class="nt">&lt;/ion-content&gt;</span>
 <span class="nt">&lt;/ion-view&gt;</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">sign-in/sign-in.service.js</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">sign-in/sign-in.service.js</code>:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">angular</span>
@@ -345,7 +345,7 @@ If you work in functional modules like I do, it is as easy as referring to the c
     <span class="p">}</span>
 <span class="p">})();</span></code></pre></figure>
 
-<p>Next you need to provide a state, so add the following in <code class="highlighter-rouge">app.js</code>:</p>
+<p>Next you need to provide a state, so add the following in <code class="language-plaintext highlighter-rouge">app.js</code>:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">state</span><span class="p">(</span><span class="dl">'</span><span class="s1">signin</span><span class="dl">'</span><span class="p">,{</span>
     <span class="na">url</span><span class="p">:</span><span class="dl">'</span><span class="s1">/signin</span><span class="dl">'</span><span class="p">,</span>
@@ -353,7 +353,7 @@ If you work in functional modules like I do, it is as easy as referring to the c
     <span class="na">controller</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SignCtrl</span><span class="dl">'</span>
 <span class="p">)}</span></code></pre></figure>
 
-<p>and change redirect to <code class="highlighter-rouge">/signin</code> by default:</p>
+<p>and change redirect to <code class="language-plaintext highlighter-rouge">/signin</code> by default:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$urlRouterProvider</span><span class="p">.</span><span class="nx">otherwise</span><span class="p">(</span><span class="dl">'</span><span class="s1">/signin</span><span class="dl">'</span><span class="p">);</span></code></pre></figure>
 
@@ -367,7 +367,7 @@ First thing to do, is to install Protractor on your system:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">npm <span class="nb">install</span> <span class="nt">-g</span> protractor</code></pre></figure>
 
-<p>The <code class="highlighter-rouge">webdriver manager</code> is a helper tool to easily get a Selenium server running.
+<p>The <code class="language-plaintext highlighter-rouge">webdriver manager</code> is a helper tool to easily get a Selenium server running.
 Run the following commands in order to start it:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">webdriver-manager update
@@ -379,11 +379,11 @@ webdriver-manager start</code></pre></figure>
   <p>Since I work in functional modules, tests of these modules should live in the module itself.</p>
 </blockquote>
 
-<p>Next I created a Protractor configuration file in the root of my project called <code class="highlighter-rouge">protractor.config.js</code>:</p>
+<p>Next I created a Protractor configuration file in the root of my project called <code class="language-plaintext highlighter-rouge">protractor.config.js</code>:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">touch </span>protractor.config.js</code></pre></figure>
 
-<p><code class="highlighter-rouge">protractor.config.js</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">protractor.config.js</code>:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">exports</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
     <span class="na">capabilities</span><span class="p">:</span> <span class="p">{</span>
@@ -425,18 +425,18 @@ It only tests if the first page you see, is the login page:</p>
     <span class="p">});</span>
 <span class="p">});</span></code></pre></figure>
 
-<p>Basically, we define a <code class="highlighter-rouge">describe</code> function which will describe the whole scope of our specs.
+<p>Basically, we define a <code class="language-plaintext highlighter-rouge">describe</code> function which will describe the whole scope of our specs.
 Every ‘it’ function is called a spec.
 We only created one for now.
 As you can see this is a very readable way of testing.
 We expect the browsers title to be equal to ‘Sign in’.
-If the <code class="highlighter-rouge">expect</code> statement evaluates to <code class="highlighter-rouge">true</code>, the spec has passed without failures, otherwise it will have a failure.</p>
+If the <code class="language-plaintext highlighter-rouge">expect</code> statement evaluates to <code class="language-plaintext highlighter-rouge">true</code>, the spec has passed without failures, otherwise it will have a failure.</p>
 
 <blockquote>
-  <p>Feel free to change <code class="highlighter-rouge">Sign in</code> to something else to fail the test.</p>
+  <p>Feel free to change <code class="language-plaintext highlighter-rouge">Sign in</code> to something else to fail the test.</p>
 </blockquote>
 
-<p>To run the tests, we can execute the following command in the folder of our <code class="highlighter-rouge">protractor.config.js</code> file:</p>
+<p>To run the tests, we can execute the following command in the folder of our <code class="language-plaintext highlighter-rouge">protractor.config.js</code> file:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">protractor protractor.config.js</code></pre></figure>
 
@@ -480,7 +480,7 @@ How can we work around that.</p>
 
 <p>The solution is called the <strong>page object pattern</strong>.
 The general idea is to put your page in a JavaScript object.
-Lets dive into <code class="highlighter-rouge">sign-in.page.js</code>.
+Lets dive into <code class="language-plaintext highlighter-rouge">sign-in.page.js</code>.
 This file should also be put into the module folder:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SignInPage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -498,7 +498,7 @@ This file should also be put into the module folder:</p>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">SignInPage</span><span class="p">;</span></code></pre></figure>
 
 <p>In the constructor we make sure our browser opens the signin page by passing the correct URL.
-Then we use the <code class="highlighter-rouge">prototype</code> method to link our HTML elements with the object.
+Then we use the <code class="language-plaintext highlighter-rouge">prototype</code> method to link our HTML elements with the object.
 Finally, it is wise to create helper methods for basic functionality, such as filling in a username, in case you ever would want to change that behaviour.
 Then you only need to change that line and all your tests will still pass.</p>
 
@@ -506,7 +506,7 @@ Then you only need to change that line and all your tests will still pass.</p>
   <p>Using logical method names keeps your tests readable which is what you’ll want when you look back in a few months.</p>
 </blockquote>
 
-<p>We can now change our <code class="highlighter-rouge">sign-in.spec.js</code> to this:</p>
+<p>We can now change our <code class="language-plaintext highlighter-rouge">sign-in.spec.js</code> to this:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SignInPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./sign-in.page.js</span><span class="dl">'</span><span class="p">);</span>
 <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Signing in</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
@@ -529,7 +529,7 @@ Then you only need to change that line and all your tests will still pass.</p>
 <span class="p">});</span></code></pre></figure>
 
 <p>What changed?
-We created a page variable and before each <code class="highlighter-rouge">it</code> we assigned a new SignInPage object to the page variable.
+We created a page variable and before each <code class="language-plaintext highlighter-rouge">it</code> we assigned a new SignInPage object to the page variable.
 This way, your page gets loaded again before running every spec.
 This means it always returns in the same state.
 Now you can create your specs as user stories.</p>

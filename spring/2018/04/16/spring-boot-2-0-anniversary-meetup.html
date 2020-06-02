@@ -185,19 +185,19 @@ We migrated a Spring Boot 1.x application to Spring Boot 2.0.</p>
 <p>The migration process is <strong>very</strong> simple.
 In short, these are the steps you have to follow:</p>
 <ol>
-  <li>Change Spring Boot parent version number in your <code class="highlighter-rouge">pom.xml</code></li>
-  <li>Replace deprecated property keys with the help of the <code class="highlighter-rouge">spring-boot-properties-migrator</code> module</li>
-  <li>If you’re working with passwords, define a <code class="highlighter-rouge">PasswordEncoder</code></li>
+  <li>Change Spring Boot parent version number in your <code class="language-plaintext highlighter-rouge">pom.xml</code></li>
+  <li>Replace deprecated property keys with the help of the <code class="language-plaintext highlighter-rouge">spring-boot-properties-migrator</code> module</li>
+  <li>If you’re working with passwords, define a <code class="language-plaintext highlighter-rouge">PasswordEncoder</code></li>
 </ol>
 
 <blockquote>
-  <p>When you use a lot of hookpoints and Spring Boot classes directly, eg. <code class="highlighter-rouge">SpringBootServletInitializer</code>, migrating is slightly more work.
+  <p>When you use a lot of hookpoints and Spring Boot classes directly, eg. <code class="language-plaintext highlighter-rouge">SpringBootServletInitializer</code>, migrating is slightly more work.
 The reason behind this is that a lot of the Spring Boot API’s have changed.</p>
 </blockquote>
 
 <h2 id="change-version-number">Change version number</h2>
 
-<p>Change the Spring Boot Starter Parent version number in your <code class="highlighter-rouge">pom.xml</code> to the new Spring Boot version.</p>
+<p>Change the Spring Boot Starter Parent version number in your <code class="language-plaintext highlighter-rouge">pom.xml</code> to the new Spring Boot version.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;parent&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
@@ -206,7 +206,7 @@ The reason behind this is that a lot of the Spring Boot API’s have changed.</p
 <span class="nt">&lt;/parent&gt;</span>
 </code></pre></div></div>
 
-<p>As from April 5th, this is the <code class="highlighter-rouge">2.0.1.RELEASE</code>.
+<p>As from April 5th, this is the <code class="language-plaintext highlighter-rouge">2.0.1.RELEASE</code>.
 Stéphane released it on the train to the Ordina HQ in Mechelen.</p>
 
 <blockquote class="twitter-tweet" data-cards="hidden" data-lang="nl"><p lang="en" dir="ltr">Spring Boot 2.0.1 available now<a href="https://t.co/WpYx0Pwff8">https://t.co/WpYx0Pwff8</a><a href="https://twitter.com/springboot?ref_src=twsrc%5Etfw">@springboot</a> <a href="https://twitter.com/springcentral?ref_src=twsrc%5Etfw">@springcentral</a> <a href="https://twitter.com/ProjectReactor?ref_src=twsrc%5Etfw">@ProjectReactor</a></p>&mdash; Stéphane Nicoll (@snicoll) <a href="https://twitter.com/snicoll/status/981899920750850049?ref_src=twsrc%5Etfw">5 april 2018</a></blockquote>
@@ -230,12 +230,12 @@ Some property keys have been deprecated and won’t work anymore.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">spring.datasource.initialize</code></td>
-      <td><code class="highlighter-rouge">spring.datasource.initialization-mode</code></td>
+      <td><code class="language-plaintext highlighter-rouge">spring.datasource.initialize</code></td>
+      <td><code class="language-plaintext highlighter-rouge">spring.datasource.initialization-mode</code></td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">endpoints.health.path</code></td>
-      <td><code class="highlighter-rouge">management.endpoints.web.path-mapping</code></td>
+      <td><code class="language-plaintext highlighter-rouge">endpoints.health.path</code></td>
+      <td><code class="language-plaintext highlighter-rouge">management.endpoints.web.path-mapping</code></td>
     </tr>
   </tbody>
 </table>
@@ -244,7 +244,7 @@ Some property keys have been deprecated and won’t work anymore.</p>
 
 <h3 id="properties-migrator">Properties migrator</h3>
 
-<p>You can add the <code class="highlighter-rouge">spring-boot-properties-migrator</code> module to your Maven project.</p>
+<p>You can add the <code class="language-plaintext highlighter-rouge">spring-boot-properties-migrator</code> module to your Maven project.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
@@ -254,7 +254,7 @@ Some property keys have been deprecated and won’t work anymore.</p>
 </code></pre></div></div>
 
 <p>The Spring Boot Properties Migrator looks for configuration properties it can replace and provides the programmer with feedback.
-For example, <code class="highlighter-rouge">endpoints.health.path</code> will automatically be replaced by the new <code class="highlighter-rouge">management.endpoints.web.path-mapping</code> property.</p>
+For example, <code class="language-plaintext highlighter-rouge">endpoints.health.path</code> will automatically be replaced by the new <code class="language-plaintext highlighter-rouge">management.endpoints.web.path-mapping</code> property.</p>
 
 <p>Spring Boot 2.0 will also tell you you’re using an old key when you provide old keys as <strong>environment variable</strong>.
 It will not tell you the line on which you defined the property, but it will give an appropriate message.</p>
@@ -262,8 +262,8 @@ It will not tell you the line on which you defined the property, but it will giv
 <p>Some properties cannot be fixed automatically:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">The security auto-configuration is no longer customizable</code></li>
-  <li><code class="highlighter-rouge">Replacement key 'spring.datasource.initialization-mode' uses an incompatible target type — String was replaced by an enumeration</code></li>
+  <li><code class="language-plaintext highlighter-rouge">The security auto-configuration is no longer customizable</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Replacement key 'spring.datasource.initialization-mode' uses an incompatible target type — String was replaced by an enumeration</code></li>
 </ul>
 
 <h2 id="spring-security-changes">Spring Security changes</h2>
@@ -278,11 +278,11 @@ With Spring Boot 2.0, if you want to know what the security configuration of you
 
 <h3 id="no-password-encoder">No password encoder</h3>
 
-<p>When you haven’t defined a <code class="highlighter-rouge">PasswordEncoder</code> bean, Spring will throw the <code class="highlighter-rouge">There is no PasswordEncoder mapped for the id "null"</code> error when creating your application context.</p>
+<p>When you haven’t defined a <code class="language-plaintext highlighter-rouge">PasswordEncoder</code> bean, Spring will throw the <code class="language-plaintext highlighter-rouge">There is no PasswordEncoder mapped for the id "null"</code> error when creating your application context.</p>
 
 <p>As from Spring Security 5.x, Spring Security enforces you to use a password encoder.
-Spring Security enforces this by activating the default <code class="highlighter-rouge">DelegatingPasswordEncoder</code>, which looks for <code class="highlighter-rouge">PasswordEncoder</code> beans.
-By adding a <code class="highlighter-rouge">BCryptPasswordEncoder</code>, the <code class="highlighter-rouge">DelegatingPasswordEncoder</code> will return that instance to encrypt passwords.</p>
+Spring Security enforces this by activating the default <code class="language-plaintext highlighter-rouge">DelegatingPasswordEncoder</code>, which looks for <code class="language-plaintext highlighter-rouge">PasswordEncoder</code> beans.
+By adding a <code class="language-plaintext highlighter-rouge">BCryptPasswordEncoder</code>, the <code class="language-plaintext highlighter-rouge">DelegatingPasswordEncoder</code> will return that instance to encrypt passwords.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
 <span class="kd">public</span> <span class="nc">BCryptPasswordEncoder</span> <span class="nf">passwordEncoder</span><span class="o">()</span> <span class="o">{</span>
@@ -290,18 +290,18 @@ By adding a <code class="highlighter-rouge">BCryptPasswordEncoder</code>, the <c
 <span class="o">}</span></code></pre></figure>
 
 <blockquote>
-  <p>If you really want to, you can override password encoding by adding <code class="highlighter-rouge">{noop}</code> to the password value.
-This will treat the password by activating the <code class="highlighter-rouge">NoOpPasswordEncoder</code> instead of the default <code class="highlighter-rouge">DelegatingPasswordEncoder</code> and will treat your password as plain text.<br /><br />
+  <p>If you really want to, you can override password encoding by adding <code class="language-plaintext highlighter-rouge">{noop}</code> to the password value.
+This will treat the password by activating the <code class="language-plaintext highlighter-rouge">NoOpPasswordEncoder</code> instead of the default <code class="language-plaintext highlighter-rouge">DelegatingPasswordEncoder</code> and will treat your password as plain text.<br /><br />
 Please note that this is <strong>not recommended</strong> if you deploy your app to a production environment!</p>
 </blockquote>
 
 <h3 id="actuator-endpoints">Actuator endpoints</h3>
 
 <p>Some Actuator security endpoint settings aren’t modifyable by properties anymore.
-For example, <code class="highlighter-rouge">management.security.roles=HERO</code> won’t be picked up anymore.</p>
+For example, <code class="language-plaintext highlighter-rouge">management.security.roles=HERO</code> won’t be picked up anymore.</p>
 
-<p>Only two endpoints are being exposed by default, <code class="highlighter-rouge">/info</code> and <code class="highlighter-rouge">/health</code>.
-You can include or exclude management endpoints by using the new property <code class="highlighter-rouge">management.endpoints.web.exposure.include</code>.</p>
+<p>Only two endpoints are being exposed by default, <code class="language-plaintext highlighter-rouge">/info</code> and <code class="language-plaintext highlighter-rouge">/health</code>.
+You can include or exclude management endpoints by using the new property <code class="language-plaintext highlighter-rouge">management.endpoints.web.exposure.include</code>.</p>
 
 <table>
   <thead>
@@ -312,8 +312,8 @@ You can include or exclude management endpoints by using the new property <code 
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">endpoints.health.path</code></td>
-      <td><code class="highlighter-rouge">management.endpoints.web.path-mapping</code></td>
+      <td><code class="language-plaintext highlighter-rouge">endpoints.health.path</code></td>
+      <td><code class="language-plaintext highlighter-rouge">management.endpoints.web.path-mapping</code></td>
     </tr>
   </tbody>
 </table>
@@ -322,14 +322,14 @@ You can include or exclude management endpoints by using the new property <code 
 
 <h3 id="configuration-processor">Configuration processor</h3>
 
-<p>When you add the <code class="highlighter-rouge">spring-boot-configuration-processor</code> Maven module to your project, your IDE will be able to interpret your <code class="highlighter-rouge">@ConfigurationProperties</code> class and autocomplete the properties files.</p>
+<p>When you add the <code class="language-plaintext highlighter-rouge">spring-boot-configuration-processor</code> Maven module to your project, your IDE will be able to interpret your <code class="language-plaintext highlighter-rouge">@ConfigurationProperties</code> class and autocomplete the properties files.</p>
 
 <p>There were some other enhancements too.
-You can now use the <code class="highlighter-rouge">Duration</code> type for properties directly.</p>
+You can now use the <code class="language-plaintext highlighter-rouge">Duration</code> type for properties directly.</p>
 
-<p><code class="highlighter-rouge">private Duration delay = Duration.ofSeconds(3)</code></p>
+<p><code class="language-plaintext highlighter-rouge">private Duration delay = Duration.ofSeconds(3)</code></p>
 
-<p>The <code class="highlighter-rouge">hello.delay</code> autocompletion now also shows the unit behind the value, eg. <code class="highlighter-rouge">hello.delay=3s</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">hello.delay</code> autocompletion now also shows the unit behind the value, eg. <code class="language-plaintext highlighter-rouge">hello.delay=3s</code>.</p>
 
 <h3 id="spring-boot-dev-tools-enhancements">Spring Boot Dev Tools enhancements</h3>
 
@@ -376,7 +376,7 @@ Another reason to upgrade is if you’re going to add new features to an applica
 
 <h3 id="when-will-spring-cloud-be-ready-to-support-spring-boot-2">When will Spring Cloud be ready to support Spring Boot 2?</h3>
 
-<p>You can check <a href="http://start.spring.io/actuator/info" target="_blank">http://start.spring.io/actuator/info</a> in the <code class="highlighter-rouge">spring-cloud</code> section to see whether there are Spring Cloud versions which use Spring Boot 2.</p>
+<p>You can check <a href="http://start.spring.io/actuator/info" target="_blank">http://start.spring.io/actuator/info</a> in the <code class="language-plaintext highlighter-rouge">spring-cloud</code> section to see whether there are Spring Cloud versions which use Spring Boot 2.</p>
 
 <figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
   </span><span class="nl">"Angel.SR6"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Spring Boot &gt;=1.2.3.RELEASE and &lt;1.3.0.RELEASE"</span><span class="p">,</span><span class="w">

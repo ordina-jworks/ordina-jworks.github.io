@@ -241,7 +241,7 @@ Currently 45 blueprints are available.
 To give a short introduction, we’ll select the <strong>hello-world</strong> blueprint. 
 This blueprint generates a very simple NodeJS function:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
 console.log('Loading function');
   
 exports.handler = (event, context, callback) =&gt; {
@@ -261,7 +261,7 @@ To make this work with the events in our hello-world example, we need to select 
 
 <p>In Integration Request, we add a body mapping template of type <em>application/json</em> with the following template:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ "key3": "$input.params('key3')","key2": "$input.params('key2')","key1": "$input.params('key1')"}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ "key3": "$input.params('key3')","key2": "$input.params('key2')","key1": "$input.params('key1')"}
 </code></pre></div></div>
 
 <p>In ‘Method request’ we add 3 URL String query parameters: key1, key2 and key3. 
@@ -276,7 +276,7 @@ The URL itself can be found in the ‘stage’-menu.</p>
 This will generate a CRUD backend, using <a href="http://aws.amazon.com/dynamodb">DynamoDB</a> with a RESTful API endpoint. 
 The code generated, covers all common use-cases:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
 letdoc = require('dynamodb-doc');
 letdynamo = newdoc.DynamoDB();
 exports.handler = (event, context, callback) =&gt; {
@@ -318,7 +318,7 @@ exports.handler = (event, context, callback) =&gt; {
 
 <p>You can reference your new table, from your lambda, using the following event:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
 "tableName": "garage-car-dev",
 "operation": "list",
 "payload": { }
@@ -328,7 +328,7 @@ exports.handler = (event, context, callback) =&gt; {
 <p>The only difficult part remaining, is finding out the required <a href="http://docs.aws.amazon.com/lambda/latest/dg/with-on-demand-https-example.html">payload</a> for the different operations :) 
 This is a good start for creating new records:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
 "operation": "create",
 "tableName": "garage-car-dev",
 "payload": {
@@ -369,14 +369,14 @@ Serverless V1.0 uses <a href="https://aws.amazon.com/cloudformation/">AWS CloudF
 It uses the default <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">AWS profile</a> for access to your AWS account. 
 Creating, deploying and invoking a “Hello World” NodeJS function with Serverless is as easy as:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>serverless create --name cars --provider aws 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>serverless create --name cars --provider aws 
 serverless deploy 
 serverless invoke --function hello --path data.json
 </code></pre></div></div>
 
 <p>This generates the following lambda:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict'; 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict'; 
 module.exports.hello = (event, context, cb) =&gt; cb(null, 
    { message: 'Go Serverless v1.0! Your function executed successfully!', event } 
 ); 
@@ -386,7 +386,7 @@ module.exports.hello = (event, context, cb) =&gt; cb(null,
 
 <p>Adding an API Gateway endpoint, is also very easy and can be done by adding this http-event:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>events:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>events:
   - http:
        path: greet
        method: get
@@ -419,7 +419,7 @@ While I don’t believe your function will often need this, it’s a very nice o
 
 <p>This small example (using <a href="https://lodash.com/">Lodash</a>), shows a webtask using a query parameter and built-in storage.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module.exports = function (ctx, cb) {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module.exports = function (ctx, cb) {
     var name = ctx.query.name;
  
     if(name) {
@@ -450,7 +450,7 @@ While I don’t believe your function will often need this, it’s a very nice o
 
 <p>Deploying this webtask, using the CLI:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Webtask created
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Webtask created
  
 You can access your webtask at the following url:
  
@@ -479,19 +479,19 @@ Tutorials on common use-cases are available in <a href="https://cloud.google.com
 To build functions with GCF, you will first need to download and install the <a href="https://cloud.google.com/sdk/docs/">Google Cloud SDK</a>. 
 With the SDK installed, you can create your initial function <em>(replace datastore_gcf with your own staging bucket name)</em>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gsutil mb gs://datastore_gcf
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gsutil mb gs://datastore_gcf
 </code></pre></div></div>
 
 <p>From the (very useful) <a href="https://github.com/jasonpolites/gcf-recipes">(unofficial) GCF recipes</a> by <a href="https://github.com/jasonpolites">Jason Polites</a> (Product Manager, GCP), we cloned the datastore example that will persist data to a <a href="https://cloud.google.com/datastore/docs/concepts/overview">Google Coud Datastore</a>.</p>
 
 <p>From this repository, we deployed 2 functions ‘ds-get’ and ‘ds-set’ by executing:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud alpha functions deploy ds-set --bucket datastore_gcf --trigger-http --entry-point set
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud alpha functions deploy ds-set --bucket datastore_gcf --trigger-http --entry-point set
 </code></pre></div></div>
 
 <p>The names of the deployed functions, need to be exported in the Node.js module. These functions can be called with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud alpha functions call ds-get --data '{"kind": "test", "key": "kid"}'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud alpha functions call ds-get --data '{"kind": "test", "key": "kid"}'
 </code></pre></div></div>
 
 <p>or via the <a href="https://console.cloud.google.com/functions">Cloud Functions Console</a>.</p>
@@ -538,7 +538,7 @@ When selecting HttpTrigger for example, Azure Functions will generate a function
 
 <p><strong>function.json</strong>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> "bindings": [
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> "bindings": [
     {
       "type": "httpTrigger",
       "direction": "in",
@@ -569,7 +569,7 @@ When selecting HttpTrigger for example, Azure Functions will generate a function
 
 <p><strong>index.js</strong>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var statusCode = 400;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var statusCode = 400;
     var responseBody = "Invalid request object";
  
     if (typeof req.body != 'undefined' &amp;amp;&amp;amp; typeof req.body == 'object') {
@@ -591,7 +591,7 @@ When selecting HttpTrigger for example, Azure Functions will generate a function
 
 <p><strong>functions.json</strong>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  "bindings": [
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  "bindings": [
     {
       "type": "httpTrigger",
       "direction": "in",
@@ -619,7 +619,7 @@ When selecting HttpTrigger for example, Azure Functions will generate a function
 
 <p><strong>index.js</strong>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    context.log("Retrieved records:", intable);
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    context.log("Retrieved records:", intable);
     context.res = {
         status: 200,
         body: intable
@@ -728,13 +728,13 @@ Every “hop” in the system will parse its input and add some new data.</p>
 <p>Any client can post a JSON to the first function, made with <a href="https://webtask.io/">Auth0 webtask</a>. 
 The body of the post request is simple:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"temp":"42"}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"temp":"42"}
 </code></pre></div></div>
 
 <p>The WebTask will parse that input, add some input of its own and POST request to an <a href="http://www.ibm.com/cloud-computing/bluemix/openwhisk/">IBM OpenWhisk</a> action. 
 The body of this POST request:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "hops": [
     {
       "provider": "Auth 0 Webtask",
@@ -748,7 +748,7 @@ The body of this POST request:</p>
 
 <p>To continue the chain, IBM OpenWhisk will POST the parsed JSON to a function on the <a href="https://aws.amazon.com/lambda/details/">AWS Lambda</a> platform after adding a new “hop”:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "hops": [
     {
       "provider": "Auth 0 Webtask",

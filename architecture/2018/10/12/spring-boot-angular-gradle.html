@@ -184,14 +184,14 @@ it will be easier to develop within the application.</p>
 to split the application into multiple modules.</p>
 
 <p>Because I generated my Spring Boot project with <a href="https://start.spring.io" target="_blank" rel="noopener noreferrer">Spring Initializr</a>
-I already have a Gradle Wrapper, <code class="highlighter-rouge">gradlew</code> file, <code class="highlighter-rouge">gradle.bat</code> file and <code class="highlighter-rouge">settings.gradle</code> file available. 
+I already have a Gradle Wrapper, <code class="language-plaintext highlighter-rouge">gradlew</code> file, <code class="language-plaintext highlighter-rouge">gradle.bat</code> file and <code class="language-plaintext highlighter-rouge">settings.gradle</code> file available. 
 We want to move those to our root directory. 
-Keep the <code class="highlighter-rouge">build.gradle</code> file within the Spring Boot directory.</p>
+Keep the <code class="language-plaintext highlighter-rouge">build.gradle</code> file within the Spring Boot directory.</p>
 
-<p>We should also add a new <code class="highlighter-rouge">build.gradle</code> file to the root directory and another one to the child directory with our Angular code.</p>
+<p>We should also add a new <code class="language-plaintext highlighter-rouge">build.gradle</code> file to the root directory and another one to the child directory with our Angular code.</p>
 
 <p>Your application structure should look like this:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
 ├── build.gradle
 ├── gradle
 │   └── wrapper
@@ -206,29 +206,29 @@ Keep the <code class="highlighter-rouge">build.gradle</code> file within the Spr
 └── settings.gradle
 </code></pre></div></div>
 
-<p>You should have three <code class="highlighter-rouge">build.gradle</code> files, we’ll check their content within a minute. 
+<p>You should have three <code class="language-plaintext highlighter-rouge">build.gradle</code> files, we’ll check their content within a minute. 
 But we first have to tell Gradle the name of our project and make sure it will recognize the two modules. 
-This can be done in <code class="highlighter-rouge">settings.gradle</code>.</p>
+This can be done in <code class="language-plaintext highlighter-rouge">settings.gradle</code>.</p>
 
 <div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rootProject</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s1">'todo'</span>
 
 <span class="n">include</span> <span class="s1">'todo-api'</span><span class="o">,</span> <span class="s1">'todo-ui'</span>
 </code></pre></div></div>
 
-<p>We’ll use <code class="highlighter-rouge">todo</code> as the project name and include both the backend and frontend module by specifying their directory name.
+<p>We’ll use <code class="language-plaintext highlighter-rouge">todo</code> as the project name and include both the backend and frontend module by specifying their directory name.
 It’s important that this name matches the path of the directory, otherwise Gradle cannot find these modules.</p>
 
 <p>Gradle will now recognize both child directories as a subproject.</p>
 
 <h2 id="angular">Angular</h2>
 
-<p>For the Angular part we want to create a jar with a <code class="highlighter-rouge">static</code> directory that contains the result of our Angular build. 
+<p>For the Angular part we want to create a jar with a <code class="language-plaintext highlighter-rouge">static</code> directory that contains the result of our Angular build. 
 By doing this we can include the jar in our backend module. And because Spring Boot will automatically add static web 
-resources located within <code class="highlighter-rouge">static</code>, the Angular application will be visible when we launch the application.</p>
+resources located within <code class="language-plaintext highlighter-rouge">static</code>, the Angular application will be visible when we launch the application.</p>
 
 <p>This can be done by using the <a href="https://plugins.gradle.org/plugin/com.moowork.node" target="_blank" rel="noopener noreferrer">com.moowork.node</a> plugin.</p>
 
-<p>Let’s take a look at the <code class="highlighter-rouge">build.gradle</code> file in our <code class="highlighter-rouge">todo-ui</code> project.</p>
+<p>Let’s take a look at the <code class="language-plaintext highlighter-rouge">build.gradle</code> file in our <code class="language-plaintext highlighter-rouge">todo-ui</code> project.</p>
 <div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1</span>
 <span class="n">plugins</span> <span class="o">{</span>
   <span class="n">id</span> <span class="s1">'java'</span>
@@ -253,21 +253,21 @@ resources located within <code class="highlighter-rouge">static</code>, the Angu
 
 <p>Let me explain step-by-step what we’re doing here:</p>
 <ol>
-  <li>We need the <code class="highlighter-rouge">java</code> plugin to have the <code class="highlighter-rouge">jar</code> task available and the <code class="highlighter-rouge">com.moowork.node</code> plugin to execute node scripts like <code class="highlighter-rouge">npm_run_build</code>.</li>
+  <li>We need the <code class="language-plaintext highlighter-rouge">java</code> plugin to have the <code class="language-plaintext highlighter-rouge">jar</code> task available and the <code class="language-plaintext highlighter-rouge">com.moowork.node</code> plugin to execute node scripts like <code class="language-plaintext highlighter-rouge">npm_run_build</code>.</li>
   <li>We have to specify which node and NPM version we want to use.</li>
-  <li>Before creating the jar with the <code class="highlighter-rouge">jar</code> task we want to build our Angular project, otherwise we don’t have any static files to serve. 
-This can be done by using the <code class="highlighter-rouge">npm_run_build</code> task.<sup>1</sup></li>
-  <li>When we build the Angular project our static files will become available in <code class="highlighter-rouge">dist/todo-ui</code>. We want those files into <code class="highlighter-rouge">static</code>. 
-The <code class="highlighter-rouge">from 'dist/todo-ui' into 'static'</code> command in the <code class="highlighter-rouge">jar</code> task will simply copy everything from <code class="highlighter-rouge">dist/todo-ui</code> into <code class="highlighter-rouge">static</code>.<sup>2</sup></li>
+  <li>Before creating the jar with the <code class="language-plaintext highlighter-rouge">jar</code> task we want to build our Angular project, otherwise we don’t have any static files to serve. 
+This can be done by using the <code class="language-plaintext highlighter-rouge">npm_run_build</code> task.<sup>1</sup></li>
+  <li>When we build the Angular project our static files will become available in <code class="language-plaintext highlighter-rouge">dist/todo-ui</code>. We want those files into <code class="language-plaintext highlighter-rouge">static</code>. 
+The <code class="language-plaintext highlighter-rouge">from 'dist/todo-ui' into 'static'</code> command in the <code class="language-plaintext highlighter-rouge">jar</code> task will simply copy everything from <code class="language-plaintext highlighter-rouge">dist/todo-ui</code> into <code class="language-plaintext highlighter-rouge">static</code>.<sup>2</sup></li>
 </ol>
 
-<p>When we build the subproject it will run <code class="highlighter-rouge">npm run build</code> and create a new jar with the build result in the <code class="highlighter-rouge">static</code> directory.</p>
+<p>When we build the subproject it will run <code class="language-plaintext highlighter-rouge">npm run build</code> and create a new jar with the build result in the <code class="language-plaintext highlighter-rouge">static</code> directory.</p>
 
 <p>We can now setup Spring Boot to include the jar.</p>
 
 <h2 id="spring-boot">Spring Boot</h2>
 
-<p>Our Spring Boot project already has a <code class="highlighter-rouge">build.gradle</code> file generated. 
+<p>Our Spring Boot project already has a <code class="language-plaintext highlighter-rouge">build.gradle</code> file generated. 
 We just have to add one line within our dependencies to include the todo-ui module.</p>
 
 <div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
@@ -287,8 +287,8 @@ a lot easier to find your way in both modules.</p>
 <p>Now go and apply this on your own projects! Don’t hesitate to contact me if you have any questions.</p>
 
 <p><sub><sup>
-<sup>1</sup> by default, <code class="highlighter-rouge">npm run build</code> will execute <code class="highlighter-rouge">ng build</code> (specified in <code class="highlighter-rouge">package.json</code>)<br />
-<sup>2</sup> by default, Angular will output the build result in <code class="highlighter-rouge">dist/{project-name}</code> (specified in <code class="highlighter-rouge">angular.json</code>)
+<sup>1</sup> by default, <code class="language-plaintext highlighter-rouge">npm run build</code> will execute <code class="language-plaintext highlighter-rouge">ng build</code> (specified in <code class="language-plaintext highlighter-rouge">package.json</code>)<br />
+<sup>2</sup> by default, Angular will output the build result in <code class="language-plaintext highlighter-rouge">dist/{project-name}</code> (specified in <code class="language-plaintext highlighter-rouge">angular.json</code>)
 </sup></sub></p>
 
         </div>

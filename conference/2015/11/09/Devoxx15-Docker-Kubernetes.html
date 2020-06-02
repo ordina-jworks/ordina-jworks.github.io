@@ -175,7 +175,7 @@ Docker is used for three things: Build, Ship &amp; Run your software.</p>
 
 <h3 id="build">Build</h3>
 <p>Creation of a predefined container in a standardized way using the <strong>Docker CLI</strong>.
-Use a <code class="highlighter-rouge">dockerfile</code> containing a list of commands. The <code class="highlighter-rouge">FROM</code> command specifies an OS and additional software packages, eg. <code class="highlighter-rouge">FROM jboss/wildfly</code>. All  commands are compressed into one, customized image using the <strong>Docker CLI</strong>.</p>
+Use a <code class="language-plaintext highlighter-rouge">dockerfile</code> containing a list of commands. The <code class="language-plaintext highlighter-rouge">FROM</code> command specifies an OS and additional software packages, eg. <code class="language-plaintext highlighter-rouge">FROM jboss/wildfly</code>. All  commands are compressed into one, customized image using the <strong>Docker CLI</strong>.</p>
 
 <h3 id="ship">Ship</h3>
 <p>Share the container via DockerHub or your private repository.</p>
@@ -189,26 +189,26 @@ Use a <code class="highlighter-rouge">dockerfile</code> containing a list of com
 Hosts running Docker are very environment variables oriented, so by using variables in the commands or on the machine itself you configure your application. Any other communication is usually done over <strong>HTTP/REST</strong>. The Docker images are stored on the Docker host so the actual client is very thin. A Docker app runs on the Docker engine; this is in contrast with regular VMs, running on full-blown operating systems.</p>
 
 <h2 id="docker-machine">Docker Machine</h2>
-<p>Docker Machine allows you to get started with Docker on Mac or Windows. It features the <code class="highlighter-rouge">docker-machine</code> CLI and uses the <code class="highlighter-rouge">boot2docker</code> image (32Mb small) under the hood.</p>
+<p>Docker Machine allows you to get started with Docker on Mac or Windows. It features the <code class="language-plaintext highlighter-rouge">docker-machine</code> CLI and uses the <code class="language-plaintext highlighter-rouge">boot2docker</code> image (32Mb small) under the hood.</p>
 
 <blockquote>
   <p>Docker Machine is preferred over boot2docker for development purposes, but it is not production-ready (yet!)</p>
 </blockquote>
 
 <p>Easy way to set up a Docker host with docker-machine:
-<code class="highlighter-rouge">docker-machine create --driver=virtualbox myhost</code></p>
+<code class="language-plaintext highlighter-rouge">docker-machine create --driver=virtualbox myhost</code></p>
 
 <p>Listing all the installed Docker images:
-<code class="highlighter-rouge">docker-machine ls</code></p>
+<code class="language-plaintext highlighter-rouge">docker-machine ls</code></p>
 
 <p>Listing all the environment variables of a newly created Docker container:
-<code class="highlighter-rouge">docker-machine env myhost</code></p>
+<code class="language-plaintext highlighter-rouge">docker-machine env myhost</code></p>
 
 <p>Docker Machine is also used to start, stop or restart containers. It even allows to update Docker itself.
 Many existing plugins provide support for various cloud platforms.</p>
 
 <h2 id="boot2docker">Boot2Docker</h2>
-<p>An earlier version of docker-machine. As said above, it is being used by <code class="highlighter-rouge">docker-machine</code> under the hood.</p>
+<p>An earlier version of docker-machine. As said above, it is being used by <code class="language-plaintext highlighter-rouge">docker-machine</code> under the hood.</p>
 
 <blockquote>
   <p>My advice: migrate to docker-machine, at least for development purposes.</p>
@@ -224,11 +224,11 @@ Many existing plugins provide support for various cloud platforms.</p>
 
 <h2 id="hands-on-docker">Hands-on Docker</h2>
 <ul>
-  <li><code class="highlighter-rouge">docker help</code>for all your docker needs!</li>
-  <li><code class="highlighter-rouge">docker ps</code>to check the running containers</li>
-  <li><code class="highlighter-rouge">docker images</code>to check your images</li>
-  <li><code class="highlighter-rouge">docker build</code>for quick build</li>
-  <li><code class="highlighter-rouge">docker run -it ubuntu sh</code> for quick running an image in a shell</li>
+  <li><code class="language-plaintext highlighter-rouge">docker help</code>for all your docker needs!</li>
+  <li><code class="language-plaintext highlighter-rouge">docker ps</code>to check the running containers</li>
+  <li><code class="language-plaintext highlighter-rouge">docker images</code>to check your images</li>
+  <li><code class="language-plaintext highlighter-rouge">docker build</code>for quick build</li>
+  <li><code class="language-plaintext highlighter-rouge">docker run -it ubuntu sh</code> for quick running an image in a shell</li>
 </ul>
 
 <blockquote>
@@ -239,7 +239,7 @@ Many existing plugins provide support for various cloud platforms.</p>
 <p>Allows you to define and run multi-container applications. It has all the commands the regular Docker has <strong>and more</strong>.
 It provides a new way to link containers.</p>
 
-<p>Configuration is defined in one or more <code class="highlighter-rouge">docker-compose.yml</code> (default) or <code class="highlighter-rouge">docker-compose.override.yml</code> (default) files.
+<p>Configuration is defined in one or more <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> (default) or <code class="language-plaintext highlighter-rouge">docker-compose.override.yml</code> (default) files.
 It is a great tool for setting up Development, Staging and Continuous Integration (CI) environments.</p>
 
 <blockquote>
@@ -259,7 +259,7 @@ It can help with running multi-host environments:</p>
 </blockquote>
 
 <p>Starting a set of Docker images using Docker Compose is easy:
-<code class="highlighter-rouge">docker-compose up -f docker-compose.yml -f production.yml -d</code></p>
+<code class="language-plaintext highlighter-rouge">docker-compose up -f docker-compose.yml -f production.yml -d</code></p>
 
 <h2 id="docker-swarm">Docker Swarm</h2>
 <p>Docker Swarm provides native clustering for Docker, fully integrated with Machine &amp; Compose. It either uses Etcd, Consul, Zookeeper or other solutions to store the cluster ID.

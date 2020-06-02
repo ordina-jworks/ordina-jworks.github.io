@@ -230,13 +230,13 @@ Even if that means following weird office hours…</p>
 While most frontend developers use CLIs these days, a lot can be learned from actually writing a Webpack config so that you know what your favourite CLI is generating.
 With the latest Webpack we now have TypeScript support in our Webpack config file.
 He also described the several key components of a Webpack config.
-Such as the <code class="highlighter-rouge">entry</code> element which denotes the base of your module tree.</p>
+Such as the <code class="language-plaintext highlighter-rouge">entry</code> element which denotes the base of your module tree.</p>
 
 <p>In the end Johannes gave a couple of tips to create a good Webpack along with some tips for your code to decrease the bundle size that Webpack will generate:</p>
 
 <ul>
-  <li>Most apps will have a good bundle size just by setting the Webpack <code class="highlighter-rouge">mode</code> to <code class="highlighter-rouge">production</code>. You don’t need to overthink your configuration, Webpack already optimises a lot for you</li>
-  <li>Lazy load modules with the use of <code class="highlighter-rouge">import()</code></li>
+  <li>Most apps will have a good bundle size just by setting the Webpack <code class="language-plaintext highlighter-rouge">mode</code> to <code class="language-plaintext highlighter-rouge">production</code>. You don’t need to overthink your configuration, Webpack already optimises a lot for you</li>
+  <li>Lazy load modules with the use of <code class="language-plaintext highlighter-rouge">import()</code></li>
   <li>Check <a href="https://bundlephobia.com" target="_blank" rel="noopener noreferrer">bundlephobia.com</a> to determine if a bundle could be replaced by something more lightweight or more tree-shakeable</li>
   <li>Measure the performance with a tool like <a href="https://developers.google.com/web/tools/lighthouse/" target="_blank" rel="noopener noreferrer">Lighthouse</a></li>
   <li>Don’t overestimate long-term caching. It is ok for fonts, images and CSS but caching whole pages could be not as rewarding for the amount of effort you need to put into it</li>
@@ -253,7 +253,7 @@ But what does that mean?
 Alexander tried to explain why Svelte is such a great framework.
 To start with, Svelte is <a href="https://svelte.dev/blog/svelte-3-rethinking-reactivity" target="_blank" rel="noopener noreferrer">truly reactive</a>.
 While in most frameworks you need to call certain functions like a ‘set’ or ‘setState’, Svelte parses your JS to add reactivity.
-So a basic statement like <code class="highlighter-rouge">count += 1;</code> will be reactive as all code that relies on the value of <code class="highlighter-rouge">count</code> will be updated.
+So a basic statement like <code class="language-plaintext highlighter-rouge">count += 1;</code> will be reactive as all code that relies on the value of <code class="language-plaintext highlighter-rouge">count</code> will be updated.
 An example Svelte component could look like this:</p>
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
 	<span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -274,7 +274,7 @@ An example Svelte component could look like this:</p>
 </code></pre></div></div>
 <p>As you can see, we have grouped everything of the component into one file: styling, the script and the HTML code.
 Between the style tags, you can put your regular CSS.
-Between the script tags, you can put JavaScript while your HTML can reference anything that you’ve defined within your script tag such as <code class="highlighter-rouge">count</code>.
+Between the script tags, you can put JavaScript while your HTML can reference anything that you’ve defined within your script tag such as <code class="language-plaintext highlighter-rouge">count</code>.
 This allows for the creation of small readable components that anybody, even someone without prior knowledge of Svelte can read.</p>
 
 <blockquote>
@@ -308,7 +308,7 @@ As a result, they can decrease the amount of work that backenders need to do, th
 While the <a href="https://www.selenium.dev/projects/" target="_blank" rel="noopener noreferrer">Selenium WebDriver</a> can be considered as Genesis, we have seen a steady rise of different e2e frameworks.
 If you’re looking for an all-in-one solution, <a href="https://www.cypress.io/" target="_blank" rel="noopener noreferrer">Cypress</a> is the obvious choice.
 But we have some other options although they might not be all-in-one solutions.
-<a href="https://pptr.dev/" target="_blank" rel="noopener noreferrer">Puppeteer</a> for example is a quicker alternative as its only task is to control a browser so you can add your own testrunner like <code class="highlighter-rouge">jest</code>.
+<a href="https://pptr.dev/" target="_blank" rel="noopener noreferrer">Puppeteer</a> for example is a quicker alternative as its only task is to control a browser so you can add your own testrunner like <code class="language-plaintext highlighter-rouge">jest</code>.
 But while Puppeteer is a valid choice, there is a new kid on the block called <a href="https://github.com/microsoft/playwright" target="_blank" rel="noopener noreferrer">PlayWright</a>.
 PlayWright is built by the same Puppeteer people who now work for Microsoft.
 It is a Node library to automate the Chromium, Webkit and Firefox browsers with a single API.</p>
@@ -343,7 +343,7 @@ For example, we can emulate that we visit a website from a specific location wit
 </blockquote>
 
 <h1 id="practical-a11y-for-web-apps-by-bob-bijvoet">Practical a11y for web apps, by Bob Bijvoet</h1>
-<p>Even before you start writing a11y specific HTML such as the <code class="highlighter-rouge">aria-label</code> attribute, we can take certain tips into consideration to make our web apps more accessible.
+<p>Even before you start writing a11y specific HTML such as the <code class="language-plaintext highlighter-rouge">aria-label</code> attribute, we can take certain tips into consideration to make our web apps more accessible.
 As a start, our pages should be perceivable:</p>
 
 <ul>
@@ -395,7 +395,7 @@ It is best to keep in mind that:</p>
 </ul>
 
 <p>During her talk, Emma showcased her live coding skills as she took a full screen menu and animated it with the use of <a href="https://www.react-spring.io/" target="_blank" rel="noopener noreferrer">React-spring</a>.
-React-spring looks to be an interesting library that exposes hooks such as <code class="highlighter-rouge">useSpring()</code> to easily configure animations.
+React-spring looks to be an interesting library that exposes hooks such as <code class="language-plaintext highlighter-rouge">useSpring()</code> to easily configure animations.
 Having for example a menu slide in from the top of your page with a change in opacity, could be something as simple as this in your component:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">[</span><span class="nx">fullMenuVisible</span><span class="p">,</span> <span class="nx">setFullMenuVisible</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
@@ -405,7 +405,7 @@ Having for example a menu slide in from the top of your page with a change in op
 <span class="p">});</span>
 </code></pre></div></div>
 
-<p>After that you can add <code class="highlighter-rouge">fullMenuAnimation</code> to your HTML with the react-spring factory <code class="highlighter-rouge">animated</code>.
+<p>After that you can add <code class="language-plaintext highlighter-rouge">fullMenuAnimation</code> to your HTML with the react-spring factory <code class="language-plaintext highlighter-rouge">animated</code>.
 A menu can thus end up like this:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;animated</span><span class="err">.</span><span class="na">div</span> <span class="na">className=</span><span class="s">"menu menu--full"</span> <span class="na">style=</span><span class="s">{fullMenuAnimation}</span><span class="nt">&gt;</span>
@@ -469,10 +469,10 @@ There are multiple options to integrate a GraphQL API in your project without ha
 Roy highlighted two of them.</p>
 
 <p>The first one was <a href="https://www.apollographql.com/docs/link/links/rest/" target="_blank" rel="noopener noreferrer">apollo-link-rest</a>.
-This allows you to call REST endpoints from within your GraphQL queries while having all your data managed by <code class="highlighter-rouge">ApolloClient</code>.
+This allows you to call REST endpoints from within your GraphQL queries while having all your data managed by <code class="language-plaintext highlighter-rouge">ApolloClient</code>.
 These REST endpoints can be bundled together in the same GraphQL query so that getting information about a product with ID 3 and data about its rating and categories, might end up like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query getProduct {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query getProduct {
 	product @rest(type: "Product", path: "product/3") {
 		id
 		name
@@ -542,7 +542,7 @@ An example she gave of a decorator to add a store to your components is this:</p
 <span class="p">})</span>
 </code></pre></div></div>
 
-<p>After activating the decorator with <code class="highlighter-rouge">addDecorator(withStore)</code>, your components will have access to the store.
+<p>After activating the decorator with <code class="language-plaintext highlighter-rouge">addDecorator(withStore)</code>, your components will have access to the store.
 So now you can make your examples in Storybook even more linked to the real use of the components.</p>
 
 <blockquote>
@@ -601,8 +601,8 @@ A typical Blazor project has the following structure:</p>
   <li>/Shared</li>
 </ul>
 
-<p>In this structure, your whole frontend is situated in <code class="highlighter-rouge">/Client</code> while all your backend code is situated in <code class="highlighter-rouge">/Server</code>.
-If you are in need of any code sharing, you can put it into <code class="highlighter-rouge">/Shared</code> and it will be available in both <code class="highlighter-rouge">/Client</code> and <code class="highlighter-rouge">/Server</code>.</p>
+<p>In this structure, your whole frontend is situated in <code class="language-plaintext highlighter-rouge">/Client</code> while all your backend code is situated in <code class="language-plaintext highlighter-rouge">/Server</code>.
+If you are in need of any code sharing, you can put it into <code class="language-plaintext highlighter-rouge">/Shared</code> and it will be available in both <code class="language-plaintext highlighter-rouge">/Client</code> and <code class="language-plaintext highlighter-rouge">/Server</code>.</p>
 
 <blockquote>
   <p>Check out <a href="https://www.youtube.com/watch?v=ZAFqw952GQM" target="_blank" rel="noopener noreferrer">Don’s talk</a>, <a href="https://twitter.com/donwibier" target="_blank" rel="noopener noreferrer">Don’s Twitter</a> and <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor" target="_blank" rel="noopener noreferrer">Blazor</a></p>
@@ -685,7 +685,7 @@ The advantage of WASM lies in the fast calculations that can be done.</p>
 
 <p>To write WASM, you can look at multiple higher-level languages that compile to WASM code.
 If you’re a fan of C/C++, the tool <a href="https://github.com/emscripten-core" target="_blank" rel="noopener noreferrer">Emscripten</a> helps you out by compiling a C/C++ module to an HTML page.
-For the Rust lovers, you can simply annotate a function with <code class="highlighter-rouge">#[wasm_bindgen]</code> to activate the <a href="https://rustwasm.github.io/wasm-bindgen/" target="_blank" rel="noopener noreferrer">wasm-bindgen library</a> and allowing to compile a WASM function.
+For the Rust lovers, you can simply annotate a function with <code class="language-plaintext highlighter-rouge">#[wasm_bindgen]</code> to activate the <a href="https://rustwasm.github.io/wasm-bindgen/" target="_blank" rel="noopener noreferrer">wasm-bindgen library</a> and allowing to compile a WASM function.
 For the TypeScript lovers, there is a strict subset of TypeScript called <a href="https://docs.assemblyscript.org/" target="_blank" rel="noopener noreferrer">AssemblyScript</a> that allows for compilation.</p>
 
 <p>So the tools are already there to write WASM code but the future looks really bright as multiple features are currently being specified:</p>

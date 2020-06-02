@@ -375,7 +375,7 @@ Spring Data JPA will then look at your entities with all their annotations to ma
 
 <h5 id="example-3">Example</h5>
 
-<p>The example below shows how to insert <code class="highlighter-rouge">Rental</code> data in the database with Spring Data JPA.</p>
+<p>The example below shows how to insert <code class="language-plaintext highlighter-rouge">Rental</code> data in the database with Spring Data JPA.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalService</span><span class="o">{</span>
@@ -402,7 +402,7 @@ If you want to insert only a part of an aggregate, for example only create a new
 
 <h5 id="example-4">Example</h5>
 
-<p>The example shows how a <code class="highlighter-rouge">Rental</code> is added. If you want to create a new instance of the aggregate root, then the code is comparable to that of Spring Data JPA.</p>
+<p>The example shows how a <code class="language-plaintext highlighter-rouge">Rental</code> is added. If you want to create a new instance of the aggregate root, then the code is comparable to that of Spring Data JPA.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nd">@Service</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RentalCompanyService</span><span class="o">{</span>
@@ -422,20 +422,20 @@ If you want to insert only a part of an aggregate, for example only create a new
 
 <h3 id="querying-the-database">Querying The Database</h3>
 <p>To retrieve data from our database, we write queries.
-Spring JDBC will let you use the <code class="highlighter-rouge">JdbcTemplate</code> and let you map the result with a RowMapper.
+Spring JDBC will let you use the <code class="language-plaintext highlighter-rouge">JdbcTemplate</code> and let you map the result with a RowMapper.
 Spring Data JDBC and Spring Data JPA will also let you create queries, using JPQL or SQL queries, but you will write them in the repositories and the frameworks will help you with the mapping.</p>
 
 <h4 id="spring-jdbc-2">Spring JDBC</h4>
-<p>The main tool that Spring JDBC uses for querying is the <code class="highlighter-rouge">JdbcTemplate</code>.
+<p>The main tool that Spring JDBC uses for querying is the <code class="language-plaintext highlighter-rouge">JdbcTemplate</code>.
 The downside of using this is that it only provides the connection, everything else you need to do yourself.
-If you search for objects, you will need to map the results to Java objects by implementing a <code class="highlighter-rouge">RowMapper</code>.
+If you search for objects, you will need to map the results to Java objects by implementing a <code class="language-plaintext highlighter-rouge">RowMapper</code>.
 You will also need to do the exception handling by creating a ExceptionTranslator.</p>
 
 <p>I will show you a simple example of how a query is created.</p>
 
 <h5 id="examples">Examples</h5>
 
-<p>This response needs to be mapped by implementing a <code class="highlighter-rouge">RowMapper</code>.</p>
+<p>This response needs to be mapped by implementing a <code class="language-plaintext highlighter-rouge">RowMapper</code>.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CarRowMapper</span> <span class="kd">implements</span> <span class="nc">RowMapper</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="o">{</span>
     
@@ -453,7 +453,7 @@ You will also need to do the exception handling by creating a ExceptionTranslato
     <span class="o">}</span>
     </code></pre></figure>
 
-<p>This mapper can be passed to the <code class="highlighter-rouge">JdbcTemplate</code> that will use it to create populated Java objects.</p>
+<p>This mapper can be passed to the <code class="language-plaintext highlighter-rouge">JdbcTemplate</code> that will use it to create populated Java objects.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="n">cars</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">queryForObject</span><span class="o">(</span>
         <span class="s">"SELECT * FROM CAR WHERE ID = ?"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">id</span><span class="o">},</span> <span class="k">new</span> <span class="nc">CarRowMapper</span><span class="o">());</span>
@@ -473,7 +473,7 @@ For these methods Spring Data will generate the SQL entirely on its own. More in
 Inside the @Query annotation you write JPQL or SQL statements. JPQL is an SQL-like syntax that provides an abstraction layer on top of regular SQL. 
 When JPQL is used, it is possible for Spring Data to help you with handling the data. For example paging and sorting can be done by simply adding a parameter.</p>
 
-<p>If you want to have a bit more control, you can use SQL by setting the native property of the <code class="highlighter-rouge">@Query</code> annotation to true. 
+<p>If you want to have a bit more control, you can use SQL by setting the native property of the <code class="language-plaintext highlighter-rouge">@Query</code> annotation to true. 
 Then you don’t use this extra layer, but it then also can’t help you anymore.
 Be aware that even though you use SQL directly, you will still return entities that are managed by Hibernate.</p>
 
@@ -568,12 +568,12 @@ This is why we now need to use the RentalCompanyRepository.</p>
 
 <h3 id="updating-an-instance">Updating an Instance</h3>
 
-<p>When you want to update an instance in the database, you will need to write a query and execute it using the <code class="highlighter-rouge">JdbcTemplate</code> or use the domain model in Spring Data JPA or Spring Data JDBC.</p>
+<p>When you want to update an instance in the database, you will need to write a query and execute it using the <code class="language-plaintext highlighter-rouge">JdbcTemplate</code> or use the domain model in Spring Data JPA or Spring Data JDBC.</p>
 
 <h4 id="spring-jdbc-3">Spring JDBC</h4>
 
 <p>Spring JDBC again only provides a framework when updating data from the database. 
-The <code class="highlighter-rouge">JdbcTemplate</code> exposes an update method. This method can accept a query and optional parameters.</p>
+The <code class="language-plaintext highlighter-rouge">JdbcTemplate</code> exposes an update method. This method can accept a query and optional parameters.</p>
 
 <h5 id="example-5">Example</h5>
 

@@ -225,7 +225,7 @@ But now, ohh yeah, there’s a new kid in town.</p>
 While lots of other frameworks (as mentioned above) are all interacting over a Selenium server,
 for remote communication and by definition, running its tests outside of the browser, Cypress is executed inside the browser.
 Therefore Cypress is executed in the same runtime as your application itself.
-Because of this, Cypress has native access to every single object. The <code class="highlighter-rouge">window</code>, the <code class="highlighter-rouge">document</code>, a <code class="highlighter-rouge">DOM</code>-element, a <code class="highlighter-rouge">service worker</code>, … .
+Because of this, Cypress has native access to every single object. The <code class="language-plaintext highlighter-rouge">window</code>, the <code class="language-plaintext highlighter-rouge">document</code>, a <code class="language-plaintext highlighter-rouge">DOM</code>-element, a <code class="language-plaintext highlighter-rouge">service worker</code>, … .
 Cypress does not need to send commands over-the-wire and can just access everything.</p>
 
 <h1 id="comparison">Comparison</h1>
@@ -281,7 +281,7 @@ This backend then launches a browser window, sets up a proxy to this browser win
 The browser window has two iFrames inside.
 One is for Cypress itself.
 The second one will hold the application under test.
-To make it possible to communicate with the application’s iFrame, it injects a <code class="highlighter-rouge">&lt;script&gt;</code>-tag that also sets its domain to localhost.
+To make it possible to communicate with the application’s iFrame, it injects a <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code>-tag that also sets its domain to localhost.
 Because now, both iFrames are running on ‘localhost’, it is possible to access everything of the application.</p>
 
 <div style="text-align: center;">
@@ -305,28 +305,28 @@ Cypress tests are written using Mocha and Chai.</p>
 
 <p>Installation of Cypress is really simple.
 You can install it through Yarn:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yarn add cypress --dev
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yarn add cypress --dev
 </code></pre></div></div>
 <p>Or plain npm:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm install cypress --save-dev
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm install cypress --save-dev
 </code></pre></div></div>
 
 <p>You can also install it globally.
-This way you do not need a local <code class="highlighter-rouge">package.json</code> to run Cypress and all Cypress commands can be run straight from the command line.</p>
+This way you do not need a local <code class="language-plaintext highlighter-rouge">package.json</code> to run Cypress and all Cypress commands can be run straight from the command line.</p>
 
 <h2 id="running-cypress">Running Cypress</h2>
 
 <p>Depending on how you just installed Cypress, you can run Cypress by:
-<code class="highlighter-rouge">$ yarn run cypress open</code>
+<code class="language-plaintext highlighter-rouge">$ yarn run cypress open</code>
 of
-<code class="highlighter-rouge">$ $(npm bin)/cypress open</code></p>
+<code class="language-plaintext highlighter-rouge">$ $(npm bin)/cypress open</code></p>
 
 <p>Or globally:
-<code class="highlighter-rouge">$ cypress open</code></p>
+<code class="language-plaintext highlighter-rouge">$ cypress open</code></p>
 
 <p>The first positive surprise!
-When opening Cypress for the first time, it notices that you haven’t run it before and it kindly scaffolds a <code class="highlighter-rouge">/cypress</code> folder with examples into your project.
-This way, you already have a configured <code class="highlighter-rouge">base</code> to start from.</p>
+When opening Cypress for the first time, it notices that you haven’t run it before and it kindly scaffolds a <code class="language-plaintext highlighter-rouge">/cypress</code> folder with examples into your project.
+This way, you already have a configured <code class="language-plaintext highlighter-rouge">base</code> to start from.</p>
 
 <div style="text-align: center;">
   <img src="/img/cypress/firsttime.png" width="80%" />
@@ -343,7 +343,7 @@ It will then inject itself into that window in one frame, and load the applicati
 
 <h2 id="configuring-cypress">Configuring Cypress</h2>
 
-<p>You can custom configure Cypress by adding a <code class="highlighter-rouge">cypress.json</code> file in the root of your project.</p>
+<p>You can custom configure Cypress by adding a <code class="language-plaintext highlighter-rouge">cypress.json</code> file in the root of your project.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="dl">"</span><span class="s2">baseUrl</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">http://demo-app.localtest.me/demo-app</span><span class="dl">"</span><span class="p">,</span>
@@ -360,19 +360,19 @@ It will then inject itself into that window in one frame, and load the applicati
 <span class="p">}</span>
 </code></pre></div></div>
 <p>You can always override these settings on the command-line:
-<code class="highlighter-rouge">$ cypress run --spec src/** -c baseUrl=http://localhost</code></p>
+<code class="language-plaintext highlighter-rouge">$ cypress run --spec src/** -c baseUrl=http://localhost</code></p>
 
 <p>For a full overview of the configuration options, just check out the <a href="https://docs.cypress.io/guides/references/configuration.html#Options" target="blank">docs</a>.</p>
 
 <h2 id="reporters">Reporters</h2>
 
 <p>Just like other frameworks, Cypress lets you add custom reporters for the test results.
-As you can see above, we’ve added <code class="highlighter-rouge">mochawesome</code>.</p>
+As you can see above, we’ve added <code class="language-plaintext highlighter-rouge">mochawesome</code>.</p>
 
 <p>Install it via Yarn:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>yarn add mochawesome <span class="nt">--dev</span>
 </code></pre></div></div>
-<p>And then manually add it to the <code class="highlighter-rouge">cypress.json</code> config file.</p>
+<p>And then manually add it to the <code class="language-plaintext highlighter-rouge">cypress.json</code> config file.</p>
 
 <p>Take a look at the <a href="https://www.npmjs.com/package/mochawesome" target="blank">documentation</a> for the configuration.</p>
 
@@ -384,25 +384,25 @@ As you can see above, we’ve added <code class="highlighter-rouge">mochawesome<
 
 <p>The documentation itself is linking to some different examples.
 You can read all about the setup <a target="blank" href="https://docs.cypress.io/guides/tooling/typescript-support.html">here</a>.
-And you can also take a look at the <code class="highlighter-rouge">npm package add-typescript-to-cypress</code> <a href="https://www.npmjs.com/package/@bahmutov/add-typescript-to-cypress" target="blank">here</a>.</p>
+And you can also take a look at the <code class="language-plaintext highlighter-rouge">npm package add-typescript-to-cypress</code> <a href="https://www.npmjs.com/package/@bahmutov/add-typescript-to-cypress" target="blank">here</a>.</p>
 
 <h2 id="writing-your-first-tests">Writing your first tests</h2>
 
-<p>As shown above, you can configure the path to your <code class="highlighter-rouge">spec</code>-files.
-In our case, we are using <code class="highlighter-rouge">/src</code>.
+<p>As shown above, you can configure the path to your <code class="language-plaintext highlighter-rouge">spec</code>-files.
+In our case, we are using <code class="language-plaintext highlighter-rouge">/src</code>.
 Cypress will go through that directory and show all the spec files when using Cypress in development mode.
-When running Cypress command line to only run the tests, it will just run all those <code class="highlighter-rouge">spec</code>-files and then create the report.</p>
+When running Cypress command line to only run the tests, it will just run all those <code class="language-plaintext highlighter-rouge">spec</code>-files and then create the report.</p>
 
-<p>In our small example we have an Angular demo app that has a material <code class="highlighter-rouge">sidenav</code> with three links.
+<p>In our small example we have an Angular demo app that has a material <code class="language-plaintext highlighter-rouge">sidenav</code> with three links.
 Dashboard, clients and products.
-The latter two both have a material <code class="highlighter-rouge">datatable</code>.</p>
+The latter two both have a material <code class="language-plaintext highlighter-rouge">datatable</code>.</p>
 
 <div style="text-align: center;">
   <img src="/img/cypress/demo-app.png" width="80%" />
 </div>
 
-<p>Let’s say we want to test our clients navigation and <code class="highlighter-rouge">datatable</code>.
-Create a <code class="highlighter-rouge">spec</code> file in the <code class="highlighter-rouge">/src</code> directory, in our case, named <code class="highlighter-rouge">clients.spec.js</code>:</p>
+<p>Let’s say we want to test our clients navigation and <code class="language-plaintext highlighter-rouge">datatable</code>.
+Create a <code class="language-plaintext highlighter-rouge">spec</code> file in the <code class="language-plaintext highlighter-rouge">/src</code> directory, in our case, named <code class="language-plaintext highlighter-rouge">clients.spec.js</code>:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// &lt;reference types="Cypress" /&gt;</span>
 
@@ -438,11 +438,11 @@ Create a <code class="highlighter-rouge">spec</code> file in the <code class="hi
 
 <h2 id="running-your-first-tests">Running your first tests</h2>
 
-<p>If you would now run <code class="highlighter-rouge">$ yarn run cypress open</code>.
-Cypress will open itself, showing you your new <code class="highlighter-rouge">spec</code>-file.
-You can now run your <code class="highlighter-rouge">spec</code>-file by double clicking it, or click the ‘run all’ option on the top right of your Cypress application.</p>
+<p>If you would now run <code class="language-plaintext highlighter-rouge">$ yarn run cypress open</code>.
+Cypress will open itself, showing you your new <code class="language-plaintext highlighter-rouge">spec</code>-file.
+You can now run your <code class="language-plaintext highlighter-rouge">spec</code>-file by double clicking it, or click the ‘run all’ option on the top right of your Cypress application.</p>
 
-<p>Changing the <code class="highlighter-rouge">spec</code>-file will trigger a reload/retest in your Cypress-environment.</p>
+<p>Changing the <code class="language-plaintext highlighter-rouge">spec</code>-file will trigger a reload/retest in your Cypress-environment.</p>
 
 <div style="text-align: center;">
   <img src="/img/cypress/main-app.png" width="80%" />
@@ -472,19 +472,19 @@ Check out out the documentation <a href="https://docs.cypress.io/guides/guides/d
 
 <p>Take a look at the image above.
 As you can see, Cypress takes a snapshot at every stage of the test.
-You can navigate through them later and see the snapshot at a specific time and even see the difference in the state of the application before a request and after its response when running <code class="highlighter-rouge">XHR requests</code>.</p>
+You can navigate through them later and see the snapshot at a specific time and even see the difference in the state of the application before a request and after its response when running <code class="language-plaintext highlighter-rouge">XHR requests</code>.</p>
 
 <h2 id="network-accessibility">Network accessibility</h2>
 
-<p>As mentioned above, Cypress can take snapshots before and after each <code class="highlighter-rouge">XHR request</code>.
+<p>As mentioned above, Cypress can take snapshots before and after each <code class="language-plaintext highlighter-rouge">XHR request</code>.
 Cypress knows what is going on under the hood because it is running in the same window.
 This makes it easy to implement stubs and spies.</p>
 
-<p>A simple example for our use case would be intercepting the <code class="highlighter-rouge">client-service</code> calls and return mocked data.
+<p>A simple example for our use case would be intercepting the <code class="language-plaintext highlighter-rouge">client-service</code> calls and return mocked data.
 To do so, Cypress needs to run a server.
-This can be done by just running <code class="highlighter-rouge">cy.server()</code>.
+This can be done by just running <code class="language-plaintext highlighter-rouge">cy.server()</code>.
 Next step is to define the route you want to listen on and attach new data to it.
-Cypress enables this with its <code class="highlighter-rouge">route</code> configuration.</p>
+Cypress enables this with its <code class="language-plaintext highlighter-rouge">route</code> configuration.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="nx">cy</span><span class="p">.</span><span class="nx">server</span><span class="p">();</span>
@@ -545,11 +545,11 @@ Before, we were always setting this up using ‘yet another plugin’ (and depen
 
 <p>Running Cypress on a continuous integration platform is also pretty easy.
 You just want Cypress to run the tests and not to open its Electron test manager for development.
-<code class="highlighter-rouge">$ cypress run</code> just does that.
-Just append the other options you want to override from the <code class="highlighter-rouge">cypress.json</code> and you are good to go.
-<code class="highlighter-rouge">$ yarn run cypress run --spec 'src/**/*' --reporter mochawesome --reporter-options reportDir=results,reportFilename=report.html</code>.</p>
+<code class="language-plaintext highlighter-rouge">$ cypress run</code> just does that.
+Just append the other options you want to override from the <code class="language-plaintext highlighter-rouge">cypress.json</code> and you are good to go.
+<code class="language-plaintext highlighter-rouge">$ yarn run cypress run --spec 'src/**/*' --reporter mochawesome --reporter-options reportDir=results,reportFilename=report.html</code>.</p>
 
-<p>Example <code class="highlighter-rouge">package.json</code>:</p>
+<p>Example <code class="language-plaintext highlighter-rouge">package.json</code>:</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">scripts</span><span class="p">:</span> <span class="p">{</span>
   <span class="p">...</span>
   <span class="dl">"</span><span class="s2">cypress:ci</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">cypress run --spec 'src/**/*' --reporter mochawesome --reporter-options reportDir=results,reportFilename=report.html</span><span class="dl">"</span>

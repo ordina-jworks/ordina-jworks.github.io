@@ -263,7 +263,7 @@ Service discovery allows you to do easy <strong>loadbalancing</strong> and provi
   <li>
     <p>Last but not least I feel obligated to point out that Weave works very well with <strong>Kubernetes</strong>.
 Kubernetes is basically the orchestration tool you want to be using to run your containers.
-A deeper tour of Kubernetes is for another time, but for now I’d like to point out that the default network provider within Kubernetes is <code class="highlighter-rouge">flanel</code> but you can replace that with Weave if you want.
+A deeper tour of Kubernetes is for another time, but for now I’d like to point out that the default network provider within Kubernetes is <code class="language-plaintext highlighter-rouge">flanel</code> but you can replace that with Weave if you want.
 You then get all the benefits of Weave plus the added value that you can make a virtual network that spans several Kubernetes clusters and/or your regular Docker applications.</p>
   </li>
 </ul>
@@ -284,7 +284,7 @@ Following picture shows the setup we will be build in this example:</p>
 
 <p>To install Weave on an Ubuntu system you can run the following commands:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo curl -L git.io/weave -o /usr/local/bin/weave
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo curl -L git.io/weave -o /usr/local/bin/weave
 sudo chmod a+x /usr/local/bin/weave
 </code></pre></div></div>
 
@@ -301,7 +301,7 @@ On systems which don’t support native Docker, you will have to set up somethin
 
 <p>On the first host, type the following commands:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch
 eval $(weave env)
 </code></pre></div></div>
 
@@ -311,7 +311,7 @@ eval $(weave env)
     <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/install_weave_result.png" />
 </p>
 
-<p>If you run the <code class="highlighter-rouge">docker images</code> command you can take a look at all the images that Weave downloaded:</p>
+<p>If you run the <code class="language-plaintext highlighter-rouge">docker images</code> command you can take a look at all the images that Weave downloaded:</p>
 
 <p>
     <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/weave_images.png" />
@@ -321,7 +321,7 @@ eval $(weave env)
 This means that you have to provide no additional arguments to your Docker run commands to use the Weave network.
 Behind the scenes Weave has setup a Docker network for you on your machine, you can take a look at this with the command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker network ls 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker network ls 
 </code></pre></div></div>
 <p>
     <img class="image fit" style="max-width:633px" alt="Weave install result" src="/img/2018-09-15-docker-networking-with-weave/docker_network.png" />
@@ -331,7 +331,7 @@ Behind the scenes Weave has setup a Docker network for you on your machine, you 
 When our network setup is done we will test it out with a test container.
 So for now let’s start this container on the first host:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name app_on_host1 weaveworks/ubuntu
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name app_on_host1 weaveworks/ubuntu
 </code></pre></div></div>
 
 <p>This is just a stripped down Ubuntu Docker image.
@@ -340,7 +340,7 @@ We will use it later to test our network setup.</p>
 <p>If you look at your machine’s network stack you will see that Weave has setup several different networks on your host machine in order to make it’s magic work.
 When I run the:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifconfig
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifconfig
 </code></pre></div></div>
 
 <p>command on my machine, I can see that Weave added following network stacks to my machine:</p>
@@ -358,7 +358,7 @@ We just want it to work, right?</p>
 This is important because we need the <strong>physical IP address</strong> from that host to tell our second host to connect to host 1.
 Host 1 has IP address 192.168.1.18. This gives us following command to run on host 2:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch 192.168.1.18
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch 192.168.1.18
 eval $(weave env)
 </code></pre></div></div>
 
@@ -366,7 +366,7 @@ eval $(weave env)
 You tell Weave to launch and to connect to every IP you supply as an argument to the launch command.
 We will also setup a test container on this host:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name app_on_host2 weaveworks/ubuntu
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name app_on_host2 weaveworks/ubuntu
 </code></pre></div></div>
 
 <p>These are all the setup steps you need to do in order to setup a simple Weave network.
@@ -377,7 +377,7 @@ Now let’s see how we can verify that everything is working.</p>
 <p>There are a few things we can do to verify that our setup is working.
 To start off let’s look at the status off our Weave service:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave status
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave status
 </code></pre></div></div>
 
 <p>This produces following result:</p>
@@ -390,7 +390,7 @@ To start off let’s look at the status off our Weave service:</p>
 All sorts of useful stuff is available in the status overview including the range of your Weave subnet, the connected peers, the connections.
 As a first step to verify that our network is working, let us examine the connections and peers in more detail with following commands:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave status peers
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave status peers
 weave status connections
 </code></pre></div></div>
 
@@ -403,7 +403,7 @@ So far everything is looking good!
 Now let’s do the real test and see if the containers can find each other by the name we gave each container.
 SSH into the container on host 1 and ping the application on the other host:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -ti app_on_host1 bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -ti app_on_host1 bash
 ping app_on_host2
 </code></pre></div></div>
 
@@ -414,7 +414,7 @@ ping app_on_host2
 <p>As we can see from the results, our container was able to resolve the other container over the Weave network by making use of the Weave DNS service and the Weavemesh network.
 If we reverse our test and run it on host 2 we get this result:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -ti app_on_host2 bash
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -ti app_on_host2 bash
 ping app_on_host1
 </code></pre></div></div>
 
@@ -439,7 +439,7 @@ When that container is up and running we can initialise it with a database and s
 To initialise the database run the <strong>init-db.sh</strong> script.
 We can run following commands to verify that our database is up and running in the Weave network:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
 weave ps
 </code></pre></div></div>
 
@@ -461,14 +461,14 @@ Let’s start our backend container with the <strong>test_run_backend.sh</strong
 This script runs the container and exposes its webservice to the outside world through port 8080.
 We can then use our browser on our host to verify that the service is running correctly:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install
 docker build -t rest-backend .
 ./test_run_backend.sh
 </code></pre></div></div>
 
 <p>To verify that out application has started successfully we can run the following commands:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
 weave ps
 </code></pre></div></div>
 
@@ -487,7 +487,7 @@ weave ps
 <p>When I do an HTTP GET to my REST backend, it comes back with a greeting it got from the database container on the other host.
 Now that we have verified that our backend runs fine, we will stop it and start it up again without exposing a port to the outside world:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop rest-backend
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker stop rest-backend
 docker rm rest-backend
 ./run_backend.sh
 </code></pre></div></div>
@@ -521,7 +521,7 @@ Please note: I also included a compiled binary so that you can use the program e
 To start our frontend container, run following commands inside the frontend folder.
 Only execute the first command if you wish to compile the Go program yourself:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go build
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go build
 docker build -t frontend .
 ./run_frontend.sh
 </code></pre></div></div>
@@ -561,7 +561,7 @@ Let’s get started.</p>
 I’m not going to go into full detail here about how you can do that but it’s quite easy and there are a lot of tutorials out there.
 After our EC2 server is up and running we can login to it via ssh and install docker and weave.
 We will start up Weave on our EC2 server with encryption enabled.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch --password weavetest
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch --password weavetest
 eval $(weave env)
 </code></pre></div></div>
 
@@ -588,7 +588,7 @@ Note, I also opened port 8080 because our frontend uses this port to listen for 
 <h3 id="reconfigure-the-existing-onprem-hosts">Reconfigure the existing onprem hosts</h3>
 <p>Before you can connect Weave from your homenetwork to the cloud you have to make sure that your router ports 6783(TCP/UDP) and 6784(UDP) are opened.
 First lets reconfigure our database host.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave reset
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave reset
 weave launch --password weavetest
 eval $(weave env)
 </code></pre></div></div>
@@ -599,7 +599,7 @@ eval $(weave env)
 <p>As you can see Weave is now reporting that encryption is turned on but this Weave peer is not yet connected to any others.
 Let’s take care off that now. Switch over to the backend host.
 Now let’s run the magic Weave command that will make our setup run.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch 34.247.178.145 192.168.1.99 --password weavetest
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>weave launch 34.247.178.145 192.168.1.99 --password weavetest
 </code></pre></div></div>
 <p>This command launches Weave on our backend host and tells it to connect to our EC2 instance in the cloud and to our database server onprem.</p>
 <p>

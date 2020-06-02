@@ -230,13 +230,13 @@ In Publish-Subscribe messaging, a subscriber will only receive a message after i
 The message broker on the other hand will allow the subscriber to consume all the messages since the last message it has consumed, even if the subscriber was offline or down, thanks to its decoupling of services producing events from others consuming them.
 The Publish-Subscribe mechanism in Lagom is provided by the Akka Cluster underneath a Lagom service whereas message broker support is provided by a third party product such as Kafka.</p>
 
-<p>Lagom takes care of publishing, partitioning, consuming and failure handling of messaging and when executing the <code class="highlighter-rouge">runAll</code> command, Lagom automatically runs a Kafka server with you along with Zookeeper for you.
-Next to <code class="highlighter-rouge">ServiceCall</code> for communicating with other services mapping down onto HTTP, there now exists a <code class="highlighter-rouge">Topic</code> abstraction that represents a topic that one service publishes and that other services can consume after subscribing.</p>
+<p>Lagom takes care of publishing, partitioning, consuming and failure handling of messaging and when executing the <code class="language-plaintext highlighter-rouge">runAll</code> command, Lagom automatically runs a Kafka server with you along with Zookeeper for you.
+Next to <code class="language-plaintext highlighter-rouge">ServiceCall</code> for communicating with other services mapping down onto HTTP, there now exists a <code class="language-plaintext highlighter-rouge">Topic</code> abstraction that represents a topic that one service publishes and that other services can consume after subscribing.</p>
 
 <p>In order to make use of it you need to add the <a href="http://www.lagomframework.com/documentation/1.2.x/java/KafkaClient.html">Lagom Kafka Broker</a> module to the dependencies for both the service publishing to a topic and the service subscribing to a topic.
 Note that Lagom Kafka Broker module requires an implementation of Lagom Persistence so you need to add either <a href="http://www.lagomframework.com/documentation/1.2.x/java/PersistentEntityCassandra.html">Lagom Persistence Cassandra</a> or <a href="http://www.lagomframework.com/documentation/1.2.x/java/PersistentEntityRDBMS.html">Lagom Persistence JDBC</a> to the dependencies.</p>
 
-<p>In our simple demo project <a href="https://github.com/yannickdeturck/lagom-shop">Lagom Shop</a> we define a new method in the <code class="highlighter-rouge">item-api</code> project’s <code class="highlighter-rouge">ItemService</code> that will return a <code class="highlighter-rouge">Topic</code> of item creation events to subscribe on and we also add it to the <code class="highlighter-rouge">descriptor</code>:</p>
+<p>In our simple demo project <a href="https://github.com/yannickdeturck/lagom-shop">Lagom Shop</a> we define a new method in the <code class="language-plaintext highlighter-rouge">item-api</code> project’s <code class="language-plaintext highlighter-rouge">ItemService</code> that will return a <code class="language-plaintext highlighter-rouge">Topic</code> of item creation events to subscribe on and we also add it to the <code class="language-plaintext highlighter-rouge">descriptor</code>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Topic</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">();</span>
 
@@ -251,8 +251,8 @@ Note that Lagom Kafka Broker module requires an implementation of Lagom Persiste
     <span class="o">).</span><span class="na">withAutoAcl</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>In the <code class="highlighter-rouge">item-api</code> project we define a new <code class="highlighter-rouge">ItemEvent</code> interface for external use in other services.
-An <code class="highlighter-rouge">ItemEvent</code> already exists in the <code class="highlighter-rouge">item-impl</code> project but you want this one to be solely used within the implementation project.
+<p>In the <code class="language-plaintext highlighter-rouge">item-api</code> project we define a new <code class="language-plaintext highlighter-rouge">ItemEvent</code> interface for external use in other services.
+An <code class="language-plaintext highlighter-rouge">ItemEvent</code> already exists in the <code class="language-plaintext highlighter-rouge">item-impl</code> project but you want this one to be solely used within the implementation project.
 It is considered a best practice to have a separate definition for external use as it would otherwise cause you to break clients if you would apply internal changes.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@JsonTypeInfo</span><span class="o">(</span><span class="n">use</span> <span class="o">=</span> <span class="nc">JsonTypeInfo</span><span class="o">.</span><span class="na">Id</span><span class="o">.</span><span class="na">NAME</span><span class="o">,</span> <span class="n">property</span> <span class="o">=</span> <span class="s">"type"</span><span class="o">,</span> <span class="n">defaultImpl</span> <span class="o">=</span> <span class="nc">Void</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
@@ -293,7 +293,7 @@ It is considered a best practice to have a separate definition for external use 
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>In the <code class="highlighter-rouge">item-impl</code> project we add the implementation to <code class="highlighter-rouge">ItemServiceImpl</code> that will publish all <code class="highlighter-rouge">ItemCreated</code> events to the topic:</p>
+<p>In the <code class="language-plaintext highlighter-rouge">item-impl</code> project we add the implementation to <code class="language-plaintext highlighter-rouge">ItemServiceImpl</code> that will publish all <code class="language-plaintext highlighter-rouge">ItemCreated</code> events to the topic:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="nc">Topic</span><span class="o">&lt;</span><span class="n">be</span><span class="o">.</span><span class="na">yannickdeturck</span><span class="o">.</span><span class="na">lagomshop</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">ItemEvent</span><span class="o">&gt;</span> <span class="nf">createdItemsTopic</span><span class="o">()</span> <span class="o">{</span>
@@ -312,8 +312,8 @@ It is considered a best practice to have a separate definition for external use 
             <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()),</span> <span class="n">pair</span><span class="o">.</span><span class="na">second</span><span class="o">());</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>We now want to make use of this in our <code class="highlighter-rouge">order-impl</code> project.
-Using the injected <code class="highlighter-rouge">ItemService</code> instance we can now subscribe on the topic and act on each message.
+<p>We now want to make use of this in our <code class="language-plaintext highlighter-rouge">order-impl</code> project.
+Using the injected <code class="language-plaintext highlighter-rouge">ItemService</code> instance we can now subscribe on the topic and act on each message.
 In this case we log something whenever we receive a new message.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Inject</span>
@@ -328,11 +328,11 @@ In this case we log something whenever we receive a new message.</p>
             <span class="o">}));</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>As mentioned earlier, you have the option to make use of either the <code class="highlighter-rouge">atLeastOnce</code> or <code class="highlighter-rouge">atMostOnceSource</code> delivery semantic on the <code class="highlighter-rouge">Subscriber</code> instance.</p>
+<p>As mentioned earlier, you have the option to make use of either the <code class="language-plaintext highlighter-rouge">atLeastOnce</code> or <code class="language-plaintext highlighter-rouge">atMostOnceSource</code> delivery semantic on the <code class="language-plaintext highlighter-rouge">Subscriber</code> instance.</p>
 
 <p>If we run the application, create an item and afterwards check the logs, we see that the order service is receiving messages:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-12-23 22:04:22,337 INFO  b.y.l.i.i.ItemServiceImpl - Creating item: CreateItemRequest{name=newItem, price=15}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-12-23 22:04:22,337 INFO  b.y.l.i.i.ItemServiceImpl - Creating item: CreateItemRequest{name=newItem, price=15}
 2016-12-23 22:04:22,349 INFO  b.y.l.i.i.ItemEntity - Setting up initialBehaviour with snapshotState = Optional.empty
 2016-12-23 22:04:22,357 INFO  b.y.l.i.i.ItemEntity - Processed CreateItem command into ItemCreated event ItemCreated{item=Item{id=d370993c-dd75-4a88-bf8b-d9dba1820feb, name=newItem, price=15}, timestamp=2016-12-23T21:04:22.357Z}
 2016-12-23 22:04:22,359 INFO  b.y.l.i.i.ItemEntity - Processed ItemCreated event, updated item state
@@ -377,7 +377,7 @@ The processing of these tags across the cluster is handled for you by Lagom.</p>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>In your <code class="highlighter-rouge">ReadSideProcessor</code> you will have to override the <code class="highlighter-rouge">aggregateTags()</code> abstract method differently.</p>
+<p>In your <code class="language-plaintext highlighter-rouge">ReadSideProcessor</code> you will have to override the <code class="language-plaintext highlighter-rouge">aggregateTags()</code> abstract method differently.</p>
 
 <p>When using a single tag:</p>
 
@@ -417,11 +417,11 @@ At the time of writing only four relational databases are supported:</p>
   <li>H2</li>
 </ul>
 
-<p><code class="highlighter-rouge">akka-persistence-jdbc</code> uses <a href="http://slick.lightbend.com">Slick</a> for mapping tables and managing asynchronous execution of JDBC calls.
+<p><code class="language-plaintext highlighter-rouge">akka-persistence-jdbc</code> uses <a href="http://slick.lightbend.com">Slick</a> for mapping tables and managing asynchronous execution of JDBC calls.
 Slick requires you to configure it to use the right Slick profile for your database.
-An example of a Slick configuration in <code class="highlighter-rouge">application.conf</code>:</p>
+An example of a Slick configuration in <code class="language-plaintext highlighter-rouge">application.conf</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>db.default {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>db.default {
   driver = "org.postgresql.Driver"
   url = "jdbc:postgresql://database.example.com/playdb"
 }
@@ -429,10 +429,10 @@ An example of a Slick configuration in <code class="highlighter-rouge">applicati
 jdbc-defaults.slick.driver = "slick.driver.PostgresDriver$"
 </code></pre></div></div>
 
-<p>A table and journal table are required by the <code class="highlighter-rouge">akka-persistence-jdbc</code> plugin and by default, Lagom is able to create these automatically for you.
+<p>A table and journal table are required by the <code class="language-plaintext highlighter-rouge">akka-persistence-jdbc</code> plugin and by default, Lagom is able to create these automatically for you.
 This automatic generation functionality can be disabled which you will probably want for any environment higher than development.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lagom.persistence.jdbc.create-tables.auto = false
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lagom.persistence.jdbc.create-tables.auto = false
 </code></pre></div></div>
 
 <p>The definition of the tables differ for each database, here is an example of the table definition for PostgreSQL:</p>
@@ -468,7 +468,7 @@ It might be a bit out of date regarding the API in Lagom but it should give you 
 In the <a href="#migrating-from-10-to-12">upcoming section</a> we describe the migration process of upgrading to Lagom 1.2 and the changes we had to do to our read-side, so the required code changes can be read in that section.</p>
 
 <p>The API for the JDBC read-side support is rather similar compared to the Cassandra read-side support.
-Instead of using a <code class="highlighter-rouge">CassandraSession</code> for querying, you use a <code class="highlighter-rouge">JdbcSession</code> to retrieve a connection which in turn you will use for the execution of queries.
+Instead of using a <code class="language-plaintext highlighter-rouge">CassandraSession</code> for querying, you use a <code class="language-plaintext highlighter-rouge">JdbcSession</code> to retrieve a connection which in turn you will use for the execution of queries.
 The JDBC read-side API however, unlike the Cassandra read-side API, is not fully non-blocking which will lead to a performance difference.
 It could be an option to switch to Cassandra later on in the project if you want to get better performance out of it.
 But at least by having an API right now for these four databases it might be easier to integrate a new Lagom application within an existing architecture having these kinds of databases.</p>
@@ -480,24 +480,24 @@ For the purpose of this blogpost, let us see how much work it is to upgrade to 1
 
 <p>First of all, we have to upgrade the Lagom version itself. 
 Lagom 1.0 only supported sbt, so our demo is still using that.
-We change the version to be used in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+We change the version to be used in <code class="language-plaintext highlighter-rouge">project/plugins.sbt</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.2.2")
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.2.2")
 </code></pre></div></div>
 
-<p>For the Lagom Persistence module, Cassandra support has been pulled into its own module so you need to update the <code class="highlighter-rouge">lagomJavadslPersistence</code> dependency to <code class="highlighter-rouge">lagomJavadslPersistenceCassandra</code> in the <code class="highlighter-rouge">build.sbt</code> file.</p>
+<p>For the Lagom Persistence module, Cassandra support has been pulled into its own module so you need to update the <code class="language-plaintext highlighter-rouge">lagomJavadslPersistence</code> dependency to <code class="language-plaintext highlighter-rouge">lagomJavadslPersistenceCassandra</code> in the <code class="language-plaintext highlighter-rouge">build.sbt</code> file.</p>
 
-<p>We also have to update the Scala version in <code class="highlighter-rouge">build.sbt</code>:</p>
+<p>We also have to update the Scala version in <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scalaVersion in ThisBuild := "2.11.8"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scalaVersion in ThisBuild := "2.11.8"
 </code></pre></div></div>
 
-<p>The ConductR version in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+<p>The ConductR version in <code class="language-plaintext highlighter-rouge">project/plugins.sbt</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("com.lightbend.conductr" % "sbt-conductr" % "2.1.16")
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin("com.lightbend.conductr" % "sbt-conductr" % "2.1.16")
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">descriptor()</code> in the service interfaces needs to be updated since the <code class="highlighter-rouge">.with(...)</code> has been replaced by <code class="highlighter-rouge">withCalls(...)</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">descriptor()</code> in the service interfaces needs to be updated since the <code class="language-plaintext highlighter-rouge">.with(...)</code> has been replaced by <code class="language-plaintext highlighter-rouge">withCalls(...)</code>.</p>
 
 <p>We replace the existing code:</p>
 
@@ -523,15 +523,15 @@ We change the version to be used in <code class="highlighter-rouge">project/plug
 
 <p>These are the necessary changes for us to successfully compile our project. 
 Subsequently, we need to update our read-sides to make use of the new API.
-Starting with replacing the deprecated <code class="highlighter-rouge">CassandraReadSideProcessor</code>:</p>
+Starting with replacing the deprecated <code class="language-plaintext highlighter-rouge">CassandraReadSideProcessor</code>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="nc">CassandraReadSideProcessor</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
 
-<p>With <code class="highlighter-rouge">ReadSideProcessor</code>:</p>
+<p>With <code class="language-plaintext highlighter-rouge">ReadSideProcessor</code>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemEventProcessor</span> <span class="kd">extends</span> <span class="nc">ReadSideProcessor</span><span class="o">&lt;</span><span class="nc">ItemEvent</span><span class="o">&gt;</span> <span class="o">{</span></code></pre></figure>
 
-<p>Next step is to inject an instance of <code class="highlighter-rouge">CassandraSession</code> and <code class="highlighter-rouge">CassandraReadSide</code> via the constructor:</p>
+<p>Next step is to inject an instance of <code class="language-plaintext highlighter-rouge">CassandraSession</code> and <code class="language-plaintext highlighter-rouge">CassandraReadSide</code> via the constructor:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">final</span> <span class="nc">CassandraSession</span> <span class="n">session</span><span class="o">;</span>
 <span class="kd">private</span> <span class="kd">final</span> <span class="nc">CassandraReadSide</span> <span class="n">readSide</span><span class="o">;</span>
@@ -566,12 +566,12 @@ We delete the following:</p>
                     <span class="n">optionalRow</span> <span class="o">-&gt;</span> <span class="n">optionalRow</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">.</span><span class="na">getUUID</span><span class="o">(</span><span class="s">"offset"</span><span class="o">)));</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>After having our <code class="highlighter-rouge">ItemEventProcessor</code> class extend from the <code class="highlighter-rouge">ReadSideProcessor</code> abstract we are prompted to implement two methods: <code class="highlighter-rouge">buildHandler()</code> and <code class="highlighter-rouge">aggregateTags()</code>.
-<code class="highlighter-rouge">aggregateTags()</code> simply replaces <code class="highlighter-rouge">aggregateTag()</code> where as <code class="highlighter-rouge">buildHandler()</code> will contain the setup needed for our <code class="highlighter-rouge">ReadSideHandler</code>.
-The <code class="highlighter-rouge">prepare(CassandraSession session)</code> and <code class="highlighter-rouge">defineEventHandlers(EventHandlersBuilder builder)</code> methods that used to be overridden are now both implemented in <code class="highlighter-rouge">buildHandler()</code>.
-The logic from the existing <code class="highlighter-rouge">prepare()</code> is split up into a <code class="highlighter-rouge">setGlobalPrepare()</code>, for creating Cassandra tables (note that these tasks should be idempotent), and a <code class="highlighter-rouge">prepare()</code>, for preparing statements, in <code class="highlighter-rouge">buildHandler()</code>.</p>
+<p>After having our <code class="language-plaintext highlighter-rouge">ItemEventProcessor</code> class extend from the <code class="language-plaintext highlighter-rouge">ReadSideProcessor</code> abstract we are prompted to implement two methods: <code class="language-plaintext highlighter-rouge">buildHandler()</code> and <code class="language-plaintext highlighter-rouge">aggregateTags()</code>.
+<code class="language-plaintext highlighter-rouge">aggregateTags()</code> simply replaces <code class="language-plaintext highlighter-rouge">aggregateTag()</code> where as <code class="language-plaintext highlighter-rouge">buildHandler()</code> will contain the setup needed for our <code class="language-plaintext highlighter-rouge">ReadSideHandler</code>.
+The <code class="language-plaintext highlighter-rouge">prepare(CassandraSession session)</code> and <code class="language-plaintext highlighter-rouge">defineEventHandlers(EventHandlersBuilder builder)</code> methods that used to be overridden are now both implemented in <code class="language-plaintext highlighter-rouge">buildHandler()</code>.
+The logic from the existing <code class="language-plaintext highlighter-rouge">prepare()</code> is split up into a <code class="language-plaintext highlighter-rouge">setGlobalPrepare()</code>, for creating Cassandra tables (note that these tasks should be idempotent), and a <code class="language-plaintext highlighter-rouge">prepare()</code>, for preparing statements, in <code class="language-plaintext highlighter-rouge">buildHandler()</code>.</p>
 
-<p>We start by deleting the old <code class="highlighter-rouge">prepare(CassandraSession session)</code> and the <code class="highlighter-rouge">defineEventHandlers(EventHandlersBuilder builder)</code>:</p>
+<p>We start by deleting the old <code class="language-plaintext highlighter-rouge">prepare(CassandraSession session)</code> and the <code class="language-plaintext highlighter-rouge">defineEventHandlers(EventHandlersBuilder builder)</code>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
 <span class="kd">public</span> <span class="nc">CompletionStage</span><span class="o">&lt;</span><span class="nc">Optional</span><span class="o">&lt;</span><span class="no">UUID</span><span class="o">&gt;&gt;</span> <span class="nf">prepare</span><span class="o">(</span><span class="nc">CassandraSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
@@ -589,7 +589,7 @@ The logic from the existing <code class="highlighter-rouge">prepare()</code> is 
     <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>Finally we perform the necessary refactoring to implement both <code class="highlighter-rouge">buildHandler()</code> and <code class="highlighter-rouge">aggregateTags()</code>, and we clean up the existing processing logic for the read-side:</p>
+<p>Finally we perform the necessary refactoring to implement both <code class="language-plaintext highlighter-rouge">buildHandler()</code> and <code class="language-plaintext highlighter-rouge">aggregateTags()</code>, and we clean up the existing processing logic for the read-side:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">CompletionStage</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">BoundStatement</span><span class="o">&gt;&gt;</span> <span class="nf">processItemCreated</span><span class="o">(</span><span class="nc">ItemCreated</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
     <span class="nc">BoundStatement</span> <span class="n">bindWriteItem</span> <span class="o">=</span> <span class="n">writeItem</span><span class="o">.</span><span class="na">bind</span><span class="o">();</span>
@@ -616,7 +616,7 @@ The logic from the existing <code class="highlighter-rouge">prepare()</code> is 
 <span class="o">}</span></code></pre></figure>
 
 <p>This leaves us with some refactoring to be done in our service implementations for registering the read-side.
-The sole thing that needs to be done is replacing the injected <code class="highlighter-rouge">CassandraReadSide</code>, which is now deprecated, with <code class="highlighter-rouge">ReadSide</code>.</p>
+The sole thing that needs to be done is replacing the injected <code class="language-plaintext highlighter-rouge">CassandraReadSide</code>, which is now deprecated, with <code class="language-plaintext highlighter-rouge">ReadSide</code>.</p>
 
 <p>So going from:</p>
 
@@ -645,7 +645,7 @@ The sole thing that needs to be done is replacing the injected <code class="high
 <p>This concludes migrating our read-side logic to the new API.</p>
 
 <p>Since Lagom now supports multiple persistence backends, and not only just Cassandra, TestKit no longer starts with Cassandra enabled by default.
-This requires us to add a single line <code class="highlighter-rouge">.withCassandra(true)</code> to our server setup:</p>
+This requires us to add a single line <code class="language-plaintext highlighter-rouge">.withCassandra(true)</code> to our server setup:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@BeforeClass</span>
 <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
@@ -682,7 +682,7 @@ There is also the <a href="https://blog.eventuate.io/2016/10/06/eventuate-local-
 <p>Polyglot support is something that still lacks a bit on the side of Lagom.
 Spring has <a href="http://projects.spring.io/spring-cloud/spring-cloud.html#_polyglot_support_with_sidecar">Sidecar</a> for this purpose.
 Lagom services map down to ordinary, standard HTTP and WebSockets and as for other frameworks calling Lagom services, an <a href="http://www.lagomframework.com/documentation/1.2.x/java/IntegratingNonLagom.html">integration client</a> exists for JVM frameworks while others will have to invoke the Lagom services directly via REST.
-As for Lagom consuming other REST services, you define an API Service and implement the <code class="highlighter-rouge">descriptor()</code> to describe the external API. Documentation for this is currently lacking but an example with <a href="https://github.com/ignasi35/lagom-client-demo">Httpbin</a> and <a href="https://gist.github.com/ignasi35/9351ef4bdc5f7768e27182d06bfc8c01">Slack’s Messages API</a> exists.
+As for Lagom consuming other REST services, you define an API Service and implement the <code class="language-plaintext highlighter-rouge">descriptor()</code> to describe the external API. Documentation for this is currently lacking but an example with <a href="https://github.com/ignasi35/lagom-client-demo">Httpbin</a> and <a href="https://gist.github.com/ignasi35/9351ef4bdc5f7768e27182d06bfc8c01">Slack’s Messages API</a> exists.
 In order to further address the polyglot support, Lightbend is planning on implementing a solution for this probably based upon <a href="http://doc.akka.io/docs/akka/2.4.16/scala/stream/">Akka Streams</a> and <a href="https://github.com/akka/alpakka">Alpakka</a>.
 The idea is that you should be able to generate a Lagom service interface from specifications, allowing transparent integration.</p>
 

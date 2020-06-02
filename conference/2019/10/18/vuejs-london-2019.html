@@ -213,7 +213,7 @@ We really need to capture the user’s attention and make sure that they focus o
 For example in a web shop when the user is looking at the details of a product, we want to make sure he knows exactly where the buy button is.
 To achieve this, we can divert his attention to this button by adding a small but effective animation.
 We want to inspire a certain action that will keep the user on the happy path of our application, whether that is selling a product, successfully entering the details for a client registration or something other specific to our application.
-With the help of the Vue directives <code class="highlighter-rouge">v-enter</code>, <code class="highlighter-rouge">v-enter-active</code>, <code class="highlighter-rouge">v-enter-to</code>, <code class="highlighter-rouge">v-leave</code>, <code class="highlighter-rouge">v-leave-active</code> and <code class="highlighter-rouge">v-leave-to</code> we have the tools to add the necessary CSS classes that define certain states such as the default state, the hovered state and others.</p>
+With the help of the Vue directives <code class="language-plaintext highlighter-rouge">v-enter</code>, <code class="language-plaintext highlighter-rouge">v-enter-active</code>, <code class="language-plaintext highlighter-rouge">v-enter-to</code>, <code class="language-plaintext highlighter-rouge">v-leave</code>, <code class="language-plaintext highlighter-rouge">v-leave-active</code> and <code class="language-plaintext highlighter-rouge">v-leave-to</code> we have the tools to add the necessary CSS classes that define certain states such as the default state, the hovered state and others.</p>
 
 <p class="align-center">
   <img src="/img/vuejs-london-2019/animation-transitions.png" class="image fit" alt="Diagram showing the animation transition directives that are available in Vue" />
@@ -235,7 +235,7 @@ With the help of the Vue directives <code class="highlighter-rouge">v-enter</cod
 
 <p>With the use of scoped CSS, we can already tackle a lot of these issues.
 Vue not only provides us with the tools to add CSS styling next to our component definition but also CSS that is specific for a component.
-This is with the help of the <code class="highlighter-rouge">scoped</code> attribute that we can add to our styling:</p>
+This is with the help of the <code class="language-plaintext highlighter-rouge">scoped</code> attribute that we can add to our styling:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style </span><span class="na">scoped</span><span class="nt">&gt;</span>
 <span class="c">/* your CSS here */</span>
@@ -251,7 +251,7 @@ Also, scripting is still not possible.</p>
 
 <p>One method of solving the remaining problems is by using <a href="https://www.styled-components.com" target="_blank" rel="noopener noreferrer">Styled Components</a> for which there exists a Vue plugin called <a href="https://github.com/styled-components/vue-styled-components" target="_blank" rel="noopener noreferrer">vue-styled-components</a>.
 The idea behind styled components is to utilise tagged template literals to write actual CSS in your JS.
-We can thus write a styled <code class="highlighter-rouge">input</code> tag that has a switch to set a primary and secondary state like this:</p>
+We can thus write a styled <code class="language-plaintext highlighter-rouge">input</code> tag that has a switch to set a primary and secondary state like this:</p>
 
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">styled</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-styled-components</span><span class="dl">'</span><span class="p">;</span>
 
@@ -314,8 +314,8 @@ With the help of <a href="https://www.npmjs.com/package/webpack-bundle-analyzer"
 
 <h3 id="using-tree-shakeable-packages">Using tree-shakeable packages</h3>
 
-<p>A package that is often used in web applications is <code class="highlighter-rouge">lodash</code>.
-By default, <code class="highlighter-rouge">lodash</code> is not tree-shakeable but with the introduction of <code class="highlighter-rouge">lodash-es</code>, we now have access to all functions of <code class="highlighter-rouge">lodash</code> that are tree-shakeable.
+<p>A package that is often used in web applications is <code class="language-plaintext highlighter-rouge">lodash</code>.
+By default, <code class="language-plaintext highlighter-rouge">lodash</code> is not tree-shakeable but with the introduction of <code class="language-plaintext highlighter-rouge">lodash-es</code>, we now have access to all functions of <code class="language-plaintext highlighter-rouge">lodash</code> that are tree-shakeable.
 So instead of:</p>
 
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">last</span><span class="p">,</span> <span class="nx">zip</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">lodash</span><span class="dl">'</span>
@@ -327,7 +327,7 @@ So instead of:</p>
 </code></pre></div></div>
 
 <p>With the help of <a href="https://bundlephobia.com/result?p=lodash-es" target="_blank" rel="noopener noreferrer">bundlephobia.com</a>, we can see the individual sizes of all the lodash packages.
-If we do not use functions such as <code class="highlighter-rouge">differenceBy</code> from lodash, we can shave of a couple of kilobytes from our bundle size.</p>
+If we do not use functions such as <code class="language-plaintext highlighter-rouge">differenceBy</code> from lodash, we can shave of a couple of kilobytes from our bundle size.</p>
 
 <h3 id="activate-dynamic-imports-of-child-components">Activate dynamic imports of child components</h3>
 
@@ -335,7 +335,7 @@ If we do not use functions such as <code class="highlighter-rouge">differenceBy<
 The reason for this is that not all child components are directly visible.
 For example when they are somewhere on the bottom of the page or they are off screen.
 But another big reason is that they are used to render a modal.
-As not all modals are always needed from the moment the page is opened, we can add a <code class="highlighter-rouge">v-if</code> to that component.
+As not all modals are always needed from the moment the page is opened, we can add a <code class="language-plaintext highlighter-rouge">v-if</code> to that component.
 For example in a product page where we can have a modal with more product details, we might have something like:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
@@ -347,7 +347,7 @@ For example in a product page where we can have a modal with more product detail
 <span class="nt">&lt;/template&gt;</span>
 </code></pre></div></div>
 
-<p>By adding a <code class="highlighter-rouge">v-if</code> that holds a boolean to tell if the model should be visible, we delay the actual execution of all the <code class="highlighter-rouge">ProductDetails</code> code, thus achieving a performance increase:</p>
+<p>By adding a <code class="language-plaintext highlighter-rouge">v-if</code> that holds a boolean to tell if the model should be visible, we delay the actual execution of all the <code class="language-plaintext highlighter-rouge">ProductDetails</code> code, thus achieving a performance increase:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;template&gt;</span>
 	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"product"</span><span class="nt">&gt;</span>
@@ -358,7 +358,7 @@ For example in a product page where we can have a modal with more product detail
 <span class="nt">&lt;/template&gt;</span>
 </code></pre></div></div>
 
-<p>The reason behind this, is that Vue doesn’t render elements contained in a <code class="highlighter-rouge">v-if</code> until the <code class="highlighter-rouge">v-if</code> returns true.</p>
+<p>The reason behind this, is that Vue doesn’t render elements contained in a <code class="language-plaintext highlighter-rouge">v-if</code> until the <code class="language-plaintext highlighter-rouge">v-if</code> returns true.</p>
 
 <h3 id="prefetching">Prefetching</h3>
 
@@ -411,8 +411,8 @@ In our component, we could have something like:</p>
 <span class="nt">&lt;/template&gt;</span>
 </code></pre></div></div>
 
-<p>By using <code class="highlighter-rouge">data</code> and <code class="highlighter-rouge">computed</code> we can retrieve the correct data from within our Vue component.
-In our <code class="highlighter-rouge">mounted</code> lifecycle hook, we can do all necessary D3 code to use all of our generated SVGs to create the diagrams that we want.</p>
+<p>By using <code class="language-plaintext highlighter-rouge">data</code> and <code class="language-plaintext highlighter-rouge">computed</code> we can retrieve the correct data from within our Vue component.
+In our <code class="language-plaintext highlighter-rouge">mounted</code> lifecycle hook, we can do all necessary D3 code to use all of our generated SVGs to create the diagrams that we want.</p>
 
 <blockquote>
   <p><a href="https://github.com/CodesOfRa/d3-vue-graph/blob/master/src/components/Tree.vue" target="_blank" rel="noopener noreferrer">Code example on Ramona’s GitHub</a> with the <a href="https://outofmylens-flowers.netlify.com/" target="_blank" rel="noopener noreferrer">live application available online</a> and the <a href="https://slides.com/codesofra/data-visualization-in-2#/" target="_blank" rel="noopener noreferrer">slides of her talk</a></p>
@@ -428,9 +428,9 @@ In our <code class="highlighter-rouge">mounted</code> lifecycle hook, we can do 
   <li>Configuration based: routes are defined separately with the components that they are linked to. The Vue router is a configuration based router.</li>
 </ul>
 
-<p>Because of this configuration based nature of the <code class="highlighter-rouge">vue-router</code>, we are missing the option to add or remove routes and we also lack declarative routing.</p>
+<p>Because of this configuration based nature of the <code class="language-plaintext highlighter-rouge">vue-router</code>, we are missing the option to add or remove routes and we also lack declarative routing.</p>
 
-<p>The current implementation of <code class="highlighter-rouge">vue-router</code> has a lot of functionalities built in that are specific to managing the history while we actually want to separate this.
+<p>The current implementation of <code class="language-plaintext highlighter-rouge">vue-router</code> has a lot of functionalities built in that are specific to managing the history while we actually want to separate this.
 In an ideal situation, we want the router to be the connection between the components and the code that manages the browser history.
 When a user navigates to a new page, the router calls the history code to add the new page to the history.
 When the user navigates back, the router retrieves the previous page from the history.
@@ -442,11 +442,11 @@ This is in the same spirit as Vue 3 that is also written fully in TypeScript.</p
 
 <p>Another improvement lies in the use of a ranking system for the routes.
 Currently routes are checked for a match based on the order in which they are defined.
-This means that a catch-all route such as <code class="highlighter-rouge">(.*)</code> in the beginning of the routes definition would render the other routes useless.</p>
+This means that a catch-all route such as <code class="language-plaintext highlighter-rouge">(.*)</code> in the beginning of the routes definition would render the other routes useless.</p>
 
 <p>A major addition to Vue router would be the ability to have dynamic routing.
 Components could thus add or remove routes.
-A final addition would be the full use of the Composition API so we have functionalities such as <code class="highlighter-rouge">useLink</code>, <code class="highlighter-rouge">useLocation</code>, <code class="highlighter-rouge">onBeforeRouteLeave</code> and <code class="highlighter-rouge">onBeforeRouteUpdate</code>.</p>
+A final addition would be the full use of the Composition API so we have functionalities such as <code class="language-plaintext highlighter-rouge">useLink</code>, <code class="language-plaintext highlighter-rouge">useLocation</code>, <code class="language-plaintext highlighter-rouge">onBeforeRouteLeave</code> and <code class="language-plaintext highlighter-rouge">onBeforeRouteUpdate</code>.</p>
 
 <p>The focus of the new router will be mainly on supporting Vue 3 while smaller improvements will be done for Vue 2.</p>
 
@@ -491,7 +491,7 @@ The website will keep on growing with new project types and packages added regul
 <p>Maria is very enthousiastic about accessibility on the web.
 One of the quirks she has found is that when a page is loaded or something dynamic happens on the page like opening a modal, the focus is incorrect.
 Basically this means that people who rely on a screen reader, often have issues with navigating when for example a modal is opened.
-By adding a basic directive to your component that uses the <code class="highlighter-rouge">inserted</code> <a href="https://vuejs.org/v2/guide/custom-directive.html#Hook-Functions" target="_blank" rel="noopener noreferrer">hook</a>, you can alleviate this issue:</p>
+By adding a basic directive to your component that uses the <code class="language-plaintext highlighter-rouge">inserted</code> <a href="https://vuejs.org/v2/guide/custom-directive.html#Hook-Functions" target="_blank" rel="noopener noreferrer">hook</a>, you can alleviate this issue:</p>
 
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
 	<span class="c1">// ... other component code</span>
@@ -513,7 +513,7 @@ By adding a basic directive to your component that uses the <code class="highlig
 
 <h3 id="application-shortcuts-with-a-renderless-event-component-by-rolf-haug">Application Shortcuts with a Renderless Event Component, by <a href="https://twitter.com/rahaug" target="_blank" rel="noopener noreferrer">Rolf Haug</a></h3>
 
-<p>By using <code class="highlighter-rouge">$listeners</code> in a Vue component, Rolf managed to create a renderless event component that handles everything you need to act on global events.
+<p>By using <code class="language-plaintext highlighter-rouge">$listeners</code> in a Vue component, Rolf managed to create a renderless event component that handles everything you need to act on global events.
 The sourcecode can be found on his <a href="https://github.com/vueschool/application-shortcuts/blob/master/src/components/EventListenerFinal.vue" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
 
 <p>One example use could be this in the template of a video player component:</p>
@@ -521,7 +521,7 @@ The sourcecode can be found on his <a href="https://github.com/vueschool/applica
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;event-listener</span> <span class="err">@</span><span class="na">keydown.space=</span><span class="s">"toggleVideo"</span> <span class="nt">/&gt;</span>
 </code></pre></div></div>
 
-<p>Now whenever the user presses on the spacebar of his keyboard, the handler <code class="highlighter-rouge">toggleVideo</code> will be called to toggle the video from/to playing/pausing.</p>
+<p>Now whenever the user presses on the spacebar of his keyboard, the handler <code class="language-plaintext highlighter-rouge">toggleVideo</code> will be called to toggle the video from/to playing/pausing.</p>
 
 <p>The same can be achieved by using the <a href="https://www.npmjs.com/package/vue-global-events" target="_blank" rel="noopener noreferrer">vue-global-events package</a>.</p>
 
@@ -535,19 +535,19 @@ The sourcecode can be found on his <a href="https://github.com/vueschool/applica
 The Composition API allows you to focus more on the features instead of only the components.
 If we would colour code every feature in our code, a component in the options-based API with a lot of features would end up having elements of the same feature all over the component.
 For example our sorting feature would be red, our searching feature would be purple and so on.
-This is because the current options-based API forces you to group everything into elements such as <code class="highlighter-rouge">data</code>, <code class="highlighter-rouge">props</code>, <code class="highlighter-rouge">methods</code>, <code class="highlighter-rouge">computed</code> and <code class="highlighter-rouge">watch</code>.</p>
+This is because the current options-based API forces you to group everything into elements such as <code class="language-plaintext highlighter-rouge">data</code>, <code class="language-plaintext highlighter-rouge">props</code>, <code class="language-plaintext highlighter-rouge">methods</code>, <code class="language-plaintext highlighter-rouge">computed</code> and <code class="language-plaintext highlighter-rouge">watch</code>.</p>
 
 <p class="align-center">
   <img src="/img/vuejs-london-2019/options-api-vs-composition-api.png" class="image fit" alt="Comparison of options-based API and Composition API with each feature colour coded" />
 </p>
 
-<p>With the Composition API we would introduce the use of a <code class="highlighter-rouge">setup</code> method for each component.
-In this <code class="highlighter-rouge">setup</code>, we declare the scope that will be available to our template.
-While in the options-based API we defined our scope in the <code class="highlighter-rouge">data</code>, <code class="highlighter-rouge">props</code>, <code class="highlighter-rouge">methods</code>, <code class="highlighter-rouge">computed</code> and <code class="highlighter-rouge">watch</code> properties and they are bound to the object instance, we now can group all this scope into <code class="highlighter-rouge">setup</code>.
-With the Composition API we have the freedom to group our features in the <code class="highlighter-rouge">setup</code> method and even extract them into separate functions so they can be reused in other components.
-This is because <code class="highlighter-rouge">setup</code> returns the scope that can be used in our template.
+<p>With the Composition API we would introduce the use of a <code class="language-plaintext highlighter-rouge">setup</code> method for each component.
+In this <code class="language-plaintext highlighter-rouge">setup</code>, we declare the scope that will be available to our template.
+While in the options-based API we defined our scope in the <code class="language-plaintext highlighter-rouge">data</code>, <code class="language-plaintext highlighter-rouge">props</code>, <code class="language-plaintext highlighter-rouge">methods</code>, <code class="language-plaintext highlighter-rouge">computed</code> and <code class="language-plaintext highlighter-rouge">watch</code> properties and they are bound to the object instance, we now can group all this scope into <code class="language-plaintext highlighter-rouge">setup</code>.
+With the Composition API we have the freedom to group our features in the <code class="language-plaintext highlighter-rouge">setup</code> method and even extract them into separate functions so they can be reused in other components.
+This is because <code class="language-plaintext highlighter-rouge">setup</code> returns the scope that can be used in our template.
 Parts of that scope could be retrieved from separate functions.
-Each colour in the image above can thus be potentially extracted into separate functions such as <code class="highlighter-rouge">useSorting</code>, <code class="highlighter-rouge">useSearch</code> and so on.</p>
+Each colour in the image above can thus be potentially extracted into separate functions such as <code class="language-plaintext highlighter-rouge">useSorting</code>, <code class="language-plaintext highlighter-rouge">useSearch</code> and so on.</p>
 
 <blockquote>
   <p><a href="https://www.vuemastery.com/pdf/Vue-3-Cheat-Sheet.pdf" target="_blank" rel="noopener noreferrer">Vue 3 Composition API cheat sheet</a></p>
@@ -559,8 +559,8 @@ Each colour in the image above can thus be potentially extracted into separate f
 
 <p>While in the past your components would become a clutter of all your features together spread out over your component, the Composition API allows them to be grouped together.
 For example when you have a component that supports multiple features such as sorting and pagination, these features would be spread out over the component.
-The data necessary for the sorting and pagination would be put into <code class="highlighter-rouge">data</code> and <code class="highlighter-rouge">props</code>.
-The functions that actually implement these functionalities would be scattered over <code class="highlighter-rouge">methods</code>, <code class="highlighter-rouge">computed</code> and <code class="highlighter-rouge">watch</code>.
+The data necessary for the sorting and pagination would be put into <code class="language-plaintext highlighter-rouge">data</code> and <code class="language-plaintext highlighter-rouge">props</code>.
+The functions that actually implement these functionalities would be scattered over <code class="language-plaintext highlighter-rouge">methods</code>, <code class="language-plaintext highlighter-rouge">computed</code> and <code class="language-plaintext highlighter-rouge">watch</code>.
 Thanks to the portable reactivity of the Composition API, we can simplify our components that use for example pagination to:</p>
 
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">usePagination</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./use-pagination</span><span class="dl">'</span>
@@ -578,7 +578,7 @@ Thanks to the portable reactivity of the Composition API, we can simplify our co
 	<span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p><code class="highlighter-rouge">usePagination</code> is a function that encapsulates all functionality specific for pagination:</p>
+<p><code class="language-plaintext highlighter-rouge">usePagination</code> is a function that encapsulates all functionality specific for pagination:</p>
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">usePagination</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span> <span class="p">{</span>
 	<span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">reactive</span><span class="p">({</span>
 		<span class="na">perPage</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
@@ -594,7 +594,7 @@ Thanks to the portable reactivity of the Composition API, we can simplify our co
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>In our component we will then be able to use <code class="highlighter-rouge">currentPage</code>, <code class="highlighter-rouge">amountOfPages</code> and such, just like when we would have defined them in <code class="highlighter-rouge">data</code> and <code class="highlighter-rouge">computed</code>.
+<p>In our component we will then be able to use <code class="language-plaintext highlighter-rouge">currentPage</code>, <code class="language-plaintext highlighter-rouge">amountOfPages</code> and such, just like when we would have defined them in <code class="language-plaintext highlighter-rouge">data</code> and <code class="language-plaintext highlighter-rouge">computed</code>.
 Currently Composition API is already available in Vue 2 thanks to the <a href="https://github.com/vuejs/composition-api" target="_blank" rel="noopener noreferrer">@vue/composition-api package</a>.</p>
 
 <blockquote>
@@ -608,11 +608,11 @@ Currently Composition API is already available in Vue 2 thanks to the <a href="h
 </p>
 
 <p>The best way to get to know the new Composition API is seeing it live in action.
-So Jason took the challenge upon himself to live code something called a <code class="highlighter-rouge">KeyboardKeyboard</code>.
+So Jason took the challenge upon himself to live code something called a <code class="language-plaintext highlighter-rouge">KeyboardKeyboard</code>.
 As a musician and a programmer, he is very enthusiastic about keyboards.
 So he decided to program his computer keyboard to sound like a piano keyboard.
 With the use of Web Audio API he managed to program a web app in Vue with Composition API in just over 30 minutes.
-He mainly used Composition API to encapsulate certain key features such as <code class="highlighter-rouge">useMusicNote</code> and <code class="highlighter-rouge">useKeyDown</code>. 
+He mainly used Composition API to encapsulate certain key features such as <code class="language-plaintext highlighter-rouge">useMusicNote</code> and <code class="language-plaintext highlighter-rouge">useKeyDown</code>. 
 It was a fun live coding session as he was able to really captive the audience’s attention.</p>
 
 <blockquote>

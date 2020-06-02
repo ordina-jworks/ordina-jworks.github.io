@@ -177,7 +177,7 @@ Say goodbye to loosely typed variables and say hello to modules, classes, interf
 <h2 id="1-install-and-configure-the-gulp-package">1. Install and configure the gulp package</h2>
 
 <ul>
-  <li>Install the <strong>gulp-tsc package</strong> and save it to the development dependencies in <code class="highlighter-rouge">package.json</code></li>
+  <li>Install the <strong>gulp-tsc package</strong> and save it to the development dependencies in <code class="language-plaintext highlighter-rouge">package.json</code></li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">npm install gulp-tsc --save-dev</code></pre></figure>
@@ -190,7 +190,7 @@ Say goodbye to loosely typed variables and say hello to modules, classes, interf
 
 <ul>
   <li>
-    <p>Add the following line to the paths object: <code class="highlighter-rouge">ts: ['./src/*.ts', './src/**/*.ts']</code>.
+    <p>Add the following line to the paths object: <code class="language-plaintext highlighter-rouge">ts: ['./src/*.ts', './src/**/*.ts']</code>.
 You may have noticed two things here: All my TypeScript files are in a <strong>src folder</strong> which means I’m <strong>not using the www folder</strong> that Ionic provides by default.
 This way I can keep the TypeScript files and JavaScript files separated.
 Next to that I’m also targeting subfolders in that folder because I’m bundling my logic based on AngularJS modules.
@@ -256,17 +256,17 @@ More info on how to switch from TSD to Typings can be found <a href="https://git
 
 <p>Now that we have everything set up it’s time to start refactoring your application.
 It’s important to know that <strong>every JavaScript file is essentially TypeScript</strong> because TypeScript is a superset of the current JavaScript implementation.
-This basically means that you can take your JavaScript files from your www folder, paste them to the src folder and rename them from <code class="highlighter-rouge">file.js</code> to <code class="highlighter-rouge">file.ts</code>.
+This basically means that you can take your JavaScript files from your www folder, paste them to the src folder and rename them from <code class="language-plaintext highlighter-rouge">file.js</code> to <code class="language-plaintext highlighter-rouge">file.ts</code>.
 Of course don’t forget to add the reference on top of your files to the tsd.d.ts file in the typings folder.</p>
 
-<p>If you now run <code class="highlighter-rouge">ionic serve</code>, you should see a message that looks like this one. <code class="highlighter-rouge">“Compiling TypeScript files using tsc version x.x.x”</code>.
+<p>If you now run <code class="language-plaintext highlighter-rouge">ionic serve</code>, you should see a message that looks like this one. <code class="language-plaintext highlighter-rouge">“Compiling TypeScript files using tsc version x.x.x”</code>.
 TypeScript will process these files and write ES5 files to the www folder.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 
 <p>As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic.
 It’s nice to know that Ionic 2 will have support for TypeScript built in so you won’t have to do it yourself.
-By adding a flag <code class="highlighter-rouge">--ts</code> to your Ionic 2 project setup it will be enabled.</p>
+By adding a flag <code class="language-plaintext highlighter-rouge">--ts</code> to your Ionic 2 project setup it will be enabled.</p>
 
 <p>Personally I love using TypeScript and will use it whenever I can.
 It makes my life as a developer a lot easier by spotting errors before I even hit the browser.</p>

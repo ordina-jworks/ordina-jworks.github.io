@@ -268,7 +268,7 @@ Over there you will also find the XSD files describing the XML structure.</p>
 
 <h2 id="transform-to-events">Transform to Events</h2>
 <p>Since I am using Spring Boot to kickstart the application, you can go to <a href="https://start.spring.io/" target="_blank" rel="noopener noreferrer">https://start.spring.io/</a> to get started.
-Some handy baseline dependencies to get started are: <code class="highlighter-rouge">Web</code>, <code class="highlighter-rouge">Actuator</code> and <code class="highlighter-rouge">DevTools</code>.</p>
+Some handy baseline dependencies to get started are: <code class="language-plaintext highlighter-rouge">Web</code>, <code class="language-plaintext highlighter-rouge">Actuator</code> and <code class="language-plaintext highlighter-rouge">DevTools</code>.</p>
 
 <p>Because the data is provided in a single XML file, we will transform it into separate events per sensor.
 This brings it also inline with how true sensory events would arrive within our system if we would not be dealing with a big XML file.</p>
@@ -332,7 +332,7 @@ It makes it very easy to read/write messages to Kafka with it.</p>
 </code></pre></div></div>
 
 <p>Next we will retrieve the data out of the XML and split it out into something more event like.
-For every sensor point per vehicle we will extract one <code class="highlighter-rouge">TrafficEvent</code>.</p>
+For every sensor point per vehicle we will extract one <code class="language-plaintext highlighter-rouge">TrafficEvent</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Data</span>
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficEvent</span> <span class="o">{</span>
@@ -367,7 +367,7 @@ For every sensor point per vehicle we will extract one <code class="highlighter-
     <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">VehicleClass</code> is just an enum with the vehicle type.</p>
+<p>The <code class="language-plaintext highlighter-rouge">VehicleClass</code> is just an enum with the vehicle type.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="no">MOTO</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span>
     <span class="no">CAR</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span>
     <span class="no">VAN</span><span class="o">(</span><span class="mi">3</span><span class="o">),</span>
@@ -440,7 +440,7 @@ For every sensor point per vehicle we will extract one <code class="highlighter-
 
 <p>The events will be sent to Kafka as JSON messages.</p>
 
-<p>With the <code class="highlighter-rouge">@Scheduled</code> annotation Spring Boot will read in the events every 60 seconds.</p>
+<p>With the <code class="language-plaintext highlighter-rouge">@Scheduled</code> annotation Spring Boot will read in the events every 60 seconds.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">fixedRate</span> <span class="o">=</span> <span class="mi">60000</span><span class="o">)</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="n">putAllEventsInKafka</span><span class="o">();</span>
@@ -490,7 +490,7 @@ For both Kafka and Storm you not only need to set up a cluster of the framework 
     <span class="nc">SubscribableChannel</span> <span class="nf">trafficEvents</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>Then you will need to define a <code class="highlighter-rouge">MessageHandler</code> which will describe what you will do with every message you process.</p>
+<p>Then you will need to define a <code class="language-plaintext highlighter-rouge">MessageHandler</code> which will describe what you will do with every message you process.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">MessageHandler</span> <span class="n">messageHandler</span> <span class="o">=</span> <span class="o">(</span><span class="n">message</span> <span class="o">-&gt;</span> <span class="o">{</span>
             <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"retrieved message with header "</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
             <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"retrieved message "</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">getPayload</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
@@ -527,7 +527,7 @@ For both Kafka and Storm you not only need to set up a cluster of the framework 
         <span class="o">});</span>
 </code></pre></div></div>
 
-<p>Finally, link that <code class="highlighter-rouge">MessageHandler</code> to an <code class="highlighter-rouge">InputChannel</code>.</p>
+<p>Finally, link that <code class="language-plaintext highlighter-rouge">MessageHandler</code> to an <code class="language-plaintext highlighter-rouge">InputChannel</code>.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">inputChannels</span><span class="o">.</span><span class="na">trafficEvents</span><span class="o">().</span><span class="na">subscribe</span><span class="o">(</span><span class="n">messageHandler</span><span class="o">);</span>
 </code></pre></div></div>
 
@@ -563,33 +563,33 @@ It is highly scalable allowing topics to be distributed over multiple brokers.</
 
 <p><a href="https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KStream.html" target="_blank" rel="noopener noreferrer">KStream</a></p>
 
-<p>A <code class="highlighter-rouge">KStream</code> records a stream of key/value pairs and can be defined from one or more topics.
-It does not matter if a key exists multiple times within the <code class="highlighter-rouge">KStream</code>, when you read in the data of a <code class="highlighter-rouge">KStream</code> every record will be sent to you.</p>
+<p>A <code class="language-plaintext highlighter-rouge">KStream</code> records a stream of key/value pairs and can be defined from one or more topics.
+It does not matter if a key exists multiple times within the <code class="language-plaintext highlighter-rouge">KStream</code>, when you read in the data of a <code class="language-plaintext highlighter-rouge">KStream</code> every record will be sent to you.</p>
 
 <p><a href="https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KTable.html" target="_blank" rel="noopener noreferrer">KTable</a></p>
 
-<p>A <code class="highlighter-rouge">KTable</code> is a changelog stream of a primary keyed table, meaning that whenever a key exists multiple times within the <code class="highlighter-rouge">KTable</code> you will receive only the most recent record.</p>
+<p>A <code class="language-plaintext highlighter-rouge">KTable</code> is a changelog stream of a primary keyed table, meaning that whenever a key exists multiple times within the <code class="language-plaintext highlighter-rouge">KTable</code> you will receive only the most recent record.</p>
 
 <p><a href="https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/GlobalKTable.html" target="_blank" rel="noopener noreferrer">GlobalKTable</a></p>
 
-<p>Like a <code class="highlighter-rouge">KTable</code>, but it is replicated over all Kafka Streams instances, so do be careful.</p>
+<p>Like a <code class="language-plaintext highlighter-rouge">KTable</code>, but it is replicated over all Kafka Streams instances, so do be careful.</p>
 
 <p><a href="https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html" target="_blank" rel="noopener noreferrer">KGroupedStream</a></p>
 
-<p>This is an intermediate format based on a regrouped stream of records based on a <code class="highlighter-rouge">KStream</code>, with usually, a different key than the original primary key.
-It is derived from a <code class="highlighter-rouge">groupBy()</code> or a <code class="highlighter-rouge">groupByKey()</code> on a <code class="highlighter-rouge">KStream</code>.
-Via <code class="highlighter-rouge">aggregate()</code>, <code class="highlighter-rouge">count()</code> or <code class="highlighter-rouge">reduce()</code> it can be converted to a <code class="highlighter-rouge">KTable</code>.</p>
+<p>This is an intermediate format based on a regrouped stream of records based on a <code class="language-plaintext highlighter-rouge">KStream</code>, with usually, a different key than the original primary key.
+It is derived from a <code class="language-plaintext highlighter-rouge">groupBy()</code> or a <code class="language-plaintext highlighter-rouge">groupByKey()</code> on a <code class="language-plaintext highlighter-rouge">KStream</code>.
+Via <code class="language-plaintext highlighter-rouge">aggregate()</code>, <code class="language-plaintext highlighter-rouge">count()</code> or <code class="language-plaintext highlighter-rouge">reduce()</code> it can be converted to a <code class="language-plaintext highlighter-rouge">KTable</code>.</p>
 
 <p><a href="https://kafka.apache.org/10/javadoc/org/apache/kafka/streams/kstream/KGroupedTable.html" target="_blank" rel="noopener noreferrer">KGroupedTable</a></p>
 
-<p>This is pretty similar to a <code class="highlighter-rouge">KGroupedStream</code>, but a <code class="highlighter-rouge">KGroupedTable</code> is derived from a <code class="highlighter-rouge">KTable</code> via <code class="highlighter-rouge">groupBy()</code>.
-It can be reconverted to a <code class="highlighter-rouge">KTable</code> via <code class="highlighter-rouge">aggregate()</code>, <code class="highlighter-rouge">count()</code> or <code class="highlighter-rouge">reduce()</code>.</p>
+<p>This is pretty similar to a <code class="language-plaintext highlighter-rouge">KGroupedStream</code>, but a <code class="language-plaintext highlighter-rouge">KGroupedTable</code> is derived from a <code class="language-plaintext highlighter-rouge">KTable</code> via <code class="language-plaintext highlighter-rouge">groupBy()</code>.
+It can be reconverted to a <code class="language-plaintext highlighter-rouge">KTable</code> via <code class="language-plaintext highlighter-rouge">aggregate()</code>, <code class="language-plaintext highlighter-rouge">count()</code> or <code class="language-plaintext highlighter-rouge">reduce()</code>.</p>
 
 <h3 id="coding-with-spring-kafka">Coding with Spring Kafka</h3>
 <p>We still have the Spring Cloud Stream topics to which we send in some data.
 Let’s use these but now using Kafka.</p>
 
-<p>First we are going to take in the static data of the sensors into a <code class="highlighter-rouge">KTable</code>.</p>
+<p>First we are going to take in the static data of the sensors into a <code class="language-plaintext highlighter-rouge">KTable</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">SensorData</span><span class="o">&gt;</span> <span class="n">sensorDescriptionsStream</span> <span class="o">=</span>
         <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"sensorDataOutput"</span><span class="o">,</span> <span class="nc">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">SensorDataSerde</span><span class="o">()));</span>
@@ -602,10 +602,10 @@ Let’s use these but now using Kafka.</p>
         <span class="n">streamsBuilder</span><span class="o">.</span><span class="na">table</span><span class="o">(</span><span class="s">"dummy-topic"</span><span class="o">,</span> <span class="nc">Consumed</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="nc">Serdes</span><span class="o">.</span><span class="na">String</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">SensorDataSerde</span><span class="o">()));</span>
 </code></pre></div></div>
 
-<p>The main reason we are using a <code class="highlighter-rouge">KTable</code> is that it makes it easy to be sure to only get the most recent state of that sensor, as a <code class="highlighter-rouge">KTable</code> will only return one result per key.
-<code class="highlighter-rouge">dummy-topic</code> is just the name I chose.
+<p>The main reason we are using a <code class="language-plaintext highlighter-rouge">KTable</code> is that it makes it easy to be sure to only get the most recent state of that sensor, as a <code class="language-plaintext highlighter-rouge">KTable</code> will only return one result per key.
+<code class="language-plaintext highlighter-rouge">dummy-topic</code> is just the name I chose.
 For my example it is not that important to have a well defined topic name.
-But do realize that Kafka Streams will persist the state of a <code class="highlighter-rouge">Ktable</code> within Kafka topics.</p>
+But do realize that Kafka Streams will persist the state of a <code class="language-plaintext highlighter-rouge">Ktable</code> within Kafka topics.</p>
 
 <p>Subsequently we are going to enrich the traffic event with the sensor data.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span>
@@ -619,23 +619,23 @@ But do realize that Kafka Streams will persist the state of a <code class="highl
             <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="s">"enriched-trafficEventsOutput"</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Resulting in a new <code class="highlighter-rouge">KStream</code> with enriched <code class="highlighter-rouge">TrafficEvent</code>s.</p>
+<p>Resulting in a new <code class="language-plaintext highlighter-rouge">KStream</code> with enriched <code class="language-plaintext highlighter-rouge">TrafficEvent</code>s.</p>
 
-<p>The <code class="highlighter-rouge">.stream(String topic, Consumed&lt;K,V&gt; consumed)</code> will consume all entries from a topic and transform these into a stream. 
+<p>The <code class="language-plaintext highlighter-rouge">.stream(String topic, Consumed&lt;K,V&gt; consumed)</code> will consume all entries from a topic and transform these into a stream. 
 Mapping these to topic records with a key and a value.
-In our case the key is just a string, while the body of the topic will be a JSON message which gets converted into a <code class="highlighter-rouge">TrafficEvent</code>.</p>
+In our case the key is just a string, while the body of the topic will be a JSON message which gets converted into a <code class="language-plaintext highlighter-rouge">TrafficEvent</code>.</p>
 
-<p>With <code class="highlighter-rouge">join()</code>, full definition:</p>
+<p>With <code class="language-plaintext highlighter-rouge">join()</code>, full definition:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">&lt;</span><span class="no">VT</span><span class="o">,</span> <span class="no">VR</span><span class="o">&gt;</span> <span class="nc">KStream</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">VR</span><span class="o">&gt;</span> <span class="nf">join</span><span class="o">(</span><span class="kd">final</span> <span class="nc">KTable</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">VT</span><span class="o">&gt;</span> <span class="n">table</span><span class="o">,</span>
          <span class="kd">final</span> <span class="nc">ValueJoiner</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">V</span><span class="o">,</span> <span class="o">?</span> <span class="kd">super</span> <span class="no">VT</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="no">VR</span><span class="o">&gt;</span> <span class="n">joiner</span><span class="o">,</span>
          <span class="kd">final</span> <span class="nc">Joined</span><span class="o">&lt;</span><span class="no">K</span><span class="o">,</span> <span class="no">V</span><span class="o">,</span> <span class="no">VT</span><span class="o">&gt;</span> <span class="n">joined</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>We join our <code class="highlighter-rouge">KTable</code> with our <code class="highlighter-rouge">TrafficEvent</code> records using the <code class="highlighter-rouge">ValueJoiner</code> we pass along which will result in a new <code class="highlighter-rouge">Joined</code> result.
-The <code class="highlighter-rouge">ValueJoiner</code> is just a function in which we indicate what needs to be done with both records the function receives. 
-In our case a <code class="highlighter-rouge">TrafficEvent</code> and a <code class="highlighter-rouge">SensorData</code>.
-The <code class="highlighter-rouge">Joined</code> describes the new record structure we will write towards Kafka using <code class="highlighter-rouge">.to(String topic)</code> sending the newly generated records to that Kafka topic.</p>
+<p>We join our <code class="language-plaintext highlighter-rouge">KTable</code> with our <code class="language-plaintext highlighter-rouge">TrafficEvent</code> records using the <code class="language-plaintext highlighter-rouge">ValueJoiner</code> we pass along which will result in a new <code class="language-plaintext highlighter-rouge">Joined</code> result.
+The <code class="language-plaintext highlighter-rouge">ValueJoiner</code> is just a function in which we indicate what needs to be done with both records the function receives. 
+In our case a <code class="language-plaintext highlighter-rouge">TrafficEvent</code> and a <code class="language-plaintext highlighter-rouge">SensorData</code>.
+The <code class="language-plaintext highlighter-rouge">Joined</code> describes the new record structure we will write towards Kafka using <code class="language-plaintext highlighter-rouge">.to(String topic)</code> sending the newly generated records to that Kafka topic.</p>
 
 <p>Once this stream has started, it will continue processing these events whenever a new record is inserted into the intake topic.</p>
 
@@ -648,24 +648,24 @@ The <code class="highlighter-rouge">Joined</code> describes the new record struc
         <span class="o">.</span><span class="na">filter</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">canProcessSensor</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
 </code></pre></div></div>
 
-<p>Filtering happens on the key of the records, so first we will use <code class="highlighter-rouge">selectKey()</code> passing along a <code class="highlighter-rouge">KeyMapper</code> to map to the new key.
-The <code class="highlighter-rouge">KeyMapper</code> is a function to which you pass along the field which you want to become the new key.</p>
+<p>Filtering happens on the key of the records, so first we will use <code class="language-plaintext highlighter-rouge">selectKey()</code> passing along a <code class="language-plaintext highlighter-rouge">KeyMapper</code> to map to the new key.
+The <code class="language-plaintext highlighter-rouge">KeyMapper</code> is a function to which you pass along the field which you want to become the new key.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">canProcessSensor</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">sensorIdsToProcess</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Then we will use <code class="highlighter-rouge">filter()</code> to filter out the keys we want to retain which match the given <code class="highlighter-rouge">Predicate</code>.
-In our case the predicate just verifies if a key appears within a <code class="highlighter-rouge">List</code>:</p>
+<p>Then we will use <code class="language-plaintext highlighter-rouge">filter()</code> to filter out the keys we want to retain which match the given <code class="language-plaintext highlighter-rouge">Predicate</code>.
+In our case the predicate just verifies if a key appears within a <code class="language-plaintext highlighter-rouge">List</code>:</p>
 
-<p>For every record we will now do some simple processing with <code class="highlighter-rouge">updateStats()</code>:</p>
+<p>For every record we will now do some simple processing with <code class="language-plaintext highlighter-rouge">updateStats()</code>:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">streamToProcessData</span>
         <span class="o">.</span><span class="na">selectKey</span><span class="o">((</span><span class="n">key</span><span class="o">,</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="o">.</span><span class="na">getSensorId</span><span class="o">())</span>
         <span class="o">.</span><span class="na">filter</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">canProcessSensor</span><span class="o">(</span><span class="n">key</span><span class="o">))</span>
         <span class="o">.</span><span class="na">foreach</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">updateStats</span><span class="o">(</span><span class="n">value</span><span class="o">));</span>
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">updateStats()</code> method just updates some basic counters to track how much traffic has been processed since we started with the data intake to a hashtable.
+<p>The <code class="language-plaintext highlighter-rouge">updateStats()</code> method just updates some basic counters to track how much traffic has been processed since we started with the data intake to a hashtable.
 So that we know how many vehicles have passed, the highest speed detected, …</p>
 
 <h3 id="windowing">Windowing</h3>
@@ -684,10 +684,10 @@ Events tend to arrive out of order and too late.</p>
   <li>Allowing you to catch some “late” events within a window</li>
 </ul>
 
-<p>For adding windows you use <code class="highlighter-rouge">.windowedBy</code>, in this example we define a window of 5 minutes which gets every 10 minutes.
-Then you will need to aggregate the results per window with <code class="highlighter-rouge">.aggregate</code>.</p>
+<p>For adding windows you use <code class="language-plaintext highlighter-rouge">.windowedBy</code>, in this example we define a window of 5 minutes which gets every 10 minutes.
+Then you will need to aggregate the results per window with <code class="language-plaintext highlighter-rouge">.aggregate</code>.</p>
 
-<p>Do not forget to provide the correct <code class="highlighter-rouge">Materialized</code> parameters so Kafka knows what type of key and value is used as input by the aggregation.</p>
+<p>Do not forget to provide the correct <code class="language-plaintext highlighter-rouge">Materialized</code> parameters so Kafka knows what type of key and value is used as input by the aggregation.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">createWindowStreamForAverageSpeedPerSensor</span><span class="o">(</span><span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">TrafficEvent</span><span class="o">&gt;</span> <span class="n">streamToProcessData</span><span class="o">)</span> <span class="o">{</span>
         <span class="nc">Initializer</span> <span class="n">initializer</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">SensorCount</span><span class="o">();</span>
@@ -737,35 +737,35 @@ One of the first streaming frameworks that got widely adopted.</p>
   <img src="/img/streaming-traffic/storm-spout-bolts.png" width="100%" height="100%" />
 </div>
 
-<p>When you work with Storm you need to think in <code class="highlighter-rouge">Spouts</code>, <code class="highlighter-rouge">Bolts</code> and <code class="highlighter-rouge">Tuples</code>.</p>
+<p>When you work with Storm you need to think in <code class="language-plaintext highlighter-rouge">Spouts</code>, <code class="language-plaintext highlighter-rouge">Bolts</code> and <code class="language-plaintext highlighter-rouge">Tuples</code>.</p>
 
-<p>A <code class="highlighter-rouge">Spout</code> is the origin of your streams.
-It will read in <code class="highlighter-rouge">Tuples</code> from an external source and can be either reliable or unreliable.</p>
+<p>A <code class="language-plaintext highlighter-rouge">Spout</code> is the origin of your streams.
+It will read in <code class="language-plaintext highlighter-rouge">Tuples</code> from an external source and can be either reliable or unreliable.</p>
 
-<p>Reliable just means that when something goes wrong within your stream processing, the spout can replay the <code class="highlighter-rouge">Tuple</code>.
+<p>Reliable just means that when something goes wrong within your stream processing, the spout can replay the <code class="language-plaintext highlighter-rouge">Tuple</code>.
 While an unreliable spout will go for the good old fire-and-forget approach.</p>
 
 <p>Spouts can also emmit to more than one stream.</p>
 
-<p>Spouts will generate <code class="highlighter-rouge">Tuples</code>, the main data structure within Storm.
-A <code class="highlighter-rouge">Tuple</code> is a named list of values, where a value can be of any type.
-It is however important that Storm will serialize all the values within a <code class="highlighter-rouge">Tuple</code>, so for a more exotic type you will need to implement a serializer yourself.</p>
+<p>Spouts will generate <code class="language-plaintext highlighter-rouge">Tuples</code>, the main data structure within Storm.
+A <code class="language-plaintext highlighter-rouge">Tuple</code> is a named list of values, where a value can be of any type.
+It is however important that Storm will serialize all the values within a <code class="language-plaintext highlighter-rouge">Tuple</code>, so for a more exotic type you will need to implement a serializer yourself.</p>
 
-<p><code class="highlighter-rouge">Bolts</code> do all the processing of your streams.
-A <code class="highlighter-rouge">Bolt</code> can send out to more then 1 stream.
+<p><code class="language-plaintext highlighter-rouge">Bolts</code> do all the processing of your streams.
+A <code class="language-plaintext highlighter-rouge">Bolt</code> can send out to more then 1 stream.
 It is also possible to define a Stream Grouping on your Bolts allowing you to tailor the distribution of your workload over the various Bolts of your Storm topology.</p>
 
-<p>Multiple instances of a <code class="highlighter-rouge">Bolt</code> will run as tasks.</p>
+<p>Multiple instances of a <code class="language-plaintext highlighter-rouge">Bolt</code> will run as tasks.</p>
 
 <p>You have the following Stream Groupings:</p>
 <ul>
   <li>Shuffle Grouping: completely random</li>
-  <li>Fields Grouping: based on the value of certain fields, Storm will make sure that all the <code class="highlighter-rouge">Tuples</code> with the same “key” will be processed by the same <code class="highlighter-rouge">Bolt</code>, handy for word counts for example - great business value</li>
+  <li>Fields Grouping: based on the value of certain fields, Storm will make sure that all the <code class="language-plaintext highlighter-rouge">Tuples</code> with the same “key” will be processed by the same <code class="language-plaintext highlighter-rouge">Bolt</code>, handy for word counts for example - great business value</li>
   <li>Partial Key Grouping: pretty similar to fields grouping, but with some extra load balancing</li>
-  <li>All grouping: the entire stream will go to all the tasks of a <code class="highlighter-rouge">Bolt</code>, use this with care</li>
+  <li>All grouping: the entire stream will go to all the tasks of a <code class="language-plaintext highlighter-rouge">Bolt</code>, use this with care</li>
   <li>None Grouping: implies that you don’t care how it gets processed - which corresponds with a shuffle grouping</li>
-  <li>Direct Grouping: here the producer of the <code class="highlighter-rouge">Tuple</code> will decide which task of the <code class="highlighter-rouge">Bolt</code> will receive the <code class="highlighter-rouge">Tuple</code> for processing</li>
-  <li>Local or Shuffle Grouping: this will also take a look at the worker processes running the <code class="highlighter-rouge">Bolt</code>’s tasks, this in order to make the flow somewhat more efficient.</li>
+  <li>Direct Grouping: here the producer of the <code class="language-plaintext highlighter-rouge">Tuple</code> will decide which task of the <code class="language-plaintext highlighter-rouge">Bolt</code> will receive the <code class="language-plaintext highlighter-rouge">Tuple</code> for processing</li>
+  <li>Local or Shuffle Grouping: this will also take a look at the worker processes running the <code class="language-plaintext highlighter-rouge">Bolt</code>’s tasks, this in order to make the flow somewhat more efficient.</li>
 </ul>
 
 <p>Now let’s get started with some code.</p>
@@ -784,7 +784,7 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
     <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
 </code></pre></div></div>
 
-<p>The idea is to get to a Storm topology with one <code class="highlighter-rouge">Spout</code> and two <code class="highlighter-rouge">Bolts</code>.</p>
+<p>The idea is to get to a Storm topology with one <code class="language-plaintext highlighter-rouge">Spout</code> and two <code class="language-plaintext highlighter-rouge">Bolts</code>.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">final</span> <span class="nc">TopologyBuilder</span> <span class="n">tp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TopologyBuilder</span><span class="o">();</span>
         <span class="n">tp</span><span class="o">.</span><span class="na">setSpout</span><span class="o">(</span><span class="s">"kafka_spout"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">KafkaSpout</span><span class="o">&lt;&gt;(</span><span class="n">spoutConfig</span><span class="o">),</span> <span class="mi">1</span><span class="o">).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
         <span class="n">tp</span><span class="o">.</span><span class="na">setBolt</span><span class="o">(</span><span class="s">"trafficEvent_Bolt"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">TrafficEventBolt</span><span class="o">(</span><span class="n">sensorIdsToProcess</span><span class="o">)).</span><span class="na">setDebug</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
@@ -794,7 +794,7 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
         <span class="k">return</span> <span class="n">tp</span><span class="o">.</span><span class="na">createTopology</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>First we will define a <code class="highlighter-rouge">KafkaSpout</code> which will take in the data of a Kafka topic.</p>
+<p>First we will define a <code class="language-plaintext highlighter-rouge">KafkaSpout</code> which will take in the data of a Kafka topic.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">protected</span> <span class="nc">KafkaSpoutConfig</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="nf">getKafkaSpoutConfig</span><span class="o">(</span><span class="nc">String</span> <span class="n">bootstrapServers</span><span class="o">)</span> <span class="o">{</span>
         <span class="nc">ByTopicRecordTranslator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">trans</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByTopicRecordTranslator</span><span class="o">&lt;&gt;(</span>
                 <span class="o">(</span><span class="n">r</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Values</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">topic</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">partition</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">offset</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">r</span><span class="o">.</span><span class="na">value</span><span class="o">()),</span>
@@ -813,14 +813,14 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
     <span class="o">}</span>
 </code></pre></div></div>
 
-<p>For completeness this is the <code class="highlighter-rouge">retryService</code> which just handles some retrying whenever your Kafka cluster is behaving naughty:</p>
+<p>For completeness this is the <code class="language-plaintext highlighter-rouge">retryService</code> which just handles some retrying whenever your Kafka cluster is behaving naughty:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">protected</span> <span class="nc">KafkaSpoutRetryService</span> <span class="nf">getRetryService</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">return</span> <span class="k">new</span> <span class="nf">KafkaSpoutRetryExponentialBackoff</span><span class="o">(</span><span class="nc">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">microSeconds</span><span class="o">(</span><span class="mi">500</span><span class="o">),</span>
                     <span class="nc">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">milliSeconds</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="nc">KafkaSpoutRetryExponentialBackoff</span><span class="o">.</span><span class="na">TimeInterval</span><span class="o">.</span><span class="na">seconds</span><span class="o">(</span><span class="mi">10</span><span class="o">));</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Then we will emmit that data to a <code class="highlighter-rouge">TrafficEventBolt</code> which will filter out the events we want to process further.</p>
+<p>Then we will emmit that data to a <code class="language-plaintext highlighter-rouge">TrafficEventBolt</code> which will filter out the events we want to process further.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficEventBolt</span> <span class="kd">extends</span> <span class="nc">BaseRichBolt</span> <span class="o">{</span>
         <span class="kd">private</span> <span class="nc">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
@@ -860,7 +860,7 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
     <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Finally we will send out the tuples to a <code class="highlighter-rouge">TrafficCountBolt</code> which will gather some general statistics.</p>
+<p>Finally we will send out the tuples to a <code class="language-plaintext highlighter-rouge">TrafficCountBolt</code> which will gather some general statistics.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrafficCountBolt</span> <span class="kd">extends</span> <span class="nc">BaseRichBolt</span> <span class="o">{</span>
         <span class="kd">private</span> <span class="nc">OutputCollector</span> <span class="n">collector</span><span class="o">;</span>
@@ -944,12 +944,12 @@ It is also possible to define a Stream Grouping on your Bolts allowing you to ta
     <span class="o">}</span>
 </code></pre></div></div>
 
-<p>You can also pass in an extra parameter <code class="highlighter-rouge">slidingInterval</code> to define a sliding window.</p>
+<p>You can also pass in an extra parameter <code class="language-plaintext highlighter-rouge">slidingInterval</code> to define a sliding window.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withWindow</span><span class="o">(</span><span class="nc">Duration</span> <span class="n">windowLength</span><span class="o">,</span> <span class="nc">Duration</span> <span class="n">slidingInterval</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>Both the <code class="highlighter-rouge">windowLength</code> and the <code class="highlighter-rouge">slidingInterval</code> can also be represented by a <code class="highlighter-rouge">Count</code>, which will base the window duration on the amount of tuples being processed.
+<p>Both the <code class="language-plaintext highlighter-rouge">windowLength</code> and the <code class="language-plaintext highlighter-rouge">slidingInterval</code> can also be represented by a <code class="language-plaintext highlighter-rouge">Count</code>, which will base the window duration on the amount of tuples being processed.
 Either determining the length of the window by the tuples, or when to slide.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">withWindow</span><span class="o">(</span><span class="nc">Count</span> <span class="n">windowLength</span><span class="o">,</span> <span class="nc">Duration</span> <span class="n">slidingInterval</span><span class="o">)</span>
 
@@ -999,10 +999,10 @@ However, writing the processing logic feels quite clunky and I can imagine that 
 They are currently working on a new <a href="http://storm.apache.org/releases/2.0.0-SNAPSHOT/Stream-API.html" target="_blank" rel="noopener noreferrer">streaming API</a> which should alleviate that issue though.
 According to their <a href="https://github.com/apache/storm/releases" target="_blank" rel="noopener noreferrer">GitHub</a>, a release of version 2.0 has already happened, but their <a href="http://storm.apache.org/index.html">website</a> does not reflect it yet.</p>
 
-<p>When doing stream processing always think about how messages will be handled as most streaming or messaging platforms use an <code class="highlighter-rouge">at-least-once</code> approach, meaning that the same message can be processed more than once by the streaming pipeline. 
-Both Kafka Streams and Apache Storm can be configured to provide <code class="highlighter-rouge">exactly-once</code> processing within their streaming pipelines.
+<p>When doing stream processing always think about how messages will be handled as most streaming or messaging platforms use an <code class="language-plaintext highlighter-rouge">at-least-once</code> approach, meaning that the same message can be processed more than once by the streaming pipeline. 
+Both Kafka Streams and Apache Storm can be configured to provide <code class="language-plaintext highlighter-rouge">exactly-once</code> processing within their streaming pipelines.
 For Kafka Streams it means using Kafka transactions while for Storm this can be achieved by <a href="http://storm.apache.org/releases/1.2.2/Trident-API-Overview.html" target="_blank" rel="noopener noreferrer">Trident</a>.
-Even then, it is only within the streaming pipeline itself meaning that as soon as your processed results leave the streaming platform, you will be back to <code class="highlighter-rouge">at-least-once</code> guarantees.</p>
+Even then, it is only within the streaming pipeline itself meaning that as soon as your processed results leave the streaming platform, you will be back to <code class="language-plaintext highlighter-rouge">at-least-once</code> guarantees.</p>
 
 
         </div>

@@ -302,7 +302,7 @@ They also developed some desktop GIS applications using <strong>Oracle Spatial</
 
 <ul>
   <li>Plain JDBC</li>
-  <li>Using a <code class="highlighter-rouge">JDBCTemplate</code></li>
+  <li>Using a <code class="language-plaintext highlighter-rouge">JDBCTemplate</code></li>
   <li>JPA with JPQL and / or Criteria API</li>
 </ul>
 
@@ -319,17 +319,17 @@ One of the improvements they made was using <strong>Hibernate combined with jOOQ
 <ul>
   <li>jOOQ is <strong>SQL-centric</strong> which means jOOQ infers information from the actual database, not from the ORM model</li>
   <li>It exposes a <strong>typesafe meta-model</strong> generated from your SQL</li>
-  <li>The Query Builder framework uses a <strong>very legible DSL</strong> (in a much more concise way than the <code class="highlighter-rouge">Criteria API</code>)</li>
+  <li>The Query Builder framework uses a <strong>very legible DSL</strong> (in a much more concise way than the <code class="language-plaintext highlighter-rouge">Criteria API</code>)</li>
   <li>It generates a Java-based schema (using Maven or Gradle)</li>
   <li>It can reverse-engineer an existing DB and generate SQL</li>
-  <li>Spring provides <strong>integration with Spring Boot</strong> through the <code class="highlighter-rouge">spring-boot-starter-jooq</code> dependency</li>
+  <li>Spring provides <strong>integration with Spring Boot</strong> through the <code class="language-plaintext highlighter-rouge">spring-boot-starter-jooq</code> dependency</li>
 </ul>
 
 <p>An ideal scenario to use jOOQ would be to:</p>
 
 <ul>
   <li>Run your <strong>database migration</strong> with Flyway or Liquibase first</li>
-  <li>Run the <strong>code generator</strong> to generate the Java DSL context (this happens in the Maven <code class="highlighter-rouge">generate-sources</code> lifecycle phase)</li>
+  <li>Run the <strong>code generator</strong> to generate the Java DSL context (this happens in the Maven <code class="language-plaintext highlighter-rouge">generate-sources</code> lifecycle phase)</li>
   <li>Use the DSL context to <strong>write your typesafe queries</strong>, for example:</li>
 </ul>
 
@@ -479,7 +479,7 @@ Also, for quickly setting up something like Hadoop or Spark, the <strong>learnin
   <li>Contain Task repository which tracks run/start/end of the tasks</li>
   <li>Has Spring Batch integration (partition steps using workers)</li>
   <li>Has Spring Cloud Stream integration (eg. launch Tasks via Streams)</li>
-  <li>Simple annotation <code class="highlighter-rouge">@EnableTask</code></li>
+  <li>Simple annotation <code class="language-plaintext highlighter-rouge">@EnableTask</code></li>
   <li>Use cases: batch jobs, scheduled one-off processes, ETL processing, data science</li>
 </ul>
 
@@ -623,10 +623,10 @@ I would highly recommend his blog!</p>
 <ul>
   <li>Java 8 baseline</li>
   <li>ID classes don’t need to be Serializable anymore</li>
-  <li><strong>breaking change</strong>: No more <code class="highlighter-rouge">null</code> in the repositories (arguments or return values)</li>
-  <li><strong>breaking change</strong>: More consistent naming (eg. <code class="highlighter-rouge">findOne -&gt; findOneById</code>)</li>
+  <li><strong>breaking change</strong>: No more <code class="language-plaintext highlighter-rouge">null</code> in the repositories (arguments or return values)</li>
+  <li><strong>breaking change</strong>: More consistent naming (eg. <code class="language-plaintext highlighter-rouge">findOne -&gt; findOneById</code>)</li>
   <li>Composable interfaces (separate Readable / Insertable and make custom repositories as composable interface as well)</li>
-  <li>Builder style <code class="highlighter-rouge">Template</code> APIs</li>
+  <li>Builder style <code class="language-plaintext highlighter-rouge">Template</code> APIs</li>
   <li>Kotlin extensions are coming in M4</li>
 </ul>
 
@@ -636,7 +636,7 @@ I would highly recommend his blog!</p>
   <li>MongoDB:
     <ul>
       <li><strong>breaking change</strong>: MongoDB driver baseline to 3.x</li>
-      <li>Introduction of <code class="highlighter-rouge">ReactiveMongoTemplate</code></li>
+      <li>Introduction of <code class="language-plaintext highlighter-rouge">ReactiveMongoTemplate</code></li>
       <li>Enhanced aggregation support</li>
       <li>Collation support</li>
     </ul>
@@ -644,7 +644,7 @@ I would highly recommend his blog!</p>
   <li>Cassandra:
     <ul>
       <li><strong>breaking change</strong>: Update to Cassandra 3.2</li>
-      <li>No reactive native driver –&gt; mimicking reactive driver with thread pool (and blocking) underneath (with <code class="highlighter-rouge">ReactiveCassandraTemplate</code>)</li>
+      <li>No reactive native driver –&gt; mimicking reactive driver with thread pool (and blocking) underneath (with <code class="language-plaintext highlighter-rouge">ReactiveCassandraTemplate</code>)</li>
     </ul>
   </li>
   <li>Redis:
@@ -801,7 +801,7 @@ In the light of this, starting from Spring 5 there will be a new functional alte
 <p>This new functional web library is an alternative to annotation driven approach that is broadly applied in current applications.</p>
 
 <blockquote>
-  <p>Arjen Poutsma states that some people are not happy with magic that happens behind the scenes when you use annotations like <code class="highlighter-rouge">@RequestMapping</code> or the newer <code class="highlighter-rouge">@GetMapping</code></p>
+  <p>Arjen Poutsma states that some people are not happy with magic that happens behind the scenes when you use annotations like <code class="language-plaintext highlighter-rouge">@RequestMapping</code> or the newer <code class="language-plaintext highlighter-rouge">@GetMapping</code></p>
 </blockquote>
 
 <p>This was one of the reasons that made Spring develop this new library.</p>
@@ -854,9 +854,9 @@ And Spring provides us with an easy builder to create such a response as it alre
 What we need next, is a way to say which requests will be handled by which handler function.</p>
 
 <p>In Spring MVC, this was done by adding an annotation that declared some parameters, for example, to couple a request path to a controller method.
-The functional web framework does this by creating <code class="highlighter-rouge">RouterFunctions</code>.</p>
+The functional web framework does this by creating <code class="language-plaintext highlighter-rouge">RouterFunctions</code>.</p>
 
-<p>This RouterFunction is a function that takes a <code class="highlighter-rouge">ServerRequest</code> and returns a <code class="highlighter-rouge">Mono&lt;HandlerFunction&gt;</code>. 
+<p>This RouterFunction is a function that takes a <code class="language-plaintext highlighter-rouge">ServerRequest</code> and returns a <code class="language-plaintext highlighter-rouge">Mono&lt;HandlerFunction&gt;</code>. 
 To choose which requests get handled by which HandlerFunction, Spring again provides us with some builder functions.</p>
 
 <p>That way we can easily bind the handlers we just created with a path as shown in the next code example.</p>
@@ -876,7 +876,7 @@ To choose which requests get handled by which HandlerFunction, Spring again prov
 <h4 id="creating-a-tomcat-server">Creating a Tomcat server</h4>
 
 <p>Now that we have declared which routes are handled by which functions we have to let our server know this.
-In the next code example we show how to create a Tomcat server and how to bind the <code class="highlighter-rouge">RouterFunction</code> to our server.</p>
+In the next code example we show how to create a Tomcat server and how to bind the <code class="language-plaintext highlighter-rouge">RouterFunction</code> to our server.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">startTomcatServer</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">LifecycleException</span> <span class="o">{</span>
     <span class="nc">RouterFunction</span><span class="o">&lt;?&gt;</span> <span class="n">route</span> <span class="o">=</span> <span class="n">routingFunction</span><span class="o">();</span>
@@ -990,12 +990,12 @@ This extension helps you to write even less code by including your Javadoc into 
     <span class="o">...</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>And then removing the <code class="highlighter-rouge">requestParameters</code> and <code class="highlighter-rouge">responseFields</code> from the test:</p>
+<p>And then removing the <code class="language-plaintext highlighter-rouge">requestParameters</code> and <code class="language-plaintext highlighter-rouge">responseFields</code> from the test:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">this</span><span class="o">.</span><span class="na">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/users?page=2&amp;per_page=100"</span><span class="o">))</span> 
 	<span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">());</span></code></pre></figure>
 
-<p>You notice that I added the annotations <code class="highlighter-rouge">@NotBlank</code> and <code class="highlighter-rouge">@Size</code> in the POJO, these annotations will also be reflected in the resulting documentation.
+<p>You notice that I added the annotations <code class="language-plaintext highlighter-rouge">@NotBlank</code> and <code class="language-plaintext highlighter-rouge">@Size</code> in the POJO, these annotations will also be reflected in the resulting documentation.
 You could also create your own annotations.</p>
 
 <p>Result:</p>

@@ -195,16 +195,16 @@ These criteria are:</p>
 Nrwl/nx uses a dependency graph to determine the affected projects.
 In short: if a library has a changed file, then all projects that import this library (either directly or lazy-loaded) are affected.
 This works recursively, so the projects that import those projectes are also affected and so on.
-Some files, like <code class="highlighter-rouge">package.json</code> and <code class="highlighter-rouge">angular.json</code> have <code class="highlighter-rouge">implicitDependencies</code> set to <code class="highlighter-rouge">"*"</code>, which means a change in those files will regard all projects in the workspace as affected.</p>
+Some files, like <code class="language-plaintext highlighter-rouge">package.json</code> and <code class="language-plaintext highlighter-rouge">angular.json</code> have <code class="language-plaintext highlighter-rouge">implicitDependencies</code> set to <code class="language-plaintext highlighter-rouge">"*"</code>, which means a change in those files will regard all projects in the workspace as affected.</p>
 
 <p>These are the solutions (in order) I’ve gone through to tackle this exact problem for a monorepo I’m currently managing.</p>
 
-<p><em>Note: In that monorepo the focus was on json-files with translations used for <code class="highlighter-rouge">@ngx-translate</code>, but in my examples here I will use images.</em>
+<p><em>Note: In that monorepo the focus was on json-files with translations used for <code class="language-plaintext highlighter-rouge">@ngx-translate</code>, but in my examples here I will use images.</em>
 <em>In the example, the application, my-app, only depends on the library neighbourhood-dogs-lib and should only display a picture of my dog and Pete’s dog, but not of Karen’s cat.</em></p>
 
 <h3 id="solution-1---assets-in-the-application-source">Solution 1 - Assets in the application source</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├─ 📂apps
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├─ 📂apps
 │  └─ 📂my-app
 │     ├─ 📂src
 │     │  ├─ 📂assets
@@ -235,7 +235,7 @@ Some files, like <code class="highlighter-rouge">package.json</code> and <code c
 
 <p>I call this solution the “I’ll figure it out later”-solution.
 The main idea was to set aside this problem because other tasks had higher priority, the monorepo wasn’t nearly as big as it is now.
-Basically, the assets used by a library were put in the <code class="highlighter-rouge">assets</code> folder of the application’s source directory.
+Basically, the assets used by a library were put in the <code class="language-plaintext highlighter-rouge">assets</code> folder of the application’s source directory.
 This meant that the build of an application would simply include these assets out of the box.
 This is fine for a single application, but as soon as a second application (let’s say, neighbourhood-animals-app) was to use this library, it, too, would need a copy of those assets in its source directory.
 A change to one of the assets would also mean that two applications would need this change, which is prone to being forgotten.
@@ -265,7 +265,7 @@ Moreover, the image of Karen’s cat is nowhere to be found because at this time
 
 <h3 id="solution-2---shared-assets-directory">Solution 2 - Shared assets directory</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├─ 📂apps
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├─ 📂apps
 │  └─ 📂my-app
 │     ├─ 📂src
 │     │  ├─ 📂app
@@ -296,9 +296,9 @@ Moreover, the image of Karen’s cat is nowhere to be found because at this time
 </code></pre></div></div>
 
 <p>This is the “Share everything”-solution. It was created to solve the main fault of the previous, namely that assets could exist twice.
-Another important aspect here was to reduce the amount of times that <code class="highlighter-rouge">angular.json</code> would be changed when more assets from another library would be added.
-Because <code class="highlighter-rouge">angular.json</code> implicitly affects all projects, this file should be kept untouched as much as possible.
-So a one-time change was made to let the projects in <code class="highlighter-rouge">angular.json</code> include these shared assets:</p>
+Another important aspect here was to reduce the amount of times that <code class="language-plaintext highlighter-rouge">angular.json</code> would be changed when more assets from another library would be added.
+Because <code class="language-plaintext highlighter-rouge">angular.json</code> implicitly affects all projects, this file should be kept untouched as much as possible.
+So a one-time change was made to let the projects in <code class="language-plaintext highlighter-rouge">angular.json</code> include these shared assets:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"glob"</span><span class="p">:</span><span class="w"> </span><span class="s2">"**/*"</span><span class="p">,</span><span class="w">
@@ -308,7 +308,7 @@ So a one-time change was made to let the projects in <code class="highlighter-ro
 </span></code></pre></div></div>
 
 <p>Unfortunately this meant that all assets from all libraries would be added to those applications, which increases the bundle size significantly.
-Another disadvantage is that the Nx dependency graph could not link changes in this directory with their corresponding libraries, unless every single file was mentioned in <code class="highlighter-rouge">nx.json</code> with an implicit dependency for that library.
+Another disadvantage is that the Nx dependency graph could not link changes in this directory with their corresponding libraries, unless every single file was mentioned in <code class="language-plaintext highlighter-rouge">nx.json</code> with an implicit dependency for that library.
 Ironically, this solves criteria 3 perfectly, because nothing is affected, so that’s the bare minimum.</p>
 
 <p>Going back through the criteria:</p>
@@ -334,14 +334,14 @@ Ironically, this solves criteria 3 perfectly, because nothing is affected, so th
 
 <h3 id="solution-3---custom-angular-builders">Solution 3 - Custom Angular builders</h3>
 
-<p>A solution I came across was to copy the assets after a build into the <code class="highlighter-rouge">dist</code>-folder using a script in the <code class="highlighter-rouge">package.json</code> file, but for obvious reasons that wouldn’t work easily when managing different apps.
+<p>A solution I came across was to copy the assets after a build into the <code class="language-plaintext highlighter-rouge">dist</code>-folder using a script in the <code class="language-plaintext highlighter-rouge">package.json</code> file, but for obvious reasons that wouldn’t work easily when managing different apps.
 Neither would it work with the dev-server, so I didn’t even go there.
 Including assets by adding them to the build target’s assets array is how Angular itself prescribes to solve this problem, so let’s keep that.
-However, I still wanted to change the <code class="highlighter-rouge">angular.json</code> file (and other files) as minimally as possible.</p>
+However, I still wanted to change the <code class="language-plaintext highlighter-rouge">angular.json</code> file (and other files) as minimally as possible.</p>
 
 <p>Enter Angular 8 and the stable version of the CLI Builder API!</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├─ 📂apps
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├─ 📂apps
 │  └─ 📂my-app
 │     ├─ 📂src
 │     │  ├─ 📂assets
@@ -375,12 +375,12 @@ However, I still wanted to change the <code class="highlighter-rouge">angular.js
       └─ ...
 </code></pre></div></div>
 
-<p>Using this new API, I was able to construct two new builders to replace the default <code class="highlighter-rouge">@angular-devkit/build-angular:browser</code> and <code class="highlighter-rouge">@angular-devkit/build-angular:dev-server</code> while still utilizing them.
+<p>Using this new API, I was able to construct two new builders to replace the default <code class="language-plaintext highlighter-rouge">@angular-devkit/build-angular:browser</code> and <code class="language-plaintext highlighter-rouge">@angular-devkit/build-angular:dev-server</code> while still utilizing them.
 These custom builders take the same options as the ones they replace and work more like a hook than a new builder.
 The idea is to update the build target in the in-memory workspace before the default builder is actually executed.
-Simply put, the custom builders read <code class="highlighter-rouge">angular.json</code>, update the assets array and pass the updated version to the original builders.
-A single configuration file (<code class="highlighter-rouge">include.json</code> in the application’s <code class="highlighter-rouge">assets</code> directory) lets the custom builder read which libraries the application depends on.
-It then determines its source directory using the workspace configuration file (<code class="highlighter-rouge">angular.json</code>) and adds the following to the assets array:</p>
+Simply put, the custom builders read <code class="language-plaintext highlighter-rouge">angular.json</code>, update the assets array and pass the updated version to the original builders.
+A single configuration file (<code class="language-plaintext highlighter-rouge">include.json</code> in the application’s <code class="language-plaintext highlighter-rouge">assets</code> directory) lets the custom builder read which libraries the application depends on.
+It then determines its source directory using the workspace configuration file (<code class="language-plaintext highlighter-rouge">angular.json</code>) and adds the following to the assets array:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"glob"</span><span class="p">:</span><span class="w"> </span><span class="s2">"**/*"</span><span class="p">,</span><span class="w">
@@ -389,7 +389,7 @@ It then determines its source directory using the workspace configuration file (
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<p>If I wanted my-app to also include the neighbourhood’s cats, then I could change <code class="highlighter-rouge">include.json</code> to also include <code class="highlighter-rouge">neighbourhood-cats-lib</code> and the next build would add the following to the assets array:</p>
+<p>If I wanted my-app to also include the neighbourhood’s cats, then I could change <code class="language-plaintext highlighter-rouge">include.json</code> to also include <code class="language-plaintext highlighter-rouge">neighbourhood-cats-lib</code> and the next build would add the following to the assets array:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"glob"</span><span class="p">:</span><span class="w"> </span><span class="s2">"**/*"</span><span class="p">,</span><span class="w">
@@ -418,7 +418,7 @@ That made the assets array into the following, which prevents libs from overwrit
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<p><em>Note: The reason this <code class="highlighter-rouge">include.json</code> file is in the <code class="highlighter-rouge">assets</code> directory was to make a custom <code class="highlighter-rouge">HttpTranslateLoader</code> (using a simple RxJS <code class="highlighter-rouge">mergeMap</code> and <code class="highlighter-rouge">forkJoin</code>) read that same file to determine which translation assets to download.</em></p>
+<p><em>Note: The reason this <code class="language-plaintext highlighter-rouge">include.json</code> file is in the <code class="language-plaintext highlighter-rouge">assets</code> directory was to make a custom <code class="language-plaintext highlighter-rouge">HttpTranslateLoader</code> (using a simple RxJS <code class="language-plaintext highlighter-rouge">mergeMap</code> and <code class="language-plaintext highlighter-rouge">forkJoin</code>) read that same file to determine which translation assets to download.</em></p>
 
 <p>Let’s go through the criteria one more time:</p>
 
@@ -447,8 +447,8 @@ If that’s not the case (for example if the library containing assets has no co
 <h2 id="sharing-is-caring">Sharing is caring</h2>
 
 <p>Because I care about the community I packaged this solution and published it to npm.
-It’s called <code class="highlighter-rouge">ngx-library-assets</code> and is available at <a href="https://www.npmjs.com/package/ngx-library-assets" target="_blank" rel="noopener noreferrer">https://www.npmjs.com/package/ngx-library-assets</a>.
-Install it as a <code class="highlighter-rouge">devDependency</code>.</p>
+It’s called <code class="language-plaintext highlighter-rouge">ngx-library-assets</code> and is available at <a href="https://www.npmjs.com/package/ngx-library-assets" target="_blank" rel="noopener noreferrer">https://www.npmjs.com/package/ngx-library-assets</a>.
+Install it as a <code class="language-plaintext highlighter-rouge">devDependency</code>.</p>
 
 <p><em>Disclaimer: I do not actually own a dog, or a cat. Neither do Pete and Karen. I don’t even have any neighbours named Pete or Karen.</em></p>
 

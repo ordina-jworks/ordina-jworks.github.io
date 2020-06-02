@@ -191,7 +191,7 @@ The Angular CLI was just an easy way to quickly get everything up and running.</
 <p>The beginning of a test is naming it. 
 I write every test in the same structure:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>describe: ‘classname’
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>describe: ‘classname’
 
     ↪ constant values used in the test
 
@@ -267,7 +267,7 @@ I will explain here with an example:</p>
 
 <p>As you can guess, this test will fail with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: Expected "getCars()" to be called 1 time(s). But has been called 2 time(s).
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: Expected "getCars()" to be called 1 time(s). But has been called 2 time(s).
 </code></pre></div></div>
 
 <p>This happens because the tests don’t start with a fresh mock.
@@ -351,9 +351,9 @@ If you don’t know what that is yet, I suggest you read up on it, a good articl
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>This function just gets the cars from the <code class="highlighter-rouge">carService</code> asynchronously and filters out all the non-red cars before returning the array.</p>
+<p>This function just gets the cars from the <code class="language-plaintext highlighter-rouge">carService</code> asynchronously and filters out all the non-red cars before returning the array.</p>
 
-<p>The first test, we will simply test the happy scenario, where the <code class="highlighter-rouge">carService</code> returns us a nice list of cars and the non-red cars are filtered out.</p>
+<p>The first test, we will simply test the happy scenario, where the <code class="language-plaintext highlighter-rouge">carService</code> returns us a nice list of cars and the non-red cars are filtered out.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">getAllRedCarsAsPromise</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
 
@@ -380,7 +380,7 @@ Afterward we expect that the returned array only contains the red Porsche.
 Now, what is this whole try catch thingy? When the promise is rejected, the execution of the code in the try block will be stopped and the code in the catch block will be executed.
 In this case, if the getCarsAsPromise() should fail, it will go into the catch block and the test will fail.
 The message that will be shown by jasmine, is the error message that is given to the error that was thrown.
-For instance, if the <code class="highlighter-rouge">getCarsAsPromise()</code> promise return value were to be rejected with the error message ‘Something went wrong.’, the test will fail with the message <code class="highlighter-rouge">Failed: Something went wrong.</code>.
+For instance, if the <code class="language-plaintext highlighter-rouge">getCarsAsPromise()</code> promise return value were to be rejected with the error message ‘Something went wrong.’, the test will fail with the message <code class="language-plaintext highlighter-rouge">Failed: Something went wrong.</code>.
 In the finally block, we call the done function, to tell jasmine that our test is done, we call it in the finally block, because the code in the finally block will always be executed, regardless of the result of the promise.</p>
 
 <p>Note: the done function should ALWAYS be called, regardless if your test fails or succeeds.
@@ -430,10 +430,10 @@ In the finally block, we tell jasmine the test is done.</p>
 
 <p>So a few things are happening:</p>
 <ul>
-  <li>First we set <code class="highlighter-rouge">loading</code> to true</li>
-  <li>Then we get the red cars asynchronously and assign them to our <code class="highlighter-rouge">cars</code> field</li>
-  <li>If getting the red cars throws an error, we set <code class="highlighter-rouge">carRetrievalError</code> to <code class="highlighter-rouge">true</code></li>
-  <li>Afterward we always set <code class="highlighter-rouge">loading</code> back to false</li>
+  <li>First we set <code class="language-plaintext highlighter-rouge">loading</code> to true</li>
+  <li>Then we get the red cars asynchronously and assign them to our <code class="language-plaintext highlighter-rouge">cars</code> field</li>
+  <li>If getting the red cars throws an error, we set <code class="language-plaintext highlighter-rouge">carRetrievalError</code> to <code class="language-plaintext highlighter-rouge">true</code></li>
+  <li>Afterward we always set <code class="language-plaintext highlighter-rouge">loading</code> back to false</li>
 </ul>
 
 <p>In this case, we don’t just want to test the end result of our test, but also the side effects in between, in this case, the setting of the loading field to true or false. 
@@ -472,7 +472,7 @@ Ok, now we have checked that, let’s resolve the carService call.
 Now the cars are resolved, so we can check that the loading has now been set to false and the cars field has been correctly set to the right value.
 The finally callback of the returned promise, will execute after we call our promiseResolve function, and will check the final result of our method and subsequently call the done function to tell jasmine our test is over.</p>
 
-<p>In the second test we will test the error scenario, where we want to see if the loading value is still set correctly and the <code class="highlighter-rouge">carRetrievalError</code> is also set to true.</p>
+<p>In the second test we will test the error scenario, where we want to see if the loading value is still set correctly and the <code class="language-plaintext highlighter-rouge">carRetrievalError</code> is also set to true.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should set the retrievalError to true and loading states correctly if the promise is rejected</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="kd">let</span> <span class="na">promiseReject</span><span class="p">:</span> <span class="p">(</span><span class="na">cars</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">Car</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
@@ -497,7 +497,7 @@ The finally callback of the returned promise, will execute after we call our pro
     <span class="p">});</span>
 </code></pre></div></div>
 
-<p>Here we actually do the same thing, except instead of using the <code class="highlighter-rouge">resolve</code> function, we use the <code class="highlighter-rouge">reject</code> function.</p>
+<p>Here we actually do the same thing, except instead of using the <code class="language-plaintext highlighter-rouge">resolve</code> function, we use the <code class="language-plaintext highlighter-rouge">reject</code> function.</p>
 
 <h3 id="observables">Observables</h3>
 
@@ -518,7 +518,7 @@ The finally callback of the returned promise, will execute after we call our pro
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>We simply get all the cars as an observable and then we call the <code class="highlighter-rouge">map</code> operator to filter the list we get. 
+<p>We simply get all the cars as an observable and then we call the <code class="language-plaintext highlighter-rouge">map</code> operator to filter the list we get. 
  Pretty simple scenario.</p>
 
 <p>For a simple scenario like this, there are two ways to test this. 
@@ -608,14 +608,14 @@ If the observable throws an error, we set carRetrievalError to true.</p>
 A subject can act as both an observable and an observer.
 This means we can subscribe to it and receive the emitted values, or we can tell it to emit a certain value.</p>
 
-<p>In this case, instead of telling the carService to return an Observable that immediately resolves with a value, we tell it to return a <code class="highlighter-rouge">subject.asObservable()</code>.
+<p>In this case, instead of telling the carService to return an Observable that immediately resolves with a value, we tell it to return a <code class="language-plaintext highlighter-rouge">subject.asObservable()</code>.
 Now we are in control of when and what value is emitted in this observable.
 This allows us to check our side effects easily at the right time.</p>
 
-<p>Note that I am calling the <code class="highlighter-rouge">carsSubject.complete()</code> after I emit the car array value.
-I do this because I set <code class="highlighter-rouge">loading</code> to <code class="highlighter-rouge">false</code> in the <code class="highlighter-rouge">finalize</code> operator.
-This <code class="highlighter-rouge">finalize</code> operator is only called when the observable is completed.
-So if I don’t call the <code class="highlighter-rouge">carsSubject.complete()</code>, <code class="highlighter-rouge">loading</code> will never be set to <code class="highlighter-rouge">false</code> and my test will fail.
+<p>Note that I am calling the <code class="language-plaintext highlighter-rouge">carsSubject.complete()</code> after I emit the car array value.
+I do this because I set <code class="language-plaintext highlighter-rouge">loading</code> to <code class="language-plaintext highlighter-rouge">false</code> in the <code class="language-plaintext highlighter-rouge">finalize</code> operator.
+This <code class="language-plaintext highlighter-rouge">finalize</code> operator is only called when the observable is completed.
+So if I don’t call the <code class="language-plaintext highlighter-rouge">carsSubject.complete()</code>, <code class="language-plaintext highlighter-rouge">loading</code> will never be set to <code class="language-plaintext highlighter-rouge">false</code> and my test will fail.
 The error scenario is pretty much the same logic, except we call the error method instead of the next on the subject.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should set retrievalError to true if the observable throws an error</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>

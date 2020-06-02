@@ -200,9 +200,9 @@ and does not truly feel like the Docker way of doing things.</p>
 <p>Docker has often been sceptical about adding new features or making changes to the Dockerfile syntax,
 but finally decided to tackle this build problem with a simple and elegant solution.
 Introducing <strong>multi-stage builds</strong>,
-it is now possible to define multiple stages by using several <code class="highlighter-rouge">FROM</code> statements.</p>
+it is now possible to define multiple stages by using several <code class="language-plaintext highlighter-rouge">FROM</code> statements.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># First stage to build the application
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># First stage to build the application
 FROM maven:3.5.0-jdk-8-alpine AS build-env
 ADD ./pom.xml pom.xml
 ADD ./src src/
@@ -214,9 +214,9 @@ COPY --from=build-env target/app.jar app.jar
 RUN java -jar app.jar
 </code></pre></div></div>
 
-<p>Each time <code class="highlighter-rouge">FROM</code> is used,
+<p>Each time <code class="language-plaintext highlighter-rouge">FROM</code> is used,
 you define which image is used for that stage,
-and in subsequent stages you can use the <code class="highlighter-rouge">COPY --from=&lt;stage&gt;</code> to copy artifacts from a previous stage.</p>
+and in subsequent stages you can use the <code class="language-plaintext highlighter-rouge">COPY --from=&lt;stage&gt;</code> to copy artifacts from a previous stage.</p>
 
 <p>The final stage results in the image,
 which can contain the minimal runtime environment and the final artifact.
@@ -225,13 +225,13 @@ Perfect!</p>
 <h1 id="using-arguments-in-from">Using arguments in FROM</h1>
 
 <p>Using arguments isn’t a new thing with Dockerfiles.
-You could already use <code class="highlighter-rouge">ARG</code> statements to pass on arguments to the build process.
+You could already use <code class="language-plaintext highlighter-rouge">ARG</code> statements to pass on arguments to the build process.
 These arguments are not persisted in the Dockerfile,
 and are frequently used to pass on versions,
 or secrets like SSH keys.
 Now it is also possible to use arguments in the version of the base image.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ARG GO_VERSION=1.8
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ARG GO_VERSION=1.8
 FROM golang:${GO_VERSION}
 ADD . /src
 WORKDIR /src
@@ -242,7 +242,7 @@ CMD ["/bin/app"]
 <p>For above Dockerfile,
 I could build an image with another Go version!</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker build --arg=GO_VERSION=1.7 .
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker build --arg=GO_VERSION=1.7 .
 </code></pre></div></div>
 
 <h1 id="cleaning-up-docker">Cleaning up Docker</h1>
@@ -250,22 +250,22 @@ I could build an image with another Go version!</p>
 <p>A comment I often hear is that Docker takes a lot of space.
 This can be true,
 if you never clean up!
-Docker has added the <code class="highlighter-rouge">docker system</code> subcommand a while ago,
+Docker has added the <code class="language-plaintext highlighter-rouge">docker system</code> subcommand a while ago,
 You can use this subcommand to check the disk usage,
 and to free up space!</p>
 
 <p>The following command outputs the disk usage:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker system df
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker system df
 TYPE                TOTAL               ACTIVE              SIZE                RECLAIMABLE
 Images              7                   5                   1.247GB             769MB (61%)
 Containers          7                   2                   115.9MB             99.23MB (85%)
 Local Volumes       1                   1                   85.59MB             0B (0%)
 </code></pre></div></div>
 
-<p>You can then use <code class="highlighter-rouge">prune</code> to clean up all resources that are no longer needed:</p>
+<p>You can then use <code class="language-plaintext highlighter-rouge">prune</code> to clean up all resources that are no longer needed:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker system prune
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker system prune
 WARNING! This will remove:
 	- all stopped containers
 	- all volumes not used by at least one container
@@ -276,7 +276,7 @@ Are you sure you want to continue? [y/N] y
 
 <p>It is also possible to prune certain subsystems:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker image/container/volume/network prune
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker image/container/volume/network prune
 </code></pre></div></div>
 
 <h1 id="which-ports">Which Ports?</h1>
@@ -285,7 +285,7 @@ Are you sure you want to continue? [y/N] y
 since the syntax can be confusing.
 Here’s a list of all possible formats that you can use to define which ports are published on a container:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ports:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ports:
  - 3000
  - 3000-3005
  - 49100:22
@@ -301,7 +301,7 @@ it is no longer readable.</p>
 <p>To counter this issue,
 you can now use a more verbose format to define ports:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ports:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ports:
   - target: 6060
     published: 7060
     protocol: udp
@@ -312,7 +312,7 @@ you can now use a more verbose format to define ports:</p>
 <p>Just like the ports,
 volumes have a similar syntax.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volumes:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volumes:
   - /var/lib/mysql
   - /opt/data:/var/lib/mysql
   - ./cache:/tmp/cached
@@ -322,7 +322,7 @@ volumes have a similar syntax.</p>
 
 <p>A verbose syntax has been added as well for volumes:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volumes:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volumes:
   - type: bind
     source: ~/configs
     target: /etc/configs

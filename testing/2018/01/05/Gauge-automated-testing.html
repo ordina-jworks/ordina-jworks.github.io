@@ -211,19 +211,19 @@ The actual implementation of the steps does require some technical knowledge.</p
 <p>Gauge offers an installer which can be downloaded <a href="https://getgauge.io/get-started.html" target="_blank">here</a>.
 During the install, you can select which core plugins to install.
 In this blog the tests are written in Java, so we would need the Java core plugin.
-After the install, you’ll be able to run <code class="highlighter-rouge">gauge</code> from the command line.
-It can, for example, be used to install more plugins (as well as core plugins <code class="highlighter-rouge">gauge install java</code>).</p>
+After the install, you’ll be able to run <code class="language-plaintext highlighter-rouge">gauge</code> from the command line.
+It can, for example, be used to install more plugins (as well as core plugins <code class="language-plaintext highlighter-rouge">gauge install java</code>).</p>
 
 <p>Next, in order to use WebDriver in our tests, we’ll need the Java SDK and Maven.
 When you’re a Java developer, you probably already have those installed.
 If not, you’ll find enough on Google on how to install those.</p>
 
-<p>To start a new project, create a new folder and run <code class="highlighter-rouge">gauge init java</code> in it.
+<p>To start a new project, create a new folder and run <code class="language-plaintext highlighter-rouge">gauge init java</code> in it.
 This will setup a basic Gauge project.
 Then we need to add a <a href="https://github.com/getgauge-examples/java-maven-selenium/blob/master/pom.xml" target="_blank">pom.xml</a> file ourselves, because we need some dependencies such as Selenium WebDriver.
 Next, WebDriver needs to be set up in our test code.
 A good example of how you could do that can be found <a href="https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils" target="_blank">here</a>.
-They created a <code class="highlighter-rouge">DriverFactory</code> so you can easily switch between browsers using environment variables (we’ll get to that).
+They created a <code class="language-plaintext highlighter-rouge">DriverFactory</code> so you can easily switch between browsers using environment variables (we’ll get to that).
 Gauge hooks are used to start and stop WebDriver when running the test suite.
 Just copy those pieces of code into your own project.
 Or, you could start from the <em>Maven + Selenium</em> example provided by Gauge which can be found on <a href="https://github.com/getgauge-examples/java-maven-selenium" target="_blank">GitHub</a>.
@@ -233,7 +233,7 @@ That way you’d have some examples to start from.</p>
 
 <h1 id="writing-tests">Writing tests</h1>
 <p>On the lowest level we have our Java functions that control the browser using WebDriver commands.
-To these functions we can assign a <code class="highlighter-rouge">@Step</code> annotation to be able to identify it.
+To these functions we can assign a <code class="language-plaintext highlighter-rouge">@Step</code> annotation to be able to identify it.
 It’s usually a sentence describing the action being performed.
 The sentences can then be used to write the scenarios of our tests (or specs).
 If you’d like to combine multiple steps into once sentence, you can do so by creating so called “concepts”.</p>
@@ -245,11 +245,11 @@ If you’d like to combine multiple steps into once sentence, you can do so by c
 
 <h3 id="writing-the-specs">Writing the specs</h3>
 <p>The specs are written in Markdown.
-Each spec file starts with a title and is underlined with <code class="highlighter-rouge">===</code>.
+Each spec file starts with a title and is underlined with <code class="language-plaintext highlighter-rouge">===</code>.
 Next, some steps can be defined that will be run before each scenario.
 When listing steps, you need to prefix each step with an asterix (*) as in a Markdown list.
 After that, the actual scenarios can be written.
-They start with a title and are underlined with <code class="highlighter-rouge">---</code>.
+They start with a title and are underlined with <code class="language-plaintext highlighter-rouge">---</code>.
 Again, the steps for a scenario should be listed as in a Markdown list.
 You can also add some tags which can be used to only run certain specs and to search in the HTML reports.
 Here’s an example specification:</p>
@@ -269,9 +269,9 @@ Here’s an example specification:</p>
 
 <h3 id="writing-the-steps">Writing the steps</h3>
 <p>The sentences we wrote in the specs still need to be linked to Java functions.
-We can do so by simply adding a <code class="highlighter-rouge">@Step</code> annotation to a Java function.
+We can do so by simply adding a <code class="language-plaintext highlighter-rouge">@Step</code> annotation to a Java function.
 It doesn’t matter in which class you put the functions, you’re free to choose how to organize them.
-As long as they are under the <code class="highlighter-rouge">src/test/java</code> folder.
+As long as they are under the <code class="language-plaintext highlighter-rouge">src/test/java</code> folder.
 You could, for example, group them per page or feature.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomerSignup</span> <span class="o">{</span>
@@ -297,7 +297,7 @@ You could, for example, group them per page or feature.</p>
 </code></pre></div></div>
 
 <p>As shown in the example above, you can easily pass parameters to steps.
-You simply have to wrap the keywords in <code class="highlighter-rouge">&lt;&gt;</code> in the <code class="highlighter-rouge">@Step</code> annotation
+You simply have to wrap the keywords in <code class="language-plaintext highlighter-rouge">&lt;&gt;</code> in the <code class="language-plaintext highlighter-rouge">@Step</code> annotation
 and list the same keywords as parameters in the actual Java function.
 Obviously, you can then use them in your Java code.</p>
 
@@ -355,8 +355,8 @@ It’s a good way to avoid too much code duplication.</p>
 <h3 id="concepts">Concepts</h3>
 <p>If you find yourself repeating the same sequence of steps over and over,
 you could combine those steps into one step using concepts.
-These are also written in Markdown and you can pass arguments the same way as in the Java <code class="highlighter-rouge">@Step</code> annotations.
-They should be placed in the <code class="highlighter-rouge">/specs/concepts</code> folder and use the *.cpt extension.</p>
+These are also written in Markdown and you can pass arguments the same way as in the Java <code class="language-plaintext highlighter-rouge">@Step</code> annotations.
+They should be placed in the <code class="language-plaintext highlighter-rouge">/specs/concepts</code> folder and use the *.cpt extension.</p>
 
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Sign up a new customer with name &lt;name&gt; email &lt;email&gt; and &lt;password&gt;</span>
 <span class="p">*</span> Sign up as <span class="nt">&lt;name&gt;</span> with email <span class="nt">&lt;email&gt;</span> and <span class="nt">&lt;password&gt;</span>
@@ -368,28 +368,28 @@ They refuse to implement it because they believe this creates too much abstracti
 Gauge does offer it, so it’s up to you whether you want to make use of it or not.</p>
 
 <h1 id="running-the-specs">Running the specs</h1>
-<p>Since the project is setup with Maven, the tests can be run with <code class="highlighter-rouge">mvn test</code>.
-However, if you want to pass any arguments, you’ll need to use <code class="highlighter-rouge">mvn gauge:execute</code> instead.</p>
+<p>Since the project is setup with Maven, the tests can be run with <code class="language-plaintext highlighter-rouge">mvn test</code>.
+However, if you want to pass any arguments, you’ll need to use <code class="language-plaintext highlighter-rouge">mvn gauge:execute</code> instead.</p>
 
 <h3 id="tags">Tags</h3>
 
 <p>You may have noticed in the spec files that tags can be added.
 They can be used to run only certain specs.</p>
 
-<p><code class="highlighter-rouge">mvn gauge:execute -DspecsDir=specs -Dtags="sign-up &amp; customer"</code></p>
+<p><code class="language-plaintext highlighter-rouge">mvn gauge:execute -DspecsDir=specs -Dtags="sign-up &amp; customer"</code></p>
 
 <h3 id="parallel">Parallel</h3>
 <p>So far, Gauge didn’t stand out from other automated testing solutions.
 Although there’s one thing that really does stand out and that’s how easy it is to use parallel execution!</p>
 
-<p><code class="highlighter-rouge">mvn gauge:execute -DspecsDir=specs -DinParallel=true</code></p>
+<p><code class="language-plaintext highlighter-rouge">mvn gauge:execute -DspecsDir=specs -DinParallel=true</code></p>
 
 <p>Running this command will start up a stream for each CPU core your computer has.
 For each stream it will open a browser window and execute the specs.
 So if you have four CPU cores, four browser windows will be opened.
 You can overwrite the number of parallel executors, but it’s recommended not to exceed the number of CPU cores.</p>
 
-<p><code class="highlighter-rouge">mvn gauge:execute -DspecsDir=specs -DinParallel=true -Dnodes=2</code></p>
+<p><code class="language-plaintext highlighter-rouge">mvn gauge:execute -DspecsDir=specs -DinParallel=true -Dnodes=2</code></p>
 
 <p>Now, some specs may take longer to run than others.
 By default, specs are divided dynamically over the streams.
@@ -405,32 +405,32 @@ However, if you would want to test whether a user can sign in after having signe
 That immediately solves our problem and we are safe to use the parallel execution!</p>
 
 <h1 id="environments-and-configuration">Environments and configuration</h1>
-<p>The config files are located under <code class="highlighter-rouge">env/default</code>.
-You should have three files in that folder: <code class="highlighter-rouge">default.properties</code>, <code class="highlighter-rouge">java.properties</code> and <code class="highlighter-rouge">user.properties</code>.
-In the <a href="https://github.com/getgauge-examples/java-maven-selenium" target="_blank">example by Gauge</a>, they have an <code class="highlighter-rouge">APP_URL</code> parameter in that last file.
-I recommend using that approach as well, you can get parameters in your Java code using <code class="highlighter-rouge">System.getenv("APP_URL")</code>.</p>
+<p>The config files are located under <code class="language-plaintext highlighter-rouge">env/default</code>.
+You should have three files in that folder: <code class="language-plaintext highlighter-rouge">default.properties</code>, <code class="language-plaintext highlighter-rouge">java.properties</code> and <code class="language-plaintext highlighter-rouge">user.properties</code>.
+In the <a href="https://github.com/getgauge-examples/java-maven-selenium" target="_blank">example by Gauge</a>, they have an <code class="language-plaintext highlighter-rouge">APP_URL</code> parameter in that last file.
+I recommend using that approach as well, you can get parameters in your Java code using <code class="language-plaintext highlighter-rouge">System.getenv("APP_URL")</code>.</p>
 
 <p>It’s possible to create different environments by simply creating a new folder.
-There you can add <code class="highlighter-rouge">*.properties</code> files containing additional properties or properties overwriting the ones in the default folder.
+There you can add <code class="language-plaintext highlighter-rouge">*.properties</code> files containing additional properties or properties overwriting the ones in the default folder.
 So, that means you don’t need to copy the whole configuration. 
 Gauge will always load all the default properties. 
 Then it will load those defined for the environment you wish to use. 
 If a property is defined for an environment and it already exists in the default configuration, it will use the one defined for that environment instead.
-Now, suppose you want a different configuration for your CI-tool, you can create a folder named <code class="highlighter-rouge">ci</code>.
+Now, suppose you want a different configuration for your CI-tool, you can create a folder named <code class="language-plaintext highlighter-rouge">ci</code>.
 When running the specs, simply pass an argument stating the environment.</p>
 
-<p><code class="highlighter-rouge">mvn gauge:execute -Denv="ci"</code></p>
+<p><code class="language-plaintext highlighter-rouge">mvn gauge:execute -Denv="ci"</code></p>
 
 <p>Environments can also be used to run gauge with another browser like in the <a href="https://github.com/getgauge-examples/java-maven-selenium" target="_blank">example by Gauge</a>.
-Create a folder named <code class="highlighter-rouge">firefox</code> for example and add a file called <code class="highlighter-rouge">browser.properties</code>.
-In that file you add <code class="highlighter-rouge">browser = FIREFOX</code>.
-When you then run the tests with the <code class="highlighter-rouge">firefox</code> environment, it will use FireFox as a browser instead.
+Create a folder named <code class="language-plaintext highlighter-rouge">firefox</code> for example and add a file called <code class="language-plaintext highlighter-rouge">browser.properties</code>.
+In that file you add <code class="language-plaintext highlighter-rouge">browser = FIREFOX</code>.
+When you then run the tests with the <code class="language-plaintext highlighter-rouge">firefox</code> environment, it will use FireFox as a browser instead.
 (This only works if you have your project set up like in the example, the <a href="https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver" target="_blank">Driver</a> and <a href="https://github.com/getgauge-examples/java-maven-selenium/tree/master/src/test/java/utils/driver" target="_blank">DriverFactory</a> files are required here.)</p>
 
 <h1 id="reports">Reports</h1>
-<p>To get a HTML report, the plugin has to be installed first: <code class="highlighter-rouge">gauge install html-report</code>.
+<p>To get a HTML report, the plugin has to be installed first: <code class="language-plaintext highlighter-rouge">gauge install html-report</code>.
 That’s about it!
-After running the specs, a nice HTML report will be outputted to the <code class="highlighter-rouge">/reports</code> folder.
+After running the specs, a nice HTML report will be outputted to the <code class="language-plaintext highlighter-rouge">/reports</code> folder.
 It shows which tests succeeded and which failed with some additional graphs.
 In the report you’ll even find how long it took to run a test and each of its steps.
 There’s also a search functionality to quickly find a certain spec.</p>

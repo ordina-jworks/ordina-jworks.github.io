@@ -194,20 +194,20 @@ This is handy because now you can focus more on the logic of your CLI instead of
 Assuming you have Golang correctly installed, you can get the generator by doing the following:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>go get github.com/spf13/cobra/cobra
 </code></pre></div></div>
-<p>This creates an executable which you can run from anywhere, because it is located in the <code class="highlighter-rouge">$GOPATH/bin</code> directory, which is in turn added to your <code class="highlighter-rouge">PATH</code> variable if you installed Go correctly.</p>
+<p>This creates an executable which you can run from anywhere, because it is located in the <code class="language-plaintext highlighter-rouge">$GOPATH/bin</code> directory, which is in turn added to your <code class="language-plaintext highlighter-rouge">PATH</code> variable if you installed Go correctly.</p>
 
 <p>You can go ahead and create a new folder for your Go code.
 The name of the folder will be used as the name of your CLI.
-Navigate inside this folder with your terminal and execute <code class="highlighter-rouge">$ cobra init</code> to start a new project.
-It should generate a <code class="highlighter-rouge">main.go</code> file and a cmd package.</p>
+Navigate inside this folder with your terminal and execute <code class="language-plaintext highlighter-rouge">$ cobra init</code> to start a new project.
+It should generate a <code class="language-plaintext highlighter-rouge">main.go</code> file and a cmd package.</p>
 
 <p>Sidenote: by default Cobra will add an Apache License.
-If you don’t want this, you can add the flag <code class="highlighter-rouge">-l none</code> to all the generator commands.
-It will however add a copyright claim at the top of every file (<code class="highlighter-rouge">// Copyright © 2018 NAME HERE &lt;EMAIL ADDRESS&gt;</code>).
-If you pass the flag <code class="highlighter-rouge">-a YOUR NAME</code> the claim will contain your name. These flags are optional though.</p>
+If you don’t want this, you can add the flag <code class="language-plaintext highlighter-rouge">-l none</code> to all the generator commands.
+It will however add a copyright claim at the top of every file (<code class="language-plaintext highlighter-rouge">// Copyright © 2018 NAME HERE &lt;EMAIL ADDRESS&gt;</code>).
+If you pass the flag <code class="language-plaintext highlighter-rouge">-a YOUR NAME</code> the claim will contain your name. These flags are optional though.</p>
 
-<p>When you look inside the <code class="highlighter-rouge">main.go</code> file, there’s not much going on. It just calls the <code class="highlighter-rouge">execute</code> function of the cmd package.
-This function resides in the <code class="highlighter-rouge">root.go</code> file, which is doing a lot more. For now, just focus on this part:</p>
+<p>When you look inside the <code class="language-plaintext highlighter-rouge">main.go</code> file, there’s not much going on. It just calls the <code class="language-plaintext highlighter-rouge">execute</code> function of the cmd package.
+This function resides in the <code class="language-plaintext highlighter-rouge">root.go</code> file, which is doing a lot more. For now, just focus on this part:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// rootCmd represents the base command when called without any subcommands</span>
 <span class="k">var</span> <span class="n">rootCmd</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">cobra</span><span class="o">.</span><span class="n">Command</span><span class="p">{</span>
    <span class="n">Use</span><span class="o">:</span>   <span class="s">"hello-cobra"</span><span class="p">,</span>
@@ -233,21 +233,21 @@ A good practice is to work with verbs like get, post, describe,… For our examp
 <p>To do this we can leverage the generator again to add a new command for us:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cobra add say
 </code></pre></div></div>
-<p>It will generate a file inside the cmd package called <code class="highlighter-rouge">say.go</code>.
+<p>It will generate a file inside the cmd package called <code class="language-plaintext highlighter-rouge">say.go</code>.
 In this file you can again specify the way you want the command to be used and describe its function.
-You’ll also see the execute function which gets executed every time you call <code class="highlighter-rouge">hello-cli say</code>.
-You’re probably never going to use it like that, except with a <code class="highlighter-rouge">--help</code> flag. If a user calls it like that, we want the user to know he needs to provide additional items to the <code class="highlighter-rouge">say</code> command.
+You’ll also see the execute function which gets executed every time you call <code class="language-plaintext highlighter-rouge">hello-cli say</code>.
+You’re probably never going to use it like that, except with a <code class="language-plaintext highlighter-rouge">--help</code> flag. If a user calls it like that, we want the user to know he needs to provide additional items to the <code class="language-plaintext highlighter-rouge">say</code> command.
 So we’re going to return an error if that happens.
-The <code class="highlighter-rouge">Run</code> function of the cobra command doesn’t return anything by default.
-You can however change <code class="highlighter-rouge">Run</code> to <code class="highlighter-rouge">RunE</code>, which expects the function to return an error if there is any:</p>
+The <code class="language-plaintext highlighter-rouge">Run</code> function of the cobra command doesn’t return anything by default.
+You can however change <code class="language-plaintext highlighter-rouge">Run</code> to <code class="language-plaintext highlighter-rouge">RunE</code>, which expects the function to return an error if there is any:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">RunE</span><span class="o">:</span> <span class="k">func</span><span class="p">(</span><span class="n">cmd</span> <span class="o">*</span><span class="n">cobra</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span> <span class="n">args</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">errors</span><span class="o">.</span><span class="n">New</span><span class="p">(</span><span class="s">"Provide item to the say command"</span><span class="p">)</span>
 <span class="p">},</span>
 </code></pre></div></div>
-<p>The <code class="highlighter-rouge">RunE</code> function also shows the help output if there’s an error.
+<p>The <code class="language-plaintext highlighter-rouge">RunE</code> function also shows the help output if there’s an error.
 This is to show the user how to properly use your command.</p>
 
-<p>At the bottom of the file you’ll see a function called <code class="highlighter-rouge">init</code>:</p>
+<p>At the bottom of the file you’ll see a function called <code class="language-plaintext highlighter-rouge">init</code>:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
    <span class="n">rootCmd</span><span class="o">.</span><span class="n">AddCommand</span><span class="p">(</span><span class="n">sayCmd</span><span class="p">)</span>
 
@@ -263,17 +263,17 @@ This is to show the user how to properly use your command.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 <p>Here you can add subcommands and flags.
-By default, the <code class="highlighter-rouge">say</code> command is added to the root command, which is exactly what we want.
+By default, the <code class="language-plaintext highlighter-rouge">say</code> command is added to the root command, which is exactly what we want.
 Let’s add a sub command to say hello:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>cobra add sayhello
 </code></pre></div></div>
-<p>Like the <code class="highlighter-rouge">say</code> command, <code class="highlighter-rouge">sayhello</code> is added to the root command.
-In this case we want it to be added to the <code class="highlighter-rouge">say</code> command instead:</p>
+<p>Like the <code class="language-plaintext highlighter-rouge">say</code> command, <code class="language-plaintext highlighter-rouge">sayhello</code> is added to the root command.
+In this case we want it to be added to the <code class="language-plaintext highlighter-rouge">say</code> command instead:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">sayCmd</span><span class="o">.</span><span class="n">AddCommand</span><span class="p">(</span><span class="n">sayhelloCmd</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p>To make the <code class="highlighter-rouge">sayhello</code> print “Hello World”, edit the <code class="highlighter-rouge">Run</code> function:</p>
+<p>To make the <code class="language-plaintext highlighter-rouge">sayhello</code> print “Hello World”, edit the <code class="language-plaintext highlighter-rouge">Run</code> function:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Run</span><span class="o">:</span> <span class="k">func</span><span class="p">(</span><span class="n">cmd</span> <span class="o">*</span><span class="n">cobra</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span> <span class="n">args</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"Hello World!"</span><span class="p">)</span>
 <span class="p">},</span>
@@ -291,18 +291,18 @@ In this case we want it to be added to the <code class="highlighter-rouge">say</
 You can choose between local and persistent ones.
 Local flags are available only for that command, whereas persistent flags are also available for the subcommands of that command.
 For this example we want to greet a person by name.
-We’re going to do this by making a <code class="highlighter-rouge">--name</code> flag.
-Navigate to the <code class="highlighter-rouge">init</code> function of the <code class="highlighter-rouge">sayhello.go</code> file, and add a flag:</p>
+We’re going to do this by making a <code class="language-plaintext highlighter-rouge">--name</code> flag.
+Navigate to the <code class="language-plaintext highlighter-rouge">init</code> function of the <code class="language-plaintext highlighter-rouge">sayhello.go</code> file, and add a flag:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">rootCmd</span><span class="o">.</span><span class="n">AddCommand</span><span class="p">(</span><span class="n">sayCmd</span><span class="p">)</span>
     <span class="n">sayhelloCmd</span><span class="o">.</span><span class="n">Flags</span><span class="p">()</span><span class="o">.</span><span class="n">StringP</span><span class="p">(</span><span class="s">"name"</span><span class="p">,</span> <span class="s">"n"</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="s">"Set your name"</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p>The first string is the full name of the flag, and can be executed with two dashes like <code class="highlighter-rouge">--name</code>.
+<p>The first string is the full name of the flag, and can be executed with two dashes like <code class="language-plaintext highlighter-rouge">--name</code>.
 The second string is the short notation, which can be executed with one dash.
 The third one is the default value, and the fourth is a description.</p>
 
-<p>To make the flag do something we need to add some logic to the <code class="highlighter-rouge">Run</code> function:</p>
+<p>To make the flag do something we need to add some logic to the <code class="language-plaintext highlighter-rouge">Run</code> function:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Run</span><span class="o">:</span> <span class="k">func</span><span class="p">(</span><span class="n">cmd</span> <span class="o">*</span><span class="n">cobra</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span> <span class="n">args</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">name</span><span class="p">,</span> <span class="n">_</span><span class="o">:=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">Flags</span><span class="p">()</span><span class="o">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">"name"</span><span class="p">)</span>
    	<span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
@@ -324,7 +324,7 @@ Cobra already uses Viper in the generated code, so why not use it as well.
 You can however achieve the same result by using the os package from the Go standard library.</p>
 
 <p>We want to make the environment variable the default value.
-If you remember, the default value is set in the <code class="highlighter-rouge">init()</code> function.:</p>
+If you remember, the default value is set in the <code class="language-plaintext highlighter-rouge">init()</code> function.:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">sayCmd</span><span class="o">.</span><span class="n">AddCommand</span><span class="p">(</span><span class="n">sayhelloCmd</span><span class="p">)</span>
     <span class="n">sayhelloCmd</span><span class="o">.</span><span class="n">Flags</span><span class="p">()</span><span class="o">.</span><span class="n">StringP</span><span class="p">(</span><span class="s">"name"</span><span class="p">,</span> <span class="s">"n"</span><span class="p">,</span> <span class="n">viper</span><span class="o">.</span><span class="n">GetString</span><span class="p">(</span><span class="s">"ENVNAME"</span><span class="p">),</span> <span class="s">"Set your name"</span><span class="p">)</span>
@@ -335,12 +335,12 @@ If you remember, the default value is set in the <code class="highlighter-rouge"
 <h1 id="taking-a-file-as-input">Taking a file as input</h1>
 <p>For this next part,  we want to provide multiple parameters to our CLI.
 You can provide flags for every single one of them, but when you have a lot of parameters, a config file can be a better option.
-So create a new file with a <code class="highlighter-rouge">.yaml</code> extension, and add the following contents:</p>
+So create a new file with a <code class="language-plaintext highlighter-rouge">.yaml</code> extension, and add the following contents:</p>
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Billy"</span>
 <span class="na">greeting</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Howdy"</span>
 </code></pre></div></div>
 <p>If you used the generator, There will already be a flag configured that expects the path to an initial config file.
-You can find this flag in the <code class="highlighter-rouge">root.go</code> file under the <code class="highlighter-rouge">initConfig()</code> function.
+You can find this flag in the <code class="language-plaintext highlighter-rouge">root.go</code> file under the <code class="language-plaintext highlighter-rouge">initConfig()</code> function.
 As you can see, it uses Viper again to do this.</p>
 
 <p>Good news! We don’t have to do it ourselves!

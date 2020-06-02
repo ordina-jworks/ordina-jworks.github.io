@@ -277,8 +277,8 @@ Consider the following example:</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>In this case, when the <code class="highlighter-rouge">param$</code> stream emits a value, the <code class="highlighter-rouge">obj</code> is requested from an API endpoint and when received, it will in its turn request events occurring on a specific <code class="highlighter-rouge">busId</code>.
-But what happens when <code class="highlighter-rouge">param$</code> emits a new value? The <code class="highlighter-rouge">obj</code>property will be replaced eventually, but the event stream for the first object will still exist.
+<p>In this case, when the <code class="language-plaintext highlighter-rouge">param$</code> stream emits a value, the <code class="language-plaintext highlighter-rouge">obj</code> is requested from an API endpoint and when received, it will in its turn request events occurring on a specific <code class="language-plaintext highlighter-rouge">busId</code>.
+But what happens when <code class="language-plaintext highlighter-rouge">param$</code> emits a new value? The <code class="language-plaintext highlighter-rouge">obj</code>property will be replaced eventually, but the event stream for the first object will still exist.
 So you could start keeping track of subscriptions and cancel them at the ‘right’ moment:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">subscription1</span> <span class="o">=</span> <span class="nx">param$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">param</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -317,7 +317,7 @@ There are still 3 subscriptions, while it could be done with just 1 when using t
 </code></pre></div></div>
 
 <p>This way, only 1 subscription will exist, canceling it will automatically cancel any inner streams.
-And when <code class="highlighter-rouge">param$</code> would emit a new value, the <code class="highlighter-rouge">switchMap</code> operator will automatically cancel its inner stream and create a new one.</p>
+And when <code class="language-plaintext highlighter-rouge">param$</code> would emit a new value, the <code class="language-plaintext highlighter-rouge">switchMap</code> operator will automatically cancel its inner stream and create a new one.</p>
 
 <blockquote>
   <p>RULE: NEVER SUBSCRIBE WITHIN A SUBSCRIPTION<br />
@@ -361,13 +361,13 @@ To solve this with minimal changes, make the source stream a hot Observable usin
 
 <p>Though be careful when using this operator.
 If the source doesn’t complete by itself, it will keep emitting values.
-To prevent this behaviour, use an options object in the <code class="highlighter-rouge">shareReplay</code> operator and set the required property <strong>refCount</strong> to true:</p>
+To prevent this behaviour, use an options object in the <code class="language-plaintext highlighter-rouge">shareReplay</code> operator and set the required property <strong>refCount</strong> to true:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">sharedStream</span> <span class="o">=</span> <span class="nx">source</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">shareReplay</span><span class="p">({</span><span class="na">bufferSize</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">refCount</span><span class="p">:</span> <span class="kc">true</span><span class="p">}));</span>
 </code></pre></div></div>
 
 <p>See <a href="https://stackblitz.com/edit/using-sharereplay" target="_blank" rel="noopener noreferrer">this stackblitz</a> for an example of the difference.
-You can set a tslint rule to make sure you always use <code class="highlighter-rouge">shareReplay</code> with options.
+You can set a tslint rule to make sure you always use <code class="language-plaintext highlighter-rouge">shareReplay</code> with options.
 Here you can find the configuration: <a href="https://github.com/cartant/rxjs-tslint-rules#rxjs-no-sharereplay" target="_blank" rel="noopener noreferrer">rxjs-tslint-rules: rxjs-no-sharereplay</a>.</p>
 
 <h3 id="angular-specific-use-sharereplay-with-asyncpipe">Angular specific: use shareReplay with AsyncPipe</h3>
@@ -399,7 +399,7 @@ Use <strong>shareReplay</strong> when multiple AsyncPipes are used on the same s
 Declarative code means that the code can explain itself without the need of comments.
 Great!
 Now developers don’t need to worry about writing comments anymore.
-RxJS provides a lot of operators that are self-explanatory: <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">withLatestFrom</code>, <code class="highlighter-rouge">catchError</code>, …
+RxJS provides a lot of operators that are self-explanatory: <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">withLatestFrom</code>, <code class="language-plaintext highlighter-rouge">catchError</code>, …
 So what’s the problem?
 It’s something what I’ve noticed a lot lately.
 A stream with so many piped operators that it isn’t even funny anymore.
@@ -556,7 +556,7 @@ For example, the following blocks will do the same, but one keeps its state insi
 <span class="p">);</span>
 </code></pre></div></div>
 
-<p>Notice the use of the <code class="highlighter-rouge">scan</code> operator instead of a <code class="highlighter-rouge">map</code>.
+<p>Notice the use of the <code class="language-plaintext highlighter-rouge">scan</code> operator instead of a <code class="language-plaintext highlighter-rouge">map</code>.
 If you have side effects, you might be using the wrong operators.
 More about that a bit later in this post.</p>
 

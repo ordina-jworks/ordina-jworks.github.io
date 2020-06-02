@@ -215,14 +215,14 @@ It was a no-brainer for me to immediately add these testing libraries to my Kotl
 
 <p>I started off with adding the Mockito dependency to my Kotlin project.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
     &lt;groupId&gt;org.mockito&lt;/groupId&gt;
     &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
     &lt;version&gt;2.13.0&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre></div></div>
 
-<p>And wrote a first simple test in which I wanted to test a <code class="highlighter-rouge">Service</code> class that uses a <code class="highlighter-rouge">Generator</code> to generate a record and a <code class="highlighter-rouge">Dao</code> for persisting it.</p>
+<p>And wrote a first simple test in which I wanted to test a <code class="language-plaintext highlighter-rouge">Service</code> class that uses a <code class="language-plaintext highlighter-rouge">Generator</code> to generate a record and a <code class="language-plaintext highlighter-rouge">Dao</code> for persisting it.</p>
 
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ServiceTest</span> <span class="p">{</span>
     <span class="kd">class</span> <span class="nc">Generator</span> <span class="p">{</span> <span class="k">fun</span> <span class="nf">generate</span><span class="p">():</span> <span class="nc">String</span> <span class="p">=</span> <span class="s">"Random String that's not random"</span> <span class="p">}</span>
@@ -256,7 +256,7 @@ It was a no-brainer for me to immediately add these testing libraries to my Kotl
 <p>Writing the test went pretty smooth although the code looks a bit funky.
 When I ran it, I stumbled on this nice error:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.mockito.exceptions.base.MockitoException: 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.mockito.exceptions.base.MockitoException: 
 Cannot mock/spy class be.yannickdeturck.HelloTest$Generator
 Mockito cannot mock/spy because :
  - final class
@@ -270,7 +270,7 @@ If you are interested in how Mockito’s mocking works internally you should che
 <p>I did a bit more research on using Mockito and stumbled upon this <a href="https://github.com/nhaarman/mockito-kotlin" target="_blank">slightly tuned version</a> for Kotlin, wrapping some of Mockito’s functionalities, providing a simpler API.
 I decided to try that one out and replaced my Mockito dependency with it:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
     &lt;groupId&gt;com.nhaarman&lt;/groupId&gt;
     &lt;artifactId&gt;mockito-kotlin&lt;/artifactId&gt;
     &lt;version&gt;1.5.0&lt;/version&gt;
@@ -313,29 +313,29 @@ Note how both defining and using the mocks is a bit more elegant:</p>
 <p>Sadly, we still have the Mockito error.</p>
 
 <p>As I said, in Kotlin all classes and methods are final by default which <a href="https://github.com/mockito/mockito/issues/657" target="_blank">Mockito cannot deal with</a>.
-You would have to explicitly make your classes inheritable using the <code class="highlighter-rouge">open</code> modifier.
+You would have to explicitly make your classes inheritable using the <code class="language-plaintext highlighter-rouge">open</code> modifier.
 Another approach would be to add interfaces to everything.
 Changing your code just for the sake of being able to write good tests is something I’m not exactly fond of, and in this case we are also getting around one of the key features of Kotlin.</p>
 
-<p>Starting from Mockito version <code class="highlighter-rouge">2.0.0</code> it did <a href="https://github.com/mockito/mockito/wiki/What%27s-new-in-Mockito-2#unmockable" target="_blank">became possible to mock final classes</a> although it is an incubating, opt-in feature.
+<p>Starting from Mockito version <code class="language-plaintext highlighter-rouge">2.0.0</code> it did <a href="https://github.com/mockito/mockito/wiki/What%27s-new-in-Mockito-2#unmockable" target="_blank">became possible to mock final classes</a> although it is an incubating, opt-in feature.
 This however, requires a bit of a setup really.
-It basically consists of creating a file called <code class="highlighter-rouge">org.mockito.plugins.MockMaker</code> with as content <code class="highlighter-rouge">mock-maker-inline</code> and placing it under <code class="highlighter-rouge">resources/mockito-extensions</code>.
+It basically consists of creating a file called <code class="language-plaintext highlighter-rouge">org.mockito.plugins.MockMaker</code> with as content <code class="language-plaintext highlighter-rouge">mock-maker-inline</code> and placing it under <code class="language-plaintext highlighter-rouge">resources/mockito-extensions</code>.
 It felt a bit hacky but apparently this is only a temporary way to set it up.
 Although there are supposed to be plans to make it more straightforward.
 <a href="https://twitter.com/hhariri" target="_blank">Hadi Hariri</a> wrote an extensive <a href="http://hadihariri.com/2016/10/04/Mocking-Kotlin-With-Mockito/" target="_blank">blog post</a> on setting this up and you should check it out if you would like to learn more about it.</p>
 
-<p>Good, so this makes it possible to create mocks without having to add the <code class="highlighter-rouge">open</code> modifier to all your classes and methods!
-It does’t appear to be completely compatible with Mockito Kotlin even though the library depends on Mockito version <code class="highlighter-rouge">2.8.9</code>.
+<p>Good, so this makes it possible to create mocks without having to add the <code class="language-plaintext highlighter-rouge">open</code> modifier to all your classes and methods!
+It does’t appear to be completely compatible with Mockito Kotlin even though the library depends on Mockito version <code class="language-plaintext highlighter-rouge">2.8.9</code>.
 Trying to run the test resulted in the following error:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.mockito.exceptions.base.MockitoInitializationException: 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.mockito.exceptions.base.MockitoInitializationException: 
 Could not initialize inline Byte Buddy mock maker. (This mock maker is not supported on Android.)
 </code></pre></div></div>
 
-<p>At the time of writing there is a version <code class="highlighter-rouge">2.0.0</code> in alpha for Mockito Kotlin so I tried to switch to it to see if it changed anything.
-Note that the dependency is a bit different and you need to use the classes in the <code class="highlighter-rouge">com.nhaarman.mockitokotlin2</code> package:</p>
+<p>At the time of writing there is a version <code class="language-plaintext highlighter-rouge">2.0.0</code> in alpha for Mockito Kotlin so I tried to switch to it to see if it changed anything.
+Note that the dependency is a bit different and you need to use the classes in the <code class="language-plaintext highlighter-rouge">com.nhaarman.mockitokotlin2</code> package:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
     &lt;groupId&gt;com.nhaarman.mockitokotlin2&lt;/groupId&gt;
     &lt;artifactId&gt;mockito-kotlin&lt;/artifactId&gt;
     &lt;version&gt;2.0.0-alpha02&lt;/version&gt;
@@ -363,7 +363,7 @@ Adding MockK is as simple as ever as you only have to add the dependency to your
 
 <p>Maven:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
     &lt;groupId&gt;io.mockk&lt;/groupId&gt;
     &lt;artifactId&gt;mockk&lt;/artifactId&gt;
     &lt;version&gt;${mockk.version}&lt;/version&gt;
@@ -373,7 +373,7 @@ Adding MockK is as simple as ever as you only have to add the dependency to your
 
 <p>Gradle:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>testCompile "io.mockk:mockk:${mockkVersion}"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>testCompile "io.mockk:mockk:${mockkVersion}"
 </code></pre></div></div>
 
 <p>The available <a href="http://mockk.io" target="_blank">MockK documentation</a> provides a really nice overview of all the different features with a lot of examples, making it very easy to get started.
@@ -419,11 +419,11 @@ You have the same three parts in which your tests are divided:</p>
 </code></pre></div></div>
 
 <p>Going over the example, everything should feel familiar but more elegant.
-You may however, wonder what the <code class="highlighter-rouge">every { dao.insert(mockedRecord) } just Runs</code> line is doing exactly.
+You may however, wonder what the <code class="language-plaintext highlighter-rouge">every { dao.insert(mockedRecord) } just Runs</code> line is doing exactly.
 By default in MockK, mocks are strict so you need to provide some behaviour for them.
 If we were to omit the line, the test would fail as we would run into the following error:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>io.mockk.MockKException: no answer found for: Dao(#2).insert(mocked String)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>io.mockk.MockKException: no answer found for: Dao(#2).insert(mocked String)
 </code></pre></div></div>
 
 <p>A feature I was immediately fond of as I like to write strict tests.
@@ -432,7 +432,7 @@ Note that you can also define the mock as being a <em>relaxed mock</em> in order
 <div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">dao</span> <span class="p">=</span> <span class="n">mockk</span><span class="p">&lt;</span><span class="nc">Dao</span><span class="p">&gt;(</span><span class="n">relaxed</span> <span class="p">=</span> <span class="k">true</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>Mockito has something similar for verifying with <code class="highlighter-rouge">Mockito.verifyNoMoreInteractions(generator, dao)</code> which I also extensively use to enforce that all calls of mocked objects are verified.
+<p>Mockito has something similar for verifying with <code class="language-plaintext highlighter-rouge">Mockito.verifyNoMoreInteractions(generator, dao)</code> which I also extensively use to enforce that all calls of mocked objects are verified.
 Of course, the above example is only the tip of the iceberg as MockK houses a ton of other features such as annotations to simplify creating mock objects, 
 spying to mix mocks and real objects, partial argument matching, capturing arguments, verification order support, matchers, coroutine mocking support, and so much more.</p>
 

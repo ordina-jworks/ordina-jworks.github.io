@@ -340,7 +340,7 @@ You can set up a specific topic on which you can just send a message and consume
 
 <p>Measuring latency is already more advanced, but every time you experience performance issues, always check your latency because it might be a waste of time to start looking into Kafka errors or your own service when your network connection is acting up.</p>
 
-<p>In order to check if your brokers are up, just execute a <code class="highlighter-rouge">grep java</code> on the brokers.</p>
+<p>In order to check if your brokers are up, just execute a <code class="language-plaintext highlighter-rouge">grep java</code> on the brokers.</p>
 
 <p>Kafka exposes a ton of <a href="https://docs.confluent.io/current/kafka/monitoring.html" target="_blank" rel="noopener noreferrer">JMX metrics</a>, which you can export with Prometheus, the Confluent cloud uses the same mechanism to acquire metrics.</p>
 
@@ -348,11 +348,11 @@ You can set up a specific topic on which you can just send a message and consume
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">kafka.controller:type=KafkaController, name=OfflinePartitionsCount</code> Offline partitions is an actionable metric, as this indicates that a partition has no leader and thus is no longer readable or writeable.</p>
+    <p><code class="language-plaintext highlighter-rouge">kafka.controller:type=KafkaController, name=OfflinePartitionsCount</code> Offline partitions is an actionable metric, as this indicates that a partition has no leader and thus is no longer readable or writeable.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">kafka.server:type=ReplicaManager, name=UnderReplicatedPartitions</code>: Underreplicated partitions is the most important metric, something is cleary wrong. Whenever there are no longer enough replicas of a partition in sync you can no longer produce messages to that topic.
-This corresponds to the configured <code class="highlighter-rouge">min.isr.partitions</code> of a broker.</p>
+    <p><code class="language-plaintext highlighter-rouge">kafka.server:type=ReplicaManager, name=UnderReplicatedPartitions</code>: Underreplicated partitions is the most important metric, something is cleary wrong. Whenever there are no longer enough replicas of a partition in sync you can no longer produce messages to that topic.
+This corresponds to the configured <code class="language-plaintext highlighter-rouge">min.isr.partitions</code> of a broker.</p>
   </li>
   <li>
     <p>It is also important to verify if your brokers have enough resources like: CPU, Bandwidth, Disk, …
@@ -360,24 +360,24 @@ Always monitor your disk usage, always.</p>
   </li>
   <li>
     <p>Other metrics which are pretty important:
-<code class="highlighter-rouge">kafka.controller:type=KafkaController, name=ActiveControllerCount</code>: this indicates wether an <a href="https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals" target="_blank" rel="noopener noreferrer">Active Controller</a> is present.
+<code class="language-plaintext highlighter-rouge">kafka.controller:type=KafkaController, name=ActiveControllerCount</code>: this indicates wether an <a href="https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Controller+Internals" target="_blank" rel="noopener noreferrer">Active Controller</a> is present.
 This is the most important node of your kafka cluster.
 1 = OK, 0 is NOT OK, 2 is VERY NOT OK.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">kafka.server:type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec</code>: Zookeeper disconnects.</p>
+    <p><code class="language-plaintext highlighter-rouge">kafka.server:type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec</code>: Zookeeper disconnects.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">kafka.controller:type=ControllerStats, name=UncleanLeaderElectionsPerSec</code>: the rate at which unclear leader election occurs, though this option is disabled by default.</p>
+    <p><code class="language-plaintext highlighter-rouge">kafka.controller:type=ControllerStats, name=UncleanLeaderElectionsPerSec</code>: the rate at which unclear leader election occurs, though this option is disabled by default.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">kafka.server:type=ReplicaManager, name=IsrShrinksPerSec</code>: When a broker goes down the ISR will shrink, when it comes back it will expand again (<code class="highlighter-rouge">kafka.server:type=ReplicaManager, name=IsrExpandsPerSec</code>).</p>
+    <p><code class="language-plaintext highlighter-rouge">kafka.server:type=ReplicaManager, name=IsrShrinksPerSec</code>: When a broker goes down the ISR will shrink, when it comes back it will expand again (<code class="language-plaintext highlighter-rouge">kafka.server:type=ReplicaManager, name=IsrExpandsPerSec</code>).</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">kafka.server:type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent</code> / <code class="highlighter-rouge">kafka.network:type=SocketServer, name=NetworkProcessorAvgIdlePercent</code> as this verifies how often your request and processor threads are idle.</p>
+    <p><code class="language-plaintext highlighter-rouge">kafka.server:type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent</code> / <code class="language-plaintext highlighter-rouge">kafka.network:type=SocketServer, name=NetworkProcessorAvgIdlePercent</code> as this verifies how often your request and processor threads are idle.</p>
   </li>
   <li>
-    <p>For your consumers an important metric is <code class="highlighter-rouge">records-lag-max</code>, because when this is growing it will indicate that your consumers are lagging behind and can not process the same amount of messages as your producers are producing.</p>
+    <p>For your consumers an important metric is <code class="language-plaintext highlighter-rouge">records-lag-max</code>, because when this is growing it will indicate that your consumers are lagging behind and can not process the same amount of messages as your producers are producing.</p>
   </li>
   <li>
     <p>It is also important to set a performance baseline for your producers and consumers.

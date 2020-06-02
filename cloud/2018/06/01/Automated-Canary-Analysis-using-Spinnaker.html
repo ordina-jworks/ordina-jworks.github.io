@@ -272,7 +272,7 @@ Monitoring and logging will be handled by Stackdriver, which is integrated compl
 
 <p>Our demo application is a Java Spring Boot application, running on an Apache Tomcat server, packaged inside a docker container.
 The docker container runs on Kubernetes managed by Google Cloud Platform (GKE).<br />
-The application exposes an endpoint on <code class="highlighter-rouge">http://localhost:8080</code> and can be run locally by executing <code class="highlighter-rouge">./mvnw spring-boot:run</code>, assuming you have a JRE or JDK (v8+) installed.</p>
+The application exposes an endpoint on <code class="language-plaintext highlighter-rouge">http://localhost:8080</code> and can be run locally by executing <code class="language-plaintext highlighter-rouge">./mvnw spring-boot:run</code>, assuming you have a JRE or JDK (v8+) installed.</p>
 
 <p>The endpoint returns an HTML with a background of Pickle Rick.
 In season three episode three, Rick turns himself into a pickle in an attempt at escaping family therapy.</p>
@@ -315,7 +315,7 @@ Meeseeks can however summon other Meeseeks to help, which could spiral out of co
 
 <p>First of all, the background image changes, which gives a clear visual indication of which version is currently deployed.<br />
 Since using Meeseeks could get out of hand quickly, keeping track of how many times the Meeseeks HTTP endpoint has been hit makes a lot of sense.
-Hence, the blue version prints an extra <code class="highlighter-rouge">Meeseeks</code> in the logs, for every request to the endpoint.</p>
+Hence, the blue version prints an extra <code class="language-plaintext highlighter-rouge">Meeseeks</code> in the logs, for every request to the endpoint.</p>
 
 <p>Using this setup, we should be able to consider logs as a source of information for judging the canary healthiness.</p>
 
@@ -333,7 +333,7 @@ We could use Jenkins or any other build server that uses webhooks, but since our
 
 <p>In the GCP console, open build triggers underneath the Container Registry (GCR) tab.<br />
 Select Github as repository hosting, and select the forked repository to create a trigger for.
-Configure the trigger to activate on any branch, using a <code class="highlighter-rouge">cloudbuild.yaml</code> file located in the root of the repository.</p>
+Configure the trigger to activate on any branch, using a <code class="language-plaintext highlighter-rouge">cloudbuild.yaml</code> file located in the root of the repository.</p>
 <div class="row" style="margin: 0 35% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
 
@@ -370,7 +370,7 @@ gcloud config <span class="nb">set </span>project &lt;PROJECT_NAME&gt;
 </code></pre></div></div>
 
 <p>Find out the latest supported cluster version with the following command:
-<code class="highlighter-rouge">gcloud container get-server-config --zone=$ZONE</code></p>
+<code class="language-plaintext highlighter-rouge">gcloud container get-server-config --zone=$ZONE</code></p>
 
 <p>Create a cluster for your specific zone (e.g. europe-west1-d) and preferred cluster version (v1.10.2-gke.0 or later):</p>
 
@@ -388,7 +388,7 @@ gcloud beta container clusters create spinnaker <span class="se">\</span>
   <span class="nt">--enable-stackdriver-kubernetes</span> <span class="se">\</span>
   <span class="nt">--enable-legacy-authorization</span>
 </code></pre></div></div>
-<p>Make sure <code class="highlighter-rouge">--enable-stackdriver-kubernetes</code> and <code class="highlighter-rouge">--enable-legacy-authorization</code> are passed.</p>
+<p>Make sure <code class="language-plaintext highlighter-rouge">--enable-stackdriver-kubernetes</code> and <code class="language-plaintext highlighter-rouge">--enable-legacy-authorization</code> are passed.</p>
 
 <h3 id="enable-apis">Enable APIs</h3>
 
@@ -401,7 +401,7 @@ gcloud beta container clusters create spinnaker <span class="se">\</span>
 <h3 id="halyard-setup">Halyard setup</h3>
 
 <p>This section complements official documentation with some recommendations and extras.
-Postpone running the <code class="highlighter-rouge">hal deploy apply</code> command until the end of this chapter.</p>
+Postpone running the <code class="language-plaintext highlighter-rouge">hal deploy apply</code> command until the end of this chapter.</p>
 
 <h4 id="basic-spinnaker">Basic Spinnaker</h4>
 
@@ -426,7 +426,7 @@ Postpone running the <code class="highlighter-rouge">hal deploy apply</code> com
     <span class="nt">--ssh-flag</span><span class="o">=</span><span class="s2">"-L 8084:localhost:8084"</span>
 </code></pre></div></div>
 
-<p>Before you perform <code class="highlighter-rouge">hal deploy apply</code>, add the Docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.</p>
+<p>Before you perform <code class="language-plaintext highlighter-rouge">hal deploy apply</code>, add the Docker registry corresponding to your region. In case your project is located in Europe, add the eu.gcr.io registry as illustrated below.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hal config provider docker-registry account add gcr-eu <span class="se">\</span>
     <span class="nt">--address</span> eu.gcr.io <span class="se">\</span>
@@ -440,7 +440,7 @@ hal config provider kubernetes account edit my-k8s-account <span class="nt">--do
 
 <p>Enable Stackdriver access for Spinnaker in <a href="https://console.cloud.google.com/iam-admin/iam">GCP’s IAM settings</a>.</p>
 
-<p>Add the following roles to the member with name <code class="highlighter-rouge">gcs-service-account</code>:</p>
+<p>Add the following roles to the member with name <code class="language-plaintext highlighter-rouge">gcs-service-account</code>:</p>
 <ul>
   <li>Logging Admin</li>
   <li>Monitoring Admin</li>
@@ -448,7 +448,7 @@ hal config provider kubernetes account edit my-k8s-account <span class="nt">--do
 
 <h4 id="automated-canary-analysis">Automated Canary Analysis</h4>
 
-<p>Before you perform <code class="highlighter-rouge">hal deploy apply</code>, enable automated canary analysis.
+<p>Before you perform <code class="language-plaintext highlighter-rouge">hal deploy apply</code>, enable automated canary analysis.
 Follow the guide further down, but first of all, set some variables while still SSH’d in the Halyard VM.
 One of these variables is the Spinnaker bucket automatically created when installing Halyard.
 Look for the right bucket identifier in the GCP GKE buckets dashboard.</p>
@@ -475,7 +475,7 @@ Look for the right bucket identifier in the GCP GKE buckets dashboard.</p>
 <h4 id="authentication">Authentication</h4>
 <p>Sometimes an issue might occur with credentials on the Halyard VM:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>! ERROR Unable to communicate with your Kubernetes cluster: Failure
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>! ERROR Unable to communicate with your Kubernetes cluster: Failure
   executing: GET at: https://35.205.113.166/api/v1/namespaces. Message: Forbidden!
   User gke_spinnaker-demo-184310_europe-west1-d_spinnaker-alpha doesn't have
   permission. namespaces is forbidden: User "client" cannot list namespaces at the
@@ -487,7 +487,7 @@ Look for the right bucket identifier in the GCP GKE buckets dashboard.</p>
 <p>In this case, enable legacy authentication in the GKE UI for the cluster.</p>
 
 <h4 id="cluster-debugging">Cluster Debugging</h4>
-<p>You can monitor deployment locally on your own PC by running <code class="highlighter-rouge">kubectl get pods -w --all-namespaces</code>.
+<p>You can monitor deployment locally on your own PC by running <code class="language-plaintext highlighter-rouge">kubectl get pods -w --all-namespaces</code>.
 For this to work, kubectl needs permissions to talk to the cluster.
 You can use gcloud to populate your kubeconfig file with credentials to access the cluster.
 This can help you to look into specific logs of each Spinnaker pod or follow up on deployments handled by Spinnaker.</p>
@@ -502,7 +502,7 @@ Turn on audit logging: https://cloud.google.com/monitoring/audit-logging &amp; h
 <h3 id="comprehensive-list-of-commands">Comprehensive list of commands</h3>
 
 <p>These are all the commands we have executed in order to get everything set up.
-Fill in the <code class="highlighter-rouge">&lt;PLACEHOLDER&gt;</code> placeholders according to your preferences.</p>
+Fill in the <code class="language-plaintext highlighter-rouge">&lt;PLACEHOLDER&gt;</code> placeholders according to your preferences.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">ZONE</span><span class="o">=</span>&lt;ZONE_NAME&gt;
 <span class="nv">CLUSTER_VERSION</span><span class="o">=</span>&lt;CLUSTER_VERSION&gt;
@@ -701,7 +701,7 @@ In case this is not visualised directly, you can refresh the cache by clicking o
 <h3 id="initial-provisioning">Initial Provisioning</h3>
 
 <p>Under Infrastructure, switch to the Load Balancers view and create a load balancer.<br />
-Fill in the stack, port, target port and type <code class="highlighter-rouge">LoadBalancer</code>.</p>
+Fill in the stack, port, target port and type <code class="language-plaintext highlighter-rouge">LoadBalancer</code>.</p>
 <div class="row" style="margin: 0 auto 0 auto;">
 <div class="col-md-offset-3 col-md-6">
 
@@ -760,7 +760,7 @@ Fill in the stack, port, target port and type <code class="highlighter-rouge">Lo
 <p>Back in the server group section, clicking on the little green chicklet will display container information on the side of the page, including logs of the application.</p>
 
 <p>Let’s do this for PROD as well.<br />
-Follow exactly the same steps as for DEV, except use <code class="highlighter-rouge">prod</code> as Stack instead of <code class="highlighter-rouge">dev</code>.</p>
+Follow exactly the same steps as for DEV, except use <code class="language-plaintext highlighter-rouge">prod</code> as Stack instead of <code class="language-plaintext highlighter-rouge">dev</code>.</p>
 
 <p>Once the PROD load balancer and server group are deployed, we’d like to make sure we never have downtime on PROD.<br />
 We can set up a Traffic Guard, responsible for making sure our production cluster always has active instances.<br />
@@ -818,7 +818,7 @@ We can reuse the existing deployment as a template.</p>
 </div>
 </div>
 
-<p>Change the strategy to <code class="highlighter-rouge">Highlander</code>.</p>
+<p>Change the strategy to <code class="language-plaintext highlighter-rouge">Highlander</code>.</p>
 
 <p>It’s important to change the image being deployed, otherwise, we’d always deploy the image of our existing server group.<br />
 Go down to the Container section and select the Image from Trigger.</p>
@@ -880,7 +880,7 @@ This stage will allow us to look for the image we deployed to DEV, and pass that
 
 <p>Add a new Deploy stage to deploy the new DEV version into production.<br />
 Under deploy configuration, add a server group based on the one in DEV.<br />
-Make sure to set the right load balancer, i.e. <code class="highlighter-rouge">spinnakedemo-prod</code>.</p>
+Make sure to set the right load balancer, i.e. <code class="language-plaintext highlighter-rouge">spinnakedemo-prod</code>.</p>
 <div class="row" style="margin: 0 25% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
 
@@ -906,7 +906,7 @@ Make sure to set the right load balancer, i.e. <code class="highlighter-rouge">s
 
 <p>Since this is a new version we’d like to push to production, it would be a good idea to build in some safety measures to protect us from unexpected failure.
 Using a canary release strategy allows us to limit the blast radius of potential issues that might arrise.<br />
-In the Basic Settings section, set the stack as <code class="highlighter-rouge">prod</code> and the detail as <code class="highlighter-rouge">canary</code> to indicate that this deployment is our canary deployment. Also use the <code class="highlighter-rouge">None</code> strategy, since we just want to deploy this canary server group next to the one already active in production.</p>
+In the Basic Settings section, set the stack as <code class="language-plaintext highlighter-rouge">prod</code> and the detail as <code class="language-plaintext highlighter-rouge">canary</code> to indicate that this deployment is our canary deployment. Also use the <code class="language-plaintext highlighter-rouge">None</code> strategy, since we just want to deploy this canary server group next to the one already active in production.</p>
 <div class="row" style="margin: 0 25% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
 
@@ -934,7 +934,7 @@ Once that’s done, your cluster view should look like this:</p>
 
 </div>
 </div>
-<p>Notice the <code class="highlighter-rouge">V001</code> on DEV, it has replaced the existing manual server group deployment using the highlander strategy.</p>
+<p>Notice the <code class="language-plaintext highlighter-rouge">V001</code> on DEV, it has replaced the existing manual server group deployment using the highlander strategy.</p>
 
 <p>Currently our canary is registered under the same load balancer as our production cluster. This means traffic is split between the canary and production.<br />
 We could test the canary manually by going to the ingress endpoint of the load balancer as we did on DEV.
@@ -978,7 +978,7 @@ Since comparing a fresh deployment with an old, potentially degraded deployment,
 </div>
 </div>
 
-<p>Add <code class="highlighter-rouge">baseline</code> as detail, and keep the strategy as <code class="highlighter-rouge">None</code>.</p>
+<p>Add <code class="language-plaintext highlighter-rouge">baseline</code> as detail, and keep the strategy as <code class="language-plaintext highlighter-rouge">None</code>.</p>
 <div class="row" style="margin: 0 25% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
 
@@ -1003,7 +1003,7 @@ Therefore, when switching to Meeseeks, we also write Meeseeks in the logs to kee
 <p>GCP uses Stackdriver for logging and monitoring, so if we’d like to use the logs as a source of information for canary analysis, we should make a Stackdriver metric using the Meeseeks logs.<br />
 In the GCP left-hand menu, under the Stackdriver section, you can find Logging and drill down to Logs-based metrics.<br />
 Add a new metric using the following filter, replacing the location and project_id by the zone name and project id from earlier in this guide:
-<code class="highlighter-rouge">(resource.labels.cluster_name="spinnaker" AND resource.labels.location="europe-west1-d" AND resource.labels.namespace_name="default" AND resource.labels.project_id="spinnaker-demo-184310" AND textPayload:"Meeseeks”)</code></p>
+<code class="language-plaintext highlighter-rouge">(resource.labels.cluster_name="spinnaker" AND resource.labels.location="europe-west1-d" AND resource.labels.namespace_name="default" AND resource.labels.project_id="spinnaker-demo-184310" AND textPayload:"Meeseeks”)</code></p>
 
 <div class="row" style="margin: 0 65% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
@@ -1029,7 +1029,7 @@ Add a new metric using the following filter, replacing the location and project_
 <p>Back in Spinnaker, head over to the Canary Configs view under Delivery.<br />
 Create a new Canary Config called Demo-config, and add a filter template.<br />
 The template will filter based on the replication controller of the server group:<br />
-<code class="highlighter-rouge">resource.labels.pod_name:"${scope}"</code></p>
+<code class="language-plaintext highlighter-rouge">resource.labels.pod_name:"${scope}"</code></p>
 <div class="row" style="margin: 0 25% 0 auto;">
 <div class="col-md-offset-3 col-md-6">
 
@@ -1221,8 +1221,8 @@ As long as we keep deploying green versions with minor changes to other parts of
 <p>For a canary test to be successful, we need data.
 The more data our test can gather, the more informed the decision will be.
 In our demo scenario, we can continuously refresh the page to generate more load and more Meeseeks in the logs, but we can also use a script for that.
-In the root of the demo repository, a script called <code class="highlighter-rouge">randomload.sh</code> can be used to generate calls to the PROD ingress endpoint at a random interval.<br />
-The script uses <a href="https://httpie.org/">HTTPie</a> to make calls, but you can also replace it with <code class="highlighter-rouge">curl</code> commands.
+In the root of the demo repository, a script called <code class="language-plaintext highlighter-rouge">randomload.sh</code> can be used to generate calls to the PROD ingress endpoint at a random interval.<br />
+The script uses <a href="https://httpie.org/">HTTPie</a> to make calls, but you can also replace it with <code class="language-plaintext highlighter-rouge">curl</code> commands.
 Also, make sure you change the IP address in your forked repository’s file.</p>
 
 <h3 id="success">Success</h3>

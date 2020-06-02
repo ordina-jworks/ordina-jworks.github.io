@@ -206,8 +206,8 @@ When we decide that it is time to decompose our modulith because of numerous rea
 <p>When we inspect the dependency module, we see that there is a lot coming out-of-the-box with the Spring Cloud Starter.
 If you are providing your own resilience or load balancing library you can just add the necessary dependencies you need.
 Be aware that the syntax is different between using the Spring wrapper or OpenFeign itself.
-To let your Spring context know that it has to search for OpenFeign clients, we just add <code class="highlighter-rouge">@EnableFeignClients</code>. 
-You can add this annotation to any class annotated with <code class="highlighter-rouge">@Configuration</code>, <code class="highlighter-rouge">@SpringBootApplication</code> or <code class="highlighter-rouge">@SpringCloudApplication</code>
+To let your Spring context know that it has to search for OpenFeign clients, we just add <code class="language-plaintext highlighter-rouge">@EnableFeignClients</code>. 
+You can add this annotation to any class annotated with <code class="language-plaintext highlighter-rouge">@Configuration</code>, <code class="language-plaintext highlighter-rouge">@SpringBootApplication</code> or <code class="language-plaintext highlighter-rouge">@SpringCloudApplication</code>
 After we’ve enabled OpenFeign on our classpath, we can start adding OpenFeign clients. 
 When defining these clients, we have two solutions you can choose from. 
 The OpenFeign library, which provides us with the basics but very customizable OpenFeign clients, and the Spring library, that adds a few extra libraries to it for cloud tooling.</p>
@@ -221,10 +221,10 @@ The OpenFeign library, which provides us with the basics but very customizable O
 <span class="o">}</span></code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">@FeignClient</code>: is the annotation for Spring to recognize OpenFeign clients, OpenFeign clients have to be interfaces as it is self-declarative.</li>
-  <li><code class="highlighter-rouge">value/name</code>: is the name of the Feign client that will be used to create a <a href="https://github.com/Netflix/ribbon" target="_blank">Ribbon</a> load balancer which can then be linked to the target application using service discovery or a fixed list of servers. 
+  <li><code class="language-plaintext highlighter-rouge">@FeignClient</code>: is the annotation for Spring to recognize OpenFeign clients, OpenFeign clients have to be interfaces as it is self-declarative.</li>
+  <li><code class="language-plaintext highlighter-rouge">value/name</code>: is the name of the Feign client that will be used to create a <a href="https://github.com/Netflix/ribbon" target="_blank">Ribbon</a> load balancer which can then be linked to the target application using service discovery or a fixed list of servers. 
 You could also use the url attribute to point your client to the target application when you’re not using Ribbon.</li>
-  <li><code class="highlighter-rouge">fallback</code>: if <a href="https://github.com/Netflix/Hystrix" target="_blank">Hystrix</a> is enabled, you can implement a fallback method.</li>
+  <li><code class="language-plaintext highlighter-rouge">fallback</code>: if <a href="https://github.com/Netflix/Hystrix" target="_blank">Hystrix</a> is enabled, you can implement a fallback method.</li>
 </ul>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Component</span>
@@ -236,8 +236,8 @@ You could also use the url attribute to point your client to the target applicat
 <span class="o">}</span></code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">configuration</code>: is for extra configuration like logging, interceptors, etc… more on that below.</li>
-  <li><code class="highlighter-rouge">@RequestMapping</code>: Spring Cloud adds support for Spring MVC annotations and for using the same <code class="highlighter-rouge">HttpMessageConverter's</code> used by default in Spring Web.</li>
+  <li><code class="language-plaintext highlighter-rouge">configuration</code>: is for extra configuration like logging, interceptors, etc… more on that below.</li>
+  <li><code class="language-plaintext highlighter-rouge">@RequestMapping</code>: Spring Cloud adds support for Spring MVC annotations and for using the same <code class="language-plaintext highlighter-rouge">HttpMessageConverter's</code> used by default in Spring Web.</li>
 </ul>
 
 <h2 id="openfeign">OpenFeign</h2>
@@ -250,8 +250,8 @@ You could also use the url attribute to point your client to the target applicat
 <span class="o">}</span></code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">@RequestLine</code>: is defining which verb and which URI path you are communicating to.</li>
-  <li><code class="highlighter-rouge">@Headers</code>: is defining the request headers that come with the request.</li>
+  <li><code class="language-plaintext highlighter-rouge">@RequestLine</code>: is defining which verb and which URI path you are communicating to.</li>
+  <li><code class="language-plaintext highlighter-rouge">@Headers</code>: is defining the request headers that come with the request.</li>
 </ul>
 
 <h1 id="the-builder">The builder</h1>
@@ -260,7 +260,7 @@ When we want to customize, we just add our own customization to the builder.
 To see the builder at work, let’s create a bean of our client and return a Feign builder.
 It’s important to let the builder know which interface he has to target for communication. 
 The second parameter is most likely the base url where all the requests begin. 
-Get your URLs from the yml or properties file with the help of <code class="highlighter-rouge">@Value</code>.</p>
+Get your URLs from the yml or properties file with the help of <code class="language-plaintext highlighter-rouge">@Value</code>.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Value</span><span class="o">(</span><span class="s">"${base.url}"</span><span class="o">)</span>
 <span class="kd">private</span> <span class="nc">String</span> <span class="n">baseServerUrl</span><span class="o">;</span>
@@ -272,8 +272,8 @@ Get your URLs from the yml or properties file with the help of <code class="high
 <span class="o">}</span></code></pre></figure>
 
 <h1 id="different-kinds-of-http-clients">Different kinds of HTTP clients</h1>
-<p>The default HTTP client of OpenFeign uses <code class="highlighter-rouge">HttpUrlConnection</code> to execute its HTTP requests.
-You can configure another client (<code class="highlighter-rouge">ApacheHttpClient</code>, <code class="highlighter-rouge">OkHttpClient</code>, …) as follows:</p>
+<p>The default HTTP client of OpenFeign uses <code class="language-plaintext highlighter-rouge">HttpUrlConnection</code> to execute its HTTP requests.
+You can configure another client (<code class="language-plaintext highlighter-rouge">ApacheHttpClient</code>, <code class="language-plaintext highlighter-rouge">OkHttpClient</code>, …) as follows:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
 <span class="nc">AuthClient</span> <span class="nf">authClient</span><span class="o">()</span> <span class="o">{</span>
@@ -293,7 +293,7 @@ You can configure another client (<code class="highlighter-rouge">ApacheHttpClie
 </ul>
 
 <h2 id="apachehttpclient">ApacheHttpClient</h2>
-<p>The advantage of using <code class="highlighter-rouge">ApacheHttpClient</code> over the default client is that <code class="highlighter-rouge">ApacheHttpClient</code> sends more headers with the request, eg. <code class="highlighter-rouge">Content-Length</code>, which some servers expect.</p>
+<p>The advantage of using <code class="language-plaintext highlighter-rouge">ApacheHttpClient</code> over the default client is that <code class="language-plaintext highlighter-rouge">ApacheHttpClient</code> sends more headers with the request, eg. <code class="language-plaintext highlighter-rouge">Content-Length</code>, which some servers expect.</p>
 
 <blockquote>
   <p>Aside from these clients, there are a few more to research if you want : <a href="https://github.com/OpenFeign/feign#ribbon" target="_blank">OpenFeign clients</a></p>
@@ -301,8 +301,8 @@ You can configure another client (<code class="highlighter-rouge">ApacheHttpClie
 
 <h1 id="enabling-mutual-ssl">Enabling Mutual SSL</h1>
 <p>Mutual SSL is supported in all of these clients.
-To achieve this in an <code class="highlighter-rouge">ApacheHttpClient</code>, we have to create an <code class="highlighter-rouge">HttpClient</code> that builds the SSL context.
-When the SSL context is valid, we wrap this inside an <code class="highlighter-rouge">ApacheHttpClient</code> for being compliant with OpenFeign.</p>
+To achieve this in an <code class="language-plaintext highlighter-rouge">ApacheHttpClient</code>, we have to create an <code class="language-plaintext highlighter-rouge">HttpClient</code> that builds the SSL context.
+When the SSL context is valid, we wrap this inside an <code class="language-plaintext highlighter-rouge">ApacheHttpClient</code> for being compliant with OpenFeign.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">ApacheHttpClient</span> <span class="nf">createHttpClient</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">SSLException</span> <span class="o">{</span>
     <span class="nc">HttpClient</span> <span class="n">httpClient</span> <span class="o">=</span> <span class="nc">HttpClients</span><span class="o">.</span><span class="na">custom</span><span class="o">()</span>
@@ -327,13 +327,13 @@ When we want to use the retryer of OpenFeign, we got three properties we can set
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">period</code>: How long it takes before the retry is triggered</p>
+    <p><code class="language-plaintext highlighter-rouge">period</code>: How long it takes before the retry is triggered</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">maxPeriod</code>: That’s what the maximum is of how long it can take before a retry is triggered</p>
+    <p><code class="language-plaintext highlighter-rouge">maxPeriod</code>: That’s what the maximum is of how long it can take before a retry is triggered</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">maxAttempts</code>: How many retries may the client trigger before it fails</p>
+    <p><code class="language-plaintext highlighter-rouge">maxAttempts</code>: How many retries may the client trigger before it fails</p>
   </li>
 </ul>
 
@@ -406,9 +406,9 @@ If you ever have to integrate with SOAP third party APIs, OpenFeign supports it.
 There is a very detailed explanation on how to use it in the <a href="https://github.com/OpenFeign/feign#jaxb" target="_blank">documentation</a> of OpenFeign.</p>
 
 <h1 id="handling-errors-with-the-error-decoder">Handling errors with the error decoder</h1>
-<p>The OpenFeign API provides an <code class="highlighter-rouge">ErrorDecoder</code> to handle erroneous responses from servers.
+<p>The OpenFeign API provides an <code class="language-plaintext highlighter-rouge">ErrorDecoder</code> to handle erroneous responses from servers.
 Since there are many kind of errors we can get, we want a place where we can handle each one of them accordingly. 
-An OpenFeign <code class="highlighter-rouge">ErrorDecoder</code> must be added to the configuration of the client object as you can see in the code below.</p>
+An OpenFeign <code class="language-plaintext highlighter-rouge">ErrorDecoder</code> must be added to the configuration of the client object as you can see in the code below.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
 <span class="nc">MyClient</span> <span class="nf">myClient</span><span class="o">()</span> <span class="o">{</span>
@@ -417,15 +417,15 @@ An OpenFeign <code class="highlighter-rouge">ErrorDecoder</code> must be added t
            <span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="nc">MyClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;);</span>
 <span class="o">}</span></code></pre></figure>
 
-<p>Rather than throwing an exception in the <code class="highlighter-rouge">decode</code> method of the <code class="highlighter-rouge">ErrorDecoder</code>, you return an exception to Feign and Feign will throw it for you.
-The default error decoder <code class="highlighter-rouge">ErrorDecoder.Default</code> always throws a <code class="highlighter-rouge">FeignException</code>.
-The problem with ending up with a <code class="highlighter-rouge">FeignException</code> is that it does not contain a lot of structure. 
-It is a plain <code class="highlighter-rouge">RuntimeException</code> which only contains a message with a stringified response body. 
-No way of interpreting that exception to rethrow a more functional exception eg. <code class="highlighter-rouge">UserNotFoundException</code>.</p>
+<p>Rather than throwing an exception in the <code class="language-plaintext highlighter-rouge">decode</code> method of the <code class="language-plaintext highlighter-rouge">ErrorDecoder</code>, you return an exception to Feign and Feign will throw it for you.
+The default error decoder <code class="language-plaintext highlighter-rouge">ErrorDecoder.Default</code> always throws a <code class="language-plaintext highlighter-rouge">FeignException</code>.
+The problem with ending up with a <code class="language-plaintext highlighter-rouge">FeignException</code> is that it does not contain a lot of structure. 
+It is a plain <code class="language-plaintext highlighter-rouge">RuntimeException</code> which only contains a message with a stringified response body. 
+No way of interpreting that exception to rethrow a more functional exception eg. <code class="language-plaintext highlighter-rouge">UserNotFoundException</code>.</p>
 
 <h2 id="error-decoder">Error decoder</h2>
 <p>To handle the errors, we have to look at the structure of these errors. 
-From that structure, we build up our own exception and throw it so the <code class="highlighter-rouge">ControllerAdvice</code> class can handle our exception.</p>
+From that structure, we build up our own exception and throw it so the <code class="language-plaintext highlighter-rouge">ControllerAdvice</code> class can handle our exception.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomErrorDecoder</span> <span class="kd">implements</span> <span class="nc">ErrorDecoder</span> <span class="o">{</span>
     <span class="nd">@Override</span>
@@ -464,7 +464,7 @@ From that structure, we build up our own exception and throw it so the <code cla
 
 <div class="alert alert-danger" role="alert"><i class="fa fa-exclamation-circle"></i> <b>Warning:</b> 
 Working with checked exceptions and Feign is a bit tricky for several reasons.
-Returning a checked exception is possible in the <code class="highlighter-rouge">ErrorDecoder</code>, but to avoid Java’s <code class="highlighter-rouge">UndeclaredThrowableException</code>, you’ll have to add it to the method signature in the Feign interface. 
+Returning a checked exception is possible in the <code class="language-plaintext highlighter-rouge">ErrorDecoder</code>, but to avoid Java’s <code class="language-plaintext highlighter-rouge">UndeclaredThrowableException</code>, you’ll have to add it to the method signature in the Feign interface. 
 Doing this however, causes Sonar to complain because there’s no actual code which throws that exception.
 </div>
 

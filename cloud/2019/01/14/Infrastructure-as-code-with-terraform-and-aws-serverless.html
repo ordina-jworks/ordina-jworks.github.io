@@ -258,11 +258,11 @@ You are welcome to follow along by cloning the repository that I linked to in th
 <p>The main things you’ll be configuring with Terraform are resources.
 Resources are the components of your application infrastructure.
 E.g: a Lambda Function, an API Gateway Deployment, a DynamoDB database, …
-A resource is defined by using the keyword <code class="highlighter-rouge">resource</code> followed by the <code class="highlighter-rouge">type</code> and the <code class="highlighter-rouge">name</code>.
+A resource is defined by using the keyword <code class="language-plaintext highlighter-rouge">resource</code> followed by the <code class="language-plaintext highlighter-rouge">type</code> and the <code class="language-plaintext highlighter-rouge">name</code>.
 The name can be arbitrarily chosen.
 The type is fixed.
 For example:
-<code class="highlighter-rouge">resource "aws_dynamodb_table" "codingtips-dynamodb-table"</code></p>
+<code class="language-plaintext highlighter-rouge">resource "aws_dynamodb_table" "codingtips-dynamodb-table"</code></p>
 
 <p>To follow along with this blog post you have to know two basic Terraform commands.</p>
 
@@ -285,10 +285,10 @@ However should you want to start over, you can remove all the existing infrastru
 No worries, you will still have all the infrastructure neatly described on your machine because you are using Infrastructure as Code.</p>
 
 <p>We’ll put all infrastructure that is defined using Terraform in the same folder.
-The files need to have a <code class="highlighter-rouge">.tf</code> extension.</p>
+The files need to have a <code class="language-plaintext highlighter-rouge">.tf</code> extension.</p>
 
 <h1 id="general">General</h1>
-<p>Let’s start out by creating a file <code class="highlighter-rouge">general.tf</code>.</p>
+<p>Let’s start out by creating a file <code class="language-plaintext highlighter-rouge">general.tf</code>.</p>
 
 <pre><code class="language-hcl-terraform">provider "aws" {
   region = "eu-west-1"
@@ -299,13 +299,13 @@ variable "lambda_version"     { default = "1.0.0"}
 variable "s3_bucket"          { default = "codingtips-node-bucket"}
 </code></pre>
 
-<p>The <code class="highlighter-rouge">provider</code> block specifies that we are deploying on AWS.
+<p>The <code class="language-plaintext highlighter-rouge">provider</code> block specifies that we are deploying on AWS.
 You also have the possibility to mention credentials that will be used for deploying here.
-If you have correctly set up the AWS CLI on your machine there will be default credentials in your <code class="highlighter-rouge">.aws</code> folder.
+If you have correctly set up the AWS CLI on your machine there will be default credentials in your <code class="language-plaintext highlighter-rouge">.aws</code> folder.
 If no credentials are specified, Terraform will use these default credentials.</p>
 
 <p>Variables have a name which we can reference from anywhere in our Terraform configuration. 
-For example we could reference the <code class="highlighter-rouge">s3_bucket</code> variable with <code class="highlighter-rouge">${var.s3_bucket)</code>.
+For example we could reference the <code class="language-plaintext highlighter-rouge">s3_bucket</code> variable with <code class="language-plaintext highlighter-rouge">${var.s3_bucket)</code>.
 This is handy when you are using the same variable in multiple places.
 I will not use too many variables throughout this blog post since that will add more references to your Terraform configuration and I want it to be as clear as possible.</p>
 
@@ -318,7 +318,7 @@ I will not use too many variables throughout this blog post since that will add 
 <p>Let’s start with the basis.
 Where will all our coding tips be stored? 
 That’s right, in the database.
-This database is part of our infrastructure and will be defined in a file I named <code class="highlighter-rouge">dynamo.tf</code>.</p>
+This database is part of our infrastructure and will be defined in a file I named <code class="language-plaintext highlighter-rouge">dynamo.tf</code>.</p>
 
 <pre><code class="language-hcl-terraform">resource "aws_dynamodb_table" "codingtips-dynamodb-table" {
   name = "CodingTips"
@@ -352,7 +352,7 @@ All items with the same partition key value are stored together, in sorted order
 – from AWS docs: <a target="_blank" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html">DynamoDB Core Components</a></p>
 </blockquote>
 
-<p>From the attribute definitions in <code class="highlighter-rouge">dynamo.tf</code> it is clear that <code class="highlighter-rouge">Author</code> (<code class="highlighter-rouge">S</code>) is a string and <code class="highlighter-rouge">Date</code> (<code class="highlighter-rouge">N</code>) should be a number.</p>
+<p>From the attribute definitions in <code class="language-plaintext highlighter-rouge">dynamo.tf</code> it is clear that <code class="language-plaintext highlighter-rouge">Author</code> (<code class="language-plaintext highlighter-rouge">S</code>) is a string and <code class="language-plaintext highlighter-rouge">Date</code> (<code class="language-plaintext highlighter-rouge">N</code>) should be a number.</p>
 
 <h1 id="iam">IAM</h1>
 <div style="text-align: center;">
@@ -417,29 +417,29 @@ EOF
 }
 </code></pre>
 
-<p>In the example above, the first resource that is defined is an <code class="highlighter-rouge">aws_iam_role</code>.
+<p>In the example above, the first resource that is defined is an <code class="language-plaintext highlighter-rouge">aws_iam_role</code>.
 This is the role that we will later give to our Lambda Functions.</p>
 
-<p>We then create the <code class="highlighter-rouge">aws_iam_role_policy</code> resource which we link to the <code class="highlighter-rouge">aws_iam_role</code>.
-The first <code class="highlighter-rouge">aws_iam_role_policy</code> is giving this role permission to invoke any action on the specified DynamoDB resource.
-The second <code class="highlighter-rouge">role_policy</code> allows a resource with this role to send logs to CloudWatch.</p>
+<p>We then create the <code class="language-plaintext highlighter-rouge">aws_iam_role_policy</code> resource which we link to the <code class="language-plaintext highlighter-rouge">aws_iam_role</code>.
+The first <code class="language-plaintext highlighter-rouge">aws_iam_role_policy</code> is giving this role permission to invoke any action on the specified DynamoDB resource.
+The second <code class="language-plaintext highlighter-rouge">role_policy</code> allows a resource with this role to send logs to CloudWatch.</p>
 
 <p>A couple of things to notice:</p>
 <ul>
-  <li>The <code class="highlighter-rouge">aws_iam_role</code> and the <code class="highlighter-rouge">aws_iam_role_policy</code> are connected by the <code class="highlighter-rouge">role</code> argument of the <code class="highlighter-rouge">role_policy</code> resource</li>
-  <li>In the <code class="highlighter-rouge">statement</code> attribute of the <code class="highlighter-rouge">aws_iam_role_policy</code> we grant (<code class="highlighter-rouge">Effect</code> attr.) permission to do some actions (<code class="highlighter-rouge">Action</code> attr.) on a certain resource (<code class="highlighter-rouge">Resource</code> attr.)</li>
+  <li>The <code class="language-plaintext highlighter-rouge">aws_iam_role</code> and the <code class="language-plaintext highlighter-rouge">aws_iam_role_policy</code> are connected by the <code class="language-plaintext highlighter-rouge">role</code> argument of the <code class="language-plaintext highlighter-rouge">role_policy</code> resource</li>
+  <li>In the <code class="language-plaintext highlighter-rouge">statement</code> attribute of the <code class="language-plaintext highlighter-rouge">aws_iam_role_policy</code> we grant (<code class="language-plaintext highlighter-rouge">Effect</code> attr.) permission to do some actions (<code class="language-plaintext highlighter-rouge">Action</code> attr.) on a certain resource (<code class="language-plaintext highlighter-rouge">Resource</code> attr.)</li>
   <li>A resource is referenced by its <em>ARN</em> or <em>Amazon Resource Name</em> which uniquely identifies this resource on AWS</li>
-  <li>There are two ways to specify an <code class="highlighter-rouge">aws_iam_role_policy</code>:
+  <li>There are two ways to specify an <code class="language-plaintext highlighter-rouge">aws_iam_role_policy</code>:
     <ul>
       <li>using the <em>until EOF</em> syntax (like I did here)</li>
-      <li>using a separate Terraform <code class="highlighter-rouge">aws_iam_policy_document</code> element that is coupled to the <code class="highlighter-rouge">aws_iam_role_policy</code></li>
+      <li>using a separate Terraform <code class="language-plaintext highlighter-rouge">aws_iam_policy_document</code> element that is coupled to the <code class="language-plaintext highlighter-rouge">aws_iam_role_policy</code></li>
     </ul>
   </li>
-  <li>The <code class="highlighter-rouge">dynamodb-lambda-policy</code> allows all actions on the specified DynamoDB resource because under the <code class="highlighter-rouge">Action</code> attribute it states <code class="highlighter-rouge">dynamodb:*</code>
+  <li>The <code class="language-plaintext highlighter-rouge">dynamodb-lambda-policy</code> allows all actions on the specified DynamoDB resource because under the <code class="language-plaintext highlighter-rouge">Action</code> attribute it states <code class="language-plaintext highlighter-rouge">dynamodb:*</code>
 You could make this more restricted and mention actions like</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"dynamodb:Scan", "dynamodb:BatchWriteItem","dynamodb:PutItem"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"dynamodb:Scan", "dynamodb:BatchWriteItem","dynamodb:PutItem"
 </code></pre></div></div>
 
 <h1 id="lambda-functions">Lambda Functions</h1>
@@ -449,15 +449,15 @@ You could make this more restricted and mention actions like</li>
 </div>
 
 <p>There are two Lambda Functions that are part of this application.
-The first Lambda is used to get or retrieve the coding tips from the database further referenced as the <code class="highlighter-rouge">getLambda</code>.
-The second Lambda is used to post or send the coding tips to the database further referenced as the <code class="highlighter-rouge">postlambda</code>.</p>
+The first Lambda is used to get or retrieve the coding tips from the database further referenced as the <code class="language-plaintext highlighter-rouge">getLambda</code>.
+The second Lambda is used to post or send the coding tips to the database further referenced as the <code class="language-plaintext highlighter-rouge">postlambda</code>.</p>
 
 <p>I am not going to copy paste the code of the Lambda Functions in here.
 You can check it out in the repository linked to this blog 
 (GitLab repository: <a href="https://gitlab.com/nxtra/codingtips-blog" target="_blank" rel="noopener noreferrer">https://gitlab.com/nxtra/codingtips-blog</a>).</p>
 
-<p>Here I will demonstrate the example of the <code class="highlighter-rouge">getLambda</code> function.
-The <code class="highlighter-rouge">postLambda</code> is deployed in the same way and you can find the Terraform definitions in the Git repository.
+<p>Here I will demonstrate the example of the <code class="language-plaintext highlighter-rouge">getLambda</code> function.
+The <code class="language-plaintext highlighter-rouge">postLambda</code> is deployed in the same way and you can find the Terraform definitions in the Git repository.
 A Lambda Function is a little different from the other infrastructure we defined here.
 Not only do we need a Lambda Function as infrastructure.
 We also need to specify the code that runs in this Lambda Function.
@@ -465,7 +465,7 @@ But where will AWS find that specific code when deploying the Lambda Function?
 They don’t have access to your local machine, have they?
 That is why you first need to ship your code to a S3 Bucket on AWS where it can be found when your Function is being deployed.</p>
 
-<p>That also means creating an S3 Bucket, which you can do with this command when you want it in region <code class="highlighter-rouge">eu-west-1</code> (Ireland):</p>
+<p>That also means creating an S3 Bucket, which you can do with this command when you want it in region <code class="language-plaintext highlighter-rouge">eu-west-1</code> (Ireland):</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3api create-bucket <span class="nt">--bucket</span> codingtips-node-bucket <span class="nt">--region</span> eu-west-1 <span class="nt">--create-bucket-configuration</span> <span class="nv">LocationConstraint</span><span class="o">=</span>eu-west-1
 </code></pre></div></div>
 
@@ -477,7 +477,7 @@ That is why you first need to ship your code to a S3 Bucket on AWS where it can 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">cp </span>getLambda.zip s3://codingtips-node-bucket/v1.0.0/getLambda.zip
 </code></pre></div></div>
 
-<p>Mind that I am sending it to a bucket named <code class="highlighter-rouge">codingtips-node-bucket</code> in a folder <code class="highlighter-rouge">v1.0.0</code> with filename <code class="highlighter-rouge">getLambda.zip</code>.</p>
+<p>Mind that I am sending it to a bucket named <code class="language-plaintext highlighter-rouge">codingtips-node-bucket</code> in a folder <code class="language-plaintext highlighter-rouge">v1.0.0</code> with filename <code class="language-plaintext highlighter-rouge">getLambda.zip</code>.</p>
 
 <p>Okay, the code is where it needs to be.
 Now let’s see how we specify these functions using Terraform.</p>
@@ -514,8 +514,8 @@ resource "aws_lambda_permission" "api-gateway-invoke-get-lambda" {
 <ul>
   <li>Notice that we tell Terraform the S3 Bucket and directory to look for the code</li>
   <li>We specify the runtime and memory for this Lambda Function</li>
-  <li><code class="highlighter-rouge">index.handler</code> points to the file and function where to enter the code</li>
-  <li>The <code class="highlighter-rouge">aws_lambda_permission</code> resource is the permission that states that this Lambda Function may be invoked by the API Gateway that we created</li>
+  <li><code class="language-plaintext highlighter-rouge">index.handler</code> points to the file and function where to enter the code</li>
+  <li>The <code class="language-plaintext highlighter-rouge">aws_lambda_permission</code> resource is the permission that states that this Lambda Function may be invoked by the API Gateway that we created</li>
 </ul>
 
 <h1 id="api-gateway">API Gateway</h1>
@@ -530,7 +530,7 @@ I hand Terraform a <em>Swagger</em> definition of my API.
 You can also do this without Swagger, but then you will have to specify a lot more resources.</p>
 
 <p>The Swagger API definition looks as follows:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>swagger: '2.0'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>swagger: '2.0'
 info:
   version: '1.0'
   title: "CodingTips"
@@ -596,13 +596,13 @@ definitions:
   <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/swagger.png" width="60%" height="60%" />
 </div>
 
-<p>There is only one AWS specific thing in the Swagger specification above and that is <code class="highlighter-rouge">x-amazon-apigateway-integration</code>.
+<p>There is only one AWS specific thing in the Swagger specification above and that is <code class="language-plaintext highlighter-rouge">x-amazon-apigateway-integration</code>.
 This is specifying the details of how the API is integrating with the backend.</p>
 <ul>
-  <li>Remark that this is always a <code class="highlighter-rouge">POST</code> even if the HTTP method of the resource path is a <code class="highlighter-rouge">GET</code></li>
-  <li><code class="highlighter-rouge">aws_proxy</code> means that the request is passed to the Lambda Function without manipulation</li>
-  <li><code class="highlighter-rouge">when_no_match</code> passes the request body to the backend without tranforming it when no <code class="highlighter-rouge">requestTemplate</code> is specified for the <code class="highlighter-rouge">Content-Type</code></li>
-  <li><code class="highlighter-rouge">uri</code> is referencing a variable eg. <code class="highlighter-rouge">${get_lambda_arn}</code> that Terraform passes to the Swagger definition.
+  <li>Remark that this is always a <code class="language-plaintext highlighter-rouge">POST</code> even if the HTTP method of the resource path is a <code class="language-plaintext highlighter-rouge">GET</code></li>
+  <li><code class="language-plaintext highlighter-rouge">aws_proxy</code> means that the request is passed to the Lambda Function without manipulation</li>
+  <li><code class="language-plaintext highlighter-rouge">when_no_match</code> passes the request body to the backend without tranforming it when no <code class="language-plaintext highlighter-rouge">requestTemplate</code> is specified for the <code class="language-plaintext highlighter-rouge">Content-Type</code></li>
+  <li><code class="language-plaintext highlighter-rouge">uri</code> is referencing a variable eg. <code class="language-plaintext highlighter-rouge">${get_lambda_arn}</code> that Terraform passes to the Swagger definition.
 We’ll see this in a minute.</li>
 </ul>
 
@@ -638,33 +638,33 @@ output "url" {
 </code></pre>
 
 <ul>
-  <li>We start by mentioning the <code class="highlighter-rouge">aws_api_gateway_rest_api</code> resource.
+  <li>We start by mentioning the <code class="language-plaintext highlighter-rouge">aws_api_gateway_rest_api</code> resource.
 It does what is says and provides an API Gateway REST API.
     <ul>
       <li>body references the Swagger file</li>
     </ul>
   </li>
-  <li>The <code class="highlighter-rouge">template_file</code> datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
+  <li>The <code class="language-plaintext highlighter-rouge">template_file</code> datasource allows Terraform to use information that is not defined in Terraform (Swagger in our case)
     <ul>
-      <li>Variables are passed to this <code class="highlighter-rouge">template_file</code> to fill the file</li>
+      <li>Variables are passed to this <code class="language-plaintext highlighter-rouge">template_file</code> to fill the file</li>
     </ul>
   </li>
-  <li>For a given <code class="highlighter-rouge">rest-api</code> to be usable, it has to be deployed
+  <li>For a given <code class="language-plaintext highlighter-rouge">rest-api</code> to be usable, it has to be deployed
     <ul>
-      <li>This is done by the <code class="highlighter-rouge">aws_api_gateway_deployment</code> resource</li>
+      <li>This is done by the <code class="language-plaintext highlighter-rouge">aws_api_gateway_deployment</code> resource</li>
       <li>It references the REST API</li>
       <li>It needs a stage which is like a ‘version’ or ‘snapshot’ of your API
 The stage name will be in the URL to invoke this API.</li>
     </ul>
   </li>
   <li>At last the URL on which the API can be invoked is outputted to the terminal
-<code class="highlighter-rouge">/api</code> is appended to have the correct resource path</li>
+<code class="language-plaintext highlighter-rouge">/api</code> is appended to have the correct resource path</li>
 </ul>
 
 <h1 id="endgame">Endgame</h1>
 <p>All right, let’s see it now.
 Does this actually work?
-Here I am running <code class="highlighter-rouge">terraform apply</code> within the repository linked to this blog.</p>
+Here I am running <code class="language-plaintext highlighter-rouge">terraform apply</code> within the repository linked to this blog.</p>
 
 <div style="text-align: center;">
   <img src="/img/2019-01-14-Infrastructure-as-code-with-terraform-and-aws-serverless/apply.gif" width="100%" />
@@ -683,7 +683,7 @@ The body of the POST should look like:</p>
 </span></code></pre></div></div>
 
 <p>When you need to couple the API endpoints to a frontend of your own design, you need to set the CORS headers correctly.
-If you want this challenge, there is another branch in the repository (<code class="highlighter-rouge">cors-enabled</code>) where I worked this out.</p>
+If you want this challenge, there is another branch in the repository (<code class="language-plaintext highlighter-rouge">cors-enabled</code>) where I worked this out.</p>
 
 <p>Happy coding folks, Code that Infrastructure!</p>
 

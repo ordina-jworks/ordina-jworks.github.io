@@ -253,14 +253,14 @@ A couple of the Zero Day exploits could have been avoided with stronger encapsul
 Three out of six since JDK7.</p>
 
 <p>Modules allow you to restrict access to internal packages, making it no longer compile and possibly generating warnings at runtime.
-Run the following command line: <code class="highlighter-rouge">$ jdeps --jdk-internals app.jar</code> to check if internal APIs are used.</p>
+Run the following command line: <code class="language-plaintext highlighter-rouge">$ jdeps --jdk-internals app.jar</code> to check if internal APIs are used.</p>
 
 <p>In theory, if your code only uses standard Java SE APIs then it will most likely work without changes.
 For more info, see: <a href="http://openjdk.java.net/jeps/291" target="_blank" rel="noopener noreferrer">JEP 291</a>.</p>
 
 <p>Lots of methods and APIs have been (and will be) removed but there are four reasons not to worry about it:</p>
 <ul>
-  <li>There is an advanced notice before removing anything (<code class="highlighter-rouge">@Deprecated</code>)</li>
+  <li>There is an advanced notice before removing anything (<code class="language-plaintext highlighter-rouge">@Deprecated</code>)</li>
   <li>Make the choice yourself between LTS or feature releases</li>
   <li>Java is still free</li>
   <li>Some things might break but it shouldn’t take much work to fix them</li>
@@ -318,7 +318,7 @@ The result showed that a lot of libraries were already upgraded and functional f
   <li>Less keyboard typing for you</li>
   <li>Fix error prone things such as switch case on enums with pattern matching where the compiler detects whether a default is actually needed or not</li>
   <li>Multi-line strings (Java 13 JEP although still to be decided)</li>
-  <li>Value classes for data containers: <code class="highlighter-rouge">record Point(double x, double y)</code></li>
+  <li>Value classes for data containers: <code class="language-plaintext highlighter-rouge">record Point(double x, double y)</code></li>
 </ul>
 
 <p><a href="https://openjdk.java.net/projects/loom/" target="_blank" rel="noopener noreferrer">Loom</a> brings fibers to the Java platform.</p>
@@ -326,7 +326,7 @@ The result showed that a lot of libraries were already upgraded and functional f
   <li>Similar to threads but slightly different
     <ul>
       <li>Fibers are simpler than threads</li>
-      <li>Fibers work well with <code class="highlighter-rouge">CompletableFutures</code></li>
+      <li>Fibers work well with <code class="language-plaintext highlighter-rouge">CompletableFutures</code></li>
     </ul>
   </li>
   <li>Marc gave a small demo on the performance</li>
@@ -380,7 +380,7 @@ It was actually announced one year ago, in May 2018 after two years of developme
   <li>Message-driven applications with Kafka/RabbitMQ</li>
   <li>CLI applications</li>
   <li>Android applications</li>
-  <li>Simple <code class="highlighter-rouge">static void main(String.. args)</code> applications</li>
+  <li>Simple <code class="language-plaintext highlighter-rouge">static void main(String.. args)</code> applications</li>
 </ul>
 
 <p>Micronaut can be even faster with GraalVM, but this still is experimental.</p>
@@ -389,7 +389,7 @@ It was actually announced one year ago, in May 2018 after two years of developme
 A Micronaut project with <a href="https://www.consul.io/">Consul</a> for service discovery.
 To give you an example about the performance, the demo greeting application with automated tests took 52ms to start with Consul registration.
 A second application was created for the gateway.
-Micronaut has reactive types such as <code class="highlighter-rouge">Single</code>, which is non-blocking and similar to a <code class="highlighter-rouge">Future</code>.
+Micronaut has reactive types such as <code class="language-plaintext highlighter-rouge">Single</code>, which is non-blocking and similar to a <code class="language-plaintext highlighter-rouge">Future</code>.
 Alvaro wrote a non-blocking API in the gateway which merges two calls to the greeting application.</p>
 
 <p>He ended with a demo of an application on Google Cloud Run (serverless based on containers).
@@ -425,22 +425,22 @@ So that you can learn more about your users and improve your search model.</p>
 <p>Some quick core concepts:</p>
 <ul>
   <li>TD/IDF: aka “Term Frequency–Inverse Document Frequency”, having rare words score higher</li>
-  <li>Edit distance: minimum number of operations required to transform one string into another: for example, <code class="highlighter-rouge">star</code> -&gt; <code class="highlighter-rouge">start</code></li>
+  <li>Edit distance: minimum number of operations required to transform one string into another: for example, <code class="language-plaintext highlighter-rouge">star</code> -&gt; <code class="language-plaintext highlighter-rouge">start</code></li>
   <li>Pivoted length norm: matches in small texts will rank higher than in long ones</li>
 </ul>
 
 <p>Denis showed an example with Bleve underneath.</p>
 
 <p>He made an application called Couchflix allowing you to specify text to search on movies.
-He showed how “good” his initial search was, when searching on <code class="highlighter-rouge">star war</code> vs <code class="highlighter-rouge">star wars</code> the first one just showed some zombie movies but nothing about star wars.</p>
+He showed how “good” his initial search was, when searching on <code class="language-plaintext highlighter-rouge">star war</code> vs <code class="language-plaintext highlighter-rouge">star wars</code> the first one just showed some zombie movies but nothing about star wars.</p>
 
 <p>During the live coding session several search implementations were made to see the difference: match on title alone, match on title and description, …</p>
 
-<p>Even after some modifications we still had the situation that when searching on <code class="highlighter-rouge">star war</code>, both <code class="highlighter-rouge">star</code> and <code class="highlighter-rouge">war</code> were matched separately.</p>
+<p>Even after some modifications we still had the situation that when searching on <code class="language-plaintext highlighter-rouge">star war</code>, both <code class="language-plaintext highlighter-rouge">star</code> and <code class="language-plaintext highlighter-rouge">war</code> were matched separately.</p>
 
 <p>Something useful for that is a <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-shingle-tokenfilter.html" target="_blank" rel="noopener noreferrer">Shingle</a>.
 A shingle will break your search term in a combination of two, three, four words, … 
-For example: <code class="highlighter-rouge">Star wars daisy Ridley</code> gets split out in the following search terms:</p>
+For example: <code class="language-plaintext highlighter-rouge">Star wars daisy Ridley</code> gets split out in the following search terms:</p>
 <ul>
   <li>Star Wars</li>
   <li>Wars Daisy</li>
@@ -448,7 +448,7 @@ For example: <code class="highlighter-rouge">Star wars daisy Ridley</code> gets 
 </ul>
 
 <p>Instead of shingles you can also use <a href="https://qbox.io/blog/elasticsearch-algorithmic-stemming-tutorial" target="_blank" rel="noopener noreferrer">Stemming</a> to avoid conjugations.
-For example, the search terms <code class="highlighter-rouge">Fishing</code>, <code class="highlighter-rouge">fished</code> and <code class="highlighter-rouge">fisher</code> would all be transformed to <code class="highlighter-rouge">fish</code>.</p>
+For example, the search terms <code class="language-plaintext highlighter-rouge">Fishing</code>, <code class="language-plaintext highlighter-rouge">fished</code> and <code class="language-plaintext highlighter-rouge">fisher</code> would all be transformed to <code class="language-plaintext highlighter-rouge">fish</code>.</p>
 
 <p>Another thing is <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-boost.html" target="_blank" rel="noopener noreferrer">Boosting</a> which allows you to boost up the ranking factors of your search results.
 Most people tend to first focus on these when searches do not return the results they want but you first need to make sure that everything has been indexed properly. 

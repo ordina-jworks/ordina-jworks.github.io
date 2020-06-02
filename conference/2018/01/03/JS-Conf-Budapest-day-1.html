@@ -343,20 +343,20 @@ To get information from a browser, you always had to do a pull. However, it's no
 <p>Verifying whether an element has become visible in the viewport is a very common use case. 
 If you have to pull that information from the browser, it’s also a very heavy one since the piece of code doing that verification, is run each time a scroll event is fired. 
 A better way would be to have the browser letting us know when an element has reached the viewport. 
-Therefore, browsers offer a so called <code class="highlighter-rouge">IntersectionObserver</code> through JavaScript. 
-When creating an <code class="highlighter-rouge">IntersectionObserver</code> you can pass it a callback function which will be fired when the observed elements enter or leave the viewport. 
+Therefore, browsers offer a so called <code class="language-plaintext highlighter-rouge">IntersectionObserver</code> through JavaScript. 
+When creating an <code class="language-plaintext highlighter-rouge">IntersectionObserver</code> you can pass it a callback function which will be fired when the observed elements enter or leave the viewport. 
 Optionally you can also pass some options such as how much of the element should become visible/hidden in the viewport.
 Unfortunately Safari doesn’t support this feature yet, but luckily, it’s polyfillable.</p>
 
 <p>There are several more observers such as:</p>
 <ul>
-  <li><code class="highlighter-rouge">MutationObserver</code> - fires when an attribute of an observed element has changed (supported by all major browsers)</li>
-  <li><code class="highlighter-rouge">ResizeObserver</code> - fires when an element is resized (behind a flag in Chrome, not yet supported in other major browsers)</li>
-  <li><code class="highlighter-rouge">PerformanceObserver</code> - emits metrics about the performance of the web page (e.g. time to paint, <code class="highlighter-rouge">mark</code> statements, navigation time…) (supported by all major browsers except Edge)</li>
+  <li><code class="language-plaintext highlighter-rouge">MutationObserver</code> - fires when an attribute of an observed element has changed (supported by all major browsers)</li>
+  <li><code class="language-plaintext highlighter-rouge">ResizeObserver</code> - fires when an element is resized (behind a flag in Chrome, not yet supported in other major browsers)</li>
+  <li><code class="language-plaintext highlighter-rouge">PerformanceObserver</code> - emits metrics about the performance of the web page (e.g. time to paint, <code class="language-plaintext highlighter-rouge">mark</code> statements, navigation time…) (supported by all major browsers except Edge)</li>
 </ul>
 
-<p>Another great benefit of these observers is that all functions RxJS offers us (e.g. <code class="highlighter-rouge">skip</code>, <code class="highlighter-rouge">pairwise</code>, <code class="highlighter-rouge">filter</code> …), can be used as well!
-The emitted values of the observers are collections so we can use functions such as <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">filter</code> and <code class="highlighter-rouge">reduce</code> there as well.
+<p>Another great benefit of these observers is that all functions RxJS offers us (e.g. <code class="language-plaintext highlighter-rouge">skip</code>, <code class="language-plaintext highlighter-rouge">pairwise</code>, <code class="language-plaintext highlighter-rouge">filter</code> …), can be used as well!
+The emitted values of the observers are collections so we can use functions such as <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">filter</code> and <code class="language-plaintext highlighter-rouge">reduce</code> there as well.
 As mentioned in the presentation, these two combined gives us “Collection super powers!”.</p>
 
 <hr />
@@ -407,7 +407,7 @@ This is what we call <b>parallelism</b></p>
 
 <h3 id="javascript-multi-threading-impossible">JavaScript multi threading: impossible?</h3>
 <p>Although your JavaScript code is single-threaded and only does one thing at a time, the JavaScript Runtime and Web APIs are multithreaded!
-When you pass a callback function to <code class="highlighter-rouge">setTimeout()</code> or start an AJAX request with <code class="highlighter-rouge">fetch()</code>,
+When you pass a callback function to <code class="language-plaintext highlighter-rouge">setTimeout()</code> or start an AJAX request with <code class="language-plaintext highlighter-rouge">fetch()</code>,
 you are essentially spinning up a background thread in the runtime. 
 Once that background thread completes and the current call stack finishes executing, your callback function is pushed onto the (now empty) call stack and run-to-completion.
 So your JavaScript code itself is single-threaded, but it orchestrates legions of threads!</p>
@@ -418,14 +418,14 @@ This is a great alternative for dealing with promises in JavaScript.
 If you’re a JavaScript developer you probably know what ‘callback hell’ is, or at least heard of it.
 When writing complex programs, we could find ourselves in a situation where we would have to create multiple nested Promises to make sure we have the results of one call to continue with the next and so on.</p>
 
-<p>Async - declares an asynchronous function (<code class="highlighter-rouge"><span class="k">async</span> <span class="k">function</span> <span class="nf">someName</span><span class="p">(){</span><span class="o">...</span><span class="p">}</span></code>).</p>
+<p>Async - declares an asynchronous function (<code class="language-plaintext highlighter-rouge">async function someName(){...}</code>).</p>
 <ul>
   <li>Automatically transforms a regular function into a Promise.</li>
   <li>When called, async functions resolve to whatever is returned in their body.</li>
   <li>Async functions enable the use of await.</li>
 </ul>
 
-<p>Await - pauses the execution of async functions. (<code class="highlighter-rouge">var result = await someAsyncCall();</code>).</p>
+<p>Await - pauses the execution of async functions. (<code class="language-plaintext highlighter-rouge">var result = await someAsyncCall();</code>).</p>
 <ul>
   <li>When placed in front of a Promise call, await forces the rest of the code to wait until that Promise finishes and returns a result.</li>
   <li>Await works only with Promises, it does not work with callbacks.</li>
@@ -583,7 +583,7 @@ something totally different or even nothing at all.</p>
 <span class="kd">let</span> <span class="nx">mySquare</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
 <span class="kd">let</span> <span class="nx">myProxySquare</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Proxy</span><span class="p">(</span><span class="nx">mySquare</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
 </code></pre></div></div>
-<p>The above handler will intercept all <code class="highlighter-rouge">get</code> and <code class="highlighter-rouge">set</code> calls to a proxied class. <code class="highlighter-rouge">get</code> and <code class="highlighter-rouge">set</code> methods here are so 
+<p>The above handler will intercept all <code class="language-plaintext highlighter-rouge">get</code> and <code class="language-plaintext highlighter-rouge">set</code> calls to a proxied class. <code class="language-plaintext highlighter-rouge">get</code> and <code class="language-plaintext highlighter-rouge">set</code> methods here are so 
 called traps. For what purposes can we use this? One of the main purposes is to create developer friendly interfaces. 
 In the slides you’ll find some nice examples of great uses. My favorite is the url builder, it’s glorious in its 
 simplicity, <a href="http://slides.com/eiriklv/javascript-metaprogramming-with-proxies/#/46">check it out here</a>.</p>
@@ -703,7 +703,7 @@ Using that, we can do the following:</p>
 <span class="p">});</span>
 </code></pre></div></div>
 
-<p>After you execute the command <code class="highlighter-rouge">npm publish</code> in the console, you aren’t only going to improve your own project, but everyone’s projects.
+<p>After you execute the command <code class="language-plaintext highlighter-rouge">npm publish</code> in the console, you aren’t only going to improve your own project, but everyone’s projects.
 You can find other popular PostCSS plugins <a href="https://github.com/postcss/postcss/blob/master/docs/plugins.md">here</a>.</p>
 
 <blockquote class="clear"><p>

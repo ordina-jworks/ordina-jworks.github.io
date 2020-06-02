@@ -203,7 +203,7 @@ You’ll get feedback immediately when the service you’re calling returns a di
 When you’re not sure how a service of the platform is working, you can just hop in the source code inside the repo to find out more about it.
 Code sharing becomes a breeze, because all the code is available in one repository.
 You don’t have to deal anymore with npm packages for shared code in your organization or with the separate configurations, pipelines and versions of the shared libs.
-Because there is only one <code class="highlighter-rouge">package.json</code> file, you can easily manage the versions and don’t have to deal with conflicting versions of the same dependency inside of your project.</p>
+Because there is only one <code class="language-plaintext highlighter-rouge">package.json</code> file, you can easily manage the versions and don’t have to deal with conflicting versions of the same dependency inside of your project.</p>
 
 <p>But how can you start setting up a monorepo and what tools are required to do so?
 Having to manage all this code in one repo can be really tedious to set up but this is where Nx comes into play!</p>
@@ -219,15 +219,15 @@ You can even write your own builder to configure creating an app with the techno
 <p>The setup of the repo has to happen only once, so you don’t have the hassle of doing it yourself each time when starting a new app.
 Moreover, you won’t have the risk of teams using a whole set of different tools.
 This makes it more convenient to switch projects as well, because the experience over the monorepo will be more consistent.
-The versions of dependencies will be consistent over the whole repository because you only have one <code class="highlighter-rouge">package.json</code> file, so you don’t have to deal anymore with version conflicts of libraries that are being used in different apps.</p>
+The versions of dependencies will be consistent over the whole repository because you only have one <code class="language-plaintext highlighter-rouge">package.json</code> file, so you don’t have to deal anymore with version conflicts of libraries that are being used in different apps.</p>
 
 <p>Starting with a new workspace is pretty straightforward.
 Let’s imagine we want to start a webshop where we will sell Nx-phones:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx create-nx-workspace@latest nx-phone
 </code></pre></div></div>
 <p>Nx will scaffold our workspace.
-The root of the project contains <code class="highlighter-rouge">apps</code> where our applications will reside, <code class="highlighter-rouge">libs</code> for code sharing between our apps and <code class="highlighter-rouge">tools</code> that enables us to write our own schematics.
-You will write most of your code inside the <code class="highlighter-rouge">apps</code> and <code class="highlighter-rouge">libs</code> directories.</p>
+The root of the project contains <code class="language-plaintext highlighter-rouge">apps</code> where our applications will reside, <code class="language-plaintext highlighter-rouge">libs</code> for code sharing between our apps and <code class="language-plaintext highlighter-rouge">tools</code> that enables us to write our own schematics.
+You will write most of your code inside the <code class="language-plaintext highlighter-rouge">apps</code> and <code class="language-plaintext highlighter-rouge">libs</code> directories.</p>
 
 <p><img src="/img/2019-12-02-Nx/nx-workspace.png" alt="Workspace" class="image" style="margin:0px auto; max-width: 360px;" /></p>
 
@@ -241,14 +241,14 @@ Afterwards, we can create our first app called “shop”.</p>
 ng g @nrwl/angular:application shop // Add the shop app
 </code></pre></div></div>
 <p>You can choose the stylesheet format and automatically set up routing while doing so.
-When creating a new app inside your workspace, Nx will generate both the <code class="highlighter-rouge">shop</code> and a <code class="highlighter-rouge">shop-e2e</code> folder for your end-to-end tests. 
+When creating a new app inside your workspace, Nx will generate both the <code class="language-plaintext highlighter-rouge">shop</code> and a <code class="language-plaintext highlighter-rouge">shop-e2e</code> folder for your end-to-end tests. 
 Running the following command using the Nx CLI will start up the shop app locally:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nx serve shop
 </code></pre></div></div>
 
 <h2 id="libs">Libs</h2>
-<p>The <code class="highlighter-rouge">libs</code> folder is where your shared code will reside.
-If your organisation has a component library or a design system, then that would be a good candidate to be placed under <code class="highlighter-rouge">libs</code>.
+<p>The <code class="language-plaintext highlighter-rouge">libs</code> folder is where your shared code will reside.
+If your organisation has a component library or a design system, then that would be a good candidate to be placed under <code class="language-plaintext highlighter-rouge">libs</code>.
 You can also add all your code to the libs in separate modules like feature modules while using the app as a container.
 Later on, you can use the features in the modules to compose your app.</p>
 
@@ -259,7 +259,7 @@ Later on, you can use the features in the modules to compose your app.</p>
 
 <p>Nx supports modern tools that you’re familiar with, without the sometimes tedious way of setting them up.
 You can easily use Jest and Cypress to cover your testing needs, with great CLI support.
-The unit and end-to-end tests are both configured for the shop app that we’ve just created. They can be run by using <code class="highlighter-rouge">nx test shop</code> and <code class="highlighter-rouge">nx e2e shop</code>, respectively.
+The unit and end-to-end tests are both configured for the shop app that we’ve just created. They can be run by using <code class="language-plaintext highlighter-rouge">nx test shop</code> and <code class="language-plaintext highlighter-rouge">nx e2e shop</code>, respectively.
 If you want to learn more about Jest or Cypress, be sure to check out the awesome blog posts that my colleagues have wrote:</p>
 
 <ul>
@@ -313,8 +313,8 @@ This can be done by appending the two branches to the previous command:</p>
 <h2 id="restrictions">Restrictions</h2>
 <p>You may want to categorize libraries in different domains and limit the dependencies between those domains to improve maintainability.
 Nx can help you with this, by restricting access between domains or by allowing the dependency flow to go only one way around.
-To configure and manage these restrictions, you can apply tags in the <code class="highlighter-rouge">nx.json</code> file for apps and libraries.
-Be aware to also update the linting rules in <code class="highlighter-rouge">tslint.json</code> to get feedback in your editor when violating those rules.</p>
+To configure and manage these restrictions, you can apply tags in the <code class="language-plaintext highlighter-rouge">nx.json</code> file for apps and libraries.
+Be aware to also update the linting rules in <code class="language-plaintext highlighter-rouge">tslint.json</code> to get feedback in your editor when violating those rules.</p>
 
 <h1 id="full-stack-applications">Full stack applications</h1>
 <p>With a monorepo, you can have both your frontend and your backend applications under the same repository.

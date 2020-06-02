@@ -198,13 +198,13 @@ And again, even if that backend feature is finished and deployed somewhere so we
 <p>For both of those projects, a use case arose where the system was in need of messages sent from the backend to the frontend, based on purely frontend and backend events.
 On older technologies and systems, these problems were solved with a polling mechanism.
 Every few seconds, the frontend is querying the backend for updates.
-The first technology that comes to mind when reading the specifications are <code class="highlighter-rouge">Websockets</code>.
-A websocket is a bidirectional TCP connection opened between 2 <code class="highlighter-rouge">entities</code>, in our case a frontend and our backend.
+The first technology that comes to mind when reading the specifications are <code class="language-plaintext highlighter-rouge">Websockets</code>.
+A websocket is a bidirectional TCP connection opened between 2 <code class="language-plaintext highlighter-rouge">entities</code>, in our case a frontend and our backend.
 Messages can get sent by a client to the backend, or the other way around.
 For more information about websockets a simple Google search will overload you with information and frameworks for Java, Javascript and others.
 For Javascript, take a look at  <a target="_blank" href="https://socket.io/">Socket.io</a>.</p>
 
-<p>In our use case, we were only in need of unidirectional streaming, <code class="highlighter-rouge">Server-Sent Events</code> or in short <code class="highlighter-rouge">SSE</code>.
+<p>In our use case, we were only in need of unidirectional streaming, <code class="language-plaintext highlighter-rouge">Server-Sent Events</code> or in short <code class="language-plaintext highlighter-rouge">SSE</code>.
 Again, the goal was not to implement the backend, but to come up with an easy to implement mock that can be used during development by our frontend developers, and could get reused in testing the frontend against this mock backend.
 Ideally, this demo code could get reused by our backend developers as an example.
 Although Node-RED has add-ons for SSE, I decided to start writing one myself.</p>
@@ -226,8 +226,8 @@ These messages can get triggered by client-side events (over REST) or even trigg
 
 <p>To make SSE work, we need to keep some things in mind.
 The logical flow behind it is pretty straight forward.
-A client requests a channel by <code class="highlighter-rouge">GET</code>-ting a resource over REST.
-In Javascript you can make use of the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource"><code class="highlighter-rouge">EventSource API</code></a>.
+A client requests a channel by <code class="language-plaintext highlighter-rouge">GET</code>-ting a resource over REST.
+In Javascript you can make use of the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource"><code class="language-plaintext highlighter-rouge">EventSource API</code></a>.
 A backend should respond with some specific headers:</p>
 
 <ul>
@@ -244,7 +244,7 @@ We will go a bit deeper into each section later.</p>
 
 <h1 id="java">Java</h1>
 
-<p>Around a year ago, <a href="https://ordina-jworks.github.io/author/dieter-hubau/" target="_blank">Dieter Hubau</a> wrote a <a target="_blank" href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">blogpost</a> about Spring Cloud Stream and ‘a’ microverse of Rick and Morty. He implemented <code class="highlighter-rouge">SSE</code> using <code class="highlighter-rouge">org.springframework.web.servlet.mvc.method.annotation.SseEmitter</code>.
+<p>Around a year ago, <a href="https://ordina-jworks.github.io/author/dieter-hubau/" target="_blank">Dieter Hubau</a> wrote a <a target="_blank" href="https://ordina-jworks.github.io/spring/2017/10/04/Spring-Cloud-Stream-Rick-And-Morty-Adventure.html">blogpost</a> about Spring Cloud Stream and ‘a’ microverse of Rick and Morty. He implemented <code class="language-plaintext highlighter-rouge">SSE</code> using <code class="language-plaintext highlighter-rouge">org.springframework.web.servlet.mvc.method.annotation.SseEmitter</code>.
 I figured, that’s a place to start.</p>
 
 <h2 id="spring">Spring</h2>
@@ -312,7 +312,7 @@ I’ve created an easy model which represents a message (notification), and maps
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>I’ve created a custom <code class="highlighter-rouge">CrudRepository&lt;Notification, Long&gt;</code>:</p>
+<p>I’ve created a custom <code class="language-plaintext highlighter-rouge">CrudRepository&lt;Notification, Long&gt;</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">NotificationRepository</span> <span class="kd">extends</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="nc">Notification</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Notification</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">();</span>
@@ -388,21 +388,21 @@ I’ve created an easy model which represents a message (notification), and maps
 </code></pre></div></div>
 
 <p>The logic behind the code is again pretty straightforward.
-Querying this resource will respond with the correct headers (Content-Type -&gt; MediaType.TEXT_EVENT_STREAM_VALUE == ‘text/event-stream’) en open an <code class="highlighter-rouge">event stream</code>.
-This resource will create an <code class="highlighter-rouge">SseEmitter</code> for each request and add that <code class="highlighter-rouge">emitter</code> to a list.
-When an event needs to be sent out to the <code class="highlighter-rouge">clients</code>, you can then just loop over that list of emitters and send that event.
+Querying this resource will respond with the correct headers (Content-Type -&gt; MediaType.TEXT_EVENT_STREAM_VALUE == ‘text/event-stream’) en open an <code class="language-plaintext highlighter-rouge">event stream</code>.
+This resource will create an <code class="language-plaintext highlighter-rouge">SseEmitter</code> for each request and add that <code class="language-plaintext highlighter-rouge">emitter</code> to a list.
+When an event needs to be sent out to the <code class="language-plaintext highlighter-rouge">clients</code>, you can then just loop over that list of emitters and send that event.
 If you loop at the example code, you can see that the emitter itself has some callbacks (completion, error, timeout, …).
 You can use those function for implementing a specific error strategy, monitoring and logging.</p>
 
-<p>For development purposes, I’ve added a <code class="highlighter-rouge">@Scheduled</code>-function that will fire every two seconds and send a random notification from the database through each emitter.</p>
+<p>For development purposes, I’ve added a <code class="language-plaintext highlighter-rouge">@Scheduled</code>-function that will fire every two seconds and send a random notification from the database through each emitter.</p>
 
 <p>For one of my clients, it wasn’t possible to work with Spring.
-A Google search resulted in a lot of other solutions for Java implementations of <code class="highlighter-rouge">sse</code>.</p>
+A Google search resulted in a lot of other solutions for Java implementations of <code class="language-plaintext highlighter-rouge">sse</code>.</p>
 
 <ul>
-  <li><a href="https://docs.jboss.org/resteasy/docs/3.5.1.Final/userguide/html/JAX-RS_2.1_additions.html" target="_blank"><code class="highlighter-rouge">SseEventSink, SseEventSource</code></a></li>
-  <li><a href="https://docs.huihoo.com/jersey/2.13/sse.html" target="_blank"><code class="highlighter-rouge">SseFeature</code></a></li>
-  <li><a href="http://www.eclipse.org/jetty/javadoc/9.4.8.v20171121/org/eclipse/jetty/servlets/EventSourceServlet.html" target="_blank"><code class="highlighter-rouge">EventSourceServlet</code></a></li>
+  <li><a href="https://docs.jboss.org/resteasy/docs/3.5.1.Final/userguide/html/JAX-RS_2.1_additions.html" target="_blank"><code class="language-plaintext highlighter-rouge">SseEventSink, SseEventSource</code></a></li>
+  <li><a href="https://docs.huihoo.com/jersey/2.13/sse.html" target="_blank"><code class="language-plaintext highlighter-rouge">SseFeature</code></a></li>
+  <li><a href="http://www.eclipse.org/jetty/javadoc/9.4.8.v20171121/org/eclipse/jetty/servlets/EventSourceServlet.html" target="_blank"><code class="language-plaintext highlighter-rouge">EventSourceServlet</code></a></li>
   <li>…</li>
 </ul>
 
@@ -411,16 +411,16 @@ A Google search resulted in a lot of other solutions for Java implementations of
 <p>Although the Java implementation wasn’t finished yet, another problem arose.
 Not all of our frontend developers where happy with this approach.
 They still needed to run a simple Java backend, even if it was a simple Docker container.
-So I switched to a <code class="highlighter-rouge">Nodejs</code> implementation using <a href="https://expressjs.com/" target="_blank"><code class="highlighter-rouge">Express</code></a> as a <code class="highlighter-rouge">webserver</code>.
-Express doesn’t come with an <code class="highlighter-rouge">SSE</code>-feature out of the box, but there are <code class="highlighter-rouge">plugins</code> you can use:</p>
+So I switched to a <code class="language-plaintext highlighter-rouge">Nodejs</code> implementation using <a href="https://expressjs.com/" target="_blank"><code class="language-plaintext highlighter-rouge">Express</code></a> as a <code class="language-plaintext highlighter-rouge">webserver</code>.
+Express doesn’t come with an <code class="language-plaintext highlighter-rouge">SSE</code>-feature out of the box, but there are <code class="language-plaintext highlighter-rouge">plugins</code> you can use:</p>
 
 <ul>
-  <li><a href="https://www.npmjs.com/package/sse-express" target="_blank"><code class="highlighter-rouge">sse-express</code></a></li>
-  <li><a href="https://www.npmjs.com/package/express-sse" target="_blank"><code class="highlighter-rouge">express-sse</code></a></li>
+  <li><a href="https://www.npmjs.com/package/sse-express" target="_blank"><code class="language-plaintext highlighter-rouge">sse-express</code></a></li>
+  <li><a href="https://www.npmjs.com/package/express-sse" target="_blank"><code class="language-plaintext highlighter-rouge">express-sse</code></a></li>
   <li>…</li>
 </ul>
 
-<p>But instead of using a library, I’ve implemented my own <code class="highlighter-rouge">middleware</code>.
+<p>But instead of using a library, I’ve implemented my own <code class="language-plaintext highlighter-rouge">middleware</code>.
 Writing custom middleware is very easy and well documented in the <a href="https://expressjs.com/en/guide/writing-middleware.html" target="_blank">docs</a>.</p>
 
 <p>sse-middleware.js:</p>
@@ -449,11 +449,11 @@ Writing custom middleware is very easy and well documented in the <a href="https
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">sse_middleware</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>As mentioned before, to make SSE work, you need to set the right <code class="highlighter-rouge">headers</code> (cfr. MediaType.TEXT_EVENT_STREAM_VALUE).
+<p>As mentioned before, to make SSE work, you need to set the right <code class="language-plaintext highlighter-rouge">headers</code> (cfr. MediaType.TEXT_EVENT_STREAM_VALUE).
 I’ve implemented this in the setup of the custom middleware.
-Besides this initialization, I’ve also implemented an <code class="highlighter-rouge">sseSend</code>-function, for sending messages over the channel, and an <code class="highlighter-rouge">onClose</code>-callback that will fire whenever the connection closes.</p>
+Besides this initialization, I’ve also implemented an <code class="language-plaintext highlighter-rouge">sseSend</code>-function, for sending messages over the channel, and an <code class="language-plaintext highlighter-rouge">onClose</code>-callback that will fire whenever the connection closes.</p>
 
-<p>Instead of using an in-memory database, like I did in the Java part of this post, I decided to go with a basic Javascript file that I can switch later to a simple <code class="highlighter-rouge">json</code>-file with test data.</p>
+<p>Instead of using an in-memory database, like I did in the Java part of this post, I decided to go with a basic Javascript file that I can switch later to a simple <code class="language-plaintext highlighter-rouge">json</code>-file with test data.</p>
 
 <p>database.js:</p>
 
@@ -532,18 +532,18 @@ Depending on specific parameters, you can then choose to send back a different t
 </code></pre></div></div>
 
 <p>In the first lines, I just import my mock database and the middleware.
-I then initialize the <code class="highlighter-rouge">express</code>-app and tell it to use the middleware, <code class="highlighter-rouge">app.use(sse_middleware);</code>.
-When the server is started, the app also starts a simple <code class="highlighter-rouge">interval</code> that will produce a random (or fixed order for testing purposes) event each two seconds.</p>
+I then initialize the <code class="language-plaintext highlighter-rouge">express</code>-app and tell it to use the middleware, <code class="language-plaintext highlighter-rouge">app.use(sse_middleware);</code>.
+When the server is started, the app also starts a simple <code class="language-plaintext highlighter-rouge">interval</code> that will produce a random (or fixed order for testing purposes) event each two seconds.</p>
 
 <p>To start this service:</p>
 
-<p><code class="highlighter-rouge">$ node server.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ node server.js</code></p>
 
-<p>To test it, you can just open your browser and navigate to <code class="highlighter-rouge">http://localhost:8080/stream</code>.
+<p>To test it, you can just open your browser and navigate to <code class="language-plaintext highlighter-rouge">http://localhost:8080/stream</code>.
 You should be able to see events appearing now.
 However, there is a catch, and it took me some time to figure out what was going wrong.
-In your browser you can see the content of the events, but if you run <code class="highlighter-rouge">$ curl -X GET http://localhost:8080/stream</code> you won’t see anything.
-However, if you would start the Java app, you’ll see the events appearing in your browser, and during your <code class="highlighter-rouge">curl</code>-session.
+In your browser you can see the content of the events, but if you run <code class="language-plaintext highlighter-rouge">$ curl -X GET http://localhost:8080/stream</code> you won’t see anything.
+However, if you would start the Java app, you’ll see the events appearing in your browser, and during your <code class="language-plaintext highlighter-rouge">curl</code>-session.
 The reason for this, lays in the specs of Server-Sent Events.</p>
 
 <div style="text-align: center;">
@@ -551,9 +551,9 @@ The reason for this, lays in the specs of Server-Sent Events.</p>
 </div>
 
 <p>As you can see, a message expects a data field.
-Adjusting the <code class="highlighter-rouge">send</code>-method in the middleware will fix this problem:
-<code class="highlighter-rouge">res.write('data:' + JSON.stringify(data) + "\n\n"));</code>
-You can also add the other fields, just separate them with <code class="highlighter-rouge">\n\n</code>;</p>
+Adjusting the <code class="language-plaintext highlighter-rouge">send</code>-method in the middleware will fix this problem:
+<code class="language-plaintext highlighter-rouge">res.write('data:' + JSON.stringify(data) + "\n\n"));</code>
+You can also add the other fields, just separate them with <code class="language-plaintext highlighter-rouge">\n\n</code>;</p>
 
 <p>For development purposes, it isn’t a bad idea to add a start en stop action for managing the interval.
 Just add the following to your server:</p>
@@ -571,11 +571,11 @@ Just add the following to your server:</p>
 <span class="p">});</span>
 </code></pre></div></div>
 
-<p>So you can start and stop the stream by triggering a <code class="highlighter-rouge">REST-endpoint</code>.</p>
+<p>So you can start and stop the stream by triggering a <code class="language-plaintext highlighter-rouge">REST-endpoint</code>.</p>
 
-<p><code class="highlighter-rouge">$ curl -X GET http://localhost:8080/start</code> to start the stream of events.`</p>
+<p><code class="language-plaintext highlighter-rouge">$ curl -X GET http://localhost:8080/start</code> to start the stream of events.`</p>
 
-<p><code class="highlighter-rouge">$ curl -X GET http://localhost:8080/stop</code> to stop the stream of events.`</p>
+<p><code class="language-plaintext highlighter-rouge">$ curl -X GET http://localhost:8080/stop</code> to stop the stream of events.`</p>
 
 <h1 id="angular">Angular</h1>
 
@@ -644,16 +644,16 @@ In this service, you can make use of the <a href="https://developer.mozilla.org/
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>You’ll notice that the <code class="highlighter-rouge">url</code> used is not mapping on the mock backend.
+<p>You’ll notice that the <code class="language-plaintext highlighter-rouge">url</code> used is not mapping on the mock backend.
 For local development and testing, this doesn’t matter.
-Even if both paths would match, the <code class="highlighter-rouge">user interface</code> and backend can’t run both on the same port (http://localhost:8080 vs http://localhost:4200 (standard cli port for <code class="highlighter-rouge">$ ng serve</code>)).
-Requesting resource cross domain will result in <code class="highlighter-rouge">CORS</code> issues. A proxy to the rescue!</p>
+Even if both paths would match, the <code class="language-plaintext highlighter-rouge">user interface</code> and backend can’t run both on the same port (http://localhost:8080 vs http://localhost:4200 (standard cli port for <code class="language-plaintext highlighter-rouge">$ ng serve</code>)).
+Requesting resource cross domain will result in <code class="language-plaintext highlighter-rouge">CORS</code> issues. A proxy to the rescue!</p>
 
 <h2 id="proxy">Proxy</h2>
 
-<p>To overcome the <code class="highlighter-rouge">CORS</code> problems, angular-cli, the <code class="highlighter-rouge">serve</code>-command to be more precise, comes with an optional parameter to add a proxy configuration.
-In our production ready setup, all calls to <code class="highlighter-rouge">/api</code> to the same (sub)domain as where the <code class="highlighter-rouge">user interface</code> is getting served, get routed to the REST-API.
-Because we don’t want to add dev or test specific code in the app itself, we proxy the <code class="highlighter-rouge">/api</code> to our mock backend.</p>
+<p>To overcome the <code class="language-plaintext highlighter-rouge">CORS</code> problems, angular-cli, the <code class="language-plaintext highlighter-rouge">serve</code>-command to be more precise, comes with an optional parameter to add a proxy configuration.
+In our production ready setup, all calls to <code class="language-plaintext highlighter-rouge">/api</code> to the same (sub)domain as where the <code class="language-plaintext highlighter-rouge">user interface</code> is getting served, get routed to the REST-API.
+Because we don’t want to add dev or test specific code in the app itself, we proxy the <code class="language-plaintext highlighter-rouge">/api</code> to our mock backend.</p>
 
 <p>Example given:</p>
 
@@ -672,21 +672,21 @@ Because we don’t want to add dev or test specific code in the app itself, we p
 
 <p>To use this proxy, serve the app with:</p>
 
-<p><code class="highlighter-rouge">$ ng serve --proxy-config proxy.config.json</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ ng serve --proxy-config proxy.config.json</code></p>
 
 <p>If you take a look at the logs, you can see the system is logging the routes in the console.</p>
 
 <h2 id="frontend--backend">Frontend + Backend</h2>
 
 <p>If you want to run the mock backend (Nodejs) along with the frontend, you need to be able to run concurrent tasks.
-You can do this in a node environment using the <code class="highlighter-rouge">concurrently</code>-package.
-Just install it by running <code class="highlighter-rouge">$ npm i --save-dev concurrently</code>.
-Add an entry in the <code class="highlighter-rouge">package.json</code> scripts section:</p>
+You can do this in a node environment using the <code class="language-plaintext highlighter-rouge">concurrently</code>-package.
+Just install it by running <code class="language-plaintext highlighter-rouge">$ npm i --save-dev concurrently</code>.
+Add an entry in the <code class="language-plaintext highlighter-rouge">package.json</code> scripts section:</p>
 
-<p><code class="highlighter-rouge">"start:proxy": "concurrently \"ng serve --proxy-config proxy.config.json\" \"node path/to/your/server.js \""</code></p>
+<p><code class="language-plaintext highlighter-rouge">"start:proxy": "concurrently \"ng serve --proxy-config proxy.config.json\" \"node path/to/your/server.js \""</code></p>
 
 <p>Because they are both starting at the same time, it might happen your backend is not ready while your frontend starts connecting to the stream.
-A good <code class="highlighter-rouge">retry</code> strategy will help you overcome this problem, that can also happen in real life systems as well.</p>
+A good <code class="language-plaintext highlighter-rouge">retry</code> strategy will help you overcome this problem, that can also happen in real life systems as well.</p>
 
 <h1 id="continuous-integration">Continuous Integration</h1>
 
@@ -697,10 +697,10 @@ To mock this behavior, you can just put all these events in an array and just lo
 You can even define different delays for each event if that is what you need.</p>
 
 <p>If you are using <a href="https://ordina-jworks.github.io/testing/2018/08/15/node-red-dev-ci.html" target="_blank">my Node-RED setup</a> from one of my previous posts you should give one of the add-ons a try, however, you can also run both mocks next to each other.
-In most approaches, you don’t run the application itself thought the dev environment (<code class="highlighter-rouge">$ ng serve --proxy-config proxy.config.json</code>).
+In most approaches, you don’t run the application itself thought the dev environment (<code class="language-plaintext highlighter-rouge">$ ng serve --proxy-config proxy.config.json</code>).
 You should run your packaged app like you would do in production.
-In our case, we are running everything <code class="highlighter-rouge">Dockerized</code>.
-This means, we build our frontend application and wrap it into a <code class="highlighter-rouge">Docker</code> image (tag it, and push it to our registry).
+In our case, we are running everything <code class="language-plaintext highlighter-rouge">Dockerized</code>.
+This means, we build our frontend application and wrap it into a <code class="language-plaintext highlighter-rouge">Docker</code> image (tag it, and push it to our registry).
 In a next stage, we run (deploy) an environment where we can run our tests against.
 In this case we are also not going to use the proxy from our development setup.</p>
 
@@ -753,7 +753,7 @@ In this case we are also not going to use the proxy from our development setup.<
 </code></pre></div></div>
 
 <p>We now need to include our own ss-mock backend into this compose.
-You can do this by easily adding a plain Nodejs service, map your folder to your <code class="highlighter-rouge">server.js</code> and overwrite the <code class="highlighter-rouge">CMD</code>.</p>
+You can do this by easily adding a plain Nodejs service, map your folder to your <code class="language-plaintext highlighter-rouge">server.js</code> and overwrite the <code class="language-plaintext highlighter-rouge">CMD</code>.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">sse-service</span><span class="pi">:</span>
   <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">node"</span>
@@ -765,8 +765,8 @@ You can do this by easily adding a plain Nodejs service, map your folder to your
     <span class="pi">-</span> <span class="s">8080:8080</span>
     <span class="na">command</span><span class="pi">:</span> <span class="s">node /sse-mock/service.js</span>
 </code></pre></div></div>
-<p>Don’t forget to add the service to the links section of your nginx and to add the proxy rules in the <code class="highlighter-rouge">nginx.conf</code>.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>location /api/stream {
+<p>Don’t forget to add the service to the links section of your nginx and to add the proxy rules in the <code class="language-plaintext highlighter-rouge">nginx.conf</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>location /api/stream {
     proxy_pass http://sse-mock:8080/api/stream ;
 }
 </code></pre></div></div>
@@ -775,9 +775,9 @@ You can do this by easily adding a plain Nodejs service, map your folder to your
   <img src="/img/2018-11-21-sse-spring-node-dev-ci/sse-ci-setup.png" width="100%" />
 </div>
 
-<p>As mentioned before, you could/should use the <code class="highlighter-rouge">/start</code> and <code class="highlighter-rouge">/stop</code> for the sse-mock.
+<p>As mentioned before, you could/should use the <code class="language-plaintext highlighter-rouge">/start</code> and <code class="language-plaintext highlighter-rouge">/stop</code> for the sse-mock.
 In this setup, this means adding extra rules in your nginx config.
-You want all your api calls to go to the other mock (Node-RED in this case) while proxying <code class="highlighter-rouge">/stream</code>, <code class="highlighter-rouge">/start</code> and <code class="highlighter-rouge">/stop</code> to your sse-mock.</p>
+You want all your api calls to go to the other mock (Node-RED in this case) while proxying <code class="language-plaintext highlighter-rouge">/stream</code>, <code class="language-plaintext highlighter-rouge">/start</code> and <code class="language-plaintext highlighter-rouge">/stop</code> to your sse-mock.</p>
 
 <p>The advantage of implementing the start/stop functionality, is that you can tell your test framework to start the sse-mock events stream and then start watching the response in the UI.</p>
 
@@ -787,14 +787,14 @@ You want all your api calls to go to the other mock (Node-RED in this case) whil
 <span class="p">});</span>
 </code></pre></div></div>
 
-<p>If you’ve build your test data/setup in a specific order, you know what to expect and test for in the <code class="highlighter-rouge">user interface</code>.</p>
+<p>If you’ve build your test data/setup in a specific order, you know what to expect and test for in the <code class="language-plaintext highlighter-rouge">user interface</code>.</p>
 
 <h1 id="conclusion">Conclusion</h1>
 
 <p>Setting up Server-Sent Events is very easy.
 It is a powerful tool for unidirectional streams to you clients.
 The hardest part is defining a strategy for your connections and event type differentiation.
-Setting up the <code class="highlighter-rouge">CI</code> part is easy as well.
+Setting up the <code class="language-plaintext highlighter-rouge">CI</code> part is easy as well.
 Although you can test a lot in your unit tests, implementing End 2 End testing, mock and real, is recommended.</p>
 
         </div>

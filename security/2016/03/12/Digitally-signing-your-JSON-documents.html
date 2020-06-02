@@ -366,7 +366,7 @@ Since not all algorithms are implemented in Java, we are also going to use Bounc
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">KeyPair</span> <span class="n">keyPair</span> <span class="o">=</span> <span class="nc">EllipticCurveProvider</span><span class="o">.</span><span class="na">generateKeyPair</span><span class="o">(</span><span class="nc">SignatureAlgorithm</span><span class="o">.</span><span class="na">ES256</span><span class="o">);</span></code></pre></figure>
 
 <p>It’s as easy as that!
-We want to have a key of type “EC” so we use the <code class="highlighter-rouge">EllipticCurveProvider</code>, and by specifying <code class="highlighter-rouge">SignatureAlgorithm.ES256</code> we use the P-256 bit curve with SHA-256 hashing.</p>
+We want to have a key of type “EC” so we use the <code class="language-plaintext highlighter-rouge">EllipticCurveProvider</code>, and by specifying <code class="language-plaintext highlighter-rouge">SignatureAlgorithm.ES256</code> we use the P-256 bit curve with SHA-256 hashing.</p>
 
 <p>Next we want to sign our base64url encoded payload</p>
 
@@ -376,11 +376,11 @@ We want to have a key of type “EC” so we use the <code class="highlighter-ro
                 <span class="o">.</span><span class="na">compact</span><span class="o">();</span></code></pre></figure>
 
 <p>Since we already encoded our original message in the <a href="#jws">JWS section</a>, I’m not getting here into detail again.
-<code class="highlighter-rouge">signWith(SignatureAlgorithm.ES256, keyPair.getPrivate())</code> does a couple of things.
+<code class="language-plaintext highlighter-rouge">signWith(SignatureAlgorithm.ES256, keyPair.getPrivate())</code> does a couple of things.
 First it is going the create a header if not already present and it will add the “alg” key with the value of “ES256”.
 After that it will base64url encode that header and will append this with a ‘.’ and the encoded payload.
 This whole blob of data will then be signed using the private key of the previously generated key pair.
-Last, but not least, is the <code class="highlighter-rouge">compact</code> method.
+Last, but not least, is the <code class="language-plaintext highlighter-rouge">compact</code> method.
 This will just output the base64url encoded header and payload with the generated signature, and all parts are separated with a dot.
 An outcome would be something like:</p>
 
@@ -390,7 +390,7 @@ ZXlBS0lDQWdJQ0FnSUNBaVpuSnZiU0k2ZXdvZ0lDQWdJQ0FnSUNBZ0lDQWlibUZ0WlNJNklDSlVhVzBn
 .
 MEYCIQCcwunLBiuHu2z_SlDVJyZuQv0NU8X4VYoOFN1EuIvObQIhAJeZuTeZw9k5uhpBc60iT13s3yb01ItSB2MhEd5pUSqC</code></pre></figure>
 
-<p>We split the three parts for better visualisation, the JWS would be one large <code class="highlighter-rouge">String</code></p>
+<p>We split the three parts for better visualisation, the JWS would be one large <code class="language-plaintext highlighter-rouge">String</code></p>
 
 <p><br /></p>
 
@@ -401,7 +401,7 @@ This can be accomplished by executing following line of code.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">().</span><span class="na">isSigned</span><span class="o">(</span><span class="n">jws</span><span class="o">);</span></code></pre></figure>
 
-<p>To parse the JWS, we use the <code class="highlighter-rouge">parse()</code> method.</p>
+<p>To parse the JWS, we use the <code class="language-plaintext highlighter-rouge">parse()</code> method.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">()</span>
         <span class="o">.</span><span class="na">setSigningKey</span><span class="o">(</span><span class="n">publicKey</span><span class="o">)</span>
@@ -409,13 +409,13 @@ This can be accomplished by executing following line of code.</p>
 
 <p>Depending wether it is signed or not we might need to set the key for validation.
 In our case we need to specify the public key of our asymmetric key pair.
-If we would try to parse the JWS without a key an <code class="highlighter-rouge">IllegalArgumentException</code> will be thrown.
-Should a wrong public key have been provided a <code class="highlighter-rouge">SignatureException</code> would be thrown, telling us to <strong>not</strong> trust this JWS.</p>
+If we would try to parse the JWS without a key an <code class="language-plaintext highlighter-rouge">IllegalArgumentException</code> will be thrown.
+Should a wrong public key have been provided a <code class="language-plaintext highlighter-rouge">SignatureException</code> would be thrown, telling us to <strong>not</strong> trust this JWS.</p>
 
-<p>If we were to pass our public key in the protected header like we said in the <a href="#jws">JWS section</a>, we should use the <code class="highlighter-rouge">setSigningKeyResolver()</code> method.
+<p>If we were to pass our public key in the protected header like we said in the <a href="#jws">JWS section</a>, we should use the <code class="language-plaintext highlighter-rouge">setSigningKeyResolver()</code> method.
 This custom resolver would read out the “jwk” field from the protected header and return a public key based on the data that was provided.</p>
 
-<p>Our own <code class="highlighter-rouge">SigningKeyResolver</code> implementation could look like this:</p>
+<p>Our own <code class="language-plaintext highlighter-rouge">SigningKeyResolver</code> implementation could look like this:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ECPublicSigningKeyResolver</span> <span class="kd">implements</span> <span class="nc">SigningKeyResolver</span> <span class="o">{</span>
         <span class="kd">public</span> <span class="nc">Key</span> <span class="nf">resolveSigningKey</span><span class="o">(</span><span class="nc">JwsHeader</span> <span class="n">header</span><span class="o">,</span> <span class="nc">Claims</span> <span class="n">claims</span><span class="o">)</span> <span class="o">{</span>
@@ -462,9 +462,9 @@ This custom resolver would read out the “jwk” field from the protected heade
     <span class="o">}</span></code></pre></figure>
 
 <p>First we read all our data from the “jwk” field.
-Next we retrieve the <code class="highlighter-rouge">ECNamedCurveParameterSpec</code> based on the “crv” field and assemble a new <code class="highlighter-rouge">ECParameterSpec</code>.
-After that we create a new <code class="highlighter-rouge">ECPublicKeySpec</code> with the <code class="highlighter-rouge">ECParameterSpec</code> and an <code class="highlighter-rouge">ECPoint</code> out of the x and y coordinates.
-Finally we get a <code class="highlighter-rouge">KeyFactory</code> instance for our key type “kty” and generate the public key with our <code class="highlighter-rouge">ECPublicKeySpec</code>.</p>
+Next we retrieve the <code class="language-plaintext highlighter-rouge">ECNamedCurveParameterSpec</code> based on the “crv” field and assemble a new <code class="language-plaintext highlighter-rouge">ECParameterSpec</code>.
+After that we create a new <code class="language-plaintext highlighter-rouge">ECPublicKeySpec</code> with the <code class="language-plaintext highlighter-rouge">ECParameterSpec</code> and an <code class="language-plaintext highlighter-rouge">ECPoint</code> out of the x and y coordinates.
+Finally we get a <code class="language-plaintext highlighter-rouge">KeyFactory</code> instance for our key type “kty” and generate the public key with our <code class="language-plaintext highlighter-rouge">ECPublicKeySpec</code>.</p>
 
 <p><br /></p>
 

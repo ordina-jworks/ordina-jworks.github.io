@@ -275,8 +275,8 @@ You should be grateful for this, it will give you plenty of time to get to know 
 Login to the AWS Console and under <strong>Services</strong> go to <em><strong>DynamoDB</strong></em>.
 Click on <strong>Create table</strong>.<br />
 Name the table <strong>CodingTips</strong>. 
-As primary key make a <em>Partition key</em>  <code class="highlighter-rouge">author</code>, type <code class="highlighter-rouge">String</code>’.
-Check the <strong>Add sort key</strong> checkbox and choose <code class="highlighter-rouge">date</code>, type <code class="highlighter-rouge">Number</code> as a sort key for your table.
+As primary key make a <em>Partition key</em>  <code class="language-plaintext highlighter-rouge">author</code>, type <code class="language-plaintext highlighter-rouge">String</code>’.
+Check the <strong>Add sort key</strong> checkbox and choose <code class="language-plaintext highlighter-rouge">date</code>, type <code class="language-plaintext highlighter-rouge">Number</code> as a sort key for your table.
 Leave the default settings checked and hit <strong>Create</strong>.</p>
 
 <div style="text-align: center;">
@@ -294,7 +294,7 @@ Go to the CodingTips table, open the <strong>Items</strong> tab and click <stron
 Add a couple of random items to the table as shown in the image below.
 Notice that <strong>date</strong> is in <strong>milliseconds</strong>.
 These are the milliseconds that have past since the Unix Epoch 1970-01-01.
-For example, <code class="highlighter-rouge">1538368878527</code> equals Mon 1 October 2018 06:41:18.
+For example, <code class="language-plaintext highlighter-rouge">1538368878527</code> equals Mon 1 October 2018 06:41:18.
 Hit <strong>Save</strong> to store the item in the database.</p>
 
 <div style="text-align: center;">
@@ -335,7 +335,7 @@ Choose <strong>Author from Scratch</strong> and start configuring it with the fo
 The role is used to give the Lambda Function the right permissions.
 Configure the role as shown in the image below.
 If everything went well you should only have to adapt the name of the role.
-Name it <code class="highlighter-rouge">lambda_dynamodb_codingtips</code>.
+Name it <code class="language-plaintext highlighter-rouge">lambda_dynamodb_codingtips</code>.
 The rest will be automatically generated for you.</p>
 <div style="text-align: center;">
   <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Role-Create_New_Role.png" width="100%" />
@@ -382,7 +382,7 @@ You can find this in the <strong>Overview</strong> tab of your table which we sh
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Click <strong>Review policy</strong> and name it <code class="highlighter-rouge">Lambda-DynamoDB-CodingTips-Access</code>.
+<p>Click <strong>Review policy</strong> and name it <code class="language-plaintext highlighter-rouge">Lambda-DynamoDB-CodingTips-Access</code>.
 Hit <strong>Create policy</strong>.
 You now attached a new policy to the existing <strong>lambda_dynamodb_codingtips</strong> role.
 The role summary looks like this:</p>
@@ -401,7 +401,7 @@ Now you see that the Lambda Function has the right to connect to the DynamoDB ta
 <h2 id="function-code">Function Code</h2>
 <p>Yeah, finally it is time for some code!<br />
 In the configuration window of the lambda add the code in the <strong>Function code</strong> block.
-‘<code class="highlighter-rouge">index.js</code> has to contain the following code:</p>
+‘<code class="language-plaintext highlighter-rouge">index.js</code> has to contain the following code:</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">function starts</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">aws-sdk</span><span class="dl">'</span><span class="p">);</span>
@@ -429,18 +429,18 @@ In the configuration window of the lambda add the code in the <strong>Function c
 <p><strong>Save</strong> the Lambda Function to persist the changes.</p>
 
 <ul>
-  <li>The <code class="highlighter-rouge">handler</code> function is the function where the Lambda execution starts when the Lambda is triggered.</li>
-  <li>The <code class="highlighter-rouge">event</code> parameter contains the data from the event that triggered the function.</li>
-  <li>The <code class="highlighter-rouge">scanningParameters</code> are used to configure the scan of the table.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">handler</code> function is the function where the Lambda execution starts when the Lambda is triggered.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">event</code> parameter contains the data from the event that triggered the function.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">scanningParameters</code> are used to configure the scan of the table.</li>
   <li>This function scans the DynamoDB table for the first 100 items it finds.</li>
-  <li><code class="highlighter-rouge">docClient.scan(scanningParameters, function(err,data)</code> executes the scan and returns either the result or the error that occurred.</li>
+  <li><code class="language-plaintext highlighter-rouge">docClient.scan(scanningParameters, function(err,data)</code> executes the scan and returns either the result or the error that occurred.</li>
 </ul>
 
 <h2 id="test-write-lambda">Test write-Lambda</h2>
 <p>All right! Let’s test this thing..
 On the Lambda Function configuration page you see a dropdown and test button in the upper right corner.
 Click the dropdown and configure a new test event.
-I called mine <code class="highlighter-rouge">Test</code> and added an empty test event <code class="highlighter-rouge">{}</code>.</p>
+I called mine <code class="language-plaintext highlighter-rouge">Test</code> and added an empty test event <code class="language-plaintext highlighter-rouge">{}</code>.</p>
 
 <div style="text-align: center;">
   <img src="/img/2018-10-01-How-to-Build-a-Serverless-Application/Lambda-CodingTips_Scan-Created_Empty_Test_Event.png" width="60%" height="60%" />
@@ -504,7 +504,7 @@ In this case that is Codingtips_Scan.</li>
 
 <p>Only one thing left: select the API and under <strong>Actions</strong> click <strong>Deploy API</strong>. 
 You will be asked to provide a name for the <strong>stage</strong>. 
-Name it <code class="highlighter-rouge">default</code>.</p>
+Name it <code class="language-plaintext highlighter-rouge">default</code>.</p>
 
 <p>In the <strong>Stages</strong> tab click the <strong>GET</strong> method and copy the <strong>Invoke URL</strong>.</p>
 
@@ -552,7 +552,7 @@ In a browser tab past the <strong>Invoke URL</strong>.</p>
     <ul>
       <li>Check CloudWatch for logs.
   Under <strong>Services</strong> go to <strong>CloudWatch</strong>.
-  In the <strong>Logs</strong> tab access the <strong>Log Group</strong> <code class="highlighter-rouge">/aws/lambda/CodingTips_Scan</code> to view the logs of the Lambda.</li>
+  In the <strong>Logs</strong> tab access the <strong>Log Group</strong> <code class="language-plaintext highlighter-rouge">/aws/lambda/CodingTips_Scan</code> to view the logs of the Lambda.</li>
     </ul>
   </li>
   <li>Trouble with <strong>API Gateway</strong>:
@@ -589,7 +589,7 @@ The designer view of the Lambda Function now looks like this:</p>
 <h2 id="function-code-1">Function Code</h2>
 <p>Let’s add the code of this function!<br />
 In the configuration window of the lambda add the code in the <strong>Function code</strong> block.
-Enter the following code in the <code class="highlighter-rouge">index.js</code> file:</p>
+Enter the following code in the <code class="language-plaintext highlighter-rouge">index.js</code> file:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">function starts</span><span class="dl">'</span><span class="p">)</span>
 
@@ -631,13 +631,13 @@ Enter the following code in the <code class="highlighter-rouge">index.js</code> 
 
 <p>What happens in this Lambda Function:</p>
 <ul>
-  <li>The <code class="highlighter-rouge">event</code> parameter of the <code class="highlighter-rouge">handler</code> function contains the data from the event that triggered the function.</li>
-  <li>The <code class="highlighter-rouge">params</code> are used to configure the scan of the table.</li>
-  <li>The <code class="highlighter-rouge">Item</code> object contains the data that has to be put into the table.</li>
-  <li>The <code class="highlighter-rouge">Item</code> not only contains the <strong>Date</strong> and <strong>Author</strong>, but also other attributes like the <code class="highlighter-rouge">Tip</code> itself and <code class="highlighter-rouge">Category</code>..
+  <li>The <code class="language-plaintext highlighter-rouge">event</code> parameter of the <code class="language-plaintext highlighter-rouge">handler</code> function contains the data from the event that triggered the function.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">params</code> are used to configure the scan of the table.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Item</code> object contains the data that has to be put into the table.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Item</code> not only contains the <strong>Date</strong> and <strong>Author</strong>, but also other attributes like the <code class="language-plaintext highlighter-rouge">Tip</code> itself and <code class="language-plaintext highlighter-rouge">Category</code>..
 That’s allowed because it is a NoSQL database. 
-The <code class="highlighter-rouge">MonthAtrribute</code>, <code class="highlighter-rouge">YearAttribute</code> and <code class="highlighter-rouge">YearMonthAttribute</code> are added automatically.</li>
-  <li><code class="highlighter-rouge">docClient.put(params, function(err,data)</code> executes the write and returns either the result or the error that occurred.</li>
+The <code class="language-plaintext highlighter-rouge">MonthAtrribute</code>, <code class="language-plaintext highlighter-rouge">YearAttribute</code> and <code class="language-plaintext highlighter-rouge">YearMonthAttribute</code> are added automatically.</li>
+  <li><code class="language-plaintext highlighter-rouge">docClient.put(params, function(err,data)</code> executes the write and returns either the result or the error that occurred.</li>
 </ul>
 
 <h2 id="test-write-lambda-1">Test write-Lambda</h2>
@@ -664,7 +664,7 @@ Go to the CodingTips table and you will see a new item that was added into your 
   <li>Under <strong>Services</strong> navigate to <strong>API Gateway</strong>.</li>
   <li>Click the <strong>CodingTips</strong> API that we created already for the GET Request.</li>
   <li>You need to add a <strong>HTTP POST Method</strong> to this API.
-Under <strong>Resources</strong> click <code class="highlighter-rouge">/tips</code>, <strong>Actions</strong>, <strong>Create Method</strong> and select <strong>POST</strong>.
+Under <strong>Resources</strong> click <code class="language-plaintext highlighter-rouge">/tips</code>, <strong>Actions</strong>, <strong>Create Method</strong> and select <strong>POST</strong>.
 The <strong>Integration Type</strong> is Lambda Function.
 The name of that Lambda function is <strong>CodingTips_Write</strong>, which we just created.</li>
 </ul>
@@ -701,7 +701,7 @@ Add this template and <strong>save</strong>:</p>
 
 <p>Under <strong>Actions</strong> click <strong>Deploy API</strong>. 
 You will be asked to provide a name for the <strong>stage</strong>. 
-Select the <code class="highlighter-rouge">default</code> stage and <strong>Deploy</strong>.
+Select the <code class="language-plaintext highlighter-rouge">default</code> stage and <strong>Deploy</strong>.
 In the <strong>Stages</strong> tab there is an <strong>Invoke URL</strong>.</p>
 
 <div style="text-align: center;">
@@ -744,7 +744,7 @@ Use your browser or curl to check the items in the table.</p>
     <ul>
       <li>Check CloudWatch for logs.
   Under <strong>Services</strong> go to <strong>CloudWatch</strong>.
-  In the <strong>Logs</strong> tab access the <strong>Log Group</strong> <code class="highlighter-rouge">/aws/lambda/CodingTips_Write</code> to view the logs of the Lambda.</li>
+  In the <strong>Logs</strong> tab access the <strong>Log Group</strong> <code class="language-plaintext highlighter-rouge">/aws/lambda/CodingTips_Write</code> to view the logs of the Lambda.</li>
     </ul>
   </li>
   <li>Trouble with <strong>API Gateway</strong>:

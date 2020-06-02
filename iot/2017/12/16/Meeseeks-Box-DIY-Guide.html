@@ -232,11 +232,11 @@ For the demo a maximum of three Meeseekses can be spawned, as to not overwhelm t
 
 <p>Since the Raspberry Pi 3 has built in WiFi and Bluetooth it is possible to make the box fully wireless.
 The Pi has Node installed on it (the latest version) and is connected to the WiFi.
-The WiFi can be easily configured by placing the SD card in your computer and placing a file name <code class="highlighter-rouge">wpa_supplicant.conf</code> file in the root of the boot volume.
+The WiFi can be easily configured by placing the SD card in your computer and placing a file name <code class="language-plaintext highlighter-rouge">wpa_supplicant.conf</code> file in the root of the boot volume.
 This file contains the configuration for the WiFi network the Pi should connect to.</p>
 
 <p><em>wpa_supplicant.conf</em></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>country=BE
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>country=BE
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev 
 update_config=1
 
@@ -303,7 +303,7 @@ A future, more elaborate version of the box could include cutouts for the lid in
 
 <h2 id="the-code-behind-it">The code behind it</h2>
 <p>The code behind the Meeseeks Box is a simple NodeJS application.
-As it is run on a Raspberry Pi we need to make use of <code class="highlighter-rouge">raspi-io</code> to make use of the GPIO on the board.
+As it is run on a Raspberry Pi we need to make use of <code class="language-plaintext highlighter-rouge">raspi-io</code> to make use of the GPIO on the board.
 I also use Johnny-Five as an abstraction layer. More information about Johnny-Five can be found <a href="http://johnny-five.io" target="_blank">on their extensive website.</a></p>
 
 <p><em>main.js</em></p>
@@ -338,26 +338,26 @@ I also use Johnny-Five as an abstraction layer. More information about Johnny-Fi
     <span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div></div>
-<p>The above code is very simple, it makes a new <code class="highlighter-rouge">Board</code> instance which we pass a new <code class="highlighter-rouge">Raspi</code> instance telling the Johnny-Five library that we are actually running on a Raspberry Pi and that it does not need to search for any other connected boards (like Arduinos).</p>
+<p>The above code is very simple, it makes a new <code class="language-plaintext highlighter-rouge">Board</code> instance which we pass a new <code class="language-plaintext highlighter-rouge">Raspi</code> instance telling the Johnny-Five library that we are actually running on a Raspberry Pi and that it does not need to search for any other connected boards (like Arduinos).</p>
 
 <p>What you also might notice, for those who have used Johnny-Five in the past, is that we do not make use of the full power of Johnny-Five. 
-We are not using the <code class="highlighter-rouge">LED</code> or <code class="highlighter-rouge">Button</code> classes and instead are taking a more lower level approach by controlling the IO pins directly.
+We are not using the <code class="language-plaintext highlighter-rouge">LED</code> or <code class="language-plaintext highlighter-rouge">Button</code> classes and instead are taking a more lower level approach by controlling the IO pins directly.
 This has a very good reason.
 The Node application is run at startup, when the Raspberry Pi boots, as a Linux service.
 Starting it automatically breaks the REPL functionality of Johnny-Five which results in the application exiting after a good second, making it unusable.
-This is why the <code class="highlighter-rouge">Board</code> config has the <code class="highlighter-rouge">repl</code> parameter set to <code class="highlighter-rouge">false</code>, this prevents the REPL from starting and makes it so the application does not exit unexpectedly.
+This is why the <code class="language-plaintext highlighter-rouge">Board</code> config has the <code class="language-plaintext highlighter-rouge">repl</code> parameter set to <code class="language-plaintext highlighter-rouge">false</code>, this prevents the REPL from starting and makes it so the application does not exit unexpectedly.
 This unfortunately also prevents us from using the full abstraction power of the Johnny-Five framework.</p>
 
 <p>The actual code is very simple. 
 We wire up a pin as input for the button and another pin as output for the LED.
 We put the input pin to high, this prevent the input from flickering between high and low (essentially a pull-up to vcc).
-We then bind a function to the <code class="highlighter-rouge">digitalRead</code> which gets executed every time the state of the input pin changes (high to low -or- low to high).
+We then bind a function to the <code class="language-plaintext highlighter-rouge">digitalRead</code> which gets executed every time the state of the input pin changes (high to low -or- low to high).
 Since we do a pull-up to vcc our button will actually be connected to the GND which will result in the signal of the input pin going to low when the button is pressed and back to high when it is released.
 Please also be sure to wire up the LED with a correct resistor to prevent it from drawing too much current, as that might damage the IO pin it is connected to!</p>
 
 <p>Calculating such a resistor is an easy feat. 
 If the LED needs 3 volts to function and uses 20 milliamps doing so: <br />
-<code class="highlighter-rouge">R = U / I = 5V (pin out) - 3V (LED) /  0,02A = 2V / 0,02A = 100Ω</code><br />
+<code class="language-plaintext highlighter-rouge">R = U / I = 5V (pin out) - 3V (LED) /  0,02A = 2V / 0,02A = 100Ω</code><br />
 This means that a 100Ω resistor needs to be put in series with the LED to prevent it from causing any damage to the IO pin/circuitry.</p>
 
 <p><em>main.js</em></p>
@@ -394,12 +394,12 @@ A video showing a fully operational Meeseeks Box:</p>
 The best option was to make a systemd service and run it on system startup.</p>
 
 <p>First we need to create the systemd service file:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nano /lib/systemd/system/meeseeks.service
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nano /lib/systemd/system/meeseeks.service
 </code></pre></div></div>
 <p>This will create a new file (if one does not exist yet).
 Place the contents below in this file and save it.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
 Description=Meeseeks Box service
 After=network.target
 
@@ -413,13 +413,13 @@ Restart=on-failure
 WantedBy=multi-user.target
 </code></pre></div></div>
 <p>This file tells systemd what the service is and does, with what executable and which user.
-The <code class="highlighter-rouge">After=network.target</code> tells the service daemon that this service should only start if the network stack has already loaded!</p>
+The <code class="language-plaintext highlighter-rouge">After=network.target</code> tells the service daemon that this service should only start if the network stack has already loaded!</p>
 
-<p>To test the service, first execute: <code class="highlighter-rouge">sudo systemctl daemon-reload</code>
+<p>To test the service, first execute: <code class="language-plaintext highlighter-rouge">sudo systemctl daemon-reload</code>
 This reloads the daemon so it knows of the newly created service.
-Now we can manually start/stop/reload the service by using: <code class="highlighter-rouge">sudo systemctl start meeseeks</code> where you swap out <code class="highlighter-rouge">start</code> with the action you want to perform.</p>
+Now we can manually start/stop/reload the service by using: <code class="language-plaintext highlighter-rouge">sudo systemctl start meeseeks</code> where you swap out <code class="language-plaintext highlighter-rouge">start</code> with the action you want to perform.</p>
 
-<p>To make the service run at startup use: <code class="highlighter-rouge">sudo systemtl enable meeseeks</code> and to disable it again, use the same command but swap out <code class="highlighter-rouge">enable</code> for <code class="highlighter-rouge">disable</code>.</p>
+<p>To make the service run at startup use: <code class="language-plaintext highlighter-rouge">sudo systemtl enable meeseeks</code> and to disable it again, use the same command but swap out <code class="language-plaintext highlighter-rouge">enable</code> for <code class="language-plaintext highlighter-rouge">disable</code>.</p>
 
 <p>A far more detailed explanation about this matter can be found <a href="http://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/" target="_blank">here.</a></p>
 

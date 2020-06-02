@@ -229,7 +229,7 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 
 <p>You can see how readable it is with the async / await syntax. You can write asynchronous code in a synchronous way and I used it heavily everywhere in my code. I think this is one of the things that will really make writing JavaScript fun. No more callbacks, no more boilerplate code, just the important bits. For error handling you can rely on try catch statements to catch errors and act on them.</p>
 
-<p>To use the async / await syntax, you can have to add <code class="highlighter-rouge">esnext.asynciterable</code> to the lib array in the <code class="highlighter-rouge">tsconfig.json</code> file.</p>
+<p>To use the async / await syntax, you can have to add <code class="language-plaintext highlighter-rouge">esnext.asynciterable</code> to the lib array in the <code class="language-plaintext highlighter-rouge">tsconfig.json</code> file.</p>
 
 <h1 id="the-libraries-i-used">The libraries I used</h1>
 
@@ -237,7 +237,7 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 
 <p>Koa is a small node library to create REST APIs. It was made by the guys who created Express. It takes advantage of the new ES6 feature of generator functions and it allows you to write very readable code by using the async / await features (that are based on the generator functions). For a full understanding of koa and generator functions, I suggest the <a href="https://www.pluralsight.com/courses/JavaScript-koa-introduction">Koa course</a> on Pluralsight from Hammarberg.</p>
 
-<p>Koa relies heavily on middleware, so for every “step” of the process we need middleware. For instance <a href="https://github.com/koajs/bodyparser"><code class="highlighter-rouge">koa-bodyparser</code></a> middleware will parse the request body to json, the <a href="https://github.com/koajs/logger"><code class="highlighter-rouge">koa-logger</code></a> middleware will log all the incoming requests and the <a href="https://github.com/alexmingoia/koa-router"><code class="highlighter-rouge">koa-router</code></a> middleware will make it easy for us to configure the url mapping to certain actions. These middlewares are installed apart from the Koa framework or you can write them yourself.</p>
+<p>Koa relies heavily on middleware, so for every “step” of the process we need middleware. For instance <a href="https://github.com/koajs/bodyparser"><code class="language-plaintext highlighter-rouge">koa-bodyparser</code></a> middleware will parse the request body to json, the <a href="https://github.com/koajs/logger"><code class="language-plaintext highlighter-rouge">koa-logger</code></a> middleware will log all the incoming requests and the <a href="https://github.com/alexmingoia/koa-router"><code class="language-plaintext highlighter-rouge">koa-router</code></a> middleware will make it easy for us to configure the url mapping to certain actions. These middlewares are installed apart from the Koa framework or you can write them yourself.</p>
 
 <h3 id="typescript-ioc">typescript-ioc</h3>
 
@@ -274,15 +274,15 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 
 <p>For unit testing I used the classic combination of <a href="https://mochajs.org/">Mocha</a>, <a href="http://sinonjs.org/">Sinon</a> and <a href="http://chaijs.com/">Chai</a>. Since I was using dependency injection, I also needed a good way of mocking my dependencies, for this I found <a href="https://github.com/NagRock/ts-mockito">ts-mockito</a>. Ts-mockito is more or less a clone of the <a href="http://site.mockito.org/">Mockito</a> library in Java. It allows you to create mocks of classes, make functions return certain values and verify that calls have been made. This made it super easy to write tests. For examples check the tests folder in my repository. To execute the TypeScript tests, I used <a href="https://github.com/TypeStrong/ts-node">ts-node</a>. Ts-node compiles the TypeScript and keeps the compiled JavaScript in memory while it executes it. This way you don’t have to create an additional folder to compile the tests to and execute them. You can then easily create an npm script like this:</p>
 
-<p><code class="highlighter-rouge">mocha -r ts-node/register test/**/*.spec.ts</code></p>
+<p><code class="language-plaintext highlighter-rouge">mocha -r ts-node/register test/**/*.spec.ts</code></p>
 
-<p>This tells Mocha  to require the ts-node/register module (this is what the <code class="highlighter-rouge">-r ts-node/register</code>) means and then it just passes the path of the test files to it. This also worked pretty much painlessly.</p>
+<p>This tells Mocha  to require the ts-node/register module (this is what the <code class="language-plaintext highlighter-rouge">-r ts-node/register</code>) means and then it just passes the path of the test files to it. This also worked pretty much painlessly.</p>
 
 <h3 id="end-to-end-testing">end-to-end testing</h3>
 
-<p>I wanted to be able to do some real end to end testing. So I wanted to be able to spin up my application, pass some HTTP requests to it and then verify the output of the requests. The first question was how to pass the requests to my application. For this I found the library <a href="https://github.com/visionmedia/supertest">SuperTest</a>. You can just start you Koa app and pass the HTTP server (the return value of the <code class="highlighter-rouge">app.listen</code> function) to the agent and it will make sure the app is started and you can do some requests and check the results. This worked pretty well.</p>
+<p>I wanted to be able to do some real end to end testing. So I wanted to be able to spin up my application, pass some HTTP requests to it and then verify the output of the requests. The first question was how to pass the requests to my application. For this I found the library <a href="https://github.com/visionmedia/supertest">SuperTest</a>. You can just start you Koa app and pass the HTTP server (the return value of the <code class="language-plaintext highlighter-rouge">app.listen</code> function) to the agent and it will make sure the app is started and you can do some requests and check the results. This worked pretty well.</p>
 
-<p>The second problem was a test database. I needed a database that was as close to the real one as possible. I ran the real database in a <a href="https://www.docker.com/">Docker</a> container with a volume that mapped the <code class="highlighter-rouge">/var/lib/mysql</code> (the configuration / data folder for MySQL) to a host directory, so I could recreate the container without losing data. I figured I could more or less copy the Docker configuration for the database for a test database, only without the volume. Without the volume, the data would just be saved to the container itself, so it would be lost every time the container was recreated, which is perfect for end-to-end tests, because we want to start the tests with the exact same dataset, so we can make sure our assertions keep working.</p>
+<p>The second problem was a test database. I needed a database that was as close to the real one as possible. I ran the real database in a <a href="https://www.docker.com/">Docker</a> container with a volume that mapped the <code class="language-plaintext highlighter-rouge">/var/lib/mysql</code> (the configuration / data folder for MySQL) to a host directory, so I could recreate the container without losing data. I figured I could more or less copy the Docker configuration for the database for a test database, only without the volume. Without the volume, the data would just be saved to the container itself, so it would be lost every time the container was recreated, which is perfect for end-to-end tests, because we want to start the tests with the exact same dataset, so we can make sure our assertions keep working.</p>
 
 <p>So I created an npm script to start the Docker and to do healthchecks to the Docker container until it told me that the entire container was up and running and MySQL was ready to take connections. Then I wrote a script to start the actual end to end tests, which was simply the same mocha call I wrote earlier, only pointing to the e2e folder instead of the test folder. At last I wrote an npm script to stop the Docker container and remove it. You can check these scripts <a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/tree/master/scripts">here</a>. I made heavy use of the <a href="https://github.com/shelljs/shelljs">shelljs</a> package. This npm package allows you to execute shell commands, which I used to start Docker containers from JavaScript.</p>
 
@@ -296,7 +296,7 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 
 <h3 id="npm">npm</h3>
 
-<p>Npm is actually the only build tool you need. If what you want to do is more than a single line command, you can just write scripts in either TypeScript (you can execute them with ts-node), bash, JavaScript, … whatever you like. I wrote my scripts in TypeScript, because to me it makes more sense to use TypeScript for everything, but I could just as well have written them using bash. Npm also gives you pre and post task hooks. So if you write a task with the name “e2e” as I did, you can also add a task with the “pre” prefix or the “post” prefix that will automatically be executed before and after the task is executed. This way I could easily separate the starting of the Docker container, the executing of the tests and the stopping of the Docker container into different scripts. I could then just execute <code class="highlighter-rouge">npm run pree2e</code> to check if my script to start the Docker worked. I really like this approach and the fact that I don’t need another tool to learn like gulp or Webpack.</p>
+<p>Npm is actually the only build tool you need. If what you want to do is more than a single line command, you can just write scripts in either TypeScript (you can execute them with ts-node), bash, JavaScript, … whatever you like. I wrote my scripts in TypeScript, because to me it makes more sense to use TypeScript for everything, but I could just as well have written them using bash. Npm also gives you pre and post task hooks. So if you write a task with the name “e2e” as I did, you can also add a task with the “pre” prefix or the “post” prefix that will automatically be executed before and after the task is executed. This way I could easily separate the starting of the Docker container, the executing of the tests and the stopping of the Docker container into different scripts. I could then just execute <code class="language-plaintext highlighter-rouge">npm run pree2e</code> to check if my script to start the Docker worked. I really like this approach and the fact that I don’t need another tool to learn like gulp or Webpack.</p>
 
 <h1 id="debugging">Debugging</h1>
 
@@ -304,7 +304,7 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 
 <p>I had some trouble at the beginning with debugging my TypeScript. For some reason in the Chrome Devtools I could not get my sourcemaps working (even though they were inline sourcemaps). Then I tried the Visual Studio Code debugger and that worked much better. To get this to work, I did the following:</p>
 
-<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/tsconfig.json"><code class="highlighter-rouge">tsconfig.json</code></a></p>
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/tsconfig.json"><code class="language-plaintext highlighter-rouge">tsconfig.json</code></a></p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">  
     {
@@ -316,7 +316,7 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
         }
     }</code></pre></figure>
 
-<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json"><code class="highlighter-rouge">package.json</code></a></p>
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json"><code class="language-plaintext highlighter-rouge">package.json</code></a></p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">  
 
@@ -326,7 +326,7 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
         
     }</code></pre></figure>
 
-<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json"><code class="highlighter-rouge">.vscode/launch.json</code></a></p>
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json"><code class="language-plaintext highlighter-rouge">.vscode/launch.json</code></a></p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">  
     {
@@ -351,20 +351,20 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
         ]
     }</code></pre></figure>
 
-<p>The npm script will start the execution of the <code class="highlighter-rouge">index.ts</code> with ts-node in debug mode on port 5858 and the <code class="highlighter-rouge">--debug-brk</code> tells it to break on the first line of code. The launch configuration will just execute this npm script and attach it to the debugger.</p>
+<p>The npm script will start the execution of the <code class="language-plaintext highlighter-rouge">index.ts</code> with ts-node in debug mode on port 5858 and the <code class="language-plaintext highlighter-rouge">--debug-brk</code> tells it to break on the first line of code. The launch configuration will just execute this npm script and attach it to the debugger.</p>
 
 <h3 id="test-code">Test code</h3>
 
 <p>Debugging the test code is more or less the same as the application code, there is just a small caveat. When you create breakpoints in Visual Studio Code, they will appear gray as if they cannot be reached. But when you execute the code, it will break on the breakpoints and then they will become red like a normal breakpoint.</p>
 
-<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json"><code class="highlighter-rouge">package.json</code></a></p>
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/package.json"><code class="language-plaintext highlighter-rouge">package.json</code></a></p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">  
     "scripts": {
 	    "test:debug": "mocha --inspect --debug-brk --not-timeouts --compilers ts:ts-node/register test/**/*.spec.ts",
     }</code></pre></figure>
 
-<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json"><code class="highlighter-rouge">.vscode/launch.json</code></a></p>
+<p><a href="https://github.com/ivarvh/movielistr-backend-ts-ioc/blob/master/.vscode/launch.json"><code class="language-plaintext highlighter-rouge">.vscode/launch.json</code></a></p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">  
 {

@@ -187,7 +187,7 @@
   <li>Generate a postman collection from your OpenAPI definition. (<a href="#integrating-with-postman">Jump to section</a>)</li>
   <li>Next I’ll show you how to generate code that is completely compliant with your API specs. (<a href="#openapi-generator-generate-api-compliant-code">Jump to section</a>)</li>
   <li>We then dive into how to integrate this in your build process by using maven or gradle plugins. (<a href="#integrating-with-your-build-process-maven-or-gradle-plugin">Jump to section</a>)</li>
-  <li>To finish it up I’ll demonstrate how to use it in a cloud native serverless product with <code class="highlighter-rouge">AWS SAM</code> and <code class="highlighter-rouge">AWS Lambda</code>. (<a href="#serverless-on-aws-openapi-api-gateway-lambda-and-sam">Jump to section</a>)</li>
+  <li>To finish it up I’ll demonstrate how to use it in a cloud native serverless product with <code class="language-plaintext highlighter-rouge">AWS SAM</code> and <code class="language-plaintext highlighter-rouge">AWS Lambda</code>. (<a href="#serverless-on-aws-openapi-api-gateway-lambda-and-sam">Jump to section</a>)</li>
   <li>Wrapping it up with a conclusion.</li>
 </ul>
 
@@ -260,7 +260,7 @@ An image says more then a thousand words. We’ll see how OpenAPI can help you w
   <li>Bottom-up aka Code First</li>
 </ul>
 
-<p>To quote <code class="highlighter-rouge">Swagger.io</code>:</p>
+<p>To quote <code class="language-plaintext highlighter-rouge">Swagger.io</code>:</p>
 <blockquote>
   <p>Design First: The plan is converted to a human and machine readable contract, such as a Swagger document, from which the code is built.</p>
 </blockquote>
@@ -270,7 +270,7 @@ An image says more then a thousand words. We’ll see how OpenAPI can help you w
 </blockquote>
 
 <p>In this blog post I am using the Top-down Design First approach to facilitate API first development.
-In the last paragraph of this blog I’ll briefly show an example of a Code First approach with <code class="highlighter-rouge">Springfox</code>.</p>
+In the last paragraph of this blog I’ll briefly show an example of a Code First approach with <code class="language-plaintext highlighter-rouge">Springfox</code>.</p>
 
 <h1 id="api-design-an-example">API design: an example</h1>
 <p>Suppose that we, <strong><em>Ordina</em></strong>, are hosting a conference where multiple technical and agile sessions will be given.
@@ -343,7 +343,7 @@ The OpenAPI spec allows you to split your definitions over multiple files which 
 </blockquote>
 
 <p>You want to expose your beautiful visualisation to your clients.
-They shouldn’t have to paste a <code class="highlighter-rouge">yaml</code> file in a window of their browser all the time.
+They shouldn’t have to paste a <code class="language-plaintext highlighter-rouge">yaml</code> file in a window of their browser all the time.
 How do we do that? 
 Let’s find out next.</p>
 
@@ -360,7 +360,7 @@ If your company has no such tool there are plenty of other tools to visualize yo
 <p>A couple of hosted solutions:</p>
 <ul>
   <li>
-    <p><a href="https://swagger.io/tools/swaggerhub/" target="_blank">swaggerhub.com</a>: Platform for API design and hosting by <code class="highlighter-rouge">SMARTBEAR</code> itself</p>
+    <p><a href="https://swagger.io/tools/swaggerhub/" target="_blank">swaggerhub.com</a>: Platform for API design and hosting by <code class="language-plaintext highlighter-rouge">SMARTBEAR</code> itself</p>
   </li>
   <li>
     <p><a href="https://next.stoplight.io/" target="_blank">next.stoplight.io</a></p>
@@ -402,7 +402,7 @@ More so, you have to make sure that every member of your team has the latest ver
 
 <p>Good news!
 Postman can import a collection directly from the OAS.
-In the Postman UI go to <code class="highlighter-rouge">import</code> and import from <code class="highlighter-rouge">raw text</code>.
+In the Postman UI go to <code class="language-plaintext highlighter-rouge">import</code> and import from <code class="language-plaintext highlighter-rouge">raw text</code>.
 Just like I did in the image below.</p>
 
 <div style="text-align: center;">
@@ -426,7 +426,7 @@ So let’s generate code that is completely compliant with the specs.</p>
 <p>OpenAPI Generator is a hugely popular <a href="https://github.com/OpenAPITools/openapi-generator" target="_blank">repository</a> on github.
 It allows you to generate code that is completely in line with your API specification.</p>
 
-<p>On <code class="highlighter-rouge">mac</code> you can just install the <code class="highlighter-rouge">openapi-generator-cli</code> by installing it via brew.</p>
+<p>On <code class="language-plaintext highlighter-rouge">mac</code> you can just install the <code class="language-plaintext highlighter-rouge">openapi-generator-cli</code> by installing it via brew.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>openapi-generator-cli
 </code></pre></div></div>
@@ -499,9 +499,9 @@ We could for example do the following</p>
 <span class="nt">-p</span> <span class="nv">useBeanValidation</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div></div>
 
-<p>This generates the <code class="highlighter-rouge">java</code> models without creating test classes and puts them in a package <code class="highlighter-rouge">com.ordina.conference_app.model</code>.
-It suffixes them with <code class="highlighter-rouge">Dto</code> since that’s what they are.
-These classes are used to transfer data in and out of the application (<code class="highlighter-rouge">Dto</code> aka Data Transfer Object).</p>
+<p>This generates the <code class="language-plaintext highlighter-rouge">java</code> models without creating test classes and puts them in a package <code class="language-plaintext highlighter-rouge">com.ordina.conference_app.model</code>.
+It suffixes them with <code class="language-plaintext highlighter-rouge">Dto</code> since that’s what they are.
+These classes are used to transfer data in and out of the application (<code class="language-plaintext highlighter-rouge">Dto</code> aka Data Transfer Object).</p>
 
 <div style="text-align: center;">
   <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/generate-dtos-in-package-with-beanvalidation.png" width="100%" height="100%" />
@@ -512,11 +512,11 @@ These classes are used to transfer data in and out of the application (<code cla
   <p>Keep your generated class files in sync with the requirements of the API specs by setting the useBeanValidation option to true.</p>
 </blockquote>
 
-<p>In the last example I also specified a property <code class="highlighter-rouge">useBeanValidation=true</code>.<br />
+<p>In the last example I also specified a property <code class="language-plaintext highlighter-rouge">useBeanValidation=true</code>.<br />
 Requirements specified in the API documentation like a required field are now translated to the code.
-The <code class="highlighter-rouge">getter</code> on the  <code class="highlighter-rouge">speaker</code> field in the <code class="highlighter-rouge">SessionDto</code> class is now annotated with <code class="highlighter-rouge">@NotNull</code>.<br />
-You can now use a framework like <code class="highlighter-rouge">JSR 380</code>, known as <code class="highlighter-rouge">Bean Validation 2.0.</code>, to validate input and output.<br />
-This is a <code class="highlighter-rouge">Java</code> specific example, but the same will happen when you change to other languages by using eg. <code class="highlighter-rouge">-g python</code>.</p>
+The <code class="language-plaintext highlighter-rouge">getter</code> on the  <code class="language-plaintext highlighter-rouge">speaker</code> field in the <code class="language-plaintext highlighter-rouge">SessionDto</code> class is now annotated with <code class="language-plaintext highlighter-rouge">@NotNull</code>.<br />
+You can now use a framework like <code class="language-plaintext highlighter-rouge">JSR 380</code>, known as <code class="language-plaintext highlighter-rouge">Bean Validation 2.0.</code>, to validate input and output.<br />
+This is a <code class="language-plaintext highlighter-rouge">Java</code> specific example, but the same will happen when you change to other languages by using eg. <code class="language-plaintext highlighter-rouge">-g python</code>.</p>
 
 <div style="text-align: center;">
   <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/SessionDto.png" width="80%" height="80%" />
@@ -525,11 +525,11 @@ This is a <code class="highlighter-rouge">Java</code> specific example, but the 
 <p>Now that we got acquainted with code generation I am going to show you how to include it in your build process.</p>
 
 <h1 id="integrating-swaggeropenapi-with-your-build-process-maven-or-gradle-plugin">Integrating Swagger/OpenAPI with your build process: maven or gradle plugin</h1>
-<p>There are maven and gradle plugins that support the <code class="highlighter-rouge">openapi-generator</code> project. 
+<p>There are maven and gradle plugins that support the <code class="language-plaintext highlighter-rouge">openapi-generator</code> project. 
 (<a href="https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin" target="_blank">maven</a> and <a href="https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin" target="_blank">gradle</a>)</p>
 
-<p>I started a maven project and included our <code class="highlighter-rouge">api.yml</code> on the classpath.
-Now it is a matter of configuring the <code class="highlighter-rouge">openapi-generator-build-plugin</code> in our maven <code class="highlighter-rouge">pom.xml</code>.</p>
+<p>I started a maven project and included our <code class="language-plaintext highlighter-rouge">api.yml</code> on the classpath.
+Now it is a matter of configuring the <code class="language-plaintext highlighter-rouge">openapi-generator-build-plugin</code> in our maven <code class="language-plaintext highlighter-rouge">pom.xml</code>.</p>
 
 <p>I want to configure it to behave the same way as the example above.</p>
 
@@ -574,22 +574,22 @@ Now it is a matter of configuring the <code class="highlighter-rouge">openapi-ge
 <p>Important to note:</p>
 
 <ul>
-  <li>The generated models will appear in the current module under <code class="highlighter-rouge">/src/java/be/ordina/conference/api/model</code>
+  <li>The generated models will appear in the current module under <code class="language-plaintext highlighter-rouge">/src/java/be/ordina/conference/api/model</code>
 That is caused by the combination of multiple options:
     <ul>
-      <li><code class="highlighter-rouge">&lt;output&gt;${project.basedir}&lt;/output&gt;</code></li>
-      <li><code class="highlighter-rouge">&lt;sourceFolder&gt;src/java&lt;/sourceFolder&gt;</code></li>
-      <li><code class="highlighter-rouge">&lt;modelPackage&gt;be.ordina.conference.api.model&lt;/modelPackage&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;output&gt;${project.basedir}&lt;/output&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;sourceFolder&gt;src/java&lt;/sourceFolder&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;modelPackage&gt;be.ordina.conference.api.model&lt;/modelPackage&gt;</code></li>
     </ul>
   </li>
   <li>Only the API models will be generated, with markdown documentation and no test classes.
 That’s a combination of:
     <ul>
-      <li><code class="highlighter-rouge">&lt;generateModels&gt;true&lt;/generateModels&gt;</code></li>
-      <li><code class="highlighter-rouge">&lt;generateModelTests&gt;false&lt;/generateModelTests&gt;</code></li>
-      <li><code class="highlighter-rouge">&lt;generateModelDocumentation&gt;true&lt;/generateModelDocumentation&gt;</code></li>
-      <li><code class="highlighter-rouge">&lt;generateApis&gt;false&lt;/generateApis&gt;</code></li>
-      <li><code class="highlighter-rouge">&lt;generateSupportingFiles&gt;false&lt;/generateSupportingFiles&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;generateModels&gt;true&lt;/generateModels&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;generateModelTests&gt;false&lt;/generateModelTests&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;generateModelDocumentation&gt;true&lt;/generateModelDocumentation&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;generateApis&gt;false&lt;/generateApis&gt;</code></li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;generateSupportingFiles&gt;false&lt;/generateSupportingFiles&gt;</code></li>
     </ul>
   </li>
 </ul>
@@ -599,7 +599,7 @@ That’s a combination of:
 <h1 id="testing-your-api">Testing your API</h1>
 <p>Testing you API would normally involve setting up a larger integration test.
 In the case of AWS Lambda this means that you’d have to deploy your application since you cannot run it locally (Not that easily at least).
-Luckily we have set the <code class="highlighter-rouge">useBeanValidation</code> property to true.
+Luckily we have set the <code class="language-plaintext highlighter-rouge">useBeanValidation</code> property to true.
 This allows us to write unit tests that validate the incoming and outgoing requests of our function.</p>
 
 <p>After you deserialize the incoming request you can validate it against your API specs:</p>
@@ -614,10 +614,10 @@ You could easily check this functionality by writing a unit test that:</p>
 </ul>
 
 <p>The same goes for the responses. 
-In your code validate the response against your API specifications by using the <code class="highlighter-rouge">responseDto</code> that was generated from the specs:</p>
+In your code validate the response against your API specifications by using the <code class="language-plaintext highlighter-rouge">responseDto</code> that was generated from the specs:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">ConstraintViolation</span><span class="o">&lt;</span><span class="nc">CreateSessionResponseDto</span><span class="o">&gt;&gt;</span> <span class="n">violations</span> <span class="o">=</span> <span class="nc">Validation</span><span class="o">.</span><span class="na">buildDefaultValidatorFactory</span><span class="o">().</span><span class="na">getValidator</span><span class="o">().</span><span class="na">validate</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
 </code></pre></div></div>
-<p>If this finds any violations throw a <code class="highlighter-rouge">ConstraintValidationException</code>.</p>
+<p>If this finds any violations throw a <code class="language-plaintext highlighter-rouge">ConstraintValidationException</code>.</p>
 
 <p>Again a unit test can validate that:</p>
 <ul>
@@ -666,7 +666,7 @@ SAM allows you to use an OpenAPI specification to create your API Gateway.</p>
             <span class="na">Method</span><span class="pi">:</span> <span class="s">GET</span>
 </code></pre></div></div>
 
-<p>Add the <code class="highlighter-rouge">x-amazon-apigateway-integration</code> extension in your <code class="highlighter-rouge">api.yml</code> to specify how the api has to integrate with the backend Lambda service.</p>
+<p>Add the <code class="language-plaintext highlighter-rouge">x-amazon-apigateway-integration</code> extension in your <code class="language-plaintext highlighter-rouge">api.yml</code> to specify how the api has to integrate with the backend Lambda service.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">paths</span><span class="pi">:</span>
   <span class="s2">"</span><span class="s">/sessions"</span><span class="pi">:</span>
@@ -706,8 +706,8 @@ Here I set up a Spring boot application with Springfox dependencies.</p>
 <span class="nt">&lt;/dependencies&gt;</span>
 </code></pre></div></div>
 
-<p>Implementing the API and using the right annotations leads to an endpoint of your application on which your API spec is visualised: <code class="highlighter-rouge">/swagger-ui.html</code>
-There is also an endpoint to download the Swagger / OpenAPI specification:  <code class="highlighter-rouge">api-docs</code></p>
+<p>Implementing the API and using the right annotations leads to an endpoint of your application on which your API spec is visualised: <code class="language-plaintext highlighter-rouge">/swagger-ui.html</code>
+There is also an endpoint to download the Swagger / OpenAPI specification:  <code class="language-plaintext highlighter-rouge">api-docs</code></p>
 <div style="text-align: center;">
   <img src="/img/2019-10-02-API-first-development-with-OpenAPI-or-Swagger/springfox.png" width="100%" height="100%" />
 </div>
@@ -736,7 +736,7 @@ There is also an endpoint to download the Swagger / OpenAPI specification:  <cod
 <ul>
   <li>No support for complex/variable request/response scenarios</li>
   <li>Little extra documentation can be added in the API specs</li>
-  <li>If you add a new <code class="highlighter-rouge">enum</code> in the specification, your clients have to regenerate their code in order to be able to accept the enum.</li>
+  <li>If you add a new <code class="language-plaintext highlighter-rouge">enum</code> in the specification, your clients have to regenerate their code in order to be able to accept the enum.</li>
   <li>Development can only start after API is designed</li>
 </ul>
 

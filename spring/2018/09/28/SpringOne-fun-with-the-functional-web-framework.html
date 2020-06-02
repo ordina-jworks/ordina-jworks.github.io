@@ -196,7 +196,7 @@ It was introduced in Spring 5.0 and for spring 5.1 they did some refinements in 
 <p>The WebFlux.fn framework had three main goals.</p>
 
 <p>The first one was to create a web framework with a functional style.
-By this they mean that they wanted to leverage the new functional concepts introduced in Java 8, like <code class="highlighter-rouge">Function</code> and <code class="highlighter-rouge">Stream</code>.</p>
+By this they mean that they wanted to leverage the new functional concepts introduced in Java 8, like <code class="language-plaintext highlighter-rouge">Function</code> and <code class="language-plaintext highlighter-rouge">Stream</code>.</p>
 
 <p>The second goal was to make the framework fully reactive by using the functionality from <a href="https://projectreactor.io" target="_blank">Reactor</a>.</p>
 
@@ -213,15 +213,15 @@ This is also useful for when you want to use GraalVM.</p>
 <h2 id="how-does-it-work">How does it work</h2>
 <p>There are three main concepts in the WebFlux.fn framework:</p>
 <ul>
-  <li>The <code class="highlighter-rouge">HandlerFunction</code></li>
-  <li>The <code class="highlighter-rouge">RouterFunction</code></li>
-  <li>The <code class="highlighter-rouge">HandlerFilterFunction</code></li>
+  <li>The <code class="language-plaintext highlighter-rouge">HandlerFunction</code></li>
+  <li>The <code class="language-plaintext highlighter-rouge">RouterFunction</code></li>
+  <li>The <code class="language-plaintext highlighter-rouge">HandlerFilterFunction</code></li>
 </ul>
 
 <p>We’ll discuss these in the following sections.</p>
 
 <h3 id="the-handlerfunction">The HandlerFunction</h3>
-<p>Is a function that maps a <code class="highlighter-rouge">ServerRequest</code> to a <code class="highlighter-rouge">Mono&lt;ServerResponse&gt;</code>.</p>
+<p>Is a function that maps a <code class="language-plaintext highlighter-rouge">ServerRequest</code> to a <code class="language-plaintext highlighter-rouge">Mono&lt;ServerResponse&gt;</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">showPet</span><span class="o">(</span><span class="nc">ServerRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
     <span class="nc">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">pathVariable</span><span class="o">(</span><span class="s">"id"</span><span class="o">);</span>
@@ -234,15 +234,15 @@ This is also useful for when you want to use GraalVM.</p>
 
 <p>You can see in this example that there are some differences with a Web MVC controller method.</p>
 
-<p>A big difference is that we can only get a <code class="highlighter-rouge">ServerRequest</code> as a parameter. 
-So if we want a path variable, body or anything else from the HTTP request, we have to get it from the <code class="highlighter-rouge">ServerRequest</code> variable.
+<p>A big difference is that we can only get a <code class="language-plaintext highlighter-rouge">ServerRequest</code> as a parameter. 
+So if we want a path variable, body or anything else from the HTTP request, we have to get it from the <code class="language-plaintext highlighter-rouge">ServerRequest</code> variable.
 Spring does not inject this information as method parameters in WebFlux.fn.</p>
 
-<p>The second difference is that the object we return has to be a <code class="highlighter-rouge">Mono&lt;ServerResponse&gt;</code>.
-In Web MVC the return type could be a lot of different things like any type of <code class="highlighter-rouge">Object</code>, a <code class="highlighter-rouge">ResponseEntity</code>, etc.</p>
+<p>The second difference is that the object we return has to be a <code class="language-plaintext highlighter-rouge">Mono&lt;ServerResponse&gt;</code>.
+In Web MVC the return type could be a lot of different things like any type of <code class="language-plaintext highlighter-rouge">Object</code>, a <code class="language-plaintext highlighter-rouge">ResponseEntity</code>, etc.</p>
 
 <h3 id="the-routerfunction">The RouterFunction</h3>
-<p>Is a function that takes a <code class="highlighter-rouge">ServerRequest</code> and returns a <code class="highlighter-rouge">HandlerFunction</code> using a <code class="highlighter-rouge">RequestPredicate</code>.</p>
+<p>Is a function that takes a <code class="language-plaintext highlighter-rouge">ServerRequest</code> and returns a <code class="language-plaintext highlighter-rouge">HandlerFunction</code> using a <code class="language-plaintext highlighter-rouge">RequestPredicate</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="kd">public</span> <span class="nc">RouterFunction</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">routerFunction</span><span class="o">(</span><span class="nc">PetHandler</span> <span class="n">petHandler</span><span class="o">)</span> <span class="o">{</span>
@@ -264,9 +264,9 @@ In Web MVC the return type could be a lot of different things like any type of <
 The first router function’s  handler that matches your HTTP request will be the one that is executed.
 This makes it a lot clearer when you read the router functions to know which one will be executed, it’s the first one that you define and matches.</p>
 
-<p>An advantage of the <code class="highlighter-rouge">RouterFunction</code> over the annotational style is that you can map multiple endpoints to the same <code class="highlighter-rouge">HandlerFunction</code>.
+<p>An advantage of the <code class="language-plaintext highlighter-rouge">RouterFunction</code> over the annotational style is that you can map multiple endpoints to the same <code class="language-plaintext highlighter-rouge">HandlerFunction</code>.
 This is not possible in Web MVC because you can only put one @RequestMapping on a controller method.
-In the WebFlux.fn framework however, you can refer to one <code class="highlighter-rouge">HandlerFunction</code> in as many <code class="highlighter-rouge">RouterFunction</code> matchers as you want.</p>
+In the WebFlux.fn framework however, you can refer to one <code class="language-plaintext highlighter-rouge">HandlerFunction</code> in as many <code class="language-plaintext highlighter-rouge">RouterFunction</code> matchers as you want.</p>
 
 <h4 id="improvements-in-the-routerfunction-spring-framework-51">Improvements in the RouterFunction spring framework 5.1:</h4>
 
@@ -279,13 +279,13 @@ In the WebFlux.fn framework however, you can refer to one <code class="highlight
    <span class="o">.</span><span class="na">GET</span><span class="o">(</span><span class="s">"/people"</span><span class="o">),</span> <span class="nl">personHandler:</span><span class="o">:</span><span class="n">getPeople</span><span class="o">)</span>
 </code></pre></div>    </div>
   </li>
-  <li>And a new pattern matcher to resolve which <code class="highlighter-rouge">HandlerFunction</code> to call, which is a lot faster than the previous one.</li>
+  <li>And a new pattern matcher to resolve which <code class="language-plaintext highlighter-rouge">HandlerFunction</code> to call, which is a lot faster than the previous one.</li>
 </ol>
 
 <h4 id="requestpredicates">RequestPredicates</h4>
-<p>Is a function that maps a <code class="highlighter-rouge">ServerRequest</code> to a <code class="highlighter-rouge">boolean</code>.</p>
+<p>Is a function that maps a <code class="language-plaintext highlighter-rouge">ServerRequest</code> to a <code class="language-plaintext highlighter-rouge">boolean</code>.</p>
 
-<p>This is used to match your <code class="highlighter-rouge">HandlerFunction</code> to a HTTP request.
+<p>This is used to match your <code class="language-plaintext highlighter-rouge">HandlerFunction</code> to a HTTP request.
 Spring provides a lot of default predicates for paths, accept headers, etc.
 But you can also create your own very easily, with lambdas, methods, or classes.</p>
 
@@ -309,7 +309,7 @@ But you can also create your own very easily, with lambdas, methods, or classes.
 </code></pre></div></div>
 
 <h4 id="nested-routerfunction">nested RouterFunction</h4>
-<p>Similar to the class level <code class="highlighter-rouge">@RequestMapping</code>, but a lot more powerful.</p>
+<p>Similar to the class level <code class="language-plaintext highlighter-rouge">@RequestMapping</code>, but a lot more powerful.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="kd">public</span> <span class="nc">RouterFunction</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">petsRouter</span><span class="o">(</span><span class="nc">PetJsonHandler</span> <span class="n">petJsonHandler</span><span class="o">,</span> <span class="nc">PetHtmlHandler</span> <span class="n">petHtmlHandler</span><span class="o">)</span> <span class="o">{</span>
@@ -334,7 +334,7 @@ But you can also create your own very easily, with lambdas, methods, or classes.
 <p>You can choose on what you nest, depending on the needs of your software.</p>
 
 <p>In WebFlux.fn you can couple HTTP requests for the same path, but different accept headers to different classes, as in the example above.
-Here you only define your path once which means no duplication, and it’s easier to change the path to for example <code class="highlighter-rouge">/animals</code>, because there is only one place where you have to change it.</p>
+Here you only define your path once which means no duplication, and it’s easier to change the path to for example <code class="language-plaintext highlighter-rouge">/animals</code>, because there is only one place where you have to change it.</p>
 
 <p>In Web MVC it would look like this.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
@@ -350,7 +350,7 @@ Here you only define your path once which means no duplication, and it’s easie
 </code></pre></div></div>
 
 <h3 id="the-handlerfilterfunction">The HandlerFilterFunction</h3>
-<p>Is a function that takes a <code class="highlighter-rouge">ServerRequest</code> and a <code class="highlighter-rouge">HandlerFunction</code> and returns a <code class="highlighter-rouge">ServerResponse</code>.</p>
+<p>Is a function that takes a <code class="language-plaintext highlighter-rouge">ServerRequest</code> and a <code class="language-plaintext highlighter-rouge">HandlerFunction</code> and returns a <code class="language-plaintext highlighter-rouge">ServerResponse</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="nc">RouterFunction</span><span class="o">&lt;</span><span class="nc">ServerResponse</span><span class="o">&gt;</span> <span class="nf">mainRouter</span><span class="o">(</span><span class="nc">PetHandler</span> <span class="n">petHandler</span><span class="o">,</span> <span class="nc">OwnerHandler</span> <span class="n">ownerHandler</span><span class="o">)</span> <span class="o">{</span>
@@ -370,14 +370,14 @@ Here you only define your path once which means no duplication, and it’s easie
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">HandlerFilterFunction</code> is more flexible than Servlet filters because you can put a <code class="highlighter-rouge">HandlerFilterFunction</code> on a <code class="highlighter-rouge">RouterFunction</code>.
+<p>The <code class="language-plaintext highlighter-rouge">HandlerFilterFunction</code> is more flexible than Servlet filters because you can put a <code class="language-plaintext highlighter-rouge">HandlerFilterFunction</code> on a <code class="language-plaintext highlighter-rouge">RouterFunction</code>.
 This means that you can apply this filter to a subset of your routes instead of on all routes.</p>
 
 <p>It can be used for example for security, logging, timing, etc.</p>
 
 <h3 id="future-evolutions">Future evolutions</h3>
 
-<p>Currently the functional web framework does not work with Servlets but only with Spring’s self made <code class="highlighter-rouge">ServerRequest</code> and <code class="highlighter-rouge">ServerResponse</code>.
+<p>Currently the functional web framework does not work with Servlets but only with Spring’s self made <code class="language-plaintext highlighter-rouge">ServerRequest</code> and <code class="language-plaintext highlighter-rouge">ServerResponse</code>.
 They are however looking at creating a functional web framework that works with Servlets and without Reactor.</p>
 
 <h2 id="conclusion">Conclusion</h2>

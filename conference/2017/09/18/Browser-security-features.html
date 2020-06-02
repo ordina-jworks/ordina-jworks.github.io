@@ -227,26 +227,26 @@ Wouldn’t it be nice if you could tell the browser to just go straight to the s
 That’s the thinking behind the HSTS (HTTP Strict Transport Security) header.</p>
 
 <p>HSTS simply tells the browser that you’re expecting it to use HTTPS for a certain time.
-As a result, the browser will <em>automatically</em> replace <code class="highlighter-rouge">http://</code> with <code class="highlighter-rouge">https://</code> <strong>before</strong> making the call.
-This means that even following a link that explicitly defines <code class="highlighter-rouge">http://</code> will instead be called using a secure connection.</p>
+As a result, the browser will <em>automatically</em> replace <code class="language-plaintext highlighter-rouge">http://</code> with <code class="language-plaintext highlighter-rouge">https://</code> <strong>before</strong> making the call.
+This means that even following a link that explicitly defines <code class="language-plaintext highlighter-rouge">http://</code> will instead be called using a secure connection.</p>
 
 <p>The configuration of HSTS is as easy as can be: you simply add the following header to your response:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
 </code></pre></div></div>
 
 <p>This will tell the browser that for the next 365 days, it should connect to your domain using HTTPS.
-The <code class="highlighter-rouge">includesubdomains</code> directive tells the browser that your subdomains should also be called using https.
-Setting the <code class="highlighter-rouge">max-age</code> to 0 tells the browser that you no longer wish your domain to be HSTS-enabled.</p>
+The <code class="language-plaintext highlighter-rouge">includesubdomains</code> directive tells the browser that your subdomains should also be called using https.
+Setting the <code class="language-plaintext highlighter-rouge">max-age</code> to 0 tells the browser that you no longer wish your domain to be HSTS-enabled.</p>
 
 <h3 id="hsts-preload">HSTS preload</h3>
 <p>Of course in this scenario, the user’s first connection will still take place over an unsecured connection.
 This would offer an attacker a brief period in which he can still hijack the connection.
 To prevent this, most major browsers (Chrome, Firefox, Safari, Edge, IE11 and Opera) offer an HSTS preload list.
 Domains on this list will automatically be loaded over HTTPS from the start, without having to go through the HTTP -&gt; HTTPS redirect.
-If you want your domain to be included in this list, you should add the <code class="highlighter-rouge">preload</code> directive to the HSTS header.</p>
+If you want your domain to be included in this list, you should add the <code class="language-plaintext highlighter-rouge">preload</code> directive to the HSTS header.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 </code></pre></div></div>
 
 <p>Afterwards, you can register yourself for the <a href="https://hstspreload.org/" target="_blank">HSTS Preload List</a>.</p>
@@ -254,13 +254,13 @@ If you want your domain to be included in this list, you should add the <code cl
 <h3 id="are-there-any-risks">Are there any risks?</h3>
 <p>Activating HSTS does offer some risks:</p>
 <ul>
-  <li>If you include the <code class="highlighter-rouge">includesubdomains</code> directive, you tell the browser that <em>all</em> subdomains need to be retrieved over HTTPS.
-If your internal applications are on a subdomain (e.g. <code class="highlighter-rouge">internal.example.com</code>), you’ll block access to those that haven’t enabled TLS yet.</li>
-  <li>Adding the <code class="highlighter-rouge">preload</code> directive is even more dangerous because this tells browser makers to hardcode your HSTS settings.
+  <li>If you include the <code class="language-plaintext highlighter-rouge">includesubdomains</code> directive, you tell the browser that <em>all</em> subdomains need to be retrieved over HTTPS.
+If your internal applications are on a subdomain (e.g. <code class="language-plaintext highlighter-rouge">internal.example.com</code>), you’ll block access to those that haven’t enabled TLS yet.</li>
+  <li>Adding the <code class="language-plaintext highlighter-rouge">preload</code> directive is even more dangerous because this tells browser makers to hardcode your HSTS settings.
 If you’ve made a mistake in the setup, it can take a long time to be removed from the list. 
 Since this list is <em>in</em> the browser, you’ll affect both your existing and your new users.
 These risks can be mitigated through extensive testing and conservative settings. 
-Start with a short <code class="highlighter-rouge">max-age</code> and slowly increase its length, don’t include subdomains if you’re not 100% sure that <em>all</em> subdomains need to be included
+Start with a short <code class="language-plaintext highlighter-rouge">max-age</code> and slowly increase its length, don’t include subdomains if you’re not 100% sure that <em>all</em> subdomains need to be included
 and perhaps most importantly, <strong>don’t</strong> activate preload unless you’re 100% sure that everything works as intended.</li>
 </ul>
 
@@ -282,12 +282,12 @@ In the future, that browser will compare the public key that’s actually used f
 
 <p>An HPKP header looks like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public-key-pins:pin-sha256="YLh1...uihg=";pin-sha256="9dNi...Dwg=";pin-sha256="Vjs...eWys=";max-age=2592000;includeSubdomains;report-uri="report-uri"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public-key-pins:pin-sha256="YLh1...uihg=";pin-sha256="9dNi...Dwg=";pin-sha256="Vjs...eWys=";max-age=2592000;includeSubdomains;report-uri="report-uri"
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">max-age</code> directive tells the browser for how long these pins are valid. 
-You can use <code class="highlighter-rouge">report-uri</code> to get a report when an invalid certificate is used.
-<code class="highlighter-rouge">includesubdomains</code> makes sure that the policy also applies to your subdomains.
+<p>The <code class="language-plaintext highlighter-rouge">max-age</code> directive tells the browser for how long these pins are valid. 
+You can use <code class="language-plaintext highlighter-rouge">report-uri</code> to get a report when an invalid certificate is used.
+<code class="language-plaintext highlighter-rouge">includesubdomains</code> makes sure that the policy also applies to your subdomains.
 Finally, there are the actual pins.
 You need to pin at least 2 fingerprints: 1 that should be active at the moment and 1 that isn’t.</p>
 
@@ -308,20 +308,20 @@ Obviously, you can’t use the CSR of your current certificate (as that would be
 You’ll need to keep this CSR and the associated private key in a secure location, because you don’t want these to be compromised together with the original.</p>
 
 <h3 id="report-uri">report-uri</h3>
-<p>The <code class="highlighter-rouge">report-uri</code> directive is used to tell the browser where to send reports if it encounters an invalid certificate.
+<p>The <code class="language-plaintext highlighter-rouge">report-uri</code> directive is used to tell the browser where to send reports if it encounters an invalid certificate.
 The browser will POST a JSON message to the URL you specify here.
 If you don’t want to implement your own processing of these reports, have a look at <a href="https://report-uri.io/" target="_blank">report-uri.io</a>
 It will process the reports from your site and display the results in a nice format, allowing you to take action when you see something that’s wrong.</p>
 
 <h3 id="report-only">Report-only</h3>
-<p>Besides the normal HPKP header, there’s also the report-only variant: <code class="highlighter-rouge">Public-Key-Pins-Report-Only</code>.
+<p>Besides the normal HPKP header, there’s also the report-only variant: <code class="language-plaintext highlighter-rouge">Public-Key-Pins-Report-Only</code>.
 This header has the exact same specifications, <strong>but</strong> it won’t block access to your site if there’s no valid pin.
-As the name says, it will simply report violations to the <code class="highlighter-rouge">report-uri</code>.
+As the name says, it will simply report violations to the <code class="language-plaintext highlighter-rouge">report-uri</code>.
 Obviously, this header isn’t meant to increase the security of your site on its own, rather it’s a way to help you on your way to a full HPKP implementation.</p>
 
 <h3 id="dangers">Dangers</h3>
 <p>HPKP is quite a dangerous header: it’s quite easy to commit “pinning-suicide”.
-Pin the wrong certificate, have a CA change keys on you or have something else go wrong and your site is inaccessible until your users’ <code class="highlighter-rouge">max-age</code> expires.
+Pin the wrong certificate, have a CA change keys on you or have something else go wrong and your site is inaccessible until your users’ <code class="language-plaintext highlighter-rouge">max-age</code> expires.
 Be careful rolling out this one as it’s way too easy to shoot yourself in the foot.</p>
 
 <h3 id="should-i-use-it">Should I use it?</h3>
@@ -338,55 +338,55 @@ It allows you to specify exactly what content your site is allowed to load throu
 
 <h3 id="fetch-directives">Fetch directives</h3>
 <p>First of all, you can define what source content can be fetched from. 
-There’s a specific directive for each resource type and a fallback directive <code class="highlighter-rouge">default-src</code>.
+There’s a specific directive for each resource type and a fallback directive <code class="language-plaintext highlighter-rouge">default-src</code>.
 You define the sources where the content can be loaded from as follows:</p>
 <ul>
-  <li><code class="highlighter-rouge">self</code> only load content from the same origin as the page</li>
-  <li><code class="highlighter-rouge">none</code> don’t load any content of this type</li>
-  <li><code class="highlighter-rouge">unsafe-inline</code> lets you use inline javascript and CSS (although it’s preferable to use a nonce)</li>
-  <li><code class="highlighter-rouge">unsafe-eval</code> allows the use of <code class="highlighter-rouge">eval()</code>, <code class="highlighter-rouge">setTimeout(String)</code>, <code class="highlighter-rouge">setInterval(String)</code> and <code class="highlighter-rouge">new Function(String)</code>.
+  <li><code class="language-plaintext highlighter-rouge">self</code> only load content from the same origin as the page</li>
+  <li><code class="language-plaintext highlighter-rouge">none</code> don’t load any content of this type</li>
+  <li><code class="language-plaintext highlighter-rouge">unsafe-inline</code> lets you use inline javascript and CSS (although it’s preferable to use a nonce)</li>
+  <li><code class="language-plaintext highlighter-rouge">unsafe-eval</code> allows the use of <code class="language-plaintext highlighter-rouge">eval()</code>, <code class="language-plaintext highlighter-rouge">setTimeout(String)</code>, <code class="language-plaintext highlighter-rouge">setInterval(String)</code> and <code class="language-plaintext highlighter-rouge">new Function(String)</code>.
  There’s a reason it has “unsafe” in its name though: these functions are typically used as attack vectors for XSS.</li>
-  <li><code class="highlighter-rouge">https:</code> allow content loaded from anywhere, as long as it’s served over HTTPS</li>
-  <li><code class="highlighter-rouge">example.com</code> allow content loaded from anywhere on <code class="highlighter-rouge">example.com</code>, both HTTP and HTTPS</li>
+  <li><code class="language-plaintext highlighter-rouge">https:</code> allow content loaded from anywhere, as long as it’s served over HTTPS</li>
+  <li><code class="language-plaintext highlighter-rouge">example.com</code> allow content loaded from anywhere on <code class="language-plaintext highlighter-rouge">example.com</code>, both HTTP and HTTPS</li>
   <li>You can also use wildcards to control which origins are allowed. 
- E.g. <code class="highlighter-rouge">*://*.example.com:*</code> will allow resources to be loaded from all <em>subdomains</em> of <code class="highlighter-rouge">example.com</code>, using any scheme and port.
- Note that it won’t allow you to load resources from <code class="highlighter-rouge">example.com</code> itself.</li>
-  <li><code class="highlighter-rouge">nonce-...</code> Allows you to specify a <a href="#nonce">nonce</a>. Scripts or styles that have this nonce are then allowed to execute.
-It’s also important to note that you can pass multiple values to these directives: <code class="highlighter-rouge">self https://example.com</code> will allow resources to be loaded both from the domain itself as well as from <code class="highlighter-rouge">https://example.com</code>.</li>
+ E.g. <code class="language-plaintext highlighter-rouge">*://*.example.com:*</code> will allow resources to be loaded from all <em>subdomains</em> of <code class="language-plaintext highlighter-rouge">example.com</code>, using any scheme and port.
+ Note that it won’t allow you to load resources from <code class="language-plaintext highlighter-rouge">example.com</code> itself.</li>
+  <li><code class="language-plaintext highlighter-rouge">nonce-...</code> Allows you to specify a <a href="#nonce">nonce</a>. Scripts or styles that have this nonce are then allowed to execute.
+It’s also important to note that you can pass multiple values to these directives: <code class="language-plaintext highlighter-rouge">self https://example.com</code> will allow resources to be loaded both from the domain itself as well as from <code class="language-plaintext highlighter-rouge">https://example.com</code>.</li>
 </ul>
 
-<p>You can use these to define <code class="highlighter-rouge">default-src</code>, but CSP gives you more fine-grained control over where each type of resource can be loaded from.
+<p>You can use these to define <code class="language-plaintext highlighter-rouge">default-src</code>, but CSP gives you more fine-grained control over where each type of resource can be loaded from.
 For that you need to use the following properties instead:</p>
 <ul>
-  <li><code class="highlighter-rouge">script-src</code> - Javascript</li>
-  <li><code class="highlighter-rouge">style-src</code> - CSS</li>
-  <li><code class="highlighter-rouge">img-src</code> - images</li>
-  <li><code class="highlighter-rouge">font-src</code> - fonts</li>
-  <li><code class="highlighter-rouge">object-src</code> - objects (e.g. <code class="highlighter-rouge">&lt;object&gt;</code>, <code class="highlighter-rouge">&lt;embed&gt;</code>, …)</li>
-  <li><code class="highlighter-rouge">media-src</code> - media such as <code class="highlighter-rouge">&lt;audio&gt;</code> and <code class="highlighter-rouge">&lt;video&gt;</code> elements</li>
-  <li><code class="highlighter-rouge">connect-src</code> - where the page can connect to using <code class="highlighter-rouge">XmlHttpRequest</code>, <code class="highlighter-rouge">WebSocket</code> or <code class="highlighter-rouge">EventSource</code>.
+  <li><code class="language-plaintext highlighter-rouge">script-src</code> - Javascript</li>
+  <li><code class="language-plaintext highlighter-rouge">style-src</code> - CSS</li>
+  <li><code class="language-plaintext highlighter-rouge">img-src</code> - images</li>
+  <li><code class="language-plaintext highlighter-rouge">font-src</code> - fonts</li>
+  <li><code class="language-plaintext highlighter-rouge">object-src</code> - objects (e.g. <code class="language-plaintext highlighter-rouge">&lt;object&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;embed&gt;</code>, …)</li>
+  <li><code class="language-plaintext highlighter-rouge">media-src</code> - media such as <code class="language-plaintext highlighter-rouge">&lt;audio&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;video&gt;</code> elements</li>
+  <li><code class="language-plaintext highlighter-rouge">connect-src</code> - where the page can connect to using <code class="language-plaintext highlighter-rouge">XmlHttpRequest</code>, <code class="language-plaintext highlighter-rouge">WebSocket</code> or <code class="language-plaintext highlighter-rouge">EventSource</code>.
  The browser will immediately return a 400 status code when your page attempts to connect to a non-valid domain.</li>
-  <li><code class="highlighter-rouge">frame-src</code> - Specify which locations can be embedded in a <code class="highlighter-rouge">&lt;frame&gt;</code> and <code class="highlighter-rouge">&lt;iframe&gt;</code></li>
-  <li><code class="highlighter-rouge">worker-src</code> - Worker scripts</li>
-  <li><code class="highlighter-rouge">child-src</code> - Is either deprecated or serves as fallback for <code class="highlighter-rouge">frame-src</code> and <code class="highlighter-rouge">worker-src</code>, depending on the browser and the CSP level implemented.</li>
-  <li><code class="highlighter-rouge">manifest-src</code> - defines which <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank">manifest</a> can be applied to the resource. (This is still experimental though).</li>
+  <li><code class="language-plaintext highlighter-rouge">frame-src</code> - Specify which locations can be embedded in a <code class="language-plaintext highlighter-rouge">&lt;frame&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">worker-src</code> - Worker scripts</li>
+  <li><code class="language-plaintext highlighter-rouge">child-src</code> - Is either deprecated or serves as fallback for <code class="language-plaintext highlighter-rouge">frame-src</code> and <code class="language-plaintext highlighter-rouge">worker-src</code>, depending on the browser and the CSP level implemented.</li>
+  <li><code class="language-plaintext highlighter-rouge">manifest-src</code> - defines which <a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank">manifest</a> can be applied to the resource. (This is still experimental though).</li>
 </ul>
 
 <h3 id="navigation-directives">Navigation directives</h3>
 <p>These directives tell the browser what kind of navigation is allowed:</p>
 <ul>
-  <li><code class="highlighter-rouge">form-action</code> limits to where forms can be submitted</li>
-  <li><code class="highlighter-rouge">frame-ancestors</code> specifies who may embed pages using elements such as <code class="highlighter-rouge">&lt;frame&gt;</code>, <code class="highlighter-rouge">&lt;iframe&gt;</code>, <code class="highlighter-rouge">&lt;embed&gt;</code>, <code class="highlighter-rouge">&lt;object&gt;</code> and <code class="highlighter-rouge">&lt;applet&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">form-action</code> limits to where forms can be submitted</li>
+  <li><code class="language-plaintext highlighter-rouge">frame-ancestors</code> specifies who may embed pages using elements such as <code class="language-plaintext highlighter-rouge">&lt;frame&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;embed&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;object&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;applet&gt;</code></li>
 </ul>
 
 <h3 id="other-directives">Other directives</h3>
 <p>Besides these, CSP allows for quite a few other directives:</p>
 <ul>
-  <li><code class="highlighter-rouge">report-uri</code> works the same way as the <code class="highlighter-rouge">report-uri</code> directive of HPKP</li>
-  <li><code class="highlighter-rouge">require-sri-for</code> allows you to force the use or Subresource Integrity ((SRI)[#Subresource-integrity]) for stylesheets, scripts or both. 
- Allowed values are <code class="highlighter-rouge">script</code> and <code class="highlighter-rouge">style</code> (or both).</li>
-  <li><code class="highlighter-rouge">base-uri</code> defines which URLs you can use in the <code class="highlighter-rouge">&lt;base&gt;</code> element</li>
-  <li><code class="highlighter-rouge">sandbox</code> to enable a sandbox for requested resources 
+  <li><code class="language-plaintext highlighter-rouge">report-uri</code> works the same way as the <code class="language-plaintext highlighter-rouge">report-uri</code> directive of HPKP</li>
+  <li><code class="language-plaintext highlighter-rouge">require-sri-for</code> allows you to force the use or Subresource Integrity ((SRI)[#Subresource-integrity]) for stylesheets, scripts or both. 
+ Allowed values are <code class="language-plaintext highlighter-rouge">script</code> and <code class="language-plaintext highlighter-rouge">style</code> (or both).</li>
+  <li><code class="language-plaintext highlighter-rouge">base-uri</code> defines which URLs you can use in the <code class="language-plaintext highlighter-rouge">&lt;base&gt;</code> element</li>
+  <li><code class="language-plaintext highlighter-rouge">sandbox</code> to enable a sandbox for requested resources 
  (have a look at <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox" target="_blank">Mozilla’s documentation</a> for more information)</li>
 </ul>
 
@@ -398,7 +398,7 @@ Keep in mind though that you should <strong>never</strong> hardcode the nonce or
 It’s best to generate a new nonce for each request and add it to those scripts you need to execute.
 E.g. if you have the following CSP setting:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content-Security-Policy: script-src 'nonce-randomValue'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content-Security-Policy: script-src 'nonce-randomValue'
 </code></pre></div></div>
 
 <p>will only execute scripts that have the nonce attribute defined like this:</p>
@@ -412,13 +412,13 @@ E.g. if you have the following CSP setting:</p>
 If you do this however, it’s important to keep in mind that subsequent CSPs are not allowed to loosen the rules, only to tighten them.</p>
 
 <h3 id="report-only-1">Report-only</h3>
-<p>As with HPKP, CSP also supports a report-only variant with <code class="highlighter-rouge">Content-Security-Policy-Report-Only</code>.
+<p>As with HPKP, CSP also supports a report-only variant with <code class="language-plaintext highlighter-rouge">Content-Security-Policy-Report-Only</code>.
 Once again the specifications are exactly the same but it won’t block loading or execution of disallowed resources and simply report violations.
 You can then use the reports it generates to decide what you need to allow in your actual CSP header, before you deploy it (and break your site).</p>
 
 <h3 id="should-i-use-it-1">Should I use it?</h3>
 <p>CSP has some risks: it can break your site’s functionality, but overall it’s relatively easy to test it. 
-The <code class="highlighter-rouge">report-uri</code> directive allows you to monitor if there are any issues and you can use the report-only version of the header to easily validate the setup you’re planning in the wild.
+The <code class="language-plaintext highlighter-rouge">report-uri</code> directive allows you to monitor if there are any issues and you can use the report-only version of the header to easily validate the setup you’re planning in the wild.
 If you have a system that relies a lot on third party content, it might not be for you.
 For everyone else, try out the report-only header and see if you get any issues.</p>
 
@@ -428,7 +428,7 @@ Loading these files from a CDN can speed up load times from your application, si
 Of course it’s a good idea to be careful about the content of these scripts.
 Whenever you’re loading resources that aren’t under your control, you’re depending on someone else to make sure that they aren’t tampered with.
 To make sure that they aren’t changed without your knowledge, you can use subresource integrity (SRI).
-With SRI, you add an <code class="highlighter-rouge">integrity</code> attribute to your <code class="highlighter-rouge">&lt;script&gt;</code> or <code class="highlighter-rouge">&lt;link&gt;</code> tag.
+With SRI, you add an <code class="language-plaintext highlighter-rouge">integrity</code> attribute to your <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> or <code class="language-plaintext highlighter-rouge">&lt;link&gt;</code> tag.
 This attribute contains the hash of the file you expect.
 Your browser will then download the file, hash it with the same algorithm and compare the results.
 If the hash matches, the resource will be used; otherwise it will be ignored and an error will be shown in the console.</p>
@@ -438,21 +438,21 @@ If the hash matches, the resource will be used; otherwise it will be ignored and
     <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></figure>
 
 <p>As you can see in the example above, the integrity of the script will be checked using a ‘SHA256’ hash. 
-You’ll also notice the <code class="highlighter-rouge">crossorigin</code> attribute: this attribute is required when loading SRI validated resources from a different origin.
-Possible values are <code class="highlighter-rouge">use-credentials</code> and <code class="highlighter-rouge">anonymous</code>, indicating whether a request will have the credentials flag set.
-If you’re using a CDN, you’ll probably want to use <code class="highlighter-rouge">anonymous</code>.
-Note that you only need to add the <code class="highlighter-rouge">crossorigin</code> attribute if you’re loading the resource from a different origin.
-For resources coming from the same origin, you can omit the <code class="highlighter-rouge">crossorigin</code> attribute.</p>
+You’ll also notice the <code class="language-plaintext highlighter-rouge">crossorigin</code> attribute: this attribute is required when loading SRI validated resources from a different origin.
+Possible values are <code class="language-plaintext highlighter-rouge">use-credentials</code> and <code class="language-plaintext highlighter-rouge">anonymous</code>, indicating whether a request will have the credentials flag set.
+If you’re using a CDN, you’ll probably want to use <code class="language-plaintext highlighter-rouge">anonymous</code>.
+Note that you only need to add the <code class="language-plaintext highlighter-rouge">crossorigin</code> attribute if you’re loading the resource from a different origin.
+For resources coming from the same origin, you can omit the <code class="language-plaintext highlighter-rouge">crossorigin</code> attribute.</p>
 
 <h3 id="calculating-the-sri-value">Calculating the SRI value.</h3>
-<p>In order to add the <code class="highlighter-rouge">integrity</code> attribute, you need to know the correct hash of the file. 
+<p>In order to add the <code class="language-plaintext highlighter-rouge">integrity</code> attribute, you need to know the correct hash of the file. 
 The easiest way to calculate it is by simply specifying a random value and checking the resulting error in your browser.
 <img src="/img/2017-security-features/integrity-error.png" alt="Chrome SRI error" class="image" height="50px" /></p>
 
 <h3 id="should-i-use-it-2">Should I use it?</h3>
 <p>Most likely. 
 If you’re depending on third party scripts, you should make sure that they aren’t changed without your knowledge.
-This does mean that you shouldn’t just include the latest version of a script (e.g. <code class="highlighter-rouge">example.com/library/latest/</code>) as that will change whenever a new version is released.</p>
+This does mean that you shouldn’t just include the latest version of a script (e.g. <code class="language-plaintext highlighter-rouge">example.com/library/latest/</code>) as that will change whenever a new version is released.</p>
 
 <h2 id="cookie-protection">Cookie protection</h2>
 <p>Most websites nowadays use a variety of cookies for different purposes.
@@ -460,15 +460,15 @@ These too can be a source of problems: session cookies grant the user access to 
 If this cookie can be intercepted or altered, the consequences can be enormous.
 Because of this, it’s a good idea to protect your cookies as much as possible.
 Since you’re already running your site on HTTPS, it’s a good idea to make sure the cookies aren’t sent on insecure requests.
-You can easily do this by adding the <code class="highlighter-rouge">secure</code> flag to the cookies you send.</p>
+You can easily do this by adding the <code class="language-plaintext highlighter-rouge">secure</code> flag to the cookies you send.</p>
 
 <p>To make the cookies even more secure, you’ll also need to prevent them from being read/modified by scripts running in the page.
-In most cases there’s no reason for a script to have access to these cookies, so you can simply mark them as <code class="highlighter-rouge">HttpOnly</code>.</p>
+In most cases there’s no reason for a script to have access to these cookies, so you can simply mark them as <code class="language-plaintext highlighter-rouge">HttpOnly</code>.</p>
 
 <h3 id="should-i-use-this">Should I use this?</h3>
 <p>Yes.
-Your session cookies should not be available to scripts, so the <code class="highlighter-rouge">HttpOnly</code> flag should be set on those.
-If you’re using TLS (and you should) you should definitely set the <code class="highlighter-rouge">secure</code> flag as well.</p>
+Your session cookies should not be available to scripts, so the <code class="language-plaintext highlighter-rouge">HttpOnly</code> flag should be set on those.
+If you’re using TLS (and you should) you should definitely set the <code class="language-plaintext highlighter-rouge">secure</code> flag as well.</p>
 
 <h2 id="conclusion">Conclusion</h2>
 <p>Browsers nowadays support a wide array of security features you can use to keep your users safe.

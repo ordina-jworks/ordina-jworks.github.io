@@ -276,7 +276,7 @@ The mechanism also comes with back pressure for the subscribers, allowing them t
 It is important to note here that the reactive publish-subscribe mechanism is based on the push model. The subscriber will not actively fetch the data but will instead receive the data from the publisher who pushes the new messages to the subscriber when they’re available.</p>
 
 <p>In the other part of the session, Christoph went over several features of Spring’s Project Reactor, Spring Data Kay and Spring WebFlux.
-The publish-subscribe mechanism in Reactor is based on the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams specification</a> and there are two reactive types: <code class="highlighter-rouge">Flux</code>, an Asynchronous Sequence of 0-N items, and <code class="highlighter-rouge">Mono</code>, an Asynchronous 0-1 result.
+The publish-subscribe mechanism in Reactor is based on the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams specification</a> and there are two reactive types: <code class="language-plaintext highlighter-rouge">Flux</code>, an Asynchronous Sequence of 0-N items, and <code class="language-plaintext highlighter-rouge">Mono</code>, an Asynchronous 0-1 result.
 Spring WebFlux is the reactive brother of Spring MVC and uses Project Reactor under the hood for building reactive endpoints.
 Spring Data Kay is the newest version of Spring Data which now contains reactive repositories and reactive templates.
 At the time of writing this is only usable for MongoDB, Redis, Couchbase and Cassandra as the other databases lack a reactive JDBC driver.</p>
@@ -307,7 +307,7 @@ The other main databases such as Oracle, PostgreSQL and MySQL aren’t there jus
 In the demo, MongoDB is used.</p>
 
 <p>Stéphane also demonstrated some new additions to Spring Boot Actuator such as a unified way to implement custom endpoints, better output format,
-separate status endpoints (you now have <code class="highlighter-rouge">/status</code> and <code class="highlighter-rouge">/health</code>) and a simplified security model to specify who has access to (for example) status and info as users with a certain role may be allowed to see more.
+separate status endpoints (you now have <code class="language-plaintext highlighter-rouge">/status</code> and <code class="language-plaintext highlighter-rouge">/health</code>) and a simplified security model to specify who has access to (for example) status and info as users with a certain role may be allowed to see more.
 Properties in Actuator now also display the properties file in which they have been declared and the exact position.</p>
 
 <p>Stéphane concluded the talk by announcing that the release candidate was foreseen somewhere at the end of November.
@@ -331,12 +331,12 @@ It is built upon Spring 5, Reactor and Spring Boot 2.
 In order to have the gateway be non-blocking, there is a single event loop similar to how it is in Node.js.</p>
 
 <p>In another section, Spencer talked about the internals of Spring Cloud Gateway and the Spring Reactor features it uses.
-This involves the usage of classes such as <code class="highlighter-rouge">HandlerMapping</code>, <code class="highlighter-rouge">WebFilter</code>, <code class="highlighter-rouge">Predicate</code>, <code class="highlighter-rouge">ServerWebExchange</code>, <code class="highlighter-rouge">PathPatternMatcher</code>, <code class="highlighter-rouge">RoutePredicateHandlerMapping</code> and many more.
+This involves the usage of classes such as <code class="language-plaintext highlighter-rouge">HandlerMapping</code>, <code class="language-plaintext highlighter-rouge">WebFilter</code>, <code class="language-plaintext highlighter-rouge">Predicate</code>, <code class="language-plaintext highlighter-rouge">ServerWebExchange</code>, <code class="language-plaintext highlighter-rouge">PathPatternMatcher</code>, <code class="language-plaintext highlighter-rouge">RoutePredicateHandlerMapping</code> and many more.
 As a filter to rewrite paths was commonly requested before, this was the first filter that they have written when implementing the Spring Cloud Gateway.
 Spencer also mentioned that they were also focusing on providing a simple API to write filters.
 Also neat to mention is that route configuration is now possible in YAML.</p>
 
-<p>In the final part, Spencer demonstrated an implementation of a Gateway showcasing the different ways of how to use the API to define different <code class="highlighter-rouge">byhost</code>, <code class="highlighter-rouge">rewrite</code>, <code class="highlighter-rouge">hystrix</code> and <code class="highlighter-rouge">limited</code> routes.
+<p>In the final part, Spencer demonstrated an implementation of a Gateway showcasing the different ways of how to use the API to define different <code class="language-plaintext highlighter-rouge">byhost</code>, <code class="language-plaintext highlighter-rouge">rewrite</code>, <code class="language-plaintext highlighter-rouge">hystrix</code> and <code class="language-plaintext highlighter-rouge">limited</code> routes.
 He started off by visiting the legendary <a href="http://start.spring.io" target="_blank">Spring Initializr webpage</a> and created a Spring Boot 2 application with the Gateway dependency.
 <a href="https://httpbin.org" target="_blank">httpbin</a> is something that he is a big fan of, as it is really useful for testing whether for example the correct rerouting is happening and the right headers are being added to the requests.</p>
 
@@ -449,7 +449,7 @@ Bart quoted Hofstadter’s Law: “It always takes longer than you expect, even 
 In order to make more educated guesses, doing a planning poker can be useful.
 Define a sequence, set a baseline and allow reasoning.
 Don’t be afraid of uncertainty as it is inevitable.
-Bart suggests using the following formula: <code class="highlighter-rouge">(O + 4*BG + P) / 6</code> where <code class="highlighter-rouge">O</code> is the optimistic estimate, <code class="highlighter-rouge">BG</code> the best guess estimate and <code class="highlighter-rouge">P</code> the pessimistic estimate.
+Bart suggests using the following formula: <code class="language-plaintext highlighter-rouge">(O + 4*BG + P) / 6</code> where <code class="language-plaintext highlighter-rouge">O</code> is the optimistic estimate, <code class="language-plaintext highlighter-rouge">BG</code> the best guess estimate and <code class="language-plaintext highlighter-rouge">P</code> the pessimistic estimate.
 You should add 20% to the guess for properly testing, debugging, polishing, documenting and random wtf moments.
 Don’t forget, any estimate is better than no estimate, and make sure to share and review estimates.</li>
   <li><strong>Interfacing with the outside world:</strong>
@@ -489,18 +489,18 @@ The framework helps you to focus on the business functionality as it takes care 
 
 <p>The majority of the time was spent with live coding.
 Steven created a Spring Boot app with Kotlin.
-Useful to mention is that Axon has support for Spring Boot AutoConfiguration by adding the <code class="highlighter-rouge">axon-spring-boot-starter</code> dependency to your project.
+Useful to mention is that Axon has support for Spring Boot AutoConfiguration by adding the <code class="language-plaintext highlighter-rouge">axon-spring-boot-starter</code> dependency to your project.
 Axon will automatically configure the basic infrastructure components (Command and Event Bus) as well as any component required to run and store Aggregates and Sagas.
 Kotlin was chosen as it provides a concise way to write code, the data classes especially are very useful for writing commands and events as these are immutable POJOs.
 The application was about creating conferences and talks in order to demonstrate the framework.</p>
 
-<p>For the command model, it came down to marking aggregate classes using the <code class="highlighter-rouge">@Aggregate</code> annotation.
-In the aggregate classes, the identifier gets annotated with <code class="highlighter-rouge">AggregateIdentifier</code>.
-Your command handler gets annotated with <code class="highlighter-rouge">@CommandHandler</code>.
+<p>For the command model, it came down to marking aggregate classes using the <code class="language-plaintext highlighter-rouge">@Aggregate</code> annotation.
+In the aggregate classes, the identifier gets annotated with <code class="language-plaintext highlighter-rouge">AggregateIdentifier</code>.
+Your command handler gets annotated with <code class="language-plaintext highlighter-rouge">@CommandHandler</code>.
 This is the class where all the logic resides on how to handle all the different commands for the specified aggregate, usually resolving into events.
-Similar to the command handler, there is also an event sourcing handler annotated with <code class="highlighter-rouge">@EventSourcingHandler</code> containing the logic for processing the created events of the specified aggregate.
+Similar to the command handler, there is also an event sourcing handler annotated with <code class="language-plaintext highlighter-rouge">@EventSourcingHandler</code> containing the logic for processing the created events of the specified aggregate.
 Furthermore you have a controller and a command gateway.
-As for the query model, there is an <code class="highlighter-rouge">@EventHandler</code> that processes any events, updating your query models.</p>
+As for the query model, there is an <code class="language-plaintext highlighter-rouge">@EventHandler</code> that processes any events, updating your query models.</p>
 
 <p>The demo application is available on <a href="https://github.com/smcvb/javaday17" target="_blank">GitHub</a>.
 For more information on the framework, be sure to consult the well-written <a href="https://docs.axonframework.org" target="_blank">reference guide</a>.</p>
@@ -537,35 +537,35 @@ The presentation is available right here:</p>
 
 <p>Burr showed us the many ways you could setup a Kubernetes cluster, including <a href="https://github.com/kubernetes/minikube/releases" target="_blank">Minikube</a> or <a href="https://github.com/minishift/minishift/releases" target="_blank">Minishift</a>.
 There are plenty of guides on the web for deploying Kubernetes on any of the major infrastructure providers (AWS, Azure or Google Cloud), but there’s also the Kubernetes-as-a-service offerings from Google and Microsoft which can get you going very quickly.
-Running Openshift can be as easy as running <code class="highlighter-rouge">oc cluster up</code> on your local workstation, which sets up <a href="https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md" target="_blank">a local Openshift cluster for you using Docker</a>.</p>
+Running Openshift can be as easy as running <code class="language-plaintext highlighter-rouge">oc cluster up</code> on your local workstation, which sets up <a href="https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md" target="_blank">a local Openshift cluster for you using Docker</a>.</p>
 
 <h2 id="step-2-building-images">Step 2: Building images</h2>
 
 <p>There are several ways to build Docker images for Kubernetes or Openshift. We like the following ones:</p>
 
 <ul>
-  <li>The classical way would be to <code class="highlighter-rouge">docker build</code> a Docker image, push it to your local Docker registry and run it on a Kubernetes cluster using <code class="highlighter-rouge">kubectl run ...</code> or by creating a Kubernetes deployment using <code class="highlighter-rouge">kubectl create -f deployment.yml</code></li>
+  <li>The classical way would be to <code class="language-plaintext highlighter-rouge">docker build</code> a Docker image, push it to your local Docker registry and run it on a Kubernetes cluster using <code class="language-plaintext highlighter-rouge">kubectl run ...</code> or by creating a Kubernetes deployment using <code class="language-plaintext highlighter-rouge">kubectl create -f deployment.yml</code></li>
   <li>For Java applications, the Fabric8 Maven plugin can be used to build, run and debug Docker images on a Kubernetes cluster</li>
   <li>You can use <a href="https://docs.helm.sh/using_helm/#quickstart-guide" target="_blank">Helm Charts</a> - think of Helm as yum/apt/brew for Kubernetes</li>
   <li>If you’re used to Docker Compose and you have a lot of those config files lying around, you can use <a href="https://github.com/kubernetes/kompose" target="_blank">Kompose</a> to convert them to Kubernetes config files</li>
   <li>Openshift provides a way to create an image straight from your source code called <a href="https://github.com/openshift/source-to-image" target="_blank">Source to Image</a></li>
 </ul>
 
-<h2 id="step-3-kubectl-exec-or-oc-exec">Step 3: <code class="highlighter-rouge">kubectl exec</code> or <code class="highlighter-rouge">oc exec</code></h2>
+<h2 id="step-3-kubectl-exec-or-oc-exec">Step 3: <code class="language-plaintext highlighter-rouge">kubectl exec</code> or <code class="language-plaintext highlighter-rouge">oc exec</code></h2>
 
-<p>If you want to find out what is going on inside of these black-box containers, you really should use the <code class="highlighter-rouge">exec</code> command which allows you to SSH into them so you can snoop around and learn about the internals of your applications.
+<p>If you want to find out what is going on inside of these black-box containers, you really should use the <code class="language-plaintext highlighter-rouge">exec</code> command which allows you to SSH into them so you can snoop around and learn about the internals of your applications.
 It’s very handy to debug applications, to figure out issues you might be having and to identify bugs or problems in advance.</p>
 
 <h2 id="step-4-logs">Step 4: Logs</h2>
 
 <p>Looking at logs can make troubleshooting so much easier.
-Kubernetes allows the user to look at console logs for any pod in the cluster using <code class="highlighter-rouge">kubectl log &lt;name-of-the-pod&gt;</code> but it gets quite tiresome rather quickly.
+Kubernetes allows the user to look at console logs for any pod in the cluster using <code class="language-plaintext highlighter-rouge">kubectl log &lt;name-of-the-pod&gt;</code> but it gets quite tiresome rather quickly.
 Luckily for us, the community has come up with another handy tool called <a href="https://github.com/johanhaleby/kubetail/" target="_blank">KubeTail</a> which allows us to tail multiple pods at the same time, with colorized output.</p>
 
 <h2 id="step-5-service-discovery-and-load-balancing">Step 5: Service Discovery and Load Balancing</h2>
 
 <p>In Kubernetes, pods can be exposed as services, which are internal to the cluster but are really handy in inter-service communication.
-Inside of the cluster, services can address each other through DNS via their service names. A service called <code class="highlighter-rouge">producer</code> running on port 8080 can be called with the following URL: <code class="highlighter-rouge">http://producer:8080</code>.
+Inside of the cluster, services can address each other through DNS via their service names. A service called <code class="language-plaintext highlighter-rouge">producer</code> running on port 8080 can be called with the following URL: <code class="language-plaintext highlighter-rouge">http://producer:8080</code>.
 When creating a deployment containing a service inside of Kubernetes with two replicas, a ReplicaSet will be created for you, and all traffic to that deployed service will be load balanced automatically over those two replicas.
 For more specialized load balancing (for example when doing <a href="https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#canary-deployments" target="_blank">Canary Deployments</a>) you can make use of multiple deployments.</p>
 
@@ -594,7 +594,7 @@ These tools will use Kubernetes for us, so that we don’t have to worry about c
 <p>As we’ve said before, debugging in Kubernetes is completely viable and there are several possibilities here.</p>
 
 <ul>
-  <li>Using <code class="highlighter-rouge">kubectl exec</code> to get inside of the container and live debug the application</li>
+  <li>Using <code class="language-plaintext highlighter-rouge">kubectl exec</code> to get inside of the container and live debug the application</li>
   <li>Using the <a href="https://github.com/fabric8io/fabric8-maven-plugin" target="_blank">Fabric8 Maven plugin</a> to debug the application</li>
   <li>Even Visual Studio Code now has the possibility to <a href="https://code.visualstudio.com/blogs/2017/09/28/java-debug" target="_blank">live debug a running Java application</a></li>
   <li><a href="https://github.com/VeerMuchandi/openshift-local/blob/master/DebuggingUsingIDE.md" target="_blank">Red Hat JBoss Developer Studio</a> can be used to debug Kubernetes or Openshift applications</li>

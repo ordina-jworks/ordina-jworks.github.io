@@ -190,7 +190,7 @@ Especially the static typing is a very interesting feature for projects in a pro
 With the use of types, you inherently provide documentation to other developers on how to use your code as it offers guidance on how to use your functions, components and so on.</p>
 
 <p>In this tutorial we will make a really simple blog system to showcase how you create a project, create a component, install a plugin and do calls via HTTP.
-Our little project will be called <code class="highlighter-rouge">wordvue</code>.
+Our little project will be called <code class="language-plaintext highlighter-rouge">wordvue</code>.
 At the same time we will explain some tips and tricks and give some background information about Vue with TypeScript so that you fully understand what the purpose is of each line of code.
 The project can be found in a <a href="https://github.com/ordina-jworks/vue-typescript-wordvue" target="_blank" rel="noopener noreferrer">GitHub repository</a> so you can see a working version.</p>
 
@@ -234,7 +234,7 @@ The polyfills will help with having backwards compatibility of ECMAScript featur
   <img src="/img/vue-with-typescript/vue-cli-3-class-style-component-syntax.png" class="image fit" />
 </p>
 
-<p>In the next screen we will get the question if we want class-style component syntax, for which we answer <code class="highlighter-rouge">Yes</code>.
+<p>In the next screen we will get the question if we want class-style component syntax, for which we answer <code class="language-plaintext highlighter-rouge">Yes</code>.
 With this, we actually install the decorators that can be found in the <a href="https://github.com/vuejs/vue-class-component" target="_blank" rel="noopener noreferrer">Vue Class Component package</a>.
 We will now explain the difference between using the class-style component syntax and using the classic Vue syntax.</p>
 
@@ -290,30 +290,30 @@ We will now explain the difference between using the class-style component synta
 <p>When you compare it to the previous version, the data property message is now a regular property in our component class. Methods are present as class methods. And the computed properties can be defined as a getter.</p>
 
 <h3 id="the-other-settings">The other settings</h3>
-<p>After you’ve replied <code class="highlighter-rouge">Yes</code> to the “Use class-style component syntax?” question, you can continue with the default options.</p>
+<p>After you’ve replied <code class="language-plaintext highlighter-rouge">Yes</code> to the “Use class-style component syntax?” question, you can continue with the default options.</p>
 
-<p>For the CSS pre-processor, you either choose between Stylus, Less and SCSS. We choose the default <code class="highlighter-rouge">Sass/SCSS (with node-sass)</code>.</p>
+<p>For the CSS pre-processor, you either choose between Stylus, Less and SCSS. We choose the default <code class="language-plaintext highlighter-rouge">Sass/SCSS (with node-sass)</code>.</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-4-css-preprocessor.png" class="image fit" />
 </p>
 
 <p>As for the linter, you can either choose between TSLint or ESLint with a bunch of configurations.
-I opt for the default <code class="highlighter-rouge">TSLint</code> option as the support for TypeScript in ESLint is (at the time of writing) fairly recent.
+I opt for the default <code class="language-plaintext highlighter-rouge">TSLint</code> option as the support for TypeScript in ESLint is (at the time of writing) fairly recent.
 But ESLint is certainly a valid option as the TypeScript has announced in their <a href="https://github.com/Microsoft/TypeScript/issues/29288" target="_blank" rel="noopener noreferrer">January to June 2019 roadmap</a> that ESLint will be their own focus.</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-5-linter.png" class="image fit" />
 </p>
 
-<p>We can choose for the <code class="highlighter-rouge">Lint on save</code>option as we want to see immediately the effects of our linter.</p>
+<p>We can choose for the <code class="language-plaintext highlighter-rouge">Lint on save</code>option as we want to see immediately the effects of our linter.</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-6-lint-on-save.png" class="image fit" />
 </p>
 
-<p>Finally we have to choose if we want the configurations in dedicated files or all bundled together in our <code class="highlighter-rouge">package.json</code>.
-We opt for <code class="highlighter-rouge">In dedicated config files</code> as we prefer to not clutter the <code class="highlighter-rouge">package.json</code> with a lot of configurations.</p>
+<p>Finally we have to choose if we want the configurations in dedicated files or all bundled together in our <code class="language-plaintext highlighter-rouge">package.json</code>.
+We opt for <code class="language-plaintext highlighter-rouge">In dedicated config files</code> as we prefer to not clutter the <code class="language-plaintext highlighter-rouge">package.json</code> with a lot of configurations.</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-7-dedicated-config.png" class="image fit" />
@@ -336,7 +336,7 @@ We opt for <code class="highlighter-rouge">In dedicated config files</code> as w
 </p>
 
 <p>As you will see, the CLI starts the development server, starts the type checking and linting service.
-By default the project runs on <code class="highlighter-rouge">http://localhost:8080</code> but if there’s already something running on port 8080, it will pick port 8081 or the next one available.
+By default the project runs on <code class="language-plaintext highlighter-rouge">http://localhost:8080</code> but if there’s already something running on port 8080, it will pick port 8081 or the next one available.
 This way you don’t need to specify a free port.</p>
 
 <p>A default Vue project looks like this:</p>
@@ -352,15 +352,15 @@ This way you don’t need to specify a free port.</p>
 </p>
 
 <p>The files that the Vue CLI generated are mainly all the configuration files that we wanted separately.
-So we have a configuration file for Babel with <code class="highlighter-rouge">babel.config.js</code>, PostCSS (which contains the configuration for SCSS) with <code class="highlighter-rouge">postcss.config.js</code>, TypeScript with <code class="highlighter-rouge">tsconfig.json</code> and TSLint with <code class="highlighter-rouge">tslint.json</code>.
-You will also find a <code class="highlighter-rouge">node_modules</code> folder for all your NPM packages with a <code class="highlighter-rouge">package.json</code> in which we define all the NPM packages that we need in our project.
-If we would have opted for the <code class="highlighter-rouge">In package.json</code> option, we would have had a large <code class="highlighter-rouge">package.json</code> file.</p>
+So we have a configuration file for Babel with <code class="language-plaintext highlighter-rouge">babel.config.js</code>, PostCSS (which contains the configuration for SCSS) with <code class="language-plaintext highlighter-rouge">postcss.config.js</code>, TypeScript with <code class="language-plaintext highlighter-rouge">tsconfig.json</code> and TSLint with <code class="language-plaintext highlighter-rouge">tslint.json</code>.
+You will also find a <code class="language-plaintext highlighter-rouge">node_modules</code> folder for all your NPM packages with a <code class="language-plaintext highlighter-rouge">package.json</code> in which we define all the NPM packages that we need in our project.
+If we would have opted for the <code class="language-plaintext highlighter-rouge">In package.json</code> option, we would have had a large <code class="language-plaintext highlighter-rouge">package.json</code> file.</p>
 
-<p>The main folders in which you will work are <code class="highlighter-rouge">public</code> and <code class="highlighter-rouge">src</code>. We will look at these more in detail later so you fully understand what their purpose is.</p>
+<p>The main folders in which you will work are <code class="language-plaintext highlighter-rouge">public</code> and <code class="language-plaintext highlighter-rouge">src</code>. We will look at these more in detail later so you fully understand what their purpose is.</p>
 
 <h2 id="public">Public</h2>
 <p>Public is meant for static assets like images, favicons and more.
-It also contains your <code class="highlighter-rouge">index.html</code> which is very basic:</p>
+It also contains your <code class="language-plaintext highlighter-rouge">index.html</code> which is very basic:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
@@ -381,12 +381,12 @@ It also contains your <code class="highlighter-rouge">index.html</code> which is
 <span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
 
-<p>It is only in rare cases that you should adapt the <code class="highlighter-rouge">index.html</code>.
-One example situation would be to add Google Analytics, add more <code class="highlighter-rouge">meta</code> tags or adapt the <code class="highlighter-rouge">title</code> tag.
-Vue will automatically inject the necessary generated JavaScript files right before the closing <code class="highlighter-rouge">body</code> tag.
+<p>It is only in rare cases that you should adapt the <code class="language-plaintext highlighter-rouge">index.html</code>.
+One example situation would be to add Google Analytics, add more <code class="language-plaintext highlighter-rouge">meta</code> tags or adapt the <code class="language-plaintext highlighter-rouge">title</code> tag.
+Vue will automatically inject the necessary generated JavaScript files right before the closing <code class="language-plaintext highlighter-rouge">body</code> tag.
 This will include the transpiled version of your own code as well as vendor code.
-The most important thing is the <code class="highlighter-rouge">div</code> tag with id <code class="highlighter-rouge">app</code>.
-This should always be present in your <code class="highlighter-rouge">index.html</code> as this is the tag on which Vue will bootstrap the entire application.</p>
+The most important thing is the <code class="language-plaintext highlighter-rouge">div</code> tag with id <code class="language-plaintext highlighter-rouge">app</code>.
+This should always be present in your <code class="language-plaintext highlighter-rouge">index.html</code> as this is the tag on which Vue will bootstrap the entire application.</p>
 
 <h2 id="src">Src</h2>
 
@@ -401,17 +401,17 @@ This should always be present in your <code class="highlighter-rouge">index.html
 <span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>When you look in the <code class="highlighter-rouge">src</code> folder, you will find a <code class="highlighter-rouge">main.ts</code> file.
+<p>When you look in the <code class="language-plaintext highlighter-rouge">src</code> folder, you will find a <code class="language-plaintext highlighter-rouge">main.ts</code> file.
 This is the one that Vue will execute first.
-As you can see this creates a new instance of Vue in which we only define a <code class="highlighter-rouge">render</code> function.
-Vue will pass along <code class="highlighter-rouge">h</code> which is of type <code class="highlighter-rouge">CreateElement</code>.
-<code class="highlighter-rouge">h</code> has been <a href="https://github.com/vuejs/babel-plugin-transform-vue-jsx/issues/6" target="_blank" rel="noopener noreferrer">chosen by the creator of Vue</a> as it is short for <code class="highlighter-rouge">Hyperscript</code>, a term that is used in several virtual DOM implementations.
+As you can see this creates a new instance of Vue in which we only define a <code class="language-plaintext highlighter-rouge">render</code> function.
+Vue will pass along <code class="language-plaintext highlighter-rouge">h</code> which is of type <code class="language-plaintext highlighter-rouge">CreateElement</code>.
+<code class="language-plaintext highlighter-rouge">h</code> has been <a href="https://github.com/vuejs/babel-plugin-transform-vue-jsx/issues/6" target="_blank" rel="noopener noreferrer">chosen by the creator of Vue</a> as it is short for <code class="language-plaintext highlighter-rouge">Hyperscript</code>, a term that is used in several virtual DOM implementations.
 A hyperscript is a script that will generate HTML structures.
-It takes one parameter: <code class="highlighter-rouge">App</code>.
-Thus in a Vue project, <code class="highlighter-rouge">h</code> will generate the HTML for our App component.
+It takes one parameter: <code class="language-plaintext highlighter-rouge">App</code>.
+Thus in a Vue project, <code class="language-plaintext highlighter-rouge">h</code> will generate the HTML for our App component.
 App is our main component that was generated by the Vue CLI and we will dive into that after this section.
-<code class="highlighter-rouge">main.ts</code> should only be adapted to plug in new core functionalities of your application.
-For example, a <code class="highlighter-rouge">main.ts</code> of one of my own projects is this:</p>
+<code class="language-plaintext highlighter-rouge">main.ts</code> should only be adapted to plug in new core functionalities of your application.
+For example, a <code class="language-plaintext highlighter-rouge">main.ts</code> of one of my own projects is this:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span><span class="p">,</span> <span class="p">{</span> <span class="nx">CreateElement</span><span class="p">,</span> <span class="nx">VNode</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./App.vue</span><span class="dl">'</span><span class="p">;</span>
@@ -447,9 +447,9 @@ For example in the typings of VueI18n (the i18n library that I use), we find:</p
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>This means that we will have a <code class="highlighter-rouge">$i18n</code> property available and five different functions.
+<p>This means that we will have a <code class="language-plaintext highlighter-rouge">$i18n</code> property available and five different functions.
 If you would use a different i18n library, you will have most of these things also readily available.
-For example vue-i18next defines <code class="highlighter-rouge">$i18n</code> as:</p>
+For example vue-i18next defines <code class="language-plaintext highlighter-rouge">$i18n</code> as:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declare</span> <span class="nx">module</span> <span class="dl">"</span><span class="s2">vue/types/vue</span><span class="dl">"</span> <span class="p">{</span>
     <span class="kr">interface</span> <span class="nx">Vue</span> <span class="p">{</span>
@@ -467,7 +467,7 @@ Like said before we will only focus on the basic Vue functionalities and HTTP ca
 The other topics will be for a future article.</p>
 
 <h3 id="appvue">App.vue</h3>
-<p>The <code class="highlighter-rouge">App.vue</code> file is our first component that Vue bootstraps through our <code class="highlighter-rouge">main.ts</code> file.
+<p>The <code class="language-plaintext highlighter-rouge">App.vue</code> file is our first component that Vue bootstraps through our <code class="language-plaintext highlighter-rouge">main.ts</code> file.
 It is considered to be the root component.
 The Vue CLI generates the App component with one child component.</p>
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
@@ -516,8 +516,8 @@ Together, your whole application should have a component structure which should 
 </code></pre></div></div>
 
 <p>Each node of the tree is a component.
-With the use of the <code class="highlighter-rouge">@Component(...)</code> decorator, we define which components can be child components of the component that we’re defining.
-For example in our <code class="highlighter-rouge">App</code> component, we want the <code class="highlighter-rouge">HelloWorld</code> component (through the <code class="highlighter-rouge">HelloWorld</code> tag), thus we add the components option with <code class="highlighter-rouge">HelloWorld</code> in there.
+With the use of the <code class="language-plaintext highlighter-rouge">@Component(...)</code> decorator, we define which components can be child components of the component that we’re defining.
+For example in our <code class="language-plaintext highlighter-rouge">App</code> component, we want the <code class="language-plaintext highlighter-rouge">HelloWorld</code> component (through the <code class="language-plaintext highlighter-rouge">HelloWorld</code> tag), thus we add the components option with <code class="language-plaintext highlighter-rouge">HelloWorld</code> in there.
 These components are local components.
 If you would want to write a component that is global, you have to register it like this:</p>
 
@@ -538,7 +538,7 @@ An example of a use case that is justified would be an icon library like <a href
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">font-awesome-icon</span><span class="dl">'</span><span class="p">,</span> <span class="nx">FontAwesomeIcon</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>After this we can access the <code class="highlighter-rouge">font-awesome-icon</code> tag from everywhere.</p>
+<p>After this we can access the <code class="language-plaintext highlighter-rouge">font-awesome-icon</code> tag from everywhere.</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;font-awesome-icon</span> <span class="na">icon=</span><span class="s">"arrow-down"</span> <span class="nt">/&gt;</span>
 </code></pre></div></div>
@@ -575,28 +575,28 @@ Firstly I will explain the basics of a Vue Component so that you will fully unde
 
 </code></pre></div></div>
 
-<p>The standard way to write a Vue component is by using the <code class="highlighter-rouge">.vue</code> file extension.
-In a <code class="highlighter-rouge">.vue</code> file, we define three optional tags: <code class="highlighter-rouge">template</code>, <code class="highlighter-rouge">script</code> and <code class="highlighter-rouge">style</code>.
-According to the Vue documentation, you should always <a href="https://vuejs.org/v2/style-guide/#Single-file-component-top-level-element-order-recommended" target="_blank" rel="noopener noreferrer">order the tags consistently</a> with <code class="highlighter-rouge">style</code> being the last one.</p>
+<p>The standard way to write a Vue component is by using the <code class="language-plaintext highlighter-rouge">.vue</code> file extension.
+In a <code class="language-plaintext highlighter-rouge">.vue</code> file, we define three optional tags: <code class="language-plaintext highlighter-rouge">template</code>, <code class="language-plaintext highlighter-rouge">script</code> and <code class="language-plaintext highlighter-rouge">style</code>.
+According to the Vue documentation, you should always <a href="https://vuejs.org/v2/style-guide/#Single-file-component-top-level-element-order-recommended" target="_blank" rel="noopener noreferrer">order the tags consistently</a> with <code class="language-plaintext highlighter-rouge">style</code> being the last one.</p>
 
 <h3 id="templatetemplate">&lt;template&gt;…&lt;/template&gt;</h3>
 <p>This is the visual part of your component, in here you define the HTML that will be used to display your component.
-Note that your custom HTML should always be surrounded by a <code class="highlighter-rouge">div</code> tag.
+Note that your custom HTML should always be surrounded by a <code class="language-plaintext highlighter-rouge">div</code> tag.
 The reason for this is that it allows Vue to encapsulate your custom CSS without unknowingly affecting the styling of your whole site.
 You can use this to add a custom id or class to the tag to help you identify the component in for example your e2e tests.
-Note that a <code class="highlighter-rouge">.vue</code> file can contain at most one <code class="highlighter-rouge">template</code> tag.</p>
+Note that a <code class="language-plaintext highlighter-rouge">.vue</code> file can contain at most one <code class="language-plaintext highlighter-rouge">template</code> tag.</p>
 
 <h3 id="script-langtsscript">&lt;script lang=”ts”&gt;…&lt;/script&gt;</h3>
-<p>In the <code class="highlighter-rouge">script</code> tag, you can add your custom TypeScript code.
-The <code class="highlighter-rouge">lang</code> attribute is not required but if you do not add it, the default language will be JavaScript.
-In order for TypeScript to be available, you need to add <code class="highlighter-rouge">lang="ts"</code>.
-All of our TypeScript code should be present in this <code class="highlighter-rouge">script</code> tag, even the import statements.
-Note that a <code class="highlighter-rouge">.vue</code> file can contain at most one <code class="highlighter-rouge">script</code> tag.</p>
+<p>In the <code class="language-plaintext highlighter-rouge">script</code> tag, you can add your custom TypeScript code.
+The <code class="language-plaintext highlighter-rouge">lang</code> attribute is not required but if you do not add it, the default language will be JavaScript.
+In order for TypeScript to be available, you need to add <code class="language-plaintext highlighter-rouge">lang="ts"</code>.
+All of our TypeScript code should be present in this <code class="language-plaintext highlighter-rouge">script</code> tag, even the import statements.
+Note that a <code class="language-plaintext highlighter-rouge">.vue</code> file can contain at most one <code class="language-plaintext highlighter-rouge">script</code> tag.</p>
 
 <h3 id="stylestyle">&lt;style&gt;…&lt;/style&gt;</h3>
-<p>In the <code class="highlighter-rouge">style</code> tag we can define our own SCSS specific for this component.
-By default, all the styles you define in a <code class="highlighter-rouge">style</code> tag are global.
-By adding the scoped attribute to our <code class="highlighter-rouge">style</code> tag, our custom SCSS will be specific for that component.</p>
+<p>In the <code class="language-plaintext highlighter-rouge">style</code> tag we can define our own SCSS specific for this component.
+By default, all the styles you define in a <code class="language-plaintext highlighter-rouge">style</code> tag are global.
+By adding the scoped attribute to our <code class="language-plaintext highlighter-rouge">style</code> tag, our custom SCSS will be specific for that component.</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
@@ -628,31 +628,31 @@ By adding the scoped attribute to our <code class="highlighter-rouge">style</cod
 
 </code></pre></div></div>
 
-<p>In the example above, the <code class="highlighter-rouge">style</code> tag with the scoped attribute will only affect the <code class="highlighter-rouge">p</code> tag in our component and not the one in our child component.
-The <code class="highlighter-rouge">color: red</code> styling however will affect also the styling of <code class="highlighter-rouge">p</code> tags in <code class="highlighter-rouge">ChildComponent</code>.
+<p>In the example above, the <code class="language-plaintext highlighter-rouge">style</code> tag with the scoped attribute will only affect the <code class="language-plaintext highlighter-rouge">p</code> tag in our component and not the one in our child component.
+The <code class="language-plaintext highlighter-rouge">color: red</code> styling however will affect also the styling of <code class="language-plaintext highlighter-rouge">p</code> tags in <code class="language-plaintext highlighter-rouge">ChildComponent</code>.
 So it is best to be aware of the implications as it can have unwanted side effects.
 For a good way to structure your CSS, check out the <a href="http://getbem.com" target="_blank" rel="noopener noreferrer">BEM methodology</a> as it will help with avoiding conflicts and will guide you in having clean CSS selectors.</p>
 
 <p>Be careful though as the scoped attribute leads to a certain performance hit.
 Simply by adding the same class or id that we used in the template, we avoid this performance hit and still can have some scoped SCSS.
 Note that this will also style the child components.
-A <code class="highlighter-rouge">.vue</code> file can contain more than one <code class="highlighter-rouge">style</code> tag.</p>
+A <code class="language-plaintext highlighter-rouge">.vue</code> file can contain more than one <code class="language-plaintext highlighter-rouge">style</code> tag.</p>
 
-<p>If you want to use global styles, you can either put them in <code class="highlighter-rouge">App.vue</code> or create your own CSS file that you import either directly in <code class="highlighter-rouge">index.html</code> or in <code class="highlighter-rouge">App.vue</code>.</p>
+<p>If you want to use global styles, you can either put them in <code class="language-plaintext highlighter-rouge">App.vue</code> or create your own CSS file that you import either directly in <code class="language-plaintext highlighter-rouge">index.html</code> or in <code class="language-plaintext highlighter-rouge">App.vue</code>.</p>
 
 <h3 id="should-you-put-everything-in-a-vue-file">Should you put everything in a .vue file?</h3>
-<p>For small components, a <code class="highlighter-rouge">.vue</code> file will be very interesting as you have all the elements that make up your component into one specific file.
-But what if you have for example lots of lines in the <code class="highlighter-rouge">template</code> tag?
+<p>For small components, a <code class="language-plaintext highlighter-rouge">.vue</code> file will be very interesting as you have all the elements that make up your component into one specific file.
+But what if you have for example lots of lines in the <code class="language-plaintext highlighter-rouge">template</code> tag?
 Or what if you just want to split up the file?
-One tactic you can use is the <code class="highlighter-rouge">src</code> attribute on the <code class="highlighter-rouge">template</code>, <code class="highlighter-rouge">script</code> and/or <code class="highlighter-rouge">style</code> tags.</p>
+One tactic you can use is the <code class="language-plaintext highlighter-rouge">src</code> attribute on the <code class="language-plaintext highlighter-rouge">template</code>, <code class="language-plaintext highlighter-rouge">script</code> and/or <code class="language-plaintext highlighter-rouge">style</code> tags.</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;</span><span class="k">template</span> <span class="na">src=</span><span class="s">"./mycomponent.html"</span><span class="nt">&gt;&lt;/</span><span class="k">template</span><span class="nt">&gt;</span>
 <span class="nt">&lt;</span><span class="k">script</span> <span class="na">lang=</span><span class="s">"ts"</span> <span class="na">src=</span><span class="s">"./mycomponent.ts"</span><span class="nt">&gt;&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
 <span class="nt">&lt;</span><span class="k">style</span> <span class="na">src=</span><span class="s">"./mycomponent.scss"</span><span class="nt">&gt;&lt;/</span><span class="k">style</span><span class="nt">&gt;</span>
 </code></pre></div></div>
 
-<p>Personally I avoid using the <code class="highlighter-rouge">src</code> attribute as I like to force myself to keep my <code class="highlighter-rouge">.vue</code> files as small as possible.
-There’s also no performance difference between putting the HTML/SCSS separately or in the same <code class="highlighter-rouge">.vue</code> file.
+<p>Personally I avoid using the <code class="language-plaintext highlighter-rouge">src</code> attribute as I like to force myself to keep my <code class="language-plaintext highlighter-rouge">.vue</code> files as small as possible.
+There’s also no performance difference between putting the HTML/SCSS separately or in the same <code class="language-plaintext highlighter-rouge">.vue</code> file.
 The Vue CLI will generate the same compiled code.</p>
 
 <h2 id="how-to-organise-your-files">How to organise your files</h2>
@@ -668,9 +668,9 @@ The Vue CLI will generate the same compiled code.</p>
 	App.vue
 </code></pre></div></div>
 
-<p>The idea behind this is that you add all your custom components into <code class="highlighter-rouge">/components</code> and any assets that also need to be transpiled/compiled into <code class="highlighter-rouge">/assets</code>.
-For example a global stylesheet or an icon library that you want to <a href="https://webpack.js.org/guides/tree-shaking/" target="_blank" rel="noopener noreferrer">treeshake</a> fits perfectly into <code class="highlighter-rouge">/assets</code>.
-In the <code class="highlighter-rouge">public</code> folder we put all things static that don’t need to be parsed and treeshaked: the logo, the favicons, images, …</p>
+<p>The idea behind this is that you add all your custom components into <code class="language-plaintext highlighter-rouge">/components</code> and any assets that also need to be transpiled/compiled into <code class="language-plaintext highlighter-rouge">/assets</code>.
+For example a global stylesheet or an icon library that you want to <a href="https://webpack.js.org/guides/tree-shaking/" target="_blank" rel="noopener noreferrer">treeshake</a> fits perfectly into <code class="language-plaintext highlighter-rouge">/assets</code>.
+In the <code class="language-plaintext highlighter-rouge">public</code> folder we put all things static that don’t need to be parsed and treeshaked: the logo, the favicons, images, …</p>
 
 <h3 id="a-more-advanced-structure">A more advanced structure</h3>
 <p>The basic structure is enough for a simple single page application.
@@ -689,13 +689,13 @@ In a more advanced project (like a personal project of mine), the structure coul
 	App.vue
 </code></pre></div></div>
 
-<p>In this project structure, both <code class="highlighter-rouge">/public</code> and <code class="highlighter-rouge">/assets</code> provide the same purpose.
-I use <code class="highlighter-rouge">/assets</code> for some local <code class="highlighter-rouge">.json</code> files that contain some of my data that is needed in the application.
-In <code class="highlighter-rouge">/components</code> I keep all my generic components that can be used by pages and other components.
-This is what you would put in a <code class="highlighter-rouge">SharedModule</code> in Angular for example.
-<code class="highlighter-rouge">/i18n</code> contains all my translations of my website as well as the initialisation of an i18n library.
-Same goes for the <code class="highlighter-rouge">/store</code> that contains my implementation of a store.
-I had based myself on the <a href="https://vuex.vuejs.org/guide/structure.html" target="_blank" rel="noopener noreferrer">structure proposed in the Vuex library</a> where they group everything store related into <code class="highlighter-rouge">/store</code> and applied the same principle for other libraries.</p>
+<p>In this project structure, both <code class="language-plaintext highlighter-rouge">/public</code> and <code class="language-plaintext highlighter-rouge">/assets</code> provide the same purpose.
+I use <code class="language-plaintext highlighter-rouge">/assets</code> for some local <code class="language-plaintext highlighter-rouge">.json</code> files that contain some of my data that is needed in the application.
+In <code class="language-plaintext highlighter-rouge">/components</code> I keep all my generic components that can be used by pages and other components.
+This is what you would put in a <code class="language-plaintext highlighter-rouge">SharedModule</code> in Angular for example.
+<code class="language-plaintext highlighter-rouge">/i18n</code> contains all my translations of my website as well as the initialisation of an i18n library.
+Same goes for the <code class="language-plaintext highlighter-rouge">/store</code> that contains my implementation of a store.
+I had based myself on the <a href="https://vuex.vuejs.org/guide/structure.html" target="_blank" rel="noopener noreferrer">structure proposed in the Vuex library</a> where they group everything store related into <code class="language-plaintext highlighter-rouge">/store</code> and applied the same principle for other libraries.</p>
 
 <h3 id="modules">Modules</h3>
 <p>Vue is designed to be as lightweight as possible and this can be seen in how the basic project is structured: no modules are present.
@@ -705,9 +705,9 @@ Vue modules are simply ES6 modules.</p>
 <h2 id="blogpost-component">BlogPost component</h2>
 
 <h3 id="the-basic-file">The basic file</h3>
-<p>Our first component we will write is a <code class="highlighter-rouge">BlogPost</code> component in <code class="highlighter-rouge">components/BlogPost.vue</code>.
+<p>Our first component we will write is a <code class="language-plaintext highlighter-rouge">BlogPost</code> component in <code class="language-plaintext highlighter-rouge">components/BlogPost.vue</code>.
 In a first stage of our little project we will just hardcode a blogpost.
-The <code class="highlighter-rouge">BlogPost</code> component is small:</p>
+The <code class="language-plaintext highlighter-rouge">BlogPost</code> component is small:</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
@@ -752,25 +752,25 @@ The <code class="highlighter-rouge">BlogPost</code> component is small:</p>
 </code></pre></div></div>
 
 <p>As you can see the template is rather small.
-We’ve grouped all the elements in a div with class <code class="highlighter-rouge">blogpost</code>.
-Vue expects us to wrap the content in one tag and by convention, they advise to use a <code class="highlighter-rouge">div</code> tag.</p>
+We’ve grouped all the elements in a div with class <code class="language-plaintext highlighter-rouge">blogpost</code>.
+Vue expects us to wrap the content in one tag and by convention, they advise to use a <code class="language-plaintext highlighter-rouge">div</code> tag.</p>
 
-<p>Within the <code class="highlighter-rouge">script</code> tag you’ll notice that we have created a small <code class="highlighter-rouge">Post</code> interface to wrap our data.
-On the component itself, we have a member that is decorated with <code class="highlighter-rouge">@Prop()</code>.
-With the decorator, we allow the use of the <code class="highlighter-rouge">BlogPost</code> component with the attribute <code class="highlighter-rouge">post</code> that should have type <code class="highlighter-rouge">Post</code>.
-You’ll notice we’ve added a <code class="highlighter-rouge">!</code> behind <code class="highlighter-rouge">post</code> so we end up with <code class="highlighter-rouge">post!</code>.
-The exclamation mark is the <a href="https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#non-null-assertion-operator" target="_blank" rel="noopener noreferrer">non-null assertion operator</a> which tells the browser that <code class="highlighter-rouge">post</code> will eventually be filled in with a value and that it shall never be <code class="highlighter-rouge">null</code> or <code class="highlighter-rouge">undefined</code>.</p>
+<p>Within the <code class="language-plaintext highlighter-rouge">script</code> tag you’ll notice that we have created a small <code class="language-plaintext highlighter-rouge">Post</code> interface to wrap our data.
+On the component itself, we have a member that is decorated with <code class="language-plaintext highlighter-rouge">@Prop()</code>.
+With the decorator, we allow the use of the <code class="language-plaintext highlighter-rouge">BlogPost</code> component with the attribute <code class="language-plaintext highlighter-rouge">post</code> that should have type <code class="language-plaintext highlighter-rouge">Post</code>.
+You’ll notice we’ve added a <code class="language-plaintext highlighter-rouge">!</code> behind <code class="language-plaintext highlighter-rouge">post</code> so we end up with <code class="language-plaintext highlighter-rouge">post!</code>.
+The exclamation mark is the <a href="https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#non-null-assertion-operator" target="_blank" rel="noopener noreferrer">non-null assertion operator</a> which tells the browser that <code class="language-plaintext highlighter-rouge">post</code> will eventually be filled in with a value and that it shall never be <code class="language-plaintext highlighter-rouge">null</code> or <code class="language-plaintext highlighter-rouge">undefined</code>.</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;BlogPost</span> <span class="na">:post=</span><span class="s">"blogPost"</span> <span class="nt">/&gt;</span>
 </code></pre></div></div>
 
-<p>Where <code class="highlighter-rouge">blogPost</code> is an instance of <code class="highlighter-rouge">Post</code> in our component.</p>
+<p>Where <code class="language-plaintext highlighter-rouge">blogPost</code> is an instance of <code class="language-plaintext highlighter-rouge">Post</code> in our component.</p>
 
-<p>After that we have a <code class="highlighter-rouge">date</code> member which is a computed property.</p>
+<p>After that we have a <code class="language-plaintext highlighter-rouge">date</code> member which is a computed property.</p>
 
 <p>Sadly there is no full type checking going on at the moment.
-If we were to use the <code class="highlighter-rouge">BlogPost</code> component, we can always pass along another object into the <code class="highlighter-rouge">post</code> attribute.
-We can pass along a <code class="highlighter-rouge">type</code> attribute in the <code class="highlighter-rouge">Props</code> decorator but even that is not that stable.</p>
+If we were to use the <code class="language-plaintext highlighter-rouge">BlogPost</code> component, we can always pass along another object into the <code class="language-plaintext highlighter-rouge">post</code> attribute.
+We can pass along a <code class="language-plaintext highlighter-rouge">type</code> attribute in the <code class="language-plaintext highlighter-rouge">Props</code> decorator but even that is not that stable.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Prop</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nb">Object</span> <span class="k">as</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">Post</span><span class="p">})</span>
 </code></pre></div></div>
@@ -779,7 +779,7 @@ We can pass along a <code class="highlighter-rouge">type</code> attribute in the
 
 <h2 id="using-the-blogpost-component">Using the BlogPost component</h2>
 <p>So we have created the BlogPost component but how are we going to actually use it?
-We adapt <code class="highlighter-rouge">App.vue</code> as follows:</p>
+We adapt <code class="language-plaintext highlighter-rouge">App.vue</code> as follows:</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
@@ -835,18 +835,18 @@ We adapt <code class="highlighter-rouge">App.vue</code> as follows:</p>
 
 </code></pre></div></div>
 
-<p>As you can see we define a property on the <code class="highlighter-rouge">App</code> component that contains our blog posts, we add the <code class="highlighter-rouge">components</code> property to the <code class="highlighter-rouge">Component</code> decorator and add the <code class="highlighter-rouge">BlogPost</code> tag in the template.
-We simply loop over the blog posts with the <code class="highlighter-rouge">v-for</code> directive.
-We pass each blog post to the <code class="highlighter-rouge">BlogPost</code> component by binding it to the correct data attribute.
-This can be done through <code class="highlighter-rouge">v-bind:post="blogPost"</code> but we use the shorthand method of <code class="highlighter-rouge">:post="blogPost"</code>.
-Vue transforms <code class="highlighter-rouge">:post</code> to <code class="highlighter-rouge">v-bind:post</code> behind the screens.</p>
+<p>As you can see we define a property on the <code class="language-plaintext highlighter-rouge">App</code> component that contains our blog posts, we add the <code class="language-plaintext highlighter-rouge">components</code> property to the <code class="language-plaintext highlighter-rouge">Component</code> decorator and add the <code class="language-plaintext highlighter-rouge">BlogPost</code> tag in the template.
+We simply loop over the blog posts with the <code class="language-plaintext highlighter-rouge">v-for</code> directive.
+We pass each blog post to the <code class="language-plaintext highlighter-rouge">BlogPost</code> component by binding it to the correct data attribute.
+This can be done through <code class="language-plaintext highlighter-rouge">v-bind:post="blogPost"</code> but we use the shorthand method of <code class="language-plaintext highlighter-rouge">:post="blogPost"</code>.
+Vue transforms <code class="language-plaintext highlighter-rouge">:post</code> to <code class="language-plaintext highlighter-rouge">v-bind:post</code> behind the screens.</p>
 
-<p>Note that we also pass <code class="highlighter-rouge">:key</code> which we bind to the title of our blog post.
-The reason for this is that it allows Vue to keep track of the state of the list by only looking at the <code class="highlighter-rouge">:key</code> attribute instead of having to deep compare objects.
+<p>Note that we also pass <code class="language-plaintext highlighter-rouge">:key</code> which we bind to the title of our blog post.
+The reason for this is that it allows Vue to keep track of the state of the list by only looking at the <code class="language-plaintext highlighter-rouge">:key</code> attribute instead of having to deep compare objects.
 Try to have an unique key of type number or string that can be used for actions such as identifying, ordering and searching.
 A blog post title is a good start but when ordering, updating or other modifying operations you might not have the wanted result if we have blog posts with the same title.
-It’s best to use something of type <code class="highlighter-rouge">number</code> or <code class="highlighter-rouge">string</code> as the key.
-Vue will tell you this in the console of your browser if you would take for example the <code class="highlighter-rouge">datePosted</code> as your key:</p>
+It’s best to use something of type <code class="language-plaintext highlighter-rouge">number</code> or <code class="language-plaintext highlighter-rouge">string</code> as the key.
+Vue will tell you this in the console of your browser if you would take for example the <code class="language-plaintext highlighter-rouge">datePosted</code> as your key:</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/vue-key-typing-error.png" class="image fit" />
@@ -870,15 +870,15 @@ Now it is time to extend it with some functionalities.</p>
 <h2 id="adding-conditional-elements-to-the-component">Adding conditional elements to the component</h2>
 <p>An important part of a component is to have some dynamic behaviour.
 For example what if we want to show a highlighted blog post? 
-We could create a new component called <code class="highlighter-rouge">HighlightedBlogPost</code> but we could also extend our existing component.</p>
+We could create a new component called <code class="language-plaintext highlighter-rouge">HighlightedBlogPost</code> but we could also extend our existing component.</p>
 
-<p>We can add a new paragraph with a <code class="highlighter-rouge">v-if</code> statement:</p>
+<p>We can add a new paragraph with a <code class="language-plaintext highlighter-rouge">v-if</code> statement:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p</span> <span class="na">v-if=</span><span class="s">"post.highlighted"</span><span class="nt">&gt;</span>This post is highlighted!<span class="nt">&lt;/p&gt;</span>
 </code></pre></div></div>
 
-<p>The contents of the <code class="highlighter-rouge">v-if</code> is a TypeScript statement that should return <code class="highlighter-rouge">true</code> or <code class="highlighter-rouge">false</code>.
-We extend our <code class="highlighter-rouge">Post</code> interface to accomodate this:</p>
+<p>The contents of the <code class="language-plaintext highlighter-rouge">v-if</code> is a TypeScript statement that should return <code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code>.
+We extend our <code class="language-plaintext highlighter-rouge">Post</code> interface to accomodate this:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kr">interface</span> <span class="nx">Post</span> <span class="p">{</span>
 	<span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
@@ -889,7 +889,7 @@ We extend our <code class="highlighter-rouge">Post</code> interface to accomodat
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>After that we add <code class="highlighter-rouge">highlighted: true,</code> to the second blog post in <code class="highlighter-rouge">App.vue</code>.</p>
+<p>After that we add <code class="language-plaintext highlighter-rouge">highlighted: true,</code> to the second blog post in <code class="language-plaintext highlighter-rouge">App.vue</code>.</p>
 
 <p>In our browser it looks like this:</p>
 
@@ -897,7 +897,7 @@ We extend our <code class="highlighter-rouge">Post</code> interface to accomodat
   <img src="/img/vue-with-typescript/wordvue-conditional-elements.png" class="image fit-contain" />
 </p>
 
-<p>We end up with this as our <code class="highlighter-rouge">BlogPost</code> component:</p>
+<p>We end up with this as our <code class="language-plaintext highlighter-rouge">BlogPost</code> component:</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
@@ -947,18 +947,18 @@ We extend our <code class="highlighter-rouge">Post</code> interface to accomodat
 <p>We now know how to add a conditional element to our component, but we can also have conditional CSS.
 We will use this conditional CSS so our highlighted blog post is also visually highlighted.</p>
 
-<p>We can add in our <code class="highlighter-rouge">div</code> with class <code class="highlighter-rouge">blogpost</code> an extra <code class="highlighter-rouge">v-bind</code> directive:</p>
+<p>We can add in our <code class="language-plaintext highlighter-rouge">div</code> with class <code class="language-plaintext highlighter-rouge">blogpost</code> an extra <code class="language-plaintext highlighter-rouge">v-bind</code> directive:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"blogpost"</span> <span class="na">v-bind:class=</span><span class="s">"{ highlighted: post.highlighted }"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
 </code></pre></div></div>
 
-<p>With <code class="highlighter-rouge">v-bind</code> we define to which attribute we want to bind after the colon.
-So in our case, <code class="highlighter-rouge">v-bind:class</code> results in a binding with the <code class="highlighter-rouge">class</code> attribute in our HTML.
-<code class="highlighter-rouge">v-bind:class</code> accepts an object as parameter in which each key should be mapped to a <code class="highlighter-rouge">boolean</code>.
-For each key that is mapped to a truthy value, that key is added as a class to the HTML tag on which the <code class="highlighter-rouge">v-bind</code> is located.
-You will notice that we use <code class="highlighter-rouge">v-bind</code> to bind to the <code class="highlighter-rouge">class</code> attribute but that this attribute already exists on our HTML element.
+<p>With <code class="language-plaintext highlighter-rouge">v-bind</code> we define to which attribute we want to bind after the colon.
+So in our case, <code class="language-plaintext highlighter-rouge">v-bind:class</code> results in a binding with the <code class="language-plaintext highlighter-rouge">class</code> attribute in our HTML.
+<code class="language-plaintext highlighter-rouge">v-bind:class</code> accepts an object as parameter in which each key should be mapped to a <code class="language-plaintext highlighter-rouge">boolean</code>.
+For each key that is mapped to a truthy value, that key is added as a class to the HTML tag on which the <code class="language-plaintext highlighter-rouge">v-bind</code> is located.
+You will notice that we use <code class="language-plaintext highlighter-rouge">v-bind</code> to bind to the <code class="language-plaintext highlighter-rouge">class</code> attribute but that this attribute already exists on our HTML element.
 This is no problem as Vue will simply concatenate all the values.
-In the case that <code class="highlighter-rouge">post.highlighted</code> is truthy, we will thus end up with:</p>
+In the case that <code class="language-plaintext highlighter-rouge">post.highlighted</code> is truthy, we will thus end up with:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"blogpost highlighted"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
 </code></pre></div></div>
@@ -968,7 +968,7 @@ In the case that <code class="highlighter-rouge">post.highlighted</code> is trut
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"blogpost"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
 </code></pre></div></div>
 
-<p>We extend our <code class="highlighter-rouge">.blogpost</code> to give the blog posts a width, center them and add a border with a background:</p>
+<p>We extend our <code class="language-plaintext highlighter-rouge">.blogpost</code> to give the blog posts a width, center them and add a border with a background:</p>
 
 <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span><span class="nc">.blogpost</span> <span class="p">{</span>
 	<span class="nl">width</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
@@ -987,13 +987,13 @@ In the case that <code class="highlighter-rouge">post.highlighted</code> is trut
   <img src="/img/vue-with-typescript/wordvue-conditional-css.png" class="image fit-contain" />
 </p>
 
-<p>Note that we also have a shorter version of <code class="highlighter-rouge">v-bind:attributename</code> which is <code class="highlighter-rouge">:attributename</code>.
-So we can shorten <code class="highlighter-rouge">v-bind:class</code> to this:</p>
+<p>Note that we also have a shorter version of <code class="language-plaintext highlighter-rouge">v-bind:attributename</code> which is <code class="language-plaintext highlighter-rouge">:attributename</code>.
+So we can shorten <code class="language-plaintext highlighter-rouge">v-bind:class</code> to this:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"blogpost"</span> <span class="na">:class=</span><span class="s">"{ highlighted: post.highlighted }"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
 </code></pre></div></div>
 
-<p>We end up with this as our <code class="highlighter-rouge">BlogPost</code> component:</p>
+<p>We end up with this as our <code class="language-plaintext highlighter-rouge">BlogPost</code> component:</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
@@ -1047,13 +1047,13 @@ So we can shorten <code class="highlighter-rouge">v-bind:class</code> to this:</
 
 <h2 id="using-events-in-a-component">Using events in a component</h2>
 <p>As a final extension to our blog, we also want to add some dynamic behaviour by reacting to events.
-For our example, we will bind a button to the click event in our <code class="highlighter-rouge">App</code> component with the <code class="highlighter-rouge">v-on:click</code> directive.</p>
+For our example, we will bind a button to the click event in our <code class="language-plaintext highlighter-rouge">App</code> component with the <code class="language-plaintext highlighter-rouge">v-on:click</code> directive.</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="na">v-on:click=</span><span class="s">"toggleHighlightedPostsVisibility"</span><span class="nt">&gt;</span>Show/hide highlighted posts<span class="nt">&lt;/button&gt;</span>
 </code></pre></div></div>
 
-<p>The syntax to bind to events is <code class="highlighter-rouge">v-on:eventname</code>.
-We can also use the shorthand version which is <code class="highlighter-rouge">@eventname</code>:</p>
+<p>The syntax to bind to events is <code class="language-plaintext highlighter-rouge">v-on:eventname</code>.
+We can also use the shorthand version which is <code class="language-plaintext highlighter-rouge">@eventname</code>:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="err">@</span><span class="na">click=</span><span class="s">"toggleHighlightedPostsVisibility"</span><span class="nt">&gt;</span>Show/hide highlighted posts<span class="nt">&lt;/button&gt;</span>
 </code></pre></div></div>
@@ -1078,22 +1078,22 @@ The code block is followed by an explanation about what we have done exactly:</p
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>First what we did was add the <code class="highlighter-rouge">showHighlighted</code> boolean.
+<p>First what we did was add the <code class="language-plaintext highlighter-rouge">showHighlighted</code> boolean.
 This is to keep track whether we should show or hide the highlighted blog posts.</p>
 
 <p>We also wrote a getter to only show the blog posts that are allowed to be shown.
-In our filter, we check if the <code class="highlighter-rouge">highlighted</code> member is defined and if so, we check if it equals our <code class="highlighter-rouge">showHighlighted</code> variable.</p>
+In our filter, we check if the <code class="language-plaintext highlighter-rouge">highlighted</code> member is defined and if so, we check if it equals our <code class="language-plaintext highlighter-rouge">showHighlighted</code> variable.</p>
 
 <p>The reason why we write this in a getter, is that we want to avoid putting business logic in our template.
 Thus we opt for writing a getter which is the equivalent of a computed property in Vue JavaScript.</p>
 
-<p>After this we have to adapt the <code class="highlighter-rouge">v-for</code> in our template so that we use the new getter:</p>
+<p>After this we have to adapt the <code class="language-plaintext highlighter-rouge">v-for</code> in our template so that we use the new getter:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;BlogPost</span> <span class="na">v-for=</span><span class="s">"blogPost in visibleBlogPosts"</span> <span class="na">:post=</span><span class="s">"blogPost"</span> <span class="na">:key=</span><span class="s">"blogPost.title"</span> <span class="nt">/&gt;</span>
 </code></pre></div></div>
 
 <p>As a small bonus, we will make the text in our button dynamic.
-Currently we have <code class="highlighter-rouge">Show/hide highlighted posts</code> as the text but it would be cleaner if we showed <code class="highlighter-rouge">Show highlighted posts</code> and <code class="highlighter-rouge">Hide highlighted posts</code> depending on the state of the component.
+Currently we have <code class="language-plaintext highlighter-rouge">Show/hide highlighted posts</code> as the text but it would be cleaner if we showed <code class="language-plaintext highlighter-rouge">Show highlighted posts</code> and <code class="language-plaintext highlighter-rouge">Hide highlighted posts</code> depending on the state of the component.
 We update the button to the following code:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
@@ -1107,7 +1107,7 @@ We update the button to the following code:</p>
   <img src="/img/vue-with-typescript/wordvue-events-showhide.png" class="image fit" />
 </p>
 
-<p>And our <code class="highlighter-rouge">App</code> component looks like this:</p>
+<p>And our <code class="language-plaintext highlighter-rouge">App</code> component looks like this:</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
@@ -1178,9 +1178,9 @@ We update the button to the following code:</p>
 
 <h1 id="5-using-your-first-plugin">5. Using your first plugin</h1>
 <p>Vue comes without any libraries, it is a super clean and lean framework where even functionality for HTTP calls is not present.
-However, every component is a Vue object and can be extended with a <code class="highlighter-rouge">$http</code> member that you can use in your code to perform HTTP calls.</p>
+However, every component is a Vue object and can be extended with a <code class="language-plaintext highlighter-rouge">$http</code> member that you can use in your code to perform HTTP calls.</p>
 
-<p>To provide this <code class="highlighter-rouge">$http</code> member, we have to add the correct plugin to our code.
+<p>To provide this <code class="language-plaintext highlighter-rouge">$http</code> member, we have to add the correct plugin to our code.
 In the <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener noreferrer">awesome-vue project on GitHub</a>, we can find an <a href="https://github.com/vuejs/awesome-vue#http-requests" target="_blank" rel="noopener noreferrer">extensive list of HTTP plugins</a>.
 We will use <a href="https://github.com/axios/axios" target="_blank" rel="noopener noreferrer">axios</a> as our HTTP library but we will use <a href="https://github.com/imcvampire/vue-axios" target="_blank" rel="noopener noreferrer">vue-axios</a> for the bindings with Vue in TypeScript as axios does not provide the necessary typings for axios in Vue.</p>
 
@@ -1194,7 +1194,7 @@ We will use <a href="https://github.com/axios/axios" target="_blank" rel="noopen
 This is because vue-axios only focuses on the TypeScript bindings for Vue and does not include the actual axios library.
 Vue-axios basically turns the axios library into a plugin compatible for Vue.
 After that, we have to signal to Vue that we want to use this plugin.
-We add a <code class="highlighter-rouge">Vue.use(plugin, options)</code> statement in our <code class="highlighter-rouge">main.ts</code> so it looks like this:</p>
+We add a <code class="language-plaintext highlighter-rouge">Vue.use(plugin, options)</code> statement in our <code class="language-plaintext highlighter-rouge">main.ts</code> so it looks like this:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">Vue</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">;</span>
@@ -1210,22 +1210,22 @@ We add a <code class="highlighter-rouge">Vue.use(plugin, options)</code> stateme
 <span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>The important part is that we put the <code class="highlighter-rouge">Vue.use(...)</code> statement before we actually bootstrap the application with <code class="highlighter-rouge">new Vue(...)</code>.</p>
+<p>The important part is that we put the <code class="language-plaintext highlighter-rouge">Vue.use(...)</code> statement before we actually bootstrap the application with <code class="language-plaintext highlighter-rouge">new Vue(...)</code>.</p>
 
 <h2 id="the-effect-of-adding-a-plugin">The effect of adding a plugin</h2>
 <p>So we have added a plugin, but what does that actually mean?
 What is the effect on our Vue code?
-The main effect is that we now have <code class="highlighter-rouge">$http</code> accessible in every Vue component.
-This means that we can now have <code class="highlighter-rouge">this.$http</code> in our classes in which a unique instance of the axios library for the whole application will be plugged.
-When we check the <a href="https://github.com/axios/axios/blob/master/index.d.ts" target="_blank" rel="noopener noreferrer">typings</a>  from axios, we find that we now have methods like <code class="highlighter-rouge">get(...)</code>, <code class="highlighter-rouge">post(...)</code> and many more default REST methods available in our code through the <code class="highlighter-rouge">$http</code> member in which an instance of axios is present.</p>
+The main effect is that we now have <code class="language-plaintext highlighter-rouge">$http</code> accessible in every Vue component.
+This means that we can now have <code class="language-plaintext highlighter-rouge">this.$http</code> in our classes in which a unique instance of the axios library for the whole application will be plugged.
+When we check the <a href="https://github.com/axios/axios/blob/master/index.d.ts" target="_blank" rel="noopener noreferrer">typings</a>  from axios, we find that we now have methods like <code class="language-plaintext highlighter-rouge">get(...)</code>, <code class="language-plaintext highlighter-rouge">post(...)</code> and many more default REST methods available in our code through the <code class="language-plaintext highlighter-rouge">$http</code> member in which an instance of axios is present.</p>
 
-<p>Methods like <code class="highlighter-rouge">get(...)</code> and <code class="highlighter-rouge">post(...)</code> will also exist on other HTTP libraries that we can add to Vue.
+<p>Methods like <code class="language-plaintext highlighter-rouge">get(...)</code> and <code class="language-plaintext highlighter-rouge">post(...)</code> will also exist on other HTTP libraries that we can add to Vue.
 It is not obliged by Vue to provide these same functionalities in another HTTP library.
 But it makes sense for library creators to comply to the standard set by the HTTP library of preference as chosen by Vue, in this case axios.
 Otherwise it would not be easy to change certain libraries for another one.</p>
 
 <h2 id="using-the-axios-plugin-for-performing-http-calls">Using the axios plugin for performing HTTP calls</h2>
-<p>A Vue component has <a href="https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks" target="_blank" rel="noopener noreferrer">multiple lifecycle hooks</a> with the most interesting ones for what we want to do: <code class="highlighter-rouge">created()</code> and <code class="highlighter-rouge">mounted()</code>.
+<p>A Vue component has <a href="https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks" target="_blank" rel="noopener noreferrer">multiple lifecycle hooks</a> with the most interesting ones for what we want to do: <code class="language-plaintext highlighter-rouge">created()</code> and <code class="language-plaintext highlighter-rouge">mounted()</code>.
 Created is called by Vue when the object is created: reactive data is set up, event callbacks are ready and the object is not yet mounted on the DOM.
 The Vue object will thus be ready to go but it will not yet be visible to the user.
 The mounted hook is used for when the element is mounted into the HTML DOM, which means the rendering is performed by the browser.</p>
@@ -1260,10 +1260,10 @@ The mounted hook is used for when the element is mounted into the HTML DOM, whic
 
 </code></pre></div></div>
 
-<p>There are two reasons why we want to start our HTTP calls in the <code class="highlighter-rouge">created</code> method.
+<p>There are two reasons why we want to start our HTTP calls in the <code class="language-plaintext highlighter-rouge">created</code> method.
 The first reason is that we can limit the amount of time the user has to wait for data to be loaded and shown on the screen.
 The second one is that the mounted hook is not called when we would use serverside rendering.
-To ensure that our code is compatible with all use cases, we place the HTTP calls in the created method of our <code class="highlighter-rouge">App.vue</code> which results in this component:</p>
+To ensure that our code is compatible with all use cases, we place the HTTP calls in the created method of our <code class="language-plaintext highlighter-rouge">App.vue</code> which results in this component:</p>
 
 <div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nt">&lt;</span><span class="k">template</span><span class="nt">&gt;</span>
@@ -1325,12 +1325,12 @@ To ensure that our code is compatible with all use cases, we place the HTTP call
 
 </code></pre></div></div>
 
-<p>As you can see we have added a <code class="highlighter-rouge">private created</code> method since this should not be publicly available to other components.
-We call an API and map the response into our <code class="highlighter-rouge">Post</code> array.
+<p>As you can see we have added a <code class="language-plaintext highlighter-rouge">private created</code> method since this should not be publicly available to other components.
+We call an API and map the response into our <code class="language-plaintext highlighter-rouge">Post</code> array.
 Now we need to set up our API.</p>
 
 <h2 id="how-we-have-set-up-a-local-api">How we have set up a local API</h2>
-<p>To simulate a real API call, we set up <a href="https://github.com/typicode/json-server" target="_blank" rel="noopener noreferrer">json-server</a>, a small tool that launches a web server with a REST API that serves a JSON file which we call <code class="highlighter-rouge">db.json</code> present in our assets folder:</p>
+<p>To simulate a real API call, we set up <a href="https://github.com/typicode/json-server" target="_blank" rel="noopener noreferrer">json-server</a>, a small tool that launches a web server with a REST API that serves a JSON file which we call <code class="language-plaintext highlighter-rouge">db.json</code> present in our assets folder:</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
 	</span><span class="nl">"blogposts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1403,66 +1403,66 @@ Now you know how to install a plugin and retrieve data with axios over HTTP.</p>
       <td>No additional checks, ignores any situation that would trigger warnings</td>
     </tr>
     <tr>
-      <td>Everything in one <code class="highlighter-rouge">app.js</code></td>
-      <td>Separate <code class="highlighter-rouge">app.js</code> and <code class="highlighter-rouge">vendor.js</code></td>
+      <td>Everything in one <code class="language-plaintext highlighter-rouge">app.js</code></td>
+      <td>Separate <code class="language-plaintext highlighter-rouge">app.js</code> and <code class="language-plaintext highlighter-rouge">vendor.js</code></td>
     </tr>
     <tr>
-      <td>Heavy use of <code class="highlighter-rouge">eval()</code> for hot reload</td>
-      <td>No use of <code class="highlighter-rouge">eval()</code>, no hot reloading necessary</td>
+      <td>Heavy use of <code class="language-plaintext highlighter-rouge">eval()</code> for hot reload</td>
+      <td>No use of <code class="language-plaintext highlighter-rouge">eval()</code>, no hot reloading necessary</td>
     </tr>
     <tr>
       <td>Basic bundling of all code, use of minified libraries only when available</td>
       <td>Bundling &amp; maximum minification</td>
     </tr>
     <tr>
-      <td>No minification of <code class="highlighter-rouge">index.html</code></td>
-      <td>Minification of <code class="highlighter-rouge">index.html</code></td>
+      <td>No minification of <code class="language-plaintext highlighter-rouge">index.html</code></td>
+      <td>Minification of <code class="language-plaintext highlighter-rouge">index.html</code></td>
     </tr>
   </tbody>
 </table>
 
 <blockquote>
-  <p><code class="highlighter-rouge">vendor.js</code>: Contains all the <code class="highlighter-rouge">node_modules</code> code that your project uses</p>
+  <p><code class="language-plaintext highlighter-rouge">vendor.js</code>: Contains all the <code class="language-plaintext highlighter-rouge">node_modules</code> code that your project uses</p>
 
-  <p><code class="highlighter-rouge">eval()</code>: JavaScript function that executes strings as if it’s a line of code and should <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#Do_not_ever_use_eval!" target="_blank" rel="noopener noreferrer">never be used in production</a></p>
+  <p><code class="language-plaintext highlighter-rouge">eval()</code>: JavaScript function that executes strings as if it’s a line of code and should <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#Do_not_ever_use_eval!" target="_blank" rel="noopener noreferrer">never be used in production</a></p>
 </blockquote>
 
-<p>All the minification, avoiding the use of <code class="highlighter-rouge">eval()</code>, removing of warning checks and so on results in a much smaller size of the code.</p>
+<p>All the minification, avoiding the use of <code class="language-plaintext highlighter-rouge">eval()</code>, removing of warning checks and so on results in a much smaller size of the code.</p>
 
-<p>If we do a <code class="highlighter-rouge">npm run serve</code> and check our Developer Tools in Chrome, we see the size of our application:</p>
+<p>If we do a <code class="language-plaintext highlighter-rouge">npm run serve</code> and check our Developer Tools in Chrome, we see the size of our application:</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/wordvue-size-serve.png" class="image fit" />
 </p>
 
-<p>In development mode, our application is more than 2MB large. We see the <code class="highlighter-rouge">index.html</code> alongside a generated <code class="highlighter-rouge">app.js</code> that contains all our own code and all the <code class="highlighter-rouge">node_modules</code> that we are using.
-While when we build with the production mode via <code class="highlighter-rouge">npm run build</code>, we get an application that is in total less than 125KB:</p>
+<p>In development mode, our application is more than 2MB large. We see the <code class="language-plaintext highlighter-rouge">index.html</code> alongside a generated <code class="language-plaintext highlighter-rouge">app.js</code> that contains all our own code and all the <code class="language-plaintext highlighter-rouge">node_modules</code> that we are using.
+While when we build with the production mode via <code class="language-plaintext highlighter-rouge">npm run build</code>, we get an application that is in total less than 125KB:</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/wordvue-size-build.png" class="image fit" />
 </p>
 
-<p>The only thing we changed to get a <code class="highlighter-rouge">dist</code> folder that is so small, was adding a <code class="highlighter-rouge">vue.config.js</code> file in the root of our folder which exports an object with the settings we want:</p>
+<p>The only thing we changed to get a <code class="language-plaintext highlighter-rouge">dist</code> folder that is so small, was adding a <code class="language-plaintext highlighter-rouge">vue.config.js</code> file in the root of our folder which exports an object with the settings we want:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
     <span class="na">productionSourceMap</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
-<p>We only had to add the <code class="highlighter-rouge">productionSourceMap</code> set to <code class="highlighter-rouge">false</code> to disable the creation of source maps.</p>
+<p>We only had to add the <code class="language-plaintext highlighter-rouge">productionSourceMap</code> set to <code class="language-plaintext highlighter-rouge">false</code> to disable the creation of source maps.</p>
 
 <p>More configurations can be found at <a href="https://cli.vuejs.org/config/" target="_blank" rel="noopener noreferrer">cli.vuejs.org</a> but most of the configuration is already done for a maximum optimised production build.</p>
 
 <h2 id="building-for-production">Building for production</h2>
-<p>When running the <code class="highlighter-rouge">npm run build</code> command, you’ll get the following output:</p>
+<p>When running the <code class="language-plaintext highlighter-rouge">npm run build</code> command, you’ll get the following output:</p>
 
 <p class="align-center">
   <img src="/img/vue-with-typescript/vue-cli-build.png" class="image fit" />
 </p>
 
-<p>So what the Vue CLI does is take all the SCSS out of the components and minifies it, compiles all the components into an <code class="highlighter-rouge">app.js</code> file and <a href="https://webpack.js.org/guides/tree-shaking/" target="_blank" rel="noopener noreferrer">treeshakes</a>  all used libraries into a <code class="highlighter-rouge">chunk-vendors.js</code> file.
+<p>So what the Vue CLI does is take all the SCSS out of the components and minifies it, compiles all the components into an <code class="language-plaintext highlighter-rouge">app.js</code> file and <a href="https://webpack.js.org/guides/tree-shaking/" target="_blank" rel="noopener noreferrer">treeshakes</a>  all used libraries into a <code class="language-plaintext highlighter-rouge">chunk-vendors.js</code> file.
 After that, it Gzips all those files to ensure that everything is as light as possible.
-If you have any assets, it will also clone those into the <code class="highlighter-rouge">dist</code> folder.</p>
+If you have any assets, it will also clone those into the <code class="language-plaintext highlighter-rouge">dist</code> folder.</p>
 
 <p>The result is a dist folder which contents you can directly deploy onto your favourite server.</p>
 

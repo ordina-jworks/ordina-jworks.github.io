@@ -276,7 +276,7 @@ When a binding is created, the identities connected to it are allowed the access
 
 <p>The Istio service to service authentication and authorization will now be explained by using an example setup.
 Note that the code snippets have been shortened in this blogpost.
-This is denoted with three dots <code class="highlighter-rouge">...</code>.
+This is denoted with three dots <code class="language-plaintext highlighter-rouge">...</code>.
 The full examples can be found in the accompanying repository on <a href="https://github.com/pietervincken/istio-service-to-service-demo" target="_blank" rel="noopener noreferrer">Github</a></p>
 
 <h3 id="prerequisites">Prerequisites</h3>
@@ -322,7 +322,7 @@ Instead of manually changing the probes, Istio now has the option to rewrite the
 More information on the probes can be found in the <a href="https://istio.io/help/ops/setup/app-health-check/#probe-rewrite" target="_blank" rel="noopener noreferrer">Istio Docs</a>.</p>
 
 <p>Note that no Istio specific configuration is required in the service manifests.
-This is possible because the demo profile automatically enables the sidecar injector and we enabled the injection on the <code class="highlighter-rouge">with-istio</code> namespace using the <code class="highlighter-rouge">istio-injection=enabled</code> label.
+This is possible because the demo profile automatically enables the sidecar injector and we enabled the injection on the <code class="language-plaintext highlighter-rouge">with-istio</code> namespace using the <code class="language-plaintext highlighter-rouge">istio-injection=enabled</code> label.
 The automatic sidecar injector will inject the Envoy sidecar into all pods.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
@@ -459,8 +459,8 @@ A service account is created and linked to provide the service with a unique ide
 TLS is currently not used to communicate between the service.</p>
 
 <p>The following manifest defines a policy which changes this. 
-It is a namespace scoped policy telling Istio that all services in the <code class="highlighter-rouge">with-istio</code> namespace should <strong>ONLY</strong> accept mTLS connections.
-This configuration will be picked up by Pilot and distributed to all Envoy proxies in the <code class="highlighter-rouge">with-istio</code> namespace.
+It is a namespace scoped policy telling Istio that all services in the <code class="language-plaintext highlighter-rouge">with-istio</code> namespace should <strong>ONLY</strong> accept mTLS connections.
+This configuration will be picked up by Pilot and distributed to all Envoy proxies in the <code class="language-plaintext highlighter-rouge">with-istio</code> namespace.
 When this policy is applied, Envoy will drop any requests it gets that don’t use mTLS.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">authentication.istio.io/v1alpha1"</span>
@@ -483,7 +483,7 @@ This is shown in the following drawing.</p>
 <p>Next, the outgoing (client) connections needs to be configured to use mTLS.
 This can be done by specifying a destination rule for the services.
 A destination rule defines a set of rules that are evaluated for every outgoing request from a proxy.
-This rules defines that every proxy in <code class="highlighter-rouge">with-istio</code> namespace needs to use mutual TLS for every service that ends with <code class="highlighter-rouge">.local</code>.
+This rules defines that every proxy in <code class="language-plaintext highlighter-rouge">with-istio</code> namespace needs to use mutual TLS for every service that ends with <code class="language-plaintext highlighter-rouge">.local</code>.
 By applying this rule, the requests will succeed again on the test-app service.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">networking.istio.io/v1alpha3"</span>
@@ -507,10 +507,10 @@ By attaching these roles to service accounts (which are connected to services) s
 This limits the reach a single service has in the cluster and therefor adheres to the least privileges principle.</p>
 
 <p>The following manifest defines a cluster RBAC configuration.
-Such configuration can only exist once in the entire service mesh and it needs to have the name <code class="highlighter-rouge">default</code>.
-The mode <code class="highlighter-rouge">ON_WITH_INCLUSION</code> specifies that all subjects that are listed in the inclusion section need to have RBAC enabled. 
+Such configuration can only exist once in the entire service mesh and it needs to have the name <code class="language-plaintext highlighter-rouge">default</code>.
+The mode <code class="language-plaintext highlighter-rouge">ON_WITH_INCLUSION</code> specifies that all subjects that are listed in the inclusion section need to have RBAC enabled. 
 These subjects can be namespaces and/or specific services.
-Specifying the namespace <code class="highlighter-rouge">with-istio</code> in the inclusion section, enables RBAC for all services in that namespace.
+Specifying the namespace <code class="language-plaintext highlighter-rouge">with-istio</code> in the inclusion section, enables RBAC for all services in that namespace.
 By default the RBAC configuration will reject all requests which don’t have the proper access defined with an HTTP 403 error code.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rbac.istio.io/v1alpha1"</span>

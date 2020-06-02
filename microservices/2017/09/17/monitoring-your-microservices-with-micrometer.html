@@ -188,7 +188,7 @@ It already contains built-in support for <a href="https://prometheus.io" target=
 
 <p>Starting with Spring Boot 2, more specifically since milestone <a href="https://spring.io/blog/2017/09/15/spring-boot-2-0-0-m4-available-now" target="_blank">M4</a>, Micrometer becomes the defacto instrumentation library that will be powering the delivery of application metrics from Spring.
 Luckily for us, they also backported this functionality to Spring Boot 1.x through an additional library dependency!
-Just add the <code class="highlighter-rouge">micrometer-spring-legacy</code> module together with the additional monitoring system module, and you’re good to go!</p>
+Just add the <code class="language-plaintext highlighter-rouge">micrometer-spring-legacy</code> module together with the additional monitoring system module, and you’re good to go!</p>
 
 <p>In Gradle:</p>
 
@@ -213,7 +213,7 @@ We will cover all different types, when to use them, and furthermore how to impl
 
 <p>A meter is uniquely identified by its name and dimensions (also called tags).
 Dimensions are a way of adding dimensions to metrics, so they can be sliced, diced, aggregated and compared.
-For example, we have a meter named <code class="highlighter-rouge">http.requests</code> with a tag <code class="highlighter-rouge">uri</code>.
+For example, we have a meter named <code class="language-plaintext highlighter-rouge">http.requests</code> with a tag <code class="language-plaintext highlighter-rouge">uri</code>.
 With this meter we could see the overall amount of HTTP requests, but also have the option to drill down and see the amount of HTTP requests for a specific URI.</p>
 
 <h3 id="counters">Counters</h3>
@@ -251,7 +251,7 @@ Gauges are typically used for measured values like current memory usage, but als
 <span class="nc">Queue</span><span class="o">&lt;</span><span class="nc">Message</span><span class="o">&gt;</span> <span class="n">receivedMessages</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="na">gauge</span><span class="o">(</span><span class="s">"unprocessed.messages"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">ConcurrentLinkedQueue</span><span class="o">&lt;&gt;(),</span> <span class="nl">ConcurrentLinkedQueue:</span><span class="o">:</span><span class="n">size</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Instead of returning a gauge, the <code class="highlighter-rouge">gauge</code> method will rather return the thing that is being observed.
+<p>Instead of returning a gauge, the <code class="language-plaintext highlighter-rouge">gauge</code> method will rather return the thing that is being observed.
 This allows us to have quick one liners that both create the object to be observed and set up metrics around it.</p>
 
 <h3 id="timers">Timers</h3>
@@ -272,7 +272,7 @@ These are useful for measuring short-duration latencies and the frequency of suc
 <span class="n">timer</span><span class="o">.</span><span class="na">record</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Or we could just annotate a method with <code class="highlighter-rouge">@Timed</code> and let Micrometer do the rest for us</p>
+<p>Or we could just annotate a method with <code class="language-plaintext highlighter-rouge">@Timed</code> and let Micrometer do the rest for us</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Timed</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomethingWhichShouldBeFastButIsActuallyReallySlow</span><span class="o">()</span> <span class="o">{</span>
@@ -283,7 +283,7 @@ These are useful for measuring short-duration latencies and the frequency of suc
 <h3 id="long-task-timers">Long task timers</h3>
 
 <p>The long task timer is a special type of timer that lets you measure time while an event being measured is <strong>still running</strong>.
-To time a long running task we use the same <code class="highlighter-rouge">@Timed</code> annotation, but we set the property <code class="highlighter-rouge">longTask</code> to <code class="highlighter-rouge">true</code>.</p>
+To time a long running task we use the same <code class="language-plaintext highlighter-rouge">@Timed</code> annotation, but we set the property <code class="language-plaintext highlighter-rouge">longTask</code> to <code class="language-plaintext highlighter-rouge">true</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Timed</span><span class="o">(</span><span class="n">longTask</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
 <span class="nd">@Scheduled</span>
@@ -292,7 +292,7 @@ To time a long running task we use the same <code class="highlighter-rouge">@Tim
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>It is up to the application framework to make something happen with <code class="highlighter-rouge">@Timed</code>.
+<p>It is up to the application framework to make something happen with <code class="language-plaintext highlighter-rouge">@Timed</code>.
 In case it isn’t able to do that, you can still use the long task timer.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MeterRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="o">...</span>
@@ -331,14 +331,14 @@ It is <strong>not possible</strong> to aggregate quantiles across a cluster.</p>
 <p>Four quantile algorithms are provided out of the box with different tradeoffs:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">WindowSketchQuantiles</code> - The importance of an observation is decayed as it ages.
+  <li><code class="language-plaintext highlighter-rouge">WindowSketchQuantiles</code> - The importance of an observation is decayed as it ages.
 This is the most computationally costly algorithm.</li>
-  <li><code class="highlighter-rouge">Frugal2UQuantiles</code> - Successive approximation algorithm that converges towards the true quantile with enough observations.
+  <li><code class="language-plaintext highlighter-rouge">Frugal2UQuantiles</code> - Successive approximation algorithm that converges towards the true quantile with enough observations.
 This is the least costly algorithm, but exhibits a higher error ratio in early observations.</li>
-  <li><code class="highlighter-rouge">CKMSQuantiles</code> - Lets you trade computational complexity for error ratio on a per-quantile basis.
+  <li><code class="language-plaintext highlighter-rouge">CKMSQuantiles</code> - Lets you trade computational complexity for error ratio on a per-quantile basis.
 Often, it is desirable for higher quantiles to have a lower error ratio (e.g. 0.99 at 1% error vs. 0.5 at 5% error).
 This algorithm is still more computationally expensive than Frugal.</li>
-  <li><code class="highlighter-rouge">GKQuantiles</code> - Lets you trade computational complexity for error ratio across all quantiles.
+  <li><code class="language-plaintext highlighter-rouge">GKQuantiles</code> - Lets you trade computational complexity for error ratio across all quantiles.
 This is used inside of WindowSketchQuantiles.</li>
 </ul>
 
@@ -353,13 +353,13 @@ Naturally, the error rate of the computed summary statistic will be higher becau
 <h2 id="binders">Binders</h2>
 
 <p>Binders define a collection of meters and are used to encapsulate best practices for monitoring certain types of objects or a part of the application’s environment.
-For example, the <code class="highlighter-rouge">JvmThreadMetrics</code> binder which gauges thread peak, number of daemon threads, and live threads.</p>
+For example, the <code class="language-plaintext highlighter-rouge">JvmThreadMetrics</code> binder which gauges thread peak, number of daemon threads, and live threads.</p>
 
 <p>Micrometer ships with a basic set of binders:</p>
 <ul>
   <li>JVM and system monitoring</li>
   <li>Cache monitoring</li>
-  <li><code class="highlighter-rouge">Executor</code> and <code class="highlighter-rouge">ExecutorService</code> monitoring</li>
+  <li><code class="language-plaintext highlighter-rouge">Executor</code> and <code class="language-plaintext highlighter-rouge">ExecutorService</code> monitoring</li>
   <li>Logback monitoring</li>
 </ul>
 

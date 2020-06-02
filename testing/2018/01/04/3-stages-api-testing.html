@@ -211,8 +211,8 @@ Its content is parsed into memory and is exposed through this REST API.</p>
 
 <p>The front-end (header) is providing the user with an input field.
 This field allows the user to perform a search on our back-end service.
-It also provides a <code class="highlighter-rouge">clear</code> button, so the user can remove the content from the input field and reset the local cache of search results.
-A second button is the <code class="highlighter-rouge">filter</code> button.
+It also provides a <code class="language-plaintext highlighter-rouge">clear</code> button, so the user can remove the content from the input field and reset the local cache of search results.
+A second button is the <code class="language-plaintext highlighter-rouge">filter</code> button.
 When pressed, it will emit an event that can be listened to by other microfrontends.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">filterCCs</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
@@ -242,7 +242,7 @@ When pressed, it will emit an event that can be listened to by other microfronte
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>When resetting the content with the <code class="highlighter-rouge">clear</code> button, we’re not sending a request.
+<p>When resetting the content with the <code class="language-plaintext highlighter-rouge">clear</code> button, we’re not sending a request.
 When there’s nothing to search for, the result would be an empty array.
 So we’re just resetting our local data to an empty array.</p>
 
@@ -271,7 +271,7 @@ So we’re just resetting our local data to an empty array.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>The header will always trigger the endpoint at <code class="highlighter-rouge">search</code> with a needle.
+<p>The header will always trigger the endpoint at <code class="language-plaintext highlighter-rouge">search</code> with a needle.
 When the needle is undefined (or an empty string), the search endpoint will return an empty list.</p>
 
 <h1 id="stage-1-unit-testing-the-communication-layer-front-and-back-end">Stage 1: Unit testing the communication layer (front and back-end)</h1>
@@ -288,7 +288,7 @@ When the needle is undefined (or an empty string), the search endpoint will retu
     <img class="image fit" style="margin:0px auto; max-width:325px;" alt="Easy client server setup" src="/img/3-stages-api-testing/unit-client.png" />
 </p>
 
-<p>For unit testing our front-end Angular 5 application, we are going to use the <code class="highlighter-rouge">import { MockBackend } from '@angular/http/testing';</code> from Angular itself to mock our back-end.</p>
+<p>For unit testing our front-end Angular 5 application, we are going to use the <code class="language-plaintext highlighter-rouge">import { MockBackend } from '@angular/http/testing';</code> from Angular itself to mock our back-end.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
 <span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -329,10 +329,10 @@ When the needle is undefined (or an empty string), the search endpoint will retu
 </code></pre></div></div>
 
 <p>The Angular framework handles the communication part.
-We want to mock the <code class="highlighter-rouge">$http</code> call and see how we are handling the result.
-The <code class="highlighter-rouge">mockBackend</code> is working inbetween our own code and the provided <code class="highlighter-rouge">$http</code> part.
-Every call is triggering the <code class="highlighter-rouge">mockBackend.connections</code>, so the subscribers are triggered.
-We are providing our own data and returning it as the response of the <code class="highlighter-rouge">$http</code> call.</p>
+We want to mock the <code class="language-plaintext highlighter-rouge">$http</code> call and see how we are handling the result.
+The <code class="language-plaintext highlighter-rouge">mockBackend</code> is working inbetween our own code and the provided <code class="language-plaintext highlighter-rouge">$http</code> part.
+Every call is triggering the <code class="language-plaintext highlighter-rouge">mockBackend.connections</code>, so the subscribers are triggered.
+We are providing our own data and returning it as the response of the <code class="language-plaintext highlighter-rouge">$http</code> call.</p>
 
 <h3 id="unit-testing-the-communication-layer-of-the-service">Unit testing the communication layer of the service</h3>
 
@@ -434,7 +434,7 @@ The user input is limited to an input field to trigger the search REST-call and 
 
 <p>Some of the use cases, such as ‘clearing’ the input, are already covered in the unit tests.
 Depending on the effort you can always retest them in these e2e tests, but for this example, those are not important.
-We want to trigger the search REST call by sending the search string <code class="highlighter-rouge">tim</code> to the input field, and testing the outcome in the user interface.</p>
+We want to trigger the search REST call by sending the search string <code class="language-plaintext highlighter-rouge">tim</code> to the input field, and testing the outcome in the user interface.</p>
 
 <p>
     <img class="image fit" style="margin:0px auto; max-width:925px;" alt="Data function config" src="/img/3-stages-api-testing/search-e2e.png" />
@@ -495,7 +495,7 @@ You can first configure everything through the user interface and then just expo
 </blockquote>
 
 <p>Below, you can find a part of the exported JSON configuration.
-This part will send a GET request to the search endpoint, providing the search string <code class="highlighter-rouge">tim</code>.
+This part will send a GET request to the search endpoint, providing the search string <code class="language-plaintext highlighter-rouge">tim</code>.
 It will then analyse the response and check if the resulting array contains 2 entries and verifies the data.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>

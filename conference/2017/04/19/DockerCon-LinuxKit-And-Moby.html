@@ -241,25 +241,25 @@ You can find some examples in the <a href="https://github.com/linuxkit/linuxkit/
 <p>I wanted to try it out myself,
 so I went to the <a href="https://github.com/linuxkit/linuxkit">LinuxKit Github repository</a> and cloned it.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git@github.com:linuxkit/linuxkit.git
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git@github.com:linuxkit/linuxkit.git
 </code></pre></div></div>
 
-<p>Then I ran <code class="highlighter-rouge">make</code> to build the <code class="highlighter-rouge">moby</code> tool:</p>
+<p>Then I ran <code class="language-plaintext highlighter-rouge">make</code> to build the <code class="language-plaintext highlighter-rouge">moby</code> tool:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ make
 </code></pre></div></div>
 
-<p>This created the <code class="highlighter-rouge">moby</code> tool in the <code class="highlighter-rouge">bin</code> directory.
-I added this to my <code class="highlighter-rouge">PATH</code>:</p>
+<p>This created the <code class="language-plaintext highlighter-rouge">moby</code> tool in the <code class="language-plaintext highlighter-rouge">bin</code> directory.
+I added this to my <code class="language-plaintext highlighter-rouge">PATH</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export PATH=$PATH:$(pwd)/bin
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export PATH=$PATH:$(pwd)/bin
 </code></pre></div></div>
 
-<p>Now that I have the Moby tool available and on my <code class="highlighter-rouge">PATH</code>,
+<p>Now that I have the Moby tool available and on my <code class="language-plaintext highlighter-rouge">PATH</code>,
 I can build LinuxKit.
 Let’s take a look first at the YAML file that is used to build it.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat linuxkit.yml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat linuxkit.yml
 kernel:
   image: "mobylinux/kernel:4.9.x"
   cmdline: "console=ttyS0 console=tty0 page_poison=1"
@@ -327,7 +327,7 @@ In this case,
 a random number generated and nginx are added as services.
 Let’s build it!</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ moby build linuxkit.yml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ moby build linuxkit.yml
 Extract kernel image: mobylinux/kernel:4.9.x
 Add init containers:
 Process init image: linuxkit/init:42fe8cb1508b3afed39eb89821906e3cc7a70551
@@ -355,7 +355,7 @@ Finally,
 you can see the tool was outputted in multiple formats.
 Let’s try to run it:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ moby run linuxkit
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ moby run linuxkit
 # ...
 # Lots of boot information
 # ...
@@ -384,7 +384,7 @@ Welcome to LinuxKit
 <p>This image booted in just a few seconds!
 Now let’s see which service containers are running using runC:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/ # runc list
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/ # runc list
 ID          PID         STATUS      BUNDLE                        CREATED                        OWNER
 nginx       542         running     /run/containerd/linux/nginx   2017-04-19T12:34:42.1852841Z   root
 rngd        601         running     /run/containerd/linux/rngd    2017-04-19T12:34:42.3200486Z   root

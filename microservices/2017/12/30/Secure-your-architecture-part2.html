@@ -245,14 +245,14 @@ If you like to dive into signing JSON documents you can check out this blog post
 <p>Explanation properties:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">alg</code>: is the algorithm for the key</li>
-  <li><code class="highlighter-rouge">kty</code>: is the key type</li>
-  <li><code class="highlighter-rouge">use</code>: is how the key was meant to be used. For the example above sig represents signature.</li>
-  <li><code class="highlighter-rouge">x5c</code>: is the x.509 certificate chain</li>
-  <li><code class="highlighter-rouge">e</code>: is the exponent for a standard pem</li>
-  <li><code class="highlighter-rouge">n</code>: is the modulus for a standard pem</li>
-  <li><code class="highlighter-rouge">kid</code>: is the unique identifier for the key</li>
-  <li><code class="highlighter-rouge">x5t</code>: is the thumbprint of the x.509 cert (SHA-1 thumbprint)</li>
+  <li><code class="language-plaintext highlighter-rouge">alg</code>: is the algorithm for the key</li>
+  <li><code class="language-plaintext highlighter-rouge">kty</code>: is the key type</li>
+  <li><code class="language-plaintext highlighter-rouge">use</code>: is how the key was meant to be used. For the example above sig represents signature.</li>
+  <li><code class="language-plaintext highlighter-rouge">x5c</code>: is the x.509 certificate chain</li>
+  <li><code class="language-plaintext highlighter-rouge">e</code>: is the exponent for a standard pem</li>
+  <li><code class="language-plaintext highlighter-rouge">n</code>: is the modulus for a standard pem</li>
+  <li><code class="language-plaintext highlighter-rouge">kid</code>: is the unique identifier for the key</li>
+  <li><code class="language-plaintext highlighter-rouge">x5t</code>: is the thumbprint of the x.509 cert (SHA-1 thumbprint)</li>
 </ul>
 
 <h2 id="cloud-hosted-key-management-service">Cloud-hosted Key management service</h2>
@@ -299,7 +299,7 @@ This will allow the config server to use the encryption tool of the JCE.</p>
 The choice of which key you will need is within your security terms. 
 The symmetric key is the easiest way to set up but less secure than the asymmetric one. 
 To set up a symmetric key, you just assign a string to the key holder: 
-<code class="highlighter-rouge">encrypt.key=&lt;key&gt;</code></p>
+<code class="language-plaintext highlighter-rouge">encrypt.key=&lt;key&gt;</code></p>
 
 <p>To configure these asymmetric keys, we will need a keystore created by the keytool utility from the JDK.
 The public key will encrypt and the private key will decrypt your data.</p>
@@ -350,13 +350,13 @@ Config varies substantially across deploys, code does not.</p>
 <p>You can enable the health check to the config server within the application.
 If you do this, always look at which version control would be the best fit, always check when they go into maintenance. 
 It could be that they host it in another timezone, which could lead to a cascading failure.
-In my opinion, you can just disable the health checks with <code class="highlighter-rouge">spring.cloud.config.server.health.enabled=false</code> and avoid further failures. 
+In my opinion, you can just disable the health checks with <code class="language-plaintext highlighter-rouge">spring.cloud.config.server.health.enabled=false</code> and avoid further failures. 
 If you expect that the config server might go down temporarily when your client app starts, please provide a retry mechanism after a failure. 
-To enable a retry, first add <code class="highlighter-rouge">spring-retry</code> to your classpath with <code class="highlighter-rouge">@EnableRetry</code> annotation and <code class="highlighter-rouge">spring.cloud.config.failFast=true</code></p>
+To enable a retry, first add <code class="language-plaintext highlighter-rouge">spring-retry</code> to your classpath with <code class="language-plaintext highlighter-rouge">@EnableRetry</code> annotation and <code class="language-plaintext highlighter-rouge">spring.cloud.config.failFast=true</code></p>
 
 <h4 id="using-jdbc">Using JDBC</h4>
 <p>New to this list is the support for JDBC. This enables us to store configuration properties inside a relational database. 
-By switching the active spring profile to <code class="highlighter-rouge">JDBC</code> and adding the dependency of <code class="highlighter-rouge">spring-jdbc</code> to your classpath, Spring Boot will configure the datasource you included on the classpath.
+By switching the active spring profile to <code class="language-plaintext highlighter-rouge">JDBC</code> and adding the dependency of <code class="language-plaintext highlighter-rouge">spring-jdbc</code> to your classpath, Spring Boot will configure the datasource you included on the classpath.
 To store the data you will need to set up new tables in your database.
 For more information: <a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_jdbc_backend" target="_blank">using JDBC</a></p>
 
@@ -364,11 +364,11 @@ For more information: <a href="http://cloud.spring.io/spring-cloud-static/spring
 <p><a href="https://www.vaultproject.io/" target="_blank">HashiCorp’s Vault</a> provides a centralized external management server. 
 Vault can manage static and dynamic secrets such as username/password for remote applications/resources and provide credentials for external services such as MySQL, PostgreSQL, Apache Cassandra, MongoDB, Consul, AWS and more.
 Spring supports using the <a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.0.RELEASE/single/spring-cloud-config.html#_vault_backend" target="_blank">Vault as a backend</a> for Spring Cloud Config.
-If you are using Spring Boot, a quick way to enable Vault is to set your spring profile to <code class="highlighter-rouge">vault</code>. 
+If you are using Spring Boot, a quick way to enable Vault is to set your spring profile to <code class="language-plaintext highlighter-rouge">vault</code>. 
 Spring Boot’s conditionals will activate all the auto configuration for a connection with the Vault server.</p>
 
 <h4 id="using-file-system">Using File System</h4>
-<p>So when you’re working locally on your machine, you can always look at the <code class="highlighter-rouge">native</code> profile to activate the file system as your “backend”.
+<p>So when you’re working locally on your machine, you can always look at the <code class="language-plaintext highlighter-rouge">native</code> profile to activate the file system as your “backend”.
 But I don’t recommend it for use in a deployment environment since it comes with various problems and extra setup.
 One of those problems would be high availability, unlike Eureka, the config server doesn’t have the concept of peers.
 The obvious option is to use a shared file system but it requires extra setup.</p>

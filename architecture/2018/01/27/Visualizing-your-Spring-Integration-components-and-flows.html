@@ -185,22 +185,22 @@ A few days ago we wanted to have clear insights on how certain microservices are
 
 <h2 id="creating-your-graph-of-spring-integration-components-and-flows">Creating your graph of Spring Integration components and flows</h2>
 
-<p>A first step to expose your Spring Integration components and flows is to add an <code class="highlighter-rouge">IntegrationGraphServer</code> bean to your application.
-This class resides in the <code class="highlighter-rouge">o.s.i.support.management.graph</code> package, between all the required classes to collect, build and render the runtime state of Spring Integration components as a single tree-like <code class="highlighter-rouge">Graph</code> object.</p>
+<p>A first step to expose your Spring Integration components and flows is to add an <code class="language-plaintext highlighter-rouge">IntegrationGraphServer</code> bean to your application.
+This class resides in the <code class="language-plaintext highlighter-rouge">o.s.i.support.management.graph</code> package, between all the required classes to collect, build and render the runtime state of Spring Integration components as a single tree-like <code class="language-plaintext highlighter-rouge">Graph</code> object.</p>
 
 <h2 id="exposing-the-graph">Exposing the graph</h2>
 
-<p>Using the Spring Integration HTTP module you can easily expose the <code class="highlighter-rouge">IntegrationGraphServer</code> functionality as a REST service.
-Just add the <code class="highlighter-rouge">@EnableIntegrationGraphController</code> annotation to your application, and you’re good to go!
-Or, in case you are using XML config, add the <code class="highlighter-rouge">&lt;int-http:graph-controller/&gt;</code> XML element to your setup.
-Be sure to edit the <code class="highlighter-rouge">allowedOrigins</code> attribute of the annotation in case you’re accessing the endpoint between 2 domains.
+<p>Using the Spring Integration HTTP module you can easily expose the <code class="language-plaintext highlighter-rouge">IntegrationGraphServer</code> functionality as a REST service.
+Just add the <code class="language-plaintext highlighter-rouge">@EnableIntegrationGraphController</code> annotation to your application, and you’re good to go!
+Or, in case you are using XML config, add the <code class="language-plaintext highlighter-rouge">&lt;int-http:graph-controller/&gt;</code> XML element to your setup.
+Be sure to edit the <code class="language-plaintext highlighter-rouge">allowedOrigins</code> attribute of the annotation in case you’re accessing the endpoint between 2 domains.
 Sidenote: your application needs to be deployed on a web container, or it needs to use an embedded web container in case you are building on top of Spring Boot.</p>
 
 <h2 id="visualizing-the-exposed-graph-of-components-and-flows">Visualizing the exposed graph of components and flows</h2>
 
 <p>With <a href="https://d3js.org/" target="_blank">D3.js</a> we are able to visualize everything within our graph.
 In <a href="https://gist.github.com/TYsewyn/99f86b42ec4fbedf06db611a1a04bea4" target="_blank">this quick &amp; dirty gist</a> I created, you can find a simple example of a possible visualisation.
-Download the <code class="highlighter-rouge">index.html</code> file, point the script to the correct endpoint by editing the <code class="highlighter-rouge">graphEndpoint</code> variable, open the file in your browser and you should see every component and flow!</p>
+Download the <code class="language-plaintext highlighter-rouge">index.html</code> file, point the script to the correct endpoint by editing the <code class="language-plaintext highlighter-rouge">graphEndpoint</code> variable, open the file in your browser and you should see every component and flow!</p>
 
 <p>As Gary Russell pointed out in <a href="https://twitter.com/gprussell/status/957370937741111296" target="_blank">his reply</a> to my tweet you can also use Spring Flo for the visualization.
 Spring Flo is an Angular based, embeddable graphical component for pipeline/graph building and editing.
@@ -209,7 +209,7 @@ You can find the sample application <a href="https://github.com/spring-projects/
 
 <h2 id="taking-it-one-step-further">Taking it one step further</h2>
 
-<p>If you add the <code class="highlighter-rouge">@EnableIntegrationManagement</code> annotation or the <code class="highlighter-rouge">&lt;int:management /&gt;</code> XML element to your setup, the graph will even expose all the metrics of your Spring Integration components.
+<p>If you add the <code class="language-plaintext highlighter-rouge">@EnableIntegrationManagement</code> annotation or the <code class="language-plaintext highlighter-rouge">&lt;int:management /&gt;</code> XML element to your setup, the graph will even expose all the metrics of your Spring Integration components.
 This will definitely help you out when you want to monitor your components and flows, enabling you to troubleshoot problems even faster in case something goes wrong in production.</p>
 
         </div>

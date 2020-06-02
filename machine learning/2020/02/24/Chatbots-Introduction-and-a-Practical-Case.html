@@ -400,20 +400,20 @@ For these API calls, as well as testing, we used <a href="https://nestjs.com/" t
 For the Telegram adapter, we used <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a> and Java instead to experiment with different technologies.</p>
 
 <p>To get all useful information out of the Teams message, we use the <a href="https://docs.microsoft.com/en-gb/azure/bot-service/javascript/bot-builder-javascript-quickstart?view=azure-bot-service-4.0" target="_blank" rel="noopener noreferrer">Microsoft BotFramework</a>. 
-During this conversion, we add a prefix to the id: <code class="highlighter-rouge">teams-prod:</code>. 
+During this conversion, we add a prefix to the id: <code class="language-plaintext highlighter-rouge">teams-prod:</code>. 
 This prefix makes it possible for the Gateway to know that the message came from the Teams bot in the production environment and thus send it back to the correct bot.</p>
 
 <p><img alt="TEAMSINDETAIL" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMSINDETAIL.png" class="image fit" style="margin:0px auto;" /></p>
 
 <p>The BotFramework provides methods to get a conversation’s context, and reply to the correct user using that context.
-Hence, we see the <code class="highlighter-rouge">turnContext.sendActivities()</code> method used to reply to a user.
+Hence, we see the <code class="language-plaintext highlighter-rouge">turnContext.sendActivities()</code> method used to reply to a user.
 We used the NodeJS version of the BotFramework, and used a map to save the conversation references. 
 The reference gets deleted right after the reply has been sent, so we didn’t need to worry about using a database to save the conversation.</p>
 
 <p><img alt="CONVERSATIONREF" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONVERSATIONREF.png" class="image fit" style="margin:0px auto;" /></p>
 
 <p>Since Chatlayer supports many types of replies, all of these had to be converted to the possible Teams messages.
-Depending on the message type Chatlayer sent, the <code class="highlighter-rouge">sendActivities()</code> method has to send a different Activity.</p>
+Depending on the message type Chatlayer sent, the <code class="language-plaintext highlighter-rouge">sendActivities()</code> method has to send a different Activity.</p>
 
 <p><img alt="CONTINUECONV" src="/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONTINUECONV.png" class="image fit" style="margin:0px auto" /></p>
 

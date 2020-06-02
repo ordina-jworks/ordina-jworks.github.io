@@ -184,15 +184,15 @@
 
 <p>During my consultancy projects, I often come across the same implementations and problems when colleagues are trying to implement an observable strategy.
 A lot of frameworks are offering observables out of the box for their communication layer.
-Almost all <code class="highlighter-rouge">Promises</code> are replaced by <code class="highlighter-rouge">Observables</code> nowadays.
-Angular 2+ <code class="highlighter-rouge">HttpModule</code> for example, is using the <code class="highlighter-rouge">rxjs</code> library.
-Each <code class="highlighter-rouge">http.get()</code> is returning an <code class="highlighter-rouge">Observable&lt;HttpResponse&gt;</code>.</p>
+Almost all <code class="language-plaintext highlighter-rouge">Promises</code> are replaced by <code class="language-plaintext highlighter-rouge">Observables</code> nowadays.
+Angular 2+ <code class="language-plaintext highlighter-rouge">HttpModule</code> for example, is using the <code class="language-plaintext highlighter-rouge">rxjs</code> library.
+Each <code class="language-plaintext highlighter-rouge">http.get()</code> is returning an <code class="language-plaintext highlighter-rouge">Observable&lt;HttpResponse&gt;</code>.</p>
 
 <p>The setup is almost always the same.
 A (visual) component needs to render some data.
 So next to the component (HTML/template for view, and a JavaScript(TypeScript) component as the controller), a service gets created.
-This service’s purpose is to provide data to the component’s controller by calling the <code class="highlighter-rouge">HttpClient</code>’s functions (POST, GET, DELETE, PATCH, …) and returning the <code class="highlighter-rouge">Observable</code> to the component.
-Sometimes they are remapping the <code class="highlighter-rouge">Observable&lt;HttpReponse&gt;</code>to a more defined type, for example <code class="highlighter-rouge">Observable&lt;MyData&gt;</code>, by using one of the <code class="highlighter-rouge">rxjs</code> operators such as <code class="highlighter-rouge">flatmap</code>, <code class="highlighter-rouge">map</code>, … .
+This service’s purpose is to provide data to the component’s controller by calling the <code class="language-plaintext highlighter-rouge">HttpClient</code>’s functions (POST, GET, DELETE, PATCH, …) and returning the <code class="language-plaintext highlighter-rouge">Observable</code> to the component.
+Sometimes they are remapping the <code class="language-plaintext highlighter-rouge">Observable&lt;HttpReponse&gt;</code>to a more defined type, for example <code class="language-plaintext highlighter-rouge">Observable&lt;MyData&gt;</code>, by using one of the <code class="language-plaintext highlighter-rouge">rxjs</code> operators such as <code class="language-plaintext highlighter-rouge">flatmap</code>, <code class="language-plaintext highlighter-rouge">map</code>, … .
 All of this works pretty well, as long as only one component is in need of the data and its changes.
 With changes, I refer to refreshing the data, or requerying it with another filter, paging, or …</p>
 
@@ -200,8 +200,8 @@ With changes, I refer to refreshing the data, or requerying it with another filt
   <img src="/img/observables-the-right-way/first-step.png" width="75%" />
 </div>
 
-<p>Every time the query parameters change, the component is just executing the same call in the service, which in turn is calling the right <code class="highlighter-rouge">HttpClient</code>-function.
-Again an (new) <code class="highlighter-rouge">Observable</code> is returned.
+<p>Every time the query parameters change, the component is just executing the same call in the service, which in turn is calling the right <code class="language-plaintext highlighter-rouge">HttpClient</code>-function.
+Again an (new) <code class="language-plaintext highlighter-rouge">Observable</code> is returned.
 Again the result can get remapped before throttling it back.
 The subscriber, the component controller in this case (or the HTML if you are using Angular’s async pipe), receives the remapped data.</p>
 
@@ -213,19 +213,19 @@ It needs to display messages in a simple datatable.
 The header is the second component that needs this data.
 It needs to display the number of unread or critical messages.</p>
 
-<p><code class="highlighter-rouge">datatable.component.ts</code></p>
+<p><code class="language-plaintext highlighter-rouge">datatable.component.ts</code></p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">_dataService</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">filter</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">page</span><span class="p">:</span><span class="nx">Page</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
 <span class="p">})</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">header.component.ts</code></p>
+<p><code class="language-plaintext highlighter-rouge">header.component.ts</code></p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">_dataService</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">filter</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">page</span><span class="p">:</span><span class="nx">Page</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
 	<span class="k">this</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">number</span><span class="p">;</span>
 <span class="p">});</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">data.service.ts</code></p>
+<p><code class="language-plaintext highlighter-rouge">data.service.ts</code></p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="kd">get</span><span class="p">(</span><span class="nx">filter</span><span class="p">?:</span> <span class="nx">Filter</span><span class="p">):</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Page</span><span class="o">&gt;</span> <span class="p">{</span>
 	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">urlToData</span><span class="dl">'</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">parseFilterToString</span><span class="p">(</span><span class="nx">filter</span><span class="p">)).</span><span class="nx">pipe</span><span class="p">(</span>
 		<span class="nx">tap</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">logService</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)),</span>
@@ -239,20 +239,20 @@ It needs to display the number of unread or critical messages.</p>
 </code></pre></div></div>
 
 <p>In the setup we have so far, both components will use the same service for requesting the data.
-They will both subscribe to an <code class="highlighter-rouge">Observable</code>, however, it will be a different one.
+They will both subscribe to an <code class="language-plaintext highlighter-rouge">Observable</code>, however, it will be a different one.
 When you refresh the data in the datatable, the header will not receive a new value in its subscription and therefore will still show the old number of messages.</p>
 
-<p>In some use cases this might be the desired outcome, but in most cases you want more components to be able to subscribe to the same <code class="highlighter-rouge">Observable</code>.</p>
+<p>In some use cases this might be the desired outcome, but in most cases you want more components to be able to subscribe to the same <code class="language-plaintext highlighter-rouge">Observable</code>.</p>
 
 <h1 id="setup">Setup</h1>
 
 <p>In our new setup, we want both, header and datatable, to subscribe to the same Observable, so a call for new data will result in an update in the datatable and the header.
 To make this happen, we will use some kind of layer in between them.
-This new layer will provide our components with one and only one and the same <code class="highlighter-rouge">Observable</code> and will mask the communication layer from the view’s controller.
+This new layer will provide our components with one and only one and the same <code class="language-plaintext highlighter-rouge">Observable</code> and will mask the communication layer from the view’s controller.
 Both components will subscribe to this service, so they both get updated with the same result.
-We can do this by creating a simple <code class="highlighter-rouge">Subject</code> in our service and returning it as an <code class="highlighter-rouge">Observable</code> to our components.
+We can do this by creating a simple <code class="language-plaintext highlighter-rouge">Subject</code> in our service and returning it as an <code class="language-plaintext highlighter-rouge">Observable</code> to our components.
 We can then implement other calls for this service that will trigger an update of the data, and send it through the subject to both components.
-Because we are not providing a filter when we call the getter for the <code class="highlighter-rouge">Observable</code> (<code class="highlighter-rouge">Subject</code>) we should also find a way of providing the filter to the service, before requerying the data.
+Because we are not providing a filter when we call the getter for the <code class="language-plaintext highlighter-rouge">Observable</code> (<code class="language-plaintext highlighter-rouge">Subject</code>) we should also find a way of providing the filter to the service, before requerying the data.
 This means we are going to use one shared filter, for both components, which makes sense in this case, but not in all use cases.</p>
 
 <div style="text-align: center;">
@@ -262,11 +262,11 @@ This means we are going to use one shared filter, for both components, which mak
 <h1 id="refactoring">Refactoring</h1>
 
 <p>We actually don’t need to refactor any of our components.
-They will still subscribe to an <code class="highlighter-rouge">Observable</code> of the service, and react on the incoming data.
+They will still subscribe to an <code class="language-plaintext highlighter-rouge">Observable</code> of the service, and react on the incoming data.
 The service however will get refactored.
-Start by defining the <code class="highlighter-rouge">Subject</code> as a local property, and because we are going to implement a getter, we can make it private.</p>
+Start by defining the <code class="language-plaintext highlighter-rouge">Subject</code> as a local property, and because we are going to implement a getter, we can make it private.</p>
 
-<p><code class="highlighter-rouge">data.service.ts</code></p>
+<p><code class="language-plaintext highlighter-rouge">data.service.ts</code></p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="kr">private</span> <span class="nx">_data$</span><span class="p">:</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nx">Page</span><span class="o">&gt;</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BehaviorSubject</span><span class="o">&lt;&gt;</span><span class="p">({});</span>
 <span class="p">...</span>
@@ -292,7 +292,7 @@ Start by defining the <code class="highlighter-rouge">Subject</code> as a local 
 
 </code></pre></div></div>
 
-<p>This way, every component or service that is subscribing on this subject, is getting data when some other component or service triggers the <code class="highlighter-rouge">reload</code>.
+<p>This way, every component or service that is subscribing on this subject, is getting data when some other component or service triggers the <code class="language-plaintext highlighter-rouge">reload</code>.
 There are even a lot more options to this setup:</p>
 <ul>
   <li>Clearing data</li>
@@ -316,13 +316,13 @@ A sidebar that is displaying the amount of unread messages next to its navigatio
 
 <p>A simple backend that is written in Node.js with Express provides a few endpoints:</p>
 <ul>
-  <li><code class="highlighter-rouge">api/message</code> (with paging and filter, although the filter isn’t implemented in the frontend example.)</li>
-  <li><code class="highlighter-rouge">api/message/:id</code> (not used in the example)</li>
-  <li><code class="highlighter-rouge">api/stream</code></li>
-  <li><code class="highlighter-rouge">api/refresh</code></li>
+  <li><code class="language-plaintext highlighter-rouge">api/message</code> (with paging and filter, although the filter isn’t implemented in the frontend example.)</li>
+  <li><code class="language-plaintext highlighter-rouge">api/message/:id</code> (not used in the example)</li>
+  <li><code class="language-plaintext highlighter-rouge">api/stream</code></li>
+  <li><code class="language-plaintext highlighter-rouge">api/refresh</code></li>
 </ul>
 
-<p>The service is not reloading data as long as the <code class="highlighter-rouge">page</code> or the <code class="highlighter-rouge">filter</code> hasn’t changed.
+<p>The service is not reloading data as long as the <code class="language-plaintext highlighter-rouge">page</code> or the <code class="language-plaintext highlighter-rouge">filter</code> hasn’t changed.
 While the service is still loading the data, a new reload will not fetch again the data.
 You can find the code on <a target="_blank" href="https://gitlab.com/VeeTeeDev/observables-demo">GitLab</a>.</p>
 
@@ -330,13 +330,13 @@ You can find the code on <a target="_blank" href="https://gitlab.com/VeeTeeDev/o
   <img src="/img/observables-the-right-way/example-setup.png" width="75%" />
 </div>
 
-<p>Server-Sent Events are added to update the <code class="highlighter-rouge">read</code> status of a message when the envelope gets clicked.
+<p>Server-Sent Events are added to update the <code class="language-plaintext highlighter-rouge">read</code> status of a message when the envelope gets clicked.
 This will also trigger the observable.</p>
 
 <p>To run front- and backend together, execute the following command in the root of the project:</p>
 
-<p><code class="highlighter-rouge">$ npm run start</code>
-This way, a proxy is added to the <code class="highlighter-rouge">serve</code> command to overcome <code class="highlighter-rouge">CORS</code> blocking going from localhost:4200 to localhost:3000</p>
+<p><code class="language-plaintext highlighter-rouge">$ npm run start</code>
+This way, a proxy is added to the <code class="language-plaintext highlighter-rouge">serve</code> command to overcome <code class="language-plaintext highlighter-rouge">CORS</code> blocking going from localhost:4200 to localhost:3000</p>
 
 <p>Don’t mind the backend server, it’s a quick and dirty solution and is not implemented as it should.</p>
 
@@ -346,7 +346,7 @@ This way, a proxy is added to the <code class="highlighter-rouge">serve</code> c
 Especially when it comes to using observables from frameworks.
 I can accept, for simple applications, that you don’t want to ‘over-architect’.
 But in most cases, you want to control the distribution yourself.
-For those of you that know <code class="highlighter-rouge">Redux</code> (RxJS), you can compare this implementation with effects and <code class="highlighter-rouge">store</code>-subscriptions.
+For those of you that know <code class="language-plaintext highlighter-rouge">Redux</code> (RxJS), you can compare this implementation with effects and <code class="language-plaintext highlighter-rouge">store</code>-subscriptions.
 If you trigger an effect, you will only see the result when you have subscribed to the ‘key’ that is responsible for providing you with the data,
 and not to the ‘key’ that is responsible for triggering the effect.</p>
 

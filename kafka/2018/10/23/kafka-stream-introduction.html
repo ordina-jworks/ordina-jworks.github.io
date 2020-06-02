@@ -201,24 +201,24 @@ So if you have Kafka, there is nothing else you will need to do in order to be a
 <p>The (intermediate) state of the stream processors is stored within replicated changelog topics allowing Kafka Streams to recover from failures and resume processing after replaying the changelog topics.</p>
 
 <p>A Kafka Streams stream processor will receive one input record at a time.
-It will apply its operation to it, like: <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">join</code> and send out one or more output records to the downstream processors.</p>
+It will apply its operation to it, like: <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">join</code> and send out one or more output records to the downstream processors.</p>
 
 <p>Since 0.11.0, Kafka is able to process deliver messages exactly once, the same logic can be used within Kafka Streams so a record will only be processed exactly once.
-Just set <code class="highlighter-rouge">processing.guarantee</code> to <code class="highlighter-rouge">exactly_once</code>with the default being <code class="highlighter-rouge">at_least_once</code>.</p>
+Just set <code class="language-plaintext highlighter-rouge">processing.guarantee</code> to <code class="language-plaintext highlighter-rouge">exactly_once</code>with the default being <code class="language-plaintext highlighter-rouge">at_least_once</code>.</p>
 
 <h3 id="dsl">DSL</h3>
 <p>Kafka Streams provides a <a href="https://kafka.apache.org/20/documentation/streams/developer-guide/dsl-api.html" target="_blank" rel="noopener noreferrer">Domain Specific Language</a> which is recommended for most users, especially beginners.</p>
 
 <ul>
-  <li>KStream: a <code class="highlighter-rouge">KStream</code> is created from a specified Kafka input topic and interprets the data as a record stream. 
+  <li>KStream: a <code class="language-plaintext highlighter-rouge">KStream</code> is created from a specified Kafka input topic and interprets the data as a record stream. 
   It will only receive records of a subset of the topic partitions.
   All of the topics’ available partitions will be processed by Kafka Streams instances.</li>
-  <li>KTable: a <code class="highlighter-rouge">KTable</code> is also based on a Kafka topic, but is interpreted as a changelog stream. 
+  <li>KTable: a <code class="language-plaintext highlighter-rouge">KTable</code> is also based on a Kafka topic, but is interpreted as a changelog stream. 
   So that for every record key only the most recent value will be returned, it will also handle a subset of partitions.</li>
-  <li>GlobalKTable: a special type of <code class="highlighter-rouge">KTable</code>, as its data will be populated with records from all the partitions of the input topic.</li>
+  <li>GlobalKTable: a special type of <code class="language-plaintext highlighter-rouge">KTable</code>, as its data will be populated with records from all the partitions of the input topic.</li>
 </ul>
 
-<p>After you have created your <code class="highlighter-rouge">KStream</code> or <code class="highlighter-rouge">KTable</code> you can start with a variety of transformations on your record stream, like: <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">flatMap</code>, <code class="highlighter-rouge">groupBy</code>, …</p>
+<p>After you have created your <code class="language-plaintext highlighter-rouge">KStream</code> or <code class="language-plaintext highlighter-rouge">KTable</code> you can start with a variety of transformations on your record stream, like: <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">flatMap</code>, <code class="language-plaintext highlighter-rouge">groupBy</code>, …</p>
 
 <p>As you will see later in the example we provide, it is all quite easy to grasp.</p>
 
@@ -300,9 +300,9 @@ But since it is not easy for demo purposes to have a sensor and a door nearby, a
 I created a simulator that just sends data to the Kafka cluster.</p>
 
 <p>This simulator creates two kinds of messages:
-<code class="highlighter-rouge">key = 0E7E346406100585, value = T_7</code>
+<code class="language-plaintext highlighter-rouge">key = 0E7E346406100585, value = T_7</code>
 configuration information about on which floor a certain device is located.
-<code class="highlighter-rouge">key = 0E7E346406100585, value = pulse@1496309915</code>
+<code class="language-plaintext highlighter-rouge">key = 0E7E346406100585, value = pulse@1496309915</code>
 each time a person opens the door, the key is the unique id of the device, and then a pulse and the time at which it occurred</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">devices</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
@@ -374,7 +374,7 @@ each time a person opens the door, the key is the unique id of the device, and t
 
 <p>Just as a recap, the goal of this stream is to transform both input streams into a stream that gives how many people took the stairs at each floor.</p>
 
-<p>As a start we must create a new <code class="highlighter-rouge">StreamBuilder</code> from the Kafka library</p>
+<p>As a start we must create a new <code class="language-plaintext highlighter-rouge">StreamBuilder</code> from the Kafka library</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">final</span> <span class="nc">StreamsBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StreamsBuilder</span><span class="o">();</span>
 </code></pre></div></div>
 
@@ -383,14 +383,14 @@ each time a person opens the door, the key is the unique id of the device, and t
     <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">stream_in</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="s">"stream_in"</span><span class="o">);</span> <span class="c1">// the pulse messages</span>
 </code></pre></div></div>
 
-<p>The first stream (<code class="highlighter-rouge">stream_in_dev</code>) will be converted into a lookup table that is used when handling the second stream. 
+<p>The first stream (<code class="language-plaintext highlighter-rouge">stream_in_dev</code>) will be converted into a lookup table that is used when handling the second stream. 
 This lookup table will contain which device is installed on which floor.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">KTable</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">streamKtableDev</span> <span class="o">=</span> <span class="n">sourceDev</span>
         <span class="o">.</span><span class="na">groupByKey</span><span class="o">()</span>
         <span class="o">.</span><span class="na">reduce</span><span class="o">((</span><span class="n">val1</span><span class="o">,</span> <span class="n">val2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">val1</span><span class="o">,</span> <span class="nc">Materialized</span><span class="o">.</span><span class="na">as</span><span class="o">(</span><span class="s">"stream_ktable_dev"</span><span class="o">));</span>
 </code></pre></div></div>
 <p>Since one of the shortcuts we took is creating all the topics with only one partition, we don’t have any problems with streams not having the data it needs.
-If using multiple partitions, then we should have used either the <code class="highlighter-rouge">KGlobalTable</code> 
+If using multiple partitions, then we should have used either the <code class="language-plaintext highlighter-rouge">KGlobalTable</code> 
 or we should have made sure that the partitioning is done in such a way that we get the corresponding data from both partitions on this node.</p>
 
 <p>The second stream contains the pulses. Each time a person takes the stair, a message is sent, and this must be added to the counter of the people taking the stairs at that specific minute.</p>
@@ -407,18 +407,18 @@ or we should have made sure that the partitioning is done in such a way that we 
 </code></pre></div></div>
 <p>This seems to do a lot of things and this is indeed the case. But the API makes a clean chain that is not hard to follow.</p>
 <ul>
-  <li><code class="highlighter-rouge">.filter()</code> We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
+  <li><code class="language-plaintext highlighter-rouge">.filter()</code> We only want the inputs that start with a pulse, the real IOT devices also send battery information and so on, on the same topic.
 This could also be solved by sending them to different topics but it shows that filtering is possible</li>
-  <li><code class="highlighter-rouge">.leftJoin() </code> we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
+  <li><code class="language-plaintext highlighter-rouge">.leftJoin() </code> we join with the devices lookup table created with the previous KTable statement. This allows us to translate the device id into the location.
 key is ‘0E7E346406100585’ and value is ‘pulse@1496309915’ will be translated to the same key but with value ‘T_7@1496309915’</li>
-  <li><code class="highlighter-rouge">.map()</code> we map the message into something more useful. 
+  <li><code class="language-plaintext highlighter-rouge">.map()</code> we map the message into something more useful. 
 in stead of the key ‘0E7E346406100585’ and value ‘T_7@1496309915’ format we now get a key of ‘T_7’ and a value of ‘1496309915’.</li>
-  <li><code class="highlighter-rouge">.groupByKey()</code> we want to group these by key (which is now the floor number and not the device id like it was in the beginning)</li>
-  <li><code class="highlighter-rouge">.windowedBy()</code> and create a tumbling window for each minute</li>
-  <li><code class="highlighter-rouge">.count()</code> and within the window count the number of items</li>
-  <li><code class="highlighter-rouge">toStream()</code> This means that the last three lines together change the stream into a stream that gives the number of messages per minute for a certain floor</li>
-  <li><code class="highlighter-rouge">mapValues()</code> map the result of this into a new stream that gives the amount per minute where the key is the floor (T_7) and the value is a combination of the amount and the when (5 - Thu Oct 10 16:28:04 CEST 2018)</li>
-  <li><code class="highlighter-rouge">to()</code> send it to the output stream</li>
+  <li><code class="language-plaintext highlighter-rouge">.groupByKey()</code> we want to group these by key (which is now the floor number and not the device id like it was in the beginning)</li>
+  <li><code class="language-plaintext highlighter-rouge">.windowedBy()</code> and create a tumbling window for each minute</li>
+  <li><code class="language-plaintext highlighter-rouge">.count()</code> and within the window count the number of items</li>
+  <li><code class="language-plaintext highlighter-rouge">toStream()</code> This means that the last three lines together change the stream into a stream that gives the number of messages per minute for a certain floor</li>
+  <li><code class="language-plaintext highlighter-rouge">mapValues()</code> map the result of this into a new stream that gives the amount per minute where the key is the floor (T_7) and the value is a combination of the amount and the when (5 - Thu Oct 10 16:28:04 CEST 2018)</li>
+  <li><code class="language-plaintext highlighter-rouge">to()</code> send it to the output stream</li>
 </ul>
 
         </div>

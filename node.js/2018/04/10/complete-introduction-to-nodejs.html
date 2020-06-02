@@ -173,7 +173,7 @@
 <p>NodeJs is a program that let’s you run JavaScript code on your machine without the need of a browser.
 Underneath the surface of node is the V8 JavaScript runtime which is the engine that allows your browser to run JavaScript code.
 On top of that, node adds some extra functionality to create server side applications
-(for example <code class="highlighter-rouge">fs</code> to interact with the file system, <code class="highlighter-rouge">http</code> or <code class="highlighter-rouge">https</code> to send and receive http calls, <code class="highlighter-rouge">net</code> for tcp streams, and many more).</p>
+(for example <code class="language-plaintext highlighter-rouge">fs</code> to interact with the file system, <code class="language-plaintext highlighter-rouge">http</code> or <code class="language-plaintext highlighter-rouge">https</code> to send and receive http calls, <code class="language-plaintext highlighter-rouge">net</code> for tcp streams, and many more).</p>
 
 <h2 id="use-cases">Use cases:</h2>
 <p><strong>Real time applications (chat, stocks, IoT)</strong><br />
@@ -239,13 +239,13 @@ The cluster module allows easy creation of child processes that share server por
 To demonstrate how this works, I’ll give you an example in pseudo code for reading a file from the filesystem.</p>
 
 <p><strong>Blocking:</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    read file from filesystem,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    read file from filesystem,
     print content
     do something else`
 </code></pre></div></div>
 
 <p><strong>Non-Blocking:</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    read file from filesystem
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    read file from filesystem
         Whenever we're complete, print contents (callback)
     do something else
 </code></pre></div></div>
@@ -258,7 +258,7 @@ Then it starts reading the second file which again takes around 5 seconds and th
 
 <p>In the non-blocking code, we tell the processor to start reading the file, and when it’s done, to “let us know” (resolve promise) so that we can do more stuff with it.
 At the same time since there is another file to be read, we start reading the second file and again tell the processor to notify us when it is ready so that we can do stuff with it.
-Whenever a ‘Promise’ of reading a file resolves, its callback (in our case, the pseudo code: <code class="highlighter-rouge">print contents</code>) gets executed
+Whenever a ‘Promise’ of reading a file resolves, its callback (in our case, the pseudo code: <code class="language-plaintext highlighter-rouge">print contents</code>) gets executed
 (this also means that, when file #2 takes less time to be read, it will be resolved and printed first which is something you might want to keep in mind).</p>
 
 <p><img src="/img/non-blocking.png" alt="Blocking vs Non-blocking" width="100%" /></p>
@@ -280,10 +280,10 @@ Or, if you are a Mac user and have brew installed you can install it with brew.<
 <p>Open a terminal and run the following commands:</p>
 
 <p>Install node<br />
-<code class="highlighter-rouge">brew install node</code></p>
+<code class="language-plaintext highlighter-rouge">brew install node</code></p>
 
 <p>Verify if node was successfully installed (should output your node’s version number)<br />
-<code class="highlighter-rouge">node -v </code></p>
+<code class="language-plaintext highlighter-rouge">node -v </code></p>
 
 <h2 id="node-modules">Node Modules</h2>
 <p>Previously I talked about one of the benefits of node being its vast ecosystem of open source code that you can exploit.
@@ -299,44 +299,44 @@ Just like using other people’s modules might do for you.</p>
 
 <p>Here are some useful npm commands to get you started:</p>
 
-<p><code class="highlighter-rouge">npm init </code> <br />Start a new project. This creates a <code class="highlighter-rouge">package.json</code> file that keeps track of the installed modules (if you save them).</p>
+<p><code class="language-plaintext highlighter-rouge">npm init </code> <br />Start a new project. This creates a <code class="language-plaintext highlighter-rouge">package.json</code> file that keeps track of the installed modules (if you save them).</p>
 
-<p><code class="highlighter-rouge">npm install &lt;module_name&gt;</code> <br />Downloads a module that is registered (by name) on the npm registry.
+<p><code class="language-plaintext highlighter-rouge">npm install &lt;module_name&gt;</code> <br />Downloads a module that is registered (by name) on the npm registry.
 To see which modules modules are available, simply visit <a href="https://www.npmjs.com" target="blank" rel="noopener noreferrer">npmjs.com</a> and search for whatever you need.
-The downloaded code will be saved in the <code class="highlighter-rouge">node_modules</code> directory. (Unless global install)</p>
+The downloaded code will be saved in the <code class="language-plaintext highlighter-rouge">node_modules</code> directory. (Unless global install)</p>
 
-<p><code class="highlighter-rouge">npm install &lt;module_name&gt; —save</code> <br /> installs and also updates your project’s dependencies in <code class="highlighter-rouge">package.json</code></p>
+<p><code class="language-plaintext highlighter-rouge">npm install &lt;module_name&gt; —save</code> <br /> installs and also updates your project’s dependencies in <code class="language-plaintext highlighter-rouge">package.json</code></p>
 
-<p><code class="highlighter-rouge">npm install &lt;module_name&gt; —save-dev</code> <br /> installs and updates your project’s development dependencies in <code class="highlighter-rouge">package.json</code> (dependencies that you don’t need at runtime, i.e. testing frameworks like Jasmine or Karma, build frameworks like gulp or webpack, …)</p>
+<p><code class="language-plaintext highlighter-rouge">npm install &lt;module_name&gt; —save-dev</code> <br /> installs and updates your project’s development dependencies in <code class="language-plaintext highlighter-rouge">package.json</code> (dependencies that you don’t need at runtime, i.e. testing frameworks like Jasmine or Karma, build frameworks like gulp or webpack, …)</p>
 
-<p><code class="highlighter-rouge">npm install &lt;module_name&gt; --global</code> <br /> installs the package globally, packages with command line interfaces like gulp-cli, angular-cli are installed globally.</p>
+<p><code class="language-plaintext highlighter-rouge">npm install &lt;module_name&gt; --global</code> <br /> installs the package globally, packages with command line interfaces like gulp-cli, angular-cli are installed globally.</p>
 
-<p><code class="highlighter-rouge">npm uninstall</code> <br /> uninstalls packages from your project</p>
+<p><code class="language-plaintext highlighter-rouge">npm uninstall</code> <br /> uninstalls packages from your project</p>
 
-<p><code class="highlighter-rouge">npm update</code> <br /> updates your packages</p>
+<p><code class="language-plaintext highlighter-rouge">npm update</code> <br /> updates your packages</p>
 
 <p>For a full overview of npm commands and further documentation of npm, check out this page: <a href="https://docs.npmjs.com/" target="blank" rel="noopener noreferrer">https://docs.npmjs.com/</a></p>
 
 <h2 id="node-repl">Node REPL</h2>
 <p>Once you have installed node you can open a terminal window and run node.
 This will return a node REPL where you can run JavaScript code. For example:<br /></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function add(a, b){ return a + b } &lt;enter&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function add(a, b){ return a + b } &lt;enter&gt;
 add(4, 7) &lt;enter&gt;
 // Returns 11
 </code></pre></div></div>
-<p>To terminate the REPL hit <code class="highlighter-rouge">CTRL + C</code>.</p>
+<p>To terminate the REPL hit <code class="language-plaintext highlighter-rouge">CTRL + C</code>.</p>
 
 <h2 id="hello-world">Hello World</h2>
 <p>Using the REPL can be useful sometimes, but when we want to make some persistent programs,
 we might want to write our code in a file and run the content of that file.</p>
 
-<p>In this example we’ll create a <code class="highlighter-rouge">helloworld.js</code> file.
-Create it in your favourite IDE or run <code class="highlighter-rouge">touch helloworld.js</code> and open it in your IDE or Vim/nano/…</p>
+<p>In this example we’ll create a <code class="language-plaintext highlighter-rouge">helloworld.js</code> file.
+Create it in your favourite IDE or run <code class="language-plaintext highlighter-rouge">touch helloworld.js</code> and open it in your IDE or Vim/nano/…</p>
 
 <p>To keep it simple for this first project, we’ll simply make a program that logs ‘hello’ and ‘world’ in your terminal,
 we’ll log them separately just to show you that there’s different ways to log data with node.</p>
 
-<p><code class="highlighter-rouge">helloworld.js</code><br /></p>
+<p><code class="language-plaintext highlighter-rouge">helloworld.js</code><br /></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// process is a global variable that refers to the current node process you are running,</span>
 <span class="c1">// it has a stdout property that has a write method which we can call to output data.</span>
@@ -360,10 +360,10 @@ we’ll log them separately just to show you that there’s different ways to lo
 <p>When you’ve watched the video about how the V8 Engine works, you’ll know why ‘hello’ gets logged first and ‘world’ second:
 What happens is:</p>
 <ul>
-  <li><code class="highlighter-rouge">setTimeout</code> is added to the call stack</li>
-  <li><code class="highlighter-rouge">setTimeout</code> has a timer and a callback, this fires up  V8’s timer Web API</li>
-  <li>now that the Web API is taking care of the <code class="highlighter-rouge">setTimeout</code>, it gets removed from the call stack</li>
-  <li><code class="highlighter-rouge">console.log</code> is added to the call stack, it logs ‘hello’, and removes <code class="highlighter-rouge">console.log</code> from the call stack</li>
+  <li><code class="language-plaintext highlighter-rouge">setTimeout</code> is added to the call stack</li>
+  <li><code class="language-plaintext highlighter-rouge">setTimeout</code> has a timer and a callback, this fires up  V8’s timer Web API</li>
+  <li>now that the Web API is taking care of the <code class="language-plaintext highlighter-rouge">setTimeout</code>, it gets removed from the call stack</li>
+  <li><code class="language-plaintext highlighter-rouge">console.log</code> is added to the call stack, it logs ‘hello’, and removes <code class="language-plaintext highlighter-rouge">console.log</code> from the call stack</li>
   <li>once the timer has completed, it pushes the callback to the task queue</li>
   <li>since there are no more function calls on the call stack, the event loop adds the callback to the call stack</li>
   <li>finally, ‘world’ is printed.</li>
@@ -379,7 +379,7 @@ So this is a very simple example of how non-blocking code works in NodeJs, the t
 <p>We’re going to create a module that has a log function which takes a parameter (name) and logs ‘hello <name>' to the console.
 Then we'll import it in another file and call the function from there.</name></p>
 
-<p><code class="highlighter-rouge">log.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">log.js</code></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// create our custom hello function</span>
 <span class="kd">const</span> <span class="nx">log</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Hello </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span> <span class="p">}</span>
@@ -387,7 +387,7 @@ Then we'll import it in another file and call the function from there.</name></p
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">log</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">hello.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">hello.js</code></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// the way we import another module into our file is by using require(), require is a global module for node</span>
 <span class="c1">// when requiring local modules (not the ones we install with npm), we give it the path relative to the current file,</span>
@@ -405,17 +405,17 @@ For example:</p>
 <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>To learn more about how to use <code class="highlighter-rouge">require</code> go check out this useful url: <a href="https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8" target="blank" rel="noopener noreferrer">Requiring Modules</a>.</p>
+<p>To learn more about how to use <code class="language-plaintext highlighter-rouge">require</code> go check out this useful url: <a href="https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8" target="blank" rel="noopener noreferrer">Requiring Modules</a>.</p>
 
 <h2 id="hello-server">Hello Server</h2>
 <p>Now that we know how to require other modules, let’s create a basic server application.
 We’re not going to install any server frameworks (like Express) yet, instead we’ll require a module that comes with node.
-Node has some built-in modules that you can use like <code class="highlighter-rouge">http</code> (HTTP server), <code class="highlighter-rouge">https</code>, <code class="highlighter-rouge">fs</code> (file system), <code class="highlighter-rouge">net</code> (TCP sockets), … <br />
+Node has some built-in modules that you can use like <code class="language-plaintext highlighter-rouge">http</code> (HTTP server), <code class="language-plaintext highlighter-rouge">https</code>, <code class="language-plaintext highlighter-rouge">fs</code> (file system), <code class="language-plaintext highlighter-rouge">net</code> (TCP sockets), … <br />
 (a list can be found here: <a href="https://www.w3schools.com/nodejs/ref_modules.asp" target="blank" rel="noopener noreferrer">https://www.w3schools.com/nodejs/ref_modules.asp</a>)</p>
 
-<p>For this program, we’ll use node’s <code class="highlighter-rouge">http</code> module.</p>
+<p>For this program, we’ll use node’s <code class="language-plaintext highlighter-rouge">http</code> module.</p>
 
-<p><code class="highlighter-rouge">hello-server.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">hello-server.js</code></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// import the http module (docs: https://nodejs.org/api/http.html)</span>
 <span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
@@ -474,7 +474,7 @@ Since the request object is a readable stream and the response object is a writa
 we can create an application that pipes the data from the request, back to the response.
 Let’s see it in action with an example:</p>
 
-<p><code class="highlighter-rouge">streams.js</code></p>
+<p><code class="language-plaintext highlighter-rouge">streams.js</code></p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">);</span>
 

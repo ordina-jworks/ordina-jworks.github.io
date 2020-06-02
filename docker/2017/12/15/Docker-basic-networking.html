@@ -227,7 +227,7 @@ The only thing needed to complete this guide is a working Docker installation.</
 <h1 id="network-setup">Network Setup</h1>
 <p>To start this guide, let’s have a look at the Docker networks that are available on our machine:</p>
 
-<p><code class="highlighter-rouge">docker network ls</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker network ls</code></p>
 
 <blockquote>
   <p>When you run a Docker container and you do not provide any network settings, it is by default attached to the bridge network.</p>
@@ -239,9 +239,9 @@ The only thing needed to complete this guide is a working Docker installation.</
 
 <p>We want to be able to access our containers by using their container name instead of the internal IP address so we are going to create our own network:</p>
 
-<p><code class="highlighter-rouge">docker network create --driver bridge basic-bridge</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker network create --driver bridge basic-bridge</code></p>
 
-<p>This creates a user defined network with the bridge driver that is called <code class="highlighter-rouge">basic-bridge</code>.
+<p>This creates a user defined network with the bridge driver that is called <code class="language-plaintext highlighter-rouge">basic-bridge</code>.
 If we look at the Docker network stack, we see that our user defined bridge network is added:</p>
 
 <p>
@@ -250,13 +250,13 @@ If we look at the Docker network stack, we see that our user defined bridge netw
 
 <p>You can look at more details of the network by using following command</p>
 
-<p><code class="highlighter-rouge">docker network inspect basic-bridge</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker network inspect basic-bridge</code></p>
 
 <p>
     <img class="image fit" style="max-width:736px" alt="Basic bridge details" src="/img/docker-basic-networking/bridged-network-details.png" />
 </p>
 
-<p>The basic-bridge network can use IP addresses from the <code class="highlighter-rouge">172.18.0.0/16</code> range and will use <code class="highlighter-rouge">172.18.0.1</code> as its default gateway.</p>
+<p>The basic-bridge network can use IP addresses from the <code class="language-plaintext highlighter-rouge">172.18.0.0/16</code> range and will use <code class="language-plaintext highlighter-rouge">172.18.0.1</code> as its default gateway.</p>
 
 <h1 id="database-container">Database container</h1>
 
@@ -264,25 +264,25 @@ If we look at the Docker network stack, we see that our user defined bridge netw
 Let’s start off by creating the MySQL database container.
 The following command pulls the MySQL image from the Docker repository and starts it as a container that is attached to our network:</p>
 
-<p><code class="highlighter-rouge">docker run --name=mydb --network=basic-bridge -p 3306:3306 -e MySQL_ROOT_PASSWORD=test -d MySQL:8.0.3</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker run --name=mydb --network=basic-bridge -p 3306:3306 -e MySQL_ROOT_PASSWORD=test -d MySQL:8.0.3</code></p>
 
 <p>That’s easy right?
-This container is attached to the <code class="highlighter-rouge">basic-bridge</code> network that we created in the previous step.
+This container is attached to the <code class="language-plaintext highlighter-rouge">basic-bridge</code> network that we created in the previous step.
 Run the following command to look at the container in detail:</p>
 
-<p><code class="highlighter-rouge">docker inspect mydb</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker inspect mydb</code></p>
 
 <p>
     <img class="image fit" style="max-width:909px" alt="docker inspect mydb" src="/img/docker-basic-networking/mydb-inspect.png" />
 </p>
 
-<p>We can see in the output that it has gotten the <code class="highlighter-rouge">172.18.0.2</code> IP address and that it’s using the default gateway of the network that we created.
+<p>We can see in the output that it has gotten the <code class="language-plaintext highlighter-rouge">172.18.0.2</code> IP address and that it’s using the default gateway of the network that we created.
 Now we should set up the database in our container with the schema for our REST application.</p>
 
-<p><code class="highlighter-rouge">mysql -h 127.0.0.1 -P 3306  --user=root --password=test</code></p>
+<p><code class="language-plaintext highlighter-rouge">mysql -h 127.0.0.1 -P 3306  --user=root --password=test</code></p>
 
-<p>This will connect a MySQL shell onto our <code class="highlighter-rouge">localhost:3306</code>.
-We can access this port because we exposed it when we started the container by using the <code class="highlighter-rouge">-p</code> flag.
+<p>This will connect a MySQL shell onto our <code class="language-plaintext highlighter-rouge">localhost:3306</code>.
+We can access this port because we exposed it when we started the container by using the <code class="language-plaintext highlighter-rouge">-p</code> flag.
 Note that this is done for convenience only, so we can access the container from our host and set up a schema.
 Now run following SQL commands in the MySQL shell.</p>
 
@@ -302,45 +302,45 @@ Now run following SQL commands in the MySQL shell.</p>
 
 <h1 id="backend-container">Backend container</h1>
 
-<p>You can find the code and Dockerfile for the backend container on the Github link earlier in the post under the <code class="highlighter-rouge">/backend</code> folder.
+<p>You can find the code and Dockerfile for the backend container on the Github link earlier in the post under the <code class="language-plaintext highlighter-rouge">/backend</code> folder.
 The backend application itself is pretty simple.
-It just listens on port 8080 for requests on the path <code class="highlighter-rouge">/greeting</code>.
-You can pass the <code class="highlighter-rouge">name</code> request parameter to this path to get a customized response.
+It just listens on port 8080 for requests on the path <code class="language-plaintext highlighter-rouge">/greeting</code>.
+You can pass the <code class="language-plaintext highlighter-rouge">name</code> request parameter to this path to get a customized response.
 The application fetches its greetings from the database container we set up earlier.
-I added following properties under <code class="highlighter-rouge">src/main/resources</code> to connect it to our database:</p>
+I added following properties under <code class="language-plaintext highlighter-rouge">src/main/resources</code> to connect it to our database:</p>
 
 <p>
     <img class="image fit" style="max-width:504px" alt="Spring boot app db connection properties" src="/img/docker-basic-networking/application-props.png" />
 </p>
 
-<p>The important part here is that I referred to our database by using <code class="highlighter-rouge">mydb:3306</code>.</p>
+<p>The important part here is that I referred to our database by using <code class="language-plaintext highlighter-rouge">mydb:3306</code>.</p>
 
-<p>We are able to do this because we will launch this backend service on the same docker network as the <code class="highlighter-rouge">mydb</code> container.
+<p>We are able to do this because we will launch this backend service on the same docker network as the <code class="language-plaintext highlighter-rouge">mydb</code> container.
 This way, they will be able to resolve each others name by using the basic-bridge network we created.</p>
 
 <p>Next up, we will build the container from the Dockerfile I created.
-To do this run the following command in the <code class="highlighter-rouge">/backend</code> folder:</p>
+To do this run the following command in the <code class="language-plaintext highlighter-rouge">/backend</code> folder:</p>
 
-<p><code class="highlighter-rouge">docker build . -t rest-backend</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker build . -t rest-backend</code></p>
 
 <p>Once the Docker image is built, let’s run it in a container:</p>
 
-<p><code class="highlighter-rouge">docker run --name=rest-backend --network=basic-bridge -p 8090:8080 -d rest-backend</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker run --name=rest-backend --network=basic-bridge -p 8090:8080 -d rest-backend</code></p>
 
-<p>By using the <code class="highlighter-rouge">--network=basic-bridge</code>, we attach the container to the <code class="highlighter-rouge">basic-bridge</code> network that we created earlier.</p>
+<p>By using the <code class="language-plaintext highlighter-rouge">--network=basic-bridge</code>, we attach the container to the <code class="language-plaintext highlighter-rouge">basic-bridge</code> network that we created earlier.</p>
 
 <p>You can look at the network details of this container by using:</p>
 
-<p><code class="highlighter-rouge">docker inspect rest-backend</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker inspect rest-backend</code></p>
 
 <p>
     <img class="image fit" style="max-width:959px" alt="Backend container docker inspect" src="/img/docker-basic-networking/backend-inspect.png" />
 </p>
 
-<p>We can see in the output that it is attached to the <code class="highlighter-rouge">basic-bridge</code> network just like our mydb container.
-We also used the <code class="highlighter-rouge">-p 8090:8080</code> flag to expose the inner 8080 port (the port our Spring Boot application uses) to the outside world via the 8090 port.</p>
+<p>We can see in the output that it is attached to the <code class="language-plaintext highlighter-rouge">basic-bridge</code> network just like our mydb container.
+We also used the <code class="language-plaintext highlighter-rouge">-p 8090:8080</code> flag to expose the inner 8080 port (the port our Spring Boot application uses) to the outside world via the 8090 port.</p>
 
-<p>We can now curl or browse to <code class="highlighter-rouge">localhost:8090/greeting</code> to verify that everything is working:</p>
+<p>We can now curl or browse to <code class="language-plaintext highlighter-rouge">localhost:8090/greeting</code> to verify that everything is working:</p>
 
 <p>
     <img class="image fit" style="max-width:533px" alt="Verify backend running" src="/img/docker-basic-networking/verify-backend.png" />
@@ -352,14 +352,14 @@ We also used the <code class="highlighter-rouge">-p 8090:8080</code> flag to exp
 
 <p>We can now create our frontend AngularJS application that consumes the REST service we just created.</p>
 
-<p>You can find the code for this application under the <code class="highlighter-rouge">/frontend</code> folder in the Github repository.
+<p>You can find the code for this application under the <code class="language-plaintext highlighter-rouge">/frontend</code> folder in the Github repository.
 Create the Docker image for the frontend container by running:</p>
 
-<p><code class="highlighter-rouge">docker build . -t angular-frontend</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker build . -t angular-frontend</code></p>
 
 <p>Now let’s run the container by using:</p>
 
-<p><code class="highlighter-rouge">docker run --name=angular-frontend --network=basic-bridge -p 8080:80 -d angular-frontend</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker run --name=angular-frontend --network=basic-bridge -p 8080:80 -d angular-frontend</code></p>
 
 <p>AngularJS renders in the browser so it’s not rendered inside a Docker container.<br />
 This means that our angular application would not be able to contact the REST backend container as that container is only known within the docker network.<br />
@@ -413,7 +413,7 @@ Of course nobody wants to run a distributed application in containers on one hos
 
 <p>I will make a follow-up blogpost where we look into Docker multi-host networks by using <strong>weave.NET</strong>.</p>
 
-<p><code class="highlighter-rouge">docker stop bas</code></p>
+<p><code class="language-plaintext highlighter-rouge">docker stop bas</code></p>
 
         </div>
     </div>

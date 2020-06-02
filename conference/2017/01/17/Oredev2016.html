@@ -231,7 +231,7 @@ Since Adam is doing this manually, I will explain you how to do it easier with D
 <p><a href="https://docs.docker.com/compose">Docker Compose</a> will run all the containers you setup in the configuration.
 Since we work with the microservices ecosystem, we will need a lot of containers.</p>
 
-<p>To build our image using the Dockerfile, we will add a Docker dependency in our <code class="highlighter-rouge">pom.xml</code>.</p>
+<p>To build our image using the Dockerfile, we will add a Docker dependency in our <code class="language-plaintext highlighter-rouge">pom.xml</code>.</p>
 
 <p>First add a property for naming your repository:</p>
 
@@ -270,9 +270,9 @@ Every time Mavens builds the project, a Docker image is generated.</p>
 <h3 id="docker-compose">Docker Compose</h3>
 <p>To tell the containers that they have to be under the same network, we will use <a href="https://docs.docker.com/compose/">Docker Compose</a>.</p>
 
-<p>First we make a <code class="highlighter-rouge">docker-compose.yml</code> file and configure our microservices:</p>
+<p>First we make a <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> file and configure our microservices:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: '2'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: '2'
 services:
 
   cars:
@@ -296,34 +296,34 @@ networks:
 <p>Variables explanation:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">image</code>
+  <li><code class="language-plaintext highlighter-rouge">image</code>
     <ul>
       <li>The image you will be using to create the container, we will be using our microservice image</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">ports</code>
+  <li><code class="language-plaintext highlighter-rouge">ports</code>
     <ul>
       <li>The port the service will listen to. When you want to expose your port use: “5432:5432”.</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">build</code>
+  <li><code class="language-plaintext highlighter-rouge">build</code>
     <ul>
       <li>This will build the Dockerfile inside the same directory</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">networks as property</code>
+  <li><code class="language-plaintext highlighter-rouge">networks as property</code>
     <ul>
       <li>This be the network to which you want to be assigned to</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">networks</code>
+  <li><code class="language-plaintext highlighter-rouge">networks</code>
     <ul>
       <li>This will create one or multiple networks</li>
     </ul>
   </li>
 </ul>
 
-<p>When you want to add an Eureka service, follow the above steps and configure it inside the <code class="highlighter-rouge">docker-compose.yml</code> file.
+<p>When you want to add an Eureka service, follow the above steps and configure it inside the <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> file.
 It is important that every container, you want to communicate with, resides under the same network.</p>
 
 <p><a name="docker"></a></p>
@@ -371,7 +371,7 @@ Think again, he can break out and gain control of the whole operating system.</p
   <li>Strategy for security patches - Regularly update your Docker container so it gets the necessary updates</li>
   <li>Continuously rebuild and test - Security patches in your build environment</li>
   <li>In a secure build environment</li>
-  <li>Digitally sign Docker images - <code class="highlighter-rouge"># docker build -t test --disabled-content-trust=false</code></li>
+  <li>Digitally sign Docker images - <code class="language-plaintext highlighter-rouge"># docker build -t test --disabled-content-trust=false</code></li>
 </ul>
 
 <h2 id="internal-private-registry---push-and-pull-the-containers-internally">Internal private registry - Push and pull the containers internally</h2>
@@ -412,8 +412,8 @@ then you build the image and point it to the very same image in the registry.</p
   <li>Try to enable SELinux (enforcing) on the host</li>
   <li>Drop unused capabilities that are installed by default and install the capabilities that you actually need.
     <ul>
-      <li><code class="highlighter-rouge">--cap-drop=ALL</code></li>
-      <li><code class="highlighter-rouge">--cap-add=needed_cap </code></li>
+      <li><code class="language-plaintext highlighter-rouge">--cap-drop=ALL</code></li>
+      <li><code class="language-plaintext highlighter-rouge">--cap-add=needed_cap </code></li>
     </ul>
   </li>
   <li>Only pull from private registries</li>
@@ -421,13 +421,13 @@ then you build the image and point it to the very same image in the registry.</p
 
 <h2 id="things-you-should-avoid-in-docker">Things you should avoid in Docker</h2>
 <ul>
-  <li><code class="highlighter-rouge">--privileged</code>: breakout is trivial and will give you access to different machines
+  <li><code class="language-plaintext highlighter-rouge">--privileged</code>: breakout is trivial and will give you access to different machines
     <ul>
       <li>Be sure to check that Kubernetes is not doing this</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">--insecure-registry </code>: disable TLS requirement</li>
-  <li><code class="highlighter-rouge">--net=host</code>: use host network stack</li>
+  <li><code class="language-plaintext highlighter-rouge">--insecure-registry </code>: disable TLS requirement</li>
+  <li><code class="language-plaintext highlighter-rouge">--net=host</code>: use host network stack</li>
 </ul>
 
 <p><a name="kubernetes"></a></p>
@@ -561,7 +561,7 @@ If you want to run a TEST, DEV and PRD environment it’s possible with Kubernet
   <li>Beware of port conflicts!</li>
 </ul>
 
-<p><code class="highlighter-rouge">kubectl expose deployment my-nginx --type=NodePort</code></p>
+<p><code class="language-plaintext highlighter-rouge">kubectl expose deployment my-nginx --type=NodePort</code></p>
 
 <h4 id="kubernetes-ingress">Kubernetes Ingress</h4>
 <ul>
@@ -881,7 +881,7 @@ If you visit the uri, you’ll get this:</p>
 
 <p><img class="image fit" alt="person resource" src="/img/oredev/personjson.png" /></p>
 
-<p>When finding the <code class="highlighter-rouge">Person</code> resource we see that there are a lot of properties already defined and documented by several people so you don’t have to.
+<p>When finding the <code class="language-plaintext highlighter-rouge">Person</code> resource we see that there are a lot of properties already defined and documented by several people so you don’t have to.
 When looking back at our example you can use the property already defined in the resource and use them to initialise.
 If you reuse the property defined, you will get the proper documentation for it.</p>
 

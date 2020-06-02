@@ -228,7 +228,7 @@ We can increment or reduce the amount of managers by promoting or demoting nodes
 
 <h2 id="services">Services</h2>
 
-<p>Docker 1.12 introduces a new <code class="highlighter-rouge">service</code> command.
+<p>Docker 1.12 introduces a new <code class="language-plaintext highlighter-rouge">service</code> command.
 A <strong>service</strong> is a set of tasks that can be easily replicated.
 A <strong>task</strong> represents a workload and is executed by a container.
 A task does not necessarily have to be a container,
@@ -237,7 +237,7 @@ In the future,
 tasks can also be different types of workloads,
 for example Unikernels.</p>
 
-<p>The service command is very similar to the <code class="highlighter-rouge">run</code> command
+<p>The service command is very similar to the <code class="language-plaintext highlighter-rouge">run</code> command
 and utilizes a lot of similar flags which we are used to work with.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker service create <span class="nt">--replicate</span> 3 <span class="nt">--name</span> frontend <span class="nt">--network</span> mynet <span class="nt">--publish</span> 80:80/tcp frontend_image:latest
@@ -284,9 +284,9 @@ and the managers will schedule new tasks (or remove existing tasks) to attain th
 <p>We can also apply rolling updates to our services.
 For example,
 if we wish to upgrade our service to a newer version without any downtime,
-we can use the <code class="highlighter-rouge">service update</code> command:</p>
+we can use the <code class="language-plaintext highlighter-rouge">service update</code> command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker service update myservice --image myimage:2.0 --update-parallellism 2 --update-delay 10s
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker service update myservice --image myimage:2.0 --update-parallellism 2 --update-delay 10s
 </code></pre></div></div>
 
 <p>This will update our service by replacing 2 tasks at the time,
@@ -296,7 +296,7 @@ ports,
 etc.</p>
 
 <p>As you can see,
-the new <code class="highlighter-rouge">service</code> subcommand is very powerful and easy to use.</p>
+the new <code class="language-plaintext highlighter-rouge">service</code> subcommand is very powerful and easy to use.</p>
 
 <h2 id="bundles">Bundles</h2>
 
@@ -315,7 +315,7 @@ one way to generate a <em>.dab</em> file is by creating the bundle using Docker 
 which is just a JSON text file.
 Here’s a partial example:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "services": {
     "db": {
       "Env": [
@@ -374,19 +374,19 @@ that you don’t want to turn it off!</p>
 
 <h2 id="container-health-check-in-dockerfile">Container Health Check in Dockerfile</h2>
 
-<p>A new <code class="highlighter-rouge">HEALTHCHECK</code> keyword is available for Dockerfiles.
+<p>A new <code class="language-plaintext highlighter-rouge">HEALTHCHECK</code> keyword is available for Dockerfiles.
 This keyword can be used to define the health check of a container.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEALTHCHECK --interval=5m --timeout=3s --retries 3 CMD curl -f http://localhost || exit 1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEALTHCHECK --interval=5m --timeout=3s --retries 3 CMD curl -f http://localhost || exit 1
 </code></pre></div></div>
 
 <p>In the above example,
 health checking is done every 5 minutes.
-A container becomes unhealthy if the <code class="highlighter-rouge">curl</code> command fails 3 times in a row with a 3 second timeout.</p>
+A container becomes unhealthy if the <code class="language-plaintext highlighter-rouge">curl</code> command fails 3 times in a row with a 3 second timeout.</p>
 
 <h2 id="new-plugin-subcommands-experimental">New Plugin Subcommands (experimental)</h2>
 
-<p>A new <code class="highlighter-rouge">plugin</code> subcommand has been added which allows you to easily manager Docker plugins.</p>
+<p>A new <code class="language-plaintext highlighter-rouge">plugin</code> subcommand has been added which allows you to easily manager Docker plugins.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker plugin <span class="nb">install</span> &lt;plugin-name&gt;
 <span class="nv">$ </span>docker plugin <span class="nb">enable</span> &lt;plugin-name&gt;

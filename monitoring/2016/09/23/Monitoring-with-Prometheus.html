@@ -364,24 +364,24 @@ we could end up with the following time series:</p>
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}</code></td>
-      <td><code class="highlighter-rouge">@1464623917237</code></td>
-      <td><code class="highlighter-rouge">68856</code></td>
+      <td><code class="language-plaintext highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">@1464623917237</code></td>
+      <td><code class="language-plaintext highlighter-rouge">68856</code></td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}</code></td>
-      <td><code class="highlighter-rouge">@1464623917237</code></td>
-      <td><code class="highlighter-rouge">5567</code></td>
+      <td><code class="language-plaintext highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">@1464623917237</code></td>
+      <td><code class="language-plaintext highlighter-rouge">5567</code></td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}</code></td>
-      <td><code class="highlighter-rouge">@1464624516508</code></td>
-      <td><code class="highlighter-rouge">76909</code></td>
+      <td><code class="language-plaintext highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="200"}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">@1464624516508</code></td>
+      <td><code class="language-plaintext highlighter-rouge">76909</code></td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}</code></td>
-      <td><code class="highlighter-rouge">@1464624516508</code></td>
-      <td><code class="highlighter-rouge">6789</code></td>
+      <td><code class="language-plaintext highlighter-rouge">api_http_requests_total{method="GET", endpoint="/api/posts", status="500"}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">@1464624516508</code></td>
+      <td><code class="language-plaintext highlighter-rouge">6789</code></td>
     </tr>
   </tbody>
 </table>
@@ -442,15 +442,15 @@ you can select time series from a metric.</p>
 
 <p>For example,
 Continuing with our API example,
-we can select all the time series of the metric <code class="highlighter-rouge">api_http_requests_total</code>:</p>
+we can select all the time series of the metric <code class="language-plaintext highlighter-rouge">api_http_requests_total</code>:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span>
 </code></pre></div></div>
 
-<p>We can dive a little bit deeper by filtering these time series on their labels using curly braces (<code class="highlighter-rouge">{}</code>).
+<p>We can dive a little bit deeper by filtering these time series on their labels using curly braces (<code class="language-plaintext highlighter-rouge">{}</code>).
 Let’s say we want to monitor requests that failed due to an internal server error.
-We can achieve this by selecting the time series of the metric <code class="highlighter-rouge">api_http_requests_total</code>
-where the label <code class="highlighter-rouge">status</code> is set to <code class="highlighter-rouge">500</code>.</p>
+We can achieve this by selecting the time series of the metric <code class="language-plaintext highlighter-rouge">api_http_requests_total</code>
+where the label <code class="language-plaintext highlighter-rouge">status</code> is set to <code class="language-plaintext highlighter-rouge">500</code>.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span><span class="p">{</span><span class="nx">status</span><span class="o">=</span><span class="dl">"</span><span class="s2">500</span><span class="dl">"</span><span class="p">}</span>
 </code></pre></div></div>
@@ -473,14 +473,14 @@ The following example selects time series of the last hour:</p>
   <li><strong>y</strong> - years</li>
 </ul>
 
-<p>You can go further back in time by using an <code class="highlighter-rouge">offset</code>.
+<p>You can go further back in time by using an <code class="language-plaintext highlighter-rouge">offset</code>.
 This example selects time series that happened at least an hour ago:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">api_http_requests_total</span> <span class="nx">offset</span> <span class="mi">1</span><span class="nx">h</span>
 </code></pre></div></div>
 
 <p>We can use functions in our queries to create more useful results.
-The <code class="highlighter-rouge">rate()</code> function calculates the per-second average rate of time series in a range vector.
+The <code class="language-plaintext highlighter-rouge">rate()</code> function calculates the per-second average rate of time series in a range vector.
 Combining all the above tools,
 we can get the rates of HTTP requests of a specific timeframe.
 The query below will calculate the per-second rates of all HTTP requests
@@ -597,7 +597,7 @@ Prometheus allows you to configure <strong>jobs</strong> that fetch time series 
 </code></pre></div></div>
 
 <p>This configuration file is pretty self-explanatory.
-You can define defaults for all jobs in the <code class="highlighter-rouge">global</code> root element.
+You can define defaults for all jobs in the <code class="language-plaintext highlighter-rouge">global</code> root element.
 These defaults can then be overridden by each job,
 if necessary.</p>
 
@@ -607,7 +607,7 @@ a job has one list of targets (one target group),
 but Prometheus allows you to split these between different groups,
 so you can add different labels to each scraped metric of that group.
 Next to your own custom labels,
-Prometheus will additionally append the <code class="highlighter-rouge">job</code> and <code class="highlighter-rouge">instance</code> labels to the sampled metrics automatically.</p>
+Prometheus will additionally append the <code class="language-plaintext highlighter-rouge">job</code> and <code class="language-plaintext highlighter-rouge">instance</code> labels to the sampled metrics automatically.</p>
 
 <p><a name="visualization-and-analytics"></a></p>
 
@@ -743,7 +743,7 @@ It covers most of the features discussed in this blog post.</p>
 </code></pre></div></div>
 
 <p>After the project is cloned,
-run <code class="highlighter-rouge">make</code> in the project directory:</p>
+run <code class="language-plaintext highlighter-rouge">make</code> in the project directory:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>make
 </code></pre></div></div>
@@ -783,9 +783,9 @@ The project consists of the following components:</p>
   <li>A <strong>voting generator</strong> which generates votes</li>
 </ul>
 
-<p>The voting application exposes a custom metric called <code class="highlighter-rouge">voting_amount_total</code>.
+<p>The voting application exposes a custom metric called <code class="language-plaintext highlighter-rouge">voting_amount_total</code>.
 This metric holds the total amount of votes and is labeled by the type of vote,
-e.g. <code class="highlighter-rouge">voting_amount_total{name=dog}</code>.</p>
+e.g. <code class="language-plaintext highlighter-rouge">voting_amount_total{name=dog}</code>.</p>
 
 <p>An alerting rule is configured in Prometheus that checks for the amount of votes.
 Once it passes a certain threshold,
@@ -818,10 +818,10 @@ otes"</span><span class="o">}</span>,<span class="s2">"commonLabels"</span>:<spa
 
 <h3 id="grafana">Grafana</h3>
 
-<p>The default credentials for Grafana are <code class="highlighter-rouge">admin:admin</code>.
+<p>The default credentials for Grafana are <code class="language-plaintext highlighter-rouge">admin:admin</code>.
 After logging in,
 you must first configure a <strong>Prometheus data source</strong>.
-Prometheus is available at <code class="highlighter-rouge">http://prometheus:9090</code> (from within the container).</p>
+Prometheus is available at <code class="language-plaintext highlighter-rouge">http://prometheus:9090</code> (from within the container).</p>
 
 <div class="row">
   <div class="6u">

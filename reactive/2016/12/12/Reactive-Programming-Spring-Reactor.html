@@ -281,17 +281,17 @@ Without back-pressure the consumer would either fail catastrophically or drop ev
   <img class="image left" alt="reactive contract" src="/img/reactive/reactive-contract.png" />
 </p>
 
-<p>This contract defines to send data <code class="highlighter-rouge">0 .. N</code>.
-<a href="http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Publisher.html">Publisher</a> is an interface with a <code class="highlighter-rouge">subscribe()</code> method.
+<p>This contract defines to send data <code class="language-plaintext highlighter-rouge">0 .. N</code>.
+<a href="http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Publisher.html">Publisher</a> is an interface with a <code class="language-plaintext highlighter-rouge">subscribe()</code> method.
 <a href="http://www.reactive-streams.org/reactive-streams-1.0.0-javadoc/org/reactivestreams/Subscriber.html">Subscriber</a> has 4 callback methods:
-<code class="highlighter-rouge">onSubscribe()</code>, <code class="highlighter-rouge">onNext()</code> (which can be called 0 to N times), <code class="highlighter-rouge">onComplete()</code> and <code class="highlighter-rouge">onError()</code>.
+<code class="language-plaintext highlighter-rouge">onSubscribe()</code>, <code class="language-plaintext highlighter-rouge">onNext()</code> (which can be called 0 to N times), <code class="language-plaintext highlighter-rouge">onComplete()</code> and <code class="language-plaintext highlighter-rouge">onError()</code>.
 The last two signals (complete and error) are terminal states, no further signals may occur and the subscriber’s subscription is considered cancelled.</p>
 
 <p>What is important is the reverse flow and the back-pressure.
-After subscribing, the subscriber gets a subscription which is a kind of 1 on 1 relationship between the subscriber and the publisher with 2 methods: <code class="highlighter-rouge">request</code> and <code class="highlighter-rouge">cancel</code>.</p>
+After subscribing, the subscriber gets a subscription which is a kind of 1 on 1 relationship between the subscriber and the publisher with 2 methods: <code class="language-plaintext highlighter-rouge">request</code> and <code class="language-plaintext highlighter-rouge">cancel</code>.</p>
 
 <ul>
-  <li><strong>Request</strong>: this is the more important one, with this method the subscriber will ask the publisher to send x messages (and not more), a so called <code class="highlighter-rouge">pull</code>.</li>
+  <li><strong>Request</strong>: this is the more important one, with this method the subscriber will ask the publisher to send x messages (and not more), a so called <code class="language-plaintext highlighter-rouge">pull</code>.</li>
   <li><strong>Cancel</strong>: the subscription is being cancelled.</li>
 </ul>
 
@@ -315,9 +315,9 @@ The main difficulty is to make it side effect free.</p>
 <p>Note that a publisher is returned instead of directly returning the entity.
 By doing so it does not block the subscribers when querying for the user and the publisher will produce the user when ready.</p>
 
-<p>But by using the specification as is, your publisher might produce 0, 1 or N users, returning an <code class="highlighter-rouge">Iterable</code> as result.
+<p>But by using the specification as is, your publisher might produce 0, 1 or N users, returning an <code class="language-plaintext highlighter-rouge">Iterable</code> as result.
 This is not really practical to work with, as most of the time we are only interested in a single user and not a stream of multiple results.
-When you would be building the method <code class="highlighter-rouge">findOneUser()</code> you also would not want to return an <code class="highlighter-rouge">Iterable</code> but just a single <code class="highlighter-rouge">User</code>.</p>
+When you would be building the method <code class="language-plaintext highlighter-rouge">findOneUser()</code> you also would not want to return an <code class="language-plaintext highlighter-rouge">Iterable</code> but just a single <code class="language-plaintext highlighter-rouge">User</code>.</p>
 
 <p>Also you will have to implement a subscriber to define the action to perform when the result is available.</p>
 
@@ -391,7 +391,7 @@ When a bug gets fixed in Spring Reactor it will also be fixed in RxJava and vice
   <img alt="a Flux" src="/img/reactive/flux.png" class="image fit" />
 </p>
 
-<p>Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 <code class="highlighter-rouge">save(Publisher&lt;T&gt;)</code> you first have to convert the Observable to a Flowable as you can see in <a href="https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#observable-and-flowable">Observable and Flowable</a>.</p>
+<p>Observable is not implementing Reactive Streams Publisher which means that if you would like to use the Spring 5 <code class="language-plaintext highlighter-rouge">save(Publisher&lt;T&gt;)</code> you first have to convert the Observable to a Flowable as you can see in <a href="https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#observable-and-flowable">Observable and Flowable</a>.</p>
 
 <p>This was too much noise for the Spring team, they are less dependant on Android developers so they could go all in with Java 8.</p>
 
@@ -437,13 +437,13 @@ Spring Data, Spring Security, Spring MVC, … are all good candidates who will h
 The fastest result will be the one which will be outputted.</p>
 
 <p>The Mono has as advantage over an Observable Future of Java 8 that a Mono will only be triggered if you subscribe to it.
-While with an Observable the call to <code class="highlighter-rouge">send()</code> will execute the operation.</p>
+While with an Observable the call to <code class="language-plaintext highlighter-rouge">send()</code> will execute the operation.</p>
 
 <p><a name="testing"></a></p>
 
 <h1 id="testing">Testing</h1>
 
-<p><code class="highlighter-rouge">Block()</code> exists for very specific use cases and for testing.
+<p><code class="language-plaintext highlighter-rouge">Block()</code> exists for very specific use cases and for testing.
 Never, ever use this in production, as is it blocks your call, which does infer with the Reactive non-blocking statements. ;-)</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">.</span><span class="na">delayMillis</span><span class="o">(</span><span class="mi">3000</span><span class="o">)</span>
@@ -523,7 +523,7 @@ Afterwards you can merge these back into a Flux with sequential().</p>
 
 <h2 id="bridge-existing-async-code">Bridge Existing Async code</h2>
 
-<p>To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use <code class="highlighter-rouge">Flux.create()</code>, <code class="highlighter-rouge">Mono.create()</code>, or <code class="highlighter-rouge">FluxProcessor.connectSink()</code>.</p>
+<p>To bridge a Subscriber or Processor into an outside context that is taking care of producing non concurrently, use <code class="language-plaintext highlighter-rouge">Flux.create()</code>, <code class="language-plaintext highlighter-rouge">Mono.create()</code>, or <code class="language-plaintext highlighter-rouge">FluxProcessor.connectSink()</code>.</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">create</span><span class="o">(</span> <span class="n">sink</span> <span class="o">-&gt;</span> <span class="o">{</span>
     <span class="nc">HttpListener</span> <span class="n">listener</span> <span class="o">=</span> <span class="n">event</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -544,9 +544,9 @@ Afterwards you can merge these back into a Flux with sequential().</p>
 
 <span class="o">});</span></code></pre></figure>
 
-<p>This <code class="highlighter-rouge">create()</code> allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.</p>
+<p>This <code class="language-plaintext highlighter-rouge">create()</code> allows you to bridge 1 result, which will be returned somewhere in the future, to a Mono.</p>
 
-<p>If you add a Kafka call, for example, where they have this callback so one can return <code class="highlighter-rouge">onSuccess</code> and <code class="highlighter-rouge">onError</code> you can use <code class="highlighter-rouge">Mono.create()</code>: 
+<p>If you add a Kafka call, for example, where they have this callback so one can return <code class="language-plaintext highlighter-rouge">onSuccess</code> and <code class="language-plaintext highlighter-rouge">onError</code> you can use <code class="language-plaintext highlighter-rouge">Mono.create()</code>: 
 see <a href="https://github.com/reactor/reactor-kafka">Reactor Kafka</a> where this is used a lot.</p>
 
 <p>Also exists for Flux of N items but it’s tougher and more dangerous as you must explicitly indicate what to do in the case of overflow; keep the latest and risk losing some data or keep everything with the risk of unbounded memory use. ¯\<em>(ツ)</em>/¯</p>
@@ -582,7 +582,7 @@ see <a href="https://github.com/reactor/reactor-kafka">Reactor Kafka</a> where t
 They distinguish 2 types of optimization:</p>
 
 <ul>
-  <li>Macro Fusion: Merge operators in one during assembly time, for example, if the user does <code class="highlighter-rouge">.merge()</code> - <code class="highlighter-rouge">.merge()</code> - <code class="highlighter-rouge">.merge()</code> spring reactor is smart enough to put this in a single <code class="highlighter-rouge">.merge()</code></li>
+  <li>Macro Fusion: Merge operators in one during assembly time, for example, if the user does <code class="language-plaintext highlighter-rouge">.merge()</code> - <code class="language-plaintext highlighter-rouge">.merge()</code> - <code class="language-plaintext highlighter-rouge">.merge()</code> spring reactor is smart enough to put this in a single <code class="language-plaintext highlighter-rouge">.merge()</code></li>
   <li>Micro Fusion: Because of the Reactive specification and the asynchronous nature of the response, queues are heavily used, but creating a queue for every request/response is very costly.</li>
 </ul>
 
@@ -594,10 +594,10 @@ This is very smart to do - but also very complicated to do yourself, because Spr
 <h2 id="a-simpler-api">A Simpler API</h2>
 
 <p>Reactor: a Simpler API, the entire framework just fits in 1 jar: reactor-core jar.
-Flux and Mono live in the <code class="highlighter-rouge">reactor.com.publisher</code> package, <code class="highlighter-rouge">reactor.core.scheduler</code> contains the FIFO task executor.</p>
+Flux and Mono live in the <code class="language-plaintext highlighter-rouge">reactor.com.publisher</code> package, <code class="language-plaintext highlighter-rouge">reactor.core.scheduler</code> contains the FIFO task executor.</p>
 
-<p>By default the <code class="highlighter-rouge">Publisher</code> and <code class="highlighter-rouge">Subscriber</code> will use the same thread.
-With <code class="highlighter-rouge">publishOn()</code> the publisher can force the subscriber to use a different thread, while the subscriber can do the same with <code class="highlighter-rouge">subscribeOn()</code>.</p>
+<p>By default the <code class="language-plaintext highlighter-rouge">Publisher</code> and <code class="language-plaintext highlighter-rouge">Subscriber</code> will use the same thread.
+With <code class="language-plaintext highlighter-rouge">publishOn()</code> the publisher can force the subscriber to use a different thread, while the subscriber can do the same with <code class="language-plaintext highlighter-rouge">subscribeOn()</code>.</p>
 
 <p>For Reactor 3.x there will be more focus on the <a href="http://projectreactor.io/core/docs/api">javadoc</a>, as this has been lagging behind compared to the new features which have been developed.</p>
 

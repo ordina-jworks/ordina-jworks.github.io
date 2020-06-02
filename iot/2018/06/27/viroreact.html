@@ -221,9 +221,9 @@ All other components live in this scene.</p>
 <span class="nt">&lt;ViroARScene&gt;</span>
 </code></pre></div></div>
 
-<p>Just like many other components, the Scene comes in two variations: <code class="highlighter-rouge">ViroScene</code> and <code class="highlighter-rouge">ViroARScene</code>.
-As the name suggests <code class="highlighter-rouge">ViroARScene</code> is used for Augmented Reality applications
-while the <code class="highlighter-rouge">ViroScene</code> is meant for Virtual Reality.</p>
+<p>Just like many other components, the Scene comes in two variations: <code class="language-plaintext highlighter-rouge">ViroScene</code> and <code class="language-plaintext highlighter-rouge">ViroARScene</code>.
+As the name suggests <code class="language-plaintext highlighter-rouge">ViroARScene</code> is used for Augmented Reality applications
+while the <code class="language-plaintext highlighter-rouge">ViroScene</code> is meant for Virtual Reality.</p>
 
 <p>A <a href="https://docs.viromedia.com/docs/scene-navigation">ViroSceneNavigator</a> is used to navigate between these scenes.</p>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ViroSceneNavigator&gt;</span>
@@ -268,7 +268,7 @@ It basically is a window to another world.
 The Viro3DObject included in it acts like the window frame.</p>
 
 <p>A <a href="https://docs.viromedia.com/docs/viroarimagemarker">ViroARImageMarker</a> reacts when one of the ViroARTrackingTargets is scanned.
-It will show all the components inside the <code class="highlighter-rouge">ViroARImageMarker</code> tag.
+It will show all the components inside the <code class="language-plaintext highlighter-rouge">ViroARImageMarker</code> tag.
 We have used this in our little app, more on that <a href="#demo-application">below</a>.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ViroARImageMarker</span> <span class="na">target=</span><span class="s">{"targetOne"}</span><span class="nt">&gt;</span>
@@ -289,12 +289,12 @@ We have used this in our little app, more on that <a href="#demo-application">be
 <p>The <a href="https://docs.viromedia.com/docs/camera">Camera</a> component is our eyes.</p>
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ViroCamera</span> <span class="na">position=</span><span class="s">{[0,</span> <span class="err">0,</span> <span class="err">0]}</span> <span class="na">rotation=</span><span class="s">{[45,</span> <span class="err">0,</span> <span class="err">0])</span> <span class="na">active=</span><span class="s">{true}</span> <span class="nt">/&gt;</span>
 </code></pre></div></div>
-<p>A default camera is provided at the origin <code class="highlighter-rouge">position={[0, 0, 0]}</code>.
+<p>A default camera is provided at the origin <code class="language-plaintext highlighter-rouge">position={[0, 0, 0]}</code>.
 The camera always looks in the negative Z direction.
 So if you want an object to be visible as soon as the scene loads up, 
-make sure to set its position with a negative Z value <code class="highlighter-rouge">position={[0, 0, -5]}</code>. 
+make sure to set its position with a negative Z value <code class="language-plaintext highlighter-rouge">position={[0, 0, -5]}</code>. 
 If the object would have a positive Z value it would be placed behind you when you load up the scene.
-There is also a <code class="highlighter-rouge">ViroOrbitCamera</code> where the camera orbits around a certain position, always keeping it in view.</p>
+There is also a <code class="language-plaintext highlighter-rouge">ViroOrbitCamera</code> where the camera orbits around a certain position, always keeping it in view.</p>
 
 <p><a href="https://docs.viromedia.com/docs/3d-scene-lighting">Lights</a> are very important components in a scene.
 Without any light, the user wouldn’t see anything.
@@ -477,10 +477,10 @@ this will act as the marker to scan the meeting room information.</p>
     <img alt="stack" src="/img/2018-06-26-viroreact/m07-image-marker.png" class="image fit" style="margin:0px auto; max-width: 300px;" />
 </a></p>
 
-<p>I placed the marker image inside of the <code class="highlighter-rouge">**/js/res**</code> folder.</p>
+<p>I placed the marker image inside of the <code class="language-plaintext highlighter-rouge">**/js/res**</code> folder.</p>
 
 <p>Because the file extension was in capital letters (.JPG), 
-I had to configure this extension in the <code class="highlighter-rouge">rn-cli.config.js</code> file inside of the root folder.</p>
+I had to configure this extension in the <code class="language-plaintext highlighter-rouge">rn-cli.config.js</code> file inside of the root folder.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">getAssetExts</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">[</span><span class="dl">"</span><span class="s2">obj</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">mtl</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">JPG</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">vrx</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">hdr</span><span class="dl">"</span><span class="p">];</span>
@@ -523,7 +523,7 @@ The root component will be an AR Scene:</p>
 <p>We bind two events on the ViroARScene component, onAnchorFound and onClick. 
 Every time one of these events occurs, we want to fetch the latest meeting room state.</p>
 
-<p><code class="highlighter-rouge">onAnchorFound</code> gets called when the Image Marker has been detected.</p>
+<p><code class="language-plaintext highlighter-rouge">onAnchorFound</code> gets called when the Image Marker has been detected.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getInfo</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://rooms.meeting/rm7</span><span class="dl">'</span><span class="p">)</span>
@@ -570,7 +570,7 @@ This refers to the <strong>ViroARTrackingTarget</strong> we defined in the <stro
 <p>When the target is successfully scanned, all the content of the ViroARImageMarker component will be rendered.
 In our case, two TextViews positioned with a FlexView.</p>
 
-<p>We bind the data we fetched from in our <code class="highlighter-rouge">getInfo()</code> method to the ViroText and ViroFlexView components.</p>
+<p>We bind the data we fetched from in our <code class="language-plaintext highlighter-rouge">getInfo()</code> method to the ViroText and ViroFlexView components.</p>
 
 <p>And these are the styles we defined for the ViroText and ViroFlexView.</p>
 
@@ -716,7 +716,7 @@ In our case, two TextViews positioned with a FlexView.</p>
 <h4 id="step-3-load-your-marker-scene-on-application-startup">Step 3: Load your marker scene on application startup</h4>
 
 <p>Now that we have our scene, we can load it on start-up.
-In the root folder you can find the <code class="highlighter-rouge">app.js</code> file.
+In the root folder you can find the <code class="language-plaintext highlighter-rouge">app.js</code> file.
 Here we can define which scene to load when starting up the application.</p>
 
 <p>Assign your API key from ViroMedia.</p>

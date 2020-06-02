@@ -208,7 +208,7 @@ In other words, clean and up-to-date translation files!</p>
 
 <h2 id="key-features">Key features</h2>
 <ul>
-  <li>A large number of file formats are supported, ranging from <code class="highlighter-rouge">json</code> files to <code class="highlighter-rouge">csv</code> and <code class="highlighter-rouge">properties</code> files.
+  <li>A large number of file formats are supported, ranging from <code class="language-plaintext highlighter-rouge">json</code> files to <code class="language-plaintext highlighter-rouge">csv</code> and <code class="language-plaintext highlighter-rouge">properties</code> files.
 It can thus be used for Angular, React, Vue … applications as well as a Spring Boot service and so on.</li>
   <li>Crowdin has a very clever parser and detects thing such as HTML tags and variables.
 It will warn you if they are translated and no longer match the original tags/names.</li>
@@ -236,7 +236,7 @@ If not, you’ll need to create two separate projects on Crowdin.</p>
 
 <p>Once logged in, you can create a new project. 
 You can choose the source language and the languages you wish to translate to. 
-Then go to the project’s settings and then to <code class="highlighter-rouge">API</code>.
+Then go to the project’s settings and then to <code class="language-plaintext highlighter-rouge">API</code>.
 There you’ll find a project identifier and a API key. 
 We’ll need those later when setting up Crowdin in our project.</p>
 
@@ -244,17 +244,17 @@ We’ll need those later when setting up Crowdin in our project.</p>
 
 <h3 id="setup-in-your-project">Setup in your project</h3>
 <p>First we need to install the Crowdin CLI. 
-For Mac you can run <code class="highlighter-rouge">brew install crowdin</code>. 
+For Mac you can run <code class="language-plaintext highlighter-rouge">brew install crowdin</code>. 
 For Windows an <a href="https://support.crowdin.com/cli-tool/" target="_blank" rel="noopener noreferrer">installer</a> is available.</p>
 
-<p>Once installed, open a terminal and go to the root of your project and run <code class="highlighter-rouge">crowdin generate</code>.
-This will generate a <code class="highlighter-rouge">crowdin.yml</code> file that is used to configure Crowdin in your project.
+<p>Once installed, open a terminal and go to the root of your project and run <code class="language-plaintext highlighter-rouge">crowdin generate</code>.
+This will generate a <code class="language-plaintext highlighter-rouge">crowdin.yml</code> file that is used to configure Crowdin in your project.
 In that file four things need to be changed:</p>
 <ul>
-  <li><code class="highlighter-rouge">project_identifier</code>: the one you find under <code class="highlighter-rouge">API</code> on the Crowdin site</li>
-  <li><code class="highlighter-rouge">api_key</code>: also under <code class="highlighter-rouge">API</code></li>
-  <li><code class="highlighter-rouge">source</code>: this should point to the source translation file (e.g. in an Angular app <code class="highlighter-rouge">/src/assets/i18n/en.json</code>)</li>
-  <li><code class="highlighter-rouge">translation</code>: the translated files will end up here (e.g. <code class="highlighter-rouge">/src/assets/i18n/%two_letters_code%.json</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">project_identifier</code>: the one you find under <code class="language-plaintext highlighter-rouge">API</code> on the Crowdin site</li>
+  <li><code class="language-plaintext highlighter-rouge">api_key</code>: also under <code class="language-plaintext highlighter-rouge">API</code></li>
+  <li><code class="language-plaintext highlighter-rouge">source</code>: this should point to the source translation file (e.g. in an Angular app <code class="language-plaintext highlighter-rouge">/src/assets/i18n/en.json</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">translation</code>: the translated files will end up here (e.g. <code class="language-plaintext highlighter-rouge">/src/assets/i18n/%two_letters_code%.json</code>)</li>
 </ul>
 
 <blockquote>
@@ -275,21 +275,21 @@ I personally prefer integrating it with Git so we’ll get to that first.</p>
 </blockquote>
 
 <h4 id="git-integration">Git integration</h4>
-<p>On the Crowdin website, go to the project’s settings again, then to <code class="highlighter-rouge">Integration</code>.
-Choose the source control system you’re using and click on <code class="highlighter-rouge">Set Up Integration</code> (or choose <code class="highlighter-rouge">Enterprise</code> if you’re on a self-hosted version).
+<p>On the Crowdin website, go to the project’s settings again, then to <code class="language-plaintext highlighter-rouge">Integration</code>.
+Choose the source control system you’re using and click on <code class="language-plaintext highlighter-rouge">Set Up Integration</code> (or choose <code class="language-plaintext highlighter-rouge">Enterprise</code> if you’re on a self-hosted version).
 For GitHub and GitLab you’ll be redirected to their website to authorize Crowdin to use your account.
-If you chose <code class="highlighter-rouge">Enterprise</code> you’ll need to generate a token yourself and paste it into the correct field together with the URL to your self-hosted source control system.
+If you chose <code class="language-plaintext highlighter-rouge">Enterprise</code> you’ll need to generate a token yourself and paste it into the correct field together with the URL to your self-hosted source control system.
 Next you can choose which branches you want to watch for changes to the source language file and choose a name of the branch to where translations should be pushed.</p>
 <blockquote>
   <p>Which source branch you wish to use depends on your workflow. 
-In my case, we work with short-lived feature branches and once they are done, we merge them to the <code class="highlighter-rouge">master</code> branch.
-So, the <code class="highlighter-rouge">master</code> branch is the one being watched by Crowdin, since it will have all the correct source strings.</p>
+In my case, we work with short-lived feature branches and once they are done, we merge them to the <code class="language-plaintext highlighter-rouge">master</code> branch.
+So, the <code class="language-plaintext highlighter-rouge">master</code> branch is the one being watched by Crowdin, since it will have all the correct source strings.</p>
 </blockquote>
 
 <p><img class="image fit" style="margin:0px auto; max-width: 903px;" alt="Crowdin Git integration" src="/img/2018-11-05-managing-translations-with-crowdin/git_integration.png" /></p>
 
 <p>With this setup, each change to the source language file will be reflected on the Crowdin site.
-When a source string is translated and approved, Crowdin will push the translation to the target branch (e.g. <code class="highlighter-rouge">i18n_master</code>) and even open up a merge request for your review!</p>
+When a source string is translated and approved, Crowdin will push the translation to the target branch (e.g. <code class="language-plaintext highlighter-rouge">i18n_master</code>) and even open up a merge request for your review!</p>
 
 <p>A great benefit of this is that your stories don’t have to wait for all translations to be done.
 Translations are now the responsibility of the people that you appointed to do the translations.
@@ -300,16 +300,16 @@ When they do, you’ll be notified with a merge request!</p>
 There are two simple commands that let you upload the source files and download the translations.</p>
 
 <p>Upload:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crowdin upload sources
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crowdin upload sources
 </code></pre></div></div>
 
 <p>Download:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crowdin download
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crowdin download
 </code></pre></div></div>
 
 <h2 id="in-app-translations">In app translations</h2>
 <p>Another nifty feature is that you can do translations directly in you webapp.
-All you need to do is add a JavaScript snippet to your <code class="highlighter-rouge">index.html</code> and select a pseudo language called <code class="highlighter-rouge">Acholi</code>.
+All you need to do is add a JavaScript snippet to your <code class="language-plaintext highlighter-rouge">index.html</code> and select a pseudo language called <code class="language-plaintext highlighter-rouge">Acholi</code>.
 Crowdin will give unique identifiers to all of your source strings and use those as translations.
 Because of the snippet, these IDs will be located and replaced with translated strings for the language you’re translating to.
 You will also be able to edit the translations inline in your application and they will immediately be reflected on Crowdin.</p>

@@ -249,8 +249,8 @@ MongoDB mentions on there <a href="https://docs.atlas.mongodb.com/best-practices
 </div>
 
 <p>Items are coming in via requests through the API.
-The <code class="highlighter-rouge">APILambda</code> drops the items on a queue.<br />
-A second Lambda Function <code class="highlighter-rouge">SaveMongoDBLambda</code> stores the items in the MongoDB database.
+The <code class="language-plaintext highlighter-rouge">APILambda</code> drops the items on a queue.<br />
+A second Lambda Function <code class="language-plaintext highlighter-rouge">SaveMongoDBLambda</code> stores the items in the MongoDB database.
 Of this second Lambda Function I will measure the performance:</p>
 <ul>
   <li>during a cold start</li>
@@ -259,8 +259,8 @@ Of this second Lambda Function I will measure the performance:</p>
 
 <p>Other things important to know:</p>
 <ul>
-  <li>In the above setup I limit the maximum number of concurrently running Lambda Functions instances of the <code class="highlighter-rouge">SaveMongoDBLambda</code> to 10.</li>
-  <li>The Lambda Functions are written in <code class="highlighter-rouge">Java</code> which will add time to the coldstart performance compared to <code class="highlighter-rouge">Python</code> or <code class="highlighter-rouge">NodeJS</code>.</li>
+  <li>In the above setup I limit the maximum number of concurrently running Lambda Functions instances of the <code class="language-plaintext highlighter-rouge">SaveMongoDBLambda</code> to 10.</li>
+  <li>The Lambda Functions are written in <code class="language-plaintext highlighter-rouge">Java</code> which will add time to the coldstart performance compared to <code class="language-plaintext highlighter-rouge">Python</code> or <code class="language-plaintext highlighter-rouge">NodeJS</code>.</li>
   <li>In this case I am reading the items from the queue one by one. 
 Also storing them one by one.
 To optimize we would do this in batch.<br />
@@ -274,7 +274,7 @@ So we store them one by one.</li>
 <h2 id="the-results-analyzing-the-results-using-xray">The results: analyzing the results using XRAY</h2>
 <p>I am using the AWS Xray SDK to trace and analyze the requests flowing through the application.</p>
 
-<p>Here is a graph showing you the <code class="highlighter-rouge">Response Distribution</code> of the <code class="highlighter-rouge">SaveMongoDBLambda</code>. 
+<p>Here is a graph showing you the <code class="language-plaintext highlighter-rouge">Response Distribution</code> of the <code class="language-plaintext highlighter-rouge">SaveMongoDBLambda</code>. 
 Hence, this is the time that the Lambda Function took to execute.</p>
 
 <div style="text-align: center;">
@@ -349,7 +349,7 @@ In this VPC we will create a public subnet.<br />
 A route table will be associated with that subnet.
 In the route table we’ll define that we want to route all database traffic through the VPC peering connection towards the Atlas cluster.</p>
 
-<p>In the AWS User Interface navigate to the VPC dashboard and click <code class="highlighter-rouge">Launch VPC Wizard</code>.</p>
+<p>In the AWS User Interface navigate to the VPC dashboard and click <code class="language-plaintext highlighter-rouge">Launch VPC Wizard</code>.</p>
 
 <div style="text-align: center;">
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png" width="70%" height="70%" />
@@ -362,9 +362,9 @@ In the route table we’ll define that we want to route all database traffic thr
 </div>
 
 <p>Specify how big you want the IP range of this VPC to be.
-If you have trouble figuring out the relation between the <code class="highlighter-rouge">CIDR block</code> and the <code class="highlighter-rouge">Network Range</code> use one of the online converters to help you. (<a href="https://www.ipaddressguide.com/cidr" target="_blank" rel="noopener noreferrer">https://www.ipaddressguide.com/cidr</a>) )<br />
+If you have trouble figuring out the relation between the <code class="language-plaintext highlighter-rouge">CIDR block</code> and the <code class="language-plaintext highlighter-rouge">Network Range</code> use one of the online converters to help you. (<a href="https://www.ipaddressguide.com/cidr" target="_blank" rel="noopener noreferrer">https://www.ipaddressguide.com/cidr</a>) )<br />
 Give your VPC and public subnet a name.<br />
-Make sure that <code class="highlighter-rouge">enable DNS hostnames</code> is enabled.</p>
+Make sure that <code class="language-plaintext highlighter-rouge">enable DNS hostnames</code> is enabled.</p>
 
 <div style="text-align: center;">
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png" width="100%" height="100%" />
@@ -414,8 +414,8 @@ Write this security group identifier down.</li>
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png" width="70%" height="70%" />
 </div>
 
-<p>In the Atlas UI navigate to <code class="highlighter-rouge">Security</code> -&gt; <code class="highlighter-rouge">Network Access</code>.<br />
-Hit <code class="highlighter-rouge">+ new peering connection</code> and select AWS as cloud provider.<br />
+<p>In the Atlas UI navigate to <code class="language-plaintext highlighter-rouge">Security</code> -&gt; <code class="language-plaintext highlighter-rouge">Network Access</code>.<br />
+Hit <code class="language-plaintext highlighter-rouge">+ new peering connection</code> and select AWS as cloud provider.<br />
 The below screen will pop up. Here you have to specify some configuration.</p>
 <ul>
   <li>Account ID: your AWS account Id which you can find under the ‘My Account’ in the AWS console</li>
@@ -428,13 +428,13 @@ The below screen will pop up. Here you have to specify some configuration.</p>
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png" width="70%" height="70%" />
 </div>
 
-<p>Hit <code class="highlighter-rouge">Instantiate peering</code> !</p>
+<p>Hit <code class="language-plaintext highlighter-rouge">Instantiate peering</code> !</p>
 
 <div style="text-align: center;">
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png" width="70%" height="70%" />
 </div>
 
-<p>Notice that MongoDB created an <code class="highlighter-rouge">Atlas CIDR</code> which specifies the IP range in which your Atlas cluster will reside.  Write this down, you will need it later on.
+<p>Notice that MongoDB created an <code class="language-plaintext highlighter-rouge">Atlas CIDR</code> which specifies the IP range in which your Atlas cluster will reside.  Write this down, you will need it later on.
 We are connecting the Atlas IP range with the IP range of our AWS VPC, hence VPC peering.</p>
 
 <p>The peering connection is now pending.</p>
@@ -442,8 +442,8 @@ We are connecting the Atlas IP range with the IP range of our AWS VPC, hence VPC
 <p>Go back to AWS.</p>
 
 <h2 id="the-aws-side-again">The AWS side (again)</h2>
-<p>In the VPC service of AWS go to <code class="highlighter-rouge">Peering Connections</code>.<br />
-You will notice a new peering request with status <code class="highlighter-rouge">Pending Acceptance</code>.</p>
+<p>In the VPC service of AWS go to <code class="language-plaintext highlighter-rouge">Peering Connections</code>.<br />
+You will notice a new peering request with status <code class="language-plaintext highlighter-rouge">Pending Acceptance</code>.</p>
 <div style="text-align: center;">
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png" width="80%" height="80%" />
 </div>
@@ -451,7 +451,7 @@ You will notice a new peering request with status <code class="highlighter-rouge
 <p>Accept this peering request!</p>
 
 <p>Now you have to update your routing tables.
-AWS will also ask you <code class="highlighter-rouge">Do you want to update your routing tables</code> when you accept the peering request.  Click <code class="highlighter-rouge">Modify my route tables now</code>.
+AWS will also ask you <code class="language-plaintext highlighter-rouge">Do you want to update your routing tables</code> when you accept the peering request.  Click <code class="language-plaintext highlighter-rouge">Modify my route tables now</code>.
 We will deploy our Lambda Functions in the public subnet of our VPC.
 So we want to modify the route table that is associated with that subnet.
 You can recognize that route table because it has an <strong>explicit subnet association</strong>.</p>
@@ -460,10 +460,10 @@ You can recognize that route table because it has an <strong>explicit subnet ass
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png" width="100%" height="100%" />
 </div>
 
-<p>Selecting the route table with an <strong>explicit subnet association</strong> and click <code class="highlighter-rouge">edit routes</code>.
+<p>Selecting the route table with an <strong>explicit subnet association</strong> and click <code class="language-plaintext highlighter-rouge">edit routes</code>.
 Add a route towards your Atlas cluster as indicated in the image below.<br />
 What we are actually saying here is that we want to route all traffic to our Atlas cluster through the VPC peering connection.<br />
-As <code class="highlighter-rouge">Destination</code> choose the Atlas CIDR and under <code class="highlighter-rouge">Target</code> choose your VPC peering connection.</p>
+As <code class="language-plaintext highlighter-rouge">Destination</code> choose the Atlas CIDR and under <code class="language-plaintext highlighter-rouge">Target</code> choose your VPC peering connection.</p>
 
 <div style="text-align: center;">
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png" width="100%" height="100%" />
@@ -485,7 +485,7 @@ This Lambda Function will connect to your MongoDB Atlas Cluster via the vpc-peer
 You can then use it to store items in your MongoDB collection.<br />
 The repository can be found <a href="https://github.com/Nxtra/awslambda-mongodb-vpc-peering" target="_blank" rel="noopener noreferrer">here</a>.<br />
 Let me be clear and state that in a real world project you don’t want the password hard coded in the connection string.
-An option is to put it into <code class="highlighter-rouge">AWS Secret Manager</code> and have your lambda retrieve it there.</p>
+An option is to put it into <code class="language-plaintext highlighter-rouge">AWS Secret Manager</code> and have your lambda retrieve it there.</p>
 
 <p>You need to update certain config values in this project to make it work for your own vpc!
 To deploy a Lambda Function in your VPC you have to configure the VPC config:</p>
@@ -495,20 +495,20 @@ To deploy a Lambda Function in your VPC you have to configure the VPC config:</p
 You also have to update the connection string.</li>
 </ul>
 
-<p>The following instructions can also be found in the <code class="highlighter-rouge">README</code> of the project.</p>
+<p>The following instructions can also be found in the <code class="language-plaintext highlighter-rouge">README</code> of the project.</p>
 
-<p>In <code class="highlighter-rouge">template.yaml</code>:</p>
+<p>In <code class="language-plaintext highlighter-rouge">template.yaml</code>:</p>
 <ul>
   <li>update the environment variable that specifies the connection string, database  and collection to your own connection string, database and connection.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Environment:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Environment:
       Variables:
         MONGODB_CONNECTION_STRING: mongodb+srv://&lt;user&gt;:&lt;password&gt;@&lt;your-cluster&gt;.mongodb.net/test?retryWrites=true&amp;w=majority
         DATABASE: yourDatabaseName
         COLLECTION: yourCollectionName
 </code></pre></div>    </div>
   </li>
-  <li>update the <code class="highlighter-rouge">VpcConfig</code> with your own vpc security group and subnet:
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    VpcConfig:
+  <li>update the <code class="language-plaintext highlighter-rouge">VpcConfig</code> with your own vpc security group and subnet:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    VpcConfig:
       SecurityGroupIds:
         - sg-01004aee8e2eb4f33
       SubnetIds:
@@ -518,7 +518,7 @@ You also have to update the connection string.</li>
 </ul>
 
 <p>Deploy your Lambda functions to your VPC and test them out!
-Run <code class="highlighter-rouge">./deploy.sh</code> to deploy the Lambda Function to your account.
+Run <code class="language-plaintext highlighter-rouge">./deploy.sh</code> to deploy the Lambda Function to your account.
 Running this script successfully will output the URL on which you can send an item through the API towards the Lambda Function.</p>
 
 <div style="text-align: center;">
@@ -532,7 +532,7 @@ Running this script successfully will output the URL on which you can send an it
 </div>
 
 <p>Use this URL that was outputted to trigger the Lambda Function.
-This will return the <code class="highlighter-rouge">ObjectId</code> of the item in your MongoDB collection!</p>
+This will return the <code class="language-plaintext highlighter-rouge">ObjectId</code> of the item in your MongoDB collection!</p>
 
 <div style="text-align: center;">
   <img src="/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png" width="100%" height="100%" />

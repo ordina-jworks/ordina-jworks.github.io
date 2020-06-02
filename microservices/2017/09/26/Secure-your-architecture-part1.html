@@ -397,7 +397,7 @@ Having multiple frontends in our architecture, the user will have to log in to e
 With Single Sign-On (SSO) we can eradicate this problem just by using the existing user session and requesting an access token.</p>
 
 <h3 id="enable-oauth2-sso-flow-on-zuul-service">Enable OAuth2 SSO flow on Zuul service</h3>
-<p>The <code class="highlighter-rouge">@EnableOAuth2Sso</code>  and <code class="highlighter-rouge">@EnableZuulProxy</code> annotation on our Zuul service will forward OAuth2 tokens to the services it is proxying.</p>
+<p>The <code class="language-plaintext highlighter-rouge">@EnableOAuth2Sso</code>  and <code class="language-plaintext highlighter-rouge">@EnableZuulProxy</code> annotation on our Zuul service will forward OAuth2 tokens to the services it is proxying.</p>
 
 <h3 id="sensitive-headers">Sensitive Headers</h3>
 <p>Zuul secures your sensitive headers by blocking these headers downstream (microservice).
@@ -429,8 +429,8 @@ The next questions are:</p>
 <p>It is the responsibility of a microservice (Resource Server) to extract information about the user from the access token.
 Decoding the token allows the extraction of the user’s information.
 With this information Spring Security will assemble a Principal object containing eg. the username and the user’s roles, and puts it in the security context. 
-Using the security context the <code class="highlighter-rouge">AccessDecisionManager</code> will be able to make a decision whether or not the request should be performed.
-To enable this, we need to add spring security to our class path and add the <code class="highlighter-rouge">@EnableResourceServer</code> annotation to our application.</p>
+Using the security context the <code class="language-plaintext highlighter-rouge">AccessDecisionManager</code> will be able to make a decision whether or not the request should be performed.
+To enable this, we need to add spring security to our class path and add the <code class="language-plaintext highlighter-rouge">@EnableResourceServer</code> annotation to our application.</p>
 
 <h3 id="best-practices-with-keys">Best practices with keys</h3>
 <p>The problem that might occur is that <strong>every microservice</strong> would need to connect with the UAA server for verification on every request.</p>
@@ -454,20 +454,20 @@ We will go deeper into detail in one of our next posts.</p>
 <h3 id="securing-api-endpoints">Securing API endpoints</h3>
 <p>At last we’re going to secure our resources.
 Spring Security gives us a variety of tools to secure your application at class and method level.
-The one that’s used most often enables method security, which you enable by adding <code class="highlighter-rouge">@EnableGlobalMethodSecurity(prePostEnabled = true)</code> to your configuration.</p>
+The one that’s used most often enables method security, which you enable by adding <code class="language-plaintext highlighter-rouge">@EnableGlobalMethodSecurity(prePostEnabled = true)</code> to your configuration.</p>
 
 <h4 id="authority">Authority</h4>
 <p>For the authorization, Spring Security provides us with <a href="https://docs.spring.io/spring-security/site/docs/3.0.x/reference/authz-arch.html" target="_blank">authorities</a>, extracted from the access token.
-The authorities are placed inside a <a target="_blank" href="http://www.baeldung.com/get-user-in-spring-security"><code class="highlighter-rouge">Principal</code></a>, which will be used throughout the existing security context of your application.
+The authorities are placed inside a <a target="_blank" href="http://www.baeldung.com/get-user-in-spring-security"><code class="language-plaintext highlighter-rouge">Principal</code></a>, which will be used throughout the existing security context of your application.
 You can then reference them using Spring Expression Language (SpEL) to secure your methods.
 There are plenty of options you can use for method security, but we’ll highlight the most common ones.</p>
 
 <p>You can find a complete list in the <a href="https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html" target="_blank">Spring documentation</a></p>
 
 <h5 id="preauthorize">@PreAuthorize</h5>
-<p>Most commonly used, <code class="highlighter-rouge">@PreAuthorize</code> will decide whether a method can actually be invoked or not.</p>
+<p>Most commonly used, <code class="language-plaintext highlighter-rouge">@PreAuthorize</code> will decide whether a method can actually be invoked or not.</p>
 <blockquote>
-  <p>When a user logs in and you want the user to only access his detail information, or everyone’s data in case he’s an admin, you can use the <code class="highlighter-rouge">@PreAuthorize</code> annotation.</p>
+  <p>When a user logs in and you want the user to only access his detail information, or everyone’s data in case he’s an admin, you can use the <code class="language-plaintext highlighter-rouge">@PreAuthorize</code> annotation.</p>
 </blockquote>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@PreAuthorize</span><span class="o">(</span><span class="s">"(authentication.principal.uuid == #uuid.toString()) or hasRole('ADMIN')"</span><span class="o">)</span>

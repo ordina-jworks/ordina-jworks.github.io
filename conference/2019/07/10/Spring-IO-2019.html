@@ -293,25 +293,25 @@ For a good introduction to Spring Reactor you can read our <a href="https://ordi
 <p>Before Paul dove in the code he first explained <a href="https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html" target="_blank" rel="noopener noreferrer">Mono</a> and <a href="https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html" target="_blank" rel="noopener noreferrer">Flux</a>.</p>
 
 <h3 id="a-mono">a Mono</h3>
-<p>A Reactive Streams <code class="highlighter-rouge">Publisher</code> that emits none or a single element.
+<p>A Reactive Streams <code class="language-plaintext highlighter-rouge">Publisher</code> that emits none or a single element.
 <img alt="a Mono" src="/img/2019-05-16-Spring-IO-2019/mono.svg" class="image fit" style="margin:0px auto; max-width: 500px;" /></p>
 
 <h3 id="a-flux">a Flux</h3>
-<p>A <code class="highlighter-rouge">Publisher</code> that emits zero to N elements.
+<p>A <code class="language-plaintext highlighter-rouge">Publisher</code> that emits zero to N elements.
 <img alt="a Flux" src="/img/2019-05-16-Spring-IO-2019/flux.svg" class="image fit" style="margin:0px auto; max-width: 500px;" /></p>
 
 <p>Paul showed us a demo of how to make a legacy Maven Spring application reactive.
 In order to do so the following steps were taken:</p>
 <ul>
   <li>Add dependency to <a href="https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux" target="_blank" rel="noopener noreferrer">Spring Boot Starter WebFlux</a>.
-This is the reactive variant of <code class="highlighter-rouge">Web MVC</code>. 
+This is the reactive variant of <code class="language-plaintext highlighter-rouge">Web MVC</code>. 
 You shouldn’t need to change anything to keep it running unless you have used specific server features.</li>
-  <li>Convert the return of a <code class="highlighter-rouge">List</code> to a <code class="highlighter-rouge">Flux</code>.</li>
-  <li>Convert return types for repository methods to <code class="highlighter-rouge">Mono</code> or <code class="highlighter-rouge">Flux</code>.
+  <li>Convert the return of a <code class="language-plaintext highlighter-rouge">List</code> to a <code class="language-plaintext highlighter-rouge">Flux</code>.</li>
+  <li>Convert return types for repository methods to <code class="language-plaintext highlighter-rouge">Mono</code> or <code class="language-plaintext highlighter-rouge">Flux</code>.
     <ul>
-      <li>Use the static method <code class="highlighter-rouge">.justOrEmpty</code> of the <code class="highlighter-rouge">Mono</code> type in order to deal with an optional.</li>
-      <li>Use <code class="highlighter-rouge">.switchIfEmpty</code> to return a proper error response.</li>
-      <li>In order to return a <code class="highlighter-rouge">Flux</code>: use <code class="highlighter-rouge">fromIterable</code>.</li>
+      <li>Use the static method <code class="language-plaintext highlighter-rouge">.justOrEmpty</code> of the <code class="language-plaintext highlighter-rouge">Mono</code> type in order to deal with an optional.</li>
+      <li>Use <code class="language-plaintext highlighter-rouge">.switchIfEmpty</code> to return a proper error response.</li>
+      <li>In order to return a <code class="language-plaintext highlighter-rouge">Flux</code>: use <code class="language-plaintext highlighter-rouge">fromIterable</code>.</li>
     </ul>
   </li>
 </ul>
@@ -349,7 +349,7 @@ For example, if you are working in the development environment, then you might w
 <p>This can all be done with the power of Kubernetes and immutable images. 
 You can simply declare your environment variables in Kubernetes, then you can inject your environment in your Spring Boot application.</p>
 
-<p>There are three ways to access your environment variables in Spring Boot: profiles, <code class="highlighter-rouge">@Value</code> or <code class="highlighter-rouge">@ConfigurationProperties</code>.</p>
+<p>There are three ways to access your environment variables in Spring Boot: profiles, <code class="language-plaintext highlighter-rouge">@Value</code> or <code class="language-plaintext highlighter-rouge">@ConfigurationProperties</code>.</p>
 
 <p>To get started in Kubernetes, you have to create a few Kubernetes objects:</p>
 <ol>
@@ -407,7 +407,7 @@ To top it off, there’s support to generate PlantUML diagrams for documentation
 <p>There are of course other ways to divide your application into modules and maintain the architecture:</p>
 
 <h4 id="multiple-artifactsgradlemaven-modules">Multiple artifacts(gradle/maven modules).</h4>
-<p>You might get an explosion of artifacts and it can become kind of verbose with all the configuration(<code class="highlighter-rouge">pom.xml</code> or <code class="highlighter-rouge">build.gradle</code>) files.
+<p>You might get an explosion of artifacts and it can become kind of verbose with all the configuration(<code class="language-plaintext highlighter-rouge">pom.xml</code> or <code class="language-plaintext highlighter-rouge">build.gradle</code>) files.
 Additionally, the artifacts are redundant since we’re planning on deploying everything together anyway.
 There’s also no support to dynamically compose modules for tests since the dependencies are typically statically defined.</p>
 
@@ -563,7 +563,7 @@ Don’t start with one big module from the start.</p>
 <h4 id="step-5">Step 5:</h4>
 <p>Add module descriptors bottom-up.</p>
 
-<p>Create a new <code class="highlighter-rouge">module-info.java</code>.</p>
+<p>Create a new <code class="language-plaintext highlighter-rouge">module-info.java</code>.</p>
 
 <p>This first module has no external dependencies whatsoever making it very easy to define.
 You only need to indicate what your are going to expose.</p>
@@ -573,9 +573,9 @@ You only need to indicate what your are going to expose.</p>
     <span class="n">exports</span> <span class="n">nl</span><span class="o">.</span><span class="na">jaapcoomans</span><span class="o">.</span><span class="na">boardgame</span><span class="o">.</span><span class="na">domain</span><span class="o">.</span><span class="na">command</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>Note: you might need a newer version of the Maven Surefire Plugin; Jaap used version <code class="highlighter-rouge">3.0.0-M3</code>.</p>
+<p>Note: you might need a newer version of the Maven Surefire Plugin; Jaap used version <code class="language-plaintext highlighter-rouge">3.0.0-M3</code>.</p>
 
-<p>For a module which needs other modules, you will need to define a little bit more within the <code class="highlighter-rouge">module-info</code>.</p>
+<p>For a module which needs other modules, you will need to define a little bit more within the <code class="language-plaintext highlighter-rouge">module-info</code>.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">module</span> <span class="n">nl</span><span class="o">.</span><span class="na">jaapcoomans</span><span class="o">.</span><span class="na">boardgame</span><span class="o">.</span><span class="na">bgg</span> <span class="o">{</span>
     <span class="n">requires</span> <span class="n">nl</span><span class="o">.</span><span class="na">jaapcoomans</span><span class="o">.</span><span class="na">boardgame</span><span class="o">.</span><span class="na">domain</span><span class="o">;</span>
     <span class="c1">//requires com.sun.xml.bind;</span>
@@ -589,9 +589,9 @@ You only need to indicate what your are going to expose.</p>
 </code></pre></div></div>
 
 <ul>
-  <li><code class="highlighter-rouge">requires</code>: Defines the modules that you need.</li>
-  <li><code class="highlighter-rouge">exports</code>: The packages that you expose.</li>
-  <li><code class="highlighter-rouge">opens</code>: This means that this will make a module available for reflection (i.e. at runtime), that you might need for JAXB in this case.</li>
+  <li><code class="language-plaintext highlighter-rouge">requires</code>: Defines the modules that you need.</li>
+  <li><code class="language-plaintext highlighter-rouge">exports</code>: The packages that you expose.</li>
+  <li><code class="language-plaintext highlighter-rouge">opens</code>: This means that this will make a module available for reflection (i.e. at runtime), that you might need for JAXB in this case.</li>
 </ul>
 
 <p>Spring is not yet modular, but they did define automatic module names in all of their JARs.</p>
@@ -613,7 +613,7 @@ If you do not execute this step, your main application will still be using the c
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>You can also define <code class="highlighter-rouge">requires transitive</code>.</p>
+<p>You can also define <code class="language-plaintext highlighter-rouge">requires transitive</code>.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">module</span> <span class="n">nl</span><span class="o">.</span><span class="na">jaapcoomans</span><span class="o">.</span><span class="na">boardgame</span><span class="o">.</span><span class="na">persistence</span><span class="o">{</span>
     <span class="n">requires</span> <span class="n">transitive</span> <span class="n">nl</span><span class="o">.</span><span class="na">jaapcoommans</span><span class="o">.</span><span class="na">boardgame</span><span class="o">.</span><span class="na">domain</span><span class="o">;</span>
  <span class="o">}</span>
@@ -623,11 +623,11 @@ If you do not execute this step, your main application will still be using the c
 <h3 id="runtime-errors">Runtime Errors.</h3>
 
 <p>When you encounter runtime errors, you can pretty much copy paste the errors you get about opening the modules.
-Encountering <code class="highlighter-rouge">ClassNotFoundExceptions</code> hints at missing modules for which you should define a <code class="highlighter-rouge">requires</code> definition.</p>
+Encountering <code class="language-plaintext highlighter-rouge">ClassNotFoundExceptions</code> hints at missing modules for which you should define a <code class="language-plaintext highlighter-rouge">requires</code> definition.</p>
 
 <p>When you stop getting errors, this means that you have reached the next phase..</p>
 
-<p>Spring does use some of the internals of the JDK, which can be fixed by:<code class="highlighter-rouge">requires jdk.unsupported</code>.
+<p>Spring does use some of the internals of the JDK, which can be fixed by:<code class="language-plaintext highlighter-rouge">requires jdk.unsupported</code>.
 This does help you out for now, but the module name alone screams that you should not use it.</p>
 
 <h3 id="lessons-learned">Lessons Learned.</h3>
@@ -665,12 +665,12 @@ You can use an Avro Maven plugin for that.</p>
 But passing along a schema gives your consumers the option to verify that they can process the message or not.</p>
 
 <p><a href="https://spring.io/projects/spring-kafka" target="_blank" rel="noopener noreferrer">Spring Kafka</a> gives you <a href="https://docs.spring.io/spring-kafka/api/org/springframework/kafka/core/KafkaTemplate.html" target="_blank" rel="noopener noreferrer">KafkaTemplates</a> that you can use.
-The <code class="highlighter-rouge">KafkaTemplate</code> wraps a producer and provides you with some extra handy methods to send data to Kafka topics.
+The <code class="language-plaintext highlighter-rouge">KafkaTemplate</code> wraps a producer and provides you with some extra handy methods to send data to Kafka topics.
 For more information you can check out the reference guide to <a href="https://docs.spring.io/spring-kafka/reference/html/#kafka-template" target="_blank" rel="noopener noreferrer">use KafkaTemplates</a>.</p>
 
 <p>It is important that you think about the type of the key and the type of the value, serializer and deserializer.</p>
 
-<p>For this you will need to define a <code class="highlighter-rouge">DefaultKafkaProducerFactory</code> which will provide you with some default config options like:</p>
+<p>For this you will need to define a <code class="language-plaintext highlighter-rouge">DefaultKafkaProducerFactory</code> which will provide you with some default config options like:</p>
 <ul>
   <li>Bootstrap servers: where to find your Kafka.</li>
   <li>Schema registry URL: where to find your Avro schema registry.</li>
@@ -692,7 +692,7 @@ Ktable is the representation of state.</li>
 <p>Some final notes about Kafka Streams:</p>
 <ul>
   <li>
-    <p>Kafka streams allows you to visualize your topology in a Directed Acyclic Graph using <code class="highlighter-rouge">TopologyDescroption</code>.
+    <p>Kafka streams allows you to visualize your topology in a Directed Acyclic Graph using <code class="language-plaintext highlighter-rouge">TopologyDescroption</code>.
 For more info see this <a href="https://docs.confluent.io/current/streams/faq.html#visualizing-topologies" target="_blank" rel="noopener noreferrer">link</a>.</p>
   </li>
   <li>
@@ -700,9 +700,9 @@ For more info see this <a href="https://docs.confluent.io/current/streams/faq.ht
 Its state store is replicated within Kafka so it can restore it in case of failure.</p>
   </li>
   <li>
-    <p>Do not forget your <code class="highlighter-rouge">SerDes</code> when writing out Kafka Streams code.
-<code class="highlighter-rouge">Spring Cloud Stream</code> automatically converts to JSON but your <code class="highlighter-rouge">Kafka streams</code> code deals with binary data, so it needs to know how to serialize / deserialize. 
-Some of them are predefined by Kafka: <code class="highlighter-rouge">StringSerde</code>, <code class="highlighter-rouge">LongSerde</code> and <code class="highlighter-rouge">JsonSerdes</code>.</p>
+    <p>Do not forget your <code class="language-plaintext highlighter-rouge">SerDes</code> when writing out Kafka Streams code.
+<code class="language-plaintext highlighter-rouge">Spring Cloud Stream</code> automatically converts to JSON but your <code class="language-plaintext highlighter-rouge">Kafka streams</code> code deals with binary data, so it needs to know how to serialize / deserialize. 
+Some of them are predefined by Kafka: <code class="language-plaintext highlighter-rouge">StringSerde</code>, <code class="language-plaintext highlighter-rouge">LongSerde</code> and <code class="language-plaintext highlighter-rouge">JsonSerdes</code>.</p>
   </li>
 </ul>
 
@@ -744,19 +744,19 @@ Red and yellow colour means: not in Java user memory and ready for garbage colle
 <p>Spring Boot 2.2 has boosted performance.</p>
 <ul>
   <li>Classpath exclusion from Spring Boot web starters.</li>
-  <li><code class="highlighter-rouge">spring-context-indexer</code>: this is marginal but with a lot of beans it will have a bigger impact.</li>
+  <li><code class="language-plaintext highlighter-rouge">spring-context-indexer</code>: this is marginal but with a lot of beans it will have a bigger impact.</li>
   <li>Spring Actuators used to be costly for startup time, but no longer a big impact since the optimizations in Spring Boot 2.0.</li>
-  <li>Use explicit <code class="highlighter-rouge">spring.config.location</code>.</li>
-  <li>Switch of JMX <code class="highlighter-rouge">spring.jmx.enabled = false</code> (in 2.2 this is the default setting).</li>
+  <li>Use explicit <code class="language-plaintext highlighter-rouge">spring.config.location</code>.</li>
+  <li>Switch of JMX <code class="language-plaintext highlighter-rouge">spring.jmx.enabled = false</code> (in 2.2 this is the default setting).</li>
   <li>Make bean definitions lazy by default.
 In production you might not want this because if a bean is lazy loaded, the application might not fail on startup.
 It can make sense to do this during development in order to improve development time.</li>
-  <li>Unpack the fat JAR and run it by specifying the explicit classpath as <code class="highlighter-rouge">java --jar</code> is little bit slower compared to using <code class="highlighter-rouge">java --cp</code>.</li>
-  <li>Run the JVM with <code class="highlighter-rouge">-noverify</code> and consider <code class="highlighter-rouge">-XX:TieredStopAtLevel=1</code>.
+  <li>Unpack the fat JAR and run it by specifying the explicit classpath as <code class="language-plaintext highlighter-rouge">java --jar</code> is little bit slower compared to using <code class="language-plaintext highlighter-rouge">java --cp</code>.</li>
+  <li>Run the JVM with <code class="language-plaintext highlighter-rouge">-noverify</code> and consider <code class="language-plaintext highlighter-rouge">-XX:TieredStopAtLevel=1</code>.
     <ul>
       <li>All JVM experts will tell you not to do this.</li>
-      <li><code class="highlighter-rouge">-noverify</code> will gain you 40% time with any app but it does not validate byte code which is less interesting in production as the JVM will just crash and show you no exception whatsoever.</li>
-      <li><code class="highlighter-rouge">-XX:TieredStopAtLevel=1</code> this deals with the JIT compiler, will gain you around 10% with any app.</li>
+      <li><code class="language-plaintext highlighter-rouge">-noverify</code> will gain you 40% time with any app but it does not validate byte code which is less interesting in production as the JVM will just crash and show you no exception whatsoever.</li>
+      <li><code class="language-plaintext highlighter-rouge">-XX:TieredStopAtLevel=1</code> this deals with the JIT compiler, will gain you around 10% with any app.</li>
     </ul>
   </li>
   <li>Import auto configuration manually as it is not needed and might give you a small speed gain.</li>
@@ -776,13 +776,13 @@ It can make sense to do this during development in order to improve development 
 <p>Other Remarks:</p>
 <ul>
   <li>The Hibernate team is pretty aware of the GC issues and have done serious optimizations around it.</li>
-  <li>Lazy beans: Pay attention to custom beans with an expensive <code class="highlighter-rouge">@PostConstruct</code>.
+  <li>Lazy beans: Pay attention to custom beans with an expensive <code class="language-plaintext highlighter-rouge">@PostConstruct</code>.
 It tends to be misused for opening files, accessing database, which tends to block up the startup.</li>
-  <li>You can try using <code class="highlighter-rouge">@ImportAutoConfiguration</code> but then you need to know which <code class="highlighter-rouge">AutoConfigurations</code> you need to include.
+  <li>You can try using <code class="language-plaintext highlighter-rouge">@ImportAutoConfiguration</code> but then you need to know which <code class="language-plaintext highlighter-rouge">AutoConfigurations</code> you need to include.
 Discovering that is the hard part.</li>
   <li>Functional Bean Definitions: 
-If you use <code class="highlighter-rouge">@Configuration</code> then you make use of reflection.
-You can implement an <code class="highlighter-rouge">ApplicationContextInitializer</code> which makes you reflection free, but it is a bit harder to implement.</li>
+If you use <code class="language-plaintext highlighter-rouge">@Configuration</code> then you make use of reflection.
+You can implement an <code class="language-plaintext highlighter-rouge">ApplicationContextInitializer</code> which makes you reflection free, but it is a bit harder to implement.</li>
   <li>CPU constrained environments benefit from native images built with <a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/" target="_blank" rel="noopener noreferrer">GraalVM</a>.</li>
 </ul>
 
@@ -802,7 +802,7 @@ He gave a presentation about the differences between Kubernetes and Cloud Foundr
 He showed us this live with Spring Boot application which was deployed on both Kubernetes and Cloud Foundry.</p>
 
 <h3 id="cloud-foundry">Cloud Foundry</h3>
-<p>To deploy your application on Cloud Foundry, you simply have to run one command: <code class="highlighter-rouge">cf push</code> (under the assumption that you have the CLI installed and configured).
+<p>To deploy your application on Cloud Foundry, you simply have to run one command: <code class="language-plaintext highlighter-rouge">cf push</code> (under the assumption that you have the CLI installed and configured).
 This will send your whole codebase to Cloud Foundry, which then builds a container for your application and runs it. 
 Cloud Foundry does not use Docker images, only containers.
 The thing with Cloud Foundry is that it uses containers behind-the-scenes, but as a CF user, you don’t really notice it.</p>
@@ -911,8 +911,8 @@ Unit testing is all round mocking external services and dependencies.
 After all, in a unit tests we are under the assumption that all our external dependencies are working as they should.</p>
 
 <h3 id="integration-testing">Integration Testing</h3>
-<p>Andy gave us a detailed explanation of how the various testing annotations work such as <code class="highlighter-rouge">@SpringBootTest</code>, which gives us a more Spring Boot way of testing our application (which means less configuration, hooray!). 
-<code class="highlighter-rouge">@SpyBean</code> and <code class="highlighter-rouge">@MockBean</code> to create a mock or spy object of a Spring Component, <code class="highlighter-rouge">@ActiveProfiles</code> to run your test class with a specific profile, etc.</p>
+<p>Andy gave us a detailed explanation of how the various testing annotations work such as <code class="language-plaintext highlighter-rouge">@SpringBootTest</code>, which gives us a more Spring Boot way of testing our application (which means less configuration, hooray!). 
+<code class="language-plaintext highlighter-rouge">@SpyBean</code> and <code class="language-plaintext highlighter-rouge">@MockBean</code> to create a mock or spy object of a Spring Component, <code class="language-plaintext highlighter-rouge">@ActiveProfiles</code> to run your test class with a specific profile, etc.</p>
 
 <h4 id="testing-against-databases">Testing Against Databases</h4>
 <p>One of the more appearing problems in integration testing is working with a database. 
@@ -953,8 +953,8 @@ Olga Maciaszek and Marcin Grzejszczak showed us the new solutions for Gateway pr
 <h3 id="the-world-is-changing">The world is changing</h3>
 
 <h4 id="spring-cloud-load-balancer">Spring Cloud Load Balancer</h4>
-<p>Client side load balancing via the <code class="highlighter-rouge">@LoadBalancerClient</code> annotation.
-Use the <code class="highlighter-rouge">@LoadBalanced</code> annotation as a marker annotation to indicate that a <code class="highlighter-rouge">RibbonLoadBalancingClient</code> should be used to interact with a service.</p>
+<p>Client side load balancing via the <code class="language-plaintext highlighter-rouge">@LoadBalancerClient</code> annotation.
+Use the <code class="language-plaintext highlighter-rouge">@LoadBalanced</code> annotation as a marker annotation to indicate that a <code class="language-plaintext highlighter-rouge">RibbonLoadBalancingClient</code> should be used to interact with a service.</p>
 
 <h4 id="spring-cloud-gateway">Spring Cloud Gateway</h4>
 <p>Via routes your requests are processed to downstream services.

@@ -185,7 +185,7 @@ It can integrate with Google Storage, Cloud Source Repositories, GitHub and BitB
 Each build step is defined using a container image and passing arguments to it.
 Here is an example:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steps:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steps:
   # Test Helm templates
   - name: 'quay.io/helmpack/chart-testing:v2.2.0'
     id: 'Helm Lint'
@@ -225,24 +225,24 @@ the first 120 build minutes are free every day!</p>
 
 <p>If the build finishes successfully,
 Cloud Build will automatically upload the built images to the container registry.
-This is based on the images defined in the <code class="highlighter-rouge">images</code> array.</p>
+This is based on the images defined in the <code class="language-plaintext highlighter-rouge">images</code> array.</p>
 
 <p>Data usually needs be shared between steps.
 We might want to download dependencies in one step,
 and build your artifact in another step,
 or run tests in a separate step.
 Google has provided a simple solution for this.
-Each build step has access to the <code class="highlighter-rouge">/workspace</code> folder, 
+Each build step has access to the <code class="language-plaintext highlighter-rouge">/workspace</code> folder, 
 which is mounted on the container of each step.
 Each build has access to its own workspace folder,
 which is deleted automatically after the build finishes.</p>
 
 <p>In the above example, 
-a custom Docker tag is created and saved to the <code class="highlighter-rouge">/workspace/_TAG</code> file,
+a custom Docker tag is created and saved to the <code class="language-plaintext highlighter-rouge">/workspace/_TAG</code> file,
 and then read from again in the next step.</p>
 
 <p>To start the build, 
-we can use the <code class="highlighter-rouge">gcloud builds submit</code> command,
+we can use the <code class="language-plaintext highlighter-rouge">gcloud builds submit</code> command,
 or create an automatic trigger on the Google Cloud console that triggers the build on new commits in the Git repository.
 After adding a trigger, 
 we can also trigger the build manually in the Google Cloud console.</p>
@@ -253,28 +253,28 @@ we can also trigger the build manually in the Google Cloud console.</p>
 
 <p>We can override substitutions when submitting a build:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ gcloud builds submit --config=cloudbuild.yaml \
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ gcloud builds submit --config=cloudbuild.yaml \
      --substitutions=TAG_NAME="test"
 </code></pre></div></div>
 
 <p>Cloud Build provides the following default substitutions:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">$PROJECT_ID</code>: <code class="highlighter-rouge">build.ProjectId</code></li>
-  <li><code class="highlighter-rouge">$BUILD_ID</code>: <code class="highlighter-rouge">build.BuildId</code></li>
-  <li><code class="highlighter-rouge">$COMMIT_SHA</code>: <code class="highlighter-rouge">build.SourceProvenance.ResolvedRepoSource.Revision.CommitSha</code> (only available for triggered builds)</li>
-  <li><code class="highlighter-rouge">$SHORT_SHA</code> : The first seven characters of <code class="highlighter-rouge">COMMIT_SHA</code> (only available for triggered builds)</li>
-  <li><code class="highlighter-rouge">$REPO_NAME</code>: <code class="highlighter-rouge">build.Source.RepoSource.RepoName</code> (only available for triggered builds)</li>
-  <li><code class="highlighter-rouge">$BRANCH_NAME</code>: <code class="highlighter-rouge">build.Source.RepoSource.Revision.BranchName</code> (only available for triggered builds)</li>
-  <li><code class="highlighter-rouge">$TAG_NAME</code>: <code class="highlighter-rouge">build.Source.RepoSource.Revision.TagName</code> (only available for triggered builds)</li>
-  <li><code class="highlighter-rouge">$REVISION_ID</code>: <code class="highlighter-rouge">build.SourceProvenance.ResolvedRepoSource.Revision.CommitSha</code> (only available for triggered builds)</li>
+  <li><code class="language-plaintext highlighter-rouge">$PROJECT_ID</code>: <code class="language-plaintext highlighter-rouge">build.ProjectId</code></li>
+  <li><code class="language-plaintext highlighter-rouge">$BUILD_ID</code>: <code class="language-plaintext highlighter-rouge">build.BuildId</code></li>
+  <li><code class="language-plaintext highlighter-rouge">$COMMIT_SHA</code>: <code class="language-plaintext highlighter-rouge">build.SourceProvenance.ResolvedRepoSource.Revision.CommitSha</code> (only available for triggered builds)</li>
+  <li><code class="language-plaintext highlighter-rouge">$SHORT_SHA</code> : The first seven characters of <code class="language-plaintext highlighter-rouge">COMMIT_SHA</code> (only available for triggered builds)</li>
+  <li><code class="language-plaintext highlighter-rouge">$REPO_NAME</code>: <code class="language-plaintext highlighter-rouge">build.Source.RepoSource.RepoName</code> (only available for triggered builds)</li>
+  <li><code class="language-plaintext highlighter-rouge">$BRANCH_NAME</code>: <code class="language-plaintext highlighter-rouge">build.Source.RepoSource.Revision.BranchName</code> (only available for triggered builds)</li>
+  <li><code class="language-plaintext highlighter-rouge">$TAG_NAME</code>: <code class="language-plaintext highlighter-rouge">build.Source.RepoSource.Revision.TagName</code> (only available for triggered builds)</li>
+  <li><code class="language-plaintext highlighter-rouge">$REVISION_ID</code>: <code class="language-plaintext highlighter-rouge">build.SourceProvenance.ResolvedRepoSource.Revision.CommitSha</code> (only available for triggered builds)</li>
 </ul>
 
-<p>We can use <code class="highlighter-rouge">substitions</code> to define our own custom parameters.
-Note that the name of the substitution must start with an underscore (<code class="highlighter-rouge">_</code>),
+<p>We can use <code class="language-plaintext highlighter-rouge">substitions</code> to define our own custom parameters.
+Note that the name of the substitution must start with an underscore (<code class="language-plaintext highlighter-rouge">_</code>),
 and can only use uppercase alphanumeric characters. Example:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>substitutions:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>substitutions:
     _CUSTOM_PARAM_1: foo # default value
     _CUSTOM_PARAM_2: bar # default value
 images: [
@@ -292,11 +292,11 @@ but once we have set it up,
 we can start encrypting our build secrets.</p>
 
 <p>First, we will need to give Cloud Build access to KMS by adding the <strong>Cloud KMS CryptoKey Decrypter</strong> role
-to our <code class="highlighter-rouge">...@cloudbuild.gserviceaccount.com</code> service account.</p>
+to our <code class="language-plaintext highlighter-rouge">...@cloudbuild.gserviceaccount.com</code> service account.</p>
 
 <p>Encrypt our secret with KMS:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud kms encrypt \
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud kms encrypt \
   --plaintext-file=secrets.json \
   --ciphertext-file=secrets.json.enc \
   --location=global \
@@ -307,7 +307,7 @@ to our <code class="highlighter-rouge">...@cloudbuild.gserviceaccount.com</code>
 <p>This will create an encrypted file which we can add to our application’s source code.
 Using KMS, we can decrypt this secret in our Cloud Build pipeline:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steps:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steps:
 - name: gcr.io/cloud-builders/gcloud
   args:
   - kms
@@ -326,46 +326,46 @@ which then can be used in subsequent steps.</p>
 
 <p>When creating a build pipeline, 
 we do not need to keep pushing our code to the source repository to trigger a build.
-We can use the <code class="highlighter-rouge">cloud-build-local</code> tool to run our build locally,
+We can use the <code class="language-plaintext highlighter-rouge">cloud-build-local</code> tool to run our build locally,
 using the Google Cloud SDK and Docker.</p>
 
-<p>If we are using the Cloud Builder images (<code class="highlighter-rouge">gcr.io/cloud-builders/...</code>),
+<p>If we are using the Cloud Builder images (<code class="language-plaintext highlighter-rouge">gcr.io/cloud-builders/...</code>),
 we must first configure our Google Cloud SDK to be able to pull the images:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configure Docker
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configure Docker
 $ gcloud components install docker-credential-gcr
 $ docker-credential-gcr configure-docker
 </code></pre></div></div>
 
-<p>Then install the <code class="highlighter-rouge">cloud-build-local</code> tool:</p>
+<p>Then install the <code class="language-plaintext highlighter-rouge">cloud-build-local</code> tool:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud components install cloud-build-local
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gcloud components install cloud-build-local
 </code></pre></div></div>
 
 <p>Now we can use the tool to test our build pipeline locally!</p>
 
 <p>To build locally, we run the following command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cloud-build-local --config=[CONFIG FILE] \
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cloud-build-local --config=[CONFIG FILE] \
   --dryrun=false \
   --push \
   [SOURCE_CODE]
 </code></pre></div></div>
 
 <ul>
-  <li><code class="highlighter-rouge">CONFIG FILE</code> is our Cloud Build YAML config file</li>
-  <li><code class="highlighter-rouge">SOURCE_CODE</code> is the path to our source code</li>
-  <li><code class="highlighter-rouge">--dryrun=false</code> will cause our build to actually run. 
-This is <code class="highlighter-rouge">true</code> by default and we must enable this explicitly to cause the containers to execute.</li>
-  <li><code class="highlighter-rouge">--push</code> will cause the built images defined in <code class="highlighter-rouge">images</code> to be pushed to the registry.</li>
+  <li><code class="language-plaintext highlighter-rouge">CONFIG FILE</code> is our Cloud Build YAML config file</li>
+  <li><code class="language-plaintext highlighter-rouge">SOURCE_CODE</code> is the path to our source code</li>
+  <li><code class="language-plaintext highlighter-rouge">--dryrun=false</code> will cause our build to actually run. 
+This is <code class="language-plaintext highlighter-rouge">true</code> by default and we must enable this explicitly to cause the containers to execute.</li>
+  <li><code class="language-plaintext highlighter-rouge">--push</code> will cause the built images defined in <code class="language-plaintext highlighter-rouge">images</code> to be pushed to the registry.</li>
 </ul>
 
-<p>If we use some of the default substitions like <code class="highlighter-rouge">$COMMIT_SHA</code> in our build,
-we must pass these in with the <code class="highlighter-rouge">--substitions</code> flag in key=value pairs,
+<p>If we use some of the default substitions like <code class="language-plaintext highlighter-rouge">$COMMIT_SHA</code> in our build,
+we must pass these in with the <code class="language-plaintext highlighter-rouge">--substitions</code> flag in key=value pairs,
 separated by commas.
 Example:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ cloud-build-local --config=cloud-build.yaml \
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ cloud-build-local --config=cloud-build.yaml \
    --dryrun=false \
    --substitutions COMMIT_SHA=$(git rev-parse HEAD),BRANCH_NAME=$(git rev-parse  --abbrev-ref HEAD) \ 
    /path/to/source
@@ -377,10 +377,10 @@ as mentioned before,
 will be removed after the build finishes.
 If we want to debug our build and check what happened in the workspace folder,
 then we can copy the artifacts to a path on our computer,
-using the <code class="highlighter-rouge">--write-workspace</code> flag.
+using the <code class="language-plaintext highlighter-rouge">--write-workspace</code> flag.
 Note that this path must reside outside of our source folder!</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cloud-build-local --config=cloud-build.yaml \
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cloud-build-local --config=cloud-build.yaml \
    --dryrun=false \
    --write-workspace=/path/on/computer \
    /path/to/source
@@ -393,7 +393,7 @@ Notifications to our team’s chat,
 triggering a deployment pipeline,
 monitoring our build. 
 These are just a few examples.
-Cloud Build pushes build events to Pub/Sub on the <code class="highlighter-rouge">cloud-builds</code> topic.
+Cloud Build pushes build events to Pub/Sub on the <code class="language-plaintext highlighter-rouge">cloud-builds</code> topic.
 This topic is created automatically when Cloud Build is used.</p>
 
 <p>We can easily create a subscription on this topic. 
@@ -402,7 +402,7 @@ The first one is a push subscription,
 which pushes the message to a HTTP endpoint you define.
 In this case messages are delivered the moment the event is published on the topic.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "message": {
     "attributes": {
       "buildId": "abcd-efgh...",
@@ -417,7 +417,7 @@ In this case messages are delivered the moment the event is published on the top
 
 <p>Messages that are received using a pull subscription have the following format:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "receivedMessages": [
     {
       "ackId": "dQNNHlAbEGEIBERNK0EPKVgUWQYyODM2LwgRHFEZDDsLRk1SK...",
@@ -437,7 +437,7 @@ In this case messages are delivered the moment the event is published on the top
 <p>Each message contains the Base64 encoded event of the <a href="https://cloud.google.com/cloud-build/docs/api/reference/rest/v1/projects.builds" target="_blank" rel="noopener noreferrer">Build resource</a>.
 Here is an example:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "id": "a0e322f2-5d8d-4d56-a2b5-05cc18a350af",
   "projectId": "myproject",
   "status": "SUCCESS",
@@ -556,35 +556,35 @@ but only when the build is queued, starts or ends.</p>
   <tbody>
     <tr>
       <td>The build is queued</td>
-      <td><code class="highlighter-rouge">QUEUED</code></td>
+      <td><code class="language-plaintext highlighter-rouge">QUEUED</code></td>
     </tr>
     <tr>
       <td>The build starts</td>
-      <td><code class="highlighter-rouge">WORKING</code></td>
+      <td><code class="language-plaintext highlighter-rouge">WORKING</code></td>
     </tr>
     <tr>
       <td>The build is successful</td>
-      <td><code class="highlighter-rouge">SUCCESS</code></td>
+      <td><code class="language-plaintext highlighter-rouge">SUCCESS</code></td>
     </tr>
     <tr>
       <td>Build is cancelled</td>
-      <td><code class="highlighter-rouge">CANCELLED</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CANCELLED</code></td>
     </tr>
     <tr>
       <td>Build times out</td>
-      <td><code class="highlighter-rouge">TIMEOUT</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TIMEOUT</code></td>
     </tr>
     <tr>
       <td>Step times out</td>
-      <td><code class="highlighter-rouge">TIMEOUT</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TIMEOUT</code></td>
     </tr>
     <tr>
       <td>Build failed</td>
-      <td><code class="highlighter-rouge">FAILURE</code></td>
+      <td><code class="language-plaintext highlighter-rouge">FAILURE</code></td>
     </tr>
     <tr>
       <td>Internal error by Google Cloud Build</td>
-      <td><code class="highlighter-rouge">INTERNAL_ERROR</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTERNAL_ERROR</code></td>
     </tr>
   </tbody>
 </table>
@@ -598,7 +598,7 @@ which sends build updates to a Slack webhook.</p>
 <p>It receives the build event, reads the Base64 encoded data,
 converts it into a Slack message and triggers the webhook with the created message.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const IncomingWebhook = require('@slack/client').IncomingWebhook;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const IncomingWebhook = require('@slack/client').IncomingWebhook;
 const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/XXXXXXXXXXXXXX";
 const WEBHOOK = new IncomingWebHook(SLACK_WEBHOOK_URL);
 

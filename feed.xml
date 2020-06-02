@@ -1,5 +1,167 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-05-15T14:03:35+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Frontend Developer Love 2020</title><link href="https://ordina-jworks.github.io/conference/2020/05/15/frontend-developer-love-2020.html" rel="alternate" type="text/html" title="Frontend Developer Love 2020" /><published>2020-05-15T00:00:00+00:00</published><updated>2020-05-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2020/05/15/frontend-developer-love-2020</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2020/05/15/frontend-developer-love-2020.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-06-02T13:06:38+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">From 6 weeks to 90 minutes: let Terraform do your work</title><link href="https://ordina-jworks.github.io/cloud/2020/06/02/terraform.html" rel="alternate" type="text/html" title="From 6 weeks to 90 minutes: let Terraform do your work" /><published>2020-06-02T00:00:00+00:00</published><updated>2020-06-02T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/06/02/terraform</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/06/02/terraform.html">&lt;h3 id=&quot;reading-time-7-minutes-and-2-seconds&quot;&gt;Reading time: 7 minutes and 2 seconds&lt;/h3&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-much-infrastructure-can-you-get-in-6-weeks-time&quot;&gt;How much infrastructure can you get in 6 weeks time&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-use-terraform-to-supercharge-infrastructure-provisioning&quot;&gt;Why use Terraform to supercharge infrastructure provisioning&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-to-structure-terraform-to-allow-for-a-two-second-tire-change&quot;&gt;How to structure Terraform to allow for a two second tire change&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-can-you-beat-us&quot;&gt;How can you beat us&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#where-to-draw-a-line-everything-in-terraform&quot;&gt;Where to draw a line, everything in terraform&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#finally-two-golden-tips-when-using-terraform&quot;&gt;Finally, two golden tips when using Terraform&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;how-much-infrastructure-can-you-get-in-6-weeks-time&quot;&gt;How much infrastructure can you get in 6 weeks time&lt;/h2&gt;
+
+&lt;p&gt;The landscape discussed in this post is used to host a set of applications for a large corporation to assist one of their core products.
+The end-goal of this platform is to support their target market across Europe.&lt;/p&gt;
+
+&lt;p&gt;A single environment consists of a namespace on a shared OpenShift cluster, a database and a reverse proxy.
+In order to spin up a new environment to onboard a new development team the following steps need to be executed:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Order resources on the shared OpenShift cluster: ticket 1 for the OpenShift team&lt;/li&gt;
+  &lt;li&gt;Order a reverse proxy: ticket 2 for reverse proxy team&lt;/li&gt;
+  &lt;li&gt;Order a database: ticket 3 for the database team&lt;/li&gt;
+  &lt;li&gt;Order a DNS record for the environment to point to OpenShift routers: ticket 4 for the DNS team&lt;/li&gt;
+  &lt;li&gt;Create a new environment in environment repository&lt;/li&gt;
+  &lt;li&gt;Run a Jenkins job to create certificates for the environment&lt;/li&gt;
+  &lt;li&gt;Update the credentials for the new database in online tooling&lt;/li&gt;
+  &lt;li&gt;Update the credentials for the new database in offline password storage&lt;/li&gt;
+  &lt;li&gt;Git-encrypt the database credentials and put them in the environment repository&lt;/li&gt;
+  &lt;li&gt;Update the database connection details in environment repository&lt;/li&gt;
+  &lt;li&gt;Run an Ansible playbook to create a new namespace in OpenShift and set up the base configuration for the namespace (Docker registry credentials, custom service accounts, …)&lt;/li&gt;
+  &lt;li&gt;Sync OpenShift service account credentials into Jenkins credential store&lt;/li&gt;
+  &lt;li&gt;Roll out Jenkins to add the new credentials by starting a Jenkins job executing an Ansible playbook&lt;/li&gt;
+  &lt;li&gt;Create reverse proxy configuration in reverse proxy repository&lt;/li&gt;
+  &lt;li&gt;Use a self-service portal to request access for Jenkins to update the configuration on the reverse proxy&lt;/li&gt;
+  &lt;li&gt;Roll out the reverse proxy configuration using a Jenkins job&lt;/li&gt;
+  &lt;li&gt;Roll out the environment configuration and application landscape to the new namespace through a Jenkins job that runs OC process and OC applies using the configuration&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This sums up the best-case scenario.
+Since it requires multiple teams to perform disconnected tasks at different times, errors are frequent and slow to resolve.
+Next to that, there is a lot of manual work.
+This work includes copy and pasting configuration from different sources into different repositories and systems.
+Since any manual action, especially involving copying data between locations, is prone to errors, this introduces even more failure points.
+Combining the time it takes for tickets to be executed, copying the manual configuration to the correct locations and the debugging involved in getting the environment online results in lead times expressed in weeks.
+On one occasion the lead time to set up a single environment for a new team escalated to 6 weeks.
+Due to the high lead times at least 1 or 2 spare environments are provisioned in order to provide teams with at least a minimal environment to start working with.
+This of course introduces additional cost.&lt;/p&gt;
+
+&lt;p&gt;High lead times, human errors and unnecessary operational costs were the main issues of this manual process.
+Since the decision was made to migrate to the public cloud, timing was perfect.
+Moving to a different infrastructure provided the perfect opportunity to optimize and automate this process.
+The expectation was to reduce the lead times to hours, minimize human errors, and minimize capital and operational costs when providing a development team with a new environment.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-use-terraform-to-supercharge-infrastructure-provisioning&quot;&gt;Why use Terraform to supercharge infrastructure provisioning&lt;/h2&gt;
+
+&lt;p&gt;As mentioned, one of the main triggers to revisit our infrastructure setup and look into automation was the move to public cloud.
+We selected Azure as the cloud provider.
+The reasons why Azure was selected are beyond the scope of this blog post.
+We might discus this in a future blog post though.&lt;/p&gt;
+
+&lt;p&gt;The logical choice for automating the infrastructure provisioning would be ARM templates, since this is the native provided way for infrastructure as code in Azure.
+Together with an external ARM expert, we attempted to set up the target infrastructure using this template technology.
+Unfortunately, multiple walls were hit due to the nature of the corporate setup on Azure.
+One of the limitations that were hit, was the inability for ARM to make changes to resources that were provided by a central team.
+More specifically, using a VNET that wasn’t managed by ARM to deploy an Azure Kubernetes Service proved to be difficult or even impossible.&lt;/p&gt;
+
+&lt;p&gt;Using the CLI and scripts to create the setup was attempted as well, but this didn’t fit the vision of a declarative setup for provisioning infrastructure.
+Re-applying the same scripts either broke the setup or created additional, unneeded resources.
+A clear no-go.&lt;/p&gt;
+
+&lt;p&gt;As a third option, Terraform was investigated.
+It adhered to the vision of declarative definitions and all the components required by the landscape were available in the Azure Terraform provider.
+Some basic setups were created and it showed great potential for the required setup.
+Terraform roll outs proved to be more stable and the import mechanism properly supports using components which aren’t fully managed by Terraform.
+So Terraform to the rescue!&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-structure-terraform-to-allow-for-a-two-second-tire-change&quot;&gt;How to structure Terraform to allow for a two second tire change&lt;/h2&gt;
+
+&lt;p&gt;One of the challenges of creating a Terraform setup is to determine a way to structure the code.
+Looking online provided more questions than answers.
+A lot of documentation can be found about how to structure a specific module or how to create modules, but almost no resources discuss how to structure the modules into logical, reusable components.&lt;/p&gt;
+
+&lt;p&gt;The setup was divided into two different categories: managed services wrappers and standardized setup modules.&lt;/p&gt;
+
+&lt;p&gt;The first category is quite straight forward.
+For every managed service that is being used, a module is created.
+This module includes all the required Terraform resources for that service to operate.
+For example, the key vault module contains the Azure Key Vault Terraform resource, but also the role assignments for the different Active Directory groups that require access to that key vault.
+Another example is the container registry module.
+It contains the Azure Container Registry (ACR) Terraform resource, some role assignments and the Azure Monitoring Diagnostics Settings for making sure the ACR logs are shipped into the correct logs analytics bucket.
+This abstraction allows for opinionated grouping of resources that are required for a managed service to operate.&lt;/p&gt;
+
+&lt;p&gt;The second category is a grouping of modules of the first category in order to provide a complete package of features.
+This set of modules are the ones that are actually provisioned during a deployment.
+Currently, only two of these modules exist: a cluster module and a namespace module.&lt;/p&gt;
+
+&lt;p&gt;The cluster module contains all modules required to set up the shared resources for all environments with a similar purpose.
+For example, all resources shared by all development environments.
+This module contains the Kubernetes cluster module, multiple resource group modules, a key vault module, networking modules and modules that configure identity and role management.
+This module is used once per cluster, meaning once for development, acceptance and production respectively.&lt;/p&gt;
+
+&lt;p&gt;The second module is used to set up a namespace for a specific purpose: an environment for a development team, a specific testing environment or a rock-solid production environment.
+This module contains the DNS zone configuration, an API gateway module, another key vault module and a database module.&lt;/p&gt;
+
+&lt;p&gt;These cluster and namespace modules are then used in a single Terraform module per cluster: meaning a single module for the development cluster together with all namespaces in that cluster.
+This makes making changes to the infrastructure as easy as running a single Jenkins job executing that module.
+We decided to version the modules and created specific modules for development, acceptance and production.
+This separation, in combination with the versioning, has allowed us to test module updates and upgrades of the configuration upfront.
+Similar to deploying application code to an acceptence or test environment before rolling it into production.&lt;/p&gt;
+
+&lt;h2 id=&quot;where-to-draw-a-line-everything-in-terraform&quot;&gt;Where to draw a line, everything in terraform&lt;/h2&gt;
+
+&lt;p&gt;When we first started using Terraform, we were tempted to configure the entire landscape using it.
+A good example was the API manager setup we were using.
+The Terraform setup included detailed configuration of the application it was hosting.
+Another example was a Kubernetes Terraform module we created, that beside infrastructure related setup for storage classes, was also creating service accounts for operators we were running.
+This leakage of concerns made it hard to maintain, but it also introduced duplication of configuration towards the application deployment.
+We decided to take a stricter approach, and consider two main responsibilities: orchestration and provisioning.
+Orchestration could be translated to an engineer that would take a screwdriver and set up all the required infrastructure.
+The outcome of this work would be the minimum needed setup to start using the services and configure them for actual use.
+Provisioning is the work that comes after this, and doesn’t require a screwdriver, or being near the box.
+We decided that the orchestration part, setting up the infrastructure, is where we use Terraform exclusively.
+The provisioning part, where we start to configure the infrastructure to work with our application, is where we use tools that are native to the application deployment.
+We didn’t get there immediately though.
+In early iterations, we had split it into two Terraform runs: an orchestration run and a configuration run.
+In later iterations we were able to replace the configuration runs with components that were closer to the application landscape, which was a combination of privileged Kustomize deployment runs and building our own Kubernetes operators.
+A good rule of thumb is; if you can tie the component you are configuring to something that has meaning in the application domain, it should be managed in the application landscape.
+Another good indication that the application domain leaked into the infrastructure domain is when you have to re-orchestrate your infrastructure together with application changes.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-can-you-beat-us&quot;&gt;How can you beat us&lt;/h2&gt;
+
+&lt;p&gt;With this setup, lead-time for provisioning an environment went down from 6 weeks of ticketing magic to just a 90 minute Jenkins run.
+The decision to adopt Terraform helped us to minimize human errors, and has enabled us to deploy new environments by a single push of a button.
+Infrastructure upgrades have become more and more stable over the adoption period and the different modules have matured to the point where they barely change anymore.&lt;/p&gt;
+
+&lt;p&gt;The work being done by the Azure Terraform provider community has helped tremendously.
+They release new versions of the provider every week.
+They aren’t at feature parity with ARM, not by a long shot, but at the pace they are adding support for features, they will catch up very fast.
+The provider is also very stable and if an issue occurs (like &lt;a href=&quot;https://github.com/terraform-providers/terraform-provider-azurerm/issues/6525&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;this&lt;/a&gt; AKS bug) it’s fixed within the next release.&lt;/p&gt;
+
+&lt;h2 id=&quot;finally-two-golden-tips-when-using-terraform&quot;&gt;Finally, two golden tips when using Terraform&lt;/h2&gt;
+
+&lt;p&gt;The first is to start using remote state storage as soon as possible when using Terraform.
+It provides an easy way to get an accurate Terraform plan which in turn provides an accurate overview of the actions Terraform will execute during the roll-out.&lt;/p&gt;
+
+&lt;p&gt;The second one is to roll out the modules often and validate their effects by running tests against them.
+Test either outcome, not just the configuration.
+The further up the application stack these tests run, the better.
+In our current setup, the infrastructure runs are part of a nightly test which performs the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Completely trash the test infrastructure&lt;/li&gt;
+  &lt;li&gt;Deploy the infrastructure based on the latest configuration&lt;/li&gt;
+  &lt;li&gt;Deploy the application landscape on top of it&lt;/li&gt;
+  &lt;li&gt;Run the application landscape end-to-end tests against that freshly created setup&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Every morning the team smiles when the build is green or (less often now) starts figuring out which component broke and fix it immediately.&lt;/p&gt;
+
+&lt;p&gt;Special thanks to Vincent van Dam for co-writing this post.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="Terraform" /><category term="Configuration Management" /><category term="Infrastructure-as-code" /><category term="Cloud" /><summary type="html">Reading time: 7 minutes and 2 seconds</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-05-30-terraform/terraform.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-05-30-terraform/terraform.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Frontend Developer Love 2020</title><link href="https://ordina-jworks.github.io/conference/2020/05/15/frontend-developer-love-2020.html" rel="alternate" type="text/html" title="Frontend Developer Love 2020" /><published>2020-05-15T00:00:00+00:00</published><updated>2020-05-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2020/05/15/frontend-developer-love-2020</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2020/05/15/frontend-developer-love-2020.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
@@ -54,13 +216,13 @@ Even if that means following weird office hours…&lt;/p&gt;
 While most frontend developers use CLIs these days, a lot can be learned from actually writing a Webpack config so that you know what your favourite CLI is generating.
 With the latest Webpack we now have TypeScript support in our Webpack config file.
 He also described the several key components of a Webpack config.
-Such as the &lt;code class=&quot;highlighter-rouge&quot;&gt;entry&lt;/code&gt; element which denotes the base of your module tree.&lt;/p&gt;
+Such as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;entry&lt;/code&gt; element which denotes the base of your module tree.&lt;/p&gt;
 
 &lt;p&gt;In the end Johannes gave a couple of tips to create a good Webpack along with some tips for your code to decrease the bundle size that Webpack will generate:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Most apps will have a good bundle size just by setting the Webpack &lt;code class=&quot;highlighter-rouge&quot;&gt;mode&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;production&lt;/code&gt;. You don’t need to overthink your configuration, Webpack already optimises a lot for you&lt;/li&gt;
-  &lt;li&gt;Lazy load modules with the use of &lt;code class=&quot;highlighter-rouge&quot;&gt;import()&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Most apps will have a good bundle size just by setting the Webpack &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mode&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;production&lt;/code&gt;. You don’t need to overthink your configuration, Webpack already optimises a lot for you&lt;/li&gt;
+  &lt;li&gt;Lazy load modules with the use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;import()&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;Check &lt;a href=&quot;https://bundlephobia.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;bundlephobia.com&lt;/a&gt; to determine if a bundle could be replaced by something more lightweight or more tree-shakeable&lt;/li&gt;
   &lt;li&gt;Measure the performance with a tool like &lt;a href=&quot;https://developers.google.com/web/tools/lighthouse/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lighthouse&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Don’t overestimate long-term caching. It is ok for fonts, images and CSS but caching whole pages could be not as rewarding for the amount of effort you need to put into it&lt;/li&gt;
@@ -77,7 +239,7 @@ But what does that mean?
 Alexander tried to explain why Svelte is such a great framework.
 To start with, Svelte is &lt;a href=&quot;https://svelte.dev/blog/svelte-3-rethinking-reactivity&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;truly reactive&lt;/a&gt;.
 While in most frameworks you need to call certain functions like a ‘set’ or ‘setState’, Svelte parses your JS to add reactivity.
-So a basic statement like &lt;code class=&quot;highlighter-rouge&quot;&gt;count += 1;&lt;/code&gt; will be reactive as all code that relies on the value of &lt;code class=&quot;highlighter-rouge&quot;&gt;count&lt;/code&gt; will be updated.
+So a basic statement like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;count += 1;&lt;/code&gt; will be reactive as all code that relies on the value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;count&lt;/code&gt; will be updated.
 An example Svelte component could look like this:&lt;/p&gt;
 &lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
 	&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -98,7 +260,7 @@ An example Svelte component could look like this:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;As you can see, we have grouped everything of the component into one file: styling, the script and the HTML code.
 Between the style tags, you can put your regular CSS.
-Between the script tags, you can put JavaScript while your HTML can reference anything that you’ve defined within your script tag such as &lt;code class=&quot;highlighter-rouge&quot;&gt;count&lt;/code&gt;.
+Between the script tags, you can put JavaScript while your HTML can reference anything that you’ve defined within your script tag such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;count&lt;/code&gt;.
 This allows for the creation of small readable components that anybody, even someone without prior knowledge of Svelte can read.&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -132,7 +294,7 @@ As a result, they can decrease the amount of work that backenders need to do, th
 While the &lt;a href=&quot;https://www.selenium.dev/projects/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Selenium WebDriver&lt;/a&gt; can be considered as Genesis, we have seen a steady rise of different e2e frameworks.
 If you’re looking for an all-in-one solution, &lt;a href=&quot;https://www.cypress.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cypress&lt;/a&gt; is the obvious choice.
 But we have some other options although they might not be all-in-one solutions.
-&lt;a href=&quot;https://pptr.dev/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Puppeteer&lt;/a&gt; for example is a quicker alternative as its only task is to control a browser so you can add your own testrunner like &lt;code class=&quot;highlighter-rouge&quot;&gt;jest&lt;/code&gt;.
+&lt;a href=&quot;https://pptr.dev/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Puppeteer&lt;/a&gt; for example is a quicker alternative as its only task is to control a browser so you can add your own testrunner like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jest&lt;/code&gt;.
 But while Puppeteer is a valid choice, there is a new kid on the block called &lt;a href=&quot;https://github.com/microsoft/playwright&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PlayWright&lt;/a&gt;.
 PlayWright is built by the same Puppeteer people who now work for Microsoft.
 It is a Node library to automate the Chromium, Webkit and Firefox browsers with a single API.&lt;/p&gt;
@@ -167,7 +329,7 @@ For example, we can emulate that we visit a website from a specific location wit
 &lt;/blockquote&gt;
 
 &lt;h1 id=&quot;practical-a11y-for-web-apps-by-bob-bijvoet&quot;&gt;Practical a11y for web apps, by Bob Bijvoet&lt;/h1&gt;
-&lt;p&gt;Even before you start writing a11y specific HTML such as the &lt;code class=&quot;highlighter-rouge&quot;&gt;aria-label&lt;/code&gt; attribute, we can take certain tips into consideration to make our web apps more accessible.
+&lt;p&gt;Even before you start writing a11y specific HTML such as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aria-label&lt;/code&gt; attribute, we can take certain tips into consideration to make our web apps more accessible.
 As a start, our pages should be perceivable:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -219,7 +381,7 @@ It is best to keep in mind that:&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;During her talk, Emma showcased her live coding skills as she took a full screen menu and animated it with the use of &lt;a href=&quot;https://www.react-spring.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;React-spring&lt;/a&gt;.
-React-spring looks to be an interesting library that exposes hooks such as &lt;code class=&quot;highlighter-rouge&quot;&gt;useSpring()&lt;/code&gt; to easily configure animations.
+React-spring looks to be an interesting library that exposes hooks such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;useSpring()&lt;/code&gt; to easily configure animations.
 Having for example a menu slide in from the top of your page with a change in opacity, could be something as simple as this in your component:&lt;/p&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fullMenuVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setFullMenuVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;useState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -229,7 +391,7 @@ Having for example a menu slide in from the top of your page with a change in op
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;After that you can add &lt;code class=&quot;highlighter-rouge&quot;&gt;fullMenuAnimation&lt;/code&gt; to your HTML with the react-spring factory &lt;code class=&quot;highlighter-rouge&quot;&gt;animated&lt;/code&gt;.
+&lt;p&gt;After that you can add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fullMenuAnimation&lt;/code&gt; to your HTML with the react-spring factory &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;animated&lt;/code&gt;.
 A menu can thus end up like this:&lt;/p&gt;
 
 &lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;animated&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;className=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;menu menu--full&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{fullMenuAnimation}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
@@ -293,10 +455,10 @@ There are multiple options to integrate a GraphQL API in your project without ha
 Roy highlighted two of them.&lt;/p&gt;
 
 &lt;p&gt;The first one was &lt;a href=&quot;https://www.apollographql.com/docs/link/links/rest/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;apollo-link-rest&lt;/a&gt;.
-This allows you to call REST endpoints from within your GraphQL queries while having all your data managed by &lt;code class=&quot;highlighter-rouge&quot;&gt;ApolloClient&lt;/code&gt;.
+This allows you to call REST endpoints from within your GraphQL queries while having all your data managed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApolloClient&lt;/code&gt;.
 These REST endpoints can be bundled together in the same GraphQL query so that getting information about a product with ID 3 and data about its rating and categories, might end up like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;query getProduct {
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;query getProduct {
 	product @rest(type: &quot;Product&quot;, path: &quot;product/3&quot;) {
 		id
 		name
@@ -366,7 +528,7 @@ An example she gave of a decorator to add a store to your components is this:&lt
 &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;After activating the decorator with &lt;code class=&quot;highlighter-rouge&quot;&gt;addDecorator(withStore)&lt;/code&gt;, your components will have access to the store.
+&lt;p&gt;After activating the decorator with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;addDecorator(withStore)&lt;/code&gt;, your components will have access to the store.
 So now you can make your examples in Storybook even more linked to the real use of the components.&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -425,8 +587,8 @@ A typical Blazor project has the following structure:&lt;/p&gt;
   &lt;li&gt;/Shared&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In this structure, your whole frontend is situated in &lt;code class=&quot;highlighter-rouge&quot;&gt;/Client&lt;/code&gt; while all your backend code is situated in &lt;code class=&quot;highlighter-rouge&quot;&gt;/Server&lt;/code&gt;.
-If you are in need of any code sharing, you can put it into &lt;code class=&quot;highlighter-rouge&quot;&gt;/Shared&lt;/code&gt; and it will be available in both &lt;code class=&quot;highlighter-rouge&quot;&gt;/Client&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;/Server&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In this structure, your whole frontend is situated in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/Client&lt;/code&gt; while all your backend code is situated in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/Server&lt;/code&gt;.
+If you are in need of any code sharing, you can put it into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/Shared&lt;/code&gt; and it will be available in both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/Client&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/Server&lt;/code&gt;.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Check out &lt;a href=&quot;https://www.youtube.com/watch?v=ZAFqw952GQM&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Don’s talk&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/donwibier&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Don’s Twitter&lt;/a&gt; and &lt;a href=&quot;https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Blazor&lt;/a&gt;&lt;/p&gt;
@@ -509,7 +671,7 @@ The advantage of WASM lies in the fast calculations that can be done.&lt;/p&gt;
 
 &lt;p&gt;To write WASM, you can look at multiple higher-level languages that compile to WASM code.
 If you’re a fan of C/C++, the tool &lt;a href=&quot;https://github.com/emscripten-core&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Emscripten&lt;/a&gt; helps you out by compiling a C/C++ module to an HTML page.
-For the Rust lovers, you can simply annotate a function with &lt;code class=&quot;highlighter-rouge&quot;&gt;#[wasm_bindgen]&lt;/code&gt; to activate the &lt;a href=&quot;https://rustwasm.github.io/wasm-bindgen/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;wasm-bindgen library&lt;/a&gt; and allowing to compile a WASM function.
+For the Rust lovers, you can simply annotate a function with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#[wasm_bindgen]&lt;/code&gt; to activate the &lt;a href=&quot;https://rustwasm.github.io/wasm-bindgen/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;wasm-bindgen library&lt;/a&gt; and allowing to compile a WASM function.
 For the TypeScript lovers, there is a strict subset of TypeScript called &lt;a href=&quot;https://docs.assemblyscript.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AssemblyScript&lt;/a&gt; that allows for compilation.&lt;/p&gt;
 
 &lt;p&gt;So the tools are already there to write WASM code but the future looks really bright as multiple features are currently being specified:&lt;/p&gt;
@@ -581,11 +743,11 @@ You no longer need a Dockerfile in your project, Jib is perfectly capable of han
 
 &lt;p&gt;You can try the Jib plugin by either using your current Java project or by cloning the &lt;a href=&quot;#https://github.com/spring-projects/spring-petclinic&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Pet Clinic Sample Application&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Once you have your project open in your IDE, open the &lt;code class=&quot;highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt; (Maven) or &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; (Gradle) file to start adding the Jib plugin. 
+&lt;p&gt;Once you have your project open in your IDE, open the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt; (Maven) or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; (Gradle) file to start adding the Jib plugin. 
 Don’t forget to build a fresh JAR!&lt;/p&gt;
 
 &lt;h3 id=&quot;gradle&quot;&gt;Gradle&lt;/h3&gt;
-&lt;p&gt;To use &lt;a href=&quot;https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jib in Gradle&lt;/a&gt;, you first need to add the plugin to your &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file. You can do this in the &lt;code class=&quot;highlighter-rouge&quot;&gt;plugins&lt;/code&gt; block.&lt;/p&gt;
+&lt;p&gt;To use &lt;a href=&quot;https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jib in Gradle&lt;/a&gt;, you first need to add the plugin to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file. You can do this in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plugins&lt;/code&gt; block.&lt;/p&gt;
 
 &lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plugins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
@@ -609,13 +771,13 @@ Don’t forget to build a fresh JAR!&lt;/p&gt;
 
 &lt;p&gt;Now you can run the following command:&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gradle jib&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gradle jib&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;maven&quot;&gt;Maven&lt;/h3&gt;
 &lt;p&gt;With &lt;a href=&quot;https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jib for Maven&lt;/a&gt;, the configuration is more or less the same as in Gradle, except that you need to write it in XML.&lt;/p&gt;
 
 &lt;p&gt;In Maven, you have to add your preferred configuration with the plugin declaration. 
-Add the following in the &lt;code class=&quot;highlighter-rouge&quot;&gt;plugins&lt;/code&gt; element:&lt;/p&gt;
+Add the following in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plugins&lt;/code&gt; element:&lt;/p&gt;
 
 &lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.google.cloud.tools&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
@@ -631,10 +793,10 @@ Add the following in the &lt;code class=&quot;highlighter-rouge&quot;&gt;plugins
 
 &lt;p&gt;You can trigger the Jib plugin with the following command:&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mvn compile jib:build&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mvn compile jib:build&lt;/code&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;p&gt;The plugin configuration tells Jib that, whenever Jib gets triggered, it should build an image named &lt;code class=&quot;highlighter-rouge&quot;&gt;yolanv/jib-demo&lt;/code&gt; with the corresponding image tag.
+&lt;p&gt;The plugin configuration tells Jib that, whenever Jib gets triggered, it should build an image named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yolanv/jib-demo&lt;/code&gt; with the corresponding image tag.
 Running the command will trigger Jib to start building and pushing your Docker image.&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
@@ -1018,7 +1180,7 @@ UPDATE: Unfortunately nothing came out of it.
 You can create libraries, for example about authentication, that each team in your organisation can include in their application and if an update should be needed to that library, the tooling you use can automatically build each (and only those) application that include that library.&lt;/p&gt;
 
 &lt;p&gt;When talking about monorepo’s within frontend development communities, Nrwl’s Nx solution will certainly be mentioned.
-It allows to create a workspace in which all your applications might exist together, using one single &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;, no longer solely focused on Angular, but also React, simple web applications or NodeJS applications.
+It allows to create a workspace in which all your applications might exist together, using one single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt;, no longer solely focused on Angular, but also React, simple web applications or NodeJS applications.
 It also includes some useful tslint extensions and scripts to automate build steps using a dependency graph.&lt;/p&gt;
 
 &lt;p&gt;But what happens when you have a lot of applications in your organisation?
@@ -1038,13 +1200,13 @@ Git will not populate the contents of those files, which makes a sparse checkout
 &lt;/blockquote&gt;
 
 &lt;p&gt;In short, it allows you to checkout only a part of the repository, and when committing, only those folders that are checked out will also be committed to.
-It’s a bit like &lt;code class=&quot;highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt;, but local only.
+It’s a bit like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt;, but local only.
 It doesn’t affect the repository itself.&lt;/p&gt;
 
-&lt;p&gt;The information for which files to checkout is stored in a file &lt;code class=&quot;highlighter-rouge&quot;&gt;$GIT_DIR/info/sparse-checkout&lt;/code&gt; and the contents have a similar syntax of the &lt;code class=&quot;highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file.
-So using a line like &lt;code class=&quot;highlighter-rouge&quot;&gt;!/folder/my-folder-to-ignore&lt;/code&gt; would remove that folder from your working directory, while never affecting it on the remote repository.&lt;/p&gt;
+&lt;p&gt;The information for which files to checkout is stored in a file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GIT_DIR/info/sparse-checkout&lt;/code&gt; and the contents have a similar syntax of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file.
+So using a line like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!/folder/my-folder-to-ignore&lt;/code&gt; would remove that folder from your working directory, while never affecting it on the remote repository.&lt;/p&gt;
 
-&lt;p&gt;Now the idea is to remove those folders that are irrelevant to the project you’re working on by adding their paths to the &lt;code class=&quot;highlighter-rouge&quot;&gt;sparse-checkout&lt;/code&gt; file.
+&lt;p&gt;Now the idea is to remove those folders that are irrelevant to the project you’re working on by adding their paths to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sparse-checkout&lt;/code&gt; file.
 When a new checkout is performed, the changes in the file are applied and you would have a little less clutter in your workspace.&lt;/p&gt;
 
 &lt;p&gt;If you want to know more details and some extra commands, read &lt;a href=&quot;https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/&quot;&gt;this GitHub blog post&lt;/a&gt; from Derrick Stolee.&lt;/p&gt;
@@ -1060,9 +1222,9 @@ I used the idea from &lt;a href=&quot;https://twitter.com/kwintenp&quot;&gt;Kwin
 &lt;/div&gt;
 
 &lt;p&gt;The tool allows you to choose the projects you want to checkout (either comma-separated or interactive) and then uses Nx’s dependency graph to determine which projects your selection is depending on and adds those to the list of projects to checkout.
-It then sets all projects that are not needed to be ignored using the &lt;code class=&quot;highlighter-rouge&quot;&gt;sparse-checkout&lt;/code&gt; file.
-This way all other files (like &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;tsconfig.json&lt;/code&gt;, etc…) and other folders (like tools) are still available to you.
-Resetting can be done by either selecting everything or passing the &lt;code class=&quot;highlighter-rouge&quot;&gt;--all&lt;/code&gt; parameter.&lt;/p&gt;
+It then sets all projects that are not needed to be ignored using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sparse-checkout&lt;/code&gt; file.
+This way all other files (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tsconfig.json&lt;/code&gt;, etc…) and other folders (like tools) are still available to you.
+Resetting can be done by either selecting everything or passing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--all&lt;/code&gt; parameter.&lt;/p&gt;
 
 &lt;p&gt;Using this technique, you have the advantages of a monorepo, while not having to deal with an enormous folder structure.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Monorepo" /><category term="Nx" /><category term="Git" /><summary type="html">The problem</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-03-31-nx-sparse-checkout/header.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-03-31-nx-sparse-checkout/header.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Healthcare on FHIR</title><link href="https://ordina-jworks.github.io/ehealth/2020/03/28/Healthcare-on-FHIR.html" rel="alternate" type="text/html" title="Healthcare on FHIR" /><published>2020-03-28T00:00:00+00:00</published><updated>2020-03-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/ehealth/2020/03/28/Healthcare-on-FHIR</id><content type="html" xml:base="https://ordina-jworks.github.io/ehealth/2020/03/28/Healthcare-on-FHIR.html">&lt;h1 id=&quot;and-then-there-was-fhir&quot;&gt;And then there was FHIR&lt;/h1&gt;
 &lt;p&gt;The healthcare industry is currently buried under mountains of data, and much of it is unorganized or out of reach. For instance, care givers who are responsible for emergency care may not always have access to the patient’s history they need.
@@ -1815,20 +1977,20 @@ For these API calls, as well as testing, we used &lt;a href=&quot;https://nestjs
 For the Telegram adapter, we used &lt;a href=&quot;https://spring.io/projects/spring-boot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Boot&lt;/a&gt; and Java instead to experiment with different technologies.&lt;/p&gt;
 
 &lt;p&gt;To get all useful information out of the Teams message, we use the &lt;a href=&quot;https://docs.microsoft.com/en-gb/azure/bot-service/javascript/bot-builder-javascript-quickstart?view=azure-bot-service-4.0&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Microsoft BotFramework&lt;/a&gt;. 
-During this conversion, we add a prefix to the id: &lt;code class=&quot;highlighter-rouge&quot;&gt;teams-prod:&lt;/code&gt;. 
+During this conversion, we add a prefix to the id: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;teams-prod:&lt;/code&gt;. 
 This prefix makes it possible for the Gateway to know that the message came from the Teams bot in the production environment and thus send it back to the correct bot.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt=&quot;TEAMSINDETAIL&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/TEAMSINDETAIL.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The BotFramework provides methods to get a conversation’s context, and reply to the correct user using that context.
-Hence, we see the &lt;code class=&quot;highlighter-rouge&quot;&gt;turnContext.sendActivities()&lt;/code&gt; method used to reply to a user.
+Hence, we see the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;turnContext.sendActivities()&lt;/code&gt; method used to reply to a user.
 We used the NodeJS version of the BotFramework, and used a map to save the conversation references. 
 The reference gets deleted right after the reply has been sent, so we didn’t need to worry about using a database to save the conversation.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt=&quot;CONVERSATIONREF&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONVERSATIONREF.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Since Chatlayer supports many types of replies, all of these had to be converted to the possible Teams messages.
-Depending on the message type Chatlayer sent, the &lt;code class=&quot;highlighter-rouge&quot;&gt;sendActivities()&lt;/code&gt; method has to send a different Activity.&lt;/p&gt;
+Depending on the message type Chatlayer sent, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendActivities()&lt;/code&gt; method has to send a different Activity.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt=&quot;CONTINUECONV&quot; src=&quot;/img/2020-02-24-Chatbots-Introduction-and-a-Practical-Case/CONTINUECONV.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto&quot; /&gt;&lt;/p&gt;
 
@@ -1867,396 +2029,4 @@ After that, we will assist you in building the bot and build all necessary chat 
   &lt;li&gt;&lt;a href=&quot;https://becominghuman.ai/a-simple-introduction-to-natural-language-processing-ea66a1747b32&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NLP Intro&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://nlp.stanford.edu/~wcmac/papers/20140716-UNLU.pdf#page=8&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NLP vs NLU&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.chatlayer.ai/wp-content/uploads/downloads/big-bots-guide-20190626.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;10 Lessons Learned From Building Big Chatbots&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jasper&quot;, &quot;last_name&quot;=&gt;&quot;Rosiers&quot;, &quot;github&quot;=&gt;&quot;jasperrosiers&quot;, &quot;linkedin&quot;=&gt;&quot;jasper-rosiers&quot;, &quot;permalink&quot;=&gt;&quot;/author/jasper-rosiers/&quot;, &quot;avatar&quot;=&gt;&quot;jasper-rosiers.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;jasper.rosiers@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jasper is a Java Developer with a love for IoT and innovative tech. He has a lot of experience in building chatbots using various platforms and coupling them to different chat clients. He also has a passion for the Agile way of working, Scrum and communication, both inside and outside the team.&quot;}</name><email>jasper.rosiers@ordina.be</email></author><category term="Machine Learning" /><category term="Chatbots" /><category term="Chatlayer" /><category term="DialogFlow" /><category term="Spring Boot" /><category term="NestJS" /><category term="Mocking" /><category term="TypeScript" /><summary type="html">Chatbots, they seem to be everywhere, and yet, there are a lot of people who have no idea what they are. I came home one day in October and told my parents and sisters I was building a chatbot at work. Their reaction: “You’re building a what now?”. So I took ten minutes to explain them what a chatbot is and does. In the end, they just said “So… It is a computer person?”. This post will feature a high-level explanation of what chatbots are and what they do, as well as a deep dive into chatbot providers and a technical implementation. In the end, we’ll look at a practical case of a chatbot: FleetBot Dina.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/chatbot.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/chatbot.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Marrying MongoDB Atlas and AWS Lambda</title><link href="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html" rel="alternate" type="text/html" title="Marrying MongoDB Atlas and AWS Lambda" /><published>2020-02-19T00:00:00+00:00</published><updated>2020-02-19T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/02/19/Combining-MongoDB-and-AWS-Lambda.html">&lt;h3 id=&quot;reading-time-10-min-30-sec&quot;&gt;Reading time: 10 min 30 sec&lt;/h3&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#mongodb-and-aws-lambda-a-successful-marriage&quot;&gt;MongoDB and AWS Lambda: a successful marriage?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#mongodb-and-aws-lambda-why&quot;&gt;Why?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#mongodb-and-aws-lambda-performance&quot;&gt;Performance&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#cold-start-vs-warm-performance&quot;&gt;Cold start vs warm performance&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#performance-conclusion&quot;&gt;Performance conclusions&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster&quot;&gt;VPC peering between AWS and MongoDB Atlas&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#useful-links&quot;&gt;Useful links&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;mongodb-and-aws-lambda-a-successful-marriage&quot;&gt;MongoDB and AWS Lambda: a successful marriage?&lt;/h1&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/rings.png&quot; width=&quot;15%&quot; height=&quot;15%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Can we use MongoDB Atlas when working with AWS Lambda?&lt;br /&gt;
-Yes we can! &lt;br /&gt;
-It’s simple enough to setup and above all also performing well!&lt;/p&gt;
-
-&lt;p&gt;This blog concerns mainly two things:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Why would you use MongoDB + AWS Lambda and how does it perform&lt;/li&gt;
-  &lt;li&gt;How to create a production grade setup with vpc-peering&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;why&quot;&gt;Why?&lt;/h1&gt;
-&lt;p&gt;As I am both a fan of AWS Lambda and MongoDB Atlas it was fun for me to marry them.&lt;br /&gt;
-However in the real world we don’t do things for fun alone.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/mongodb-plus-aws-lambda.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;What are the motives to combine MongoDB Atlas and AWS Lambda?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Combine the serverless capabilities of Lambda with the MongoDB strong points&lt;/li&gt;
-  &lt;li&gt;Payment model - In case of MongoDB you provision your cluster and you know what you’ll pay for it, clusters can grow with your business without downtime or code changes.&lt;/li&gt;
-  &lt;li&gt;Flexible Data Acces - MongoDB has a rich query language and aggregation framework. On top of your data in MongoDB you can build nice dashboards for business intelligence. (eg. &lt;a href=&quot;https://www.mongodb.com/products/charts&quot;&gt;MongoDB Charts&lt;/a&gt;)&lt;/li&gt;
-  &lt;li&gt;Indexes - Supports up to 64 indexes per collection with a wide variety of index types like hash, compound, unique, array, partial, TTL, geospatial, sparse, text and wildcard indexes&lt;/li&gt;
-  &lt;li&gt;Large documents allowed. A MongoDB document can be up to 16 Mb.&lt;/li&gt;
-  &lt;li&gt;Performance - a built-in cache and support for lots of secondary indexes that can span across arrays and subdocuments, making virtually all queries very fast&lt;/li&gt;
-  &lt;li&gt;Tunable consistency&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-  &lt;li&gt;Observability - MongoDB exposes more than 100 different metrics and has a built-in performance advisor. Because “you can’t optimize what you can’t measure.”&lt;/li&gt;
-  &lt;li&gt;Platform capabilities&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-  &lt;li&gt;Joinable documents &lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;performance&quot;&gt;Performance&lt;/h1&gt;
-&lt;p&gt;We are using AWS Lambda to store items in our MongoDB collection.&lt;br /&gt;
-I want to measure the performance in two ways:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Our Lambda Function has to setup a connection with the MongoDB cluster.
-Since we are using Lambda we have to deal with a cold start if the lambda has not been invoked shortly before.
-&lt;strong&gt;How is the cold start behavior when connections to the cluster have to be setup?&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;When the Lambda has been invoked shortly before the connection is cached. 
-&lt;strong&gt;How quickly does a save to the database happen when the Lambda Function is warm?&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Suppose you have setup access from your Lambda Functions to your MongoDB Atlas Cluster (If you want to know how to do just that, read more about it in the second part of this post).&lt;/p&gt;
-
-&lt;p&gt;Since we are dealing with Lambda Functions we also have to deal with a phenomenon called “cold start”. 
-This is the case for any Lambda Function no matter what database it connects to.
-MongoDB mentions on there &lt;a href=&quot;https://docs.atlas.mongodb.com/best-practices-connecting-to-aws-lambda/&quot;&gt;website&lt;/a&gt; that there is an initial startup delay due to this.&lt;/p&gt;
-
-&lt;p&gt;I am testing using the following setup:&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Architecture.png&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Items are coming in via requests through the API.
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;APILambda&lt;/code&gt; drops the items on a queue.&lt;br /&gt;
-A second Lambda Function &lt;code class=&quot;highlighter-rouge&quot;&gt;SaveMongoDBLambda&lt;/code&gt; stores the items in the MongoDB database.
-Of this second Lambda Function I will measure the performance:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;during a cold start&lt;/li&gt;
-  &lt;li&gt;when the Lambda is already warm&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Other things important to know:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;In the above setup I limit the maximum number of concurrently running Lambda Functions instances of the &lt;code class=&quot;highlighter-rouge&quot;&gt;SaveMongoDBLambda&lt;/code&gt; to 10.&lt;/li&gt;
-  &lt;li&gt;The Lambda Functions are written in &lt;code class=&quot;highlighter-rouge&quot;&gt;Java&lt;/code&gt; which will add time to the coldstart performance compared to &lt;code class=&quot;highlighter-rouge&quot;&gt;Python&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;NodeJS&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;In this case I am reading the items from the queue one by one. 
-Also storing them one by one.
-To optimize we would do this in batch.&lt;br /&gt;
-Here we want to measure performance and we don’t want the batch size to vary.
-So we store them one by one.&lt;/li&gt;
-  &lt;li&gt;The lambda function runs in a VPC to be able to make a peering connection to the MongoDB Atlas Cluster.&lt;/li&gt;
-  &lt;li&gt;The items that are being stored are only a few tens of bytes large.&lt;/li&gt;
-  &lt;li&gt;In total 1000 items were inserted&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;the-results-analyzing-the-results-using-xray&quot;&gt;The results: analyzing the results using XRAY&lt;/h2&gt;
-&lt;p&gt;I am using the AWS Xray SDK to trace and analyze the requests flowing through the application.&lt;/p&gt;
-
-&lt;p&gt;Here is a graph showing you the &lt;code class=&quot;highlighter-rouge&quot;&gt;Response Distribution&lt;/code&gt; of the &lt;code class=&quot;highlighter-rouge&quot;&gt;SaveMongoDBLambda&lt;/code&gt;. 
-Hence, this is the time that the Lambda Function took to execute.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/response-distribution.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We notice two things.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The graph is heavily balanced to the left. 
-Most of the requests took very little time.&lt;/li&gt;
-  &lt;li&gt;On the right end of the spectrum we also see a couple of request. 
-This are the cold starts that occur the first time a Lambda Function is invoked.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;From the XRAY service map we can see that on average the Lambda Function took 174 milliseconds to execute.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/service-map.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;cold-start-vs-warm-performance&quot;&gt;Cold start vs warm performance&lt;/h3&gt;
-&lt;p&gt;We can further dissect a cold start with XRAY.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/coldstart.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We see that:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Bootstrapping the runtime and code in the vpc lambda took 1.7 seconds.&lt;/li&gt;
-  &lt;li&gt;The initial connection is being made to the database which takes 5 seconds. 
-This connection overhead is also there when using AWS native databases.
-Though then it will be smaller.&lt;/li&gt;
-  &lt;li&gt;Saving the actual item took 1.1 second.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;That’s for the first execution of the Lambda Function.
-How does this compare against a Lambda function that is already “warm”.
-This is how most invocations typically hit your Lambda Function.
-This means the boostrapping is already done and the connections are initialised.&lt;br /&gt;
-We can also analyse a warm lambda with XRAY.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/warm-execution.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Now we notice:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Total execution took only 18 ms!&lt;/li&gt;
-  &lt;li&gt;There is no longer any initialization overhead.&lt;/li&gt;
-  &lt;li&gt;Storing the item took 6 ms!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;performance-conclusions&quot;&gt;Performance conclusions&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Storing items in the database when the Lambda Function is already warm is blazingly fast.&lt;/li&gt;
-  &lt;li&gt;Initializing the connection in case of a cold start adds time to the cold start.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;vpc-peering-connect-your-lambda-functions-with-your-mongodb-atlas-cluster&quot;&gt;VPC peering: connect your Lambda Functions with your MongoDB Atlas Cluster&lt;/h1&gt;
-&lt;p&gt;Want to know how to set up a VPC peering connection between your AWS VPC and MongoDB Atlas Cluster?
-Read on..&lt;/p&gt;
-
-&lt;p&gt;We want to deploy a production grade setup.&lt;br /&gt;
-This means we won’t connect over the open internet.
-We’ll setup a VPC peering connection between our Atlas Cluster and our AWS VPC.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-aws-side&quot;&gt;The AWS side&lt;/h2&gt;
-&lt;p&gt;Let’s setup a new VPC.
-In this VPC we will create a public subnet.&lt;br /&gt;
-A route table will be associated with that subnet.
-In the route table we’ll define that we want to route all database traffic through the VPC peering connection towards the Atlas cluster.&lt;/p&gt;
-
-&lt;p&gt;In the AWS User Interface navigate to the VPC dashboard and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Launch VPC Wizard&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/1-VPC-dashboard.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Select that you want to create a VPC with a single public subnet.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/2-VPC-with-single-public-subnet.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Specify how big you want the IP range of this VPC to be.
-If you have trouble figuring out the relation between the &lt;code class=&quot;highlighter-rouge&quot;&gt;CIDR block&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;Network Range&lt;/code&gt; use one of the online converters to help you. (&lt;a href=&quot;https://www.ipaddressguide.com/cidr&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.ipaddressguide.com/cidr&lt;/a&gt;) )&lt;br /&gt;
-Give your VPC and public subnet a name.&lt;br /&gt;
-Make sure that &lt;code class=&quot;highlighter-rouge&quot;&gt;enable DNS hostnames&lt;/code&gt; is enabled.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/3-VPC-with-single-public-subnet-2.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Your VPC has been successfully created.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/4-VPC-successfully-created.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;If you now navigate to the subnet tab you see that a new subnet has been created.&lt;br /&gt;
-When going to the route tables tab you see two new route tables.
-That is a route table for your VPC and a route table specifically for your public subnet.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/5-new-subnet.png&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/6-new-route-tables.png&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Before we go to MongoDB Atlas get some specific data about your VPC:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;From the subnet tab write down the VPC-id and IPv4 CIDR for the new subnet that was just created.&lt;/li&gt;
-  &lt;li&gt;Under the security group tab find the security group that is associated with your vpc.
-Write this security group identifier down.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/7-security-group.png&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;the-mongodb-side&quot;&gt;The MongoDB side&lt;/h2&gt;
-
-&lt;p&gt;Setup the MongoDB cluster.
-&lt;strong&gt;This has to be a dedicated cluster which means you’ll need at least an M10.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/Setup-m10-cluster.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Wait till your cluster is set up.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/m10-is-setup.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;In the Atlas UI navigate to &lt;code class=&quot;highlighter-rouge&quot;&gt;Security&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Network Access&lt;/code&gt;.&lt;br /&gt;
-Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;+ new peering connection&lt;/code&gt; and select AWS as cloud provider.&lt;br /&gt;
-The below screen will pop up. Here you have to specify some configuration.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Account ID: your AWS account Id which you can find under the ‘My Account’ in the AWS console&lt;/li&gt;
-  &lt;li&gt;VPC-id: Fill in the VPC-id that you copied from the vpc that you just created in AWS&lt;/li&gt;
-  &lt;li&gt;VPC CIDR: specify the CIDR block that you used to configure your vpc with on AWS&lt;/li&gt;
-  &lt;li&gt;region: the region where you created the AWS vpc&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/8-setup-peering-connection-atlas.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;Instantiate peering&lt;/code&gt; !&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/9-pending-peering-connection.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Notice that MongoDB created an &lt;code class=&quot;highlighter-rouge&quot;&gt;Atlas CIDR&lt;/code&gt; which specifies the IP range in which your Atlas cluster will reside.  Write this down, you will need it later on.
-We are connecting the Atlas IP range with the IP range of our AWS VPC, hence VPC peering.&lt;/p&gt;
-
-&lt;p&gt;The peering connection is now pending.&lt;/p&gt;
-
-&lt;p&gt;Go back to AWS.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-aws-side-again&quot;&gt;The AWS side (again)&lt;/h2&gt;
-&lt;p&gt;In the VPC service of AWS go to &lt;code class=&quot;highlighter-rouge&quot;&gt;Peering Connections&lt;/code&gt;.&lt;br /&gt;
-You will notice a new peering request with status &lt;code class=&quot;highlighter-rouge&quot;&gt;Pending Acceptance&lt;/code&gt;.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/10-aws-peering-connection-request.png&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Accept this peering request!&lt;/p&gt;
-
-&lt;p&gt;Now you have to update your routing tables.
-AWS will also ask you &lt;code class=&quot;highlighter-rouge&quot;&gt;Do you want to update your routing tables&lt;/code&gt; when you accept the peering request.  Click &lt;code class=&quot;highlighter-rouge&quot;&gt;Modify my route tables now&lt;/code&gt;.
-We will deploy our Lambda Functions in the public subnet of our VPC.
-So we want to modify the route table that is associated with that subnet.
-You can recognize that route table because it has an &lt;strong&gt;explicit subnet association&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/11-modify-route-table.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Selecting the route table with an &lt;strong&gt;explicit subnet association&lt;/strong&gt; and click &lt;code class=&quot;highlighter-rouge&quot;&gt;edit routes&lt;/code&gt;.
-Add a route towards your Atlas cluster as indicated in the image below.&lt;br /&gt;
-What we are actually saying here is that we want to route all traffic to our Atlas cluster through the VPC peering connection.&lt;br /&gt;
-As &lt;code class=&quot;highlighter-rouge&quot;&gt;Destination&lt;/code&gt; choose the Atlas CIDR and under &lt;code class=&quot;highlighter-rouge&quot;&gt;Target&lt;/code&gt; choose your VPC peering connection.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/12-edit-routes.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Updating the route table will update the status of the peering connection to &lt;strong&gt;available&lt;/strong&gt; in the Atlas UI.&lt;br /&gt;
-This takes a couple of minutes.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/13-peering-available.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;deploy-your-lambda-functions&quot;&gt;Deploy your lambda functions!&lt;/h3&gt;
-
-&lt;p&gt;Now it is time to deploy your Lambda Function in the VPC that you just configured.
-This Lambda Function will connect to your MongoDB Atlas Cluster via the vpc-peering we have set up.&lt;/p&gt;
-
-&lt;p&gt;I created a project that you can use to deploy a Lambda Function in your own vpc.
-You can then use it to store items in your MongoDB collection.&lt;br /&gt;
-The repository can be found &lt;a href=&quot;https://github.com/Nxtra/awslambda-mongodb-vpc-peering&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;br /&gt;
-Let me be clear and state that in a real world project you don’t want the password hard coded in the connection string.
-An option is to put it into &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS Secret Manager&lt;/code&gt; and have your lambda retrieve it there.&lt;/p&gt;
-
-&lt;p&gt;You need to update certain config values in this project to make it work for your own vpc!
-To deploy a Lambda Function in your VPC you have to configure the VPC config:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;use the pubic subnet that we just created&lt;/li&gt;
-  &lt;li&gt;specify the security group of you AWS vpc
-You also have to update the connection string.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The following instructions can also be found in the &lt;code class=&quot;highlighter-rouge&quot;&gt;README&lt;/code&gt; of the project.&lt;/p&gt;
-
-&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;template.yaml&lt;/code&gt;:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;update the environment variable that specifies the connection string, database  and collection to your own connection string, database and connection.
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    Environment:
-      Variables:
-        MONGODB_CONNECTION_STRING: mongodb+srv://&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@&amp;lt;your-cluster&amp;gt;.mongodb.net/test?retryWrites=true&amp;amp;w=majority
-        DATABASE: yourDatabaseName
-        COLLECTION: yourCollectionName
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;update the &lt;code class=&quot;highlighter-rouge&quot;&gt;VpcConfig&lt;/code&gt; with your own vpc security group and subnet:
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    VpcConfig:
-      SecurityGroupIds:
-        - sg-01004aee8e2eb4f33
-      SubnetIds:
-        - subnet-028397e077f1f8e7a
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Deploy your Lambda functions to your VPC and test them out!
-Run &lt;code class=&quot;highlighter-rouge&quot;&gt;./deploy.sh&lt;/code&gt; to deploy the Lambda Function to your account.
-Running this script successfully will output the URL on which you can send an item through the API towards the Lambda Function.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/stack-outputs.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;In the Lambda User Interface of the AWS Console you will now see that the Lambda Function has been deployed in the correct subnet with the right security group.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/14-lambda-in-vpc.png&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Use this URL that was outputted to trigger the Lambda Function.
-This will return the &lt;code class=&quot;highlighter-rouge&quot;&gt;ObjectId&lt;/code&gt; of the item in your MongoDB collection!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/invocation-result.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Yihaa! MongoDB and AWS Lambda are happily married!&lt;/p&gt;
-
-&lt;h2 id=&quot;useful-links&quot;&gt;Useful links&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.atlas.mongodb.com/security-vpc-peering/&quot;&gt;https://docs.atlas.mongodb.com/security-vpc-peering/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/xray/&quot;&gt;https://aws.amazon.com/xray/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.mongodb.com/compare/mongodb-dynamodb&quot;&gt;https://www.mongodb.com/compare/mongodb-dynamodb&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.educba.com/mongodb-vs-dynamodb/&quot;&gt;https://www.educba.com/mongodb-vs-dynamodb/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs&quot;&gt;https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h2&gt;
-&lt;p&gt;Operations can be grouped in full ACID-compliant transactions at any scale. 
-In any case, indexes are always kept in sync in realtime with the data so your users will always find and work with the latest, correct data.&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Tunable consistency: a variety of consistency levels allowing client applications to select the trade-offs they want to make when it comes to the strongest consistency or the lowest latency. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Platform capabilities such as Full Text Search with Lucene, Stitch Serverless Platform with GraphQL support, Charts, managed triggers, more than 30 programming language drivers, Data Lake, analytics, Kafka 2-way connector &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;Joining documents: when rich documents that are loosely coupled (users and invoices for instance) need to be queried, MongoDB can join documents together inside the database, making your code more light. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Nick&quot;, &quot;last_name&quot;=&gt;&quot;Van Hoof&quot;, &quot;permalink&quot;=&gt;&quot;/author/nick-van-hoof&quot;, &quot;avatar&quot;=&gt;&quot;nick-van-hoof.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;nick-van-hoof-45337914b&quot;, &quot;email&quot;=&gt;&quot;nick.vanhoof@ordina.be&quot;, &quot;github&quot;=&gt;&quot;Nxtra&quot;, &quot;bio&quot;=&gt;&quot;Nick is passionate about cloud technology. He has major expertise in AWS and AWS serverless but he appreciates other clouds just as well. He wants to be ahead of change and thus he's also working with IoT and AI.&quot;}</name><email>nick.vanhoof@ordina.be</email></author><category term="Cloud" /><category term="MongoDB" /><category term="Cloud" /><category term="AWS" /><category term="AWS Lambda" /><category term="Serverless" /><summary type="html">Reading time: 10 min 30 sec</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-02-19-Combining-MongoDB-Atlas-and-AWS-Lambda/featured-image.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jasper&quot;, &quot;last_name&quot;=&gt;&quot;Rosiers&quot;, &quot;github&quot;=&gt;&quot;jasperrosiers&quot;, &quot;linkedin&quot;=&gt;&quot;jasper-rosiers&quot;, &quot;permalink&quot;=&gt;&quot;/author/jasper-rosiers/&quot;, &quot;avatar&quot;=&gt;&quot;jasper-rosiers.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;jasper.rosiers@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jasper is a Java Developer with a love for IoT and innovative tech. He has a lot of experience in building chatbots using various platforms and coupling them to different chat clients. He also has a passion for the Agile way of working, Scrum and communication, both inside and outside the team.&quot;}</name><email>jasper.rosiers@ordina.be</email></author><category term="Machine Learning" /><category term="Chatbots" /><category term="Chatlayer" /><category term="DialogFlow" /><category term="Spring Boot" /><category term="NestJS" /><category term="Mocking" /><category term="TypeScript" /><summary type="html">Chatbots, they seem to be everywhere, and yet, there are a lot of people who have no idea what they are. I came home one day in October and told my parents and sisters I was building a chatbot at work. Their reaction: “You’re building a what now?”. So I took ten minutes to explain them what a chatbot is and does. In the end, they just said “So… It is a computer person?”. This post will feature a high-level explanation of what chatbots are and what they do, as well as a deep dive into chatbot providers and a technical implementation. In the end, we’ll look at a practical case of a chatbot: FleetBot Dina.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/chatbot.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/chatbot.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

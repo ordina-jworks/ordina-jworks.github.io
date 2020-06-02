@@ -186,7 +186,7 @@ If we want to deploy our application we have to overwrite our configuration file
 
 <h2 id="code-setup">Code setup</h2>
 
-<p>We started with an <code class="highlighter-rouge">env.js</code> file which contains all environment-specific configuration.
+<p>We started with an <code class="language-plaintext highlighter-rouge">env.js</code> file which contains all environment-specific configuration.
 This file will expose the data as global variables.
 One could set the URL where our API is hosted like this:</p>
 
@@ -199,7 +199,7 @@ One could set the URL where our API is hosted like this:</p>
 </code></pre></div></div>
 
 <p>Next up is to expose this variable to our web application, which in our case is an Angular app.
-We created an injectable <code class="highlighter-rouge">Configuration</code> class, which will have a getter to retrieve our API URL.</p>
+We created an injectable <code class="language-plaintext highlighter-rouge">Configuration</code> class, which will have a getter to retrieve our API URL.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Injectable</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
 
@@ -218,7 +218,7 @@ We created an injectable <code class="highlighter-rouge">Configuration</code> cl
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>All we need to do now is to inject an instance of the <code class="highlighter-rouge">Configuration</code> class in the class where we need the info.</p>
+<p>All we need to do now is to inject an instance of the <code class="language-plaintext highlighter-rouge">Configuration</code> class in the class where we need the info.</p>
 
 <h2 id="deployment-setup">Deployment setup</h2>
 
@@ -227,8 +227,8 @@ Since we want to make everything immutable, the obvious choice here is to use Do
 While starting a container, we can specify environment variables.
 This is where the second part of our solution starts.</p>
 
-<p>Using the <code class="highlighter-rouge">envsubst</code> bash command we’re going to convert a template file into an <code class="highlighter-rouge">env.js</code> file which contains all our data.
-Our <code class="highlighter-rouge">env.js.tpl</code> file looks like this:</p>
+<p>Using the <code class="language-plaintext highlighter-rouge">envsubst</code> bash command we’re going to convert a template file into an <code class="language-plaintext highlighter-rouge">env.js</code> file which contains all our data.
+Our <code class="language-plaintext highlighter-rouge">env.js.tpl</code> file looks like this:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
   <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">||</span> <span class="p">{};</span>
@@ -238,14 +238,14 @@ Our <code class="highlighter-rouge">env.js.tpl</code> file looks like this:</p>
 <span class="p">}(</span><span class="k">this</span><span class="p">));</span>
 </code></pre></div></div>
 
-<p>To perform this conversion we need to create a <code class="highlighter-rouge">startup.sh</code> script which will actually execute the <code class="highlighter-rouge">envsubst</code> command.</p>
+<p>To perform this conversion we need to create a <code class="language-plaintext highlighter-rouge">startup.sh</code> script which will actually execute the <code class="language-plaintext highlighter-rouge">envsubst</code> command.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>envsubst &lt; /usr/share/nginx/env.js.tpl <span class="o">&gt;</span> /usr/share/nginx/html/env.js
 
 nginx <span class="nt">-g</span> <span class="s1">'daemon off;'</span>
 </code></pre></div></div>
 
-<p>Now we need to create a <code class="highlighter-rouge">Dockerfile</code> which in turn will be used to create our Docker image.</p>
+<p>Now we need to create a <code class="language-plaintext highlighter-rouge">Dockerfile</code> which in turn will be used to create our Docker image.</p>
 
 <div class="language-docker highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> nginx:1.13-alpine</span>
 

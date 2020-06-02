@@ -205,7 +205,7 @@ In imperative programming, developers focus on both <strong>what</strong> they w
 In declarative programming on the other hand, developers focus on <strong>what</strong> they want to do and use tools and libraries to facilitate their goal.
 Venkat went on to state that programming in a functional style is declarative, but that not all declarative code is functional.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Functional style = declarative style + higher order functions
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Functional style = declarative style + higher order functions
 </code></pre></div></div>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">names</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Dieter</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Tom</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Andreas</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Ken</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Yannick</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Tim</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Bart</span><span class="dl">"</span><span class="p">];</span>
@@ -375,30 +375,30 @@ For user-friendliness, the semicolons can be omitted after the instructions in J
 
 <h3 id="optionals">Optionals</h3>
 
-<p>Several improvements will be added to the <code class="highlighter-rouge">Optional</code> class.
-Optionals can be turned into streams and have <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">flatMap</code> and <code class="highlighter-rouge">map</code> methods.</p>
+<p>Several improvements will be added to the <code class="language-plaintext highlighter-rouge">Optional</code> class.
+Optionals can be turned into streams and have <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">flatMap</code> and <code class="language-plaintext highlighter-rouge">map</code> methods.</p>
 
-<p>For eager evaluation these functional methods can be applied directly to the <code class="highlighter-rouge">Optional</code>.</p>
+<p>For eager evaluation these functional methods can be applied directly to the <code class="language-plaintext highlighter-rouge">Optional</code>.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">jshell</span><span class="o">&gt;</span> <span class="no">Optional</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
 <span class="vg">$2</span> <span class="o">==&gt;</span> <span class="no">Optional</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span></code></pre></figure>
 
-<p>When using <code class="highlighter-rouge">stream()</code> in front of the functional methods a <code class="highlighter-rouge">ReferencePipeline</code> is returned.
+<p>When using <code class="language-plaintext highlighter-rouge">stream()</code> in front of the functional methods a <code class="language-plaintext highlighter-rouge">ReferencePipeline</code> is returned.
 This can be used for lazy evaluation.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">jshell</span><span class="o">&gt;</span> <span class="no">Optional</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">stream</span><span class="p">().</span><span class="nf">map</span><span class="p">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
 <span class="vg">$3</span> <span class="o">==&gt;</span> <span class="n">java</span><span class="p">.</span><span class="nf">util</span><span class="p">.</span><span class="nf">stream</span><span class="o">.</span><span class="no">ReferencePipeline</span></code></pre></figure>
 
-<p>An <code class="highlighter-rouge">or()</code> method will be added to chain a supplier to empty Optionals.</p>
+<p>An <code class="language-plaintext highlighter-rouge">or()</code> method will be added to chain a supplier to empty Optionals.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">jshell</span><span class="o">&gt;</span> <span class="no">Optional</span><span class="p">.</span><span class="nf">empty</span><span class="p">().</span><span class="nf">or</span><span class="p">(()</span><span class="o">-&gt;</span><span class="no">Optional</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="s2">"Devoxx rocks!"</span><span class="p">))</span>
 <span class="vg">$4</span> <span class="o">==&gt;</span> <span class="no">Optional</span><span class="p">[</span><span class="no">Devoxx</span> <span class="n">rocks!</span><span class="p">]</span></code></pre></figure>
 
 <h3 id="streams">Streams</h3>
 
-<p>Two new methods will be added to the <code class="highlighter-rouge">Stream</code> interface, <code class="highlighter-rouge">dropWhile</code> and <code class="highlighter-rouge">takeWhile</code>.
+<p>Two new methods will be added to the <code class="language-plaintext highlighter-rouge">Stream</code> interface, <code class="language-plaintext highlighter-rouge">dropWhile</code> and <code class="language-plaintext highlighter-rouge">takeWhile</code>.
 For ordered streams, these methods drop or take elements while the predicate is true.
-In unordered streams, <code class="highlighter-rouge">dropWhile</code> returns a subset of elements starting from the first predicate match, <code class="highlighter-rouge">takeWhile</code> returns a subset of elements matching the predicate.</p>
+In unordered streams, <code class="language-plaintext highlighter-rouge">dropWhile</code> returns a subset of elements starting from the first predicate match, <code class="language-plaintext highlighter-rouge">takeWhile</code> returns a subset of elements matching the predicate.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Stream</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">dropWhile</span><span class="err">​</span><span class="p">(</span><span class="no">Predicate</span><span class="o">&lt;</span><span class="p">?</span> <span class="k">super</span> <span class="no">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="p">)</span>
 <span class="no">Stream</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">takeWhile</span><span class="err">​</span><span class="p">(</span><span class="no">Predicate</span><span class="o">&lt;</span><span class="p">?</span> <span class="k">super</span> <span class="no">T</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="p">)</span>
@@ -411,8 +411,8 @@ In unordered streams, <code class="highlighter-rouge">dropWhile</code> returns a
 
 <h3 id="concurrency">Concurrency</h3>
 
-<p><code class="highlighter-rouge">CompletableFuture</code> will be extended with a <code class="highlighter-rouge">copy</code>.
-The copied <code class="highlighter-rouge">CompletableFuture</code> is a defensive copy and completing it doesn’t complete the original <code class="highlighter-rouge">CompletableFuture</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">CompletableFuture</code> will be extended with a <code class="language-plaintext highlighter-rouge">copy</code>.
+The copied <code class="language-plaintext highlighter-rouge">CompletableFuture</code> is a defensive copy and completing it doesn’t complete the original <code class="language-plaintext highlighter-rouge">CompletableFuture</code>.</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">jshell</span><span class="o">&gt;</span> <span class="no">CompletableFuture</span><span class="p">.</span><span class="nf">runAsync</span><span class="p">(()</span><span class="o">-&gt;</span><span class="p">{</span><span class="k">while</span><span class="p">(</span><span class="kp">true</span><span class="p">){}})</span>
 <span class="vg">$7</span> <span class="o">==&gt;</span> <span class="n">java</span><span class="p">.</span><span class="nf">util</span><span class="p">.</span><span class="nf">concurrent</span><span class="o">.</span><span class="no">CompletableFuture</span><span class="p">[</span><span class="no">Not</span> <span class="n">completed</span><span class="p">]</span>
@@ -429,30 +429,30 @@ The copied <code class="highlighter-rouge">CompletableFuture</code> is a defensi
 <span class="n">jshell</span><span class="o">&gt;</span> <span class="vg">$7</span>
 <span class="vg">$7</span> <span class="o">==&gt;</span> <span class="n">java</span><span class="p">.</span><span class="nf">util</span><span class="p">.</span><span class="nf">concurrent</span><span class="o">.</span><span class="no">CompletableFuture</span><span class="p">[</span><span class="no">Not</span> <span class="n">completed</span><span class="p">,</span> <span class="mi">1</span> <span class="n">dependents</span><span class="p">]</span></code></pre></figure>
 
-<p>A new <code class="highlighter-rouge">ProcessHandle</code> interface will be added, it can be used to get information and control processes.</p>
+<p>A new <code class="language-plaintext highlighter-rouge">ProcessHandle</code> interface will be added, it can be used to get information and control processes.</p>
 
 <h3 id="bits-and-pieces">Bits and pieces</h3>
 
-<p>The underscore will become a keyword, so assigning a value to <code class="highlighter-rouge">_</code> does not work.
-This is probably a feature for the future where <code class="highlighter-rouge">_</code> will be used for matching arguments of any type.
-Assigning a value to <code class="highlighter-rouge">__</code> will keep on working.
+<p>The underscore will become a keyword, so assigning a value to <code class="language-plaintext highlighter-rouge">_</code> does not work.
+This is probably a feature for the future where <code class="language-plaintext highlighter-rouge">_</code> will be used for matching arguments of any type.
+Assigning a value to <code class="language-plaintext highlighter-rouge">__</code> will keep on working.
 In Java 8, default methods were added to interfaces, in 9 they can be private.
 Property files will support UTF-8 and there is already Java 9 support in several IDEs.
-There will be several changes to improve <code class="highlighter-rouge">String</code> performance, for example using a more space-efficient internal representation for Strings.
+There will be several changes to improve <code class="language-plaintext highlighter-rouge">String</code> performance, for example using a more space-efficient internal representation for Strings.
 Javadoc will get an improved search, HTML5 compliance and more info on the module where the class or interface comes from.
 The use of agents will be more flexible, a process can attach an agent to itself and a JAR can contain multiple agents.</p>
 
 <h3 id="modules">Modules</h3>
 <p>The Java Platform Modules System (JPMS) allows modularization for Java applications.
-A module can define dependent modules with <code class="highlighter-rouge">requires</code>, to provide an API the <code class="highlighter-rouge">exports</code> key word is used.
-To give access to everyone the <code class="highlighter-rouge">opens</code> keyword can be used.</p>
+A module can define dependent modules with <code class="language-plaintext highlighter-rouge">requires</code>, to provide an API the <code class="language-plaintext highlighter-rouge">exports</code> key word is used.
+To give access to everyone the <code class="language-plaintext highlighter-rouge">opens</code> keyword can be used.</p>
 
-<p>There is a method <code class="highlighter-rouge">getAccessable()</code>.
-You should be aware though about using it for determining if a module is usable or not since it actually just returns the value of <code class="highlighter-rouge">setAccessable()</code>, a toggle that you have to set yourself.
-Actually it just returns the value of <code class="highlighter-rouge">setAccessable()</code>, a toggle that you have to set yourself.</p>
+<p>There is a method <code class="language-plaintext highlighter-rouge">getAccessable()</code>.
+You should be aware though about using it for determining if a module is usable or not since it actually just returns the value of <code class="language-plaintext highlighter-rouge">setAccessable()</code>, a toggle that you have to set yourself.
+Actually it just returns the value of <code class="language-plaintext highlighter-rouge">setAccessable()</code>, a toggle that you have to set yourself.</p>
 
 <p>To make a smooth transition to the JPMS, any JAR on the classpath will become an automatic module.
-By default, <code class="highlighter-rouge">--illegal-access=permit</code> is the default mode for JDK 9, allowing modules access to all automatic modules.</p>
+By default, <code class="language-plaintext highlighter-rouge">--illegal-access=permit</code> is the default mode for JDK 9, allowing modules access to all automatic modules.</p>
 
 <p>As a migration strategy, Oleg proposes to wait for dependencies to modularize before modularizing yourself.
 Otherwise you might need to modularize twice to align with the dependencies.</p>
@@ -467,11 +467,11 @@ Gradle releases fixes more often and currently supports more features.</p>
 Previous Garbage Collectors were not as scalable nor predictable.
 The G1GC promises a more scalable and more predictable system with few modification options.</p>
 
-<p>By default, a quarter of the physical ram will be allocated to the heap, unless the size is specified with the <code class="highlighter-rouge">-mx</code> flag.
+<p>By default, a quarter of the physical ram will be allocated to the heap, unless the size is specified with the <code class="language-plaintext highlighter-rouge">-mx</code> flag.
 Due to its new heap division system, it might run into problems with large chunks of data.
 It is recommended to feed streams of data directly to parsers without first capturing it in a byte array, this also applies to JSON parsing and database operations.
 Another improvement is using immutable objects wherever possible.
-Using a <code class="highlighter-rouge">StringBuilder</code> instead of concatenating Strings will reduce heap usage. 
+Using a <code class="language-plaintext highlighter-rouge">StringBuilder</code> instead of concatenating Strings will reduce heap usage. 
 For more info, Oleg referred to a talk on <a href="https://vimeo.com/221269942">Moving to G1GC by Kirk Pepperdine</a></p>
 
 <h3 id="http2-client">HTTP/2 Client</h3>
@@ -488,7 +488,7 @@ The modules in the incubator package are non-final APIs that can be finalized or
 
 <p>Oleg concluded by recommending the audience not to touch multi-release JAR, jlink and Unsafe, unless you are 100% sure what you are doing.
 For now, he recommends to upgrade your IDE and tools and upgrade Spring to version 5.0. 
-Then add the <code class="highlighter-rouge">--illegal-access=warn</code> startup option and fix the easy fixable warnings and then wait a year or more until the classpath and the libraries, you depend on, are upgraded.</p>
+Then add the <code class="language-plaintext highlighter-rouge">--illegal-access=warn</code> startup option and fix the easy fixable warnings and then wait a year or more until the classpath and the libraries, you depend on, are upgraded.</p>
 
 <p>Yannick, a colleague at Ordina did a nice presentation on Java 9: <a href="https://www.youtube.com/watch?v=StJPI2rUPfs">A first look at Java 9</a> by <a href="https://twitter.com/@YannickDeTurck">Yannick De Turck</a>.
 Presentation and sources are available at <a href="https://github.com/yannickdeturck/java9workshop">GitHub</a>.</p>
