@@ -105,33 +105,33 @@ Currently, only two of these modules exist: a cluster module and a namespace mod
 
 The cluster module contains all modules required to set up the shared resources for all environments with a similar purpose.
 For example, all resources shared by all development environments.
-This modules contains the Kubernetes cluster module, multiple resource group modules, a Keyvault module, networking modules and modules that configure identity and role management.
+This module contains the Kubernetes cluster module, multiple resource group modules, a key vault module, networking modules and modules that configure identity and role management.
 This module is used once per cluster, meaning once for development, acceptance and production respectively.
 
-The second module, is used to setup a namespace for a specific purpose: an environment for a development team, a specific testing environment or a rock solid production environment.
+The second module is used to set up a namespace for a specific purpose: an environment for a development team, a specific testing environment or a rock-solid production environment.
 This module contains the DNS zone configuration, an API gateway module, another key vault module and a database module.
 
 These cluster and namespace modules are then used in a single Terraform module per cluster: meaning a single module for the development cluster together with all namespaces in that cluster.
 This makes making changes to the infrastructure as easy as running a single Jenkins job executing that module.
 We decided to version the modules and created specific modules for development, acceptance and production.
-This seperation, in combination with the versioning has allowed us to test module updates, and upgrades of the configuration upfront.
+This separation, in combination with the versioning, has allowed us to test module updates and upgrades of the configuration upfront.
 Similar to deploying application code to an acceptence or test environment before rolling it into production.
 
 ## Where to draw a line, everything in terraform
 
-When we first started using terraform, we were tempted to configure the entire landscape using it.
+When we first started using Terraform, we were tempted to configure the entire landscape using it.
 A good example was the API manager setup we were using.
 The Terraform setup included detailed configuration of the application it was hosting.
 Another example was a Kubernetes Terraform module we created, that beside infrastructure related setup for storage classes, was also creating service accounts for operators we were running.
-This leaking of concerns made it hard to maintain, but it also introduced duplication of configuration towards the application deployment.
+This leakage of concerns made it hard to maintain, but it also introduced duplication of configuration towards the application deployment.
 We decided to take a stricter approach, and consider two main responsibilities: orchestration and provisioning.
-Orchestration could be translated to an engineer that would take a screwdriver and setup all the required infrastructure.
-The outcome of this work would be a the minimum needed setup to start using the services and configure them for actual use.
+Orchestration could be translated to an engineer that would take a screwdriver and set up all the required infrastructure.
+The outcome of this work would be the minimum needed setup to start using the services and configure them for actual use.
 Provisioning is the work that comes after this, and doesn't require a screwdriver, or being near the box.
 We decided that the orchestration part, setting up the infrastructure, is where we use Terraform exclusively.
 The provisioning part, where we start to configure the infrastructure to work with our application, is where we use tools that are native to the application deployment.
 We didn't get there immediately though.
-In early iterations, we had split it into two Terraform runs, an orchestration run and a configuration run.
+In early iterations, we had split it into two Terraform runs: an orchestration run and a configuration run.
 In later iterations we were able to replace the configuration runs with components that were closer to the application landscape, which was a combination of privileged Kustomize deployment runs and building our own Kubernetes operators.
 A good rule of thumb is; if you can tie the component you are configuring to something that has meaning in the application domain, it should be managed in the application landscape.
 Another good indication that the application domain leaked into the infrastructure domain is when you have to re-orchestrate your infrastructure together with application changes.
@@ -139,7 +139,7 @@ Another good indication that the application domain leaked into the infrastructu
 ## How can you beat us
 
 With this setup, lead-time for provisioning an environment went down from 6 weeks of ticketing magic to just a 90 minute Jenkins run.
-The decision to adopt Terraform helped us to minimize human errors, and has enabled us to deploy new environments by a single push on a button.
+The decision to adopt Terraform helped us to minimize human errors, and has enabled us to deploy new environments by a single push of a button.
 Infrastructure upgrades have become more and more stable over the adoption period and the different modules have matured to the point where they barely change anymore.
 
 The work being done by the Azure Terraform provider community has helped tremendously.
