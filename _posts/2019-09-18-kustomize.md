@@ -161,7 +161,7 @@ This is because the config map generator adds a random ID to the name of each ge
 ## Extending Kustomize: plugins
 
 In some examples the configMapGenerator was used to easily create config maps without having to manually convert files.
-There are actually two mechanisms to influence Yaml files programmatically: generators and transformers.
+There are actually two mechanisms to influence YAML files programmatically: generators and transformers.
 
 Generators do exactly what their name suggests: they generator YAML files.
 Generator will use the provided configuration to create new manifests and add them to the set of already available Kubernetes manifests.
