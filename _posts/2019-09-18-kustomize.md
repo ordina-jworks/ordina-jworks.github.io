@@ -73,7 +73,7 @@ As discussed in the Kustomize projects [readme](https://github.com/kubernetes-si
 
 ### Base manifest
 
-A base manifest is, in essence, a set of bare-bones Kubernetes manifests with some kustomize configuration.
+A base manifest is, in essence, a set of bare-bones Kubernetes manifests with some Kustomize configuration.
 For the scope of this blog post, a single base manifest will contain all configuration to deploy a single service.
 Kustomize doesn't require this, but it seems like a good fit.
 
@@ -117,7 +117,7 @@ Overlays are YAML snippets, Kustomize configuration and/or even full manifests t
 In the default setup on the Kustomize homepage, the bases are always local folders.
 However, a really useful feature is referencing remote locations, including Git repositories, as bases to be used in an overlay.
 The Git endpoints need to be specified as described in the [hashicorp/go-getter URL format](https://github.com/hashicorp/go-getter#url-format){:target="_blank" rel="noopener noreferrer"}.
-Important to note here is that when using the Git references, the machine that is executing Kustomize builds needs have a valid Git configuration to access the referenced repositories.
+Important to note here is that when using the Git references, the machine that is executing Kustomize builds needs to have a valid Git configuration to access the referenced repositories.
 As the kustomization file is checked into version control, adding credentials into the link is considered a bad practice.
 Kustomize supports referencing multiple bases, which again allows for a lot of flexibility.
 The references work recursively, so multiple levels of manifests are supported.
@@ -134,13 +134,13 @@ resources:
 ...
 ```
 
-The example above uses 3 different ways to include base manifest in this overlay.
+The example above uses 3 different ways to include a base manifest in this overlay.
 The first one, `../../base`, references a folder on the machine.
 A kustomization manifest needs to be present in this folder.
 
-The second one, `git::ssh://git@some-git-provider:some-repo-path.git//folder-in-repo-with-kustomize-config?ref=some-branch` points to a git repository.
-More specifically, it points to the git repository name `some-repo-path` on git provider `some-git-provider`.
-It connects to that git provider using SSH (`ssh://`) and it will checkout the branch named `some-branch`.
+The second one, `git::ssh://git@some-git-provider:some-repo-path.git//folder-in-repo-with-kustomize-config?ref=some-branch` points to a Git repository.
+More specifically, it points to the Git repository name `some-repo-path` on git provider `some-git-provider`.
+It connects to that Git provider using SSH (`ssh://`) and it will checkout the branch named `some-branch`.
 Finally, it will look for the kustomization manifest in the `folder-in-repo-with-kustomize-config` folder of the repository instead of in the root directory.
 
 The last method is very similar to the second, however it uses the github.com specific syntax.
@@ -160,14 +160,14 @@ This is because the config map generator adds a random ID to the name of each ge
 
 ## Extending Kustomize: plugins
 
-In some examples the configMapGenerator was used to easily create config maps without having to manually convert files.
+In some examples the `configMapGenerator` was used to easily create config maps without having to manually convert files.
 There are actually two mechanisms to influence YAML files programmatically: generators and transformers.
 
-Generators do exactly what their name suggests: they generator YAML files.
+Generators do exactly what their name suggests: they generate YAML files.
 Generator will use the provided configuration to create new manifests and add them to the set of already available Kubernetes manifests.
 
 Transformers however only work on existing Kubernetes manifests.
-The commonLabels option used in the code snippets above is an example of a transformer.
+The `commonLabels` option used in the code snippets above is an example of a transformer.
 It doesn't create new manifests, it only changes existing ones.
 
 There are a few built-in generators and transformers provided with Kustomize, but the real power lays within the creation of custom plugins that can act as either generators or transformers.
