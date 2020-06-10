@@ -294,8 +294,8 @@ The OnPush strategy will let the change detector run only in the following situa
        <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ item.name }}`</span><span class="p">,</span>
        <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>
-   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
-       <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">item</span><span class="p">:</span> <span class="p">{</span><span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">};</span>
+   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+       <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">item</span><span class="p">:</span> <span class="p">{</span><span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">};</span>
 
        <span class="kd">constructor</span><span class="p">()</span> <span class="p">{}</span>
    <span class="p">}</span>
@@ -316,11 +316,11 @@ The OnPush strategy will let the change detector run only in the following situa
        <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ myItemName }}`</span><span class="p">,</span>
        <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>
-   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
-       <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">itemStream</span><span class="p">:</span><span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
-       <span class="nl">myItemName</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+       <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">itemStream</span><span class="p">:</span><span class="nx">Observable</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">;</span>
+       <span class="nl">myItemName</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 
-       <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">changeDetectorRef</span><span class="p">:</span> <span class="nx">ChangeDetectorRef</span><span class="p">)</span> <span class="p">{}</span>
+       <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">changeDetectorRef</span><span class="p">:</span> <span class="nx">ChangeDetectorRef</span><span class="p">)</span> <span class="p">{}</span>
 
        <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
            <span class="k">this</span><span class="p">.</span><span class="nx">itemStream</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>

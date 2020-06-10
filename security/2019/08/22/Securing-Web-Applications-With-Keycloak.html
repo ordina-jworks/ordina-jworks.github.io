@@ -452,7 +452,7 @@ Since you’ll want to serve them from Spring Boot instead, change the url in <c
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
 
-  <span class="kr">private</span> <span class="nx">heroesUrl</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:9090/api/heroes</span><span class="dl">'</span><span class="p">;</span>
+  <span class="k">private</span> <span class="nx">heroesUrl</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:9090/api/heroes</span><span class="dl">'</span><span class="p">;</span>
   <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -757,7 +757,7 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
   
-  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">configure</span><span class="p">();</span>
   <span class="p">}</span>
 
@@ -772,15 +772,15 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
     <span class="na">showDebugInformation</span><span class="p">:</span> <span class="kc">true</span>
   <span class="p">}</span>
   
-  <span class="kr">public</span> <span class="nx">login</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="nx">login</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">initLoginFlow</span><span class="p">();</span>
   <span class="p">}</span>
   
-  <span class="kr">public</span> <span class="nx">logoff</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="nx">logoff</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">logOut</span><span class="p">();</span>
   <span class="p">}</span>
   
-  <span class="kr">private</span> <span class="nx">configure</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nx">configure</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">authConfig</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">tokenValidationHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NullValidationHandler</span><span class="p">();</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">loadDiscoveryDocumentAndTryLogin</span><span class="p">();</span>

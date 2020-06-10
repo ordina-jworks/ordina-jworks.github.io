@@ -623,22 +623,22 @@ In this service, you can make use of the <a href="https://developer.mozilla.org/
     <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onOpen</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_onMessage</span><span class="p">(</span><span class="na">message</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">_onMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">_handleEvent</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_onError</span><span class="p">(</span><span class="na">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">_onError</span><span class="p">(</span><span class="nx">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
     <span class="c1">// implement your own strategy for reconnection</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_onOpen</span><span class="p">(</span><span class="na">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">_onOpen</span><span class="p">(</span><span class="nx">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Open:</span><span class="dl">"</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_handleEvent</span><span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">_handleEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
       <span class="c1">// e.g. dispatch to ngrx store</span>
   <span class="p">}</span>
 <span class="p">}</span>

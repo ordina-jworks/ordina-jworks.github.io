@@ -219,10 +219,10 @@ A quick example of a counter of seconds:</p>
       Tick: {{ tick }}
     &lt;/p&gt;`</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span><span class="p">,</span> <span class="nx">OnDestroy</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span><span class="p">,</span> <span class="nx">OnDestroy</span> <span class="p">{</span>
   <span class="nx">myStream$</span> <span class="o">=</span> <span class="nx">interval</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
   <span class="nl">subscription</span><span class="p">:</span> <span class="nx">Subscription</span><span class="p">;</span>
-  <span class="nl">tick</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">tick</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
 
   <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">subscription</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">myStream$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">tick</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">tick</span> <span class="o">=</span> <span class="nx">tick</span><span class="p">})</span>
@@ -654,12 +654,12 @@ Consider this example:</p>
   <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">greet</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;h1&gt;{{ message }}&lt;/h1&gt;`</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">GreetingComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span><span class="p">,</span> <span class="nx">OnChanges</span> <span class="p">{</span>
-  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">GreetingComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span><span class="p">,</span> <span class="nx">OnChanges</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 
-  <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 
-  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">service</span><span class="p">:</span> <span class="nx">APIService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">service</span><span class="p">:</span> <span class="nx">APIService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 
   <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">(</span><span class="nx">name</span><span class="p">)).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">name</span><span class="p">);</span>
@@ -680,16 +680,16 @@ Consider this example:</p>
   <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;h1&gt;{{ message$ | async }}&lt;/h1&gt;`</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">GreetingComponent</span>  <span class="p">{</span>
-  <span class="kr">private</span> <span class="nx">name$</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReplaySubject</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="kd">set</span> <span class="nx">name</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nx">name$</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReplaySubject</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="kd">set</span> <span class="nx">name</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">name$</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
   <span class="p">};</span>
 
   <span class="nx">message$</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createMessageStream</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name$</span><span class="p">);</span>
 
-  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">service</span><span class="p">:</span> <span class="nx">APIService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">service</span><span class="p">:</span> <span class="nx">APIService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">createMessageStream</span><span class="p">(</span><span class="nx">name$</span><span class="p">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nx">createMessageStream</span><span class="p">(</span><span class="nx">name$</span><span class="p">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">name$</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
         <span class="nx">distinctUntilChanged</span><span class="p">(),</span>
         <span class="nx">switchMap</span><span class="p">(</span><span class="nx">name</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">(</span><span class="nx">name</span><span class="p">))</span>

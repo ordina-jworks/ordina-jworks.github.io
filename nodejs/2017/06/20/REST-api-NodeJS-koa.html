@@ -207,7 +207,7 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
 <p>I want to start with talking about the async / await features. They were what really made this code so fast to write and easy to read. The async keyword marks a function that will always return a promise. The await keyword will automatically unwrap the value from the promise and continue the code when the promise has been resolved. A small example:</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript">  
-    <span class="kd">const</span> <span class="nx">promiseFn</span> <span class="o">=</span> <span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">promiseFn</span> <span class="o">=</span> <span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
 	    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span><span class="p">);</span>
     <span class="p">}</span>
  
@@ -247,16 +247,16 @@ tsc <span class="nt">--init</span> //generates a <span class="sb">`</span>tsconf
     <span class="k">import</span> <span class="p">{</span> <span class="nx">Container</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">typescript-ioc</span><span class="dl">"</span><span class="p">;</span>
     
     <span class="kd">class</span> <span class="nx">Foo</span> <span class="p">{</span>
-        <span class="nx">doSomething</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
+        <span class="nx">doSomething</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
         	<span class="k">return</span> <span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span><span class="p">;</span>
         <span class="p">}</span>	
     <span class="p">}</span>
     
     <span class="kd">class</span> <span class="nx">Bar</span> <span class="p">{</span>
-        <span class="kd">constructor</span><span class="p">(@</span><span class="nd">Inject</span> <span class="kr">private</span> <span class="nx">foo</span><span class="p">:</span> <span class="nx">Foo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">constructor</span><span class="p">(@</span><span class="nd">Inject</span> <span class="k">private</span> <span class="nx">foo</span><span class="p">:</span> <span class="nx">Foo</span><span class="p">)</span> <span class="p">{</span>
         <span class="p">}</span>	
     
-    	<span class="nx">doAnotherThing</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
+    	<span class="nx">doAnotherThing</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
     		<span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">();</span>
         <span class="p">}</span>
     <span class="p">}</span>

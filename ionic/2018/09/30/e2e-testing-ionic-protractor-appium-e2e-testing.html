@@ -495,7 +495,7 @@ Create a file called <strong>/e2e/protractor.config.ts</strong> with the followi
 <span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">tsNode</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ts-node</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">serverAddress</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:4723/wd/hub</span><span class="dl">'</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+<span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
   <span class="dl">'</span><span class="s1">**/*/*.e2e-spec.ts</span><span class="dl">'</span>
 <span class="p">];</span>
 <span class="kd">const</span> <span class="nx">iPhoneXCapability</span> <span class="o">=</span> <span class="p">{</span>
@@ -627,7 +627,7 @@ you need to configure the <strong>multiCapabilities</strong> property.</p>
 <p>For Protractor to know which tests to run, you need to configure the 
 <strong>specs</strong> property, in our case all the files that end with .e2e-spec.ts</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">testFilePAtterns</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
   <span class="dl">'</span><span class="s1">**/*/*.e2e-spec.ts</span><span class="dl">'</span>
 <span class="p">];</span>
 <span class="k">export</span> <span class="kd">let</span> <span class="nx">config</span><span class="p">:</span> <span class="nx">Config</span> <span class="o">=</span> <span class="p">{</span>
@@ -652,14 +652,14 @@ but here is an example test script that you should be able to run on both iOS an
     <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should skip to the welcome screen and have the correct button labels</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="kd">const</span> <span class="na">skipButton</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">skip</span><span class="dl">'</span><span class="p">));</span>
       <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">skipButton</span><span class="p">));</span>
-      <span class="kd">const</span> <span class="na">skipButtonLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">skipButton</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
+      <span class="kd">const</span> <span class="na">skipButtonLabel</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">skipButton</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
       <span class="nx">expect</span><span class="p">(</span><span class="nx">skipButtonLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SKIP</span><span class="dl">'</span><span class="p">);</span>
 
       <span class="nx">skipButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
 
       <span class="kd">const</span> <span class="na">loginBtn</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">btn-login</span><span class="dl">'</span><span class="p">));</span>
       <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">loginBtn</span><span class="p">));</span>
-      <span class="kd">const</span> <span class="na">loginBtnLabel</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
+      <span class="kd">const</span> <span class="na">loginBtnLabel</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
       <span class="nx">expect</span><span class="p">(</span><span class="nx">loginBtnLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SIGN IN</span><span class="dl">'</span><span class="p">);</span>
 
       <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>

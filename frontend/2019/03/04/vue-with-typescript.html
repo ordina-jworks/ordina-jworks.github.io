@@ -250,12 +250,12 @@ We will now explain the difference between using the class-style component synta
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nx">greet</span> <span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
+        <span class="nx">greet</span> <span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> world</span><span class="dl">'</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nx">greeting</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
+        <span class="nx">greeting</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">},</span>
@@ -277,8 +277,8 @@ We will now explain the difference between using the class-style component synta
     <span class="na">template</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;div&gt;&lt;/div&gt;</span><span class="dl">'</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">HelloComponent</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
-    <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span>
-    <span class="nx">greet</span><span class="p">():</span> <span class="nx">string</span> <span class="p">{</span>
+    <span class="nl">message</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span>
+    <span class="nx">greet</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
         <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> world</span><span class="dl">'</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="kd">get</span> <span class="nx">greeting</span><span class="p">()</span> <span class="p">{</span>
@@ -435,9 +435,9 @@ In each component that you make, these functionalities will be available.
 The reason why these will be available is because the Vue type gets extended by each of these libraries.
 For example in the typings of VueI18n (the i18n library that I use), we find:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declare</span> <span class="nx">module</span> <span class="dl">'</span><span class="s1">vue/types/vue</span><span class="dl">'</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">declare</span> <span class="kr">module</span> <span class="dl">'</span><span class="s1">vue/types/vue</span><span class="dl">'</span> <span class="p">{</span>
 	<span class="kr">interface</span> <span class="nx">Vue</span> <span class="p">{</span>
-		<span class="nx">readonly</span> <span class="nx">$i18n</span><span class="p">:</span> <span class="nx">VueI18n</span> <span class="o">&amp;</span> <span class="nx">IVueI18n</span><span class="p">;</span>
+		<span class="k">readonly</span> <span class="nx">$i18n</span><span class="p">:</span> <span class="nx">VueI18n</span> <span class="o">&amp;</span> <span class="nx">IVueI18n</span><span class="p">;</span>
 		<span class="nl">$t</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">VueI18n</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">t</span><span class="p">;</span>
 		<span class="nl">$tc</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">VueI18n</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">tc</span><span class="p">;</span>
 		<span class="nl">$te</span><span class="p">:</span> <span class="k">typeof</span> <span class="nx">VueI18n</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">te</span><span class="p">;</span>
@@ -451,9 +451,9 @@ For example in the typings of VueI18n (the i18n library that I use), we find:</p
 If you would use a different i18n library, you will have most of these things also readily available.
 For example vue-i18next defines <code class="language-plaintext highlighter-rouge">$i18n</code> as:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declare</span> <span class="nx">module</span> <span class="dl">"</span><span class="s2">vue/types/vue</span><span class="dl">"</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">declare</span> <span class="kr">module</span> <span class="dl">"</span><span class="s2">vue/types/vue</span><span class="dl">"</span> <span class="p">{</span>
     <span class="kr">interface</span> <span class="nx">Vue</span> <span class="p">{</span>
-        <span class="nx">readonly</span> <span class="nx">$i18n</span><span class="p">:</span> <span class="nx">VueI18Next</span><span class="p">;</span>
+        <span class="k">readonly</span> <span class="nx">$i18n</span><span class="p">:</span> <span class="nx">VueI18Next</span><span class="p">;</span>
         <span class="nl">$t</span><span class="p">:</span> <span class="nx">TranslationFunction</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -881,9 +881,9 @@ We could create a new component called <code class="language-plaintext highlight
 We extend our <code class="language-plaintext highlighter-rouge">Post</code> interface to accomodate this:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kr">interface</span> <span class="nx">Post</span> <span class="p">{</span>
-	<span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-	<span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-	<span class="nl">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+	<span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+	<span class="nl">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+	<span class="nl">author</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 	<span class="nl">datePosted</span><span class="p">:</span> <span class="nb">Date</span><span class="p">;</span>
 	<span class="nl">highlighted</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1063,15 +1063,15 @@ The code block is followed by an explanation about what we have done exactly:</p
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
 	<span class="c1">// ...</span>
-	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+	<span class="k">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
-	<span class="kr">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+	<span class="k">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
 
 	<span class="kd">get</span> <span class="nx">visibleBlogPosts</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">post</span><span class="p">:</span> <span class="nx">Post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>  <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">);</span>
 	<span class="p">}</span>
 
-	<span class="kr">public</span> <span class="nx">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">public</span> <span class="nx">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">;</span>
 	<span class="p">}</span>
 	<span class="c1">// ...</span>
@@ -1444,7 +1444,7 @@ While when we build with the production mode via <code class="language-plaintext
 
 <p>The only thing we changed to get a <code class="language-plaintext highlighter-rouge">dist</code> folder that is so small, was adding a <code class="language-plaintext highlighter-rouge">vue.config.js</code> file in the root of our folder which exports an object with the settings we want:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
     <span class="na">productionSourceMap</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">};</span>
 </code></pre></div></div>

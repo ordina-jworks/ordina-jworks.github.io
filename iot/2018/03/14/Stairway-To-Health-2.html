@@ -248,13 +248,13 @@ It provides you with some nice TypeScript decorators which makes your code a lot
 
 <h4>ExpressJs example</h4>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">EntityApi</span> <span class="kd">extends</span> <span class="nx">CoreApi</span> <span class="p">{</span>
-    <span class="kr">private</span> <span class="nx">entityController</span><span class="p">:</span> <span class="nx">EntityController</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EntityController</span><span class="p">();</span>
+    <span class="k">private</span> <span class="nx">entityController</span><span class="p">:</span> <span class="nx">EntityController</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EntityController</span><span class="p">();</span>
     <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="c1">// the create function would that have to be executed by the main server while bootstrapping the application</span>
-    <span class="kr">public</span> <span class="nx">create</span><span class="p">(</span><span class="nx">router</span><span class="p">:</span> <span class="nx">Router</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="nx">create</span><span class="p">(</span><span class="nx">router</span><span class="p">:</span> <span class="nx">Router</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="dl">'</span><span class="s1">/auth/entities</span><span class="dl">'</span><span class="p">,</span>
                     <span class="k">this</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">,</span>
                     <span class="k">this</span><span class="p">.</span><span class="nx">requireAdmin</span><span class="p">,</span>
@@ -271,7 +271,7 @@ It provides you with some nice TypeScript decorators which makes your code a lot
 <span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">/auth/entities</span><span class="dl">'</span><span class="p">)</span>
 <span class="p">@</span><span class="nd">UseGuards</span><span class="p">(</span><span class="nx">RolesGuard</span><span class="p">)</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">EntitiesController</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">entitiesService</span><span class="p">:</span> <span class="nx">EntitiesService</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="k">readonly</span> <span class="nx">entitiesService</span><span class="p">:</span> <span class="nx">EntitiesService</span><span class="p">)</span> <span class="p">{}</span>
     <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">)</span>
     <span class="p">@</span><span class="nd">Roles</span><span class="p">(</span><span class="dl">'</span><span class="s1">admin</span><span class="dl">'</span><span class="p">)</span>
     <span class="k">async</span> <span class="nx">findAll</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">IEntity</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
@@ -293,14 +293,14 @@ So we solved this by pushing all connected clients to an array and when we recei
 <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@nestjs/websockets</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">WebSocketGateway</span><span class="p">({</span><span class="na">namespace</span><span class="p">:</span> <span class="dl">'</span><span class="s1">events/cheers</span><span class="dl">'</span><span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">CheerEventsComponent</span> <span class="kr">implements</span> <span class="nx">OnGatewayConnection</span><span class="p">,</span> <span class="nx">OnGatewayDisconnect</span> <span class="p">{</span>
-	<span class="kr">public</span> <span class="nx">clients</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CheerEventsComponent</span> <span class="k">implements</span> <span class="nx">OnGatewayConnection</span><span class="p">,</span> <span class="nx">OnGatewayDisconnect</span> <span class="p">{</span>
+	<span class="k">public</span> <span class="nx">clients</span> <span class="o">=</span> <span class="p">[];</span>
 
 	<span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
 
 	<span class="p">}</span>
 
-	<span class="nx">handleConnection</span><span class="p">(</span><span class="nx">client</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">handleConnection</span><span class="p">(</span><span class="nx">client</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">client</span><span class="p">);</span>
 	<span class="p">}</span>
 
@@ -319,7 +319,7 @@ So we solved this by pushing all connected clients to an array and when we recei
 		<span class="k">return</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">private</span> <span class="nx">broadcast</span><span class="p">(</span><span class="na">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">private</span> <span class="nx">broadcast</span><span class="p">(</span><span class="nx">message</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">c</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">)</span> <span class="p">{</span>
 			<span class="nx">c</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
 		<span class="p">}</span>

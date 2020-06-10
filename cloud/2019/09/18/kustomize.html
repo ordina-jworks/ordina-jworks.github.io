@@ -185,15 +185,15 @@
 
 <h2 id="what-problem-do-we-have">What problem do we have?</h2>
 
-<p>Deploying components to a Kubernetes cluster should be as easy as running <code class="language-plaintext highlighter-rouge">kubectl apply -f folder-with-deployment-manifests</code>. 
-This approach works very well for a single environment, but quickly become very hard to do properly when managing multiple environments (Dev, Staging, …, Production). 
+<p>Deploying components to a Kubernetes cluster should be as easy as running <code class="language-plaintext highlighter-rouge">kubectl apply -f folder-with-deployment-manifests</code>.
+This approach works very well for a single environment, but quickly become very hard to do properly when managing multiple environments (Dev, Staging, …, Production).
 The reason for this is due to the configuration differences in these environments.
 Every environment needs a different configuration to: connect to different databases, use other secret values, use different deployment configurations (number of replicas for example), …
 Managing these differences can be very hard to do in a single set of manifests.</p>
 
 <h2 id="what-alternatives-are-available-to-solve-this-problem">What alternatives are available to solve this problem?</h2>
 
-<p>Luckily this problem exists in many organizations and the community already created multiple tools to help solve the problem. 
+<p>Luckily this problem exists in many organizations and the community already created multiple tools to help solve the problem.
 In the scope of configuration management for Kubernetes the following tools are in available:</p>
 
 <ul>
@@ -205,17 +205,17 @@ In the scope of configuration management for Kubernetes the following tools are 
 
 <p>OpenShift Templates are part of the OpenShift platform and can be used both to template manifests in a repository and to provide an off-the-shelve experience in the OpenShift platform itself.
 For example, a cluster administrator can install a template for an Apache Kafka setup.
-By provisioning this template (through the online UI or the CLI) and providing the required template values, the service can be provisioned like the administrator provides it. 
+By provisioning this template (through the online UI or the CLI) and providing the required template values, the service can be provisioned like the administrator provides it.
 This is a very powerful approach to allow developers to provision supporting systems directly in the platform.</p>
 
-<p>Helm 2 is a templating and deployment management tool. 
-In Helm 2 a server-side component needs to be installed in the cluster named Tiller. 
+<p>Helm 2 is a templating and deployment management tool.
+In Helm 2 a server-side component needs to be installed in the cluster named Tiller.
 Tiller is the central entrypoint and management component for all deployments using Helm 2.
 It keeps the state of all deployed manifests and groups them together as a single release.
 The main disadvantage of Helm 2 is the lack of proper authorization (RBAC) support as Tiller will run with almost root-level privileges on the cluster.</p>
 
 <p>Helm 3 is currently still in beta, but the reworked version should resolve a lot of the issues with Helm 2.
-Like Helm 2 it’s still a templating engine which also manages releases. 
+Like Helm 2 it’s still a templating engine which also manages releases.
 Unlike Helm 2, it doesn’t use the Tiller component anymore to manage all the state connected to the release.
 More information about Helm can be found in a future blogpost.</p>
 
@@ -231,6 +231,7 @@ Originally it was a separate tool and some functionality is still only available
 The documentation of Kustomize is therefore available in two parts, the <a href="https://github.com/kubernetes-sigs/kustomize/tree/master/docs" target="_blank" rel="noopener noreferrer">core docs</a> and the <a href="https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html" target="_blank" rel="noopener noreferrer">Kubectl docs</a>.</p>
 
 <p>Important to note, especially when considering the usage of this tool, is what it doesn’t do:</p>
+
 <ul>
   <li>It doesn’t manage deployments</li>
   <li>It doesn’t package applications in deployable artifacts</li>
@@ -241,7 +242,7 @@ The documentation of Kustomize is therefore available in two parts, the <a href=
 
 <h3 id="base-manifest">Base manifest</h3>
 
-<p>A base manifest is, in essence, a set of bare-bones Kubernetes manifests.
+<p>A base manifest is, in essence, a set of bare-bones Kubernetes manifests with some Kustomize configuration.
 For the scope of this blog post, a single base manifest will contain all configuration to deploy a single service.
 Kustomize doesn’t require this, but it seems like a good fit.</p>
 
@@ -253,7 +254,7 @@ Kustomize doesn’t require this, but it seems like a good fit.</p>
 
 <p>These manifests can deploy one of our apps to a cluster.
 It will create a deployment, a service exposing the app to the cluster and an ingress object that will allow connections from outside of the cluster.
-Managing a set of these manifests in separate files or even in one file, can be a bit challenging and ofter results in violating the Don’t-Repeat-Yourself (DRY) principle.
+Managing a set of these manifests in separate files or even in one file, can be a bit challenging and often results in violating the Don’t-Repeat-Yourself (DRY) principle.
 Kustomize can assist in preventing this and allows the user to more generally manage their manifests.
 Adding Kustomize to a set of manifests is as easy as creating a <code class="language-plaintext highlighter-rouge">kustomization.yaml</code> file and running <code class="language-plaintext highlighter-rouge">kustomize build</code>.</p>
 
@@ -270,34 +271,45 @@ Adding Kustomize to a set of manifests is as easy as creating a <code class="lan
 <span class="pi">-</span> <span class="s">ingress.yaml</span>
 </code></pre></div></div>
 
-<p>In this example, only a single feature of Kustomize is used, namely the <code class="language-plaintext highlighter-rouge">commonLabels</code> option. 
-This option makes Kustomize add the label to all managed manifests at build time (when running <code class="language-plaintext highlighter-rouge">kubectl apply -k</code> or <code class="language-plaintext highlighter-rouge">kustomize build</code>). 
-Other options like image overrides, namespaces overrides and name prefixing are also available. 
+<p>In this example, only a single feature of Kustomize is used, namely the <code class="language-plaintext highlighter-rouge">commonLabels</code> option.
+This option makes Kustomize add the label to all managed manifests at build time (when running <code class="language-plaintext highlighter-rouge">kubectl apply -k</code> or <code class="language-plaintext highlighter-rouge">kustomize build</code>).
+Other options like image overrides, namespaces overrides and name prefixing are also available.
 For more information on these features check out the documentation <a href="https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html" target="_blank" rel="noopener noreferrer">here</a>.</p>
 
 <h3 id="overlay-manifest">Overlay manifest</h3>
 
-<p>The second half of the cake in Kustomize are the overlays. 
+<p>The second half of the cake in Kustomize are the overlays.
 Overlays are YAML snippets, Kustomize configuration and/or even full manifests that can be used to adapt a base manifest.</p>
+
+<p>In the default setup on the Kustomize homepage, the bases are always local folders.
+However, a really useful feature is referencing remote locations, including Git repositories, as bases to be used in an overlay.
+The Git endpoints need to be specified as described in the <a href="https://github.com/hashicorp/go-getter#url-format" target="_blank" rel="noopener noreferrer">hashicorp/go-getter URL format</a>.
+Important to note here is that when using the Git references, the machine that is executing Kustomize builds needs to have a valid Git configuration to access the referenced repositories.
+As the kustomization file is checked into version control, adding credentials into the link is considered a bad practice.
+Kustomize supports referencing multiple bases, which again allows for a lot of flexibility.
+The references work recursively, so multiple levels of manifests are supported.
+At the time of writing, diamond composition is not possible but <a href="https://github.com/kubernetes-sigs/kustomize/issues/1251" target="_blank" rel="noopener noreferrer">being worked on</a>.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
 
-<span class="na">bases</span><span class="pi">:</span>
+<span class="na">resources</span><span class="pi">:</span>
 <span class="pi">-</span> <span class="s">../../base</span>
-<span class="pi">-</span> <span class="s">git::ssh://git@some-git-provider:some-repo-path.git//folder-in-repo-with-kustomize-config?ref=branch</span>
+<span class="pi">-</span> <span class="s">git::ssh://git@some-git-provider:some-repo-path.git//folder-in-repo-with-kustomize-config?ref=some-branch</span>
 <span class="pi">-</span> <span class="s">github.com/project/repo//folder-in-repo?ref=branch</span>
 <span class="nn">...</span>
 </code></pre></div></div>
 
-<p>In the default setup on the Kustomize homepage, the bases are always local folders. 
-However, a really useful feature is referencing remote locations, including Git repositories, as bases to be used in an overlay. 
-The Git endpoints need to be specified as described in the <a href="https://github.com/hashicorp/go-getter#url-format" target="_blank" rel="noopener noreferrer">hashicorp/go-getter URL format</a>. 
-Important to note here is that when using the Git references, the machine that is executing Kustomize builds needs have a valid Git configuration to access the referenced repositories.
-As the kustomization file is checked into version control, adding credentials into the link is considered a bad practice.
-Kustomize supports referencing multiple bases, which again allows for a lot of flexibility. 
-The references work recursively, so multiple levels of manifests are supported.
-At the time of writing, diamond composition is not possible but <a href="https://github.com/kubernetes-sigs/kustomize/issues/1251" target="_blank" rel="noopener noreferrer">being worked on</a>.</p>
+<p>The example above uses 3 different ways to include a base manifest in this overlay.
+The first one, <code class="language-plaintext highlighter-rouge">../../base</code>, references a folder on the machine.
+A kustomization manifest needs to be present in this folder.</p>
+
+<p>The second one, <code class="language-plaintext highlighter-rouge">git::ssh://git@some-git-provider:some-repo-path.git//folder-in-repo-with-kustomize-config?ref=some-branch</code> points to a Git repository.
+More specifically, it points to the Git repository name <code class="language-plaintext highlighter-rouge">some-repo-path</code> on git provider <code class="language-plaintext highlighter-rouge">some-git-provider</code>.
+It connects to that Git provider using SSH (<code class="language-plaintext highlighter-rouge">ssh://</code>) and it will checkout the branch named <code class="language-plaintext highlighter-rouge">some-branch</code>.
+Finally, it will look for the kustomization manifest in the <code class="language-plaintext highlighter-rouge">folder-in-repo-with-kustomize-config</code> folder of the repository instead of in the root directory.</p>
+
+<p>The last method is very similar to the second, however it uses the github.com specific syntax.</p>
 
 <p>The way Kustomize builds a set of manifests is the following:</p>
 
@@ -313,17 +325,32 @@ At the time of writing, diamond composition is not possible but <a href="https:/
   <li>Apply any patches and execute the transformers against all manifest that are generated or available through the bases.</li>
 </ol>
 
-<p>This order of execution is important to remember when creating setups, especially when using overrides for generators in the base. 
-E.g. when using a config map generator in the overlay, a ConfigMap generator needs to be used in the base as well, otherwise Kustomize will not allow the override to be executed. 
+<p>This order of execution is important to remember when creating setups, especially when using overrides for generators in the base.
+E.g. when using a config map generator in the overlay, a ConfigMap generator needs to be used in the base as well, otherwise Kustomize will not allow the override to be executed.
 This is because the config map generator adds a random ID to the name of each generated config map and cannot determine whether to change the config maps in the base template as well.</p>
 
 <h2 id="extending-kustomize-plugins">Extending Kustomize: plugins</h2>
 
-<p>Kustomize allows plugins to be created and used during execution. 
+<p>In some examples the <code class="language-plaintext highlighter-rouge">configMapGenerator</code> was used to easily create config maps without having to manually convert files.
+There are actually two mechanisms to influence YAML files programmatically: generators and transformers.</p>
+
+<p>Generators do exactly what their name suggests: they generate YAML files.
+Generator will use the provided configuration to create new manifests and add them to the set of already available Kubernetes manifests.</p>
+
+<p>Transformers however only work on existing Kubernetes manifests.
+The <code class="language-plaintext highlighter-rouge">commonLabels</code> option used in the code snippets above is an example of a transformer.
+It doesn’t create new manifests, it only changes existing ones.</p>
+
+<p>There are a few built-in generators and transformers provided with Kustomize, but the real power lays within the creation of custom plugins that can act as either generators or transformers.</p>
+
+<h3 id="plugins">Plugins</h3>
+
+<p>Kustomize allows plugins to be created and used during execution.
 This mechanism allows for a lot of flexibility.
 Currently, plugins are still an alpha feature and therefore not available through <code class="language-plaintext highlighter-rouge">kubectl</code> but only through the <code class="language-plaintext highlighter-rouge">kustomize</code> tool itself.</p>
 
 <p>Writing a plugin can be done in one of two ways:</p>
+
 <ul>
   <li>Write a plugin in Go and link it as a shared library to the Kustomize tool</li>
   <li>Write a plugin based on the exec model</li>
@@ -360,8 +387,8 @@ process-service/
 └── service.yaml
 </code></pre></div></div>
 
-<p>Deploying this application is as easy as running <code class="language-plaintext highlighter-rouge">kubectl apply -f &lt;folder&gt;</code> on each of these folders. 
-A very simple use case for Kustomize is to deploy all of these components at once and group them. 
+<p>Deploying this application is as easy as running <code class="language-plaintext highlighter-rouge">kubectl apply -f &lt;folder&gt;</code> on each of these folders.
+A very simple use case for Kustomize is to deploy all of these components at once and group them.
 The following <code class="language-plaintext highlighter-rouge">kustomization.yaml</code> should be added to each folder.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
@@ -386,34 +413,40 @@ The following <code class="language-plaintext highlighter-rouge">kustomization.y
 <span class="pi">-</span> <span class="s">../process-service</span>
 </code></pre></div></div>
 
-<p>During the execution of this command, Kustomize will generate a single (giant) file containing all the manifests. 
+<p>During the execution of this command, Kustomize will generate a single (giant) file containing all the manifests.
 Note that the bases are referenced under the resources.
 The <code class="language-plaintext highlighter-rouge">bases</code> key is deprecated and all references should be moved into the resources key.</p>
 
-<p>Making variants on the actual bases is super easy. 
+<p>Making variants on the actual bases is super easy.
 For example, let’s assume that the acceptance environment needs a different configuration.
 This can be achieved by just overriding the ConfigMap in the acceptance folder.
 There are three different ways to override a ConfigMap.</p>
 
 <h3 id="using-configmap-generator">Using ConfigMap Generator</h3>
 
-<p>Generators can be used to ease the management of configuration. 
+<p>Generators can be used to ease the management of configuration.
 The ConfigMap generator makes creating ConfigMaps easier by providing a more common way to specify configuration.
 More information on the ConfigMap generator can be found <a href="https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html#configmapgenerator" target="_blank" rel="noopener noreferrer">here</a>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">acceptance/kustomization.yaml</code></p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#...original yaml...</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">../frontend</span>
+<span class="pi">-</span> <span class="s">../task-service</span>
+<span class="pi">-</span> <span class="s">../process-service</span>
 
 <span class="na">configMapGenerator</span><span class="pi">:</span>
 <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">task-service</span>
-  <span class="na">env</span><span class="pi">:</span> 
+  <span class="na">env</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="s">loglevel=warn</span>
 </code></pre></div></div>
 
 <p>The ConfigMap generator will look for the original manifest and apply the override.
-Important to note here is that the generator only works if the original manifest was generated aswell.
+Important to note here is that the generator only works if the original manifest was generated as well.
 Using this approach thus requires both the base and overrides to use the generator.
-A nice bonus to using the generator is that it will add unique IDs to the ConfigMap name every time one is generated. 
+A nice bonus to using the generator is that it will add unique IDs to the ConfigMap name every time one is generated.
 This way, a component is automatically updated when a linked ConfigMap is changed.
 This provides a nice way to prevent manually triggering a rolling update when configuration changes.</p>
 
@@ -429,7 +462,13 @@ In a nutshell, operations (patches) can be described using JSON path, operations
 
 <p>For the example earlier, this would result in the following:
 <code class="language-plaintext highlighter-rouge">acceptance/kustomization.yaml</code></p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#...original yaml...</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">../frontend</span>
+<span class="pi">-</span> <span class="s">../task-service</span>
+<span class="pi">-</span> <span class="s">../process-service</span>
 
 <span class="na">patches</span><span class="pi">:</span>
 <span class="pi">-</span> <span class="na">target</span><span class="pi">:</span>
@@ -450,12 +489,18 @@ This approach will result in the acceptance-specific config map overriding the b
 It will result in the same ConfigMap manifest after the <code class="language-plaintext highlighter-rouge">kustomize build</code>.</p>
 
 <p>The strategic merge is the final way to provide an override in Kustomize.
-It merges the existing ConfigMaps with the new configuration provided in the override. 
+It merges the existing ConfigMaps with the new configuration provided in the override.
 It applies the same matching rules as the JSON patch approach to match base manifests with the overrides.
 Note that the configuration will be added or overridden.</p>
 
 <p><code class="language-plaintext highlighter-rouge">acceptance/kustomization.yaml</code></p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#...original yaml...</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">../frontend</span>
+<span class="pi">-</span> <span class="s">../task-service</span>
+<span class="pi">-</span> <span class="s">../process-service</span>
 
 <span class="na">patches</span><span class="pi">:</span>
 <span class="pi">-</span> <span class="s">patches/acceptance-specific-task-service-configmap.yaml</span>
@@ -470,7 +515,7 @@ Note that the configuration will be added or overridden.</p>
   <span class="na">loglevel</span><span class="pi">:</span> <span class="s">warm</span>
 </code></pre></div></div>
 
-<p>Building this Kustomize manifest will again result in the same Kubernetes ConfigMap manifest as the other two approaches. 
+<p>Building this Kustomize manifest will again result in the same Kubernetes ConfigMap manifest as the other two approaches.
 Note that none of the three approaches required changing the original manifests.
 When multiple variants are created, updates to the base will automatically be added to all variants without having to change a single line of code.</p>
 
@@ -478,8 +523,8 @@ When multiple variants are created, updates to the base will automatically be ad
 
 <p>Kustomize is a great tool to have in your toolbox to simplify configuration management in Kubernetes.
 DRY principles can be adhered to and managing configuration code can be done in a structured and unified way.
-Kustomize is a great fit when different environments require different configuration for a microservice. 
-Especially when sensible defaults can be added to the base template and only a small amount of overrides are required per environment. 
+Kustomize is a great fit when different environments require different configuration for a microservice.
+Especially when sensible defaults can be added to the base template and only a small amount of overrides are required per environment.
 When compared to Helm, both version 2 and 3, Kustomize doesn’t pollute the original manifests with templating code.</p>
 
 <p>Kustomize is a configuration management tool for Kubernetes.</p>
