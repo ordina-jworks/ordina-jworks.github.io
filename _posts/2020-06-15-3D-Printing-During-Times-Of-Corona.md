@@ -113,19 +113,18 @@ I tried and succeeded in printing this mask in TPU which greatly improves the co
 The TPU printed version does rely quite a bit more on the elastic strap to keep the lid with the filter pinned to the mask as the clips do not work that well when printed in this material.
 I also designed an inlay for the cap/mask to hold the filter in place so that the filter can not be blown out or sucked inside the mask.
 
-TODO TODO TODO
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="First attempt at making masks">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15.3%; display: inline-block;">
     </a>
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0580.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Mask, inlays, filter and filter cap">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0580.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0580.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 27%; display: inline-block;">
     </a>
      <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0581.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Assembled masks">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0581.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0581.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 27%; display: inline-block;">
     </a>
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0443.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Overview of all the V1 masks I printed">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0443.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0443.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 27%; display: inline-block;">
     </a>
 </div>
 <br/>
@@ -194,6 +193,7 @@ When printing masks or devices that need to be worn on the head some form of fle
 
 Enter TPU or Thermoplastic Polyurethane.
 This material is flexible and can also be 3D printed.
+This makes the material suitable for use in designs that need to be able to conform to the contours of a human face.
 
 <div style="text-align: center; margin: 0px auto;">
     <video width="270" height="480" autoplay muted loop>
