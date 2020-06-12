@@ -18,10 +18,9 @@ comments: true
 
 1. [Introduction](#introduction)
 2. [Shortage in equipment](#shortage-in-equipment)
-3. [Can 3D printing help](#can-3d-printing-help)
+3. [3D printing to the rescue](#3d-printing-to-the-rescue)
 4. [Experimenting with TPU](#experimenting-with-tpu)
-5. [Gallery](#gallery)
-6. [Resources](#resources)
+5. [Resources](#resources)
 
 ## Introduction
 
@@ -42,7 +41,7 @@ Masks are slowly becoming more widely available for the general population again
 Luckily our country was spared the overwhelming load on the hospitals like in Italy.
 While the situation was very serious in the hospitals we never had a lack of ventilators or had to turn people away because the hospitals were at or already beyond their capacity.
 
-## Can 3D printing help
+## 3D printing to the rescue
 
 3D printing is a very handy technology.
 It allows for rapid prototyping and small scale production without the need to set up a full production line.
@@ -92,19 +91,91 @@ This sealant can be varnish or any other material which does not cause irritatio
 
 Below are some of the designs I experimented with and my personal findings of each mask in terms of fabrication easy and wearing comfort.
 
-TODO TODO TODO
+This was one of the first masks I printed, [designed by The 3D Handyman on YouTube and Thingiverse.](https://www.thingiverse.com/thing:4239615){:target="_blank"}
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print1.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Multiple eiffel towers printed at once with DLP/MSLA">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 35%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v1-mask.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
+        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
     </a>
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print2.gif' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Vase print with SLA">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print2.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v1-cap.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
+        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
     </a>
 </div>
 <br/>
 
+The mask is modelled to the face of the creator, as can be seen in the instructional video:
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+    <iframe src="https://www.youtube.com/embed/kBQcNBPRkh0" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
+</div>
+<br/>
+
+It fits rather well, but when printed in PLA (or ABS) the edge can be rather uncomfortable.
+I tried and succeeded in printing this mask in TPU which greatly improves the comfort when wearing it.
+The TPU printed version does rely quite a bit more on the elastic strap to keep the lid with the filter pinned to the mask as the clips do not work that well when printed in this material.
+I also designed an inlay for the cap/mask to hold the filter in place so that the filter can not be blown out or sucked inside the mask.
+
+TODO TODO TODO
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="A real Venturi valve vs a 3D printed one">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Many laser printed Venturi valves">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="3D printed Venturi valves that have been prepared for use">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+    </a>
+</div>
+<br/>
+
+This was the second mask design I printed, [also designed by The 3D Handyman on YouTube and Thingiverse.](https://www.thingiverse.com/thing:4292905){:target="_blank"}
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-mask.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
+        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+    </a>
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-cap.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
+        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+    </a>
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-mold.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
+        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+    </a>
+</div>
+<br/>
+
+This mask is much more complex, not modelled to one specific face and requires additional steps after printing.
+It comes with a mold on which silicone caulk should be applied to create a comfortable seal with the wearers face.
+The instructional video explains it all in great detail:
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+    <iframe src="https://www.youtube.com/embed/gwOZ_gwkojg" width="100%" height="100%;" style="position: absolute; left: 0; top: 0; bottom: 0; right: 0;"></iframe>
+</div>
+<br/>
+
+This mask fits very well and although it requires quite a bit of extra work I prefer it over the first version!
+It sits very comfortable and does not require printing with TPU.
+The silicone molding process does take some trial an error but the mask shown in the pictures is from the first attempt!
+
+TODO TODO TODO
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="A real Venturi valve vs a 3D printed one">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Many laser printed Venturi valves">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="3D printed Venturi valves that have been prepared for use">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+    </a>
+</div>
+<br/>
+
+
+There are many many more mask designs online.
+You can always design a custom mask or look on thingiverse or any other 3D modelling site for designs from other people, the community is very large and very engaged when it comes to prototyping.
+A lot of trial and error is involved before getting a mask design right, and even when printing before the print is just right so it can be worn.
+Printing with different materials like TPU can also be tricky and time consuming to get right, in the section below I talk a bit more about what TPU is and why it's harder to print with.
+
 Disclaimer: These masks are not the real deal, they are not meant to be used in hospitals, they are meant to provide a means to protect oneself when not better materials/equipment is at hand.
 They also only offer an additional protection at best, and it is recommended to maintain all social distancing measures, even when wearing a mask!
+All the masks shown here have been sealed with varnish or paint to allow for safer use and easier disinfection.
 
 ## Experimenting with TPU
 
@@ -140,6 +211,10 @@ It is recommended to print TPU on a direct extruder at a lower than normal print
 However it can also be printed on bowden fed extruders, but the printing speed needs to be lowered even further, this to prevent the filament from spooling of or clogging in the bowden tube.
 Retraction distance also needs to be lowered to prevent the extruder from clogging up, this will increase stringing to some degree though.
 
+3D printing is already trial and error, but for printing flexibles like TPU this is even more so.
+The material is a lot more unforgiving than PLA or even ABS and the settings need to be fine tuned for each different printer and TPU material before prints will come out looking somewhat decent.
+
+The image below shows the difference between a bowden extruder (left), which has a guiding tube made of teflon and a direct drive extruder (right).
 <img alt="Bowden versus Direct drive extruder" src="{{ '/img/2020-06-15-3D-Printing-during-corona/bowden-vs-direct.webp' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 Below is a video of my 3D printed with a bowden type extruder printing TPU just fine, albeit very slowly.
@@ -149,14 +224,6 @@ Below is a video of my 3D printed with a bowden type extruder printing TPU just 
     </video>
 </div>
 <br/>
-
-## Gallery
-
-TODO
-
-The lid:
-<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:100%;"></iframe>
-You can download the file <a href="/img/meeseeks/lid.stl">here.</a>
 
 ## Resources
 
