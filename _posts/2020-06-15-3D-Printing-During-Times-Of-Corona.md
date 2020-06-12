@@ -75,7 +75,7 @@ The STL files have not been shared publicly (except for some imitations, one is 
 The manufacturers have not taken any legal action against this 3D printed design.
 Using the original valves is still recommended and once the supply from the manufacturers can meet the demand these will once again be used as some of the intricate details of the valve are hard to mimic with current 3D printing technologies.
 
-<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
+<iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
 
 But not only valves are being 3d printed.
 Since there is also a great demand for face masks, and they were, certainly in the beginning, in very short supply.
@@ -94,10 +94,10 @@ Below are some of the designs I experimented with and my personal findings of ea
 This was one of the first masks I printed, [designed by The 3D Handyman on YouTube and Thingiverse.](https://www.thingiverse.com/thing:4239615){:target="_blank"}
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v1-mask.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
     </a>
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v1-cap.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
     </a>
 </div>
 <br/>
@@ -132,13 +132,13 @@ I also designed an inlay for the cap/mask to hold the filter in place so that th
 This was the second mask design I printed, [also designed by The 3D Handyman on YouTube and Thingiverse.](https://www.thingiverse.com/thing:4292905){:target="_blank"}
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-mask.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
     </a>
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-cap.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
     </a>
      <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-mold.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
     </a>
 </div>
 <br/>
@@ -185,6 +185,31 @@ Printing with different materials like TPU can also be tricky and time consuming
 Disclaimer: These masks are not the real deal, they are not meant to be used in hospitals, they are meant to provide a means to protect oneself when not better materials/equipment is at hand.
 They also only offer an additional protection at best, and it is recommended to maintain all social distancing measures, even when wearing a mask!
 All the masks shown here have been sealed with varnish or paint to allow for safer use and easier disinfection.
+
+In addition to masks there are also tools/adapters being printed to more easily hold masks or holder for plastic face shield, to use in combination with a mask.
+
+The straps are a very small piece that can hold the bands of a mask, this allows the mask tightness to be adjusted and provides greater comfort for the wearer.
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+    <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 100%; height: 350px; display: inline-block;"></iframe>
+</div>
+These can be printed quite fast on a very rough quality setting.
+
+The second much printed item are the holders for face shields.
+These face shield provide an additional layer of protection to the wearer, usually this is combined with wearing a regular face mask.
+The holders fit around the wearer's head and the plastic face shield clicked onto the holder by the pins.
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/shield1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Printed holder and plastic sheet">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/shield1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/shield2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Assembled face shield">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/shield2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 49%; display: inline-block;">
+    </a>
+</div>
+<br/>
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
+    <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 100%; height: 350px; display: inline-block;"></iframe>
+</div>
 
 ## Experimenting with TPU
 
@@ -244,5 +269,7 @@ Below is a video of my 3D printed with a bowden type extruder printing TPU just 
 - [Custom Fitted Respirator Filter Mask - COVID-19: YouTube](https://www.youtube.com/watch?v=kBQcNBPRkh0){:target="_blank"}
 - [Universal Respirator / Face Mask w/ Mold for a Silicone Seal: Files](https://www.thingiverse.com/thing:4292905){:target="_blank"}
 - [Universal Respirator / Face Mask w/ Mold for a Silicone Seal: YouTube](https://www.youtube.com/watch?v=gwOZ_gwkojg){:target="_blank"}
+- [Surgical mask strap](https://www.thingiverse.com/thing:4249113){:target="_blank"}
+- [Face shield holder](https://3dverkstan.se/protective-visor/){:target="_blank"}
 - [Shore hardness](https://www.x3d.com.au/blog/best-tpu-filaments-according-to-shore-hardness){:target="_blank"}
 - [Direct drive vs Bowden](https://all3dp.com/2/direct-vs-bowden-extruder-technology-shootout/){:target="_blank"}
