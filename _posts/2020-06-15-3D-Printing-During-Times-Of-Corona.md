@@ -75,7 +75,7 @@ The STL files have not been shared publicly (except for some imitations, one is 
 The manufacturers have not taken any legal action against this 3D printed design.
 Using the original valves is still recommended and once the supply from the manufacturers can meet the demand these will once again be used as some of the intricate details of the valve are hard to mimic with current 3D printing technologies.
 
-<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/venturi-valve.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
+<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
 
 But not only valves are being 3d printed.
 Since there is also a great demand for face masks, and they were, certainly in the beginning, in very short supply.
@@ -115,14 +115,17 @@ I also designed an inlay for the cap/mask to hold the filter in place so that th
 
 TODO TODO TODO
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="A real Venturi valve vs a 3D printed one">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="First attempt at making masks">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Many laser printed Venturi valves">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0580.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Mask, inlays, filter and filter cap">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0580.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="3D printed Venturi valves that have been prepared for use">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0581.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Assembled masks">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0581.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0443.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Overview of all the V1 masks I printed">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0443.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
     </a>
 </div>
 <br/>
@@ -153,20 +156,27 @@ This mask fits very well and although it requires quite a bit of extra work I pr
 It sits very comfortable and does not require printing with TPU.
 The silicone molding process does take some trial an error but the mask shown in the pictures is from the first attempt!
 
-TODO TODO TODO
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="A real Venturi valve vs a 3D printed one">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0584.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Printed mask & Silicone mold">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0584.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 20.5%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Many laser printed Venturi valves">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0486.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Mask with silicone seal 1">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0486.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 11.5%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="3D printed Venturi valves that have been prepared for use">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0487.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Mask with silicone seal 2">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0487.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 11.5%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0488.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Mask with silicone seal 3">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0488.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 11.5%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0582.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Mask, filter and filter cap">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0582.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 20.5%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0583.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Assembled mask">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0583.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 11.5%; display: inline-block;">
     </a>
 </div>
 <br/>
-
 
 There are many many more mask designs online.
 You can always design a custom mask or look on thingiverse or any other 3D modelling site for designs from other people, the community is very large and very engaged when it comes to prototyping.
