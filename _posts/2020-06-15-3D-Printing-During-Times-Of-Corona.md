@@ -48,18 +48,35 @@ While the situation was very serious in the hospitals we never had a lack of ven
 It allows for rapid prototyping and small scale production without the need to set up a full production line.
 The 3D printing community is a very large one, and also a very active one.
 
-Very soon after reports about a lack of components for ventilators there were people in Italy who designed the valve required for the respirator
+Because of the high load on the intensive care units in Italy with many people requiring to be put on a ventilator for life support it became clear that the supply line could not manage the demand.
+The company that produces these Venturi valves could not keep up with the demand.
+Because the hospitals were in need of these valves and the supplier could not provide them, people were contacted and soon after the first version was designed and 3D printed.
+However the valve design is patented and this hindered individuals and companies from stepping in and helping with printing extra valves.
+The hospitals can request production of these masks, sidestepping the patent in times of emergency, but they have to be present and patient consent is also needed (depending on local laws).
 
-TODO: Pictures of valve design and printed valved
+The photo's below show the masks.
+The first picture shows the real valve (left) versus a 3D printed one using filament printing technologies.
+The second picture shows later iterations of the 3D printed valves printed using polymer material that is laser fused.
+
+These valves are not officially approved for use in medical devices, but since "necessity knows no law" it might be better to use these 3D printed valves and saving lives instead of letting people die.
+The STL files have not been shared publicly (except for some imitations, one is included below for educational purposes only), as to not get in any legal trouble.
+The manufacturers have not taken any legal action against this 3D printed design.
+Using the original valves is still recommended and once the supply from the manufacturers can meet the demand these will once again be used as some of the intricate details of the valve are hard to mimic with current 3D printing technologies.
+
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print1.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Multiple eiffel towers printed at once with DLP/MSLA">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 35%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="A real Venturi valve vs a 3D printed one">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 29%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print2.gif' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Vase print with SLA">
-        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/sla-print2.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
+    <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Many laser printed Venturi valves">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 29%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="3D printed Venturi valves that have been prepared for use">
+        <img alt="stack" src="{{ '/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 29%; display: inline-block;">
     </a>
 </div>
 <br/>
+
+<iframe id="vs_iframe" src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/venturi-valve.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
 
 Masks designs were also popping up in the online communities, at first very basic and rudimentary designs but over the following days/weeks the designs became more specialized and optimized.
 
