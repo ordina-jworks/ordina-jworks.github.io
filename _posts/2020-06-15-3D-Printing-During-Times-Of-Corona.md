@@ -26,7 +26,7 @@ comments: true
 
 These are trying times we are living in.  
 Since the outbreak of the Corona virus we have been living in some form of lockdown.
-We are limited in out ability to go out and do thing, and when we do it is recommended to take the necessary precautions like keeping a safe distance and wearing a mask.
+We are limited in our ability to go out and do anything, and when we do it is recommended to take the necessary precautions like keeping a safe distance and wearing a mask.
 The masks are among the things we didn't have enough of, certainly in the beginning of the outbreak.  
 In this blog post I'll dig a little deeper in using 3D printing tech to make masks and other equipment/material that can be of use.
 
@@ -38,8 +38,8 @@ The strain on our healthcare system and the supplies has been massive.
 Masks were kept for healthcare workers even if they were just surgical masks and not the FFP2/3 masks.
 Masks are slowly becoming more widely available for the general population again, however the government relied on people to make their own masks in the beginning.  
 
-Luckily our country was spared the overwhelming load on the hospitals like in Italy.
-While the situation was very serious in the hospitals we never had a lack of ventilators or had to turn people away because the hospitals were at or already beyond their capacity.
+Luckily our country was spared from the overwhelming load on the hospitals like in Italy.
+While the situation was very serious in the hospitals, we never had a lack of ventilators or had to turn people away because the hospitals were at or already beyond their capacity.
 
 ## 3D printing to the rescue
 
@@ -47,13 +47,12 @@ While the situation was very serious in the hospitals we never had a lack of ven
 It allows for rapid prototyping and small scale production without the need to set up a full production line.
 The 3D printing community is a very large one, and also a very active one.  
 
-Because of the high load on the intensive care units in Italy with many people requiring to be put on a ventilator for life support it became clear that the supply line could not manage the demand.
-The company that produces these Venturi valves could not keep up with the demand.  
+Because of the high load on the intensive care units in Italy with many people requiring to be put on a ventilator for life support, it became clear that the supply line could not meet the demand.
 Because the hospitals were in need of these valves and the supplier could not provide them, people were contacted and soon after the first version was designed and 3D printed.
 However the valve design is patented and this hindered individuals and companies from stepping in and helping with printing extra valves.
 The hospitals can request production of these masks, sidestepping the patent in times of emergency, but they have to be present and patient consent is also needed (depending on local laws).  
 
-The photo's below show the masks.
+The pictures below show the masks.
 The first picture shows the real valve (left) versus a 3D printed one using filament printing technologies.
 The second picture shows later iterations of the 3D printed valves printed using polymer material that is laser fused.  
 
@@ -71,7 +70,7 @@ The second picture shows later iterations of the 3D printed valves printed using
 <br/>
 
 These valves are not officially approved for use in medical devices, but since "necessity knows no law" it might be better to use these 3D printed valves and saving lives instead of letting people die.
-The STL files have not been shared publicly (except for some imitations, one is included below for educational purposes only), as to not get in any legal trouble.
+The STL files have not been shared publicly, except for some imitations, [linked for educational purposes only!](https://cults3d.com/en/3d-model/tool/venturi-valvula-pedrovo13){:target="_blank"}
 The manufacturers have not taken any legal action against this 3D printed design.
 Using the original valves is still recommended and once the supply from the manufacturers can meet the demand these will once again be used as some of the intricate details of the valve are hard to mimic with current 3D printing technologies.
 
@@ -79,15 +78,15 @@ Using the original valves is still recommended and once the supply from the manu
 
 But not only valves are being 3d printed.
 Since there is also a great demand for face masks, and they were, certainly in the beginning, in very short supply.
-So masks designs started popping up in the online communities, at first very basic and rudimentary designs but over the following days/weeks the designs became more specialized and optimized.  
+So mask designs started popping up in the online communities, at first very basic and rudimentary designs but over the following days/weeks the designs became more specialized and optimized.  
 
 These masks are not meant to replace the actual FFP2/3 or N95 masks but can offer people at least protection, if not for themselves, at least for others by preventing particles from the nose or mouth to spread as far as without wearing a mask.
 3D printing materials are also (usually) not medically certified so precautions have to be taken.
-Especially when printing masks with FDM technology.  
+Especially when printing masks with [FDM technology](https://nl.wikipedia.org/wiki/Fused_deposition_modeling){:target="_blank"}.  
 
 It might be possible for contaminants to get in between the layers and in microscopic cavities in the printed material.
 Therefor it is highly recommended to either disinfect the masks after user, and even more preferred to do this in addition to also sealing the mask with a sealant.
-This sealant can be varnish or any other material which does not cause irritation when coming in contact with human skin.
+This sealant can be varnish or any other material which does not cause irritation when touching human skin.
 
 Below are some of the designs I experimented with and my personal findings of each mask in terms of fabrication easy and wearing comfort.
 
@@ -151,7 +150,7 @@ The instructional video explains it all in great detail:
 </div>
 <br/>
 
-This mask fits very well and although it requires quite a bit of extra work I prefer it over the first version!
+This mask fits very well and although it requires quite a bit of extra work, I prefer it over the first version!
 It sits very comfortable and does not require printing with TPU.
 The silicone molding process does take some trial an error but the mask shown in the pictures is from the first attempt!
 
@@ -177,8 +176,9 @@ The silicone molding process does take some trial an error but the mask shown in
 </div>
 <br/>
 
-There are many many more mask designs online.
-You can always design a custom mask or look on thingiverse or any other 3D modelling site for designs from other people, the community is very large and very engaged when it comes to prototyping.
+There are many, many more mask designs online.
+You can always design a custom mask or look on [thingiverse](https://www.thingiverse.com/){:target="_blank"} or any other 3D modelling site for designs from other people.
+The community is very large and very engaged when it comes to prototyping.
 A lot of trial and error is involved before getting a mask design right, and even when printing before the print is just right so it can be worn.
 Printing with different materials like TPU can also be tricky and time consuming to get right, in the section below I talk a bit more about what TPU is and why it's harder to print with.
 
@@ -213,10 +213,10 @@ The holders fit around the wearer's head and the plastic face shield clicked ont
 
 ## Experimenting with TPU
 
-One of the disadvantages of regular materials like PLA, ABS or PETG is that they are fairly rigid, they do net flex very much or at all.
+One of the disadvantages of regular materials like [PLA](https://en.wikipedia.org/wiki/Polylactic_acid){:target="_blank"}, [ABS](https://en.wikipedia.org/wiki/Acrylonitrile_butadiene_styrene){:target="_blank"} or [PETG](https://en.wikipedia.org/wiki/Polyethylene_terephthalate){:target="_blank"} is that they are fairly rigid, they do net flex very much or at all.
 When printing masks or devices that need to be worn on the head some form of flexibility is advisable to make the printed object conform to the shape of the head/face.
 
-Enter TPU or Thermoplastic Polyurethane.
+Enter [TPU or Thermoplastic Polyurethane](https://en.wikipedia.org/wiki/Thermoplastic_polyurethane){:target="_blank"}.
 This material is flexible and can also be 3D printed.
 This makes the material suitable for use in designs that need to be able to conform to the contours of a human face.
 
@@ -238,16 +238,16 @@ This scale has three scales:
 - Scale D: Hard rubber types
 
 As you can see these scales do somewhat overlap.
-For 3D printing the harder the TPU material is the easier it is to print.
+For 3D printing the harder the TPU material is, the easier it is to print.
 The lower the A or D scale value of the TPU material, the lower the printing speed and the shorter the retraction distance/speed has to be!
 
 TPU is harder to print than regular PLA or ABS.
 It is recommended to print TPU on a direct extruder at a lower than normal printing speed.
-However it can also be printed on bowden fed extruders, but the printing speed needs to be lowered even further, this to prevent the filament from spooling of or clogging in the bowden tube.
+However it can also be printed on bowden fed extruders, but the printing speed needs to be lowered even further to prevent the filament from spooling up or clogging in the bowden tube.
 Retraction distance also needs to be lowered to prevent the extruder from clogging up, this will increase stringing to some degree though.
 
 3D printing is already trial and error, but for printing flexibles like TPU this is even more so.
-The material is a lot more unforgiving than PLA or even ABS and the settings need to be fine tuned for each different printer and TPU material before prints will come out looking somewhat decent.
+The material is a lot more unforgiving than PLA or even ABS and the settings need to be fine-tuned for each different printer and TPU material before prints will come out looking somewhat decent.
 
 The image below shows the difference between a bowden extruder (left), which has a guiding tube made of teflon and a direct drive extruder (right).
 <img alt="Bowden versus Direct drive extruder" src="{{ '/img/2020-06-15-3D-Printing-during-corona/bowden-vs-direct.webp' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
