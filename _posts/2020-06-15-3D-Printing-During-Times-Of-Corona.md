@@ -251,7 +251,7 @@ This will increase stringing to some degree though.
 The material is a lot more unforgiving than PLA or even ABS and the settings need to be fine-tuned for each different printer and TPU material before prints will come out looking somewhat decent.
 
 The image below shows the difference between a bowden extruder (left), which has a guiding tube made of teflon and a direct drive extruder (right).
-<img alt="Bowden versus Direct drive extruder" src="{{ '/img/2020-06-15-3D-Printing-during-corona/bowden-vs-direct.webp' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
+<img alt="Bowden versus Direct drive extruder" src="{{ '/img/2020-06-15-3D-Printing-during-corona/bowden-vs-direct.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
 Below is a video of my 3D printer with a bowden type extruder printing TPU just fine, albeit very slowly.
 <div style="text-align: center; margin: 0px auto;">
