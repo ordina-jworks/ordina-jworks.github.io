@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_van_den_abeele]
 title: "3D Printing During Times of Corona"
 image: /img/2020-06-15-3D-Printing-during-corona/banner.jpg
-tags: [3D printing, Printing, Building, Technology, Smart Technology, FDM, PLA, TPU, corona, masks, ventilator, respirator, corona, covid, covid-19, sars-cov-2, FFP2, FFP3, N95, Surgical mask]
+tags: [3D printing, Printing, Building, Technology, Smart Technology, FDM, PLA, TPU, masks, ventilator, respirator, corona, covid, covid-19, sars-cov-2, FFP2, FFP3, N95, Surgical mask]
 category: IoT
 comments: true
 ---
@@ -26,7 +26,7 @@ comments: true
 
 These are trying times we are living in.  
 Since the outbreak of the Corona virus we have been living in some form of lockdown.
-We are limited in our ability to go out and do anything, and when we do it is recommended to take the necessary precautions like keeping a safe distance and wearing a mask.
+We are limited in our ability to go out and do anything, and when we do, it is recommended to take the necessary precautions like keeping a safe distance and wearing a mask.
 The masks are among the things we didn't have enough of, certainly in the beginning of the outbreak.  
 In this blog post I'll dig a little deeper in using 3D printing tech to make masks and other equipment/material that can be of use.
 
@@ -44,11 +44,11 @@ While the situation was very serious in the hospitals, we never had a lack of ve
 ## 3D printing to the rescue
 
 3D printing is a very handy technology.
-It allows for rapid prototyping and small scale production without the need to set up a full production line.
+It allows for rapid prototyping and small-scale production without the need to set up a full production line.
 The 3D printing community is a very large one, and also a very active one.  
 
 Because of the high load on the intensive care units in Italy with many people requiring to be put on a ventilator for life support, it became clear that the supply line could not meet the demand.
-Because the hospitals were in need of these valves and the supplier could not provide them, people were contacted and soon after the first version was designed and 3D printed.
+Because the hospitals were in need of these valves and the supplier could not provide them, the 3D printing community jumped in, and soon after the first version was designed and 3D printed.
 However the valve design is patented and this hindered individuals and companies from stepping in and helping with printing extra valves.
 The hospitals can request production of these masks, sidestepping the patent in times of emergency, but they have to be present and patient consent is also needed (depending on local laws).  
 
@@ -76,7 +76,7 @@ Using the original valves is still recommended and once the supply from the manu
 
 <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
 
-But not only valves are being 3d printed.
+But not only valves are being 3D printed.
 Since there is also a great demand for face masks, and they were, certainly in the beginning, in very short supply.
 So mask designs started popping up in the online communities, at first very basic and rudimentary designs but over the following days/weeks the designs became more specialized and optimized.  
 
@@ -85,7 +85,7 @@ These masks are not meant to replace the actual FFP2/3 or N95 masks but can offe
 Especially when printing masks with [FDM technology](https://nl.wikipedia.org/wiki/Fused_deposition_modeling){:target="_blank"}.  
 
 It might be possible for contaminants to get in between the layers and in microscopic cavities in the printed material.
-Therefor it is highly recommended to either disinfect the masks after user, and even more preferred to do this in addition to also sealing the mask with a sealant.
+Therefor it is highly recommended to either disinfect the masks after use, and even more preferred to do this in addition to also sealing the mask with a sealant.
 This sealant can be varnish or any other material which does not cause irritation when touching human skin.
 
 Below are some of the designs I experimented with and my personal findings of each mask in terms of fabrication easy and wearing comfort.
@@ -110,7 +110,7 @@ The mask is modelled to the face of the creator, as can be seen in the instructi
 It fits rather well, but when printed in PLA (or ABS) the edge can be rather uncomfortable.
 I tried and succeeded in printing this mask in TPU which greatly improves the comfort when wearing it.
 The TPU printed version does rely quite a bit more on the elastic strap to keep the lid with the filter pinned to the mask as the clips do not work that well when printed in this material.
-I also designed an inlay for the cap/mask to hold the filter in place so that the filter can not be blown out or sucked inside the mask.
+I also designed an inlay for the cap/mask to hold the filter in place so that the filter cannot be blown out or sucked inside the mask.
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="First attempt at making masks">
@@ -195,8 +195,8 @@ The straps are a very small piece that can hold the bands of a mask, this allows
 These can be printed quite fast on a very rough quality setting.
 
 The second much printed item are the holders for face shields.
-These face shield provide an additional layer of protection to the wearer, usually this is combined with wearing a regular face mask.
-The holders fit around the wearer's head and the plastic face shield clicked onto the holder by the pins.
+These face shields provide an additional layer of protection to the wearer, usually this is combined with wearing a regular face mask.
+The holders fit around the wearer's head and the plastic face shield clicks onto the holder by the pins.
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/shield1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Printed holder and plastic sheet">
@@ -213,8 +213,8 @@ The holders fit around the wearer's head and the plastic face shield clicked ont
 
 ## Experimenting with TPU
 
-One of the disadvantages of regular materials like [PLA](https://en.wikipedia.org/wiki/Polylactic_acid){:target="_blank"}, [ABS](https://en.wikipedia.org/wiki/Acrylonitrile_butadiene_styrene){:target="_blank"} or [PETG](https://en.wikipedia.org/wiki/Polyethylene_terephthalate){:target="_blank"} is that they are fairly rigid, they do net flex very much or at all.
-When printing masks or devices that need to be worn on the head some form of flexibility is advisable to make the printed object conform to the shape of the head/face.
+One of the disadvantages of regular materials like [PLA](https://en.wikipedia.org/wiki/Polylactic_acid){:target="_blank"}, [ABS](https://en.wikipedia.org/wiki/Acrylonitrile_butadiene_styrene){:target="_blank"} or [PETG](https://en.wikipedia.org/wiki/Polyethylene_terephthalate){:target="_blank"} is that they are fairly rigid, they do not flex very much or at all.
+When printing masks or devices that need to be worn on the head, some form of flexibility is advisable to make the printed object conform to the shape of the head/face.
 
 Enter [TPU or Thermoplastic Polyurethane](https://en.wikipedia.org/wiki/Thermoplastic_polyurethane){:target="_blank"}.
 This material is flexible and can also be 3D printed.
@@ -237,14 +237,15 @@ This scale has three scales:
 - Scale A: Soft rubber types
 - Scale D: Hard rubber types
 
-As you can see these scales do somewhat overlap.
+As you can see, these scales do somewhat overlap.
 For 3D printing the harder the TPU material is, the easier it is to print.
 The lower the A or D scale value of the TPU material, the lower the printing speed and the shorter the retraction distance/speed has to be!
 
 TPU is harder to print than regular PLA or ABS.
 It is recommended to print TPU on a direct extruder at a lower than normal printing speed.
-However it can also be printed on bowden fed extruders, but the printing speed needs to be lowered even further to prevent the filament from spooling up or clogging in the bowden tube.
-Retraction distance also needs to be lowered to prevent the extruder from clogging up, this will increase stringing to some degree though.
+However, it can also be printed on bowden fed extruders, but the printing speed needs to be lowered even further to prevent the filament from spooling up or clogging in the bowden tube.
+Retraction distance also needs to be lowered to prevent the extruder from clogging up.
+This will increase stringing to some degree though.
 
 3D printing is already trial and error, but for printing flexibles like TPU this is even more so.
 The material is a lot more unforgiving than PLA or even ABS and the settings need to be fine-tuned for each different printer and TPU material before prints will come out looking somewhat decent.
@@ -252,7 +253,7 @@ The material is a lot more unforgiving than PLA or even ABS and the settings nee
 The image below shows the difference between a bowden extruder (left), which has a guiding tube made of teflon and a direct drive extruder (right).
 <img alt="Bowden versus Direct drive extruder" src="{{ '/img/2020-06-15-3D-Printing-during-corona/bowden-vs-direct.webp' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;">
 
-Below is a video of my 3D printed with a bowden type extruder printing TPU just fine, albeit very slowly.
+Below is a video of my 3D printer with a bowden type extruder printing TPU just fine, albeit very slowly.
 <div style="text-align: center; margin: 0px auto;">
     <video width="480" height="270" autoplay muted loop>
         <source src="/img/2020-06-15-3D-Printing-during-corona/IMG_0442.MOV" type="video/mp4">
