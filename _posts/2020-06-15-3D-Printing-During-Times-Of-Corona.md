@@ -74,7 +74,7 @@ The STL files have not been shared publicly, except for some imitations, [linked
 The manufacturers have not taken any legal action against this 3D printed design.
 Using the original valves is still recommended and once the supply from the manufacturers can meet the demand these will once again be used as some of the intricate details of the valve are hard to mimic with current 3D printing technologies.
 
-<iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
+<iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/venturi-valve.stl" style="border:0;margin:0;width:100%;height:350px;"></iframe>
 
 But not only valves are being 3D printed.
 Since there is also a great demand for face masks, and they were, certainly in the beginning, in very short supply.
@@ -93,10 +93,10 @@ Below are some of the designs I experimented with and my personal findings of ea
 This was one of the first masks I printed, [designed by The 3D Handyman on YouTube and Thingiverse.](https://www.thingiverse.com/thing:4239615){:target="_blank"}
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v1-mask.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v1-mask.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
     </a>
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v1-cap.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v1-cap.stl" class="image fit" style="margin:0px auto; width: 49%; height: 350px; display: inline-block;"></iframe>
     </a>
 </div>
 <br/>
@@ -131,13 +131,13 @@ I also designed an inlay for the cap/mask to hold the filter in place so that th
 This was the second mask design I printed, [also designed by The 3D Handyman on YouTube and Thingiverse.](https://www.thingiverse.com/thing:4292905){:target="_blank"}
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-mask.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v2-mask.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
     </a>
     <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-cap.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v2-cap.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
     </a>
      <a href="{{ '/img/2020-06-15-3D-Printing-during-corona/v2-mold.stl' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="">
-        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
+        <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v2-mold.stl" class="image fit" style="margin:0px auto; width: 32%; height: 350px; display: inline-block;"></iframe>
     </a>
 </div>
 <br/>
@@ -190,7 +190,7 @@ In addition to masks there are also tools/adapters being printed to more easily 
 
 The straps are a very small piece that can hold the bands of a mask, this allows the mask tightness to be adjusted and provides greater comfort for the wearer.
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
-    <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 100%; height: 350px; display: inline-block;"></iframe>
+    <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/strap.stl" class="image fit" style="margin:0px auto; width: 100%; height: 350px; display: inline-block;"></iframe>
 </div>
 These can be printed quite fast on a very rough quality setting.
 
@@ -208,7 +208,7 @@ The holders fit around the wearer's head and the plastic face shield clicks onto
 </div>
 <br/>
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 55%;">
-    <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/meeseeks/lid.stl" class="image fit" style="margin:0px auto; width: 100%; height: 350px; display: inline-block;"></iframe>
+    <iframe src="https://www.viewstl.com/?embedded&url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/shield-holder.stl" class="image fit" style="margin:0px auto; width: 100%; height: 350px; display: inline-block;"></iframe>
 </div>
 
 ## Experimenting with TPU
