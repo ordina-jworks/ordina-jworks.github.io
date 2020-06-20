@@ -28,6 +28,14 @@ To let your client behave in real-time, we need push events.
 Push events can be enabled by the concept of WebSockets, this bilateral communication connects the server and the client in an open connection with each other.  
 This tech post will explain how I enabled push events with RabbitMQ, MQTT, and Spring Cloud Stream.  
 
+# Table Of Contents
+
+* [WebSockets](#websockets-for-communication)
+* [RabbitMQ](#spinning-up-a-rabbitmq)
+* [Subscribing with JavaScript](#subscribing-with-a-js-client)
+* [Publishing with Spring Cloud Stream](#publishing-events-with-spring-cloud-stream)
+* [Result](#result)
+
 ## WebSockets for communication
 We chose WebSockets for his bilateral open connection it has between the client and the server.  
 Because handling data becomes complex over TCP and requires hard work to do it yourself, WebSockets gives support for subprotocols.  
