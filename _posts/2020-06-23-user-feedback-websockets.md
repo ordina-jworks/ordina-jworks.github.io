@@ -10,7 +10,7 @@ comments: true
 
 ### Reading time: 7 minutes and 31 seconds
 
-When working with event-drive applications, you tend to see this on the screen:
+When working with event-driven applications, you tend to see this on the screen:
 
 > We are processing your request, we will notify you when it succeeds
 
@@ -22,11 +22,11 @@ This part can get complex because you want to give a rapid response as soon as p
 
 >The first thing that comes to mind is, can our client not pol the state of the data from the table un till it's ready?   
 
-When our client receives a high amount of load, and it's polling the database for the state of the data, it can put it under unnecessary stress.  
+When our client receives a high amount of load, and it's polling the database for the state of the data, it can put he database under unnecessary stress.  
 Since polling is a periodically check, it is not real-time, and we want to bring feedback to our users as soon as possible.  
 To let your client behave in real-time, we need push events.  
 Push events can be enabled by the concept of WebSockets, this bilateral communication connects the server and the client in an open connection with each other.  
-This tech post will explain how I enabled push events with RabbitMQ, MQTT, and Spring Cloud Stream.  
+This tech post will explain how we enabled push events with RabbitMQ, MQTT, and Spring Cloud Stream.  
 
 # Table Of Contents
 
@@ -37,13 +37,15 @@ This tech post will explain how I enabled push events with RabbitMQ, MQTT, and S
 * [Result](#result)
 
 ## WebSockets for communication
-We chose WebSockets for his bilateral open connection it has between the client and the server.  
-Because handling data becomes complex over TCP and requires hard work to do it yourself, WebSockets gives support for subprotocols.  
+We chose WebSockets because it provides a bilateral open connection between the client and the server.  
+Because handling data becomes complex over TCP and requires hard work to do yourself, WebSockets gives support for subprotocols.  
 These solutions offer us easy ways to transmit data over the wire.   
-First let's talk about opening a WebSocket connection, to establish one we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.  
+First let's talk about opening a WebSocket connection.  
+To establish one we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.  
 
-The handshake starts with an HTTP request/response, once the connection is established, communication switches to a bidirectional binary protocol which does not conform to the HTTP protocol. 
-The switch happens with the "HTTP Upgrade Negotiation", this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.  
+The handshake starts with an HTTP request/response.  
+Once the connection is established, communication switches to a bidirectional binary protocol which does not conform to the HTTP protocol. 
+The switch happens with the [HTTP Upgrade Negotiation](https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header), this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.  
 
 At a minimum, a successful WebSocket handshake must contain the protocol version, and an auto-generated challenge value sent by the client, followed by a 101 HTTP response code (Switching Protocols) from the server with a hashed challenge-response to confirm the selected protocol version:  
 * Client must send Sec-WebSocket-Version and Sec-WebSocket-Key.
@@ -56,29 +58,31 @@ At a minimum, a successful WebSocket handshake must contain the protocol version
 ### Choosing a subprotocol  
 When I was searching for a suitable subprotocol for handling the data, I first experimented with [STOMP](https://stomp.github.io/){:target="_blank" rel="noopener noreferrer"}.  
 Having a rich messaging mechanism for handling data and great support for [Spring](https://docs.spring.io/spring-integration/reference/html/stomp.html){:target="_blank" rel="noopener noreferrer"} and [RabbitMQ](https://www.rabbitmq.com/stomp.html){:target="_blank" rel="noopener noreferrer"}.  
-I stumbled against an issue with our API GW.
-To do a security scan, they had to parse it to XML, which didn't go well with the UTF-8 text-based messages of STOMP.  
-Some further research brought us to our next candidate, MQTT.  
+I stumbled against an issue with our API gateway.
+To do a security scan, the API gateway had to parse it to XML, which didn't go well with the UTF-8 text-based messages of STOMP.  
+Some further research brought us to our next candidate: MQTT.  
 MQTT, designed as an extremely lightweight pub/sub messaging transport for IoT and mobile devices could offer us a way to enable WebSockets.  
 
 When experimenting, I stumbled on support with [RabbitMQ MQTT plugin](https://www.rabbitmq.com/mqtt.html){:target="_blank" rel="noopener noreferrer"} and [RabbitMQ Web MQTT plugin](https://www.rabbitmq.com/web-mqtt.html){:target="_blank" rel="noopener noreferrer"}
 In MQTT over WebSockets, the MQTT messages are transferred over the network and encapsulated by one or more WebSocket frames.  
 To communicate with an MQTT broker over WebSockets, the broker must be able to handle native WebSockets.  
-For this, we decided to use our own managed RabbitMQ to provide such support.  
+To provide such support, we decided to use our own managed RabbitMQ  
 The plugin enables the possibility to use MQTT over a WebSocket connection.  
 To enable this easily in your broker, you just enable an internal plugin from RabbitMQ itself.  
 
-`rabbitmq-plugins enable rabbitmq_web_mqtt`  
+```shell script
+rabbitmq-plugins enable rabbitmq_web_mqtt
+```  
 
 ## Spinning up a RabbitMQ
 To try it out you can just run RabbitMQ in a Docker container.  
 Define the commands in a Dockerfile and off you go!  
 
-````dockerfile
+```dockerfile
 FROM rabbitmq:3.7-management
 RUN rabbitmq-plugins enable --offline rabbitmq_web_mqtt
 EXPOSE 4369 5671 5672 25672 15671 15672 15675 1883
-````
+```
 
 ### Configuration
 When accessing RabbitMQ via MQTT, credentials have to be given to authenticate yourself.  
@@ -87,24 +91,27 @@ To avoid giving credentials, MQTT supports us to connect anonymously.
 
 Add these to your rabbitmq.config file, and you're good to go:  
 
+```properties
 mqtt.default_user = $RABBITMQ_DEFAULT_USER  
 mqtt.default_pass = $RABBITMQ_DEFAULT_PASS  
 mqtt.allow_anonymous  = true  
+```
 
-## Subscribing with a JS client
+## Subscribing with a JavaScript client
 
-[Eclipse](https://www.eclipse.org/paho/clients/js/){:target="_blank" rel="noopener noreferrer"} offers us a JS client library to use for opening a WebSocket over MQTT  
+[Eclipse](https://www.eclipse.org/paho/clients/js/){:target="_blank" rel="noopener noreferrer"} offers us a JavaScript client library to use for opening a WebSocket over MQTT  
 
-With some basic setup, we can fix ourselves a quick WebSocket to the Rabbit to test the handshake  
-As the JS client, we will be subscribing to a queue and listen for any notifications from the backend.   
+With some basic setup, we can fix ourselves a quick WebSocket to the Rabbit to test the handshake.  
+As the JavaScript client, we will be subscribing to a queue and listen for any notifications from the backend.   
 To configure our client, we need to know what properties we need.  
 A list of properties can be found in the [documentation](https://www.eclipse.org/paho/files/jsdoc/Paho.MQTT.Client.html){:target="_blank" rel="noopener noreferrer"}.  
 The most important ones are enabling SSL and using the keep-alive period as described above.  
 
-````javascript
+```javascript
 var wsbroker = '{rabbitmq_hostname/ws}'
 var wsport = 443; // port for above
-var client = new Paho.MQTT.Client(wsbroker,wsport, "?access_token=eyJ0eX","{client}"); // you can use randomizer to be unique "myclientid_" + parseInt(Math.random() * 100, 10));
+// you can use randomizer to be unique "myclientid_" + parseInt(Math.random() * 100, 10));
+var client = new Paho.MQTT.Client(wsbroker,wsport, "?access_token={token}","{client}"); 
     
 client.onConnectionLost = function (responseObject) {
     console.log("CONNECTION LOST - " + responseObject.errorMessage);
@@ -124,7 +131,7 @@ client.connect({
         debug("CONNECTION FAILURE - " + message.errorMessage);
     }
 });
-````
+```
 ### Keeping the heartbeat alive
 At any point after the handshake, either the client or the server can choose to send a ping to the other party.  
 When the ping is received, the recipient must send back a pong as soon as possible.  
@@ -135,33 +142,33 @@ The client sends a ping every 10 seconds, and the server waits 10 seconds to sen
 
 #### MQTT keep-alive period
 The keep-alive period is the answer from the MQTT protocol to the WebSocket heartbeat.  
-The keep-alive is a time interval measured in seconds, expressed as a 16-bit word, it is the maximum time interval that is permitted to elapse between the point at which the client finishes transmitting one control package and the point it starts sending the next.  
+The keep-alive is a time interval measured in seconds, it is the maximum time interval that is permitted to elapse between the point at which the client finishes transmitting one control package and the point it starts sending the next.  
 It is the responsibility of the client to ensure the interval between the control packets being sent does not exceed the keep-alive value.  
-The client can send a PING at any time, irrespective of the keep-alive value, and use the PONG to determine that the network and the server are working.  
+The client can send a ping at any time, irrespective of the keep-alive value, and use the pong to determine that the network and the server are working.  
 
 To configure the keep-alive period, the client can add the property to enable the feature.  
-
-> client.connect({
+```javascript
+client.connect({
         keepAliveInterval: 20
 })
+```
+### TLS over WebSockets
+To achieve a secure connection, we need to enable TLS.  
+Like HTTP, WebSockets supports TLS with using the prefix `wss://` instead of `ws://` and port `443` instead of `80`  
 
-### SSL over WebSockets
-To achieve secure communication and connection, we need to enable SSL.  
-Like HTTP, WebSocket supports SSL with using the prefix `wss://` instead of `ws://` and port `443` instead of `80`  
-
-The client can enable SSL by adding a property.   
-
-> client.connect({
+The client can enable TLS by adding a property.   
+```javascript
+client.connect({
         useSSL: true
 })
-
+```
 ### Authorization token
 The best practice for securing your resources is to propagate your token via the query parameter.  
 If you are targeting a backend, the backend can handle this token but for this use-case, we need a reverse proxy/API gateway to validate this token for us.  
 
-````javascript
-var client = new Paho.MQTT.Client(wsbroker,wsport, "?access_token=eyJ0eX","{client}");
-````
+```javascript
+var client = new Paho.MQTT.Client(wsbroker,wsport, "?access_token={token}","{client}");
+```
 
 ### Clean Session
 Clean session in the MQTT protocol means that if turned on, the server does not know on what topic the client has subscribed to.  
@@ -170,7 +177,7 @@ When turned off, the client just needs to reconnect to its session that is store
 >Default is true
 
 ### Quality Of Service
-In combination with the clean session property on false, the QoS makes your messages durable.  
+In combination with the clean session property set to false, the QoS makes your messages durable.  
 When the client is offline, the server holds these messages until the client reconnects.  
 
 >Default is 0
@@ -190,22 +197,22 @@ We start by adding both the dependency for Spring Cloud Stream and the binder of
 This indicates that auto-configuration and abstraction are done for RabbitMQ.  
 
 ### Dependencies
-````xml
-   <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-        </dependency>
-````
+```xml
+<dependency>
+ <groupId>org.springframework.cloud</groupId>
+ <artifactId>spring-cloud-stream</artifactId>
+</dependency>
+<dependency>
+ <groupId>org.springframework.cloud</groupId>
+ <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+</dependency>
+```
 
 ### Message Channel
 Following up, we need a channel to publish our messages on, so we create an interface to define our channels.  
 You can have two kinds of channels, one for everyone (broadcast) or one-to-one (private).  
 
-````java
+```java
 public interface UserFeedbackChannel {
 
     String NOTIFICATION_EVERYONE = "globalNotificationChannel";
@@ -217,7 +224,7 @@ public interface UserFeedbackChannel {
     @Output(NOTIFICATION_USER)
     MessageChannel specificNotificationChannel();
 }
-````
+```
 
 To let Spring know it is a custom channel, we need to annotate our configuration class with `@EnableBinding({UserFeedbackChannel.class})`.  
 
@@ -230,7 +237,7 @@ Our pojo event consists of audit fields that we know of whom the message belongs
 This way, we can give feedback to the user who did the transaction.  
 If the header is filled with `events`, it broadcasts the message.  
 
-````yaml
+```yaml
 spring:
   application:
     name: notifications
@@ -251,14 +258,14 @@ spring:
             producer:
               routingKeyExpression: headers.routingKey
               declareExchange: false
-````
+```
 
 
 ### Publisher
 Create the pojo you need, so we can start publishing!  
 Be aware, before pushing the pojo, it needs to be converted to a String for MQTT to understand the format.  
 
-````java
+```java
 @Component
 public class NotificationSocketPublisher {
     private final UserFeedbackChannel channel;
@@ -277,10 +284,10 @@ public class NotificationSocketPublisher {
     }
     
 }
-````
+```
 
 ## Result
-When the JS client, RabbitMQ, and Spring Cloud backend are running, you can try out by triggering messages from the backend onto the RabbitMQ.  
+When the JS client, RabbitMQ, and Spring Cloud backend are running, you can try ìt out by triggering messages from the backend onto the RabbitMQ.  
 This will result in communication to the correct subscriber.  
 The JS subscriber will interpret these messages and parse readable content from it.  
 
