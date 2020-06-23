@@ -32,7 +32,7 @@ This tech post will explain how we enabled push events with RabbitMQ, MQTT, and 
 
 * [WebSockets](#websockets-for-communication)
 * [RabbitMQ](#spinning-up-a-rabbitmq)
-* [Subscribing with JavaScript](#subscribing-with-a-js-client)
+* [Subscribing with JavaScript](#subscribing-with-a-javascript-client)
 * [Publishing with Spring Cloud Stream](#publishing-events-with-spring-cloud-stream)
 * [Result](#result)
 
@@ -45,7 +45,7 @@ To establish one we need the client to send a WebSocket handshake request, for w
 
 The handshake starts with an HTTP request/response.  
 Once the connection is established, communication switches to a bidirectional binary protocol which does not conform to the HTTP protocol. 
-The switch happens with the [HTTP Upgrade Negotiation](https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header), this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.  
+The switch happens with the [HTTP Upgrade Negotiation](https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header){:target="_blank" rel="noopener noreferrer"}, this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.  
 
 At a minimum, a successful WebSocket handshake must contain the protocol version, and an auto-generated challenge value sent by the client, followed by a 101 HTTP response code (Switching Protocols) from the server with a hashed challenge-response to confirm the selected protocol version:  
 * Client must send Sec-WebSocket-Version and Sec-WebSocket-Key.
@@ -70,9 +70,7 @@ To provide such support, we decided to use our own managed RabbitMQ
 The plugin enables the possibility to use MQTT over a WebSocket connection.  
 To enable this easily in your broker, you just enable an internal plugin from RabbitMQ itself.  
 
-```shell script
-rabbitmq-plugins enable rabbitmq_web_mqtt
-```  
+`rabbitmq-plugins enable rabbitmq_web_mqtt`
 
 ## Spinning up a RabbitMQ
 To try it out you can just run RabbitMQ in a Docker container.  
