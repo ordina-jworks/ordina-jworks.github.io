@@ -53,7 +53,7 @@ At a minimum, a successful WebSocket handshake must contain the protocol version
 * Client may send a list of application subprotocols via `Sec-WebSocket-Protocol`.
 * Server must select one of the advertised subprotocols and return it via `Sec-WebSocket-Protocol`. If the server does not support any, then the connection is aborted.
 * Client may send a list of protocol extensions in `Sec-WebSocket-Extensions`.
-* Server may confirm one or more selected extensions via Sec-WebSocket-Extensions. If no extensions are provided, then the connection proceeds without them.
+* Server may confirm one or more selected extensions via `Sec-WebSocket-Extensions`. If no extensions are provided, then the connection proceeds without them.
 
 ### Choosing a subprotocol  
 When I was searching for a suitable subprotocol for handling the data, I first experimented with [STOMP](https://stomp.github.io/){:target="_blank" rel="noopener noreferrer"}.  
