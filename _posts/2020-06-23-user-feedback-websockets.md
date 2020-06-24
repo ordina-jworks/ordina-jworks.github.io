@@ -85,7 +85,7 @@ EXPOSE 4369 5671 5672 25672 15671 15672 15675 1883
 
 ### Configuration
 When accessing RabbitMQ via MQTT, credentials have to be given to authenticate yourself.  
-Because we are accessing from a JS client, we do not want to expose our credentials to our client because it can be exploited.  
+Because we will be accessing it from a JS client, we do not want to expose our credentials to our client because it can be exploited.  
 To avoid giving credentials, MQTT supports us to connect anonymously.  
 
 Add these to your `rabbitmq.config file`, and you're good to go:  
