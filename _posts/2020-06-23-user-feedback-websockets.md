@@ -61,7 +61,7 @@ STOMP has a rich messaging mechanism for handling data and great support for [Sp
 I stumbled against an issue with our API gateway.
 To do a security scan, the API gateway had to parse it to XML, which didn't go well with the UTF-8 text-based messages of STOMP.  
 Some further research brought us to our next candidate: MQTT.  
-MQTT, designed as an extremely lightweight pub/sub messaging transport for IoT and mobile devices could offer us a way to enable WebSockets.  
+MQTT, designed as an extremely lightweight pub/sub messaging transport for IoT and mobile devices, could offer us a way to enable WebSockets.  
 
 When experimenting, I stumbled on support with [RabbitMQ MQTT plugin](https://www.rabbitmq.com/mqtt.html){:target="_blank" rel="noopener noreferrer"} and [RabbitMQ Web MQTT plugin](https://www.rabbitmq.com/web-mqtt.html){:target="_blank" rel="noopener noreferrer"}
 In MQTT over WebSockets, the MQTT messages are transferred over the network and encapsulated by one or more WebSocket frames.  
