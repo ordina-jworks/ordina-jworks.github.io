@@ -48,7 +48,7 @@ Once the connection is established, communication switches to a bidirectional bi
 The switch happens with the [HTTP Upgrade Negotiation](https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header){:target="_blank" rel="noopener noreferrer"}, this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.  
 
 At a minimum, a successful WebSocket handshake must contain the protocol version, and an auto-generated challenge value sent by the client, followed by a 101 HTTP response code (Switching Protocols) from the server with a hashed challenge-response to confirm the selected protocol version:  
-* Client must send Sec-WebSocket-Version and Sec-WebSocket-Key.
+* Client must send `Sec-WebSocket-Version` and `Sec-WebSocket-Key`.
 * Server must confirm the protocol by returning Sec-WebSocket-Accept.
 * Client may send a list of application subprotocols via Sec-WebSocket-Protocol.
 * Server must select one of the advertised subprotocols and return it via Sec-WebSocket-Protocol. If the server does not support any, then the connection is aborted.
