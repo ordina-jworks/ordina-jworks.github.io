@@ -66,7 +66,7 @@ MQTT, designed as an extremely lightweight pub/sub messaging transport for IoT a
 When experimenting, I stumbled on support with [RabbitMQ MQTT plugin](https://www.rabbitmq.com/mqtt.html){:target="_blank" rel="noopener noreferrer"} and [RabbitMQ Web MQTT plugin](https://www.rabbitmq.com/web-mqtt.html){:target="_blank" rel="noopener noreferrer"}.
 In MQTT over WebSockets, the MQTT messages are transferred over the network and encapsulated by one or more WebSocket frames.  
 To communicate with an MQTT broker over WebSockets, the broker must be able to handle native WebSockets.  
-To provide such support, we decided to use our own managed RabbitMQ  
+To provide such support, we decided to use our own managed RabbitMQ.
 The plugin enables the possibility to use MQTT over a WebSocket connection.  
 To enable this easily in your broker, you just enable an internal plugin from RabbitMQ itself.  
 
