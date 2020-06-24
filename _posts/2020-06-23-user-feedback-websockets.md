@@ -88,7 +88,7 @@ When accessing RabbitMQ via MQTT, credentials have to be given to authenticate y
 Because we are accessing from a JS client, we do not want to expose our credentials to our client because it can be exploited.  
 To avoid giving credentials, MQTT supports us to connect anonymously.  
 
-Add these to your rabbitmq.config file, and you're good to go:  
+Add these to your `rabbitmq.config file`, and you're good to go:  
 
 ```properties
 mqtt.default_user = $RABBITMQ_DEFAULT_USER  
