@@ -98,7 +98,7 @@ mqtt.allow_anonymous  = true
 
 ## Subscribing with a JavaScript client
 
-[Eclipse](https://www.eclipse.org/paho/clients/js/){:target="_blank" rel="noopener noreferrer"} offers us a JavaScript client library to use for opening a WebSocket over MQTT  
+[Eclipse](https://www.eclipse.org/paho/clients/js/){:target="_blank" rel="noopener noreferrer"} offers us a JavaScript client library to use for opening a WebSocket over MQTT.
 
 With some basic setup, we can fix ourselves a quick WebSocket to the Rabbit to test the handshake.  
 As the JavaScript client, we will be subscribing to a queue and listen for any notifications from the backend.   
