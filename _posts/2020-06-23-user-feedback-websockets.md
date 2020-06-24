@@ -38,7 +38,7 @@ This tech post will explain how we enabled push events with RabbitMQ, MQTT, and 
 
 ## WebSockets for communication
 We chose WebSockets because it provides a bilateral open connection between the client and the server.  
-Because handling data becomes complex over TCP and requires hard work to do yourself, WebSockets gives support for subprotocols.  
+Because handling data becomes complex over TCP and requires hard work to do it yourself, WebSockets offer support for subprotocols.  
 These solutions offer us easy ways to transmit data over the wire.   
 First let's talk about opening a WebSocket connection.  
 To establish one we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.  
