@@ -32,7 +32,7 @@ This tech post will explain how we enabled push events with RabbitMQ, MQTT, and 
 
 * [WebSockets](#websockets-for-communication)
 * [Spinning up a RabbitMQ](#spinning-up-a-rabbitmq)
-* [Subscribing with JavaScript](#subscribing-with-a-javascript-client)
+* [Subscribing with a JavaScript client](#subscribing-with-a-javascript-client)
 * [Publishing with Spring Cloud Stream](#publishing-events-with-spring-cloud-stream)
 * [Result](#result)
 
