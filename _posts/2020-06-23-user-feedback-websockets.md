@@ -22,7 +22,7 @@ This part can get complex because you want to give a rapid response as soon as p
 
 >The first thing that comes to mind is, can our client not pol the state of the data from the table un till it's ready?   
 
-When our client receives a high amount of load, and it's polling the database for the state of the data, it can put he database under unnecessary stress.  
+When our client receives a high amount of load, and it's polling the database for the state of the data, it can put the database under unnecessary stress.  
 Since polling is a periodically check, it is not real-time, and we want to bring feedback to our users as soon as possible.  
 To let your client behave in real-time, we need push events.  
 Push events can be enabled by the concept of WebSockets, this bilateral communication connects the server and the client in an open connection with each other.  
@@ -70,8 +70,9 @@ To provide such support, we decided to use our own managed RabbitMQ
 The plugin enables the possibility to use MQTT over a WebSocket connection.  
 To enable this easily in your broker, you just enable an internal plugin from RabbitMQ itself.  
 
-`rabbitmq-plugins enable rabbitmq_web_mqtt`
-
+```shell
+rabbitmq-plugins enable rabbitmq_web_mqtt
+```
 ## Spinning up a RabbitMQ
 To try it out you can just run RabbitMQ in a Docker container.  
 Define the commands in a Dockerfile and off you go!  
