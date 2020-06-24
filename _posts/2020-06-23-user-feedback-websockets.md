@@ -135,7 +135,7 @@ client.connect({
 At any point after the handshake, either the client or the server can choose to send a ping to the other party.  
 When the ping is received, the recipient must send back a pong as soon as possible.  
 You can use this to make sure the client is still connected.  
-A best practice is to set the heartbeat between 20-30 seconds [https://tools.ietf.org/html/rfc6202#page-13](https://tools.ietf.org/html/rfc6202#page-13){:target="_blank" rel="noopener noreferrer"}  
+A best practice is to set the heartbeat between 20-30 seconds, see [https://tools.ietf.org/html/rfc6202#page-13](https://tools.ietf.org/html/rfc6202#page-13){:target="_blank" rel="noopener noreferrer"}.
 The client sends a ping every 10 seconds, and the server waits 10 seconds to send back a pong.  
 
 
