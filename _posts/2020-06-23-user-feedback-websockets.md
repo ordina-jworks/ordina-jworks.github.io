@@ -20,7 +20,7 @@ The client wonders what has happened and needs a way to give his users the state
 The next statement tells the user it will notify him/her when the request was successful.  
 This part can get complex because you want to give a rapid response as soon as possible.  
 
->The first thing that comes to mind is, can our client not pol the state of the data from the table un till it's ready?   
+>The first thing that comes to mind is, can our client not poll the state of the data from the table until it's ready?   
 
 When our client receives a high amount of load, and it's polling the database for the state of the data, it can put the database under unnecessary stress.  
 Since polling is a periodically check, it is not real-time, and we want to bring feedback to our users as soon as possible.  
