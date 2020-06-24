@@ -141,7 +141,8 @@ The client sends a ping every 10 seconds, and the server waits 10 seconds to sen
 
 #### MQTT keep-alive period
 The keep-alive period is the answer from the MQTT protocol to the WebSocket heartbeat.  
-The keep-alive is a time interval measured in seconds, it is the maximum time interval that is permitted to elapse between the point at which the client finishes transmitting one control package and the point it starts sending the next.  
+The keep-alive is a time interval measured in seconds.
+It is the maximum time interval that is permitted to elapse between the point at which the client finishes transmitting one control package and the point it starts sending the next.  
 It is the responsibility of the client to ensure the interval between the control packets being sent does not exceed the keep-alive value.  
 The client can send a ping at any time, irrespective of the keep-alive value, and use the pong to determine that the network and the server are working.  
 
