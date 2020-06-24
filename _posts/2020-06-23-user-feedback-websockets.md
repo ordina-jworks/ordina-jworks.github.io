@@ -50,7 +50,7 @@ The switch happens with the [HTTP Upgrade Negotiation](https://en.wikipedia.org/
 At a minimum, a successful WebSocket handshake must contain the protocol version, and an auto-generated challenge value sent by the client, followed by a 101 HTTP response code (Switching Protocols) from the server with a hashed challenge-response to confirm the selected protocol version:  
 * Client must send `Sec-WebSocket-Version` and `Sec-WebSocket-Key`.
 * Server must confirm the protocol by returning `Sec-WebSocket-Accept`.
-* Client may send a list of application subprotocols via Sec-WebSocket-Protocol.
+* Client may send a list of application subprotocols via `Sec-WebSocket-Protocol`.
 * Server must select one of the advertised subprotocols and return it via Sec-WebSocket-Protocol. If the server does not support any, then the connection is aborted.
 * Client may send a list of protocol extensions in Sec-WebSocket-Extensions.
 * Server may confirm one or more selected extensions via Sec-WebSocket-Extensions. If no extensions are provided, then the connection proceeds without them.
