@@ -154,7 +154,7 @@ client.connect({
 ```
 ### TLS over WebSockets
 To achieve a secure connection, we need to enable TLS.  
-Like HTTP, WebSockets supports TLS with using the prefix `wss://` instead of `ws://` and port `443` instead of `80`  
+Like HTTP, WebSockets supports TLS with using the prefix `wss://` instead of `ws://` and port `443` instead of `80`.
 
 The client can enable TLS by adding a property.   
 ```javascript
