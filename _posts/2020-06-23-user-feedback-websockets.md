@@ -57,7 +57,7 @@ At a minimum, a successful WebSocket handshake must contain the protocol version
 
 ### Choosing a subprotocol  
 When I was searching for a suitable subprotocol for handling the data, I first experimented with [STOMP](https://stomp.github.io/){:target="_blank" rel="noopener noreferrer"}.  
-Having a rich messaging mechanism for handling data and great support for [Spring](https://docs.spring.io/spring-integration/reference/html/stomp.html){:target="_blank" rel="noopener noreferrer"} and [RabbitMQ](https://www.rabbitmq.com/stomp.html){:target="_blank" rel="noopener noreferrer"}.  
+STOMP has a rich messaging mechanism for handling data and great support for [Spring](https://docs.spring.io/spring-integration/reference/html/stomp.html){:target="_blank" rel="noopener noreferrer"} and [RabbitMQ](https://www.rabbitmq.com/stomp.html){:target="_blank" rel="noopener noreferrer"}.  
 I stumbled against an issue with our API gateway.
 To do a security scan, the API gateway had to parse it to XML, which didn't go well with the UTF-8 text-based messages of STOMP.  
 Some further research brought us to our next candidate: MQTT.  
