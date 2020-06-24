@@ -12,7 +12,7 @@ comments: true
 
 When working with event-driven applications, you tend to see this on the screen:
 
-> We are processing your request, we will notify you when it succeeds
+> We are processing your request and will notify you when it was treated successfully.
 
 Let's chop the sentence down into processing the request...
 This means that the server is processing your request, but the client is not sure if it was entirely successful because it got transformed into an event and published on a queue never to be seen again (fire and forget).  
