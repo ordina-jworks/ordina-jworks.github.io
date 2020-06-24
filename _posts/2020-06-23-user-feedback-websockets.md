@@ -41,7 +41,7 @@ We chose WebSockets because it provides a bilateral open connection between the 
 Because handling data becomes complex over TCP and requires hard work to do it yourself, WebSockets offer support for subprotocols.  
 These solutions offer us easy ways to transmit data over the wire.   
 First, let's talk about opening a WebSocket connection.  
-To establish one we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.  
+To establish one, we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.  
 
 The handshake starts with an HTTP request/response.  
 Once the connection is established, communication switches to a bidirectional binary protocol which does not conform to the HTTP protocol. 
