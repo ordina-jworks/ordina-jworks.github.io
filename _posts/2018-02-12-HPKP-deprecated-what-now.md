@@ -65,9 +65,7 @@ Obviously it will only look for these on an HTTPS URL, since on a simple HTTP co
 
 The header looks like this:
 
-```http request
-Expect-CT: enforce, max-age=31536000, report-uri="https://example.com"
-```
+`Expect-CT: enforce, max-age=31536000, report-uri="https://example.com"`
 
 This tells the browser to **enforce** the CT rule and to do so for the next year.
 Any infractions will be sent to the `report-uri` you mentioned.
