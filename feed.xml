@@ -1,5 +1,285 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-06-15T14:22:04+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">3D Printing During Times of Corona</title><link href="https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona.html" rel="alternate" type="text/html" title="3D Printing During Times of Corona" /><published>2020-06-15T00:00:00+00:00</published><updated>2020-06-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-06-30T08:06:46+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud</title><link href="https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html" rel="alternate" type="text/html" title="Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud" /><published>2020-06-30T00:00:00+00:00</published><updated>2020-06-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets</id><content type="html" xml:base="https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html">&lt;h3 id=&quot;reading-time-7-minutes-and-31-seconds&quot;&gt;Reading time: 7 minutes and 31 seconds&lt;/h3&gt;
+
+&lt;p&gt;When working with event-driven applications, you tend to see this on the screen:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We are processing your request and will notify you when it was treated successfully.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let’s chop the sentence down into processing the request…
+This means that the server is processing your request, but the client is not sure if it was entirely successful because it got transformed into an event and published on a queue never to be seen again (fire and forget).&lt;br /&gt;
+The client wonders what has happened and needs a way to give his users the state of the request.&lt;br /&gt;
+The next statement tells the user it will notify him/her when the request was successful.&lt;br /&gt;
+This part can get complex because you want to give a rapid response as soon as possible.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The first thing that comes to mind is, can our client not poll the state of the data from the table until it’s ready?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;When our client receives a high amount of load, and it’s polling the database for the state of the data, it can put the database under unnecessary stress.&lt;br /&gt;
+Since polling is a periodically check, it is not real-time, and we want to bring feedback to our users as soon as possible.&lt;br /&gt;
+To let your client behave in real-time, we need push events.&lt;br /&gt;
+Push events can be enabled by the concept of WebSockets, this bilateral communication connects the server and the client in an open connection with each other.&lt;br /&gt;
+This tech post will explain how we enabled push events with RabbitMQ, MQTT, and Spring Cloud Stream.&lt;/p&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#websockets-for-communication&quot;&gt;WebSockets for communication&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#spinning-up-a-rabbitmq&quot;&gt;Spinning up a RabbitMQ&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#subscribing-with-a-javascript-client&quot;&gt;Subscribing with a JavaScript client&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#publishing-events-with-spring-cloud-stream&quot;&gt;Publishing events with Spring Cloud Stream&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#result&quot;&gt;Result&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;websockets-for-communication&quot;&gt;WebSockets for communication&lt;/h2&gt;
+&lt;p&gt;We chose WebSockets because it provides a bilateral open connection between the client and the server.&lt;br /&gt;
+Because handling data becomes complex over TCP and requires hard work to do it yourself, WebSockets offer support for subprotocols.&lt;br /&gt;
+These solutions offer us easy ways to transmit data over the wire. &lt;br /&gt;
+First, let’s talk about opening a WebSocket connection.&lt;br /&gt;
+To establish one, we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.&lt;/p&gt;
+
+&lt;p&gt;The handshake starts with an HTTP request/response.&lt;br /&gt;
+Once the connection is established, communication switches to a bidirectional binary protocol which does not conform to the HTTP protocol. 
+The switch happens with the &lt;a href=&quot;https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HTTP Upgrade Negotiation&lt;/a&gt;, this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.&lt;/p&gt;
+
+&lt;p&gt;At a minimum, a successful WebSocket handshake must contain the protocol version, and an auto-generated challenge value sent by the client, followed by a 101 HTTP response code (Switching Protocols) from the server with a hashed challenge-response to confirm the selected protocol version:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Client must send &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Version&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Key&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Server must confirm the protocol by returning &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Accept&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Client may send a list of application subprotocols via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Protocol&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Server must select one of the advertised subprotocols and return it via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Protocol&lt;/code&gt;. If the server does not support any, then the connection is aborted.&lt;/li&gt;
+  &lt;li&gt;Client may send a list of protocol extensions in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Extensions&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Server may confirm one or more selected extensions via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Extensions&lt;/code&gt;. If no extensions are provided, then the connection proceeds without them.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;choosing-a-subprotocol&quot;&gt;Choosing a subprotocol&lt;/h3&gt;
+&lt;p&gt;When I was searching for a suitable subprotocol for handling the data, I first experimented with &lt;a href=&quot;https://stomp.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;STOMP&lt;/a&gt;.&lt;br /&gt;
+STOMP has a rich messaging mechanism for handling data and great support for &lt;a href=&quot;https://docs.spring.io/spring-integration/reference/html/stomp.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring&lt;/a&gt; and &lt;a href=&quot;https://www.rabbitmq.com/stomp.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RabbitMQ&lt;/a&gt;.&lt;br /&gt;
+I stumbled against an issue with our API gateway.
+To do a security scan, the API gateway had to parse it to XML, which didn’t go well with the UTF-8 text-based messages of STOMP.&lt;br /&gt;
+Some further research brought us to our next candidate: MQTT.&lt;br /&gt;
+MQTT, designed as an extremely lightweight pub/sub messaging transport for IoT and mobile devices, could offer us a way to enable WebSockets.&lt;/p&gt;
+
+&lt;p&gt;When experimenting, I stumbled on support with &lt;a href=&quot;https://www.rabbitmq.com/mqtt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RabbitMQ MQTT plugin&lt;/a&gt; and &lt;a href=&quot;https://www.rabbitmq.com/web-mqtt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RabbitMQ Web MQTT plugin&lt;/a&gt;.
+In MQTT over WebSockets, the MQTT messages are transferred over the network and encapsulated by one or more WebSocket frames.&lt;br /&gt;
+To communicate with an MQTT broker over WebSockets, the broker must be able to handle native WebSockets.&lt;br /&gt;
+To provide such support, we decided to use our own managed RabbitMQ.
+The plugin enables the possibility to use MQTT over a WebSocket connection.&lt;br /&gt;
+To enable this easily in your broker, you just enable an internal plugin from RabbitMQ itself.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rabbitmq-plugins &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;rabbitmq_web_mqtt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;spinning-up-a-rabbitmq&quot;&gt;Spinning up a RabbitMQ&lt;/h2&gt;
+&lt;p&gt;To try it out you can just run RabbitMQ in a Docker container.&lt;br /&gt;
+Define the commands in a Dockerfile and off you go!&lt;/p&gt;
+
+&lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; rabbitmq:3.7-management&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;rabbitmq-plugins &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--offline&lt;/span&gt; rabbitmq_web_mqtt
+&lt;span class=&quot;k&quot;&gt;EXPOSE&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; 4369 5671 5672 25672 15671 15672 15675 1883&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
+&lt;p&gt;When accessing RabbitMQ via MQTT, credentials have to be given to authenticate yourself.&lt;br /&gt;
+Because we will be accessing it from a JS client, we do not want to expose our credentials to our client because it can be exploited.&lt;br /&gt;
+To avoid giving credentials, MQTT supports us to connect anonymously.&lt;/p&gt;
+
+&lt;p&gt;Add these to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rabbitmq.config file&lt;/code&gt;, and you’re good to go:&lt;/p&gt;
+
+&lt;div class=&quot;language-properties highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;py&quot;&gt;mqtt.default_user&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$RABBITMQ_DEFAULT_USER  &lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;mqtt.default_pass&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$RABBITMQ_DEFAULT_PASS  &lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;mqtt.allow_anonymous&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true  &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;subscribing-with-a-javascript-client&quot;&gt;Subscribing with a JavaScript client&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.eclipse.org/paho/clients/js/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Eclipse&lt;/a&gt; offers us a JavaScript client library to use for opening a WebSocket over MQTT.&lt;/p&gt;
+
+&lt;p&gt;With some basic setup, we can fix ourselves a quick WebSocket to the Rabbit to test the handshake.&lt;br /&gt;
+As the JavaScript client, we will be subscribing to a queue and listen for any notifications from the backend. &lt;br /&gt;
+To configure our client, we need to know what properties we need.&lt;br /&gt;
+A list of properties can be found in the &lt;a href=&quot;https://www.eclipse.org/paho/files/jsdoc/Paho.MQTT.Client.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt;.&lt;br /&gt;
+The most important ones are enabling SSL and using the keep-alive period as described above.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wsbroker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;{rabbitmq_hostname/ws}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wsport&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;443&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// port for above&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// you can use randomizer to be unique &quot;myclientid_&quot; + parseInt(Math.random() * 100, 10));&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Paho&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MQTT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsbroker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsport&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?access_token={token}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;{client}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+    
+&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onConnectionLost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;responseObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;CONNECTION LOST - &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;responseObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;errorMessage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onMessageArrived&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;RECEIVE ON &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;destinationName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; PAYLOAD &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payloadString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  
+  
+&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;useSSL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;onSuccess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;CONNECTION SUCCESS&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;qos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;onFailure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;debug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;CONNECTION FAILURE - &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;errorMessage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;keeping-the-heartbeat-alive&quot;&gt;Keeping the heartbeat alive&lt;/h3&gt;
+&lt;p&gt;At any point after the handshake, either the client or the server can choose to send a ping to the other party.&lt;br /&gt;
+When the ping is received, the recipient must send back a pong as soon as possible.&lt;br /&gt;
+You can use this to make sure the client is still connected.&lt;br /&gt;
+A best practice is to set the heartbeat between 20-30 seconds, see &lt;a href=&quot;https://tools.ietf.org/html/rfc6202#page-13&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://tools.ietf.org/html/rfc6202#page-13&lt;/a&gt;.
+The client sends a ping every 10 seconds, and the server waits 10 seconds to send back a pong.&lt;/p&gt;
+
+&lt;h4 id=&quot;mqtt-keep-alive-period&quot;&gt;MQTT keep-alive period&lt;/h4&gt;
+&lt;p&gt;The keep-alive period is the answer from the MQTT protocol to the WebSocket heartbeat.&lt;br /&gt;
+The keep-alive is a time interval measured in seconds.
+It is the maximum time interval that is permitted to elapse between the point at which the client finishes transmitting one control package and the point it starts sending the next.&lt;br /&gt;
+It is the responsibility of the client to ensure the interval between the control packets being sent does not exceed the keep-alive value.&lt;br /&gt;
+The client can send a ping at any time, irrespective of the keep-alive value, and use the pong to determine that the network and the server are working.&lt;/p&gt;
+
+&lt;p&gt;To configure the keep-alive period, the client can add the property to enable the feature.&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;keepAliveInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;tls-over-websockets&quot;&gt;TLS over WebSockets&lt;/h3&gt;
+&lt;p&gt;To achieve a secure connection, we need to enable TLS.&lt;br /&gt;
+Like HTTP, WebSockets supports TLS with using the prefix &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wss://&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ws://&lt;/code&gt; and port &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;443&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;80&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The client can enable TLS by adding a property.&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;useSSL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;authorization-token&quot;&gt;Authorization token&lt;/h3&gt;
+&lt;p&gt;The best practice for securing your resources is to propagate your token via the query parameter.&lt;br /&gt;
+If you are targeting a backend, the backend can handle this token but for this use-case, we need a reverse proxy/API gateway to validate this token for us.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Paho&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MQTT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsbroker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsport&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?access_token={token}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;{client}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;clean-session&quot;&gt;Clean Session&lt;/h3&gt;
+&lt;p&gt;Clean session in the MQTT protocol means that if turned on, the server does not know on what topic the client has subscribed to.&lt;br /&gt;
+When turned off, the client just needs to reconnect to its session that is stored on the server.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Default is true&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;quality-of-service&quot;&gt;Quality Of Service&lt;/h3&gt;
+&lt;p&gt;In combination with the clean session property set to false, the QoS makes your messages durable.&lt;br /&gt;
+When the client is offline, the server holds these messages until the client reconnects.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Default is 0&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;mqtt-client&quot;&gt;MQTT Client&lt;/h3&gt;
+&lt;p&gt;When opening the WebSocket on RabbitMQ, the broker will create a new queue on the default topic &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amq.topic&lt;/code&gt; with a routingKey as the subscriber endpoint.&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/sockets/mqttclient.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;publishing-events-with-spring-cloud-stream&quot;&gt;Publishing Events with Spring Cloud Stream&lt;/h2&gt;
+&lt;p&gt;So now we have our RabbitMQ up with the enabled plugin for MQTT over WebSockets, Spring Cloud Stream offers an abstraction for messaging with RabbitMQ as a binder.&lt;br /&gt;
+Because RabbitMQ is our MQTT broker, we do not need any special configuration to handle MQTT messages. 
+You can just set up a Spring Boot application with the &lt;a href=&quot;Spring Initialzr&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://start.spring.io&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We start by adding both the dependency for Spring Cloud Stream and the binder of choice.&lt;br /&gt;
+This indicates that auto-configuration and abstraction are done for RabbitMQ.&lt;/p&gt;
+
+&lt;h3 id=&quot;dependencies&quot;&gt;Dependencies&lt;/h3&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.cloud&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-cloud-stream&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.cloud&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-cloud-starter-stream-rabbit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;message-channel&quot;&gt;Message Channel&lt;/h3&gt;
+&lt;p&gt;Following up, we need a channel to publish our messages on, so we create an interface to define our channels.&lt;br /&gt;
+You can have two kinds of channels, one for everyone (broadcast) or one-to-one (private).&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserFeedbackChannel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NOTIFICATION_EVERYONE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;globalNotificationChannel&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NOTIFICATION_USER&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;specificNotificationChannel&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NOTIFICATION_EVERYONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;MessageChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;globalNotificationChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NOTIFICATION_USER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;MessageChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To let Spring know it is a custom channel, we need to annotate our configuration class with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@EnableBinding({UserFeedbackChannel.class})&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;configuration-1&quot;&gt;Configuration&lt;/h3&gt;
+&lt;p&gt;With RabbitMQ, some custom configuration needs to be taken care of.&lt;br /&gt;
+Since MQTT takes the topic &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amq.topic&lt;/code&gt; as default, we need to target this as our destination for our messages.&lt;br /&gt;
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;routingKeyExpression&lt;/code&gt; enables us to broadcast or privately send the message.&lt;br /&gt;
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;headers.routingKey&lt;/code&gt; is bound to the user we want to message to.&lt;br /&gt;
+Our pojo event consists of audit fields that we know of whom the message belongs to.&lt;br /&gt;
+This way, we can give feedback to the user who did the transaction.&lt;br /&gt;
+If the header is filled with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;events&lt;/code&gt;, it broadcasts the message.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;notifications&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;bindings&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;globalNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;destination&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;amq.topic&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;destination&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;amq.topic&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;rabbit&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;bindings&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;globalNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;routingKeyExpression&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;events'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;declareExchange&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;routingKeyExpression&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;headers.routingKey&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;declareExchange&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;publisher&quot;&gt;Publisher&lt;/h3&gt;
+&lt;p&gt;Create the pojo you need, so we can start publishing!&lt;br /&gt;
+Be aware, before pushing the pojo, it needs to be converted to a String for MQTT to understand the format.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NotificationSocketPublisher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserFeedbackChannel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ObjectMapper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NotificationSocketPublisher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;UserFeedbackChannel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ObjectMapper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;channel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;objectMapper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sendPrivateNotificationToUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NotificationSocketEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;convertToString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;notification&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MessageBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;routingKey&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;events.&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCreatedBy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());;&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notification&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
+&lt;p&gt;When the JS client, RabbitMQ, and Spring Cloud backend are running, you can try ìt out by triggering messages from the backend onto the RabbitMQ.&lt;br /&gt;
+This will result in communication to the correct subscriber.&lt;br /&gt;
+The JS subscriber will interpret these messages and parse readable content from it.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/sockets/messages.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van Houtte&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-houtte/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-houtte.jpg&quot;, &quot;twitter&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;linkedin&quot;=&gt;&quot;kevin-van-houtte-55ba936a&quot;, &quot;github&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;title&quot;=&gt;&quot;Software Consultant Java&quot;, &quot;email&quot;=&gt;&quot;kevin.vanhoutte@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem, Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Kevin has a strong focus on building cloud native architectures with the right mindset on security and API design.&quot;}</name><email>kevin.vanhoutte@ordina.be</email></author><category term="Event-Driven" /><category term="spring" /><category term="queue" /><category term="integration" /><category term="websockets" /><category term="event-driven" /><category term="cloud" /><summary type="html">Reading time: 7 minutes and 31 seconds</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">3D Printing During Times of Corona</title><link href="https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona.html" rel="alternate" type="text/html" title="3D Printing During Times of Corona" /><published>2020-06-15T00:00:00+00:00</published><updated>2020-06-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
 
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
 
@@ -1729,308 +2009,4 @@ This standard is a collection of suggested measures and is by no means an exhaus
 &lt;p&gt;In summary, an architect needs to be able to get a handle on all the angles of the solution as soon as possible in the development process, and requirements, both functional and non-functional, allow him or her the overarching vision to guide development along. 
 Be wary of analysis paralysis though. 
 To quote the former US Secretary of Defence Donald Rumsfeld: “There are known unknowns, that is to say, there are things that we now know we don’t know them.” 
-So, avoid trying to get the perfect picture of the requirements, and instead factor into your solution that new requirements can pop up and hidden ones can be revealed during the later stages of the project.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="Architecture" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-03-24-Charting-non-functionals/nonfunc_background.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-03-24-Charting-non-functionals/nonfunc_background.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Zero Plastic Rivers - explained</title><link href="https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained.html" rel="alternate" type="text/html" title="Zero Plastic Rivers - explained" /><published>2020-03-16T00:00:00+00:00</published><updated>2020-03-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/03/16/ZPR-explained.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#architecture&quot;&gt;Architecture&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#security&quot;&gt;Security&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#developer-experience&quot;&gt;Developer experience&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;As a society we treat plastic irresponsibly. Because of us, enormous amounts of plastic waste end up in our rivers.&lt;br /&gt;
-And if we don’t remove this plastic from the rivers before it reaches the estuary, this plastic will inevitably end up in the plastic soup, which in turn gets bigger.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zeroplasticrivers.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The Zero Plastic Rivers (ZPR) initiative&lt;/a&gt;  tries to solve this problem by doing three things: measure, prevent and clean up.&lt;br /&gt;
-Plastic pollutes our seas and oceans.&lt;br /&gt;
-Currently at least 150 million tons of plastic waste floats in our oceans, forming the infamous plastic soup.&lt;br /&gt;
-And it is getting worse; it’s estimated another 8 million tons is added every year.&lt;br /&gt;
-That’s about one truck of plastic per minute that get’s dumped into our oceans.&lt;/p&gt;
-
-&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;The Zero Plastic Rivers initiative&lt;/strong&gt;  wants to make sure that our rivers no longer bring plastic waste to the seas.&lt;br /&gt;
-We want to do this based on a scientific and structured approach, inspired by the principles of quantitative optimization as defined by &lt;strong&gt;Six Sigma.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;endgoal&quot;&gt;Endgoal&lt;/h2&gt;
-&lt;p&gt;Our rivers are severely polluted with plastic, making them the largest source of plastic soup in our oceans, even up to 80%.&lt;br /&gt;
-We can only solve this problem by ensuring that our rivers no longer supply plastic to the sea.&lt;br /&gt;
-And that is why we are striving for Zero Plastic Rivers.&lt;/p&gt;
-
-&lt;p&gt;To be more effective in the fight against the plastic soup it is important to get more insight in how plastic moves through the rivers.&lt;br /&gt;
-This is where Bert Teunkens together with the University of Antwerp comes into play.&lt;br /&gt;
-The subject of his PhD is: Quantification and characterization of the plastic fluxes in the Scheldt basin, with the ultimate goal of setting-up an efficient remediation.&lt;/p&gt;
-
-&lt;p&gt;To help him reach his goal of creating strategies to combat the plastic pollution he needs insights in how different kinds of plastic moves through our waterways.&lt;br /&gt;
-Bert came up with different ways to gather this data:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;using citizen science&lt;/li&gt;
-  &lt;li&gt;IoT&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;citizen-science&quot;&gt;Citizen science&lt;/h3&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers Plastic&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_allplastic.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;A large quantity of plastic objects were dipped in fluorescent paint and were tagged with water resistant stickers containing metadata about that object.&lt;br /&gt;
-These objects were released in the waterways with the assumption they would wash ashore eventually.&lt;br /&gt;
-Because they were brightly colored, they would be easy to spot by passers-by.&lt;br /&gt;
-These people could then enter various information about the object such as the unique object identifier, GPS location, pictures, description, …&lt;/p&gt;
-
-&lt;h3 id=&quot;iot&quot;&gt;IoT&lt;/h3&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers Sensor&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_tracker.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Another great way to gather datapoints was through GPS trackers.&lt;br /&gt;
-Various industrial grade battery powered GPS trackers were put in a waterproof casing and then deployed into the river.&lt;br /&gt;
-Using a 2G network, these GPS trackers would travel along the river and transmit a new GPS fix every hour.&lt;br /&gt;
-Various measures were taken to optimize battery consumption as we expected the trackers to travel for an extended period of time. This was done by putting a specific configuration on these devices.&lt;/p&gt;
-
-&lt;h2 id=&quot;partnering&quot;&gt;Partnering&lt;/h2&gt;
-&lt;p&gt;Bert approached Ordina because of our deep IoT knowledge and user centric end-to-end project approach.&lt;/p&gt;
-
-&lt;p&gt;Ordina helped create an application to gather the datapoints and visualise them so that he could formulate ways of setting up efficient remediation.&lt;/p&gt;
-
-&lt;p&gt;This was quite an exciting and important project for Ordina and the JWorks crew as it checks 2 boxes at the same time: doing a project with the latest and greatest technology while having a significant impact on society!&lt;/p&gt;
-
-&lt;p&gt;This project would allow us to use all our skills to build a solution that would solve a major problem for society.&lt;br /&gt;
-With our multi-disciplinary team we were able to tackle following domains: user experience, application and cloud architecture, frontend and backend development, security and managed application hosting.&lt;/p&gt;
-
-&lt;h1 id=&quot;user-experience&quot;&gt;User Experience&lt;/h1&gt;
-&lt;p&gt;From the get-go it seemed very crucial to nail the user experience for the citizen science part of the application.&lt;br /&gt;
-The success of the project depended on benevolent strangers to pick up our brightly colored plastic waste, read the instruction and input a significant amount of data into our system.&lt;br /&gt;
-This process needed to be clear, painless and concise. &lt;br /&gt;
-Bad user interaction would lead to no datapoints and thus doom the project.&lt;/p&gt;
-
-&lt;p&gt;The initial idea was to put QR tags on all the plastic objects and have users scan them.&lt;br /&gt;
-Altough everyone deemed this an elegant and efficient way of working, we decided to test this on “regular people”.&lt;br /&gt;
-This was done by conducting guerilla testing: talking to random people outside our office building, showing them a ZPR plastic object with a tag and seeing what they would do.&lt;/p&gt;
-
-&lt;p&gt;Turns out very few people instinctively know what to do with a QR code.&lt;br /&gt;
-To counter this, we opted to add a very short url on the object: www.zpr.one&lt;br /&gt;
-This allowed more users to reach our application and fill in all the data we needed.&lt;/p&gt;
-
-&lt;p&gt;Once they were in the application we had to make it straightforward for them to collect all the data we needed.&lt;br /&gt;
-Various rapid iteration of the UI were made using wireframes and mockups.&lt;br /&gt;
-These were tested and validated to create an optimal flow through the various screens as we wanted a very low threshold for users to input the data.&lt;/p&gt;
-
-&lt;p&gt;We opted to create a Progressive Web Application (PWA) instead of a native application as we felt that users did not want to install yet another app.
-As we required access to native features such as GPS and camera a PWA seemed perfect for the job!&lt;/p&gt;
-
-&lt;h1 id=&quot;architecture&quot;&gt;Architecture&lt;/h1&gt;
-
-&lt;p&gt;To build and run this modern and complex project we opted to use the AWS platform.&lt;br /&gt;
-For a considerable amount of time we at JWorks have been investing our efforts and resources to build up our AWS portfolio.&lt;br /&gt;
-This means we work on building up the AWS skills of our people and in parallel we work on building up our portfolio of AWS enabled solutions.&lt;br /&gt;
-We have worked out several reference architectures that we prefer to use now.&lt;br /&gt;
-The advantage of these architectures is that every consultant within our unit knows how to use them and develop applications using them.&lt;/p&gt;
-
-&lt;p&gt;The Zero Plastic Rivers project proved to be an excellent opportunity to put some of these into practice.&lt;br /&gt;
-You can view the architecture we opted to build in the following picture.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_architecture.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;This big architectural picture can be divided in 3 big sections:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Backend java application&lt;/li&gt;
-  &lt;li&gt;Frontend ionic app&lt;/li&gt;
-  &lt;li&gt;IoT sensor data ingestion&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We will highlight some key features of each architectural section in the following paragraphs.&lt;/p&gt;
-
-&lt;h2 id=&quot;backend-application&quot;&gt;Backend application&lt;/h2&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_arch_backend.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;the-backend-itself&quot;&gt;The backend itself&lt;/h3&gt;
-&lt;p&gt;Since we are called JWorks and we mainly focus on Java/Javacript development it should be no surprise that our backend application is written in Java with the Spring Boot framework.&lt;br /&gt;
-In general we prefer to write backends in the microservices paradigm, but in this case the backend was sufficiently small that it only consists of 1 microservice.&lt;br /&gt;
-The application itself is a pretty standard spring boot application.&lt;br /&gt;
-We use a postgreSQL server hosted in RDS as our persistent datastore on the backend, supplemented with an elasticache Redis cluster to cache database queries and configurations for the IoT sensors used in the IoT sensor data ingestion part.&lt;br /&gt;
-Our backend service is reachable over a REST interface for the outside world, we will talk more about this interface when we discuss the frontend application.&lt;/p&gt;
-
-&lt;h3 id=&quot;hosting-of-the-application&quot;&gt;Hosting of the application&lt;/h3&gt;
-&lt;p&gt;The backend application is hosted on our Kubernetes cluster in the AWS cloud. This cluster is an EKS cluster that we use to run several projects for customers and is also used for some of our internal applications.&lt;br /&gt;
-The EKS cluster is a multi-worker node cluster setup with multiple Auto Scaling Groups so we can guarantuee almost 100% uptime on our applications that run on this cluster.&lt;br /&gt;
-We have been using Kubernetes in different forms (on-premise, AKS, PKS,  …) for a long time now which means we have a very clear image of how to use it and how to run applications on a cluster.&lt;br /&gt;
-We make heavy use of several key features like: secrets, configmaps, …&lt;br /&gt;
-Our EKS cluster is running several plugins that allow us to quickly configure infrastructure components on the AWS cloud from within our cluster.&lt;br /&gt;
-For example the REST interface of the application is exposed through a Kubernetes ingress which is hooked up to the ALB controller plugin.&lt;br /&gt;
-This means that whenever we create a new ingress a new Application Load Balancer will be automatically provisioned in the AWS cloud to expose our deployment to the outside world. This makes it very easy to work with and allows us a lot of flexibility.&lt;/p&gt;
-
-&lt;h2 id=&quot;frontend&quot;&gt;Frontend&lt;/h2&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_arch_frontend.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Our frontend application consists of two parts.&lt;br /&gt;
-The first part is aimed at citizens who wish to help the cause. They can feed data in the system via the citizen science application when they find a bottle as shown in the image below.&lt;br /&gt;
-This is the first way that data from the plastic bottles comes into our system. We allow the user to upload an optional image when submitting this data. These images are stored in a secure S3 bucket.&lt;br /&gt;
-The second part is aimed at the researchers, and could be seen as the backoffice of the project, where the data given by the GPS trackers and the citizens is visualized in a clear and orderly way.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr-frontend-application.png&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;To develop this application we have chosen to use Ionic. &lt;a href=&quot;https://ionicframework.com/&quot;&gt;Ionic&lt;/a&gt; is a free-to-use web-based framework that allows you to build hybrid mobile apps for iOS and Android, all from one codebase. In other words, Ionic is a tool for cross-platform mobile development. Ionic enables you to develop mobile apps using web technologies and languages like HTML, CSS, JavaScript, Angular, and TypeScript.&lt;/p&gt;
-
-&lt;h3 id=&quot;data-visualization&quot;&gt;Data visualization&lt;/h3&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_arch_data_ingestion.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;One of the most relevant components in this application is the map where the sensors and the plastic bottles in the river are visualized by means of the coordinates registered in these items as shown in the image above. For this we have chosen to use &lt;a href=&quot;https://leafletjs.com/&quot;&gt;Leaflet&lt;/a&gt; which is an open source JavaScript library for adding interactivity to maps. They have a ton of features and plugins to support doing pretty much anything with a map that you can think of.&lt;/p&gt;
-
-&lt;p&gt;Ionic offers a wide variety of ready to use plug-ins and one of them is the camera that enables users who decide to participate in this project to take pictures of the bottles to update the status and deterioration of each bottle in the river.&lt;/p&gt;
-
-&lt;h3 id=&quot;frontend-testing&quot;&gt;Frontend Testing&lt;/h3&gt;
-
-&lt;p&gt;In reference to software testing we have mainly used Unit Testing to reduce the number of errors that are released during deployment, which we consider critical for effective software development.&lt;/p&gt;
-
-&lt;h3 id=&quot;frontend-deployment&quot;&gt;Frontend deployment&lt;/h3&gt;
-
-&lt;p&gt;Originally we planned to host this application in a nginx webserver in our EKS cluster. We changed to S3 as it is an easier to maintain solution than running your own webserver on Kubernetes. We have setup a hosted zone in Route53 which serves as the entry point of users into our application. Route53 then forwards users who visit zpr.one to our Cloudfront distribution. Cloudfront serves the ionic app from our S3 bucket which has static webhosting enabled. This setup seems optimal as it is low maintenance, tightly secured and highly scalable.&lt;/p&gt;
-
-&lt;h4 id=&quot;low-maintenance&quot;&gt;Low maintenance&lt;/h4&gt;
-&lt;p&gt;To explain why this setup is low maintenance let us take a look at the components used in this architecture.&lt;br /&gt;
-We are making use of Cloudfront, S3 and Route53 in this setup.&lt;br /&gt;
-All of these services are managed services provided by AWS.&lt;br /&gt;
-This means that there is no maintenance required on our part as AWS guarantees uptime and makes sure that everything is running smoothly.&lt;br /&gt;
-The only manual actions that have occurred on our side in this setup so far was to clear the Cloudfront cache after releasing a new version to have the new version more quickly available to users of the app.&lt;/p&gt;
-
-&lt;h4 id=&quot;tightly-secured&quot;&gt;Tightly secured&lt;/h4&gt;
-&lt;p&gt;Since we are using only managed services from AWS the burden of patching those services and making sure they are secured is on AWS itself.&lt;br /&gt;
-AWS has an excellent reputation on this regard so we feel very comfortable in this regard.&lt;br /&gt;
-We also make use of several additional features provided by AWS to secure our application further.&lt;br /&gt;
-For example the S3 bucket that is used to host the website is only accessible through the Cloudfront distribution.&lt;br /&gt;
-So users do not need access to the S3 resources itself, we implemented this nicely through Bucket policies and IAM access control.&lt;/p&gt;
-
-&lt;h4 id=&quot;highly-scalable&quot;&gt;Highly scalable&lt;/h4&gt;
-&lt;p&gt;Since we are only allowing traffic to our application from the Cloudfront distribution this means that we get all the benefits from this global CDN.&lt;br /&gt;
-Cloudfront operates on the AWS edge locations which are spread throughout the world.&lt;br /&gt;
-Because our application is mostly Belgium based this was not as important to us but the fact that Cloudfront routes its requests over the internal AWS backbone makes a huge difference in speed which is a nice feature if you are working with global applications.&lt;br /&gt;
-The S3 service which acts as the origin for our Cloudfront distribution is &lt;strong&gt;nearly infinitely scalable&lt;/strong&gt; as proclaimed by AWS itself.&lt;br /&gt;
-The interaction between our frontend and backend happens over REST services provided by our backend in the EKS cluster which is exposed over an ALB so we are very confident that we can scale up as needed.&lt;/p&gt;
-
-&lt;h2 id=&quot;iot-sensor-data-ingestion&quot;&gt;IoT sensor data ingestion&lt;/h2&gt;
-
-&lt;p&gt;IoT is all about processing a large quantity of messages.&lt;/p&gt;
-
-&lt;p&gt;What makes IoT data challenging from a developer perspective is threefold:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Protocol&lt;/li&gt;
-  &lt;li&gt;Data format&lt;/li&gt;
-  &lt;li&gt;Message Content&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Imagine you have a device that captures and delivers GPS data. 
-Seems simple enough right? Guess again!&lt;/p&gt;
-
-&lt;p&gt;A hardware vendor can decide to mix and match these 3 components.&lt;/p&gt;
-
-&lt;p&gt;The vendor can those over which protocol he wants to send the data.
-Some examples are: HTTP(S), TCP, UDP, MQTT, COAP, …&lt;/p&gt;
-
-&lt;p&gt;He can also use different kinds of data-serialization formats to get the information across the network of choice: JSON, XML, Hex, Binary, something proprietary, … Different kinds of parsers will be needed.&lt;/p&gt;
-
-&lt;p&gt;And last but not least: he can organise the way a message is structured. He can name fields any way he wants and use any kind of data type. Imagine two vendors reporting battery capacity. One could report it by sending a field called “battery” and reporting battery voltage.
-Another could use a field called “power” and return a battery fill level percentage.&lt;/p&gt;
-
-&lt;p&gt;Soon, it can become quite complex due to the number of combinations possible.&lt;/p&gt;
-
-&lt;p&gt;Some of our plastic containers send their location via the 2G cellular network at regular intervals.&lt;br /&gt;
-These messages reach us via a public network through the tcp protocol.&lt;/p&gt;
-
-&lt;p&gt;As various protocols such as TCP and UDP are quite prevalent in IoT solutions, we do see that they are not yet first class citizens in the cloud.
-Eventhough it is possible to modify the ingress to kubernetes on our NGINX to allow TCP data to pass through, this is not a scalable solution. Imagine having thousands upon thousands of devices starting new TCP connections. This would kill our NGINX.
-To solve this problem we used a native AWS component: the network load balancer. 
-This allowed limitless scaling of TCP connections. These TCP connections would then end up on an Spring Boot application hosted on AWS Beanstalk, which is basically a managed horizontally scalable Tomcat server. This application has to handle the interactions with the devices and acts as a “sensor gateway”.
-The sensors can receive instructions and updates, but this has to happen inside the same open tcp connection within a very short timeframe.&lt;br /&gt;
-This gateway consults the Elasticache for any needed instructions or updates.&lt;br /&gt;
-If a return message is needed, it is sent through the open tcp connection.&lt;br /&gt;
-The sensor detection message is then passed on to an SQS queue. From here on out, the focus of handling the message is less time-sensitive.&lt;br /&gt;
-A Lambda function decodes the message on the queue and then pushes it to another SQS message queue.&lt;br /&gt;
-A Spring Boot backend that is deployed in our kubernetes cluster handles these last events and persists them to our database.&lt;/p&gt;
-
-&lt;h1 id=&quot;security&quot;&gt;Security&lt;/h1&gt;
-
-&lt;p&gt;One key element of the security is controlling who has access to an application. To strengthen security, reduce risk and improve compliance, it is essential that only authorized users get to access specific data in an application and that authentication is required before that access is granted. This means that authentication is a critical component for most applications and in this project it was no exception, as we needed to secure the data visualization part of the application so that only researchers have access to advanced functionality.&lt;/p&gt;
-
-&lt;p&gt;To perform this authentication, we have chosen to use AWS Cognito as it dramatically simplifies application development by providing an authentication service that is simple to integrate into any modern application. In addition to storing login information, Cognito can store standard and custom user account settings. Learn more about AWS Cognito and its advantages &lt;a href=&quot;https://aws.amazon.com/cognito/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Another advantage of AWS Cognito is that it supports OpenID Connect which is a simple identity layer built on top of the OAuth 2.0 protocol, which allows clients to verify the identity of an end user based on the authentication performed by an authorization server or identity provider (IdP), as well as to obtain basic profile information about the end user in an interoperable and REST-like manner. Learn more about OpenID Connect &lt;a href=&quot;https://openid.net/connect/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;aws-cognito-and-openid-connect&quot;&gt;AWS Cognito and OpenID Connect&lt;/h3&gt;
-
-&lt;p&gt;To carry out authentication using the OpenID Connect standard with Cognito we have chosen to use the Authorization Code Grant which is the preferred and most secure method for authorizing end users. Instead of directly providing user pool tokens to an end user upon authentication, an authorization code is provided. This code is then sent to a custom application that can exchange it for the desired tokens. Because the tokens are never exposed directly to an end user, they are less likely to become compromised.&lt;/p&gt;
-
-&lt;p&gt;The image below illustrates the flow, and, in this &lt;a href=&quot;https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-user-pool-oauth-2-0-grants/&quot;&gt;blogpost&lt;/a&gt;, you can find more information about this approach.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Authorization Code Grant Diagram&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_aws_cognito.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;To secure our frontend we have used Manfred Steyer’s &lt;a href=&quot;https://github.com/manfredsteyer/angular-oauth2-oidc&quot;&gt;Angular-oauth2-oidc&lt;/a&gt; library but you could use any library as long as it is &lt;a href=&quot;https://openid.net/certification/&quot;&gt;OpenID certified&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Our colleague Jeroen wrote a fantastic &lt;a href=&quot;https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html#setting-up-the-front-end-and-back-end-applications&quot;&gt;blogpost&lt;/a&gt; that was very helpful to us. Jeroen shows the necessary steps to follow to secure any web application using OpenID Connect.&lt;/p&gt;
-
-&lt;h1 id=&quot;d-day&quot;&gt;D-Day&lt;/h1&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers release&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_release.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers trail&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_plastictrail.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Zero Plastic Rivers trail2&quot; src=&quot;/img/2020-03-16-ZPR-explained/zpr_plastictrail2.jpg&quot; width=&quot;auto&quot; height=&quot;40%&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Tuesday December 17th was D-day. That day the bottles and sensors were finally thrown into the water. We had a tight timing because the bottles had to be thrown in the Scheldt river at high tide, at 3 different locations. 
-It was a nice dry day and our client was quite nervous. Are all the signals coming in properly, is the sensor packed waterproof, …?  Especially because we were not able to test all that much with the sensors due to the tight timing. 
-At high tide, it was time to throw the bottles in the water and register the sensor via our Ionic App. Everything runs smoothly and the signals from the sensors come in. You see the customer cheer up and leave satisfied to the next location. Everything goes as planned all day long and after just a few days the first users start registering the objects on our website.
-And today, so many weeks later, we still receive new registrations. 
-It was a nice ending of a fascinating and instructive project.&lt;/p&gt;
-
-&lt;h1 id=&quot;developer-experience&quot;&gt;Developer-experience&lt;/h1&gt;
-
-&lt;p&gt;For some developers on the team, Zero Plastic Rivers was the first experience with AWS and even their first cloud project.&lt;br /&gt;
-In the beginning it was quite intimidating because a lot of different technologies of AWS were used.&lt;br /&gt;
-But soon it turned out to be quite easy to configure and with some help from other colleagues (thanks guys) I got everything up and running pretty quickly.&lt;br /&gt;
-In the beginning I was quite sceptical about the use of lambdas in our application, I didn’t immediately see the advantage of it but in the end it turned out to be the best option, especially if we want to build applications with many more sensors in the future. Although it was sometimes difficult to find the correct documentation.&lt;br /&gt;
-My favorite technology was definitely Cognito. In a few lines of code you have a user administration of an entire application without having to worry about possible security holes.&lt;br /&gt;
-In the end it was a very pleasant experience to get started with AWS.
-Due to this eye-opening experience several developers are looking forward to becoming AWS certified and gaining a deeper and more complete AWS skillset.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;All in all we were very pleased with how we delivered this project. As this project was fully staffed with an Ordina High Performance Team, we were able to do everything by the book. We used the best methodologies for software delivery coupled with our preferred technology stack to build a true cloud native application.
-We embraced the devops mindset: you build it, you run it.
-Next to that we also embraced the agile mindset: respect, collaboration, improvement and learning cycles, pride in ownership, focus on delivering value, and the ability to adapt to change.&lt;/p&gt;
-
-&lt;p&gt;We had a great team dynamic: experienced developers coaching and mentoring younger colleagues and helping them grow.
-Meanwhile the senior developers could work on their coaching and mentoring skills while discussing advanced architectures, also allowing them to grow.
-Seems like a win-win, right?&lt;/p&gt;
-
-&lt;p&gt;This scientific project will run for at least two years and we can’t wait to see what kind of insights will be revealed and the impact we will make on our environment and society!&lt;/p&gt;
-
-&lt;p&gt;We also ended up getting some national press coverage. As you can imagine, this made us very proud!&lt;/p&gt;
-
-&lt;p&gt;https://www.vrt.be/vrtnws/nl/2020/02/28/opnieuw-fluoplastic-in-schelde/
-https://www.hln.be/in-de-buurt/antwerpen/wetenschappers-gooien-plastic-in-de-schelde-in-strijd-tegen-plasticvervuiling~a39b64e0/&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Bas&quot;, &quot;last_name&quot;=&gt;&quot;Moorkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/bas-moorkens/&quot;, &quot;title&quot;=&gt;&quot;Senior Java Developer&quot;, &quot;title2&quot;=&gt;&quot;DevOps Engineer&quot;, &quot;email&quot;=&gt;&quot;bas.moorkens@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;basmoorkens&quot;, &quot;avatar&quot;=&gt;&quot;bas-moorkens.jpg&quot;, &quot;github&quot;=&gt;&quot;basmoorkens&quot;, &quot;bio&quot;=&gt;&quot;Bas is a cloud platform architect at Ordina Belgium who is fascinated by aws, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the devOps and cloud world where he currently spends most of his time.&quot;}</name><email>bas.moorkens@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="EKS" /><category term="Architecture" /><category term="Ionic" /><category term="Beanstalk" /><category term="Cloudfront" /><summary type="html">Table Of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-03-16-ZPR-explained/zpr-banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-03-16-ZPR-explained/zpr-banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+So, avoid trying to get the perfect picture of the requirements, and instead factor into your solution that new requirements can pop up and hidden ones can be revealed during the later stages of the project.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="Architecture" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-03-24-Charting-non-functionals/nonfunc_background.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-03-24-Charting-non-functionals/nonfunc_background.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

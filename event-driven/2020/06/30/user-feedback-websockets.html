@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud - Kevin Van Houtte">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/sockets/feedback.jpeg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud - Kevin Van Houtte"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/sockets/feedback.jpeg"/>
+
+    
+    <title>Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud - Kevin Van Houtte &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud</h2>
+                
+
+                
+                    Posted Jun 30, 2020
+
+
+    in <a href="/categories/event-driven/">Event-Driven</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-houtte/">Kevin Van Houtte</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/spring/">spring</a>, 
+    
+        <a href="/tags/queue/">queue</a>, 
+    
+        <a href="/tags/integration/">integration</a>, 
+    
+        <a href="/tags/websockets/">websockets</a>, 
+    
+        <a href="/tags/event-driven/">event-driven</a>, 
+    
+        <a href="/tags/cloud/">cloud</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h3 id="reading-time-7-minutes-and-31-seconds">Reading time: 7 minutes and 31 seconds</h3>
+
+<p>When working with event-driven applications, you tend to see this on the screen:</p>
+
+<blockquote>
+  <p>We are processing your request and will notify you when it was treated successfully.</p>
+</blockquote>
+
+<p>Let’s chop the sentence down into processing the request…
+This means that the server is processing your request, but the client is not sure if it was entirely successful because it got transformed into an event and published on a queue never to be seen again (fire and forget).<br />
+The client wonders what has happened and needs a way to give his users the state of the request.<br />
+The next statement tells the user it will notify him/her when the request was successful.<br />
+This part can get complex because you want to give a rapid response as soon as possible.</p>
+
+<blockquote>
+  <p>The first thing that comes to mind is, can our client not poll the state of the data from the table until it’s ready?</p>
+</blockquote>
+
+<p>When our client receives a high amount of load, and it’s polling the database for the state of the data, it can put the database under unnecessary stress.<br />
+Since polling is a periodically check, it is not real-time, and we want to bring feedback to our users as soon as possible.<br />
+To let your client behave in real-time, we need push events.<br />
+Push events can be enabled by the concept of WebSockets, this bilateral communication connects the server and the client in an open connection with each other.<br />
+This tech post will explain how we enabled push events with RabbitMQ, MQTT, and Spring Cloud Stream.</p>
+
+<h1 id="table-of-contents">Table Of Contents</h1>
+
+<ul>
+  <li><a href="#websockets-for-communication">WebSockets for communication</a></li>
+  <li><a href="#spinning-up-a-rabbitmq">Spinning up a RabbitMQ</a></li>
+  <li><a href="#subscribing-with-a-javascript-client">Subscribing with a JavaScript client</a></li>
+  <li><a href="#publishing-events-with-spring-cloud-stream">Publishing events with Spring Cloud Stream</a></li>
+  <li><a href="#result">Result</a></li>
+</ul>
+
+<h2 id="websockets-for-communication">WebSockets for communication</h2>
+<p>We chose WebSockets because it provides a bilateral open connection between the client and the server.<br />
+Because handling data becomes complex over TCP and requires hard work to do it yourself, WebSockets offer support for subprotocols.<br />
+These solutions offer us easy ways to transmit data over the wire. <br />
+First, let’s talk about opening a WebSocket connection.<br />
+To establish one, we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.</p>
+
+<p>The handshake starts with an HTTP request/response.<br />
+Once the connection is established, communication switches to a bidirectional binary protocol which does not conform to the HTTP protocol. 
+The switch happens with the <a href="https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header" target="_blank" rel="noopener noreferrer">HTTP Upgrade Negotiation</a>, this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.</p>
+
+<p>At a minimum, a successful WebSocket handshake must contain the protocol version, and an auto-generated challenge value sent by the client, followed by a 101 HTTP response code (Switching Protocols) from the server with a hashed challenge-response to confirm the selected protocol version:</p>
+<ul>
+  <li>Client must send <code class="language-plaintext highlighter-rouge">Sec-WebSocket-Version</code> and <code class="language-plaintext highlighter-rouge">Sec-WebSocket-Key</code>.</li>
+  <li>Server must confirm the protocol by returning <code class="language-plaintext highlighter-rouge">Sec-WebSocket-Accept</code>.</li>
+  <li>Client may send a list of application subprotocols via <code class="language-plaintext highlighter-rouge">Sec-WebSocket-Protocol</code>.</li>
+  <li>Server must select one of the advertised subprotocols and return it via <code class="language-plaintext highlighter-rouge">Sec-WebSocket-Protocol</code>. If the server does not support any, then the connection is aborted.</li>
+  <li>Client may send a list of protocol extensions in <code class="language-plaintext highlighter-rouge">Sec-WebSocket-Extensions</code>.</li>
+  <li>Server may confirm one or more selected extensions via <code class="language-plaintext highlighter-rouge">Sec-WebSocket-Extensions</code>. If no extensions are provided, then the connection proceeds without them.</li>
+</ul>
+
+<h3 id="choosing-a-subprotocol">Choosing a subprotocol</h3>
+<p>When I was searching for a suitable subprotocol for handling the data, I first experimented with <a href="https://stomp.github.io/" target="_blank" rel="noopener noreferrer">STOMP</a>.<br />
+STOMP has a rich messaging mechanism for handling data and great support for <a href="https://docs.spring.io/spring-integration/reference/html/stomp.html" target="_blank" rel="noopener noreferrer">Spring</a> and <a href="https://www.rabbitmq.com/stomp.html" target="_blank" rel="noopener noreferrer">RabbitMQ</a>.<br />
+I stumbled against an issue with our API gateway.
+To do a security scan, the API gateway had to parse it to XML, which didn’t go well with the UTF-8 text-based messages of STOMP.<br />
+Some further research brought us to our next candidate: MQTT.<br />
+MQTT, designed as an extremely lightweight pub/sub messaging transport for IoT and mobile devices, could offer us a way to enable WebSockets.</p>
+
+<p>When experimenting, I stumbled on support with <a href="https://www.rabbitmq.com/mqtt.html" target="_blank" rel="noopener noreferrer">RabbitMQ MQTT plugin</a> and <a href="https://www.rabbitmq.com/web-mqtt.html" target="_blank" rel="noopener noreferrer">RabbitMQ Web MQTT plugin</a>.
+In MQTT over WebSockets, the MQTT messages are transferred over the network and encapsulated by one or more WebSocket frames.<br />
+To communicate with an MQTT broker over WebSockets, the broker must be able to handle native WebSockets.<br />
+To provide such support, we decided to use our own managed RabbitMQ.
+The plugin enables the possibility to use MQTT over a WebSocket connection.<br />
+To enable this easily in your broker, you just enable an internal plugin from RabbitMQ itself.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rabbitmq-plugins <span class="nb">enable </span>rabbitmq_web_mqtt
+</code></pre></div></div>
+<h2 id="spinning-up-a-rabbitmq">Spinning up a RabbitMQ</h2>
+<p>To try it out you can just run RabbitMQ in a Docker container.<br />
+Define the commands in a Dockerfile and off you go!</p>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> rabbitmq:3.7-management</span>
+<span class="k">RUN </span>rabbitmq-plugins <span class="nb">enable</span> <span class="nt">--offline</span> rabbitmq_web_mqtt
+<span class="k">EXPOSE</span><span class="s"> 4369 5671 5672 25672 15671 15672 15675 1883</span>
+</code></pre></div></div>
+
+<h3 id="configuration">Configuration</h3>
+<p>When accessing RabbitMQ via MQTT, credentials have to be given to authenticate yourself.<br />
+Because we will be accessing it from a JS client, we do not want to expose our credentials to our client because it can be exploited.<br />
+To avoid giving credentials, MQTT supports us to connect anonymously.</p>
+
+<p>Add these to your <code class="language-plaintext highlighter-rouge">rabbitmq.config file</code>, and you’re good to go:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">mqtt.default_user</span> <span class="p">=</span> <span class="s">$RABBITMQ_DEFAULT_USER  </span>
+<span class="py">mqtt.default_pass</span> <span class="p">=</span> <span class="s">$RABBITMQ_DEFAULT_PASS  </span>
+<span class="py">mqtt.allow_anonymous</span>  <span class="p">=</span> <span class="s">true  </span>
+</code></pre></div></div>
+
+<h2 id="subscribing-with-a-javascript-client">Subscribing with a JavaScript client</h2>
+
+<p><a href="https://www.eclipse.org/paho/clients/js/" target="_blank" rel="noopener noreferrer">Eclipse</a> offers us a JavaScript client library to use for opening a WebSocket over MQTT.</p>
+
+<p>With some basic setup, we can fix ourselves a quick WebSocket to the Rabbit to test the handshake.<br />
+As the JavaScript client, we will be subscribing to a queue and listen for any notifications from the backend. <br />
+To configure our client, we need to know what properties we need.<br />
+A list of properties can be found in the <a href="https://www.eclipse.org/paho/files/jsdoc/Paho.MQTT.Client.html" target="_blank" rel="noopener noreferrer">documentation</a>.<br />
+The most important ones are enabling SSL and using the keep-alive period as described above.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">wsbroker</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{rabbitmq_hostname/ws}</span><span class="dl">'</span>
+<span class="kd">var</span> <span class="nx">wsport</span> <span class="o">=</span> <span class="mi">443</span><span class="p">;</span> <span class="c1">// port for above</span>
+<span class="c1">// you can use randomizer to be unique "myclientid_" + parseInt(Math.random() * 100, 10));</span>
+<span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Paho</span><span class="p">.</span><span class="nx">MQTT</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">wsbroker</span><span class="p">,</span><span class="nx">wsport</span><span class="p">,</span> <span class="dl">"</span><span class="s2">?access_token={token}</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">{client}</span><span class="dl">"</span><span class="p">);</span> 
+    
+<span class="nx">client</span><span class="p">.</span><span class="nx">onConnectionLost</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">responseObject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION LOST - </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">responseObject</span><span class="p">.</span><span class="nx">errorMessage</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">onMessageArrived</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">RECEIVE ON </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">destinationName</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> PAYLOAD </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">payloadString</span><span class="p">);</span>
+<span class="p">};</span>
+  
+  
+<span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span>
+    <span class="na">useSSL</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">onSuccess</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION SUCCESS</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">client</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">events</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">qos</span><span class="p">:</span> <span class="mi">0</span><span class="p">});</span>
+    <span class="p">},</span>
+    <span class="na">onFailure</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">debug</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION FAILURE - </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">errorMessage</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+<h3 id="keeping-the-heartbeat-alive">Keeping the heartbeat alive</h3>
+<p>At any point after the handshake, either the client or the server can choose to send a ping to the other party.<br />
+When the ping is received, the recipient must send back a pong as soon as possible.<br />
+You can use this to make sure the client is still connected.<br />
+A best practice is to set the heartbeat between 20-30 seconds, see <a href="https://tools.ietf.org/html/rfc6202#page-13" target="_blank" rel="noopener noreferrer">https://tools.ietf.org/html/rfc6202#page-13</a>.
+The client sends a ping every 10 seconds, and the server waits 10 seconds to send back a pong.</p>
+
+<h4 id="mqtt-keep-alive-period">MQTT keep-alive period</h4>
+<p>The keep-alive period is the answer from the MQTT protocol to the WebSocket heartbeat.<br />
+The keep-alive is a time interval measured in seconds.
+It is the maximum time interval that is permitted to elapse between the point at which the client finishes transmitting one control package and the point it starts sending the next.<br />
+It is the responsibility of the client to ensure the interval between the control packets being sent does not exceed the keep-alive value.<br />
+The client can send a ping at any time, irrespective of the keep-alive value, and use the pong to determine that the network and the server are working.</p>
+
+<p>To configure the keep-alive period, the client can add the property to enable the feature.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span>
+        <span class="na">keepAliveInterval</span><span class="p">:</span> <span class="mi">20</span>
+<span class="p">})</span>
+</code></pre></div></div>
+<h3 id="tls-over-websockets">TLS over WebSockets</h3>
+<p>To achieve a secure connection, we need to enable TLS.<br />
+Like HTTP, WebSockets supports TLS with using the prefix <code class="language-plaintext highlighter-rouge">wss://</code> instead of <code class="language-plaintext highlighter-rouge">ws://</code> and port <code class="language-plaintext highlighter-rouge">443</code> instead of <code class="language-plaintext highlighter-rouge">80</code>.</p>
+
+<p>The client can enable TLS by adding a property.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span>
+        <span class="na">useSSL</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">})</span>
+</code></pre></div></div>
+<h3 id="authorization-token">Authorization token</h3>
+<p>The best practice for securing your resources is to propagate your token via the query parameter.<br />
+If you are targeting a backend, the backend can handle this token but for this use-case, we need a reverse proxy/API gateway to validate this token for us.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Paho</span><span class="p">.</span><span class="nx">MQTT</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">wsbroker</span><span class="p">,</span><span class="nx">wsport</span><span class="p">,</span> <span class="dl">"</span><span class="s2">?access_token={token}</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">{client}</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="clean-session">Clean Session</h3>
+<p>Clean session in the MQTT protocol means that if turned on, the server does not know on what topic the client has subscribed to.<br />
+When turned off, the client just needs to reconnect to its session that is stored on the server.</p>
+
+<blockquote>
+  <p>Default is true</p>
+</blockquote>
+
+<h3 id="quality-of-service">Quality Of Service</h3>
+<p>In combination with the clean session property set to false, the QoS makes your messages durable.<br />
+When the client is offline, the server holds these messages until the client reconnects.</p>
+
+<blockquote>
+  <p>Default is 0</p>
+</blockquote>
+
+<h3 id="mqtt-client">MQTT Client</h3>
+<p>When opening the WebSocket on RabbitMQ, the broker will create a new queue on the default topic <code class="language-plaintext highlighter-rouge">amq.topic</code> with a routingKey as the subscriber endpoint.</p>
+<p style="text-align: center;"><img src="/img/sockets/mqttclient.png" alt="Workspace" class="image" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="publishing-events-with-spring-cloud-stream">Publishing Events with Spring Cloud Stream</h2>
+<p>So now we have our RabbitMQ up with the enabled plugin for MQTT over WebSockets, Spring Cloud Stream offers an abstraction for messaging with RabbitMQ as a binder.<br />
+Because RabbitMQ is our MQTT broker, we do not need any special configuration to handle MQTT messages. 
+You can just set up a Spring Boot application with the <a href="Spring Initialzr" target="_blank" rel="noopener noreferrer">https://start.spring.io</a>.</p>
+
+<p>We start by adding both the dependency for Spring Cloud Stream and the binder of choice.<br />
+This indicates that auto-configuration and abstraction are done for RabbitMQ.</p>
+
+<h3 id="dependencies">Dependencies</h3>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+ <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+ <span class="nt">&lt;artifactId&gt;</span>spring-cloud-stream<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+ <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+ <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-stream-rabbit<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h3 id="message-channel">Message Channel</h3>
+<p>Following up, we need a channel to publish our messages on, so we create an interface to define our channels.<br />
+You can have two kinds of channels, one for everyone (broadcast) or one-to-one (private).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserFeedbackChannel</span> <span class="o">{</span>
+
+    <span class="nc">String</span> <span class="no">NOTIFICATION_EVERYONE</span> <span class="o">=</span> <span class="s">"globalNotificationChannel"</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="no">NOTIFICATION_USER</span> <span class="o">=</span> <span class="s">"specificNotificationChannel"</span><span class="o">;</span>
+
+    <span class="nd">@Output</span><span class="o">(</span><span class="no">NOTIFICATION_EVERYONE</span><span class="o">)</span>
+    <span class="nc">MessageChannel</span> <span class="nf">globalNotificationChannel</span><span class="o">();</span>
+
+    <span class="nd">@Output</span><span class="o">(</span><span class="no">NOTIFICATION_USER</span><span class="o">)</span>
+    <span class="nc">MessageChannel</span> <span class="nf">specificNotificationChannel</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To let Spring know it is a custom channel, we need to annotate our configuration class with <code class="language-plaintext highlighter-rouge">@EnableBinding({UserFeedbackChannel.class})</code>.</p>
+
+<h3 id="configuration-1">Configuration</h3>
+<p>With RabbitMQ, some custom configuration needs to be taken care of.<br />
+Since MQTT takes the topic <code class="language-plaintext highlighter-rouge">amq.topic</code> as default, we need to target this as our destination for our messages.<br />
+The <code class="language-plaintext highlighter-rouge">routingKeyExpression</code> enables us to broadcast or privately send the message.<br />
+The <code class="language-plaintext highlighter-rouge">headers.routingKey</code> is bound to the user we want to message to.<br />
+Our pojo event consists of audit fields that we know of whom the message belongs to.<br />
+This way, we can give feedback to the user who did the transaction.<br />
+If the header is filled with <code class="language-plaintext highlighter-rouge">events</code>, it broadcasts the message.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">application</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">notifications</span>
+  <span class="na">cloud</span><span class="pi">:</span>
+    <span class="na">stream</span><span class="pi">:</span>
+      <span class="na">bindings</span><span class="pi">:</span>
+        <span class="na">globalNotificationChannel</span><span class="pi">:</span>
+          <span class="na">destination</span><span class="pi">:</span> <span class="s">amq.topic</span>
+        <span class="na">specificNotificationChannel</span><span class="pi">:</span>
+          <span class="na">destination</span><span class="pi">:</span> <span class="s">amq.topic</span>
+      <span class="na">rabbit</span><span class="pi">:</span>
+        <span class="na">bindings</span><span class="pi">:</span>
+          <span class="na">globalNotificationChannel</span><span class="pi">:</span>
+            <span class="na">producer</span><span class="pi">:</span>
+              <span class="na">routingKeyExpression</span><span class="pi">:</span> <span class="s1">'</span><span class="s">'</span><span class="s1">'</span><span class="s">events'</span><span class="s1">'</span><span class="s">'</span>
+              <span class="na">declareExchange</span><span class="pi">:</span> <span class="no">false</span>
+          <span class="na">specificNotificationChannel</span><span class="pi">:</span>
+            <span class="na">producer</span><span class="pi">:</span>
+              <span class="na">routingKeyExpression</span><span class="pi">:</span> <span class="s">headers.routingKey</span>
+              <span class="na">declareExchange</span><span class="pi">:</span> <span class="no">false</span>
+</code></pre></div></div>
+
+<h3 id="publisher">Publisher</h3>
+<p>Create the pojo you need, so we can start publishing!<br />
+Be aware, before pushing the pojo, it needs to be converted to a String for MQTT to understand the format.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NotificationSocketPublisher</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserFeedbackChannel</span> <span class="n">channel</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ObjectMapper</span> <span class="n">objectMapper</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">NotificationSocketPublisher</span><span class="o">(</span><span class="nc">UserFeedbackChannel</span> <span class="n">channel</span><span class="o">,</span> <span class="nc">ObjectMapper</span> <span class="n">objectMapper</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">objectMapper</span> <span class="o">=</span> <span class="n">objectMapper</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendPrivateNotificationToUser</span><span class="o">(</span><span class="nc">NotificationSocketEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">object</span> <span class="o">=</span> <span class="n">convertToString</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+        <span class="kt">var</span> <span class="n">notification</span> <span class="o">=</span> <span class="nc">MessageBuilder</span><span class="o">.</span><span class="na">withPayload</span><span class="o">(</span><span class="n">object</span><span class="o">).</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"routingKey"</span><span class="o">,</span> <span class="s">"events."</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="na">getCreatedBy</span><span class="o">().</span><span class="na">toUpperCase</span><span class="o">());;</span>
+
+        <span class="n">channel</span><span class="o">.</span><span class="na">specificNotificationChannel</span><span class="o">().</span><span class="na">send</span><span class="o">(</span><span class="n">notification</span><span class="o">.</span><span class="na">build</span><span class="o">());</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="result">Result</h2>
+<p>When the JS client, RabbitMQ, and Spring Cloud backend are running, you can try ìt out by triggering messages from the backend onto the RabbitMQ.<br />
+This will result in communication to the correct subscriber.<br />
+The JS subscriber will interpret these messages and parse readable content from it.</p>
+
+<p style="text-align: center;"><img src="/img/sockets/messages.png" alt="Workspace" class="image" style="margin:0px auto; max-width:100%" /></p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html&title=Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud&url=https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-houtte/" class="image spotlight-image" title="">
+            <img src="/img/author/kevin-van-houtte.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem, Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Kevin has a strong focus on building cloud native architectures with the right mindset on security and API design.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/sockets/feedback.jpeg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
