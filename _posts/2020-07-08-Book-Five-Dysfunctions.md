@@ -1,18 +1,19 @@
 ---
 layout: post
 authors: [peter_dekinder]
-title: 'Book Review - The Five Dysfunctions of a Team'
+title: 'Pondering The Five Dysfunctions of a Team'
 image: /img/2020-07-08-Book-Five-Dysfunctions/bookreview.jpg
 tags: [architecture, business architecture, technical leadership, leadership]
 category: Architecture
 comments: true
 ---
 
-Being triggered by a colleague to read this book, as well as remembering it being referenced in a book I read earlier this year, titled “[The Phoenix Project](https://www.amazon.co.uk/Phoenix-Project-Devops-Helping-Business/dp/1942788290/ref=sr_1_1){:target="_blank" rel="noopener noreferrer"}”, I set myself to tackling the 230 or so pages that make it up. 
+Being triggered by a colleague to read a book called "The Five Dysfunctions of a Team", as well as remembering it being referenced in a book I read earlier this year, titled “[The Phoenix Project](https://www.amazon.co.uk/Phoenix-Project-Devops-Helping-Business/dp/1942788290/ref=sr_1_1){:target="_blank" rel="noopener noreferrer"}”, I set myself to tackling the 230 or so pages that make it up. 
 The main body of the book is comprised of a story about a new CEO for a tech company that is brought in to reforge their current team of C-level managers into a coherent group with their noses pointing in the same direction. 
 Very similar to the story style of the Phoenix Project, it is clear to see the heavy influence on its writer, Gene Kim in terms of spinning an interesting tale. 
 It is a compelling story for those in the consultancy business, and the patterns are easily detectable in a large number of companies. 
 And while the last chapter of the book does offer some techniques for remedying this phenomenon, it does not do a deep dive into a methodology that approach it.
+There are additional books by the same author that go deeper into detail, such as “[Overcoming the Five Dysfunctions of a Team](https://www.amazon.co.uk/Overcoming-Five-Dysfunctions-Team-Facilitators/dp/0787976377/ref=pd_bxgy_img_2/260-1174328-8916547){:target="_blank" rel="noopener noreferrer"}”.
 
 Applying the organizational theory as postulated by William Richard Scott, professor emeritus in sociology at Stanford University, it is important to realize the book primarily addresses teams in a rational organization. 
 He defines organizations as follows:
