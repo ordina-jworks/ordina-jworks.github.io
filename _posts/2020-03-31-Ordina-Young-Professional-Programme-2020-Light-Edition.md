@@ -29,17 +29,25 @@ We got the chance to install all programs and tools required for the rest of our
 A variety of different editors and IDEs were shown and we were allowed to pick the ones we preferred.
 
 # Git
+<p style="flex-direction: row-reverse;">
+<img class="image" style="max-width: 150px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/git.png">
 We also had a session about Git which is obviously an essential tool to understand for any modern developer. We saw the ins and outs of most of the Git commands and we practiced the most common ones. We didn't just see Git but also how it came to be and it's predecessors. Overall, it was an interesting session giving us a decent understanding of Git.
+</p>
 
 # Back end
 ### Java
+<img class="image" style="max-width: 200px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/java.png">
 Java is a general-purpose programming language that was released in 1995, which means it has been around for 25 years. It has become very popular over these years. In 2019, Java was one of the most used programming languages according to Github.
 Java is also the preferred back end language of JWorks. Yannick de Turck gave us a workshop around this programming language. We talked about the new features that were released with each version from Java 7 until 14. In between the theory lessons we made some hands-on exercises on the new features like lambda streams and optionals. 
 This was also the last day before the corona outbreak in Belgium. This meant the rest of the Young Professionals Programme was given remotely. 
- 
+
+
 ### Spring
+<p style="flex-direction: row-reverse;">
+<img class="image" style="max-width: 150px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/spring.png" >
 The Spring framework is an application framework and inversion of control container for the Java platform. It has become wildly popular in organizations and the Java community. We followed a three-day self study course, where we read the book 'Spring in action' by Craig Walls. This book gives you a general understanding of the Spring framework. On the second day there was a short Spring Presentation by Ken Coenen. Ken explained how all the Spring magic works behind the scenes and talked about the common components of the full Spring framework.
- 
+</p>
+
 ### Unit Testing
 We also had a course about testing. We had an interactive hands-on session about multiple subjects like Test Driven Development, goals of testing, what to test, fixtures, mocks and assertions.
 
@@ -55,34 +63,36 @@ Databases are integral to the development of applications, you will almost alway
 # Front end
 
 ### HTML, CSS, Javascript
-<p style="flex-direction: row-reverse;">
-    <img class="image" style="max-width: 150px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png">
-    Since the Young Professional programme teaches a wide array of technologies we had saw quite a few front end technologies.
-    Starting off with the basics of almost every front end technology, HTML5, CSS and Javascript. 
-    In the first part of this session we took a dive into the basics of HTML and CSS, and after this we learned about the more recent features of HTML5 and CSS3. The remainder of the session was mainly about JavaScript. Throughout the session we had some exercises to have a bit of a hands-on approach.
-</p>
+<img class="image" style="max-width: 150px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png">
+Since the Young Professional programme teaches a wide array of technologies we had saw quite a few front end technologies.
+Starting off with the basics of almost every front end technology, HTML5, CSS and Javascript. 
+In the first part of this session we took a dive into the basics of HTML and CSS, and after this we learned about the more recent features of HTML5 and CSS3. The remainder of the session was mainly about JavaScript. Throughout the session we had some exercises to have a bit of a hands-on approach.
+    
+
 
 ### Typescript
+<p style="flex-direction: row-reverse;">
 <img class="image" style="max-width: 200px; margin: 0;" alt="Typescript logo" src="/img/2020-03-31-Young-Professional-2020-Light/typescript.png">
 Building on the basics we learned prior, we had a session about Typescript, a derivative of Javascript that is becoming more and more popular amongst most front end frameworks because of it's similarity to Javascript but also having types allowing stricter rules to be enforced and less random unexplainable errors. Similarly to the previous session we got an explanation on the basics of Typescript which was then used in some exercises.
+</p>
 
 ### Angular
-<p style="flex-direction: row-reverse;">
-    <img class="image" style="max-width: 200px; margin: 0;" alt="Angular logo" src="/img/2020-03-31-Young-Professional-2020-Light/angular.png">
-    Eventually we reached the end of our front end training with a 2-day Angular course. Everything we learnt the previous days was now being poured into a framework. In this course we, again, saw the basics of this massive Typescript framework. We saw everything from dependency injection to property binding. Angular is a framework built by Google so there are lots of features, because of this we didn't have enough time in those 2 days to really explore Angular in-depth. This is  the preferred front end technology in JWorks. We were also going to use it in the dev case, so we would have enough time to understand it on a deeper level.
-</p>
+<img class="image" style="max-width: 200px; margin: 0;" alt="Angular logo" src="/img/2020-03-31-Young-Professional-2020-Light/angular.png">
+Eventually we reached the end of our front end training with a 2-day Angular course. Everything we learnt the previous days was now being poured into a framework. In this course we, again, saw the basics of this massive Typescript framework. We saw everything from dependency injection to property binding. Angular is a framework built by Google so there are lots of features, because of this we didn't have enough time in those 2 days to really explore Angular in-depth. This is  the preferred front end technology in JWorks. We were also going to use it in the dev case, so we would have enough time to understand it on a deeper level.
+
 
 # Cloud
 
 ### Docker
-
-### DevOps & CI
+To start of our cloud education we had a session about docker. which is integral to many cloud technologies. Tom Verelst gave an interesting hand-on session where he first explained the concepts of Docker. Then we started writing our own yaml deployment files to set up our first full stack application.
 
 ### Kubernetes
+Kubernetes is an open source container orchestration framework, this is commonly used to deploy applications. Pieter Vincken taught us the basics of Kubernetes. We started with a presentation about the core concepts like pods, secrets, and more. Then we learned how to deploy and manage our docker containers using Kubernetes. During this session we saw how you could manage your clusters by using various techniques provided by kubernetes like auto scaling, load balancing,... 
 
-### Cloud IAAS/PAAS/CAAS
+It was really insightfull to see how easy it is to deploy and manage your applications on a Kubernetes cluster. 
 
 ### Security Principles
+In this day and age security is a hot topic. During this session we went over the basics on how to protect your application. From valadating user input to database security but also how to protect the users data.
 
 # Clean Code
 Today, one of the most important skills of a developer is Clean Code. 
@@ -97,14 +107,11 @@ Some examples of topics in the book we still use everyday are:
 # Dev case
 ### Introduction
 For our dev case, our task was to make a fully functional web application for MFC Combo. MFC Combo is an organization in youth care who guide families and children with a difficult situation at home. They use the "Combobox" in their meetings with the families. This is used to make communication easier and more fun.
-Right now, they have physical stickers and papers to let the child express their feelings, but they want it to become digital so that it's easier to follow-up a child. 
+Right now, they have physical stickers and papers to let the child express their feelings, but they want it to become digital so that it's easier to follow-up a child.
 
+## Technology & Methodologies
 We worked Agile in two-weekly sprints with all the Scrum Ceremonies. Azure DevOps made this process easy and made sure our code was always clean and working as expected using CI/CD. 
 For the front end, we used the Angular Framework to develop the application, combined with Jasmine and Karma for testing. Authentication was done using AWS Amplify, which is a development platform. This allowed us to quickly set up the authentication and authorization of our app. Sentry.io was used for front end logging and monitoring after deployment. This way, we had full control over our code, from development to deployment and even after deployment.
 For the back end, we used Java Spring Boot 2.3.1. Our Database was a noSQL DynamoDb, for user management we used Cognito and finally for our file storage we used and S3 bucket. All of these services were set up in aws. This means we used the AWS Java SDK to manipulate these services in an easy and structured way. For the logging and monitoring side we used an ELK stack to easily visualize and interpret our logs.
-
-### Back end
-
-### Front end
 
 ### Result
