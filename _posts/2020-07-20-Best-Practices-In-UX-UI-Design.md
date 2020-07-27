@@ -87,13 +87,35 @@ The following text is much more confusing:
 What is supposed to be communicated here? 'Subtitle 2' using the same coloring as 'Subtitle 1' but it's just as large as 'Title'. 
 So does the author mean it's still part of the 'Title' section or did he or she mean to create a whole separate section with a different 'Title'? Instructions unclear.
 
-Next to font size, the location of the (sub)titles is also important.
-
 ## 4. Be honest
-Shipping costs, fees, shipping time, etc
+One of the biggest irks of customers is being presented with crucial information and extra costs late in the ordering process. 
+Customers want to be able to make an informed decision about your product as soon as possible, preferably on the product page itself. 
+Once they make the decision to order, the last thing they want to encounter is new information later on that might give the perception that they have been deceived.
+For their sake, and the company's, it's vital to show the shipping costs, any fees, delivery moment, etc as early as possible. 
+
+Take a look at how Coolblue handles this:
+
+<img alt="Coolblue showing stock indicator and delivery moment and costs" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/coolblue.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
+
+Bookdepository handles this similarly with a link to extra information on delivery since they're providing worldwide shipping:
+
+<img alt="Bookdepository showing stock indicator, delivery moments and costs" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/bookdepository.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
+
+In the above examples, shipping costs are free. 
+If your shipping costs depend on the items in the shopping cart or other factors, the customer should to be able to view the costs when viewing the cart.
+Coliro shows this in the next example where you can select your country to determine the shipping costs:
+
+<img alt="Coliro shows the shipping costs per country on the cart page" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/coliro.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 500px;">
 
 ## 5. Accessibility
-Low hanging fruit p.180
+Accessibility is a whole different and separate topic to discuss. We'll cover this in a future blog post, but for now, let's focus on some *low-hanging fruit*.
+Websites should preferably be designed for impaired persons as well, whether it's a temporary impairment (like a broken arm) or a permanent one (like blindness).
+It's practically impossible to please everyone, but we can at least try to make everyone's lives a little easier by making our website and apps as accessible as possible.
+* Colors: Provide a strong color contrast between the text and the background. This will make the text more readable for visually impaired persons.
+* Keyboard use on websites: Users should be able to navigate through the website using only the keyboard so that the use of a mouse isn't necessary.
+* Text size: It should be easy for the user to increase and decrease the size of the text so visually impaired persons can select their optimal text size.
+* Alt text: Provide alt text to every image that screen readers should read out loud.
+* Captions on videos: Hearing impaired persons benefit greatly from subtitles and captions on videos.
 
 ## 6. Stick to conventions
 The rule regarding icon usage and link labeling is pretty simple: stick to conventions! 
@@ -105,12 +127,44 @@ How you label your links and buttons is important as well. When users are lookin
 By using for example 'Employment', users might not be able to find your career page (as easily). 
 
 ## 7. Breadcrumbs
+Like Hansel and Gretel, we all need to find our way back sometimes. 
+Breadcrumbs, and in our case meant specifically online, help us to do so, if done right.
+Take a look at the following example from ASOS:
+
+<img alt="ASOS uses very clear breadcrumbs" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/asos.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
+
+With breadcrumbs, users can see in the blink of an eye in which (sub)category the current page belongs. 
+The user perhaps ended up on this page by clicking a 'Recommended for you!' link and maybe he or she wants to take a look at similar items as well. 
+Being able to actually click on a (sub)category in the breadcrumbs help to do exactly that. 
+
+Even when you're just mindlessly browsing a website and you clicked on twenty different items within a category, you don't want to click the back button twenty-one times to go back to the actual results within the current category.
+Breadcrumbs make sure that your user can browse your website more easily, which creates less frustration for your user, which hopefully creates a higher conversion. 
 
 ## 8. Less clicks = better
-p.170
+Try to save the user clicks as much as possible. 
+Like Steve Krug describes in his *Don't Make Me Think*, instead of only providing a tracking number for a shipment, you can add a link to the e-mail that opens the carrier's website with the tracking number already filled in.
+Another example would be to provide a Google Maps preview on the contact page instead of just providing the address.
+
+When possible, also try to mention any form errors while the user is entering the data. 
+Whether it be the phone number format or a password that is too short, anything that can be detected should immediately be communicated to the user instead of waiting until the user clicks 'Submit'. 
 
 ## 9. Dropdown lists
+Dropdown lists are simple to implement and easy to use so they are present on countless websites.
+The key here is to only start using dropdown lists when we're talking about seven or more options. 
+When there are less options present, radio buttons might be a better choice for you since the user can see all the available options immediately.
 
 ## 10. Include visual indicators of length and size
--> '18 minute read'
--> Bolletjes bij invullen formulier 
+A great addition to a website or app is to show the amount of time it will take to read the provided text on that page. Medium.com does this as well:
+
+<img alt="Medium.com showing how long an article will take to read" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/medium.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 250px;">
+
+Providing a progress indicator also helps the customer complete the order. 
+It shows where the user is in the process and what information still needs to be entered before the order can be completed.
+
+<img alt="Coolblue shows the progress while ordering" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/coolblue-order.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;"> 
+
+Visual representations of progress are very important. 
+Users quickly lose their interest if they don't know how much longer the process, the article, the questionnaire will take. 
+Progress bars are essentials and adding detailed information like Coolblue does in the above example will keep your user's focus toward the end goal: completing the purchase.
+
+## Conclusion
