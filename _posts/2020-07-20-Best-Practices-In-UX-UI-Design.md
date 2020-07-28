@@ -10,8 +10,8 @@ comments: true
 
 > UX and UI design principles often lead to people thinking 'well duh!', until they actually have to try and create a user-friendly website or app. 
 > The basic gist of creating a user-friendly design is making sure the user doesn't have to think twice about doing something. 
-> The longer is takes for a user to be able to execute an action, the more annoyed he or she will get. 
-> The usability of your website or app can already be improved with just a few tweaks. Below is an overview of 10 ways to make your users happy.
+> The longer is takes for a user to be able to execute an action, the more annoyed they will get. 
+> The usability of your website or app can already be improved with just a few tweaks. Below is an overview of ten ways to make your users happy.
 
 # Table of contents
 * [Company logo placement and usage](#1-company-logo-placement-and-usage)
@@ -26,7 +26,7 @@ comments: true
 * [Include visual indicators of length and size](#10-include-visual-indicators-of-length-and-size)
 
 ## 1. Company logo placement and usage
-First things first. Your user always needs to find its way back to the homepage in a heartbeat. 
+First things first. Your user always needs to find their way back to the homepage in a heartbeat. 
 Providing a 'Home' link in your menu is not enough. 
 It's surprising how often users click on the company logo on the top of your page so make sure it's visible from every page and provide a link behind it to the homepage.
 The company logo is typically placed in the top left corner (on sites designed for left-to-right reading).
@@ -151,20 +151,29 @@ Whether it be the phone number format or a password that is too short, anything 
 ## 9. Dropdown lists
 Dropdown lists are simple to implement and easy to use so they are present on countless websites.
 The key here is to only start using dropdown lists when we're talking about seven or more options. 
-When there are less options present, radio buttons might be a better choice for you since the user can see all the available options immediately.
+When there are less options present, radio buttons might be a better choice for you so the user can see all the available options immediately.
 
 ## 10. Include visual indicators of length and size
-A great addition to a website or app is to show the amount of time it will take to read the provided text on that page. Medium.com does this as well:
+Always assume that users are in a rush. 
+What users will typically do when encountering a web page that contains a lot of text, is to check how long that text actually is before starting to read it. 
+They need an idea of length or time to know if it's worth to start reading at all. 
+Medium.com does this by adding the number of minutes it takes to read their articles:
 
 <img alt="Medium.com showing how long an article will take to read" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/medium.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 250px;">
 
 Providing a progress indicator also helps the customer complete the order. 
 It shows where the user is in the process and what information still needs to be entered before the order can be completed.
+Users quickly lose their interest if they don't have an idea how much longer the process will take. 
+Progress bars are essential and adding detailed information like Coolblue does in the below example will keep your user's focus towards the end goal (in this case completing the purchase).
 
 <img alt="Coolblue shows the progress while ordering" src="{{ '/img/2020-07-20-Best-Practices-In-UX-UI-Design/coolblue-order.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 600px;"> 
 
-Visual representations of progress are very important. 
-Users quickly lose their interest if they don't know how much longer the process, the article, the questionnaire will take. 
-Progress bars are essentials and adding detailed information like Coolblue does in the above example will keep your user's focus toward the end goal: completing the purchase.
+The same also goes for questionnaires by the way. 
+How often do you complete an online questionnaire if there isn't any information available on how long it might take to fill in?
+Exactly.
 
 ## Conclusion
+As said before in this blog post, it's practically impossible to please everyone with your design.
+What's aesthetically pleasing to one person might not be so for the next one.
+But user experience is more than the look, the layout, the colors used. 
+We're also talking about flow here, about creating an experience for each user, regardless of impairment, that helps them reach their goal flawlessly, without frustration, with little nudges in the right direction.
