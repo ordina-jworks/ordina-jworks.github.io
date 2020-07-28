@@ -10,7 +10,7 @@ comments: true
 
 > UX and UI design principles often lead to people thinking 'well duh!', until they actually have to try and create a user-friendly website or app. 
 > The basic gist of creating a user-friendly design is making sure the user doesn't have to think twice about doing something. 
-> The longer is takes for a user to be able to execute an action, the more annoyed they will get. 
+> The longer it takes for a user to be able to execute an action, the more annoyed they will get. 
 > The usability of your website or app can already be improved with just a few tweaks. Below is an overview of ten ways to make your users happy.
 
 # Table of contents
