@@ -14,16 +14,16 @@ comments: true
 > The usability of your website or app can already be improved with just a few tweaks. Below is an overview of ten ways to make your users happy.
 
 # Table of contents
-* [Company logo placement and usage](#1-company-logo-placement-and-usage)
-* [Make clickable elements obvious](#2-make-clickable-elements-obvious)
-* [Clearly show which elements on a page belong together](#3-clearly-show-which-elements-on-a-page-belong-together)
-* [Be honest](#4-be-honest)
-* [Accessibility](#5-accessibility)
-* [Stick to conventions](#6-stick-to-conventions)
-* [Breadcrumbs](#7-breadcrumbs)
-* [Less clicks = better](#8-less-clicks--better)
-* [Dropdown lists](#9-dropdown-lists)
-* [Include visual indicators of length and size](#10-include-visual-indicators-of-length-and-size)
+1. [Company logo placement and usage](#1-company-logo-placement-and-usage)
+2. [Make clickable elements obvious](#2-make-clickable-elements-obvious)
+3. [Clearly show which elements on a page belong together](#3-clearly-show-which-elements-on-a-page-belong-together)
+4. [Be honest](#4-be-honest)
+5. [Accessibility](#5-accessibility)
+6. [Stick to conventions](#6-stick-to-conventions)
+7. [Breadcrumbs](#7-breadcrumbs)
+8. [Less clicks = better](#8-less-clicks--better)
+9. [Dropdown lists](#9-dropdown-lists)
+10. [Include visual indicators of length and size](#10-include-visual-indicators-of-length-and-size)
 
 ## 1. Company logo placement and usage
 First things first. Your user always needs to find their way back to the homepage in a heartbeat. 
@@ -31,7 +31,7 @@ Providing a 'Home' link in your menu is not enough.
 It's surprising how often users click on the company logo on the top of your page so make sure it's visible from every page and provide a link behind it to the homepage.
 The company logo is typically placed in the top left corner (on sites designed for left-to-right reading).
 
-<img alt="Logo of Goodsreads is placed in the top left corner and is clickable" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/logo-placement.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+<img alt="Logo of Goodreads is placed in the top left corner and is clickable" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/logo-placement.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 ## 2. Make clickable elements obvious
 ### Buttons
@@ -53,14 +53,17 @@ So-called secondary actions like 'Cancel' should look the least appealing of the
 Making them the least appealing minimizes the chance of misclicks and nudges the user further towards a successful ending, such as a purchase.
 
 In Windows apps, the 'OK' button should come first and the 'Cancel' button second. 
-On Apple machines however, 'Cancel' will come first and 'OK' second.
-When designing for the web, it's best to choose whichever convention is used by most of your users, so based on their operating system.
+This implementation follows the 'natural reading order' (again, on sites designed for left-to-right reading).
+Additionally, keyboard users will also reach the 'OK' button sooner.
 
-Apple:
-<img alt="Order of OK and Cancel on Apple machines" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelApple.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;"> 
-
-Windows:
 <img alt="Unclear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelWindows.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
+
+On Apple machines however, 'Cancel' will come first and 'OK' second.
+The idea here is that the flow feels more natural since the 'OK' button closes that section and the next step ('OK') is placed most right, whilst the previous step ('Cancel') is placed left.
+
+<img alt="Order of OK and Cancel on Apple machines" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelApple.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
+
+When designing for the web, it's best to choose whichever convention is used by most of your users, so based on their operating system. 
 
 ### Hyperlinks
 Clickable words on a web page are best underlined and shown in a different color than the rest of the text. 
