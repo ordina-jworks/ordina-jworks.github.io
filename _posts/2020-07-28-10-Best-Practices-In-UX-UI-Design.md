@@ -63,7 +63,7 @@ Windows:
 <img alt="Unclear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelWindows.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
 ### Hyperlinks
-Words on a web page that can be clicked are best underlined and shown in a different color than the rest of the text. 
+Clickable words on a web page are best underlined and shown in a different color than the rest of the text. 
 Using solely a different color might be interpreted as an emphasis on that word and another problem that this presents is that colorblind people will have issues finding the clickable links in your text.
 Just underlining a word is already a good visual indicator that it's clickable, but your best bet is to make sure that the link 'pops'.
 By going for a combination of coloring the text and underlining it, you're making sure there's no doubt in the user's mind that the word is clickable.  
