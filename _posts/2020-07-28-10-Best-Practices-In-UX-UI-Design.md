@@ -12,6 +12,8 @@ comments: true
 > The basic gist of creating a user-friendly design is making sure the user doesn't have to think twice about doing something. 
 > The longer it takes for a user to be able to execute an action, the more annoyed they will get. 
 > The usability of your website or app can already be improved with just a few tweaks. Below is an overview of ten ways to make your users happy.
+>
+> As I'm just taking my first steps in the UX/UI design world, I still have lots to learn. Feedback is greatly appreciated!
 
 # Table of contents
 1. [Company logo placement and usage](#1-company-logo-placement-and-usage)
