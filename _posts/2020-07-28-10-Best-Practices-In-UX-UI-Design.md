@@ -37,22 +37,23 @@ The company logo is typically placed in the top left corner (on sites designed f
 
 ## 2. Make clickable elements obvious
 ### Buttons
-CTA ([Call To Action](https://en.wikipedia.org/wiki/Call_to_action_(marketing)){:target="_blank" rel="noopener noreferrer"}) buttons need to stand out from the rest of the page so it immediately draws the user's attention.
+Confirmation buttons need to stand out from the rest of the page so it immediately draws the user's attention.
 Adding a shadow effect to the buttons lets the user know it's clickable and they can interact with it.
 Notice the difference between the following examples:
 
 Example 1:
-<img alt="Clear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-colored.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;"> 
+<img alt="Clear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-colored.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;"> 
 
 Example 2:
-<img alt="Unclear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-bland.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
+<img alt="Unclear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-bland.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
 
 In the bottom example the label to save the form is still concise and clear, users should thus still be able to eventually save the data, but it takes a moment longer to register which button to click to make this happen. 
 Remember, the user wants to spend as little time as possible determining the next course of action. 
 
-Let's also discuss the 'Cancel' and 'OK' (or other confirming actions such as 'Save', 'Yes', 'Submit', etc) buttons. 
 So-called secondary actions like 'Cancel' should look the least appealing of the options because it usually isn't the next action the user wants to take.
 Making them the least appealing minimizes the chance of misclicks and nudges the user further towards a successful ending, such as a purchase.
+
+Let's also discuss the location and order of the 'Cancel' and 'OK' (or other confirmation actions such as 'Save', 'Yes', 'Submit', etc) buttons. 
 
 In Windows apps, the 'OK' button should come first and the 'Cancel' button second. 
 This implementation follows the 'natural reading order' (again, on sites designed for left-to-right reading).
@@ -65,7 +66,8 @@ The idea here is that the flow feels more natural since the 'OK' button closes t
 
 <img alt="Order of OK and Cancel on Apple machines" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelApple.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
-When designing for the web, it's best to choose whichever convention is used by most of your users, so based on their operating system. 
+When designing for the web, we usually opt to put the buttons on the left-side of the screen, with the confirmation button first. 
+'Example 1' in this section illustrates this as well.
 
 ### Hyperlinks
 Clickable words on a web page are best underlined and shown in a different color than the rest of the text. 
