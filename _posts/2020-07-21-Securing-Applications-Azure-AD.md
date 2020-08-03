@@ -8,21 +8,23 @@ category: Security
 comments: true
 ---
 
-> Azure is Microsoft's cloud platform. It offers great services like 
-> foo bar
+> Azure Active Directory or Azure AD for short, is Azure's identity provider and authorization server.
+> In this blogpost, we will discuss how to use it to secure web applications.
+> More specifically an Angular SPA which makes calls to a Spring Boot backend.
 
-# Using Azure AD to secure Angular and Spring Boot applications.
+# Finding the perfect OAuth flow for your needs
 
 When starting out with Azure AD and how to use it for authentication in your apps, it's important to think about the setup that you want.
-Do you want your Angular Single Page App (SPA) to be the OAuth client or would you rather the Spring Boot back end to fulfill that role?
+Do you want your Angular Single Page Application (SPA) to be the OAuth client or would you rather the Spring Boot back end fulfills that role?
 
 If the SPA is the OAuth client, the Spring Boot application will be configured as a Resource Server.
 This means it's up to Angular application to orchestrate the login and obtain access tokens.
-These access token then grant access to other services (resource servers) on behalf of the user.
+These access token then grant access to other services such as our Spring Boot backend, which we call a Resource Server in OAuth terms.
 
-The other scenario, where the Spring Boot back end acts as the OAuth client, this will be performed in the backend and the Angular application will only maintain a session with the backend.
+The other scenario, where the Spring Boot back end acts as the OAuth client, this will be performed in the backend.
+In this case, the Angular application will only maintain a session with the backend.
 
-There are multiple pros and cons to both scenarios:
+There are multiple advantages and disadvantages to both scenarios:
 
 SPA as OAuth Client / back end as resource server:
 + back ends can be stateless
@@ -125,11 +127,12 @@ In our case, this will be a Spring Boot application that's running on port 8080 
 Next up is the oauth configuration.
 
 ```typescript
-// app.component.ts
+// auth.config.ts
+import { AuthConfig } from 'angular-oauth2-oidc';
 
-authConfig: AuthConfig = {
+export const authConfig: AuthConfig = {
     issuer: 'https://login.microsoftonline.com/<<<tenant_id>>>/v2.0',
-    redirectUri: 'http://localhost:4200/dashboard',
+    redirectUri: window.location.origin + '/dashboard',
     clientId: '<<<client_id>>>',
     responseType: 'code',
     strictDiscoveryDocumentValidation: false,
@@ -157,7 +160,26 @@ You can define this scope in the Azure Portal, under `Expose an API` > `Add a sc
 INFO: This application specific scope can have any name, so it doesn't have to be `app`. 
 Just make sure you use the same scope in the application as the one you defined in the Azure Portal.
 
-// TODO: fix guards
+The next step is to trigger the log in when a user is not yet logged in:
+
+```typescript
+// app.component.ts
+constructor(private oauthService: OAuthService) {
+    this.oauthService.configure(authCodeFlowConfig); // (1)
+    this.oauthService.loadDiscoveryDocumentAndLogin(); // (2)
+
+    this.oauthService.setupAutomaticSilentRefresh(); // (3)
+}
+```
+
+In (1) we setup the OAuthService with the configuration from the previous step.
+This tells it to use the code flow with the correct parameters.  
+In (2) we then tell it to load the discovery document, which is the issuer URI plus a suffix of `.well-known/openid-configuration` and then start the login process.  
+As access token have a short lifespan, we want them to be automatically refreshed in the background (3).
+
+
+We can now try out the application and should be redirected to the Microsoft login page.
+After logging in, we can see the heroes are being loaded again.
 
 # The Spring Boot part
 
