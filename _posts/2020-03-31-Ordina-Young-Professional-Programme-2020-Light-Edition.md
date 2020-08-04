@@ -53,11 +53,11 @@ We also had a course about testing. We had an interactive hands-on session about
 
 ### Databases
 <img class="image" style="max-width: 200px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/postgre-sql.png">
-Databases are integral to the development of applications, you will almost always need some form of data storage. So we followed a session with Tom Van Bulck who showed us all kinds of databases. First we saw a traditional relational database, in this case PostgreSQL, a database which is widely known and used in many different projects around the world. 
+Databases are essential to the development of applications, you will almost always need some form of data storage. So we followed a session with Tom Van Bulck who showed us all kinds of databases. First we saw a traditional relational database, in this case PostgreSQL, a database which is widely known and used in many different projects around the world. 
 
 <p style="flex-direction: row-reverse;">
     <img class="image" style="max-width: 200px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/mongodb.png">
-    Then we stepped away from relational databases to look at other kinds. More specifically MongoDb which is a non relational database, otherwise known as a noSQL database, in mongoDb's case it's a document store. Here you don't have a fixed schema, you upload json documents which you can then easily query using an SQL style query syntax. Apart from mongoDb we also learned about Cassandra, which is a noSQL column store and we touched on Redis as well, which is a key value store. Last but not least we saw a graph database, namely Neo4J. 
+    Then we stepped away from relational databases to look at other kinds. More specifically MongoDB which is a non relational database, otherwise known as a noSQL database. In MongoDB's case it's a document store. Here you don't have a fixed schema, instead you upload json documents which you can then easily query using an SQL style query syntax. Apart from MongoDB we also learned about Cassandra, which is a noSQL column store, and Redis, which is a key value store. Last but not least we studied a graph database, namely Neo4J. 
 </p>
 
 # Front end
@@ -84,18 +84,21 @@ Eventually we reached the end of our front end training with a 2-day Angular cou
 # Cloud
 
 ### Docker
-To start of our cloud education we had a session about docker. which is integral to many cloud technologies. Tom Verelst gave an interesting hand-on session where he first explained the concepts of Docker. Then we started writing our own yaml deployment files to set up our first full stack application.
+<p style="flex-direction: row-reverse;">
+<img class="image" style="max-width: 200px; margin: 0;" alt="Docker logo" src="/img/2020-03-31-Young-Professional-2020-Light/docker.png">
+To start off our cloud education we had a session about Docker, which is essential to many cloud technologies. Tom Verelst gave an interesting hand-on session where he first explained the concepts of Docker, then we started writing our own yaml deployment files to set up our first full stack application.
+</p>
 
 ### Kubernetes
-Kubernetes is an open source container orchestration framework, this is commonly used to deploy applications. Pieter Vincken taught us the basics of Kubernetes. We started with a presentation about the core concepts like pods, secrets, and more. Then we learned how to deploy and manage our docker containers using Kubernetes. During this session we saw how you could manage your clusters by using various techniques provided by kubernetes like auto scaling, load balancing,... 
-
-It was really insightfull to see how easy it is to deploy and manage your applications on a Kubernetes cluster. 
+<img class="image" style="max-width: 200px; margin: 0;" alt="Docker logo" src="/img/2020-03-31-Young-Professional-2020-Light/kubernetes.png">
+Kubernetes is an open source container orchestration framework, which is commonly used to deploy applications. Pieter Vincken taught us the basics of Kubernetes. We started with a presentation about the core concepts like pods, secrets and more. Then we learned how to deploy and manage our Docker containers using Kubernetes. During this session we got the hang of how you could manage your clusters by using various techniques provided by Kubernetes like auto scaling, load balancing,... 
+It was really insightful to see how easy it is to deploy and manage your applications on a Kubernetes cluster. 
 
 ### Security Principles
-In this day and age security is a hot topic. During this session we went over the basics on how to protect your application. From valadating user input to database security but also how to protect the users data.
+In this day and age security is a hot topic. During this session we went over the basics on how to protect your application. From validating user input to database security, but also how to protect the users data.
 
 # Clean Code
-Today, one of the most important skills of a developer is Clean Code. 
+Today, one of the most important skills a developer has is Clean Code. 
 To explore this complex topic, we read the book 'Clean Code' by Robert C. Martin, which is one of the must reads for every programmer.
 To be able to write clean code, an understanding of what bad code is is needed. This is also explained in the first chapter of the book.
 Some examples of topics in the book we still use everyday are: 
@@ -112,6 +115,17 @@ Right now, they have physical stickers and papers to let the child express their
 ## Technology & Methodologies
 We worked Agile in two-weekly sprints with all the Scrum Ceremonies. Azure DevOps made this process easy and made sure our code was always clean and working as expected using CI/CD. 
 For the front end, we used the Angular Framework to develop the application, combined with Jasmine and Karma for testing. Authentication was done using AWS Amplify, which is a development platform. This allowed us to quickly set up the authentication and authorization of our app. Sentry.io was used for front end logging and monitoring after deployment. This way, we had full control over our code, from development to deployment and even after deployment.
-For the back end, we used Java Spring Boot 2.3.1. Our Database was a noSQL DynamoDb, for user management we used Cognito and finally for our file storage we used and S3 bucket. All of these services were set up in aws. This means we used the AWS Java SDK to manipulate these services in an easy and structured way. For the logging and monitoring side we used an ELK stack to easily visualize and interpret our logs.
+For the back end, we used Java Spring Boot 2.3.1. Our Database was a noSQL DynamoDB, for user management we used Cognito and finally for our file storage we used an S3 bucket. All of these services were set up in AWS. This means we used the AWS Java SDK to manipulate these services in an easy and structured way.
 
 ### Result
+<p style="flex-direction: row-reverse;">
+<img class="image" alt="Drag & drop gif"  style="max-width: 50%; padding-left: 4px" src="/img/2020-03-31-Young-Professional-2020-Light/board.gif">
+After 10 sprints we created an online platform for Combobox. This platform would assist them in their day to day operations. The application included various features like:  drag & drop capabilities, user management, file management, sticker management, overview of current cases, authorization & authentication. One of the most challenging parts of the project was the implementation of the Drag & Drop feature, for which we created a new directive. The result can be seen in the following screenshots:
+</p>
+
+<img class="image" alt="Login Page" style="max-width: 100%;" src="/img/2020-03-31-Young-Professional-2020-Light/login.jpg">
+
+<img class="image" alt="Upload Page"  style="max-width: 100%;" src="/img/2020-03-31-Young-Professional-2020-Light/upload.jpg">
+
+
+
