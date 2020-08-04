@@ -127,5 +127,9 @@ After 10 sprints we created an online platform for Combobox. This platform would
 
 <img class="image" alt="Upload Page"  style="max-width: 100%;" src="/img/2020-03-31-Young-Professional-2020-Light/upload.jpg">
 
+<img class="image" alt="Fox Icon" src="/img/2020-03-31-Young-Professional-2020-Light/icons8-fox-48.png"
+title="Fox icon by Icons8, those who know, will know."
+style="margin: auto;">
+
 
 
