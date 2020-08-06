@@ -8,12 +8,8 @@ category: Young Professional Programme
 comments: true
 ---
 <style>
-    p {
-        display: flex;
-    }
-
-    img {
-        object-fit: contain;
+    .image.left {
+        margin: 0;
     }
 </style>
 
@@ -36,17 +32,18 @@ like Docker, Visual Studio Code, IntelliJ, Git,...
 A variety of different editors and IDEs were shown and we were allowed to pick the ones we preferred.
 
 # Git
-<p style="flex-direction: row-reverse;">
-<img class="image" style="max-width: 150px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/git.png">
+<img class="image left small" alt="Git logo" src="/img/2020-03-31-Young-Professional-2020-Light/git.png">
+
 We also had a session about Git which is obviously an essential tool to understand for any modern developer. 
 We saw the ins and outs of most of the Git commands and we practiced the most common ones. 
 We didn't just see Git but also how it came to be and it's predecessors. 
 Overall, it was an interesting session giving us a decent understanding of Git.
-</p>
+
 
 # Back end
 ### Java
-<img class="image" style="max-width: 200px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/java.png">
+<img class="image right medium" alt="Java logo" src="/img/2020-03-31-Young-Professional-2020-Light/java.png">
+
 Java is a general-purpose programming language that was released in 1995, which means it has been around for 25 years. 
 It has become very popular over these years. In 2019, Java was one of the most used programming languages according to Github.
 Java is also the preferred back end language of JWorks. 
@@ -58,8 +55,9 @@ This meant the rest of the Young Professionals Programme was given remotely.
 
 
 ### Spring
-<p style="flex-direction: row-reverse;">
-<img class="image" style="max-width: 150px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/spring.png" >
+
+<img class="image left medium" alt="Spring logo" src="/img/2020-03-31-Young-Professional-2020-Light/spring.png" >
+
 The Spring framework is an application framework and inversion of control container for the Java platform. 
 It has become wildly popular in organizations and the Java community. 
 We followed a three-day self study course, where we read the book 'Spring in action' by Craig Walls. 
@@ -67,34 +65,35 @@ This book gives you a general understanding of the Spring framework.
 On the second day there was a short Spring Presentation by Ken Coenen. 
 Ken explained how all the Spring magic works behind the scenes 
 and talked about the common components of the full Spring framework.
-</p>
+
 
 ### Unit Testing
 We also had a course about testing. We had an interactive hands-on session about multiple subjects like Test Driven Development, 
 goals of testing, what to test, fixtures, mocks and assertions.
 
 ### Databases
-<img class="image" style="max-width: 200px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/postgre-sql.png">
+<img class="image right medium" alt="PostgreSql logo" src="/img/2020-03-31-Young-Professional-2020-Light/postgre-sql.png">
+
 Databases are essential to the development of applications, you will almost always need some form of data storage. 
 So we followed a session with Tom Van Bulck who showed us all kinds of databases. 
 First we saw a traditional relational database, in this case PostgreSQL, 
 a database which is widely known and used in many different projects around the world. 
 
-<p style="flex-direction: row-reverse;">
-    <img class="image" style="max-width: 200px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/mongodb.png">
-    Then we stepped away from relational databases to look at other kinds. 
-    More specifically MongoDB which is a non relational database, otherwise known as a noSQL database. 
-    In MongoDB's case it's a document store. 
-    Here you don't have a fixed schema, 
-    instead you upload JSON documents which you can then easily query using an SQL style query syntax. 
-    Apart from MongoDB we also learned about Cassandra, which is a noSQL column store, and Redis, which is a key value store. 
-    Last but not least we studied a graph database, namely Neo4J. 
-</p>
+<img class="image left medium" alt="MongoDB logo" src="/img/2020-03-31-Young-Professional-2020-Light/mongodb.png">
+
+Then we stepped away from relational databases to look at other kinds. 
+More specifically MongoDB which is a non relational database, otherwise known as a noSQL database. 
+In MongoDB's case it's a document store. 
+Here you don't have a fixed schema, 
+instead you upload JSON documents which you can then easily query using an SQL style query syntax. 
+Apart from MongoDB we also learned about Cassandra, which is a noSQL column store, and Redis, which is a key value store. 
+Last but not least we studied a graph database, namely Neo4J. 
 
 # Front end
 
 ### HTML, CSS, Javascript
-<img class="image" style="max-width: 150px; margin: 0;" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png">
+<img class="image right medium" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png">
+
 Since the Young Professional programme teaches a wide array of technologies we had saw quite a few front end technologies.
 Starting off with the basics of almost every front end technology, HTML5, CSS and Javascript. 
 In the first part of this session we took a dive into the basics of HTML and CSS, 
@@ -105,17 +104,18 @@ Throughout the session we had some exercises to have a bit of a hands-on approac
 
 
 ### Typescript
-<p style="flex-direction: row-reverse;">
-<img class="image" style="max-width: 200px; margin: 0;" alt="Typescript logo" src="/img/2020-03-31-Young-Professional-2020-Light/typescript.png">
+<img class="image left medium" alt="Typescript logo" src="/img/2020-03-31-Young-Professional-2020-Light/typescript.png">
+
 Building on the basics we learned prior, we had a session about Typescript, 
 a derivative of Javascript that is becoming more and more popular amongst most front end frameworks 
 because of it's similarity to Javascript but also having types allowing stricter rules to be enforced 
 and less random unexplainable errors. 
 Similarly to the previous session we got an explanation on the basics of Typescript which was then used in some exercises.
-</p>
+
 
 ### Angular
-<img class="image" style="max-width: 200px; margin: 0;" alt="Angular logo" src="/img/2020-03-31-Young-Professional-2020-Light/angular.png">
+<img class="image right medium" alt="Angular logo" src="/img/2020-03-31-Young-Professional-2020-Light/angular.png">
+
 Eventually we reached the end of our front end training with a 2-day Angular course. 
 Everything we learnt the previous days was now being poured into a framework. 
 In this course we, again, saw the basics of this massive Typescript framework. 
@@ -129,15 +129,15 @@ We were also going to use it in the dev case, so we would have enough time to un
 # Cloud
 
 ### Docker
-<p style="flex-direction: row-reverse;">
-<img class="image" style="max-width: 200px; margin: 0;" alt="Docker logo" src="/img/2020-03-31-Young-Professional-2020-Light/docker.png">
+<img class="image left medium" alt="Docker logo" src="/img/2020-03-31-Young-Professional-2020-Light/docker.png">
+
 To start off our cloud education we had a session about Docker, which is essential to many cloud technologies. 
 Tom Verelst gave an interesting hand-on session where he first explained the concepts of Docker, 
 then we started writing our own yaml deployment files to set up our first full stack application.
-</p>
 
 ### Kubernetes
-<img class="image" style="max-width: 200px; margin: 0;" alt="Docker logo" src="/img/2020-03-31-Young-Professional-2020-Light/kubernetes.png">
+<img class="image right medium" alt="Kubernetes logo" src="/img/2020-03-31-Young-Professional-2020-Light/kubernetes.png">
+
 Kubernetes is an open source container orchestration framework, which is commonly used to deploy applications. 
 Pieter Vincken taught us the basics of Kubernetes. 
 We started with a presentation about the core concepts like pods, secrets and more. 
@@ -169,7 +169,7 @@ For our dev case, our task was to make a fully functional web application for MF
 MFC Combo is an organization in youth care who guide families and children with a difficult situation at home. 
 They use the "Combobox" in their meetings with the families. 
 This is used to make communication easier and more fun.
-Right now, they have physical stickers and papers to let the child express their feelings, 
+right medium now, they have physical stickers and papers to let the child express their feelings, 
 but they want it to become digital so that it's easier to follow-up a child.
 
 ## Technology & Methodologies
@@ -184,8 +184,8 @@ Our Database was a noSQL DynamoDB, for user management we used Cognito and final
 This means we used the AWS Java SDK to manipulate these services in an easy and structured way.
 
 ### Result
-<p style="flex-direction: row-reverse;">
-<img class="image" alt="Drag & drop gif"  style="max-width: 50%; padding-left: 4px" src="/img/2020-03-31-Young-Professional-2020-Light/board.gif">
+<img class="image" alt="Drag & drop gif"  style="max-width: 50%; padding-left medium: 4px" src="/img/2020-03-31-Young-Professional-2020-Light/board.gif">
+
 After 10 sprints we created an online platform for Combobox. 
 This platform would assist them in their day to day operations. 
 The application included various features like: drag & drop capabilities, user management, file management, 
@@ -193,7 +193,6 @@ sticker management, overview of current cases, authorization & authentication.
 One of the most challenging parts of the project was the implementation of the Drag & Drop feature, 
 for which we created a new directive. 
 The result can be seen in the following screenshots:
-</p>
 
 <img class="image" alt="Login Page" style="max-width: 100%;" src="/img/2020-03-31-Young-Professional-2020-Light/login.jpg">
 
