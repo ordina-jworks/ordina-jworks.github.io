@@ -12,9 +12,12 @@ comments: true
 > xxx
 
 # Table of contents
-1. [Company logo placement and usage](#1-company-logo-placement-and-usage)
-1. [Make clickable elements obvious](#2-make-clickable-elements-obvious)
-
+1. [Use-cases](#1-use-cases)
+1. [Lens](#lens)
+1. [Kubenav](#kubenav)
+1. [Kubernetes dashboard](#kubernetes_dashboard)
+1. [Octant](#octant)
+1. [K9S](#k9s)
 
 ## 1. Company logo placement and usage
 First things first. Your user always needs to find their way back to the homepage in a heartbeat. 
