@@ -59,7 +59,7 @@ In Windows apps, the 'OK' button should come first and the 'Cancel' button secon
 This implementation follows the 'natural reading order' (again, on sites designed for left-to-right reading).
 Additionally, keyboard users will also reach the 'OK' button sooner.
 
-<img alt="Unclear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelWindows.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
+<img alt="Unclear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelWindows.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
 On Apple machines however, 'Cancel' will come first and 'OK' second.
 The idea here is that the flow feels more natural since the 'OK' button closes that section and the next step ('OK') is placed most right, whilst the previous step ('Cancel') is placed left.
@@ -136,6 +136,9 @@ The icons for search, shopping cart, profile, etc.. are well-known and you shoul
 
 <img alt="Use well-known icons" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/icons.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
 
+Also, unless you're using icons that are well-known and absolutely clear on their purpose, like the icons above, it's always a good idea to add labels to your icons.
+If you're unsure about the use of labels, user testing will tell you whether users are experiencing issues with your icons without labels or not.
+
 How you label your links and buttons is important as well. When users are looking for job opportunities on your website, typical keywords are 'Careers' or 'Jobs'.
 By using for example 'Employment', users might not be able to find your career page (as easily). 
 
@@ -147,13 +150,16 @@ Take a look at the following example from ASOS:
 <img alt="ASOS uses very clear breadcrumbs" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/asos.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
 
 With breadcrumbs, users can see in the blink of an eye in which (sub)category the current page belongs. 
-The user perhaps ended up on this page by clicking a 'Recommended for you!' link and maybe he or she wants to take a look at similar items as well. 
-Being able to actually click on a (sub)category in the breadcrumbs help to do exactly that. 
+This is interesting for your users who ended up on a specific product page through a Google search. 
+By using breadcrumbs, your users are able to quickly understand where they are situated within your website.
+Being able to actually click on a (sub)category in the breadcrumbs will help your users to easily retrieve an overview of similar products. 
 
 Even when you're just mindlessly browsing a website and you clicked on twenty different items within a category, you don't want to click the back button twenty-one times to go back to the actual results within the current category.
 Breadcrumbs make sure that your user can browse your website more easily, which creates less frustration for your user, which hopefully creates a higher conversion. 
 
 ## 8. Less clicks = better
+Usually.
+
 Try to save the user clicks as much as possible. 
 Like Steve Krug describes in his [*Don't Make Me Think*](http://sensible.com/dmmt.html){:target="_blank" rel="noopener noreferrer"}, instead of only providing a tracking number for a shipment, you can add a link to the e-mail that opens the carrier's website with the tracking number already filled in.
 Another example would be to provide a Google Maps preview on the contact page instead of just providing the address.
@@ -161,9 +167,17 @@ Another example would be to provide a Google Maps preview on the contact page in
 When possible, also try to mention any form errors while the user is entering the data. 
 Whether it be the phone number format or a password that is too short, anything that can be detected should immediately be communicated to the user instead of waiting until the user clicks 'Submit'. 
 
+Now, I said *'usually'* at the beginning of this section. 
+There are of course a few exceptions. 
+One of them is the FAQ page.
+If you want to provide quite some questions and answers, it's best not to throw it all into one big overview.
+A good idea here would be to provide all the possible questions in a list and make these questions clickable.
+The answer should then only show up after the user has clicked on the question. 
+This will provide a clean, clear, concise and easy to browse FAQ page for your user, even though there are a few more clicks involved.  
+
 ## 9. Dropdown lists
 Dropdown lists are simple to implement and easy to use so they are present on countless websites.
-The key here is to only start using dropdown lists when we're talking about seven or more options. 
+The key here is to only start using dropdown lists when we're talking about five or more options. 
 When there are less options present, radio buttons might be a better choice for you so the user can see all the available options immediately.
 
 ## 10. Include visual indicators of length and size
@@ -190,3 +204,5 @@ As said before in this blog post, it's practically impossible to please everyone
 What's aesthetically pleasing to one person might not be so for the next one.
 But user experience is more than the look, the layout, the colors used. 
 We're also talking about flow here, about creating an experience for each user, regardless of impairment, that helps them reach their goal flawlessly, without frustration, with little nudges in the right direction.
+
+If you're looking for some UX/UI design experts to help with your projects, don't hesitate to contact my colleagues at [Clockwork](http://cw.be/){:target="_blank" rel="noopener noreferrer"}!
