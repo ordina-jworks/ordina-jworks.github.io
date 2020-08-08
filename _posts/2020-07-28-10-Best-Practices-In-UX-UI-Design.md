@@ -67,7 +67,9 @@ The idea here is that the flow feels more natural since the 'OK' button closes t
 <img alt="Order of OK and Cancel on Apple machines" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelApple.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
 When designing for the web, we usually opt to put the buttons on the left-side of the screen, with the confirmation button first. 
-'Example 1' in this section illustrates this as well.
+'Example 1' in this section illustrates this as well:
+
+<img alt="Clear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-colored.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;"> 
 
 ### Hyperlinks
 Clickable words on a web page are best underlined and shown in a different color than the rest of the text. 
@@ -99,6 +101,9 @@ The following text is much more confusing:
 
 What is supposed to be communicated here? 'Subtitle 2' using the same coloring as 'Subtitle 1' but it's just as large as 'Title'. 
 So does the author mean it's still part of the 'Title' section or did he or she mean to create a whole separate section with a different 'Title'? Instructions unclear.
+
+For screen readers (and other assistive technologies), it's best to show titles by using the different title tags that are available in HTML, such as <h1>, <h2>, etc. 
+This way, the screen reader is aware that that specific text is a (sub)title and can communicate this information to the user.
 
 ## 4. Be honest
 One of the biggest irks of customers is being presented with crucial information and extra costs late in the ordering process. 
@@ -165,7 +170,7 @@ Like Steve Krug describes in his [*Don't Make Me Think*](http://sensible.com/dmm
 Another example would be to provide a Google Maps preview on the contact page instead of just providing the address.
 
 When possible, also try to mention any form errors while the user is entering the data. 
-Whether it be the phone number format or a password that is too short, anything that can be detected should immediately be communicated to the user instead of waiting until the user clicks 'Submit'. 
+Whether it be the phone number format or a password that is too short, anything that can be detected client-side should immediately be communicated to the user instead of waiting until the user clicks 'Submit'. 
 
 Now, I said *'usually'* at the beginning of this section. 
 There are of course a few exceptions. 
