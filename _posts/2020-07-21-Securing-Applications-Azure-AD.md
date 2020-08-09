@@ -2,7 +2,7 @@
 layout: post
 authors: [jeroen_meys]
 title: 'Securing Angular and Spring Boot applications with Azure Active Directory'
-image: /img/azure-ad.png
+image: /img/azure-ad/azure-ad.png
 tags: [Azure AD, Angular, Spring Security, Web Security OAuth, OIDC, PKCE]
 category: Security
 comments: true
@@ -88,7 +88,7 @@ In all other cases, the Authorization Code flow with PKCE is the way to go.
 If you are interested in what public clients are and how PKCE works, you can learn more about it in this [blogpost](https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html){:target="_blank" rel="noopener noreferrer"}
 As we will ask a user to enter his credentials (which is not machine to machine), the right flow for us is the Authorization Code flow with PKCE.
 
-> PKCE will be made (mostly) mandatory in the [current OAuth 2.1 proposition](https://tools.ietf.org/html/draft-parecki-oauth-v2-1-03#section-9.8){:target="_blank" rel="noopener noreferrer"} by Aaron Parecki.
+> PKCE will be made (mostly) mandatory in the [current OAuth 2.1 proposal](https://tools.ietf.org/html/draft-parecki-oauth-v2-1-03#section-9.8){:target="_blank" rel="noopener noreferrer"} by Aaron Parecki.
 
 ## The Azure AD part
 
@@ -96,8 +96,40 @@ We already discussed that our Angular app will be an OAuth Client.
 All Clients have to be registered at the Authorization Server, so this is what we have to configure in Azure AD.
 We can do this via the [Azure Portal](https://portal.azure.com/){:target="_blank" rel="noopener noreferrer"}.
 Log in and then navigate to Azure AD.
+You should find the `App registrations` button on the left.
 
-TODO
+<div style="text-align: center;" >
+  <img class="image fit-contain" src="{{ '/img/azure-ad/app-registration.png' | prepend: site.baseurl }}" alt="" width="30%" />
+</div>
+
+Click `New registration` and fill out the form:
+
+<div style="text-align: center;" >
+  <img class="image fit-contain" src="{{ '/img/azure-ad/app-registration2.png' | prepend: site.baseurl }}" alt="" width="70%" />
+</div>
+
+The name can be whatever you want. 
+We can also setup the redirect URI here. 
+This is the URI where the user will be redirected to after logging in on the Authorization Server.
+The Supported account types option depends on who should be able to log in to your app.
+
+Notice how we don't need to configure a secret? 
+This is because we use this application as a public Client. 
+The Authorization Code flow used to be for confidential Clients only, which use a secret or certificate to authenticate with the Authorization Server. 
+Single-page apps can't keep secrets hidden very well, which is why they have to be a public Client. 
+PKCE is what makes the Authorization Code flow possible for these kinds of Clients. 
+
+Wait.. That's it?
+Yes.
+Well, kind of.
+Later on, we will have to make an adjustment, so don't close the portal just yet.
+Once the client is registered, we also need the Client id and tenant id values for our application configuration.
+I changed mine to `<<<client_id>>>` and `<<<tenant_id>>>` for demonstration purposes, so don't forget to change these values to yours in the configuration examples.
+The `Expose an API` button which is marked as well, will come into play a later.
+
+<div style="text-align: center;" >
+  <img class="image fit-contain" src="{{ '/img/azure-ad/app-registration3.png' | prepend: site.baseurl }}" alt="" width="70%" />
+</div>
 
 # The Spring Boot Part
 
@@ -302,9 +334,11 @@ export const authConfig: AuthConfig = {
 
 The `issuer`, `redirectUri`, `clientId` and `responseType` are pretty straightforward. 
 All you need to do is to fill in the placeholder with the values from Azure AD. 
-You can copy the values from the overview in the Azure Portal.
+You can copy the values from the overview of the app in the Azure Portal.
 
-// TODO: img here?
+<div style="text-align: center;" >
+  <img class="image fit-contain" src="{{ '/img/azure-ad/app-values.png' | prepend: site.baseurl }}" alt="" width="50%" />
+</div>
 
 This is where we need to tweak some configuration settings for the library to work with Azure AD.
 `strictDiscoveryDocumentValidation` Needs to be disabled due to the fact that not all URLs in the discovery document start with the issuer URL. 
@@ -344,8 +378,6 @@ This tells it to use the authorization code flow + PKCE with the correct paramet
 
 We can now try out the application and should be redirected to the Microsoft login page.  
 After logging in, we can see the 401 is gone, and the heroes are fetched again.
-
-// TODO Gif here
 
 ## Conclusion
 
