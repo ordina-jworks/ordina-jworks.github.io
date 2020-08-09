@@ -11,12 +11,12 @@ comments: true
 ## Table of Contents
 
 * [Introduction](#introduction)
-* [K9s](#introduction)
-* [Octant](#introduction)
-* [Lens](#introduction)
-* [Kubenav](#introduction)
-* [Infra.App](#introduction)
-* [Conclusion](#introduction)
+* [K9s](#k9s)
+* [Octant](#octant)
+* [Lens](#lens)
+* [Kubenav](#kubenav)
+* [Infra.App](#infra-app)
+* [Conclusion](#conclusion)
 
 ## Introduction
 
@@ -50,11 +50,26 @@ Since the project doesn't seem to be really backed by a company directly, there 
 
 ## Octant
 
-
 ## Lens
 
 ## Kubenav
 
-## Infra.app
+## Infra App
+[Infra App](https://infra.app/){:target="_blank" rel="noopener noreferrer"} is a new addition to the list of Kubernetes clients. 
+It is made by the people over at Docker Desktop & [Kitematic](https://kitematic.com){:target="_blank" rel="noopener noreferrer"} and is being developed behind closed doors, which has been addressed as unpleasant within the Kubernetes community.
+It provides you with a clean, simplistic user interface which groups everything you need to know about a single resource together. 
+Everything speaks for itself and all the information you need is within the reach of a few simple clicks.
 
+When you open the application for the first time, they greet you by asking you to fill in your e-mail address. 
+This is probably for newsletters and updates, but I wish this step was optional. 
+
+You quickly notice that there is only basic functionality available in the application, which makes sense as the client is still in early access at the time of writing.
+You can browse resources per namespace, go through application logs, read and edit YAML configuration and check the current resources used by your deployment. 
+There is a metrics interface for the whole cluster aswell, which supplies you with a structured and detailed view about your nodes.
+
+The application is still very young and right now, it is lacking some functionality that you might expect or find in other clients. 
+If you want something with more than basic functionality right now, this might not be the application you are looking for. 
+However, if it has what you need, you will find that it will be very easy and straight-forward to manage your Kubernetes cluster with this client.
+
+TODO: add image(s) of Infra
 ## Conclusion
