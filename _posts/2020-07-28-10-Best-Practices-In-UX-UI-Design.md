@@ -37,7 +37,7 @@ The company logo is typically placed in the top left corner (on sites designed f
 
 ## 2. Make clickable elements obvious
 ### Buttons
-Confirmation buttons need to stand out from the rest of the page so it immediately draws the user's attention.
+Confirmation buttons need to stand out from the rest of the page so they immediately draw the user's attention.
 Adding a shadow effect to the buttons lets the user know it's clickable and they can interact with it.
 Notice the difference between the following examples:
 
@@ -102,7 +102,7 @@ The following text is much more confusing:
 What is supposed to be communicated here? 'Subtitle 2' using the same coloring as 'Subtitle 1' but it's just as large as 'Title'. 
 So does the author mean it's still part of the 'Title' section or did he or she mean to create a whole separate section with a different 'Title'? Instructions unclear.
 
-For screen readers (and other assistive technologies), it's best to show titles by using the different title tags that are available in HTML, such as <h1>, <h2>, etc. 
+For screen readers (and other assistive technologies), it's best to show titles by using the different title tags that are available in HTML, such as `<h1>`, `<h2>`, etc. 
 This way, the screen reader is aware that that specific text is a (sub)title and can communicate this information to the user.
 
 ## 4. Be honest
