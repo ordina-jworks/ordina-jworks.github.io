@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [jeroen_meys]
-title: 'Securing Angular and Spring Boot applications with Azure AD using PKCE'
+title: 'Securing Angular and Spring Boot applications with Azure Active Directory'
 image: /img/azure-ad.png
-tags: [Azure AD, Angular, Spring Boot, OAuth, OIDC, PKCE]
+tags: [Azure AD, Angular, Spring Security, Web Security OAuth, OIDC, PKCE]
 category: Security
 comments: true
 ---
