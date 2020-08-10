@@ -68,18 +68,20 @@ and talked about the common components of the full Spring framework.
 
 
 ### Unit Testing
+<img class="image right medium" alt="JUnit logo" src="/img/2020-03-31-Young-Professional-2020-Light/junit.png">
+
 We also had a course about testing. We had an interactive hands-on session about multiple subjects like Test Driven Development, 
 goals of testing, what to test, fixtures, mocks and assertions.
 
 ### Databases
-<img class="image right medium" alt="PostgreSql logo" src="/img/2020-03-31-Young-Professional-2020-Light/postgre-sql.png">
+<img class="image left medium" alt="PostgreSql logo" src="/img/2020-03-31-Young-Professional-2020-Light/postgre-sql.png">
 
 Databases are essential to the development of applications, you will almost always need some form of data storage. 
 So we followed a session with Tom Van den Bulck who showed us all kinds of databases. 
 First we saw a traditional relational database, in this case PostgreSQL, 
 a database which is widely known and used in many different projects around the world. 
 
-<img class="image left medium" alt="MongoDB logo" src="/img/2020-03-31-Young-Professional-2020-Light/mongodb.png">
+<img class="image right medium" alt="MongoDB logo" src="/img/2020-03-31-Young-Professional-2020-Light/mongodb.png">
 
 Then we stepped away from relational databases to look at other kinds. 
 More specifically MongoDB which is a non relational database, otherwise known as a NoSQL database. 
@@ -92,7 +94,7 @@ Last but not least we studied a graph database, namely Neo4J.
 # Front end
 
 ### HTML, CSS, Javascript
-<img class="image right medium" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png">
+<img class="image left medium" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png">
 
 Since the Young Professional programme teaches a wide array of technologies we have seen quite a few front end technologies.
 Starting off with the basics of almost every front end technology, HTML5, CSS and JavaScript. 
@@ -104,7 +106,7 @@ Throughout the session we had some exercises to have a bit of a hands-on approac
 
 
 ### Typescript
-<img class="image left medium" alt="Typescript logo" src="/img/2020-03-31-Young-Professional-2020-Light/typescript.png">
+<img class="image right medium" alt="Typescript logo" src="/img/2020-03-31-Young-Professional-2020-Light/typescript.png">
 
 Building on the basics we learned prior, we had a session about TypeScript, 
 a derivative of JavaScript that is becoming more and more popular amongst most front end frameworks 
@@ -114,7 +116,7 @@ Similarly to the previous session we got an explanation on the basics of TypeScr
 
 
 ### Angular
-<img class="image right medium" alt="Angular logo" src="/img/2020-03-31-Young-Professional-2020-Light/angular.png">
+<img class="image left medium" alt="Angular logo" src="/img/2020-03-31-Young-Professional-2020-Light/angular.png">
 
 Eventually we reached the end of our front end training with a 2-day Angular course. 
 Everything we learnt the previous days was now being poured into a framework. 
@@ -129,14 +131,14 @@ We were also going to use it in the dev case, so we would have enough time to un
 # Cloud
 
 ### Docker
-<img class="image left medium" alt="Docker logo" src="/img/2020-03-31-Young-Professional-2020-Light/docker.png">
+<img class="image right medium" alt="Docker logo" src="/img/2020-03-31-Young-Professional-2020-Light/docker.png">
 
 To start off our cloud education we had a session about Docker, which is essential to many cloud technologies. 
 Tom Verelst gave an interesting hand-on session where he first explained the concepts of Docker, 
 then we started writing our own yaml deployment files to set up our first full stack application.
 
 ### Kubernetes
-<img class="image right medium" alt="Kubernetes logo" src="/img/2020-03-31-Young-Professional-2020-Light/kubernetes.png">
+<img class="image left medium" alt="Kubernetes logo" src="/img/2020-03-31-Young-Professional-2020-Light/kubernetes.png">
 
 Kubernetes is an open source container orchestration framework, which is commonly used to deploy applications. 
 Pieter Vincken taught us the basics of Kubernetes. 
@@ -147,11 +149,14 @@ like auto scaling, load balancing,...
 It was really insightful to see how easy it is to deploy and manage your applications on a Kubernetes cluster. 
 
 ### Security Principles
+<img class="image right medium" alt="Security logo" src="/img/2020-03-31-Young-Professional-2020-Light/security.jpeg">
 In this day and age security is a hot topic. 
 During this session we went over the basics on how to protect your application. 
 From validating user input to database security, but also how to protect the users' data.
 
 # Clean Code
+<img class="image left medium" style="margin: 1.5em;" alt="CleanCode logo" src="/img/2020-03-31-Young-Professional-2020-Light/clean-code.png">
+
 Today, one of the most important skills a developer has is Clean Code. 
 To explore this complex topic, we read the book 'Clean Code' by Robert C. Martin, 
 which is one of the must reads for every programmer.
