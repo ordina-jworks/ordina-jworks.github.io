@@ -36,7 +36,7 @@ A variety of different editors and IDEs were shown and we were allowed to pick t
 
 We also had a session about Git which is obviously an essential tool to understand for any modern developer. 
 We saw the ins and outs of most of the Git commands and we practiced the most common ones. 
-We didn't just see Git but also how it came to be and it's predecessors. 
+We didn't just see Git but also how it came to be and its predecessors. 
 Overall, it was an interesting session giving us a decent understanding of Git.
 
 
@@ -47,9 +47,9 @@ Overall, it was an interesting session giving us a decent understanding of Git.
 Java is a general-purpose programming language that was released in 1995, which means it has been around for 25 years. 
 It has become very popular over these years. In 2019, Java was one of the most used programming languages according to Github.
 Java is also the preferred back end language of JWorks. 
-Yannick de Turck gave us a workshop around this programming language. 
+Yannick De Turck gave us a workshop around this programming language. 
 We talked about the new features that were released with each version from Java 7 until 14. 
-In between the theory lessons we made some hands-on exercises on the new features like lambda streams and optionals. 
+In between the theory lessons we made some hands-on exercises on the new features like lambdas, streams and optionals. 
 This was also the last day before the corona outbreak in Belgium. 
 This meant the rest of the Young Professionals Programme was given remotely. 
 
@@ -75,18 +75,18 @@ goals of testing, what to test, fixtures, mocks and assertions.
 <img class="image right medium" alt="PostgreSql logo" src="/img/2020-03-31-Young-Professional-2020-Light/postgre-sql.png">
 
 Databases are essential to the development of applications, you will almost always need some form of data storage. 
-So we followed a session with Tom Van Bulck who showed us all kinds of databases. 
+So we followed a session with Tom Van den Bulck who showed us all kinds of databases. 
 First we saw a traditional relational database, in this case PostgreSQL, 
 a database which is widely known and used in many different projects around the world. 
 
 <img class="image left medium" alt="MongoDB logo" src="/img/2020-03-31-Young-Professional-2020-Light/mongodb.png">
 
 Then we stepped away from relational databases to look at other kinds. 
-More specifically MongoDB which is a non relational database, otherwise known as a noSQL database. 
+More specifically MongoDB which is a non relational database, otherwise known as a NoSQL database. 
 In MongoDB's case it's a document store. 
 Here you don't have a fixed schema, 
 instead you upload JSON documents which you can then easily query using an SQL style query syntax. 
-Apart from MongoDB we also learned about Cassandra, which is a noSQL column store, and Redis, which is a key value store. 
+Apart from MongoDB we also learned about Cassandra, which is a NoSQL column store, and Redis, which is a key value store. 
 Last but not least we studied a graph database, namely Neo4J. 
 
 # Front end
@@ -94,8 +94,8 @@ Last but not least we studied a graph database, namely Neo4J.
 ### HTML, CSS, Javascript
 <img class="image right medium" alt="HtmlCssJs logo" src="/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png">
 
-Since the Young Professional programme teaches a wide array of technologies we had saw quite a few front end technologies.
-Starting off with the basics of almost every front end technology, HTML5, CSS and Javascript. 
+Since the Young Professional programme teaches a wide array of technologies we have seen quite a few front end technologies.
+Starting off with the basics of almost every front end technology, HTML5, CSS and JavaScript. 
 In the first part of this session we took a dive into the basics of HTML and CSS, 
 and after this we learned about the more recent features of HTML5 and CSS3. 
 The remainder of the session was mainly about JavaScript. 
@@ -106,11 +106,11 @@ Throughout the session we had some exercises to have a bit of a hands-on approac
 ### Typescript
 <img class="image left medium" alt="Typescript logo" src="/img/2020-03-31-Young-Professional-2020-Light/typescript.png">
 
-Building on the basics we learned prior, we had a session about Typescript, 
-a derivative of Javascript that is becoming more and more popular amongst most front end frameworks 
-because of it's similarity to Javascript but also having types allowing stricter rules to be enforced 
+Building on the basics we learned prior, we had a session about TypeScript, 
+a derivative of JavaScript that is becoming more and more popular amongst most front end frameworks 
+because of its similarity to JavaScript but also having types allowing stricter rules to be enforced 
 and less random unexplainable errors. 
-Similarly to the previous session we got an explanation on the basics of Typescript which was then used in some exercises.
+Similarly to the previous session we got an explanation on the basics of TypeScript which was then used in some exercises.
 
 
 ### Angular
@@ -118,7 +118,7 @@ Similarly to the previous session we got an explanation on the basics of Typescr
 
 Eventually we reached the end of our front end training with a 2-day Angular course. 
 Everything we learnt the previous days was now being poured into a framework. 
-In this course we, again, saw the basics of this massive Typescript framework. 
+In this course we, again, saw the basics of this massive TypeScript framework. 
 We saw everything from dependency injection to property binding. 
 Angular is a framework built by Google so there are lots of features, 
 because of this we didn't have enough time in those 2 days to really explore Angular in-depth. 
@@ -149,7 +149,7 @@ It was really insightful to see how easy it is to deploy and manage your applica
 ### Security Principles
 In this day and age security is a hot topic. 
 During this session we went over the basics on how to protect your application. 
-From validating user input to database security, but also how to protect the users data.
+From validating user input to database security, but also how to protect the users' data.
 
 # Clean Code
 Today, one of the most important skills a developer has is Clean Code. 
@@ -165,12 +165,12 @@ Some examples of topics in the book we still use everyday are:
 
 # Dev case
 ### Introduction
-For our dev case, our task was to make a fully functional web application for MFC Combo. 
+For our dev case, our task was to make a fully functional web application for [MFC Combo](https://www.mfccombo.be){:target="blank" rel="noopener noreferrer"}. 
 MFC Combo is an organization in youth care who guide families and children with a difficult situation at home. 
 They use the "Combobox" in their meetings with the families. 
 This is used to make communication easier and more fun.
-right medium now, they have physical stickers and papers to let the child express their feelings, 
-but they want it to become digital so that it's easier to follow-up a child.
+Right now, they have physical stickers and papers to let the child express their feelings, 
+but they want it to become digital so that it's easier to follow up a child.
 
 ## Technology & Methodologies
 We worked Agile in two-weekly sprints with all the Scrum Ceremonies. 
@@ -180,14 +180,14 @@ This allowed us to quickly set up the authentication and authorization of our ap
 Sentry.io was used for front end logging and monitoring after deployment. 
 This way, we had full control over our code, from development to deployment and even after deployment.
 For the back end, we used Java Spring Boot 2.3.1. 
-Our Database was a noSQL DynamoDB, for user management we used Cognito and finally for our file storage we used an S3 bucket. All of these services were set up in AWS. 
+Our Database was a NoSQL DynamoDB, for user management we used Cognito and finally for our file storage we used an S3 bucket. All of these services were set up in AWS. 
 This means we used the AWS Java SDK to manipulate these services in an easy and structured way.
 
 ### Result
 <img class="image" alt="Drag & drop gif"  style="max-width: 50%; padding-left medium: 4px" src="/img/2020-03-31-Young-Professional-2020-Light/board.gif">
 
 After 10 sprints we created an online platform for Combobox. 
-This platform would assist them in their day to day operations. 
+This platform would assist them in their day-to-day operations. 
 The application included various features like: drag & drop capabilities, user management, file management, 
 sticker management, overview of current cases, authorization & authentication. 
 One of the most challenging parts of the project was the implementation of the Drag & Drop feature, 
@@ -201,6 +201,5 @@ The result can be seen in the following screenshots:
 <img class="image" alt="Fox Icon" src="/img/2020-03-31-Young-Professional-2020-Light/icons8-fox-48.png"
 title="Fox icon by Icons8, those who know, will know."
 style="margin: auto;">
-
 
 
