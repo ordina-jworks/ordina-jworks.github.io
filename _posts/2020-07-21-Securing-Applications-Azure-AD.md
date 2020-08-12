@@ -142,7 +142,7 @@ I've changed mine to `<<<client_id>>>` and `<<<tenant_id>>>` for demonstration p
 
 # The Spring Boot Part
 
-Our [example Spring Boot application](TODO){:target="_blank" rel="noopener noreferrer"} is a small API which serves some resources for the Angular application which we'll discuss further down.  
+Our [example Spring Boot application](https://github.com/jmeys/azure-ad-demo-backend){:target="_blank" rel="noopener noreferrer"} is a small API which serves some resources for the Angular application which we'll discuss further down.  
 This is probably the easiest part to arrange, but also where I see most people get really confused.
 
 ## Azure Starters for Spring Boot
@@ -237,7 +237,7 @@ This is where the jwk URI can save the day.
 # The Angular Part
 
 When we now browse to any back-end endpoint, we receive: HTTP 401 Unauthorized.  
-Let's fix this in our [example Angular application](TODO){:target="_blank" rel="noopener noreferrer"}.
+Let's fix this in our [example Angular application](https://github.com/jmeys/azure-ad-demo-frontend){:target="_blank" rel="noopener noreferrer"}.
 
 ## The Angular Library
 
