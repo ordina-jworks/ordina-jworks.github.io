@@ -13,7 +13,18 @@ comments: true
 > More specifically an Angular single-page application (SPA) which makes calls to a Spring Boot back-end.
 
 # Table of contents
-  
+* [Finding the perfect OAuth flow for your needs](#finding-the-perfect-oauth-flow-for-your-needs)
+  * [Basic OAuth Terminology](#basic-oauth-terminology)
+  * [The OAuth Client](#the-oauth-client)
+  * [OAuth flows](#oauth-flows)
+* [The Azure AD part](#the-azure-ad-part)
+* [The Spring Boot Part](#the-spring-boot-part)
+  * [Azure Starters for Spring Boot](#azure-starters-for-spring-boot)
+  * [The Spring Boot Implementation](#the-spring-boot-implementation)
+* [The Angular Part](#the-angular-part)
+  * [The Angular Library](#the-angular-library)
+  * [Example Application: Tour of Heroes](#example-application-tour-of-heroes)
+  * [The Angular Implementation](#the-angular-implementation)
 
 # Finding the perfect OAuth flow for your needs
 
@@ -119,7 +130,7 @@ Click `New registration` and fill in the form:
 </div>
 
 Pick a name that's appropriate for your client. 
-We can also set-up the redirect URI here. 
+We can also set up the redirect URI here. 
 This is the URI where the user will be redirected to after logging in on the authorization server. 
 It's important that this matches the URL in our Angular configuration later. 
 The supported account types option depends on who should be able to log in to your app.
@@ -148,7 +159,7 @@ This is probably the easiest part to arrange, but also where I see most people g
 ## Azure Starters for Spring Boot
 
 If you want to set up the Spring Boot application as an OAuth client, you could use the Azure Active Directory starter from the [Spring Initializr](https://start.spring.io/){:target="_blank" rel="noopener noreferrer"}.
-It's relatively hasle-free, given that you adjust some things left and right.  
+It's relatively hassle-free, given that you adjust some things left and right.  
 However, we want to set up our Spring Boot application as a resource server (rather than an OAuth client). 
 For this, we will only use the `spring-boot-starter-oauth2-resource-server` dependency from Spring itself.
 This further limits our dependencies on the Microsoft libraries. 
@@ -205,7 +216,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 There is a lot happening in a few lines here.
 Let's break it down:
-1. `http.cors()` Allows [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS){:target="_blank" rel="noopener noreferrer"} [preflight checks](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests){:target="_blank" rel="noopener noreferrer"} to succeed.
+1. `http.cors()` allows [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS){:target="_blank" rel="noopener noreferrer"} [preflight checks](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests){:target="_blank" rel="noopener noreferrer"} to succeed.
 2. We want all requests to the application to require authentication. If no authentication is provided, a 401 status will be returned.
 Note that this is different if you configure the Spring Boot application as an OAuth client. In that case, the caller would be redirected to the login page.
 3. Here we tell the application to behave as a resource server. Authentication should be provided via JWT access tokens.
@@ -232,7 +243,7 @@ spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://login.windows.net/
 
 In a real production configuration, I personally prefer to use the issuer URI as it offers most configuration via a single configuration property.
 This will issue a network call to the discovery document when the application starts, so when testing in an environment where Azure AD is not reachable, this will cause the application to crash.
-This is where the jwk URI can save the day.
+This is where the JWK URI can save the day.
 
 # The Angular Part
 
@@ -353,7 +364,7 @@ This is where we need to tweak some configuration settings for the library to wo
 This makes strict parsing fail, so we disable it.
 
 You might also have noticed the weird looking `api://<<<client_id>>>/app` value in the list of scopes. 
-The reason why we do this, is explained very well in this [Medium blogpost](https://medium.com/@abhinavsonkar/making-azure-ad-oidc-compliant-5734b70c43ff){:target="_blank" rel="noopener noreferrer"} but boils down to the fact Azure AD uses a nonce in a special way in its JWT header.
+The reason why we do this is explained very well in this [Medium blogpost](https://medium.com/@abhinavsonkar/making-azure-ad-oidc-compliant-5734b70c43ff){:target="_blank" rel="noopener noreferrer"} but boils down to the fact Azure AD uses a nonce in a special way in its JWT header.
 This breaks the standard JWT validation.
 If we include an application specific scope here, this will no longer be the case. 
 Our Angular application won't actually care for this as it just passes access tokens to the Spring Boot back-end.
@@ -387,7 +398,7 @@ constructor(private oauthService: OAuthService) {
 
 1. We set up the OAuthService with the configuration from the previous step.
 This makes sure it uses the authorization code flow + PKCE with the correct parameters.  
-2. The discovery document will we loaded, which is the issuer URI plus the `.well-known/openid-configuration` suffix and then start the login process.  
+2. The discovery document will be loaded, which is the issuer URI plus the `.well-known/openid-configuration` suffix and then start the login process.  
 3. As access tokens have a short lifespan, we want them to be automatically refreshed in the background.
 
 We can now try out the application and should be redirected to the Microsoft login page.  
