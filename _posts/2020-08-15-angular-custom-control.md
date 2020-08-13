@@ -15,7 +15,7 @@ A simple login screen may use Template Driven Forms, whereas a more advanced web
 These forms consist of FormGroups and FormControls, keeping the form value organised.
 
 By default, Angular already allows to bind a HTMLInputElement or HTMLSelectElement to a control using the FormControl and FormControlName (in combination with FormGroup) directives.
-This is enough for most forms, but sometimes there is a need something more specialised, for example a date picker or a slider.
+This is enough for most forms, but sometimes there is a need for something more specialised, for example a date picker or a slider.
 There are numerous packages on npm providing these and most component libraries also include the most common controls for your development pleasure.
 But sometimes you can't find the correct package to match your needs.
 I still see many developers use a default text input field, and parsing the value after the form is submitted.
@@ -160,9 +160,9 @@ export class ColorPickerComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-This component could now display the datepicker, by clicking the icon.
-It could also be closed by clicking the close button that's added to the picker.
-I like to keep `ChangeDetection.OnPush` on dumb components, but that meant that I needed to inject the `ChangeDetectorRef` to update the color while the picker is being used.
+This component can now display the color picker, by clicking the icon.
+It can also be closed by clicking the close button that's added to the picker.
+I like to keep `ChangeDetection.OnPush` on dumb components, but that means that I need to inject the `ChangeDetectorRef` to update the color while the picker is being used.
 Without the `markForCheck`, the color would only be updated when the picker is closed.
 
 <img alt="A demonstration of the picker." src="{{ '/img/2020-08-15-angular-custom-control/9wh3d54f1b.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
