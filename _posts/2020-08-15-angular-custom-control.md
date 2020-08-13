@@ -391,5 +391,5 @@ if (this.ngControl.control) {
 }
 ```
 
-I would not recommend these kind of hooks, but if you do need them, be extra careful for infinite loops and other bugs.
+**I would not recommend these kind of hooks, but if you do need them, be extra careful for infinite loops and other bugs!**
 
