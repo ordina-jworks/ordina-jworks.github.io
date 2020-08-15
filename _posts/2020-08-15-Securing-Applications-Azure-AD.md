@@ -93,15 +93,15 @@ This means our set-up will be as follows:
 OAuth has multiple flows.
 The flow determines how tokens will be obtained from the authorization server by the client.
 The original [OAuth specification](https://tools.ietf.org/html/rfc6749){:target="_blank" rel="noopener noreferrer"} defines four flows:
-* <b>Authorization Code</b>
-* Implicit
-* Resource Owner Password Credentials
-* <b>Client Credentials</b>
+* <b>Authorization Code</b>: The client sends the resource owner to the authorization server to obtain an authorization code. The client then exchanges this code for an access token.
+* <b>~~Implicit~~</b>: Simplified authorization code flow. The client sends the resource owner to the authorization server to obtain an access token. 
+* <b>~~Resource Owner Password Credentials~~</b>: The client uses the resource owner's credentials to ask the authorization server for an access token.
+* <b>Client Credentials</b>: The client ask the authorization server for an access token on its own behalf.
 
 The [OAuth 2.0 Security Best Current Practice](https://www.ietf.org/id/draft-ietf-oauth-security-topics-15.html){:target="_blank" rel="noopener noreferrer"} document makes it very clear: use the client credentials flow for client-to-client purposes, where a client acts on its own behalf.
 In all other cases, the authorization code flow with PKCE is the way to go.  
 
-[Proof-Key for Code Exchange or PKCE](https://tools.ietf.org/html/rfc7636){:target="_blank" rel="noopener noreferrer"} (pronounced 'pixy') is an extention to OAuth which prevents interception attacks and enables the authorization code flow for public clients. 
+[Proof-Key for Code Exchange or PKCE](https://tools.ietf.org/html/rfc7636){:target="_blank" rel="noopener noreferrer"} (pronounced 'pixy') is an extension to OAuth which prevents interception attacks and enables the authorization code flow for public clients. 
 If you are interested in what public clients are and how PKCE works, you can learn more about it in this [blogpost](https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html){:target="_blank" rel="noopener noreferrer"}.
 
 In our case, a user is involved, so the right flow is the authorization code flow with PKCE.
@@ -265,7 +265,7 @@ An example of this is the [On-Behalf-Of flow (OBO)](https://docs.microsoft.com/e
 
 Since OAuth and OIDC are standards, we should be able to use any (certified) library which supports these.
 I say "should", as the specifications left a lot of room for tinkering and additions. 
-We'll see what I mean by this during the implementation.
+This will become clear during the implementation.
 
 My favourite go-to library is [angular-oauth2-oidc](https://github.com/manfredsteyer/angular-oauth2-oidc){:target="_blank" rel="noopener noreferrer"} by Manfred Steyer. 
 This is also the one we'll use in this example.
@@ -274,11 +274,11 @@ This is also the one we'll use in this example.
 
 ## Example Application: Tour of Heroes
 
-As an example of an Angular application, we can use the [Tour of Heroes](https://angular.io/tutorial) Angular tutorial application. 
+As an example of an Angular application, we will use the [Tour of Heroes](https://angular.io/tutorial){:target="_blank" rel="noopener noreferrer"} Angular tutorial application. 
 Feel free to use your own application as there should not be too many differences.
 
 Because the Tour of Heroes application uses an in-memory API instead of a Spring Boot application, we should change this in the code.
-Of course, if you are using your own application, you can skip this step.
+Of course, if you are using your own application or checked out [the code from the repository](https://github.com/jmeys/azure-ad-demo-frontend){:target="_blank" rel="noopener noreferrer"}, you can skip this step.
 
 ```typescript
 // app.module.ts
@@ -314,7 +314,7 @@ npm i angular-oauth2-oidc --save
 
 Next, we import the `OAuthModule` module:
 
-```
+```typescript
 // app.module.ts
 import { HttpclientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -362,6 +362,8 @@ You can copy the values from the overview of the app in the Azure Portal.
 This is where we need to tweak some configuration settings for the library to work with Azure AD.
 `strictDiscoveryDocumentValidation` needs to be disabled due to the fact that not all URLs in the discovery document start with the issuer URL. 
 This makes strict parsing fail, so we disable it.
+ 
+> Strict discovery document validation is a best practice which protects against a threat where an attacker manages to fake the discovery document.
 
 You might also have noticed the weird looking `api://<<<client_id>>>/app` value in the list of scopes. 
 The reason why we do this is explained very well in this [Medium blogpost](https://medium.com/@abhinavsonkar/making-azure-ad-oidc-compliant-5734b70c43ff){:target="_blank" rel="noopener noreferrer"} but boils down to the fact Azure AD uses a nonce in a special way in its JWT header.
@@ -403,3 +405,5 @@ This makes sure it uses the authorization code flow + PKCE with the correct para
 
 We can now try out the application and should be redirected to the Microsoft login page.  
 After logging in, when we browse to the heroes page, we can see the 401 is gone, and the heroes are fetched again. 
+
+Implement these steps or download the [final front-end](https://github.com/jmeys/azure-ad-demo-frontend/tree/final){:target="_blank" rel="noopener noreferrer"} and [back-end](https://github.com/jmeys/azure-ad-demo-backend/tree/final){:target="_blank" rel="noopener noreferrer"} code from Github to try it out.
