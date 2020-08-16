@@ -25,7 +25,7 @@ This means we only need to foresee the classes they wanted to be available in th
 
 * Building the CSS from the ground up was the first idea.
 That way we could only write classes we actually needed.
-Since we didn't had all the time to write so much CSS classes we decided we couldn't do this.
+Since we didn't have all the time to write so much CSS classes, we decided we couldn't do this.
 
 * CSS libraries like [Bootstrap](https://getbootstrap.com/){:target="_blank" rel="noopener noreferrer"}, [Foundation](https://get.foundation/){:target="_blank" rel="noopener noreferrer"}, [Materialise](https://materializecss.com/){:target="_blank" rel="noopener noreferrer"}, ... have too much classes by default.
  As a side note, we looked for ways to disable certain classes, but those libraries are too complicated to customise.
@@ -119,7 +119,7 @@ module.exports = {
 }
 ```
 
-Once you configured the screens, you can use the screen prefix everywhere so your design can be responsive.
+Once you configured the screens, you can use the screen prefix everywhere, so your design can be responsive.
 
 ```html
 <div class="bg-error-500 tablet:bg-error-100">
@@ -162,7 +162,7 @@ This means that you can't feed output from Tailwind's theme() function into a Sa
 ### Readability
 
 A negative point could be the readability.
-Sometimes a list of classes can grow big and is unable to be understand properly.
+Sometimes a list of classes can grow big and is unable to be understood properly.
 The need to extract a component class can be a solution (as mentioned above), but this is not always possible.
 
 ```html
@@ -173,7 +173,7 @@ The need to extract a component class can be a solution (as mentioned above), bu
 ### Custom Tailwind plugins
 
 Although we could do everything with Tailwind, we needed to have some Sass variables separately available to use in our web components.
-Therefor we used a plugin to generate Sass variables based on your Tailwind config.
+Therefore we used a plugin to generate Sass variables based on your Tailwind config.
 
 More information to write and use your own plugins can be found on [Tailwind's documentation website](https://tailwindcss.com/docs/plugins/){:target="_blank" rel="noopener noreferrer"}.
 
