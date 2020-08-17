@@ -3,7 +3,7 @@ layout: post
 authors: [yolan_vloeberghs,pieter_vincken]
 title: 'Kubernetes clients and dashboards: a comparison'
 image: /img/2020-08-06-kubernetes-clients-comparison/banner.jpg
-tags: [Kubernetes,kubectl]
+tags: [Kubernetes,kubectl,tools]
 category: Cloud
 comments: true
 ---
@@ -76,8 +76,7 @@ Demo: Find out where a configmap is used
 ## Lens
 
 [Lens app](https://github.com/lensapp/lens){:target="_blank" rel="noopener noreferrer"} is a Kubernetes client with a proper GUI.
-It was created by Kontena, Inc, but today it's owned Lakend Labs.
-According to their website, they are a collective that wants to keep the software available in the open.
+It was created by Kontena Inc and alter on [sold to Mirantis](https://techcrunch.com/2020/08/13/mirantis-acquires-lens-an-ide-for-kubernetes/), the owners of Docker Enterprise.
 
 When first starting Lens, it immediately feel very easy to use.
 Adding a cluster can be done by hitting the `+` and selecting a cluster from the dropdown.
