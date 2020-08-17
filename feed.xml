@@ -1,5 +1,566 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-08-13T10:08:56+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">10 Best Practices in UX and UI Design</title><link href="https://ordina-jworks.github.io/design/2020/07/28/10-Best-Practices-In-UX-UI-Design.html" rel="alternate" type="text/html" title="10 Best Practices in UX and UI Design" /><published>2020-07-28T00:00:00+00:00</published><updated>2020-07-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/design/2020/07/28/10-Best-Practices-In-UX-UI-Design</id><content type="html" xml:base="https://ordina-jworks.github.io/design/2020/07/28/10-Best-Practices-In-UX-UI-Design.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-08-17T07:20:38+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Creating a custom form control in Angular</title><link href="https://ordina-jworks.github.io/architecture/2020/08/15/angular-custom-control.html" rel="alternate" type="text/html" title="Creating a custom form control in Angular" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/08/15/angular-custom-control</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/08/15/angular-custom-control.html">&lt;p&gt;A part of good application architecture is using the correct tools for the job.
+With forms in Angular, this means knowing when to use Template Driven Forms vs. Reactive Forms.
+In short, this depends mostly on the size of your form.
+A simple login screen may use Template Driven Forms, whereas a more advanced web form should use Reactive Forms.
+These forms consist of FormGroups and FormControls, keeping the form value organised.&lt;/p&gt;
+
+&lt;p&gt;By default, Angular already allows to bind a HTMLInputElement or HTMLSelectElement to a control using the FormControl and FormControlName (in combination with FormGroup) directives.
+This is enough for most forms, but sometimes there is a need for something more specialised, for example a date picker or a slider.
+There are numerous packages on npm providing these and most component libraries also include the most common controls for your development pleasure.
+But sometimes you can’t find the correct package to match your needs.
+I still see many developers use a default text input field, and parsing the value after the form is submitted.
+Obviously there is a better way and I’ll describe it below.&lt;/p&gt;
+
+&lt;h2 id=&quot;case-study&quot;&gt;Case study&lt;/h2&gt;
+
+&lt;p&gt;As a case study, I’ve chosen to create a color picker.
+This picker should not have any traditional input control, but instead display the selected color in a rounded circle.
+Clicking on the control should open a color picker and allow the user to edit the value.
+The control should be part of a FormGroup, so that Validators can be added.&lt;/p&gt;
+
+&lt;p&gt;For those interested, the full code of this article is available at &lt;a href=&quot;https://stackblitz.com/edit/custom-control-color-picker&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;StackBlitz&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-color-picker&quot;&gt;The color picker&lt;/h2&gt;
+
+&lt;p&gt;Let’s start with creating a color picker.
+Because developers shouldn’t do everything themselves, I opted to reuse an existing color-picker dependency.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Search results for 'npm i want a color picker'&quot; src=&quot;/img/2020-08-15-angular-custom-control/1ra016d24o.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
+&lt;div style=&quot;text-align: center; margin-bottom: 3em; font-style: italic;&quot;&gt;I just took the first one I came across.&lt;/div&gt;
+
+&lt;p&gt;To challenge myself, I tried to look for a control picker with as little helping functions as possible.
+The only thing I wanted from it, is to show it on demand, hide it on demand and get/set the value.
+Luckily my first pick was just that.
+No TypeScript, no open/close status, nothing fancy.&lt;/p&gt;
+
+&lt;p&gt;This is what it can do:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;AColorPicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eventName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;eventName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The possible events are “change”, “coloradd” and “colorremove”.
+The last two are supposed to help with a color palette, but that’s out of scope, which leaves the only event being “change”.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-color-picker-component&quot;&gt;Creating a color picker component&lt;/h2&gt;
+
+&lt;p&gt;As a rule of thumb, a component that will be used as a control should be a dumb component.
+I mostly set the template and style inline for dumb components to keep them from growing too big.&lt;/p&gt;
+
+&lt;p&gt;This is the eventual code of the component.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AfterViewInit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ChangeDetectionStrategy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ChangeDetectorRef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OnDestroy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ViewChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ElementRef&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;@angular/core&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AColorPicker&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;a-color-picker&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;my-color-picker&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`
+    &amp;lt;div class=&quot;picker-icon&quot; [class.disabled]=&quot;isDisabled&quot; style=&quot;background: {{ color }}&quot; (click)=&quot;openPicker()&quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;div #pickerElement class=&quot;picker&quot; acp-show-rgb=&quot;no&quot;
+     acp-show-hsl=&quot;no&quot;
+     acp-show-hex=&quot;no&quot;&amp;gt;
+      &amp;lt;button *ngIf=&quot;open&quot; type=&quot;button&quot; (click)=&quot;closePicker()&quot;&amp;gt;close&amp;lt;/button&amp;gt;
+    &amp;lt;/div&amp;gt;
+  `&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`
+    .picker {
+      display: flex;
+      flex-direction: column-reverse;
+      position: absolute;
+    }
+
+    .picker-icon {
+      width: 1em;
+      height: 1em;
+      margin: 2px 0;
+      border: 2px solid white;
+      box-sizing: border-box;
+      box-shadow: 0 0 1px 1px gray;
+      border-radius: 50%;
+    }
+
+    .picker-icon.disabled {
+      opacity: 0.5;
+    }
+  `&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;changeDetection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ChangeDetectionStrategy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OnPush&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ColorPickerComponent&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AfterViewInit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OnDestroy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#fff000&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;isDisabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_picker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_picker&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;ViewChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;pickerElement&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pickerElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ElementRef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;changeDetectorRef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ChangeDetectorRef&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;ngAfterViewInit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initializePicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addChangeListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;nx&quot;&gt;ngOnDestroy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeChangeListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;openPicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isDisabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;closePicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;initializePicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pickerElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_picker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AColorPicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pickerElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nativeElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Picker could not be initialized&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;addChangeListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;change&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;changeDetectorRef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;markForCheck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;removeChangeListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;change&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This component can now display the color picker, by clicking the icon.
+It can also be closed by clicking the close button that’s added to the picker.
+I like to keep &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ChangeDetection.OnPush&lt;/code&gt; on dumb components, but that means that I need to inject the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ChangeDetectorRef&lt;/code&gt; to update the color while the picker is being used.
+Without the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;markForCheck&lt;/code&gt;, the color would only be updated when the picker is closed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;A demonstration of the picker.&quot; src=&quot;/img/2020-08-15-angular-custom-control/9wh3d54f1b.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
+&lt;div style=&quot;text-align: center; margin-bottom: 3em; font-style: italic;&quot;&gt;It's working! It's working!&lt;/div&gt;
+
+&lt;h2 id=&quot;making-a-control-out-of-it&quot;&gt;Making a control out of it&lt;/h2&gt;
+
+&lt;p&gt;Now comes the interesting part.
+I want to be able to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;my-color-picker&lt;/code&gt; with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;formControl&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;formControlName&lt;/code&gt; directives.
+If you’d just use these directives, you’d get the error “No value accessor for form control with name: &amp;lt;the name of your control&amp;gt;”.
+Simply put, this means that the control does not know what to bind to.
+So we start by implementing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ControlValueAccessor&lt;/code&gt; interface from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@angular/forms&lt;/code&gt; into the component.
+This interface has three functions that need to be implemented and one optional function.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;writeValue(obj: any): void&lt;/li&gt;
+  &lt;li&gt;registerOnChange(fn: any): void&lt;/li&gt;
+  &lt;li&gt;registerOnTouched(fn: any): void&lt;/li&gt;
+  &lt;li&gt;setDisabledState?(isDisabled: boolean): void&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setDisabledState&lt;/code&gt; is optional, but also the easiest to understand.
+It’s triggered by the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;formControl.enable()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;formControl.disable()&lt;/code&gt; functions.
+The other functions may be a bit more difficult to understand.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;setDisabledState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isDisabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isDisabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isDisabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isDisabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;closePicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;changeDetectorRef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;markForCheck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;writeValue&lt;/code&gt; is called every time &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;formControl.setValue(obj)&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;formControl.patchValue(obj)&lt;/code&gt; is called.
+The type of obj is by default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any&lt;/code&gt;, because ReactiveForms are still not strongly typed.
+You can for example call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numberControl.setValue('not a number')&lt;/code&gt; and your application will build correctly.
+Even at runtime you’d probably not get an error, but that doesn’t mean this is a valid value.
+That’s why there are validators.
+It’s best to parse this value to something understandable for your component.
+In this case, the color will be a string containing either the hexadecimal value like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#ff0000&lt;/code&gt; or a word like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;red&lt;/code&gt;.
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a-color-picker&lt;/code&gt;-package luckily allows all string values and will convert to a hexadecimal value that matches.
+A downside of this package is that it has to be bound after view init.
+However &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;writeValue&lt;/code&gt; will be called before &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ngAfterViewInit&lt;/code&gt;, so the initial form value might not be set correctly.
+That is why the value is also stored in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;color&lt;/code&gt;, which is used to set the initial value when the picker is initialized.&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;writeValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The functions &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;registerOnChange&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;registerTouched&lt;/code&gt; are used to set a callback function when the control’s value changes or when it’s being touched without a change.
+These callbacks can be called whenever you want in your component and they are usually the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setValue&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;markAsTouched&lt;/code&gt; properties.
+They are usually implemented like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_onChange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_onTouched&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;registerOnChange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_onChange&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;registerOnTouched&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_onTouched&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We’ll be using them in our change event, like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;closePicker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_onTouched&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;addChangeListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_picker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;change&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;changeDetectorRef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;markForCheck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_onChange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we test the control now, we’ll still get the error “No value accessor for form control with name: &amp;lt;the name of your control&amp;gt;”.
+The reason is that, even though we implemented our component as a ControlValueAccessor, we still didn’t specify that the control should bind to it.
+There are two ways to do this.
+The easiest way is to provide the component as a value accessor, by adding the following to the component’s decorator:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;     
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;provide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NG_VALUE_ACCESSOR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;useExisting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;forwardRef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ColorPickerComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;multi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The injection token &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NG_VALUE_ACCESSOR&lt;/code&gt; can be imported from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@angular/forms&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forwardRef&lt;/code&gt; can be imported from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@angular/core&lt;/code&gt;.
+Simply put, the function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forwardRef&lt;/code&gt; allows the dependency injector to refer to a reference that hasn’t been defined yet.&lt;/p&gt;
+
+&lt;p&gt;Now we have a fully functioning color picker control.&lt;/p&gt;
+
+&lt;h2 id=&quot;validating-the-control-value&quot;&gt;Validating the control value&lt;/h2&gt;
+
+&lt;p&gt;Validating a control with a custom ControlValueAccessor works exactly the same as validating any other FormControl.
+You can have synchronous and asynchronous validators.&lt;/p&gt;
+
+&lt;p&gt;An evident example is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;required&lt;/code&gt; validator.
+Something more specific might be a validator to have at least 50% blue in the color:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;myForm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;bgColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Validators&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;required&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ValidateMinimumBlue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;fgColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Validators&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;required&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ValidateMinimumBlue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FormControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parseColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;minimumBlue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;error&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;*ngIf=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;myForm.get('fgColor').hasError('minimumBlue')&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Not blue enough&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt=&quot;A demonstration of the picker validation.&quot; src=&quot;/img/2020-08-15-angular-custom-control/warqsmdbk7.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
+&lt;div style=&quot;text-align: center; margin-bottom: 3em; font-style: italic;&quot;&gt;I like the color blue, ok.&lt;/div&gt;
+
+&lt;p&gt;Another example is a contrast validator on the form group itself:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;myForm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;bgColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Validators&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;required&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ValidateMinimumBlue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;fgColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Validators&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;required&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validators&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ValidateContrast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;fgColor&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;bgColor&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ValidateContrast&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;leftControlName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rightControlName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;formGroup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FormGroup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;leftControl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formGroup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;leftControlName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rightControl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formGroup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rightControlName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;contrast&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WCAG_2_0_AA&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;contrast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;contrast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;expected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WCAG_2_0_AA&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;styling-invalid-and-touched-controls&quot;&gt;Styling invalid and touched controls&lt;/h2&gt;
+
+&lt;p&gt;Most of the time you want a visual indication that a control is valid or invalid.
+You can do this using css in your component like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;:host&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.ng-touched&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.picker-icon&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;:host&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.ng-touched&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.picker-icon&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:after&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;translate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-50%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+
+&lt;span class=&quot;nd&quot;&gt;:host&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.ng-touched.ng-invalid&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.picker-icon&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;box-shadow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;darkred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;:host&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.ng-touched.ng-invalid&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.picker-icon&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:after&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;'❌'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;   
+
+&lt;span class=&quot;nd&quot;&gt;:host&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.ng-touched.ng-valid&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.picker-icon&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;box-shadow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;:host&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.ng-touched.ng-valid&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.picker-icon&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:after&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;'✅'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt=&quot;A demonstration of the indication that the control is valid.&quot; src=&quot;/img/2020-08-15-angular-custom-control/xnk6yxgsdr.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 450px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;reacting-on-more-behavior&quot;&gt;Reacting on more behavior&lt;/h2&gt;
+
+&lt;p&gt;If you want to your code to react on more control behaviour, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;statusChanges&lt;/code&gt;, you cannot do this out of the box with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NG_VALUE_ACCESSOR&lt;/code&gt;.
+However, you can inject &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NgControl&lt;/code&gt; from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@angular/forms&lt;/code&gt; instead.
+Angular uses this instance to represent the control within the object graph that has been created for the form.&lt;/p&gt;
+
+&lt;p&gt;To use this, you have to remove the provider for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NG_VALUE_ACCESSOR&lt;/code&gt; and instead add this in your constructor:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NgControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueAccessor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you can do things like this in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ngAfterViewInit&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;statusChanges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pipe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;takeUntil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_destroyed$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The current status of the control is&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or if you really want to hook onto specific methods, you can do this:&lt;/p&gt;
+
+&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;markAsDirty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;markAsDirty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;markAsDirty&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;markAsDirty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ngControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;control&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Mark as dirty has been called&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;I would not recommend these kind of hooks, but if you do need them, be extra careful for infinite loops and other bugs!&lt;/strong&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Angular" /><summary type="html">A part of good application architecture is using the correct tools for the job. With forms in Angular, this means knowing when to use Template Driven Forms vs. Reactive Forms. In short, this depends mostly on the size of your form. A simple login screen may use Template Driven Forms, whereas a more advanced web form should use Reactive Forms. These forms consist of FormGroups and FormControls, keeping the form value organised.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Using Tailwind CSS as a base for a Design System</title><link href="https://ordina-jworks.github.io/frontend/2020/08/15/tailwindcss.html" rel="alternate" type="text/html" title="Using Tailwind CSS as a base for a Design System" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/frontend/2020/08/15/tailwindcss</id><content type="html" xml:base="https://ordina-jworks.github.io/frontend/2020/08/15/tailwindcss.html">&lt;blockquote&gt;
+  &lt;p&gt;In the beginning of the year we had the opportunity to build a design system for a large customer.
+So how did we start?
+Well, putting together designers and developers to find the correct tools and frameworks to get it done.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#choosing-the-correct-css-strategy&quot;&gt;Choosing the correct CSS strategy&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#evaluating-tailwind-css&quot;&gt;Evaluating Tailwind CSS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;choosing-the-correct-css-strategy&quot;&gt;Choosing the correct CSS strategy&lt;/h1&gt;
+
+&lt;p&gt;When we (developers) talked to the designers, they wanted a clean CSS sheet without unnecessary classes.
+This means we only need to foresee the classes they wanted to be available in the design system, nothing more.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Building the CSS from the ground up was the first idea.
+That way we could only write classes we actually needed.
+Since we didn’t have all the time to write so much CSS classes, we decided we couldn’t do this.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;CSS libraries like &lt;a href=&quot;https://getbootstrap.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Bootstrap&lt;/a&gt;, &lt;a href=&quot;https://get.foundation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Foundation&lt;/a&gt;, &lt;a href=&quot;https://materializecss.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Materialise&lt;/a&gt;, … have too much classes by default.
+ As a side note, we looked for ways to disable certain classes, but those libraries are too complicated to customise.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another solution could be the use of ‘utility-first’ CSS frameworks.
+We liked the idea of &lt;a href=&quot;https://tailwindcss.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tailwind CSS&lt;/a&gt; to use a single config file and generate all the necessary classes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;evaluating-tailwind-css&quot;&gt;Evaluating Tailwind CSS&lt;/h1&gt;
+
+&lt;p&gt;When we had a closer look at Tailwind we saw a lot of positive points, but some negative as well.
+Below you can find some valuable points we like to share:&lt;/p&gt;
+
+&lt;h3 id=&quot;configurable-in-javascript&quot;&gt;Configurable in JavaScript&lt;/h3&gt;
+
+&lt;p&gt;We’re JavaScript engineers, so we love the fact we can just write our config in JSON.
+We used constants to define the various configurations and then put it in the module exports:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tailwind.config.js&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;colors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#fce9ea&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#e72f3c&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;700&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#971e26&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#e7f5ed&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#34ab66&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;mi&quot;&gt;700&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#226f42&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0.75rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0.875rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.125rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;m1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.25rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;m2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.5rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;m3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.75rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;2.25rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fontWeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;regular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;400&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;700&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screens&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;sm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;640px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;641px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;960px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;lg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;961px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1280px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;xl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1281px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;fontWeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;screens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;As you can see this is very customisable.
+You can use your own namings for almost everything like colors, fonts, screens, …&lt;/p&gt;
+
+&lt;p&gt;More info can be found in the &lt;a href=&quot;https://tailwindcss.com/docs/configuration/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;configuration documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;responsive&quot;&gt;Responsive&lt;/h3&gt;
+
+&lt;p&gt;You can completely customise your responsive breakpoints in the config file.
+By default, Tailwind’s breakpoints only include a min-width and don’t include a max-width, which means any utilities you add at a smaller breakpoint will also be applied at larger breakpoints.
+If you’d like to apply a utility at one breakpoint only, the solution is to undo that utility at larger sizes by adding another utility that counteracts it.
+Or you simply overwrite the defaults, so they include a min and max value.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tailwind.config.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;screens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tablet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;640px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; @media (max-width: 640px) { ... }&lt;/span&gt;
+
+      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;laptop&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;641px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1024px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; @media (min-width: 641px) and (max-width: 1024px) { ... }&lt;/span&gt;
+
+      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;desktop&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1015px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; @media (min-width: 1025px) { ... }&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you configured the screens, you can use the screen prefix everywhere, so your design can be responsive.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bg-error-500 tablet:bg-error-100&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    Error message
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;component-classes-can-be-extracted&quot;&gt;Component classes can be extracted&lt;/h3&gt;
+
+&lt;p&gt;While you can do a lot with just utility classes, as a project grows it can be useful to codify common patterns into higher level abstractions.
+Keeping a long list of utility classes in sync across many component instances can quickly become a real maintenance burden, so when you start running into painful duplication like this, it’s a good idea to extract a component.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Repeating these classes for every button can be painful --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  Button
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For small components like buttons and form elements, you can use Tailwind’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@apply&lt;/code&gt; directive to easily extract common utility patterns to CSS component classes.&lt;/p&gt;
+
+&lt;p&gt;Here’s what a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.btn-blue&lt;/code&gt; class might look like using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@apply&lt;/code&gt; to compose it from existing utilities:&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;.btn-blue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;@apply&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;bg-blue-500&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;text-white&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;font-bold&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;py-2&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;px-4&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;rounded;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.btn-blue&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:hover&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;@apply&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;bg-blue-700;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;usable-with-preprocessors-like-sass&quot;&gt;Usable with preprocessors like Sass&lt;/h3&gt;
+
+&lt;p&gt;Since Tailwind is a PostCSS plugin, there’s nothing stopping you from using it with Sass, Less, or other preprocessors, just like you can with other PostCSS plugins like Autoprefixer.&lt;/p&gt;
+
+&lt;p&gt;The most important thing to understand about using Tailwind with a preprocessor is that preprocessors like Sass run separately, before Tailwind.
+This means that you can’t feed output from Tailwind’s theme() function into a Sass color function for example, because the theme() function isn’t actually evaluated until your Sass has been compiled to CSS and fed into PostCSS.&lt;/p&gt;
+
+&lt;h3 id=&quot;readability&quot;&gt;Readability&lt;/h3&gt;
+
+&lt;p&gt;A negative point could be the readability.
+Sometimes a list of classes can grow big and is unable to be understood properly.
+The need to extract a component class can be a solution (as mentioned above), but this is not always possible.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// example of a big class-list
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;grid sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-3 w-full bg-blue-500 text-white font-bold h-20 py-2 px-4 my-5 mt-4 rounded&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;custom-tailwind-plugins&quot;&gt;Custom Tailwind plugins&lt;/h3&gt;
+
+&lt;p&gt;Although we could do everything with Tailwind, we needed to have some Sass variables separately available to use in our web components.
+Therefore we used a plugin to generate Sass variables based on your Tailwind config.&lt;/p&gt;
+
+&lt;p&gt;More information to write and use your own plugins can be found on &lt;a href=&quot;https://tailwindcss.com/docs/plugins/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tailwind’s documentation website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tailwind.config.js&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;plugin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tailwindcss/plugin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tailwind-scss-variables&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;theme.colors&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;theme.screens&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./src/scss/partials/_tailwind-variables.scss&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;After using Tailwind CSS for almost 6 months now.
+We still find we made the correct choice.
+Given the fact we still don’t have the time to write css ourselves, finding the correct utility class is fairly easy using the documentation, or even on a (printed) &lt;a href=&quot;https://nerdcave.com/tailwind-cheat-sheet/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;cheat sheet&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Frédéric&quot;, &quot;last_name&quot;=&gt;&quot;Ghijselinck&quot;, &quot;github&quot;=&gt;&quot;fredericghijselinck&quot;, &quot;twitter&quot;=&gt;&quot;f_ghijselinck&quot;, &quot;linkedin&quot;=&gt;&quot;fredericghijselinck&quot;, &quot;permalink&quot;=&gt;&quot;/author/frederic-ghijselinck/&quot;, &quot;avatar&quot;=&gt;&quot;frederic-ghijselinck.jpg&quot;, &quot;title&quot;=&gt;&quot;Competence Lead JavaScript&quot;, &quot;email&quot;=&gt;&quot;frederic.ghijselinck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Frédéric is a Senior developer at Ordina Belgium, focussing on Frontend Development with technologies as Angular and TypeScript. Next to frontend development, he continues to maintain his backend development skills using the Spring technology stack. Frédéric is also Competence Lead for the JavaScript Competence Center where he gives workshops, talks and courses about the newest technologies.&quot;}</name><email>frederic.ghijselinck@ordina.be</email></author><category term="Frontend" /><category term="CSS" /><category term="JavaScript" /><category term="Design Systems" /><category term="Design" /><category term="Tailwind" /><summary type="html">In the beginning of the year we had the opportunity to build a design system for a large customer. So how did we start? Well, putting together designers and developers to find the correct tools and frameworks to get it done.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-08-15-tailwindcss/tailwind-500-293.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-08-15-tailwindcss/tailwind-500-293.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">10 Best Practices in UX and UI Design</title><link href="https://ordina-jworks.github.io/design/2020/07/28/10-Best-Practices-In-UX-UI-Design.html" rel="alternate" type="text/html" title="10 Best Practices in UX and UI Design" /><published>2020-07-28T00:00:00+00:00</published><updated>2020-07-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/design/2020/07/28/10-Best-Practices-In-UX-UI-Design</id><content type="html" xml:base="https://ordina-jworks.github.io/design/2020/07/28/10-Best-Practices-In-UX-UI-Design.html">&lt;blockquote&gt;
   &lt;p&gt;UX and UI design principles often lead to people thinking ‘well duh!’, until they actually have to try and create a user-friendly website or app. 
 The basic gist of creating a user-friendly design is making sure the user doesn’t have to think twice about doing something. 
 The longer it takes for a user to be able to execute an action, the more annoyed they will get. 
@@ -1887,313 +2448,4 @@ To secure your resources, Azure Private links enables you to access resources ov
 &lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2020-04-29-datawarehouse-in-cloud/dwhdatascience.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Scalable machine learning/deep learning techniques will derive deeper insights in the data using Python, Scala or R using notebooks in Azure Databricks. 
-To create insights, the (un)cleaned data and even the data stored in our DWH is used. Results can be stored back in the Data Lake or in the DWH, and Power BI is also be able to connect directly to your Databricks environment.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dennis&quot;, &quot;last_name&quot;=&gt;&quot;Herremans&quot;, &quot;permalink&quot;=&gt;&quot;/author/dennisherremans/&quot;, &quot;avatar&quot;=&gt;&quot;dennisherremans.jpg&quot;, &quot;title&quot;=&gt;&quot;Microsoft BI Consultant&quot;, &quot;email&quot;=&gt;&quot;dennis.herremans@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Dennis is a Microsoft BI consultant at Ordina.&quot;}</name><email>dennis.herremans@ordina.be</email></author><category term="Architecture" /><category term="Architecture" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-04-29-datawarehouse-in-cloud/datascience.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-04-29-datawarehouse-in-cloud/datascience.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">DevOpsDays 2019</title><link href="https://ordina-jworks.github.io/conference/2020/03/31/DevOpsDays-2019.html" rel="alternate" type="text/html" title="DevOpsDays 2019" /><published>2020-03-31T00:00:00+00:00</published><updated>2020-03-31T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2020/03/31/DevOpsDays-2019</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2020/03/31/DevOpsDays-2019.html">&lt;blockquote&gt;
-  &lt;p&gt;The 7th edition of DevOpsDays Amsterdam in ‘Pakhuis de Zwijger’ was my first experience with &lt;a href=&quot;https://devopsdays.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DevOpsDays&lt;/a&gt;. 
-I’d like to share some talks and my impressions about the conference, because sharing ideas worth spreading is what we aim for at JWorks.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Conference crowd outside&quot; src=&quot;/img/2020-03-31-devopsdays/devopsdays.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 1050px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#observability-for-emerging-infra-what-got-you-here-wont-get-you-there-by-charity-majors&quot;&gt;Observability for Emerging Infra: What Got You Here Won’t Get You There, by Charity Majors&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#how-convenience-is-killing-open-standards-by-bernd-erk&quot;&gt;How Convenience is Killing Open Standards, by Bernd Erk&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#come-listen-to-me-im-a-fraud-by-joep-piscaer&quot;&gt;Come Listen to me, I’m a fraud, by Joep Piscaer&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#fight-flight-or-freeze--releasing-organizational-trauma-by-matty-stratton&quot;&gt;Fight, Flight or Freeze – Releasing Organizational Trauma, by Matty Stratton&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;observability-for-emerging-infra-what-got-you-here-wont-get-you-there-by-charity-majors&quot;&gt;Observability for Emerging Infra: What Got You Here Won’t Get You There, by Charity Majors&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Charity Majors&quot; src=&quot;/img/2020-03-31-devopsdays/charity-majors.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/mipsytipsy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Charity Majors&lt;/a&gt; is a co-founder and engineer at &lt;a href=&quot;https://www.honeycomb.io&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Honeycomb.io&lt;/a&gt;, a monitoring and analyzer tool that can gather information from various sources to provide an overview of what’s happening in your (production) environment.&lt;/p&gt;
-
-&lt;p&gt;Most of you have experience with sieving information through logs and analyzing all kinds of dashboards to find and fully understand what went wrong in your application. 
-Finding and understanding the data can be really hard. 
-You lack the bigger picture because the tools for doing metrics, logging and tracing (what she calls the “three pillars of observability”) have their own benefits and drawbacks.&lt;/p&gt;
-
-&lt;p&gt;Logs can be useful for compliance reasons but they are not so great to picture the context. 
-Metric tools might be more visual than logs, but they are less suitable for debugging purposes or to completely understand why something failed.
-&lt;img alt=&quot;Observability venn diagram&quot; src=&quot;/img/2020-03-31-devopsdays/Observability.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We as human beings like visual representation to easily perceive why certain situations occurred. 
-For example during and after deploying new versions because the chance is higher that something will go wrong. 
-According to Charity, deployments are not like ‘flipping a binary switch’. 
-It’s more like a step in a long process of being confident in your code that it will work on other environments rather than just on your local machine or development environment.&lt;/p&gt;
-
-&lt;p&gt;Especially deployments to production will not always go as planned and it will be even more difficult to do so, since infrastructure has become more complex over the recent years. 
-We see our infrastructure changing from simple &lt;a href=&quot;https://en.wikipedia.org/wiki/LAMP_(software_bundle)&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LAMP&lt;/a&gt; stacks to replica sets, nodes and micro-service architectures.&lt;/p&gt;
-
-&lt;p&gt;It would be very difficult to quickly grasp what’s going on with your applications and its underlying systems without good observability.&lt;/p&gt;
-
-&lt;p&gt;Observability is a measure of how well internal states of a system can be inferred from knowledge of its external outputs.
-It has the advantages of logging, tracing and metrics, and could be achieved with the right tools, if set up correctly. This is what Honeycomb is trying to achieve.&lt;/p&gt;
-
-&lt;p&gt;Charity states that observability is not the same as monitoring. 
-That is because monitoring is more like a ‘post-talk’ approach in her eyes. 
-You’re typically too late and the damage has already been done upon discovery.
-Monitoring systems have not changed significantly in twenty years and have fallen behind the way we build software. 
-Software nowadays consists of large distributed systems that are made up of many non-uniform interacting components, while the core functionality of monitoring systems has stagnated.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-convenience-is-killing-open-standards-by-bernd-erk&quot;&gt;How Convenience is Killing Open Standards, by Bernd Erk&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Bernd Erk&quot; src=&quot;/img/2020-03-31-devopsdays/bernd-erk.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;You may know that migrating configurations from one cloud provider to another can be challenging.
-Cloud providers are mostly lacking an ‘open standard’ to make it easier. 
-&lt;a href=&quot;https://twitter.com/gethash&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Bernd&lt;/a&gt;’s talk wants us to think about what Open Standards and Open Source could bring to us and how they have led to the success of Linux and Open Source communities we have today.&lt;/p&gt;
-
-&lt;p&gt;In his early career, Bernd was a Solaris system engineer who maintained more than just Solaris systems within his company such as Unix-like systems &lt;a href=&quot;https://en.wikipedia.org/wiki/IBM_AIX&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AIX&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/HP-UX&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HP-UX&lt;/a&gt;.
-Managing unfamiliar platforms was hard, but luckily, most *NIX systems are relying on the POSIX standard. 
-POSIX made it possible to develop other libraries such as GNU tools so they weren’t forced to use Sun’s (proprietary) freeware for instance. 
-Fast-forwarding to 2019, we see that open source is becoming more popular than ever before. 
-However, regarding Open Standards, there is still some work to do.&lt;/p&gt;
-
-&lt;p&gt;The market has changed over the recent decade. 
-Public and hybrid cloud are emerging and on-premise deployment is declining. 
-We see that especially AWS and Azure have been expanding in the recent years as more and more customers are using their services. 
-All those cloud providers like AWS, Google Cloud, Azure,… have their own APIs and those are not interchangeable since they are lacking a standard. 
-The fact that an API is open does not imply that it is a standard, it’s only something you have access to. 
-That is why tools like &lt;a href=&quot;https://www.terraform.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Terraform&lt;/a&gt; are becoming popular. 
-People have a need for a unified standard to manage their resources. 
-Bernd thinks that Open Source is very important to have open standards although those are not the same.&lt;/p&gt;
-
-&lt;p&gt;There is also a problem if a certain cloud provider uses Open Software. 
-If they use a certain piece of open source software, there is no direct connection between the customer and the original developer of that software, because that layer was cut. 
-No matter what business model, the creator of the software has to earn money.&lt;/p&gt;
-
-&lt;p&gt;Open Source tools in the cloud make sure that you have direct contact to the creators of the software to help you out. 
-AWS, on the other hand, has their own versions of Open Source Software like Open Distro which is basically their own distribution of ElasticSearch. 
-This removes the connection with the original developer, because you can only contact them for support. 
-It brings fear and protection to the developers of the software because they are afraid that money and intellectual property goes away. 
-That’s the reason why they came up with own licenses like Server-Side Public License (SSPL) that MongoDB uses, for instance. 
-This tells you that if you alter it to sell it as a SaaS offering, you have to contribute to that code.
-And Redis prohibits you to sell their enterprise model as their cloud solution.&lt;/p&gt;
-
-&lt;p&gt;Bernd doesn’t like that people come up with new licenses, but he also understands that they are afraid that their money stream would go away, and they see this as a possible solution. 
-We have to see that we support enough Open Source and Open Standards, because they need it to improve and maintain their software or service.&lt;/p&gt;
-
-&lt;p&gt;In today’s oligopoly of cloud providers, it’s really difficult to new players to emerge their new business, although this will be good to have a more diverse internet. 
-Most companies are focusing on the more human side of things when it comes to diversity, which is great, but there is a lot of work on the technology side as well.
-He compares it to when there are only a few companies that control the availability of Insulin because there’s no market law to reduce prices. 
-It would be a lot cheaper if there were more players that provide Insulin.
-“Abuse of Power comes as no surprise”.&lt;/p&gt;
-
-&lt;p&gt;At the end of his talk, he draws some conclusions:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Be reasonable&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Think about what you are doing.&lt;/li&gt;
-  &lt;li&gt;It must be easier for new players to enter the cloud market, with the help of open standards.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Interoperability is important&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;You can easily work with different services from different providers so you can work together.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Support variety&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Try to be out there and have a look on the industry on how it is. Think about what your next move will be.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Demand contribution&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Demand as a customer what you want to obtain from your provider.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Diversity is up to you&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Demand more diversity on the technical level.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;come-listen-to-me-im-a-fraud-by-joep-piscaer&quot;&gt;Come Listen to me, I’m a fraud, by Joep Piscaer&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Joep Piscaer&quot; src=&quot;/img/2020-03-31-devopsdays/joep-piscaer.jpg&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;“&lt;em&gt;Do you tend to chalk your accomplishments up to luck or timing&lt;/em&gt;”; “&lt;em&gt;do you hate making a mistake, being less than fully prepared or not doing things perfectly or do you even fear feedback?&lt;/em&gt;”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/jpiscaer&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Joep&lt;/a&gt;’s talk started with an exercise to see if the people in the audience have some form of &lt;a href=&quot;https://en.wikipedia.org/wiki/Impostor_syndrome&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Impostor Syndrome&lt;/a&gt; by asking several questions like the one mentioned above.
-People had to raise their hand if the question applied to them and to keep them up during the next questions. 
-At the end of his question round, more than half the audience had raised their hand.&lt;/p&gt;
-
-&lt;p&gt;A collection of feelings of individual doubts that overwhelmed their successes and accomplishments which makes them think they are a ‘fraud’. 
-He described Impostor syndrome as an internal measuring stick that is broken or Pluralistic ignorance. 
-Doubting yourself privately, believing you are alone in thinking that way because no one voices their doubts. 
-It is very likely that one or more of your colleagues have Impostor Syndrome although they will not admit they suffer from it. 
-Some are more open about that topic than others. 
-No matter how successful they are in their personal life and career, they ‘suffer’ Impostor Syndrome in some way or another. 
-Mike Cannon-Brookes, CEO of one of the larges DevOps companies in the world is very open about it during his TED talk.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“&lt;em&gt;Other people feel like this, too. And apparently it doesn’t go away with more success.&lt;/em&gt;” - Mike Cannon-Brookes, Atlassian&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Atlassian started, like most big tech companies, from a garage. 
-It grew bigger and bigger and at some point, they needed an HR-person. 
-While Mike was interviewing his potential HR-person, he felt a bit unsure, because he has never worked in a company with an HR-person before. 
-So how will he know if the potential HR-person has the right skills and attitude?&lt;/p&gt;
-
-&lt;p&gt;Like with many things, there is always a beginning where you have to figure out what way is the right way to do things. 
-There is mostly not &lt;em&gt;one&lt;/em&gt; best practice since everyone has their own. 
-It is sometimes hard to know if your way is the right way, the good way or just bad. 
-That will mostly lead to discussions and insecurity with people, because they don’t know or they are not really sure if their statement is well grounded.&lt;/p&gt;
-
-&lt;p&gt;Especially technology can change rapidly over time. 
-By the time you have learned a new thing it’s already obsolete.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Meme - Your Facts No Longer Apply&quot; src=&quot;/img/2020-03-31-devopsdays/your-facts-no-longer-apply.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Joep learned about Novell back when it was the latest and the greatest server Operating System you could have.
-By the time Joep became a guru, it was already obsolete and surpassed by other Operating Systems.&lt;/p&gt;
-
-&lt;p&gt;The tech landscape changes every couple of years and so sometime, you have to learn things again. 
-That doesn’t really help when the &lt;a href=&quot;https://en.wikipedia.org/wiki/Dunning-Kruger_effect&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dunning-Kruger&lt;/a&gt; effect applies when learning new stuff. 
-Most people don’t really discuss that certain things are new to them and that they are not really good at it yet. 
-They feel insecure sometimes because they are unsure or afraid that their idea or statement is incorrect or a best practice.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Dunning-Kruger Effect&quot; src=&quot;/img/2020-03-31-devopsdays/dunning-kruger-effect.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;There are certain things you can do to reduce the feeling of the Impostor Syndrome (or to recalibrate your ‘internal ruler’ so to speak).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Nothing compares to you.&lt;/strong&gt; &lt;br /&gt;
-Every time you say something negative about yourself, say two things that are positive about yourself. 
-It is as easy as that to retrain your internal NLP (Neuro Linguistic Programming) filter. 
-At some point, your negative thoughts will diminish, and the positive ones will stay. 
-Make sure to try this in front of a mirror!&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;I will not compare myself to strangers on the internet.&lt;/strong&gt; &lt;br /&gt;
-You shouldn’t compare yourself to others, especially to people on the internet, because they are the worst.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Practice on giving compliments to others. And learn to receive them.&lt;/strong&gt; &lt;br /&gt;
-They can come from different perspectives. 
-For a kid it’s an accomplishment if he or she is able to tie his/her own shoelaces because it is new to him/her.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Learn how others make stuff and let others learn from you.&lt;/strong&gt; &lt;br /&gt;
-Other people, no matter how professional they are, make mistakes as well and can learn things from you and you can learn from them.
-&lt;br /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Pair programming&lt;/li&gt;
-  &lt;li&gt;Pair review&lt;/li&gt;
-  &lt;li&gt;Celebrate your failure&lt;/li&gt;
-  &lt;li&gt;Speak publicly&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Find something you’re passionate about and keep being tremendously interested in it.&lt;/strong&gt;&lt;br /&gt;
-Like a hobby where you can screw things up without consequences.&lt;/p&gt;
-
-&lt;h2 id=&quot;fight-flight-or-freeze--releasing-organizational-trauma-by-matty-stratton&quot;&gt;Fight, Flight or Freeze – Releasing Organizational Trauma, by Matty Stratton&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img class=&quot;p-image&quot; alt=&quot;Matty Stratton&quot; src=&quot;/img/2020-03-31-devopsdays/matt-stratton.jpg&quot; /&gt;&lt;/span&gt;
-Imagine a zebra grazing in the savanna of the African wilderness when suddenly a predator goes after the zebra. 
-Of course, the zebra will run for its life (the flee state). 
-When the zebra is caught by the predator, it ‘freezes’ because the zebra’s nervous system is overwhelmed and it has no further solutions anymore, hoping the predator will drop him and go on. 
-After the zebra has managed to get away, it literally shakes all his stress off and goes back to grazing like nothing happened. 
-Humans can react the same way zebras do, although we are, of course, not a zebra. 
-We humans on the other hand can experience traumas long after a dreadful situation has occurred.&lt;/p&gt;
-
-&lt;p&gt;Animals are not traumatized by routine threats to their lives, where humans on the other hand, are really overwhelmed and often subject to traumatic symptoms of hyper arousal, shutdown and dysregulation, as Peter Levine’s calls it. 
-During day two, &lt;a href=&quot;https://twitter.com/mattstratton&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Matty Stratton&lt;/a&gt;, DevOps advocate at PagerDuty, was talking about crisis management and traumatic events within organizations and teams based on his own experience with post-traumatic stress.&lt;/p&gt;
-
-&lt;p&gt;Let’s start on how traumas can occur, although it’s rather complex to explain.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Traumas occur when one’s solutions (active response to threat) does not work. 
-The case where your nervous system can’t handle it.
-Traumas can result from both real or perceived threats. 
-Even a perception of a ‘threat’ can also cause or recall traumatic situations.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Trauma is subjective and relative. 
-Everyone experiences and handles stress in a different way. 
-People from the military, for example, experience stress and traumas in a different way than people in software projects. 
-But that doesn’t mean that your experience isn’t real, even though the experience from a soldier is much worse.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;But how does that apply to an organization? 
-You can deal with common situations and everything will go back to normal. 
-It’s always business as usual (the gray line in the normal range), but severe outages or a similar event, where the team’s capacity for a solution does not work, can lead to non-discharged stress (the red line).&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Dunning-Kruger Effect&quot; src=&quot;/img/2020-03-31-devopsdays/Symptoms-of-undischarged-traumatic-stress.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Hyperarousal organizations are hyper-vigilant (like they are fighting Voldemort). 
-They are hyper-aware of threats which causes a slowdown in moving forward. 
-It’s not necessarily bad for an organization to be vigilant but it is bad when it loses a sane balance between vigilant and the will to move forward and innovate.&lt;/p&gt;
-
-&lt;p&gt;Organizations can also be in a ‘freeze’ state when they believe that they are ‘immune’ to a standstill so they won’t make any changes on how they operate.&lt;/p&gt;
-
-&lt;p&gt;Humans like pattern recognition. 
-We see signals that might remind us of events that happened in the past and motivate us to respond the way we did last time. 
-But the thing is that nothing is the same as it ever was back in the day as systems are becoming more complex as they grow.&lt;/p&gt;
-
-&lt;p&gt;Today’s challenge is to make organizations more resilient against dreadful events. 
-Resilient organizations are not traumatized by routine threats to their mission or business. 
-Non-resilient organizations are readily overwhelmed and often subject to the symptoms of overreaction, shutdown and lack of regulated effort.&lt;/p&gt;
-
-&lt;p&gt;What you can do to be more resilient is to learn from your mistakes. 
-Organize game days where you can practice an incident or outage in a relax and safe way.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;DevOpsDays has a different but interesting format.
-There are talks in the morning and lightning talks and open spaces during the afternoon/evening where you can bring your own topics that you want to discuss with others. 
-What I also like is the fact that there’s a good variety between the amount of technical and soft-skills talks.&lt;/p&gt;
-
-&lt;p&gt;The badges that DevOpsDays handed out were actually seed mats that you can plant afterwards (which I’ve done already)! 
-UPDATE: Unfortunately nothing came out of it.
-&lt;img alt=&quot;Conference badge&quot; src=&quot;/img/2020-03-31-devopsdays/badge.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 750px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Overall, it was a good and informative conference that I can recommend to anyone who is interested in DevOps and teamwork optimizations within organizations.&lt;/p&gt;
-
-&lt;p&gt;More conference pictures can be found &lt;a href=&quot;https://photos.app.goo.gl/vm3oYVJUFt18uGbx8&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Johan&quot;, &quot;last_name&quot;=&gt;&quot;Silkens&quot;, &quot;permalink&quot;=&gt;&quot;/author/johan-silkens/&quot;, &quot;avatar&quot;=&gt;&quot;johan-silkens.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;johan-silkens-848bb1b2&quot;, &quot;twitter&quot;=&gt;&quot;SilkensJ&quot;, &quot;email&quot;=&gt;&quot;johan.silkens@ordina.be&quot;, &quot;github&quot;=&gt;&quot;JSilkens&quot;, &quot;bio&quot;=&gt;&quot;Johan is a Java Developer at Ordina Belgium. He is passionate about technology and science since he was as kid and is always up for a challenge.&quot;}</name><email>johan.silkens@ordina.be</email></author><category term="Conference" /><category term="DevOps" /><category term="Conference" /><summary type="html">The 7th edition of DevOpsDays Amsterdam in ‘Pakhuis de Zwijger’ was my first experience with DevOpsDays. I’d like to share some talks and my impressions about the conference, because sharing ideas worth spreading is what we aim for at JWorks.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-03-31-devopsdays/devopsdays-amsterdam-2019.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-03-31-devopsdays/devopsdays-amsterdam-2019.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Managing the size of your shiny monorepo</title><link href="https://ordina-jworks.github.io/architecture/2020/03/31/nx-sparse-checkout.html" rel="alternate" type="text/html" title="Managing the size of your shiny monorepo" /><published>2020-03-31T00:00:00+00:00</published><updated>2020-03-31T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/03/31/nx-sparse-checkout</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/03/31/nx-sparse-checkout.html">&lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
-
-&lt;p&gt;Using a monorepo has some great advantages, including no longer having to manage npm dependencies for each individual project and the ability to easily create libraries and reuse them between applications.
-You can create libraries, for example about authentication, that each team in your organisation can include in their application and if an update should be needed to that library, the tooling you use can automatically build each (and only those) application that include that library.&lt;/p&gt;
-
-&lt;p&gt;When talking about monorepo’s within frontend development communities, Nrwl’s Nx solution will certainly be mentioned.
-It allows to create a workspace in which all your applications might exist together, using one single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt;, no longer solely focused on Angular, but also React, simple web applications or NodeJS applications.
-It also includes some useful tslint extensions and scripts to automate build steps using a dependency graph.&lt;/p&gt;
-
-&lt;p&gt;But what happens when you have a lot of applications in your organisation?
-Your IDE might start to work slower, its intellisense might get cluttered, or when searching for a specific file you receive a lot of results you don’t need for the application you’re working on.
-This happens because there are just too many files in your repository.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-solution&quot;&gt;The solution&lt;/h2&gt;
-
-&lt;p&gt;Git has a little-known (experimental) feature called sparse checkout.
-From the &lt;a href=&quot;https://www.git-scm.com/docs/git-sparse-checkout&quot;&gt;git-scm.com&lt;/a&gt;:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Sparse checkout” allows populating the working directory sparsely.
-It uses the skip-worktree bit (see git-update-index) to tell Git whether a file in the working directory is worth looking at.
-If the skip-worktree bit is set, then the file is ignored in the working directory.
-Git will not populate the contents of those files, which makes a sparse checkout helpful when working in a repository with many files, but only a few are important to the current user.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In short, it allows you to checkout only a part of the repository, and when committing, only those folders that are checked out will also be committed to.
-It’s a bit like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt;, but local only.
-It doesn’t affect the repository itself.&lt;/p&gt;
-
-&lt;p&gt;The information for which files to checkout is stored in a file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GIT_DIR/info/sparse-checkout&lt;/code&gt; and the contents have a similar syntax of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file.
-So using a line like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!/folder/my-folder-to-ignore&lt;/code&gt; would remove that folder from your working directory, while never affecting it on the remote repository.&lt;/p&gt;
-
-&lt;p&gt;Now the idea is to remove those folders that are irrelevant to the project you’re working on by adding their paths to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sparse-checkout&lt;/code&gt; file.
-When a new checkout is performed, the changes in the file are applied and you would have a little less clutter in your workspace.&lt;/p&gt;
-
-&lt;p&gt;If you want to know more details and some extra commands, read &lt;a href=&quot;https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/&quot;&gt;this GitHub blog post&lt;/a&gt; from Derrick Stolee.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-tool&quot;&gt;The tool&lt;/h2&gt;
-
-&lt;p&gt;Of course it’s always better to automate these things to reduce errors.
-I developed a tool &lt;a href=&quot;https://www.npmjs.com/package/nx-sparse-checkout&quot;&gt;nx-sparse-checkout&lt;/a&gt;, which can be added to a workspace using Nx 8.11 and above.
-I used the idea from &lt;a href=&quot;https://twitter.com/kwintenp&quot;&gt;KwintenP&lt;/a&gt;, updated it for use in Nx 8 and made some other enhancements to improve the user experience.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2020-03-31-nx-sparse-checkout/example.gif&quot; alt=&quot;Example of nx-sparse-checkout&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The tool allows you to choose the projects you want to checkout (either comma-separated or interactive) and then uses Nx’s dependency graph to determine which projects your selection is depending on and adds those to the list of projects to checkout.
-It then sets all projects that are not needed to be ignored using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sparse-checkout&lt;/code&gt; file.
-This way all other files (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tsconfig.json&lt;/code&gt;, etc…) and other folders (like tools) are still available to you.
-Resetting can be done by either selecting everything or passing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--all&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;p&gt;Using this technique, you have the advantages of a monorepo, while not having to deal with an enormous folder structure.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Monorepo" /><category term="Nx" /><category term="Git" /><summary type="html">The problem</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-03-31-nx-sparse-checkout/header.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-03-31-nx-sparse-checkout/header.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+To create insights, the (un)cleaned data and even the data stored in our DWH is used. Results can be stored back in the Data Lake or in the DWH, and Power BI is also be able to connect directly to your Databricks environment.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dennis&quot;, &quot;last_name&quot;=&gt;&quot;Herremans&quot;, &quot;permalink&quot;=&gt;&quot;/author/dennisherremans/&quot;, &quot;avatar&quot;=&gt;&quot;dennisherremans.jpg&quot;, &quot;title&quot;=&gt;&quot;Microsoft BI Consultant&quot;, &quot;email&quot;=&gt;&quot;dennis.herremans@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Dennis is a Microsoft BI consultant at Ordina.&quot;}</name><email>dennis.herremans@ordina.be</email></author><category term="Architecture" /><category term="Architecture" /><summary type="html">Introduction</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-04-29-datawarehouse-in-cloud/datascience.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-04-29-datawarehouse-in-cloud/datascience.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

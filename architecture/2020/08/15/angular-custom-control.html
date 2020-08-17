@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Creating a custom form control in Angular - Orjan De Smet">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/architecture/2020/08/15/angular-custom-control.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Creating a custom form control in Angular - Orjan De Smet"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png"/>
+
+    
+    <title>Creating a custom form control in Angular - Orjan De Smet &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Creating a custom form control in Angular</h2>
+                
+
+                
+                    Posted Aug 15, 2020
+
+
+    in <a href="/categories/architecture/">Architecture</a>
+
+
+
+    by
+    
+        <a href="/author/orjan-de-smet">Orjan De Smet</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/angular/">Angular</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <p>A part of good application architecture is using the correct tools for the job.
+With forms in Angular, this means knowing when to use Template Driven Forms vs. Reactive Forms.
+In short, this depends mostly on the size of your form.
+A simple login screen may use Template Driven Forms, whereas a more advanced web form should use Reactive Forms.
+These forms consist of FormGroups and FormControls, keeping the form value organised.</p>
+
+<p>By default, Angular already allows to bind a HTMLInputElement or HTMLSelectElement to a control using the FormControl and FormControlName (in combination with FormGroup) directives.
+This is enough for most forms, but sometimes there is a need for something more specialised, for example a date picker or a slider.
+There are numerous packages on npm providing these and most component libraries also include the most common controls for your development pleasure.
+But sometimes you can’t find the correct package to match your needs.
+I still see many developers use a default text input field, and parsing the value after the form is submitted.
+Obviously there is a better way and I’ll describe it below.</p>
+
+<h2 id="case-study">Case study</h2>
+
+<p>As a case study, I’ve chosen to create a color picker.
+This picker should not have any traditional input control, but instead display the selected color in a rounded circle.
+Clicking on the control should open a color picker and allow the user to edit the value.
+The control should be part of a FormGroup, so that Validators can be added.</p>
+
+<p>For those interested, the full code of this article is available at <a href="https://stackblitz.com/edit/custom-control-color-picker" target="_blank" rel="noopener noreferrer">StackBlitz</a>.</p>
+
+<h2 id="the-color-picker">The color picker</h2>
+
+<p>Let’s start with creating a color picker.
+Because developers shouldn’t do everything themselves, I opted to reuse an existing color-picker dependency.</p>
+
+<p><img alt="Search results for 'npm i want a color picker'" src="/img/2020-08-15-angular-custom-control/1ra016d24o.png" class="image fit" style="margin:0px auto; max-width: 450px;" /></p>
+<div style="text-align: center; margin-bottom: 3em; font-style: italic;">I just took the first one I came across.</div>
+
+<p>To challenge myself, I tried to look for a control picker with as little helping functions as possible.
+The only thing I wanted from it, is to show it on demand, hide it on demand and get/set the value.
+Luckily my first pick was just that.
+No TypeScript, no open/close status, nothing fancy.</p>
+
+<p>This is what it can do:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">AColorPicker</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The possible events are “change”, “coloradd” and “colorremove”.
+The last two are supposed to help with a color palette, but that’s out of scope, which leaves the only event being “change”.</p>
+
+<h2 id="creating-a-color-picker-component">Creating a color picker component</h2>
+
+<p>As a rule of thumb, a component that will be used as a control should be a dumb component.
+I mostly set the template and style inline for dumb components to keep them from growing too big.</p>
+
+<p>This is the eventual code of the component.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">AfterViewInit</span><span class="p">,</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">,</span> <span class="nx">ChangeDetectorRef</span><span class="p">,</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnDestroy</span><span class="p">,</span> <span class="nx">ViewChild</span><span class="p">,</span> <span class="nx">ElementRef</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">AColorPicker</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">a-color-picker</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-color-picker</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;div class="picker-icon" [class.disabled]="isDisabled" style="background: {{ color }}" (click)="openPicker()"&gt;&lt;/div&gt;
+    &lt;div #pickerElement class="picker" acp-show-rgb="no"
+     acp-show-hsl="no"
+     acp-show-hex="no"&gt;
+      &lt;button *ngIf="open" type="button" (click)="closePicker()"&gt;close&lt;/button&gt;
+    &lt;/div&gt;
+  `</span><span class="p">,</span>
+  <span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="s2">`
+    .picker {
+      display: flex;
+      flex-direction: column-reverse;
+      position: absolute;
+    }
+
+    .picker-icon {
+      width: 1em;
+      height: 1em;
+      margin: 2px 0;
+      border: 2px solid white;
+      box-sizing: border-box;
+      box-shadow: 0 0 1px 1px gray;
+      border-radius: 50%;
+    }
+
+    .picker-icon.disabled {
+      opacity: 0.5;
+    }
+  `</span><span class="p">],</span>
+  <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">ColorPickerComponent</span> <span class="k">implements</span> <span class="nx">AfterViewInit</span><span class="p">,</span> <span class="nx">OnDestroy</span> <span class="p">{</span>
+
+  <span class="nx">open</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="nx">color</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">#fff000</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nx">isDisabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="k">private</span> <span class="nx">_picker</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="k">private</span> <span class="kd">get</span> <span class="nx">picker</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span> <span class="p">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="p">@</span><span class="nd">ViewChild</span><span class="p">(</span><span class="dl">'</span><span class="s1">pickerElement</span><span class="dl">'</span><span class="p">)</span> <span class="nx">pickerElement</span><span class="p">:</span> <span class="nx">ElementRef</span><span class="p">;</span>
+
+  <span class="kd">constructor</span><span class="p">(</span>
+    <span class="k">private</span> <span class="nx">changeDetectorRef</span><span class="p">:</span> <span class="nx">ChangeDetectorRef</span>
+  <span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+  <span class="nx">ngAfterViewInit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">initializePicker</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">addChangeListener</span><span class="p">();</span>
+  <span class="p">}</span>
+  
+  <span class="nx">ngOnDestroy</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">removeChangeListener</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">openPicker</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">closePicker</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">private</span> <span class="nx">initializePicker</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pickerElement</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span> <span class="o">=</span> <span class="nx">AColorPicker</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pickerElement</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Picker could not be initialized</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">private</span> <span class="nx">addChangeListener</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">change</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nx">markForCheck</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="k">private</span> <span class="nx">removeChangeListener</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="dl">'</span><span class="s1">change</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This component can now display the color picker, by clicking the icon.
+It can also be closed by clicking the close button that’s added to the picker.
+I like to keep <code class="language-plaintext highlighter-rouge">ChangeDetection.OnPush</code> on dumb components, but that means that I need to inject the <code class="language-plaintext highlighter-rouge">ChangeDetectorRef</code> to update the color while the picker is being used.
+Without the <code class="language-plaintext highlighter-rouge">markForCheck</code>, the color would only be updated when the picker is closed.</p>
+
+<p><img alt="A demonstration of the picker." src="/img/2020-08-15-angular-custom-control/9wh3d54f1b.gif" class="image fit" style="margin:0px auto; max-width: 450px;" /></p>
+<div style="text-align: center; margin-bottom: 3em; font-style: italic;">It's working! It's working!</div>
+
+<h2 id="making-a-control-out-of-it">Making a control out of it</h2>
+
+<p>Now comes the interesting part.
+I want to be able to use <code class="language-plaintext highlighter-rouge">my-color-picker</code> with the <code class="language-plaintext highlighter-rouge">formControl</code> and <code class="language-plaintext highlighter-rouge">formControlName</code> directives.
+If you’d just use these directives, you’d get the error “No value accessor for form control with name: &lt;the name of your control&gt;”.
+Simply put, this means that the control does not know what to bind to.
+So we start by implementing the <code class="language-plaintext highlighter-rouge">ControlValueAccessor</code> interface from <code class="language-plaintext highlighter-rouge">@angular/forms</code> into the component.
+This interface has three functions that need to be implemented and one optional function.</p>
+
+<ul>
+  <li>writeValue(obj: any): void</li>
+  <li>registerOnChange(fn: any): void</li>
+  <li>registerOnTouched(fn: any): void</li>
+  <li>setDisabledState?(isDisabled: boolean): void</li>
+</ul>
+
+<p>The function <code class="language-plaintext highlighter-rouge">setDisabledState</code> is optional, but also the easiest to understand.
+It’s triggered by the <code class="language-plaintext highlighter-rouge">formControl.enable()</code> and <code class="language-plaintext highlighter-rouge">formControl.disable()</code> functions.
+The other functions may be a bit more difficult to understand.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">setDisabledState</span><span class="p">(</span><span class="nx">isDisabled</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span> <span class="o">=</span> <span class="nx">isDisabled</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">closePicker</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nx">markForCheck</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">writeValue</code> is called every time <code class="language-plaintext highlighter-rouge">formControl.setValue(obj)</code> or <code class="language-plaintext highlighter-rouge">formControl.patchValue(obj)</code> is called.
+The type of obj is by default <code class="language-plaintext highlighter-rouge">any</code>, because ReactiveForms are still not strongly typed.
+You can for example call <code class="language-plaintext highlighter-rouge">numberControl.setValue('not a number')</code> and your application will build correctly.
+Even at runtime you’d probably not get an error, but that doesn’t mean this is a valid value.
+That’s why there are validators.
+It’s best to parse this value to something understandable for your component.
+In this case, the color will be a string containing either the hexadecimal value like <code class="language-plaintext highlighter-rouge">#ff0000</code> or a word like <code class="language-plaintext highlighter-rouge">red</code>.
+The <code class="language-plaintext highlighter-rouge">a-color-picker</code>-package luckily allows all string values and will convert to a hexadecimal value that matches.
+A downside of this package is that it has to be bound after view init.
+However <code class="language-plaintext highlighter-rouge">writeValue</code> will be called before <code class="language-plaintext highlighter-rouge">ngAfterViewInit</code>, so the initial form value might not be set correctly.
+That is why the value is also stored in <code class="language-plaintext highlighter-rouge">color</code>, which is used to set the initial value when the picker is initialized.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">writeValue</span><span class="p">(</span><span class="nx">obj</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">setColor</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">obj</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">obj</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The functions <code class="language-plaintext highlighter-rouge">registerOnChange</code> and <code class="language-plaintext highlighter-rouge">registerTouched</code> are used to set a callback function when the control’s value changes or when it’s being touched without a change.
+These callbacks can be called whenever you want in your component and they are usually the <code class="language-plaintext highlighter-rouge">setValue</code> and <code class="language-plaintext highlighter-rouge">markAsTouched</code> properties.
+They are usually implemented like this:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">private</span> <span class="nx">_onChange</span><span class="p">:</span> <span class="p">(</span><span class="nx">color</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+<span class="k">private</span> <span class="nx">_onTouched</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+
+<span class="nx">registerOnChange</span><span class="p">(</span><span class="nx">fn</span><span class="p">:</span> <span class="p">(</span><span class="nx">color</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_onChange</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">registerOnTouched</span><span class="p">(</span><span class="nx">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_onTouched</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We’ll be using them in our change event, like this:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">closePicker</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_onTouched</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="nx">addChangeListener</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">change</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nx">markForCheck</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_onChange</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>If we test the control now, we’ll still get the error “No value accessor for form control with name: &lt;the name of your control&gt;”.
+The reason is that, even though we implemented our component as a ControlValueAccessor, we still didn’t specify that the control should bind to it.
+There are two ways to do this.
+The easiest way is to provide the component as a value accessor, by adding the following to the component’s decorator:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">providers</span><span class="p">:</span> <span class="p">[</span>     
+  <span class="p">{</span>
+    <span class="na">provide</span><span class="p">:</span> <span class="nx">NG_VALUE_ACCESSOR</span><span class="p">,</span>
+    <span class="na">useExisting</span><span class="p">:</span> <span class="nx">forwardRef</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">ColorPickerComponent</span><span class="p">),</span>
+    <span class="na">multi</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>The injection token <code class="language-plaintext highlighter-rouge">NG_VALUE_ACCESSOR</code> can be imported from <code class="language-plaintext highlighter-rouge">@angular/forms</code> and <code class="language-plaintext highlighter-rouge">forwardRef</code> can be imported from <code class="language-plaintext highlighter-rouge">@angular/core</code>.
+Simply put, the function <code class="language-plaintext highlighter-rouge">forwardRef</code> allows the dependency injector to refer to a reference that hasn’t been defined yet.</p>
+
+<p>Now we have a fully functioning color picker control.</p>
+
+<h2 id="validating-the-control-value">Validating the control value</h2>
+
+<p>Validating a control with a custom ControlValueAccessor works exactly the same as validating any other FormControl.
+You can have synchronous and asynchronous validators.</p>
+
+<p>An evident example is the <code class="language-plaintext highlighter-rouge">required</code> validator.
+Something more specific might be a validator to have at least 50% blue in the color:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">myForm</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">formBuilder</span><span class="p">.</span><span class="nx">group</span><span class="p">({</span>
+  <span class="na">bgColor</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">Validators</span><span class="p">.</span><span class="nx">required</span><span class="p">,</span> <span class="nx">ValidateMinimumBlue</span><span class="p">]],</span>
+  <span class="na">fgColor</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="nx">Validators</span><span class="p">.</span><span class="nx">required</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">ValidateMinimumBlue</span> <span class="o">=</span> <span class="p">(</span><span class="nx">control</span><span class="p">:</span> <span class="nx">FormControl</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">control</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">b</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">parseColor</span><span class="p">(</span><span class="nx">control</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">b</span> <span class="o">&gt;=</span> <span class="mi">128</span> <span class="p">?</span> <span class="kc">null</span> <span class="p">:</span> <span class="p">{</span> <span class="na">minimumBlue</span><span class="p">:</span> <span class="kc">true</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"error"</span> <span class="na">*ngIf=</span><span class="s">"myForm.get('fgColor').hasError('minimumBlue')"</span><span class="nt">&gt;</span>Not blue enough<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p><img alt="A demonstration of the picker validation." src="/img/2020-08-15-angular-custom-control/warqsmdbk7.gif" class="image fit" style="margin:0px auto; max-width: 450px;" /></p>
+<div style="text-align: center; margin-bottom: 3em; font-style: italic;">I like the color blue, ok.</div>
+
+<p>Another example is a contrast validator on the form group itself:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">myForm</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">formBuilder</span><span class="p">.</span><span class="nx">group</span><span class="p">({</span>
+  <span class="na">bgColor</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">Validators</span><span class="p">.</span><span class="nx">required</span><span class="p">,</span> <span class="nx">ValidateMinimumBlue</span><span class="p">]],</span>
+  <span class="na">fgColor</span><span class="p">:</span> <span class="p">[</span><span class="kc">null</span><span class="p">,</span> <span class="nx">Validators</span><span class="p">.</span><span class="nx">required</span><span class="p">]</span>
+<span class="p">},</span> <span class="p">{</span><span class="na">validators</span><span class="p">:</span> <span class="nx">ValidateContrast</span><span class="p">(</span><span class="dl">'</span><span class="s1">fgColor</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">bgColor</span><span class="dl">'</span><span class="p">)});</span>
+
+<span class="kd">const</span> <span class="nx">ValidateContrast</span> <span class="o">=</span> <span class="p">(</span><span class="nx">leftControlName</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">rightControlName</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">formGroup</span><span class="p">:</span> <span class="nx">FormGroup</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">leftControl</span> <span class="o">=</span> <span class="nx">formGroup</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">leftControlName</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">rightControl</span> <span class="o">=</span> <span class="nx">formGroup</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">rightControlName</span><span class="p">);</span>
+
+  <span class="p">...</span>
+  <span class="k">return</span> <span class="nx">contrast</span> <span class="o">&gt;</span> <span class="nx">WCAG_2_0_AA</span> <span class="p">?</span> <span class="kc">null</span> <span class="p">:</span> <span class="p">{</span> <span class="na">contrast</span><span class="p">:</span> <span class="p">{</span> <span class="na">value</span><span class="p">:</span> <span class="nx">contrast</span><span class="p">,</span> <span class="na">expected</span><span class="p">:</span> <span class="nx">WCAG_2_0_AA</span> <span class="p">}</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="styling-invalid-and-touched-controls">Styling invalid and touched controls</h2>
+
+<p>Most of the time you want a visual indication that a control is valid or invalid.
+You can do this using css in your component like this:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">:host</span><span class="nc">.ng-touched</span> <span class="nc">.picker-icon</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nd">:host</span><span class="nc">.ng-touched</span> <span class="nc">.picker-icon</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">transform</span><span class="p">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">100%</span><span class="p">,</span> <span class="m">-50%</span><span class="p">);</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+<span class="p">}</span> 
+
+<span class="nd">:host</span><span class="nc">.ng-touched.ng-invalid</span> <span class="nc">.picker-icon</span> <span class="p">{</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">1px</span> <span class="no">darkred</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nd">:host</span><span class="nc">.ng-touched.ng-invalid</span> <span class="nc">.picker-icon</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s2">'❌'</span><span class="p">;</span>
+<span class="p">}</span>   
+
+<span class="nd">:host</span><span class="nc">.ng-touched.ng-valid</span> <span class="nc">.picker-icon</span> <span class="p">{</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">1px</span> <span class="no">green</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nd">:host</span><span class="nc">.ng-touched.ng-valid</span> <span class="nc">.picker-icon</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s2">'✅'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img alt="A demonstration of the indication that the control is valid." src="/img/2020-08-15-angular-custom-control/xnk6yxgsdr.gif" class="image fit" style="margin:0px auto; max-width: 450px;" /></p>
+
+<h2 id="reacting-on-more-behavior">Reacting on more behavior</h2>
+
+<p>If you want to your code to react on more control behaviour, like <code class="language-plaintext highlighter-rouge">statusChanges</code>, you cannot do this out of the box with <code class="language-plaintext highlighter-rouge">NG_VALUE_ACCESSOR</code>.
+However, you can inject <code class="language-plaintext highlighter-rouge">NgControl</code> from <code class="language-plaintext highlighter-rouge">@angular/forms</code> instead.
+Angular uses this instance to represent the control within the object graph that has been created for the form.</p>
+
+<p>To use this, you have to remove the provider for <code class="language-plaintext highlighter-rouge">NG_VALUE_ACCESSOR</code> and instead add this in your constructor:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">constructor</span><span class="p">(</span><span class="nx">ngControl</span><span class="p">:</span> <span class="nx">NgControl</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!!</span><span class="nx">ngControl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ngControl</span><span class="p">.</span><span class="nx">valueAccessor</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then you can do things like this in <code class="language-plaintext highlighter-rouge">ngAfterViewInit</code>:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">statusChanges</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span>
+  <span class="nx">takeUntil</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_destroyed$</span><span class="p">)</span>
+<span class="p">).</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">status</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">The current status of the control is</span><span class="dl">'</span><span class="p">,</span> <span class="nx">status</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Or if you really want to hook onto specific methods, you can do this:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">markAsDirty</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">markAsDirty</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">markAsDirty</span> <span class="o">=</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">markAsDirty</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">)(</span><span class="nx">options</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Mark as dirty has been called</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>I would not recommend these kind of hooks, but if you do need them, be extra careful for infinite loops and other bugs!</strong></p>
+
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/architecture/2020/08/15/angular-custom-control.html&title=Creating a custom form control in Angular&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Creating a custom form control in Angular&url=https://ordina-jworks.github.io/architecture/2020/08/15/angular-custom-control.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/architecture/2020/08/15/angular-custom-control.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/orjan-de-smet" class="image spotlight-image" title="">
+            <img src="/img/author/orjan-de-smet.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2020-08-15-angular-custom-control/qyt3dcd64l.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
