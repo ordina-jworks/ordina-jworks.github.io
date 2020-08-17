@@ -146,13 +146,13 @@ Now the real question, which client should you use.
 As with any question about software, it depends.
 
 If you are using some software that has plugins available for Octant, definitely give it a try.
-The [integrations](https://github.com/topics/octant-plugin){:target="_blank" rel="noopener noreferrer"} add a lot of value to the tool and might make it a very compelling option for your use-case.
+The [plugins](https://github.com/topics/octant-plugin){:target="_blank" rel="noopener noreferrer"} add a lot of value to the tool and might make it a very compelling option for your use-case.
 
 If you like to be lightning fast and don't mind struggling though a steep learning curve, K9s might be a tool for you.
 It's the personal favorite of the authors this post, meanly because of it's shortcuts and lightning fast load times.
 
-If you often need to optimize your resource usage and want a client that just works and is easy to use, go for Lens.
-This is definitely hits the sweet spot of ease of use, stability and available feature set.
+If you often need to optimize your resource usage, want a client that just works and is easy to use, go for Lens.
+This is definitely hits the sweet spot between ease of use, stability and available feature set.
 
 
 
