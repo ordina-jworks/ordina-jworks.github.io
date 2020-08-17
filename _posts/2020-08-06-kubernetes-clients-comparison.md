@@ -34,6 +34,7 @@ As the famous mantra goes anything worth doing twice is work automating.
 Therefor quite some tools were created in order to make this process of navigating through a cluster easier than typing a lot of commands.
 
 This blog post aims to provide a very brief overview a some of the more common tools that are available as replacements or additions to `kubectl` to allow developers to look into a Kubernetes cluster.
+All tools can be installed locally and don't require any components to be installed in the cluster to operate.
 
 ## K9s
 
