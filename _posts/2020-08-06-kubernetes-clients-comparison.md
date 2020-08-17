@@ -154,7 +154,8 @@ It's the personal favorite of the authors this post, meanly because of it's shor
 If you often need to optimize your resource usage, want a client that just works and is easy to use, go for Lens.
 This is definitely hits the sweet spot between ease of use, stability and available feature set.
 
+// Kubenav
+// Infra app
 
-
-But our final advice really is: just try them out yourself and see which fits your workflow the best.
+But our final advice really is: just try them out yourself and see which fits your workflow best.
 Most of them share the same basic functionality and it just depends on your use-cases and workflow which one fits best.
