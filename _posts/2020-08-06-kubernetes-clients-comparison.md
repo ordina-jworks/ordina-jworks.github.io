@@ -76,7 +76,7 @@ Demo: Find out where a configmap is used
 ## Lens
 
 [Lens app](https://github.com/lensapp/lens){:target="_blank" rel="noopener noreferrer"} is a Kubernetes client with a proper GUI.
-It was created by Kontena Inc and alter on [sold to Mirantis](https://techcrunch.com/2020/08/13/mirantis-acquires-lens-an-ide-for-kubernetes/), the owners of Docker Enterprise.
+It was created by Kontena Inc and later [sold to Mirantis](https://techcrunch.com/2020/08/13/mirantis-acquires-lens-an-ide-for-kubernetes/), the owners of Docker Enterprise.
 
 When first starting Lens, it immediately feel very easy to use.
 Adding a cluster can be done by hitting the `+` and selecting a cluster from the dropdown.
