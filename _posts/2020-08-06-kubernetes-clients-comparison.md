@@ -20,6 +20,21 @@ comments: true
 
 ## Introduction
 
+Imagine the following scenario: you're writing code for your amazing new take-your-bike-to-work platform and you've just finished implementing a new feature to allow users to send unicorns to each other.
+Your CI/CD pipeline has nicely tested, packaged and deployed the updates to your development Kubernetes cluster, you load the URL and are greeted by a very nice error page stating "Oops, my bad, we lost some unicorns".
+Clearly you broke something somewhere.
+Most of the time, this means you'll open up a terminal, run some commands to login into the cluster and start firing two dozen `kubectl`-commands in order to figure out which micro service broke and check the logs to figure out where your code has broken.
+You make some changes to the broken service and push your code to the repository and the CI/CD flow takes over again.
+
+This process works quite nicely, but figuring which service is broken and which logs to check can be quite a challenge.
+Typing the `kubectl`-commands into the terminal probably takes half of the time you spend on debugging the issue.
+As developers are always optimizing their workflow, using `kubectl` just takes to much time, even with the `k` alias for the command and perfect auto-complete features.
+
+As the famous mantra goes anything worth doing twice is work automating.
+Therefor quite some tools were created in order to make this process of navigating through a cluster easier than typing a lot of commands.
+
+This blog post aims to provide a very brief overview a some of the more common tools that are available as replacements or additions to `kubectl` to allow developers to look into a Kubernetes cluster.
+
 ## K9s
 
 [K9s](https://github.com/derailed/k9s){:target="_blank" rel="noopener noreferrer"} is a Kubernetes client built by [Fernand Galiana](https://twitter.com/kitesurfer){:target="_blank" rel="noopener noreferrer"}.
@@ -108,20 +123,20 @@ Screenshot: Overview of a cluster in Lens, including the last error events
 ## Kubenav
 
 ## Infra App
-[Infra App](https://infra.app/){:target="_blank" rel="noopener noreferrer"} is a new addition to the list of Kubernetes clients. 
+[Infra App](https://infra.app/){:target="_blank" rel="noopener noreferrer"} is a new addition to the list of Kubernetes clients.
 It is made by the people over at Docker Desktop & [Kitematic](https://kitematic.com){:target="_blank" rel="noopener noreferrer"} and is being developed behind closed doors, which has been addressed as unpleasant within the Kubernetes community.
-It provides you with a clean, simplistic user interface which groups everything you need to know about a single resource together. 
+It provides you with a clean, simplistic user interface which groups everything you need to know about a single resource together.
 Everything speaks for itself and all the information you need is within the reach of a few simple clicks.
 
-When you open the application for the first time, they greet you by asking you to fill in your e-mail address. 
-This is probably for newsletters and updates, but I wish this step was optional. 
+When you open the application for the first time, they greet you by asking you to fill in your e-mail address.
+This is probably for newsletters and updates, but I wish this step was optional.
 
 You quickly notice that there is only basic functionality available in the application, which makes sense as the client is still in early access at the time of writing.
-You can browse resources per namespace, go through application logs, read and edit YAML configuration and check the current resources used by your deployment. 
+You can browse resources per namespace, go through application logs, read and edit YAML configuration and check the current resources used by your deployment.
 There is a metrics interface for the whole cluster aswell, which supplies you with a structured and detailed view about your nodes.
 
-The application is still very young and right now, it is lacking some functionality that you might expect or find in other clients. 
-If you want something with more than basic functionality right now, this might not be the application you are looking for. 
+The application is still very young and right now, it is lacking some functionality that you might expect or find in other clients.
+If you want something with more than basic functionality right now, this might not be the application you are looking for.
 However, if it has what you need, you will find that it will be very easy and straight-forward to manage your Kubernetes cluster with this client.
 
 TODO: add image(s) of Infra
