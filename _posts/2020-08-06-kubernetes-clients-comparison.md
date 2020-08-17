@@ -76,7 +76,7 @@ Demo: Find out where a configmap is used
 ## Lens
 
 [Lens app](https://github.com/lensapp/lens){:target="_blank" rel="noopener noreferrer"} is a Kubernetes client with a proper GUI.
-It was created by Kontena Inc and later [sold to Mirantis](https://techcrunch.com/2020/08/13/mirantis-acquires-lens-an-ide-for-kubernetes/), the owners of Docker Enterprise.
+It was created by Kontena Inc and later [sold to Mirantis](https://techcrunch.com/2020/08/13/mirantis-acquires-lens-an-ide-for-kubernetes/){:target="_blank" rel="noopener noreferrer"}, the owners of Docker Enterprise.
 
 When first starting Lens, it immediately feel very easy to use.
 Adding a cluster can be done by hitting the `+` and selecting a cluster from the dropdown.
@@ -139,4 +139,22 @@ If you want something with more than basic functionality right now, this might n
 However, if it has what you need, you will find that it will be very easy and straight-forward to manage your Kubernetes cluster with this client.
 
 TODO: add image(s) of Infra
+
 ## Conclusion
+
+Now the real question, which client should you use.
+As with any question about software, it depends.
+
+If you are using some software that has plugins available for Octant, definitely give it a try.
+The [integrations](https://github.com/topics/octant-plugin){:target="_blank" rel="noopener noreferrer"} add a lot of value to the tool and might make it a very compelling option for your use-case.
+
+If you like to be lightning fast and don't mind struggling though a steep learning curve, K9s might be a tool for you.
+It's the personal favorite of the authors this post, meanly because of it's shortcuts and lightning fast load times.
+
+If you often need to optimize your resource usage and want a client that just works and is easy to use, go for Lens.
+This is definitely hits the sweet spot of ease of use, stability and available feature set.
+
+
+
+But our final advice really is: just try them out yourself and see which fits your workflow the best.
+Most of them share the same basic functionality and it just depends on your use-cases and workflow which one fits best.
