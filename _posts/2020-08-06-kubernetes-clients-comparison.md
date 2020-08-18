@@ -121,7 +121,18 @@ Screenshot: Overview of a cluster in Lens, including the last error events
 <img alt="Lens cluster overview" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/lens-cluster-overview.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 ## Kubenav
+Kubenav is a rich featured, open source Kubernetes client created in early 2020 to manage your cluster(s) with. 
+There is cross-platform functionality, which means they provide you a desktop AND mobile client, which is a unique feature in the world of Kubernetes clients. 
+They share the same codebase, so the navigation should be similar on all platforms.
 
+The navigation menu is self-explanatory as it categorizes every Kubernetes resource, which you can then filter by namespace in the top-right corner.
+They support all widely used Kubernetes resources and the status / configuration of those resources. 
+You can easily switch between Kubernetes clusters by using the drop-down menu available in the menu.
+
+There is a window which is available at all times where you can consult different deployment logs and a terminal. Each window is categorized under a tab.
+When you minimize this window, you will notice a blue shell icon in the right bottom corner of Kubenav, which allows to open your current logs or terminal again.
+
+The app is made in the Ionic Framework using Capacitator as cross-platform runtime, which is something you really notice ... // WIP
 ## Infra App
 [Infra App](https://infra.app/){:target="_blank" rel="noopener noreferrer"} is a new addition to the list of Kubernetes clients.
 It is made by the people over at Docker Desktop & [Kitematic](https://kitematic.com){:target="_blank" rel="noopener noreferrer"} and is being developed behind closed doors, which has been addressed as unpleasant within the Kubernetes community.
@@ -139,7 +150,8 @@ The application is still very young and right now, it is lacking some functional
 If you want something with more than basic functionality right now, this might not be the application you are looking for.
 However, if it has what you need, you will find that it will be very easy and straight-forward to manage your Kubernetes cluster with this client.
 
-TODO: add image(s) of Infra
+Infra layout slideshow
+<img alt="k9s context switch" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/infra-app.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 ## Conclusion
 
