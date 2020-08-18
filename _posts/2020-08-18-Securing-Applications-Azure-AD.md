@@ -93,9 +93,9 @@ This means our set-up will be as follows:
 OAuth has multiple flows.
 The flow determines how tokens will be obtained from the authorization server by the client.
 The original [OAuth specification](https://tools.ietf.org/html/rfc6749){:target="_blank" rel="noopener noreferrer"} defines four flows:
-* <b>Authorization Code</b>: The client sends the resource owner to the authorization server to obtain an authorization code. The client then exchanges this code for an access token.
-* <b>~~Implicit~~</b>: Simplified authorization code flow. The client sends the resource owner to the authorization server to obtain an access token. 
-* <b>~~Resource Owner Password Credentials~~</b>: The client uses the resource owner's credentials to ask the authorization server for an access token.
+* <b>Authorization Code</b>: The client sends the user to the authorization server to obtain an authorization code. The client then exchanges this code for an access token.
+* <b>~~Implicit~~</b>: Simplified authorization code flow. The client sends the user to the authorization server to obtain an access token. 
+* <b>~~Resource Owner Password Credentials~~</b>: The client uses the user's credentials to ask the authorization server for an access token.
 * <b>Client Credentials</b>: The client ask the authorization server for an access token on its own behalf.
 
 The [OAuth 2.0 Security Best Current Practice](https://www.ietf.org/id/draft-ietf-oauth-security-topics-15.html){:target="_blank" rel="noopener noreferrer"} document makes it very clear: use the client credentials flow for client-to-client purposes, where a client acts on its own behalf.
