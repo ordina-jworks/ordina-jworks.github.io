@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Securing Angular and Spring Boot applications with Azure AD - Jeroen Meys">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/azure-ad/azure-ad.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/security/2020/08/18/Securing-Applications-Azure-AD.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Securing Angular and Spring Boot applications with Azure AD - Jeroen Meys"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/azure-ad/azure-ad.png"/>
+
+    
+    <title>Securing Angular and Spring Boot applications with Azure AD - Jeroen Meys &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Securing Angular and Spring Boot applications with Azure AD</h2>
+                
+
+                
+                    Posted Aug 18, 2020
+
+
+    in <a href="/categories/security/">Security</a>
+
+
+
+    by
+    
+        <a href="/author/jeroen-meys/">Jeroen Meys</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/azure-ad/">Azure AD</a>, 
+    
+        <a href="/tags/angular/">Angular</a>, 
+    
+        <a href="/tags/spring-security/">Spring Security</a>, 
+    
+        <a href="/tags/web-security-oauth/">Web Security OAuth</a>, 
+    
+        <a href="/tags/oidc/">OIDC</a>, 
+    
+        <a href="/tags/pkce/">PKCE</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>Azure Active Directory (Azure AD) is Microsoft’s cloud-based identity platform.
+In this blogpost, we will discuss how to use it to secure web applications with <a href="https://oauth.net/2/" target="_blank" rel="noopener noreferrer">OAuth 2.0</a> and <a href="https://openid.net/connect/" target="_blank" rel="noopener noreferrer">OpenID Connect (OIDC)</a>.
+More specifically an Angular single-page application (SPA) which makes calls to a Spring Boot back-end.</p>
+</blockquote>
+
+<h1 id="table-of-contents">Table of contents</h1>
+<ul>
+  <li><a href="#finding-the-perfect-oauth-flow-for-your-needs">Finding the perfect OAuth flow for your needs</a>
+    <ul>
+      <li><a href="#basic-oauth-terminology">Basic OAuth Terminology</a></li>
+      <li><a href="#the-oauth-client">The OAuth Client</a></li>
+      <li><a href="#oauth-flows">OAuth flows</a></li>
+    </ul>
+  </li>
+  <li><a href="#the-azure-ad-part">The Azure AD part</a></li>
+  <li><a href="#the-spring-boot-part">The Spring Boot Part</a>
+    <ul>
+      <li><a href="#azure-starters-for-spring-boot">Azure Starters for Spring Boot</a></li>
+      <li><a href="#the-spring-boot-implementation">The Spring Boot Implementation</a></li>
+    </ul>
+  </li>
+  <li><a href="#the-angular-part">The Angular Part</a>
+    <ul>
+      <li><a href="#the-angular-library">The Angular Library</a></li>
+      <li><a href="#example-application-tour-of-heroes">Example Application: Tour of Heroes</a></li>
+      <li><a href="#the-angular-implementation">The Angular Implementation</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="finding-the-perfect-oauth-flow-for-your-needs">Finding the perfect OAuth flow for your needs</h1>
+
+<p>Before diving into Azure AD and how to use it for authentication and authorization of your apps, it’s important to think about the OAuth set-up that you want.
+From personal experience, the libraries and documentation provided by Microsoft can be rather inconsistent and confusing. 
+To straighten things out, we’ll start by discussing which OAuth set-up we need and why.
+Then we’ll configure Azure AD and the applications to make everything work together.
+Please note that this post assumes you have some notions of OAuth. 
+Don’t worry if your knowledge is a little lacking as we’ll recap on the necessary parts.</p>
+
+<h2 id="basic-oauth-terminology">Basic OAuth Terminology</h2>
+
+<dl>
+    <dt>Resource Owner</dt>
+    <dd>You: a user who interacts with the system and has some resources on a (resource) server.</dd><br />
+    <dt>Resource Server</dt>
+    <dd>Server where (your) protected resources are served from.</dd><br />
+    <dt>Authorization Server</dt>
+    <dd>Server which validates your credentials. Hands out tokens to registered clients.</dd><br />
+    <dt>Client</dt>
+    <dd>
+    An application which uses tokens from the authorization server to access the resource server on behalf of the resource owner.
+    It orchestrates the process to obtain these tokens.
+    </dd>
+</dl>
+
+<h2 id="the-oauth-client">The OAuth Client</h2>
+
+<p>Do we want the single-page app to be the OAuth client or should the Spring Boot back-end fulfill that role?<br />
+If the SPA is the OAuth client, the Spring Boot application will be configured as a resource server.
+This means it’s up to the Angular application to orchestrate the process of obtaining access tokens from the authorization server. 
+These tokens then grant access to resources from the Spring Boot back-end.</p>
+
+<p>For the other scenario, where the Spring Boot back-end acts as the OAuth client (and resource server), this orchestration will be performed in the back-end. 
+In that case, the Angular application will only maintain a session with the back-end.</p>
+
+<p>There are multiple advantages and disadvantages to both scenarios.
+However, the biggest trade-off for our scenario is:</p>
+
+<p><b>SPA</b> as OAuth <b>client</b> / back-end as resource server:<br />
+✅ Back-ends can be stateless: no session required<br />
+❌ Less secure: access token stored in the browser</p>
+
+<p><b>Spring Boot</b> back-end as OAuth <b>client</b>:<br />
+❌ Has to be stateful: session required<br />
+✅ More secure: tokens only in the back-end</p>
+
+<p>Having a stateless back-end makes it very easy to create or destroy new instances of it. 
+Requests can go to any of those instances without the need for sticky load balancing or distributed sessions.<br />
+The downside is that the tokens have to be stored in the browser, which can leak more easily than from a secure back-end. 
+We control the back-end but not the user’s computer, network, browser or its plugins. 
+On top of that, <a href="https://auth0.com/docs/tokens/token-storage" target="_blank" rel="noopener noreferrer">browsers also lack a secure storage mechanism</a>, unlike apps on mobile devices.</p>
+
+<p>In this blogpost, we will go with the first approach where the Angular app is the OAuth client.
+This means our set-up will be as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">OAuth term</th>
+      <th style="text-align: center">Concrete application</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Resource Owner</td>
+      <td style="text-align: center">You</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Resource Server</td>
+      <td style="text-align: center">Spring Boot app</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Authorization Server</td>
+      <td style="text-align: center">Azure AD</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Client</td>
+      <td style="text-align: center">Angular app</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="oauth-flows">OAuth flows</h2>
+
+<p>OAuth has multiple flows.
+The flow determines how tokens will be obtained from the authorization server by the client.
+The original <a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener noreferrer">OAuth specification</a> defines four flows:</p>
+<ul>
+  <li><b>Authorization Code</b>: The client sends the user to the authorization server to obtain an authorization code. The client then exchanges this code for an access token.</li>
+  <li><b><del>Implicit</del></b>: Simplified authorization code flow. The client sends the user to the authorization server to obtain an access token.</li>
+  <li><b><del>Resource Owner Password Credentials</del></b>: The client uses the user’s credentials to ask the authorization server for an access token.</li>
+  <li><b>Client Credentials</b>: The client ask the authorization server for an access token on its own behalf.</li>
+</ul>
+
+<p>The <a href="https://www.ietf.org/id/draft-ietf-oauth-security-topics-15.html" target="_blank" rel="noopener noreferrer">OAuth 2.0 Security Best Current Practice</a> document makes it very clear: use the client credentials flow for client-to-client purposes, where a client acts on its own behalf.
+In all other cases, the authorization code flow with PKCE is the way to go.</p>
+
+<p><a href="https://tools.ietf.org/html/rfc7636" target="_blank" rel="noopener noreferrer">Proof-Key for Code Exchange or PKCE</a> (pronounced ‘pixy’) is an extension to OAuth which prevents interception attacks and enables the authorization code flow for public clients. 
+If you are interested in what public clients are and how PKCE works, you can learn more about it in this <a href="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html" target="_blank" rel="noopener noreferrer">blogpost</a>.</p>
+
+<p>In our case, a user is involved, so the right flow is the authorization code flow with PKCE.</p>
+
+<blockquote>
+  <p>PKCE is (nearly always) mandatory in the <a href="https://tools.ietf.org/html/draft-parecki-oauth-v2-1-03#section-9.8" target="_blank" rel="noopener noreferrer">current OAuth 2.1 proposal</a> by <a href="https://aaronparecki.com/" target="_blank" rel="noopener noreferrer">Aaron Parecki</a>.</p>
+</blockquote>
+
+<h1 id="the-azure-ad-part">The Azure AD part</h1>
+
+<p>We already discussed that our Angular app will be an OAuth client.
+All clients have to be registered at the authorization server, so this is what we have to configure in Azure AD.</p>
+
+<blockquote>
+  <p>A client is often called app(lication) in Azure AD.</p>
+</blockquote>
+
+<p>We can do this via the <a href="https://portal.azure.com/" target="_blank" rel="noopener noreferrer">Azure Portal</a>.
+Log in and then navigate to Azure AD.
+You should find the <code class="language-plaintext highlighter-rouge">App registrations</code> button on the left.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/azure-ad/app-registration.png" alt="" width="30%" />
+</div>
+
+<p>Click <code class="language-plaintext highlighter-rouge">New registration</code> and fill in the form:</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/azure-ad/app-registration2.png" alt="" width="70%" />
+</div>
+
+<p>Pick a name that’s appropriate for your client. 
+We can also set up the redirect URI here. 
+This is the URI where the user will be redirected to after logging in on the authorization server. 
+It’s important that this matches the URL in our Angular configuration later. 
+The supported account types option depends on who should be able to log in to your app.</p>
+
+<p>Notice how we don’t need to configure a client secret? 
+Single-page apps can’t keep secrets hidden very well, which is why they have to be a public client. 
+The authorization code flow used to be for confidential clients only, which use a secret or certificate to authenticate with the authorization server.<br />
+PKCE is what makes the authorization code flow possible for these kinds of clients.</p>
+
+<p>Wait.. That’s it?<br />
+Yes.
+Well, kind of.
+Later on, we will have to make an adjustment, so don’t close the portal just yet.
+Once the client has been registered, we also need the client id and tenant id values for our application configuration.
+I’ve changed mine to <code class="language-plaintext highlighter-rouge">&lt;&lt;&lt;client_id&gt;&gt;&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;&lt;&lt;tenant_id&gt;&gt;&gt;</code> for demonstration purposes, so don’t forget to change these values to yours in the configuration examples.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/azure-ad/app-registration3.png" alt="" width="90%" />
+</div>
+
+<h1 id="the-spring-boot-part">The Spring Boot Part</h1>
+
+<p>Our <a href="https://github.com/jmeys/azure-ad-demo-backend" target="_blank" rel="noopener noreferrer">example Spring Boot application</a> is a small API which serves some resources for the Angular application which we’ll discuss further down.<br />
+This is probably the easiest part to arrange, but also where I see most people get really confused.</p>
+
+<h2 id="azure-starters-for-spring-boot">Azure Starters for Spring Boot</h2>
+
+<p>If you want to set up the Spring Boot application as an OAuth client, you could use the Azure Active Directory starter from the <a href="https://start.spring.io/" target="_blank" rel="noopener noreferrer">Spring Initializr</a>.
+It’s relatively hassle-free, given that you adjust some things left and right.<br />
+However, we want to set up our Spring Boot application as a resource server (rather than an OAuth client). 
+For this, we will only use the <code class="language-plaintext highlighter-rouge">spring-boot-starter-oauth2-resource-server</code> dependency from Spring itself.
+This further limits our dependencies on the Microsoft libraries.</p>
+
+<h2 id="the-spring-boot-implementation">The Spring Boot Implementation</h2>
+
+<p>We start by adding some extra libraries to the existing application.
+Note that there are no versions defined as these should come from the Bill Of Materials (BOM).</p>
+
+<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// build.gradle</span>
+<span class="k">dependencies</span> <span class="o">{</span>
+	<span class="o">...</span>
+	<span class="n">implementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter-oauth2-resource-server'</span>
+	<span class="n">implementation</span> <span class="s1">'org.springframework.security:spring-security-oauth2-jose'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>or if you prefer Maven:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span>
+    ...
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-oauth2-resource-server<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.springframework.security<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-security-oauth2-jose<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></div>
+
+<p>We can now set up the authorization part: who has access to what.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span><span class="o">.</span><span class="na">cors</span><span class="o">().</span><span class="na">and</span><span class="o">()</span> <span class="c1">// (1)</span>
+            <span class="o">.</span><span class="na">authorizeRequests</span><span class="o">().</span><span class="na">anyRequest</span><span class="o">().</span><span class="na">authenticated</span><span class="o">()</span> <span class="c1">// (2)</span>
+            <span class="o">.</span><span class="na">and</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">oauth2ResourceServer</span><span class="o">().</span><span class="na">jwt</span><span class="o">();</span> <span class="c1">// (3)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There is a lot happening in a few lines here.
+Let’s break it down:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">http.cors()</code> allows <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener noreferrer">Cross-Origin Resource Sharing (CORS)</a> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests" target="_blank" rel="noopener noreferrer">preflight checks</a> to succeed.</li>
+  <li>We want all requests to the application to require authentication. If no authentication is provided, a 401 status will be returned.
+Note that this is different if you configure the Spring Boot application as an OAuth client. In that case, the caller would be redirected to the login page.</li>
+  <li>Here we tell the application to behave as a resource server. Authentication should be provided via JWT access tokens.
+To learn more about JWT tokens, you can check out my other <a href="https://ordina-jworks.github.io/security/2019/08/22/Securing-Web-Applications-With-Keycloak.html" target="_blank" rel="noopener noreferrer">blogpost about OAuth</a>.</li>
+</ol>
+
+<p>Our JWT access tokens are signed by Azure AD and our application should check if their signature is correct.
+Azure AD has an endpoint with the public key to do so, which we have to configure in our application.
+A first option is to configure the issuer URI so that it can find the correct endpoint in the discovery document.
+The discovery document is a convenience endpoint where a lot of the client configuration can be found, including the web keys endpoint.</p>
+
+<blockquote>
+  <p>You can find the discovery document by appending <code class="language-plaintext highlighter-rouge">.well-known/openid-configuration</code> to the issuer URI.</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># application.properties
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://sts.windows.net/&lt;&lt;&lt;tenant_id&gt;&gt;&gt;/
+</code></pre></div></div>
+
+<p>Alternatively, we can search the keys endpoint ourselves in the discovery document and then provide this JSON web key (JWK) endpoint straight away:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># application.properties
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://login.windows.net/common/discovery/keys
+</code></pre></div></div>
+
+<p>In a real production configuration, I personally prefer to use the issuer URI as it offers most configuration via a single configuration property.
+This will issue a network call to the discovery document when the application starts, so when testing in an environment where Azure AD is not reachable, this will cause the application to crash.
+This is where the JWK URI can save the day.</p>
+
+<h1 id="the-angular-part">The Angular Part</h1>
+
+<p>When we now browse to any back-end endpoint, we receive: HTTP 401 Unauthorized.<br />
+Let’s fix this in our <a href="https://github.com/jmeys/azure-ad-demo-frontend" target="_blank" rel="noopener noreferrer">example Angular application</a>.</p>
+
+<h2 id="the-angular-library">The Angular Library</h2>
+
+<p>Azure AD has quickstart guides for different kinds of applications. 
+For Angular, however, the <a href="https://www.npmjs.com/package/@azure/msal-angular" target="_blank" rel="noopener noreferrer">msal-angular library</a> currently only supports the implicit flow.
+Since the current best practices draft strongly discourages the implicit flow in favour of the authorization code flow with PKCE, we will look for an alternative.</p>
+
+<blockquote>
+  <p>The Microsoft Authentication Library for JavaScript (MSAL) should have support for PKCE soon, but at the time of writing, this feature was still in alpha.</p>
+</blockquote>
+
+<p>Even when there will be Microsoft libraries that can solve this problem, I try to stay vendor-neutral whenever possible.
+This makes it relatively easy to switch from one OAuth provider to another one like <a href="https://auth0.com/" target="_blank" rel="noopener noreferrer">Auth0</a>, <a href="https://aws.amazon.com/cognito/" target="_blank" rel="noopener noreferrer">AWS Cognito</a>, <a href="https://www.okta.com/" target="_blank" rel="noopener noreferrer">Okta</a>, <a href="https://www.keycloak.org/" target="_blank" rel="noopener noreferrer">Keycloak</a>, …
+The only downside is that vendor-specific features will not be available.
+An example of this is the <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow" target="_blank" rel="noopener noreferrer">On-Behalf-Of flow (OBO)</a>, which is only supported by the Microsoft libraries.</p>
+
+<p>Since OAuth and OIDC are standards, we should be able to use any (certified) library which supports these.
+I say “should”, as the specifications left a lot of room for tinkering and additions. 
+This will become clear during the implementation.</p>
+
+<p>My favourite go-to library is <a href="https://github.com/manfredsteyer/angular-oauth2-oidc" target="_blank" rel="noopener noreferrer">angular-oauth2-oidc</a> by Manfred Steyer. 
+This is also the one we’ll use in this example.</p>
+
+<blockquote>
+  <p>Alternatively, you can use the <a href="https://www.npmjs.com/package/@azure/msal-angular" target="_blank" rel="noopener noreferrer">msal-angular library</a> if you are fine with the implicit flow for now.</p>
+</blockquote>
+
+<h2 id="example-application-tour-of-heroes">Example Application: Tour of Heroes</h2>
+
+<p>As an example of an Angular application, we will use the <a href="https://angular.io/tutorial" target="_blank" rel="noopener noreferrer">Tour of Heroes</a> Angular tutorial application. 
+Feel free to use your own application as there should not be too many differences.</p>
+
+<p>Because the Tour of Heroes application uses an in-memory API instead of a Spring Boot application, we should change this in the code.
+Of course, if you are using your own application or checked out <a href="https://github.com/jmeys/azure-ad-demo-frontend" target="_blank" rel="noopener noreferrer">the code from the repository</a>, you can skip this step.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app.module.ts</span>
+
+<span class="c1">// REMOVE this part:</span>
+
+<span class="c1">// The HttpclientInMemoryWebApiModule module intercepts HTTP requests</span>
+<span class="c1">// and returns simulated server responses.</span>
+<span class="c1">// Remove it when a real server is ready to receive requests.</span>
+<span class="nx">HttpclientInMemoryWebApiModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span>
+  <span class="nx">InMemoryDataService</span><span class="p">,</span> <span class="p">{</span> <span class="na">dataEncapsulation</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}</span>
+<span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>and also change the url in the <code class="language-plaintext highlighter-rouge">HeroService</code>:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// hero.service.ts</span>
+
+<span class="k">private</span> <span class="nx">heroesUrl</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:8080/api/heroes</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Now we’re all set to go.</p>
+
+<h2 id="the-angular-implementation">The Angular Implementation</h2>
+
+<p>We start by installing the <code class="language-plaintext highlighter-rouge">angular-auth2-oidc</code> library:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i angular-oauth2-oidc <span class="nt">--save</span>
+</code></pre></div></div>
+
+<p>Next, we import the <code class="language-plaintext highlighter-rouge">OAuthModule</code> module:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app.module.ts</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HttpclientModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/common/http</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OAuthModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
+<span class="c1">// etc.</span>
+
+<span class="nl">imports</span><span class="p">:</span> <span class="p">[</span>
+	<span class="c1">// etc.</span>
+    <span class="nx">HttpclientModule</span><span class="p">,</span>
+	<span class="nx">OAuthModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({</span>
+      <span class="na">resourceServer</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">allowedUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">http://localhost:8080/api</span><span class="dl">'</span><span class="p">],</span>
+        <span class="na">sendAccessToken</span><span class="p">:</span> <span class="kc">true</span>
+      <span class="p">}</span>
+    <span class="p">}),</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>This is also where we define which APIs need the access token. 
+In our case, this will be a Spring Boot application that’s running on port 8080 and will serve from <code class="language-plaintext highlighter-rouge">/api</code>.</p>
+
+<p>Next up is the OAuth configuration.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// auth.config.ts</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">authConfig</span><span class="p">:</span> <span class="nx">AuthConfig</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">issuer</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://login.microsoftonline.com/&lt;&lt;&lt;tenant_id&gt;&gt;&gt;/v2.0</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">redirectUri</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">clientId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;&lt;&lt;client_id&gt;&gt;&gt;</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">responseType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">code</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">strictDiscoveryDocumentValidation</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">scope</span><span class="p">:</span> <span class="dl">'</span><span class="s1">openid api://&lt;&lt;&lt;client_id&gt;&gt;&gt;/app</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">issuer</code>, <code class="language-plaintext highlighter-rouge">redirectUri</code>, <code class="language-plaintext highlighter-rouge">clientId</code> and <code class="language-plaintext highlighter-rouge">responseType</code> are pretty straightforward. 
+All you need to do is to fill in the placeholder with the values from Azure AD. 
+You can copy the values from the overview of the app in the Azure Portal.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/azure-ad/app-values.png" alt="" width="60%" />
+</div>
+
+<p>This is where we need to tweak some configuration settings for the library to work with Azure AD.
+<code class="language-plaintext highlighter-rouge">strictDiscoveryDocumentValidation</code> needs to be disabled due to the fact that not all URLs in the discovery document start with the issuer URL. 
+This makes strict parsing fail, so we disable it.</p>
+
+<blockquote>
+  <p>Strict discovery document validation is a best practice which protects against a threat where an attacker manages to fake the discovery document.</p>
+</blockquote>
+
+<p>You might also have noticed the weird looking <code class="language-plaintext highlighter-rouge">api://&lt;&lt;&lt;client_id&gt;&gt;&gt;/app</code> value in the list of scopes. 
+The reason why we do this is explained very well in this <a href="https://medium.com/@abhinavsonkar/making-azure-ad-oidc-compliant-5734b70c43ff" target="_blank" rel="noopener noreferrer">Medium blogpost</a> but boils down to the fact Azure AD uses a nonce in a special way in its JWT header.
+This breaks the standard JWT validation.
+If we include an application specific scope here, this will no longer be the case. 
+Our Angular application won’t actually care for this as it just passes access tokens to the Spring Boot back-end.
+The validation there will fail, resulting in a 401: Unauthorized. 
+You can define this scope in the Azure Portal, under <code class="language-plaintext highlighter-rouge">Expose an API</code> &gt; <code class="language-plaintext highlighter-rouge">Add a scope</code>.</p>
+
+<div style="text-align: center;">
+  <img class="image fit-contain" src="/img/azure-ad/add-scope.png" alt="" width="60%" />
+</div>
+
+<blockquote>
+  <p>This application-specific scope can have any name, so it doesn’t have to be <code class="language-plaintext highlighter-rouge">app</code>. 
+Just make sure you use the same scope in the application as the one you defined in the Azure Portal.</p>
+</blockquote>
+
+<p>Another requested scope we configure is <code class="language-plaintext highlighter-rouge">openid</code>.
+This indicates that we also want to log in the user.
+We will not only receive an access token to contact the back-end API, but also an id token with information about the logged-in user.</p>
+
+<blockquote>
+  <p>Azure AD will serve an id token, regardless of the open-id scope. But we include it anyway to respect the <a href="https://openid.net/specs/openid-connect-core-1_0.html" target="_blank" rel="noopener noreferrer">specification</a>.</p>
+</blockquote>
+
+<p>The next step is to trigger the login when a user has not logged in yet:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app.component.ts</span>
+<span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="nx">authCodeFlowConfig</span><span class="p">);</span> <span class="c1">// (1)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">loadDiscoveryDocumentAndLogin</span><span class="p">();</span> <span class="c1">// (2)</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="kd">set</span><span class="o">-</span><span class="nx">upAutomaticSilentRefresh</span><span class="p">();</span> <span class="c1">// (3)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>We set up the OAuthService with the configuration from the previous step.
+This makes sure it uses the authorization code flow + PKCE with the correct parameters.</li>
+  <li>The discovery document will be loaded, which is the issuer URI plus the <code class="language-plaintext highlighter-rouge">.well-known/openid-configuration</code> suffix and then start the login process.</li>
+  <li>As access tokens have a short lifespan, we want them to be automatically refreshed in the background.</li>
+</ol>
+
+<p>We can now try out the application and should be redirected to the Microsoft login page.<br />
+After logging in, when we browse to the heroes page, we can see the 401 is gone, and the heroes are fetched again.</p>
+
+<p>Implement these steps or download the <a href="https://github.com/jmeys/azure-ad-demo-frontend/tree/final" target="_blank" rel="noopener noreferrer">final front-end</a> and <a href="https://github.com/jmeys/azure-ad-demo-backend/tree/final" target="_blank" rel="noopener noreferrer">back-end</a> code from Github to try it out.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/security/2020/08/18/Securing-Applications-Azure-AD.html&title=Securing Angular and Spring Boot applications with Azure AD&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Securing Angular and Spring Boot applications with Azure AD&url=https://ordina-jworks.github.io/security/2020/08/18/Securing-Applications-Azure-AD.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/security/2020/08/18/Securing-Applications-Azure-AD.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/jeroen-meys/" class="image spotlight-image" title="">
+            <img src="/img/author/jeroen-meys.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Jeroen is a Java Developer at Ordina Belgium who is passionate about security, breaking stuff and fixing things.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/azure-ad/azure-ad.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
