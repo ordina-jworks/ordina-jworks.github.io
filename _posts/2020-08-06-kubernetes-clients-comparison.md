@@ -120,7 +120,8 @@ Screenshot: Overview of a cluster in Lens, including the last error events
 <img alt="Lens cluster overview" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/lens-cluster-overview.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 ## Kubenav
-Kubenav is a rich featured, open source Kubernetes client created in early 2020 to manage your cluster(s) with. 
+[Kubenav](https://github.com/kubenav/kubenav){:target="_blank" rel="noopener noreferrer"} is a rich featured, open source Kubernetes client created in early 2020 to manage your cluster(s) with. 
+The application is under active development by the open source community on their GitHub repository.
 There is cross-platform functionality, which means they provide you a desktop AND mobile client, which is a unique feature in the world of Kubernetes clients. 
 They share the same codebase, so the navigation should be similar on all platforms.
 
@@ -131,7 +132,16 @@ You can easily switch between Kubernetes clusters by using the drop-down menu av
 There is a window which is available at all times where you can consult different deployment logs and a terminal. Each window is categorized under a tab.
 When you minimize this window, you will notice a blue shell icon in the right bottom corner of Kubenav, which allows to open your current logs or terminal again.
 
-The app is made in the Ionic Framework using Capacitator as cross-platform runtime, which is something you really notice ... // WIP
+The app is made in the Ionic Framework using Capacitator as cross-platform runtime, which is something you notice when you actually start using the app.
+I don't really like this feeling, as I prefer my clients to have a more native feeling, although I understand why the developers chose for this approach.
+
+The primary factor of why I would use this application is because they support almost every resource combined with a GUI if you don't like using the terminal.
+However, I'm not really a fan of the interface in general, as it seems to be messy and overwhelming at times when a resource provides you with a great deal of information in an uncategorized way.
+If you want to know every detail about your resource at all times, then this application is definitely for you. I didn't have a reason yet to use the mobile client, but I'm sure that depends on your own use case.
+
+<img alt="Kubenav slideshow" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/kubenav.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+<p style="text-align: center; font-style: italic;">Kubenav slideshow</p>
+
 ## Infra App
 [Infra App](https://infra.app/){:target="_blank" rel="noopener noreferrer"} is a new addition to the list of Kubernetes clients.
 It is made by the people over at Docker Desktop & [Kitematic](https://kitematic.com){:target="_blank" rel="noopener noreferrer"} and is being developed behind closed doors, which has been addressed as unpleasant within the Kubernetes community.
@@ -149,8 +159,9 @@ The application is still very young and right now, it is lacking some functional
 If you want something with more than basic functionality right now, this might not be the application you are looking for.
 However, if it has what you need, you will find that it will be very easy and straight-forward to manage your Kubernetes cluster with this client.
 
-Infra layout slideshow
-<img alt="k9s context switch" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/infra-app.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+
+<img alt="Kubenav slideshow" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/infra-app.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+<p style="text-align: center; font-style: italic;">Infra slideshow</p>
 
 ## Conclusion
 
