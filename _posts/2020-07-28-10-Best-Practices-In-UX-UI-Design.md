@@ -37,35 +37,39 @@ The company logo is typically placed in the top left corner (on sites designed f
 
 ## 2. Make clickable elements obvious
 ### Buttons
-CTA ([Call To Action](https://en.wikipedia.org/wiki/Call_to_action_(marketing)){:target="_blank" rel="noopener noreferrer"}) buttons need to stand out from the rest of the page so it immediately draws the user's attention.
+Confirmation buttons need to stand out from the rest of the page so they immediately draw the user's attention.
 Adding a shadow effect to the buttons lets the user know it's clickable and they can interact with it.
 Notice the difference between the following examples:
 
 Example 1:
-<img alt="Clear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-colored.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;"> 
+<img alt="Clear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-colored.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;"> 
 
 Example 2:
-<img alt="Unclear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-bland.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
+<img alt="Unclear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-bland.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
 
 In the bottom example the label to save the form is still concise and clear, users should thus still be able to eventually save the data, but it takes a moment longer to register which button to click to make this happen. 
 Remember, the user wants to spend as little time as possible determining the next course of action. 
 
-Let's also discuss the 'Cancel' and 'OK' (or other confirming actions such as 'Save', 'Yes', 'Submit', etc) buttons. 
 So-called secondary actions like 'Cancel' should look the least appealing of the options because it usually isn't the next action the user wants to take.
 Making them the least appealing minimizes the chance of misclicks and nudges the user further towards a successful ending, such as a purchase.
+
+Let's also discuss the location and order of the 'Cancel' and 'OK' (or other confirmation actions such as 'Save', 'Yes', 'Submit', etc) buttons. 
 
 In Windows apps, the 'OK' button should come first and the 'Cancel' button second. 
 This implementation follows the 'natural reading order' (again, on sites designed for left-to-right reading).
 Additionally, keyboard users will also reach the 'OK' button sooner.
 
-<img alt="Unclear CTA button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelWindows.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
+<img alt="Unclear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelWindows.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
 On Apple machines however, 'Cancel' will come first and 'OK' second.
 The idea here is that the flow feels more natural since the 'OK' button closes that section and the next step ('OK') is placed most right, whilst the previous step ('Cancel') is placed left.
 
 <img alt="Order of OK and Cancel on Apple machines" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/OkCancelApple.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 450px;">
 
-When designing for the web, it's best to choose whichever convention is used by most of your users, so based on their operating system. 
+When designing for the web, we usually opt to put the buttons on the left-side of the screen, with the confirmation button first. 
+'Example 1' in this section illustrates this as well:
+
+<img alt="Clear confirmation button" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/CTA-colored.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;"> 
 
 ### Hyperlinks
 Clickable words on a web page are best underlined and shown in a different color than the rest of the text. 
@@ -97,6 +101,9 @@ The following text is much more confusing:
 
 What is supposed to be communicated here? 'Subtitle 2' using the same coloring as 'Subtitle 1' but it's just as large as 'Title'. 
 So does the author mean it's still part of the 'Title' section or did he or she mean to create a whole separate section with a different 'Title'? Instructions unclear.
+
+For screen readers (and other assistive technologies), it's best to show titles by using the different title tags that are available in HTML, such as `<h1>`, `<h2>`, etc. 
+This way, the screen reader is aware that that specific text is a (sub)title and can communicate this information to the user.
 
 ## 4. Be honest
 One of the biggest irks of customers is being presented with crucial information and extra costs late in the ordering process. 
@@ -134,6 +141,9 @@ The icons for search, shopping cart, profile, etc.. are well-known and you shoul
 
 <img alt="Use well-known icons" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/icons.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 300px;">
 
+Also, unless you're using icons that are well-known and absolutely clear on their purpose, like the icons above, it's always a good idea to add labels to your icons.
+If you're unsure about the use of labels, user testing will tell you whether users are experiencing issues with your icons without labels or not.
+
 How you label your links and buttons is important as well. When users are looking for job opportunities on your website, typical keywords are 'Careers' or 'Jobs'.
 By using for example 'Employment', users might not be able to find your career page (as easily). 
 
@@ -145,23 +155,34 @@ Take a look at the following example from ASOS:
 <img alt="ASOS uses very clear breadcrumbs" src="{{ '/img/2020-07-28-Best-Practices-In-UX-UI-Design/asos.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 400px;">
 
 With breadcrumbs, users can see in the blink of an eye in which (sub)category the current page belongs. 
-The user perhaps ended up on this page by clicking a 'Recommended for you!' link and maybe he or she wants to take a look at similar items as well. 
-Being able to actually click on a (sub)category in the breadcrumbs help to do exactly that. 
+This is interesting for your users who ended up on a specific product page through a Google search. 
+By using breadcrumbs, your users are able to quickly understand where they are situated within your website.
+Being able to actually click on a (sub)category in the breadcrumbs will help your users to easily retrieve an overview of similar products. 
 
 Even when you're just mindlessly browsing a website and you clicked on twenty different items within a category, you don't want to click the back button twenty-one times to go back to the actual results within the current category.
 Breadcrumbs make sure that your user can browse your website more easily, which creates less frustration for your user, which hopefully creates a higher conversion. 
 
 ## 8. Less clicks = better
+Usually.
+
 Try to save the user clicks as much as possible. 
 Like Steve Krug describes in his [*Don't Make Me Think*](http://sensible.com/dmmt.html){:target="_blank" rel="noopener noreferrer"}, instead of only providing a tracking number for a shipment, you can add a link to the e-mail that opens the carrier's website with the tracking number already filled in.
 Another example would be to provide a Google Maps preview on the contact page instead of just providing the address.
 
 When possible, also try to mention any form errors while the user is entering the data. 
-Whether it be the phone number format or a password that is too short, anything that can be detected should immediately be communicated to the user instead of waiting until the user clicks 'Submit'. 
+Whether it be the phone number format or a password that is too short, anything that can be detected client-side should immediately be communicated to the user instead of waiting until the user clicks 'Submit'. 
+
+Now, I said *'usually'* at the beginning of this section. 
+There are of course a few exceptions. 
+One of them is the FAQ page.
+If you want to provide quite some questions and answers, it's best not to throw it all into one big overview.
+A good idea here would be to provide all the possible questions in a list and make these questions clickable.
+The answer should then only show up after the user has clicked on the question. 
+This will provide a clean, clear, concise and easy to browse FAQ page for your user, even though there are a few more clicks involved.  
 
 ## 9. Dropdown lists
 Dropdown lists are simple to implement and easy to use so they are present on countless websites.
-The key here is to only start using dropdown lists when we're talking about seven or more options. 
+The key here is to only start using dropdown lists when we're talking about five or more options. 
 When there are less options present, radio buttons might be a better choice for you so the user can see all the available options immediately.
 
 ## 10. Include visual indicators of length and size
@@ -188,3 +209,5 @@ As said before in this blog post, it's practically impossible to please everyone
 What's aesthetically pleasing to one person might not be so for the next one.
 But user experience is more than the look, the layout, the colors used. 
 We're also talking about flow here, about creating an experience for each user, regardless of impairment, that helps them reach their goal flawlessly, without frustration, with little nudges in the right direction.
+
+If you're looking for some UX/UI design experts to help with your projects, don't hesitate to contact my colleagues at [Clockwork](http://cw.be/){:target="_blank" rel="noopener noreferrer"}!
