@@ -73,6 +73,32 @@ Demo: Find out where a configmap is used
 <img alt="k9s config map usage" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/k9s-cm.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 ## Octant
+[Octant](https://github.com/vmware-tanzu/octant){:target="_blank" rel="noopener noreferrer"} is an open-source Kubernetes web dashboard built by VMWare Tanzu.
+It is written in Go, which is a trending programming language made by Google. 
+It has lots of features, a clean user interface and has the support of a big company in the IT industry behind it.
+This dashboard runs locally, which means you do not need to install it on your cluster, unlike the official Kubernetes dashboard. 
+
+Installing and accessing the dashboard is very straight-forward; it is as easy as running an install command (on Mac, I used Homebrew) and then running the `octant` command from your terminal.
+Once it's running, you will find that the navigation is simple. I didn't need to look around and search a lot in order to find what I need.
+
+You are greeted by the appplication with a nice and well-ordered summary of your cluster resources.
+Navigating through the dashboard feels very comfortable and swift. They offer both a dark and light theme, which you will be able to see down below.
+
+This client offers features that other traditional clients have aswell such as log streams, a graphical display of all resources, switch between clusters, ... .
+It does have unique features aswell, such as in-app port forwarding (say goodbye to `kubectl port-forward`!).
+
+<img alt="Octant port forwarding" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/octant-pf.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+<p style="text-align: center; font-style: italic;">Octant port forwarding</p>
+
+The most singular feature they have is their plugin system, which allows you to design plugins based on the information that you want on your interface. 
+Although this requires knowledge of Go and their plugin system, you can customize your experience entirely to the way that you want it to be.
+For example, there is a [Helm plugin](https://github.com/bloodorangeio/octant-helm){:target="_blank" rel="noopener noreferrer"} available and Jenkins X has a repository of Octant [plugins](https://github.com/jenkins-x/octant-jx){:target="_blank" rel="noopener noreferrer"}.
+
+If you are a fan of web dashboards, then you should definitely give Octant a try. Once you start to work with it, you will feel that it has a lot of potential. 
+If you do prefer something more natively and working in a seperate application window, then I suggest you look further and read more in this blog post.
+
+<img alt="Octant slideshow" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/octant.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+<p style="text-align: center; font-style: italic;">Octant slideshow</p>
 
 ## Lens
 
