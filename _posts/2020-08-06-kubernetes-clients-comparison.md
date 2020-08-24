@@ -194,18 +194,20 @@ However, if it has what you need, you will find that it will be very easy and st
 
 Now the real question, which client should you use.
 As with any question about software, it depends.
-
-If you are using some software that has plugins available for Octant, definitely give it a try.
-The [plugins](https://github.com/topics/octant-plugin){:target="_blank" rel="noopener noreferrer"} add a lot of value to the tool and might make it a very compelling option for your use-case.
-
 If you like to be lightning fast and don't mind struggling though a steep learning curve, K9s might be a tool for you.
 It's the personal favorite of the authors this post, meanly because of it's shortcuts and lightning fast load times.
+
+If you are using some software that has plugins available for Octant, definitely give it a try. One of the authors prefers Octant as non-terminal GUI.
+The [plugins](https://github.com/topics/octant-plugin){:target="_blank" rel="noopener noreferrer"} add a lot of value to the tool and might make it a very compelling option for your use-case.
 
 If you often need to optimize your resource usage, want a client that just works and is easy to use, go for Lens.
 This is definitely hits the sweet spot between ease of use, stability and available feature set.
 
-// Kubenav
-// Infra app
+If you need cross-platform functionality (especially mobile support), then this is the application that you want.
+If you want to get used to the UI and really dive into this software, I would suggest using the application on all platforms.
+
+While Infra is still in early access, you can still use it in a production environment. If you like a simplistic yet structured
+interface with not too many features (yet), then Infra is definitely the right choice for you.
 
 But our final advice really is: just try them out yourself and see which fits your workflow best.
 Most of them share the same basic functionality and it just depends on your use-cases and workflow which one fits best.
