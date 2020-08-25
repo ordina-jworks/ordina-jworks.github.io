@@ -133,9 +133,9 @@ The integration works nicely and instantly provides some metrics about your clus
 This provides good insights for developers to figure out their resource consumption without leaving their Kubernetes client.
 The charts and data seem to be very rudimentary, but improvement are expected to arrive over time.
 
-As most of the client described in this post, Lens app is an open-source project.
+As most of the clients described in this post, Lens app is an open-source project.
 There seems to be a group / company behind the development, but no paid / supported version is available at this time.
-There is very active development happing on the app and releases are about one month apart, so bugs and new features should be available regularly.
+There is continuous active development on the app on the app and releases are about one month apart, so bugs fixes and new features should be available regularly.
 
 Screenshot: List of pods in Lens
 <img alt="Lens pod list" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/lens-pod-list.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
