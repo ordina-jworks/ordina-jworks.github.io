@@ -42,7 +42,8 @@ All tools can be installed locally and don't require any components to be instal
 The client is fully terminal-based so you'll only be using your keyboard when operating it.
 For those who are familiar with Vim, you'll feel right at home in K9s.
 It uses similar hotkeys to the popular editor.
-There is a (quite steep) learning curve when you start using this client. Once you have read the brief readme on the project's home page and memorized the commands you'll use the most, it is an absolute joy to use.
+There is a (quite steep) learning curve when you start using this client.
+Once you have read the brief readme on the project's home page and memorized the commands you'll use the most, it is an absolute joy to use.
 It feels like using `kubectl` without the requirement to type all commands every time you need to get a deployment.
 The tool is quite feature-rich at the time of writing.
 You can port-forward, view secrets in plain text, edit resources directly, and "drill-down" from deployments into the logs of a container.
