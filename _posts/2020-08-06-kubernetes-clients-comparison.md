@@ -203,8 +203,8 @@ The [plugins](https://github.com/topics/octant-plugin){:target="_blank" rel="noo
 If you often need to optimize your resource usage, want a client that just works and is easy to use, go for Lens.
 This is definitely hits the sweet spot between ease of use, stability and available feature set.
 
-If you need cross-platform functionality (especially mobile support), then this is the application that you want.
-If you want to get used to the UI and really dive into this software, I would suggest using the application on all platforms.
+If you need cross-platform functionality (especially mobile support), then Kubenav is the application that you want.
+If you want to get used to the UI and really dive into this software, I would suggest trying it on all platforms.
 
 While Infra is still in early access, you can still use it in a production environment. If you like a simplistic yet structured
 interface with not too many features (yet), then Infra is definitely the right choice for you.
