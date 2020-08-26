@@ -22,16 +22,16 @@ comments: true
 
 Imagine the following scenario: you're writing code for your amazing new take-your-bike-to-work platform and you've just finished implementing a new feature to allow users to send unicorns to each other.
 Your CI/CD pipeline has nicely tested, packaged and deployed the updates to your development Kubernetes cluster, you load the URL and are greeted by a very nice error page stating "Oops, my bad, we lost some unicorns".
-Clearly, you broke something somewhere.
+Clearly, you broke something, somewhere.
 Most of the time, this means you'll open up a terminal, run some commands to login into the cluster and start firing two dozen `kubectl`-commands to figure out which microservice broke and check the logs to figure out where your code has broken.
 You make some changes to the broken service and push your code to the repository and the CI/CD flow takes over again.
 
-This process works quite nicely, but figuring which service is broken and which logs to check can be quite a challenge.
+This process works quite nicely, but figuring which service is broken and which logs to check can be quite challenging.
 Typing the `kubectl`-commands into the terminal probably takes half of the time you spend on debugging the issue.
 As developers are always optimizing their workflow, using `kubectl` just takes to much time, even with the `k` alias for the command and perfect auto-complete features.
 
-As the famous mantra goes anything worth doing twice is work automating.
-Therefor quite some tools were created to make this process of navigating through a cluster easier than typing a lot of commands.
+As the famous mantra goes anything worth doing twice is worth automating.
+Therefore quite some tools were created to make the process of navigating through a cluster easier than typing a lot of commands.
 
 This blog post aims to provide a very brief overview of some of the more common tools that are available as replacements or additions to `kubectl` to allow developers to look into a Kubernetes cluster.
 All tools can be installed locally and don't require any components to be installed in the cluster to operate.
@@ -39,10 +39,10 @@ All tools can be installed locally and don't require any components to be instal
 ## K9s
 
 [K9s](https://github.com/derailed/k9s){:target="_blank" rel="noopener noreferrer"} is a Kubernetes client built by [Fernand Galiana](https://twitter.com/kitesurfer){:target="_blank" rel="noopener noreferrer"}.
-The client is fully terminal-based so you'll be using only your keyboard when operating it.
+The client is fully terminal-based so you'll only be using your keyboard when operating it.
 For those who are familiar with Vim, you'll feel right at home in K9s.
 It uses similar hotkeys to the popular editor.
-There is a (quite steep) learning curve when you start using this client, but once you've read the brief readme on the projects home page and memorize the commands you'll use the most, it's an absolute joy to use.
+There is a (quite steep) learning curve when you start using this client. Once you have read the brief readme on the project's home page and memorized the commands you'll use the most, it is an absolute joy to use.
 It feels like using `kubectl` without the requirement to type all commands every time you need to get a deployment.
 The tool is quite feature-rich at the time of writing.
 You can port-forward, view secrets in plain text, edit resources directly, and "drill-down" from deployments into the logs of a container.
@@ -56,7 +56,7 @@ A similar approach can be used for service (`:svc`), statefulsets (`:sts`) and d
 Another very familiar shortcut is the usage of `/` to filter on the context you're currently in.
 This works on basically any screen where you'd expect it, even in the logs view!
 
-It feels very natural using the tool after a few days of use.
+After a few days of use it feels very natural to use.
 However, for those of us who rather use their mouse to navigate through resources and hate memorizing commands, this tool is not for you.
 
 The project is still under very active development and quite some people are contributing to the codebase.
@@ -126,16 +126,16 @@ The most common types are support and common actions are available.
 But Lens has another trick up its sleeve which makes it different from the other tools: Metrics/Prometheus integration.
 
 The integration relies on a Prometheus instance being installed in the cluster that exposes the supported metrics.
-You can opt for Lens to install Prometheus (and other required components) for you, but in real scenarios, you either don't have those rights or you'll already have a Prometheus installed in the cluster.
+You can opt for Lens to install Prometheus (and other required components) for you, but in real scenarios, you either don't have those rights or you'll already have a Prometheus instance installed in the cluster.
 In those cases, you can just [add some configuration](https://github.com/lensapp/lens/blob/master/troubleshooting/custom-prometheus.md){:target="_blank" rel="noopener noreferrer"} to that instance and point the Lens app to that Prometheus instance.
-It will use port-forwarding under the hood, so no need to expose the Prometheus instance to the outside.
+It will use port-forwarding under the hood, so no need to expose the Prometheus instance to the outside world.
 The integration works nicely and instantly provides some metrics about your cluster and deployed components.
 This provides good insights for developers to figure out their resource consumption without leaving their Kubernetes client.
 The charts and data seem to be very rudimentary, but improvements are expected to arrive over time.
 
 As most of the clients described in this post, Lens app is an open-source project.
 Mirantis is behind the development of Lens, but at the time of writing, no supported (paid) version is available.
-There is continuous active development on the app on the app and releases are about one month apart, so bugs fixes and new features should be available regularly.
+There is continuous active development on the app and releases are about one month apart, so bug fixes and new features should be available regularly.
 
 Screenshot: List of pods in Lens
 <img alt="Lens pod list" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/lens-pod-list.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
@@ -162,7 +162,7 @@ When you minimize this window, you will notice a blue shell icon in the right bo
 The app is made in the Ionic Framework using Capacitator as cross-platform runtime, which is something you notice when you start using the app.
 I don't really like this feeling, as I prefer my clients to have a more native feeling, although I understand why the developers chose this approach.
 
-The primary factor of why I would use this application is because they support almost every resource combined with a GUI if you don't like using the terminal.
+The primary reason why I would use this application is because they support almost every resource combined with a GUI if you don't like using the terminal.
 However, I'm not a fan of the interface in general, as it seems to be messy and overwhelming at times when a resource provides you with a great deal of information in an uncategorized way.
 If you want to know every detail about your resource at all times, then this application is definitely for you. I didn't have a reason yet to use the mobile client, but I'm sure that depends on your use case.
 
@@ -171,18 +171,18 @@ If you want to know every detail about your resource at all times, then this app
 
 ## Infra App
 [Infra App](https://infra.app/){:target="_blank" rel="noopener noreferrer"} is a new addition to the list of Kubernetes clients.
-It is made by the people over at Docker Desktop & [Kitematic](https://kitematic.com){:target="_blank" rel="noopener noreferrer"} and is being developed behind closed doors, which has been addressed as unpleasant within the Kubernetes community.
+It is made by the people over at Docker Desktop & [Kitematic](https://kitematic.com){:target="_blank" rel="noopener noreferrer"} and is being developed behind closed doors, which has been addressed as "unpleasant" within the Kubernetes community.
 It provides you with a clean, simplistic user interface that groups everything you need to know about a single resource together.
 Everything is self-explanatory and all the information you need is available within a few simple clicks.
 
 When you open the application for the first time, you are greeted with a prompt asking you for your e-mail address.
 Although this is probably for newsletters and updates, I wish this step was optional.
 
-You quickly notice that there is only basic functionality available in the application, which makes sense as the client is still in early access at the time of writing.
+You quickly notice that only basic functionality is available in the application, which makes sense as the client is still in early access at the time of writing.
 You can browse resources per namespace, go through application logs, read and edit YAML configuration, and check the current resources used by your deployment.
 There is a metrics interface for the whole cluster as well, which supplies you with a structured and detailed view about your nodes.
 
-Since the application is still very young right now, it is lacking some functionality that you might expect or find in other clients.
+Since the application is still very young, it is lacking some functionality that you might expect or find in other clients.
 If you want something with more than basic functionality right now, this might not be the application you are looking for.
 However, if it has what you need, you will find that it will be very easy and straightforward to manage your Kubernetes cluster with this client.
 
@@ -195,13 +195,13 @@ However, if it has what you need, you will find that it will be very easy and st
 Now the real question, which client should you use.
 As with any question about software, it depends.
 If you like to be lightning-fast and don't mind struggling through a steep learning curve, K9s might be a tool for you.
-It's the personal favorite of the authors this post, meanly because of it's shortcuts and lightning-fast load times.
+It's the personal favorite of the authors this post, mainly because of it's shortcuts and lightning-fast load times.
 
 If you are using some software that has plugins available for Octant, definitely give it a try. One of the authors prefers Octant as non-terminal GUI.
 The [plugins](https://github.com/topics/octant-plugin){:target="_blank" rel="noopener noreferrer"} add a lot of value to the tool and might make it a very compelling option for your use-case.
 
 If you often need to optimize your resource usage, want a client that just works, and is easy to use, go for Lens.
-This is definitely hitting the sweet spot between ease of use, stability, and available feature set.
+This definitely hits the sweet spot between ease of use, stability, and available feature set.
 
 If you need cross-platform functionality (especially mobile support), then Kubenav is the application you want.
 If you want to get used to the UI and dive into this software, I would suggest trying it on all platforms.
