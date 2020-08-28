@@ -30,8 +30,8 @@ This process works quite nicely, but figuring which service is broken and which 
 Typing the `kubectl`-commands into the terminal probably takes half of the time you spend on debugging the issue.
 As developers are always optimizing their workflow, using `kubectl` just takes to much time, even with the `k` alias for the command and perfect auto-complete features.
 
-As the famous mantra goes anything worth doing twice is worth automating.
-Therefore quite some tools were created to make the process of navigating through a cluster easier than typing a lot of commands.
+As the famous mantra goes: "anything worth doing twice is worth automating".
+Therefore, quite some tools were created to make the process of navigating through a cluster easier than typing a lot of commands.
 
 This blog post aims to provide a very brief overview of some of the more common tools that are available as replacements or additions to `kubectl` to allow developers to look into a Kubernetes cluster.
 All tools can be installed locally and don't require any components to be installed in the cluster to operate.
@@ -57,17 +57,17 @@ A similar approach can be used for service (`:svc`), statefulsets (`:sts`) and d
 Another very familiar shortcut is the usage of `/` to filter on the context you're currently in.
 This works on basically any screen where you'd expect it, even in the logs view!
 
-After a few days of use it feels very natural to use.
+After a few days of use, it feels very natural to use.
 However, for those of us who rather use their mouse to navigate through resources and hate memorizing commands, this tool is not for you.
 
 The project is still under very active development and quite some people are contributing to the codebase.
 Since the project doesn't seem to be backed by a company directly, there are no real support guarantees nor is there a fixed release schedule.
 The maintainer however accepts fixes quite fast and releases are very frequent, sometimes multiple a day.
 
-Demo: go from deployment to all the way into pod logs
+Demo: Go from deployment to all the way into pod logs
 <img alt="k9s from deployment to pod logs" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/k9s-deploy.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
-Demo: Switch between 2 Kubernetes contexts
+Demo: Switch between two Kubernetes contexts
 <img alt="k9s context switch" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/k9s-ctx.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 Demo: Find out where a configmap is used
@@ -79,8 +79,8 @@ It is written in Go, which is a trending programming language made by Google.
 It has lots of features, a clean user interface, and has the support of a big company in the IT industry behind it.
 This dashboard runs locally, which means you do not need to install it on your cluster, unlike the official Kubernetes dashboard.
 
-Installing and accessing the dashboard is very straight-forward; it is as easy as running an install command (on Mac, I used Homebrew) and then running the `octant` command from your terminal.
-Once it's running, you will find that the navigation is simple. I didn't need to look around and search a lot to find what I need.
+Installing and accessing the dashboard is very straight-forward; it is as easy as running an install command (on Mac, we used Homebrew) and then running the `octant` command from your terminal.
+Once it's running, you will find that the navigation is simple. We didn't need to look around and search a lot to find what we need.
 
 You are greeted by the application with a nice and well-ordered summary of your cluster resources.
 Navigating through the dashboard feels very comfortable and swift. They offer both a dark and light theme, which you will be able to see down below.
@@ -96,7 +96,7 @@ Although this requires knowledge of Go and their plugin system, you can customiz
 For example, there is a [Helm plugin](https://github.com/bloodorangeio/octant-helm){:target="_blank" rel="noopener noreferrer"} available and Jenkins X has a repository of Octant [plugins](https://github.com/jenkins-x/octant-jx){:target="_blank" rel="noopener noreferrer"}.
 
 If you are a fan of web dashboards, then you should give Octant a try. Once you start to work with it, you will feel that it has a lot of potential. 
-If you do prefer something more natively and working in a separate application window, then I suggest you look further and read more in this blog post.
+If you do prefer something more natively and working in a separate application window, then we suggest you to continue reading this blog post.
 
 <img alt="Octant slideshow" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/octant.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 <p style="text-align: center; font-style: italic;">Octant slideshow</p>
@@ -108,8 +108,8 @@ It was created by Kontena Inc and later [sold to Mirantis](https://techcrunch.co
 
 When first starting Lens, it immediately feels very easy to use.
 Adding a cluster can be done by hitting the `+` and selecting a cluster from the dropdown.
-Lens leverages the contents of the Kubeconfig it finds on the system to discover and authenticate with clusters.
-This way no additional magic is needed to get started.
+Lens leverages the contents of the `kubeconfig` it finds on the system to discover and authenticate with clusters.
+This way, no additional magic is needed to get started.
 
 After connecting to a cluster, you're dropped into the cluster overview (see screenshot).
 This view provides you with an easy overview of the resources within the cluster and (super useful) provides a list of the last seen error events in the cluster.
@@ -118,12 +118,12 @@ Navigating to the list of pods provides an overview of all pods in the cluster.
 By clicking on a pod you're provided with the details of that pod (`kubectl describe`).
 From here, you can directly dive into the pod logs, shell into the pod, make edits or remove the pod from the cluster.
 
-Similar support is available for most common resources within the cluster: Statefulsets, deployment, configmaps, secrets, ...
+Similar support is available for most common resources within the cluster: statefulsets, deployments, configmaps, secrets, ...
 The workflow is always the following: open the type in the sidebar on the left, click on an object to get details.
 From that detailed view, certain actions can be performed on the object.
 
 As with most of the tools in this comparison, Lens is quite feature-rich.
-The most common types are support and common actions are available.
+The most common types are supported and common actions are available.
 But Lens has another trick up its sleeve which makes it different from the other tools: Metrics/Prometheus integration.
 
 The integration relies on a Prometheus instance being installed in the cluster that exposes the supported metrics.
@@ -161,11 +161,12 @@ There is a window that is available at all times where you can consult different
 When you minimize this window, you will notice a blue shell icon in the right bottom corner of Kubenav, which allows you to open your current logs or terminal again.
 
 The app is made in the Ionic Framework using Capacitator as cross-platform runtime, which is something you notice when you start using the app.
-I don't really like this feeling, as I prefer my clients to have a more native feeling, although I understand why the developers chose this approach.
+We personally don't really like this feeling, as we prefer our clients to have a more native feeling, although we understand why the developers chose this approach.
 
-The primary reason why I would use this application is because they support almost every resource combined with a GUI if you don't like using the terminal.
+The primary reason why we would use this application is because they support almost every resource combined with a GUI if you don't like using the terminal.
 However, I'm not a fan of the interface in general, as it seems to be messy and overwhelming at times when a resource provides you with a great deal of information in an uncategorized way.
-If you want to know every detail about your resource at all times, then this application is definitely for you. I didn't have a reason yet to use the mobile client, but I'm sure that depends on your use case.
+If you want to know every detail about your resource at all times, then this application is definitely for you.
+We didn't have a reason yet to use the mobile client, but we are sure it depends on your use case.
 
 <img alt="Kubenav slideshow" src="{{ '/img/2020-08-06-kubernetes-clients-comparison/kubenav.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 <p style="text-align: center; font-style: italic;">Kubenav slideshow</p>
@@ -177,10 +178,10 @@ It provides you with a clean, simplistic user interface that groups everything y
 Everything is self-explanatory and all the information you need is available within a few simple clicks.
 
 When you open the application for the first time, you are greeted with a prompt asking you for your e-mail address.
-Although this is probably for newsletters and updates, I wish this step was optional.
+Although this is probably for newsletters and updates, we wish this step was optional.
 
 You quickly notice that only basic functionality is available in the application, which makes sense as the client is still in early access at the time of writing.
-You can browse resources per namespace, go through application logs, read and edit YAML configuration, and check the current resources used by your deployment.
+You can browse resources per namespace, go through application logs, read and edit YAML configurations, and check the current resources used by your deployment.
 There is a metrics interface for the whole cluster as well, which supplies you with a structured and detailed view about your nodes.
 
 Since the application is still very young, it is lacking some functionality that you might expect or find in other clients.
@@ -193,10 +194,10 @@ However, if it has what you need, you will find that it will be very easy and st
 
 ## Conclusion
 
-Now the real question, which client should you use.
+Now the real question: which client should you use?
 As with any question about software, it depends.
 If you like to be lightning-fast and don't mind struggling through a steep learning curve, K9s might be a tool for you.
-It's the personal favorite of the authors this post, mainly because of it's shortcuts and lightning-fast load times.
+It's the personal favorite of the authors this post, mainly because of its shortcuts and lightning-fast load times.
 
 If you are using some software that has plugins available for Octant, definitely give it a try. One of the authors prefers Octant as non-terminal GUI.
 The [plugins](https://github.com/topics/octant-plugin){:target="_blank" rel="noopener noreferrer"} add a lot of value to the tool and might make it a very compelling option for your use-case.
@@ -205,7 +206,7 @@ If you often need to optimize your resource usage, want a client that just works
 This definitely hits the sweet spot between ease of use, stability, and available feature set.
 
 If you need cross-platform functionality (especially mobile support), then Kubenav is the application you want.
-If you want to get used to the UI and dive into this software, I would suggest trying it on all platforms.
+If you want to get used to the UI and dive into this software, we would suggest trying it on all platforms.
 
 While Infra is still in early access, you can still use it in a production environment. If you like a simplistic yet structured
 interface with not too many features (yet), then Infra is the right choice for you.
