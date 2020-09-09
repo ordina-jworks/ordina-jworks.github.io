@@ -21,7 +21,7 @@ comments: true
 [BEM](https://getbem.com/){:target="_blank" rel="noopener noreferrer"} is a methodology that helps developers to create reusable components and code sharing in front-end development.
 
 
-## What does BEM stand for?
+## What does it stand for?
 [BEM](https://getbem.com/){:target="_blank" rel="noopener noreferrer"} is an abbreviation as you could have guessed.
 It stands for the three core elements of the methodology: Block, Element and Modifier.
 
@@ -117,10 +117,27 @@ Otherwise if it should be styled the same as the other button and it just happen
 This CSS would never fall into any BEM category, as it is merely a standalone rule.
 
 # BEM combined with SASS
-Parent selector &
+Is the BEM methodology easy to combine with preprocessors like [SASS](https://sass-lang.com){:target="_blank" rel="noopener noreferrer"}?
+The answer is: 'Yes, absolutely!'
+
+With the help of SASS and its ['parent selector'](https://sass-lang.com/documentation/style-rules/parent-selector){:target="_blank" rel="noopener noreferrer"} we could transform the above CSS to the following code:
+
+```CSS
+    .image {
+        &--rounded {...}
+    }
+    .profile {
+        &__image {
+            &--small {...}
+        }
+    }
+```
+
+The parent selector of SASS makes it easy to add suffixes to the outer selector resulting in cleaner style sheets.
 
 # Resources and interesting reads
 BEM
 Why BEM in a nutshell
-Support for BEM modules SASS 3.3
+SASS
+BEM and SASS a perfect match
 ...
