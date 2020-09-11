@@ -22,10 +22,11 @@ comments: true
   * [Legacy Services in your Reactive Environment](#legacy-services-in-your-reactive-environment)
   * [Reactive Database Drivers](#reactive-database-drivers)
   * [R2DBC: 2 steps forward 1 step back](#r2dbc-2-steps-forward-1-step-back)
-    * [Recipe Service (Reactive R2DBC)](#recipe-service-reactive-r2dbc)
-    * [Ingredient Service (Reactive R2DBC)](#ingredient-service-reactive-r2dbc)
-    * [BestMenuEverGenerator Service (Reactive Rest)](#bestmenuevergenerator-service-reactive-rest)
-    * [Angular Webapp Consumer](#angular-webapp-consumer)
+* [End-to-end Reactive example](#end-to-end-reactive-example)
+  * [Recipe Service (Reactive R2DBC)](#recipe-service-reactive-r2dbc)
+  * [Ingredient Service (Reactive R2DBC)](#ingredient-service-reactive-r2dbc)
+  * [BestMenuEverGenerator Service (Reactive Rest)](#bestmenuevergenerator-service-reactive-rest)
+  * [Angular Webapp Consumer](#angular-webapp-consumer)
 * [Conclusion](#conclusion)
 
 
@@ -299,7 +300,7 @@ This way, you can still partly have a reactive setup and maybe when these servic
 There have been supporting libraries for Reactive NoSQL for a while, which can retrieve data from the database in a reactive manner. 
 Which means they start returning data as the database is querying, and not when the entire database has been queried. So you are good to go. 
 But, with Relational databases (which you are probably using as well), there weren’t any in Spring until recently. 
-Before, you could wrap your database response in Flux and Mono wrappers as soon as possible when calling your database, but if these databases are the major sources of your data and not just a small portion, it kind of ruins the appeal and benefit. 
+Before, you could wrap your database response in `Flux` and `Mono` wrappers as soon as possible when calling your database, but if these databases are the major sources of your data and not just a small portion, it kind of ruins the appeal and benefit. 
 
 ### R2DBC: 2 steps forward 1 step back
 
@@ -308,7 +309,14 @@ R2DBC stands for **Reactive Relational DataBase Connectivity**. Bear in mind tha
 For now, it is not yet capable of mapping relations (eg: `@OneToMany`, `@ManyToOne`, etc). 
 You would have to manage this yourself. However, with this driver, we can query data as streams.
 
-#### Recipe Service (Reactive R2DBC)
+## End-to-end Reactive example
+
+We've learned about WebClient, Reactive streams and R2DBC. Let's use these in an example to really see how it works. 
+We are going to create a 2 microservices with a R2DBC connecting to MySQL databases and a Rest API. 
+Then we'll create another microservices which consumes both of these Rest API's. 
+Finally, an Angular frontend that consumes that microservice to display the data.
+
+### Recipe Service (Reactive R2DBC)
 
 Let’s dive into our Recipe Rest service and see how we can create a reactive rest service. 
 We add the following dependencies.
@@ -406,7 +414,7 @@ When we `cURL -N` our Recipe service, it displays a random recipe every second (
 <img alt="curl recipe service" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/curl-recipe-service.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 
-#### Ingredient Service (Reactive R2DBC)
+### Ingredient Service (Reactive R2DBC)
 
 We create another microservice Ingredient Service, which is similar to our Recipe Service, but queries an ingredient database that provides us a stream of Ingredients in a random order.
 
@@ -441,7 +449,7 @@ public class IngredientController {
 ```
 
 
-#### BestMenuEverGenerator Service (Reactive Rest)
+### BestMenuEverGenerator Service (Reactive Rest)
 
 Our BestMenuEverGenerator service is going to put together our menu for a given amount of days. 
 What makes our BestMenuEverGenerator the best, is because it adds a random special ingredient to every recipe. 
@@ -483,7 +491,7 @@ public class MenuReactiveController {
 }
 ```
 
-#### Angular Webapp Consumer
+### Angular Webapp Consumer
 
 I have built a simple Angular web application, which consumes our BestMenuEverGenerator service. 
 
