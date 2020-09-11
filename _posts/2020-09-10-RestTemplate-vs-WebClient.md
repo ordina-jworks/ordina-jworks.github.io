@@ -495,7 +495,7 @@ public class MenuReactiveController {
 
 I have built a simple Angular web application, which consumes our BestMenuEverGenerator service. 
 
-<img alt="curl recipe service" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/recipe-webapp.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+<img alt="recipe web application" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/recipe-webapp.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 
  Instead of using a `HttpClient`, I use an `EventSource` to call our service. 
@@ -545,7 +545,7 @@ export class RecipesComponent implements OnInit {
  The delay of 1 second we added in the Recipe service earlier offers us a good visualization of the data passing through the stream. 
  We immediately receive each Recipe with its special Ingredient and see it in the webpage when it arrives, even if the rest of the data has not even been processed in the controller.
 
-<img alt="curl recipe service" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/recipes-streaming.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
+<img alt="recipes streaming" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/recipes-streaming.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 
 ## Conclusion
