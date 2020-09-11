@@ -10,6 +10,24 @@ comments: true
 
 ## Table of Contents
 
+* [Introduction](#introduction)
+* [Comparison of RestTemplate and WebClient](#comparison-of-resttemplate-and-webclient)
+  * [RestTemplate](#resttemplate)
+  * [WebClient](#webclient)
+  * [Comparison Conclusion](#comparison-conclusion)
+    * [RestTemplate Summary](#resttemplate-summary)
+    * [WebClient Summary](#webclient-summary)
+* [Reactive Approach with WebClient](#reactive-approach-with-webclient)
+  * [Introduction to Reactive Streams](#introduction-to-reactive-streams)
+  * [Legacy Services in your Reactive Environment](#legacy-services-in-your-reactive-environment)
+  * [Reactive Database Drivers](#reactive-database-drivers)
+  * [R2DBC: 2 steps forward 1 step back](#r2dbc-2-steps-forward-1-step-back)
+    * [Recipe Service (Reactive R2DBC)](#recipe-service-reactive-r2dbc)
+    * [Ingredient Service (Reactive R2DBC)](#ingredient-service-reactive-r2dbc)
+    * [BestMenuEverGenerator Service (Reactive Rest)](#bestmenuevergenerator-service-reactive-rest)
+    * [Angular Webapp Consumer](#angular-webapp-consumer)
+* [Conclusion](#conclusion)
+
 
 ## Introduction
 
@@ -225,13 +243,13 @@ If you are working in legacy Spring (< 5.0) applications, you will have to upgra
 
 Let’s list both clients' properties to have a better overview.
 
-##### RestTemplate
+##### RestTemplate Summary
 * In maintenance mode since Spring 5.0
 * Synchronous (blocking)
 * In spring-boot-starter-web library
 * Built on Servlet stack
 
-##### WebClient
+##### WebClient Summary
 * Synchronous & asynchronous (non-blocking) capabilities
 * Reactive streaming
 * Mono and Flux: both implement CorePublisher which extends Publisher
@@ -290,7 +308,7 @@ R2DBC stands for **Reactive Relational DataBase Connectivity**. Bear in mind tha
 For now, it is not yet capable of mapping relations (eg: `@OneToMany`, `@ManyToOne`, etc). 
 You would have to manage this yourself. However, with this driver, we can query data as streams.
 
-#### Recipe Service
+#### Recipe Service (Reactive R2DBC)
 
 Let’s dive into our Recipe Rest service and see how we can create a reactive rest service. 
 We add the following dependencies.
@@ -388,7 +406,7 @@ When we `cURL -N` our Recipe service, it displays a random recipe every second (
 <img alt="curl recipe service" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/curl-recipe-service.gif' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 1000px;">
 
 
-#### Ingredient Service
+#### Ingredient Service (Reactive R2DBC)
 
 We create another microservice Ingredient Service, which is similar to our Recipe Service, but queries an ingredient database that provides us a stream of Ingredients in a random order.
 
@@ -423,7 +441,7 @@ public class IngredientController {
 ```
 
 
-#### BestMenuEverGenerator Service
+#### BestMenuEverGenerator Service (Reactive Rest)
 
 Our BestMenuEverGenerator service is going to put together our menu for a given amount of days. 
 What makes our BestMenuEverGenerator the best, is because it adds a random special ingredient to every recipe. 
