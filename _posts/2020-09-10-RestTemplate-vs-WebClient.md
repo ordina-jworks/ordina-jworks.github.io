@@ -87,7 +87,7 @@ public class RecipeRestTemplate {
 Now, let's move on to some example basic methods we can use on RestTemplate to communicate with our Recipe Rest service. 
 We apply CRUD operations, specify our return object's class, some parameters, body, header, etc. 
 
-````java
+```java
 public List<Recipe> getRecipes() {
     return restTemplate.exchange("/recipe", HttpMethod.GET, null, new ParameterizedTypeReference<List<Recipe>>() {})
             .getBody();
@@ -110,7 +110,7 @@ public Recipe getRecipeByTitle(String title) {
     requestParameters.put("title", title);
     return restTemplate.getForObject("/recipe", Recipe.class, requestParameters);
 }
-````
+```
 
 
 ### WebClient
@@ -492,6 +492,25 @@ I have built a simple Angular web application, which consumes our BestMenuEverGe
 
  Instead of using a `HttpClient`, I use an `EventSource` to call our service. 
  Every time an event is received, it is parsed and pushed onto the `Observable`. 
+ 
+ ```typescript
+getMenusForGivenAmountOfDays(amountOfDays: number): Observable<Menu> {
+    return new Observable<Menu>(menuSubscriber => {
+      const eventSource = new EventSource('http://localhost:8081/menu?amountOfDays=' + amountOfDays);
+      eventSource.addEventListener('message', (event: any) => {
+        menuSubscriber.next(event.data !== null ? JSON.parse(event.data) : event.data);
+      });
+      eventSource.onerror = () => {
+        eventSource.close();
+        menuSubscriber.complete();
+      };
+    });
+}
+```
+ 
+ We enter the amount of days we want to retrieve a menu for and when we push the button, the following method is triggered. 
+ It subscribes the `Observable` we created in the previous example from the `EventSource`. 
+ We push each element in an array which is displayed on our webpage.
  
  ```typescript
 export class RecipesComponent implements OnInit {
