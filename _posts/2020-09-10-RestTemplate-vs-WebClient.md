@@ -495,7 +495,7 @@ public class MenuReactiveController {
 
 I have built a simple Angular web application, which consumes our BestMenuEverGenerator service. 
 
-<img alt="recipe web application" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/recipe-webapp.png' | prepend: site.baseurl }}" class="image left" style="margin:0px auto; max-width: 400px;">
+<img alt="recipe web application" src="{{ '/img/2020-09-10-resttemplate-vs-webclient/recipe-webapp.png' | prepend: site.baseurl }}" class="image fit" style="max-width: 400px;">
 
 
  Instead of using a `HttpClient`, I use an `EventSource` to call our service. 
