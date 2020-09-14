@@ -2,8 +2,8 @@
 layout: post
 authors: [michael_dewree]
 title: 'Scaling CSS with BEM'
-# image:
-tags: [BEM, CSS, DESIGN, FRONTEND, CDD]
+image: /img/BEM.jpeg
+tags: [BEM, CSS, DESIGN, FRONTEND, CDD, FRONTEND ARCHITECTURE]
 category: Frontend
 comments: true
 ---
@@ -18,7 +18,7 @@ comments: true
 # What is BEM?
 [BEM](https://getbem.com/){:target="_blank" rel="noopener noreferrer"} is a methodology that helps developers to create reusable components and code sharing in front-end development.
 
-[BEM](https://getbem.com/){:target="_blank" rel="noopener noreferrer"} is an abbreviation as you could have guessed.
+BEM is an abbreviation as you could have guessed.
 It stands for the three core elements of the methodology: Block, Element and Modifier.
 
 Blocks are standalone entities that are meaningful on its own.
@@ -114,7 +114,7 @@ If we would add two buttons to the example above like so:
         <button class="profile__button">Profile button</button>
     </div>
 ```
-Should the second button be styled differently because it lives inside the profile block you SHOULD use BEM notation.
+If the second button should be styled differently because it lives inside the profile block you SHOULD use BEM notation.
 Otherwise if it should be styled the same as the other button and it just happens to live in profile you definitely DO NOT need BEM notation there.
 
 ```CSS
@@ -163,7 +163,7 @@ You want to be avoiding CSS combinators like this:
 Yes and no.
 
 First of all BEM was created to make large scale style sheets easier to scale, read et cetera.
-It avoids class name collisions and the quick fixex with '!important'.
+It avoids class name collisions and the quick fixes with '!important'.
 
 When you are working component based, you can make use of Shadow DOM to make the styles encapsulated in that component.
 This prevents them from affecting outer elements.
@@ -223,7 +223,11 @@ This counts for any language, including CSS.
 
 # Resources and interesting reads
 [BEM](https://getbem.com/){:target="_blank" rel="noopener noreferrer"}
+
 [SASS](https://sass-lang.com){:target="_blank" rel="noopener noreferrer"}
+
 [BEM and SASS a perfect match](https://medium.com/@andrew_barnes/bem-and-sass-a-perfect-match-5e48d9bc3894){:target="_blank" rel="noopener noreferrer"}
+
 [What is the Shadow DOM](https://bitsofco.de/what-is-the-shadow-dom/){:target="_blank" rel="noopener noreferrer"}
+
 [CDD (Component Driven Development)](https://www.componentdriven.org/){:target="_blank" rel="noopener noreferrer"}
