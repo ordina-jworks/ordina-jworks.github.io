@@ -152,6 +152,7 @@ Inside of our backend code in java, we have an MQTTJobService which makes connec
 //GIF backend processing a job in intelliJ
 
 ### AWS IOT Greengrass
+//TODO
 #### Getting it to work
 #### Dockerized app 
 
@@ -187,11 +188,26 @@ To get an exact copy of our H2 database, we made a syncing tool on our RPI-backe
 When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website. This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.
 
 ### Angular as frontend framework
-Any framework would've worked to accomplish what we were trying to do, which is a simple webapp 
+Any framework would've worked to accomplish what we were trying to do, which is a simple webapp to communicate with our RPI. 
 
 #### AWS Amplify
+The open-source Amplify Framework provides the following products to build fullstack iOS, Android, Flutter, Web, and React Native apps:
+- Amplify CLI - Configure all the services needed to power your backend through a simple command line interface.
+- Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.
+- Amplify UI Components - UI libraries for React, React Native, Angular, Ionic and Vue.
+
+For our project we only used the libraries and UI components from Amplify. The backend we needed for our webapp is powered by the Serverless framework, on which we elaborate a bit further down the blogpost.
 
 ##### AWS Cognito
+For the actual signing-in, signing-up and Access control we used [AWS Cognito](https://aws.amazon.com/cognito/), which provides us a complete service for Authentication & Authorization. 
+
+A few of the benefits of using this AWS service :
+- Secure and scalable user directory, it can easily scale up to hundreds of millions of users
+- Amazon Cognito provides us solutions to control access to backend resources from our app. You can define roles and map users to different roles so your app can access only the resources that are authorized for each user.
+- Easy integration with our app
+
+###### User-pool and Identity-pool
+//TODO
 
 #### Ghela-alert Webapp
 ##### Dashboard view
