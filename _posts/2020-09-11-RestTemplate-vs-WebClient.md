@@ -85,7 +85,7 @@ public class RecipeRestTemplate {
 }
 ```
 
-Now, let's move on to some example basic methods we can use on RestTemplate to communicate with our Recipe Rest service. 
+Now, let's move on to some example basic methods we can use on the RestTemplate class to communicate with our Recipe Rest service. 
 We apply CRUD operations, specify our return object's class, some parameters, body, header, etc. 
 
 ```java
