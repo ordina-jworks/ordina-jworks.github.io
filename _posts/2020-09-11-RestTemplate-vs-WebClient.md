@@ -68,7 +68,7 @@ public class RestTemplateConfig {
 ```
 
 We can now inject a builder in our service and build our RestTemplate with a base URL. 
-With this builder we can also configure things like maximum data size, message converters for SOAP, etc.
+With this builder we can also configure things like: maximum data size, message converters for SOAP, etc.
 
 ```java
 @Service
