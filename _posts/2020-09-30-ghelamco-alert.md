@@ -51,14 +51,14 @@ On each Event we generate a a couple of standard **Alerts**, based on the **Even
 
 #### WebScraper
 We have a scheduled service in our spring-app, which is triggerd every hour and checks the website of KAA Gent for the up to date fixtures of the game. An easy approach to scraping a website is using X-Path with a library like [htmlunit](https://https://htmlunit.sourceforge.io/). In our application I fetch every game from the website, filter them on home games, attach Alerts to it and save it via with Spring data into our H2-database.
-Every time we scan the website, we compare the scraped data with the data we already had. Games can get updated on the website, and our app will recognize it and update his records in the db.
+Every time we scan the website, we compare the scraped data with the data we already had. Games can get updated on the website, and our app will recognize it and update his records in the database.
 
 #### H2 database
-Since one of the prerequisites is that the RPI should be able to function on his own, we need to use a database which is located locally, on te RPI. I we would use a remote database then we can't get any info when the RPI, isn't connected to a network and thus not alarming our people.
+Since one of the prerequisites is that the RPI should be able to function on his own, we need to use a database which is located locally, on te RPI. I we would use a remote database then we can't get any info when the RPI isn't connected to a network and thus not alarming our people.
 We chose to use H2-database because its an SQL database which is easy to set up for local use.
 Simply add H2-dependency to your project
 //FOTO pom.xml
-And set some parameters in your properties file
+And set the required parameters in your properties file
 //FOTO Application.properties
 
 #### Metrics
@@ -85,18 +85,78 @@ This is specificaly handy if you want to visualise the data coming from you app 
 
 
 #### Connecting our RPI to the cloud
+
 ##### AWS IoT
-The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine.
 
-###### certificates
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="40%" target="_blank" class="image fit">
+</div>
+
+The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations
+
+###### Authentication: certificates
 When registering "a thing" on AWS IoT, it generates some certificates for us. These are our credentials when we try to communicate with AWS IoT to access our "thing".
-When we try to make calls to our device via the SDK we need to present these certificates when we create the connection. To make developing on our laptop and testing our JAR on the RPI not impossible, we had to generate certificates for each device that wanted to communicate with our RPI. Using the same certificate on multiple devices is strongly not recommended.
+When we try to make calls to our device via the SDK we need to present these certificates when we create the connection. 
 
-###### MQTT protocol over HTTP
+* certificate file
+* private Key
+* Root CA
 
-### Dockerized app 
+To make development on our laptop and testing our JAR on the RPI not impossible, we had to generate certificates for each device that wanted to communicate with our RPI. Using the same certificate on multiple devices is causing unwanted behaviour, like connection interupputions, which is strongly not recommended.
 
-### AWS IOT Greengrass
+//FOTO certificates
+
+###### Authorization: policies
+After creating our certificates, we need to handle the autorization part, which we do by adding some policies to our certificate. This will indicate to AWS IoT who is connected, when presenting our certificates on connect and now AWS IoT also knows what services we can access within the cloud. 
+An example of such a policy: 
+
+// FOTO policy
+
+We define which services we want to access to, like "iot:Publish", "iot:Subscribe", "iot:GetThingShadow", "iot:UpdateThingShadow", "iot:DeleteThingShadow" and then we can use these from our device.
+
+This system of generating certificates and coupling policies is a very secure and easy way of working with these devices "on the edge". 
+
+###### jobs
+AWS IoT jobs are used to define a set of remote operations that are sent to and executed by our RPI. But this doesn't have to be "only our RPI". When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These can be software updates, reboot commands, rotate certificates,... Anything you want really! 
+
+In our case we use jobs for a multitude of processes:
+- updating our backend app - over the air
+- Creating new Events
+- Snoozing and updating alerts
+
+The basics to create a job are not so difficult:
+1. create a job
+2. add a job-document (JSON-file) which describes what the job is about 
+3. push job onto queue to get processed
+
+At the start of my project I created a way to update our spring application by writing some custom code which involves running a whole load of Linux commands to: create new folders on the RPI, downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service), running some commands and scripts to enable a new daemon (service) process on the RPI and then deleting the old version... It worked, but it looked.. meh! :)
+Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for use, without the dodgy custom code.
+
+###### MQTT protocol
+When working with AWS IoT we have basically 2 choices: work wit HTTP requests or use MQTT.
+So why would we choose MQTT over the more familiar HTTP web services? Because this request and response pattern does have some severe limitations:
+
+* HTTP is a synchronous protocol. The client waits for the server to respond. That is a requirement for web browsers, but it comes at the cost of poor scalability. In the world of IoT, the large number of devices and most likely an unreliable / high latency network have made synchronous communication problematic. An asynchronous messaging protocol is much more suitable for IoT applications. The sensors can send in readings, and let the network figure out the optimal path and timing for delivery to its destination devices and services.
+* HTTP is one-way. The client must initiate the connection. In an IoT application, the devices or sensors are typically clients, which means that they cannot passively receive commands from the network.
+* HTTP is a 1-1 protocol. The client makes a request, and the server responds. It is difficult and expensive to broadcast a message to all devices on the network, which is a common use case in IoT applications.
+* HTTP is a heavy weight protocol with many headers and rules. It is not suitable for constrained networks.
+
+MQTT on the otherhand defines two types of entities in the network: a message broker (AWS IoT) and a number of clients (our edge devices). The broker is a server that receives all messages from the clients and then routes those messages to relevant destination clients. A client is anything that can interact with the broker to send and receive messages. A client is in our case the RPI but it could also be an IoT sensor in the field or an application in a data center that processes IoT data.
+
+1. The client connects to the broker. It can subscribe to any message “topic” in the broker.
+2. The client publishes messages under a topic by sending the message and topic to the broker.
+3. The broker then forwards the message to all clients that subscribe to that topic.
+
+Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS Iot by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics. Every 30 seconds we will read these topics to see if there are any new jobs to be processed.
+
+//GIF backend processing a job in intelliJ
+
+#### AWS IOT Greengrass
+##### Getting it to work
+##### Dockerized app 
+
+#### CICD pipeline Backend
+
 
 ## Frontend Webapp
 
