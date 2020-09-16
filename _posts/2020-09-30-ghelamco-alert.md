@@ -156,7 +156,25 @@ Inside of our backend code in java, we have an MQTTJobService which makes connec
 ##### Dockerized app 
 
 #### CICD pipeline Backend
+To make our project completly professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.
+Since we used Azure-devops for our devops practices, we build the pipeline here. 
 
+//FOTO azure devops
+
+The pipeline goes through a pletora of steps:
+1. We run the pipeline on a Linux agent
+2. We use Maven cache to speed up the building process
+3. We build our JAR file
+4. We are using [AWS SSM - parameter store]() to safely store our config-file and certificates for the RPI. In this step we run some custom scripts to create the folders where these get installed, and to fetch them from the parameter store. 
+5. To have access to our GPIO pins from inside our docker container, we need install wiringPi inside our docker image, and run it as a priveleged container.
+6. We create the docker image and push it into [AWS ECR - Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
+7. Whilst creating this docker image we also create the docker-compose.yml file which we will upload to our AWS S3 bucket, named: **"ghelamco-rpi-releases"**.
+8. as the last step we use the "greengrass create-deployment" cli command to alert our RPI of the new job to execute, which is downloading the docker-image, docker-compose.yml file and spin up our container!
+9. In our docker-compose.yml we define how this container should be ran on the device. We run it privileged to access our RPI-GPIO pins via wiringPi, we mount our H2 database and our AWS Credentials, which are located on the filesystem of the RPI. 
+
+This whole pipeline makes sure that whenever we commit to the master branch, that tests are being run, a JAR file gets build, config files get securely fetched, libraries get added, a docker image is being build, we notify the RPI of the new job and execute it.
+
+Executing the job means, killing the old docker image and running the new one, which is our complete cycle.
 
 ## Frontend Webapp
 
