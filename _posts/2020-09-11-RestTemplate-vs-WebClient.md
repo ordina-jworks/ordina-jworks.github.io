@@ -44,7 +44,7 @@ First off, let us assume we have a Recipe Rest service which we will consume in 
 ### RestTemplate
 
 RestTemplate provides a synchronous way of consuming Rest services, which means it will block the thread until it receives a response. 
-RestTemplate is deprecated since Spring 5 and so it is not really that future proof. 
+RestTemplate is deprecated since Spring 5 which means it's not really that future proof. 
 
 First, we create a Spring Boot project with the `spring-boot-starter-web` dependency. 
 
