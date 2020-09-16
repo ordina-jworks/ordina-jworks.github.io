@@ -54,7 +54,7 @@ We have a scheduled service in our spring-app, which is triggerd every hour and 
 Every time we scan the website, we compare the scraped data with the data we already had. Games can get updated on the website, and our app will recognize it and update his records in the database.
 
 #### H2 database
-Since one of the prerequisites is that the RPI should be able to function on his own, we need to use a database which is located locally, on te RPI. I we would use a remote database then we can't get any info when the RPI isn't connected to a network and thus not alarming our people.
+Since one of the prerequisites is that the RPI should be able to function on his own, we need to use a database which is located locally, on te RPI. If we would use a remote database then we can't get any info when the RPI isn't connected to a network and thus not alarming our people.
 We chose to use H2-database because its an SQL database which is easy to set up for local use.
 Simply add H2-dependency to your project
 //FOTO pom.xml
@@ -73,14 +73,14 @@ We gather this data for 5 minutes in our RPI and then we send this to AWS Cloudw
 This metric data gets send to AWS Cloudwatch where can set up any dashboard we want with our data.
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Metrics" src="/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG" width="auto" height="40%" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Metrics" src="/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG" width="auto" height="100%" target="_blank" class="image fit">
 </div>
 
 
 This is specificaly handy if you want to visualise the data coming from you app but also if you want to be notified whenever the RPI has not sent a heartbeat for 3 times. Whenever this happens AWS Cloudwatch generates an alarm state and send us an email about the RPI not being able to connect to the internet anymore.
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG" width="auto" height="40%" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG" width="auto" height="100%" target="_blank" class="image fit">
 </div>
 
 
@@ -89,7 +89,7 @@ This is specificaly handy if you want to visualise the data coming from you app 
 ##### AWS IoT
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="40%" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="100%" target="_blank" class="image fit">
 </div>
 
 The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations
@@ -221,7 +221,7 @@ Here I'll go over all the features of our Webapp once we get access to the Dashb
 
 ##### Dashboard view
 On the dashboard view we can see which events are coming up next, when we click on them we also get to see all the alerts which are set.
-From here we can update alert times or we can snooze them. BUT! They way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case. 
+From here we can update alert times or we can snooze them. BUT! The way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case. 
 
 //FOTO dashboard-view-webapp
 
@@ -229,7 +229,7 @@ When clicking on snooze or save, we create a job for our RPI. Just like deployin
 
 
 ##### Create Custom event
-On this tab we can create our own custom events. The way this works is identical as snoozing and updating an alert on the dashboard view. We also create a job which gets executed as described in the next section.
+On this tab we can create our own custom events. The way this works is identical as snoozing and updating an alert on the dashboard view. We also create a job which gets executed, as described in the next section.
 
 //FOTO custom-event-webapp
 
@@ -250,7 +250,7 @@ For updating an alert or creating a custom game, the above would be the same exe
 //FOTO different jobdocuments
 
 ##### Job overview
-In this view the API will send a GET request to our AWS API on the endpoint /job. The lambda function which is coupled here, will read the ghela-jobs dynamo table, and will list all jobs, of whom the status is not yet "COMPLETED". The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.
+In this view the API will send a GET request to our AWS API on the endpoint "/job". The lambda function which is coupled here, will read the ghela-jobs dynamo table, and will list all jobs, of whom the status is not yet "COMPLETED". The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.
 
 Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely. We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda function.
 
@@ -258,10 +258,17 @@ Important note: When our RPI is not connected to the internet, these jobs will n
 
 ##### Metrics
 On this tab we can see the status of the RPI backend as a graph. Remember the Metrics we talked about above? Via this API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
+With this graph we can easily see if the RPI is still conected to the internet.
 
 //Foto metrics
 
+#### CICD pipeline Frontend
+
 ### Serverless as backend framework
+
+#### Why do we even use serverless?
+
+#### CICD pipeline Serverless
 
 
 
