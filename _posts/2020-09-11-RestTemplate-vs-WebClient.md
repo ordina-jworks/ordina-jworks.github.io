@@ -493,7 +493,7 @@ public class MenuReactiveController {
 
 ### Angular Webapp Consumer
 
-I have built a simple Angular web application, which consumes our BestMenuEverGenerator service. 
+I built a simple Angular web application, which consumes our BestMenuEverGenerator service. 
 
 <img alt="recipe web application" src="{{ '/img/2020-09-11-resttemplate-vs-webclient/recipe-webapp.png' | prepend: site.baseurl }}" class="image fit" style="max-width: 400px;">
 
