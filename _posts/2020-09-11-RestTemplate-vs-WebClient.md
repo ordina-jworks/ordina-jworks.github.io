@@ -237,7 +237,7 @@ public List<Recipe> getRecipes() {
 
 ### Comparison Conclusion
 
-So, we have learned that RestTemplate is in maintenance mode and probably will not be supported in future versions. 
+We have learned that RestTemplate is in maintenance mode and probably will not be supported in future versions. 
 Even on the official Spring documentation, they advise to use WebClient instead. WebClient can basically do what RestTemplate does, making synchronous blocking calls. 
 But it also has asynchronous capabilities, which makes it interesting. It has a functional way of programming, which makes it easy to read as well. 
 If you are working in legacy Spring (< 5.0) applications, you will have to upgrade to Spring 5.0 to be able to use WebClient.
