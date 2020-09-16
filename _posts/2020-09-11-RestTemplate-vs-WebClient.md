@@ -268,7 +268,7 @@ Next, we will look more into the WebClient’s reactive streaming capabilities.
 
 Reactive streaming works a bit different under the hood than traditional request-response communication. 
 Data only passes through these streams when we block or subscribe them. Calling one of these methods we saw earlier, only creates a connection to the stream. 
-It is not until there is a 'subscription' or a 'block', that data passes through the entire stream. 
+Data only starts passing through the entire stream when there is a 'subscription' or 'block'.  
 **Note that you should never block a reactive stream if you want your services to be reactive end-to-end.**
  
 In the next sections, we will see how we can consume it.
