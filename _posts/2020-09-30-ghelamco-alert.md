@@ -153,8 +153,12 @@ Inside of our backend code in java, we have an MQTTJobService which makes connec
 
 ### AWS IOT Greengrass
 //TODO
+
 #### Getting it to work
+//TODO
+
 #### Dockerized app 
+//TODO
 
 #### CICD pipeline Backend
 To make our project completly professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.
@@ -188,7 +192,7 @@ To get an exact copy of our H2 database, we made a syncing tool on our RPI-backe
 When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website. This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.
 
 ### Angular as frontend framework
-Any framework would've worked to accomplish what we were trying to do, which is a simple webapp to communicate with our RPI. 
+Any framework would've worked to accomplish what we were trying to do, which is a simple webapp to communicate with our RPI. I opted for Angular, since I had already played around with it before. 
 
 #### AWS Amplify
 The open-source Amplify Framework provides the following products to build fullstack iOS, Android, Flutter, Web, and React Native apps:
@@ -206,14 +210,56 @@ A few of the benefits of using this AWS service :
 - Amazon Cognito provides us solutions to control access to backend resources from our app. You can define roles and map users to different roles so your app can access only the resources that are authorized for each user.
 - Easy integration with our app
 
+//FOTO: Loginscreen webapp
+
 ###### User-pool and Identity-pool
 //TODO
 
 #### Ghela-alert Webapp
+Here I'll go over all the features of our Webapp once we get access to the Dashboard.
+***We also talk about AWS API and lambda functions in this part, but we'll explain them more thoroughly in the last section about our "serverless backend".***
+
 ##### Dashboard view
+On the dashboard view we can see which events are coming up next, when we click on them we also get to see all the alerts which are set.
+From here we can update alert times or we can snooze them. BUT! They way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case. 
+
+//FOTO dashboard-view-webapp
+
+When clicking on snooze or save, we create a job for our RPI. Just like deploying a new Docker image onto the RPI, we use IoT Jobs to make our RPI execute custom tasks.
+
+
 ##### Create Custom event
+On this tab we can create our own custom events. The way this works is identical as snoozing and updating an alert on the dashboard view. We also create a job which gets executed as described in the next section.
+
+//FOTO custom-event-webapp
+
+##### Executing jobs on the RPI 
+
+An example of how such a cycle works for snoozing an alert :
+
+1. We click snooze
+2. We call our [AWS API](https://aws.amazon.com/api-gateway/) which has an endpoint "/alert/snooze".
+3. This endpoint invokes a [AWS Lambda function](https://aws.amazon.com/lambda/), which creates a job for the RPI and also inserts a row into another dynamo table (ghela-jobs), to register the jobs we create on the frontend.
+4. The RPI executes the job, meaning snoozing the alert
+5. The RPI synchronizes his H2 database with the Event dynamo table (ghela-events)
+
+For updating an alert or creating a custom game, the above would be the same exept: 
+- we call another endpoint. ex. "/event" or "/alert" 
+- the jobdocument that we create in our lambda function to send with our Job-creation request, will differ.
+
+//FOTO different jobdocuments
+
 ##### Job overview
+In this view the API will send a GET request to our AWS API on the endpoint /job. The lambda function which is coupled here, will read the ghela-jobs dynamo table, and will list all jobs, of whom the status is not yet "COMPLETED". The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.
+
+Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely. We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda function.
+
+//FOTO Jobs
+
 ##### Metrics
+On this tab we can see the status of the RPI backend as a graph. Remember the Metrics we talked about above? Via this API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
+
+//Foto metrics
 
 ### Serverless as backend framework
 
