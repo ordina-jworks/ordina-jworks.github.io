@@ -151,9 +151,9 @@ Inside of our backend code in java, we have an MQTTJobService which makes connec
 
 //GIF backend processing a job in intelliJ
 
-#### AWS IOT Greengrass
-##### Getting it to work
-##### Dockerized app 
+### AWS IOT Greengrass
+#### Getting it to work
+#### Dockerized app 
 
 #### CICD pipeline Backend
 To make our project completly professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.
@@ -161,7 +161,7 @@ Since we used Azure-devops for our devops practices, we build the pipeline here.
 
 //FOTO azure devops
 
-The pipeline goes through a pletora of steps:
+The pipeline goes through a multitude of steps:
 1. We run the pipeline on a Linux agent
 2. We use Maven cache to speed up the building process
 3. We build our JAR file
@@ -178,7 +178,28 @@ Executing the job means, killing the old docker image and running the new one, w
 
 ## Frontend Webapp
 
-## Serverless
+### Introduction
+To get some data about our Events on our webapp, we needed a way to connect to our H2 database on the RPI. Since we didn't want to expose any REST endpoints on our spring app we had to find another way to get the data.
+
+#### AWS DynamoDb
+To get an exact copy of our H2 database, we made a syncing tool on our RPI-backend which updates a remote DynamoDb.
+[AWS Dynamo](https://aws.amazon.com/dynamodb/) is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.
+When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website. This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.
+
+### Angular as frontend framework
+Any framework would've worked to accomplish what we were trying to do, which is a simple webapp 
+
+#### AWS Amplify
+
+##### AWS Cognito
+
+#### Ghela-alert Webapp
+##### Dashboard view
+##### Create Custom event
+##### Job overview
+##### Metrics
+
+### Serverless as backend framework
 
 
 
