@@ -463,7 +463,7 @@ public class Menu {
 ```
 
 We have a `RestController` that consumes both our services, Recipe and Ingredient. 
-Even though it calls **all** Recipes, it is **not** going to retrieve and load all recipes in memories, as would be the case in a non-reactive environment. 
+Even though it calls **all** Recipes, it is **not** going to retrieve and load all recipes in memory, as would be the case in a non-reactive environment. 
 However, it limits the number of objects it receives, before completing the stream. 
 The ´zipWith()` method creates a new stream containing Menu objects.
 
