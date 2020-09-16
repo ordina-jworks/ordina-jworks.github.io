@@ -73,14 +73,14 @@ We gather this data for 5 minutes in our RPI and then we send this to AWS Cloudw
 This metric data gets send to AWS Cloudwatch where can set up any dashboard we want with our data.
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Metrics" src="/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG" width="auto" height="100%" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Metrics" src="/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 
 This is specificaly handy if you want to visualise the data coming from you app but also if you want to be notified whenever the RPI has not sent a heartbeat for 3 times. Whenever this happens AWS Cloudwatch generates an alarm state and send us an email about the RPI not being able to connect to the internet anymore.
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG" width="auto" height="100%" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 
@@ -89,7 +89,7 @@ This is specificaly handy if you want to visualise the data coming from you app 
 ##### AWS IoT
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="100%" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations
@@ -195,12 +195,12 @@ When our RPI scrapes the website of KAA Gent, it looks at all the game events, c
 Any framework would've worked to accomplish what we were trying to do, which is a simple webapp to communicate with our RPI. I opted for Angular, since I had already played around with it before. 
 
 #### AWS Amplify
-The open-source Amplify Framework provides the following products to build fullstack iOS, Android, Flutter, Web, and React Native apps:
+The open-source Amplify Framework provides:
 - Amplify CLI - Configure all the services needed to power your backend through a simple command line interface.
 - Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.
 - Amplify UI Components - UI libraries for React, React Native, Angular, Ionic and Vue.
 
-For our project we only used the libraries and UI components from Amplify. The backend we needed for our webapp is powered by the Serverless framework, on which we elaborate a bit further down the blogpost.
+For our project we only used the libraries and UI components from Amplify for our Webapp. The backend we needed is powered by the Serverless framework, on which we'll elaborate a bit further down the blogpost.
 
 ##### AWS Cognito
 For the actual signing-in, signing-up and Access control we used [AWS Cognito](https://aws.amazon.com/cognito/), which provides us a complete service for Authentication & Authorization. 
@@ -218,6 +218,9 @@ A few of the benefits of using this AWS service :
 #### Ghela-alert Webapp
 Here I'll go over all the features of our Webapp once we get access to the Dashboard.
 ***We also talk about AWS API and lambda functions in this part, but we'll explain them more thoroughly in the last section about our "serverless backend".***
+
+##### Before all else
+
 
 ##### Dashboard view
 On the dashboard view we can see which events are coming up next, when we click on them we also get to see all the alerts which are set.
@@ -252,13 +255,13 @@ For updating an alert or creating a custom game, the above would be the same exe
 ##### Job overview
 In this view the API will send a GET request to our AWS API on the endpoint "/job". The lambda function which is coupled here, will read the ghela-jobs dynamo table, and will list all jobs, of whom the status is not yet "COMPLETED". The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.
 
-Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely. We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda function.
+Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely. We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.
 
 //FOTO Jobs
 
 ##### Metrics
 On this tab we can see the status of the RPI backend as a graph. Remember the Metrics we talked about above? Via this API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
-With this graph we can easily see if the RPI is still conected to the internet.
+On this graph we can easily see if the RPI is still connected to the internet.
 
 //Foto metrics
 
