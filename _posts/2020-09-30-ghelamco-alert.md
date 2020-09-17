@@ -27,7 +27,7 @@ So we came up with the **ghelamco alert** solution to let us know when a game wi
 
 The premise is pretty simple: we will run a Raspberry Pi device inside the office that is connected to an alarm.  
 On matchdays the RPI will turn on the light a couple hours before the game to warn our employees that they have to leave the parking on time.  
-We also created a web application that controls our RPI so we can snooze alerts, create custom alerts, sadd custom events, ...
+We also created a web application that controls our RPI so we can snooze alerts, create custom alerts, save custom events, ...
 
 ## Concept
 The assignment was to develop 3 things: an Iot module on the RPI, a backend in either java/spring or Typescript/node and a Frontend with either framework I liked.
@@ -79,6 +79,7 @@ This metric data gets send to AWS Cloudwatch where can set up any dashboard we w
 
 This is specificaly handy if you want to visualise the data coming from you app but also if you want to be notified whenever the RPI has not sent a heartbeat for 3 times. Whenever this happens AWS Cloudwatch generates an alarm state and send us an email about the RPI not being able to connect to the internet anymore.
 
+
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
@@ -95,7 +96,7 @@ This is specificaly handy if you want to visualise the data coming from you app 
 The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations
 
 ###### Authentication: certificates
-When registering "a thing" on AWS IoT, it generates some certificates for us. These are our credentials when we try to communicate with AWS IoT to access our "thing".
+When registering "a thing" on AWS IoT, it generates some important certificates for us. These are our credentials when we try to communicate with AWS IoT to access our "thing".
 When we try to make calls to our device via the SDK we need to present these certificates when we create the connection. 
 
 * certificate file
@@ -191,8 +192,12 @@ To get an exact copy of our H2 database, we made a syncing tool on our RPI-backe
 [AWS Dynamo](https://aws.amazon.com/dynamodb/) is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.
 When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website. This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.
 
+#### Hosting our webapp
+If we make a webapp, then we need some kind of hosting service. In our case we used [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) again for our storage, for a domain name and DNS routing we used [AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) to access our app from: [ghelamco-alert.ordina-jworks.io](https://ghelamco-alert.ordina-jworks.io). Meanwhile we also used [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) to speed up our content delivery to anywhere in the world. CloudFront delivers our content through a worldwide network of data centers called edge locations. When a user requests content that we're serving with CloudFront, the user is routed to the edge location that provides the lowest latency.
+
 ### Angular as frontend framework
-Any framework would've worked to accomplish what we were trying to do, which is a simple webapp to communicate with our RPI. I opted for Angular, since I had already played around with it before. 
+Any framework would've worked to accomplish what we were trying to do, which is a simple webapp to communicate with our RPI. I opted for Angular, since I had already played around with it before.
+
 
 #### AWS Amplify
 The open-source Amplify Framework provides:
@@ -215,11 +220,11 @@ A few of the benefits of using this AWS service :
 ###### User-pool and Identity-pool
 //TODO
 
+##### aws-exports.js
+
 #### Ghela-alert Webapp
 Here I'll go over all the features of our Webapp once we get access to the Dashboard.
 ***We also talk about AWS API and lambda functions in this part, but we'll explain them more thoroughly in the last section about our "serverless backend".***
-
-##### Before all else
 
 
 ##### Dashboard view
@@ -266,6 +271,15 @@ On this graph we can easily see if the RPI is still connected to the internet.
 //Foto metrics
 
 #### CICD pipeline Frontend
+
+Since CICD pipelines were completly new to me when starting this project, Bas created the pipeline for our RPI-backend. For the frontend CICD pipeline he wanted me to create it. He still helped me, though, he let me think about how this pipeline would run, what steps were needed and let me create the azure-pipelines.yml .
+The process goes like this: 
+1. We build our pipeline on a linux machine
+2. Fetch our aws-exports.js from our parameterStore on [AWS SSM](), and replace it in our angular project. 
+3. Then we have some steps to build our project. Installing dependencies & building our app for production.
+4. We empty our S3 bucket where our Webapp gets saved
+5. Upload the newly compiled webapp to this S3 bucket
+6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated everywhere in the world, asap.
 
 ### Serverless as backend framework
 
