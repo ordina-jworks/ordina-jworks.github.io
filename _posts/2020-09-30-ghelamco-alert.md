@@ -343,7 +343,7 @@ Below an example of such a lambda, reading data from our Dynamodb (using the env
 in the last part we describe what our API endpoint should look like. 
 Serverless makes sure that a few services get configured: 
 - your API endpoint gets created
-- configured to use AWS IAM authentication upon calling it
+- configure our endpoint to use AWS IAM authentication upon calling it
 - your Lambda function gets attached to the endpoint
 - configure CORS 
 - define standard gateway responses (as described in our additional api-gateway-errors.yml file)
@@ -354,4 +354,27 @@ Serverless makes sure that a few services get configured:
 
 #### CICD pipeline Serverless
 
+//TODO
+
 ## Conclusions
+
+AS mentioned before, this internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.
+- I've had the chance to develop an application in Spring, with different databases.
+- learned how to properly test my code with unit and integration tests
+- learned how to use the java and node AWS SDKs
+- API's, connecting it all together..
+- Came in touch with a lot of linux, sharpening my commandline skills
+- developed an Angular app from start to finish
+- Learned about a lot about AWS. IAM, Iot Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, Cloudwatch, Cloudfront, lambdas, Route53, ...
+- CICD pipelines and their best practices in the industry
+
+I'm very thankful for being able to do this and having the chance to work with Bas on a real project. 
+
+He motivated me to always go the extra mile :)
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/bas-smile.png" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+He could destroy a day of hard work in a few sentences.. :)
+But he would always take the time to explain why, and how I should do it to make my solution comply with the industries best practices.
+Being able to have someone who makes you self-reflect on the work that you did, and takes his time to give you proper feedback, is the biggest asset to provide to an aspiring programmer.
