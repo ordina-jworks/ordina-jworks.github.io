@@ -3,7 +3,7 @@ layout: post
 authors: [kevin_govaerts, bas_moorkens]
 title: 'Ghelamco alert: '
 image: /img/2020-08-06-kubernetes-clients-comparison/banner.jpg
-tags: [iot, rpi, aws, serverless, api-gateway, s3, lambda, greengrass, docker]
+tags: [iot, rpi, aws, serverless, api-gateway, s3, lambda, route 53, cloudfront, greengrass, docker]
 category: Cloud
 comments: true
 ---
@@ -221,6 +221,7 @@ A few of the benefits of using this AWS service :
 //TODO
 
 ##### aws-exports.js
+Our amplify project generates a new file in the ./src folder of our project, an aws-exports.js, which contains all 
 
 #### Ghela-alert Webapp
 Here I'll go over all the features of our Webapp once we get access to the Dashboard.
@@ -277,15 +278,34 @@ The process goes like this:
 1. We build our pipeline on a linux machine
 2. Fetch our aws-exports.js from our parameterStore on [AWS SSM](), and replace it in our angular project. 
 3. Then we have some steps to build our project. Installing dependencies & building our app for production.
-4. We empty our S3 bucket where our Webapp gets saved
+4. We empty our S3 bucket where our webapp gets saved
 5. Upload the newly compiled webapp to this S3 bucket
-6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated everywhere in the world, asap.
+6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated in every datacenter, everywhere in the world. If we don't do this, our old version could be cached for up to 24h!
 
 ### Serverless as backend framework
+To get the backend for our webapp working we needed a few things to get up and running. 
+1. We also needed 2 [DynamoDB]() tables to put our events and jobs.
+2. Another thing we needed were a [Cognito UserPool]() and a Cognito [IdentityPool]() for the security aspect of our Frontend.
+3. An [AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) with all of our needed end-points configured and secured.
+4. [Lambda functions]() to make our endpoints perform the operations they were intended for, using the [AWS Node.js SDK](https://aws.amazon.com/sdk-for-node-js/)
+5. Roles and permissions to perform these operations inside of our Lambdas. (Connect and create jobs on AWS IoT, scan and put to our Dynamo tables, etc...)
+
 
 #### Why do we even use serverless?
+In the beginning we configured everything by hand, in the console, which took a lot of time since we need to figure our a lot of new things. Additionally, to touch on all important parts of this project we had to use the best practices and fairly new technologies, which needed a lot of manual configuration. Bas then later introduced me to the concept of [IaC or Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [the Serverless framework](https://www.serverless.com/), which made us able to configure the whole backend through a serverless.yml file.
+
+#### Serverless.yml
+The heart of our configuration.
+
+Inside this file, which could also be a JSON file or a Typescript file, we define everything we need for our backend to work.
+
+##### Functions
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+
+
 
 #### CICD pipeline Serverless
-
-
-
