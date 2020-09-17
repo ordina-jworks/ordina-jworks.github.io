@@ -83,19 +83,19 @@ We chose to use an H2-database because it's an SQL database which is easy to set
 
 Simply add H2-dependency to your project
 //FOTO pom.xml
-´		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-´
-And set the required parameters in your properties file
-//FOTO Application.properties
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-pom.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+And some configuration in app.properties
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-prop.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 #### Metrics
 
-Our application generates metrics so we have some data about whats going on inside our backend. This data is about snoozing-alerts, updating alerts, creating events and also a heartbeat which indicates that our RPI is still online and able to send beat.
-We gather this data for 5 minutes in our RPI and then we send this to AWS Cloudwatch, afterwhich we reset our data, and start collecting again.
+Our application generates metrics to provide us with some data about our backend. This data is about the amount of snoozing-alerts, updating alerts, creating events and also a heartbeat which indicates that our RPI is still online and able to send a beat.
+We gather this data for 5 minutes inside our backend code and then we send this to AWS Cloudwatch, afterwhich we reset our data, and start collecting again. This way we have a dashboard which gets update every 5 minutes.
 
 ##### AWS Cloudwatch
 This metric data gets send to AWS Cloudwatch where can set up any dashboard we want with our data.
@@ -121,7 +121,7 @@ This is specificaly handy if you want to visualise the data coming from you app 
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations
+The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations.
 
 ###### Authentication: certificates
 When registering "a thing" on AWS IoT, it generates some important certificates for us. These are our credentials when we try to communicate with AWS IoT to access our "thing".
@@ -131,34 +131,60 @@ When we try to make calls to our device via the SDK we need to present these cer
 * private Key
 * Root CA
 
-To make development on our laptop and testing our JAR on the RPI not impossible, we had to generate certificates for each device that wanted to communicate with our RPI. Using the same certificate on multiple devices is causing unwanted behaviour, like connection interupputions, which is strongly not recommended.
+Since these certificates get generates per thing registered, these should only be used for 1 device. When I developed the application I had to register another thing, namely my laptop. Connecting from the RPI and the laptop with the same certificates caused some unwanted behavior, like connection interupts, etc..
 
-//FOTO certificates
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/cert-aws-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 ###### Authorization: policies
-After creating our certificates, we need to handle the autorization part, which we do by adding some policies to our certificate. This will indicate to AWS IoT who is connected, when presenting our certificates on connect and now AWS IoT also knows what services we can access within the cloud. 
+After creating our certificates, we need to handle the autorization part, which we do by adding some policies to our certificate. This will indicate to AWS IoT who is connected. When presenting our certificates on connect, AWS IoT now also knows what services we can access within the cloud. 
+
 An example of such a policy: 
 
-// FOTO policy
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/aws-policy-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
-We define which services we want to access to, like "iot:Publish", "iot:Subscribe", "iot:GetThingShadow", "iot:UpdateThingShadow", "iot:DeleteThingShadow" and then we can use these from our device.
+We define which services we want to access like this:
+- "iot:Publish"
+- "iot:Subscribe
+- "iot:GetThingShadow"
+- "iot:UpdateThingShadow"
+- "iot:DeleteThingShadow" 
 
 This system of generating certificates and coupling policies is a very secure and easy way of working with these devices "on the edge". 
 
 ###### jobs
-AWS IoT jobs are used to define a set of remote operations that are sent to and executed by our RPI. But this doesn't have to be "only our RPI". When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These can be software updates, reboot commands, rotate certificates,... Anything you want really! 
+AWS IoT jobs are used to define a set of remote operations that are sent to and executed by our RPI. But this doesn't have to be "only our RPI". When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,... Anything we want really! 
 
 In our case we use jobs for a multitude of processes:
 - updating our backend app - over the air
 - Creating new Events
 - Snoozing and updating alerts
 
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/aws-iot-jobs.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
 The basics to create a job are not so difficult:
 1. create a job
 2. add a job-document (JSON-file) which describes what the job is about 
 3. push job onto queue to get processed
 
-At the start of my project I created a way to update our spring application by writing some custom code which involves running a whole load of Linux commands to: create new folders on the RPI, downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service), running some commands and scripts to enable a new daemon (service) process on the RPI and then deleting the old version... It worked, but it looked.. meh! :)
+Example of a job document: 
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/job-document.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+At the start of my project I created a way to update our spring application by writing some custom code which involves running a whole load of Linux commands to: 
+- create new folders on the RPI
+- downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service)
+- running some commands and scripts to enable a new daemon (service) process on the RPI
+- deleting the old version... 
+
+It worked, but it looked.. meh! :)
+
 Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for use, without the dodgy custom code.
 
 ###### MQTT protocol
