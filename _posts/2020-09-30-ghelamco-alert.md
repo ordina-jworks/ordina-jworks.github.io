@@ -300,11 +300,45 @@ The heart of our configuration.
 Inside this file, which could also be a JSON file or a Typescript file, we define everything we need for our backend to work.
 
 ##### Functions
+A Function is an AWS Lambda function. It's an independent unit of deployment, like a microservice. It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case list-events.
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
+Inside our function you can see that we declared a few things for our Lambda to work.
+
+##### AWS IAM Roles
+
+For allowing our Lambda functions to have fine-grained access to our AWS services, we need to define them in our serverless project.
+We did this with a seperate lamda-iam-roles.yml file which gets loaded into the serverless.yml file.
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-iamroles.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+##### AWS Dynamo tables
+we define an enviroment variable, our dynamo table name, which also gets further defined in the dynamodb-tables.yml.
+As you can see our 2 tables get created here as ghelaapi-serverless-dev-ghela-events and ghelaapi-serverless-dev-ghela-jobs.
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+##### AWS Lambda functions with AWS NodeJS SDK
+the handler serves like the entry point for our lambda source code, which we also define in our Serverless project. 
+Below an example of such a lambda, reading data from our Dynamodb (using the env. variable from our config) and returning it to the API.
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-lambda.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+##### AWS API GateWay
+in the last part we describe what our API endpoint should look like. Serverless makes sure that your endpoint gets created, configured to use AWS IAM authentication upon calling it, your Lambda function gets attached to it, but also CORS get configured and we can define standard gateway responses in our additional api-gateway-errors.yml file.
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 
 
