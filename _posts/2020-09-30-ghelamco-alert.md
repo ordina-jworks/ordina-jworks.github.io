@@ -30,8 +30,17 @@ On matchdays the RPI will turn on the light a couple hours before the game to wa
 We also created a web application that controls our RPI so we can snooze alerts, create custom alerts, save custom events, ...
 
 ## Concept
-The assignment was to develop 3 things: an Iot module on the RPI, a backend in either java/spring or Typescript/node and a Frontend with either framework I liked.
-For the duration of my internship I had Bas Moorkens as my mentor who came up with architecture of our service, as shown below. 
+I received my assignment from Fredrick Bousson, who was also my internship supervisor.
+It consisted of 3 things to develop: 
+1. an Iot module on the RPI, 
+2. a backend in either java/spring or Typescript/node 
+3. a frontend with either framework I liked.
+
+## Mentor
+For the duration of my internship I had Bas Moorkens as my mentor who came up with architecture of our service, as shown below.
+We tweaked a lot on this over the duration of my internship but this is the final architecture.
+
+We used over 20 services from AWS, which over the course if the Internship, made me develop a real intrest in everything that is AWS and cloud related. Once you get the hang of serverless, the speed of setting up infrastructure is absolutly mind-blowing!
 
 //TODO insert diagram of bigger picture
 
@@ -65,9 +74,6 @@ And set the required parameters in your properties file
 
 Our application generates metrics so we have some data about whats going on inside our backend. This data is about snoozing-alerts, updating alerts, creating events and also a heartbeat which indicates that our RPI is still online and able to send beat.
 We gather this data for 5 minutes in our RPI and then we send this to AWS Cloudwatch, afterwhich we reset our data, and start collecting again.
-
-
-
 
 ##### AWS Cloudwatch
 This metric data gets send to AWS Cloudwatch where can set up any dashboard we want with our data.
@@ -297,10 +303,10 @@ In the beginning we configured everything by hand, in the console, which took a 
 #### Serverless.yml
 The heart of our configuration.
 
-Inside this file, which could also be a JSON file or a Typescript file, we define everything we need for our backend to work.
+Inside this file, which could also be a JSON or a Typescript file, we define everything we need for our backend to work.
 
 ##### Functions
-A Function is an AWS Lambda function. It's an independent unit of deployment, like a microservice. It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case list-events.
+A Function is an AWS Lambda function. It's an independent unit of deployment, like a microservice. It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case: list-events.
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -311,15 +317,15 @@ Inside our function you can see that we declared a few things for our Lambda to 
 ##### AWS IAM Roles
 
 For allowing our Lambda functions to have fine-grained access to our AWS services, we need to define them in our serverless project.
-We did this with a seperate lamda-iam-roles.yml file which gets loaded into the serverless.yml file.
+We did this with a seperate lambda-iam-roles.yml file which gets loaded into the serverless.yml.
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-iamroles.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 ##### AWS Dynamo tables
-we define an enviroment variable, our dynamo table name, which also gets further defined in the dynamodb-tables.yml.
-As you can see our 2 tables get created here as ghelaapi-serverless-dev-ghela-events and ghelaapi-serverless-dev-ghela-jobs.
+We define an enviroment variable, our dynamo table name, which gets further defined in the dynamodb-tables.yml.
+As you can see, our 2 tables get created here as ghelaapi-serverless-dev-ghela-events and ghelaapi-serverless-dev-ghela-jobs.
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -333,13 +339,19 @@ Below an example of such a lambda, reading data from our Dynamodb (using the env
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-lambda.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-##### AWS API GateWay
-in the last part we describe what our API endpoint should look like. Serverless makes sure that your endpoint gets created, configured to use AWS IAM authentication upon calling it, your Lambda function gets attached to it, but also CORS get configured and we can define standard gateway responses in our additional api-gateway-errors.yml file.
+##### AWS API Gateway
+in the last part we describe what our API endpoint should look like. 
+Serverless makes sure that a few services get configured: 
+- your API endpoint gets created
+- configured to use AWS IAM authentication upon calling it
+- your Lambda function gets attached to the endpoint
+- configure CORS 
+- define standard gateway responses (as described in our additional api-gateway-errors.yml file)
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-
-
 #### CICD pipeline Serverless
+
+## Conclusions
