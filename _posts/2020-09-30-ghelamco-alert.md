@@ -370,11 +370,12 @@ AS mentioned before, this internship gave me such a big cover of all best practi
 
 I'm very thankful for being able to do this and having the chance to work with Bas on a real project. 
 
-He motivated me to always go the extra mile :)
+He always motivated me to go the extra mile !
+He could destroy a day of hard work in a few sentences.. :)
+
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/bas-smile.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-He could destroy a day of hard work in a few sentences.. :)
 But he would always take the time to explain why, and how I should do it to make my solution comply with the industries best practices.
 Being able to have someone who makes you self-reflect on the work that you did, and takes his time to give you proper feedback, is the biggest asset to provide to an aspiring programmer.
