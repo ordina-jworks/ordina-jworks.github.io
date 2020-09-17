@@ -25,9 +25,14 @@ If the parking lot isn't cleared in time, we risk fines up to 500 euros per car.
 Of course we do not want to spend our money on fines when instead we could be buying more pizzas.  
 So we came up with the **ghelamco alert** solution to let us know when a game will be taking place so that the people working in the Ghelamco offices can be warned in time.
 
-The premise is pretty simple: we will run a Raspberry Pi device inside the office that is connected to an alarm.  
-On matchdays the RPI will turn on the light a couple hours before the game to warn our employees that they have to leave the parking on time.  
+The premise is pretty simple: we will run a Raspberry Pi device inside the office that is connected to an alarm-light.  
+On matchdays the RPI will turn on the signal a couple hours before the game, warning our employees that they have to leave the parking in time.  
 We also created a web application that controls our RPI so we can snooze alerts, create custom alerts, save custom events, ...
+
+//TODO GIF Proof of working project
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 ## Concept
 I received my assignment from Fredrick Bousson, who was also my internship supervisor.
@@ -37,36 +42,53 @@ It consisted of 3 things to develop:
 3. a frontend with either framework I liked.
 
 ## Mentor
-For the duration of my internship I had Bas Moorkens as my mentor who came up with architecture of our service, as shown below.
-We tweaked a lot on this over the duration of my internship but this is the final architecture.
+For the duration of my internship I had Bas Moorkens as my mentor, who came up with architecture of our service, as shown below.
+We tweaked a lot on this over the duration of my internship but this is the final version.
 
-We used over 20 services from AWS, which over the course if the Internship, made me develop a real intrest in everything that is AWS and cloud related. Once you get the hang of serverless, the speed of setting up infrastructure is absolutly mind-blowing!
+We used over 10 services of AWS, which over the course of the internship, made me develop a real intrest in everything that is AWS and cloud related. Once you get the hang of serverless, the speed of setting up infrastructure is absolutly mind-blowing!
 
 //TODO insert diagram of bigger picture
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 # Architecture
-For the sake not overloading you with the nitty gritty details of this whole project, we will cover only the most interesting or most innovative topics.
+For the sake of not overloading you with the nitty gritty details of this project, I will cover only the most interesting or most innovative topics.
 
 ## Backend RPI
-The Rasberry Pi we used is a model 4 with a Raspbian Linux Distro. This is the most common used OS for a RPI. The RPI works with a microSD card on which you can easily install any Linuxdistro from you laptop, just plug it in and you're good to go!
-After updating the OS and installing a JRE, we were set to test and run our applications on this device.
+The Rasberry Pi we used is a model 4 with a Raspbian Linux Distro. This is the most common used OS for a RPI. The RPI works with a microSD card on which you can easily install any Linux-distro from you laptop, just plug it in and you're good to go!
+After updating the OS and installing a JRE, we were set to test and run our application on this device.
 
 ### Spring Ghela-alert application
-#### Basics of our application
-The whole essence of the app revolves around **Events** which happen at the Ghelamco arena. These can be type ***GameEvent*** or a ***CustomEvent***.
-The GameEvents are all of the home games of KAA Gent and as an added feature furter down the road, I also added the possibility to create our own custom events which could be a concert for instance.
 
-On each Event we generate a a couple of standard **Alerts**, based on the **Event** time, which are responsible to set off the Alarm in the office, which also indicate that this will control the [GPIO](https://www.raspberrypi.org/documentation/usage/gpio/) interface of our RPI. To set off an alert the GPIO interface changes the voltage on a GPIO-pin to 0V or 3.3V, which is coupled to a relay. A Relay is like a regular switch, but electricaly controlled, if there is 0V the circuit remains open, when it changes to 3.3V the circuit is closed and thus starting our Alarm-light.
+#### Basics of our application
+The whole essence of the app revolves around **Events** which happen at the Ghelamco arena. These can be of type ***GameEvent*** or ***CustomEvent***.
+- The GameEvents are all of the KAA Gent home games.
+- As an added feature, furter down the road, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
+
+On each Event we generate a couple of standard **Alerts** based on the **Event** time. These are responsible to set off the alarm-light in the office, indicating that they also control the [GPIO](https://www.raspberrypi.org/documentation/usage/gpio/) interface of our RPI. To set off an alert, the GPIO interface changes the voltage on a GPIO-pin to 0V or 3.3V. This pin is coupled to a relay, which acts as a regular switch, but electricaly controlled. If we put 0V on the relay, the circuit remains open, when we put 3.3V on it, the circuit is closed and thus starting our alarm-light.
 
 #### WebScraper
-We have a scheduled service in our spring-app, which is triggerd every hour and checks the website of KAA Gent for the up to date fixtures of the game. An easy approach to scraping a website is using X-Path with a library like [htmlunit](https://https://htmlunit.sourceforge.io/). In our application I fetch every game from the website, filter them on home games, attach Alerts to it and save it via with Spring data into our H2-database.
-Every time we scan the website, we compare the scraped data with the data we already had. Games can get updated on the website, and our app will recognize it and update his records in the database.
+We have a scheduled service in our GhelaAlert spring app, which is triggerd every hour and checks the website of KAA Gent for the up to date fixtures of the games. The approach I took for scraping the website, is by using X-Path with a library called [htmlunit](https://https://htmlunit.sourceforge.io/). In our application we fetch every game from the website, filter them on home games, attach Alerts and save those games to our H2-database using spring data.
+Every time we scan the website, we compare the scraped games data with the ones we already had. 
+Games can get updated or rescheduled on the website, but our app will recognize it and update his records accordingly in the database.
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/scrape-games.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 #### H2 database
-Since one of the prerequisites is that the RPI should be able to function on his own, we need to use a database which is located locally, on te RPI. If we would use a remote database then we can't get any info when the RPI isn't connected to a network and thus not alarming our people.
-We chose to use H2-database because its an SQL database which is easy to set up for local use.
+Since one of the prerequisites was that the RPI should be able to function on his own, without constant internet connection, we needed to use a database which is located locally, on te RPI. If we would use a remote database, we wouldn't be able to send any data to the RPI, when he isn't connected to a network.
+We chose to use an H2-database because it's an SQL database which is easy to set up for local use.
+
 Simply add H2-dependency to your project
 //FOTO pom.xml
+´		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+´
 And set the required parameters in your properties file
 //FOTO Application.properties
 
@@ -378,4 +400,8 @@ He could destroy a day of hard work in a few sentences.. :)
 </div>
 
 But he would always take the time to explain why, and how I should do it to make my solution comply with the industries best practices.
-Being able to have someone who makes you self-reflect on the work that you did, and takes his time to give you proper feedback, is the biggest asset to provide to an aspiring programmer.
+Being able to have someone who makes you self-reflect on the work that you did, and takes his time to give you proper feedback, is the biggest asset to provide to a junior programmer.
+
+Also a big thanks to Frederick Bousson & Ordina for the opportunity and resources provided.
+I felt at home from the first moment, not a question was to many, and I was a part of the team!
+
