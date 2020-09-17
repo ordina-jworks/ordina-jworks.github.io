@@ -70,6 +70,7 @@ On each Event we generate a couple of standard **Alerts** based on the **Event**
 
 #### WebScraper
 We have a scheduled service in our GhelaAlert spring app, which is triggerd every hour and checks the website of KAA Gent for the up to date fixtures of the games. The approach I took for scraping the website, is by using X-Path with a library called [htmlunit](https://https://htmlunit.sourceforge.io/). In our application we fetch every game from the website, filter them on home games, attach Alerts and save those games to our H2-database using spring data.
+
 Every time we scan the website, we compare the scraped games data with the ones we already had. 
 Games can get updated or rescheduled on the website, but our app will recognize it and update his records accordingly in the database.
 
@@ -79,6 +80,7 @@ Games can get updated or rescheduled on the website, but our app will recognize 
 
 #### H2 database
 Since one of the prerequisites was that the RPI should be able to function on his own, without constant internet connection, we needed to use a database which is located locally, on te RPI. If we would use a remote database, we wouldn't be able to send any data to the RPI, when he isn't connected to a network.
+
 We chose to use an H2-database because it's an SQL database which is easy to set up for local use.
 
 Simply add H2-dependency to your project
@@ -121,10 +123,13 @@ This is specificaly handy if you want to visualise the data coming from you app 
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations.
+The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. 
+
+Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations.
 
 ###### Authentication: certificates
 When registering "a thing" on AWS IoT, it generates some important certificates for us. These are our credentials when we try to communicate with AWS IoT to access our "thing".
+
 When we try to make calls to our device via the SDK we need to present these certificates when we create the connection. 
 
 * certificate file
@@ -156,7 +161,9 @@ We define which services we want to access like this:
 This system of generating certificates and coupling policies is a very secure and easy way of working with these devices "on the edge". 
 
 ###### jobs
-AWS IoT jobs are used to define a set of remote operations that are sent to and executed by our RPI. But this doesn't have to be "only our RPI". When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,... Anything we want really! 
+AWS IoT jobs are used to define a set of remote operations that are sent to and executed by our RPI. But this doesn't have to be "only our RPI". When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,... 
+
+Anything we want really! 
 
 In our case we use jobs for a multitude of processes:
 - updating our backend app - over the air
@@ -168,6 +175,7 @@ In our case we use jobs for a multitude of processes:
 </div>
 
 The basics to create a job are not so difficult:
+
 1. create a job
 2. add a job-document (JSON-file) which describes what the job is about 
 3. push job onto queue to get processed
