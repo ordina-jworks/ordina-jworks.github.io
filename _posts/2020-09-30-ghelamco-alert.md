@@ -83,31 +83,36 @@ Since one of the prerequisites was that the RPI should be able to function on hi
 
 We chose to use an H2-database because it's an SQL database which is easy to set up for local use.
 
-Simply add H2-dependency to your project
-//FOTO pom.xml
+We just need to add the H2 dependency to our projects pom.xml
+
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-pom.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 And some configuration in app.properties
+
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-prop.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
+And this just works out of the box, even with a console to check you database.
+
 #### Metrics
 
-Our application generates metrics to provide us with some data about our backend. This data is about the amount of snoozing-alerts, updating alerts, creating events and also a heartbeat which indicates that our RPI is still online and able to send a beat.
+Our application generates metrics to provide us with some data about our backend. This data is about the amount of snoozing-alerts, updating alerts, creating events and also a heartbeat which indicates that our RPI is still online and able to send a some data.
 We gather this data for 5 minutes inside our backend code and then we send this to AWS Cloudwatch, afterwhich we reset our data, and start collecting again. This way we have a dashboard which gets update every 5 minutes.
 
+
 ##### AWS Cloudwatch
-This metric data gets send to AWS Cloudwatch where can set up any dashboard we want with our data.
+
+This metric data gets send to AWS Cloudwatch where we can set up any dashboard we want with our data.
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Metrics" src="/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 
-This is specificaly handy if you want to visualise the data coming from you app but also if you want to be notified whenever the RPI has not sent a heartbeat for 3 times. Whenever this happens AWS Cloudwatch generates an alarm state and send us an email about the RPI not being able to connect to the internet anymore.
+This is specificaly handy if you want to visualise the data coming from you app. More importantly, if you want to be notified whenever the RPI has not sent a heartbeat for 3 times, AWS Cloudwatch generates an alarm state for us and sents us an email about the RPI not being able to connect to the internet anymore.
 
 
 <div style="text-align: center;">
@@ -119,18 +124,15 @@ This is specificaly handy if you want to visualise the data coming from you app 
 
 ##### AWS IoT
 
-<div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-to-awsiot.png" width="auto" height="auto" target="_blank" class="image fit">
-</div>
-
-The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! That is.. if we have the right certificates on our local machine. 
+The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! The way AWS IoT handles authentication with connecting devices is through handing out certificates to trusted edge devices.
 
 Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations.
 
 ###### Authentication: certificates
-When registering "a thing" on AWS IoT, it generates some important certificates for us. These are our credentials when we try to communicate with AWS IoT to access our "thing".
+When registering "a thing" on AWS IoT, it generates 2 keys for us, a public key and a private key. On the public key it will provide a certificate signing request, which will sign the generated certificate with the root certificate's private key.
 
-When we try to make calls to our device via the SDK we need to present these certificates when we create the connection. 
+Our thing-certificate and our private key are our credentials when we try to communicate with AWS IoT to access our "thing".
+The only thing that we need to provide on top, is the Root certificate, to check the signing.
 
 * certificate file
 * private Key
@@ -143,7 +145,7 @@ Since these certificates get generates per thing registered, these should only b
 </div>
 
 ###### Authorization: policies
-After creating our certificates, we need to handle the autorization part, which we do by adding some policies to our certificate. This will indicate to AWS IoT who is connected. When presenting our certificates on connect, AWS IoT now also knows what services we can access within the cloud. 
+After creating our certificates and keys, we need to handle the autorization part, which we do by adding some policies to our certificate. When presenting our certificates on connect, AWS IoT now also knows what services we can access within the cloud. 
 
 An example of such a policy: 
 
@@ -158,10 +160,28 @@ We define which services we want to access like this:
 - "iot:UpdateThingShadow"
 - "iot:DeleteThingShadow" 
 
-This system of generating certificates and coupling policies is a very secure and easy way of working with these devices "on the edge". 
+This system of generating certificates and coupling policies is a very secure and easy way of working with devices "on the edge". 
 
 ###### jobs
-AWS IoT jobs are used to define a set of remote operations that are sent to and executed by our RPI. But this doesn't have to be "only our RPI". When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,... 
+
+A crucial part of AWS Iot is the job section.  We can create a job by using the AWS CLI like this: 
+
+<code class="nohighlight hljs">aws iot update-job  \
+  --job-id 010  \
+  --description "updated description" \
+  --timeout-config inProgressTimeoutInMinutes=<code class="replaceable">100</code> \
+  --job-executions-rollout-config "<span>{</span> \"exponentialRate\": <span>{</span> \"baseRatePerMinute\": <code class="replaceable">50</code>, \"incrementFactor\": <code class="replaceable">2</code>, \"rateIncreaseCriteria\": <span>{</span> \"numberOfNotifiedThings\": <code class="replaceable">1000</code>, \"numberOfSucceededThings\": <code class="replaceable">1000</code>}, \"maximumPerMinute\": <code class="replaceable">1000</code>}}" \
+  --abort-config "<span>{</span> \"criteriaList\": [ <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">FAILED</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">100</code>, \"thresholdPercentage\": <code class="replaceable">20</code>}, <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">TIMED_OUT</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">200</code>, \"thresholdPercentage\": <code class="replaceable">50</code>}]}" \          
+  --presigned-url-config "<span>{</span>\"roleArn\":\"<code class="replaceable">arn:aws:iam::123456789012:role/S3DownloadRole</code>\", \"expiresInSec\":3600}" </code>
+
+AWS IoT jobs are used to define a set of remote operations that are sent to and executed on our RPI. But this doesn't have to be one device. AWS IoT gives us the possibility to create groups, in which we can register multiple devices. With one click of the button you could send software-updates to hundreds of edge devices. 
+
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-update-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,... 
 
 Anything we want really! 
 
@@ -193,10 +213,11 @@ At the start of my project I created a way to update our spring application by w
 
 It worked, but it looked.. meh! :)
 
-Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for use, without the dodgy custom code.
+Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.
 
 ###### MQTT protocol
 When working with AWS IoT we have basically 2 choices: work wit HTTP requests or use MQTT.
+
 So why would we choose MQTT over the more familiar HTTP web services? Because this request and response pattern does have some severe limitations:
 
 * HTTP is a synchronous protocol. The client waits for the server to respond. That is a requirement for web browsers, but it comes at the cost of poor scalability. In the world of IoT, the large number of devices and most likely an unreliable / high latency network have made synchronous communication problematic. An asynchronous messaging protocol is much more suitable for IoT applications. The sensors can send in readings, and let the network figure out the optimal path and timing for delivery to its destination devices and services.
@@ -283,7 +304,9 @@ A few of the benefits of using this AWS service :
 //TODO
 
 ##### aws-exports.js
-Our amplify project generates a new file in the ./src folder of our project, an aws-exports.js, which contains all 
+Our amplify project generates a new file in the ./src folder of our project, an aws-exports.js, that holds all the configuration for the services we create with Amplify. 
+
+
 
 #### Ghela-alert Webapp
 Here I'll go over all the features of our Webapp once we get access to the Dashboard.
