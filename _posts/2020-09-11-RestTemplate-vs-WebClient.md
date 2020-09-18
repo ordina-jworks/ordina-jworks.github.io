@@ -34,7 +34,7 @@ comments: true
 
 Since the REST era, most developers have become used to working with Spring’s traditional `RestTemplate` from the package `spring-boot-starter-web` for consuming Rest services. 
 Spring also has a WebClient in its reactive package called `spring-boot-starter-webflux`. This post will help you decide whether you should make the switch from RestTemplate to WebClient. 
-Since WebClient is supposed to be the successor of RestTemplate, it sounds only natural to me that I will dive into it a bit deeper.
+Since WebClient is supposed to be the successor of RestTemplate, we will be looking into it a bit deeper.
 
 
 ## Comparison of RestTemplate and WebClient
