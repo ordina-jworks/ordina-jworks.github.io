@@ -442,7 +442,7 @@ public class IngredientController {
     }
 
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Ingredient> getAllRecipesRandomized() {
+    public Flux<Ingredient> getAllIngredientsRandomized() {
         return ingredientRepository.findAllRandomized();
     }
 }
