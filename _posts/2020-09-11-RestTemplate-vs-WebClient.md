@@ -313,7 +313,7 @@ You would have to manage this yourself. However, with this driver, we can query 
 
 We've learned about WebClient, Reactive streams and R2DBC. Let's use these in an example to really see how it works. 
 We are going to create a 2 microservices with a R2DBC connecting to MySQL databases and a Rest API. 
-Then we'll create another microservices which consumes both of these Rest API's. 
+Then we'll create another microservice which consumes both of these Rest API's. 
 Finally, an Angular frontend that consumes that microservice to display the data.
 
 ### Recipe Service (Reactive R2DBC)
