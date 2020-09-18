@@ -1,5 +1,246 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-08-28T08:39:23+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Kubernetes clients and dashboards: a comparison</title><link href="https://ordina-jworks.github.io/cloud/2020/08/28/kubernetes-clients-comparison.html" rel="alternate" type="text/html" title="Kubernetes clients and dashboards: a comparison" /><published>2020-08-28T00:00:00+00:00</published><updated>2020-08-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/08/28/kubernetes-clients-comparison</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/08/28/kubernetes-clients-comparison.html">&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-09-18T07:34:42+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Scaling CSS with BEM</title><link href="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html" rel="alternate" type="text/html" title="Scaling CSS with BEM" /><published>2020-09-18T00:00:00+00:00</published><updated>2020-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem</id><content type="html" xml:base="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-bem&quot;&gt;What is BEM?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bem-combined-with-sass&quot;&gt;BEM combined with SASS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#is-bem-still-viable-in-the-era-of-web-components&quot;&gt;Is BEM still viable in the era of web components?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources-and-interesting-reads&quot;&gt;Resources and interesting reads&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;what-is-bem&quot;&gt;What is BEM?&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://getbem.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BEM&lt;/a&gt; is a methodology that helps developers to create reusable components and code sharing in front-end development.&lt;/p&gt;
+
+&lt;p&gt;BEM is an abbreviation as you could have guessed.
+It stands for the three core elements of the methodology: Block, Element and Modifier.&lt;/p&gt;
+
+&lt;p&gt;Blocks are standalone entities that are meaningful on its own.
+For example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;header, container, menu, checkbox, input&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Elements are a part of a block that has no standalone meaning and are semantically tied to its block.
+For example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;menu item, list item, header title&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Modifiers are a flag on a block or element.
+They are meant to change appearance or behavior.
+For example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;disabled, highlighted, color yellow, size big, fixed&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;bem-a-naming-convention&quot;&gt;BEM: a naming convention&lt;/h2&gt;
+&lt;p&gt;BEM is in short a highly useful, powerful, and simple &lt;a href=&quot;https://getbem.com/naming&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;naming convention&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It makes your front end code easier to scale, more robust and explicit, and a lot more strict.
+Which makes it easier to read and understand and also easier to work with.&lt;/p&gt;
+
+&lt;p&gt;Namings of BEM are as followed:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;BEM&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Naming&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;HTML&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;CSS&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Block&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.block&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block&quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block {...}&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Element&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.block__element&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block__element&quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block__element {...}&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Block Modifier&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.block–modifier&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block block--modifier&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block--modifier {...}&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Element Modifier&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.block__element–modifier&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block__element block__element--modifier&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block__element--modifier {...}&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;For example:
+You have 2 images.
+One on it’s own as a ‘block’ and the other is an ‘element’ inside a profile section which is another ‘block’ to keep it simple.&lt;/p&gt;
+
+&lt;p&gt;This is how the HTML would look like:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The CSS would look like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {...}
+.profile {...}
+.profile__image {...}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want to add different versions, states or ‘modifiers’, for example a rounded or smaller image. 
+Your code would look like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image image--rounded&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__image profile__image--small&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {...}
+.image--rounded {...}
+.profile {...}
+.profile__image {...}
+.profile__image--small {...}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The modifier class should only be added to blocks or elements you want to modify and you should keep the original class.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-use-bem&quot;&gt;Why use BEM?&lt;/h2&gt;
+
+&lt;p&gt;As stated above, BEM makes your code easier to read, understand, work with et cetera.
+But how does it achieve that?&lt;/p&gt;
+
+&lt;p&gt;First of all, BEM avoids inheritance and provides some sort of scope by using unique CSS classes per element (like .profile__image).
+It reduces style conflicts by keeping CSS specificity to a minimum level.
+It avoids the use of element type selectors like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;div &amp;gt; ul &amp;gt; li&lt;/code&gt; and keeps your CSS loose coupled from your HTML.
+BEM avoids nesting and keeps your CSS flat (even with preprocessors).&lt;/p&gt;
+
+&lt;h2 id=&quot;when-not-to-use-bem&quot;&gt;When not to use BEM?&lt;/h2&gt;
+&lt;p&gt;You should always question yourself if it is really necessary to use BEM notation for a certain CSS class.&lt;/p&gt;
+
+&lt;p&gt;If we would add two buttons to the example above like so:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;button&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Default button&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__button&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Profile button&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If the second button should be styled differently because it lives inside the profile block you SHOULD use BEM notation.
+Otherwise if it should be styled the same as the other button and it just happens to live in profile you definitely DO NOT need BEM notation there.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.underline { text-decoration: underline; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This CSS would never fall into any BEM category, as it is merely a standalone rule.&lt;/p&gt;
+
+&lt;h1 id=&quot;bem-combined-with-sass&quot;&gt;BEM combined with SASS&lt;/h1&gt;
+&lt;p&gt;Is the BEM methodology easy to combine with preprocessors like &lt;a href=&quot;https://sass-lang.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SASS&lt;/a&gt;?
+The answer is: ‘Yes, absolutely!’&lt;/p&gt;
+
+&lt;p&gt;With the help of SASS and its &lt;a href=&quot;https://sass-lang.com/documentation/style-rules/parent-selector&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;‘parent selector’&lt;/a&gt; we could transform the above CSS to the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {
+    &amp;amp;--rounded {...}
+}
+.profile {
+    &amp;amp;__image {
+        &amp;amp;--small {...}
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The parent selector of SASS makes it easy to add suffixes to the outer selector resulting in an improvement of readability and cleaner style sheets.&lt;/p&gt;
+
+&lt;p&gt;All while the resulting CSS stays flat.
+The above SASS compiles to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {...}
+.image--rounded {...}
+.profile {...}
+.profile__image {...}
+.profile__image--small {...}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see it is the same CSS as above.
+You want to be avoiding CSS combinators like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.profile .profile__image .profile__image--small {...}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;is-bem-still-viable-in-the-era-of-web-components&quot;&gt;Is BEM still viable in the era of web components?&lt;/h1&gt;
+&lt;p&gt;Yes and no.&lt;/p&gt;
+
+&lt;p&gt;First of all BEM was created to make large scale style sheets easier to scale, read et cetera.
+It avoids class name collisions and the quick fixes with ‘!important’.&lt;/p&gt;
+
+&lt;p&gt;When you are working component based, you can make use of Shadow DOM to make the styles encapsulated in that component.
+This prevents them from affecting outer elements.
+Angular, Vue or React use similar approaches, either using Shadow DOM or appending unique attributes to the class names.
+This ensures that the styles are scoped to that certain component.&lt;/p&gt;
+
+&lt;p&gt;Since this makes class name collisions no issue anymore you could consider BEM obsolete.&lt;/p&gt;
+
+&lt;p&gt;BEM helps you create reusable components.
+But that is also no longer necessary here, because we are already using seperate components.&lt;/p&gt;
+
+&lt;p&gt;Although, I still believe BEM could be useful as a developer.
+Take our profile component for example.
+With the traditional approach, profile would be seen as the Block and we would end up with following classes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.profile {...}
+.profile__header {...}
+.profile__header__title {...}
+.profile__header__title--short {...}
+.profile__header__name {...}
+.profile__bio {...}
+.profile__image {...}
+.profile__image--small {...}
+.profile__image-description {...}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By encapsulating the styles, we could drop the profile part as we already are inside the profile component.
+We do not need to worry about class name collisions, so we can shorten our class names and keep them meaningful:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.profile {...}
+.header {...}
+.header__title {...}
+.header__title--short {...}
+.header__name {...}
+.bio {...}
+.image {...}
+.image--small {...}
+.image-description {...}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now the responsibility of each class is much clearer just by looking at it.
+It is easier to split the component later if needed, and overall it is much easier to read.&lt;/p&gt;
+
+&lt;p&gt;So is BEM still necessary in component driven development?
+No, not at all, but I do recommend using a convention, be it BEM or anything else.
+The most important part is that the team agrees on it and follows it.
+Consistency is ‘mucho importante’ to keep the code base lean and clean.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;BEM is a useful class naming convention to keep gigantic style sheets organisable and readable and to avoid class name collisions.&lt;/p&gt;
+
+&lt;p&gt;It is easy to use with preprocessors as SASS which makes your code even cleaner.&lt;/p&gt;
+
+&lt;p&gt;In CDD (component driven development) BEM might be considered obsolete, but a naming convention is still recommended.
+This counts for any language, including CSS.&lt;/p&gt;
+
+&lt;h1 id=&quot;resources-and-interesting-reads&quot;&gt;Resources and interesting reads&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://getbem.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BEM&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://sass-lang.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SASS&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@andrew_barnes/bem-and-sass-a-perfect-match-5e48d9bc3894&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BEM and SASS a perfect match&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://bitsofco.de/what-is-the-shadow-dom/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;What is the Shadow DOM&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.componentdriven.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CDD (Component Driven Development)&lt;/a&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaël&quot;, &quot;last_name&quot;=&gt;&quot;De Wree&quot;, &quot;github&quot;=&gt;&quot;mdewree&quot;, &quot;linkedin&quot;=&gt;&quot;michaeldewree&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-de-wree/&quot;, &quot;avatar&quot;=&gt;&quot;michael-de-wree.jpg&quot;, &quot;title&quot;=&gt;&quot;Front-End Developer&quot;, &quot;email&quot;=&gt;&quot;michael.dewree@ordina.be&quot;, &quot;phone&quot;=&gt;&quot;0032484297782&quot;, &quot;bio&quot;=&gt;&quot;Michaël is a Front-End Developer at Ordina, passionate about all JavaScript related technologies. In his spare time, Michaël enjoys working out, running and enjoying his time with friends and family.&quot;}</name><email>michael.dewree@ordina.be</email></author><category term="Frontend" /><category term="BEM" /><category term="CSS" /><category term="DESIGN" /><category term="FRONTEND" /><category term="CDD" /><category term="FRONTEND ARCHITECTURE" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/BEM.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/BEM.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Kubernetes clients and dashboards: a comparison</title><link href="https://ordina-jworks.github.io/cloud/2020/08/28/kubernetes-clients-comparison.html" rel="alternate" type="text/html" title="Kubernetes clients and dashboards: a comparison" /><published>2020-08-28T00:00:00+00:00</published><updated>2020-08-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/08/28/kubernetes-clients-comparison</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/08/28/kubernetes-clients-comparison.html">&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
@@ -2330,279 +2571,4 @@ Be aware, before pushing the pojo, it needs to be converted to a String for MQTT
 This will result in communication to the correct subscriber.&lt;br /&gt;
 The JS subscriber will interpret these messages and parse readable content from it.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/sockets/messages.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van Houtte&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-houtte/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-houtte.jpg&quot;, &quot;twitter&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;linkedin&quot;=&gt;&quot;kevin-van-houtte-55ba936a&quot;, &quot;github&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;title&quot;=&gt;&quot;Software Consultant Java&quot;, &quot;email&quot;=&gt;&quot;kevin.vanhoutte@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem, Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Kevin has a strong focus on building cloud native architectures with the right mindset on security and API design.&quot;}</name><email>kevin.vanhoutte@ordina.be</email></author><category term="Event-Driven" /><category term="spring" /><category term="queue" /><category term="integration" /><category term="websockets" /><category term="event-driven" /><category term="cloud" /><summary type="html">Reading time: 7 minutes and 31 seconds</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">3D Printing During Times of Corona</title><link href="https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona.html" rel="alternate" type="text/html" title="3D Printing During Times of Corona" /><published>2020-06-15T00:00:00+00:00</published><updated>2020-06-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/06/15/3D-Printing-During-Times-Of-Corona.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
-
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#shortage-in-equipment&quot;&gt;Shortage in equipment&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#3d-printing-to-the-rescue&quot;&gt;3D printing to the rescue&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#experimenting-with-tpu&quot;&gt;Experimenting with TPU&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;These are trying times we are living in.&lt;br /&gt;
-Since the outbreak of the Corona virus we have been living in some form of lockdown.
-We are limited in our ability to go out and do anything, and when we do, it is recommended to take the necessary precautions like keeping a safe distance and wearing a mask.
-The masks are among the things we didn’t have enough of, certainly in the beginning of the outbreak.&lt;br /&gt;
-In this blog post I’ll dig a little deeper in using 3D printing tech to make masks and other equipment/material that can be of use.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/covid-19-corona-virus.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;shortage-in-equipment&quot;&gt;Shortage in equipment&lt;/h2&gt;
-
-&lt;p&gt;The strain on our healthcare system and the supplies has been massive.
-Masks were kept for healthcare workers even if they were just surgical masks and not the FFP2/3 masks.
-Masks are slowly becoming more widely available for the general population again, however the government relied on people to make their own masks in the beginning.&lt;/p&gt;
-
-&lt;p&gt;Luckily our country was spared from the overwhelming load on the hospitals like in Italy.
-While the situation was very serious in the hospitals, we never had a lack of ventilators or had to turn people away because the hospitals were at or already beyond their capacity.&lt;/p&gt;
-
-&lt;h2 id=&quot;3d-printing-to-the-rescue&quot;&gt;3D printing to the rescue&lt;/h2&gt;
-
-&lt;p&gt;3D printing is a very handy technology.
-It allows for rapid prototyping and small-scale production without the need to set up a full production line.
-The 3D printing community is a very large one, and also a very active one.&lt;/p&gt;
-
-&lt;p&gt;Because of the high load on the intensive care units in Italy with many people requiring to be put on a ventilator for life support, it became clear that the supply line could not meet the demand.
-Because the hospitals were in need of these valves and the supplier could not provide them, the 3D printing community jumped in, and soon after the first version was designed and 3D printed.
-However the valve design is patented and this hindered individuals and companies from stepping in and helping with printing extra valves.
-The hospitals can request production of these masks, sidestepping the patent in times of emergency, but they have to be present and patient consent is also needed (depending on local laws).&lt;/p&gt;
-
-&lt;p&gt;The pictures below show the masks.
-The first picture shows the real valve (left) versus a 3D printed one using filament printing technologies.
-The second picture shows later iterations of the 3D printed valves printed using polymer material that is laser fused.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;A real Venturi valve vs a 3D printed one&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/venturi-valve-real-vs-printed.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 22%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Many laser printed Venturi valves&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/venturi-valve-laser-printed.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 37.4%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-     &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;3D printed Venturi valves that have been prepared for use&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/3D-printed-valves.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 39%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;These valves are not officially approved for use in medical devices, but since “necessity knows no law” it might be better to use these 3D printed valves and saving lives instead of letting people die.
-The STL files have not been shared publicly, except for some imitations, &lt;a href=&quot;https://cults3d.com/en/3d-model/tool/venturi-valvula-pedrovo13&quot; target=&quot;_blank&quot;&gt;linked for educational purposes only!&lt;/a&gt;
-The manufacturers have not taken any legal action against this 3D printed design.
-Using the original valves is still recommended and once the supply from the manufacturers can meet the demand these will once again be used as some of the intricate details of the valve are hard to mimic with current 3D printing technologies.&lt;/p&gt;
-
-&lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/venturi-valve.stl&quot; style=&quot;border:0;margin:0;width:100%;height:350px;&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;But not only valves are being 3D printed.
-Since there is also a great demand for face masks, and they were, certainly in the beginning, in very short supply.
-So mask designs started popping up in the online communities, at first very basic and rudimentary designs but over the following days/weeks the designs became more specialized and optimized.&lt;/p&gt;
-
-&lt;p&gt;These masks are not meant to replace the actual FFP2/3 or N95 masks but can offer people at least protection, if not for themselves, at least for others by preventing particles from the nose or mouth to spread as far as without wearing a mask.
-3D printing materials are also (usually) not medically certified so precautions have to be taken.
-Especially when printing masks with &lt;a href=&quot;https://nl.wikipedia.org/wiki/Fused_deposition_modeling&quot; target=&quot;_blank&quot;&gt;FDM technology&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;It might be possible for contaminants to get in between the layers and in microscopic cavities in the printed material.
-Therefor it is highly recommended to either disinfect the masks after use, and even more preferred to do this in addition to also sealing the mask with a sealant.
-This sealant can be varnish or any other material which does not cause irritation when touching human skin.&lt;/p&gt;
-
-&lt;p&gt;Below are some of the designs I experimented with and my personal findings of each mask in terms of fabrication easy and wearing comfort.&lt;/p&gt;
-
-&lt;p&gt;This was one of the first masks I printed, &lt;a href=&quot;https://www.thingiverse.com/thing:4239615&quot; target=&quot;_blank&quot;&gt;designed by The 3D Handyman on YouTube and Thingiverse.&lt;/a&gt;&lt;/p&gt;
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/v1-mask.stl&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;&quot;&gt;
-        &lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v1-mask.stl&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 49%; height: 350px; display: inline-block;&quot;&gt;&lt;/iframe&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/v1-cap.stl&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;&quot;&gt;
-        &lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v1-cap.stl&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 49%; height: 350px; display: inline-block;&quot;&gt;&lt;/iframe&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;The mask is modelled to the face of the creator, as can be seen in the instructional video:&lt;/p&gt;
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/kBQcNBPRkh0&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;It fits rather well, but when printed in PLA (or ABS) the edge can be rather uncomfortable.
-I tried and succeeded in printing this mask in TPU which greatly improves the comfort when wearing it.
-The TPU printed version does rely quite a bit more on the elastic strap to keep the lid with the filter pinned to the mask as the clips do not work that well when printed in this material.
-I also designed an inlay for the cap/mask to hold the filter in place so that the filter cannot be blown out or sucked inside the mask.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;First attempt at making masks&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0434.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 15.3%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0580.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Mask, inlays, filter and filter cap&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0580.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 27%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-     &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0581.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Assembled masks&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0581.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 27%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0443.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Overview of all the V1 masks I printed&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0443.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 27%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;This was the second mask design I printed, &lt;a href=&quot;https://www.thingiverse.com/thing:4292905&quot; target=&quot;_blank&quot;&gt;also designed by The 3D Handyman on YouTube and Thingiverse.&lt;/a&gt;&lt;/p&gt;
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/v2-mask.stl&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;&quot;&gt;
-        &lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v2-mask.stl&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32%; height: 350px; display: inline-block;&quot;&gt;&lt;/iframe&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/v2-cap.stl&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;&quot;&gt;
-        &lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v2-cap.stl&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32%; height: 350px; display: inline-block;&quot;&gt;&lt;/iframe&gt;
-    &lt;/a&gt;
-     &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/v2-mold.stl&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;&quot;&gt;
-        &lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/v2-mold.stl&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 32%; height: 350px; display: inline-block;&quot;&gt;&lt;/iframe&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;This mask is much more complex, not modelled to one specific face and requires additional steps after printing.
-It comes with a mold on which silicone caulk should be applied to create a comfortable seal with the wearers face.
-The instructional video explains it all in great detail:&lt;/p&gt;
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/gwOZ_gwkojg&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;This mask fits very well and although it requires quite a bit of extra work, I prefer it over the first version!
-It sits very comfortable and does not require printing with TPU.
-The silicone molding process does take some trial an error but the mask shown in the pictures is from the first attempt!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-     &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0584.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Printed mask &amp;amp; Silicone mold&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0584.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 20.5%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0486.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Mask with silicone seal 1&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0486.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 11.5%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0487.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Mask with silicone seal 2&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0487.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 11.5%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-     &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0488.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Mask with silicone seal 3&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0488.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 11.5%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0582.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Mask, filter and filter cap&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0582.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 20.5%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-     &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0583.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Assembled mask&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0583.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 11.5%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;There are many, many more mask designs online.
-You can always design a custom mask or look on &lt;a href=&quot;https://www.thingiverse.com/&quot; target=&quot;_blank&quot;&gt;thingiverse&lt;/a&gt; or any other 3D modelling site for designs from other people.
-The community is very large and very engaged when it comes to prototyping.
-A lot of trial and error is involved before getting a mask design right, and even when printing before the print is just right so it can be worn.
-Printing with different materials like TPU can also be tricky and time consuming to get right, in the section below I talk a bit more about what TPU is and why it’s harder to print with.&lt;/p&gt;
-
-&lt;p&gt;Disclaimer: These masks are not the real deal, they are not meant to be used in hospitals, they are meant to provide a means to protect oneself when not better materials/equipment is at hand.
-They also only offer an additional protection at best, and it is recommended to maintain all social distancing measures, even when wearing a mask!
-All the masks shown here have been sealed with varnish or paint to allow for safer use and easier disinfection.&lt;/p&gt;
-
-&lt;p&gt;In addition to masks there are also tools/adapters being printed to more easily hold masks or holder for plastic face shield, to use in combination with a mask.&lt;/p&gt;
-
-&lt;p&gt;The straps are a very small piece that can hold the bands of a mask, this allows the mask tightness to be adjusted and provides greater comfort for the wearer.&lt;/p&gt;
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
-    &lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/strap.stl&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 100%; height: 350px; display: inline-block;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;p&gt;These can be printed quite fast on a very rough quality setting.&lt;/p&gt;
-
-&lt;p&gt;The second much printed item are the holders for face shields.
-These face shields provide an additional layer of protection to the wearer, usually this is combined with wearing a regular face mask.
-The holders fit around the wearer’s head and the plastic face shield clicks onto the holder by the pins.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/shield1.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Printed holder and plastic sheet&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/shield1.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 49%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-    &lt;a href=&quot;/img/2020-06-15-3D-Printing-during-corona/shield2.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Assembled face shield&quot;&gt;
-        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/shield2.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 49%; display: inline-block;&quot; /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
-    &lt;iframe src=&quot;https://www.viewstl.com/?embedded&amp;amp;url=https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/shield-holder.stl&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 100%; height: 350px; display: inline-block;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;experimenting-with-tpu&quot;&gt;Experimenting with TPU&lt;/h2&gt;
-
-&lt;p&gt;One of the disadvantages of regular materials like &lt;a href=&quot;https://en.wikipedia.org/wiki/Polylactic_acid&quot; target=&quot;_blank&quot;&gt;PLA&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Acrylonitrile_butadiene_styrene&quot; target=&quot;_blank&quot;&gt;ABS&lt;/a&gt; or &lt;a href=&quot;https://en.wikipedia.org/wiki/Polyethylene_terephthalate&quot; target=&quot;_blank&quot;&gt;PETG&lt;/a&gt; is that they are fairly rigid, they do not flex very much or at all.
-When printing masks or devices that need to be worn on the head, some form of flexibility is advisable to make the printed object conform to the shape of the head/face.&lt;/p&gt;
-
-&lt;p&gt;Enter &lt;a href=&quot;https://en.wikipedia.org/wiki/Thermoplastic_polyurethane&quot; target=&quot;_blank&quot;&gt;TPU or Thermoplastic Polyurethane&lt;/a&gt;.
-This material is flexible and can also be 3D printed.
-This makes the material suitable for use in designs that need to be able to conform to the contours of a human face.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;video width=&quot;270&quot; height=&quot;480&quot; autoplay=&quot;&quot; muted=&quot;&quot; loop=&quot;&quot;&gt;
-        &lt;source src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0440.MOV&quot; type=&quot;video/mp4&quot; /&gt;
-    &lt;/video&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;The flexibility of the material is denoted on a hardness scale: The Shore hardness scale.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Shore hardness scale&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/shore-hardness.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This scale has three scales:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Scale 00&lt;/li&gt;
-  &lt;li&gt;Scale A: Soft rubber types&lt;/li&gt;
-  &lt;li&gt;Scale D: Hard rubber types&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As you can see, these scales do somewhat overlap.
-For 3D printing the harder the TPU material is, the easier it is to print.
-The lower the A or D scale value of the TPU material, the lower the printing speed and the shorter the retraction distance/speed has to be!&lt;/p&gt;
-
-&lt;p&gt;TPU is harder to print than regular PLA or ABS.
-It is recommended to print TPU on a direct extruder at a lower than normal printing speed.
-However, it can also be printed on bowden fed extruders, but the printing speed needs to be lowered even further to prevent the filament from spooling up or clogging in the bowden tube.
-Retraction distance also needs to be lowered to prevent the extruder from clogging up.
-This will increase stringing to some degree though.&lt;/p&gt;
-
-&lt;p&gt;3D printing is already trial and error, but for printing flexibles like TPU this is even more so.
-The material is a lot more unforgiving than PLA or even ABS and the settings need to be fine-tuned for each different printer and TPU material before prints will come out looking somewhat decent.&lt;/p&gt;
-
-&lt;p&gt;The image below shows the difference between a bowden extruder (left), which has a guiding tube made of teflon and a direct drive extruder (right).
-&lt;img alt=&quot;Bowden versus Direct drive extruder&quot; src=&quot;/img/2020-06-15-3D-Printing-during-corona/bowden-vs-direct.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Below is a video of my 3D printer with a bowden type extruder printing TPU just fine, albeit very slowly.&lt;/p&gt;
-&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
-    &lt;video width=&quot;480&quot; height=&quot;270&quot; autoplay=&quot;&quot; muted=&quot;&quot; loop=&quot;&quot;&gt;
-        &lt;source src=&quot;/img/2020-06-15-3D-Printing-during-corona/IMG_0442.MOV&quot; type=&quot;video/mp4&quot; /&gt;
-    &lt;/video&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.3dprintingmedia.network/covid-19-3d-printed-valve-for-reanimation-device/&quot; target=&quot;_blank&quot;&gt;Italian hospital saves Covid-19 patients lives by 3D printing valves for reanimation devices&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.fastcompany.com/90477940/these-good-samaritans-with-a-3d-printer-are-saving-lives-by-making-new-respirator-valves-for-free&quot; target=&quot;_blank&quot;&gt;These Good Samaritans with a 3D printer are saving lives by making new respirator valves for free&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://cults3d.com/en/3d-model/tool/venturi-valvula-pedrovo13&quot; target=&quot;_blank&quot;&gt;Venturi Valve STL files&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.thingiverse.com/thing:4239615&quot; target=&quot;_blank&quot;&gt;Custom Fitted Respirator Filter Mask - COVID-19: Files&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=kBQcNBPRkh0&quot; target=&quot;_blank&quot;&gt;Custom Fitted Respirator Filter Mask - COVID-19: YouTube&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.thingiverse.com/thing:4292905&quot; target=&quot;_blank&quot;&gt;Universal Respirator / Face Mask w/ Mold for a Silicone Seal: Files&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=gwOZ_gwkojg&quot; target=&quot;_blank&quot;&gt;Universal Respirator / Face Mask w/ Mold for a Silicone Seal: YouTube&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.thingiverse.com/thing:4249113&quot; target=&quot;_blank&quot;&gt;Surgical mask strap&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://3dverkstan.se/protective-visor/&quot; target=&quot;_blank&quot;&gt;Face shield holder&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.x3d.com.au/blog/best-tpu-filaments-according-to-shore-hardness&quot; target=&quot;_blank&quot;&gt;Shore hardness&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://all3dp.com/2/direct-vs-bowden-extruder-technology-shootout/&quot; target=&quot;_blank&quot;&gt;Direct drive vs Bowden&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a frontend consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="3D printing" /><category term="Printing" /><category term="Building" /><category term="Technology" /><category term="Smart Technology" /><category term="FDM" /><category term="PLA" /><category term="TPU" /><category term="masks" /><category term="ventilator" /><category term="respirator" /><category term="corona" /><category term="covid" /><category term="covid-19" /><category term="sars-cov-2" /><category term="FFP2" /><category term="FFP3" /><category term="N95" /><category term="Surgical mask" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-06-15-3D-Printing-during-corona/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/sockets/messages.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van Houtte&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-houtte/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-houtte.jpg&quot;, &quot;twitter&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;linkedin&quot;=&gt;&quot;kevin-van-houtte-55ba936a&quot;, &quot;github&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;title&quot;=&gt;&quot;Software Consultant Java&quot;, &quot;email&quot;=&gt;&quot;kevin.vanhoutte@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem, Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Kevin has a strong focus on building cloud native architectures with the right mindset on security and API design.&quot;}</name><email>kevin.vanhoutte@ordina.be</email></author><category term="Event-Driven" /><category term="spring" /><category term="queue" /><category term="integration" /><category term="websockets" /><category term="event-driven" /><category term="cloud" /><summary type="html">Reading time: 7 minutes and 31 seconds</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
