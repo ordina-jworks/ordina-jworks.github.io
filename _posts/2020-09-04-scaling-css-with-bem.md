@@ -12,7 +12,8 @@ comments: true
 
 * [What is BEM?](#what-is-bem)
 * [BEM combined with SASS](#bem-combined-with-sass)
-* [Component Driven Development and BEM](#component-driven-development-and-bem)
+* [Is BEM still viable in the era of web components?](#is-bem-still-viable-in-the-era-of-web-components)
+* [Conclusion](#conclusion)
 * [Resources and interesting reads](#resources-and-interesting-reads)
 
 # What is BEM?
@@ -47,6 +48,7 @@ It makes your front end code easier to scale, more robust and explicit, and a lo
 Which makes it easier to read and understand and also easier to work with.
 
 Namings of BEM are as followed:
+
 | BEM | Naming | HTML | CSS |
 | :-: | :-: | :-: | :-: |
 | Block | .block | `<div class="block"></div>` | `.block {...}` |
@@ -60,33 +62,33 @@ One on it's own as a 'block' and the other is an 'element' inside a profile sect
 
 This is how the HTML would look like:
 ```html
-    <img class="image"/>
-    <div class="profile">
-        <img class="profile__image"/>
-    </div>
+<img class="image"/>
+<div class="profile">
+    <img class="profile__image"/>
+</div>
 ```
 The CSS would look like this:
 ```CSS
-    .image {...}
-    .profile {...}
-    .profile__image {...}
+.image {...}
+.profile {...}
+.profile__image {...}
 ```
 
 If you want to add different versions, states or 'modifiers', for example a rounded or smaller image. 
 Your code would look like this:
 
 ```html
-    <img class="image image--rounded"/>
-    <div class="profile">
-        <img class="profile__image profile__image--small"/>
-    </div>
+<img class="image image--rounded"/>
+<div class="profile">
+    <img class="profile__image profile__image--small"/>
+</div>
 ```
 ```CSS
-    .image {...}
-    .image--rounded {...}
-    .profile {...}
-    .profile__image {...}
-    .profile__image--small {...}
+.image {...}
+.image--rounded {...}
+.profile {...}
+.profile__image {...}
+.profile__image--small {...}
 ```
 
 The modifier class should only be added to blocks or elements you want to modify and you should keep the original class.
@@ -107,12 +109,12 @@ You should always question yourself if it is really necessary to use BEM notatio
 
 If we would add two buttons to the example above like so:
 ```html
-    <img class="image"/>
-    <button class="button">Default button</button>
-    <div class="profile">
-        <img class="profile__image"/>
-        <button class="profile__button">Profile button</button>
-    </div>
+<img class="image"/>
+<button class="button">Default button</button>
+<div class="profile">
+    <img class="profile__image"/>
+    <button class="profile__button">Profile button</button>
+</div>
 ```
 If the second button should be styled differently because it lives inside the profile block you SHOULD use BEM notation.
 Otherwise if it should be styled the same as the other button and it just happens to live in profile you definitely DO NOT need BEM notation there.
@@ -129,14 +131,14 @@ The answer is: 'Yes, absolutely!'
 With the help of SASS and its ['parent selector'](https://sass-lang.com/documentation/style-rules/parent-selector){:target="_blank" rel="noopener noreferrer"} we could transform the above CSS to the following code:
 
 ```CSS
-    .image {
-        &--rounded {...}
+.image {
+    &--rounded {...}
+}
+.profile {
+    &__image {
+        &--small {...}
     }
-    .profile {
-        &__image {
-            &--small {...}
-        }
-    }
+}
 ```
 
 The parent selector of SASS makes it easy to add suffixes to the outer selector resulting in an improvement of readability and cleaner style sheets.
@@ -145,18 +147,18 @@ All while the resulting CSS stays flat.
 The above SASS compiles to:
 
 ```CSS
-    .image {...}
-    .image--rounded {...}
-    .profile {...}
-    .profile__image {...}
-    .profile__image--small {...}
+.image {...}
+.image--rounded {...}
+.profile {...}
+.profile__image {...}
+.profile__image--small {...}
 ```
 
 As you can see it is the same CSS as above.
 You want to be avoiding CSS combinators like this:
 
 ```CSS
-    .profile .profile__image .profile__image--small {...}
+.profile .profile__image .profile__image--small {...}
 ``` 
 
 # Is BEM still viable in the era of web components?
@@ -180,30 +182,30 @@ Take our profile component for example.
 With the traditional approach, profile would be seen as the Block and we would end up with following classes:
 
 ```CSS
-    .profile {...}
-    .profile__header {...}
-    .profile__header__title {...}
-    .profile__header__title--short {...}
-    .profile__header__name {...}
-    .profile__bio {...}
-    .profile__image {...}
-    .profile__image--small {...}
-    .profile__image-description {...}
+.profile {...}
+.profile__header {...}
+.profile__header__title {...}
+.profile__header__title--short {...}
+.profile__header__name {...}
+.profile__bio {...}
+.profile__image {...}
+.profile__image--small {...}
+.profile__image-description {...}
 ```
 
 By encapsulating the styles, we could drop the profile part as we already are inside the profile component.
 We do not need to worry about class name collisions, so we can shorten our class names and keep them meaningful:
 
 ```CSS
-    .profile {...}
-    .header {...}
-    .header__title {...}
-    .header__title--short {...}
-    .header__name {...}
-    .bio {...}
-    .image {...}
-    .image--small {...}
-    .image-description {...}
+.profile {...}
+.header {...}
+.header__title {...}
+.header__title--short {...}
+.header__name {...}
+.bio {...}
+.image {...}
+.image--small {...}
+.image-description {...}
 ```
 Now the responsibility of each class is much clearer just by looking at it.
 It is easier to split the component later if needed, and overall it is much easier to read.
