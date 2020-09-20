@@ -37,16 +37,13 @@ This way our employees in the office will have a visual warning a game will be t
 Since we want to make our solution as user-friendly as possible, we added a serverless backend in the AWS cloud combined with an angular application to see some basic output from the RPI.  
 This allows us to manipulate events on the RPI like: adding events, updating alert times, snoozing alerts, etc...  
 
-//TODO GIF Proof of working project
-<div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
-</div>
+<!-- //TODO GIF Proof of working project -->
 
 ## Concept
 I received my assignment from Fredrick Bousson, who was also my internship supervisor.
 It consisted of 3 components to develop: 
 1. an Iot module on the RPI  
-2. a backend on the AWS cloud using either java/spring or Typescript/node 
+2. a backend on the AWS cloud using either Java/Spring or Typescript/Node 
 3. a frontend with a framework I could choose.
 
 ## Mentor
@@ -54,13 +51,10 @@ For the duration of my internship I had Bas Moorkens as my mentor.
 Bas designed the architecture of our system.  
 We tweaked the design a lot during the internship and below is the final design we went for.  
 
-We used over 10 AWS service, which over the course of the internship, made me develop a real interest in everything that is AWS and cloud related.  
+We used over 10 AWS services, which over the course of the internship, made me develop a real interest in everything that is AWS and cloud related.  
 Once you get the hang of serverless, the speed of setting up infrastructure is absolutely mind-blowing!
 
-//TODO insert diagram of bigger picture
-<div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
-</div>
+<!-- //TODO insert diagram of bigger picture -->
 
 # Architecture
 For the sake of not overloading you with the nitty gritty details of this project, I will cover only the most interesting or most innovative topics.
@@ -289,7 +283,7 @@ Our client is the RPI but it could also be an IoT sensor in the field or an appl
 Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS Iot by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics.  
 Every 30 seconds we will read these topics to see if there are any new jobs to be processed.  
 
-<!-- //GIF backend processing a job in intelliJ -->
+<!-- TODO GIF backend processing a job in intelliJ -->
 
 ### AWS IOT Greengrass
 <!-- //TODO -->
@@ -304,7 +298,7 @@ Every 30 seconds we will read these topics to see if there are any new jobs to b
 To make our project completely professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.  
 Since we used Azure-devops for our devops practices, we build the pipeline here.  
 
-<!-- //FOTO azure devops -->
+<!-- //TODO azure devops -->
 
 The pipeline goes through a multitude of steps:  
 1. We run the pipeline on a Linux agent
@@ -364,9 +358,9 @@ A few of the benefits of using this AWS service:
 - Amazon Cognito provides us solutions to control access to backend resources from our app. You can define roles and map users to different roles so your app can access only the resources that are authorized for each user.
 - Easy integration with our app
 
-//FOTO: Login-screen webapp
+<!-- //TODO: foto Login-screen webapp -->
 
-###### User-pool and Identity-pool
+##### User-pool and Identity-pool
 User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications.  
 Users can sign-in directly to the **User Pool** (which we used), or using Facebook, Amazon or Google.  
 Successful authentication generates JSON Web Tokens (JWTs).
@@ -385,7 +379,7 @@ On the dashboard view we can see which events are coming up next, when we click 
 From here we can update alert times, or we can snooze them. BUT!  
 The way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case.  
 
-//FOTO dashboard-view-webapp
+<!-- //TODO: FOTO dashboard-view-webapp -->
 
 When clicking on snooze or save, we create a job for our RPI. Just like deploying a new Docker image onto the RPI, we use IoT Jobs to make our RPI execute custom tasks.  
 
@@ -394,7 +388,7 @@ On this tab we can create our own custom events.
 The way this works is identical as snoozing and updating an alert on the dashboard view.  
 We also create a job which gets executed, as described in the next section.
 
-//FOTO custom-event-webapp
+<!-- //TODO: FOTO custom-event-webapp -->
 
 ##### Executing jobs on the RPI 
 
@@ -409,7 +403,7 @@ For updating an alert or creating a custom game, the above would be the same exc
 - we call another endpoint. ex. "/event" or "/alert" 
 - the job-document that we create in our lambda function to send with our job-creation request, will differ.
 
-<!-- FOTO different job-documents -->
+<!-- //TODO FOTO different job-documents -->
 
 ##### Job overview
 In this view the API will send a GET request to our AWS API on the endpoint "/job".  
@@ -419,7 +413,7 @@ The moment this list is empty all changes from our webapp have been processed su
 Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely.  
 We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.
 
-<!-- //FOTO Jobs -->
+<!-- //TODO FOTO Jobs -->
 
 ##### Metrics
 On this tab we can see the status of the RPI backend as a graph.  
@@ -427,7 +421,7 @@ Remember the Metrics we talked about above?
 Via the "/metrics" API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
 On this graph we can easily see if the RPI is still connected to the internet.
 
-<!-- //Foto metrics -->
+<!-- //TODO FOTO metrics -->
 
 #### CICD pipeline Frontend
 
