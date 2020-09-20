@@ -17,17 +17,13 @@ comments: true
   3. [Serverless](#serverless-as-backend-framework)
 * [Conclusions](#conclusions)
 
-<!-- TODO update table and titles -->
-<!-- insert last pics -->
-
-
 # Introduction
 At Ordina, we have a beautiful office in the Ghelamco arena in Gent.  
-The drawback of having an office in this stadium is that whenever KAA Gent plays a game in the stadium we have to make sure our parking lot is empty 3 hours before the game starts.
+The drawback of having an office in this stadium is that whenever KAA Gent plays a game in the stadium we have to make sure our parking lot is empty 3 hours before the game starts.  
 If the parking lot isn't cleared in time, we risk fines up to 500 euros per car.  
 Of course, we do not want to spend our money on fines when instead we could be buying more pizzas.  
 So we came up with the **ghelamco alert** solution to let us know when a game will be taking place.  
-That way the people working in the Ghelamco offices can be warned in time.
+That way the people working in the Ghelamco offices can be warned in time.  
 
 On paper, the idea for the project is pretty simple.  
 We will run a Raspberry PI device that is hooked up to an alert light.  
@@ -109,7 +105,11 @@ Add some configuration in the app.properties file.
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-prop.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-This just works out of the box, it even comes with a console to check your database.  
+This just works out of the box, it even comes with a console to check your database if enabled.
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-console.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 #### Metrics
 
@@ -142,13 +142,15 @@ We have created an alarm that triggers when our **RPI_BACKEND_STATUS** status me
 This means that after 15 minutes of not receiving this metric, the cloudwatch alarm will trigger and notifies us via email that the RPI is either down or disconnected from the internet.  
 This enables us to respond quickly and take action to restore connectivity to the device.  
 
-The logs from our spring app are also available in Cloudwatch, so we can check its status remote.
-
-
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
+The logs from our spring app are also available in Cloudwatch, so we can check its status remote.  
+
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/cloudwatch-logs.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 #### Connecting our RPI to the cloud
 
@@ -156,18 +158,18 @@ The logs from our spring app are also available in Cloudwatch, so we can check i
 
 The reason for using AWS IoT is for the sake of "being connected to the cloud".  
 When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want!   
-In our case this means that we want our RPI device to be connected to AWS Iot whenever it is up and running and has internet connectivity.  
+In our case this means that we want our RPI device to be connected to AWS IoT whenever it is up and running and has internet connectivity.  
 Of course the communication between our RPI and the AWS cloud has to be secured.
-AWS Iot uses authentication and authorization workflow by using certificates that you issue from AWS Iot and upload to your edge device.  
+AWS IoT uses authentication and authorization workflow by using certificates that you issue from AWS IoT and upload to your edge device.  
 We treat our RPI as an edge device in this project.
 
 Authentication works based on the certificates that the edge device presents to AWS IoT.  
-Once the certificate authentication is successful, AWS Iot checks which policies got attached to those certificates to grant it specific authorizations within the AWS cloud.  
+Once the certificate authentication is successful, AWS IoT checks which policies got attached to those certificates to grant it specific authorizations within the AWS cloud.  
 
 ###### Authentication: certificates
 When you add a new edge device in AWS IOT it is called "a thing".  
 When registering "a thing" it generates 2 keys for us: a public key and a private key.  
-AWS Iot will provide a certificate signing request for the public key, which will sign the generated certificate with the root certificate's private key.  
+AWS IoT will provide a certificate signing request for the public key, which will sign the generated certificate with the root certificate's private key.  
 
 Our thing-certificate and our private key are our credentials when we try to communicate with AWS IoT to access our edge device.  
 The only additional input that we need to provide on top of the generated signing request is the root certificate to check the signing.  
@@ -206,7 +208,7 @@ This system of generating certificates and coupling policies is a very secure an
 
 ###### jobs
 
-A crucial part of AWS Iot is the job section.  We can create a job by using the AWS CLI like this: 
+A crucial part of AWS IoT is the job section.  We can create a job by using the AWS CLI like this: 
 
 <code class="nohighlight hljs">aws iot update-job  \
   --job-id 010  \
@@ -216,17 +218,13 @@ A crucial part of AWS Iot is the job section.  We can create a job by using the 
   --abort-config "<span>{</span> \"criteriaList\": [ <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">FAILED</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">100</code>, \"thresholdPercentage\": <code class="replaceable">20</code>}, <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">TIMED_OUT</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">200</code>, \"thresholdPercentage\": <code class="replaceable">50</code>}]}" \          
   --presigned-url-config "<span>{</span>\"roleArn\":\"<code class="replaceable">arn:aws:iam::123456789012:role/S3DownloadRole</code>\", \"expiresInSec\":3600}" </code>
 
-To define a set of remote operations, we use AWS IoT jobs to get them send too and executed by our RPI.
-This doesn't have to be one device though.  
-AWS IoT gives us the possibility to create groups, in which we can register multiple devices.  
-With one click of the button you could send software-updates to hundreds of edge devices.  
-
+To define a set of remote operations, we use AWS IoT jobs to get them send too and executed by our RPI.  
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-update-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert device update" src="/img/2020-09-25-ghelamco-alert/device-update-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs.  
+When working with AWS IoT we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs.  
 These jobs could be software updates, reboot commands, rotate certificates,...   
 
 Anything we want really!  
@@ -248,7 +246,7 @@ The basics to create a job are not so difficult:
 
 Example of a job document:  
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/job-document.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Jobdocument" src="/img/2020-09-25-ghelamco-alert/job-document.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 At the start of my project I created a way to update our spring application by writing some custom code, which involves running a whole load of Linux commands to:  
@@ -280,7 +278,7 @@ Our client is the RPI but it could also be an IoT sensor in the field or an appl
 2. The client publishes messages under a topic by sending the message and topic to the broker.
 3. The broker then forwards the message to all clients that subscribe to that topic.
 
-Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS Iot by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics.  
+Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS IoT by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics.  
 Every 30 seconds we will read these topics to see if there are any new jobs to be processed.  
 
 <!-- TODO GIF backend processing a job in intelliJ -->
@@ -294,11 +292,16 @@ Every 30 seconds we will read these topics to see if there are any new jobs to b
 #### Dockerized app 
 <!-- //TODO -->
 
+#### Jobs to multiple devices
+<!-- //TODO -->
+
 #### CICD pipeline Backend
 To make our project completely professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.  
 Since we used Azure-devops for our devops practices, we build the pipeline here.  
 
-<!-- //TODO azure devops -->
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert Azure pipeline backend" src="/img/2020-09-25-ghelamco-alert/azure-backpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 The pipeline goes through a multitude of steps:  
 1. We run the pipeline on a Linux agent
@@ -358,7 +361,9 @@ A few of the benefits of using this AWS service:
 - Amazon Cognito provides us solutions to control access to backend resources from our app. You can define roles and map users to different roles so your app can access only the resources that are authorized for each user.
 - Easy integration with our app
 
-<!-- //TODO: foto Login-screen webapp -->
+<div style="text-align: center;">
+  <img alt="Ghelamco-alert loginscreen frontend" src="/img/2020-09-25-ghelamco-alert/login-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 ##### User-pool and Identity-pool
 User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications.  
@@ -379,31 +384,34 @@ On the dashboard view we can see which events are coming up next, when we click 
 From here we can update alert times, or we can snooze them. BUT!  
 The way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case.  
 
-<!-- //TODO: FOTO dashboard-view-webapp -->
+<<div style="text-align: center;">
+  <img alt="Ghelamco-alert Dashboard frontend" src="/img/2020-09-25-ghelamco-alert/dashboard-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
-When clicking on snooze or save, we create a job for our RPI. Just like deploying a new Docker image onto the RPI, we use IoT Jobs to make our RPI execute custom tasks.  
+When clicking on snooze or save, we create a job for our RPI.  
+Just like deploying a new Docker image onto the RPI, we use IoT Jobs to make our RPI execute custom tasks.  
 
 ##### Create Custom event
 On this tab we can create our own custom events.  
 The way this works is identical as snoozing and updating an alert on the dashboard view.  
 We also create a job which gets executed, as described in the next section.
 
-<!-- //TODO: FOTO custom-event-webapp -->
+<<div style="text-align: center;">
+  <img alt="Ghelamco-alert create event screen" src="/img/2020-09-25-ghelamco-alert/frontend-create.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 ##### Executing jobs on the RPI 
 
 An example of how such a cycle works for snoozing an alert :  
 1. We click snooze
 2. We call our [AWS API](https://aws.amazon.com/api-gateway/) endpoint "/alert/snooze".
-3. This endpoint invokes a [AWS Lambda function](https://aws.amazon.com/lambda/), which creates a job for the RPI and inserts a row into another dynamo table (ghela-jobs), to register the jobs we create on the frontend.
+3. This endpoint invokes a [AWS Lambda function](https://aws.amazon.com/lambda/), which creates a job for the RPI and inserts a row into another dynamo table (ghela-jobs), to register the job we created on the frontend.
 4. The RPI executes the job, meaning snoozing the alert
 5. The RPI synchronizes his H2 database with the Event dynamo table (ghela-events)
 
 For updating an alert or creating a custom game, the above would be the same except:  
 - we call another endpoint. ex. "/event" or "/alert" 
-- the job-document that we create in our lambda function to send with our job-creation request, will differ.
-
-<!-- //TODO FOTO different job-documents -->
+- the job-document that we create in our lambda function to send with our job-creation request, will differ.  
 
 ##### Job overview
 In this view the API will send a GET request to our AWS API on the endpoint "/job".  
@@ -411,17 +419,17 @@ The lambda function which is coupled here, will read the ghela-jobs dynamo table
 The moment this list is empty all changes from our webapp have been processed successfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.  
 
 Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely.  
-We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.
+We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.  
 
-<!-- //TODO FOTO Jobs -->
+<<div style="text-align: center;">
+  <img alt="Ghelamco-alert jobs screen" src="/img/2020-09-25-ghelamco-alert/frontend-jobs.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
 
 ##### Metrics
 On this tab we can see the status of the RPI backend as a graph.  
 Remember the Metrics we talked about above?  
-Via the "/metrics" API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
-On this graph we can easily see if the RPI is still connected to the internet.
-
-<!-- //TODO FOTO metrics -->
+Via the "/metrics" API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.  
+On this graph we can easily see if the RPI is still connected to the internet.  
 
 #### CICD pipeline Frontend
 
@@ -437,14 +445,18 @@ The process goes like this:
 5. Upload the newly compiled webapp to this S3 bucket
 6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated in every datacenter, everywhere in the world. If we don't do this, our old version could be cached for up to 24h!  
 
+<<div style="text-align: center;">
+  <img alt="Ghelamco-alert frontend pipeline" src="/img/2020-09-25-ghelamco-alert/azure-frontpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
 ## Serverless as backend framework
 To get the backend for our webapp working we needed a few things to get up and running.  
 
 1. We needed 2 [DynamoDB]() tables to put our events and jobs.
-2. Another thing we needed were a [Cognito UserPool]() and a Cognito [IdentityPool]() for the security aspect of our Frontend.
+2. Another thing we needed were a [Cognito UserPool]() and a [Cognito IdentityPool]() for the security aspect of our Frontend.
 3. An [AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) with all of our needed end-points configured and secured.
 4. [Lambda functions]() to make our endpoints perform the operations they were intended for, using the [AWS Node.js SDK](https://aws.amazon.com/sdk-for-node-js/)
-5. Roles and permissions to perform these operations inside of our Lambdas. (Connect and create jobs on AWS IoT, scan and put to our Dynamo tables, etc...)
+5. [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) roles and permissions to perform these operations inside of our Lambdas. (Connect and create jobs on AWS IoT, scan and put to our Dynamo tables, etc...)
 
 
 ### Why do we even use serverless?
@@ -454,11 +466,11 @@ Bas then later introduced me to the concept of [IaC or Infrastructure as Code](h
 
 ### Serverless.yml
 The heart of our configuration.  
-
-Inside this file, which could also be a JSON or a Typescript file, we define everything we need for our backend to work.
+Inside this file, which could also be a JSON or a Typescript file, we define everything we need for our backend to work.  
 
 #### Functions
-A Function is an AWS Lambda function, it's an independent unit of deployment, like a microservice.  It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case: list-events.  
+A Function is an AWS Lambda function, it's an independent unit of deployment, like a microservice.  
+It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case: list-events.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -494,9 +506,9 @@ Below an example of such a lambda, reading data from our Dynamodb (using the env
 #### AWS API Gateway
 In the last part we describe what our API endpoint should look like.  
 Serverless makes sure a few services get configured:  
-- your API endpoint gets created
+- our API endpoint gets created
 - configure our endpoint to use AWS IAM authentication upon calling it
-- your Lambda function gets attached to the endpoint
+- our Lambda function gets attached to the endpoint
 - configure CORS 
 - define standard gateway responses (as described in our additional api-gateway-errors.yml file)
 
@@ -506,7 +518,7 @@ Serverless makes sure a few services get configured:
 
 ### CICD pipeline Serverless
 
-<!-- //TODO -->
+<!-- //TODO write -->
 
 ## Conclusions
 
@@ -517,7 +529,7 @@ AS mentioned before, this internship gave me such a big cover of all best practi
 - API's, connecting it all together...
 - Came in touch with a lot of linux, sharpening my commandline skills
 - developed an Angular app from start to finish
-- Learned about a lot about AWS: IAM, Iot Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, Cloudwatch, Cloudfront, lambdas, Route53, ...
+- Learned about a lot about AWS: IAM, IoT Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, Cloudwatch, Cloudfront, lambdas, Route53, ...
 - CICD pipelines and their best practices in the industry
 
 I'm very thankful for being able to do this and having the chance to work with Bas on a real project.  
