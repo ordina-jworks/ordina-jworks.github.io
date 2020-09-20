@@ -114,6 +114,8 @@ This metric data gets send to AWS Cloudwatch where we can set up any dashboard w
 
 This is specificaly handy if you want to visualise the data coming from you app. More importantly, if you want to be notified whenever the RPI has not sent a heartbeat for 3 times, AWS Cloudwatch generates an alarm state for us and sents us an email about the RPI not being able to connect to the internet anymore.
 
+The logs from our spring app are also available in Cloudwatch, so we can check its status remote.
+
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -124,7 +126,7 @@ This is specificaly handy if you want to visualise the data coming from you app.
 
 ##### AWS IoT
 
-The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! The way AWS IoT handles authentication with connecting devices is through handing out certificates to trusted edge devices.
+The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! The way AWS IoT handles authentication on connecting devices is through handing out certificates to trusted edge devices.
 
 Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations.
 
@@ -181,9 +183,9 @@ AWS IoT jobs are used to define a set of remote operations that are sent to and 
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-update-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,... 
+When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,...   
 
-Anything we want really! 
+Anything we want really!  
 
 In our case we use jobs for a multitude of processes:
 - updating our backend app - over the air
@@ -198,14 +200,14 @@ The basics to create a job are not so difficult:
 
 1. create a job
 2. add a job-document (JSON-file) which describes what the job is about 
-3. push job onto queue to get processed
+3. push job onto queue to get it processed
 
 Example of a job document: 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/job-document.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-At the start of my project I created a way to update our spring application by writing some custom code which involves running a whole load of Linux commands to: 
+At the start of my project I created a way to update our spring application by writing some custom code, which involves running a whole load of Linux commands to: 
 - create new folders on the RPI
 - downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service)
 - running some commands and scripts to enable a new daemon (service) process on the RPI
@@ -218,7 +220,7 @@ Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/green
 ###### MQTT protocol
 When working with AWS IoT we have basically 2 choices: work wit HTTP requests or use MQTT.
 
-So why would we choose MQTT over the more familiar HTTP web services? Because this request and response pattern does have some severe limitations:
+So why would we choose MQTT over the more familiar HTTP web services? Because this request and response pattern does have some severe limitations:  
 
 * HTTP is a synchronous protocol. The client waits for the server to respond. That is a requirement for web browsers, but it comes at the cost of poor scalability. In the world of IoT, the large number of devices and most likely an unreliable / high latency network have made synchronous communication problematic. An asynchronous messaging protocol is much more suitable for IoT applications. The sensors can send in readings, and let the network figure out the optimal path and timing for delivery to its destination devices and services.
 * HTTP is one-way. The client must initiate the connection. In an IoT application, the devices or sensors are typically clients, which means that they cannot passively receive commands from the network.
@@ -231,24 +233,24 @@ MQTT on the otherhand defines two types of entities in the network: a message br
 2. The client publishes messages under a topic by sending the message and topic to the broker.
 3. The broker then forwards the message to all clients that subscribe to that topic.
 
-Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS Iot by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics. Every 30 seconds we will read these topics to see if there are any new jobs to be processed.
+Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS Iot by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics.  Every 30 seconds we will read these topics to see if there are any new jobs to be processed.
 
-//GIF backend processing a job in intelliJ
+<!-- //GIF backend processing a job in intelliJ -->
 
 ### AWS IOT Greengrass
-//TODO
+<!-- //TODO -->
 
 #### Getting it to work
-//TODO
+<!-- //TODO -->
 
 #### Dockerized app 
-//TODO
+<!-- //TODO -->
 
 #### CICD pipeline Backend
 To make our project completly professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.
 Since we used Azure-devops for our devops practices, we build the pipeline here. 
 
-//FOTO azure devops
+<!-- //FOTO azure devops -->
 
 The pipeline goes through a multitude of steps:
 1. We run the pipeline on a Linux agent
@@ -258,22 +260,23 @@ The pipeline goes through a multitude of steps:
 5. To have access to our GPIO pins from inside our docker container, we need install wiringPi inside our docker image, and run it as a priveleged container.
 6. We create the docker image and push it into [AWS ECR - Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
 7. Whilst creating this docker image we also create the docker-compose.yml file which we will upload to our AWS S3 bucket, named: **"ghelamco-rpi-releases"**.
-8. as the last step we use the "greengrass create-deployment" cli command to alert our RPI of the new job to execute, which is downloading the docker-image, docker-compose.yml file and spin up our container!
-9. In our docker-compose.yml we define how this container should be ran on the device. We run it privileged to access our RPI-GPIO pins via wiringPi, we mount our H2 database and our AWS Credentials, which are located on the filesystem of the RPI. 
+8. as the last step we use the "greengrass create-deployment" cli command to alert our RPI of the new job to execute, which is downloading the docker-image, docker-compose.yml file and spin up our container!  
 
-This whole pipeline makes sure that whenever we commit to the master branch, that tests are being run, a JAR file gets build, config files get securely fetched, libraries get added, a docker image is being build, we notify the RPI of the new job and execute it.
+In our docker-compose.yml we define how this container should be ran on the device. We run it privileged to access our RPI-GPIO pins via wiringPi, we mount our H2 database and our AWS Credentials, which are located on the filesystem of the RPI.  
 
-Executing the job means, killing the old docker image and running the new one, which is our complete cycle.
+This whole pipeline makes sure that whenever we commit to the master branch, that tests are being run, a JAR file gets build, config files get securely fetched, libraries get added, a docker image is being build, we notify the RPI of the new job and execute it.  
+
+Executing the job means, killing the old docker image and running the new one, which is our complete cycle.  
 
 ## Frontend Webapp
 
 ### Introduction
-To get some data about our Events on our webapp, we needed a way to connect to our H2 database on the RPI. Since we didn't want to expose any REST endpoints on our spring app we had to find another way to get the data.
+To get some data about our Events on our webapp, I needed a way to connect to our H2 database on the RPI.  Since we didn't want to expose any REST endpoints on our spring app we had to find another way to get the data.
 
 #### AWS DynamoDb
-To get an exact copy of our H2 database, we made a syncing tool on our RPI-backend which updates a remote DynamoDb.
-[AWS Dynamo](https://aws.amazon.com/dynamodb/) is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.
-When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website. This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.
+To get an exact copy of our H2 database, I made a syncing tool on our RPI-backend which updates a remote DynamoDb.
+[AWS Dynamo](https://aws.amazon.com/dynamodb/) is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.  
+When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website.  This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.  
 
 #### Hosting our webapp
 If we make a webapp, then we need some kind of hosting service. In our case we used [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) again for our storage, for a domain name and DNS routing we used [AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) to access our app from: [ghelamco-alert.ordina-jworks.io](https://ghelamco-alert.ordina-jworks.io). Meanwhile we also used [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) to speed up our content delivery to anywhere in the world. CloudFront delivers our content through a worldwide network of data centers called edge locations. When a user requests content that we're serving with CloudFront, the user is routed to the edge location that provides the lowest latency.
@@ -301,7 +304,9 @@ A few of the benefits of using this AWS service :
 //FOTO: Loginscreen webapp
 
 ###### User-pool and Identity-pool
-//TODO
+User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications. Users can sign-in directly to the **User Pool** (which we used), or using Facebook, Amazon or Google. Successful authentication generates JSON Web Tokens (JWTs).
+
+Identity Pools provide temporary AWS credentials to access AWS services like S3 and DynamoDB.
 
 ##### aws-exports.js
 Our amplify project generates a new file in the ./src folder of our project, an aws-exports.js, that holds all the configuration for the services we create with Amplify. 
@@ -341,20 +346,20 @@ For updating an alert or creating a custom game, the above would be the same exe
 - we call another endpoint. ex. "/event" or "/alert" 
 - the jobdocument that we create in our lambda function to send with our Job-creation request, will differ.
 
-//FOTO different jobdocuments
+<!-- FOTO different jobdocuments -->
 
 ##### Job overview
-In this view the API will send a GET request to our AWS API on the endpoint "/job". The lambda function which is coupled here, will read the ghela-jobs dynamo table, and will list all jobs, of whom the status is not yet "COMPLETED". The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.
+In this view the API will send a GET request to our AWS API on the endpoint "/job". The lambda function which is coupled here, will read the ghela-jobs dynamo table, and list all jobs of whom the status is not yet "COMPLETED". The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.
 
 Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely. We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.
 
-//FOTO Jobs
+<!-- //FOTO Jobs -->
 
 ##### Metrics
 On this tab we can see the status of the RPI backend as a graph. Remember the Metrics we talked about above? Via this API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
 On this graph we can easily see if the RPI is still connected to the internet.
 
-//Foto metrics
+<!-- //Foto metrics -->
 
 #### CICD pipeline Frontend
 
@@ -433,7 +438,7 @@ Serverless makes sure that a few services get configured:
 
 #### CICD pipeline Serverless
 
-//TODO
+<!-- //TODO -->
 
 ## Conclusions
 
@@ -459,6 +464,5 @@ He could destroy a day of hard work in a few sentences.. :)
 But he would always take the time to explain why, and how I should do it to make my solution comply with the industries best practices.
 Being able to have someone who makes you self-reflect on the work that you did, and takes his time to give you proper feedback, is the biggest asset to provide to a junior programmer.
 
-Also a big thanks to Frederick Bousson & Ordina for the opportunity and resources provided.
-I felt at home from the first moment, not a question was to many, and I was a part of the team!
+Also a big thanks to Frederick Bousson & Ordina for the opportunity and resources provided. This really was a 
 
