@@ -387,25 +387,34 @@ We now have a RPI device that is registered as an edge device and a greengrass c
 This now ensures that our device is (semi) managed by AWS as greengrass and docker compose are in charge of orchestrating our deployments onto the device.  
 It's not perfect, but it's a hell of a lot better then having nothing.  
 
-## Frontend Webapp
+## Frontend web application
 
 ### Introduction
 To get data from our RPI into our web application we needed a way to connect to our H2 database on the RPI.  
-It would be pretty complex to setup our RPI device to be accessible from the internet so we chose to build a backend in AWS to function as proxy for our RPI backend application.  
-We can then use this proxy backend in AWS to access the data from our RPI device and send new commands to update existing data on the RPI.  
+It would be pretty complex to setup our RPI device to be accessible from the internet so we chose to build a backend in AWS to function as a proxy for our RPI backend application.  
+This allows us to use this proxy backend in AWS to access the data from our RPI device and send new commands to update existing data on the RPI.  
+More about this backend in the serverless part.  
+First let's take a look into our frontend application.  
 
 #### AWS DynamoDb
-To get an exact copy of our H2 database, I made a syncing tool on our RPI-backend which updates a remote DynamoDb.  
+We decided to use AWS DynamoDB as our datastore in the cloud.  
 [AWS Dynamo](https://aws.amazon.com/dynamodb/) is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.  
-When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website.  
-This ensures that our RPI H2 database acts as the single source of truth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.  
+DynamoDB is a very cost effective and low maintenance way of storing data so it looked perfect for us.  
+To get our data from the H2 database on the RPI into dynamoDB, I made a service in our backend application that syncs the local H2 database to our dynamoDB table.  
+We added some triggers in our RPI backend application that allows us to sync the current state of the H2 database to the dynamoDB table.  
+For example when our website scraping process is done, we trigger a sync to dynamoDB if there are any updates or inserts into our H2 database.  
+This ensures that our RPI H2 database acts as the single source of truth.  
+The dynamoDB is just a read only copy of the data in the AWS cloud that is kept up to date by our RPI backend application.  
+So as long as the backend application is running on the RPI we have access to the latest data in our web application.  
 
-#### Hosting our webapp
-If we make a webapp, then we need some kind of hosting service.  
-In our case we used [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) again for our storage, for a domain name and DNS routing we used [AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) to access our app from: [ghelamco-alert.ordina-jworks.io](https://ghelamco-alert.ordina-jworks.io).  
-Meanwhile, we also used [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) to speed up our content delivery to anywhere in the world.  
+#### Hosting our web application
+In order to make our web application accessible to the general public we need some kind of hosting service.  
+In our case we used [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) to host our website.  
+Our S3 bucket is prefaced by a [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) that acts as our global, scalable CDN.  
 CloudFront delivers our content through a worldwide network of data centers called edge locations.  
 When a user requests content that we're serving with CloudFront, the user gets routed to the edge location that provides the lowest latency.  
+We used [AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) as our DNS service so that we can access our application on the url  [ghelamco-alert.ordina-jworks.io](https://ghelamco-alert.ordina-jworks.io).  
+
 
 ### Angular as frontend framework
 Any framework would've worked to accomplish what I was trying to do, which is create a simple webapp to communicate with our RPI.  
