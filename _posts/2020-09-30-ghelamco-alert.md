@@ -159,16 +159,12 @@ The logs from our spring app are also available in Cloudwatch, so we can check i
 
 ##### AWS IoT
 
-<<<<<<< HEAD
-The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! The way AWS IoT handles authentication on connecting devices is through handing out certificates to trusted edge devices.
-=======
 The reason for using AWS IoT is for the sake of "being connected to the cloud".  
 When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want!  
 In our case this means that we want our RPI device to be connected to AWS Iot whenever it is up and running and has internet connectivity.  
 Of course the communication between our RPI and the AWS cloud has to be secured.
 AWS Iot uses authentication and authorization workflow by using certificates that you issue from AWS Iot and upload to your edge device.  
 The RPI at the ghelamco Arena is treated as an edge device in our project.  
->>>>>>> 6e665b21b0674456994dfd607a7a6a13d5c44051
 
 Authentication works based on the certificates that the edge device presents to AWS IoT.  
 Once the certificate authentication is successfull, AWS Iot checks which policies are attached to those certificates to grant it specific authorizations within the AWS cloud.  
