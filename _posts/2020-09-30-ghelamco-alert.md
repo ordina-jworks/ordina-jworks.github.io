@@ -19,15 +19,21 @@ comments: true
 
 # Introduction
 At Ordina, we have a beautiful office in the Ghelamco arena in Gent.  
-The drawback of having an office in this stadium is, that on match days we need to clear the parking spaces 3 hours before a match.
-  
+The drawback of having an office in this stadium is that whenever KAA Gent plays a game in the stadium we have to make sure that our parking lot is empty 3 hours before the game starts.
 If the parking lot isn't cleared in time, we risk fines up to 500 euros per car.  
 Of course we do not want to spend our money on fines when instead we could be buying more pizzas.  
-So we came up with the **ghelamco alert** solution to let us know when a game will be taking place so that the people working in the Ghelamco offices can be warned in time.
+So we came up with the **ghelamco alert** solution to let us know when a game will be taking place.  
+That way the people working in the Ghelamco offices can be warned in time.
 
-The premise is pretty simple: we will run a Raspberry Pi device inside the office that is connected to an alarm-light.  
-On matchdays the RPI will turn on the signal a couple hours before the game, warning our employees that they have to leave the parking in time.  
-We also created a web application that controls our RPI so we can snooze alerts, create custom alerts, save custom events, ...
+The idea for the project is pretty simple on paper.  
+We will run a Raspberry PI device that is hooked up to an alert light.  
+The Raspberry PI will scan the website of KAA Gent so that it stays up to date on upcoming home games.  
+Whenever a home game occurs, the RPI will start turning on the alert light on a preset schedule.  
+This way our employees in the office will have a visual warning that a game will be taking place that day.  
+Of course we want to make our solution as user friendly as possible.  
+So we added a serverless backend in the AWS cloud combined with an angular application to see some basic output from the RPI device and to allow us to manipulate events on the RPI if we want to.  
+This means that our web application allows us to add events, add alerts, snooze alerts.  
+
 
 //TODO GIF Proof of working project
 <div style="text-align: center;">
@@ -36,16 +42,18 @@ We also created a web application that controls our RPI so we can snooze alerts,
 
 ## Concept
 I received my assignment from Fredrick Bousson, who was also my internship supervisor.
-It consisted of 3 things to develop: 
-1. an Iot module on the RPI, 
-2. a backend in either java/spring or Typescript/node 
-3. a frontend with either framework I liked.
+It consisted of 3 components to develop: 
+1. an Iot module on the RPI  
+2. a backend on the AWS cloud using either java/spring or Typescript/node 
+3. a frontend with a framework I could choose.
 
 ## Mentor
-For the duration of my internship I had Bas Moorkens as my mentor, who came up with architecture of our service, as shown below.
-We tweaked a lot on this over the duration of my internship but this is the final version.
+For the duration of my internship I had Bas Moorkens as my mentor. 
+Bas designed the architecture of our system.  
+We tweaked the design a lot during the internship and below is the final design we went for.  
 
-We used over 10 services of AWS, which over the course of the internship, made me develop a real intrest in everything that is AWS and cloud related. Once you get the hang of serverless, the speed of setting up infrastructure is absolutly mind-blowing!
+We used over 10 AWS service, which over the course of the internship, made me develop a real intrest in everything that is AWS and cloud related.  
+Once you get the hang of serverless, the speed of setting up infrastructure is absolutly mind-blowing!
 
 //TODO insert diagram of bigger picture
 <div style="text-align: center;">
@@ -56,33 +64,43 @@ We used over 10 services of AWS, which over the course of the internship, made m
 For the sake of not overloading you with the nitty gritty details of this project, I will cover only the most interesting or most innovative topics.
 
 ## Backend RPI
-The Rasberry Pi we used is a model 4 with a Raspbian Linux Distro. This is the most common used OS for a RPI. The RPI works with a microSD card on which you can easily install any Linux-distro from you laptop, just plug it in and you're good to go!
-After updating the OS and installing a JRE, we were set to test and run our application on this device.
+The Rasberry Pi we used is a model 4 with a Raspbian Linux Distro. This is the most common operating system used for a RPI. 
+The RPI works with a microSD card on which you can easily install any Linux-distro from your laptop, just plug it in and you're good to go!  
+After updating the OS and installing a JRE, we were set to test and run our application on this device.  
 
 ### Spring Ghela-alert application
 
 #### Basics of our application
-The whole essence of the app revolves around **Events** which happen at the Ghelamco arena. These can be of type ***GameEvent*** or ***CustomEvent***.
-- The GameEvents are all of the KAA Gent home games.
-- As an added feature, furter down the road, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
+The core of our application revolves around **events** which happen at the Ghelamco Arena.  
+These can be of type ***GameEvent*** or ***CustomEvent***.
+* The GameEvents are all of the KAA Gent home games.
+* As an added feature, furter down the road, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
 
-On each Event we generate a couple of standard **Alerts** based on the **Event** time. These are responsible to set off the alarm-light in the office, indicating that they also control the [GPIO](https://www.raspberrypi.org/documentation/usage/gpio/) interface of our RPI. To set off an alert, the GPIO interface changes the voltage on a GPIO-pin to 0V or 3.3V. This pin is coupled to a relay, which acts as a regular switch, but electricaly controlled. If we put 0V on the relay, the circuit remains open, when we put 3.3V on it, the circuit is closed and thus starting our alarm-light.
+On each event we generate a couple of standard **alerts** based on the **event time**.  
+These alerts are responsible to set off the alarm-light in the office.  
+This means that we will use the [GPIO](https://www.raspberrypi.org/documentation/usage/gpio/) interface of our RPI to turn on the alarm-light every time an alert is triggered in our backend application.  
+To set off an alert, the GPIO interface changes the voltage on a GPIO-pin to 0V or 3.3V.  
+This pin is coupled to a relay, which acts as a regular switch, but electricaly controlled.  
+If we put 0V on the relay, the circuit remains open, when we put 3.3V on it, the circuit is closed and thus starting our alarm-light.  
 
 #### WebScraper
-We have a scheduled service in our GhelaAlert spring app, which is triggerd every hour and checks the website of KAA Gent for the up to date fixtures of the games. The approach I took for scraping the website, is by using X-Path with a library called [htmlunit](https://https://htmlunit.sourceforge.io/). In our application we fetch every game from the website, filter them on home games, attach Alerts and save those games to our H2-database using spring data.
+Our spring backend is running a scheduler and we have setup a service which is triggerd every hour and checks the website of KAA Gent for the up to date fixtures of the games.  
+The approach I took for scraping the website, is by using X-Path with a library called [htmlunit](https://https://htmlunit.sourceforge.io/).  
+In our application we fetch every game from the website, filter them on home games, attach alerts and save those games to our H2-database using spring data.
 
-Every time we scan the website, we compare the scraped games data with the ones we already had. 
-Games can get updated or rescheduled on the website, but our app will recognize it and update his records accordingly in the database.
+Every time we scan the website, we compare the scraped games data with the games that already were saved in our database.  
+Games can get updated or rescheduled on the website, but our application will recognize it and update the database records accordingly.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/scrape-games.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 #### H2 database
-Since one of the prerequisites was that the RPI should be able to function on his own, without constant internet connection, we needed to use a database which is located locally, on te RPI. If we would use a remote database, we wouldn't be able to send any data to the RPI, when he isn't connected to a network.
-
-We chose to use an H2-database because it's an SQL database which is easy to set up for local use.
-
+One of the requirements for the project was that the RPI should be able to function on his own without constant internet connection.  
+This meant that we needed to use a database that can run locally on te RPI.  
+If we would use a remote database we wouldn't be able to send any data to the RPI when he it's not connected to a network.  
+We chose to use an H2-database because it's a SQL database which is easy to set up for local use.  
+We configured the H2-database to be backed by a flatfile on our local filesystem, this way the database is persistent even when the application restarts.  
 We just need to add the H2 dependency to our projects pom.xml
 
 <div style="text-align: center;">
@@ -95,24 +113,39 @@ And some configuration in app.properties
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-prop.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-And this just works out of the box, even with a console to check you database.
+And this just works out of the box, it even comes with a console to check your database.  
 
 #### Metrics
 
-Our application generates metrics to provide us with some data about our backend. This data is about the amount of snoozing-alerts, updating alerts, creating events and also a heartbeat which indicates that our RPI is still online and able to send a some data.
-We gather this data for 5 minutes inside our backend code and then we send this to AWS Cloudwatch, afterwhich we reset our data, and start collecting again. This way we have a dashboard which gets update every 5 minutes.
+Our application generates metrics to provide us with some data about our backend.  
+We collect data and push it into AWS cloudwatch as metrics for:
+* Number of events added
+* Number of events update
+* Number of events cancelled
+* Number of alerts snoozed
+* Number of alerts started
+* Number of alerts stopped
+* A basic heartbeat
+
+This data is gathered continously when our application is running and gets pushed to cloudwatch metrics every 5 minutes.  
+Afterwards we reset our data counters, and start collecting again.  
+This allows us to create a dashboard which has datapoints every 5 minutes for all the metrics we defined.  
 
 
 ##### AWS Cloudwatch
 
-This metric data gets send to AWS Cloudwatch where we can set up any dashboard we want with our data.
+The metric data gets send to AWS Cloudwatch where we can build any dashboard that we want with our data.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Metrics" src="/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 
-This is specificaly handy if you want to visualise the data coming from you app. More importantly, if you want to be notified whenever the RPI has not sent a heartbeat for 3 times, AWS Cloudwatch generates an alarm state for us and sents us an email about the RPI not being able to connect to the internet anymore.
+This is especially usefull if you want to visualise the data coming from your application.  
+We are also able to define cloudwatch alarms based on our custom metrics.  
+We have created an alarm that triggers when our **RPI_BACKEND_STATUS** status metric is not received for 3 data points in a row.  
+This means that after 15 minutes of not receiving this metric, the cloudwatch alarm will trigger and notifies us via email that the RPI is either down or disconnected from the internet.  
+This enables us to respond quickly and take action to restore connectivity to the device.  
 
 
 <div style="text-align: center;">
@@ -124,28 +157,40 @@ This is specificaly handy if you want to visualise the data coming from you app.
 
 ##### AWS IoT
 
-The reason why we use AWS IoT is for the sake of "being connected to the cloud". When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want! The way AWS IoT handles authentication with connecting devices is through handing out certificates to trusted edge devices.
+The reason for using AWS IoT is for the sake of "being connected to the cloud".  
+When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want!  
+In our case this means that we want our RPI device to be connected to AWS Iot whenever it is up and running and has internet connectivity.  
+Of course the communication between our RPI and the AWS cloud has to be secured.
+AWS Iot uses authentication and authorization workflow by using certificates that you issue from AWS Iot and upload to your edge device.  
+The RPI at the ghelamco Arena is treated as an edge device in our project.  
 
-Authentication works based on the certificates that the connecting device presents to AWS IoT, afterwards AWS Iot checks which policies are attached to those certificates to grant it specific authorisations.
+Authentication works based on the certificates that the edge device presents to AWS IoT.  
+Once the certificate authentication is successfull, AWS Iot checks which policies are attached to those certificates to grant it specific authorizations within the AWS cloud.  
 
 ###### Authentication: certificates
-When registering "a thing" on AWS IoT, it generates 2 keys for us, a public key and a private key. On the public key it will provide a certificate signing request, which will sign the generated certificate with the root certificate's private key.
+When you add a new edge device in AWS IOT it is called "a thing".  
+When registering "a thing" it generates 2 keys for us: a public key and a private key.  
+AWS Iot will provide a certificate signing request for the public key, which will sign the generated certificate with the root certificate's private key.  
 
-Our thing-certificate and our private key are our credentials when we try to communicate with AWS IoT to access our "thing".
-The only thing that we need to provide on top, is the Root certificate, to check the signing.
+Our thing-certificate and our private key are our credentials when we try to communicate with AWS IoT to access our edge device.  
+The only additional input that we need to provide on top of the generated signing request is the root certificate to check the signing.  
 
 * certificate file
 * private Key
 * Root CA
 
-Since these certificates get generates per thing registered, these should only be used for 1 device. When I developed the application I had to register another thing, namely my laptop. Connecting from the RPI and the laptop with the same certificates caused some unwanted behavior, like connection interupts, etc..
+Since these certificates get generated per thing that you register they should only be used for 1 device.  
+When I developed the application I had to register another thing for my laptop.  
+Connecting from the RPI and the laptop with the same certificates caused some unwanted behavior like connection interupts.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/cert-aws-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 ###### Authorization: policies
-After creating our certificates and keys, we need to handle the autorization part, which we do by adding some policies to our certificate. When presenting our certificates on connect, AWS IoT now also knows what services we can access within the cloud. 
+After creating our certificates and keys, we need to handle the autorization part.  
+We do this by adding some policies to our certificates.  
+When presenting our certificates on connect, AWS IoT now also knows what services we can access within the AWS cloud. 
 
 An example of such a policy: 
 
@@ -160,7 +205,7 @@ We define which services we want to access like this:
 - "iot:UpdateThingShadow"
 - "iot:DeleteThingShadow" 
 
-This system of generating certificates and coupling policies is a very secure and easy way of working with devices "on the edge". 
+This system of generating certificates and coupling policies is a very secure and easy way of working with edge devices.   
 
 ###### jobs
 
