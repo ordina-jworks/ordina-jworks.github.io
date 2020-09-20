@@ -160,7 +160,7 @@ The logs from our spring app are also available in Cloudwatch, so we can check i
 ##### AWS IoT
 
 The reason for using AWS IoT is for the sake of "being connected to the cloud".  
-When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want!  
+When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want!   
 In our case this means that we want our RPI device to be connected to AWS Iot whenever it is up and running and has internet connectivity.  
 Of course the communication between our RPI and the AWS cloud has to be secured.
 AWS Iot uses authentication and authorization workflow by using certificates that you issue from AWS Iot and upload to your edge device.  
@@ -221,18 +221,22 @@ A crucial part of AWS Iot is the job section.  We can create a job by using the 
   --abort-config "<span>{</span> \"criteriaList\": [ <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">FAILED</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">100</code>, \"thresholdPercentage\": <code class="replaceable">20</code>}, <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">TIMED_OUT</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">200</code>, \"thresholdPercentage\": <code class="replaceable">50</code>}]}" \          
   --presigned-url-config "<span>{</span>\"roleArn\":\"<code class="replaceable">arn:aws:iam::123456789012:role/S3DownloadRole</code>\", \"expiresInSec\":3600}" </code>
 
-AWS IoT jobs are used to define a set of remote operations that are sent to and executed on our RPI. But this doesn't have to be one device. AWS IoT gives us the possibility to create groups, in which we can register multiple devices. With one click of the button you could send software-updates to hundreds of edge devices. 
+AWS IoT jobs are used to define a set of remote operations that are sent to and executed on our RPI.  
+But this doesn't have to be one device.  
+AWS IoT gives us the possibility to create groups, in which we can register multiple devices.  
+With one click of the button you could send software-updates to hundreds of edge devices.  
 
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/device-update-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs. These jobs could be software updates, reboot commands, rotate certificates,...   
+When working with AWS Iot we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs.  
+These jobs could be software updates, reboot commands, rotate certificates,...   
 
 Anything we want really!  
 
-In our case we use jobs for a multitude of processes:
+In our case we use jobs for a multitude of processes:  
 - updating our backend app - over the air
 - Creating new Events
 - Snoozing and updating alerts
@@ -241,29 +245,29 @@ In our case we use jobs for a multitude of processes:
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/aws-iot-jobs.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-The basics to create a job are not so difficult:
+The basics to create a job are not so difficult:  
 
 1. create a job
 2. add a job-document (JSON-file) which describes what the job is about 
 3. push job onto queue to get it processed
 
-Example of a job document: 
+Example of a job document:  
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/job-document.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-At the start of my project I created a way to update our spring application by writing some custom code, which involves running a whole load of Linux commands to: 
+At the start of my project I created a way to update our spring application by writing some custom code, which involves running a whole load of Linux commands to:  
 - create new folders on the RPI
 - downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service)
 - running some commands and scripts to enable a new daemon (service) process on the RPI
 - deleting the old version... 
 
-It worked, but it looked.. meh! :)
+It worked, but it looked.. meh! :)  
 
-Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.
+Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.  
 
 ###### MQTT protocol
-When working with AWS IoT we have basically 2 choices: work wit HTTP requests or use MQTT.
+When working with AWS IoT we have basically 2 choices: work wit HTTP requests or use MQTT.  
 
 So why would we choose MQTT over the more familiar HTTP web services? Because this request and response pattern does have some severe limitations:  
 
@@ -272,13 +276,17 @@ So why would we choose MQTT over the more familiar HTTP web services? Because th
 * HTTP is a 1-1 protocol. The client makes a request, and the server responds. It is difficult and expensive to broadcast a message to all devices on the network, which is a common use case in IoT applications.
 * HTTP is a heavy weight protocol with many headers and rules. It is not suitable for constrained networks.
 
-MQTT on the otherhand defines two types of entities in the network: a message broker (AWS IoT) and a number of clients (our edge devices). The broker is a server that receives all messages from the clients and then routes those messages to relevant destination clients. A client is anything that can interact with the broker to send and receive messages. A client is in our case the RPI but it could also be an IoT sensor in the field or an application in a data center that processes IoT data.
+MQTT on the otherhand defines two types of entities in the network: a message broker (AWS IoT) and a number of edge devices(clients).   
+The broker is a server that receives all messages from the clients and then routes those messages to relevant destination clients.  
+A client is anything that can interact with the broker to send and receive messages.  
+Our client is the RPI but it could also be an IoT sensor in the field or an application in a data center that processes IoT data.  
 
 1. The client connects to the broker. It can subscribe to any message “topic” in the broker.
 2. The client publishes messages under a topic by sending the message and topic to the broker.
 3. The broker then forwards the message to all clients that subscribe to that topic.
 
-Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS Iot by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics.  Every 30 seconds we will read these topics to see if there are any new jobs to be processed.
+Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS Iot by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics.  
+Every 30 seconds we will read these topics to see if there are any new jobs to be processed.  
 
 <!-- //GIF backend processing a job in intelliJ -->
 
@@ -292,12 +300,12 @@ Inside of our backend code in java, we have an MQTTJobService which makes connec
 <!-- //TODO -->
 
 #### CICD pipeline Backend
-To make our project completly professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.
-Since we used Azure-devops for our devops practices, we build the pipeline here. 
+To make our project completly professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.  
+Since we used Azure-devops for our devops practices, we build the pipeline here.  
 
 <!-- //FOTO azure devops -->
 
-The pipeline goes through a multitude of steps:
+The pipeline goes through a multitude of steps:  
 1. We run the pipeline on a Linux agent
 2. We use Maven cache to speed up the building process
 3. We build our JAR file
@@ -307,41 +315,50 @@ The pipeline goes through a multitude of steps:
 7. Whilst creating this docker image we also create the docker-compose.yml file which we will upload to our AWS S3 bucket, named: **"ghelamco-rpi-releases"**.
 8. as the last step we use the "greengrass create-deployment" cli command to alert our RPI of the new job to execute, which is downloading the docker-image, docker-compose.yml file and spin up our container!  
 
-In our docker-compose.yml we define how this container should be ran on the device. We run it privileged to access our RPI-GPIO pins via wiringPi, we mount our H2 database and our AWS Credentials, which are located on the filesystem of the RPI.  
+In our docker-compose.yml we define how this container should be ran on the device.  
+We run it privileged to access our RPI-GPIO pins via wiringPi, we mount our H2 database and our AWS Credentials, which are located on the filesystem of the RPI.  
 
-This whole pipeline makes sure that whenever we commit to the master branch, that tests are being run, a JAR file gets build, config files get securely fetched, libraries get added, a docker image is being build, we notify the RPI of the new job and execute it.  
+This whole pipeline makes sure that whenever we commit to the master branch, that tests are being run, a JAR file gets build, config files get securely fetched, libraries get added, a docker image is being build, we notify the RPI of the new job and execute it.    
 
 Executing the job means, killing the old docker image and running the new one, which is our complete cycle.  
 
 ## Frontend Webapp
 
 ### Introduction
-To get some data about our Events on our webapp, I needed a way to connect to our H2 database on the RPI.  Since we didn't want to expose any REST endpoints on our spring app we had to find another way to get the data.
+To get some data about our Events on our webapp, I needed a way to connect to our H2 database on the RPI.  
+Since we didn't want to expose any REST endpoints on our spring app we had to find another way to get the data.  
 
 #### AWS DynamoDb
-To get an exact copy of our H2 database, I made a syncing tool on our RPI-backend which updates a remote DynamoDb.
+To get an exact copy of our H2 database, I made a syncing tool on our RPI-backend which updates a remote DynamoDb.  
 [AWS Dynamo](https://aws.amazon.com/dynamodb/) is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.  
-When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website.  This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.  
+When our RPI scrapes the website of KAA Gent, it looks at all the game events, checks if any data has changed and updates the dynamo table with the most recent info from the website.  
+This ensures that our RPI H2 database acts as the single source of thruth and the dynamo table as an exact copy, as long as the RPI remains connected to the internet.  
 
 #### Hosting our webapp
-If we make a webapp, then we need some kind of hosting service. In our case we used [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) again for our storage, for a domain name and DNS routing we used [AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) to access our app from: [ghelamco-alert.ordina-jworks.io](https://ghelamco-alert.ordina-jworks.io). Meanwhile we also used [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) to speed up our content delivery to anywhere in the world. CloudFront delivers our content through a worldwide network of data centers called edge locations. When a user requests content that we're serving with CloudFront, the user is routed to the edge location that provides the lowest latency.
+If we make a webapp, then we need some kind of hosting service.  
+In our case we used [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) again for our storage, for a domain name and DNS routing we used [AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html) to access our app from: [ghelamco-alert.ordina-jworks.io](https://ghelamco-alert.ordina-jworks.io).  
+Meanwhile we also used [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) to speed up our content delivery to anywhere in the world.  
+CloudFront delivers our content through a worldwide network of data centers called edge locations.  
+When a user requests content that we're serving with CloudFront, the user is routed to the edge location that provides the lowest latency.  
 
 ### Angular as frontend framework
-Any framework would've worked to accomplish what we were trying to do, which is a simple webapp to communicate with our RPI. I opted for Angular, since I had already played around with it before.
+Any framework would've worked to accomplish what I was trying to do, which is create a simple webapp to communicate with our RPI.  
+I opted for Angular, since I had already played around with it before.
 
 
 #### AWS Amplify
-The open-source Amplify Framework provides:
+The open-source Amplify Framework provides:  
 - Amplify CLI - Configure all the services needed to power your backend through a simple command line interface.
 - Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.
 - Amplify UI Components - UI libraries for React, React Native, Angular, Ionic and Vue.
 
-For our project we only used the libraries and UI components from Amplify for our Webapp. The backend we needed is powered by the Serverless framework, on which we'll elaborate a bit further down the blogpost.
+For our project we only used the libraries and UI components from Amplify for our Webapp.  
+The backend we needed is powered by the Serverless framework, on which we'll expand a bit later down the blogpost.  
 
 ##### AWS Cognito
-For the actual signing-in, signing-up and Access control we used [AWS Cognito](https://aws.amazon.com/cognito/), which provides us a complete service for Authentication & Authorization. 
+For the actual signing-in, signing-up and Access control we used [AWS Cognito](https://aws.amazon.com/cognito/), which provides us a complete service for Authentication & Authorization.  
 
-A few of the benefits of using this AWS service :
+A few of the benefits of using this AWS service:  
 - Secure and scalable user directory, it can easily scale up to hundreds of millions of users
 - Amazon Cognito provides us solutions to control access to backend resources from our app. You can define roles and map users to different roles so your app can access only the resources that are authorized for each user.
 - Easy integration with our app
@@ -349,77 +366,86 @@ A few of the benefits of using this AWS service :
 //FOTO: Loginscreen webapp
 
 ###### User-pool and Identity-pool
-User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications. Users can sign-in directly to the **User Pool** (which we used), or using Facebook, Amazon or Google. Successful authentication generates JSON Web Tokens (JWTs).
+User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications.  
+Users can sign-in directly to the **User Pool** (which we used), or using Facebook, Amazon or Google.  
+Successful authentication generates JSON Web Tokens (JWTs).
 
-Identity Pools provide temporary AWS credentials to access AWS services like S3 and DynamoDB.
+Identity Pools provide temporary AWS credentials to access AWS services like S3 and DynamoDB.  
 
 ##### aws-exports.js
-Our amplify project generates a new file in the ./src folder of our project, an aws-exports.js, that holds all the configuration for the services we create with Amplify. 
-
-
+Our amplify project generates a new file in the ./src folder of our project, an aws-exports.js, that holds all the configuration for the services we create with Amplify.  
 
 #### Ghela-alert Webapp
 Here I'll go over all the features of our Webapp once we get access to the Dashboard.
-***We also talk about AWS API and lambda functions in this part, but we'll explain them more thoroughly in the last section about our "serverless backend".***
-
+***We also talk about AWS API and lambda functions in this part, but we'll explain them more thoroughly in the last section about our "serverless backend".***  
 
 ##### Dashboard view
-On the dashboard view we can see which events are coming up next, when we click on them we also get to see all the alerts which are set.
-From here we can update alert times or we can snooze them. BUT! The way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case. 
+On the dashboard view we can see which events are coming up next, when we click on them we also get to see all the alerts which are set.  
+From here we can update alert times or we can snooze them. BUT!  
+The way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case.  
 
 //FOTO dashboard-view-webapp
 
-When clicking on snooze or save, we create a job for our RPI. Just like deploying a new Docker image onto the RPI, we use IoT Jobs to make our RPI execute custom tasks.
-
+When clicking on snooze or save, we create a job for our RPI. Just like deploying a new Docker image onto the RPI, we use IoT Jobs to make our RPI execute custom tasks.  
 
 ##### Create Custom event
-On this tab we can create our own custom events. The way this works is identical as snoozing and updating an alert on the dashboard view. We also create a job which gets executed, as described in the next section.
+On this tab we can create our own custom events.  
+The way this works is identical as snoozing and updating an alert on the dashboard view.  
+We also create a job which gets executed, as described in the next section.
 
 //FOTO custom-event-webapp
 
 ##### Executing jobs on the RPI 
 
-An example of how such a cycle works for snoozing an alert :
-
+An example of how such a cycle works for snoozing an alert :  
 1. We click snooze
-2. We call our [AWS API](https://aws.amazon.com/api-gateway/) which has an endpoint "/alert/snooze".
+2. We call our [AWS API](https://aws.amazon.com/api-gateway/) endpoint "/alert/snooze".
 3. This endpoint invokes a [AWS Lambda function](https://aws.amazon.com/lambda/), which creates a job for the RPI and also inserts a row into another dynamo table (ghela-jobs), to register the jobs we create on the frontend.
 4. The RPI executes the job, meaning snoozing the alert
 5. The RPI synchronizes his H2 database with the Event dynamo table (ghela-events)
 
-For updating an alert or creating a custom game, the above would be the same exept: 
+For updating an alert or creating a custom game, the above would be the same exept:  
 - we call another endpoint. ex. "/event" or "/alert" 
 - the jobdocument that we create in our lambda function to send with our Job-creation request, will differ.
 
 <!-- FOTO different jobdocuments -->
 
 ##### Job overview
-In this view the API will send a GET request to our AWS API on the endpoint "/job". The lambda function which is coupled here, will read the ghela-jobs dynamo table, and list all jobs of whom the status is not yet "COMPLETED". The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.
+In this view the API will send a GET request to our AWS API on the endpoint "/job".  
+The lambda function which is coupled here, will read the ghela-jobs dynamo table, and list all jobs of whom the status is not yet "COMPLETED".  
+The moment this list is empty all changes from our webapp have been processed succesfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.  
 
-Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely. We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.
+Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely.  
+We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.
 
 <!-- //FOTO Jobs -->
 
 ##### Metrics
-On this tab we can see the status of the RPI backend as a graph. Remember the Metrics we talked about above? Via this API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
+On this tab we can see the status of the RPI backend as a graph.  
+Remember the Metrics we talked about above?  
+Via the "/metrics" API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.
 On this graph we can easily see if the RPI is still connected to the internet.
 
 <!-- //Foto metrics -->
 
 #### CICD pipeline Frontend
 
-Since CICD pipelines were completly new to me when starting this project, Bas created the pipeline for our RPI-backend. For the frontend CICD pipeline he wanted me to create it. He still helped me, though, he let me think about how this pipeline would run, what steps were needed and let me create the azure-pipelines.yml .
-The process goes like this: 
+Since CICD pipelines were completly new to me when starting this project, Bas created the pipeline for our RPI-backend.  
+For the frontend CICD pipeline he wanted me to create it.  
+Even though he still helped me, he let me think about how this pipeline would run, what steps were needed and let me create the azure-pipelines.yml .  
+
+The process goes like this:  
 1. We build our pipeline on a linux machine
 2. Fetch our aws-exports.js from our parameterStore on [AWS SSM](), and replace it in our angular project. 
-3. Then we have some steps to build our project. Installing dependencies & building our app for production.
+3. Then we have some steps to build our project like installing dependencies & building our app for production.
 4. We empty our S3 bucket where our webapp gets saved
 5. Upload the newly compiled webapp to this S3 bucket
-6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated in every datacenter, everywhere in the world. If we don't do this, our old version could be cached for up to 24h!
+6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated in every datacenter, everywhere in the world. If we don't do this, our old version could be cached for up to 24h!  
 
 ### Serverless as backend framework
-To get the backend for our webapp working we needed a few things to get up and running. 
-1. We also needed 2 [DynamoDB]() tables to put our events and jobs.
+To get the backend for our webapp working we needed a few things to get up and running.  
+
+1. We needed 2 [DynamoDB]() tables to put our events and jobs.
 2. Another thing we needed were a [Cognito UserPool]() and a Cognito [IdentityPool]() for the security aspect of our Frontend.
 3. An [AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) with all of our needed end-points configured and secured.
 4. [Lambda functions]() to make our endpoints perform the operations they were intended for, using the [AWS Node.js SDK](https://aws.amazon.com/sdk-for-node-js/)
@@ -427,50 +453,52 @@ To get the backend for our webapp working we needed a few things to get up and r
 
 
 #### Why do we even use serverless?
-In the beginning we configured everything by hand, in the console, which took a lot of time since we need to figure our a lot of new things. Additionally, to touch on all important parts of this project we had to use the best practices and fairly new technologies, which needed a lot of manual configuration. Bas then later introduced me to the concept of [IaC or Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [the Serverless framework](https://www.serverless.com/), which made us able to configure the whole backend through a serverless.yml file.
+In the beginning we configured everything by hand, in the console, which took a lot of time since we need to figure our a lot of new things.  
+Additionally, to touch on all important parts of this project we had to use the best practices and fairly new technologies, which needed a lot of manual configuration.  
+Bas then later introduced me to the concept of [IaC or Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [the Serverless framework](https://www.serverless.com/), which made us able to configure the whole backend through a serverless.yml file.
 
 #### Serverless.yml
-The heart of our configuration.
+The heart of our configuration.  
 
 Inside this file, which could also be a JSON or a Typescript file, we define everything we need for our backend to work.
 
 ##### Functions
-A Function is an AWS Lambda function. It's an independent unit of deployment, like a microservice. It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case: list-events.
+A Function is an AWS Lambda function, it's an independent unit of deployment, like a microservice.  It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case: list-events.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-Inside our function you can see that we declared a few things for our Lambda to work.
+Inside our function you can see that we declared a few things for our Lambda to work.  
 
 ##### AWS IAM Roles
 
-For allowing our Lambda functions to have fine-grained access to our AWS services, we need to define them in our serverless project.
-We did this with a seperate lambda-iam-roles.yml file which gets loaded into the serverless.yml.
+For allowing our Lambda functions to have fine-grained access to our AWS services, we need to define them in our serverless project.  
+We did this with a seperate lambda-iam-roles.yml file which gets loaded into the serverless.yml.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-iamroles.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 ##### AWS Dynamo tables
-We define an enviroment variable, our dynamo table name, which gets further defined in the dynamodb-tables.yml.
-As you can see, our 2 tables get created here as ghelaapi-serverless-dev-ghela-events and ghelaapi-serverless-dev-ghela-jobs.
+We define an enviroment variable, our dynamo table name, which gets further defined in the dynamodb-tables.yml.  
+As you can see, our 2 tables get created here as ghelaapi-serverless-dev-ghela-events and ghelaapi-serverless-dev-ghela-jobs.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 ##### AWS Lambda functions with AWS NodeJS SDK
-the handler serves like the entry point for our lambda source code, which we also define in our Serverless project. 
-Below an example of such a lambda, reading data from our Dynamodb (using the env. variable from our config) and returning it to the API.
+The handler serves like the entry point for our lambda source code, which we also define in our Serverless project.  
+Below an example of such a lambda, reading data from our Dynamodb (using the env. variable from our config) and returning it to the API.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-lambda.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 ##### AWS API Gateway
-in the last part we describe what our API endpoint should look like. 
-Serverless makes sure that a few services get configured: 
+In the last part we describe what our API endpoint should look like.  
+Serverless makes sure that a few services get configured:  
 - your API endpoint gets created
 - configure our endpoint to use AWS IAM authentication upon calling it
 - your Lambda function gets attached to the endpoint
@@ -487,27 +515,28 @@ Serverless makes sure that a few services get configured:
 
 ## Conclusions
 
-AS mentioned before, this internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.
+AS mentioned before, this internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
 - I've had the chance to develop an application in Spring, with different databases.
 - learned how to properly test my code with unit and integration tests
-- learned how to use the java and node AWS SDKs
+- learned how to use the Java and Node AWS SDKs
 - API's, connecting it all together..
 - Came in touch with a lot of linux, sharpening my commandline skills
 - developed an Angular app from start to finish
-- Learned about a lot about AWS. IAM, Iot Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, Cloudwatch, Cloudfront, lambdas, Route53, ...
+- Learned about a lot about AWS: IAM, Iot Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, Cloudwatch, Cloudfront, lambdas, Route53, ...
 - CICD pipelines and their best practices in the industry
 
-I'm very thankful for being able to do this and having the chance to work with Bas on a real project. 
+I'm very thankful for being able to do this and having the chance to work with Bas on a real project.  
 
-He always motivated me to go the extra mile !
-He could destroy a day of hard work in a few sentences.. :)
+He always motivated me to go the extra mile !  
+He could destroy a day of hard work in a few sentences.. :)  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/bas-smile.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-But he would always take the time to explain why, and how I should do it to make my solution comply with the industries best practices.
-Being able to have someone who makes you self-reflect on the work that you did, and takes his time to give you proper feedback, is the biggest asset to provide to a junior programmer.
+But he would always take the time to explain why, and how I should do it to make my solution comply with the industries best practices.  
+Being able to have someone who makes you self-reflect on the work that you did, and takes his time to give you proper feedback, is the biggest asset to provide to a junior programmer.  
 
-Also a big thanks to Frederick Bousson & Ordina for the opportunity and resources provided. This really was a 
+Also a big thanks to Frederick Bousson & Ordina for the opportunity and resources provided.  
+This really was a great project and I enjoyed every minute of it!  
 
