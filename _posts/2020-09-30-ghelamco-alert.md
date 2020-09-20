@@ -76,11 +76,11 @@ This pin gets coupled to a relay, which acts as a regular switch, but electrical
 If we put 0V on the relay, the circuit remains open, when we put 3.3V on it, the circuit gets closed and thus starting our alarm-light.  
 
 #### WebScraper
-Our spring backend is running a scheduler, and we have set up a service which is triggered every hour that checks the website of KAA Gent for the up to date fixtures of the games.  
+Our spring backend is running a schedulerthat is configured to run a service every hour that checks the website of KAA Gent for the up to date fixtures of the games.  
 The approach I took for scraping the website, is by using X-Path with a library called [htmlunit](https://https://htmlunit.sourceforge.io/).  
 In our application we fetch every game from the website, filter them on home games, attach alerts and save those games to our H2-database using spring data.
 
-Every time we scan the website, we compare the scraped games data with the games that already were saved in our database.  
+Every time we scan the website, we compare the scraped games' data with the games that already were saved in our database.  
 Games can get updated or rescheduled on the website, but our application will recognize it and update the database records accordingly.  
 
 <div style="text-align: center;">
@@ -208,8 +208,13 @@ This system of generating certificates and coupling policies is a very secure an
 
 ###### jobs
 
-A crucial part of AWS IoT is the job section.  We can create a job by using the AWS CLI like this: 
-
+A crucial part of AWS IoT is the job section. 
+We can create a jobs by using the AWS cli.   
+```
+aws iot update-job  
+  --job-id 010  
+  --description "updated description" 
+```
 <code class="nohighlight hljs">aws iot update-job  \
   --job-id 010  \
   --description "updated description" \
@@ -217,87 +222,108 @@ A crucial part of AWS IoT is the job section.  We can create a job by using the 
   --job-executions-rollout-config "<span>{</span> \"exponentialRate\": <span>{</span> \"baseRatePerMinute\": <code class="replaceable">50</code>, \"incrementFactor\": <code class="replaceable">2</code>, \"rateIncreaseCriteria\": <span>{</span> \"numberOfNotifiedThings\": <code class="replaceable">1000</code>, \"numberOfSucceededThings\": <code class="replaceable">1000</code>}, \"maximumPerMinute\": <code class="replaceable">1000</code>}}" \
   --abort-config "<span>{</span> \"criteriaList\": [ <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">FAILED</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">100</code>, \"thresholdPercentage\": <code class="replaceable">20</code>}, <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">TIMED_OUT</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">200</code>, \"thresholdPercentage\": <code class="replaceable">50</code>}]}" \          
   --presigned-url-config "<span>{</span>\"roleArn\":\"<code class="replaceable">arn:aws:iam::123456789012:role/S3DownloadRole</code>\", \"expiresInSec\":3600}" </code>
-
-To define a set of remote operations, we use AWS IoT jobs to get them send too and executed by our RPI.  
+We use these jobs AWS Iot to create these jobs and send them to our RPI where they get executed by our application code.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert device update" src="/img/2020-09-25-ghelamco-alert/device-update-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-When working with AWS IoT we have the possibility to put multiple "things" in one group of devices, and we can send jobs to these groups, so they all execute the same jobs.  
-These jobs could be software updates, reboot commands, rotate certificates,...   
-
+We have the possibility to put multiple "things" in a group of devices.  
+This way we can send jobs to the entire group and the job gets executed on every device from that group.  
+These jobs could be software updates, reboot commands, rotation of certificates, ...   
 Anything we want really!  
 
-In our case we use jobs for a multitude of processes:  
-- updating our backend app - over the air
-- Creating new Events
-- Snoozing and updating alerts
+In our project we used IoT jobs for a multitude of processes:  
+* Update our backend application - over the air
+* Create new events
+* Snooze and update existing alerts
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/aws-iot-jobs.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-The basics to create a job are not so difficult:  
+It is pretty straightforward to create an IoT job:
 
-1. create a job
-2. add a job-document (JSON-file) which describes what the job is about 
-3. push job onto the job-queue to get it processed
+1. Create a job
+2. Add a job document (JSON file) which defines the content of the job 
+3. Push the job onto the job queue to send it to your devices
 
 Example of a job document:  
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Jobdocument" src="/img/2020-09-25-ghelamco-alert/job-document.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-At the start of my project I created a way to update our spring application by writing some custom code, which involves running a whole load of Linux commands to:  
-- create new folders on the RPI
-- downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service)
-- running some commands and scripts to enable a new daemon (service) process on the RPI
-- deleting the old version... 
-
-It worked, but it looked... meh! :)  
-
-Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.  
-
 ###### MQTT protocol
-When working with AWS IoT we have basically 2 choices: work wit HTTP requests or use MQTT.  
+AWS IoT can communicate with the it's registered devices through 2 protocols: HTTP or MQTT.  
+So why would we choose MQTT over the more familiar HTTP protocol?  
+The HTTP protocol has some severe limitations for our use case: 
 
-So why would we choose MQTT over the more familiar HTTP web services? Because this request and response pattern does have some severe limitations:  
-
-* HTTP is a synchronous protocol. The client waits for the server to respond. That is a requirement for web browsers, but it comes at the cost of poor scalability. In the world of IoT, the large number of devices and most likely an unreliable / high latency network have made synchronous communication problematic. An asynchronous messaging protocol is much more suitable for IoT applications. The sensors can send in readings, and let the network figure out the optimal path and timing for delivery to its destination devices and services.
-* HTTP is one-way. The client must initiate the connection. In an IoT application, the devices or sensors are typically clients, which means that they cannot passively receive commands from the network.
-* HTTP is a 1-1 protocol. The client makes a request, and the server responds. It is difficult and expensive to broadcast a message to all devices on the network, which is a common use case in IoT applications.
+* HTTP is a synchronous protocol, the client waits for the server to respond.  
+That is a requirement for web browsers, but it comes at the cost of poor scalability.  
+In the world of IoT where we have a large number of devices and most likely an unreliable / high latency network connection this synchronous communication is problematic.  
+An asynchronous messaging protocol is much more suitable for IoT applications.  
+The sensors can send in readings and let the network figure out the optimal path and timing for delivery to its destination devices and services.
+* HTTP is a one-way protocl. The client must initiate the connection.  
+In an IoT application, the devices or sensors are typically clients, which means that they cannot passively receive commands from the network.
+* HTTP is a 1-1 protocol. The client makes a request and the server responds.  
+It is difficult and expensive to broadcast a message to all devices on the network, which is a common use case in IoT applications.
 * HTTP is a heavyweight protocol with many headers and rules. It is not suitable for constrained networks.
 
-MQTT on the other hand defines two types of entities in the network: a message broker (AWS IoT) and a number of edge devices(clients).   
+MQTT on the other hand defines two types of entities in the network: a message broker (AWS IoT) and a number of edge devices(clients).  
 The broker is a server that receives all messages from the clients and then routes those messages to relevant destination clients.  
 A client is anything that can interact with the broker to send and receive messages.  
 Our client is the RPI but it could also be an IoT sensor in the field or an application in a data center that processes IoT data.  
 
-1. The client connects to the broker. It can subscribe to any message “topic” in the broker.
-2. The client publishes messages under a topic by sending the message and topic to the broker.
-3. The broker then forwards the message to all clients that subscribe to that topic.
-
-Inside of our backend code in java, we have an MQTTJobService which makes connection to AWS IoT by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and it will subscribe to the relevant jobs-topics.  
+In our backend java code we have an MQTTJobService which connects to AWS IoT by using the [AWS SDK](https://aws.amazon.com/sdk-for-java/) and subscribes to the relevant topics to receive and respond to AWS Iot jobs.  
 Every 30 seconds we will read these topics to see if there are any new jobs to be processed.  
 
 <!-- TODO GIF backend processing a job in intelliJ -->
 
 ### AWS IOT Greengrass
-<!-- //TODO -->
+AWS greengrass is a service that extends the AWS cloud onto your edge device.  
+This is particularly interesting for us as we had some tough problems to solve:  
+* How can we deploy our application on the RPI device?  
+* How can we make sure our application recovers from failures?
+* How can we keep our system itself up to date?
+* How do we find the network address from our device when we are not in the same network?
+
+AWS greengrass offers solutions to all these challenges!  
+Greengrass is an extension of the AWS IoT service and since we had already set up our device in AWS IoT it was easy for us to setup greengrass.  
+To get started with greengrass we had to do 2 additional steps:
+* Define a greengrass group. This group will contain your IoT devices and deployments.  
+* Define a greengrass core. The core is the device that you will use to run the additional AWS capabilities on.  
+
+The greengrass group allows us to push deployments to all the devices in our group.  
+It also allows you to run lambda functions on your core device or install additional connectors with your own runtime of choice.  
+<div style="text-align: center;">
+  <img alt="Greengrass group" src="/img/2020-09-25-ghelamco-alert/gg_group.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
+When you register your device as a core device in greengrass you immediately get some nice additional benefits from this.  
+For example you can immediately see all the network interfaces on your core device and what ip addresses are allocated to it.  
+This is especially usefull if you want to ssh to your device and do not have fixed ip attached to it.  
+<div style="text-align: center;">
+  <img alt="Greengrass core" src="/img/2020-09-25-ghelamco-alert/ggcore.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+
 
 #### Getting it to work
-<!-- //TODO -->
-
-#### Dockerized app 
-<!-- //TODO -->
-
-#### Jobs to multiple devices
-<!-- //TODO -->
+Now that we have greengrass installed and our RPI device is configured as a core in our greengrass group we can start making full use of the capabilities it has.  
+We first installed the docker connector plugin for greengrass.  
+This plugin allows you to run docker containers on your core device and makes use of **docker** and **docker compose**.  
+<div style="text-align: center;">
+  <img alt="Greengrass docker connector" src="/img/2020-09-25-ghelamco-alert/gg_connector_docker_cfg.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div>
+For this to work you have to install docker and docker compose on your core device.  
+Since we are using a RPI it was a bit harder to install since the RPI uses the ARM7 chipset instead of x64/x32.  
+We had no trouble installing docker itself, but for docker compose we had to clone the source code from github and compile the binaries ourself on the RPI.  
+Now that we have all prerequisites installed it was only a matter of packaging our application in a docker container and creating a docker compose file for the deployment.  
+We will cover this in the CICD section.  
 
 #### CICD pipeline Backend
-To make our project completely professional, we made a CICD pipeline to automatically deploy our software onto the RPI, whenever we commit to the master branch on GIT.  
-Since we used Azure-devops for our devops practices, we build the pipeline here.  
+To make sure that we did not need to bother ourselves with manual builds and installs of our code on the RPI we built a CICD pipeline to automatically deploy our software onto the RPI.  
+This pipeline is triggered whenever a push to our master branch in our git repository happens.  
+We used azure devops as our CICD system.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Azure pipeline backend" src="/img/2020-09-25-ghelamco-alert/azure-backpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -305,26 +331,68 @@ Since we used Azure-devops for our devops practices, we build the pipeline here.
 
 The pipeline goes through a multitude of steps:  
 1. We run the pipeline on a Linux agent
-2. We use Maven caches to speed up the building process
+2. We use a persisten maven cache to speed up the building process
 3. We build our JAR file
-4. We are using [AWS SSM - parameter store]() to safely store our config-file and certificates for the RPI. In this step we run some custom scripts to create the folders where these get installed, and to fetch them from the parameter store. 
-5. To have access to our GPIO pins from inside our docker container, we need install wiringPi inside our docker image, and run it as a privileged container.
-6. We create the docker image and push it into [AWS ECR - Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
-7. Whilst creating this docker image we also create the docker-compose.yml file which we will upload to our AWS S3 bucket, named: **"ghelamco-rpi-releases"**.
-8. as the last step we use the "greengrass create-deployment" cli command to alert our RPI of the new job to execute, which is downloading the docker-image, docker-compose.yml file and spin up our container!  
+4. We use [AWS SSM - parameter store]() to safely store our config files and certificates for the RPI.  
+In this step we fetch those config files and secrets from the parameter store and store them locally for use later in the pipeline.   
+5. In order to control the alert light hooked up to our RPI we need to download the wiringPi library as we used that to communicate with our alert light.  
+6. We can now build our docker container and push it into [AWS ECR - Elastic Container Registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
+7. We fill in the container name and version from the previous step in our template docker-compose.yml file and upload it to our s3 releases bucket.  
+8. We use the "greengrass create-deployment" cli command to deploy our docker container to our RPI device.  
+This deployment fetches the docker-compose.yml file from our S3 release bucket and then launches the container that we defined in that compose file.  
 
-In our docker-compose.yml we define how this container should be ran on the device.  
-We run it privileged to access our RPI-GPIO pins via wiringPi, we mount our H2 database and our AWS Credentials, which are located on the filesystem of the RPI.  
+Some additional explanation on the more complex steps in this process.  
 
-This whole pipeline makes sure whenever we commit to the master branch, that tests are ran, a JAR file gets build, config files get securely fetched, libraries get added, a docker image is being build, we notify the RPI of the new job and execute it.    
+In our application we have defined a **Dockerfile** that is used to build our container in the cicd pipeline.  
+```
+FROM balenalib/am571x-evm-openjdk:11-jre-bullseye-20200901
+ADD ./wiringpi-2.52.deb /tmp/wiringpi-2.52.deb
+RUN apt-get update && \ 
+    cd /tmp && \ 
+    dpkg -i wiringpi-2.52.deb
+COPY ./target/ghela-business-0.0.1-SNAPSHOT.jar /app.jar
+ADD ./config /config
+ADD ./certificates /certificates
+ENTRYPOINT ["java","-jar","app.jar"]
+```
+Because we are running this container on our RPI we need to make sure that it can run on the ARM7 processor.  
+This is why we started from an ARM7 image that already has jre11 installed on it.  
+In the next steps we add the dependencies and configuration files that we downloaded in previous steps in our cicd pipeline.  
+We add all the downloaded files onto our image and of course we add our compiled jar as well.  
+This pretty is all that is needed for our docker image itself.  
 
-Executing the job means, killing the old docker image and running the new one, which is our complete cycle.  
+In our **docker-compose.yml** file we describe how the container should behave when it's running:
+```
+version: '3.3'
+services:
+  web:
+    image: "${ecr.imageTag}"
+    privileged: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/pi/.aws/:/root/.aws:ro
+      - /ghela/db:/ghela/db
+volumes:
+  db-data:
+```
+Several things are happening in this file:
+* We dynamically inject the image name and version in our cicd pipeline into the  **${ecr.imageTag}** field.  
+* We run our container in priviled mode as this is needed to access the RPI's native interface to control our alert light through GPIO with wiringPi.
+* We expose our application port 8080 to the outside world.
+* We mount our AWS credentials and H2 database as volumes from the RPI host system.
+
+This sums up all the steps we took to setup our backend project onto the RPI device.  
+We now have a RPI device that is registered as an edge device and a greengrass core in AWS.  
+This now ensures that our device is (semi) managed by AWS as greengrass and docker compose are in charge of orchestrating our deployments onto the device.  
+It's not perfect, but it's a hell of a lot better then having nothing.  
 
 ## Frontend Webapp
 
 ### Introduction
-To get some data about our Events on our webapp, I needed a way to connect to our H2 database on the RPI.  
-Since we didn't want to expose any REST endpoints on our spring app we had to find another way to get the data.  
+To get data from our RPI into our web application we needed a way to connect to our H2 database on the RPI.  
+It would be pretty complex to setup our RPI device to be accessible from the internet so we chose to build a backend in AWS to function as proxy for our RPI backend application.  
+We can then use this proxy backend in AWS to access the data from our RPI device and send new commands to update existing data on the RPI.  
 
 #### AWS DynamoDb
 To get an exact copy of our H2 database, I made a syncing tool on our RPI-backend which updates a remote DynamoDb.  
@@ -521,6 +589,17 @@ Serverless makes sure a few services get configured:
 <!-- //TODO write -->
 
 ## Conclusions
+
+@KEVIN: I would put these personal notes in the personal experiences or learnings section. Makes more sense as in the first part we are strictly talking about the end solution. 
+At the start of my project I created a way to update our spring application by writing some custom code, which involves running a whole load of Linux commands to:  
+- create new folders on the RPI
+- downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service)
+- running some commands and scripts to enable a new daemon (service) process on the RPI
+- deleting the old version... 
+
+It worked, but it looked... meh! :)  
+
+Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.  
 
 AS mentioned before, this internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
 - I've had the chance to develop an application in Spring, with different databases.
