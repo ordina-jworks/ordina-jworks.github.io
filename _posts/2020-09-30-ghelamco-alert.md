@@ -443,7 +443,7 @@ The process goes like this:
 5. Upload the newly compiled webapp to this S3 bucket
 6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated in every datacenter, everywhere in the world. If we don't do this, our old version could be cached for up to 24h!  
 
-### Serverless as backend framework
+## Serverless as backend framework
 To get the backend for our webapp working we needed a few things to get up and running.  
 
 1. We needed 2 [DynamoDB]() tables to put our events and jobs.
@@ -453,17 +453,17 @@ To get the backend for our webapp working we needed a few things to get up and r
 5. Roles and permissions to perform these operations inside of our Lambdas. (Connect and create jobs on AWS IoT, scan and put to our Dynamo tables, etc...)
 
 
-#### Why do we even use serverless?
+### Why do we even use serverless?
 In the beginning we configured everything by hand, in the console, which took a lot of time since we need to figure our a lot of new things.  
 Additionally, to touch on all important parts of this project we had to use the best practices and fairly new technologies, which needed a lot of manual configuration.  
 Bas then later introduced me to the concept of [IaC or Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [the Serverless framework](https://www.serverless.com/), which made us able to configure the whole backend through a serverless.yml file.
 
-#### Serverless.yml
+### Serverless.yml
 The heart of our configuration.  
 
 Inside this file, which could also be a JSON or a Typescript file, we define everything we need for our backend to work.
 
-##### Functions
+#### Functions
 A Function is an AWS Lambda function, it's an independent unit of deployment, like a microservice.  It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case: list-events.  
 
 <div style="text-align: center;">
@@ -472,7 +472,7 @@ A Function is an AWS Lambda function, it's an independent unit of deployment, li
 
 Inside our function you can see that we declared a few things for our Lambda to work.  
 
-##### AWS IAM Roles
+#### AWS IAM Roles
 
 For allowing our Lambda functions to have fine-grained access to our AWS services, we need to define them in our serverless project.  
 We did this with a separate lambda-iam-roles.yml file which gets loaded into the serverless.yml.  
@@ -481,7 +481,7 @@ We did this with a separate lambda-iam-roles.yml file which gets loaded into the
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-iamroles.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-##### AWS Dynamo tables
+#### AWS Dynamo tables
 We define an environment variable, our dynamo table name, which gets further defined in the dynamodb-tables.yml.  
 As you can see, our 2 tables get created here as ghelaapi-serverless-dev-ghela-events and ghelaapi-serverless-dev-ghela-jobs.  
 
@@ -489,7 +489,7 @@ As you can see, our 2 tables get created here as ghelaapi-serverless-dev-ghela-e
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-##### AWS Lambda functions with AWS NodeJS SDK
+#### AWS Lambda functions with AWS NodeJS SDK
 The handler serves like the entry point for our lambda source code, which we also define in our Serverless project.  
 Below an example of such a lambda, reading data from our Dynamodb (using the env. variable from our config) and returning it to the API.  
 
@@ -497,7 +497,7 @@ Below an example of such a lambda, reading data from our Dynamodb (using the env
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-lambda.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-##### AWS API Gateway
+#### AWS API Gateway
 In the last part we describe what our API endpoint should look like.  
 Serverless makes sure a few services get configured:  
 - your API endpoint gets created
@@ -510,7 +510,7 @@ Serverless makes sure a few services get configured:
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-#### CICD pipeline Serverless
+### CICD pipeline Serverless
 
 <!-- //TODO -->
 
