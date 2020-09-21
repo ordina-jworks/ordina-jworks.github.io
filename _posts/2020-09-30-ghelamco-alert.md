@@ -194,7 +194,7 @@ When presenting our certificates on connect, AWS IoT now also knows what service
 An example of such a policy: 
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/aws-policy-iot.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/aws-policy-iot.PNG" width="auto" height="50%" target="_blank" class="image fit">
 </div>
 
 We define which services we want to access like this:
@@ -278,7 +278,7 @@ Every 30 seconds we will read these topics to see if there are any new jobs to b
 
 ### AWS IOT Greengrass
 AWS greengrass is a service that extends the AWS cloud onto your edge device.  
-This is fascinating for us since we had some tough problems to solve:  
+This was fascinating for us since we had some tough problems to solve:  
 * How can we deploy our application on the RPI device?  
 * How can we make sure our application recovers from failures?
 * How can we keep our system itself up to date?
