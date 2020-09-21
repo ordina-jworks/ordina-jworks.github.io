@@ -645,7 +645,7 @@ As you can see below we added response headers to allow all origins and headers.
 
 <!-- //TODO write -->
 
-## Learning experience
+## Lessons learned
 
 At the start of my project I created a way to update our RPI spring application by writing some custom code, which involves running a whole load of Linux commands to:  
 - create new folders on the RPI
@@ -657,6 +657,9 @@ It worked, but it looked... meh! :)
 
 Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.   
 
+TODO: add a small piece about what you liked/disliked about each part of the application.
+
+## Conclusions 
 This internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
 - I've had the chance to develop an application in Spring, with different databases.
 - learned how to properly test my code with unit and integration tests
