@@ -76,7 +76,7 @@ This pin gets coupled to a relay, which acts as a regular switch, but electrical
 If we put 0V on the relay, the circuit remains open, when we put 3.3V on it, the circuit gets closed and thus starting our alarm-light.  
 
 #### WebScraper
-Our spring backend is running a schedulerthat is configured to run a service every hour that checks the website of KAA Gent for the up to date fixtures of the games.  
+Our spring backend is running a scheduler that is configured to run a service every hour that checks the website of KAA Gent for the up to date fixtures of the games.  
 The approach I took for scraping the website, is by using X-Path with a library called [htmlunit](https://https://htmlunit.sourceforge.io/).  
 In our application we fetch every game from the website, filter them on home games, attach alerts and save those games to our H2-database using spring data.
 
@@ -251,16 +251,16 @@ Example of a job document:
 </div>
 
 ###### MQTT protocol
-AWS IoT can communicate with the it's registered devices through 2 protocols: HTTP or MQTT.  
+AWS IoT can communicate with it registered devices through 2 protocols: HTTP or MQTT.  
 So why would we choose MQTT over the more familiar HTTP protocol?  
 The HTTP protocol has some severe limitations for our use case: 
 
 * HTTP is a synchronous protocol, the client waits for the server to respond.  
 That is a requirement for web browsers, but it comes at the cost of poor scalability.  
-In the world of IoT where we have a large number of devices and most likely an unreliable / high latency network connection this synchronous communication is problematic.  
+In the world of IoT where we have numerous devices and most likely an unreliable / high latency network connection this synchronous communication is problematic.  
 An asynchronous messaging protocol is much more suitable for IoT applications.  
 The sensors can send in readings and let the network figure out the optimal path and timing for delivery to its destination devices and services.
-* HTTP is a one-way protocl. The client must initiate the connection.  
+* HTTP is a one-way protocol. The client must initiate the connection.  
 In an IoT application, the devices or sensors are typically clients, which means that they cannot passively receive commands from the network.
 * HTTP is a 1-1 protocol. The client makes a request and the server responds.  
 It is difficult and expensive to broadcast a message to all devices on the network, which is a common use case in IoT applications.
@@ -278,14 +278,14 @@ Every 30 seconds we will read these topics to see if there are any new jobs to b
 
 ### AWS IOT Greengrass
 AWS greengrass is a service that extends the AWS cloud onto your edge device.  
-This is particularly interesting for us as we had some tough problems to solve:  
+This is fascinating for us since we had some tough problems to solve:  
 * How can we deploy our application on the RPI device?  
 * How can we make sure our application recovers from failures?
 * How can we keep our system itself up to date?
 * How do we find the network address from our device when we are not in the same network?
 
 AWS greengrass offers solutions to all these challenges!  
-Greengrass is an extension of the AWS IoT service and since we had already set up our device in AWS IoT it was easy for us to setup greengrass.  
+Greengrass is an extension of the AWS IoT service and since we had already set up our device in AWS IoT it was easy for us to set up greengrass.  
 To get started with greengrass we had to do 2 additional steps:
 * Define a greengrass group. This group will contain your IoT devices and deployments.  
 * Define a greengrass core. The core is the device that you will use to run the additional AWS capabilities on.  
@@ -297,15 +297,15 @@ It also allows you to run lambda functions on your core device or install additi
 </div>
 
 When you register your device as a core device in greengrass you immediately get some nice additional benefits from this.  
-For example you can immediately see all the network interfaces on your core device and what ip addresses are allocated to it.  
-This is especially usefull if you want to ssh to your device and do not have fixed ip attached to it.  
+For example, you can immediately see all the network interfaces on your core device and what ip addresses got allocated.  
+This is especially useful if you want to ssh to your device and do not have fixed ip attached to it.  
 <div style="text-align: center;">
   <img alt="Greengrass core" src="/img/2020-09-25-ghelamco-alert/ggcore.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 
 #### Getting it to work
-Now that we have greengrass installed and our RPI device is configured as a core in our greengrass group we can start making full use of the capabilities it has.  
+Now we have greengrass installed, and we configured our RPI as a core in our greengrass group we can start making full use of the capabilities it has.  
 We first installed the docker connector plugin for greengrass.  
 This plugin allows you to run docker containers on your core device and makes use of **docker** and **docker compose**.  
 <div style="text-align: center;">
@@ -318,8 +318,8 @@ Now that we have all prerequisites installed it was only a matter of packaging o
 We will cover this in the CICD section.  
 
 #### CICD pipeline Backend
-To make sure that we did not need to bother ourselves with manual builds and installs of our code on the RPI we built a CICD pipeline to automatically deploy our software onto the RPI.  
-This pipeline is triggered whenever a push to our master branch in our git repository happens.  
+To make sure we did not need to bother ourselves with manual builds and installs of our code on the RPI we built a CICD pipeline to automatically deploy our software onto the RPI.  
+We trigger the pipeline whenever a push to our master branch in our git repository.  
 We used azure devops as our CICD system.  
 
 <div style="text-align: center;">
@@ -328,7 +328,7 @@ We used azure devops as our CICD system.
 
 The pipeline goes through a multitude of steps:  
 1. We run the pipeline on a Linux agent
-2. We use a persisten maven cache to speed up the building process
+2. We use a persistent maven cache to speed up the building process
 3. We build our JAR file
 4. We use [AWS SSM - parameter store]() to safely store our config files and certificates for the RPI.  
 In this step we fetch those config files and secrets from the parameter store and store them locally for use later in the pipeline.   
@@ -352,7 +352,7 @@ ADD ./config /config
 ADD ./certificates /certificates
 ENTRYPOINT ["java","-jar","app.jar"]
 ```
-Because we are running this container on our RPI we need to make sure that it can run on the ARM7 processor.  
+Because we are running this container on our RPI we need to make sure it can run on the ARM7 processor.  
 This is why we started from an ARM7 image that already has jre11 installed on it.  
 In the next steps we add the dependencies and configuration files that we downloaded in previous steps in our cicd pipeline.  
 We add all the downloaded files onto our image and of course we add our compiled jar as well.  
@@ -375,20 +375,20 @@ volumes:
 ```
 Several things are happening in this file:
 * We dynamically inject the image name and version in our cicd pipeline into the  **${ecr.imageTag}** field.  
-* We run our container in priviled mode as this is needed to access the RPI's native interface to control our alert light through GPIO with wiringPi.
+* We run our container in privileged mode as this is needed to access the RPIs native interface to control our alert light through GPIO with wiringPi.
 * We expose our application port 8080 to the outside world.
 * We mount our AWS credentials and H2 database as volumes from the RPI host system.
 
-This sums up all the steps we took to setup our backend project onto the RPI device.  
-We now have a RPI device that is registered as an edge device and a greengrass core in AWS.  
+This sums up all the steps we took to set up our backend project onto the RPI device.  
+We now have an RPI device that is registered as an edge device and a greengrass core in AWS.  
 This now ensures that our device is (semi) managed by AWS as greengrass and docker compose are in charge of orchestrating our deployments onto the device.  
-It's not perfect, but it's a hell of a lot better then having nothing.  
+It's not perfect, but it's a hell of a lot better than having nothing.  
 
 ## Frontend web application
 
 ### Introduction
 To get data from our RPI into our web application we needed a way to connect to our H2 database on the RPI.  
-It would be pretty complex to setup our RPI device to be accessible from the internet so we chose to build a backend in AWS to function as a proxy for our RPI backend application.  
+It would be pretty complex to set up our RPI device to be accessible from the internet, so we chose to build a backend in AWS to function as a proxy for our RPI backend application.  
 This allows us to use this proxy backend in AWS to access the data from our RPI device and send new commands to update existing data on the RPI.  
 More about this backend in the serverless part.  
 First let's take a look into our frontend application.  
@@ -399,13 +399,13 @@ We decided to use AWS DynamoDB as our datastore in the cloud.
 DynamoDB is a very cost effective and low maintenance way of storing data so it looked perfect for us.  
 To get our data from the H2 database on the RPI into dynamoDB, I made a service in our backend application that syncs the local H2 database to our dynamoDB table.  
 We added some triggers in our RPI backend application that allows us to sync the current state of the H2 database to the dynamoDB table.  
-For example when our website scraping process is done, we trigger a sync to dynamoDB if there are any updates or inserts into our H2 database.  
+For example, when we are done with our website scraping process, we trigger a sync to dynamoDB if there are any updates or inserts into our H2 database.  
 This ensures that our RPI H2 database acts as the single source of truth.  
 The dynamoDB is just a read only copy of the data in the AWS cloud that is kept up to date by our RPI backend application.  
 So as long as the backend application is running on the RPI we have access to the latest data in our web application.  
 
 #### Hosting our web application
-In order to make our web application accessible to the general public we need some kind of hosting service.  
+In order to make our web application accessible to the public, we need some kind of hosting service.  
 In our case we used [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html) to host our website.  
 Our S3 bucket is prefaced by a [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) that acts as our global, scalable CDN.  
 CloudFront delivers our content through a worldwide network of data centers called edge locations.  
@@ -436,7 +436,7 @@ A few of the benefits of using this AWS service:
 - Easy integration with our app
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert loginscreen frontend" src="/img/2020-09-25-ghelamco-alert/login-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert login-screen frontend" src="/img/2020-09-25-ghelamco-alert/login-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 ##### User-pool and Identity-pool
@@ -458,7 +458,7 @@ On the dashboard view we can see which events are coming up next, when we click 
 From here we can update alert times, or we can snooze them. BUT!  
 The way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case.  
 
-<<div style="text-align: center;">
+<div style="text-align: center;">
   <img alt="Ghelamco-alert Dashboard frontend" src="/img/2020-09-25-ghelamco-alert/dashboard-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
@@ -470,7 +470,7 @@ On this tab we can create our own custom events.
 The way this works is identical as snoozing and updating an alert on the dashboard view.  
 We also create a job which gets executed, as described in the next section.
 
-<<div style="text-align: center;">
+<div style="text-align: center;">
   <img alt="Ghelamco-alert create event screen" src="/img/2020-09-25-ghelamco-alert/frontend-create.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
@@ -495,7 +495,7 @@ The moment this list is empty all changes from our webapp have been processed su
 Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely.  
 We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.  
 
-<<div style="text-align: center;">
+<div style="text-align: center;">
   <img alt="Ghelamco-alert jobs screen" src="/img/2020-09-25-ghelamco-alert/frontend-jobs.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
@@ -519,7 +519,7 @@ The process goes like this:
 5. Upload the newly compiled webapp to this S3 bucket
 6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated in every datacenter, everywhere in the world. If we don't do this, our old version could be cached for up to 24h!  
 
-<<div style="text-align: center;">
+<div style="text-align: center;">
   <img alt="Ghelamco-alert frontend pipeline" src="/img/2020-09-25-ghelamco-alert/azure-frontpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
