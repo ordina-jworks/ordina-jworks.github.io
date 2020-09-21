@@ -606,14 +606,14 @@ It worked, but it looked... meh! :)
 
 Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.   
 
-AS mentioned before, this internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
+This internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
 - I've had the chance to develop an application in Spring, with different databases.
 - learned how to properly test my code with unit and integration tests
 - learned how to use the Java and Node AWS SDKs
 - API's, connecting it all together...
-- Came in touch with a lot of linux, sharpening my commandline skills
+- came in touch with a lot of linux, sharpening my commandline skills
 - developed an Angular app from start to finish
-- Learned about a lot about AWS: IAM, IoT Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, Cloudwatch, Cloudfront, lambdas, Route53, ...
+- learned a lot about AWS: IAM, IoT Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, Cloudwatch, Cloudfront, lambdas, Route53, ...
 - CICD pipelines and their best practices in the industry
 
 I'm very thankful for being able to do this and having the chance to work with Bas on a real project.  
