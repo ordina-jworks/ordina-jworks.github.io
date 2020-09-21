@@ -414,86 +414,87 @@ We used [AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide
 
 
 ### Angular as frontend framework
-Any framework would've worked to accomplish what I was trying to do, which is create a simple webapp to communicate with our RPI.  
-I opted for Angular, since I had already played around with it before.
-
+I wanted to create a simple web application to get more insight in the data of our RPI device.  
+Any modern frontend framework would be suitable for this but I decided to go with Angular since I had already had some basic experience with it.  
 
 #### AWS Amplify
+To help us build our we decided to use the AWS amplify framework to bootstrap our frontend application.  
 The open-source Amplify Framework provides:  
-- Amplify CLI - Configure all the services needed to power your backend through a simple command line interface.
-- Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.
-- Amplify UI Components - UI libraries for React, React Native, Angular, Ionic and Vue.
+- Amplify CLI - Configure AWS services needed to power your backend through a simple command line interface.  
+- Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.  
+- Amplify UI Components - UI libraries for React, React Native, Angular, Ionic and Vue.  
 
-For our project we only used the libraries and UI components from Amplify for our Webapp.  
-The backend we needed is powered by the Serverless framework, on which we'll expand a bit later down the blogpost.  
+For our project we only used the libraries and UI components from Amplify for our web application.  
+When we use the amplify cli to bootstrap our project it generated a new file in the ./src folder of our project called **aws-exports.js**.  
+This file contains configuration of various backend AWS services that we will be using:
+* cognito user pool id
+* cognito identity pool url
+* region
+* api gateway url
+The backend itself is build and deployed with the **serverless framework**.  
+More about this in the section regarding serverless.  
 
 ##### AWS Cognito
-For the actual signing-in, signing-up and Access control we used [AWS Cognito](https://aws.amazon.com/cognito/), which provides us a complete service for Authentication & Authorization.  
+We used [AWS Cognito](https://aws.amazon.com/cognito/) as authentication and authorization provider.  
+This means that new users can sign up to our cognito user pool and login to our web application by authenticating themselves via that user pool.  
 
-A few of the benefits of using this AWS service:  
-- Secure and scalable user directory, it can easily scale up to hundreds of millions of users
-- Amazon Cognito provides us solutions to control access to backend resources from our app. You can define roles and map users to different roles so your app can access only the resources that are authorized for each user.
-- Easy integration with our app
+There are several really good reasons to use cognito instead of building a home grown identity solution:  
+* Secure and scalable user directory.  
+It scales dynamically as you would expect from AWS.  
+* Fine grained access control through the use of cognito user pools and identity pools.   
+You can define users and groups in a cognito user pool which can then be mapped to AWS Iam roles.  
+This is a straightforward and very secure way to allow users of the web application a federated access into your AWS account.  
+* Easy integration into our frontend application through components that are provided in the amplify UI library.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert login-screen frontend" src="/img/2020-09-25-ghelamco-alert/login-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-##### User-pool and Identity-pool
+##### User pool and Identity pool
 User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications.  
-Users can sign-in directly to the **User Pool** (which we used), or using Facebook, Amazon or Google.  
-Successful authentication generates JSON Web Tokens (JWTs).
-
-Identity Pools provide temporary AWS credentials to access AWS services like S3 and DynamoDB.  
-
-##### aws-exports.js
-Our amplify project generates a new file in the ./src folder of our project, an aws-exports.js, that holds all the configuration for the services we create with Amplify.  
+Users can register directly in our **user pool** or they can register themselves through web identity federation via a well known 3th party like: facebook, amazon, google.  
+Whenever a user logs in to our user pool they receive a **JWT token** that contains information about their identity and authorizations.  
+To be able to use the claims in this JWT token we created an AWS **identity pool** as well.  
+The identity pool allows users to exchange their valid jwt token for temporary AWS credentials.  
+These temporary credentials can then be used by our application to call AWS services in our account. 
+For example: call api gateway, update a dynamodb table , fetch a cloudwatch metric.  
+This process is called federated access and is very powerfull to expose services from within your AWS account to your end users.  
 
 #### Ghela-alert Webapp
-Here I'll go over all the features of our Webapp once we get access to the Dashboard.
-***We also talk about AWS API and lambda functions in this part, but we'll explain them more thoroughly in the last section about our "serverless backend".***  
+In this part I will explain all the features of our web application starting from the point where we get access to the dashboard.  
 
 ##### Dashboard view
-On the dashboard view we can see which events are coming up next, when we click on them we also get to see all the alerts which are set.  
-From here we can update alert times, or we can snooze them. BUT!  
-The way you would expect this to work is probably by manipulating our DynamoDB table, and then let our RPI sync the changes to update the H2 database, but this is not the case.  
+On the dashboard view we can see which events are coming up next.  
+When we click on an event we also get to see all the alerts which are set for that event.  
+We can update or snooze alerts from this screen, BUT...
+This works a bit different then how you would probably expect it to work.  
+In a normal setting you would expect us to update the records in our dynamoDB table, right?  
+Since we want our H2 database on the RPI device to be the single source of truth this is not the case here.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Dashboard frontend" src="/img/2020-09-25-ghelamco-alert/dashboard-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-When clicking on snooze or save, we create a job for our RPI.  
-Just like deploying a new Docker image onto the RPI, we use IoT Jobs to make our RPI execute custom tasks.  
+When you update or snooze an alert we actually create an AWS Iot job for our RPI to process.  
+The backend application on the RPI knows how to handle these events and updates his H2 database accordingly.  
+And then thanks to the sync component we built in the RPI backend those changes get synced to our dynamoDB table.  
 
 ##### Create Custom event
 On this tab we can create our own custom events.  
-The way this works is identical as snoozing and updating an alert on the dashboard view.  
-We also create a job which gets executed, as described in the next section.
+This works in the same way as snoozing or updating on alert on the dashboard view.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert create event screen" src="/img/2020-09-25-ghelamco-alert/frontend-create.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-##### Executing jobs on the RPI 
-
-An example of how such a cycle works for snoozing an alert :  
-1. We click snooze
-2. We call our [AWS API](https://aws.amazon.com/api-gateway/) endpoint "/alert/snooze".
-3. This endpoint invokes a [AWS Lambda function](https://aws.amazon.com/lambda/), which creates a job for the RPI and inserts a row into another dynamo table (ghela-jobs), to register the job we created on the frontend.
-4. The RPI executes the job, meaning snoozing the alert
-5. The RPI synchronizes his H2 database with the Event dynamo table (ghela-events)
-
-For updating an alert or creating a custom game, the above would be the same except:  
-- we call another endpoint. ex. "/event" or "/alert" 
-- the job-document that we create in our lambda function to send with our job-creation request, will differ.  
-
 ##### Job overview
-In this view the API will send a GET request to our AWS API on the endpoint "/job".  
-The lambda function which is coupled here, will read the ghela-jobs dynamo table, and list all jobs of whom the status is not yet "COMPLETED".  
-The moment this list is empty all changes from our webapp have been processed successfully by our RPI-backend and will have updated the ghela-events and ghela-jobs dynamo tables.  
+In the job overview view we query our api gateway to fetch us all the pending jobs from our dynamoDB job table.  
+The lambda function that listens to this endpoit reads the ghela-jobs dynamoDB table and list all jobs that have a status of not yet "COMPLETED".  
+The moment this list is empty all changes from our webapp have been processed successfully by our RPI backend application and will have updated the ghela-events and ghela-jobs dynamoDB tables.  
 
-Important note: When our RPI is not connected to the internet, these jobs will not get completed, thus not saving changes made remotely.  
-We can change the amount of retries AWS IoT will fire as well as job-time-outs inside our lambda functions.  
+Important note: our RPI can only receive new jobs from aws IoT if it is connected to the internet.  
+So if we do not have a working network connection jobs will stay queued within AWS iot and not get pushed to the RPI backend application.  
+For this reason it is important for us to know that our RPI device is connected and functioning well to make sure that commands from our web application get processed by our RPI backend application.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert jobs screen" src="/img/2020-09-25-ghelamco-alert/frontend-jobs.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -501,23 +502,47 @@ We can change the amount of retries AWS IoT will fire as well as job-time-outs i
 
 ##### Metrics
 On this tab we can see the status of the RPI backend as a graph.  
-Remember the Metrics we talked about above?  
-Via the "/metrics" API endpoint we invoke a lambda function which fetches this dynamic graph and sends it back to our frontend to be displayed.  
-On this graph we can easily see if the RPI is still connected to the internet.  
+Remember the Metrics we talked about before?  
+Via the "/metrics" API endpoint we invoke a lambda function that fetches this dynamic graph and sends it back to our frontend as a base64 encoded stream of byte data.  
+We can then render this data as an image in our frontend web application.  
+By adding this graph in our web application users of the application can see that the RPI backend device is up and running and functioning well without ever having to access our AWS account itself, pretty cool huh?  
+
+##### Distributed application flow
+These update and create actions that we built in our frontend are great examples to demonstrate how our distributed application works from a to z.  
+I will walk you through the full cycle for the **snooze alert** action:  
+
+1. We click snooze alert in the frontend web application
+2. This calls our [AWS API](https://aws.amazon.com/api-gateway/) endpoint "/alert/snooze".
+3. This call is authorized by the userpool JWT token and identitypool temporary AWS credential.  
+4. This api gateway endpoint invokes a [AWS Lambda function](https://aws.amazon.com/lambda/) which creates a job and job document in AWS iot for the RPI.
+It also inserts a row into a second dynamoDB table (ghela-jobs) to register the job we created on the frontend.  
+5. The job get's send to the RPI and processed by our backend application,  thus snoozing the alert in the H2 database.  
+6. The RPI synchronizes his H2 database with the event dynamoDB table.  
+
+The same workflow applies for updating an alert or creating a custom game.  
+The only difference would be that we would:
+* Call a different endpoint on our api gateway: "/event" or "/alert".  
+* The job document that we create in our lambda function to send with our job creation request will be different.    
+
 
 #### CICD pipeline Frontend
 
 Since CICD pipelines were completely new to me when starting this project, Bas created the pipeline for our RPI-backend.  
 For the frontend CICD pipeline he wanted me to create it.  
-Even though he still helped me, he let me think about how this pipeline would run, what steps we needed and had me create the azure-pipelines.yml .  
+Even though he still helped me, he let me think about how this pipeline would run, what steps we needed and had me create the azure-pipelines.yml.  
 
-The process goes like this:  
-1. We build our pipeline on a linux machine
-2. Fetch our aws-exports.js from our parameterStore on [AWS SSM](), and replace it in our angular project. 
-3. Then we have some steps to build our project like installing dependencies & building our app for production.
-4. We empty our S3 bucket where our webapp gets saved
-5. Upload the newly compiled webapp to this S3 bucket
-6. As a last step we invalidate [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache, to make sure our website gets updated in every datacenter, everywhere in the world. If we don't do this, our old version could be cached for up to 24h!  
+Our frontend pipeline looks like this:  
+
+1. Run our pipeline on a linux machine
+2. Fetch the needed configuration file from AWS SSM parameter store and save it locally.  
+In this case we download an entire aws-exports.js file SSM and inject this in the final build of our application.  
+This file contains all the endpoints for wiring our frontend application to our production backend.  
+3. Install npm dependencies and trigger a npm build command to build our web application.  
+Once the build is done we inject the aws-exports.js file from the previous step into it.  
+4. Empty the S3 bucket we are using for hosting
+5. Upload the newly compiled web application to this S3 bucket
+6. Invalidate the [AWS Cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) cache to make sure our application gets updated on each AWS edge location. 
+If we don't do this, our old version could be cached for up to 24h!  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert frontend pipeline" src="/img/2020-09-25-ghelamco-alert/azure-frontpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
