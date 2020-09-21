@@ -15,7 +15,7 @@ comments: true
   1. [Backend RPI](#backend-rpi)
   2. [Frontend app](#frontend-webapp)
   3. [Serverless](#serverless-as-backend-framework)
-* [Conclusions](#conclusions)
+* [Learning Expirience](#learning-expirience)
 
 # Introduction
 At Ordina, we have a beautiful office in the Ghelamco arena in Gent.  
@@ -594,18 +594,17 @@ Serverless makes sure a few services get configured:
 
 <!-- //TODO write -->
 
-## Conclusions
+## Learning expirience
 
-@KEVIN: I would put these personal notes in the personal experiences or learnings section. Makes more sense as in the first part we are strictly talking about the end solution. 
-At the start of my project I created a way to update our spring application by writing some custom code, which involves running a whole load of Linux commands to:  
+At the start of my project I created a way to update our RPI spring application by writing some custom code, which involves running a whole load of Linux commands to:  
 - create new folders on the RPI
-- downloading the new file from [AWS S3](https://aws.amazon.com/s3/) (which is an object storage service)
+- downloading the new file from [AWS S3](https://aws.amazon.com/s3/)  
 - running some commands and scripts to enable a new daemon (service) process on the RPI
 - deleting the old version... 
 
 It worked, but it looked... meh! :)  
 
-Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.  
+Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.   
 
 AS mentioned before, this internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
 - I've had the chance to develop an application in Spring, with different databases.
