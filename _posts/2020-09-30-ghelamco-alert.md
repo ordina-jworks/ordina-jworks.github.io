@@ -548,69 +548,95 @@ If we don't do this, our old version could be cached for up to 24h!
   <img alt="Ghelamco-alert frontend pipeline" src="/img/2020-09-25-ghelamco-alert/azure-frontpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-## Serverless as backend framework
-To get the backend for our webapp working we needed a few things to get up and running.  
+## Serverless framework 
+Our frontend application would be pretty useless if no backend existed for it.  
+Since it is difficult to access our RPI backend application directly we decided to build a proxy backend in the AWS cloud as explained before.  
+We decided to use the serverless framework for its ease of use and speed of development to build this backend.  
 
-1. We needed 2 [DynamoDB]() tables to put our events and jobs.
-2. Another thing we needed were a [Cognito UserPool]() and a [Cognito IdentityPool]() for the security aspect of our Frontend.
-3. An [AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) with all of our needed end-points configured and secured.
-4. [Lambda functions]() to make our endpoints perform the operations they were intended for, using the [AWS Node.js SDK](https://aws.amazon.com/sdk-for-node-js/)
-5. [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) roles and permissions to perform these operations inside of our Lambdas. (Connect and create jobs on AWS IoT, scan and put to our Dynamo tables, etc...)
+What exactly are the requirements for our backend in the AWS cloud? We listed following list of requirements:  
+1. [DynamoDB]() tables for our events and jobs.
+2. [Cognito UserPool]() and a [Cognito IdentityPool]() to provide authentication and authorisation for our frontend application.  
+3. [AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) to expose REST endpoints from our cloud backend to our frontend web application.  
+4. [Lambda functions]() that actually implement our backend code. We used the [AWS Node.js SDK](https://aws.amazon.com/sdk-for-node-js/) to program our lambda functions.  
+5. [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) roles and permissions to perform operations inside of our Lambdas. (Connect and create jobs on AWS IoT, scan and put to our Dynamo tables, etc...)
 
 
-### Why do we even use serverless?
-In the beginning we configured everything by hand, in the console, which took a lot of time since we need to figure our a lot of new things.  
-Additionally, to touch on all important parts of this project we had to use the best practices and fairly new technologies, which needed a lot of manual configuration.  
-Bas then later introduced me to the concept of [IaC or Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [the Serverless framework](https://www.serverless.com/), which made us able to configure the whole backend through a serverless.yml file.
+### Why the serverless framework?
+In the beginning we configured everything by hand in the console.  
+This approach has several drawbacks:
+* It is very time consuming to click in the AWS console
+* It is an error prone and not easily repeatable process to setup 
+* It does not adhere to industry best practices as we want our infrastructure to be defined as code. 
+
+Bas then introduced me to the concept of [IaC or Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [the Serverless framework](https://www.serverless.com/).  
+There are several options to do IaC on AWS but for our particular project serverless seemed the best fit.  
+Our entire cloud backend is configured in our **serverless.yml** file that is versioned on github in our cloud backend project.  
+This way we can setup our infrastructure through IaC in a repeatable manner.  
 
 ### Serverless.yml
-The heart of our configuration.  
-Inside this file, which could also be a JSON or a Typescript file, we define everything we need for our backend to work.  
+This file is the heart of our serverless setup.  
+Everything that is needed to run our serverless stack is described in this file or in includes of this file.  
+We used the **yaml** notation as it is less convoluted then JSON but you can also use JSON or typescript to build this.   
+We will explain the different parts of our serverless setup to show you in detail how everything works. 
 
-#### Functions
-A Function is an AWS Lambda function, it's an independent unit of deployment, like a microservice.  
-It's merely code, deployed in the cloud, that is mostly used to execute one task, like in our case: list-events.  
+#### Functions and Api Gateway
+The essential part of our serverless setup is the functions section.  
+A function is an AWS Lambda function.  
+It's an independent unit of deployment like a true microservice.  
+It is generally a very small piece of code that does one thing and does it well.  
+In our project for example we have a lambda function **list-events** which does exactly that, list the events from our dynamoDB table.  
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit" />
+</div>
+Our api gateway is generated based on the configuration of our functions in this section.  
+Everything under the **events** property is used as configuration for our api gateway.  
+In this example you can see that we define a **path** of event and a **method** GET.  
+We also enable **CORS** and tell api gateway to authorize calls made to this endpoint with the **AWS_IAM** authorizer.  
+
+This results in the path **/event** is added to our api gateway which then maps to our lambda function we defined.  
+This path is CORS enabled and is secured by the aws_iam authorizer.  
+So you can only invoke this function if you have a valid AWS access credential from our cognito identity pool.  
+If you do'nt have a valid credential you will receive a 403 denied response from the api gateway.  
+<div style="text-align: center;">
+  <img alt="API gw" src="/img/2020-09-25-ghelamco-alert/api-gw.PNG" width="auto" height="auto" target="_blank" class="image fit" />
 </div>
 
-Inside our function you can see that we declared a few things for our Lambda to work.  
+Our function needs several additional pieces of configuration to be able to do it's job well.  
 
 #### AWS IAM Roles
-
-For allowing our Lambda functions to have fine-grained access to our AWS services, we need to define them in our serverless project.  
-We did this with a separate lambda-iam-roles.yml file which gets loaded into the serverless.yml.  
+To allow our lambda function to have fine grained access to our AWS services we defined IAM roles in our serverless project that are attached to our lambda functions.  
+The IAM roles are defined in a seperate file **lambda-iam-roles.yml** which get's included into our serverless.yml file.  
+We can then freely use any roles we wish.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-iamroles.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-#### AWS Dynamo tables
-We define an environment variable, our dynamo table name, which gets further defined in the dynamodb-tables.yml.  
-As you can see, our 2 tables get created here as ghelaapi-serverless-dev-ghela-events and ghelaapi-serverless-dev-ghela-jobs.  
+#### AWS DynamoDB tables
+Since our lambda function accesses a dynamoDB table we pass the table name to the function as an environment variable.  
+This allows us to have seperate tables for different environment like development, integration, production.  
+Our 2 dynamoDB tables get created by the serverless framework as well.  
+They are describe in a seperate file **dynamodb-tables.yml** and get's included in the serverless.yml file.  
+Our dynamoDB tables are created by a naming policy which allows us to easily re use that naming scheme in our environemnt variables for the lambda functions.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 #### AWS Lambda functions with AWS NodeJS SDK
-The handler serves like the entry point for our lambda source code, which we also define in our Serverless project.  
-Below an example of such a lambda, reading data from our Dynamodb (using the env. variable from our config) and returning it to the API.  
+The handler is the entry point in our lambda function.  
+This is defined in our serverless stack which handler should be invoked by the api gateway.  
+Following example illustrates how our lambda reads data from our dynamoDB table (using the envionment variable from our config) and returns the result to our api gateway.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-lambda.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-#### AWS API Gateway
-In the last part we describe what our API endpoint should look like.  
-Serverless makes sure a few services get configured:  
-- our API endpoint gets created
-- configure our endpoint to use AWS IAM authentication upon calling it
-- our Lambda function gets attached to the endpoint
-- configure CORS 
-- define standard gateway responses (as described in our additional api-gateway-errors.yml file)
-
+#### AWS API Gateway extra configuration
+We needed to add some additional configuration for our api gateway that was not possible to include in the functions part of our serverless template.  
+To make sure that our application does not get CORS errors when it receives a 4XX or 5XX response from the api gateway we had setup CORS for these error responses.  
+As you can see below we added response headers to allow all origins and headers.  
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
