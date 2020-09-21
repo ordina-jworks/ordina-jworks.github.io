@@ -15,7 +15,7 @@ comments: true
   1. [Backend RPI](#backend-rpi)
   2. [Frontend app](#frontend-webapp)
   3. [Serverless](#serverless-as-backend-framework)
-* [Learning Expirience](#learning-expirience)
+* [Learning Experience](#learning-experience)
 
 # Introduction
 At Ordina, we have a beautiful office in the Ghelamco arena in Gent.  
@@ -594,7 +594,7 @@ Serverless makes sure a few services get configured:
 
 <!-- //TODO write -->
 
-## Learning expirience
+## Learning experience
 
 At the start of my project I created a way to update our RPI spring application by writing some custom code, which involves running a whole load of Linux commands to:  
 - create new folders on the RPI
