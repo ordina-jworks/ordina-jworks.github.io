@@ -99,7 +99,7 @@ As the last step we just need to add the H2 dependency to our projects pom.xml .
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-pom.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-Add some configuration in the app.properties file.  
+Add some configuration in the application.properties file.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/h2-prop.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -216,12 +216,14 @@ aws iot update-job
   --description "updated description" 
 ```
 <code class="nohighlight hljs">aws iot update-job  \
+````
   --job-id 010  \
   --description "updated description" \
-  --timeout-config inProgressTimeoutInMinutes=<code class="replaceable">100</code> \
-  --job-executions-rollout-config "<span>{</span> \"exponentialRate\": <span>{</span> \"baseRatePerMinute\": <code class="replaceable">50</code>, \"incrementFactor\": <code class="replaceable">2</code>, \"rateIncreaseCriteria\": <span>{</span> \"numberOfNotifiedThings\": <code class="replaceable">1000</code>, \"numberOfSucceededThings\": <code class="replaceable">1000</code>}, \"maximumPerMinute\": <code class="replaceable">1000</code>}}" \
-  --abort-config "<span>{</span> \"criteriaList\": [ <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">FAILED</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">100</code>, \"thresholdPercentage\": <code class="replaceable">20</code>}, <span>{</span> \"action\": \"<code class="replaceable">CANCEL</code>\", \"failureType\": \"<code class="replaceable">TIMED_OUT</code>\", \"minNumberOfExecutedThings\": <code class="replaceable">200</code>, \"thresholdPercentage\": <code class="replaceable">50</code>}]}" \          
-  --presigned-url-config "<span>{</span>\"roleArn\":\"<code class="replaceable">arn:aws:iam::123456789012:role/S3DownloadRole</code>\", \"expiresInSec\":3600}" </code>
+  --timeout-config inProgressTimeoutInMinutes=100 \
+  --job-executions-rollout-config "{ \"exponentialRate\":{\"baseRatePerMinute\": 50, \"incrementFactor\": 2, \"rateIncreaseCriteria\": <{\"numberOfNotifiedThings\": 1000, \"numberOfSucceededThings\": 1000}, \"maximumPerMinute\": 1000}}" \
+  --abort-config "{ \"criteriaList\": [ { \"action\": \"CANCEL\", \"failureType\": \"FAILED\", \"minNumberOfExecutedThings\": 100, \"thresholdPercentage\": 20}, { \"action\": \"CANCEL\", \"failureType\": \"TIMED_OUT\", \"minNumberOfExecutedThings\": 200, \"thresholdPercentage\": 50}]}" \          
+  --presigned-url-config "{\"roleArn\":\"arn:aws:iam::123456789012:role/S3DownloadRole\", \"expiresInSec\":3600}"
+```
 We use these jobs AWS Iot to create these jobs and send them to our RPI where they get executed by our application code.  
 
 <div style="text-align: center;">
