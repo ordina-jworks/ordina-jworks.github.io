@@ -72,6 +72,24 @@ If you are unable to run `rvm install 2.4.0` execute the following:
 - Be sure to verify that your blog post is shown correctly on mobile (most desktop browsers support mobile view or just reduce your window's width to test this), it is important that images, videos and presentations scale down correctly. 
 On images this can be achieved by specifying: `class="image fit"`.
 
+## Generate a table of contents
+You can use the following code at the start of your blogpost ( right under the blogpost info section) to automatically generate a table of contents for your blogpost.  
+By default every header will be picked up and rendered in your table of contents.  
+```
+# Table of contents
+{:.no_toc}
+
+- TOC
+{:toc}
+
+----
+```
+If you want to exclude a header from your table of contents you can do it like this:
+```
+# This header is not included in TOC
+{:.no_toc}
+```
+
 ## Style guide
 
 Write a blog post as if you were writing code.
