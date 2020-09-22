@@ -54,7 +54,7 @@ Once you get the hang of serverless, the speed of setting up infrastructure is a
 # Solution design
 Below you can see the high level design or our solution.  
 <div style="text-align: center;">
-  <img alt="Ghelamco alert architecture" src="/img/2020-09-25-ghelamco-alert/ghela-alert-architecture.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco alert architecture" src="/img/2020-09-25-ghelamco-alert/ghela-alert-architecture.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 As you can see there are lots of moving parts in this solution.  
 We will zoom in on different parts of the architecture in the next sections.  
@@ -412,7 +412,7 @@ We used azure devops as our CICD system.
 The pipeline has a lot of pipeline steps defined and integrates with several AWS services as well.  
 We drew up a chart to provide additional insight into how this pipeline works:
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert Azure pipeline backend" src="/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-rpi.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert Azure pipeline backend" src="/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-rpi.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 As you can see there are 2 major parts of this pipeline: 
@@ -640,7 +640,7 @@ The pipeline is less complex then the pipeline to build and deploy our backend o
 We created a diagram of all the steps and interactions with AWS services for this pipeline as well.  
 
 <div style="text-align: center;">
-  <img alt="Ghelamco-alert frontend pipeline" src="/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-frontend.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Ghelamco-alert frontend pipeline" src="/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-frontend.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 * Install NodeJs
