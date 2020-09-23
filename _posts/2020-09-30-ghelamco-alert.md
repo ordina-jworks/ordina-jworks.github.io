@@ -30,7 +30,7 @@ We will run a Raspberry PI device that is hooked up to an alert light.
 The Raspberry PI will run an application that parses the website of KAA Gent to search for any home fixtures.  
 Whenever a home fixture occurs, the RPI will start turning on the alert light on a preset schedule.  
 This way the employees in the office will have a visual warning on game day and they will be reminded to leave the parking on time.  
-Since we wanted to build a user friendly solution we added a serverless backend in the AWS cloud combined with an angular application so that our users can also look at the webapplication to get some additional feedback and even manipulate the alerting schedule.  
+Since we wanted to build a user friendly solution we added a serverless backend in the AWS cloud combined with an angular application so that our users can also look at the web application to get some additional feedback and even manipulate the alerting schedule.  
 This enables users to do some additional operations through the web application:
 * Snooze alerts
 * Create additional alerts
@@ -40,14 +40,14 @@ This enables users to do some additional operations through the web application:
 
 # Practicalities
 I received my assignment from my internship supervisor Frederick Bousson.  
-The assignment was pretty open so we came up with following design for the system:
+The assignment was pretty open, so we came up with following design for the system:
 1. An Iot module on the RPI  
 2. A backend that runs in the AWS cloud using either Java/Spring or Typescript/Node 
 3. A frontend built with a framework of my own liking.
 
 Bas Moorkens was my mentor for the internship.  
 He designed the high level architecture of the solution and then helped translate it into smaller blocks of work for me.  
-The architecture was tweaked several times to account for lessons learned during the internship.  
+We tweaked the architecture several times to account for lessons learned during the internship.  
 We ended up using over 10 AWS services which over the course of the internship, made me develop a real interest in everything that is AWS and cloud related.  
 Once you get the hang of serverless, the speed of setting up infrastructure is absolutely mind-blowing!
 
@@ -168,7 +168,7 @@ We integrate with cloudwatch in two different ways:
 ##### Cloudwatch metrics
 {:.no_toc}
 
-The metrics that we generate in our application should of course get sent to AWS cloudwatch so we can actually make use of them in the AWS cloud.  
+The metrics that we generate in our application should of course get sent to AWS cloudwatch, so we can actually make use of them in the AWS cloud.  
 We used the metric data to build dashboards and alerts within cloudwatch for added visibility into our application.  
 
 <div style="text-align: center;">
@@ -389,7 +389,7 @@ This is especially useful if you want to ssh to your device and do not have fixe
 </div>
 
 Now we that greengrass is installed and our RPI is configured as a core device our greengrass group we can start making full use of the capabilities that greengrass offers.  
-We decided that we wanted our application to run as a docker container so we installed and configured the **docker connector** for greengrass.   
+We decided that we wanted our application to run as a docker container, so we installed and configured the **docker connector** for greengrass.   
 This plugin allows you to run docker containers on your core device and makes use of **docker** and **docker compose**.  
 <div style="text-align: center;">
   <img alt="Greengrass docker connector" src="/img/2020-09-25-ghelamco-alert/gg_connector_docker_cfg.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -427,7 +427,7 @@ We use maven to build and test our code.
 * We use [AWS SSM - parameter store]() to safely store our config files and certificates for the RPI.  
 In step 2 and 3 we fetch those config files and secrets from the parameter store and store them locally for use later in the pipeline.  
 * In order to control the alert light hooked up to our RPI we need to download the wiringPi library as we used that to communicate with our alert light. 
-This library is stored in our releases S3 bucket.  
+We stored this library in our releases S3 bucket.  
 * We have to register an ARM hardware emulator as our docker image has to be run in the pipeline to install additional software.  
 Without the emulator our pipeline would just crash as azure devops would have no way to run the ARM7 docker image.   
 * We build our docker image.  
@@ -456,7 +456,7 @@ This is why we started from an ARM7 image that already has jre11 installed on it
 As you can see we need to run **apt-get update** and some other commands in our container to get it fully functioning.  
 This means that our container will be actually executed during the build phase.  
 This is the reason why we need to register the ARM7 emulator in our pipeline.  
-Otherwise azure devops would have no way of running our docker image since it can not interpret the ARM7 processor instruction set natively.  
+Otherwise, azure devops would have no way of running our docker image since it cannot interpret the ARM7 processor instruction set natively.  
 
 In our **docker-compose.yml** file we describe how the container should behave when it's running:
 ```
@@ -483,8 +483,8 @@ Several things are happening in this file:
 {:.no_toc}
 
 For the greengrass deployment process we did not have to create any code.  
-This works out of the box when you setup greengrass.  
-However for full transparancy I will briefly describe the process here:
+This works out of the box when you set up greengrass.  
+However, for full transparency I will briefly describe the process here:
 * AWS greengrass receives a new deployment ( this is the last step of our azure devops pipeline).
 * Greengrass sends the new deployment to the greengrass agent on our device.
 * Download the docker-compose file from S3 which is associated with our deployment.
@@ -494,7 +494,7 @@ However for full transparancy I will briefly describe the process here:
 * Setup the mounted volumes defined in our docker-compose file.
 * Start the spring boot application in the container.
 
-All these steps are done automatically for us by the greengrass agent running on our RPI device.  
+All these steps get done automatically for us by the greengrass agent running on our RPI device.  
 As you can see this CICD pipeline makes it incredibly easy for us to deploy new software to our RPI device.  
 
 ## Frontend web application
@@ -512,7 +512,7 @@ We did however use some extra frameworks and AWS services to make it easier to b
 
 ### AWS Amplify
 
-To help us build our we decided to use the AWS amplify framework to bootstrap our frontend application.  
+To help us bootstrap our web application, we decided to use the AWS amplify framework.  
 The open-source Amplify Framework provides:  
 - Amplify CLI - Configure AWS services needed to power your backend through a simple command line interface.  
 - Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.  
@@ -533,11 +533,11 @@ More about this in the section regarding serverless.
 We used [AWS Cognito](https://aws.amazon.com/cognito/) as authentication and authorization provider.  
 This means that new users can sign up to our cognito user pool and login to our web application by authenticating themselves via that user pool.  
 
-There are several really good reasons to use cognito instead of building a home grown identity solution:  
+There are several excellent reasons to use cognito instead of building a home-grown identity solution:  
 * Secure and scalable user directory.  
 It scales dynamically as you would expect from AWS.  
 * Fine grained access control through the use of cognito user pools and identity pools.   
-You can define users and groups in a cognito user pool which can then be mapped to AWS Iam roles.  
+You can define users and groups in a cognito user pool which you then can map to AWS IAM roles.  
 This is a straightforward and very secure way to allow users of the web application a federated access into your AWS account.  
 * Easy integration into our frontend application through components that are provided in the amplify UI library.  
 
@@ -548,7 +548,7 @@ This is a straightforward and very secure way to allow users of the web applicat
 ##### Cognito User pool
 {:.no_toc}
 User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications.  
-Users can register directly in our **user pool** or they can register themselves through web identity federation via a well known 3th party like: facebook, amazon, google.  
+Users can register directly in our **user pool** or they can register themselves through web identity federation via a well-known 3rd party like: facebook, amazon, google.  
 Whenever a user logs in to our user pool they receive a **JWT token** that contains information about their identity and authorizations.  
 We call this information JWT claims.  
 
@@ -557,12 +557,12 @@ We call this information JWT claims.
 
 To be able to use the claims in this JWT token we created an AWS **identity pool** as well.  
 The identity pool allows users to exchange their valid jwt token for temporary AWS credentials.  
-These temporary credentials can then be used by our application to call AWS services in our account. 
+These temporary credentials then get used by our application, to call AWS services in our account. 
 For example: call api gateway, update a dynamodb table , fetch a cloudwatch metric.  
-This process is called federated access and is very powerfull to expose services from within your AWS account to your end users.  
+This process is called federated access and is very powerful to expose services from within your AWS account to your end users.  
 
 ### The application itself
-Now that I covered all the technologies that I used for the web application I will walk you through the application itself.  
+Now I covered all the technologies that I used for the web application, I will walk you through the application itself.  
 
 #### Dashboard view
 {:.no_toc}
@@ -570,7 +570,7 @@ Now that I covered all the technologies that I used for the web application I wi
 On the dashboard view we can see which events are coming up next.  
 When we click on an event we also get to see all the alerts which are set for that event.  
 We can update or snooze alerts from this screen, BUT...
-This works a bit different then how you would probably expect it to work.  
+This works a bit different from how you would expect it to work.  
 In a normal setting you would expect us to update the records in our dynamoDB table, right?  
 Since we want our H2 database on the RPI device to be the single source of truth this is not the case here.  
 
@@ -580,7 +580,7 @@ Since we want our H2 database on the RPI device to be the single source of truth
 
 When you update or snooze an alert we actually create an AWS Iot job for our RPI to process.  
 The backend application on the RPI knows how to handle these events and updates his H2 database accordingly.  
-And then thanks to the sync component we built in the RPI backend those changes get synced to our dynamoDB table.  
+Together with our sync component we built on the RPI backend, those changes get updated directly to our dynamoDB table.  
 
 #### Create Custom event
 {:.no_toc}
@@ -596,12 +596,12 @@ This works in the same way as snoozing or updating on alert on the dashboard vie
 {:.no_toc}
 
 In the job overview view we query our api gateway to fetch us all the pending jobs from our dynamoDB job table.  
-The lambda function that listens to this endpoit reads the ghela-jobs dynamoDB table and list all jobs that have a status of not yet "COMPLETED".  
+The lambda function that listens to this endpoint reads the ghela-jobs dynamoDB table and list all jobs that have a status of not yet "COMPLETED".  
 The moment this list is empty all changes from our webapp have been processed successfully by our RPI backend application and will have updated the ghela-events and ghela-jobs dynamoDB tables.  
 
-Important note: our RPI can only receive new jobs from aws IoT if it is connected to the internet.  
-So if we do not have a working network connection jobs will stay queued within AWS iot and not get pushed to the RPI backend application.  
-For this reason it is important for us to know that our RPI device is connected and functioning well to make sure that commands from our web application get processed by our RPI backend application.  
+Important note: our RPI can only receive new jobs from AWS IoT if it is connected to the internet.  
+So if we do not have a working network connection jobs will stay queued within AWS IoT and not get pushed to the RPI backend application.  
+For the same reason it is important to know that our RPI device is connected and functioning well, to make sure our commands from our web application get processed by our RPI backend application.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert jobs screen" src="/img/2020-09-25-ghelamco-alert/frontend-jobs.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -636,7 +636,7 @@ Even though he still helped me, he let me think about how this pipeline would ru
   <img alt="Ghelamco-alert frontend pipeline" src="/img/2020-09-25-ghelamco-alert/azure-frontpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
-The pipeline is less complex then the pipeline to build and deploy our backend on our RPI device.  
+The pipeline is less complex than the pipeline to build and deploy our backend on our RPI device.  
 We created a diagram of all the steps and interactions with AWS services for this pipeline as well.  
 
 <div style="text-align: center;">
@@ -661,10 +661,10 @@ Since it is difficult to access our RPI backend application directly we decided 
 We decided to use the serverless framework for its ease of use and speed of development to build this backend.  
 
 What exactly are the requirements for our backend in the AWS cloud? We listed following list of requirements:  
-1. [DynamoDB]() tables for our events and jobs.
-2. [Cognito UserPool]() and a [Cognito IdentityPool]() to provide authentication and authorisation for our frontend application.  
+1. [DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) tables for our events and jobs.
+2. [Cognito UserPool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html) and a [Cognito IdentityPool](https://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html) to provide authentication and authorisation for our frontend application.  
 3. [AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) to expose REST endpoints from our cloud backend to our frontend web application.  
-4. [Lambda functions]() that actually implement our backend code. We used the [AWS Node.js SDK](https://aws.amazon.com/sdk-for-node-js/) to program our lambda functions.  
+4. [Lambda functions](https://aws.amazon.com/lambda/) that actually implement our backend code. We used the [AWS Node.js SDK](https://aws.amazon.com/sdk-for-node-js/) to program our lambda functions.  
 5. [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) roles and permissions to perform operations inside of our Lambdas. (Connect and create jobs on AWS IoT, scan and put to our Dynamo tables, etc...)
 
 
@@ -672,20 +672,20 @@ What exactly are the requirements for our backend in the AWS cloud? We listed fo
 
 In the beginning we configured everything by hand in the console.  
 This approach has several drawbacks:
-* It is very time consuming to click in the AWS console
-* It is an error prone and not easily repeatable process to setup 
+* It is very time-consuming to click in the AWS console
+* It is an error prone and not easily repeatable process to set up 
 * It does not adhere to industry best practices as we want our infrastructure to be defined as code. 
 
 Bas then introduced me to the concept of [IaC or Infrastructure as Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) and [the Serverless framework](https://www.serverless.com/).  
 There are several options to do IaC on AWS but for our particular project serverless seemed the best fit.  
-Our entire cloud backend is configured in our **serverless.yml** file that is versioned on github in our cloud backend project.  
-This way we can setup our infrastructure through IaC in a repeatable manner.  
+Our entire cloud backend gets configured in our **serverless.yml** file, that is versioned on github in our cloud backend project.  
+This way we can set up our infrastructure through IaC in a repeatable manner.  
 
 ### Serverless.yml
 
 This file is the heart of our serverless setup.  
-Everything that is needed to run our serverless stack is described in this file or in includes of this file.  
-We used the **yaml** notation as it is less convoluted then JSON but you can also use JSON or typescript to build this.   
+Everything that is needed to run our serverless stack got described in this file.  
+We used the **yaml** notation as it is less convoluted than JSON, but you can also use JSON or typescript to build this.   
 We will explain the different parts of our serverless setup to show you in detail how everything works. 
 
 #### Functions and Api Gateway
@@ -713,13 +713,13 @@ If you don't have a valid credential you will receive a 403 denied response from
   <img alt="API gw" src="/img/2020-09-25-ghelamco-alert/api-gw.PNG"  target="_blank"  />
 </div>
 
-Our function needs several additional pieces of configuration to be able to do it's job well.  
+Our function needs several additional pieces of configuration to be able to do its job well.  
 
 #### AWS IAM Roles
 {:.no_toc}
 
-To allow our lambda function to have fine grained access to our AWS services we defined IAM roles in our serverless project that are attached to our lambda functions.  
-The IAM roles are defined in a seperate file **lambda-iam-roles.yml** which get's included into our serverless.yml file.  
+To allow our lambda function to have fine-grained access to our AWS services we defined IAM roles in our serverless project that are attached to our lambda functions.  
+We defined the IAM roles in a separate file **lambda-iam-roles.yml** which gets included into our serverless.yml file.  
 We can then freely use any roles we wish.  
 
 <div style="text-align: center;">
@@ -732,11 +732,11 @@ We can then freely use any roles we wish.
 We decided to use AWS DynamoDB as our datastore in the cloud.  
 [AWS Dynamo](https://aws.amazon.com/dynamodb/) is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.  
 DynamoDB is a very cost effective and low maintenance way of storing data so it looked perfect for us.  
-Since our lambda function relies on these dynamoDB tables for it's data we pass the table name to the function as an environment variable.  
-This allows us to have seperate tables for different environment like development, integration, production.  
+Since our lambda function relies on these dynamoDB tables for its data we pass the table name to the function as an environment variable.  
+This allows us to have separate tables for different environment like development, integration, production.  
 Our dynamoDB tables get created by the serverless framework as well.  
-They are described in a seperate file **dynamodb-tables.yml** and get's included in the serverless.yml file.  
-Our dynamoDB tables are created by a naming policy which allows us to easily re use that naming scheme in our environemnt variables for the lambda functions.  
+They are described in a separate file **dynamodb-tables.yml** and gets included in the serverless.yml file.  
+Our dynamoDB tables get created by a naming policy which allows us to easily reuse that naming scheme in our environment variables for the lambda functions.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -745,7 +745,7 @@ Our dynamoDB tables are created by a naming policy which allows us to easily re 
 ##### Data sync
 {:.no_toc}
 
-Our data is being pushed from our RPI backend into dynamoDB tables so that our web application has access to the latest data.  
+Our data gets pushed from our RPI backend into dynamoDB tables so that our web application has access to the latest data.  
 To achieve this push mechanism I made a service in our backend application that syncs the local H2 database to our dynamoDB table.  
 We added some triggers in our RPI backend application that allows us to sync the current state of the H2 database to the dynamoDB table.  
 For example, when we are done with our website scraping process, we trigger a sync to dynamoDB if there are any updates or inserts into our H2 database.  
@@ -758,7 +758,7 @@ So as long as the backend application is running on the RPI we have access to th
 
 The handler is the entry point in our lambda function.  
 This is defined in our serverless stack which handler should be invoked by the api gateway.  
-Following example illustrates how our lambda reads data from our dynamoDB table (using the envionment variable from our config) and returns the result to our api gateway.  
+Following example illustrates how our lambda reads data from our dynamoDB table (using the environment variable from our config) and returns the result to our api gateway.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-lambda.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -768,7 +768,7 @@ Following example illustrates how our lambda reads data from our dynamoDB table 
 {:.no_toc}
 
 We needed to add some additional configuration for our api gateway that was not possible to include in the functions part of our serverless template.  
-To make sure that our application does not get CORS errors when it receives a 4XX or 5XX response from the api gateway we had setup CORS for these error responses.  
+To make sure our application does not get CORS errors when it receives a 4XX or 5XX response from the api gateway we had set up CORS for these error responses.  
 As you can see below we added response headers to allow all origins and headers.  
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-api.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -776,19 +776,19 @@ As you can see below we added response headers to allow all origins and headers.
 
 ### CICD pipeline Serverless
 
-Since the serverless framework is so easy to use and we only had 1 environment available we decided not to build a CICD pipeline for this part.  
-Instead we just use the **serverless cli** to deploy and update our stack from our local development machines.  
+Since the serverless framework is so easy to use, and we only had 1 environment available, we decided not to build a CICD pipeline for this part.  
+Instead, we just use the **serverless cli** to deploy and update our stack from our local development machines.  
 
 # Application flow
-To finish off the technical part of this blogpost I would like to show you the end-to-end worklow of the application.  
-For example let's say the user logs in to the webapplication and wants to **snooze an alert**.  
+To finish off the technical part of this blogpost I would like to show you the end-to-end workflow of the application.  
+For example let's say the user logs in to the web application and wants to **snooze an alert**.  
 
 1. We click snooze alert in the frontend web application
 2. This calls our api gateway endpoint **"/alert/snooze"**.
 3. This call is authorized by the **userpool JWT token** and **identitypool temporary AWS credential**.  
 4. This api gateway endpoint invokes an **AWS Lambda function** which creates a job and **job document in AWS iot** for the RPI.
 It also inserts a row into a second **dynamoDB table** (ghela-jobs) to register the job we created on the frontend.  
-5. The job get's send to the RPI and processed by our backend application, thus snoozing the alert in the **H2 database**.
+5. The job gets send to the RPI and processed by our backend application, thus snoozing the alert in the **H2 database**.
 This will effectively turn the alert light off.    
 6. The RPI **synchronizes** his H2 database with the event **dynamoDB table**. Thus updating the status of the alert in the dynamoDB table.  
 7. This new status will then be reflected in the **frontend web application** so our user can see the result of his action.  
