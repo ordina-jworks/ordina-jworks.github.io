@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_govaerts, bas_moorkens]
 title: 'Ghelamco alert: '
-image: /img/2020-08-06-kubernetes-clients-comparison/banner.jpg
+image: /img/2020-08-06-kubernetes-clients-comparison/rpi-front.jpg
 tags: [iot, rpi, aws, serverless, api-gateway, s3, lambda, route 53, cloudfront, greengrass, docker]
 category: Cloud
 comments: true
