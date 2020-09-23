@@ -796,20 +796,6 @@ This will effectively turn the alert light off.
 This same workflow applies to all commands that can be sent from the frontend application to our RPI device.  
 This is a prime example of how a distributed system works and operates.  
 
-# Lessons learned
-
-At the start of my project I created a way to update our RPI spring application by writing some custom code, which involves running a whole load of Linux commands to:  
-- create new folders on the RPI
-- downloading the new file from [AWS S3](https://aws.amazon.com/s3/)  
-- running some commands and scripts to enable a new daemon (service) process on the RPI
-- deleting the old version... 
-
-It worked, but it looked... meh! :)  
-
-Later Bas found out about [AWS IoT GreenGrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html) that would be able to do this for us, without the dodgy custom code.   
-
-TODO: add a small piece about what you liked/disliked about each part of the application.
-
 # Conclusion
 This internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
 - I've had the chance to develop an application in Spring, with different databases.
