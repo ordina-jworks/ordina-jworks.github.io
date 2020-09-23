@@ -27,9 +27,9 @@ Of course we don't want to spend our money on fines when instead we could be buy
 So we came up with a solution called **Ghelamco alert**.  
 The idea for the project is pretty straightforward.  
 We will run a Raspberry PI device that is hooked up to an alert light.  
-The Raspberry PI will run an application that parses the website of KAA Gent to search for any home fixtures.  
+The Raspberry PI will run an application that parses the game fixtues on the website of KAA Gent to search for any home fixtures.  
 Whenever a home fixture occurs, the RPI will start turning on the alert light on a preset schedule.  
-This way the employees in the office will have a visual warning on game day and they will be reminded to leave the parking on time.  
+This way the employees in the office will have a visual warning on game day and they will be reminded to leave the parking lot on time.  
 Since we wanted to build a user friendly solution we added a serverless backend in the AWS cloud combined with an angular application so that our users can also look at the web application to get some additional feedback and even manipulate the alerting schedule.  
 This enables users to do some additional operations through the web application:
 * Snooze alerts
@@ -40,13 +40,14 @@ This enables users to do some additional operations through the web application:
 
 # Practicalities
 I received my assignment from my internship supervisor Frederick Bousson.  
-The assignment was pretty open, so we came up with following design for the system:
-1. An Iot module on the RPI  
-2. A backend that runs in the AWS cloud using either Java/Spring or Typescript/Node 
-3. A frontend built with a framework of my own liking.
-
 Bas Moorkens was my mentor for the internship.  
 He designed the high level architecture of the solution and then helped translate it into smaller blocks of work for me.  
+We decided to setup the project using these 3 big components:
+
+1. An Iot module on the RPI.
+2. A serverless backend that runs in the AWS cloud using NodeJS.
+3. A frontend application built with the angular framework.
+
 We tweaked the architecture several times to account for lessons learned during the internship.  
 We ended up using over 10 AWS services which over the course of the internship, made me develop a real interest in everything that is AWS and cloud related.  
 Once you get the hang of serverless, the speed of setting up infrastructure is absolutely mind-blowing!
@@ -57,14 +58,14 @@ Below you can see the high level design or our solution.
   <img alt="Ghelamco alert architecture" src="/img/2020-09-25-ghelamco-alert/ghela-alert-architecture.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 As you can see there are lots of moving parts in this solution.  
-We will zoom in on different parts of the architecture in the next sections.  
+We will zoom in on the different parts of the architecture in the next sections.  
 
 ## Backend RPI
-The core portion of our solution consists of the Raspberry PI device with our backend spring boot solution that runs on it.  
-This solution controls the actual alert light and does most of the heavy lifting in the larger solution.  
-We used a model 4 Raspberry PI and installed the default Raspbian linux distribution on it.  
+The core part of our solution consists of the Raspberry PI device with our backend spring boot application that runs on it.  
+This application controls the actual alert light and does most of the heavy lifting in the larger solution.  
 The RPI works with a microSD card on which you can easily install any linux distribution.  
 You install the distribution of your choosing on SD card and then plug the card into your RPI device and you're good to go.  
+We used a model 4 Raspberry PI and installed the default Raspbian linux distribution on it.  
 
 ### Spring boot application
 The actual business logic of our solution runs as a spring boot project on our RPI device.  
@@ -77,7 +78,7 @@ These can be of type ***GameEvent*** or ***CustomEvent***.
 * The GameEvents are all the KAA Gent home games.
 * As an added feature, further down the road, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
 
-On each event we generate a couple of standard **alerts** based on the **event time**.  
+For each event we generate a couple of standard **alerts** based on the **event time**.  
 These alerts are responsible to set off the alarm light in the office.  
 This means that we will use the [GPIO](https://www.raspberrypi.org/documentation/usage/gpio/) interface of our RPI to turn on the alarm-light every time an alert gets triggered in our backend application.  
 To set off an alert, the GPIO interface changes the voltage on a GPIO-pin to 0V or 3.3V.  
