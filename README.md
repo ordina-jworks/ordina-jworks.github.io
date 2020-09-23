@@ -72,24 +72,38 @@ If you are unable to run `rvm install 2.4.0` execute the following:
 - Be sure to verify that your blog post is shown correctly on mobile (most desktop browsers support mobile view or just reduce your window's width to test this), it is important that images, videos and presentations scale down correctly. 
 On images this can be achieved by specifying: `class="image fit"`.
 
-## Generate a table of contents
-You can use the following code at the start of your blogpost ( right under the blogpost info section) to automatically generate a table of contents for your blogpost.  
-By default every header will be picked up and rendered in your table of contents.  
-```
-# Table of contents
-{:.no_toc}
+### Tabset for codeblocks
 
-- TOC
-{:toc}
+Codeblocks can be shown parallel from each other. When selecting a coding language the selection will be applied for the whole blog post.
 
-----
-```
-If you want to exclude a header from your table of contents you can do it like this:
-```
-# This header is not included in TOC
-{:.no_toc}
-```
+Each tabset exists of two main blocks
+- tab headers: an ul, appended with the css class `tabs`, consisting of link elements, appended with an id 
 
+    ```
+    {: .tabs } 
+    - [Java](#/){: #tab-1 }
+    - [Kotlin](#/){: #tab-2 }
+    ```  
+  
+- tab content: all corresponding codeblocks, appended with the corresponding tab header id and the css class `tab-content` 
+    ```
+    '''java
+    // hello
+    System.out.println("Hello");
+    '''
+    {: #tab-1 .tab-content }
+  
+    '''kotlin
+    // hello world
+    println("Hello World!")
+    '''
+    {: #tab-2 .tab-content }
+    ```
+
+Make sure the corresponding ids for the header and the content block for the same language are consistent throughout the blog post.
+This provides the possibility of different tabsets with different coding languages.
+
+  
 ## Style guide
 
 Write a blog post as if you were writing code.

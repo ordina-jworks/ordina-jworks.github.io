@@ -584,4 +584,35 @@
 
 	};
 
+	/**
+	 * Select the first tab element of a tabset, when available.
+	 */
+	$(document).ready(function() {
+		if($(".tabs li").length) {
+			$(".tabs").each(function (){
+				$(this).children("li").first().click();
+			})
+		}
+	});
+
+	/**
+	 * Select the clicked tab element of a tabset for all tabsets used and show the corresponding tab content.
+	 * If the clicked tab element isn't available in a tabset, there is no change in that tabset.
+	 */
+	$(".tabs li").click(function(){
+		var id =  $(this).children("a").attr("id");
+		$(".tabs").each(function () {
+			if($(this).children("li").children("a#" + id).length){
+				$(this).children("li.selected").removeClass("selected");
+				$(this).children("li").children("a#" + id).parent().addClass("selected");
+			}
+		});
+		$("div.tab-content").each(function () {
+			if($(this).attr("id") == id){
+				$(this).nextUntil("ul.tabs", "div.tab-content.selected").removeClass("selected");
+				$(this).prevUntil("ul.tabs", "div.tab-content.selected").removeClass("selected");
+				$("div.tab-content#" + $(this).attr('id')).addClass("selected");
+			}
+		});
+	});
 })(jQuery);
