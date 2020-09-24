@@ -108,7 +108,7 @@ Once it got installed I started to play around with it.
 It has some pre-configured settings which makes it easy.
 There is a lot of documentation available. 
 And it's open source, so everything is available on the web.
-<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.png" alt="APIMAN Login screen" width="600" height="375" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit">
 
 After i was able to run apiman, i searched on how to set it up.
 I'm not going in to much dept of apiman settings, but very important was that everything in apiman starts with the Organization. 
