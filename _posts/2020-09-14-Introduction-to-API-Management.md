@@ -95,7 +95,7 @@ As you might figured out by yourself already, if this API Gateway is placed befo
 There are other ways to handle that like setting up multiple API gateways for different endpoints, but that also creates more overhead.
 Example of multiple API gateways (Source: https://microservices.io/patterns/apigateway.html ):
     
-<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleApiGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit">
 If in this example the Web app API Gateway gets stuck for any reason at all, the client is still able to connect to the other Gateways and request for the data he/she needs.
 Which solution to choose, is of course depending on your preferences.
 
