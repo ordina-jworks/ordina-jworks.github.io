@@ -50,26 +50,25 @@ I listed out the most important responsibilities for you, so that you can unders
         
         
      
-<dl style="margin-left:2%;">
-  <dt>-	Basic Authentication</dt>
-  <dd>Enables HTTP BASIC Authentication on an API.</dd>
-  <dt>-	Authorization</dt>
-  <dd>Enables fine grained authorization to API resources based on authenticated user roles.</dd>
-  <dt>-	Caching resources</dt>
-  <dd>Allows caching of API responses in the Gateway to reduce overall traffic to the back-end API.</dd>
-  <dt>-	Rate limiting</dt>
-  <dd>Enforces rate configurable request rate limits on an API. This ensures that consumers can't overload an API with too many requests.</dd>
-  <dt>-	White/Blacklisting</dt>
-  <dd>Allowing or denying a specified set of IP addresses</dd>
-  <dt>-	Time Restricted Access</dt>
-  <dd>Requests matching the regular expression and made outside the specified time period will receive an error code.</dd>
-  <dt>-	Quota’s </dt>
-  <dd>Provides a way to limit the total number of requests that can be sent to an API.</dd>
-  <dt>-	Transfer Quota</dt>
-  <dd>Provides a way to limit the total number of bytes that can be transferred from (or to) an API.</dd>
-  <dt>-	URL Rewriting </dt>
-  <dd>Responses from the back-end API will be modified by fixing up any incorrect URLs found with modified ones. </dd>
-</dl> 
+1.	Basic Authentication
+    * Enables HTTP BASIC Authentication on an API.
+2.	Authorization
+    * Enables fine grained authorization to API resources based on authenticated user roles.
+3.  Caching resources
+    * Allows caching of API responses in the Gateway to reduce overall traffic to the back-end API.
+4.  Rate limiting
+    * Enforces rate configurable request rate limits on an API. This ensures that consumers can't overload an API with too many requests.
+5.  White/Blacklisting
+    * Allowing or denying a specified set of IP addresses
+6.  Time Restricted Access
+     * Requests matching the regular expression and made outside the specified time period will receive an error code.
+7.  Quota’s 
+    * Provides a way to limit the total number of requests that can be sent to an API.
+8.  Transfer Quota
+    * Provides a way to limit the total number of bytes that can be transferred from (or to) an API.
+9.  URL Rewriting 
+    * Responses from the back-end API will be modified by fixing up any incorrect URLs found with modified ones.
+    
 <samp>A lot more can be added or customized, depending on the tool of course. There is a wide range of available products as you can see <a href="https://www.popularowl.com/reviews/which-api-gateway/" target="_blank">here</a>. 
 I mostly focused on the Open source tools like APIMan, Kong API Gateway, WSO2 API Manager.
 </samp>
