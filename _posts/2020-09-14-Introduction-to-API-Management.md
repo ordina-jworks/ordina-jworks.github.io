@@ -33,12 +33,12 @@ Before going into the details, let’s take a look on how most of the current AP
 Without an API manager, your landscape will look a lot like in the picture below where the API’s that are created are the direct integration point to the business domain data.
 (Source : https://www.popularowl.com/blog/apis-and-api-first-design/)
 	     
-<img src="WithoutApiManagementTool.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit">
         
 Any integration of security needs to be done in your API. This sometimes leads to duplicate code and the fact that your API is not only responsible for exposing the Data, but also for implementing the right security levels.
 This changes if we implement an API Management tool, so lets take a look at that.
             
-<img src="WithApiManagementTool.jpg" lt="API landscape with an API management tool" width="400" height="350" class="image fit"/>
+<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool.jpg" lt="API landscape with an API management tool" width="400" height="350" class="image fit"/>
         
             
 If the Gateway is installed in the same organizational structure, it’s not required to have your API’s implementing additional security settings.
@@ -95,7 +95,7 @@ As you might figured out by yourself already, if this API Gateway is placed befo
 There are other ways to handle that like setting up multiple API gateways for different endpoints, but that also creates more overhead.
 Example of multiple API gateways (Source: https://microservices.io/patterns/apigateway.html ):
     
-<img src="MultipleApiGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleApiGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit">
 If in this example the Web app API Gateway gets stuck for any reason at all, the client is still able to connect to the other Gateways and request for the data he/she needs.
 Which solution to choose, is of course depending on your preferences.
 
@@ -108,7 +108,7 @@ Once it got installed I started to play around with it.
 It has some pre-configured settings which makes it easy.
 There is a lot of documentation available. 
 And it's open source, so everything is available on the web.
-<img src="APIMAN_Login.png" alt="APIMAN Login screen" width="600" height="375" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.png" alt="APIMAN Login screen" width="600" height="375" class="image fit">
 
 After i was able to run apiman, i searched on how to set it up.
 I'm not going in to much dept of apiman settings, but very important was that everything in apiman starts with the Organization. 
@@ -118,16 +118,16 @@ A service contract is simply a link between an application and a service through
 When a service contract is created, the system generates a unique API key specific to that contract. 
 All requests made to the service through the API Gateway must include this API key.
 
-<img src="APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit">
 Setting up an organization (OrgHome) and creating services.
-<img src="APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit">
 
 You can mark the service public, so that everyone can access it, or you can create a Client App and generate a required key via a plan.
 in this example, i created a 'SearchCustomers' client app, where the client needs to use the API-Key in the request to get the response back from our service.
 Our service didn't implement any security or authority for this.
 Apiman will take the responsibility of implementing this.
 Only if the client uses the right endpoint with the exact API-key, Apiman will retrieve the requested data from our backend service and send the response back to the client.
-<img src="APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit">
 
 As last i tried to use the Apiman RESTapi to create a new organization, plan and services.
 I had some struggles to make it work, but eventually i was able to create a new organisation.
