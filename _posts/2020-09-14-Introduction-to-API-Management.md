@@ -92,7 +92,7 @@ I mostly focused on the Open source tools like APIMan, Kong API Gateway, WSO2 AP
 ## Downfalls:
 As you might figured out by yourself already, if this API Gateway is placed before all you’re API’s it creates a SPOF (Single point of Failure). 
 There are other ways to handle that like setting up multiple API gateways for different endpoints, but that also creates more overhead.
-Example of multiple API gateways (Source: https://microservices.io/patterns/apigateway.html ):
+Example of multiple API gateways (Source: https://microservices.io/patterns/apigateway.html [foo](http://bar.com){:target="_blank" rel="noopener noreferrer"}):
     
 <img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit">
 If in this example the Web app API Gateway gets stuck for any reason at all, the client is still able to connect to the other Gateways and request for the data he/she needs.
