@@ -816,7 +816,7 @@ He could destroy a day of hard work in a few sentences... :)
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/bas-smile.png" width="auto" height="auto" target="_blank" >
 </div>
 
-But afterwards, he would always take the time to explain why, and how I should do it to make my solution comply with the industries best practices.  
+But afterwards he would always take the time to explain why, and how, I should do it to make my solution comply with the industry best practices.  
 Being able to have someone who makes you self-reflect on the work you did, and takes his time to give you proper feedback, is the biggest asset to provide to a junior programmer.  
 
 Also, a big thanks to Frederick Bousson & Ordina for the opportunity and resources provided.  
