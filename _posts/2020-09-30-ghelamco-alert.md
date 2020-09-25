@@ -53,7 +53,7 @@ We ended up using over 10 AWS services which over the course of the internship, 
 Once you get the hang of serverless, the speed of setting up infrastructure is absolutely mind-blowing!
 
 # Solution design
-Below you can see the high level design or our solution.  
+Below you can see the high level design of our solution.  
 <div style="text-align: center;">
   <img alt="Ghelamco alert architecture" src="/img/2020-09-25-ghelamco-alert/ghela-alert-architecture.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
