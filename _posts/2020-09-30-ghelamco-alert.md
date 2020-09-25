@@ -26,7 +26,7 @@ If the parking lot isn't cleared in time we risk fines up to 500 Euros per car.
 Of course we don't want to spend our money on fines when instead we could be buying more pizzas.  
 So we came up with a solution called **Ghelamco alert**.  
 The idea for the project is pretty straightforward.  
-We will run [a Raspberry PI device](https://www.raspberrypi.org/) that is hooked up to an alert light.  
+We will run [a Raspberry PI](https://www.raspberrypi.org) device that is hooked up to an alert light.  
 The Raspberry PI will run an application that parses the game fixtues on the website of KAA Gent to search for any home fixtures.  
 Whenever a home fixture occurs, the RPI will start turning on the alert light on a preset schedule.  
 This way the employees in the office will have a visual warning on game day and they will be reminded to leave the parking lot on time.  
@@ -63,7 +63,7 @@ The core part of our solution consists of the Raspberry PI device with our backe
 This application controls the actual alert light and does most of the heavy lifting in the overall scheme.  
 The RPI works with a microSD card on which you can easily install any linux distribution.  
 You install the distribution of your choosing on SD card and then plug the card into your RPI device and you're good to go.  
-We used a model 4 Raspberry PI and installed the default Raspbian linux distribution on it.  
+We used a [model 4 Raspberry PI](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/) and installed the default Raspbian linux distribution on it.  
 
 ### Spring boot application
 The actual business logic of our solution runs as a spring boot project on our RPI device.  
