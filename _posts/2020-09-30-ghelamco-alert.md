@@ -810,7 +810,7 @@ This internship gave me such a big overview of all best practices and new techno
 I'm very thankful for being able to do this and having the chance to work with Bas on a real project.  
 
 He always motivated me to go the extra mile !  
-He could destroy a day of hard work in a few sentences... :)  
+And he could destroy a day of hard work in a few sentences ... :)  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/bas-smile.png" width="auto" height="auto" target="_blank" >
