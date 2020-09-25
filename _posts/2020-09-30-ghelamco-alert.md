@@ -57,8 +57,7 @@ Below you can see the high level design of our solution.
 <div style="text-align: center;">
   <img alt="Ghelamco alert architecture" src="/img/2020-09-25-ghelamco-alert/ghela-alert-architecture.png" width="auto" height="auto" target="_blank" class="image fit">
 </div>
-As you can see there are lots of moving parts in this solution.  
-We will zoom in on the different parts of the architecture in the next sections.  
+As you can see the architecture has lots of moving parts, we will zoom in on these in the next sections.  
 
 ## Backend RPI
 The core part of our solution consists of the Raspberry PI device with our backend spring boot application that runs on it.  
