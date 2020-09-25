@@ -132,7 +132,7 @@ Only if the client uses the right endpoint with the exact API-key, Apiman will r
 <img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 As last I wanted to be sure that we can use the tool in an automated way, so I tried to use the Apiman RESTapi to create new organizations, plans and services.
-I had some struggles to make it work, but eventually I was able to create everything needed via the RESTapi.
+I had some struggles to make it work, but eventually I was able to create everything needed.
 Via the RESTapi we have the possibility to check, add or remove anything you want.
 The build in apiman-UI is also build on these RESTapi, so anything you can do in the application should be possible to execute via the API service.
 More on this can be find in the <a href="http://www.apiman.io/latest/api-manager-restdocs.html" target="_blank" rel="noopener noreferrer">api-manager-restdocs</a>.
