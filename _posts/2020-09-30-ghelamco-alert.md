@@ -137,7 +137,7 @@ This just works out of the box, it even comes with a console to check your datab
 {:.no_toc}
 
 Our application generates metrics to provide us with some data about our backend.  
-We collect data and push it into AWS cloudwatch as metrics for:
+We collect data and push it into [AWS cloudwatch](https://aws.amazon.com/cloudwatch) as metrics for:
 * Number of events added
 * Number of events update
 * Number of events cancelled
@@ -195,7 +195,7 @@ This allows us to check the log files in the AWS cloud without needing access to
 #### AWS IoT
 {:.no_toc}
 
-The reason for using AWS IoT is for the sake of "being connected to the cloud".  
+The reason for using [AWS IOT](https://aws.amazon.com/iot) is for the sake of "being connected to the cloud".  
 When we are connected to the cloud, we are able to communicate with our device "through the cloud", meaning from anywhere we want!   
 In our case this means that we want our RPI device to be connected to AWS IoT whenever it is up and running and has internet connectivity.  
 Of course the communication between our RPI and the AWS cloud has to be secured.
@@ -284,7 +284,7 @@ We define which services we want to access:
 
 This system of generating certificates and coupling policies is a very secure and easy way of working with edge devices.   
 
-##### jobs
+##### Iot job
 {:.no_toc}
 
 A crucial part of AWS IoT is the job section. 
@@ -361,7 +361,7 @@ Every 30 seconds we will read these topics to see if there are any new jobs to b
 
 ### AWS IOT Greengrass
 
-AWS greengrass is a service that extends the AWS cloud onto your edge device.  
+[AWS greengrass](https://aws.amazon.com/greengrass) is a service that extends the AWS cloud onto your edge device.  
 This was fascinating for us since we had some tough problems to solve:  
 * How can we deploy our application on the RPI device?  
 * How can we make sure our application recovers from failures?
@@ -388,7 +388,7 @@ This is especially useful if you want to ssh to your device and do not have fixe
 </div>
 
 Now we that greengrass is installed and our RPI is configured as a core device our greengrass group we can start making full use of the capabilities that greengrass offers.  
-We decided that we wanted our application to run as a docker container, so we installed and configured the **docker connector** for greengrass.   
+We decided that we wanted our application to run as a docker container, so we installed and configured the [docker connector](https://docs.aws.amazon.com/greengrass/latest/developerguide/docker-app-connector.html) for greengrass.   
 This plugin allows you to run docker containers on your core device and makes use of **docker** and **docker compose**.  
 <div style="text-align: center;">
   <img alt="Greengrass docker connector" src="/img/2020-09-25-ghelamco-alert/gg_connector_docker_cfg.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -402,7 +402,7 @@ After all the setup was done we could just create a docker container in our CICD
 
 To make sure we did not need to bother ourselves with manual builds and installs of our code on the RPI we built a CICD pipeline to automatically deploy our software onto the RPI.  
 We trigger the pipeline whenever a push to our master branch in our git repository.  
-We used azure devops as our CICD system.  
+We used [azure devops](https://azure.microsoft.com/en-us/services/devops/) as our CICD system.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Azure pipeline backend" src="/img/2020-09-25-ghelamco-alert/azure-backpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -423,10 +423,10 @@ As you can see there are 2 major parts of this pipeline:
 
 * Build and test our java code.  
 We use maven to build and test our code.   
-* We use [AWS SSM - parameter store]() to safely store our config files and certificates for the RPI.  
+* We use [AWS SSM - parameter store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) to safely store our config files and certificates for the RPI.  
 In step 2 and 3 we fetch those config files and secrets from the parameter store and store them locally for use later in the pipeline.  
-* In order to control the alert light hooked up to our RPI we need to download the wiringPi library as we used that to communicate with our alert light. 
-We stored this library in our releases S3 bucket.  
+* In order to control the alert light hooked up to our RPI we need to download the [wiringPi library](http://wiringpi.com/) as we used that to communicate with our alert light. 
+We stored this library in our release S3 bucket.  
 * We have to register an ARM hardware emulator as our docker image has to be run in the pipeline to install additional software.  
 Without the emulator our pipeline would just crash as azure devops would have no way to run the ARM7 docker image.   
 * We build our docker image.  
@@ -511,7 +511,7 @@ We did however use some extra frameworks and AWS services to make it easier to b
 
 ### AWS Amplify
 
-To help us bootstrap our web application, we decided to use the AWS amplify framework.  
+To help us bootstrap our web application, we decided to use the [AWS amplify framework](https://aws.amazon.com/amplify/).  
 The open-source Amplify Framework provides:  
 - Amplify CLI - Configure AWS services needed to power your backend through a simple command line interface.  
 - Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.  
