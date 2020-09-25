@@ -797,7 +797,7 @@ This same workflow applies to all commands that can be sent from the frontend ap
 This is a prime example of how a distributed system works and operates.  
 
 # Conclusion
-This internship gave me such a big cover of all best practices and new technologies, that this was a real eye-opening and educational experience.  
+This internship gave me such a big overview of all best practices and new technologies, that this was a real eye-opening and educational experience.  
 - I've had the chance to develop an application in Spring, with different databases.
 - learned how to properly test my code with unit and integration tests
 - learned how to use the Java and Node AWS SDKs
