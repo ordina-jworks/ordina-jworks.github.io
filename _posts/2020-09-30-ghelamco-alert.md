@@ -74,7 +74,7 @@ The actual business logic of our solution runs as a spring boot project on our R
 The core of our application revolves around **events** which happen at the Ghelamco Arena.  
 These can be of type ***GameEvent*** or ***CustomEvent***.  
 * The GameEvents are all the KAA Gent home games.
-* As an added feature, further down the road, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
+* As an added feature, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
 
 For each event we generate a couple of standard **alerts** based on the **event time**.  
 These alerts are responsible to set off the alarm light in the office.  
@@ -102,8 +102,8 @@ Games can get updated or rescheduled on the website, but our application will re
 
 One of the requirements for the project was that the RPI should be able to function on his own without constant internet connection.  
 This meant that we needed to use a database that can run locally on the RPI.  
-If we would use a remote database we wouldn't be able to send any data to the RPI when he it's not connected to a network.  
-We chose to use an H2-database because it's an SQL database which is easy to set up for local use.  
+If we would use a remote database we wouldn't be able to send any data to the RPI when it is not connected to a network.  
+We chose to use a H2-database because it is a SQL database which is easy to set up for local use.  
 Then we configured the H2-database to be backed by a flatfile on our local filesystem, this way the database is persistent even when the application restarts.  
 As the last step we just need to add the H2 dependency to our projects pom.xml .  
 ```
@@ -139,15 +139,15 @@ This just works out of the box, it even comes with a console to check your datab
 Our application generates metrics to provide us with some data about our backend.  
 We collect data and push it into [AWS cloudwatch](https://aws.amazon.com/cloudwatch) as metrics for:
 * Number of events added
-* Number of events update
+* Number of events updated
 * Number of events cancelled
 * Number of alerts snoozed
 * Number of alerts started
 * Number of alerts stopped
 * A basic heartbeat
 
-When our application is running, we are constantly gathering this data which we push to Cloudwatch metrics, every 5 minutes.
-Afterwards we reset our data counters, and start collecting again.  
+When our application is running, we are constantly gathering this data which we push to Cloudwatch metrics every 5 minutes.
+Afterwards we reset our data counters and start collecting again.  
 This allows us to create a dashboard which has data-points every 5 minutes for all the metrics we defined.  
 
 ### Connecting our RPI to the cloud
@@ -168,7 +168,7 @@ We integrate with cloudwatch in two different ways:
 {:.no_toc}
 
 The metrics that we generate in our application should of course get sent to AWS cloudwatch, so we can actually make use of them in the AWS cloud.  
-We used the metric data to build dashboards and alerts within cloudwatch for added visibility into our application.  
+We use the metric data to build dashboards and alerts within cloudwatch for added visibility into our application.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Metrics" src="/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -230,7 +230,7 @@ Connecting from the RPI and the laptop with the same certificates caused some un
 ##### Authorization: policies
 {:.no_toc}
 
-After creating our certificates and keys, we need to handle the authorization part.  
+After creating our certificates and keys we need to handle the authorization part.  
 We do this by adding some policies to our certificates.  
 When presenting our certificates on connect, AWS IoT now also knows what services we can access within the AWS cloud. 
 
@@ -305,7 +305,7 @@ We use these jobs AWS Iot to create these jobs and send them to our RPI where th
 </div>
 
 We have the possibility to put multiple "things" in a group of devices.  
-This way we can send jobs to the entire group and the job gets executed on every device from that group.  
+This way we can send jobs to the entire group and these jobs get executed on every device from that group.  
 These jobs could be software updates, reboot commands, rotation of certificates, ...   
 Anything we want really!  
 
@@ -336,7 +336,7 @@ Example job document:
 ##### MQTT protocol
 {:.no_toc}
 
-AWS IoT can communicate with it's registered devices through 2 protocols: HTTP or MQTT.  
+AWS IoT can communicate with its registered devices through 2 protocols: HTTP or MQTT.  
 So why would we choose MQTT over the more familiar HTTP protocol?  
 The HTTP protocol has some severe limitations for our use case: 
 
@@ -365,7 +365,7 @@ Every 30 seconds we will read these topics to see if there are any new jobs to b
 This was fascinating for us since we had some tough problems to solve:  
 * How can we deploy our application on the RPI device?  
 * How can we make sure our application recovers from failures?
-* How can we keep our system itself up to date?
+* How can we make sure that our system keeps itself up to date?
 * How do we find the network address from our device when we are not in the same network?
 
 AWS greengrass offers solutions to all these challenges!  
@@ -382,13 +382,15 @@ It also allows you to run lambda functions on your core device or install additi
 
 When you register your device as a core device in greengrass you immediately get some nice additional benefits from this.  
 For example, you can immediately see all the network interfaces on your core device and what ip addresses got allocated.  
-This is especially useful if you want to ssh to your device and do not have fixed ip attached to it.  
+This is especially useful if you want to ssh to your device and do not have a fixed ip attached to it.  
 <div style="text-align: center;">
   <img alt="Greengrass core" src="/img/2020-09-25-ghelamco-alert/gg_core.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 Now we that greengrass is installed and our RPI is configured as a core device our greengrass group we can start making full use of the capabilities that greengrass offers.  
 We decided that we wanted our application to run as a docker container, so we installed and configured the [docker connector](https://docs.aws.amazon.com/greengrass/latest/developerguide/docker-app-connector.html) for greengrass.   
+Now that greengrass is installed and our RPI is configured as a core device on our greengrass group, we can start making full use of the capabilities that greengrass offers.  
+We decided that we wanted our application to run as a docker container, so we installed and configured the **docker connector** for greengrass.   
 This plugin allows you to run docker containers on your core device and makes use of **docker** and **docker compose**.  
 <div style="text-align: center;">
   <img alt="Greengrass docker connector" src="/img/2020-09-25-ghelamco-alert/gg_connector_docker_cfg.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -403,6 +405,8 @@ After all the setup was done we could just create a docker container in our CICD
 To make sure we did not need to bother ourselves with manual builds and installs of our code on the RPI we built a CICD pipeline to automatically deploy our software onto the RPI.  
 We trigger the pipeline whenever a push to our master branch in our git repository.  
 We used [azure devops](https://azure.microsoft.com/en-us/services/devops/) as our CICD system.  
+We trigger the pipeline whenever a commit is pushed to our master branch in our git repository.  
+We used azure devops as our CICD system.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Azure pipeline backend" src="/img/2020-09-25-ghelamco-alert/azure-backpipe.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -484,7 +488,7 @@ Several things are happening in this file:
 For the greengrass deployment process we did not have to create any code.  
 This works out of the box when you set up greengrass.  
 However, for full transparency I will briefly describe the process here:
-* AWS greengrass receives a new deployment ( this is the last step of our azure devops pipeline).
+* AWS greengrass receives a new deployment (this is the last step of our azure devops pipeline).
 * Greengrass sends the new deployment to the greengrass agent on our device.
 * Download the docker-compose file from S3 which is associated with our deployment.
 * Download the docker image and version from ECR that is defined in the docker-compose file.
@@ -610,7 +614,7 @@ For the same reason it is important to know that our RPI device is connected and
 {:.no_toc}
 
 On this tab we can see the status of the RPI backend as a graph.  
-Remember the Metrics we talked about before?  
+Remember the metrics we talked about before?  
 Via the "/metrics" API endpoint we invoke a lambda function that fetches this dynamic graph and sends it back to our frontend as a base64 encoded stream of byte data.  
 We can then render this data as an image in our frontend web application.  
 By adding this graph in our web application users of the application can see that the RPI backend device is up and running and functioning well without ever having to access our AWS account itself, pretty cool huh?  
@@ -694,7 +698,7 @@ The essential part of our serverless setup is the functions section.
 A function is an AWS Lambda function.  
 It's an independent unit of deployment like a true microservice.  
 It is generally a very small piece of code that does one thing and does it well.  
-In our project for example we have a lambda function **list-events** which does exactly that, list the events from our dynamoDB table.  
+In our project, for example, we have a lambda function **list-events** which does exactly that, list the events from our dynamoDB table.  
 
 <div style="text-align: center;">
   <img alt="Ghelamco-alert Cloudwatch Alarm" src="/img/2020-09-25-ghelamco-alert/sls-functions.PNG" width="auto" height="auto" target="_blank" class="image fit" />
