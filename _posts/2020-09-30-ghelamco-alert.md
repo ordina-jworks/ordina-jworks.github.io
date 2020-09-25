@@ -61,7 +61,7 @@ As you can see the architecture has lots of moving parts, we will zoom in on the
 
 ## Backend RPI
 The core part of our solution consists of the Raspberry PI device with our backend spring boot application that runs on it.  
-This application controls the actual alert light and does most of the heavy lifting in the larger solution.  
+This application controls the actual alert light and does most of the heavy lifting in the overall scheme.  
 The RPI works with a microSD card on which you can easily install any linux distribution.  
 You install the distribution of your choosing on SD card and then plug the card into your RPI device and you're good to go.  
 We used a model 4 Raspberry PI and installed the default Raspbian linux distribution on it.  
