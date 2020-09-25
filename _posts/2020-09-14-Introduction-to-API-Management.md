@@ -31,7 +31,7 @@ You can read all about it in this post. I hope you enjoy it!
         
 Before going into the details, let’s take a look on how most of the current API landscapes are build and how we can improve those with an API management tool.
 Without an API manager, your landscape will look a lot like in the picture below where the API’s that are created are the direct integration point to the business domain data.
-(Source : https://www.popularowl.com/blog/apis-and-api-first-design/)
+(Source : <a href="https://www.popularowl.com/blog/apis-and-api-first-design/" target="_blank" rel="noopener noreferrer">https://www.popularowl.com/blog/apis-and-api-first-design/</a>)
 	     
 <img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit">
         
@@ -69,7 +69,7 @@ I listed out the most important responsibilities for you, so that you can unders
 9.  URL Rewriting 
     * Responses from the back-end API will be modified by fixing up any incorrect URLs found with modified ones.
     
-<samp>A lot more can be added or customized, depending on the tool of course. There is a wide range of available products as you can see <a href="https://www.popularowl.com/reviews/which-api-gateway/" target="_blank">here</a>. 
+<samp>A lot more can be added or customized, depending on the tool of course. There is a wide range of available products as you can see <a href="https://www.popularowl.com/reviews/which-api-gateway/" target="_blank" rel="noopener noreferrer">here</a>. 
 I mostly focused on the Open source tools like APIMan, Kong API Gateway, WSO2 API Manager.
 </samp>
 
@@ -92,7 +92,7 @@ I mostly focused on the Open source tools like APIMan, Kong API Gateway, WSO2 AP
 ## Downfalls:
 As you might figured out by yourself already, if this API Gateway is placed before all you’re API’s it creates a SPOF (Single point of Failure). 
 There are other ways to handle that like setting up multiple API gateways for different endpoints, but that also creates more overhead.
-Example of multiple API gateways (Source: https://microservices.io/patterns/apigateway.html [foo](http://bar.com){:target="_blank" rel="noopener noreferrer"}):
+Example of multiple API gateways (Source: <a href="https://microservices.io/patterns/apigateway.html" target="_blank" rel="noopener noreferrer">https://microservices.io/patterns/apigateway.html</a>
     
 <img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit">
 If in this example the Web app API Gateway gets stuck for any reason at all, the client is still able to connect to the other Gateways and request for the data he/she needs.
@@ -101,7 +101,7 @@ Which solution to choose, is of course depending on your preferences.
 # Try-outs
 Just to try a few things, i installed apiman (and the required server, etc) on to my laptop and used one of my already created API's to test.
 It was actually quite simple to start, however I did download a few versions of it, as some didn't work from the 1st minute.
-I downloaded the latest version from <a href="http://www.apiman.io" target="_blank">http://www.apiman.io</a>.>
+I downloaded the latest version from <a href="http://www.apiman.io" target="_blank" rel="noopener noreferrer">http://www.apiman.io</a>.>
 
 Once it got installed I started to play around with it.
 It has some pre-configured settings which makes it easy.
