@@ -38,7 +38,7 @@ Without an API manager, your landscape will look a lot like in the picture below
 Any integration of security needs to be done in your API. This sometimes leads to duplicate code and the fact that your API is not only responsible for exposing the Data, but also for implementing the right security levels.
 This changes if we implement an API Management tool, so lets take a look at that.
             
-<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool.jpg" alt="API landscape with an API management tool" width="400" height="350" class="image fit"style="vertical-align:middle;margin-left:2%"/>
+<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool.jpg" alt="API landscape with an API management tool" width="400" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>
             
 If the Gateway is installed in the same organizational structure, it’s not required to have your API’s implementing additional security settings.
 The API gateway will do the necessary checks before allowing the clients to access the Data.
