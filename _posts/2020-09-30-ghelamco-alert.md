@@ -26,7 +26,7 @@ If the parking lot isn't cleared in time we risk fines up to 500 Euros per car.
 Of course we don't want to spend our money on fines when instead we could be buying more pizzas.  
 So we came up with a solution called **Ghelamco alert**.  
 The idea for the project is pretty straightforward.  
-We will run a Raspberry PI device that is hooked up to an alert light.  
+We will run [a Raspberry PI device](https://www.raspberrypi.org/) that is hooked up to an alert light.  
 The Raspberry PI will run an application that parses the game fixtues on the website of KAA Gent to search for any home fixtures.  
 Whenever a home fixture occurs, the RPI will start turning on the alert light on a preset schedule.  
 This way the employees in the office will have a visual warning on game day and they will be reminded to leave the parking lot on time.  
@@ -36,7 +36,6 @@ This enables users to do some additional operations through the web application:
 * Create additional alerts
 * Create custom events
 
-<!-- //TODO GIF Proof of working project -->
 
 # Practicalities
 I received my assignment from my internship supervisor Frederick Bousson.  
