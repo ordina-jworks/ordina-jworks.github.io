@@ -48,7 +48,7 @@ We decided to setup the project using these 3 big components:
 2. A serverless backend that runs in the AWS cloud using NodeJS.
 3. A frontend application built with the angular framework.
 
-We tweaked the architecture several times to account for lessons learned during the internship.  
+The architecture was tweaked several times to account for lessons learned during the internship.  
 We ended up using over 10 AWS services which over the course of the internship, made me develop a real interest in everything that is AWS and cloud related.  
 Once you get the hang of serverless, the speed of setting up infrastructure is absolutely mind-blowing!
 
