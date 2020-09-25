@@ -74,7 +74,7 @@ The actual business logic of our solution runs as a spring boot project on our R
 The core of our application revolves around **events** which happen at the Ghelamco Arena.  
 These can be of type ***GameEvent*** or ***CustomEvent***.  
 * The GameEvents are all the KAA Gent home games.
-* As an added feature, further down the road, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
+* As an added feature, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.
 
 For each event we generate a couple of standard **alerts** based on the **event time**.  
 These alerts are responsible to set off the alarm light in the office.  
