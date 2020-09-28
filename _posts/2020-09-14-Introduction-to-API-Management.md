@@ -10,14 +10,34 @@ comments: true
 
         
 # Introduction to API Management
-        
-## Problem description
 <!--
 TODO: Add introduction table
+<script>
+$('#toc').toc({ showEffect: 'slideDown' });
+$('#toc').toc({ headers: 'h2, h3, h6' });
+</script>
+below table does not work in chrome and firefox, it does work in IE
+## Table of contents
+* [Introduction to API Management](#Introduction-to-API-Management)
+    * [Problem description](#Problem-description)
+    * [Investigation](#Investigation)
+    * [Responsibilities of an API Management tool](#Responsibilities-of-an-API-Management-tool)
+    * [Advantages of an API Gateway](#Advantages-of-an-API-Gateway)
+    * [Downfalls](#Downfalls)
+* [Try-outs](#Try-outs)
+* [Conclusion](#Conclusion)
+
 -->
+<br>
+* TOC
+{:toc}
+    
+<br>
+<br>
        
-        
-In our current digital world where everyone is creating API’s for exposing data internally and for external partners, we should take a look on how we can manage and control them.
+## Problem description
+
+In our current digital world where everyone is creating API’s for exposing data internally and for external partners, we should look on how we can manage and control them.
 Most of us also know that we not only have to build the API, but we need to foresee additional responsibilities with   it. Some that actually shouldn’t be the responsibility of your API. Like for example Authentication, or certain routing policies, etc.
         
 Well, that’s why I went out searching on the internet for the best solution and found that an API Management tool might solve a lot of those problems and even add extra value within your landscape.
@@ -30,15 +50,19 @@ You can read all about it in this post. I hope you enjoy it!
 ## Investigation
         
 Before going into the details, let’s take a look on how most of the current API landscapes are build and how we can improve those with an API management tool.
-Without an API manager, your landscape will look a lot like in the picture below where the API’s that are created are the direct integration point to the business domain data.
+Without an API manager, your landscape will look a lot like in the picture below where the APIs that are created are the direct integration point to the business domain data.
 (Source: <a href="https://www.popularowl.com/blog/apis-and-api-first-design/" target="_blank" rel="noopener noreferrer">https://www.popularowl.com/blog/apis-and-api-first-design/</a>)
 	     
-<img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>-->
+<img src="WithoutApiManagementTool.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 Any integration of security needs to be done in your API. This sometimes leads to duplicate code and the fact that your API is not only responsible for exposing the Data, but also for implementing the right security levels.
-This changes if we implement an API Management tool, so lets take a look at that.
-            
-<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool.jpg" alt="API landscape with an API management tool" width="400" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>
+This changes if we implement an API Management tool, so let’s take a look at that.
+<!--(Source: <a href="https://dzone.com/articles/7-important-microservices-design-patterns-every-de" target="_blank" rel="noopener noreferrer" onclick="return false;">https://dzone.com/articles/7-important-microservices-design-patterns-every-de</a>)-->
+(Source: <a href="https://dzone.com/articles/7-important-microservices-design-patterns-every-de" target="_blank" rel="noopener noreferrer">https://dzone.com/articles/7-important-microservices-design-patterns-every-de</a>)
+
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool.jpg" alt="API landscape with an API management tool" width="400" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>-->
+<img src="WithApiManagementTool.jpg" alt="API landscape with an API management tool" width="400" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>        
             
 If the Gateway is installed in the same organizational structure, it’s not required to have your API’s implementing additional security settings.
 The API gateway will do the necessary checks before allowing the clients to access the Data.
@@ -55,7 +79,7 @@ I listed out the most important responsibilities for you, so that you can unders
 3.  Caching resources
     * Allows caching of API responses in the Gateway to reduce overall traffic to the back-end API.
 4.  Rate limiting
-    * Enforces rate configurable request rate limits on an API. This ensures that consumers can't overload an API with too many requests.
+    * Enforces rate configurable request rate limits on an API. This ensures that consumers cannot overload an API with too many requests.
 5.  White/Blacklisting
     * Allowing or denying a specified set of IP addresses
 6.  Time Restricted Access
@@ -68,7 +92,7 @@ I listed out the most important responsibilities for you, so that you can unders
     * Responses from the back-end API will be modified by fixing up any incorrect URLs found with modified ones.
     
 <samp>A lot more can be added or customized, depending on the tool of course. There is a wide range of available products as you can see <a href="https://www.popularowl.com/reviews/which-api-gateway/" target="_blank" rel="noopener noreferrer">here</a>. 
-I mostly focused on the Open source tools like APIman, Kong API Gateway, WSO2 API Manager.
+I mostly focused on the Open source tools like Apiman, Kong API Gateway, WSO2 API Manager.
 </samp>
 
 
@@ -76,7 +100,7 @@ I mostly focused on the Open source tools like APIman, Kong API Gateway, WSO2 AP
 
 <dl style="margin-left:2%;">
 <dt>- Security.</dt>
-<dt>- Latency (The gateway can talk directly to the right microservice, and is able to cache the Response).</dt>
+<dt>- Latency (The gateway can talk directly to the right microservice and is able to cache the Response).</dt>
 <dt>- Authentication and authorization done in one place.</dt>
 <dt>- Retry/Circuit breaker possibility.</dt>
 <dt>- Set throttling/limiting possibilities.</dt>
@@ -87,66 +111,71 @@ I mostly focused on the Open source tools like APIman, Kong API Gateway, WSO2 AP
 
 
 
-## Downfalls:
+## Downfalls
 As you might figured out by yourself already, if this API Gateway is placed before all you’re API’s it creates a SPOF (Single point of Failure). 
 There are other ways to handle that like setting up multiple API gateways for different endpoints, but that also creates more overhead.
 Example of multiple API gateways (Source: <a href="https://microservices.io/patterns/apigateway.html" target="_blank" rel="noopener noreferrer">https://microservices.io/patterns/apigateway.html</a>
     
-<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="MultipleAPIGateways.png" alt="API landscape without an API management tool" width="400" height="250" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 If in this example the Web app API Gateway gets stuck for any reason at all, the client is still able to connect to the other Gateways and request for the data he/she needs.
 Which solution to choose, is of course depending on your preferences.
 
 # Try-outs
-Just to try a few things, I installed apiman (and the required server, etc.) on to my laptop and used one of my already created API's to test.
+Just to try a few things, I installed Apiman (and the required server, etc.) on to my laptop and used one of my already created API's to test.
 It was actually quite simple to start, however I did download a few versions of it, as some didn't work from the 1st minute.
-I downloaded the latest version from <a href="http://www.apiman.io" target="_blank" rel="noopener noreferrer">http://www.apiman.io</a>.>
+I downloaded the latest version from <a href="http://www.apiman.io" target="_blank" rel="noopener noreferrer">http://www.apiman.io</a>.
 
-Once it got installed I started to play around with it.
+Once it got installed, I started to play around with it.
 It has some pre-configured settings which makes it easy.
-There is a lot of documentation available. 
-And it's open source, so everything is available on the web.
+There is a lot of documentation available, and it’s open source so everything is available on the web.
 
-<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
-After i was able to run apiman, I searched on how to set it up.
-I'm not going in to much dept of apiman settings, but very important was that everything in apiman starts with the Organization. 
+After I was able to run Apiman, I searched on how to set it up.
+I'm not going in to much dept of Apiman settings, but very important was that everything in Apiman starts with the Organization. 
 2ndly you need to setup a plan, which is basically a collection of policies that will be applied to requests made to Services being access through it.
 As last you need to setup a Service. 
 A service contract is simply a link between an application and a service through a plan offered by that service. 
 When a service contract is created, the system generates a unique API key specific to that contract. 
 All requests made to the service through the API Gateway must include this API key.
 
-<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 Setting up an organization (OrgHome) and creating services.
 
-<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN-Organization-API.jpg" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 You can mark the service public, so that everyone can access it, or you can create a Client App and generate a required key via a plan.
 in this example, I created a 'SearchCustomers' client app, where the client needs to use the API-Key in the request to get the response back from our service.
 Our service didn't implement any security or authority for this.
 Apiman will take the responsibility of implementing this.
-Only if the client uses the right endpoint with the exact API-key, Apiman will retrieve the requested data from our backend service and send the response back to the client.
+Only if the client uses the right endpoint with the correct API-key, Apiman will retrieve the requested data from our backend service and send the response back to the client.
  
-<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
-As last I wanted to be sure that we can use the tool in an automated way, so I tried to use the Apiman RESTapi to create new organizations, plans and services.
+As last I wanted to be sure that we can use the tool in an automated way, so I tried to use the Apiman REST API to create new organizations, plans and services.
 I had some struggles to make it work, but eventually I was able to create everything needed.
-Via the RESTapi we have the possibility to check, add or remove anything you want.
-The build in apiman-UI is also build on these RESTapi, so anything you can do in the application should be possible to execute via the API service.
-More on this can be find in the <a href="http://www.apiman.io/latest/api-manager-restdocs.html" target="_blank" rel="noopener noreferrer">api-manager-restdocs</a>.
+Via the REST API we have the possibility to check, add or remove anything you want.
+The build in Apiman-UI is also build on these REST API, so anything you can do in the application should be possible to execute via the API service.
+More on this can be find in the <a href="http://www.apiman.io/latest/api-manager-restdocs.html" target="_blank" rel="noopener noreferrer">API-manager-restdocs</a>.
 
-One key note , The downloaded tomcat server does not come with integrated Keycloak server, so I was not able to add users via the RESTapi. If you're running in a WildFly server, this would be default.
+One keynote , The downloaded tomcat server does not come with integrated Keycloak server, so I was not able to add users via the REST API. If you're running in a WildFly server, this would be default.
 
 
-
-TODO -> 
-how to include partners
        
-## Conclusion
+# Conclusion
 If you still don’t have an API Management tool in your organization, think about the benefits and segregation of duties/responsibilities of your API’s and the API management tool.
 Take the time to try out a few. 
-For example apiman has some prebuild versions that you can download and use immediately.
-Even if you only have a few API’s running in your organization, you probably will benefit from using such a tool to manage your Security, Routing, or other Policies you want to implement.
+For example, Apiman has some prebuild versions that you can download and use immediately.
+Even if you only have a few API’s running in your organization, you probably will benefit from using such a tool to manage your Security, Routing, or other Policies you want to implement. 
+With an API management tool you can make sure that your all your APIs just do what they need to do (sharing business related data), and that the API management tool takes care of the rest where it is required.
+Any changes in the policy or security can be maintained in one tool, and doesn't have to be implemented in every API individually.
+
+
 
