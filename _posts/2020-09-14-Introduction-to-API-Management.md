@@ -27,11 +27,20 @@ below table does not work in chrome and firefox, it does work in IE
 * [Try-outs](#Try-outs)
 * [Conclusion](#Conclusion)
 
--->
-<br>
+other option was -> but it doesn't seem to work on our repository
 * TOC
 {:toc}
-    
+-->
+<br>
+## Table of contents
+* [Introduction to API Management](#Introduction-to-API-Management)
+    * [Problem description](#Problem-description)
+    * [Investigation](#Investigation)
+    * [Responsibilities of an API Management tool](#Responsibilities-of-an-API-Management-tool)
+    * [Advantages of an API Gateway](#Advantages-of-an-API-Gateway)
+    * [Downfalls](#Downfalls)
+* [Try-outs](#Try-outs)
+* [Conclusion](#Conclusion)    
 <br>
 <br>
        
