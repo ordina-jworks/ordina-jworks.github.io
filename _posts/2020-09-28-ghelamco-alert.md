@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [kevin_govaerts, bas_moorkens]
-title: 'Ghelamco Alert: '
+title: 'Ghelamco Alert'
 image: /img/2020-09-25-ghelamco-alert/rpi-front.jpg
 tags: [IoT, RPi, AWS, Serverless, API Gateway, S3, Lambda, Route 53, CloudFront, Greengrass, Docker]
 category: Cloud
