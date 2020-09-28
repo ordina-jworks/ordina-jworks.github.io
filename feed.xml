@@ -1,5 +1,861 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-09-24T09:32:36+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Scaling CSS with BEM</title><link href="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html" rel="alternate" type="text/html" title="Scaling CSS with BEM" /><published>2020-09-18T00:00:00+00:00</published><updated>2020-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem</id><content type="html" xml:base="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-09-28T09:51:57+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Ghelamco Alert:</title><link href="https://ordina-jworks.github.io/cloud/2020/09/28/ghelamco-alert.html" rel="alternate" type="text/html" title="Ghelamco Alert:" /><published>2020-09-28T00:00:00+00:00</published><updated>2020-09-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/09/28/ghelamco-alert</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/09/28/ghelamco-alert.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+
+&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#practicalities&quot; id=&quot;markdown-toc-practicalities&quot;&gt;Practicalities&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#solution-design&quot; id=&quot;markdown-toc-solution-design&quot;&gt;Solution design&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#backend-rpi&quot; id=&quot;markdown-toc-backend-rpi&quot;&gt;Backend RPi&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#spring-boot-application&quot; id=&quot;markdown-toc-spring-boot-application&quot;&gt;Spring Boot application&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#connecting-our-rpi-to-the-cloud&quot; id=&quot;markdown-toc-connecting-our-rpi-to-the-cloud&quot;&gt;Connecting our RPi to the cloud&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#aws-iot-greengrass&quot; id=&quot;markdown-toc-aws-iot-greengrass&quot;&gt;AWS IoT Greengrass&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#cicd-pipeline-rpi-backend&quot; id=&quot;markdown-toc-cicd-pipeline-rpi-backend&quot;&gt;CICD pipeline RPi Backend&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#frontend-web-application&quot; id=&quot;markdown-toc-frontend-web-application&quot;&gt;Frontend web application&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#angular&quot; id=&quot;markdown-toc-angular&quot;&gt;Angular&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#aws-amplify&quot; id=&quot;markdown-toc-aws-amplify&quot;&gt;AWS Amplify&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#aws-cognito&quot; id=&quot;markdown-toc-aws-cognito&quot;&gt;AWS Cognito&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#the-application-itself&quot; id=&quot;markdown-toc-the-application-itself&quot;&gt;The application itself&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#hosting-the-application&quot; id=&quot;markdown-toc-hosting-the-application&quot;&gt;Hosting the application&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#cicd-pipeline-frontend&quot; id=&quot;markdown-toc-cicd-pipeline-frontend&quot;&gt;CICD pipeline Frontend&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#serverless-framework&quot; id=&quot;markdown-toc-serverless-framework&quot;&gt;Serverless framework&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#why-the-serverless-framework&quot; id=&quot;markdown-toc-why-the-serverless-framework&quot;&gt;Why the serverless framework?&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#serverlessyml&quot; id=&quot;markdown-toc-serverlessyml&quot;&gt;Serverless.yml&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#cicd-pipeline-serverless&quot; id=&quot;markdown-toc-cicd-pipeline-serverless&quot;&gt;CICD pipeline Serverless&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#application-flow&quot; id=&quot;markdown-toc-application-flow&quot;&gt;Application flow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot; id=&quot;markdown-toc-conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;At Ordina, we have a beautiful office in the Ghelamco arena in Gent.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco office&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghelamco_arena_office.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;The drawback of having an office in this stadium is that whenever KAA Gent plays a game in the stadium we have to make sure our parking lot is empty 3 hours before the start of the game.&lt;br /&gt;
+If the parking lot isn’t cleared in time we risk fines up to €500,00 per car.&lt;br /&gt;
+Of course we don’t want to spend our money on fines when instead we could be buying more pizzas.&lt;br /&gt;
+So we came up with a solution called &lt;strong&gt;Ghelamco Alert&lt;/strong&gt;.&lt;br /&gt;
+The idea for the project is pretty straightforward.&lt;br /&gt;
+We will run &lt;a href=&quot;https://www.raspberrypi.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;a Raspberry Pi&lt;/a&gt; device that is hooked up to an alert light.&lt;br /&gt;
+The Raspberry Pi will run an application that parses the game fixtures on the website of KAA Gent to search for any home fixtures.&lt;br /&gt;
+Whenever a home fixture occurs, the RPi will start turning on the alert light on a preset schedule.&lt;br /&gt;
+This way the employees in the office will have a visual warning on game day and they will be reminded to leave the parking lot on time.&lt;br /&gt;
+Since we wanted to build a user-friendly solution we added a serverless backend in the AWS cloud combined with an Angular application so that our users can also look at the web application to get some additional feedback and even manipulate the alerting schedule.&lt;br /&gt;
+This enables users to do some additional operations through the web application:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Snooze alerts&lt;/li&gt;
+  &lt;li&gt;Create additional alerts&lt;/li&gt;
+  &lt;li&gt;Create custom events&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;practicalities&quot;&gt;Practicalities&lt;/h1&gt;
+&lt;p&gt;I received my assignment from my internship supervisor Frederick Bousson.&lt;br /&gt;
+Bas Moorkens was my mentor for the internship.&lt;br /&gt;
+He designed the high-level architecture of the solution and then helped translate it into smaller blocks of work for me.&lt;br /&gt;
+We decided to set up the project using these three big components:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;An IoT module on the RPi.&lt;/li&gt;
+  &lt;li&gt;A serverless backend that runs in the AWS cloud using Node.js.&lt;/li&gt;
+  &lt;li&gt;A frontend application built with the Angular framework.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The architecture was tweaked several times to account for lessons learned during the internship.&lt;br /&gt;
+We ended up using over 10 AWS services which over the course of the internship, made me develop a real interest in everything that is AWS and cloud related.&lt;br /&gt;
+Once you get the hang of serverless, the speed of setting up infrastructure is absolutely mind-blowing!&lt;/p&gt;
+
+&lt;h1 id=&quot;solution-design&quot;&gt;Solution design&lt;/h1&gt;
+&lt;p&gt;Below you can see the high-level design of our solution.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco Alert architecture&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghela-alert-architecture.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;As you can see the architecture has lots of moving parts.
+We will zoom in on these in the next sections.&lt;/p&gt;
+
+&lt;h2 id=&quot;backend-rpi&quot;&gt;Backend RPi&lt;/h2&gt;
+&lt;p&gt;The core part of our solution consists of the Raspberry Pi device with our backend Spring Boot application that runs on it.&lt;br /&gt;
+This application controls the actual alert light and does most of the heavy lifting in the overall scheme.&lt;br /&gt;
+The RPi works with a microSD card on which you can easily install any Linux distribution.&lt;br /&gt;
+You install the distribution of your choosing on SD card and then plug the card into your RPi device and you’re good to go.&lt;br /&gt;
+We used a &lt;a href=&quot;https://www.raspberrypi.org/products/raspberry-pi-4-model-b/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;model 4 Raspberry Pi&lt;/a&gt; and installed the default Raspbian Linux distribution on it.&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-boot-application&quot;&gt;Spring Boot application&lt;/h3&gt;
+&lt;p&gt;The actual business logic of our solution runs as a Spring Boot project on our RPi device.&lt;/p&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;basics-of-the-application&quot;&gt;Basics of the application&lt;/h4&gt;
+
+&lt;p&gt;The core of our application revolves around &lt;strong&gt;events&lt;/strong&gt; which happen at the Ghelamco Arena.&lt;br /&gt;
+These can be of type &lt;strong&gt;&lt;em&gt;GameEvent&lt;/em&gt;&lt;/strong&gt; or &lt;strong&gt;&lt;em&gt;CustomEvent&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The GameEvents are all the KAA Gent home games.&lt;/li&gt;
+  &lt;li&gt;As an added feature, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For each event we generate a couple of standard &lt;strong&gt;alerts&lt;/strong&gt; based on the &lt;strong&gt;event time&lt;/strong&gt;.&lt;br /&gt;
+These alerts are responsible to set off the alarm light in the office.&lt;br /&gt;
+This means that we will use the &lt;a href=&quot;https://www.raspberrypi.org/documentation/usage/gpio/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GPIO&lt;/a&gt; interface of our RPi to turn on the alarm light every time an alert gets triggered in our backend application.&lt;br /&gt;
+To set off an alert, the GPIO interface changes the voltage on a GPIO-pin to 0V or 3.3V.&lt;br /&gt;
+This pin gets coupled to a relay, which acts as a regular switch, but electrically controlled.&lt;br /&gt;
+If we put 0V on the relay, the circuit remains open, when we put 3.3V on it, the circuit gets closed and thus starting our alarm light.&lt;/p&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;webscraper&quot;&gt;WebScraper&lt;/h4&gt;
+
+&lt;p&gt;Our Spring backend is running a scheduler that is configured to run a service every hour that checks the website of KAA Gent for the up-to-date fixtures of the games.&lt;br /&gt;
+The approach I took for scraping the website is by using X-Path with a library called &lt;a href=&quot;https://htmlunit.sourceforge.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HtmlUnit&lt;/a&gt;.&lt;br /&gt;
+In our application we fetch every game from the website, filter them on home games, attach alerts and save those games to our H2-database using Spring Data.&lt;/p&gt;
+
+&lt;p&gt;Every time we scan the website, we compare the scraped games’ data with the games that already were saved in our database.&lt;br /&gt;
+Games can get updated or rescheduled on the website, but our application will recognize it and update the database records accordingly.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/scrape-games.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;h2-database&quot;&gt;H2 database&lt;/h4&gt;
+
+&lt;p&gt;One of the requirements for the project was that the RPi should be able to function on his own without constant internet connection.&lt;br /&gt;
+This meant that we needed to use a database that can run locally on the RPi.&lt;br /&gt;
+If we would use a remote database we wouldn’t be able to send any data to the RPi when it is not connected to a network.&lt;br /&gt;
+We chose to use a H2-database because it is a SQL database which is easy to set up for local use.&lt;br /&gt;
+Then we configured the H2-database to be backed by a flatfile on our local filesystem.
+This way the database is persistent even when the application restarts.&lt;br /&gt;
+As the last step we just need to add the H2 dependency to our projects pom.xml .&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.h2database&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;h2&amp;lt;/artifactId&amp;gt;
+    &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add some configuration in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application.properties&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;### H2 Storage
+spring.datasource.url=jdbc:h2:file:c:\\h2-ghela\\h2db
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=kevin
+spring.datasource.password=admin
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.h2.console.enabled=true
+spring.h2.console.settings.web-allow-others=false
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This just works out of the box, it even comes with a console to check your database if enabled.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/h2-console.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;metrics&quot;&gt;Metrics&lt;/h4&gt;
+
+&lt;p&gt;Our application generates metrics to provide us with some data about our backend.&lt;br /&gt;
+We collect data and push it into &lt;a href=&quot;https://aws.amazon.com/cloudwatch&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS CloudWatch&lt;/a&gt; as metrics for:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Number of events added&lt;/li&gt;
+  &lt;li&gt;Number of events updated&lt;/li&gt;
+  &lt;li&gt;Number of events cancelled&lt;/li&gt;
+  &lt;li&gt;Number of alerts snoozed&lt;/li&gt;
+  &lt;li&gt;Number of alerts started&lt;/li&gt;
+  &lt;li&gt;Number of alerts stopped&lt;/li&gt;
+  &lt;li&gt;A basic heartbeat&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When our application is running, we are constantly gathering this data which we push to Cloudwatch metrics every 5 minutes.
+Afterwards we reset our data counters and start collecting again.&lt;br /&gt;
+This allows us to create a dashboard which has data-points every 5 minutes for all the metrics we defined.&lt;/p&gt;
+
+&lt;h3 id=&quot;connecting-our-rpi-to-the-cloud&quot;&gt;Connecting our RPi to the cloud&lt;/h3&gt;
+&lt;p&gt;We have two ways of connecting back to the AWS cloud.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Use AWS credentials and the AWS APIs.&lt;/li&gt;
+  &lt;li&gt;Use AWS IoT MQTT protocol and the according certificates.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-cloudwatch-integration&quot;&gt;AWS Cloudwatch integration&lt;/h4&gt;
+
+&lt;p&gt;The CloudWatch integration is done entirely by having a set of credentials with limited permissions on our RPi device.&lt;br /&gt;
+We use these credentials inside our application to access the AWS SDK from our Java code.&lt;br /&gt;
+We integrate with CloudWatch in two different ways:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;We push custom metrics from our application to CloudWatch metrics.&lt;/li&gt;
+  &lt;li&gt;We send the logs from our application to CloudWatch logs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;cloudwatch-metrics&quot;&gt;CloudWatch metrics&lt;/h5&gt;
+
+&lt;p&gt;The metrics that we generate in our application should of course get sent to AWS CloudWatch, so we can actually make use of them in the AWS cloud.&lt;br /&gt;
+We use the metric data to build dashboards and alerts within CloudWatch for added visibility into our application.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert Metrics&quot; src=&quot;/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We have created an alarm that triggers when our &lt;strong&gt;RPI_BACKEND_STATUS&lt;/strong&gt; status metric is missing for three data points in a row.&lt;br /&gt;
+This means that after 15 minutes of not receiving this metric, the CloudWatch alarm will trigger and notifies us via email that the RPi is either down or disconnected from the internet.&lt;br /&gt;
+This enables us to respond quickly and take action to restore connectivity to the device.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;cloudwatch-logs&quot;&gt;CloudWatch logs&lt;/h5&gt;
+
+&lt;p&gt;The logs from our Spring Boot application get sent to CloudWatch logs. 
+This allows us to check the log files in the AWS cloud without needing access to the RPi device itself.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/cloudwatch-logs.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-iot&quot;&gt;AWS IoT&lt;/h4&gt;
+
+&lt;p&gt;The reason for using &lt;a href=&quot;https://aws.amazon.com/iot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS IoT&lt;/a&gt; is for the sake of “being connected to the cloud”.&lt;br /&gt;
+When we are connected to the cloud, we are able to communicate with our device “through the cloud”, meaning from anywhere we want! &lt;br /&gt;
+In our case this means that we want our RPi device to be connected to AWS IoT whenever it is up and running and has internet connectivity.&lt;br /&gt;
+Of course the communication between our RPi and the AWS cloud has to be secured.
+AWS IoT uses authentication and authorization workflow by using certificates that you issue from AWS IoT and upload to your edge device.&lt;br /&gt;
+We treat our RPi as an edge device in this project.&lt;/p&gt;
+
+&lt;p&gt;Authentication works based on the certificates that the edge device presents to AWS IoT.&lt;br /&gt;
+Once the certificate authentication is successful, AWS IoT checks which policies got attached to those certificates to grant it specific authorizations within the AWS cloud.&lt;/p&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;authentication-certificates&quot;&gt;Authentication: certificates&lt;/h5&gt;
+
+&lt;p&gt;When you add a new edge device in AWS IoT it is called “a thing”.&lt;br /&gt;
+When registering “a thing” it generates two keys for us: a public key and a private key.&lt;br /&gt;
+AWS IoT will provide a certificate signing request for the public key, which will sign the generated certificate with the root certificate’s private key.&lt;/p&gt;
+
+&lt;p&gt;Our thing-certificate and our private key are our credentials when we try to communicate with AWS IoT to access our edge device.&lt;br /&gt;
+The only additional input that we need to provide on top of the generated signing request is the root certificate to check the signing.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Certificates&lt;/li&gt;
+  &lt;li&gt;Private Key&lt;/li&gt;
+  &lt;li&gt;Root CA&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since these certificates get generated per thing that you register they should only be used for one device.&lt;br /&gt;
+When I developed the application I had to register another thing for my laptop.&lt;br /&gt;
+Connecting from the RPi and the laptop with the same certificates caused some unwanted behavior like connection interrupts.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/cert-aws-iot.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;authorization-policies&quot;&gt;Authorization: policies&lt;/h5&gt;
+
+&lt;p&gt;After creating our certificates and keys we need to handle the authorization part.&lt;br /&gt;
+We do this by adding some policies to our certificates.&lt;br /&gt;
+When presenting our certificates on connecting, AWS IoT now also knows what services we can access within the AWS cloud.&lt;/p&gt;
+
+&lt;p&gt;An example of such a policy:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;iot:Publish&quot;,
+        &quot;iot:Subscribe&quot;,
+        &quot;iot:Connect&quot;,
+        &quot;iot:Receive&quot;
+      ],
+      &quot;Resource&quot;: [
+        &quot;*&quot;
+      ]
+    },
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;iot:GetThingShadow&quot;,
+        &quot;iot:UpdateThingShadow&quot;,
+        &quot;iot:DeleteThingShadow&quot;
+      ],
+      &quot;Resource&quot;: [
+        &quot;*&quot;
+      ]
+    },
+    {
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;greengrass:*&quot;
+      ],
+      &quot;Resource&quot;: [
+        &quot;*&quot;
+      ]
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We define which services we want to access:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:Publish&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:Subscribe&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:GetThingShadow&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:UpdateThingShadow&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:DeleteThingShadow&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This system of generating certificates and coupling policies is a very secure and easy way of working with edge devices.&lt;/p&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;iot-job&quot;&gt;IoT job&lt;/h5&gt;
+
+&lt;p&gt;A crucial part of AWS IoT is the job section. 
+We can create a job by using the AWS CLI.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aws iot update-job  
+  --job-id 010  
+  --description &quot;updated description&quot; 
+  --timeout-config inProgressTimeoutInMinutes=100
+  --job-executions-rollout-config {exponentialRate:{baseRatePerMinute: 50, incrementFactor: 2, rateIncreaseCriteria: &amp;lt;{numberOfNotifiedThings: 1000, numberOfSucceededThings: 1000}, maximumPerMinute: 1000}}
+  --abort-config { criteriaList: [ { action: CANCEL, failureType: FAILED, minNumberOfExecutedThings: 100, thresholdPercentage: 20}, { action: CANCEL, failureType: TIMED_OUT, minNumberOfExecutedThings: 200, thresholdPercentage: 50}]}          
+  --presigned-url-config {roleArn:arn:aws:iam::123456789012:role/S3DownloadRole, expiresInSec:3600}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;We use AWS IoT to create these jobs and send them to our RPi where they get executed by our application code.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert device update&quot; src=&quot;/img/2020-09-25-ghelamco-alert/device-update-iot.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We have the possibility to put multiple “things” in a group of devices.&lt;br /&gt;
+This way we can send jobs to the entire group and these jobs get executed on every device from that group.&lt;br /&gt;
+These jobs could be software updates, reboot commands, rotation of certificates, … &lt;br /&gt;
+Anything we want really!&lt;/p&gt;
+
+&lt;p&gt;In our project we used IoT jobs for a multitude of processes:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Update our backend application - over the air&lt;/li&gt;
+  &lt;li&gt;Create new events&lt;/li&gt;
+  &lt;li&gt;Snooze and update existing alerts&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/aws-iot-jobs.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It is pretty straightforward to create an IoT job:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create a job&lt;/li&gt;
+  &lt;li&gt;Add a job document (JSON file) which defines the content of the job&lt;/li&gt;
+  &lt;li&gt;Push the job onto the job queue to send it to your devices&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Example job document:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+    &quot;operation&quot;: &quot;snoozeAlert&quot;,
+    &quot;local_alert_id&quot;: 31,
+    &quot;event_title&quot;: &quot;test from lambda snooze alert&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;mqtt-protocol&quot;&gt;MQTT protocol&lt;/h5&gt;
+
+&lt;p&gt;AWS IoT can communicate with its registered devices through two protocols: HTTP or MQTT.&lt;br /&gt;
+So why would we choose MQTT over the more familiar HTTP protocol?&lt;br /&gt;
+The HTTP protocol has some severe limitations for our use case:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HTTP is a synchronous protocol, the client waits for the server to respond.&lt;br /&gt;
+That is a requirement for web browsers, but it comes at the cost of poor scalability.&lt;br /&gt;
+In the world of IoT where we have numerous devices and most likely an unreliable / high-latency network connection this synchronous communication is problematic.&lt;br /&gt;
+An asynchronous messaging protocol is much more suitable for IoT applications.&lt;br /&gt;
+The sensors can send in readings and let the network figure out the optimal path and timing for delivery to its destination devices and services.&lt;/li&gt;
+  &lt;li&gt;HTTP is a one-way protocol. The client must initiate the connection.&lt;br /&gt;
+In an IoT application, the devices or sensors are typically clients, which means that they cannot passively receive commands from the network.&lt;/li&gt;
+  &lt;li&gt;HTTP is a 1-1 protocol. The client makes a request and the server responds.&lt;br /&gt;
+It is difficult and expensive to broadcast a message to all devices on the network, which is a common use case in IoT applications.&lt;/li&gt;
+  &lt;li&gt;HTTP is a heavyweight protocol with many headers and rules. It is not suitable for constrained networks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;MQTT on the other hand defines two types of entities in the network: a message broker (AWS IoT) and a number of edge devices (clients).&lt;br /&gt;
+The broker is a server that receives all messages from the clients and then routes those messages to relevant destination clients.&lt;br /&gt;
+A client is anything that can interact with the broker to send and receive messages.&lt;br /&gt;
+Our client is the RPi but it could also be an IoT sensor in the field or an application in a data center that processes IoT data.&lt;/p&gt;
+
+&lt;p&gt;In our backend Java code we have an MQTTJobService which connects to AWS IoT by using the &lt;a href=&quot;https://aws.amazon.com/sdk-for-java/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS SDK&lt;/a&gt; and subscribes to the relevant topics to receive and respond to AWS IoT jobs.&lt;br /&gt;
+Every 30 seconds we will read these topics to see if there are any new jobs to be processed.&lt;/p&gt;
+
+&lt;h3 id=&quot;aws-iot-greengrass&quot;&gt;AWS IoT Greengrass&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://aws.amazon.com/greengrass&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Greengrass&lt;/a&gt; is a service that extends the AWS cloud onto your edge device.&lt;br /&gt;
+This was fascinating for us since we had some tough problems to solve:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;How can we deploy our application on the RPi device?&lt;/li&gt;
+  &lt;li&gt;How can we make sure our application recovers from failures?&lt;/li&gt;
+  &lt;li&gt;How can we make sure that our system keeps itself up to date?&lt;/li&gt;
+  &lt;li&gt;How do we find the network address from our device when we are not in the same network?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;AWS Greengrass offers solutions to all these challenges!&lt;br /&gt;
+Greengrass is an extension of the AWS IoT service and since we had already set up our device in AWS IoT it was easy for us to set up Greengrass.&lt;br /&gt;
+To get started with Greengrass we had to do 2 additional steps:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Define a Greengrass group. This group will contain your IoT devices and deployments.&lt;/li&gt;
+  &lt;li&gt;Define a Greengrass core. The core is the device that you will use to run the additional AWS capabilities on.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The Greengrass group allows us to push deployments to all the devices in our group.&lt;br /&gt;
+It also allows you to run lambda functions on your core device or install additional connectors with your own runtime of choice.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Greengrass group&quot; src=&quot;/img/2020-09-25-ghelamco-alert/gg_group.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When you register your device as a core device in Greengrass you immediately get some nice additional benefits from this.&lt;br /&gt;
+For example, you can immediately see all the network interfaces on your core device and what IP addresses got allocated.&lt;br /&gt;
+This is especially useful if you want to ssh to your device and do not have a fixed IP attached to it.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Greengrass core&quot; src=&quot;/img/2020-09-25-ghelamco-alert/gg_core.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we that Greengrass is installed and our RPi is configured as a core device our Greengrass group we can start making full use of the capabilities that Greengrass offers.&lt;br /&gt;
+We decided that we wanted our application to run as a Docker container, so we installed and configured the &lt;a href=&quot;https://docs.aws.amazon.com/greengrass/latest/developerguide/docker-app-connector.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Docker connector&lt;/a&gt; for Greengrass. &lt;br /&gt;
+This plugin allows you to run Docker containers on your core device and makes use of &lt;strong&gt;Docker&lt;/strong&gt; and &lt;strong&gt;Docker Compose&lt;/strong&gt;.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Greengrass Docker connector&quot; src=&quot;/img/2020-09-25-ghelamco-alert/gg_connector_docker_cfg.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;For this to work you have to install Docker and Docker Compose on your core device.&lt;br /&gt;
+Since we are using a RPi it was a bit harder to install since the RPi uses the ARM7 chipset instead of x64/x32.&lt;br /&gt;
+We had no trouble installing Docker itself, but for Docker Compose we had to clone the source code from GitHub and compile the binaries ourself on the RPi.&lt;br /&gt;
+After all the setup was done we could just create a Docker container in our CICD pipeline and tell Greengrass to run that container on RPi.&lt;/p&gt;
+
+&lt;h3 id=&quot;cicd-pipeline-rpi-backend&quot;&gt;CICD pipeline RPi Backend&lt;/h3&gt;
+
+&lt;p&gt;To make sure we did not need to bother ourselves with manual builds and installs of our code on the RPi we built a CICD pipeline to automatically deploy our software onto the RPi.&lt;br /&gt;
+We trigger the pipeline whenever a push to our master branch hapens in our Git repository.&lt;br /&gt;
+We used &lt;a href=&quot;https://azure.microsoft.com/en-us/services/devops/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Azure DevOps&lt;/a&gt; as our CICD system.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert Azure pipeline backend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/azure-backpipe.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The pipeline has a lot of pipeline steps defined and integrates with several AWS services as well.&lt;br /&gt;
+We drew up a chart to provide additional insight into how this pipeline works:&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert Azure pipeline backend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-rpi.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see there are two major parts of this pipeline:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the Azure DevOps pipeline&lt;/li&gt;
+  &lt;li&gt;the Greengrass deployment process.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;azure-devops-pipeline&quot;&gt;Azure devops pipeline&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Build and test our Java code.&lt;br /&gt;
+We use Maven to build and test our code.&lt;/li&gt;
+  &lt;li&gt;We use &lt;a href=&quot;https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS SSM - Parameter Store&lt;/a&gt; to safely store our config files and certificates for the RPi.&lt;br /&gt;
+In step 2 and 3 we fetch those config files and secrets from the parameter store and store them locally for use later in the pipeline.&lt;/li&gt;
+  &lt;li&gt;In order to control the alert light hooked up to our RPi we need to download the &lt;a href=&quot;http://wiringpi.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;WiringPi library&lt;/a&gt; as we used that to communicate with our alert light. 
+We stored this library in our release S3 bucket.&lt;/li&gt;
+  &lt;li&gt;We have to register an ARM hardware emulator as our Docker image has to be run in the pipeline to install additional software.&lt;br /&gt;
+Without the emulator our pipeline would just crash as Azure DevOps would have no way to run the ARM7 Docker image.&lt;/li&gt;
+  &lt;li&gt;We build our Docker image.&lt;br /&gt;
+We install all the config, certificates and dependencies into our container in this step.&lt;/li&gt;
+  &lt;li&gt;We push the container into &lt;a href=&quot;https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS ECR - Elastic Container Registry&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;We fill in the container name and version from the previous step in our template &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file and upload it to our S3 releases bucket.&lt;/li&gt;
+  &lt;li&gt;We use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greengrass create-deployment&lt;/code&gt; CLI command to deploy our Docker container to our RPi device.&lt;br /&gt;
+This deployment fetches the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file from our S3 release bucket and then launches the container that we defined in that compose file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some additional explanation on the Docker image and running containers on ARM7 processor architectures.&lt;/p&gt;
+
+&lt;p&gt;Our application’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt; looks like this:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FROM balenalib/am571x-evm-openjdk:11-jre-bullseye-20200901
+ADD ./wiringpi-2.52.deb /tmp/wiringpi-2.52.deb
+RUN apt-get update &amp;amp;&amp;amp; \ 
+    cd /tmp &amp;amp;&amp;amp; \ 
+    dpkg -i wiringpi-2.52.deb
+COPY ./target/ghela-business-0.0.1-SNAPSHOT.jar /app.jar
+ADD ./config /config
+ADD ./certificates /certificates
+ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;app.jar&quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Because we are running this container on our RPi we need to make sure it can run on the ARM7 processor.&lt;br /&gt;
+This is why we started from an ARM7 image that already has JRE11 installed on it.&lt;br /&gt;
+As you can see we need to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;**` and some other commands in our container to get it fully functioning.&lt;br /&gt;
+This means that our container will be actually executed during the build phase.&lt;br /&gt;
+This is the reason why we need to register the ARM7 emulator in our pipeline.&lt;br /&gt;
+Otherwise, Azure DevOps would have no way of running our Docker image since it cannot interpret the ARM7 processor instruction set natively.&lt;/p&gt;
+
+&lt;p&gt;In our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file we describe how the container should behave when it’s running:&lt;/p&gt;
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3.3'&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;${ecr.imageTag}&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;privileged&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8080:8080&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/home/pi/.aws/:/root/.aws:ro&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/ghela/db:/ghela/db&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;db-data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Several things are happening in this file:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;We dynamically inject the image name and version in our CICD pipeline into the  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${ecr.imageTag}&lt;/code&gt; field.&lt;/li&gt;
+  &lt;li&gt;We run our container in privileged mode as this is needed to access the RPis native interface to control our alert light through GPIO with wiringPi.&lt;/li&gt;
+  &lt;li&gt;We expose our application port 8080 to the outside world.&lt;/li&gt;
+  &lt;li&gt;We mount our AWS credentials and H2 database as volumes from the RPi host system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;greengrass-deployment-process&quot;&gt;Greengrass deployment process&lt;/h4&gt;
+
+&lt;p&gt;For the Greengrass deployment process we did not have to create any code.&lt;br /&gt;
+This works out of the box when you set up Greengrass.&lt;br /&gt;
+However, for full transparency I will briefly describe the process here:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;AWS Greengrass receives a new deployment (this is the last step of our Azure DevOps pipeline).&lt;/li&gt;
+  &lt;li&gt;Greengrass sends the new deployment to the Greengrass agent on our device.&lt;/li&gt;
+  &lt;li&gt;Download the Docker Compose file from S3 which is associated with our deployment.&lt;/li&gt;
+  &lt;li&gt;Download the Docker image and version from ECR that is defined in the Docker Compose file.&lt;/li&gt;
+  &lt;li&gt;Terminate the current running container.&lt;/li&gt;
+  &lt;li&gt;Start the new container.&lt;/li&gt;
+  &lt;li&gt;Set up the mounted volumes defined in our Docker Compose file.&lt;/li&gt;
+  &lt;li&gt;Start the Spring Boot application in the container.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All these steps get done automatically for us by the Greengrass agent running on our RPi device.&lt;br /&gt;
+As you can see this CICD pipeline makes it incredibly easy for us to deploy new software to our RPi device.&lt;/p&gt;
+
+&lt;h2 id=&quot;frontend-web-application&quot;&gt;Frontend web application&lt;/h2&gt;
+
+&lt;p&gt;To get data from our RPi into our web application we needed a way to connect to our H2 database on the RPi.&lt;br /&gt;
+It would be pretty complex to set up our RPi device to be accessible from the internet, so we chose to build a backend in AWS to function as a proxy for our RPi backend application.&lt;br /&gt;
+This allows us to use this proxy backend in AWS to access the data from our RPi device and send new commands to update existing data on the RPi.&lt;br /&gt;
+More about this backend in the serverless part.&lt;br /&gt;
+First let’s take a look into our frontend application.&lt;/p&gt;
+
+&lt;h3 id=&quot;angular&quot;&gt;Angular&lt;/h3&gt;
+&lt;p&gt;I wanted to create a simple web application to get more insight in the data of our RPi device.&lt;br /&gt;
+Any modern frontend framework would be suitable for this but I decided to go with Angular since I had already had some basic experience with it.&lt;br /&gt;
+We did however use some extra frameworks and AWS services to make it easier to build our frontend application.&lt;/p&gt;
+
+&lt;h3 id=&quot;aws-amplify&quot;&gt;AWS Amplify&lt;/h3&gt;
+
+&lt;p&gt;To help us bootstrap our web application, we decided to use the &lt;a href=&quot;https://aws.amazon.com/amplify/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Amplify framework&lt;/a&gt;.&lt;br /&gt;
+The open-source Amplify Framework provides:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Amplify CLI - Configure AWS services needed to power your backend through a simple command line interface.&lt;/li&gt;
+  &lt;li&gt;Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.&lt;/li&gt;
+  &lt;li&gt;Amplify UI Components - UI libraries for React, React Native, Angular, Ionic and Vue.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For our project we only used the libraries and UI components from Amplify for our web application.&lt;br /&gt;
+When we use the Amplify CLI to bootstrap our project it generated a new file in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./src&lt;/code&gt; folder of our project called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aws-exports.js&lt;/code&gt;.&lt;br /&gt;
+This file contains configuration of various backend AWS services that we will be using:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Cognito user pool id&lt;/li&gt;
+  &lt;li&gt;Cognito identity pool url&lt;/li&gt;
+  &lt;li&gt;Region&lt;/li&gt;
+  &lt;li&gt;API gateway url&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The backend itself is build and deployed with the &lt;strong&gt;serverless framework&lt;/strong&gt;.&lt;br /&gt;
+More about this in the section regarding serverless.&lt;/p&gt;
+
+&lt;h3 id=&quot;aws-cognito&quot;&gt;AWS Cognito&lt;/h3&gt;
+
+&lt;p&gt;We used &lt;a href=&quot;https://aws.amazon.com/cognito/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Cognito&lt;/a&gt; as authentication and authorization provider.&lt;br /&gt;
+This means that new users can sign up to our Cogito user pool and login to our web application by authenticating themselves via that user pool.&lt;/p&gt;
+
+&lt;p&gt;There are several excellent reasons to use Cogito instead of building a home-grown identity solution:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Secure and scalable user directory.&lt;br /&gt;
+It scales dynamically as you would expect from AWS.&lt;/li&gt;
+  &lt;li&gt;Fine grained access control through the use of Cogito user pools and identity pools. &lt;br /&gt;
+You can define users and groups in a Cogito user pool which you then can map to AWS IAM roles.&lt;br /&gt;
+This is a straightforward and very secure way to allow users of the web application a federated access into your AWS account.&lt;/li&gt;
+  &lt;li&gt;Easy integration into our frontend application through components that are provided in the Amplify UI library.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert login-screen frontend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/login-frontend.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;cognito-user-pool&quot;&gt;Cognito User pool&lt;/h5&gt;
+&lt;p&gt;User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications.&lt;br /&gt;
+Users can register directly in our &lt;strong&gt;user pool&lt;/strong&gt; or they can register themselves through web identity federation via a well-known 3rd party like: Facebook, Amazon, Google.&lt;br /&gt;
+Whenever a user logs in to our user pool they receive a &lt;strong&gt;JWT token&lt;/strong&gt; that contains information about their identity and authorizations.&lt;br /&gt;
+We call this information JWT claims.&lt;/p&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;cognito-identity-pool&quot;&gt;Cognito identity pool&lt;/h5&gt;
+
+&lt;p&gt;To be able to use the claims in this JWT token we created an AWS &lt;strong&gt;identity pool&lt;/strong&gt; as well.&lt;br /&gt;
+The identity pool allows users to exchange their valid JWT token for temporary AWS credentials.&lt;br /&gt;
+These temporary credentials then get used by our application, to call AWS services in our account. 
+For example: call API gateway, update a dynamodb table , fetch a CloudWatch metric.&lt;br /&gt;
+This process is called federated access and is very powerful to expose services from within your AWS account to your end users.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-application-itself&quot;&gt;The application itself&lt;/h3&gt;
+&lt;p&gt;Now I covered all the technologies that I used for the web application, I will walk you through the application itself.&lt;/p&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;dashboard-view&quot;&gt;Dashboard view&lt;/h4&gt;
+
+&lt;p&gt;On the dashboard view we can see which events are coming up next.&lt;br /&gt;
+When we click on an event we also get to see all the alerts which are set for that event.&lt;br /&gt;
+We can update or snooze alerts from this screen, BUT…
+This works a bit different from how you would expect it to work.&lt;br /&gt;
+In a normal setting you would expect us to update the records in our DynamoDB table, right?&lt;br /&gt;
+Since we want our H2 database on the RPi device to be the single source of truth this is not the case here.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert Dashboard frontend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/dashboard-frontend.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When you update or snooze an alert we actually create an AWS IoT job for our RPi to process.&lt;br /&gt;
+The backend application on the RPi knows how to handle these events and updates his H2 database accordingly.&lt;br /&gt;
+Together with our sync component we built on the RPi backend, those changes get updated directly to our DynamoDB table.&lt;/p&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;create-custom-event&quot;&gt;Create Custom event&lt;/h4&gt;
+
+&lt;p&gt;On this tab we can create our own custom events.&lt;br /&gt;
+This works in the same way as snoozing or updating on alert on the dashboard view.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert create event screen&quot; src=&quot;/img/2020-09-25-ghelamco-alert/frontend-create.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;job-overview&quot;&gt;Job overview&lt;/h4&gt;
+
+&lt;p&gt;In the job overview view we query our API gateway to fetch us all the pending jobs from our DynamoDB job table.&lt;br /&gt;
+The lambda function that listens to this endpoint reads the ghela-jobs DynamoDB table and list all jobs that have a status of not yet “COMPLETED”.&lt;br /&gt;
+The moment this list is empty all changes from our webapp have been processed successfully by our RPi backend application and will have updated the ghela-events and ghela-jobs DynamoDB tables.&lt;/p&gt;
+
+&lt;p&gt;Important note: our RPi can only receive new jobs from AWS IoT if it is connected to the internet.&lt;br /&gt;
+So if we do not have a working network connection, jobs will stay queued within AWS IoT and not get pushed to the RPi backend application.&lt;br /&gt;
+For the same reason it is important to know that our RPi device is connected and functioning well, to make sure our commands from our web application get processed by our RPi backend application.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert jobs screen&quot; src=&quot;/img/2020-09-25-ghelamco-alert/frontend-jobs.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;metrics-1&quot;&gt;Metrics&lt;/h4&gt;
+
+&lt;p&gt;On this tab we can see the status of the RPi backend as a graph.&lt;br /&gt;
+Remember the metrics we talked about before?&lt;br /&gt;
+Via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/metrics&lt;/code&gt; API endpoint we invoke a lambda function that fetches this dynamic graph and sends it back to our frontend as a Base64 encoded stream of byte data.&lt;br /&gt;
+We can then render this data as an image in our frontend web application.&lt;br /&gt;
+By adding this graph in our web application users of the application can see that the RPi backend device is up and running and functioning well without ever having to access our AWS account itself, pretty cool huh?&lt;/p&gt;
+
+&lt;h3 id=&quot;hosting-the-application&quot;&gt;Hosting the application&lt;/h3&gt;
+
+&lt;p&gt;In order to make our web application accessible to the public we needed some kind of hosting service.&lt;br /&gt;
+In our case we used &lt;a href=&quot;https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS S3&lt;/a&gt; to host our website.&lt;br /&gt;
+Our S3 bucket is prefaced by a &lt;a href=&quot;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS CloudFront&lt;/a&gt; that acts as our global, scalable CDN.&lt;br /&gt;
+CloudFront delivers our content through a worldwide network of data centers called edge locations.&lt;br /&gt;
+When a user requests content that we’re serving with CloudFront, the user gets routed to the edge location that provides the lowest latency.&lt;br /&gt;
+We used &lt;a href=&quot;https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Route 53&lt;/a&gt; as our DNS service so that we can access our application on the url  &lt;a href=&quot;https://ghelamco-alert.ordina-jworks.io&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ghelamco-alert.ordina-jworks.io&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;cicd-pipeline-frontend&quot;&gt;CICD pipeline Frontend&lt;/h3&gt;
+
+&lt;p&gt;Since CICD pipelines were completely new to me when starting this project, Bas created the pipeline for our RPi backend.&lt;br /&gt;
+For the frontend CICD pipeline he wanted me to create it.&lt;br /&gt;
+Even though he still helped me, he let me think about how this pipeline would run, what steps we needed and had me create the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;azure-pipelines.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert frontend pipeline&quot; src=&quot;/img/2020-09-25-ghelamco-alert/azure-frontpipe.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The pipeline is less complex than the pipeline to build and deploy our backend on our RPi device.&lt;br /&gt;
+We created a diagram of all the steps and interactions with AWS services for this pipeline as well.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert frontend pipeline&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-frontend.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Install Node.js.&lt;/li&gt;
+  &lt;li&gt;Download the needed configuration files from AWS SSM parameter store and save it locally.&lt;br /&gt;
+In this case we download an entire &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aws-exports.js&lt;/code&gt; file from SSM and inject this in the final build of our application.&lt;br /&gt;
+This file contains all the endpoints for wiring our frontend application to our production backend.&lt;/li&gt;
+  &lt;li&gt;Install npm dependencies.&lt;/li&gt;
+  &lt;li&gt;Build our Angular application. We use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm build&lt;/code&gt; command to do this.&lt;/li&gt;
+  &lt;li&gt;Override the configuration file in the application we just built with the configuration file we downloaded from SSM.&lt;/li&gt;
+  &lt;li&gt;Empty the S3 bucket we are using for hosting.&lt;/li&gt;
+  &lt;li&gt;Upload the newly compiled web application to this S3 bucket.&lt;/li&gt;
+  &lt;li&gt;Invalidate the &lt;a href=&quot;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS CloudFront&lt;/a&gt; cache to make sure our application gets updated on each AWS edge location. 
+If we don’t do this, our old version could be cached for up to 24h!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;serverless-framework&quot;&gt;Serverless framework&lt;/h2&gt;
+&lt;p&gt;Our frontend application would be pretty useless if no backend existed for it.&lt;br /&gt;
+Since it is difficult to access our RPi backend application directly we decided to build a proxy backend in the AWS cloud as explained before.&lt;br /&gt;
+We decided to use the serverless framework for its ease of use and speed of development to build this backend.&lt;/p&gt;
+
+&lt;p&gt;What exactly are the requirements for our backend in the AWS cloud? We listed following list of requirements:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynamoDB&lt;/a&gt; tables for our events and jobs.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cognito UserPool&lt;/a&gt; and a &lt;a href=&quot;https://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html&quot;&gt;Cognito IdentityPool&lt;/a&gt; to provide authentication and authorisation for our frontend application.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS API Gateway&lt;/a&gt; to expose REST endpoints from our cloud backend to our frontend web application.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/lambda/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lambda functions&lt;/a&gt; that actually implement our backend code. We used the &lt;a href=&quot;https://aws.amazon.com/sdk-for-node-js/&quot;&gt;AWS Node.js SDK&lt;/a&gt; to program our lambda functions.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS IAM&lt;/a&gt; roles and permissions to perform operations inside of our Lambdas (connect and create jobs on AWS IoT, scan and put to our DynamoDB tables, etc…).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;why-the-serverless-framework&quot;&gt;Why the serverless framework?&lt;/h3&gt;
+
+&lt;p&gt;In the beginning we configured everything by hand in the console.&lt;br /&gt;
+This approach has several drawbacks:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;It is very time-consuming to click in the AWS console&lt;/li&gt;
+  &lt;li&gt;It is an error prone and not easily repeatable process to set up&lt;/li&gt;
+  &lt;li&gt;It does not adhere to industry best practices as we want our infrastructure to be defined as code&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Bas then introduced me to the concept of &lt;a href=&quot;https://en.wikipedia.org/wiki/Infrastructure_as_code&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;IaC or Infrastructure as Code&lt;/a&gt; and &lt;a href=&quot;https://www.serverless.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the Serverless framework&lt;/a&gt;.&lt;br /&gt;
+There are several options to do IaC on AWS but for our particular project serverless seemed the best fit.&lt;br /&gt;
+Our entire cloud backend gets configured in our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serverless.yml&lt;/code&gt; file, that is versioned on GitHub in our cloud backend project.&lt;br /&gt;
+This way we can set up our infrastructure through IaC in a repeatable manner.&lt;/p&gt;
+
+&lt;h3 id=&quot;serverlessyml&quot;&gt;Serverless.yml&lt;/h3&gt;
+
+&lt;p&gt;This file is the heart of our serverless setup.&lt;br /&gt;
+Everything that is needed to run our serverless stack got described in this file.&lt;br /&gt;
+We used the &lt;strong&gt;yaml&lt;/strong&gt; notation as it is less convoluted than JSON, but you can also use JSON or TypeScript to build this. &lt;br /&gt;
+We will explain the different parts of our serverless setup to show you in detail how everything works.&lt;/p&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;functions-and-api-gateway&quot;&gt;Functions and Api Gateway&lt;/h4&gt;
+
+&lt;p&gt;The essential part of our serverless setup is the functions section.&lt;br /&gt;
+A function is an AWS Lambda function.&lt;br /&gt;
+It’s an independent unit of deployment like a true microservice.&lt;br /&gt;
+It is generally a very small piece of code that does one thing and does it well.&lt;br /&gt;
+In our project, for example, we have a lambda function &lt;strong&gt;list-events&lt;/strong&gt; which does exactly that, list the events from our DynamoDB table.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-functions.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;Our API gateway is generated based on the configuration of our functions in this section.&lt;br /&gt;
+Everything under the &lt;strong&gt;events&lt;/strong&gt; property is used as configuration for our API gateway.&lt;br /&gt;
+In this example you can see that we define a &lt;strong&gt;path&lt;/strong&gt; of event and a &lt;strong&gt;method&lt;/strong&gt; GET.&lt;br /&gt;
+We also enable &lt;strong&gt;CORS&lt;/strong&gt; and tell the API gateway to authorize calls made to this endpoint with the &lt;strong&gt;AWS_IAM&lt;/strong&gt; authorizer.&lt;/p&gt;
+
+&lt;p&gt;This results in the path &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/event&lt;/code&gt; getting added to our API gateway which then maps to our lambda function we defined.&lt;br /&gt;
+This path is CORS enabled and is secured by the aws_iam authorizer.&lt;br /&gt;
+So you can only invoke this function if you have a valid AWS access credential from our Cogito identity pool.&lt;br /&gt;
+If you don’t have a valid credential you will receive a 403 denied response from the API gateway.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;API gw&quot; src=&quot;/img/2020-09-25-ghelamco-alert/api-gw.PNG&quot; target=&quot;_blank&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Our function needs several additional pieces of configuration to be able to do its job well.&lt;/p&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-iam-roles&quot;&gt;AWS IAM Roles&lt;/h4&gt;
+
+&lt;p&gt;To allow our lambda function to have fine-grained access to our AWS services we defined IAM roles in our serverless project that are attached to our lambda functions.&lt;br /&gt;
+We defined the IAM roles in a separate file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lambda-iam-roles.yml&lt;/code&gt; which gets included into our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serverless.yml&lt;/code&gt; file.&lt;br /&gt;
+We can then freely use any roles we wish.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-iamroles.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-dynamodb&quot;&gt;AWS DynamoDB&lt;/h4&gt;
+
+&lt;p&gt;We decided to use AWS DynamoDB as our datastore in the cloud.&lt;br /&gt;
+&lt;a href=&quot;https://aws.amazon.com/dynamodb/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS DynamoDB&lt;/a&gt; is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.&lt;br /&gt;
+DynamoDB is a very cost effective and low maintenance way of storing data so it looked perfect for us.&lt;br /&gt;
+Since our lambda function relies on these DynamoDB tables for its data we pass the table name to the function as an environment variable.&lt;br /&gt;
+This allows us to have separate tables for different environment like development, integration, production.&lt;br /&gt;
+Our DynamoDB tables get created by the serverless framework as well.&lt;br /&gt;
+They are described in a separate file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dynamodb-tables.yml&lt;/code&gt; and gets included in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serverless.yml&lt;/code&gt; file.&lt;br /&gt;
+Our DynamoDB tables get created by a naming policy which allows us to easily reuse that naming scheme in our environment variables for the lambda functions.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h5 class=&quot;no_toc&quot; id=&quot;data-sync&quot;&gt;Data sync&lt;/h5&gt;
+
+&lt;p&gt;Our data gets pushed from our RPi backend into DynamoDB tables so that our web application has access to the latest data.&lt;br /&gt;
+To achieve this push mechanism I made a service in our backend application that syncs the local H2 database to our DynamoDB table.&lt;br /&gt;
+We added some triggers in our RPi backend application that allows us to sync the current state of the H2 database to the DynamoDB table.&lt;br /&gt;
+For example, when we are done with our website scraping process, we trigger a sync to DynamoDB if there are any updates or inserts into our H2 database.&lt;br /&gt;
+This ensures that our RPi H2 database acts as the single source of truth.&lt;br /&gt;
+The DynamoDB is just a read-only copy of the data in the AWS cloud that is kept up to date by our RPi backend application.&lt;br /&gt;
+So as long as the backend application is running on the RPi we have access to the latest data in our web application.&lt;/p&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-lambda-functions-with-aws-nodejs-sdk&quot;&gt;AWS Lambda functions with AWS Node.js SDK&lt;/h4&gt;
+
+&lt;p&gt;The handler is the entry point in our lambda function.&lt;br /&gt;
+This is defined in our serverless stack which handler should be invoked by the API gateway.&lt;br /&gt;
+Following example illustrates how our lambda reads data from our DynamoDB table (using the environment variable from our config) and returns the result to our API gateway.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-lambda.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-api-gateway-additional-configuration&quot;&gt;AWS API Gateway additional configuration&lt;/h4&gt;
+
+&lt;p&gt;We needed to add some additional configuration for our API gateway that was not possible to include in the functions part of our serverless template.&lt;br /&gt;
+To make sure our application does not get CORS errors when it receives a 4XX or 5XX response from the API gateway we had set up CORS for these error responses.&lt;br /&gt;
+As you can see below we added response headers to allow all origins and headers.&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-api.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;cicd-pipeline-serverless&quot;&gt;CICD pipeline Serverless&lt;/h3&gt;
+
+&lt;p&gt;Since the serverless framework is so easy to use, and we only had one environment available, we decided not to build a CICD pipeline for this part.&lt;br /&gt;
+Instead, we just use the &lt;strong&gt;serverless CLI&lt;/strong&gt; to deploy and update our stack from our local development machines.&lt;/p&gt;
+
+&lt;h1 id=&quot;application-flow&quot;&gt;Application flow&lt;/h1&gt;
+&lt;p&gt;To finish off the technical part of this blogpost I would like to show you the end-to-end workflow of the application.&lt;br /&gt;
+For example let’s say the user logs in to the web application and wants to &lt;strong&gt;snooze an alert&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We click snooze alert in the frontend web application.&lt;/li&gt;
+  &lt;li&gt;This calls our API gateway endpoint &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/alert/snooze&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;This call is authorized by the &lt;strong&gt;userpool JWT token&lt;/strong&gt; and &lt;strong&gt;identitypool temporary AWS credential&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;This API gateway endpoint invokes an &lt;strong&gt;AWS Lambda function&lt;/strong&gt; which creates a job and &lt;strong&gt;job document in AWS IoT&lt;/strong&gt; for the RPi.
+It also inserts a row into a second &lt;strong&gt;DynamoDB table&lt;/strong&gt; (ghela-jobs) to register the job we created on the frontend.&lt;/li&gt;
+  &lt;li&gt;The job gets send to the RPi and processed by our backend application, thus snoozing the alert in the &lt;strong&gt;H2 database&lt;/strong&gt;.
+This will effectively turn the alert light off.&lt;/li&gt;
+  &lt;li&gt;The RPi &lt;strong&gt;synchronizes&lt;/strong&gt; its H2 database with the event &lt;strong&gt;DynamoDB table&lt;/strong&gt;. Thus updating the status of the alert in the DynamoDB table.&lt;/li&gt;
+  &lt;li&gt;This new status will then be reflected in the &lt;strong&gt;frontend web application&lt;/strong&gt; so our user can see the result of his action.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This same workflow applies to all commands that can be sent from the frontend application to our RPi device.&lt;br /&gt;
+This is a prime example of how a distributed system works and operates.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This internship gave me such a big overview of all best practices and new technologies, that this was a real eye-opener and educational experience.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;I’ve had the chance to develop an application in Spring, with different databases;&lt;/li&gt;
+  &lt;li&gt;learned how to properly test my code with unit and integration tests;&lt;/li&gt;
+  &lt;li&gt;learned how to use the Java and Node AWS SDKs;&lt;/li&gt;
+  &lt;li&gt;APIs, connecting it all together…;&lt;/li&gt;
+  &lt;li&gt;came in touch with a lot of Linux, sharpening my command-line skills;&lt;/li&gt;
+  &lt;li&gt;developed an Angular app from start to finish;&lt;/li&gt;
+  &lt;li&gt;learned a lot about AWS: IAM, IoT Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, CloudWatch, CloudFront, lambdas, Route53, …;&lt;/li&gt;
+  &lt;li&gt;CICD pipelines and their best practices in the industry&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’m very thankful for being able to do this and having the chance to work with Bas on a real project.&lt;/p&gt;
+
+&lt;p&gt;He always motivated me to go the extra mile !&lt;br /&gt;
+And he could destroy a day of hard work in a few sentences … :)&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/bas-smile.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But afterwards he would always take the time to explain why, and how, I should do it to make my solution comply with the industry best practices.&lt;br /&gt;
+Being able to have someone who makes you self-reflect on the work you did and takes his time to give you proper feedback.
+That is the biggest asset to provide to a junior programmer.&lt;/p&gt;
+
+&lt;p&gt;Also, a big thanks to Frederick Bousson &amp;amp; Ordina for the opportunity and resources provided.&lt;br /&gt;
+This really was a great project and I enjoyed every minute of it!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Govaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-govaerts/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-govaerts.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern Java developer&quot;, &quot;email&quot;=&gt;&quot;kevin.govaerts1@gmail.com&quot;, &quot;linkedin&quot;=&gt;&quot;kevingovaerts&quot;, &quot;bio&quot;=&gt;&quot;Kevin is an intern from Intec-Brussels who made a Raspberry Pi IoT project, focussing mainly on AWS-technologies, Spring and Angular.&quot;}</name><email>kevin.govaerts1@gmail.com</email></author><category term="Cloud" /><category term="IoT" /><category term="RPi" /><category term="AWS" /><category term="Serverless" /><category term="API Gateway" /><category term="S3" /><category term="Lambda" /><category term="Route 53" /><category term="CloudFront" /><category term="Greengrass" /><category term="Docker" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Scaling CSS with BEM</title><link href="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html" rel="alternate" type="text/html" title="Scaling CSS with BEM" /><published>2020-09-18T00:00:00+00:00</published><updated>2020-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem</id><content type="html" xml:base="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#what-is-bem&quot;&gt;What is BEM?&lt;/a&gt;&lt;/li&gt;
@@ -2291,284 +3147,4 @@ It certainly isn’t a fix-all model, but then what model is?
 If it works for your team use it. 
 If it kind of works for your team, tweak it. 
 If it doesn’t fit your team dynamic at all, go for something else. 
-There is potential here to be wielding for greater team results if used with common sense.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="architecture" /><category term="business architecture" /><category term="technical leadership" /><category term="leadership" /><summary type="html">Being triggered by a colleague to read a book called “The Five Dysfunctions of a Team”, as well as remembering it being referenced in a book I read earlier this year, titled “The Phoenix Project”, I set myself to tackling the 230 or so pages that make it up. The main body of the book is comprised of a story about a new CEO for a tech company that is brought in to reforge their current team of C-level managers into a coherent group with their noses pointing in the same direction. Very similar to the story style of the Phoenix Project, it is clear to see the heavy influence on its writer, Gene Kim in terms of spinning an interesting tale. It is a compelling story for those in the consultancy business, and the patterns are easily detectable in a large number of companies. And while the last chapter of the book does offer some techniques for remedying this phenomenon, it does not do a deep dive into a methodology that approach it. There are additional books by the same author that go deeper into detail, such as “Overcoming the Five Dysfunctions of a Team”.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-07-08-Book-Five-Dysfunctions/bookreview.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-07-08-Book-Five-Dysfunctions/bookreview.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud</title><link href="https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html" rel="alternate" type="text/html" title="Enabling User Feedback with WebSockets on RabbitMQ and Spring Cloud" /><published>2020-06-30T00:00:00+00:00</published><updated>2020-06-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets</id><content type="html" xml:base="https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html">&lt;h3 id=&quot;reading-time-7-minutes-and-31-seconds&quot;&gt;Reading time: 7 minutes and 31 seconds&lt;/h3&gt;
-
-&lt;p&gt;When working with event-driven applications, you tend to see this on the screen:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;We are processing your request and will notify you when it was treated successfully.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Let’s chop the sentence down into processing the request…
-This means that the server is processing your request, but the client is not sure if it was entirely successful because it got transformed into an event and published on a queue never to be seen again (fire and forget).&lt;br /&gt;
-The client wonders what has happened and needs a way to give his users the state of the request.&lt;br /&gt;
-The next statement tells the user it will notify him/her when the request was successful.&lt;br /&gt;
-This part can get complex because you want to give a rapid response as soon as possible.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The first thing that comes to mind is, can our client not poll the state of the data from the table until it’s ready?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;When our client receives a high amount of load, and it’s polling the database for the state of the data, it can put the database under unnecessary stress.&lt;br /&gt;
-Since polling is a periodically check, it is not real-time, and we want to bring feedback to our users as soon as possible.&lt;br /&gt;
-To let your client behave in real-time, we need push events.&lt;br /&gt;
-Push events can be enabled by the concept of WebSockets, this bilateral communication connects the server and the client in an open connection with each other.&lt;br /&gt;
-This tech post will explain how we enabled push events with RabbitMQ, MQTT, and Spring Cloud Stream.&lt;/p&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#websockets-for-communication&quot;&gt;WebSockets for communication&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#spinning-up-a-rabbitmq&quot;&gt;Spinning up a RabbitMQ&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#subscribing-with-a-javascript-client&quot;&gt;Subscribing with a JavaScript client&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#publishing-events-with-spring-cloud-stream&quot;&gt;Publishing events with Spring Cloud Stream&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#result&quot;&gt;Result&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;websockets-for-communication&quot;&gt;WebSockets for communication&lt;/h2&gt;
-&lt;p&gt;We chose WebSockets because it provides a bilateral open connection between the client and the server.&lt;br /&gt;
-Because handling data becomes complex over TCP and requires hard work to do it yourself, WebSockets offer support for subprotocols.&lt;br /&gt;
-These solutions offer us easy ways to transmit data over the wire. &lt;br /&gt;
-First, let’s talk about opening a WebSocket connection.&lt;br /&gt;
-To establish one, we need the client to send a WebSocket handshake request, for which the server returns a WebSocket handshake response.&lt;/p&gt;
-
-&lt;p&gt;The handshake starts with an HTTP request/response.&lt;br /&gt;
-Once the connection is established, communication switches to a bidirectional binary protocol which does not conform to the HTTP protocol. 
-The switch happens with the &lt;a href=&quot;https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HTTP Upgrade Negotiation&lt;/a&gt;, this header allows us to tell the server to switch to the protocol the client desires and open up two-way communication between a client and server.&lt;/p&gt;
-
-&lt;p&gt;At a minimum, a successful WebSocket handshake must contain the protocol version, and an auto-generated challenge value sent by the client, followed by a 101 HTTP response code (Switching Protocols) from the server with a hashed challenge-response to confirm the selected protocol version:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Client must send &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Version&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Key&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Server must confirm the protocol by returning &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Accept&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Client may send a list of application subprotocols via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Protocol&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Server must select one of the advertised subprotocols and return it via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Protocol&lt;/code&gt;. If the server does not support any, then the connection is aborted.&lt;/li&gt;
-  &lt;li&gt;Client may send a list of protocol extensions in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Extensions&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Server may confirm one or more selected extensions via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-WebSocket-Extensions&lt;/code&gt;. If no extensions are provided, then the connection proceeds without them.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;choosing-a-subprotocol&quot;&gt;Choosing a subprotocol&lt;/h3&gt;
-&lt;p&gt;When I was searching for a suitable subprotocol for handling the data, I first experimented with &lt;a href=&quot;https://stomp.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;STOMP&lt;/a&gt;.&lt;br /&gt;
-STOMP has a rich messaging mechanism for handling data and great support for &lt;a href=&quot;https://docs.spring.io/spring-integration/reference/html/stomp.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring&lt;/a&gt; and &lt;a href=&quot;https://www.rabbitmq.com/stomp.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RabbitMQ&lt;/a&gt;.&lt;br /&gt;
-I stumbled against an issue with our API gateway.
-To do a security scan, the API gateway had to parse it to XML, which didn’t go well with the UTF-8 text-based messages of STOMP.&lt;br /&gt;
-Some further research brought us to our next candidate: MQTT.&lt;br /&gt;
-MQTT, designed as an extremely lightweight pub/sub messaging transport for IoT and mobile devices, could offer us a way to enable WebSockets.&lt;/p&gt;
-
-&lt;p&gt;When experimenting, I stumbled on support with &lt;a href=&quot;https://www.rabbitmq.com/mqtt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RabbitMQ MQTT plugin&lt;/a&gt; and &lt;a href=&quot;https://www.rabbitmq.com/web-mqtt.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RabbitMQ Web MQTT plugin&lt;/a&gt;.
-In MQTT over WebSockets, the MQTT messages are transferred over the network and encapsulated by one or more WebSocket frames.&lt;br /&gt;
-To communicate with an MQTT broker over WebSockets, the broker must be able to handle native WebSockets.&lt;br /&gt;
-To provide such support, we decided to use our own managed RabbitMQ.
-The plugin enables the possibility to use MQTT over a WebSocket connection.&lt;br /&gt;
-To enable this easily in your broker, you just enable an internal plugin from RabbitMQ itself.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rabbitmq-plugins &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;rabbitmq_web_mqtt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;spinning-up-a-rabbitmq&quot;&gt;Spinning up a RabbitMQ&lt;/h2&gt;
-&lt;p&gt;To try it out you can just run RabbitMQ in a Docker container.&lt;br /&gt;
-Define the commands in a Dockerfile and off you go!&lt;/p&gt;
-
-&lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; rabbitmq:3.7-management&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;rabbitmq-plugins &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--offline&lt;/span&gt; rabbitmq_web_mqtt
-&lt;span class=&quot;k&quot;&gt;EXPOSE&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; 4369 5671 5672 25672 15671 15672 15675 1883&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;configuration&quot;&gt;Configuration&lt;/h3&gt;
-&lt;p&gt;When accessing RabbitMQ via MQTT, credentials have to be given to authenticate yourself.&lt;br /&gt;
-Because we will be accessing it from a JS client, we do not want to expose our credentials to our client because it can be exploited.&lt;br /&gt;
-To avoid giving credentials, MQTT supports us to connect anonymously.&lt;/p&gt;
-
-&lt;p&gt;Add these to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rabbitmq.config file&lt;/code&gt;, and you’re good to go:&lt;/p&gt;
-
-&lt;div class=&quot;language-properties highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;py&quot;&gt;mqtt.default_user&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$RABBITMQ_DEFAULT_USER  &lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;mqtt.default_pass&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;$RABBITMQ_DEFAULT_PASS  &lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;mqtt.allow_anonymous&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true  &lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;subscribing-with-a-javascript-client&quot;&gt;Subscribing with a JavaScript client&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.eclipse.org/paho/clients/js/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Eclipse&lt;/a&gt; offers us a JavaScript client library to use for opening a WebSocket over MQTT.&lt;/p&gt;
-
-&lt;p&gt;With some basic setup, we can fix ourselves a quick WebSocket to the Rabbit to test the handshake.&lt;br /&gt;
-As the JavaScript client, we will be subscribing to a queue and listen for any notifications from the backend. &lt;br /&gt;
-To configure our client, we need to know what properties we need.&lt;br /&gt;
-A list of properties can be found in the &lt;a href=&quot;https://www.eclipse.org/paho/files/jsdoc/Paho.MQTT.Client.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt;.&lt;br /&gt;
-The most important ones are enabling SSL and using the keep-alive period as described above.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wsbroker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;{rabbitmq_hostname/ws}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wsport&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;443&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// port for above&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// you can use randomizer to be unique &quot;myclientid_&quot; + parseInt(Math.random() * 100, 10));&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Paho&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MQTT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsbroker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsport&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?access_token={token}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;{client}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
-    
-&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onConnectionLost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;responseObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;CONNECTION LOST - &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;responseObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;errorMessage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onMessageArrived&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;RECEIVE ON &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;destinationName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; PAYLOAD &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;payloadString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-  
-  
-&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;useSSL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;onSuccess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;CONNECTION SUCCESS&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subscribe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;qos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;onFailure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;debug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;CONNECTION FAILURE - &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;errorMessage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h3 id=&quot;keeping-the-heartbeat-alive&quot;&gt;Keeping the heartbeat alive&lt;/h3&gt;
-&lt;p&gt;At any point after the handshake, either the client or the server can choose to send a ping to the other party.&lt;br /&gt;
-When the ping is received, the recipient must send back a pong as soon as possible.&lt;br /&gt;
-You can use this to make sure the client is still connected.&lt;br /&gt;
-A best practice is to set the heartbeat between 20-30 seconds, see &lt;a href=&quot;https://tools.ietf.org/html/rfc6202#page-13&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://tools.ietf.org/html/rfc6202#page-13&lt;/a&gt;.
-The client sends a ping every 10 seconds, and the server waits 10 seconds to send back a pong.&lt;/p&gt;
-
-&lt;h4 id=&quot;mqtt-keep-alive-period&quot;&gt;MQTT keep-alive period&lt;/h4&gt;
-&lt;p&gt;The keep-alive period is the answer from the MQTT protocol to the WebSocket heartbeat.&lt;br /&gt;
-The keep-alive is a time interval measured in seconds.
-It is the maximum time interval that is permitted to elapse between the point at which the client finishes transmitting one control package and the point it starts sending the next.&lt;br /&gt;
-It is the responsibility of the client to ensure the interval between the control packets being sent does not exceed the keep-alive value.&lt;br /&gt;
-The client can send a ping at any time, irrespective of the keep-alive value, and use the pong to determine that the network and the server are working.&lt;/p&gt;
-
-&lt;p&gt;To configure the keep-alive period, the client can add the property to enable the feature.&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;keepAliveInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h3 id=&quot;tls-over-websockets&quot;&gt;TLS over WebSockets&lt;/h3&gt;
-&lt;p&gt;To achieve a secure connection, we need to enable TLS.&lt;br /&gt;
-Like HTTP, WebSockets supports TLS with using the prefix &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wss://&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ws://&lt;/code&gt; and port &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;443&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;80&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The client can enable TLS by adding a property.&lt;/p&gt;
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;useSSL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h3 id=&quot;authorization-token&quot;&gt;Authorization token&lt;/h3&gt;
-&lt;p&gt;The best practice for securing your resources is to propagate your token via the query parameter.&lt;br /&gt;
-If you are targeting a backend, the backend can handle this token but for this use-case, we need a reverse proxy/API gateway to validate this token for us.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Paho&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MQTT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsbroker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wsport&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;?access_token={token}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;{client}&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;clean-session&quot;&gt;Clean Session&lt;/h3&gt;
-&lt;p&gt;Clean session in the MQTT protocol means that if turned on, the server does not know on what topic the client has subscribed to.&lt;br /&gt;
-When turned off, the client just needs to reconnect to its session that is stored on the server.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Default is true&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;quality-of-service&quot;&gt;Quality Of Service&lt;/h3&gt;
-&lt;p&gt;In combination with the clean session property set to false, the QoS makes your messages durable.&lt;br /&gt;
-When the client is offline, the server holds these messages until the client reconnects.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Default is 0&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;mqtt-client&quot;&gt;MQTT Client&lt;/h3&gt;
-&lt;p&gt;When opening the WebSocket on RabbitMQ, the broker will create a new queue on the default topic &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amq.topic&lt;/code&gt; with a routingKey as the subscriber endpoint.&lt;/p&gt;
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/sockets/mqttclient.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;publishing-events-with-spring-cloud-stream&quot;&gt;Publishing Events with Spring Cloud Stream&lt;/h2&gt;
-&lt;p&gt;So now we have our RabbitMQ up with the enabled plugin for MQTT over WebSockets, Spring Cloud Stream offers an abstraction for messaging with RabbitMQ as a binder.&lt;br /&gt;
-Because RabbitMQ is our MQTT broker, we do not need any special configuration to handle MQTT messages. 
-You can just set up a Spring Boot application with the &lt;a href=&quot;Spring Initialzr&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://start.spring.io&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;We start by adding both the dependency for Spring Cloud Stream and the binder of choice.&lt;br /&gt;
-This indicates that auto-configuration and abstraction are done for RabbitMQ.&lt;/p&gt;
-
-&lt;h3 id=&quot;dependencies&quot;&gt;Dependencies&lt;/h3&gt;
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.cloud&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-cloud-stream&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.cloud&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
- &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-cloud-starter-stream-rabbit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;message-channel&quot;&gt;Message Channel&lt;/h3&gt;
-&lt;p&gt;Following up, we need a channel to publish our messages on, so we create an interface to define our channels.&lt;br /&gt;
-You can have two kinds of channels, one for everyone (broadcast) or one-to-one (private).&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserFeedbackChannel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NOTIFICATION_EVERYONE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;globalNotificationChannel&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NOTIFICATION_USER&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;specificNotificationChannel&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NOTIFICATION_EVERYONE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;MessageChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;globalNotificationChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NOTIFICATION_USER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;MessageChannel&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To let Spring know it is a custom channel, we need to annotate our configuration class with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@EnableBinding({UserFeedbackChannel.class})&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;configuration-1&quot;&gt;Configuration&lt;/h3&gt;
-&lt;p&gt;With RabbitMQ, some custom configuration needs to be taken care of.&lt;br /&gt;
-Since MQTT takes the topic &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amq.topic&lt;/code&gt; as default, we need to target this as our destination for our messages.&lt;br /&gt;
-The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;routingKeyExpression&lt;/code&gt; enables us to broadcast or privately send the message.&lt;br /&gt;
-The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;headers.routingKey&lt;/code&gt; is bound to the user we want to message to.&lt;br /&gt;
-Our pojo event consists of audit fields that we know of whom the message belongs to.&lt;br /&gt;
-This way, we can give feedback to the user who did the transaction.&lt;br /&gt;
-If the header is filled with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;events&lt;/code&gt;, it broadcasts the message.&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;notifications&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;bindings&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;globalNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;destination&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;amq.topic&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;destination&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;amq.topic&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;rabbit&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;bindings&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;globalNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;routingKeyExpression&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;events'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;declareExchange&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
-          &lt;span class=&quot;na&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;producer&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;routingKeyExpression&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;headers.routingKey&lt;/span&gt;
-              &lt;span class=&quot;na&quot;&gt;declareExchange&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;publisher&quot;&gt;Publisher&lt;/h3&gt;
-&lt;p&gt;Create the pojo you need, so we can start publishing!&lt;br /&gt;
-Be aware, before pushing the pojo, it needs to be converted to a String for MQTT to understand the format.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NotificationSocketPublisher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserFeedbackChannel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ObjectMapper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NotificationSocketPublisher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;UserFeedbackChannel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ObjectMapper&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;channel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;objectMapper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;objectMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sendPrivateNotificationToUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NotificationSocketEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;convertToString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;notification&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MessageBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;routingKey&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;events.&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCreatedBy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());;&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;specificNotificationChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notification&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
-&lt;p&gt;When the JS client, RabbitMQ, and Spring Cloud backend are running, you can try ìt out by triggering messages from the backend onto the RabbitMQ.&lt;br /&gt;
-This will result in communication to the correct subscriber.&lt;br /&gt;
-The JS subscriber will interpret these messages and parse readable content from it.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/sockets/messages.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van Houtte&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-houtte/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-houtte.jpg&quot;, &quot;twitter&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;linkedin&quot;=&gt;&quot;kevin-van-houtte-55ba936a&quot;, &quot;github&quot;=&gt;&quot;KevinVHoutte&quot;, &quot;title&quot;=&gt;&quot;Software Consultant Java&quot;, &quot;email&quot;=&gt;&quot;kevin.vanhoutte@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin Van Houtte is a Software Engineer at Ordina Belgium. Passionate in the Spring ecosystem, Kevin is eager to discover new and efficient ways to solve problems. He enjoys a good challenge and is interested in cutting edge technologies. Kevin has a strong focus on building cloud native architectures with the right mindset on security and API design.&quot;}</name><email>kevin.vanhoutte@ordina.be</email></author><category term="Event-Driven" /><category term="spring" /><category term="queue" /><category term="integration" /><category term="websockets" /><category term="event-driven" /><category term="cloud" /><summary type="html">Reading time: 7 minutes and 31 seconds</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/sockets/feedback.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+There is potential here to be wielding for greater team results if used with common sense.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="architecture" /><category term="business architecture" /><category term="technical leadership" /><category term="leadership" /><summary type="html">Being triggered by a colleague to read a book called “The Five Dysfunctions of a Team”, as well as remembering it being referenced in a book I read earlier this year, titled “The Phoenix Project”, I set myself to tackling the 230 or so pages that make it up. The main body of the book is comprised of a story about a new CEO for a tech company that is brought in to reforge their current team of C-level managers into a coherent group with their noses pointing in the same direction. Very similar to the story style of the Phoenix Project, it is clear to see the heavy influence on its writer, Gene Kim in terms of spinning an interesting tale. It is a compelling story for those in the consultancy business, and the patterns are easily detectable in a large number of companies. And while the last chapter of the book does offer some techniques for remedying this phenomenon, it does not do a deep dive into a methodology that approach it. There are additional books by the same author that go deeper into detail, such as “Overcoming the Five Dysfunctions of a Team”.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-07-08-Book-Five-Dysfunctions/bookreview.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-07-08-Book-Five-Dysfunctions/bookreview.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
