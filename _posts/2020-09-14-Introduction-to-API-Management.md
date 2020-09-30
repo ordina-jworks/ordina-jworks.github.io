@@ -102,22 +102,22 @@ I listed out the most important responsibilities for you, so that you can unders
     * Requests matching the regular expression but made outside the specified time period will receive an error code.
     This is used to allow access to an API only during certain times.    
 6.  Quota’s 
-        * Rate limiting
-        Enforces rate configurable request rate limits on an API.
-        If your API becomes overloaded, its performance will suffer and this will impact all customers.
-        Rate limiting (also called throttling) ensures that a single user cannot intentionally or unintentionally overwhelm an API with too many requests.
-        In case throttling kicks in, the user will receive an response status code 429 (meaning "Too Many Requests").
-        A Retry-After header might be included to this response indicating how long to wait before making a new request will work again.
-        * Transfer Quota
-        Provides a way to limit the total number of bytes that can be transferred from (or to) an API.
+    * Rate limiting
+    	* Enforces rate configurable request rate limits on an API.
+    	If your API becomes overloaded, its performance will suffer and this will impact all customers.
+    	Rate limiting (also called throttling) ensures that a single user cannot intentionally or unintentionally overwhelm an API with too many requests.
+    	In case throttling kicks in, the user will receive an response status code 429 (meaning "Too Many Requests").
+    	A Retry-After header might be included to this response indicating how long to wait before making a new request will work again.
+    * Transfer Quota
+    	* Provides a way to limit the total number of bytes that can be transferred from (or to) an API.
 7.  URL Rewriting 
     * Responses from the back-end API can be modified by fixing up any incorrect URLs found with modified ones.
     In some cases an API might return URLs to followup action or data endpoints. In these cases the back-end API will likely be configured to return a URL pointing to the unmanaged API endpoint. This policy can fix up those URL references so that they point to the managed API endpoint (the API Gateway endpoint) instead. 
 8.  Transformation
-    Transformation enables to convert an API format between for example from JSON and XML. 
+    * Transformation enables to convert an API format between for example from JSON and XML. 
     If an API is implemented to return XML, but a client would prefer to receive JSON data, this policy can be used to automatically convert both the request and response bodies. In this way, the client can work with JSON data even though the back-end API requires XML.
 9.  Monitoring
-    Some tools let you visualize, query, route, archive, and take actions on the metrics or logs like for example the Azure API management tool.
+    * Some tools let you visualize, query, route, archive, and take actions on the metrics or logs like for example the Azure API management tool.
     Others just foresee a basic around metrics or include a thirth party tool like elasticsearch to do the job.
     
 A lot more can be added or customized, depending on the tool of course. There is a wide range of products available, so please refer to the product list below if you want to know the ones used currently.
@@ -129,7 +129,7 @@ I mostly focused on the Open source tools like Apiman, Kong API Gateway, WSO2 AP
 As you might figured out by yourself already, if this API Gateway is placed before all you’re API’s it creates a SPOF (Single point of Failure). 
 There are other ways to handle that like setting up multiple API gateways for different endpoints, but that also creates more overhead.
     
-<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.JPG" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 If in this example the Web app API Gateway gets stuck for any reason at all, the client is still able to connect to the other Gateways and request for the data he/she needs.
 Which solution to choose, is of course depending on your preferences.
