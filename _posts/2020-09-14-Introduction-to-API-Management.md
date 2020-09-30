@@ -126,7 +126,7 @@ I mostly focused on the Open source tools like Apiman, Kong API Gateway, WSO2 AP
 
 
 ### Challenges
-As you might figured out by yourself already, if this API Gateway is placed before all you’re API’s it creates a SPOF (Single point of Failure). 
+As you might wondering already, if this API Gateway is placed before all you’re API’s it creates a SPOF (Single point of Failure). 
 There are other ways to handle that like setting up multiple API gateways for different endpoints, but that also creates more overhead.
     
 <img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.JPG" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
