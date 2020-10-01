@@ -56,14 +56,12 @@ Before going into the details, let’s take a look on how most of the current AP
 Without an API manager, your APIs will be the direct integration point to the business domain data.
 Any integration of for example security, needs to be implemented in your API. This sometimes leads to duplicate code and the fact that your API is not only responsible for exposing the Data, but also for implementing other cross cutting functionalities.
 	     
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool2.jpg" alt="API landscape without an API management tool" width="350" height="200" class="image fit">-->
-<img src="WithoutApiManagementTool2.jpg" alt="API landscape without an API management tool" width="350" height="200" class="image fit">
+<img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool2.jpg" alt="API landscape without an API management tool" width="350" height="200" class="image fit">
 
 ### API landscape with an API management tool
 This changes when we rely on an API Management tool.
 
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool2.jpg" alt="API landscape with an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>-->
-<img src="WithApiManagementTool2.jpg" alt="API landscape with an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>        
+<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool2.jpg" alt="API landscape with an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>       
 
 In this situation an API management tool is deployed between the client and the APIs.
 All request first have to pass the API management tool, before they are forwarded to the right service.
@@ -135,8 +133,7 @@ As you might wonder already, if this API Gateway is placed before all your APIs 
 There are ways to handle that like setting up multiple API gateways for different endpoints or clustering your API gateways.
 
 #### Multiple API gateways configured
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.JPG" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
-<img src="MultipleAPIGateways2.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.JPG" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 In this example you can see that 2 different Gateways are created to separate mobile from other request. The endpoint of the mobile gateway will in this case be different from the Web gateway.
 If for any reason at all the Mobile API Gateway gets stuck, the client will still be able to connect to the other Gateway and request for the data he/she needs.
@@ -150,8 +147,7 @@ Most products do recommend or even require to setup a Load balancer before the A
 Other products require to scale additional tools like for example Elasticsearch.
 Another advantage of this solution is that the client always points to the same endpoint.
 
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/HA-Gateways.JPG" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
-<img src="HA-Gateways.JPG" alt="High Availability API Gateways" width="600" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<img src="/img/2020-09-14-Introduction-to-API-Management/HA-Gateways.JPG" alt="API landscape without an API management tool" width="600" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 This solution would be the most secure way of implementing an API gateway, ensuring that your services are available 24/7.
 Which solution to go for, is of course depending on your preferences and the level of availability that needs to be guaranteed.
@@ -195,8 +191,7 @@ Once it got installed, I started to play around with it.
 It has some pre-configured settings which makes it easy.
 There is a lot of documentation available, and it’s open source so everything is available on the web.
 
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
-<img src="APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 After I was able to run Apiman, I searched on how to set it up.
 I'm not going in to much dept of Apiman settings, but very important was that everything in Apiman starts with the Organization. 
@@ -206,13 +201,11 @@ A service contract is simply a link between an application and a service through
 When a service contract is created, the system generates a unique API key specific to that contract. 
 All requests made to the service through the API Gateway must include this API key.
 
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
-<img src="APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 Setting up an organization (OrgHome) and creating services.
 
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
-<img src="APIMAN-Organization-API.jpg" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 You can mark the service public, so that everyone can access it, or you can create a Client App and generate a required key via a plan.
 in this example, I created a 'SearchCustomers' client app, where the client needs to use the API-Key in the request to get the response back from our service.
@@ -220,8 +213,7 @@ Our service didn't implement any security or authority for this.
 Apiman will take the responsibility of implementing this.
 Only if the client uses the right endpoint with the correct API-key, Apiman will retrieve the requested data from our backend service and send the response back to the client.
  
-<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
-<img src="APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
+<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 As last I wanted to be sure that we can use the tool in an automated way, so I tried to use the Apiman REST API to create new organizations, plans and services.
 I had some struggles to make it work, but eventually I was able to create everything needed.
