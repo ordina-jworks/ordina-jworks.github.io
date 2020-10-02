@@ -27,7 +27,7 @@ comments: true
     * [Hands-on](#Hands-on)
         * [Installation](#Installation)
         * [Setup](#Setup)
-        * [Automation](#Hands-on)
+        * [Automation](#Automation)
     * [Conclusion](#Conclusion)
 
 
