@@ -27,7 +27,7 @@ comments: true
     * [Hands-on](#Hands-on)
         * [Installation](#Installation)
         * [Setup](#Setup)
-        * [Automation](#Automation)
+        * [Automation](#Hands-on)
     * [Conclusion](#Conclusion)
 
 
@@ -59,16 +59,15 @@ An API gateway is actually a middleware that is placed in front of your services
 Before going into the details, let’s take a look on how most of the current API landscapes are build and how we can improve those with an API management tool.  
 Without an API manager, your APIs will be the direct integration point to the business domain data.
 Any integration of for example security, needs to be implemented in your API. This sometimes leads to duplicate code and the fact that your API is not only responsible for exposing the Data, but also for implementing other cross cutting functionalities.
-
-![image](WithoutApiManagementTool2.jpg){: alt="API landscape without an API management tool" width="350" height="200" class="image fit"}
-<!--![image](/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool2.jpg){: alt="API landscape without an API management tool" width="350" height="200" class="image fit"}-->
-
+	     
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool2.jpg" alt="API landscape without an API management tool" width="350" height="200" class="image fit">-->
+<img src="WithoutApiManagementTool2.jpg" alt="API landscape without an API management tool" width="350" height="200" class="image fit">
 
 ### API landscape with an API management tool
 This all changes when we implement an API Management tool.
 
-![image](WithApiManagementTool2.jpg){: alt="API landscape with an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"}
-<!--![image](/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool2.jpg){: alt="API landscape with an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"}-->
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/WithApiManagementTool2.jpg" alt="API landscape with an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>-->
+<img src="WithApiManagementTool2.jpg" alt="API landscape with an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"/>        
 
 In this situation an API management tool (API Gateway) is deployed between the client and the APIs.
 All request first have to pass the API management tool, before they are forwarded to the right service.
@@ -146,8 +145,8 @@ As you might notice in previous example, if an API Gateway is placed before all 
 There are ways to handle that like setting up multiple API gateways for different endpoints or clustering your API gateways.
 
 #### Multiple API gateways configured
-![image](MultipleAPIGateways2.jpg){: alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"}
-<!--![image](/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.JPG){: alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"}-->
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.JPG" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="MultipleAPIGateways2.jpg" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 In this example you can see that 2 different Gateways are created to separate mobile from other request. The endpoint of the mobile gateway will in this case be different from the Web gateway.
 If for any reason at all the Mobile API Gateway gets stuck, the client will still be able to connect to the other Gateway and request for the data he/she needs.
@@ -161,8 +160,8 @@ Most products do recommend or even require to setup a Load balancer in front of 
 Some other products require to scale additional tools like for example Elasticsearch.  
 An advantage of this solution is that the client always points to the same endpoint.
 
-![image](HA-Gateways.JPG){: alt="High Availability API Gateways" width="600" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"}
-<!--![image](/img/2020-09-14-Introduction-to-API-Management/HA-Gateways.JPG){: alt="High Availability API Gateways" width="600" height="350" class="image fit" style="vertical-align:middle;margin-left:2%"}-->
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/HA-Gateways.JPG" alt="API landscape without an API management tool" width="600" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="HA-Gateways.JPG" alt="High Availability API Gateways" width="600" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 This solution would be the most secure way of implementing an API gateway, ensuring that your services are available 24/7.  
 Which solution to go for, is of course depending on your preferences and the level of availability that needs to be guaranteed.
@@ -172,7 +171,9 @@ Which solution to go for, is of course depending on your preferences and the lev
 I referred to the Gartner magic quadrant to get the list of most common API management tools currently on the market.
 You can find them here in alphabetical order.
 
-![image](GartnerMagicQuadrant.JPG){: alt="Gartner Magic Quadrant" width="400" height="400" class="image fit" style="float:right    ;horzontal-align:middle;margin-left:2%;margin-right:50%;vertical-align:right"} <!--;overflow: hidden}-->
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/GartnerMagicQuadrant.JPG" alt="Gartner Magic Quadrant" width="400" height="400" class="image fit" style="float: right    ;horzontal-align:middle;margin-left:2%;margin-right:50%;vertical-align:right" />-->
+<img src="GartnerMagicQuadrant.JPG" alt="Gartner Magic Quadrant" width="400" height="400" class="image fit" style="float: right    ;horzontal-align:middle;margin-left:2%;margin-right:50%;vertical-align:right" />
+
 
 * Red Hat 3 Scale 
 * Akamai API Gateway  
@@ -213,8 +214,8 @@ The latest version of Apiman can be found <a href="http://www.apiman.io" target=
 
 Once installed, I started to play around with it.  
 
-![image](APIMAN_Login.PNG){: alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%"}
-<!--![image](/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG){: alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%"}-->
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 ### Setup
 I did some research on how to set it up, and on the key aspects of Apiman.  
@@ -227,13 +228,13 @@ When a service contract is created, the system generates a unique API key specif
 All requests made to the service through the API Gateway must include this API key.  
 
 Apiman start Screen.  
-![image](APIMAN_Indexpage.PNG){: alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%"}
-<!--![image](/img/2020-09-14-Introduction-to-API-Management/APIMAN_Indexpage.PNG){: alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%"}-->
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN_Indexpage.PNG" alt="APIMAN start screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 Setting up an organization (OrgHome) and creating services.
 
-![image](APIMAN-Organization-API.jpg){: alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%"}
-<!--![image](APIMAN-Organization-API.jpg){: alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%"}-->
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN-Organization-API.jpg" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 In this example you can see a Customer API which fetches Customer information from a Spring Boot application running in IntelliJ.  
 Every service can be marked public, so that everyone can access it, or you can for example secure it by creating a Client App and generate a required key via a plan.   
@@ -241,9 +242,9 @@ In next screen you can see that I created a 'SearchCustomers' client app, where 
 Our service (Spring Boot application) didn't implement any security or authority for this.
 Apiman will take the responsibility of implementing this.
 Only if the client uses the right endpoint with the correct API-key, Apiman will retrieve the requested data from our backend service and send the response back to the client.
-
-![image](APIMAN_ClientApps-APIKey.PNG){: alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%"}
-<!--![image](/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG){: alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%"}--> 
+ 
+<!--<img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />-->
+<img src="APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 ### Automation
 
@@ -269,7 +270,7 @@ This tool makes it easy to add additional policies to different backend services
 If you are still not convinced, take the time to try out a few. 
 For example, Apiman has some prebuild versions that you can download and use immediately.  
 Even if you only have a few API’s running in your organization, you probably will benefit from using such a tool to manage your Security, Routing, or other Policies you want to implement.  
-With an API management tool you can make sure that all your APIs just do what they need to do (sharing business related data), and that the API management tool takes care of the other cross cutting functionalities where required.  
+With an API management tool you can make sure that all your APIs just do what they need to do (sharing business related data), and that the API management tool takes care of the other cross cutting functionalities where it is required.  
   
   
   
