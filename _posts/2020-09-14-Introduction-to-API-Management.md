@@ -167,46 +167,35 @@ Which solution to go for, is of course depending on your preferences and the lev
 I referred to the Gartner magic quadrant to get the list of most common API management tools currently on the market.
 You can find most of them here in alphabetical order.
 
-<table class="noborder">
-<colgroup>
-<col width="30%" />
-<col width="70%" />
-</colgroup>
-<tbody class="noborder">
-<tr class="noborder">
-<td markdown="span" class="noborder">
- * Red Hat 3 Scale  
-<br/> * Akamai API Gateway  
-<br/> * Akana API Management
-<br/> * API Man (open source)
-<br/> * Apigee API Management
-<br/> * AWS API Gateway
-<br/> * Axway - AMPLIFY API Management
-<br/> * Azure API Gateway
-<br/> * Boomi
-<br/> * Broadcom
-<br/> * CA API Gateway
-<br/> * Express API Gateway (open source)
-<br/> * Fusio API Management (open source)
-<br/> * IBM API Connect
-<br/> * Kong API Gateway (open source)
-<br/> * Loopback API Framework (open source)
-<br/> * MuleSoft Anypoint API Management
-<br/> * Oracle API Manager
-<br/> * SAP API Manager
-<br/> * Sensedia API Management Platform
-<br/> * Sentinet 
-<br/> * Software AG API Gateway
-<br/> * TIBCO Mashery
-<br/> * Tyk API Gateway (open source)
-<br/> * WSO2 API Manager (open source)
-</td>
-<td markdown="span" align="center" valign="top" class="noborder">
-<img src="/img/2020-09-14-Introduction-to-API-Management/GartnerMagicQuadrant.JPG" alt="Gartner Magic Quadrant" width="400" height="400" class="image fit" style="float: right    ;horzontal-align:middle;margin-left:2%;margin-right:50%;vertical-align:right" />
-</td>
-</tr>
-</tbody>
-</table>
+<img src="/img/2020-09-14-Introduction-to-API-Management/GartnerMagicQuadrant.JPG" alt="Gartner Magic Quadrant" width="400" height="400" class="image fit" style="float:right    ;horzontal-align:middle;margin-left:2%;margin-right:50%;vertical-align:right" />
+
+* Red Hat 3 Scale 
+* Akamai API Gateway  
+* Akana API Management
+* API Man (open source)
+* Apigee API Management
+* AWS API Gateway
+* Axway - AMPLIFY API Management
+* Azure API Gateway
+* Boomi
+* Broadcom
+* CA API Gateway
+* Express API Gateway (open source)
+* Fusio API Management (open source)
+* IBM API Connect
+* Kong API Gateway (open source)
+* Loopback API Framework (open source)
+* MuleSoft Anypoint API Management
+* Oracle API Manager
+* SAP API Manager
+* Sensedia API Management Platform
+* Sentinet 
+* Software AG API Gateway
+* TIBCO Mashery
+* Tyk API Gateway (open source)
+* WSO2 API Manager (open source)
+
+
 
 ## Hands-on
 ### Installation
