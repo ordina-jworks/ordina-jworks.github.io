@@ -294,8 +294,8 @@ Before, you could wrap your database response in `Flux` and `Mono` wrappers as s
 ### R2DBC: 2 steps forward 1 step back
 
 Not until very recently (December 2019), `spring-data-r2dbc` dependency got released. It basically is JDBC's reactive counterpart. 
-R2DBC stands for **Reactive Relational DataBase Connectivity**. This does not support ORM (Object-Relational Mapping) at the moment of writing. 
-For now, it is not yet capable of mapping relations (eg: `@OneToMany`, `@ManyToOne`, etc). 
+R2DBC stands for **Reactive Relational DataBase Connectivity**. This does not offer a lot of features of ORM (Object-Relational Mapping) frameworks at the moment of writing. 
+For now, it is not yet capable of mapping relations (eg: `@OneToMany`, `@ManyToOne`, ...), lazy loading, etc. 
 You would have to manage this yourself. However, with this connector, we can query data as streams.
 
 ## End-to-end Reactive example
@@ -335,7 +335,7 @@ We add the following dependencies.
 ```
 
 We configure the database connection and enable R2DBC. The `ConnectionFactory` comes from the package `io.r2dbc.spi`. 
-Since we are connecting to a MySQL database, we enter `mysql` as the Driver.
+Since we are connecting to a MySQL database, we enter `mysql` as the Driver. This will create the following connection url `r2dbc:mysql://root:password@127.0.0.1/recipe`.
 
 ```java
 import io.r2dbc.spi.ConnectionFactories;
@@ -552,4 +552,5 @@ To summarize, we have learned that `RestTemplate` is in maintenance mode and Spr
 `WebClient` offers the same synchronous way of working as `RestTemplate` does, but using functional programming. 
 Besides that, it also offers asynchronous reactive streams, which works in a non-blocking way. 
 
-We have looked into R2DBC, which supports reactive connections with relational databases. Bear in mind that this does not support ORM at the moment.
+We have looked into R2DBC, which supports reactive connections with relational databases. 
+Bear in mind that this does not offer a lot of features of ORM frameworks at the moment.
