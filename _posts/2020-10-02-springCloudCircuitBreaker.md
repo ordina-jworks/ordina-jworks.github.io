@@ -126,7 +126,5 @@ public Customizer<Resilience4JCircuitBreakerFactory> slowCustomizer() {
 } 
 ```
 
- 
 
-# Conclusion
 
