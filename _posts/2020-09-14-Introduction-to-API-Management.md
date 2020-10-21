@@ -247,8 +247,6 @@ The build in Apiman-UI is also build on these REST API, so anything you can do i
 More on this can be find in the <a href="http://www.apiman.io/latest/api-manager-restdocs.html" target="_blank" rel="noopener noreferrer">API-manager-restdocs</a>.
 
 One sidenote, the downloaded tomcat server does not come with integrated Keycloak server, so I was not able to add users via the REST API. If you're running the standalone WildFly server, this would be integrated by default.  
-I do was thinking to create a user database and let Apiman connect and check for the right credentials and user type.
-But eventually to save some time, I added the users directly in Apiman to test. This is not the preferred way in a production like environment, but it did the job for now.
 
 
 
