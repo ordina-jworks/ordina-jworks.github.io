@@ -253,7 +253,8 @@ One sidenote, the downloaded tomcat server does not come with integrated Keycloa
        
 ## Conclusion
 There are multiple reasons why you should consider implementing an API Management tool in your organization.
-Think about the benefits and segregation of duties/responsibilities of your API’s and the API management tool.  
+Think about the benefits and segregation of duties/responsibilities between your APIs and the API management tool.  
+
 You will be able to manage and control your APIs in one tool.
 You can implement and adjust security levels like Authentication and authorization in one place.  
 This tool makes it easy to add additional policies to different backend services. It can improve current latency problems and will improve the maintainability and scalability of your API landscape.  
