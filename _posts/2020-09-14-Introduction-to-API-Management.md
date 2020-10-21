@@ -50,9 +50,7 @@ That’s one of the reasons it is important for your business to implement such 
 ## Investigation
 
 ### API Management or API Gateway?
-API management and API gateway are used interchangeably.
-But is it now an API manager, API management tool, or API gateway?
-Let’s dive into the naming’s.  
+The terms API management and API gateway are often used interchangeably, which is not correct.
 An API management tool refers to the application or overall solution of managing APIs.
 This mostly indicates that they are talking about the application and its features.
 A management tool can include one or multiple API Gateways, depending on the solution needed in the organization.
