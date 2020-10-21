@@ -33,7 +33,8 @@ comments: true
 
 ## Problem description
 
-In our current digital world where everyone is creating API’s for exposing data internally and for external partners, we should look on how we can manage and control them.
+In our current digital world where everyone is creating APIs for exposing data internally and for external partners, we should look on how we can manage and control them.
+
 Most of us also know that we not only have to build the API, but we need to foresee additional responsibilities with it. Some that are just a necessary evil. Like for example Authorization, Authentication, or certain routing policies, etc.  
 Keeping an overview on all available API's can become a struggle these days.
 
