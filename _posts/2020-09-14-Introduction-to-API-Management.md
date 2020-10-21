@@ -38,7 +38,8 @@ Most of us also know that we not only have to build the API, but we need to fore
 Keeping an overview on all available API's can become a struggle these days.
 
         
-Well, instead of inventing the wheel over and over again, I searched for the best solution and found that an API Management tool can solve a lot of those problems and even add extra value within your landscape.
+Well, instead of trying to reinvent the wheel, I searched for the best solution and found that an API Management tool can solve a lot of those problems and add extra value within your landscape.
+
 This tool helps you in managing you APIs, setting the right responsibilities on the right level. 
 You can add plenty additional functionalities, but most of all this happens in one tool!
 That’s one of the reasons it is important for your business to implement such a tool in your organization.
