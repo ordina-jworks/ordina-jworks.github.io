@@ -263,7 +263,8 @@ For example, Apiman has some prebuilt versions that you can download and use imm
 
 Even if you only have a few APIs running in your organization, you probably will benefit from using such a tool to manage your security, routing, or other policies you want to implement.  
 
-With an API management tool you can make sure that all your APIs just do what they need to do (sharing business related data), and that the API management tool takes care of the other cross cutting functionalities where it is required.  
+With an API management tool you can make sure that all your APIs just do what they need to do (sharing business related data), and that the API management tool takes care of the other cross-cutting functionalities where it is required.  
+
   
   
   
