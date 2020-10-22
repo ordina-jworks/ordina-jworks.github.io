@@ -36,8 +36,10 @@ comments: true
 In our current digital world where everyone is creating APIs, we should look at how we can manage and control them.
 
 
-Most of us also know that we not only have to build the API, but we need to foresee additional responsibilities with it. Some that are just a necessary evil. Like for example Authorization, Authentication, or certain routing policies, etc.  
-Keeping an overview on all available API's can become a struggle these days.
+Most of us know that we not only have to build the API but foresee additional responsibilities. 
+Some are just a necessary evil, like adding cross-cutting concerns.  
+Keeping an overview of all available API's can become a struggle these days.
+
 
         
 Well, instead of trying to reinvent the wheel, I searched for the best solution and found that an API Management tool can solve a lot of those problems and add extra value within your landscape.
