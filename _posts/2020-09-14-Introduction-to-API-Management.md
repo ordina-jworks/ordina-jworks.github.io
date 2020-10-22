@@ -33,10 +33,10 @@ comments: true
 
 ## Problem description
 
-In our current digital world where everyone is creating APIs, we should look at how we can manage and control them.
+In our current digital world where everyone is creating APIs for exposing data internally and for external partners, we should look at how we can manage and control them.
 
 
-Most of us know that we not only have to build the API but foresee additional responsibilities. 
+Most of us know that in addition to building the API, we also need to provide additional responsibilities. 
 Some are just a necessary evil, like adding cross-cutting concerns.  
 Keeping an overview of all available API's can become a struggle these days.
 
@@ -47,7 +47,7 @@ Well, instead of trying to reinvent the wheel, I searched for the best solution 
 An API management tool helps you in managing your APIs, setting the responsibilities on the right level. 
 
 
-You can add plenty additional functionalities, but most of all this happens in one tool!
+You can add a lot of extra functionality and most importantly it can be implemented in one tool!
 That’s one of the reasons it is important for your business to implement such a tool in your organization.
         
                 
