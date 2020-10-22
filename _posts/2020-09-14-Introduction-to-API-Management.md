@@ -108,12 +108,13 @@ I listed out the most important responsibilities for you, so that you can unders
 2.	Authorization 
     * Enables fine grained authorization to API resources based on authenticated user roles.  
     This involves checking resources that the user is authorized to access or modify via defined roles.
+    In some situations, the API gateway verifies a token with an external authorization service and propagates it to the downstream service.
 3.  Caching resources
     * Allows caching of API responses in the Gateway to reduce overall traffic to the back-end API.  
     Latency will be improved because the API gateway can talk directly with the backend service or can use the cached resource and doesn't have to fetch the information multiple times.  
     With caching you also avoid that the backend service will be overloaded by requesting the same information repeatedly.  
     Resources can be cashed for a specified time-to-live (TTL) period.
-    The gateway will retrieve the resource again from the backend service once the time has passed, and a new request comes in.
+    The gateway will retrieve the resource again from the backend service once the time has passed.
 4.  White/Blacklisting possibilities
     * Allow/Block calls to specific APIs.
     * Allow/Block all calls from a given application.
