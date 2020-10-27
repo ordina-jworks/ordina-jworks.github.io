@@ -28,7 +28,6 @@ The Spring Cloud Circuit Breaker project provides an abstraction API for adding 
 There are four supported implementations: 
 
 Hystrix Netflix 
-Hystrix  is an example of a library that implements this pattern 
 
 Resilience4J 
 
@@ -36,8 +35,8 @@ Sentinel
 
 Spring Retry 
 
-# How can we use it 
-You need to add the Spring Cloud Circuit Breaker dependency to your application. When using maven: 
+# Configuring Circuit Breakers with Resilience4j
+You need to add the Spring Cloud Circuit Breaker Resilience 4j dependency to your application. When using maven: 
 
 ```
 <dependencies> 
@@ -126,5 +125,63 @@ public Customizer<Resilience4JCircuitBreakerFactory> slowCustomizer() {
 } 
 ```
 
+## Configuring Circuit Breakers with Netflix Hystrix
+<div style="text-align: center;">
+  <img alt="Hystrix" src="/img/2020-10-02-spring-cloud-circuit-breaker/hystrix.png" width="auto" height="auto" class="image fit">
+</div>
+
+You need to add the Spring Cloud Circuit Breaker netflix hystrix dependency to your application. When using maven: 
+
+```
+    <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+	</dependency>
+```
 
 
+You have a SpringBootApplication that returns a list of ingredients for making soup.
+
+```
+@RestController
+@SpringBootApplication
+public class CircuitBreakerIngredientsApplication {
+
+  @RequestMapping(value = "/recommended")
+  public String ingredientsList(){
+	return "Onions, Potatoes, Celery, Carrots";
+  }
+
+  public static void main(String[] args) {
+	SpringApplication.run(CircuitBreakerIngredientsApplication.class, args);
+  }
+}
+```
+This is the IngredientsService that calls the CircuitBreakerIngredientsApplication for knowing which ingredients 
+are necessary for making soup.
+When the CircuitBreakerIngredientsApplication is running you will see "Onions, Potatoes, Celery, Carrots".
+If we stop the CircuitBreakerIngredientsApplication we don't want to wait or see an error.
+No you will get the output "Onions" because we annotated the ingredientsList method 
+with @HystrixCommand(fallbackMethod = "reliable") when calling the CircuitBreakerIngredientsApplication.
+
+```
+@Service
+public class IngredientService {
+
+  private final RestTemplate restTemplate;
+
+  public IngredientService(RestTemplate rest) {
+	this.restTemplate = rest;
+  }
+
+  @HystrixCommand(fallbackMethod = "reliable")
+  public String ingredientsList() {
+	URI uri = URI.create("http://localhost:8090/recommended");
+
+	return this.restTemplate.getForObject(uri, String.class);
+  }
+
+  public String reliable() {
+	return "Onions";
+  }
+```
