@@ -246,12 +246,32 @@ docker pull prom/prometheus
 ```
 
 After we download the image, we need to configure our prometheus.yml file.  
-Since I want to demonstrate how to monitor our Spring boot application, as well as Prometheus itself, it should look like this: 
+Since I want to demonstrate how to monitor a Spring boot application, as well as Prometheus itself, it should look like this: 
 
-<div style="text-align: center;">
-  <img alt="Prometheus config file" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-demo-yml.PNG" width="auto" height="auto" target="_blank" class="image fit">
-</div> 
+```
+global:
+    scrape_interval:     15s # By default, scrape targets every 15 seconds.
 
+rule_files:
+  # - "first.rules"
+  # - "second.rules"
+
+scrape_configs:
+- job_name: 'prometheus'
+  scrape_interval: 5s
+
+  static_configs:
+    - targets: ['localhost:9090']
+
+- job_name: 'spring-actuator'
+  metrics_path: '/actuator/prometheus'
+  scrape_interval: 5s
+
+    #target end point. We are using the Docker, so local host will not work. You can change it with
+    #localhost if not using the Docker.
+  static_configs:
+    - targets: ['192.168.0.9:8080']
+```
 We define 2 targets which it needs to monitor, spring and prometheus. 
 Since we run Prometheus from inside Docker we need to enter the host-ip which is in my case 192.168.0.9.
 
