@@ -301,7 +301,7 @@ For this example I used one of the premade dashboards which you can find on the 
 4. The dashboard I used to monitor our application is the JVM Micrometer dashboard with import id: 4701. 
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-import.PNG" width="500" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-import.PNG" width="650" height="auto" target="_blank" class="image fit">
 </div> 
 
 5. Give your dashboard a custom name and select the prometheus data source we configured in step 3.
