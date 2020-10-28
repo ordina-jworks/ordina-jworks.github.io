@@ -33,7 +33,7 @@ comments: true
 
 ## Problem description
 
-In our current digital world where everyone is creating APIs for exposing data internally and for external partners, 
+In our current digital world where everyone is creating APIs to expose data for internal usage, or monetizing APIs for external partners,  
 we should look at how we can manage and control them.
 Most of us know that in addition to building the API, we also need to provide additional responsibilities. 
 Some are just a necessary evil, like adding cross-cutting concerns.  
