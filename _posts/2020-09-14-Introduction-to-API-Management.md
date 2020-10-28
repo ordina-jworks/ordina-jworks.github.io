@@ -39,7 +39,7 @@ Most of us know that in addition to building the API, we also need to provide ad
 Some are just a necessary evil, like adding cross-cutting concerns.  
 Keeping an overview of all available APIs can become a struggle these days.  
 
-Well, instead of trying to reinvent the wheel, I searched for the best solution and found that 
+Well, instead of trying to reinvent the wheel, we searched for the best solution and found that 
 an API Management tool can solve a lot of those problems and add extra value within your landscape.  
 An API management tool helps you with setting the responsibilities on the right level for your exposed services, 
 and so ensure that your services implementing all required policies and security.  
@@ -148,14 +148,14 @@ We listed out the most important responsibilities, to highlight the power and th
 8.  Transformation
     * This enables you to convert between different formats, for example from JSON and XML. 
     If an API is implemented to return XML, but a client would prefer to receive JSON data, this policy can be used to automatically convert both the request and response bodies. 
-    In this way, the client can work with JSON data even though the back-end API requires XML.
+    This way, the client can work with JSON data even though the back-end API requires XML.
 9.  Monitoring
     * Some tools let you visualize, query, route, archive, and take actions on the metrics or logs like for example the Azure API management tool.  
-    Others just foresee a basic around metrics or include a third-party tool like Elasticsearch to do the job.
+    Others just offer basic metrics or include a third-party tool like Elasticsearch to do the job.
     
 A lot more can be added or customized, depending on the tool of course. 
 There is a wide range of products available, so please refer to the product list below if you want to know the ones used currently.  
-To get hands-on experience, I mostly focused on the Open source tools like Apiman, Kong API gateway, WSO2 API Manager.
+To get hands-on experience, we mostly focused on the Open source tools like Apiman, Kong API gateway, WSO2 API Manager.
 
 
 
@@ -163,27 +163,27 @@ To get hands-on experience, I mostly focused on the Open source tools like Apima
 
 There are a few things to consider before you select the right tool for your organization.  
 One of the most important thing is think about the high availability of the services that you provide.  
-As you might notice in previous example, if an API gateway is placed before all your APIs it creates a SPOF (Single point of Failure).  
+As you might notice in the previous example, if an API gateway is placed before all your APIs it creates a Single Point of Failure (SPOF).  
 There are ways to handle that like setting up multiple API gateways for different endpoints or clustering your API gateways.
 
 #### Multiple API gateways configured
 <img src="/img/2020-09-14-Introduction-to-API-Management/MultipleAPIGateways2.JPG" alt="API landscape without an API management tool" width="500" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
-In this example you can see that 2 different gateways are created to separate mobile from other request. 
-The endpoint of the mobile gateway will in this case be different from the Web gateway.
-If for any reason at all the Mobile API gateway gets stuck, the client will still be able to connect to the other gateway and request for the data he/she needs.
+In this example you can see that 2 different gateways are created to separate mobile from other requests. 
+The endpoint of the mobile gateway will in this case be different from the web gateway.
+If for any reason at all the mobile API gateway gets stuck, the client will still be able to connect to the other gateway and request for the data he/she needs.
 
 
 #### Clustering gateways
 Another way to ensure high availability is for example to cluster your API gateways.
 Combined with a scalable microservice architecture, a high availability API gateway cluster ensures your application can handle large volumes of traffic and react to unexpected spikes, while being resilient to hardware failures.  
 There are big differences between products when you want to cluster an API gateway.
-Most products do recommend or even require to setup a Load balancer in front of the API gateway cluster. 
+Most products do recommend or even require to setup a load balancer in front of the API gateway cluster. 
 In fact, to avoid another single point of failure, it is recommended to be able to scale this load balancer as well. 
 Or have a failover scenario in place in case the load balancer crashes. 
 This way you can be sure that your services are always available.  
-Some other products require to scale additional tools like for example Elasticsearch.  
-An advantage of this solution is that the client always points to the same endpoint.
+Some other products require you to scale additional tools like for example Elasticsearch.  
+An advantage of this solution with a load balancer,  is that the client always connects to the same endpoint.
 
 <img src="/img/2020-09-14-Introduction-to-API-Management/HA-Gateways.JPG" alt="API landscape without an API management tool" width="600" height="350" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
@@ -192,7 +192,7 @@ Which solution to go for, is of course depending on your preferences and the lev
 
 ## API management products
 
-I referred to the Gartner magic quadrant to get the list of most common API management tools currently on the market.
+We referred to the Gartner magic quadrant to get the list of most common API management tools currently on the market.
 You can find most of them here in alphabetical order.
 
 <img src="/img/2020-09-14-Introduction-to-API-Management/GartnerMagicQuadrant.JPG" alt="Gartner Magic Quadrant" width="400" height="400" class="image fit" style="float:right    ;horzontal-align:middle;margin-left:2%;margin-right:50%;vertical-align:right" />
@@ -227,23 +227,23 @@ You can find most of them here in alphabetical order.
 
 ## Hands-on
 ### Installation
-Just to try a few things, I installed Apiman (and the required server) as a standalone solution on to my laptop and used one of my earlier created APIs to test.
-It was actually quite simple, however I did download a few versions of it, as some didn't work from the 1st minute.  
+Just to try a few things, we installed Apiman (and the required server) as a standalone solution on to a laptop and used some existing APIs to test.
+It was actually quite simple, however we did download a few versions of it, as some didn't work immediately.  
 One of the main advantages is that it has some pre-configured settings which made it easy to start.  
 Apiman is an Open Source tool, so a lot of documentation and even source code examples are available on the web.  
 If you prefer, it is also possible to dockerize it and run this in a container.  
-The latest version of Apiman can be found <a href="http://www.apiman.io" target="_blank" rel="noopener noreferrer">here</a>, or in case you want to try earlier versions or embedded in another server, you can also look in <a href="https://apiman.gitbooks.io/apiman-installation-guide/content/installation-guide/servlet/install.html#_installing_in_jboss_eap_7" target="_blank" rel="noopener noreferrer">this</a> link.  
+The latest version of Apiman can be found <a href="http://www.apiman.io" target="_blank" rel="noopener noreferrer">here</a>, or in case you want to try earlier versions or want to try Apiman embedded in another server, you can also look in <a href="https://apiman.gitbooks.io/apiman-installation-guide/content/installation-guide/servlet/install.html#_installing_in_jboss_eap_7" target="_blank" rel="noopener noreferrer">this</a> link.  
 
-Once installed, I started to play around with it.  
+Once installed, we started to play around with it.  
 
 <img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Login.PNG" alt="APIMAN Login screen" width="600" height="375" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 ### Setup
-I did some research on how to set it up, and on the key aspects of Apiman.  
-It's not my intention to go to much in dept of Apiman or the settings, but a few base principles I want to highlight to help you understand how easy it was to try it out and play with it.  
+We did some research on how to set it up, and on the key aspects of Apiman.  
+It's not our intention too go to much in depth of Apiman or the settings, but we want to highlight a few base principles to help you understand how easy it was to try it out and play with it.  
 The first very important part in Apiman was that everything starts with an Organization.  
-2ndly you need to setup a plan, which is basically a collection of policies that will be applied to requests made to Services being access through it.  
-As last you need to setup a Service. 
+Secondly you need to set up a plan, which is basically a collection of policies that will be applied to the incoming requests.  
+Finally you need to setup a service. 
 A service contract is simply a link between an application and a service through a plan offered by that service. 
 When a service contract is created, the system generates a unique API key specific to that contract. 
 All requests made to the service through the API gateway must include this API key.  
@@ -256,23 +256,23 @@ Setting up an organization (OrgHome) and creating services.
 <img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_Organization-API.PNG" alt="APIMAN Organization and Services" width="800" height="300" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 In this example you can see a Customer API which fetches Customer information from a Spring Boot application running in IntelliJ.  
-Every service can be marked public, so that everyone can access it, or you can for example secure it by creating a Client App and generate a required key via a plan.   
-In next screen you can see that I created a 'SearchCustomers' client app, where the client needs to use the API-Key in the request to get the response back from our service.
+Every service can be marked public, so that everyone can access it, or you can for example secure it by creating a client app and generate a required key via a plan.   
+In the screenshot below you can see that we created a 'SearchCustomers' client app, where the client needs to use the API-Key in the request to get the response back from our service.
 Our service (Spring Boot application) didn't implement any security or authority for this.
 Apiman will take the responsibility of implementing this.
-Only if the client uses the right endpoint with the correct API-key, Apiman will retrieve the requested data from our back-end service and send the response back to the client.
+Only if the client uses the right endpoint with the correct API-key, Apiman will retrieve the requested data from our back-end service and sends the response back to the client.
  
 <img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
 ### Automation
 
-As last I wanted to be sure that we can use the tool in an automated way, so I tried to use the Apiman REST API to create new organizations, plans and services.
-I had some struggles to make it work, but eventually I was able to create everything I wanted.
+Finally we wanted to be sure that we can use the tool in an automated way, so we tried to use the Apiman REST API to create new organizations, plans and services.
+We had some struggles to make it work, but eventually we were able to create everything we wanted.
 Via the REST API we have the possibility to check, add or remove anything you want.
-The build in Apiman-UI is also build on these REST API, so anything you can do in the application should be possible to execute via the API service.
-More on this can be find in the <a href="http://www.apiman.io/latest/api-manager-restdocs.html" target="_blank" rel="noopener noreferrer">API-manager-restdocs</a>.
+The built in Apiman-UI is also built on these REST APIs, so anything you can do in the application should be possible to execute via the API service.
+More on this can be found in the <a href="http://www.apiman.io/latest/api-manager-restdocs.html" target="_blank" rel="noopener noreferrer">API-manager-restdocs</a>.
 
-One sidenote, the downloaded tomcat server does not come with integrated Keycloak server, so I was not able to add users via the REST API. 
+One sidenote, the downloaded tomcat server does not come with an integrated Keycloak server, so we were not able to add users via the REST API. 
 If you're running the standalone WildFly server, this would be integrated by default.  
 
 
