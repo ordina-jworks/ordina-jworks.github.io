@@ -21,52 +21,52 @@ comments: true
 We all know what monitoring is right?  
 Collecting data about the health and performance of an application to know when something goes wrong, so we can resolve issues in the quickest way possible.  
 
-In a distributed landscape where we are working with microservices, serverless applications or just event-driven architecture as a whole, than observability, which comprises monitoring, logging, tracing and alerting, is an important architectural concern.
+In a distributed landscape where we are working with microservices, serverless applications or just event-driven architecture as a whole, than observability, which comprises monitoring, logging, tracing and alerting, is an important architectural concern.  
 
-There are a few reasons why we want visibility in our highly distributed systems:
+There are a few reasons why we want visibility in our highly distributed systems:  
 - Issues will occur, even when our best employees have built it
 - Distributed systems generate distributed failures, which can be devastating when we are not prepared in advance
-- It reveals mistakes early which is great for improvement and learning
+- Reveal mistakes early, which is great for improvement and learning
 - It keeps us accountable
-- It reduces the mean time to resolution (MTTR)
+- Reduce the mean time to resolution (MTTR)
 
-The main goal of this blogpost is to give an overview about Prometheus and Grafana, but also to explain how we can set up a Spring Boot application to showcase some metrics. 
+The main goal of this blogpost is to give a broad overview about Prometheus and Grafana, but also to explain how we can set up a Spring Boot application to showcase some metrics.  
 
 # Prometheus
 
 ## What is Prometheus? 
 
-Prometheus is an open source monitoring system which is open-source, it was originally developed by SoundCloud, has a large community behind it and can monitor nearly anything.  
+Prometheus is an open source monitoring system, originally developed by SoundCloud, has a large community behind it and can monitor nearly anything.  
 - Microservices
 - Multiple languages
-- linux servers
+- Linux servers
 - Windows servers
 
 ## Why do we need Prometheus?
 
-In our modern times of microservices, devops is becoming more and more complex and therefore needs automation. 
+In our modern times of microservices, devops is becoming more and more complex and therefore needs automation.  
 We have hundreds of processes running over multiple servers, and they are all interconnected.  
 
 If we would not monitor these services then we have no clue about what is happening on hardware level or application level.  
-There are many things which we want to be notified about, like :
+There are many things which we want to be notified about, like:  
 - Errors
 - Response latency
 - System overload
 - Resources
 
-When we are working with so many moving pieces we want to be able to quickly identify the problem when something goes wrong inside one of our services. 
-If we wouldn't monitor it could be very time-consuming, since we have no idea where to look.
+When we are working with so many moving pieces, we want to be able to quickly identify a problem when something goes wrong inside one of our services.  
+If we wouldn't monitor, it could be very time-consuming, since we have no idea where to look.  
 
 ### An example of a failing service
 
-Imagine that one server ran out of memory and therefore kicked off a running service container which syncs two databases.  
-One of those databases gets used by the authentication service which also stops working because the database is unavailable.  
+Imagine that one server ran out of memory and therefore knocked off a running service container, which syncs two databases.  
+One of those databases gets used by the authentication service, which now also stops working, because the database is unavailable.  
 
 <div style="text-align: center;">
   <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/failing-servers.jpg" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
-How do you know what went wrong when your application that depends on the authentication service, now can't authenticate users anymore?  
+How do you know what went wrong, when your application that depends on the authentication service, now can't authenticate users anymore?  
 The only thing we would see is an error message: "ERROR: Authentication failed".
 We would need to work backwards over every service, all the way back to the stopped container, to find out what is causing the problem.
 
@@ -75,22 +75,22 @@ A better way would be to have a tool which:
 - alerts system admins when something crashes
 - identifies problems before they occur
 
-Prometheus is exactly that tool, it can identify memory usage, CPU usage, available disk space, etc... 
-We can predefine certain thresholds where we want to get notified about. 
+Prometheus is exactly that tool, it can identify memory usage, CPU usage, available disk space, etc.
+We can predefine certain thresholds about which we want to get notified. 
 
 In our example it could have been that the memory of our failing server would have reached 70% memory usage for more than 1 hour, and could've sent an alert to our admins before the crash happened.
 
 ## How it works
 
-The Prometheus architecture consists of 2 main parts.
+The Prometheus architecture consists of 2 main parts, a Prometheus server and targets it needs to monitor.
 
 ### Prometheus server
 
-The server does the actual monitoring work. 
-It consists of 3 main parts:
+The server does the actual monitoring work.  
+It consists of 3 main parts:  
 - Storage, which is a time series database 
-- Data retrieval worker which is pulling the data from our target services
-- Webserver which accepts ([PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) queries) queries to get data from our DB 
+- Data retrieval worker, which is pulling the data from our target services
+- Webserver, which accepts ([PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) queries) queries to get data from our DB 
 
 Even though Prometheus has its own UI to show graphs and metrics, we will be using Grafana as an extra layer on top of this webserver to query our database.
 
@@ -102,7 +102,7 @@ Even though Prometheus has its own UI to show graphs and metrics, we will be usi
 
 #### What does is monitor ? 
 
-Prometheus monitors nearly anything. It could be Linux/windows server, apache server, single applications, services, etc.. 
+Prometheus monitors nearly anything. It could be Linux/windows server, apache server, single applications, services, etc. 
 
 It monitors **units** on those targets like: 
 - CPU usage
@@ -114,7 +114,9 @@ It monitors **units** on those targets like:
 The units that we monitor are called metrics, which get saved into the Prometheus time-series database.
 Prometheus's metrics are formatted like a human-readable text file.
 
-<!-- example of prometheus metrics -->
+<div style="text-align: center;">
+  <img alt="Prometheus endpoint actuator" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div> 
 
 In this file we can see that there is a "HELP" comment which describes what the metric is, and we have a "TYPE" which can be one of three metric-types: 
 - Counter: how many times X happened (exceptions)
@@ -147,7 +149,7 @@ There are a number of libraries and servers which help in exporting existing met
 You can take a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/) here.  
 
 As a side note, these tools are also available as Docker images, so we can use them inside our kubernetes clusters.  
-We can run an exporter docker image for a MySQL db as a side container inside a the MySQL pod, connect to it and start translating data from it to expose it on the metrics endpoint.
+We can run an exporter docker image for a MySQL database as a side container inside the MySQL pod, connect to it and start translating data from it to expose it on the metrics endpoint.
 
 #### Monitoring our own application
 
