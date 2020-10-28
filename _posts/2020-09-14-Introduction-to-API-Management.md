@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 ---
 layout: post
 authors: [Kris_Jordens]
