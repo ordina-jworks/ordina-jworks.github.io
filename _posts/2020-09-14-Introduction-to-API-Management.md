@@ -11,6 +11,23 @@ comments: true
         
 # Introduction to API Management
 
+## Table of contents
+* [Introduction to API Management](#Introduction-to-API-Management)
+    * [Problem description](#Problem-description)
+    * [Investigation](#Investigation)
+        * [API Management or API Gateway?](#API-Management-or-API-Gateway)
+        * [API landscape without an API management tool](#API-landscape-without-an-API-management-tool)
+        * [API landscape with an API management tool](#API-landscape-with-an-API-management-tool)
+        * [Responsibilities of an API Management tool](#Responsibilities-of-an-API-Management-tool)
+        * [Challenges](#Challenges)
+            * [Multiple API gateways configured](#Multiple-API-gateways-configured)
+            * [Clustering gateways](#Clustering-gateways)            
+    * [API management products](#API-management-products) 
+    * [Hands-on](#Hands-on)
+        * [Installation](#Installation)
+        * [Setup](#Setup)
+        * [Automation](#Automation)
+    * [Conclusion](#Conclusion)
 
 
 
