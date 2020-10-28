@@ -203,9 +203,9 @@ Last but not least, we can rearrange and resized by dragging panels around.
 
 ## Setup Spring Boot
 
-To demonstrate how to implement Prometheus and Grafana in your own projects, I will go through the steps to set up a basic spring boot application which we can monitor by using Docker images of Prometheus and Grafana. 
+To demonstrate how to implement Prometheus and Grafana in your own projects, I will go through the steps to set up a basic spring boot application which we monitor by using Docker images of Prometheus and Grafana. 
 
-1. Set up a regular spring boot application by using (Spring initializr)[https://start.spring.io/]
+1. Set up a regular spring boot application by using [Spring initializr](https://start.spring.io/)
 
 2. Add dependency for Actuator
 ```
