@@ -141,15 +141,15 @@ Prometheus pulls the data over HTTP from a /metrics endpoint.
 
 The data which gets exposed on the endpoint needs to be in the correct format, one which prometheus can understand.  
 
-As stated before, Prometheus can monitor a lot of different things, servers, services, databases, etc...   
+As stated before, Prometheus can monitor a lot of different things, servers, services, databases, etc.    
 Some servers even have a metrics endpoint enabled by default, so for those we don't have to change anything.  
 
 For the ones who don't have an endpoint enabled by default, we need an exporter.  
 There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.  
-You can take a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/) here.  
+You can take a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/) here.    
 
-As a side note, these tools are also available as Docker images, so we can use them inside our kubernetes clusters.  
-We can run an exporter docker image for a MySQL database as a side container inside the MySQL pod, connect to it and start translating data from it to expose it on the metrics endpoint.
+As a side note, these tools are also available as Docker images, so we can use them inside kubernetes clusters.  
+We can run an exporter docker image for a MySQL database as a side container inside the MySQL pod, connect to it and start translating data, to expose it on the metrics endpoint.
 
 #### Monitoring our own application
 
@@ -161,7 +161,7 @@ This library will enable us to declare all the metrics we deem important in our 
 To tell prometheus what it needs to scrape we give it a configuration file, **prometheus.yml**.
 In this configuration file we declare a few things:  
 1. some global configs, like how often it will scrape its targets
-2. we can declare rule files, so when we meet a certain condition, we get an alert
+2. we can declare [rule files](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/), so when we meet a certain condition, we get an alert
 3. which services it needs to monitor
 
 this is an example of our demo spring boot project. As you can see, it monitors the spring boot application as well as its own health.
@@ -179,9 +179,9 @@ Prometheus has a component which is called the "Alertmanager", and it can send n
 
 ### Querying our data
 
-Since Prometheus saves all our data in a time series database, which is located on disk in a custom timeseries format, we need to use PromQL query language to query this database.  
+Since Prometheus saves all our data in a time series database, which is located on disk in a custom timeseries format, we need to use PromQL query language, if we want to query this database.  
 
-We can do this is in the Prometheus WebUI, or we can use some more powerful visualization tools like Grafana, to do this for us.
+We can do this via the Prometheus WebUI, or we can use some more powerful visualization tools like Grafana, to do this for us.
 
 # Grafana
 
@@ -195,13 +195,10 @@ Grafana is an open-source metric analytics & visualization application.
 ## Why Grafana
 
 One of the significant advantages of Grafana are its customization possibilities.  
-It’s effortless to customize the visualization for vast amounts of data. We can choose a linear graph, a single number panel, a gauge, a table, or a heatmap to display our data.  
+It’s effortless to customize the visualization for vast amounts of data.  
+We can choose a linear graph, a single number panel, a gauge, a table, or a heatmap to display our data.  
 We can also sort all our data with various labels so data with different labels will go to different panels.  
 Last but not least, we can rearrange and resized by dragging panels around.  
-
-<!-- TODO: image of grafana dashboard -->
-
-
 
 # Demo project 
 
@@ -315,7 +312,7 @@ There is a section which covers:
 - Input/Output
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-4701.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-dashboard.png" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 # Conclusions
