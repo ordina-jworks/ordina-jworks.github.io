@@ -312,7 +312,7 @@ There is a section which covers:
 - Input/Output
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-dashboard.png" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-dash.png" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 # Conclusions
