@@ -30,7 +30,7 @@ There are a few reasons why we want visibility in our highly distributed systems
 - It keeps us accountable
 - It reduces the mean time to resolution (MTTR)
 
-The main goal of this blogpost is to give an overview about Prometheus and Grafana, but also to explain how we can set up a basic demo project with Spring to showcase some metrics. 
+The main goal of this blogpost is to give an overview about Prometheus and Grafana, but also to explain how we can set up a Spring Boot application to showcase some metrics. 
 
 # Prometheus
 
@@ -38,7 +38,7 @@ The main goal of this blogpost is to give an overview about Prometheus and Grafa
 
 Prometheus is an open source monitoring system which is open-source, it was originally developed by SoundCloud, has a large community behind it and can monitor nearly anything.  
 - Microservices
-- Multiple language
+- Multiple languages
 - linux servers
 - Windows servers
 
@@ -51,7 +51,7 @@ If we would not monitor these services then we have no clue about what is happen
 There are many things which we want to be notified about, like :
 - Errors
 - Response latency
-- Overloaded ?
+- System overload
 - Resources
 
 When we are working with so many moving pieces we want to be able to quickly identify the problem when something goes wrong inside one of our services. 
@@ -62,7 +62,9 @@ If we wouldn't monitor it could be very time-consuming, since we have no idea wh
 Imagine that one server ran out of memory and therefore kicked off a running service container which syncs two databases.  
 One of those databases gets used by the authentication service which also stops working because the database is unavailable.  
 
-<!-- TODO: image servers with failing parts - authentication -->
+<div style="text-align: center;">
+  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/failing-servers.jpg" width="auto" height="auto" target="_blank" class="image fit">
+</div> 
 
 How do you know what went wrong when your application that depends on the authentication service, now can't authenticate users anymore?  
 The only thing we would see is an error message: "ERROR: Authentication failed".
