@@ -65,7 +65,7 @@ those with an API management tool.
 Without an API manager, your APIs will be the direct integration point to the business domain data.
 Any integration of for example security, needs to be implemented in your API. 
 This sometimes leads to duplicate code and the fact that your API is not only responsible for exposing the Data, 
-but also for implementing other cross cutting functionalities.
+but also for implementing other cross-cutting functionalities.
 	     
 <img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool2.jpg" alt="API landscape without an API management tool" width="350" height="200" class="image fit">
 
@@ -76,9 +76,12 @@ This all changes when we implement an API Management tool.
 
 In this situation an API gateway is deployed between the client and the APIs.  
 As a single entry point, all request first have to pass the gateway before they are forwarded to the right service.
-If the Gateway is installed in the same organizational structure, it’s not required to have your API’s implementing additional cross cutting functionalities.
+An API gateway enables to move most of the cross-cutting concerns which an API normally has to implement to the API gateway.
+This means that if the Gateway is installed in the same organizational structure, it’s not required for your API’s to implement
+additional cross-cutting functionalities.
 The API gateway will be responsible of performing the necessary checks before allowing the clients to access the Data.
-I do hear you thinking already “We’re not going to install an additional tool, only for splitting out security rules from the API’s", but that’s not the only thing an API management tool can do.
+I do hear you thinking already “We’re not going to install an additional tool, only for splitting out security rules 
+from the API’s", but that’s not the only thing an API management tool can do.
 
 ### Responsibilities of an API Management tool
 I listed out the most important responsibilities for you, so that you can understand the power and the actual benefits of an API Management tool:            
@@ -381,7 +384,7 @@ those with an API management tool.
 Without an API manager, your APIs will be the direct integration point to the business domain data.
 Any integration of for example security, needs to be implemented in your API. 
 This sometimes leads to duplicate code and the fact that your API is not only responsible for exposing the Data, 
-but also for implementing other cross cutting functionalities.
+but also for implementing other cross-cutting functionalities.
 	     
 <img src="/img/2020-09-14-Introduction-to-API-Management/WithoutApiManagementTool2.jpg" alt="API landscape without an API management tool" width="350" height="200" class="image fit">
 
@@ -392,7 +395,7 @@ This all changes when we implement an API Management tool.
 
 In this situation an API gateway is deployed between the client and the APIs.  
 As a single entry point, all request first have to pass the gateway before they are forwarded to the right service.
-If the Gateway is installed in the same organizational structure, it’s not required to have your API’s implementing additional cross cutting functionalities.
+If the Gateway is installed in the same organizational structure, it’s not required to have your API’s implementing additional cross-cutting functionalities.
 The API gateway will be responsible of performing the necessary checks before allowing the clients to access the Data.
 I do hear you thinking already “We’re not going to install an additional tool, only for splitting out security rules from the API’s", but that’s not the only thing an API management tool can do.
 
