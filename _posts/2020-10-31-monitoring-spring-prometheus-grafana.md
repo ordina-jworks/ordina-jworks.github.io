@@ -224,9 +224,9 @@ To demonstrate how to implement Prometheus and Grafana in your own projects, I w
         </dependency>
 ```
 
-4. Expose our needed endpoints in the application.properties file  
+4. Expose our needed prometheus endpoint in the application.properties file  
 ```
-management.endpoints.web.exposure.include=*
+management.endpoints.web.exposure.include=prometheus
 management.endpoint.health.show-details=always
 management.metrics.tags.application= MonitoringSpringDemoProject
 ```
@@ -284,13 +284,13 @@ docker run -d -p 3000:3000 grafana/grafana
 2. Now we can access the Grafana UI from localhost:3000, where enter "admin" as login and password.
 
 <div style="text-align: center;">
-  <img alt="Grafana UI" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/Grafana-ui.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana UI" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-ui.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 3. After we arrive at the landing page, we need to set up a data source for Grafana. Navigate to Configuration > Data Sources, add a Prometheus data source and configure it like the example below: 
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/Grafana-datasource.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-datasource.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 If you want to create your own monitoring dashboard with your own custom panels then I can only advise you to walk through some (guides)[https://grafana.com/tutorials/] on the Grafana website.  
