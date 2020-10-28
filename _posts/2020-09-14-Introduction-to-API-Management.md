@@ -79,27 +79,28 @@ As a single entry point, all request first have to pass the gateway before they 
 An API gateway enables to move most of the cross-cutting concerns which an API normally has to implement to the API gateway.
 This means that if the gateway is installed in the same organizational structure, it’s not required for your APIs to implement
 additional cross-cutting functionalities.
-The API gateway will be responsible of performing the necessary checks before allowing the clients to access the data.
-I do hear you thinking already “We’re not going to install an additional tool, only for splitting out security rules 
+The API gateway will be responsible for performing the necessary checks before allowing the clients to access the data.
+You might think it's overkill to install an additional tool, only for splitting out security rules 
 from the APIs", but that’s not the only thing an API management tool can do.
 
 ### Responsibilities of an API Management tool
-I listed out the most important responsibilities for you, so that you can understand the power and the actual benefits of an API Management tool:            
+We listed out the most important responsibilities, to highlight the power and the actual benefits of an API Management tool:            
      
 1.	Authentication 
     * Enables one of the most important parts of security on an API. 
-    Validating the person’s identity!  
-    There are different kinds of Authentication:   
+    Validating the identity of a person, application, or system!  
+    There are different kinds of authentication:   
         * Http Basic Authentication
-            * Using this approach, a user agent simply provides a username and password to prove their authentication.  
+            * Using this approach, a user agent simply provides a username and password to prove who they are.  
             This approach does not require cookies, session ID’s, or login pages because it leverages the HTTP header itself. 
             While simple to use, this method of authentication is vulnerable to attacks that could capture the user’s credentials in transit.
             
         * OAuth
             * OAuth 2.0 is the best choice for identifying personal user accounts and granting proper permissions.  
-            With this method, the user logs into a system. 
+            With this method, the user logs in to a system. 
             That system will then request authentication, usually in the form of a token. 
-            The user will then forward this request to an authentication server, which will either reject or allow this authentication.
+            The user will then forward this request to an authentication server, which will either reject or 
+            allow this authentication.
         
         * OpenID Connect & OAuth 2.0 API
             * OpenID Connect is a simple identity layer on top of the OAuth 2.0 protocol, which allows computing clients to verify the identity of an end-user based on the authentication performed by an authorization server, as well as to obtain basic profile information about the end-user in an interoperable and REST-like manner.
@@ -109,7 +110,7 @@ I listed out the most important responsibilities for you, so that you can unders
             A key is generated the first time a user attempts to gain authorized access to a system through registration. 
             From there, the API key becomes associated with a secret token, and is submitted alongside requests going forward. 
             When the user attempts to re-enter the system, their unique key is used to prove that they are the same user as before. 
-            This API Authentication Method is very fast and reliable but is frequently misused. 
+            This API authentication method is very fast and reliable but is frequently misused. 
             More importantly, this method of authentication is not a method of authorization.   
 2.	Authorization 
     * Enables fine grained authorization to API resources based on authenticated user roles.  
@@ -117,10 +118,11 @@ I listed out the most important responsibilities for you, so that you can unders
     In some situations, the API gateway verifies a token with an external authorization service and propagates it to the downstream service.
 3.  Caching resources
     * Allows caching of API responses in the gateway to reduce overall traffic to the back-end API.  
-    Latency will be improved because the API gateway can talk directly with the backend service or can use the cached resource and doesn't have to fetch the information multiple times.  
-    With caching you also avoid that the backend service will be overloaded by requesting the same information repeatedly.  
-    Resources can be cashed for a specified time-to-live (TTL) period.
-    The gateway will retrieve the resource again from the backend service once the time has passed.
+    Latency will be improved because the API gateway can talk directly with the back-end service. 
+    Or it can use the cached resource and then it doesn't have to fetch the information multiple times.  
+    With caching you also avoid that the back-end service will be overloaded by requesting the same information repeatedly.  
+    Resources can be cached for a specified time-to-live (TTL) period.
+    The gateway will retrieve the resource again from the back-end service once the TTL has expired.
 4.  White/Blacklisting possibilities
     * Allow/Block calls to specific APIs.
     * Allow/Block all calls from a given application.
@@ -131,7 +133,7 @@ I listed out the most important responsibilities for you, so that you can unders
     This is used to allow access to an API only during certain times.    
 6.  Quota’s 
     * Rate limiting
-    	* Enforces rate configurable request limits on an API.  
+    	* Enables to set a rate-configurable limit to requests on an API.     	
     	If your API becomes overloaded, its performance will suffer, and all customers will be impacted.  
         Rate limiting (also called throttling) ensures that a single user cannot intentionally or unintentionally overwhelm an API with too many requests.  
     	In case throttling kicks in, the user will receive a response status code 429 (meaning "Too Many Requests").
@@ -144,7 +146,7 @@ I listed out the most important responsibilities for you, so that you can unders
     In these cases, the back-end API will likely be configured to return a URL pointing to the unmanaged API endpoint.  
     This policy can fix up those URL references so that they point to the managed API endpoint (the API gateway endpoint) instead. 
 8.  Transformation
-    * Transformation enables to convert an API format between for example from JSON and XML. 
+    * This enables you to convert between different formats, for example from JSON and XML. 
     If an API is implemented to return XML, but a client would prefer to receive JSON data, this policy can be used to automatically convert both the request and response bodies. 
     In this way, the client can work with JSON data even though the back-end API requires XML.
 9.  Monitoring
@@ -258,7 +260,7 @@ Every service can be marked public, so that everyone can access it, or you can f
 In next screen you can see that I created a 'SearchCustomers' client app, where the client needs to use the API-Key in the request to get the response back from our service.
 Our service (Spring Boot application) didn't implement any security or authority for this.
 Apiman will take the responsibility of implementing this.
-Only if the client uses the right endpoint with the correct API-key, Apiman will retrieve the requested data from our backend service and send the response back to the client.
+Only if the client uses the right endpoint with the correct API-key, Apiman will retrieve the requested data from our back-end service and send the response back to the client.
  
 <img src="/img/2020-09-14-Introduction-to-API-Management/APIMAN_ClientApps-APIKey.PNG" alt="APIMAN Client apps and API-Key" width="800" height="400" class="image fit" style="vertical-align:middle;margin-left:2%" />
 
@@ -281,8 +283,8 @@ There are multiple reasons why you should consider implementing an API Managemen
 Think about the benefits and segregation of duties/responsibilities between your APIs and the API management tool.  
 
 You will be able to manage and control your APIs in one tool.
-You can implement and adjust security levels like Authentication and authorization in one place.  
-This tool makes it easy to add additional policies to different backend services. 
+You can implement and adjust security levels like authentication and authorization in one place.  
+This tool makes it easy to add additional policies to different back-end services. 
 It can improve current latency problems and will improve the maintainability and scalability of your API landscape.  
 If you are still not convinced, take the time to try out a few. 
 For example, Apiman has some prebuilt versions that you can download and use immediately.  
