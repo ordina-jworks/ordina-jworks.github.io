@@ -293,10 +293,10 @@ docker run -d -p 3000:3000 grafana/grafana
 <div style="text-align: center;">
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-datasource.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
+    
+If you want to create your own monitoring dashboard with your own custom panels then I can only advise you to walk through some [guides](https://grafana.com/tutorials/) on the Grafana website.  
 
-If you want to create your own monitoring dashboard with your own custom panels then I can only advise you to walk through some (guides)[https://grafana.com/tutorials/] on the Grafana website.  
-
-For this example I used one of the premade dashboards which you can find on the (Grafana Dashboards)[https://grafana.com/grafana/dashboards] page.  
+For this example I used one of the premade dashboards which you can find on the [Grafana Dashboards](https://grafana.com/grafana/dashboards) page.  
 
 4. The dashboard I used to monitor our application is the JVM Micrometer dashboard with import id: 4701. 
 
