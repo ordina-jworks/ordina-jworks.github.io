@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_govaerts]
 title: 'Monitoring Spring boot with Prometheus and Grafana'
-image: /img/prometheus.jpg
+image: /img/2020-10-31-monitoring-spring-prometheus-grafana/thumbnail.jpg
 tags: [Spring, Prometheus, Grafana, Docker]
 category: Monitoring
 comments: true
@@ -15,28 +15,26 @@ comments: true
 {:toc}
 
 ----
-"
-# Introduction
 
-We all know what monitoring is right?  
-Collecting data about the health and performance of an application to know when something goes wrong, so we can resolve issues in the quickest way possible.  
+# Introduction
 
 In a distributed landscape where we are working with microservices, serverless applications or just event-driven architecture as a whole, than observability, which comprises monitoring, logging, tracing and alerting, is an important architectural concern.  
 
 There are a few reasons why we want visibility in our highly distributed systems:  
-- Issues will occur, even when our best employees have built it
-- Distributed systems generate distributed failures, which can be devastating when we are not prepared in advance
-- Reveal mistakes early, which is great for improvement and learning
-- It keeps us accountable
-- Reduce the mean time to resolution (MTTR)
+- Issues will occur, even when our best employees have built it.
+- Distributed systems generate distributed failures, which can be devastating when we are not prepared in advance.
+- Reveal mistakes early, which is great for improvement and learning.
+- It keeps us accountable.
+- Reduce the mean time to resolution (MTTR).
 
-The main goal of this blogpost is to give a broad overview about Prometheus and Grafana, but also to explain how we can set up a Spring Boot application to showcase some metrics.  
+In this blogpost I will explain the core concepts of Prometheus and Grafana.  
+In the last section I set up a demo project, so you can follow along and implement monitoring in     your own applications. 
 
 # Prometheus
 
 ## What is Prometheus? 
 
-Prometheus is an open source monitoring system, originally developed by SoundCloud, has a large community behind it and can monitor nearly anything.  
+Prometheus is an open source monitoring system, originally developed by SoundCloud, it  has a large community behind it and can monitor nearly anything.  
 - Microservices
 - Multiple languages
 - Linux servers
@@ -58,126 +56,136 @@ When we are working with so many moving pieces, we want to be able to quickly id
 If we wouldn't monitor, it could be very time-consuming, since we have no idea where to look.  
 
 ### An example of a failing service
+{:.no_toc}
 
 Imagine that one server ran out of memory and therefore knocked off a running service container, which syncs two databases.  
 One of those databases gets used by the authentication service, which now also stops working, because the database is unavailable.  
 
 <div style="text-align: center;">
-  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/failing-servers.jpg" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/failing-servers.jpg" width="auto" height="auto" target="_blank" class="image">
 </div> 
 
 How do you know what went wrong, when your application that depends on the authentication service, now can't authenticate users anymore?  
-The only thing we would see is an error message: "ERROR: Authentication failed".
+The only thing we would see is an error message: `ERROR: Authentication failed`.  
 We would need to work backwards over every service, all the way back to the stopped container, to find out what is causing the problem.
 
 A better way would be to have a tool which:
-- constantly monitors all services
-- alerts system admins when something crashes
-- identifies problems before they occur
+- Constantly monitors all services
+- Alerts system admins when something crashes
+- Identifies problems before they occur
 
-Prometheus is exactly that tool, it can identify memory usage, CPU usage, available disk space, etc.
-We can predefine certain thresholds about which we want to get notified. 
+Prometheus is exactly that tool, it can identify memory usage, CPU usage, available disk space, etc.  
+We can predefine certain thresholds about which we want to get notified.  
 
-In our example it could have been that the memory of our failing server would have reached 70% memory usage for more than 1 hour, and could've sent an alert to our admins before the crash happened.
+In our example it could have been that the memory of our failing server would have reached 70% memory usage for more than 1 hour, and could've sent an alert to our admins before the crash happened.  
 
 ## How it works
 
-The Prometheus architecture consists of 2 main parts, a Prometheus server and targets it needs to monitor.
-
 ### Prometheus server
 
-The server does the actual monitoring work.  
-It consists of 3 main parts:  
-- Storage, which is a time series database 
-- Data retrieval worker, which is pulling the data from our target services
-- Webserver, which accepts ([PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) queries) queries to get data from our DB 
-
-Even though Prometheus has its own UI to show graphs and metrics, we will be using Grafana as an extra layer on top of this webserver to query our database.
+The server does the actual monitoring work, and it consists of 3 main parts:  
+- Storage, which is a time series database.
+- Data retrieval worker, which is pulling the data from our target services.
+- Webserver, which accepts [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/){:target="_blank" rel="noopener noreferrer"} queries to get data from our DB.
 
 <div style="text-align: center;">
   <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prom-server.jpg" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
+Even though Prometheus has its own UI to show graphs and metrics, we will be using Grafana as an extra layer on top of this webserver, to query and visualize our database.  
+
 ### Prometheus targets
 
 #### What does is monitor ? 
+{:.no_toc}
 
-Prometheus monitors nearly anything. It could be Linux/windows server, apache server, single applications, services, etc. 
-
-It monitors **units** on those targets like: 
+Prometheus monitors nearly anything. It could be Linux/windows server, apache server, single applications, services, etc.  
+It monitors **units** on those targets like:
 - CPU usage
 - Memory/ Disk usage
 - Request count
 - Request durations
 - Exceptions count
 
-The units that we monitor are called metrics, which get saved into the Prometheus time-series database.
+The units that we monitor are called metrics, which get saved into the Prometheus time-series database.  
 Prometheus's metrics are formatted like a human-readable text file.
 
 <div style="text-align: center;">
   <img alt="Prometheus endpoint actuator" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
-In this file we can see that there is a "HELP" comment which describes what the metric is, and we have a "TYPE" which can be one of three metric-types: 
+In this file we can see that there is a "HELP" comment which describes what the metric is, and we have a "TYPE" which can be one of four metric-types: 
 - Counter: how many times X happened (exceptions)
 - Gauge: what is the current value of X now ? (disk usage, cpu etc)
 - Histogram: how long or how big ?
+- Summary: similar to histogram it monitors request durations and response sizes.
 
 
 #### Collecting metrics from targets
+{:.no_toc}
 
 There are basically two ways of ingesting metrics into a monitoring system.   
 We can either push the data from our clients to our monitoring system, or we pull the data from the monitoring system.
 
-There is not clear-cut answer about which one is the best, they both have their pros and cons, but a some big disadvantages for pushing the data are:
-- possibility of flooding the network
-- risk of package loss 
+Prometheus is a service which polls a set of configured targets to intermittently fetch their metric values.  
+In Prometheus terminology, this polling is called scraping.  
 
-Prometheus pulls the data over HTTP from a /metrics endpoint.
+There is no clear-cut answer about which one is the best, they both have their pros and cons, but some big disadvantages for pushing data are:
+- possibility of flooding the network.
+- risk of package loss.
 
 <div style="text-align: center;">
-  <img alt="pull data image" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/pull-data.jpg" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="pull data image" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/pull-data.jpg" width="auto" height="auto" target="_blank" class="image">
 </div> 
 
-The data which gets exposed on the endpoint needs to be in the correct format, one which prometheus can understand.  
+The data which gets exposed on the endpoint needs to be in the correct format, one which Prometheus can understand.  
 
-As stated before, Prometheus can monitor a lot of different things, servers, services, databases, etc.    
+As stated before, Prometheus can monitor a lot of different things, servers, services, databases, etc.  
 Some servers even have a metrics endpoint enabled by default, so for those we don't have to change anything.  
-
 For the ones who don't have an endpoint enabled by default, we need an exporter.  
-There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.  
-You can take a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/) here.    
 
-As a side note, these tools are also available as Docker images, so we can use them inside kubernetes clusters.  
+#### Exporters
+{:.no_toc}
+
+There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.
+You can have a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/){:target="_blank" rel="noopener noreferrer"} here.    
+
+On a side note, these tools are also available as Docker images, so we can use them inside kubernetes clusters.  
 We can run an exporter docker image for a MySQL database as a side container inside the MySQL pod, connect to it and start translating data, to expose it on the metrics endpoint.
 
 #### Monitoring our own application
+{:.no_toc}
 
-If we want to know how many server resources our own application is using, how many requests it is handling or how many exceptions occurred, then we need to use one of the [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/).
-This library will enable us to declare all the metrics we deem important in our application, and expose them on the metrics endpoint.
+If we want to add our own instrumentation to our code, to know how many server resources our own application is using, how many requests it is handling or how many exceptions occurred, then we need to use one of the [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/){:target="_blank" rel="noopener noreferrer"}.
+These libraries will enable us to declare all the metrics we deem important in our application, and expose them on the metrics endpoint.
 
 ## Configuring Prometheus
 
-To tell prometheus what it needs to scrape we give it a configuration file, **prometheus.yml**.
-In this configuration file we declare a few things:  
-1. some global configs, like how often it will scrape its targets
-2. we can declare [rule files](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/), so when we meet a certain condition, we get an alert
-3. which services it needs to monitor
-
-this is an example of our demo spring boot project. As you can see, it monitors the spring boot application as well as its own health.
+To instruct Prometheus on what it needs to scrape we create a **prometheus.yml** configuration file.  
 
 <div style="text-align: center;">
   <img alt="Prometheus configuration file" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/promyml.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
-Prometheus expects the data to be exposed on the /metrics endpoint of the "targets" in the yml file.
+In this configuration file we declare a few things:  
+1. global configs, like how often it will scrape its targets.
+2. we can declare [rule files](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/){:target="_blank" rel="noopener noreferrer"}, so when we meet a certain condition, we get an alert.
+3. which services it needs to monitor.
+
+In this example you can see that Prometheus will monitor two things: 
+- Our Spring boot application
+- Its own health
+
+Prometheus expects the data of our targets to be exposed on the `/metrics` endpoint, unless otherwise declared in the `metrics_path` field.  
 
 ### Alerts
+{:.no_toc}
 
-With Prometheus, we have the possibility to get notified when metrics have reached a certain point, which we can declare in the .rules files. 
-Prometheus has a component which is called the "Alertmanager", and it can send notifications over various channels like emails, slack, PagerDuty, etc...
+With Prometheus, we have the possibility to get notified when metrics have reached a certain point, which we can declare in the `.rules` files. 
+Prometheus has a component which is called the "Alertmanager", and it can send notifications over various channels like emails, slack, PagerDuty, etc.  
 
 ### Querying our data
+{:.no_toc}
 
 Since Prometheus saves all our data in a time series database, which is located on disk in a custom timeseries format, we need to use PromQL query language, if we want to query this database.  
 
@@ -198,7 +206,8 @@ One of the significant advantages of Grafana are its customization possibilities
 It’s effortless to customize the visualization for vast amounts of data.  
 We can choose a linear graph, a single number panel, a gauge, a table, or a heatmap to display our data.  
 We can also sort all our data with various labels so data with different labels will go to different panels.  
-Last but not least, we can rearrange and resized by dragging panels around.  
+
+Last but not least, there are a ton of [premade dashboard-templates](https://grafana.com/grafana/dashboards){:target="_blank" rel="noopener noreferrer"} ready to be imported, so we don't have to create everything manually.    
 
 # Demo project 
 
@@ -206,7 +215,7 @@ Last but not least, we can rearrange and resized by dragging panels around.
 
 To demonstrate how to implement Prometheus and Grafana in your own projects, I will go through the steps to set up a basic spring boot application which we monitor by using Docker images of Prometheus and Grafana. 
 
-1. Set up a regular spring boot application by using [Spring initializr](https://start.spring.io/)
+1. Set up a regular spring boot application by using [Spring initializr](https://start.spring.io/){:target="_blank" rel="noopener noreferrer"}.
 
 2. Add dependency for Actuator
 ```
@@ -225,14 +234,14 @@ To demonstrate how to implement Prometheus and Grafana in your own projects, I w
         </dependency>
 ```
 
-4. Expose our needed prometheus endpoint in the application.properties file  
+4. Expose our needed Prometheus endpoint in the application.properties file  
 ```
 management.endpoints.web.exposure.include=prometheus
 management.endpoint.health.show-details=always
 management.metrics.tags.application= MonitoringSpringDemoProject
 ```
 
-5. After this we can run the application and browse to localhost:8080/actuator, where we can see all the available endpoints. The one we need and will use to monitor this application, is /actuator/prometheus.
+5. After this we can run the application and browse to `localhost:8080/actuator`, where we can see all the available endpoints. The one we need and will use to monitor this application, is `localhost:8080/actuator/prometheus`.
 
 <div style="text-align: center;">
   <img alt="Prometheus endpoint actuator" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -250,11 +259,7 @@ Since I want to demonstrate how to monitor a Spring boot application, as well as
 
 ```
 global:
-    scrape_interval:     15s # By default, scrape targets every 15 seconds.
-
-rule_files:
-  # - "first.rules"
-  # - "second.rules"
+    scrape_interval:     15s
 
 scrape_configs:
 - job_name: 'prometheus'
@@ -266,23 +271,20 @@ scrape_configs:
 - job_name: 'spring-actuator'
   metrics_path: '/actuator/prometheus'
   scrape_interval: 5s
-
-    #target end point. We are using the Docker, so local host will not work. You can change it with
-    #localhost if not using the Docker.
   static_configs:
     - targets: ['192.168.0.9:8080']
 ```
-We define 2 targets which it needs to monitor, spring and prometheus. 
-Since we run Prometheus from inside Docker we need to enter the host-ip which is in my case 192.168.0.9.
+We define 2 targets which it needs to monitor, our Spring application and Prometheus.  
+Since we run Prometheus from inside Docker we need to enter the host-ip which is in my case `192.168.0.9`.
 
 Afterwards we can run the Prometheus image by running the following command: 
 
 ```
 docker run -d -p 9090:9090 -v <PATH_TO_prometheus.yml_FILE>:/etc/prometheus/prometheus.yml prom/prometheus 
 ```
-We mount the prometheus.yml config file into the Prometheus image and expose port 9090 to the outside of docker.
+We mount the prometheus.yml config file into the Prometheus image and expose port 9090, to the outside of docker.
 
-When this is up and running we can access the Prometheus webUI on localhost:9090.  
+When this is up and running we can access the Prometheus webUI on `localhost:9090`.  
 
 <div style="text-align: center;">
   <img alt="Prometheus UI" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheusUI.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -298,41 +300,43 @@ When we navigate to Status > Targets, we can check if our connections are up and
 
 To run Grafana we will use the same approach as with Prometheus. 
 
-1. We download and run the image from Docker-hub
+We download and run the image from Docker-hub.  
 ```
 docker run -d -p 3000:3000 grafana/grafana
 ```
-2. Now we can access the Grafana UI from localhost:3000, where enter "admin" as login and password.
 
+Now we can access the Grafana UI from `localhost:3000`, where enter "admin" as login and password.  
 <div style="text-align: center;">
   <img alt="Grafana UI" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-ui.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
-3. After we arrive at the landing page, we need to set up a data source for Grafana. Navigate to Configuration > Data Sources, add a Prometheus data source and configure it like the example below: 
+After we arrive at the landing page, we need to set up a data source for Grafana.  
+Navigate to Configuration > Data Sources, add a Prometheus data source and configure it like the example below.  
 
 <div style="text-align: center;">
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-datasource.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
     
-If you want to create your own monitoring dashboard with your own custom panels then I can only advise you to go through some [tutorials](https://grafana.com/tutorials/) on the Grafana website, as there are a lot of quick ones.
+If you want to create your own monitoring dashboard with your own custom panels then I can only advise you to go through some [tutorials](https://grafana.com/tutorials/){:target="_blank" rel="noopener noreferrer"} on the Grafana website, as this is a very broad and specific topic to cover in this one blogpost.
 
-For this example I used one of the premade dashboards which you can find on the [Grafana Dashboards](https://grafana.com/grafana/dashboards) page.  
-
-4. The dashboard I used to monitor our application is the JVM Micrometer dashboard with import id: 4701. 
+For this example I used one of the premade dashboards which you can find on the [Grafana Dashboards](https://grafana.com/grafana/dashboards){:target="_blank" rel="noopener noreferrer"} page.  
+The dashboard I used to monitor our application is the JVM Micrometer dashboard with import id: 4701.  
 
 <div style="text-align: center;">
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-import.PNG" width="650" height="auto" target="_blank" class="image fit">
 </div> 
 
-5. Give your dashboard a custom name and select the prometheus data source we configured in step 3.
+Give your dashboard a custom name and select the prometheus data source we configured in step 3.
 
-After this is successfully imported, we now have an operational dashboard which monitors our spring boot application. 
-
-There is a section which covers:
-- Input/Output
+After this is successfully imported, we now have an operational dashboard which monitors our spring boot application.  
 
 <div style="text-align: center;">
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-dash.png" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 # Conclusions
+
+After reading this blogpost I hope you can see that using Prometheus as a data aggregator in a distributed system is not really all that hard.  
+It has a lot of client libraries which integrate seamlessly with our infrastructure, services and applications.  
+
+Using Grafana on top of his to visualize our data, feels like a breeze when we use pre-existing dashboards to quickly get things up and running.  
