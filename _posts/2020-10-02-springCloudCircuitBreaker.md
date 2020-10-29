@@ -36,6 +36,93 @@ Sentinel
 Spring Retry 
 
 # Configuring Circuit Breakers with Resilience4j
+<div style="text-align: center;">
+  <img alt="Resilience4j" src="/img/2020-10-02-spring-cloud-circuit-breaker/resilience4j.png" width="50" height="50" class="image fit">
+</div>
+
+
+We set up a Spring Boot application that returns a list of ingredients for making soup.
+ 
+```
+package hello;
+
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RestController
+@SpringBootApplication
+public class CircuitBreakerSoupApplication {
+
+  @RequestMapping(value = "/recommended")
+  public Mono<String> ingredientsList(){
+    return Mono.just("Onions, Potatoes, Celery, Carrots");
+  }
+
+  public static void main(String[] args) {
+    SpringApplication.run(CircuitBreakerSoupApplication.class, args);
+  }
+}
+```
+ 
+We’re going to run this application locally alongside a client service application, so in src/main/resources/application.properties, 
+set server.port so that the CircuitBreakerSoup application service won’t conflict with the client when we get that running.
+
+ingredients/src/main/resources/application.properties
+
+```
+server.port=8090
+```
+
+We now configure a Ingredients service application will be our front-end to the CircuitBreakerSoup application. 
+We’ll be able to view our list there at /basics, 
+and that reading list will be retrieved from the CircuitBreakerIngredients application.
+
+```
+package hello;
+
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@RestController
+@SpringBootApplication
+public class IngredientsApplication {
+
+  @RequestMapping("/basics")
+    public Mono<String> toCook() {
+      return WebClient.builder().build()
+      .get().uri("http://localhost:8090/recommended").retrieve()
+      .bodyToMono(String.class);
+  }
+
+  public static void main(String[] args) {
+    SpringApplication.run(ReadingApplication.class, args);
+  }
+}
+```
+
+We also add the server.port property to src/main/resources/application.properties:
+```
+server.port=8080
+```
+We now can access, in a browser, the /basics endpoint on our Ingredients application, and see our ingredients list. 
+Yet since we rely on the CircuitBreakerSoup application, if anything happens to it, 
+or if Ingredients is simply unable to access CircuitBreakerSoup, we’ll have no list and our users will get a nasty HTTP 500 error message.
+We want to prevent getting this error. This can be done by using the Circuit breaker.
+
+Spring Cloud’s Circuit Breaker library provides an implementation of the Circuit Breaker pattern: when we wrap a method call in a circuit breaker, 
+Spring Cloud Circuit Breaker watches for failing calls to that method, and if failures build up to a threshold,
+Spring Cloud Circuit Breaker opens the circuit so that subsequent calls automatically fail.
+While the circuit is open, Spring Cloud Circuit Breaker redirects calls to the method, and they’re passed on to our specified fallback method.
+
 You need to add the Spring Cloud Circuit Breaker Resilience 4j dependency to your application. When using maven: 
 
 ```
@@ -48,82 +135,90 @@ You need to add the Spring Cloud Circuit Breaker Resilience 4j dependency to you
 </dependencies> 
 ```
 
- 
-
-Spring Cloud Circuit Breaker auto-configures an implementation of CircuitBreakerFactory, based on the starter on your application’s classpath. You can then inject this interface into any class you want. The following example shows how to do so 
-
- 
-```
-@Service 
-public static class DemoControllerService { 
-    private RestTemplate rest; 
-
-    private CircuitBreakerFactory cbFactory;   
-
-    public DemoControllerService(RestTemplate rest, CircuitBreakerFactory cbFactory) { 
-        this.rest = rest; 
-        this.cbFactory = cbFactory; 
-    }   
-
-    public String slow() { 
-        return cbFactory.create("slow").run(() -> rest.getForObject("/slow", String.class), throwable -> "fallback"); 
-    } 
-
-} 
-```
- 
-
-If you want to wrap some reactive code in a circuit breaker ,you need to use ReactiveCircuitBreakerFactory. The following example shows how to do so: 
+Spring Cloud Circuit Breaker provides an interface called ReactiveCircuitBreakerFactory which we can use to create new circuit breakers for our application. 
+An implementation of this interface will be auto-configured based on the starter that is on your application’s classpath. 
+We will do this by creating a new service that uses this interface to make API calls to the CircuitBreakerSoup application.
 
 ```
-@Service 
-public static class DemoControllerService { 
+package hello;
 
-    private ReactiveCircuitBreakerFactory cbFactory; 
-    private WebClient webClient;   
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import reactor.core.publisher.Mono;
 
-    public DemoControllerService(WebClient webClient, ReactiveCircuitBreakerFactory cbFactory) { 
-        this.webClient = webClient; 
-        this.cbFactory = cbFactory; 
-    }  
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
-    public Mono<String> slow() { 
-        return webClient.get().uri("/slow").retrieve().bodyToMono(String.class).transform(it -> { 
-            CircuitBreaker cb = cbFactory.create("slow"); 
-            return cb.run(it, throwable ->  Mono.just("fallback")); 
-                }); 
-    } 
-} 
+@Service
+public class IngredientsService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(IngredientsService.class);
+
+
+  private final WebClient webClient;
+  private final ReactiveCircuitBreaker readingListCircuitBreaker;
+
+  public BookService(ReactiveCircuitBreakerFactory circuitBreakerFactory) {
+    this.webClient = WebClient.builder().baseUrl("http://localhost:8090").build();
+    this.readingListCircuitBreaker = circuitBreakerFactory.create("recommended");
+  }
+
+  public Mono<String> ingredientsList() {
+    return readingListCircuitBreaker.run(webClient.get().uri("/recommended").retrieve().bodyToMono(String.class), throwable -> {
+      LOG.warn("Error making request to ingredients service", throwable);
+      return Mono.just("Onions");
+    });
+  }
+}
 ```
 
-## Configuring Circuit Breakers
-In most cases, you are going to want to configure the behavior of your circuit breakers. 
-To do so, you can create beans of type Customizer. Spring Cloud Circuit Breaker lets you provide a default configuration for all circuit breakers as well as configuration for specific circuit breakers. For example, to provide a default configuration for all circuit breakers when using Resilience4J you could add the following bean to a configuration class: 
-```
-@Bean 
-public Customizer<Resilience4JCircuitBreakerFactory> defaultCustomizer() { 
-    return factory -> factory.configureDefault(
-            id -> new Resilience4JConfigBuilder(id)
-            .timeLimiterConfig(TimeLimiterConfig.custom() 
-                .timeoutDuration(Duration.ofSeconds(4)).build()) 
-            .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
-            .build()); 
-} 
-```
+The ReactiveCircuitBreakerFactory has a single method called create we can use to create new circuit breakers. 
+Once we have our circuit breaker all we have to do is call run. Run takes a Mono or Flux and an optional Function. 
+The optional Function parameter acts as our fallback if anything goes wrong. 
+In our sample here the fallback will just return a Mono containing the Onions.
 
-The code to configure an individual circuit breaker would look very similar, except you would provide a circuit breaker ID in your Customizer, as follows: 
+With our new service in place, we can update the code in IngredientsApplication to use this new service.
 
 ```
-@Bean 
-public Customizer<Resilience4JCircuitBreakerFactory> slowCustomizer() { 
-    return factory -> factory.configure(builder -> {
-        return builder.timeLimiterConfig(TimeLimiterConfig.custom()
-                            .timeoutDuration(Duration.ofSeconds(2)).build()) 
-                            .circuitBreakerConfig(
-                            CircuitBreakerConfig.ofDefaults()); 
-    }, "slow"); 
-} 
+package hello;
+
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@RestController
+@SpringBootApplication
+public class IngredientsApplication {
+
+  @Autowired
+  private IngredientsService ingredientsService;
+
+  @RequestMapping("/basics")
+  public Mono<String> toCook() {
+    return ingredientsService.ingredientsList();
+  }
+
+  public static void main(String[] args) {
+    SpringApplication.run(ReadingApplication.class, args);
+  }
+}
 ```
+
+When we run both the Ingredients service and the Soup application, and then open a browser to the Ingredients service, at localhost:8080/basics. 
+You should see the complete recommended ingredients list:
+
+Onions, Potatoes, Celery, Carrots
+Now shut down the Soup application. Our list source is gone, but thanks to Resilience4J 
+we have a reliable list to stand in the gap,you should see:
+
+Onions
 
 ## Configuring Circuit Breakers with Netflix Hystrix
 <div style="text-align: center;">
@@ -145,24 +240,24 @@ You have a SpringBootApplication that returns a list of ingredients for making s
 ```
 @RestController
 @SpringBootApplication
-public class CircuitBreakerIngredientsApplication {
+public class CircuitBreakerSoupApplication {
 
-  @RequestMapping(value = "/recommended")
+  @RequestMapping(value = "/basics")
   public String ingredientsList(){
 	return "Onions, Potatoes, Celery, Carrots";
   }
 
   public static void main(String[] args) {
-	SpringApplication.run(CircuitBreakerIngredientsApplication.class, args);
+	SpringApplication.run(CircuitBreakerSoupApplication.class, args);
   }
 }
 ```
-This is the IngredientsService that calls the CircuitBreakerIngredientsApplication for knowing which ingredients 
+This is the IngredientsService that calls the CircuitBreakerSoup application for knowing which ingredients 
 are necessary for making soup.
-When the CircuitBreakerIngredientsApplication is running you will see "Onions, Potatoes, Celery, Carrots".
-If we stop the CircuitBreakerIngredientsApplication we don't want to wait or see an error.
+When the CircuitBreakerSoup application is running you will see "Onions, Potatoes, Celery, Carrots".
+If we stop the CircuitBreakerSoup application we don't want to wait or see an error.
 No you will get the output "Onions" because we annotated the ingredientsList method 
-with @HystrixCommand(fallbackMethod = "reliable") when calling the CircuitBreakerIngredientsApplication.
+with @HystrixCommand(fallbackMethod = "reliable") when calling the CircuitBreakerSoup application.
 
 ```
 @Service
@@ -176,7 +271,7 @@ public class IngredientService {
 
   @HystrixCommand(fallbackMethod = "reliable")
   public String ingredientsList() {
-	URI uri = URI.create("http://localhost:8090/recommended");
+	URI uri = URI.create("http://localhost:8090/basics");
 
 	return this.restTemplate.getForObject(uri, String.class);
   }
