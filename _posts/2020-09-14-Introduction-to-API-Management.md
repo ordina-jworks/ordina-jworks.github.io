@@ -1,13 +1,12 @@
 ---
 layout: post
-authors: [Kris_Jordens]
+authors: [kris_jordens]
 title: 'Introduction to API Management'
-image: /img/kris_Jordens.jpg
+image: /img/2020-09-14-Introduction-to-API-Management/banner.jpg
 tags: [API Management, API Gateway, Products, Responsibilities]
 category: API
 comments: true
 ---
-
         
 # Introduction to API Management
 
