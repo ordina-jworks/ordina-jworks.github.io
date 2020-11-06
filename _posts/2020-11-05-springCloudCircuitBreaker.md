@@ -2,7 +2,7 @@
 layout: post
 authors: [lina_romanelli]
 title: 'Spring Cloud Circuit Breaker'
-image: /img/2020-10-02-spring-cloud-circuit-breaker/CircuitBreaker.png
+image: /img/2020-11-05-spring-cloud-circuit-breaker/CircuitBreaker.png
 tags: [Spring,Spring Boot]
 category: Cloud, Spring, Microservices
 comments: true
@@ -36,8 +36,8 @@ Sentinel
 Spring Retry 
 
 # Configuring Circuit Breakers with Resilience4j
-<div style="text-align: center;">
-  <img alt="Resilience4j" src="/img/2020-10-02-spring-cloud-circuit-breaker/resilience4j.png" width="50" height="50" class="image fit">
+<div style="text-align: left;">
+  <img alt="Resilience4j" src="/img/2020-11-05-spring-cloud-circuit-breaker/resilience4j.png" width="100" height="100" class="-1u(medium)">
 </div>
 
 
@@ -215,6 +215,7 @@ When we run both the Ingredients service and the Soup application, and then open
 You should see the complete recommended ingredients list:
 
 Onions, Potatoes, Celery, Carrots
+
 Now shut down the Soup application. Our list source is gone, but thanks to Resilience4J 
 we have a reliable list to stand in the gap,you should see:
 
@@ -222,7 +223,7 @@ Onions
 
 ## Configuring Circuit Breakers with Netflix Hystrix
 <div style="text-align: center;">
-  <img alt="Hystrix" src="/img/2020-10-02-spring-cloud-circuit-breaker/hystrix.png" width="auto" height="auto" class="image fit">
+  <img alt="Hystrix" src="/img/2020-11-05-spring-cloud-circuit-breaker/hystrix.png" width="auto" height="auto" class="image fit">
 </div>
 
 You need to add the Spring Cloud Circuit Breaker netflix hystrix dependency to your application. When using maven: 
