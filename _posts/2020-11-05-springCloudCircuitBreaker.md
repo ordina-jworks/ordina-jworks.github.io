@@ -217,7 +217,7 @@ You should see the complete recommended ingredients list:
 Onions, Potatoes, Celery, Carrots
 
 Now shut down the Soup application. Our list source is gone, but thanks to Resilience4J 
-we have a reliable list to stand in the gap,you should see:
+we have a reliable list to stand in,you should see:
 
 Onions
 
@@ -281,3 +281,11 @@ public class IngredientService {
 	return "Onions";
   }
 ```
+
+## Differences Resilience4j with Netflix Hystrix
+Although Resilience4j is inspired by Netflix Hystrix it is more lightweight and you don’t have to go all-in.
+Quoting the official page “Resilience4j is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for functional programming.”
+
+<div style="text-align: center;">
+  <img alt="Hystrix" src="/img/2020-11-05-spring-cloud-circuit-breaker/differences.png" width="auto" height="auto" class="image fit">
+</div>
