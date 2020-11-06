@@ -289,3 +289,12 @@ Quoting the official page “Resilience4j is a lightweight fault tolerance libra
 <div style="text-align: center;">
   <img alt="Hystrix" src="/img/2020-11-05-spring-cloud-circuit-breaker/differences.png" width="auto" height="auto" class="image fit">
 </div>
+
+Since 2019 when Spring announced that Hystrix Dashboard would be removed from Spring Cloud 3.1, one year after Netflix announces that they were putting this project into maintenance mode.
+
+Resilience4J provides the following core components:
+RateLimiter
+TimeLimiter
+CircuitBreaker
+Retry
+Bulkhead
