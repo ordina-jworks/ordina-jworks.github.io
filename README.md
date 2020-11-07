@@ -77,29 +77,29 @@ On images this can be achieved by specifying: `class="image fit"`.
 Codeblocks can be shown parallel from each other. When selecting a coding language the selection will be applied for the whole blog post.
 
 Each tabset exists of two main blocks
-- tab headers: an ul, appended with the css class `tabs`, consisting of link elements, appended with an id 
+- tab headers: an ul, appended with the css class `tabs`, consisting of link elements, appended with an id  
+- tab content: all corresponding codeblocks, appended with the corresponding tab header id and the css class `tab-content`
+ 
+<pre>
 
-```
 {: .tabs } 
 - [Java](#/){: #tab-1 }
 - [Kotlin](#/){: #tab-2 }
-```  
-  
-- tab content: all corresponding codeblocks, appended with the corresponding tab header id and the css class `tab-content`
- 
-```
-'''java
+
+
+```java
 // hello
 System.out.println("Hello");
-'''
+```
 {: #tab-1 .tab-content }
 
-'''kotlin
+```kotlin
 // hello world
 println("Hello World!")
-'''
-{: #tab-2 .tab-content }
 ```
+{: #tab-2 .tab-content }
+
+</pre>
 
 Make sure the corresponding ids for the header and the content block for the same language are consistent throughout the blog post.
 This provides the possibility of different tabsets with different coding languages.  
