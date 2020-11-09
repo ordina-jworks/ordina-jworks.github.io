@@ -38,6 +38,7 @@ It requires a modular way of working, which makes sure the application stays wel
 
 In this blog, we take a dive into using NestJS in a serverless application hosted in an Azure Function and connect it with a CosmosDB.
 Of course, NestJS can be integrated with other serverless services like [AWS Lambda](https://blog.theodo.com/2019/06/deploy-a-nestjs-app-in-5-minutes-with-serverless-framework/){:target="_blank" rel="noopener noreferrer"} and [Cognito](https://jacob-do.medium.com/token-validation-with-aws-cognito-and-nestjs-6f9e4088393c){:target="_blank" rel="noopener noreferrer"}.
+However, I found the process of converting this application to a serverless function to be a very smooth solution requiring only one(!) command.
 
 ## Setup
 
@@ -111,19 +112,19 @@ export class ParametersController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     @UseGuards(AuthGuard)
-    async createParameters(@Body() parametersDto: ParametersDto): Promise<void> {
-        if(parametersDto && parametersDto.userName && (parametersDto.bodyWeight || parametersDto.fatPercentage || parametersDto.musclePercentage)) {
-            const existingParams: ParametersEntity = await this.parametersService.getParametersEntityByUserName(parametersDto.userName);
-    
-            if (existingParams) {
-                const updatedParams: ParametersEntity = this.parametersService.mapDtoToEntity(parametersDto, existingParams);
-                this.parametersService.update(updatedParams);
-            } else {
-                this.parametersService.create(parametersDto)
-            }
-        } else {
+    async createParameters(@Body() parametersDto: ParametersDto): Promise<ParametersEntity> {
+        if(!parametersDto || parametersDto.userName || (!parametersDto.bodyWeight && !parametersDto.fatPercentage && !parametersDto.musclePercentage)) {
             // could implement @Res() from express to send a proper response to say it should at least contain one of the parameters or a userName
             return;
+        }
+
+        const existingParams: ParametersEntity = await this.parametersService.getParametersEntityByUserName(parametersDto.userName);
+
+        if (existingParams) {
+            const updatedParams: ParametersEntity = this.parametersService.mapDtoToEntity(parametersDto, existingParams);
+            return this.parametersService.update(updatedParams);
+        } else {
+            return this.parametersService.create(parametersDto)
         }
     }
 
@@ -147,7 +148,7 @@ Moving on to the `ParametersService`, we'll only take a glance at the `create()`
 When receiving an HTTP call, it will contain values for at least one of our three parameters.
 In this method, we just check the values and add them to the respective array. 
 The `update` field contains the moment that the value gets updated to track the user's progress over time.
-The parameters will then be put into a `ParametersEntity` (Discussed in [Azure Function and CosmosDB](#azure-function-and-cosmosdb)) and created in the repository.
+The parameters will then be put into a `ParametersEntity` (Discussed in [Azure Function and CosmosDB](#azure-function-and-cosmosdb)) and added to the database using the `parametersRepository`.
 
 ```js
 @Injectable()
@@ -186,19 +187,129 @@ export class ParametersService {
 }
 ```
 
+The `create()` function in the `ParametersRepository` adds the date the object was created and adds it to the database.
+We see a good example of the `loggerService` here too.
+First, we set the context to 'ParametersRepository', so that, when it logs something, it will show that the log came from this class.
+This way, logs can easily be retraced to its origin.
+
+```js
+@Injectable()
+export class ParametersRepository {
+
+    constructor(@InjectModel(ParametersEntity) private readonly container: Container, private loggerService: LoggerService) {
+        this.loggerService.setContext('ParametersRepository');
+    }
+
+    async create(item: ParametersEntity): Promise<ParametersEntity> {
+        item.createdAt = new Date();
+        const response = await this.container.items.create(item);
+        this.loggerService.verbose(`Create RUs: ${response.requestCharge}`);
+        return response.resource;
+    }
+```
+
 ## Authorization Guards
+
+The project uses two guards, an `AuthGuard` for the authorization, and a `RolesGuard` to check which roles can access certain resources.
+A good explanation of both can be found in the [NestJS documentation](https://docs.nestjs.com/guards){:target="_blank" rel="noopener noreferrer"}.
+The `RolesGuard` is almost an exact copy from the documentation, so let's take a look at the `AuthGuard` which doesn't need to be provided from a module.
+
+The `canActivate()` method is called before executing the method in the controller.
+It needs to return `true`, or the method won't execute and the application will return a 401 Unauthorized code.
+In this case, we check if the authorization header has the correct value as configured in the environment variables.
+Other setups, like OAuth, Cognito or jwt tokens are also possible.
+
+```js
+@Injectable()
+export class AuthGuard implements CanActivate {
+    constructor(private readonly configService: ConfigService) {}
+
+    async canActivate(context: ExecutionContext): Promise<boolean> {
+        const req = context.switchToHttp().getRequest();
+        if (!req.headers.authorization) {
+            return false;
+        }
+        if (req.headers.authorization.split(' ')[0] !== 'Bearer') {
+            throw new HttpException('Invalid token', HttpStatus.FORBIDDEN);
+        }
+        const token = req.headers.authorization.split(' ')[1];
+
+        return token === this.configService.get<string>('BEARER_TOKEN');
+    }
+}
+```
 
 ## Azure Function and CosmosDB
 
+To convert this app into an Azure Function and make it serverless, we only need a single command:
+
+`nest add @nestjs/azure-func-http`
+
+This will add some files and folders, including a `main.azure.ts` through which your app can be started.
+It will set a global prefix 'api' to all your controllers, the standard for Azure Functions.
+```js
+export async function createApp(): Promise<INestApplication> {
+  const app = await NestFactory.create(AppModule, new AzureHttpRouter());
+  app.setGlobalPrefix('api');
+
+  await app.init();
+  return app;
+}
+```
+
+Now, you can choose to either run your app as a normal Web App or a serverless Azure Function.
+The only thing left to do is [create an Azure Function](https://portal.azure.com/#create/Microsoft.FunctionApp){:target="_blank" rel="noopener noreferrer"} in the Portal and set up a pipeline, which is also an automatic process (on Azure DevOps).
+This will generate an `azure-pipelines.yml` file containing all necessary information and connect it with the function automatically.
+On every push to the master branch (pull request), it will automatically start a build and deploy process.
+For the environment variables, they need to be set up within the 'configuration' tab of your function, and then, you're all set.'
+
+<img alt="Azure Function Creation" src="/img/2020-11-15-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/Azure-pipeline.png" width="auto" height="auto" target="_blank" class="image fit">
+
+Congratulations! 
+You converted your app to a serverless Function!
+Quite an easy conversion, wasn't it?
+
+The database connection is just as easy.
+Again, in the portal, you can [create a CosmosDB Account](https://portal.azure.com/#create/Microsoft.DocumentDB){:target="_blank" rel="noopener noreferrer"}.
+In that account, go to 'Data Explorer' and create a new database and add the necessary variables to the configuration of the Function.
+
+In the end, your `app.module.ts` should look like this.
+Notice that we can't use the `ConfigService` in this `@Module()`, as it needs to be initialised before usage.
+
+```js
+@Module({
+  imports: [
+      ConfigModule.forRoot(),
+      ParametersModule,
+      LoggerModule,
+      AzureCosmosDbModule.forRoot({
+          dbName: process.env.DATABASE_NAME,
+          endpoint: process.env.DATABASE_ENDPOINT,
+          key: process.env.DATABASE_KEY,
+      })
+  ],
+  controllers: [
+      AppController
+  ],
+  providers: [
+      AppService,
+  ],
+})
+export class AppModule {}
+```
+
+That's it!
+Your app is now fully functional!
+
 ## Conclusion
+
+In this blog post, we made a small application to discover how NestJS can be used in the backend with some of its neat features.
+Of course, this was a very basic program to show some of the possibilities.
+For more information on NestJS and its features, check out the very thorough [documentation](https://docs.nestjs.com/){:target="_blank" rel="noopener noreferrer"}
 
 ## Resources
 
-- [JOIN 2020 website](https://ordina-jworks.github.io/join/){:target="_blank" rel="noopener noreferrer"}
-- [Tech Track playlist](https://www.youtube.com/playlist?list=PLgWyY-g33NlWg7rStHmTYPiN_0yJd4PxQ){:target="_blank" rel="noopener noreferrer"}
-- [Agile & Business playlist](https://www.youtube.com/playlist?list=PLgWyY-g33NlUR9F2PJ1h3bkd0cxSr4xab){:target="_blank" rel="noopener noreferrer"}
-- [Ordina Belgium](https://www.ordina.be/){:target="_blank" rel="noopener noreferrer"}
-- [Practical Agile](https://www.practical-agile.com/){:target="_blank" rel="noopener noreferrer"}
-- [Amazon Web Services](https://aws.amazon.com/local/benelux/){:target="_blank" rel="noopener noreferrer"}
-- [Smals Research](https://www.smalsresearch.be/){:target="_blank" rel="noopener noreferrer"}
-- [Agile & Learning Beyond Borders](https://www.francislaleman.com/){:target="_blank" rel="noopener noreferrer"}
+- [The body parameters project](https://github.com/jasperrosiers/body-parameter-tracker){:target="_blank" rel="noopener noreferrer"}
+- [NestJS docs](https://docs.nestjs.com/){:target="_blank" rel="noopener noreferrer"}
+- [AWS Lambda integration](https://blog.theodo.com/2019/06/deploy-a-nestjs-app-in-5-minutes-with-serverless-framework/){:target="_blank" rel="noopener noreferrer"} 
+- [AWS Cognito integration](https://jacob-do.medium.com/token-validation-with-aws-cognito-and-nestjs-6f9e4088393c){:target="_blank" rel="noopener noreferrer"}
