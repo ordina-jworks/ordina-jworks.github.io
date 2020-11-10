@@ -162,7 +162,7 @@ These libraries will enable us to declare all the metrics we deem important in o
 
 ## Configuring Prometheus
 
-To instruct Prometheus on what it needs to scrape we create a **prometheus.yml** configuration file.  
+To instruct Prometheus on what it needs to scrape, we create a **prometheus.yml** configuration file.  
 
 <div style="text-align: center;">
   <img alt="Prometheus configuration file" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/promyml.PNG" width="auto" height="auto" target="_blank" class="image fit">
