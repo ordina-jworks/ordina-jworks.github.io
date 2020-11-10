@@ -190,7 +190,7 @@ Prometheus has a component which is called the "Alertmanager", and it can send n
 
 Since Prometheus saves all our data in a time series database, which is located on disk in a custom timeseries format, we need to use PromQL query language, if we want to query this database.  
 
-We can do this via the Prometheus WebUI, or we can use some more powerful visualization tools like Grafana, to do this for us.
+We can do this via the Prometheus WebUI, or we can use some more powerful visualization tools like Grafana.
 
 # Grafana
 
