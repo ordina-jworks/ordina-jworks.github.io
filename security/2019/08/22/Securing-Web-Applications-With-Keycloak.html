@@ -186,35 +186,35 @@
 This article is about how we can hook up our applications to an Identity and Access Management (IAM) solution such as Keycloak in a secure way.</p>
 </blockquote>
 
-<h1 id="table-of-contents">Table of contents</h1>
-<ul>
-  <li><a href="#why-keycloak-as-authentication-server">Why Keycloak as Authentication Server</a></li>
-  <li><a href="#setting-up-a-keycloak-server">Setting up a Keycloak Server</a>
-    <ul>
-      <li><a href="#creating-a-new-realm">Creating a New Realm</a></li>
-      <li><a href="#creating-a-client">Creating a Client</a></li>
-      <li><a href="#creating-roles-and-scopes">Creating Roles and Scopes</a></li>
-      <li><a href="#creating-a-user">Creating a user</a></li>
+<h1 class="no_toc" id="table-of-contents">Table of contents</h1>
+<ul id="markdown-toc">
+  <li><a href="#why-keycloak-as-authentication-server" id="markdown-toc-why-keycloak-as-authentication-server">Why Keycloak as Authentication Server</a></li>
+  <li><a href="#setting-up-a-keycloak-server" id="markdown-toc-setting-up-a-keycloak-server">Setting up a Keycloak Server</a></li>
+  <li><a href="#creating-a-new-realm" id="markdown-toc-creating-a-new-realm">Creating a New Realm</a></li>
+  <li><a href="#creating-a-client" id="markdown-toc-creating-a-client">Creating a Client</a></li>
+  <li><a href="#creating-roles-and-scopes" id="markdown-toc-creating-roles-and-scopes">Creating Roles and Scopes</a></li>
+  <li><a href="#creating-a-user" id="markdown-toc-creating-a-user">Creating a user</a></li>
+  <li><a href="#setting-up-the-front-end-and-back-end-applications" id="markdown-toc-setting-up-the-front-end-and-back-end-applications">Setting up the Front End and Back End Applications</a>    <ul>
+      <li><a href="#spring-boot-back-end" id="markdown-toc-spring-boot-back-end">Spring Boot Back End</a></li>
+      <li><a href="#angular-app-tour-of-heroes" id="markdown-toc-angular-app-tour-of-heroes">Angular App: Tour of Heroes</a></li>
     </ul>
   </li>
-  <li><a href="#setting-up-the-front-end-and-back-end-applications">Setting up the Front End and Back End Applications</a>
-    <ul>
-      <li><a href="#spring-boot-back-end">Spring Boot back end</a></li>
-      <li><a href="#angular-app-tour-of-heroes">Angular app: Tour of Heroes</a></li>
+  <li><a href="#implementing-security" id="markdown-toc-implementing-security">Implementing Security</a>    <ul>
+      <li><a href="#implicit-flow-versus-code-flow--pkce" id="markdown-toc-implicit-flow-versus-code-flow--pkce">Implicit Flow versus Code Flow + PKCE</a></li>
+      <li><a href="#json-web-token-jwt" id="markdown-toc-json-web-token-jwt">JSON Web Token (JWT)</a></li>
+      <li><a href="#resource-server-in-spring-boot" id="markdown-toc-resource-server-in-spring-boot">Resource Server in Spring Boot</a>        <ul>
+          <li><a href="#resource-server-imports" id="markdown-toc-resource-server-imports">Resource Server Imports</a></li>
+          <li><a href="#configuration-of-the-resource-server" id="markdown-toc-configuration-of-the-resource-server">Configuration of the Resource Server</a></li>
+          <li><a href="#testing-the-setup" id="markdown-toc-testing-the-setup">Testing the setup</a></li>
+        </ul>
+      </li>
+      <li><a href="#securing-the-angular-application" id="markdown-toc-securing-the-angular-application">Securing The Angular application</a></li>
     </ul>
   </li>
-  <li><a href="#implementing-security">Implementing Security</a>
-    <ul>
-      <li><a href="#implicit-flow-versus-code-flow--pkce">Implicit Flow versus Code Flow + PKCE</a></li>
-      <li><a href="#json-web-token-jwt">JSON Web Token (JWT)</a></li>
-      <li><a href="#resource-server-in-spring-boot">Resource Server in Spring Boot</a></li>
-      <li><a href="#securing-the-angular-application">Securing The Angular application</a></li>
-    </ul>
-  </li>
-  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
 </ul>
 
-<h1 id="why-keycloak-as-authentication-server">Why Keycloak as Authentication Server</h1>
+<h2 id="why-keycloak-as-authentication-server">Why Keycloak as Authentication Server</h2>
 <p>You can find several platforms that handle user logins and resource access management such as <a href="https://www.keycloak.org/" target="_blank" rel="noopener noreferrer">Keycloak</a>, <a href="https://www.okta.com/" target="_blank" rel="noopener noreferrer">OKTA</a>, <a href="https://forgerock.github.io/openam-community-edition/" target="_blank" rel="noopener noreferrer">OpenAM</a>, etc. 
 All those platforms have their own features and possibilities that may be useful for your use case. 
 In this article, we choose Keycloak as <a href="https://en.wikipedia.org/wiki/Authentication" target="_blank" rel="noopener noreferrer">authentication</a> and <a href="https://en.wikipedia.org/wiki/Authorization" target="_blank" rel="noopener noreferrer">authorization</a> server which is an <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank" rel="noopener noreferrer">open-source</a> identity and access management platform (IAM) from Red Hat’s Jboss. 
@@ -231,18 +231,26 @@ We have chosen for Keycloak because <a href="https://github.com/keycloak/keycloa
 
 <p>We will go over the basics to get you started.</p>
 
-<h1 id="setting-up-a-keycloak-server">Setting up a Keycloak Server</h1>
+<h2 id="setting-up-a-keycloak-server">Setting up a Keycloak Server</h2>
 
 <p>Keycloak supports <a href="https://www.keycloak.org/docs/latest/server_installation/index.html#_operating-mode" target="_blank" rel="noopener noreferrer">multiple ways</a> to be set up.
 For non-production purposes, it’s easiest to just <a href="https://www.keycloak.org/downloads.html" target="_blank" rel="noopener noreferrer">download</a> and run the standalone, which we will do here. 
 For actual deployments that are going to be run in production you’ll need to configure a shared database for Keycloak storage and set up Keycloak to run in a cluster to avoid a <a href="https://en.wikipedia.org/wiki/Single_point_of_failure" target="_blank" rel="noopener noreferrer">single point of failure</a>.</p>
 
-<p>At the time of writing, the latest release version was <code class="language-plaintext highlighter-rouge">6.0.1</code>.</p>
+<p>At the time of writing, the latest release version was <code class="language-plaintext highlighter-rouge">11.0.3</code>.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl https://downloads.jboss.org/keycloak/6.0.1/keycloak-6.0.1.zip <span class="nt">--output</span> keycloak-6.0.1.zip
-<span class="nv">$ </span>unzip keycloak-6.0.1.zip
-<span class="nv">$ </span><span class="nb">cd </span>keycloak-6.0.1/bin/
+<ul class="tabs">
+  <li><a href="#/" id="tab-1">Standalone</a></li>
+  <li><a href="#/" id="tab-2">Docker</a></li>
+</ul>
+
+<div class="language-bash tab-content highlighter-rouge" id="tab-1"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl https://downloads.jboss.org/keycloak/11.0.3/keycloak-11.0.3.zip <span class="nt">--output</span> keycloak-11.0.3.zip
+<span class="nv">$ </span>unzip keycloak-11.0.3.zip
+<span class="nv">$ </span><span class="nb">cd </span>keycloak-11.0.3/bin/
+<span class="nv">$ </span>./add-user-keycloak.sh <span class="nt">-r</span> master <span class="nt">-u</span> admin <span class="nt">-p</span> admin
 <span class="nv">$ </span>./standalone
+</code></pre></div></div>
+<div class="language-bash tab-content highlighter-rouge" id="tab-2"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-p</span> 8080:8080 <span class="nt">-e</span> <span class="nv">KEYCLOAK_USER</span><span class="o">=</span>admin <span class="nt">-e</span> <span class="nv">KEYCLOAK_PASSWORD</span><span class="o">=</span>admin quay.io/keycloak/keycloak:11.0.3
 </code></pre></div></div>
 
 <blockquote>
@@ -256,7 +264,7 @@ For actual deployments that are going to be run in production you’ll need to c
 <code class="language-plaintext highlighter-rouge">-Djboss.socket.binding.port-offset=1000</code> will run the server on port 8080 + 1000 = 9080</p>
 </blockquote>
 
-<p>Go to <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a> and create an administrator account.
+<p>Go to <a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a> and create an administrator account if you haven’t already.
 You can now click on <code class="language-plaintext highlighter-rouge">Administration Console &gt;</code> and log in using the account you’ve just created.</p>
 
 <p>You are now on the pre-defined Master realm. A realm manages a set of users, credentials, roles, and groups. 
@@ -588,14 +596,35 @@ The de facto standard for securing Spring Boot applications is Spring Boot Secur
 It has resource server support, so this is what we’ll be using.</p>
 
 <h3 id="resource-server-imports">Resource Server Imports</h3>
-<p>Let’s add the dependecies to our <code class="language-plaintext highlighter-rouge">build.gradle</code> file:</p>
+<p>Let’s add the dependecies to our <code class="language-plaintext highlighter-rouge">build.gradle</code> or <code class="language-plaintext highlighter-rouge">pom.xml</code> file:</p>
 
-<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">dependencies</span> <span class="o">{</span>
+<ul class="tabs">
+  <li><a href="#/" id="tab-3">Gradle</a></li>
+  <li><a href="#/" id="tab-4">Maven</a></li>
+</ul>
+
+<div class="language-gradle tab-content highlighter-rouge" id="tab-3"><div class="highlight"><pre class="highlight"><code><span class="k">dependencies</span> <span class="o">{</span>
 	<span class="o">...</span>
 	<span class="n">implementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter-security'</span>
 	<span class="n">implementation</span> <span class="s1">'org.springframework.security:spring-security-oauth2-resource-server'</span>
 	<span class="n">implementation</span> <span class="s1">'org.springframework.security:spring-security-oauth2-jose'</span>
 <span class="o">}</span>
+</code></pre></div></div>
+<div class="language-xml tab-content highlighter-rouge" id="tab-4"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span>
+	...
+	<span class="nt">&lt;dependency&gt;</span>
+		<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+		<span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-security<span class="nt">&lt;/artifactId&gt;</span>
+	<span class="nt">&lt;/dependency&gt;</span>
+	<span class="nt">&lt;dependency&gt;</span>
+		<span class="nt">&lt;groupId&gt;</span>org.springframework.security<span class="nt">&lt;/groupId&gt;</span>
+		<span class="nt">&lt;artifactId&gt;</span>spring-security-oauth2-resource-server<span class="nt">&lt;/artifactId&gt;</span>
+	<span class="nt">&lt;/dependency&gt;</span>
+	<span class="nt">&lt;dependency&gt;</span>
+		<span class="nt">&lt;groupId&gt;</span>org.springframework.security<span class="nt">&lt;/groupId&gt;</span>
+		<span class="nt">&lt;artifactId&gt;</span>spring-security-oauth2-jose<span class="nt">&lt;/artifactId&gt;</span>
+	<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
 </code></pre></div></div>
 
 <ul>
@@ -746,8 +775,7 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
 <p>Now all there is left to do is to configure the <code class="language-plaintext highlighter-rouge">OAuthService</code>. We do this in <code class="language-plaintext highlighter-rouge">app.component.ts</code>:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">OAuthService</span><span class="p">,</span> <span class="nx">NullValidationHandler</span><span class="p">,</span> <span class="nx">AuthConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">JwksValidationHandler</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OAuthService</span><span class="p">,</span> <span class="nx">AuthConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">angular-oauth2-oidc</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
   <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">app-root</span><span class="dl">'</span><span class="p">,</span>
@@ -767,8 +795,9 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
     <span class="na">clientId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">spa-heroes</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">scope</span><span class="p">:</span> <span class="dl">'</span><span class="s1">openid profile email offline_access heroes</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">responseType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">code</span><span class="dl">'</span><span class="p">,</span>
-    <span class="c1">// at_hash is not present in JWT token</span>
-    <span class="na">disableAtHashCheck</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="c1">// at_hash is not present in id token in older versions of keycloak.</span>
+    <span class="c1">// use the following property only if needed!</span>
+    <span class="c1">// disableAtHashCheck: true,</span>
     <span class="na">showDebugInformation</span><span class="p">:</span> <span class="kc">true</span>
   <span class="p">}</span>
   
@@ -782,7 +811,6 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
   
   <span class="k">private</span> <span class="nx">configure</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">authConfig</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">tokenValidationHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NullValidationHandler</span><span class="p">();</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">loadDiscoveryDocumentAndTryLogin</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -793,8 +821,9 @@ Remember how we required the heroes scope to be present in our back end? The sco
 If we omit <code class="language-plaintext highlighter-rouge">heroes</code> from the scope list, we will be getting a 403 response from our resource server.</p>
 
 <blockquote>
-  <p>Keycloak is not returning the <code class="language-plaintext highlighter-rouge">at_hash</code> claim in the access token. For this reason, the client library would crash while parsing it.
-This is why we disable it in the config but also use the <code class="language-plaintext highlighter-rouge">NullValidationHandler</code> instead of the <code class="language-plaintext highlighter-rouge">JwksValidationHandler</code> as it would also make the application crash.</p>
+  <p>Update: Older versions of Keycloak did not include the <code class="language-plaintext highlighter-rouge">at_hash</code> claim of the access token in the id token. 
+The client library would crash while parsing it, even with the <code class="language-plaintext highlighter-rouge">disableAtHashCheck</code> enabled.
+<a href="https://github.com/manfredsteyer/angular-oauth2-oidc/issues/624" target="_blank" rel="noopener noreferrer">This has now been fixed</a>.</p>
 </blockquote>
 
 <p>We can now try to log in and if all went well, we should see our heroes appear again when browsing to <code class="language-plaintext highlighter-rouge">/dashboard</code> or <code class="language-plaintext highlighter-rouge">/heroes</code>.</p>
