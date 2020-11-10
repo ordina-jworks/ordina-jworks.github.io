@@ -64,8 +64,10 @@ There are four important things you can mark within a module:
 - `exports`: subset of the providers that need to be exported for use in other modules
 
 The `ParametersModule` imports three other modules: the previously explained `LoggerModule`, the `ConfigModule` and the `AzureCosmosDBModule`.
-The `ConfigModule` is used to be able to access environment variables from a .env file. 
+The `ConfigModule` is used to be able to access environment variables from a `.env` file or from the configuration of the Azure Function. 
 Note that this is also possible with a package such as `dotenv`, however this isn't very ideal as we would have to access `process.env` directly every time.
+Of course, pushing those environment files to git is bad practice. 
+You can find a `.env-sample` file in the repository, which is used to show which variables need to be filled in the `.env` file.
 
 ```js
 @Module({
