@@ -149,16 +149,25 @@ For the ones who don't have an endpoint enabled by default, we need an exporter.
 {:.no_toc}
 
 There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.
-You can have a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/){:target="_blank" rel="noopener noreferrer"} here.    
+You can have a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/){:target="_blank" rel="noopener noreferrer"} here.  
 
 On a side note, these tools are also available as Docker images, so we can use them inside kubernetes clusters.  
-We can run an exporter docker image for a MySQL database as a side container inside the MySQL pod, connect to it and start translating data, to expose it on the metrics endpoint.
+We can run an exporter docker image for a MySQL database as a side container inside the MySQL pod, connect to it and start translating data, to expose it on the metrics endpoint.  
 
 #### Monitoring our own application
 {:.no_toc}
 
 If we want to add our own instrumentation to our code, to know how many server resources our own application is using, how many requests it is handling or how many exceptions occurred, then we need to use one of the [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/){:target="_blank" rel="noopener noreferrer"}.
 These libraries will enable us to declare all the metrics we deem important in our application, and expose them on the metrics endpoint.
+
+### Micrometer
+
+To monitor our Spring boot application we will be using a convertor named Micrometer.  
+Micrometer is an open-source project and provides a metric facade that exposes metric data in a vendor-neutral format which Prometheus can ingest.  
+
+> Micrometer provides a simple facade over the instrumentation clients for the most popular monitoring systems, allowing you to instrument your JVM-based application code without vendor lock-in. Think SLF4J, but for metrics.  
+
+Micrometer is not part of the Spring ecosystem and needs to be added as a dependency. In our demo application we will add this to our `Pom.xml file`.
 
 ## Configuring Prometheus
 
@@ -226,7 +235,7 @@ To demonstrate how to implement Prometheus and Grafana in your own projects, I w
         </dependency>
 ```
 
-3. Add dependency for Prometheus  
+3. Add dependency for Micrometer  
 ```
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -246,6 +255,72 @@ management.metrics.tags.application= MonitoringSpringDemoProject
 
 <div style="text-align: center;">
   <img alt="Prometheus endpoint actuator" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div> 
+
+### Adding our own custom metrics
+
+We can also define some custom metrics, which I will briefly demonstrate in this section.  
+
+To be able to monitor custom metrics we need to import `MeterRegistry` from the Micrometer library and inject it into our class. 
+This gives us the possibility to use [counters](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Counter.java#L25){:target="_blank" rel="noopener noreferrer"}, [gauges](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Gauge.java#L23){:target="_blank" rel="noopener noreferrer"}, [timers](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Timer.java#L34){:target="_blank" rel="noopener noreferrer"} and more.
+
+To demonstrate how we can use this, I added 2 classes in our basic Spring application. 
+DemoMetrics has a custom Counter and Gauge, which will get updated every second through our DemoMetricsScheduler class.
+The counter gets incremented by one, and the gauge will get a random number between 1 and 100.
+
+##### DemoMetrics
+
+``` java 
+@Component
+public class DemoMetrics {
+    private final Counter demoCounter;
+    private final AtomicInteger demoGauge;
+
+    public DemoMetrics(MeterRegistry meterRegistry) {
+        this.demoCounter = meterRegistry.counter("demo_counter");
+        this.demoGauge = meterRegistry.gauge("demo_gauge", new AtomicInteger(0));
+    }
+
+    public void getRandomMetricsData() {
+        demoGauge.set(getRandomNumberInRange(0, 100));
+        demoCounter.increment();
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+}
+```
+
+##### DemoMetricsScheduler.java
+
+``` java
+@Component
+public class DemoMetricsScheduler {
+
+    private final DemoMetrics demoMetrics;
+
+    @Autowired
+    public DemoMetricsScheduler(DemoMetrics demoMetrics) {
+        this.demoMetrics = demoMetrics;
+    }
+
+    @Scheduled(fixedRate = 1000)
+    public void triggerCustomMetrics() {
+        demoMetrics.getRandomMetricsData();
+    }
+}
+```
+
+Now we are able to see our custom metrics on the `/metrics` endpoint, as you can see below.  
+
+<div style="text-align: center;">
+  <img alt="Prometheus custom metrics text" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/custom_metrics.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 ## Setup Prometheus
@@ -295,6 +370,12 @@ When we navigate to Status > Targets, we can check if our connections are up and
 
 <div style="text-align: center;">
   <img alt="Prometheus target tab" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-target.PNG" width="auto" height="auto" target="_blank" class="image fit">
+</div> 
+
+Yet again, we can check our custom metrics in the Prometheus UI, by selecting the `demo_gauge` and inspecting our graph.
+
+<div style="text-align: center;">
+  <img alt="Prometheus custom metrics graph" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/custom-graph.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 ## Setup Grafana
