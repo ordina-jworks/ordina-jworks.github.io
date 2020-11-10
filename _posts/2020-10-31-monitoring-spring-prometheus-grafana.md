@@ -34,7 +34,8 @@ In the last section I set up a demo project, so you can follow along and impleme
 
 ## What is Prometheus? 
 
-Prometheus is an open source monitoring system, originally developed by SoundCloud, it  has a large community behind it and can monitor nearly anything.  
+Prometheus, originally developed by SoundCloud is an open source and community-driven project that graduated from the Cloud Native Computing Foundation.
+It can aggregate data from almost everything:
 - Microservices
 - Multiple languages
 - Linux servers
