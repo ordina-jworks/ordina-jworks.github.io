@@ -43,7 +43,7 @@ It can aggregate data from almost everything:
 
 ## Why do we need Prometheus?
 
-In our modern times of microservices, devops is becoming more and more complex and therefore needs automation.  
+In our modern times of microservices, DevOps is becoming more and more complex and therefore needs automation.  
 We have hundreds of processes running over multiple servers, and they are all interconnected.  
 
 If we would not monitor these services then we have no clue about what is happening on hardware level or application level.  
