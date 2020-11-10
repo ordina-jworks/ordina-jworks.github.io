@@ -18,7 +18,7 @@ comments: true
 
 # Introduction
 
-In a distributed landscape where we are working with microservices, serverless applications or just event-driven architecture as a whole, than observability, which comprises monitoring, logging, tracing and alerting, is an important architectural concern.  
+In a distributed landscape where we are working with microservices, serverless applications, or just event-driven architecture as a whole, observability, which comprises monitoring, logging, tracing, and alerting, is an important architectural concern.  
 
 There are a few reasons why we want visibility in our highly distributed systems:  
 - Issues will occur, even when our best employees have built it.
