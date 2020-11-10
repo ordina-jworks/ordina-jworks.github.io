@@ -1,8 +1,8 @@
 ---
 layout: post
 authors: [jasper_rosiers]
-title: "Typescript in the backend with NestJS and Azure Functions: a deep dive"
-image: /img/2020-11-15-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png
+title: "Typescript in a serverless backend with NestJS and Azure Functions"
+image: /img/2020-11-12-Typescript-in-a-serverless-backend-with-NestJS-and-Azure-Functions/banner.png
 tags: [Typescript, Backend, NestJS, Azure, Serverless]
 category: Backend
 comments: true
@@ -263,7 +263,7 @@ This will generate an `azure-pipelines.yml` file containing all necessary inform
 On every push to the master branch (pull request), it will automatically start a build and deploy process.
 For the environment variables, they need to be set up within the 'configuration' tab of your function, and then, you're all set.'
 
-<img alt="Azure Function Creation" src="/img/2020-11-15-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/Azure-pipeline.png" width="auto" height="auto" target="_blank" class="image fit">
+<img alt="Azure Function Creation" src="/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/Azure-pipeline.png" width="auto" height="auto" target="_blank" class="image fit">
 
 Congratulations! 
 You converted your app to a serverless Function!
