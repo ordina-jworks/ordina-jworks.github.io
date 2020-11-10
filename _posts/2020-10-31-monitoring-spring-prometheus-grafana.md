@@ -118,7 +118,7 @@ Prometheus's metrics are formatted like a human-readable text file.
 In this file we can see that there is a "HELP" comment which describes what the metric is, and we have a "TYPE" which can be one of four metric-types: 
 - Counter: how many times X happened (exceptions)
 - Gauge: what is the current value of X now ? (disk usage, cpu etc)
-- Histogram: how long or how big ?
+- Histogram: how long or how big?
 - Summary: similar to histogram it monitors request durations and response sizes.
 
 
