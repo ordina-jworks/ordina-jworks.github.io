@@ -306,7 +306,7 @@ We download and run the image from Docker-hub.
 docker run -d -p 3000:3000 grafana/grafana
 ```
 
-Now we can access the Grafana UI from `localhost:3000`, where enter "admin" as login and password.  
+Now we can access the Grafana UI from `localhost:3000`, where you can enter "admin" as login and password.  
 <div style="text-align: center;">
   <img alt="Grafana UI" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-ui.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
