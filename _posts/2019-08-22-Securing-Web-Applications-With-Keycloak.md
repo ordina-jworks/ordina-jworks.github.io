@@ -12,23 +12,11 @@ comments: true
 This article is about how we can hook up our applications to an Identity and Access Management (IAM) solution such as Keycloak in a secure way.
 
 # Table of contents
-* [Why Keycloak as Authentication Server](#why-keycloak-as-authentication-server)
-* [Setting up a Keycloak Server](#setting-up-a-keycloak-server)
-  * [Creating a New Realm](#creating-a-new-realm)
-  * [Creating a Client](#creating-a-client)
-  * [Creating Roles and Scopes](#creating-roles-and-scopes)
-  * [Creating a user](#creating-a-user)
-* [Setting up the Front End and Back End Applications](#setting-up-the-front-end-and-back-end-applications)
-  * [Spring Boot back end](#spring-boot-back-end)
-  * [Angular app: Tour of Heroes](#angular-app-tour-of-heroes)
-* [Implementing Security](#implementing-security)
-  * [Implicit Flow versus Code Flow + PKCE](#implicit-flow-versus-code-flow--pkce)
-  * [JSON Web Token (JWT)](#json-web-token-jwt)
-  * [Resource Server in Spring Boot](#resource-server-in-spring-boot)
-  * [Securing The Angular application](#securing-the-angular-application)
-* [Conclusion](#conclusion)
+{:.no_toc}
+- TOC
+{:toc}
 
-# Why Keycloak as Authentication Server
+## Why Keycloak as Authentication Server
 You can find several platforms that handle user logins and resource access management such as [Keycloak](https://www.keycloak.org/){:target="_blank" rel="noopener noreferrer"}, [OKTA](https://www.okta.com/){:target="_blank" rel="noopener noreferrer"}, [OpenAM](https://forgerock.github.io/openam-community-edition/){:target="_blank" rel="noopener noreferrer"}, etc. 
 All those platforms have their own features and possibilities that may be useful for your use case. 
 In this article, we choose Keycloak as [authentication](https://en.wikipedia.org/wiki/Authentication){:target="_blank" rel="noopener noreferrer"} and [authorization](https://en.wikipedia.org/wiki/Authorization){:target="_blank" rel="noopener noreferrer"} server which is an [open-source](https://en.wikipedia.org/wiki/Open_source){:target="_blank" rel="noopener noreferrer"} identity and access management platform (IAM) from Red Hat's Jboss. 
@@ -43,20 +31,32 @@ Keycloak comes with several handy features built-in:
 
 We will go over the basics to get you started.
 
-# Setting up a Keycloak Server
+## Setting up a Keycloak Server
 
 Keycloak supports [multiple ways](https://www.keycloak.org/docs/latest/server_installation/index.html#_operating-mode){:target="_blank" rel="noopener noreferrer"} to be set up.
 For non-production purposes, it's easiest to just [download](https://www.keycloak.org/downloads.html){:target="_blank" rel="noopener noreferrer"} and run the standalone, which we will do here. 
 For actual deployments that are going to be run in production you'll need to configure a shared database for Keycloak storage and set up Keycloak to run in a cluster to avoid a [single point of failure](https://en.wikipedia.org/wiki/Single_point_of_failure){:target="_blank" rel="noopener noreferrer"}. 
 
-At the time of writing, the latest release version was `6.0.1`. 
+At the time of writing, the latest release version was `11.0.3`. 
+
+
+{: .tabs } 
+- [Standalone](#/){: #tab-1 }
+- [Docker](#/){: #tab-2 }
+
 
 ```bash
-$ curl https://downloads.jboss.org/keycloak/6.0.1/keycloak-6.0.1.zip --output keycloak-6.0.1.zip
-$ unzip keycloak-6.0.1.zip
-$ cd keycloak-6.0.1/bin/
+$ curl https://downloads.jboss.org/keycloak/11.0.3/keycloak-11.0.3.zip --output keycloak-11.0.3.zip
+$ unzip keycloak-11.0.3.zip
+$ cd keycloak-11.0.3/bin/
+$ ./add-user-keycloak.sh -r master -u admin -p admin
 $ ./standalone
 ```
+{: #tab-1 .tab-content }
+```bash
+docker run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:11.0.3
+```
+{: #tab-2 .tab-content }
 
 > For Windows users, there is also a `standalone.bat` in the same folder.
 
@@ -65,7 +65,7 @@ The Keycloak server is now running on port 8080.
 > Use `-Djboss.socket.binding.port-offset` to change the port.  
 `-Djboss.socket.binding.port-offset=1000` will run the server on port 8080 + 1000 = 9080 
 
-Go to [http://localhost:8080](http://localhost:8080){:target="_blank" rel="noopener noreferrer"} and create an administrator account.
+Go to [http://localhost:8080](http://localhost:8080){:target="_blank" rel="noopener noreferrer"} and create an administrator account if you haven't already.
 You can now click on `Administration Console >` and log in using the account you've just created.  
 
 You are now on the pre-defined Master realm. A realm manages a set of users, credentials, roles, and groups. 
@@ -384,7 +384,11 @@ The de facto standard for securing Spring Boot applications is Spring Boot Secur
 It has resource server support, so this is what we'll be using.
 
 ### Resource Server Imports
-Let's add the dependecies to our `build.gradle` file:
+Let's add the dependecies to our `build.gradle` or `pom.xml` file:
+
+{: .tabs } 
+- [Gradle](#/){: #tab-3 }
+- [Maven](#/){: #tab-4 }
 
 ```gradle
 dependencies {
@@ -394,6 +398,25 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-oauth2-jose'
 }
 ```
+{: #tab-3 .tab-content }
+```xml
+<dependencies>
+	...
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-oauth2-resource-server</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-oauth2-jose</artifactId>
+	</dependency>
+</dependencies>
+```
+{: #tab-4 .tab-content }
 
 * `spring-boot-starter-security`: starter dependency for Spring Security
 * `spring-security-oauth2-resource-server`: dependency to use our application as a Resource Server
@@ -550,8 +573,7 @@ Now all there is left to do is to configure the `OAuthService`. We do this in `a
 
 ```typescript
 import { Component } from '@angular/core';
-import { OAuthService, NullValidationHandler, AuthConfig } from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc';
+import { OAuthService, AuthConfig } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-root',
@@ -571,8 +593,9 @@ export class AppComponent {
     clientId: 'spa-heroes',
     scope: 'openid profile email offline_access heroes',
     responseType: 'code',
-    // at_hash is not present in JWT token
-    disableAtHashCheck: true,
+    // at_hash is not present in id token in older versions of keycloak.
+    // use the following property only if needed!
+    // disableAtHashCheck: true,
     showDebugInformation: true
   }
   
@@ -586,7 +609,6 @@ export class AppComponent {
   
   private configure() {
     this.oauthService.configure(this.authConfig);
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 }
@@ -596,8 +618,9 @@ Make sure that the name of the realm (heroes) and the client id (spa-heroes) cor
 Remember how we required the heroes scope to be present in our back end? The scope property is how we fix this. 
 If we omit `heroes` from the scope list, we will be getting a 403 response from our resource server.
 
-> Keycloak is not returning the `at_hash` claim in the access token. For this reason, the client library would crash while parsing it.
-This is why we disable it in the config but also use the `NullValidationHandler` instead of the `JwksValidationHandler` as it would also make the application crash.
+> Update: Older versions of Keycloak did not include the `at_hash` claim of the access token in the id token. 
+> The client library would crash while parsing it, even with the `disableAtHashCheck` enabled.
+> [This has now been fixed](https://github.com/manfredsteyer/angular-oauth2-oidc/issues/624){:target="_blank" rel="noopener noreferrer"}.
 
 We can now try to log in and if all went well, we should see our heroes appear again when browsing to `/dashboard` or `/heroes`.
 
