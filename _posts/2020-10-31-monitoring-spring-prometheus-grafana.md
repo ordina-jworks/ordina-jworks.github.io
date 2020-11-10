@@ -162,12 +162,12 @@ These libraries will enable us to declare all the metrics we deem important in o
 
 ### Micrometer
 
-To monitor our Spring boot application we will be using a convertor named Micrometer.  
+To monitor our Spring boot application we will be using an exporter named Micrometer.  
 Micrometer is an open-source project and provides a metric facade that exposes metric data in a vendor-neutral format which Prometheus can ingest.  
 
 > Micrometer provides a simple facade over the instrumentation clients for the most popular monitoring systems, allowing you to instrument your JVM-based application code without vendor lock-in. Think SLF4J, but for metrics.  
 
-Micrometer is not part of the Spring ecosystem and needs to be added as a dependency. In our demo application we will add this to our `Pom.xml file`.
+Micrometer is not part of the Spring ecosystem and needs to be added as a dependency. In our demo application we will add this to our `pom.xml` file.
 
 ## Configuring Prometheus
 
@@ -264,11 +264,11 @@ We can also define some custom metrics, which I will briefly demonstrate in this
 To be able to monitor custom metrics we need to import `MeterRegistry` from the Micrometer library and inject it into our class. 
 This gives us the possibility to use [counters](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Counter.java#L25){:target="_blank" rel="noopener noreferrer"}, [gauges](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Gauge.java#L23){:target="_blank" rel="noopener noreferrer"}, [timers](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Timer.java#L34){:target="_blank" rel="noopener noreferrer"} and more.
 
-To demonstrate how we can use this, I added 2 classes in our basic Spring application. 
-DemoMetrics has a custom Counter and Gauge, which will get updated every second through our DemoMetricsScheduler class.
+To demonstrate how we can use this, I added 2 classes in our basic Spring application.  
+DemoMetrics has a custom Counter and Gauge, which will get updated every second through our DemoMetricsScheduler class.  
 The counter gets incremented by one, and the gauge will get a random number between 1 and 100.
 
-##### DemoMetrics
+##### DemoMetrics class
 
 ``` java 
 @Component
@@ -276,6 +276,7 @@ public class DemoMetrics {
     private final Counter demoCounter;
     private final AtomicInteger demoGauge;
 
+    @Autowired
     public DemoMetrics(MeterRegistry meterRegistry) {
         this.demoCounter = meterRegistry.counter("demo_counter");
         this.demoGauge = meterRegistry.gauge("demo_gauge", new AtomicInteger(0));
@@ -297,7 +298,7 @@ public class DemoMetrics {
 }
 ```
 
-##### DemoMetricsScheduler.java
+##### DemoMetricsScheduler class
 
 ``` java
 @Component
@@ -397,9 +398,7 @@ Navigate to Configuration > Data Sources, add a Prometheus data source and confi
 
 <div style="text-align: center;">
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-datasource.PNG" width="auto" height="auto" target="_blank" class="image fit">
-</div> 
-    
-If you want to create your own monitoring dashboard with your own custom panels then I can only advise you to go through some [tutorials](https://grafana.com/tutorials/){:target="_blank" rel="noopener noreferrer"} on the Grafana website, as this is a very broad and specific topic to cover in this one blogpost.
+</div>  
 
 For this example I used one of the premade dashboards which you can find on the [Grafana Dashboards](https://grafana.com/grafana/dashboards){:target="_blank" rel="noopener noreferrer"} page.  
 The dashboard I used to monitor our application is the JVM Micrometer dashboard with import id: 4701.  
@@ -408,14 +407,44 @@ The dashboard I used to monitor our application is the JVM Micrometer dashboard 
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-import.PNG" width="650" height="auto" target="_blank" class="image fit">
 </div> 
 
-Give your dashboard a custom name and select the prometheus data source we configured in step 3.
-
-After this is successfully imported, we now have an operational dashboard which monitors our spring boot application.  
+Give your dashboard a custom name and select the prometheus data source we configured in step 3.  
+Now we have a fully pre-configured dashboard, with some important metrics showcased, out of the box.  
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-dash.png" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana dashboard" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-done.png" width="650" height="auto" target="_blank" class="image fit">
 </div> 
 
+### Adding a custom metric panel
+
+To demonstrate how we can create a panel for one of our own custom metrics, I will list the required steps below. 
+
+First we need to add a panel by clicking on "add panel" on the top of the page, and yet again on "add new panel" in the center.
+
+ <div style="text-align: center;">
+   <img alt="Grafana add extra panel" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-add-panel.png" width="auto" height="auto" target="_blank" class="image fit">
+ </div> 
+ 
+Then we need to configure our panel, which we do by selecting `demo_gauge` in the metrics field.  
+To display our graph in a prettier way, we can choose the "stat" type under the visualization tab.
+
+ <div style="text-align: center;">
+   <img alt="Grafana add extra panel" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-custom-panel-gauge.PNG" width="auto" height="auto" target="_blank" class="image fit">
+ </div> 
+ 
+When we click on `Apply` in the top right corner, our new panel gets added to the dashboard.  
+ 
+Afterwards, we can do the same thing for our `demo_counter` metric. 
+
+ <div style="text-align: center;">
+   <img alt="Grafana add another extra panel" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-custom-panel-counter.PNG" width="auto" height="auto" target="_blank" class="image fit">
+ </div> 
+
+After going through all of these steps, we now have an operational dashboard which monitors our spring boot application, with our own custom metrics.  
+
+<div style="text-align: center;">
+  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-dash.png" width="auto" height="auto" target="_blank" class="image fit">
+</div> 
+ 
 # Conclusions
 
 After reading this blogpost I hope you can see that using Prometheus as a data aggregator in a distributed system is not really all that hard.  
