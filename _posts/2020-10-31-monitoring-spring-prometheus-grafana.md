@@ -28,7 +28,7 @@ There are a few reasons why we want visibility in our highly distributed systems
 - Reduce the mean time to resolution (MTTR).
 
 In this blogpost I will explain the core concepts of Prometheus and Grafana.  
-In the last section I set up a demo project, so you can follow along and implement monitoring in     your own applications. 
+In the last section I set up a demo project, so you can follow along and implement monitoring in your own applications. 
 
 # Prometheus
 
