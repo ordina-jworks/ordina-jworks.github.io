@@ -2,7 +2,7 @@
 layout: post
 authors: [jasper_rosiers]
 title: "Typescript in a serverless backend with NestJS and Azure Functions"
-image: /img/2020-11-12-Typescript-in-a-serverless-backend-with-NestJS-and-Azure-Functions/banner.png
+image: /img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png
 tags: [Typescript, Backend, NestJS, Azure, Serverless]
 category: Backend
 comments: true
@@ -18,7 +18,7 @@ comments: true
 
 1. [Introduction](#introduction)
 2. [Setup](#setup)
-3. [ParametersModule](#parameters-module)
+3. [ParametersModule](#parametersmodule)
 4. [Authorization Guards](#authorization-guards)
 5. [Azure Function and CosmosDB](#azure-function-and-cosmosdb)
 6. [Conclusion](#conclusion)
@@ -31,7 +31,7 @@ He's a Java programmer and didn't know Typescript's properties very well.
 An introduction: Typescript is an asynchronous, functional programming language which compiles down to plain Javascript. 
 It supports interfaces, classes and access modifiers like private, protected and public.
 
-When first using Typescript, it felt less easy than using with Spring Boot, which I had used prior during Java programming.
+When first using TypeScript, it felt less easy than using Spring Boot, which I had used prior during Java programming.
 This is where NestJS comes in, a NodeJS framework built for the backend with Object Oriented Programming in mind.
 If you have worked with a framework like Spring before, NestJS will be quite easy for you to understand.
 It requires a modular way of working, which makes sure the application stays well organised. 
@@ -66,7 +66,7 @@ There are four important things you can mark within a module:
 The `ParametersModule` imports three other modules: the previously explained `LoggerModule`, the `ConfigModule` and the `AzureCosmosDBModule`.
 The `ConfigModule` is used to be able to access environment variables from a `.env` file or from the configuration of the Azure Function. 
 Note that this is also possible with a package such as `dotenv`, however this isn't very ideal as we would have to access `process.env` directly every time.
-Of course, pushing those environment files to git is bad practice. 
+Of course, pushing those environment files to Git is bad practice. 
 You can find a `.env-sample` file in the repository, which is used to show which variables need to be filled in the `.env` file.
 
 ```js
@@ -92,8 +92,8 @@ export class ParametersModule {}
 The first step when receiving an HTTP request to the application is the `ParametersController` as shown below.
 This controller will catch all requests on the 'parameters' endpoint.
 Using annotations, you can:
-- make a check for the type of incoming request and divide the traffic accordingly. This is similar to the way annotations work in the spring framework (eg. `@PostMapping()`).
-- customise which Http code you want to return on successful calls, as I did with the `createParameters` method.
+- make a check for the type of incoming request and divide the traffic accordingly. This is similar to the way annotations work in the Spring Framework (eg. `@PostMapping`).
+- Customise which HTTP code you want to return on successful calls, as I did with the `createParameters` method.
 - use the `@Res()` from `express` to send a completely customised response, however I did not use that here.
 - Execute Guards before being able to activate the method
 
@@ -102,13 +102,13 @@ It first asks the `parametersService` to check if there is an object with the gi
 We could ask the `parametersRepository` for this information directly, however, having this layer of abstraction is essential for having cleaner code.
 If there is no object present yet, it will create a new one, otherwise, it will update the existing one. 
 For this update, it will map the new info to the existing object. 
-Again, we use the `parametersService` for it's abstraction layer, the controller should only be used for methods capturing HTTP calls.
+Again, we use the `parametersService` for its abstraction layer, the controller should only be used for methods capturing HTTP calls.
 
 ```js
 @Controller('parameters')
 export class ParametersController {
     constructor(private readonly parametersService: ParametersService, private readonly loggerSerivce: LoggerService) {
-        this.loggerSerivce.setContext('ParametersController');
+        this.loggerService.setContext('ParametersController');
     }
 
     @Post()
@@ -219,7 +219,7 @@ The `RolesGuard` is almost an exact copy from the documentation, so let's take a
 The `canActivate()` method is called before executing the method in the controller.
 It needs to return `true`, or the method won't execute and the application will return a 401 Unauthorized code.
 In this case, we check if the authorization header has the correct value as configured in the environment variables.
-Other setups, like OAuth, Cognito or jwt tokens are also possible.
+Other setups, like OAuth, Cognito or JWT tokens are also possible.
 
 ```js
 @Injectable()
@@ -307,7 +307,7 @@ Your app is now fully functional!
 
 In this blog post, we made a small application to discover how NestJS can be used in the backend with some of its neat features.
 Of course, this was a very basic program to show some of the possibilities.
-For more information on NestJS and its features, check out the very thorough [documentation](https://docs.nestjs.com/){:target="_blank" rel="noopener noreferrer"}
+For more information on NestJS and its features, check out the very thorough [documentation](https://docs.nestjs.com/){:target="_blank" rel="noopener noreferrer"}.
 
 ## Resources
 
