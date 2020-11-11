@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [jasper_rosiers]
-title: "Typescript in a serverless backend with NestJS and Azure Functions"
+title: "TypeScript in a serverless backend with NestJS and Azure Functions"
 image: /img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png
-tags: [Typescript, Backend, NestJS, Azure, Serverless]
+tags: [TypeScript, Backend, NestJS, Azure, Serverless]
 category: Backend
 comments: true
 ---
@@ -26,9 +26,9 @@ comments: true
 
 ## Introduction
 
-When I asked a colleague to validate my code structure for this blog, he asked me "Why would one use Typescript in the backend at all?". 
-He's a Java programmer and didn't know Typescript's properties very well. 
-An introduction: Typescript is an asynchronous, functional programming language which compiles down to plain Javascript. 
+When I asked a colleague to validate my code structure for this blog, he asked me "Why would one use TypeScript in the backend at all?". 
+He's a Java programmer and didn't know TypeScript's properties very well. 
+An introduction: TypeScript is an asynchronous, functional programming language which compiles down to plain JavaScript. 
 It supports interfaces, classes and access modifiers like private, protected and public.
 
 When first using TypeScript, it felt less easy than using Spring Boot, which I had used prior during Java programming.
@@ -92,9 +92,9 @@ export class ParametersModule {}
 The first step when receiving an HTTP request to the application is the `ParametersController` as shown below.
 This controller will catch all requests on the 'parameters' endpoint.
 Using annotations, you can:
-- make a check for the type of incoming request and divide the traffic accordingly. This is similar to the way annotations work in the Spring Framework (eg. `@PostMapping`).
+- Make a check for the type of incoming request and divide the traffic accordingly. This is similar to the way annotations work in the Spring Framework (eg. `@PostMapping`).
 - Customise which HTTP code you want to return on successful calls, as I did with the `createParameters` method.
-- use the `@Res()` from `express` to send a completely customised response, however I did not use that here.
+- Use the `@Res()` from `express` to send a completely customised response, however I did not use that here.
 - Execute Guards before being able to activate the method
 
 Let's focus on the `Post()` method. 
@@ -249,6 +249,7 @@ To convert this app into an Azure Function and make it serverless, we only need 
 
 This will add some files and folders, including a `main.azure.ts` through which your app can be started.
 It will set a global prefix 'api' to all your controllers, the standard for Azure Functions.
+
 ```js
 export async function createApp(): Promise<INestApplication> {
   const app = await NestFactory.create(AppModule, new AzureHttpRouter());
@@ -311,7 +312,7 @@ For more information on NestJS and its features, check out the very thorough [do
 
 ## Resources
 
-- [The body parameters project](https://github.com/jasperrosiers/body-parameter-tracker){:target="_blank" rel="noopener noreferrer"}
+- [The body parameter tracker project](https://github.com/jasperrosiers/body-parameter-tracker){:target="_blank" rel="noopener noreferrer"}
 - [NestJS docs](https://docs.nestjs.com/){:target="_blank" rel="noopener noreferrer"}
 - [AWS Lambda integration](https://blog.theodo.com/2019/06/deploy-a-nestjs-app-in-5-minutes-with-serverless-framework/){:target="_blank" rel="noopener noreferrer"} 
 - [AWS Cognito integration](https://jacob-do.medium.com/token-validation-with-aws-cognito-and-nestjs-6f9e4088393c){:target="_blank" rel="noopener noreferrer"}
