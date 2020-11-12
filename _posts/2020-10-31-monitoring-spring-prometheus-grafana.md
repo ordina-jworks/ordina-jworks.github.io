@@ -318,7 +318,7 @@ public class DemoMetricsScheduler {
 }
 ```
 
-Now we are able to see our custom metrics on the `/metrics` endpoint, as you can see below.  
+Now we are able to see our custom metrics on the `/actuator/prometheus` endpoint, as you can see below.  
 
 <div style="text-align: center;">
   <img alt="Prometheus custom metrics text" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/custom_metrics.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -445,7 +445,7 @@ After going through all of these steps, we now have an operational dashboard whi
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-dash.png" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
  
-# Conclusions
+# Conclusion
 
 After reading this blogpost I hope you can see that using Prometheus as a data aggregator in a distributed system is not really all that hard.  
 It has a lot of client libraries which integrate seamlessly with our infrastructure, services and applications.  
