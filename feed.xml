@@ -1,5 +1,317 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-11-10T14:23:50+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">JOIN 2020</title><link href="https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020.html" rel="alternate" type="text/html" title="JOIN 2020" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-11-12T11:24:49+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">TypeScript in a serverless backend with NestJS and Azure Functions</title><link href="https://ordina-jworks.github.io/backend/2020/11/12/Typescript-in-a-serverless-backend-with-NestJS-and-Azure-Functions.html" rel="alternate" type="text/html" title="TypeScript in a serverless backend with NestJS and Azure Functions" /><published>2020-11-12T00:00:00+00:00</published><updated>2020-11-12T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/backend/2020/11/12/Typescript-in-a-serverless-backend-with-NestJS-and-Azure-Functions</id><content type="html" xml:base="https://ordina-jworks.github.io/backend/2020/11/12/Typescript-in-a-serverless-backend-with-NestJS-and-Azure-Functions.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setup&quot;&gt;Setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#parametersmodule&quot;&gt;ParametersModule&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#authorization-guards&quot;&gt;Authorization Guards&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#azure-function-and-cosmosdb&quot;&gt;Azure Function and CosmosDB&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;When I asked a colleague to validate my code structure for this blog, he asked me “Why would one use TypeScript in the backend at all?”. 
+He’s a Java programmer and didn’t know TypeScript’s properties very well. 
+An introduction: TypeScript is an asynchronous, functional programming language which compiles down to plain JavaScript. 
+It supports interfaces, classes and access modifiers like private, protected and public.&lt;/p&gt;
+
+&lt;p&gt;When first using TypeScript, it felt less easy than using Spring Boot, which I had used prior during Java programming.
+This is where NestJS comes in, a NodeJS framework built for the backend with Object Oriented Programming in mind.
+If you have worked with a framework like Spring before, NestJS will be quite easy for you to understand.
+It requires a modular way of working, which makes sure the application stays well organised.&lt;/p&gt;
+
+&lt;p&gt;In this blog, we take a dive into using NestJS in a serverless application hosted in an Azure Function and connect it with a CosmosDB.
+Of course, NestJS can be integrated with other serverless services like &lt;a href=&quot;https://blog.theodo.com/2019/06/deploy-a-nestjs-app-in-5-minutes-with-serverless-framework/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Lambda&lt;/a&gt; and &lt;a href=&quot;https://jacob-do.medium.com/token-validation-with-aws-cognito-and-nestjs-6f9e4088393c&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cognito&lt;/a&gt;.
+However, I found the process of converting this application to a serverless function to be a very smooth solution requiring only one(!) command.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;I made a little application which can save and return three parameters of your body: weight, fat percentage and muscle percentage.
+The app is automatically deployed to an Azure function using Azure Pipelines and saves those parameters to a CosmosDB.
+I made the code available on &lt;a href=&quot;https://github.com/jasperrosiers/body-parameter-tracker&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt; for you to learn from, as we won’t touch on everything in the repository in this blog post.&lt;/p&gt;
+
+&lt;p&gt;The user can send new data to the application, which will keep the history of the three parameters in a CosmosDB.
+Apart from the main &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AppModule&lt;/code&gt;, I only added two modules, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParametersModule&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LoggerModule&lt;/code&gt; to the application.
+This blog post won’t explain building the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LoggerModule&lt;/code&gt;, as it only serves to create a custom logger.
+The &lt;a href=&quot;https://docs.nestjs.com/techniques/logger&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NestJS documentation&lt;/a&gt; provides a very clear explanation of how to use a custom logger.&lt;/p&gt;
+
+&lt;p&gt;The application has two (basic) guards set up for the HTTP calls, one for authorization and one for role-based access. 
+For this guard, we use a simple bearer token, however, integration with eg. Cognito or JWT tokens is available.&lt;/p&gt;
+
+&lt;h2 id=&quot;parametersmodule&quot;&gt;ParametersModule&lt;/h2&gt;
+
+&lt;p&gt;A Module in NestJS provides a clear way of organizing the project and enabling clear dependency injection.
+There are four important things you can mark within a module:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;controllers&lt;/code&gt;: classes which capture incoming HTTP calls&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;providers&lt;/code&gt;: classes marked with NestJS’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Injectable()&lt;/code&gt;, made available for dependency injection&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;imports&lt;/code&gt;: modules that need to be imported, again for dependency injection&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exports&lt;/code&gt;: subset of the providers that need to be exported for use in other modules&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParametersModule&lt;/code&gt; imports three other modules: the previously explained &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LoggerModule&lt;/code&gt;, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ConfigModule&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AzureCosmosDBModule&lt;/code&gt;.
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ConfigModule&lt;/code&gt; is used to be able to access environment variables from a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env&lt;/code&gt; file or from the configuration of the Azure Function. 
+Note that this is also possible with a package such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dotenv&lt;/code&gt;, however this isn’t very ideal as we would have to access &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;process.env&lt;/code&gt; directly every time.
+Of course, pushing those environment files to Git is bad practice. 
+You can find a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env-sample&lt;/code&gt; file in the repository, which is used to show which variables need to be filled in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;controllers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ParametersController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ParametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+      &lt;span class=&quot;nx&quot;&gt;ParametersRepository&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;provide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;APP_GUARD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;useClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RolesGuard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;LoggerModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ConfigModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;AzureCosmosDbModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forFeature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;dto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}])&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The first step when receiving an HTTP request to the application is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParametersController&lt;/code&gt; as shown below.
+This controller will catch all requests on the ‘parameters’ endpoint.
+Using annotations, you can:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Make a check for the type of incoming request and divide the traffic accordingly. This is similar to the way annotations work in the Spring Framework (eg. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PostMapping&lt;/code&gt;).&lt;/li&gt;
+  &lt;li&gt;Customise which HTTP code you want to return on successful calls, as I did with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;createParameters&lt;/code&gt; method.&lt;/li&gt;
+  &lt;li&gt;Use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Res()&lt;/code&gt; from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;express&lt;/code&gt; to send a completely customised response, however I did not use that here.&lt;/li&gt;
+  &lt;li&gt;Execute Guards before being able to activate the method&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s focus on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Post()&lt;/code&gt; method. 
+It first asks the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parametersService&lt;/code&gt; to check if there is an object with the given &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userName&lt;/code&gt; present in the database.
+We could ask the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parametersRepository&lt;/code&gt; for this information directly, however, having this layer of abstraction is essential for having cleaner code.
+If there is no object present yet, it will create a new one, otherwise, it will update the existing one. 
+For this update, it will map the new info to the existing object. 
+Again, we use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parametersService&lt;/code&gt; for its abstraction layer, the controller should only be used for methods capturing HTTP calls.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;parameters&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersController&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;readonly&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;readonly&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;loggerSerivce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;LoggerService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loggerService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ParametersController&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;HttpCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HttpStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CREATED&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;UseGuards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AuthGuard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createParameters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;userName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bodyWeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fatPercentage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;musclePercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;// could implement @Res() from express to send a proper response to say it should at least contain one of the parameters or a userName&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;existingParams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getParametersEntityByUserName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;existingParams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;updatedParams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mapDtoToEntity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;existingParams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;updatedParams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;UseGuards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AuthGuard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Roles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;findOne&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getParametersEntityByUserName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;UseGuards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AuthGuard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Roles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Moving on to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParametersService&lt;/code&gt;, we’ll only take a glance at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create()&lt;/code&gt; function.
+When receiving an HTTP call, it will contain values for at least one of our three parameters.
+In this method, we just check the values and add them to the respective array. 
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;update&lt;/code&gt; field contains the moment that the value gets updated to track the user’s progress over time.
+The parameters will then be put into a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParametersEntity&lt;/code&gt; (Discussed in &lt;a href=&quot;#azure-function-and-cosmosdb&quot;&gt;Azure Function and CosmosDB&lt;/a&gt;) and added to the database using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parametersRepository&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Injectable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersService&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;readonly&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parametersRepository&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersRepository&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bodyweight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BodyweightDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;fatPercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PercentageDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;musclePercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PercentageDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bodyWeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;bodyweight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bodyWeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fatPercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;fatPercentage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;percentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fatPercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;musclePercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;musclePercentage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;percentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;musclePercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersRepository&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parametersDto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bodyweight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fatPercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;musclePercentage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// More code&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create()&lt;/code&gt; function in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ParametersRepository&lt;/code&gt; adds the date the object was created and adds it to the database.
+We see a good example of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loggerService&lt;/code&gt; here too.
+First, we set the context to ‘ParametersRepository’, so that, when it logs something, it will show that the log came from this class.
+This way, logs can easily be retraced to its origin.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Injectable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersRepository&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;InjectModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;readonly&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;loggerService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;LoggerService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loggerService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ParametersRepository&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ParametersEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createdAt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loggerService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;verbose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`Create RUs: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;requestCharge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;authorization-guards&quot;&gt;Authorization Guards&lt;/h2&gt;
+
+&lt;p&gt;The project uses two guards, an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AuthGuard&lt;/code&gt; for the authorization, and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RolesGuard&lt;/code&gt; to check which roles can access certain resources.
+A good explanation of both can be found in the &lt;a href=&quot;https://docs.nestjs.com/guards&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NestJS documentation&lt;/a&gt;.
+The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RolesGuard&lt;/code&gt; is almost an exact copy from the documentation, so let’s take a look at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AuthGuard&lt;/code&gt; which doesn’t need to be provided from a module.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;canActivate()&lt;/code&gt; method is called before executing the method in the controller.
+It needs to return &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;, or the method won’t execute and the application will return a 401 Unauthorized code.
+In this case, we check if the authorization header has the correct value as configured in the environment variables.
+Other setups, like OAuth, Cognito or JWT tokens are also possible.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Injectable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AuthGuard&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CanActivate&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;readonly&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;configService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ConfigService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;canActivate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ExecutionContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;boolean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;switchToHttp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getRequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Bearer&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HttpException&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Invalid token&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HttpStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FORBIDDEN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;authorization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;configService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;BEARER_TOKEN&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;azure-function-and-cosmosdb&quot;&gt;Azure Function and CosmosDB&lt;/h2&gt;
+
+&lt;p&gt;To convert this app into an Azure Function and make it serverless, we only need a single command:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nest add @nestjs/azure-func-http&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This will add some files and folders, including a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.azure.ts&lt;/code&gt; through which your app can be started.
+It will set a global prefix ‘api’ to all your controllers, the standard for Azure Functions.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;createApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;INestApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NestFactory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AzureHttpRouter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setGlobalPrefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, you can choose to either run your app as a normal Web App or a serverless Azure Function.
+The only thing left to do is &lt;a href=&quot;https://portal.azure.com/#create/Microsoft.FunctionApp&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;create an Azure Function&lt;/a&gt; in the Portal and set up a pipeline, which is also an automatic process (on Azure DevOps).
+This will generate an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;azure-pipelines.yml&lt;/code&gt; file containing all necessary information and connect it with the function automatically.
+On every push to the master branch (pull request), it will automatically start a build and deploy process.
+For the environment variables, they need to be set up within the ‘configuration’ tab of your function, and then, you’re all set.’&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Azure Function Creation&quot; src=&quot;/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/Azure-pipeline.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Congratulations! 
+You converted your app to a serverless Function!
+Quite an easy conversion, wasn’t it?&lt;/p&gt;
+
+&lt;p&gt;The database connection is just as easy.
+Again, in the portal, you can &lt;a href=&quot;https://portal.azure.com/#create/Microsoft.DocumentDB&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;create a CosmosDB Account&lt;/a&gt;.
+In that account, go to ‘Data Explorer’ and create a new database and add the necessary variables to the configuration of the Function.&lt;/p&gt;
+
+&lt;p&gt;In the end, your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.module.ts&lt;/code&gt; should look like this.
+Notice that we can’t use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ConfigService&lt;/code&gt; in this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Module()&lt;/code&gt;, as it needs to be initialised before usage.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ConfigModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forRoot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;ParametersModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;LoggerModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;AzureCosmosDbModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forRoot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;dbName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DATABASE_NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;endpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DATABASE_ENDPOINT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DATABASE_KEY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;controllers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;AppController&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;AppService&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s it!
+Your app is now fully functional!&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this blog post, we made a small application to discover how NestJS can be used in the backend with some of its neat features.
+Of course, this was a very basic program to show some of the possibilities.
+For more information on NestJS and its features, check out the very thorough &lt;a href=&quot;https://docs.nestjs.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jasperrosiers/body-parameter-tracker&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The body parameter tracker project&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.nestjs.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NestJS docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.theodo.com/2019/06/deploy-a-nestjs-app-in-5-minutes-with-serverless-framework/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Lambda integration&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jacob-do.medium.com/token-validation-with-aws-cognito-and-nestjs-6f9e4088393c&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Cognito integration&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jasper&quot;, &quot;last_name&quot;=&gt;&quot;Rosiers&quot;, &quot;github&quot;=&gt;&quot;jasperrosiers&quot;, &quot;linkedin&quot;=&gt;&quot;jasper-rosiers&quot;, &quot;permalink&quot;=&gt;&quot;/author/jasper-rosiers/&quot;, &quot;avatar&quot;=&gt;&quot;jasper-rosiers.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;jasper.rosiers@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jasper is a Java Developer with a love for IoT and innovative tech. He has a lot of experience in building chatbots using various platforms and coupling them to different chat clients. He also has a passion for the Agile way of working, Scrum and communication, both inside and outside the team.&quot;}</name><email>jasper.rosiers@ordina.be</email></author><category term="Backend" /><category term="TypeScript" /><category term="Backend" /><category term="NestJS" /><category term="Azure" /><category term="Serverless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">JOIN 2020</title><link href="https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020.html" rel="alternate" type="text/html" title="JOIN 2020" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
 
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
 
@@ -3125,15 +3437,15 @@ I mostly set the template and style inline for dumb components to keep them from
 
 &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;my-color-picker&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`
     &amp;lt;div class=&quot;picker-icon&quot; [class.disabled]=&quot;isDisabled&quot; style=&quot;background: {{ color }}&quot; (click)=&quot;openPicker()&quot;&amp;gt;&amp;lt;/div&amp;gt;
     &amp;lt;div #pickerElement class=&quot;picker&quot; acp-show-rgb=&quot;no&quot;
      acp-show-hsl=&quot;no&quot;
      acp-show-hex=&quot;no&quot;&amp;gt;
       &amp;lt;button *ngIf=&quot;open&quot; type=&quot;button&quot; (click)=&quot;closePicker()&quot;&amp;gt;close&amp;lt;/button&amp;gt;
     &amp;lt;/div&amp;gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+  `&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`
     .picker {
       display: flex;
       flex-direction: column-reverse;
@@ -3153,7 +3465,7 @@ I mostly set the template and style inline for dumb components to keep them from
     .picker-icon.disabled {
       opacity: 0.5;
     }
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  `&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;changeDetection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ChangeDetectionStrategy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OnPush&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ColorPickerComponent&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AfterViewInit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OnDestroy&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -3439,194 +3751,4 @@ Angular uses this instance to represent the control within the object graph that
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;I would not recommend these kind of hooks, but if you do need them, be extra careful for infinite loops and other bugs!&lt;/strong&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Angular" /><summary type="html">A part of good application architecture is using the correct tools for the job. With forms in Angular, this means knowing when to use Template Driven Forms vs. Reactive Forms. In short, this depends mostly on the size of your form. A simple login screen may use Template Driven Forms, whereas a more advanced web form should use Reactive Forms. These forms consist of FormGroups and FormControls, keeping the form value organised.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Using Tailwind CSS as a base for a Design System</title><link href="https://ordina-jworks.github.io/frontend/2020/08/15/tailwindcss.html" rel="alternate" type="text/html" title="Using Tailwind CSS as a base for a Design System" /><published>2020-08-15T00:00:00+00:00</published><updated>2020-08-15T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/frontend/2020/08/15/tailwindcss</id><content type="html" xml:base="https://ordina-jworks.github.io/frontend/2020/08/15/tailwindcss.html">&lt;blockquote&gt;
-  &lt;p&gt;In the beginning of the year we had the opportunity to build a design system for a large customer.
-So how did we start?
-Well, putting together designers and developers to find the correct tools and frameworks to get it done.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#choosing-the-correct-css-strategy&quot;&gt;Choosing the correct CSS strategy&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#evaluating-tailwind-css&quot;&gt;Evaluating Tailwind CSS&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;choosing-the-correct-css-strategy&quot;&gt;Choosing the correct CSS strategy&lt;/h1&gt;
-
-&lt;p&gt;When we (developers) talked to the designers, they wanted a clean CSS sheet without unnecessary classes.
-This means we only need to foresee the classes they wanted to be available in the design system, nothing more.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Building the CSS from the ground up was the first idea.
-That way we could only write classes we actually needed.
-Since we didn’t have all the time to write so much CSS classes, we decided we couldn’t do this.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;CSS libraries like &lt;a href=&quot;https://getbootstrap.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Bootstrap&lt;/a&gt;, &lt;a href=&quot;https://get.foundation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Foundation&lt;/a&gt;, &lt;a href=&quot;https://materializecss.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Materialise&lt;/a&gt;, … have too much classes by default.
- As a side note, we looked for ways to disable certain classes, but those libraries are too complicated to customise.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Another solution could be the use of ‘utility-first’ CSS frameworks.
-We liked the idea of &lt;a href=&quot;https://tailwindcss.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tailwind CSS&lt;/a&gt; to use a single config file and generate all the necessary classes.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;evaluating-tailwind-css&quot;&gt;Evaluating Tailwind CSS&lt;/h1&gt;
-
-&lt;p&gt;When we had a closer look at Tailwind we saw a lot of positive points, but some negative as well.
-Below you can find some valuable points we like to share:&lt;/p&gt;
-
-&lt;h3 id=&quot;configurable-in-javascript&quot;&gt;Configurable in JavaScript&lt;/h3&gt;
-
-&lt;p&gt;We’re JavaScript engineers, so we love the fact we can just write our config in JSON.
-We used constants to define the various configurations and then put it in the module exports:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tailwind.config.js&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;colors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#fce9ea&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#e72f3c&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;mi&quot;&gt;700&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#971e26&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#e7f5ed&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#34ab66&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;mi&quot;&gt;700&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;#226f42&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0.75rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;0.875rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.125rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;m1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.25rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;m2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.5rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;m3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1.75rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;2.25rem&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fontWeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;regular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;400&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;700&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screens&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;sm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;640px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;md&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;641px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;960px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;lg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;961px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1280px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;xl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1281px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;fontWeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;screens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;As you can see this is very customisable.
-You can use your own namings for almost everything like colors, fonts, screens, …&lt;/p&gt;
-
-&lt;p&gt;More info can be found in the &lt;a href=&quot;https://tailwindcss.com/docs/configuration/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;configuration documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;responsive&quot;&gt;Responsive&lt;/h3&gt;
-
-&lt;p&gt;You can completely customise your responsive breakpoints in the config file.
-By default, Tailwind’s breakpoints only include a min-width and don’t include a max-width, which means any utilities you add at a smaller breakpoint will also be applied at larger breakpoints.
-If you’d like to apply a utility at one breakpoint only, the solution is to undo that utility at larger sizes by adding another utility that counteracts it.
-Or you simply overwrite the defaults, so they include a min and max value.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tailwind.config.js&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;screens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tablet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;640px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; @media (max-width: 640px) { ... }&lt;/span&gt;
-
-      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;laptop&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;641px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1024px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; @media (min-width: 641px) and (max-width: 1024px) { ... }&lt;/span&gt;
-
-      &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;desktop&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;1015px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// =&amp;gt; @media (min-width: 1025px) { ... }&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Once you configured the screens, you can use the screen prefix everywhere, so your design can be responsive.&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bg-error-500 tablet:bg-error-100&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    Error message
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;component-classes-can-be-extracted&quot;&gt;Component classes can be extracted&lt;/h3&gt;
-
-&lt;p&gt;While you can do a lot with just utility classes, as a project grows it can be useful to codify common patterns into higher level abstractions.
-Keeping a long list of utility classes in sync across many component instances can quickly become a real maintenance burden, so when you start running into painful duplication like this, it’s a good idea to extract a component.&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Repeating these classes for every button can be painful --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  Button
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;For small components like buttons and form elements, you can use Tailwind’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@apply&lt;/code&gt; directive to easily extract common utility patterns to CSS component classes.&lt;/p&gt;
-
-&lt;p&gt;Here’s what a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.btn-blue&lt;/code&gt; class might look like using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@apply&lt;/code&gt; to compose it from existing utilities:&lt;/p&gt;
-
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;.btn-blue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;err&quot;&gt;@apply&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;bg-blue-500&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;text-white&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;font-bold&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;py-2&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;px-4&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;rounded;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;.btn-blue&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:hover&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;err&quot;&gt;@apply&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;bg-blue-700;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;usable-with-preprocessors-like-sass&quot;&gt;Usable with preprocessors like Sass&lt;/h3&gt;
-
-&lt;p&gt;Since Tailwind is a PostCSS plugin, there’s nothing stopping you from using it with Sass, Less, or other preprocessors, just like you can with other PostCSS plugins like Autoprefixer.&lt;/p&gt;
-
-&lt;p&gt;The most important thing to understand about using Tailwind with a preprocessor is that preprocessors like Sass run separately, before Tailwind.
-This means that you can’t feed output from Tailwind’s theme() function into a Sass color function for example, because the theme() function isn’t actually evaluated until your Sass has been compiled to CSS and fed into PostCSS.&lt;/p&gt;
-
-&lt;h3 id=&quot;readability&quot;&gt;Readability&lt;/h3&gt;
-
-&lt;p&gt;A negative point could be the readability.
-Sometimes a list of classes can grow big and is unable to be understood properly.
-The need to extract a component class can be a solution (as mentioned above), but this is not always possible.&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// example of a big class-list
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;grid sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-3 w-full bg-blue-500 text-white font-bold h-20 py-2 px-4 my-5 mt-4 rounded&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;custom-tailwind-plugins&quot;&gt;Custom Tailwind plugins&lt;/h3&gt;
-
-&lt;p&gt;Although we could do everything with Tailwind, we needed to have some Sass variables separately available to use in our web components.
-Therefore we used a plugin to generate Sass variables based on your Tailwind config.&lt;/p&gt;
-
-&lt;p&gt;More information to write and use your own plugins can be found on &lt;a href=&quot;https://tailwindcss.com/docs/plugins/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tailwind’s documentation website&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tailwind.config.js&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;plugin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tailwindcss/plugin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;tailwind-scss-variables&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;theme.colors&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;theme.screens&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-        &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./src/scss/partials/_tailwind-variables.scss&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;After using Tailwind CSS for almost 6 months now.
-We still find we made the correct choice.
-Given the fact we still don’t have the time to write css ourselves, finding the correct utility class is fairly easy using the documentation, or even on a (printed) &lt;a href=&quot;https://nerdcave.com/tailwind-cheat-sheet/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;cheat sheet&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Frédéric&quot;, &quot;last_name&quot;=&gt;&quot;Ghijselinck&quot;, &quot;github&quot;=&gt;&quot;fredericghijselinck&quot;, &quot;twitter&quot;=&gt;&quot;f_ghijselinck&quot;, &quot;linkedin&quot;=&gt;&quot;fredericghijselinck&quot;, &quot;permalink&quot;=&gt;&quot;/author/frederic-ghijselinck/&quot;, &quot;avatar&quot;=&gt;&quot;frederic-ghijselinck.jpg&quot;, &quot;title&quot;=&gt;&quot;Competence Lead JavaScript&quot;, &quot;email&quot;=&gt;&quot;frederic.ghijselinck@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Frédéric is a Senior developer at Ordina Belgium, focussing on Frontend Development with technologies as Angular and TypeScript. Next to frontend development, he continues to maintain his backend development skills using the Spring technology stack. Frédéric is also Competence Lead for the JavaScript Competence Center where he gives workshops, talks and courses about the newest technologies.&quot;}</name><email>frederic.ghijselinck@ordina.be</email></author><category term="Frontend" /><category term="CSS" /><category term="JavaScript" /><category term="Design Systems" /><category term="Design" /><category term="Tailwind" /><summary type="html">In the beginning of the year we had the opportunity to build a design system for a large customer. So how did we start? Well, putting together designers and developers to find the correct tools and frameworks to get it done.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-08-15-tailwindcss/tailwind-500-293.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-08-15-tailwindcss/tailwind-500-293.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;&lt;strong&gt;I would not recommend these kind of hooks, but if you do need them, be extra careful for infinite loops and other bugs!&lt;/strong&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Orjan&quot;, &quot;last_name&quot;=&gt;&quot;De Smet&quot;, &quot;permalink&quot;=&gt;&quot;/author/orjan-de-smet&quot;, &quot;avatar&quot;=&gt;&quot;orjan-de-smet.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;orjan.desmet@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;orjandesmet&quot;, &quot;github&quot;=&gt;&quot;orjandesmet&quot;, &quot;bio&quot;=&gt;&quot;Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.&quot;}</name><email>orjan.desmet@ordina.be</email></author><category term="Architecture" /><category term="Angular" /><summary type="html">A part of good application architecture is using the correct tools for the job. With forms in Angular, this means knowing when to use Template Driven Forms vs. Reactive Forms. In short, this depends mostly on the size of your form. A simple login screen may use Template Driven Forms, whereas a more advanced web form should use Reactive Forms. These forms consist of FormGroups and FormControls, keeping the form value organised.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-08-15-angular-custom-control/qyt3dcd64l.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

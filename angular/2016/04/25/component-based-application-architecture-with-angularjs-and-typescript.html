@@ -292,10 +292,10 @@ Instead they define a public API in which they can receive inputs (<code class="
         <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@</span><span class="dl">'</span><span class="p">,</span>
     <span class="p">};</span>
 
-    <span class="nl">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`</span><span class="err">
-        &lt;h1&gt;{{</span><span class="s2">$</span><span class="err">ctrl.title}}&lt;/h1&gt;
+    <span class="nl">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`
+        &lt;h1&gt;{{$ctrl.title}}&lt;/h1&gt;
         &lt;currency-converter&gt;&lt;/currency-converter&gt;
-    </span><span class="s2">`</span><span class="p">;</span>
+    `</span><span class="p">;</span>
 <span class="p">}</span>
 
     <span class="nx">angular</span>
@@ -318,10 +318,10 @@ Also notice how easy it was to register this component directive.</p>
     <span class="nx">scope</span><span class="p">:</span><span class="nx">IScope</span> <span class="o">=</span> <span class="p">{},</span>
     <span class="nx">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{},</span>
     <span class="nx">controllerAs</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">$ctrl</span><span class="dl">'</span><span class="p">,</span>
-    <span class="nx">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`</span><span class="err">
-        &lt;h1&gt;{{</span><span class="s2">$</span><span class="err">ctrl.title}}&lt;/h1&gt;
+    <span class="nx">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`
+        &lt;h1&gt;{{$ctrl.title}}&lt;/h1&gt;
         &lt;currency-converter&gt;&lt;/currency-converter&gt;
-     </span><span class="s2">`</span><span class="p">;</span>
+     `</span><span class="p">;</span>
 
     <span class="k">static</span> <span class="nx">instance</span><span class="p">():</span><span class="nx">IDirective</span> <span class="p">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nx">RootComponent</span><span class="p">();</span>
@@ -355,22 +355,22 @@ The container component eventually decides what action to take with the data, no
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencyConverter</span> <span class="k">implements</span> <span class="nx">IComponentOptions</span><span class="p">{</span>
     <span class="k">static</span> <span class="nx">NAME</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">currencyConverter</span><span class="dl">'</span><span class="p">;</span>
 
-    <span class="nl">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`</span><span class="err">
+    <span class="nl">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`
         ...
         &lt;currencies-select
             title="From"
-            on-selected="</span><span class="s2">$</span><span class="err">ctrl.fromSelected(selectedCurrency)"
+            on-selected="$ctrl.fromSelected(selectedCurrency)"
             show-values-as-rates="true"
-            currencies="</span><span class="s2">$</span><span class="err">ctrl.fromCurrencies"
+            currencies="$ctrl.fromCurrencies"
         &gt;&lt;/currencies-select&gt;
         &lt;currencies-select
             title="To"
-            on-selected="</span><span class="s2">$</span><span class="err">ctrl.toSelected(selectedCurrency)"
+            on-selected="$ctrl.toSelected(selectedCurrency)"
             show-values-as-rates="true"
-            currencies="</span><span class="s2">$</span><span class="err">ctrl.toCurrencies"
+            currencies="$ctrl.toCurrencies"
         &gt;&lt;/currencies-select&gt;
         ...		
-    </span><span class="s2">`</span><span class="p">;</span>
+    `</span><span class="p">;</span>
 
     <span class="nl">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="nx">CurrencyConverterComponentController</span><span class="p">;</span>
     <span class="p">}</span></code></pre></figure>
@@ -440,7 +440,7 @@ In this method we set our view model properties <code class="language-plaintext 
     <span class="p">};</span>
 
     <span class="nl">controller</span><span class="p">:</span><span class="nb">Function</span> <span class="o">=</span> <span class="nx">CurrencySelectComponentController</span><span class="p">;</span>
-    <span class="nl">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`</span><span class="err">...</span><span class="s2">`</span><span class="p">;</span>
+    <span class="nl">template</span><span class="p">:</span><span class="kr">string</span> <span class="o">=</span> <span class="s2">`...`</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">CurrencySelectComponentController</span> <span class="p">{</span>
