@@ -221,7 +221,7 @@ we have a reliable list to stand in,you should see:
 
 Onions
 
-##Configuring Circuit Breakers with Resilience4j for reactive applications
+#Configuring Circuit Breakers with Resilience4j for reactive applications
 
 You need to add the Spring Cloud Circuit Breaker Reactor Resilience 4j dependency to your application. When using maven: 
 
