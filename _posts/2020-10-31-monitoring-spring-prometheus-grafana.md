@@ -90,7 +90,7 @@ The server does the actual monitoring work, and it consists of three main parts:
 - Webserver, which accepts [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/){:target="_blank" rel="noopener noreferrer"} queries to get data from our DB.
 
 <div style="text-align: center;">
-  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prom-server.jpg" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prom-server.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
 </div> 
 
 Even though Prometheus has its own UI to show graphs and metrics, we will be using Grafana as an extra layer on top of this webserver, to query and visualize our database.  
