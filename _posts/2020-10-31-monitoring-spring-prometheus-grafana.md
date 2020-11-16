@@ -439,7 +439,7 @@ Afterwards, we can do the same thing for our `demo_counter` metric.
    <img alt="Grafana add another extra panel" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-custom-panel-counter.PNG" width="auto" height="auto" target="_blank" class="image fit">
  </div> 
 
-After going through all of these steps, we now have an operational dashboard which monitors our spring boot application, with our own custom metrics.  
+After going through all of these steps, we now have an operational dashboard which monitors our Spring Boot application, with our own custom metrics.  
 
 <div style="text-align: center;">
   <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-dash.png" width="auto" height="auto" target="_blank" class="image fit">
