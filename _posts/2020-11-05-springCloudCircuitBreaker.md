@@ -484,6 +484,54 @@ Simulateretry is true, so try to simulate exception scenario.
 All retries completed, so Fallback method called!!!
 ```
 
+Spring Retry provides declarative retry support for Spring applications. A subset of the project includes the ability to implement circuit breaker functionality. 
+Spring Retry provides a circuit breaker implementation via a combination of it’s CircuitBreakerRetryPolicy and a stateful retry. 
+All circuit breakers created using Spring Retry will be created using the CircuitBreakerRetryPolicy and a DefaultRetryState. 
+Both of these classes can be configured using SpringRetryConfigBuilder.
+To provide a default configuration for all of your circuit breakers create a Customize bean that is passed a SpringRetryCircuitBreakerFactory. 
+The configureDefault method can be used to provide a default configuration.
+
+
+```
+@Bean
+public Customizer<SpringRetryCircuitBreakerFactory> defaultCustomizer() {
+    return factory -> factory.configureDefault(id -> new SpringRetryConfigBuilder(id)
+        .retryPolicy(new TimeoutRetryPolicy()).build());
+}
+```
+
+Similarly to providing a default configuration, you can create a Customize bean this is passed a SpringRetryCircuitBreakerFactory.
+```
+@Bean
+public Customizer<SpringRetryCircuitBreakerFactory> slowCustomizer() {
+    return factory -> factory.configure(builder -> builder.retryPolicy(new SimpleRetryPolicy(1)).build(), "slow");
+}
+```
+In addition to configuring the circuit breaker that is created you can also customize the circuit breaker after it has been created but before it is returned to the caller. 
+To do this you can use the addRetryTemplateCustomizers method. This can be useful for adding event handlers to the RetryTemplate.
+```
+@Bean
+public Customizer<SpringRetryCircuitBreakerFactory> slowCustomizer() {
+    return factory -> factory.addRetryTemplateCustomizers(retryTemplate -> retryTemplate.registerListener(new RetryListener() {
+
+        @Override
+        public <T, E extends Throwable> boolean open(RetryContext context, RetryCallback<T, E> callback) {
+            return false;
+        }
+
+        @Override
+        public <T, E extends Throwable> void close(RetryContext context, RetryCallback<T, E> callback, Throwable throwable) {
+
+        }
+
+        @Override
+        public <T, E extends Throwable> void onError(RetryContext context, RetryCallback<T, E> callback, Throwable throwable) {
+
+        }
+    }));
+}
+```
+
 ## Differences Resilience4j with Netflix Hystrix and Spring Retry
 Although Resilience4j is inspired by Netflix Hystrix it is more lightweight and you don’t have to go all-in.
 Quoting the official page “Resilience4j is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for functional programming.”
