@@ -419,7 +419,7 @@ To demonstrate how we can create a panel for one of our own custom metrics, I wi
 First we need to add a panel by clicking on "add panel" on the top of the page, and yet again on "add new panel" in the center.
 
  <div style="text-align: center;">
-   <img alt="Grafana add extra panel" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-add-panel.png" width="auto" height="auto" target="_blank" class="image fit">
+   <img alt="Grafana add extra panel" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-add-panel.PNG" width="auto" height="auto" target="_blank" class="image fit">
  </div> 
  
 Then we need to configure our panel, which we do by selecting `demo_gauge` in the metrics field.  
