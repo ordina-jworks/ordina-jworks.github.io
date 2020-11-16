@@ -100,7 +100,7 @@ Even though Prometheus has its own UI to show graphs and metrics, we will be usi
 #### What does it monitor? 
 {:.no_toc}
 
-Prometheus monitors nearly anything. It could be Linux/windows server, apache server, single applications, services, etc.  
+Prometheus monitors nearly anything. It could be a Linux/windows server, Apache server, single applications, services, etc.  
 It monitors **units** on those targets like:
 - CPU usage
 - Memory/ Disk usage
