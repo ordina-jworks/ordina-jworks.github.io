@@ -109,7 +109,7 @@ It monitors **units** on those targets like:
 - Exceptions count
 
 The units that we monitor are called metrics, which get saved into the Prometheus time-series database.  
-Prometheus's metrics are formatted like a human-readable text file.
+Prometheus' metrics are formatted like a human-readable text file.
 
 <div style="text-align: center;">
   <img alt="Prometheus endpoint actuator" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
