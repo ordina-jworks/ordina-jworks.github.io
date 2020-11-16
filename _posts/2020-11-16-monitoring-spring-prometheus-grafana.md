@@ -1,8 +1,8 @@
 ---
 layout: post
 authors: [kevin_govaerts]
-title: 'Monitoring Spring boot with Prometheus and Grafana'
-image: /img/2020-10-31-monitoring-spring-prometheus-grafana/thumbnail.jpg
+title: 'Monitoring Spring Boot with Prometheus and Grafana'
+image: /img/2020-11-16-monitoring-spring-prometheus-grafana/thumbnail.jpg
 tags: [Spring, Prometheus, Grafana, Docker]
 category: Monitoring
 comments: true
@@ -90,11 +90,7 @@ The server does the actual monitoring work, and it consists of three main parts:
 - Webserver, which accepts [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/){:target="_blank" rel="noopener noreferrer"} queries to get data from our DB.
 
 <div style="text-align: center;">
-<<<<<<< HEAD:_posts/2020-11-16-monitoring-spring-prometheus-grafana.md
-  <img alt="prometheus server" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prom-server.jpg" width="auto" height="auto" target="_blank" class="image fit">
-=======
-  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prom-server.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
->>>>>>> 180922d181b24c314e97d17689e0ddc8f9263aba:_posts/2020-10-31-monitoring-spring-prometheus-grafana.md
+  <img alt="prometheus server" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prom-server.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
 </div> 
 
 Even though Prometheus has its own UI to show graphs and metrics, we will be using Grafana as an extra layer on top of this webserver, to query and visualize our database.  
@@ -140,11 +136,7 @@ There is no clear-cut answer about which one is the best, they both have their p
 - risk of package loss.
 
 <div style="text-align: center;">
-<<<<<<< HEAD:_posts/2020-11-16-monitoring-spring-prometheus-grafana.md
-  <img alt="pull data image" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/pull-data.jpg" width="auto" height="auto" target="_blank" class="image">
-=======
-  <img alt="pull data image" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/pull-data.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
->>>>>>> 180922d181b24c314e97d17689e0ddc8f9263aba:_posts/2020-10-31-monitoring-spring-prometheus-grafana.md
+  <img alt="pull data image" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/pull-data.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
 </div> 
 
 The data which gets exposed on the endpoint needs to be in the correct format, one which Prometheus can understand.  
@@ -159,7 +151,7 @@ For the ones who don't have an endpoint enabled by default, we need an exporter.
 There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics.
 You can have a look at the [exporters and integration tools](https://prometheus.io/docs/instrumenting/exporters/){:target="_blank" rel="noopener noreferrer"} here.  
 
-On a side note, these tools are also available as Docker images, so we can use them inside kubernetes clusters.  
+On a side note, these tools are also available as Docker images, so we can use them inside Kubernetes clusters.  
 We can run an exporter docker image for a MySQL database as a side container inside the MySQL pod, connect to it and start translating data, to expose it on the metrics endpoint.  
 
 #### Monitoring our own application
@@ -170,7 +162,7 @@ These libraries will enable us to declare all the metrics we deem important in o
 
 ### Micrometer
 
-To monitor our Spring boot application we will be using an exporter named Micrometer.  
+To monitor our Spring Boot application we will be using an exporter named Micrometer.  
 Micrometer is an open-source project and provides a metric facade that exposes metric data in a vendor-neutral format which Prometheus can ingest.  
 
 > Micrometer provides a simple facade over the instrumentation clients for the most popular monitoring systems, allowing you to instrument your JVM-based application code without vendor lock-in. Think SLF4J, but for metrics.  
@@ -191,7 +183,7 @@ In this configuration file we declare a few things:
 3. which services it needs to monitor.
 
 In this example you can see that Prometheus will monitor two things: 
-- Our Spring boot application
+- Our Spring Boot application
 - Its own health
 
 Prometheus expects the data of our targets to be exposed on the `/metrics` endpoint, unless otherwise declared in the `metrics_path` field.  
@@ -200,7 +192,7 @@ Prometheus expects the data of our targets to be exposed on the `/metrics` endpo
 {:.no_toc}
 
 With Prometheus, we have the possibility to get notified when metrics have reached a certain point, which we can declare in the `.rules` files. 
-Prometheus has a component which is called the "Alertmanager", and it can send notifications over various channels like emails, slack, PagerDuty, etc.  
+Prometheus has a component which is called the "Alertmanager", and it can send notifications over various channels like emails, Slack, PagerDuty, etc.  
 
 ### Querying our data
 {:.no_toc}
@@ -231,12 +223,12 @@ Last but not least, there are a ton of [premade dashboard-templates](https://gra
 
 ## Setup Spring Boot
 
-To demonstrate how to implement Prometheus and Grafana in your own projects, I will go through the steps to set up a basic spring boot application which we monitor by using Docker images of Prometheus and Grafana. 
+To demonstrate how to implement Prometheus and Grafana in your own projects, I will go through the steps to set up a basic Spring Boot application which we monitor by using Docker images of Prometheus and Grafana. 
 
-1. Set up a regular spring boot application by using [Spring initializr](https://start.spring.io/){:target="_blank" rel="noopener noreferrer"}.
+1. Set up a regular Spring Boot application by using [Spring Initializr](https://start.spring.io/){:target="_blank" rel="noopener noreferrer"}.
 
 2. Add dependency for Actuator
-```
+```xml
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -244,7 +236,7 @@ To demonstrate how to implement Prometheus and Grafana in your own projects, I w
 ```
 
 3. Add dependency for Micrometer  
-```
+```xml
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
@@ -272,19 +264,18 @@ We can also define some custom metrics, which I will briefly demonstrate in this
 To be able to monitor custom metrics we need to import `MeterRegistry` from the Micrometer library and inject it into our class. 
 This gives us the possibility to use [counters](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Counter.java#L25){:target="_blank" rel="noopener noreferrer"}, [gauges](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Gauge.java#L23){:target="_blank" rel="noopener noreferrer"}, [timers](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/Timer.java#L34){:target="_blank" rel="noopener noreferrer"} and more.
 
-To demonstrate how we can use this, I added 2 classes in our basic Spring application.  
+To demonstrate how we can use this, I added two classes in our basic Spring application.  
 DemoMetrics has a custom Counter and Gauge, which will get updated every second through our DemoMetricsScheduler class.  
 The counter gets incremented by one, and the gauge will get a random number between 1 and 100.
 
 ##### DemoMetrics class
 
-``` java 
+``` java
 @Component
 public class DemoMetrics {
     private final Counter demoCounter;
     private final AtomicInteger demoGauge;
 
-    @Autowired
     public DemoMetrics(MeterRegistry meterRegistry) {
         this.demoCounter = meterRegistry.counter("demo_counter");
         this.demoGauge = meterRegistry.gauge("demo_gauge", new AtomicInteger(0));
@@ -314,7 +305,6 @@ public class DemoMetricsScheduler {
 
     private final DemoMetrics demoMetrics;
 
-    @Autowired
     public DemoMetricsScheduler(DemoMetrics demoMetrics) {
         this.demoMetrics = demoMetrics;
     }
@@ -339,10 +329,10 @@ The easiest way to run Prometheus is via a Docker image which we can get by runn
 docker pull prom/prometheus
 ```
 
-After we download the image, we need to configure our prometheus.yml file.  
-Since I want to demonstrate how to monitor a Spring boot application, as well as Prometheus itself, it should look like this: 
+After we download the image, we need to configure our `prometheus.yml` file. 
+Since I want to demonstrate how to monitor a Spring Boot application, as well as Prometheus itself, it should look like this: 
 
-```
+```yaml
 global:
     scrape_interval:     15s
 
@@ -359,7 +349,7 @@ scrape_configs:
   static_configs:
     - targets: ['192.168.0.9:8080']
 ```
-We define 2 targets which it needs to monitor, our Spring application and Prometheus.  
+We define two targets which it needs to monitor, our Spring application and Prometheus.  
 Since we run Prometheus from inside Docker we need to enter the host-ip which is in my case `192.168.0.9`.
 
 Afterwards we can run the Prometheus image by running the following command: 
