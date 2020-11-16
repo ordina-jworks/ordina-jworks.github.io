@@ -136,7 +136,7 @@ There is no clear-cut answer about which one is the best, they both have their p
 - risk of package loss.
 
 <div style="text-align: center;">
-  <img alt="pull data image" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/pull-data.jpg" width="auto" height="auto" target="_blank" class="image">
+  <img alt="pull data image" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/pull-data.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
 </div> 
 
 The data which gets exposed on the endpoint needs to be in the correct format, one which Prometheus can understand.  
