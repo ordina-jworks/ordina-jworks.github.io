@@ -119,7 +119,7 @@ In this file we can see that there is a "HELP" comment which describes what the 
 - Counter: how many times X happened (exceptions)
 - Gauge: what is the current value of X now ? (disk usage, cpu etc)
 - Histogram: how long or how big?
-- Summary: similar to histogram it monitors request durations and response sizes.
+- Summary: similar to histogram it monitors request durations and response sizes
 
 
 #### Collecting metrics from targets
