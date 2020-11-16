@@ -359,7 +359,7 @@ Afterwards we can run the Prometheus image by running the following command:
 ```
 docker run -d -p 9090:9090 -v <PATH_TO_prometheus.yml_FILE>:/etc/prometheus/prometheus.yml prom/prometheus 
 ```
-We mount the prometheus.yml config file into the Prometheus image and expose port 9090, to the outside of docker.
+We mount the `prometheus.yml` config file into the Prometheus image and expose port 9090, to the outside of Docker.
 
 When this is up and running we can access the Prometheus webUI on `localhost:9090`.  
 
