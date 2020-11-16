@@ -63,7 +63,7 @@ Imagine that one server ran out of memory and therefore knocked off a running se
 One of those databases gets used by the authentication service, which now also stops working, because the database is unavailable.  
 
 <div style="text-align: center;">
-  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/failing-servers.jpg" width="auto" height="auto" target="_blank" class="image">
+  <img alt="prometheus server" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/failing-servers.jpg" width="auto" height="auto" target="_blank" class="image">
 </div> 
 
 How do you know what went wrong, when your application that depends on the authentication service, now can't authenticate users anymore?  
@@ -90,7 +90,7 @@ The server does the actual monitoring work, and it consists of 3 main parts:
 - Webserver, which accepts [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/){:target="_blank" rel="noopener noreferrer"} queries to get data from our DB.
 
 <div style="text-align: center;">
-  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prom-server.jpg" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="prometheus server" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prom-server.jpg" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 Even though Prometheus has its own UI to show graphs and metrics, we will be using Grafana as an extra layer on top of this webserver, to query and visualize our database.  
@@ -112,7 +112,7 @@ The units that we monitor are called metrics, which get saved into the Prometheu
 Prometheus's metrics are formatted like a human-readable text file.
 
 <div style="text-align: center;">
-  <img alt="Prometheus endpoint actuator" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Prometheus endpoint actuator" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 In this file we can see that there is a "HELP" comment which describes what the metric is, and we have a "TYPE" which can be one of four metric-types: 
@@ -136,7 +136,7 @@ There is no clear-cut answer about which one is the best, they both have their p
 - risk of package loss.
 
 <div style="text-align: center;">
-  <img alt="pull data image" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/pull-data.jpg" width="auto" height="auto" target="_blank" class="image">
+  <img alt="pull data image" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/pull-data.jpg" width="auto" height="auto" target="_blank" class="image">
 </div> 
 
 The data which gets exposed on the endpoint needs to be in the correct format, one which Prometheus can understand.  
@@ -174,7 +174,7 @@ Micrometer is not part of the Spring ecosystem and needs to be added as a depend
 To instruct Prometheus on what it needs to scrape, we create a **prometheus.yml** configuration file.  
 
 <div style="text-align: center;">
-  <img alt="Prometheus configuration file" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/promyml.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Prometheus configuration file" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/promyml.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 In this configuration file we declare a few things:  
@@ -254,7 +254,7 @@ management.metrics.tags.application= MonitoringSpringDemoProject
 5. After this we can run the application and browse to `localhost:8080/actuator`, where we can see all the available endpoints. The one we need and will use to monitor this application, is `localhost:8080/actuator/prometheus`.
 
 <div style="text-align: center;">
-  <img alt="Prometheus endpoint actuator" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Prometheus endpoint actuator" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 ### Adding our own custom metrics
@@ -321,7 +321,7 @@ public class DemoMetricsScheduler {
 Now we are able to see our custom metrics on the `/actuator/prometheus` endpoint, as you can see below.  
 
 <div style="text-align: center;">
-  <img alt="Prometheus custom metrics text" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/custom_metrics.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Prometheus custom metrics text" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/custom_metrics.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 ## Setup Prometheus
@@ -364,19 +364,19 @@ We mount the prometheus.yml config file into the Prometheus image and expose por
 When this is up and running we can access the Prometheus webUI on `localhost:9090`.  
 
 <div style="text-align: center;">
-  <img alt="Prometheus UI" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheusUI.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Prometheus UI" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prometheusUI.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 When we navigate to Status > Targets, we can check if our connections are up and are correctly configured.
 
 <div style="text-align: center;">
-  <img alt="Prometheus target tab" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prometheus-target.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Prometheus target tab" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prometheus-target.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 Yet again, we can check our custom metrics in the Prometheus UI, by selecting the `demo_gauge` and inspecting our graph.
 
 <div style="text-align: center;">
-  <img alt="Prometheus custom metrics graph" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/custom-graph.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Prometheus custom metrics graph" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/custom-graph.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 ## Setup Grafana
@@ -390,28 +390,28 @@ docker run -d -p 3000:3000 grafana/grafana
 
 Now we can access the Grafana UI from `localhost:3000`, where you can enter "admin" as login and password.  
 <div style="text-align: center;">
-  <img alt="Grafana UI" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-ui.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana UI" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/grafana-ui.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 After we arrive at the landing page, we need to set up a data source for Grafana.  
 Navigate to Configuration > Data Sources, add a Prometheus data source and configure it like the example below.  
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-datasource.PNG" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana data source" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/grafana-datasource.PNG" width="auto" height="auto" target="_blank" class="image fit">
 </div>  
 
 For this example I used one of the premade dashboards which you can find on the [Grafana Dashboards](https://grafana.com/grafana/dashboards){:target="_blank" rel="noopener noreferrer"} page.  
 The dashboard I used to monitor our application is the JVM Micrometer dashboard with import id: 4701.  
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/grafana-import.PNG" width="650" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana data source" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/grafana-import.PNG" width="650" height="auto" target="_blank" class="image fit">
 </div> 
 
 Give your dashboard a custom name and select the prometheus data source we configured in step 3.  
 Now we have a fully pre-configured dashboard, with some important metrics showcased, out of the box.  
 
 <div style="text-align: center;">
-  <img alt="Grafana dashboard" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-done.png" width="650" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana dashboard" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-done.png" width="650" height="auto" target="_blank" class="image fit">
 </div> 
 
 ### Adding a custom metric panel
@@ -421,14 +421,14 @@ To demonstrate how we can create a panel for one of our own custom metrics, I wi
 First we need to add a panel by clicking on "add panel" on the top of the page, and yet again on "add new panel" in the center.
 
  <div style="text-align: center;">
-   <img alt="Grafana add extra panel" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-add-panel.png" width="auto" height="auto" target="_blank" class="image fit">
+   <img alt="Grafana add extra panel" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-add-panel.png" width="auto" height="auto" target="_blank" class="image fit">
  </div> 
  
 Then we need to configure our panel, which we do by selecting `demo_gauge` in the metrics field.  
 To display our graph in a prettier way, we can choose the "stat" type under the visualization tab.
 
  <div style="text-align: center;">
-   <img alt="Grafana add extra panel" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-custom-panel-gauge.PNG" width="auto" height="auto" target="_blank" class="image fit">
+   <img alt="Grafana add extra panel" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-custom-panel-gauge.PNG" width="auto" height="auto" target="_blank" class="image fit">
  </div> 
  
 When we click on `Apply` in the top right corner, our new panel gets added to the dashboard.  
@@ -436,13 +436,13 @@ When we click on `Apply` in the top right corner, our new panel gets added to th
 Afterwards, we can do the same thing for our `demo_counter` metric. 
 
  <div style="text-align: center;">
-   <img alt="Grafana add another extra panel" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-custom-panel-counter.PNG" width="auto" height="auto" target="_blank" class="image fit">
+   <img alt="Grafana add another extra panel" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-custom-panel-counter.PNG" width="auto" height="auto" target="_blank" class="image fit">
  </div> 
 
 After going through all of these steps, we now have an operational dashboard which monitors our spring boot application, with our own custom metrics.  
 
 <div style="text-align: center;">
-  <img alt="Grafana data source" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/graf-dash.png" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Grafana data source" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-dash.png" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
  
 # Conclusion
