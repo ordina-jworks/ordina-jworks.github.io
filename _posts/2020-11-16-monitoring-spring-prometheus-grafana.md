@@ -78,29 +78,33 @@ A better way would be to have a tool which:
 Prometheus is exactly that tool, it can identify memory usage, CPU usage, available disk space, etc.  
 We can predefine certain thresholds about which we want to get notified.  
 
-In our example it could have been that the memory of our failing server would have reached 70% memory usage for more than 1 hour, and could've sent an alert to our admins before the crash happened.  
+In our example it could have been that the memory of our failing server would have reached 70% memory usage for more than one hour, and could've sent an alert to our admins before the crash happened.  
 
 ## How it works
 
 ### Prometheus server
 
-The server does the actual monitoring work, and it consists of 3 main parts:  
+The server does the actual monitoring work, and it consists of three main parts:  
 - Storage, which is a time series database.
 - Data retrieval worker, which is pulling the data from our target services.
 - Webserver, which accepts [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/){:target="_blank" rel="noopener noreferrer"} queries to get data from our DB.
 
 <div style="text-align: center;">
+<<<<<<< HEAD:_posts/2020-11-16-monitoring-spring-prometheus-grafana.md
   <img alt="prometheus server" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prom-server.jpg" width="auto" height="auto" target="_blank" class="image fit">
+=======
+  <img alt="prometheus server" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/prom-server.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
+>>>>>>> 180922d181b24c314e97d17689e0ddc8f9263aba:_posts/2020-10-31-monitoring-spring-prometheus-grafana.md
 </div> 
 
 Even though Prometheus has its own UI to show graphs and metrics, we will be using Grafana as an extra layer on top of this webserver, to query and visualize our database.  
 
 ### Prometheus targets
 
-#### What does is monitor ? 
+#### What does it monitor? 
 {:.no_toc}
 
-Prometheus monitors nearly anything. It could be Linux/windows server, apache server, single applications, services, etc.  
+Prometheus monitors nearly anything. It could be a Linux/windows server, Apache server, single applications, services, etc.  
 It monitors **units** on those targets like:
 - CPU usage
 - Memory/ Disk usage
@@ -109,7 +113,7 @@ It monitors **units** on those targets like:
 - Exceptions count
 
 The units that we monitor are called metrics, which get saved into the Prometheus time-series database.  
-Prometheus's metrics are formatted like a human-readable text file.
+Prometheus' metrics are formatted like a human-readable text file.
 
 <div style="text-align: center;">
   <img alt="Prometheus endpoint actuator" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/prometheus-endpoint.PNG" width="auto" height="auto" target="_blank" class="image fit">
@@ -119,7 +123,7 @@ In this file we can see that there is a "HELP" comment which describes what the 
 - Counter: how many times X happened (exceptions)
 - Gauge: what is the current value of X now ? (disk usage, cpu etc)
 - Histogram: how long or how big?
-- Summary: similar to histogram it monitors request durations and response sizes.
+- Summary: similar to histogram it monitors request durations and response sizes
 
 
 #### Collecting metrics from targets
@@ -136,7 +140,11 @@ There is no clear-cut answer about which one is the best, they both have their p
 - risk of package loss.
 
 <div style="text-align: center;">
+<<<<<<< HEAD:_posts/2020-11-16-monitoring-spring-prometheus-grafana.md
   <img alt="pull data image" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/pull-data.jpg" width="auto" height="auto" target="_blank" class="image">
+=======
+  <img alt="pull data image" src="/img/2020-10-31-monitoring-spring-prometheus-grafana/pull-data.jpg" style="max-width: 100%; height:auto" target="_blank" class="image">
+>>>>>>> 180922d181b24c314e97d17689e0ddc8f9263aba:_posts/2020-10-31-monitoring-spring-prometheus-grafana.md
 </div> 
 
 The data which gets exposed on the endpoint needs to be in the correct format, one which Prometheus can understand.  
@@ -359,7 +367,7 @@ Afterwards we can run the Prometheus image by running the following command:
 ```
 docker run -d -p 9090:9090 -v <PATH_TO_prometheus.yml_FILE>:/etc/prometheus/prometheus.yml prom/prometheus 
 ```
-We mount the prometheus.yml config file into the Prometheus image and expose port 9090, to the outside of docker.
+We mount the `prometheus.yml` config file into the Prometheus image and expose port 9090, to the outside of Docker.
 
 When this is up and running we can access the Prometheus webUI on `localhost:9090`.  
 
@@ -383,7 +391,7 @@ Yet again, we can check our custom metrics in the Prometheus UI, by selecting th
 
 To run Grafana we will use the same approach as with Prometheus. 
 
-We download and run the image from Docker-hub.  
+We download and run the image from Docker Hub.  
 ```
 docker run -d -p 3000:3000 grafana/grafana
 ```
@@ -439,7 +447,7 @@ Afterwards, we can do the same thing for our `demo_counter` metric.
    <img alt="Grafana add another extra panel" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-custom-panel-counter.PNG" width="auto" height="auto" target="_blank" class="image fit">
  </div> 
 
-After going through all of these steps, we now have an operational dashboard which monitors our spring boot application, with our own custom metrics.  
+After going through all of these steps, we now have an operational dashboard which monitors our Spring Boot application, with our own custom metrics.  
 
 <div style="text-align: center;">
   <img alt="Grafana data source" src="/img/2020-11-16-monitoring-spring-prometheus-grafana/graf-dash.png" width="auto" height="auto" target="_blank" class="image fit">
