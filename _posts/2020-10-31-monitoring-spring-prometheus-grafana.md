@@ -78,7 +78,7 @@ A better way would be to have a tool which:
 Prometheus is exactly that tool, it can identify memory usage, CPU usage, available disk space, etc.  
 We can predefine certain thresholds about which we want to get notified.  
 
-In our example it could have been that the memory of our failing server would have reached 70% memory usage for more than 1 hour, and could've sent an alert to our admins before the crash happened.  
+In our example it could have been that the memory of our failing server would have reached 70% memory usage for more than one hour, and could've sent an alert to our admins before the crash happened.  
 
 ## How it works
 
