@@ -383,7 +383,7 @@ Yet again, we can check our custom metrics in the Prometheus UI, by selecting th
 
 To run Grafana we will use the same approach as with Prometheus. 
 
-We download and run the image from Docker-hub.  
+We download and run the image from Docker Hub.  
 ```
 docker run -d -p 3000:3000 grafana/grafana
 ```
