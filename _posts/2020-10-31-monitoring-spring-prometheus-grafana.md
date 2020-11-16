@@ -84,7 +84,7 @@ In our example it could have been that the memory of our failing server would ha
 
 ### Prometheus server
 
-The server does the actual monitoring work, and it consists of 3 main parts:  
+The server does the actual monitoring work, and it consists of three main parts:  
 - Storage, which is a time series database.
 - Data retrieval worker, which is pulling the data from our target services.
 - Webserver, which accepts [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/){:target="_blank" rel="noopener noreferrer"} queries to get data from our DB.
