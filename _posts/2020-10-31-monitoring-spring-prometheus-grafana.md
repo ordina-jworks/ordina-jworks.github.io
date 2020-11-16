@@ -97,7 +97,7 @@ Even though Prometheus has its own UI to show graphs and metrics, we will be usi
 
 ### Prometheus targets
 
-#### What does is monitor ? 
+#### What does it monitor? 
 {:.no_toc}
 
 Prometheus monitors nearly anything. It could be Linux/windows server, apache server, single applications, services, etc.  
