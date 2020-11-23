@@ -62,12 +62,16 @@ Fix the weakness first ! Then come back to Chaos Engineering to uncover more wea
 
 Also it is important that there are ways your team can analyze the results of the experiments by making sure there is a monitoring system in place to check the state of your application.
 
-?????????????????????????
+????????????????????????????????????
+Examples of metrics ==> service metrics ==> normaal duurt het x aantal ms om requests te verwerken, tijdens ons experiment duurt het ineens x + 200 ms. Of opstarttijden
+Business Metrics ==> normale dag x-aantal orders op de webshop, experiment uitvoeren, zien dat x-aantal orders drastisch daalt als de response time van requests bv 100 ms trager is.
 
-Nog toevoegen eventueel van monitoring ==> zeer belangrijk, bv als je service opstart op 2 seconden en dan ineens op 15, weet je dat er iets niet klopt !!!
-Als een goede metric ! ++ > nog eens checken bij die mens zijn yotuube talk
+Voorbeeld:
+a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%. A secondary metric to be interested in however, is how long the requests take to complete as this can be a canary signal telling us that our system is about to fail.
 
-??????????????????????????
+???????????????????????????????????????????????
+???????????????????????????????????????????/
+
 
 Some must-have items before introducing Chaos
 
@@ -88,16 +92,6 @@ Define a measurable steady state that represents normal circumstances to use as 
 The reason you do this, is because after injection failure, you want to make sure you can return to a well-known state and the experiment is no longer interfering with the system's normal behavior.
 The key is not to focus on internal attributes of the system like CPU, memory, etc. but to look for measurable output.
 Measurements of that output over a short period of time constitute a proxy for the system’s steady state. The overall system’s throughput, error rates, latency percentiles, etc. could all be metrics of interest representing steady state behavior. 
-
-????????? System metrics en business metrics eventueel nog uitleg ?? !!!!!  Voorbeeld van number of orders daar van netflix
-Nu misschien nog niet duidelijk genoeg ? ????????????????????
-
-Voorbeeld:
-a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%. A secondary metric to be interested in however, is how long the requests take to complete as this can be a canary signal telling us that our system is about to fail.
-
-???????????????????????????????????????????????
-???????????????????????????????????????????/
-???????????????????????????????????????????????
 
 ### Hypothesis about state
 
@@ -219,8 +213,6 @@ Get upper management to enforce that process and buy into the idea that fixing c
 Using Chaos Engineering may be as simple as manually running 'kill -9' on a box inside of your staging environment to simulate failure of a service. Or, it can be as sophisticated as automatically designing and carrying out experiments in a production enviroment against a small but statistically significant fraction of live traffic.
 So when starting out, it is a good practice to manually make your experiments and check the results, but running experiments manually is labor-intensive and ultimately unsustainable. So try to automate experiments and run them continuously.
 
-
-
 ????????????????
 ????????????????
 ???????????????
@@ -243,9 +235,10 @@ They consider how to make every change and every system observable. They careful
 
 ?????????????????????????????????????
 ????????????????????????????????????
-???????????????????????????????????
+
 
 good read for how to organize or plan gamedays ==> https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/
+
 ### Planned Failure
 
 The MoD will gather the team before the 'start of the incident' and then will start with the planned failure. 
@@ -265,17 +258,11 @@ A Post Mortem is the stage in which the team will analyze the failure and the so
 This can consist of sharing perspectives, assumption that were made, expectations that didn't reflect the behavior of the system or observability tools.
 Following out of the Post Mortem, the team should have come up with a set of actions to fix any observability issues for the scenario and some ideas about how to improve resilience to that failure.
 
-### Best Practice
- 
- ????????????????????????????????????????????????????????????????????????????????????????????????
-Post Mortem should follow the usual incident process if you have one in your company.
-If not you can use this example from PagerDuty :   https://response.pagerduty.com/ 
-
-Example voor post-mortem best practice, maar dit lijkt mij vrij specifiek????????????????
-https://response.pagerduty.com/after/post_mortem_process/
+The Post Mortem should follow the usual incident process if you have one in your company.
+If not you can use this example from PagerDuty:   https://response.pagerduty.com/ 
 
 
-## Perturbation models
+## Simian Army
 
 <div style="text-align: center;">
   <img alt="Must Have" src="/img/2020-11-19-chaos-engineering/simian-army.jpg" width="auto" height="auto" target="_blank" class="image">
@@ -330,6 +317,8 @@ Derived from Conformity Monkey, a tool that searches for and disables instances 
 ### 10-18 Monkey (deprecated or not publicaly released)
 
 A tool that detects problems with localization and internationalization (known by the abbreviations "l10n" and "i18n") for software serving customers across different geographic regions.
+
+
 
 ## Other Tools for Chaos Engineering:
 
@@ -396,8 +385,19 @@ Getting started with Litmus is much harder than with the other tools !
 Platform: Kubernetes
 
 
+## Which tool is right for me?
 
+Ultimately, the goal of any Chaos Engineering tool is to help you achieve greater reliability. The question is: which tool will help you achieve that goal faster and more easily? 
+This question of course depends on your tech stack, the experience and expertise of your engineering team, and how much time you can dedicate to testing and evaluating each tool.
 
+| Tool | platform(s) | Total attack types | Application Attacks | Host Attacks | Container/Pod attacks | GUI available? | CLI available? | Metrics/reporting |
+|-------|--------|-------------|----|----|----|----|----|----|
+| Chaos Monkey | Spinnaker | 1 | true | true | false | true | false | false |
+| Gremlin | SaaS | 11 | false | true | true | true | true | true |
+| ChaosBlade | Kubernetes, Docker, Cloud, Bare metal | 40 | true | true | true | false | true | false |
+| Chaos Toolkit | Kubernetes, Docker, Cloud, Bare metal | depends on driver | false | true | true | false | true | true |
+| Chaos Mesh | Kubernetes | 17 | false | true | true | true | true | true |
+| Litmus | Kubernetes | 39 | false | true | true | true | true | true |
 
 
 ## Conclusion
