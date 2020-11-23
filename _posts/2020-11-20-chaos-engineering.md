@@ -62,6 +62,13 @@ Fix the weakness first ! Then come back to Chaos Engineering to uncover more wea
 
 Also it is important that there are ways your team can analyze the results of the experiments by making sure there is a monitoring system in place to check the state of your application.
 
+?????????????????????????
+
+Nog toevoegen eventueel van monitoring ==> zeer belangrijk, bv als je service opstart op 2 seconden en dan ineens op 15, weet je dat er iets niet klopt !!!
+Als een goede metric ! ++ > nog eens checken bij die mens zijn yotuube talk
+
+??????????????????????????
+
 Some must-have items before introducing Chaos
 
 <div style="text-align: center;">
@@ -275,17 +282,19 @@ https://response.pagerduty.com/after/post_mortem_process/
 </div>
 
 Netflix has already developed some tools which they bundled in their suite of tools named 'The simian army'. These tools were made to test reliability, security and resilience of it's AWS infrastructure.
-The Simian Army is designed to add more capabilities beyond Chaos Monkey. While Chaos Monkey solely handles termination of random instances, Netflix engineers needed additional tools able to induce other types of failure. Some of the Simian Army tools have fallen out of favor in recent years and are deprecated, but each of the members serves a specific purpose aimed at bolstering a system's failure resilience.
+The Simian Army is designed to add more capabilities beyond Chaos Monkey. While Chaos Monkey solely handles termination of random instances, Netflix engineers needed additional tools able to induce other types of failure.
+Some of the Simian Army tools have fallen out of favor in recent years and are deprecated, but each of the members serves a specific purpose aimed at bolstering a system's failure resilience.
 
-### Chaos Monkey (Still available)
+### Chaos Monkey (Still available as a standalone service)
 
-Chaos Monkey is a tool invented in 2011 by Netflix to test the resilience of its IT infrastructure. It works by intentionally disabling computers in Netflix's production network to test how remaining systems respond to the outage. Chaos Monkey is now part of a larger suite of tools called the Simian Army designed to simulate and test responses to various system failures and edge cases.
+Chaos Monkey is a tool invented to test the resilience of its IT infrastructure. It works by intentionally disabling virtual machine instances and containers in the production network to test how remaining systems respond to the outage. (prepares you for a random instance failure in an application managed by Spinnaker)
+This tool has been in the game for a long time, so there might be better tools for your needs.
 
-### Janitor Monkey (Still available)
+### Janitor Monkey => replaced by new standalone service 'Swabbie' (Still available)
 
 Identifies and disposes unused resources to avoid waste and clutter.
 
-### Conformity Monkey (Still available)
+### Conformity Monkey => now rolled out in spinnaker services (Still available)
 
 A tool that determines whether an instance is nonconforming by testing it against a set of rules. If any of the rules determines that the instance is not conforming, the monkey sends an email notification to the owner of the instance.
 
@@ -295,12 +304,19 @@ At the very top of the Simian Army hierarchy, Chaos Kong drops a full AWS "Regio
 
 ### Chaos Gorilla (deprecated or not publicaly released)
 
-Chaos Gorilla drops a full Amazon "Availability Zone" (one or more entire data centers serving a geographical region).
+Chaos Gorilla drops a full AWS "Availability Zone" (one or more entire data centers serving a geographical region).
 
 ### Latency Monkey (deprecated or not publicaly released)
 
 Introduces communication delays to simulate degradation or outages in a network.
-While Netflix never publicly released the Latency Monkey code, and it eventually evolved into their Failure Injection Testing (FIT) service.
+Netflix never publicly released the Latency Monkey code, and it eventually evolved into their Failure Injection Testing (FIT) service.
+
+### FIT (Failure Injection Testing)
+
+Was build to inject microservice level failures.
+Latency monkey adds a delay and/or failure on the server side of a request for a given service. This provides us good insight into how calling applications behave when their dependency slows down — threads pile up, the network becomes congested, etc.
+Latency monkey also impacts all calling applications — whether they want to participate or not, and can result in customer pain if proper fallback handling, timeouts, and bulkheads don’t work as expected.
+What we need is a way to limit the impact of failure testing while still breaking things in realistic ways.nThis is where FIT comes in.
 
 ### Doctor Monkey (deprecated or not publicaly released)
 
@@ -315,12 +331,22 @@ Derived from Conformity Monkey, a tool that searches for and disables instances 
 
 A tool that detects problems with localization and internationalization (known by the abbreviations "l10n" and "i18n") for software serving customers across different geographic regions.
 
+## Other Tools for Chaos Engineering:
 
-Other Tools:
+### ChAP (Chaos Automation Platform)
+
+ChAP was built to overcome the limitations of FIT so we can increase the safety, cadence, and breadth of experimentation.
 
 ### Byte-Monkey
 
 A small Java library for testing failure scenarios in JVM applications. It works by instrumenting application code on the fly to deliberately introduce faults such as exceptions and latency.
+
+### ChaosBlade By Alibaba
+
+ChaosBlade is a versatile tool supporting a wide range of experiment types and target platforms. However, it lacks some useful features such as centralized reporting, experiment scheduling, target randomization, and health checks. 
+It’s a great tool if you’re new to Chaos Engineering and want to experiment with different attacks.
+
+Platforms: Docker, Kubernetes, bare-metal, cloud platforms
 
 ### Chaos Machine
 
@@ -330,9 +356,10 @@ ChaosMachine is a tool that does chaos engineering at the application level in t
 
 A chaos engineering platform that focuses on and leverages the Microsoft Azure platform and the Azure DevOps services. Users can inject failures on the infrastructure, platform and application level.
 
-### Gremlin
+### Gremlin platform
 
 A "failure-as-a-service" platform built to make the Internet more reliable. It turns failure into resilience by offering engineers a fully hosted solution to safely experiment on complex systems, in order to identify weaknesses before they impact customers and cause revenue loss.
+Unlike Chaos Monkey, tools like FIT and Gremlin are able to test for a wide range of failure states beyond simple instance destruction. In addition to killing instances, Gremlin can fill available disk space, hog CPU and memory, overload IO, perform advanced network traffic manipulation, terminate processes, and much more.
 
 ### Facebook Storm
 
@@ -342,21 +369,36 @@ To prepare for the loss of a datacenter, Facebook regularly tests the resistance
 
 ChaoSlingr is the first Open Source application of Chaos Engineering to Cyber Security. ChaoSlingr is focused primarily on performing security experimentation on AWS Infrastructure to proactively discover system security weaknesses in complex distributed system environments. Published on Github in September 2017.
 
-### Chaos Toolkit
+### Chaos Toolkit by ChaosIQ
 
 The Chaos Toolkit was born from the desire to simplify access to the discipline of chaos engineering and demonstrate that the experimentation approach can be done at different levels: infrastructure, platform but also application. The Chaos Toolkit is an open-source tool, licensed under Apache 2, published in October 2017.
+Few tools are as flexible in how they let you design chaos experiments. Chaos Toolkit gives you full control over how your experiments operate, right down to the commands executed on the target system. But because of this DIY approach, Chaos Toolkit is more of a framework that you need to build on than a ready-to-go Chaos Engineering solution
+
+Platforms: Docker, Kubernetes, bare-metal, cloud platforms
 
 ### Mangle
 
 Mangle enables you to run chaos engineering experiments seamlessly against applications and infrastructure components to assess resiliency and fault tolerance. It is designed to introduce faults with very little pre-configuration and can support any infrastructure that you might have including K8S, Docker, vCenter or any Remote Machine with ssh enabled. With its powerful plugin model, you can define a custom fault of your choice based on a template and run it without building your code from scratch.
 
-### Chaos Mesh
+### Chaos Mesh by PingCAP
 
 Chaos Mesh is an open-source cloud-native Chaos Engineering platform that orchestrates chaos experiments in Kubernetes environments. It supports comprehensive types of failure simulation, including Pod failures, container failures, network failures, file system failures, system time failures, and kernel failures.  
+Chaos Mesh is one of the few open source tools to include a fully-featured web user interface (UI) called the Chaos Dashboard.
+However, its biggest limitations are its lack of node-level experiments, lack of native scheduling, and lack of time limits on ad-hoc experiments.
+
+Platfrom: Kubernetes
 
 ### Litmus Chaos
 
 LitmusChaos Litmus is a toolset to do cloud-native chaos engineering. Litmus provides tools to orchestrate chaos on Kubernetes to help SREs find weaknesses in their deployments. SREs use Litmus to run chaos experiments initially in the staging environment and eventually in production to find bugs, vulnerabilities. Fixing the weaknesses leads to increased resilience of the system.
+Getting started with Litmus is much harder than with the other tools !
+
+Platform: Kubernetes
+
+
+
+
+
 
 ## Conclusion
 
@@ -372,4 +414,11 @@ CHAOS Gamedays: teams.microsoft.com/go#
 o'reilly paper (more in depth guide): https://www.oreilly.com/content/chaos-engineering/#chapter_cmm   ==> Zoeken bij Steady Sate
 https://adhorn.medium.com/chaos-engineering-ab0cc9fbd12a
 https://en.wikipedia.org/wiki/Chaos_engineering#History
+how to run a gameday : https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/
+https://www.bmc.com/blogs/chaos-monkey/
+
+goeie blogposts:
+
+FIT ==> https://netflixtechblog.com/fit-failure-injection-testing-35d8e2a9bb2
+Chap ==> https://netflixtechblog.com/chap-chaos-automation-platform-53e6d528371f
 
