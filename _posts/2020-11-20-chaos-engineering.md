@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_verte]
 title: 'Chaos Engineering'
-image: /img/2020-11-19-chaos-engineering/chaos-engineering.png
+image: /img/2020-11-19-chaos-engineering/chaos-engineering.jpg
 tags: [Chaos Engineering, DevOps, Chaos, Backend, Netflix, Simian Army]
 category: Cloud
 comments: true
@@ -10,7 +10,6 @@ comments: true
 
 # Table of contents
 {:.no_toc}
-
 - TOC
 {:toc}
 
@@ -20,8 +19,10 @@ comments: true
 
 ## Introduction
 
-In Cloud-based, distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen. Because these networks are more complex and have built-in uncertainty by the nature of how they function, it's essential for software developers to utilize an empirical approach to testing for vulnerabilities that's systematic and innovative.
-This can be achieved through controlled experimentation that creates chaos in an effort to determine how much stress any given system can withstand. The goal is to observe and identify systematic weaknesses.
+In Cloud-based, distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen.
+Because these networks are more complex and have built-in uncertainty by the nature of how they function, it's essential for software developers to utilize an empirical approach to testing for vulnerabilities that's systematic and innovative.
+This can be achieved through controlled experimentation that creates chaos in an effort to determine how much stress any given system can withstand.
+The goal is to observe and identify systematic weaknesses.
 
 ## What is Chaos Engineering? 
 
@@ -62,27 +63,24 @@ Fix the weakness first ! Then come back to Chaos Engineering to uncover more wea
 
 Also it is important that there are ways your team can analyze the results of the experiments by making sure there is a monitoring system in place to check the state of your application.
 
-????????????????????????????????????
-Examples of metrics ==> service metrics ==> normaal duurt het x aantal ms om requests te verwerken, tijdens ons experiment duurt het ineens x + 200 ms. Of opstarttijden
-Business Metrics ==> normale dag x-aantal orders op de webshop, experiment uitvoeren, zien dat x-aantal orders drastisch daalt als de response time van requests bv 100 ms trager is.
+Some metrics examples:
+* service metrics
+  * (example: The time it normally takes to start up your application, the time it takes for a request to the service,...)
+  * (example: a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%.)
 
-Voorbeeld:
-a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%. A secondary metric to be interested in however, is how long the requests take to complete as this can be a canary signal telling us that our system is about to fail.
+* business metrics
+  * (example: number of orders on your webshop. When doing an experiment where you increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly)
 
-???????????????????????????????????????????????
-???????????????????????????????????????????/
-
-
-Some must-have items before introducing Chaos
-
+It's always a good idea to have some resilience already build in, in to your application/service before introducing Chaos.
+Some keypoints for resilience are:
 <div style="text-align: center;">
-  <img alt="Must Have" src="/img/2020-11-19-chaos-engineering/resilience.png" width="auto" height="auto" target="_blank" class="image">
+  <img alt="Must Have" src="/img/2020-11-19-chaos-engineering/resilience.jpg" width="auto" height="auto" target="_blank" class="image">
 </div>
 
 ## Principles of Chaos Engineering
 
 <div style="text-align: center;">
-  <img alt="Experiment Process" src="/img/2020-11-19-chaos-engineering/chaos-engineering-process.png" width="auto" height="auto" target="_blank" class="image">
+  <img alt="Experiment Process" src="/img/2020-11-19-chaos-engineering/chaos-engineering-process.jpg" width="auto" height="auto" target="_blank" class="image">
 </div> 
 
 ### Steady state
@@ -162,7 +160,7 @@ Some good questions you can ask yourself to check the blast radius are:
 * What functionality is impaired?
 * Which locations are impacted?
 
-Also try to have a sort of 'emergency button' you can use to cancel the experiment or to return to the normal state of the system in case you cannot find a solution.
+Also try to have some sort of 'emergency button' you can use to cancel the experiment or to return to the normal state of the system in case you cannot find a solution.
 Be careful with experiments that modify the application state (cache or databases) or that can’t be rolled back easily or at all.
 
 Eventually when you start doing Chaos Experiments in your production environment, you will want to inform members of you organization about what you're doing, why you're doing it and when.
@@ -201,8 +199,6 @@ There are five main sections in a COE document:
 * What did you learn?
 * And how will you prevent it from happening again in the future?
 
-More information about the COE documents: ????????????????????????????????????????????????? link toevoegen
-
 ### Improve and fix it
 
 The most important lesson here is to prioritize fixing the findings of your chaos experiments over developing new features!
@@ -212,14 +208,6 @@ Get upper management to enforce that process and buy into the idea that fixing c
 
 Using Chaos Engineering may be as simple as manually running 'kill -9' on a box inside of your staging environment to simulate failure of a service. Or, it can be as sophisticated as automatically designing and carrying out experiments in a production enviroment against a small but statistically significant fraction of live traffic.
 So when starting out, it is a good practice to manually make your experiments and check the results, but running experiments manually is labor-intensive and ultimately unsustainable. So try to automate experiments and run them continuously.
-
-????????????????
-????????????????
-???????????????
-??????????????
-
-ZIE https://www.oreilly.com/content/chaos-engineering/#chapter_cmm ==> nog eens kijken bij steady state ==> Hier staat info over automatiseren, aangezien manueel veel te labour intensive is
-
 
 ## Chaos Gamedays & benefits
 
@@ -231,13 +219,6 @@ Not only will all developers gain confidence in their uderstanding of the system
 
 There will also be a dramatic change in your systems, since developers will experience failure as a part of their job and thus they will start designing for failure.
 They consider how to make every change and every system observable. They carefully choose resilience strategies because this is now something the team knows and talks about during the experiments.
-
-
-?????????????????????????????????????
-????????????????????????????????????
-
-
-good read for how to organize or plan gamedays ==> https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/
 
 ### Planned Failure
 
@@ -276,6 +257,9 @@ Some of the Simian Army tools have fallen out of favor in recent years and are d
 
 Chaos Monkey is a tool invented to test the resilience of its IT infrastructure. It works by intentionally disabling virtual machine instances and containers in the production network to test how remaining systems respond to the outage. (prepares you for a random instance failure in an application managed by Spinnaker)
 This tool has been in the game for a long time, so there might be better tools for your needs.
+
+Chaos Monkey is deliberately unpredictable. It only has one attack type: terminating virtual machine instances. You set a general time frame for it to run, and at some point during that time it will terminate a random instance. 
+This is meant to help replicate unpredictable production incidents, but it can easily cause more harm than good if you’re not prepared to respond. 
 
 ### Janitor Monkey => replaced by new standalone service 'Swabbie' (Still available)
 
@@ -319,7 +303,6 @@ Derived from Conformity Monkey, a tool that searches for and disables instances 
 A tool that detects problems with localization and internationalization (known by the abbreviations "l10n" and "i18n") for software serving customers across different geographic regions.
 
 
-
 ## Other Tools for Chaos Engineering:
 
 ### ChAP (Chaos Automation Platform)
@@ -331,6 +314,9 @@ ChAP was built to overcome the limitations of FIT so we can increase the safety,
 A small Java library for testing failure scenarios in JVM applications. It works by instrumenting application code on the fly to deliberately introduce faults such as exceptions and latency.
 
 ### ChaosBlade By Alibaba
+
+ChaosBlade is a versatile tool supporting a wide range of experiment types and target platforms. However, it lacks some useful features such as centralized reporting, experiment scheduling, target randomization, and health checks. 
+It’s a great tool if you’re new to Chaos Engineering and want to experiment with different attacks.
 
 ChaosBlade is a versatile tool supporting a wide range of experiment types and target platforms. However, it lacks some useful features such as centralized reporting, experiment scheduling, target randomization, and health checks. 
 It’s a great tool if you’re new to Chaos Engineering and want to experiment with different attacks.
@@ -360,7 +346,7 @@ ChaoSlingr is the first Open Source application of Chaos Engineering to Cyber Se
 
 ### Chaos Toolkit by ChaosIQ
 
-The Chaos Toolkit was born from the desire to simplify access to the discipline of chaos engineering and demonstrate that the experimentation approach can be done at different levels: infrastructure, platform but also application. The Chaos Toolkit is an open-source tool, licensed under Apache 2, published in October 2017.
+The Chaos Toolkit was born from the desire to simplify access to the discipline of chaos engineering and demonstrate that the experimentation approach can be done at different levels: infrastructure, platform but also application. The Chaos Toolkit is an open-source tool.
 Few tools are as flexible in how they let you design chaos experiments. Chaos Toolkit gives you full control over how your experiments operate, right down to the commands executed on the target system. But because of this DIY approach, Chaos Toolkit is more of a framework that you need to build on than a ready-to-go Chaos Engineering solution
 
 Platforms: Docker, Kubernetes, bare-metal, cloud platforms
@@ -380,7 +366,8 @@ Platfrom: Kubernetes
 ### Litmus Chaos
 
 LitmusChaos Litmus is a toolset to do cloud-native chaos engineering. Litmus provides tools to orchestrate chaos on Kubernetes to help SREs find weaknesses in their deployments. SREs use Litmus to run chaos experiments initially in the staging environment and eventually in production to find bugs, vulnerabilities. Fixing the weaknesses leads to increased resilience of the system.
-Getting started with Litmus is much harder than with the other tools !
+
+While Litmus is a comprehensive tool with many useful attacks and monitoring features, it comes with a steep learning curve. Simply running an experiment is a multi-step process that involves setting permissions and annotating deployments. Workflows help with this, especially when used through the Litmus Portal, but they still add an extra layer of complexity. This isn’t helped by the fact that some features—like the Litmus Portal itself—don’t appear in the documentation, and are only available through the project’s GitHub repository.
 
 Platform: Kubernetes
 
@@ -390,14 +377,14 @@ Platform: Kubernetes
 Ultimately, the goal of any Chaos Engineering tool is to help you achieve greater reliability. The question is: which tool will help you achieve that goal faster and more easily? 
 This question of course depends on your tech stack, the experience and expertise of your engineering team, and how much time you can dedicate to testing and evaluating each tool.
 
-| Tool | platform(s) | Total attack types | Application Attacks | Host Attacks | Container/Pod attacks | GUI available? | CLI available? | Metrics/reporting |
-|-------|--------|-------------|----|----|----|----|----|----|
-| Chaos Monkey | Spinnaker | 1 | true | true | false | true | false | false |
-| Gremlin | SaaS | 11 | false | true | true | true | true | true |
-| ChaosBlade | Kubernetes, Docker, Cloud, Bare metal | 40 | true | true | true | false | true | false |
-| Chaos Toolkit | Kubernetes, Docker, Cloud, Bare metal | depends on driver | false | true | true | false | true | true |
-| Chaos Mesh | Kubernetes | 17 | false | true | true | true | true | true |
-| Litmus | Kubernetes | 39 | false | true | true | true | true | true |
+| Tool | platform(s) | Total attack types | Application Attacks | Host Attacks | Container/Pod attacks | GUI available? | CLI available? | Metrics/reporting | Attack Sharing | Attack Halting | Attack Scheduling | Custom Attacks | Health Checks |
+|-------|--------|-------------|----|----|----|----|----|----|----|----|----|----|----|
+| Chaos Monkey | Spinnaker | 1 | true | true | false | true | false | false | false | false | true | false | true |
+| Gremlin | SaaS | 11 | false | true | true | true | true | true | true | true | true | false | true |
+| ChaosBlade | Kubernetes, Docker, Cloud, Bare metal | 40 | true | true | true | false | true | false | false | true | false | false | false |
+| Chaos Toolkit | Kubernetes, Docker, Cloud, Bare metal | depends on driver | false | true | true | false | true | true | false | false | false | true | true |
+| Chaos Mesh | Kubernetes | 17 | false | true | true | true | true | true | false | true | true | false | false |
+| Litmus | Kubernetes | 39 | false | true | true | true | true | true | true | true | true | false | true |
 
 
 ## Conclusion
@@ -406,19 +393,17 @@ Any organization that builds and operates a distributed system and wishes to ach
 
 Chaos Engineering is still a very young field, and the techniques and associated tooling are still evolving.
 
+## Resources
 
-
-
-Bronnen ==> nog verwerken
-CHAOS Gamedays: teams.microsoft.com/go#
-o'reilly paper (more in depth guide): https://www.oreilly.com/content/chaos-engineering/#chapter_cmm   ==> Zoeken bij Steady Sate
-https://adhorn.medium.com/chaos-engineering-ab0cc9fbd12a
-https://en.wikipedia.org/wiki/Chaos_engineering#History
-how to run a gameday : https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/
-https://www.bmc.com/blogs/chaos-monkey/
-
-goeie blogposts:
-
-FIT ==> https://netflixtechblog.com/fit-failure-injection-testing-35d8e2a9bb2
-Chap ==> https://netflixtechblog.com/chap-chaos-automation-platform-53e6d528371f
-
+- [Principles of Chaos](https://principlesofchaos.org/){:target="_blank" rel="noopener noreferrer"}
+- [O'Reilly Chaos Engineering paper](https://www.oreilly.com/content/chaos-engineering/#chapter_cmm){:target="_blank" rel="noopener noreferrer"}
+- [Wikipedia](https://en.wikipedia.org/wiki/Chaos_engineering#History){:target="_blank" rel="noopener noreferrer"}
+- [Chaos Monkey](https://www.bmc.com/blogs/chaos-monkey/){:target="_blank" rel="noopener noreferrer"}
+- [Simian Army](https://github.com/Netflix/SimianArmy){:target="_blank" rel="noopener noreferrer"}
+- [FIT by Netflix](https://netflixtechblog.com/fit-failure-injection-testing-35d8e2a9bb2){:target="_blank" rel="noopener noreferrer"}
+- [Chaos Automation Platform](https://netflixtechblog.com/chap-chaos-automation-platform-53e6d528371f){:target="_blank" rel="noopener noreferrer"}
+- [How to run a Chaos GameDay](https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/){:target="_blank" rel="noopener noreferrer"}
+- [Chaos Engineering post](https://medium.com/the-cloud-architect/chaos-engineering-ab0cc9fbd12a){:target="_blank" rel="noopener noreferrer"}
+- [Chaos Engineering post](https://adhorn.medium.com/chaos-engineering-ab0cc9fbd12a){:target="_blank" rel="noopener noreferrer"}
+- [Gremlin - Chaos Engineering](https://www.gremlin.com/chaos-monkey/the-simian-army/){:target="_blank" rel="noopener noreferrer"}
+- [Gremlin - Chaos Engineering tools](https://www.gremlin.com/community/tutorials/chaos-engineering-tools-comparison/){:target="_blank" rel="noopener noreferrer"}
