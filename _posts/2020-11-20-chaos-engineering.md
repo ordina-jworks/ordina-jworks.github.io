@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_verte]
 title: 'Chaos Engineering'
-image: /img/2020-11-20-chaos-engineering/chaos-engineering.jpg
+image: /img/2020-11-20-chaos-engineering/thumbnail.jpg
 tags: [Chaos Engineering, DevOps, Chaos, Backend, Netflix, Simian Army]
 category: Cloud
 comments: true
