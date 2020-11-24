@@ -2,7 +2,7 @@
 layout: post
 authors: [tim_verte]
 title: 'Chaos Engineering'
-image: /img/2020-11-19-chaos-engineering/chaos-engineering.jpg
+image: /img/2020-11-20-chaos-engineering/chaos-engineering.jpg
 tags: [Chaos Engineering, DevOps, Chaos, Backend, Netflix, Simian Army]
 category: Cloud
 comments: true
@@ -41,9 +41,9 @@ However, development teams often fail to meet this requirement due to factors su
 Chaos engineering is a technique to meet the resilience requirement.
 
 Chaos engineering can be used to achieve resilience against:
--	Infrastructure failures 
--	Network failures
--	Application failures
+* Infrastructure failures 
+* Network failures
+* Application failures
 
 ## Chaos Engineering and Traditional Testing
 
@@ -72,16 +72,21 @@ Some metrics examples:
   * (example: number of orders on your webshop. When doing an experiment where you increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly)
 
 It's always a good idea to have some resilience already build in, in to your application/service before introducing Chaos.
+
 Some keypoints for resilience are:
 <div style="text-align: center;">
-  <img alt="Must Have" src="/img/2020-11-19-chaos-engineering/resilience.jpg" width="auto" height="auto" target="_blank" class="image">
+  <img alt="Must Have" src="/img/2020-11-20-chaos-engineering/resilience.jpg" width="50%" height="auto" target="_blank" class="image">
 </div>
+
+<br>
 
 ## Principles of Chaos Engineering
 
 <div style="text-align: center;">
-  <img alt="Experiment Process" src="/img/2020-11-19-chaos-engineering/chaos-engineering-process.jpg" width="auto" height="auto" target="_blank" class="image">
+  <img alt="Experiment Process" src="/img/2020-11-20-chaos-engineering/chaos-engineering-process.jpg" width="auto" height="auto" target="_blank" class="image">
 </div> 
+
+<br>
 
 ### Steady state
 
@@ -93,11 +98,15 @@ Measurements of that output over a short period of time constitute a proxy for t
 
 ### Hypothesis about state
 
-Once you have your metrics and an understanding of their steady state behavior, you can use them to define the hypotheses and preferred results for your experiment. Start small and choose only one hypothesis at a time.
-When you are doing this it is important to bring everybody around the table that is involved with the project. The team, the product owner, developers, designers, etc.
+Once you have your metrics and an understanding of their steady state behavior, you can use them to define the hypotheses and preferred results for your experiment.
+Start small and choose only one hypothesis at a time.
+When you are doing this it is important to bring everybody around the table that is involved with the project.
+The team, the product owner, developers, designers, etc.
 
-It can be tempting to subject your system to different events (for example, increasing amounts of traffic) to “see what happens.” However, without having a prior hypothesis in mind, it can be difficult to draw conclusions if you don’t know what to look for in the data.
-Think about how the steady state behavior will change when you inject different types of events into your system. If you add requests to a service, will the steady state be disrupted or stay the same? If disrupted, do you expect the system output to increase or decrease?
+It can be tempting to subject your system to different events (for example, increasing amounts of traffic) to “see what happens.”
+However, without having a prior hypothesis in mind, it can be difficult to draw conclusions if you don’t know what to look for in the data.
+Think about how the steady state behavior will change when you inject different types of events into your system.
+If you add requests to a service, will the steady state be disrupted or stay the same? If disrupted, do you expect the system output to increase or decrease?
 
 A few examples:
 * What will happen if this loadbalancer breaks?
@@ -106,10 +115,9 @@ A few examples:
 * What will happen if we loose connection to our DB?
 
 Make hypothesis on parts of the system you believe are resilient — after all, that’s the whole point of the experiment.
-
 Also think about what the preferred outcome will be in one of these situations and don’t make a hypothesis that you know will break you!
 
-Another example:
+Example:
 * What if the 'Shop By Category' service fails to load in our online webshop?
 
 The Preferred Outcome:
@@ -121,7 +129,8 @@ The Preferred Outcome:
 
 ### Vary real-world events
 
-Every system, from simple to complex, is subject to unpredictable events and conditions if it runs long enough. Examples include increase in load, hardware malfunction, deployment of faulty software, and the introduction of invalid data (sometimes known as poison data). 
+Every system, from simple to complex, is subject to unpredictable events and conditions if it runs long enough.
+Examples include increase in load, hardware malfunction, deployment of faulty software, and the introduction of invalid data (sometimes known as poison data). 
 
 The most common ones fall under the following categories:
 * Hardware failures
@@ -137,9 +146,12 @@ The most common ones fall under the following categories:
 
 Real World Examples:
 
-At Netflix, they turn off machines because instance termination happens frequently in the wild and the act of turning off a server is cheap and easy. They simulate regional failures even though to do so is costly and complex, because a regional outage has a huge impact on their customers unless they are resilient to it.
+At Netflix, they turn off machines because instance termination happens frequently in the wild and the act of turning off a server is cheap and easy.
+They simulate regional failures even though to do so is costly and complex, because a regional outage has a huge impact on their customers unless they are resilient to it.
 
-Or Consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident. The organization may have a contingency plan for handling the outage when the messaging app is down during an outage, but how well do the on-call engineers know the contingency plan? Running a chaos experiment is a great way to find out.
+Or Consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident.
+The organization may have a contingency plan for handling the outage when the messaging app is down during an outage, but how well do the on-call engineers know the contingency plan?
+Running a chaos experiment is a great way to find out.
 
 
 ### Design and run the experiment
@@ -206,19 +218,23 @@ Get upper management to enforce that process and buy into the idea that fixing c
 
 ## Manually VS Auto
 
-Using Chaos Engineering may be as simple as manually running 'kill -9' on a box inside of your staging environment to simulate failure of a service. Or, it can be as sophisticated as automatically designing and carrying out experiments in a production enviroment against a small but statistically significant fraction of live traffic.
-So when starting out, it is a good practice to manually make your experiments and check the results, but running experiments manually is labor-intensive and ultimately unsustainable. So try to automate experiments and run them continuously.
+Using Chaos Engineering may be as simple as manually running 'kill -9' on a box inside of your staging environment to simulate failure of a service.
+Or, it can be as sophisticated as automatically designing and carrying out experiments in a production enviroment against a small but statistically significant fraction of live traffic.
+So when starting out, it is a good practice to manually make your experiments and check the results, but running experiments manually is labor-intensive and ultimately unsustainable.
+So try to automate experiments and run them continuously.
 
 ## Chaos Gamedays & benefits
 
 Chaos Gamedays are often known as days where a 'Master of Disaster' or a MoD, often in secret, will decide what kind of failure or disaster will happen on the system.
-He or She will generally start with something simple like the loss of capacity or the loss of connectivity. You may find, that until you can easily and clearly see the simple cases, doing harder or more complex failures is not a good way to build confidence or spend time. 
+He or She will generally start with something simple like the loss of capacity or the loss of connectivity.
+You may find, that until you can easily and clearly see the simple cases, doing harder or more complex failures is not a good way to build confidence or spend time. 
 
-If you follow this porcess regularly, you will see a transformation in your team. Being first on-call for Chaos Gamedays builds composure under pressure when doing on-call for production outages.
+If you follow this porcess regularly, you will see a transformation in your team.
+Being first on-call for Chaos Gamedays builds composure under pressure when doing on-call for production outages.
 Not only will all developers gain confidence in their uderstanding of the systems and how they fail, but they also get used to the feeling of being under pressure.
 
 There will also be a dramatic change in your systems, since developers will experience failure as a part of their job and thus they will start designing for failure.
-They consider how to make every change and every system observable. They carefully choose resilience strategies because this is now something the team knows and talks about during the experiments.
+They consider how to make every change and every system observable and also carefully choose resilience strategies because this is now something the team knows and talks about during the experiments.
 
 ### Planned Failure
 
@@ -240,14 +256,13 @@ This can consist of sharing perspectives, assumption that were made, expectation
 Following out of the Post Mortem, the team should have come up with a set of actions to fix any observability issues for the scenario and some ideas about how to improve resilience to that failure.
 
 The Post Mortem should follow the usual incident process if you have one in your company.
-If not you can use this example from PagerDuty:   https://response.pagerduty.com/ 
-
 
 ## Simian Army
 
 <div style="text-align: center;">
-  <img alt="Must Have" src="/img/2020-11-19-chaos-engineering/simian-army.jpg" width="auto" height="auto" target="_blank" class="image">
+  <img alt="Must Have" src="/img/2020-11-20-chaos-engineering/simian-army.jpg" width="30%" height="auto" target="_blank" class="image">
 </div>
+<br>
 
 Netflix has already developed some tools which they bundled in their suite of tools named 'The simian army'. These tools were made to test reliability, security and resilience of it's AWS infrastructure.
 The Simian Army is designed to add more capabilities beyond Chaos Monkey. While Chaos Monkey solely handles termination of random instances, Netflix engineers needed additional tools able to induce other types of failure.
@@ -284,10 +299,11 @@ Netflix never publicly released the Latency Monkey code, and it eventually evolv
 
 ### FIT (Failure Injection Testing)
 
-Was build to inject microservice level failures.
-Latency monkey adds a delay and/or failure on the server side of a request for a given service. This provides us good insight into how calling applications behave when their dependency slows down — threads pile up, the network becomes congested, etc.
+FIT was build to inject microservice level failures.
+Latency monkey adds a delay and/or failure on the server side of a request for a given service.
+This provides us good insight into how calling applications behave when their dependency slows down — threads pile up, the network becomes congested, etc.
 Latency monkey also impacts all calling applications — whether they want to participate or not, and can result in customer pain if proper fallback handling, timeouts, and bulkheads don’t work as expected.
-What we need is a way to limit the impact of failure testing while still breaking things in realistic ways.nThis is where FIT comes in.
+What we need is a way to limit the impact of failure testing while still breaking things in realistic ways. This is where FIT comes in.
 
 ### Doctor Monkey (deprecated or not publicaly released)
 
@@ -302,6 +318,7 @@ Derived from Conformity Monkey, a tool that searches for and disables instances 
 
 A tool that detects problems with localization and internationalization (known by the abbreviations "l10n" and "i18n") for software serving customers across different geographic regions.
 
+<br>
 
 ## Other Tools for Chaos Engineering:
 
@@ -320,8 +337,6 @@ It’s a great tool if you’re new to Chaos Engineering and want to experiment 
 
 ChaosBlade is a versatile tool supporting a wide range of experiment types and target platforms. However, it lacks some useful features such as centralized reporting, experiment scheduling, target randomization, and health checks. 
 It’s a great tool if you’re new to Chaos Engineering and want to experiment with different attacks.
-
-Platforms: Docker, Kubernetes, bare-metal, cloud platforms
 
 ### Chaos Machine
 
@@ -349,8 +364,6 @@ ChaoSlingr is the first Open Source application of Chaos Engineering to Cyber Se
 The Chaos Toolkit was born from the desire to simplify access to the discipline of chaos engineering and demonstrate that the experimentation approach can be done at different levels: infrastructure, platform but also application. The Chaos Toolkit is an open-source tool.
 Few tools are as flexible in how they let you design chaos experiments. Chaos Toolkit gives you full control over how your experiments operate, right down to the commands executed on the target system. But because of this DIY approach, Chaos Toolkit is more of a framework that you need to build on than a ready-to-go Chaos Engineering solution
 
-Platforms: Docker, Kubernetes, bare-metal, cloud platforms
-
 ### Mangle
 
 Mangle enables you to run chaos engineering experiments seamlessly against applications and infrastructure components to assess resiliency and fault tolerance. It is designed to introduce faults with very little pre-configuration and can support any infrastructure that you might have including K8S, Docker, vCenter or any Remote Machine with ssh enabled. With its powerful plugin model, you can define a custom fault of your choice based on a template and run it without building your code from scratch.
@@ -361,15 +374,12 @@ Chaos Mesh is an open-source cloud-native Chaos Engineering platform that orches
 Chaos Mesh is one of the few open source tools to include a fully-featured web user interface (UI) called the Chaos Dashboard.
 However, its biggest limitations are its lack of node-level experiments, lack of native scheduling, and lack of time limits on ad-hoc experiments.
 
-Platfrom: Kubernetes
-
 ### Litmus Chaos
 
 LitmusChaos Litmus is a toolset to do cloud-native chaos engineering. Litmus provides tools to orchestrate chaos on Kubernetes to help SREs find weaknesses in their deployments. SREs use Litmus to run chaos experiments initially in the staging environment and eventually in production to find bugs, vulnerabilities. Fixing the weaknesses leads to increased resilience of the system.
 
-While Litmus is a comprehensive tool with many useful attacks and monitoring features, it comes with a steep learning curve. Simply running an experiment is a multi-step process that involves setting permissions and annotating deployments. Workflows help with this, especially when used through the Litmus Portal, but they still add an extra layer of complexity. This isn’t helped by the fact that some features—like the Litmus Portal itself—don’t appear in the documentation, and are only available through the project’s GitHub repository.
-
-Platform: Kubernetes
+While Litmus is a comprehensive tool with many useful attacks and monitoring features, it comes with a steep learning curve. Simply running an experiment is a multi-step process that involves setting permissions and annotating deployments. Workflows help with this, especially when used through the Litmus Portal, but they still add an extra layer of complexity.
+This isn’t helped by the fact that some features—like the Litmus Portal itself—don’t appear in the documentation, and are only available through the project’s GitHub repository.
 
 
 ## Which tool is right for me?
@@ -377,15 +387,18 @@ Platform: Kubernetes
 Ultimately, the goal of any Chaos Engineering tool is to help you achieve greater reliability. The question is: which tool will help you achieve that goal faster and more easily? 
 This question of course depends on your tech stack, the experience and expertise of your engineering team, and how much time you can dedicate to testing and evaluating each tool.
 
-| Tool | platform(s) | Total attack types | Application Attacks | Host Attacks | Container/Pod attacks | GUI available? | CLI available? | Metrics/reporting | Attack Sharing | Attack Halting | Attack Scheduling | Custom Attacks | Health Checks |
-|-------|--------|-------------|----|----|----|----|----|----|----|----|----|----|----|
-| Chaos Monkey | Spinnaker | 1 | true | true | false | true | false | false | false | false | true | false | true |
-| Gremlin | SaaS | 11 | false | true | true | true | true | true | true | true | true | false | true |
-| ChaosBlade | Kubernetes, Docker, Cloud, Bare metal | 40 | true | true | true | false | true | false | false | true | false | false | false |
-| Chaos Toolkit | Kubernetes, Docker, Cloud, Bare metal | depends on driver | false | true | true | false | true | true | false | false | false | true | true |
-| Chaos Mesh | Kubernetes | 17 | false | true | true | true | true | true | false | true | true | false | false |
-| Litmus | Kubernetes | 39 | false | true | true | true | true | true | true | true | true | false | true |
+The following table are just a handful of tools which are interesting for our preferred stack.
 
+| Tool | platform | Attack types | App Attacks | Container / Pod attacks | GUI ? | CLI ? | Metrics | Attack Sharing | Attack Halting | Attack Scheduling |
+|------------|  ---------|-------------|------|------|------|------|------|------|------|------|
+| Chaos Monkey | Spinnaker | 1 | true | false | true | false | false | false | false | true |
+| Gremlin | SaaS | 11 | false | true | true | true | true | true | true | true |
+| Chaos Blade | K8S, Docker, Cloud, Bare metal | 40 | true | true | false | true | false | false | true | false |
+| Chaos Toolkit | K8S, Docker, Cloud, Bare metal | depends on driver | false | true | false | true | true | false | false | false |
+| Chaos Mesh | K8S | 17 | false | true | true | true | true | false | true | true |
+| Litmus | K8S | 39 | false | true | true | true | true | true | true | true |
+
+!! Chaos Toolkit is the only tool you can use to create Custom Attacks with !!
 
 ## Conclusion
 
@@ -407,3 +420,4 @@ Chaos Engineering is still a very young field, and the techniques and associated
 - [Chaos Engineering post](https://adhorn.medium.com/chaos-engineering-ab0cc9fbd12a){:target="_blank" rel="noopener noreferrer"}
 - [Gremlin - Chaos Engineering](https://www.gremlin.com/chaos-monkey/the-simian-army/){:target="_blank" rel="noopener noreferrer"}
 - [Gremlin - Chaos Engineering tools](https://www.gremlin.com/community/tutorials/chaos-engineering-tools-comparison/){:target="_blank" rel="noopener noreferrer"}
+- [PagerDuty - Post Mortem](https://response.pagerduty.com/){:target="_blank" rel="noopener noreferrer"}
