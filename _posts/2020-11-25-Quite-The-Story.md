@@ -51,7 +51,7 @@ Why is the sponsor asking the questions he/she is asking?
 But learning the context and the business value attached to the questions, a more critical view can be taken on the questions themselves. 
 Are we looking at the right things, and are we asked the correct questions to come to the insights needed to improve on the associated business value? 
 Once the big picture is clear, the plan of attack presents itself much more clearly. 
-Or if you would like to hear it in Lori’s own words, check out her YouTube presence.  
+Or if you would like to hear it in Lori’s own words, check out her [YouTube presence](https://www.youtube.com/watch?v=u4Vx0Ufe2kQ&feature=youtu.be&ab_channel=LoriSilverman){:target="_blank" rel="noopener noreferrer"}.  
 
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2020-11-25-Quite-The-Story/SMARTER.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
