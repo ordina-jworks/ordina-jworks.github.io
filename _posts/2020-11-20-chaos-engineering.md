@@ -35,7 +35,7 @@ It is not meant to break random things without a purpose.
 However if you or the team is just starting with Chaos Engineering and you are not confident enough to work in the production environment,
 you can also do the experiments in another controlled environment (TST, DEV, ...).
 
-Building confidence is key ! You do not want to break things in production without being able to find a solution.
+Building confidence is key! You do not want to break things in production without being able to find a solution.
 
 ## Why use Chaos Engineering?
 
@@ -52,8 +52,8 @@ Chaos engineering can be used to achieve resilience against:
 ## Chaos Engineering and Traditional Testing
 
 With traditional testing, you are only testing assumptions and not generating new knowledge about the system.
-You are testing the code correctness and how fuctions and methods work in your application.
-Chaos Engineering on the other hand will also explore the many different and upredictable scenarios that could happen to your systems.
+You are testing the code correctness and how functions and methods work in your application.
+Chaos Engineering on the other hand will also explore the many different and unpredictable scenarios that could happen to your systems.
 
 In this way you will be able to find new weaknesses before the actual event will take place and make sure future outages will not happen.
 
@@ -66,21 +66,21 @@ If you know the answer to that question is no, you have some work to do before u
 Chaos Engineering is great for exposing unknown weaknesses in your production system,
 but if you are certain that a Chaos Engineering experiment will lead to a significant problem with the system,
 there’s no sense in running that experiment.
-Fix the weakness first ! Then come back to Chaos Engineering to uncover more weaknesses you didn't know about.
+Fix the weakness first! Then come back to Chaos Engineering to uncover more weaknesses you didn't know about.
 
-Also it is important that there are ways your team can analyze the results of the experiments by making sure there is a monitoring system in place to check the state of your application.
+Also, it is important that there are ways your team can analyze the results of the experiments by making sure there is a monitoring system in place to check the state of your application.
 
 Some metrics examples:
 * service metrics
-  * (example: The time it normally takes to start up your application, the time it takes for a request to the service,...)
+  * (example: The time it normally takes to start up your application, the time it takes for a request to the service...)
   * (example: a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%.)
 
 * business metrics
-  * (example: number of orders on your webshop. When doing an experiment where you increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly)
+  * (example: number of orders on your web shop. When doing an experiment where you are increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly)
 
-It's always a good idea to have some resilience already build in, in to your application/service before introducing Chaos.
+It's always a good idea to have some resilience already built in to your application/service before introducing Chaos.
 
-Some keypoints for resilience are:
+Some key points for resilience are:
 <div style="text-align: right; width: 60%; margin-left:20%">
   <img alt="Must Have" src="/img/2020-11-20-chaos-engineering/ResilienceSmall.jpg" width="auto" height="auto" target="_blank" class="image fit">
 </div>
@@ -110,7 +110,7 @@ The overall system’s throughput, error rates, latency percentiles, etc. could 
 Once you have your metrics and an understanding of their steady state behavior,
 you can use them to define the hypotheses and preferred results for your experiment.
 Start small and choose only one hypothesis at a time.
-When you are doing this it is important to bring everybody around the table that is involved with the project.
+When you are doing this, it is important to bring everybody around the table that is involved with the project.
 The team, the product owner, developers, designers, etc.
 
 It can be tempting to subject your system to different events (for example, increasing amounts of traffic) to “see what happens.”
@@ -120,10 +120,10 @@ If you add requests to a service, will the steady state be disrupted or stay the
 If disrupted, do you expect the system output to increase or decrease?
 
 A few examples:
-* What will happen if this loadbalancer breaks?
+* What will happen if this load balancer breaks?
 * What will happen if caching fails?
 * What will happen if latency increases with 300ms?
-* What will happen if we loose connection to our DB?
+* What will happen if we lose connection to our DB?
 
 Make hypothesis on parts of the system you believe are resilient — after all, that’s the whole point of the experiment.
 Also think about what the preferred outcome will be in one of these situations and don’t make a hypothesis that you know will break you!
@@ -195,16 +195,16 @@ Also try to have some sort of 'emergency button' you can use to cancel the exper
 Be careful with experiments that modify the application state (cache or databases) or that can’t be rolled back easily or at all.
 
 Eventually when you start doing Chaos Experiments in your production environment,
-you will want to inform members of you organization about what you're doing, why you're doing it and when.
+you will want to inform members of your organization about what you're doing, why you're doing it and when.
 
 ### Learn and verify
 
-In order to learn and verify you need to measure. Invest in measuring everything !
+In order to learn and verify you need to measure. Invest in measuring everything!
 After the test you can use your collected metrics to check if your hypothesis is correct.
 
 Another important metric during this phase, is the time it takes to detect the problem. 
 You do not want your customers to be the ones that detect the problem. 
-So use Chaos Engineering as a way of testing your monitoring and alerting systems as well.
+So, use Chaos Engineering as a way of testing your monitoring and alerting systems as well.
 
 There are several ways that you can expand the testing in order to increase your knowledge and find potential solutions.
 Once you've resolved one area of concern, reset the testing criteria or parameters and run the experiment again with a new hypothesis.
@@ -246,8 +246,8 @@ Get upper management to enforce that process and buy into the idea that fixing c
 ## Manually VS Auto
 
 Using Chaos Engineering may be as simple as manually running 'kill -9' on a box inside of your staging environment to simulate failure of a service.
-Or, it can be as sophisticated as automatically designing and carrying out experiments in a production enviroment against a small but statistically significant fraction of live traffic.
-So when starting out, it is a good practice to manually make your experiments and check the results,
+Or it can be as sophisticated as automatically designing and carrying out experiments in a production environment against a small but statistically significant fraction of live traffic.
+So, when starting out, it is a good practice to manually make your experiments and check the results,
 but running experiments manually is labor-intensive and ultimately unsustainable.
 So try to automate experiments and run them continuously.
 
@@ -259,12 +259,12 @@ He or She will generally start with something simple like the loss of capacity o
 You may find, that until you can easily and clearly see the simple cases,
 doing harder or more complex failures is not a good way to build confidence or spend time. 
 
-If you follow this porcess regularly, you will see a transformation in your team.
+If you follow this process regularly, you will see a transformation in your team.
 Being first on-call for Chaos Gamedays builds composure under pressure when doing on-call for production outages.
 Not only will all developers gain confidence in their uderstanding of the systems and how they fail,
 but they also get used to the feeling of being under pressure.
 
-There will also be a dramatic change in your systems, since developers will experience failure as a part of their job and thus they will start designing for failure.
+There will also be a dramatic change in your systems, since developers will experience failure as a part of their job and thus, they will start designing for failure.
 They consider how to make every change and every system observable and also carefully choose resilience strategies because this is now something the team knows and talks about during the experiments.
 
 ### Planned Failure
@@ -282,7 +282,7 @@ the MoD will reverse the failure and the team will proceed to do a Post Mortem o
 It is also possible that the team will not be able to find a solution for the problem.
 Then the MoD can escalate this failure to make it more visible,
 because often full outages are the only observable failures.
-Knowing this is the first step in fixing your instrumentation and visualization (FE. Dashboards with monitoring,...)
+Knowing this is the first step in fixing your instrumentation and visualization (FE. Dashboards with monitoring...)
 
 ### Post Mortem
 
@@ -301,7 +301,7 @@ The Post Mortem should follow the usual incident process if you have one in your
 <br>
 
 Netflix has already developed some tools which they bundled in their suite of tools named 'The simian army'.
-These tools were made to test reliability, security and resilience of it's AWS infrastructure.
+These tools were made to test reliability, security and resilience of its AWS infrastructure.
 The Simian Army is designed to add more capabilities beyond Chaos Monkey. 
 While Chaos Monkey solely handles termination of random instances,
 Netflix engineers needed additional tools able to induce other types of failure.
@@ -332,7 +332,7 @@ If any of the rules determines that the instance is not conforming, the monkey s
 ### Chaos Kong (deprecated or not publicaly released)
 
 At the very top of the Simian Army hierarchy, Chaos Kong drops a full AWS "Region". 
-Though rare, loss of an entire region does happen and Chaos Kong simulates a systems response and recovery to this type of event.
+Though rare, loss of an entire region does happen, and Chaos Kong simulates a systems response and recovery to this type of event.
 
 ### Chaos Gorilla (deprecated or not publicaly released)
 
@@ -345,7 +345,7 @@ Netflix never publicly released the Latency Monkey code, and it eventually evolv
 
 ### FIT (Failure Injection Testing)
 
-FIT was build to inject microservice level failures.
+FIT was built to inject microservice level failures.
 Latency monkey adds a delay and/or failure on the server side of a request for a given service.
 This provides us good insight into how calling applications behave when their dependency slows down — 
 threads pile up, the network becomes congested, etc.
@@ -454,8 +454,7 @@ vulnerabilities. Fixing the weaknesses leads to increased resilience of the syst
 While Litmus is a comprehensive tool with many useful attacks and monitoring features, it comes with a steep learning curve.
 Simply running an experiment is a multi-step process that involves setting permissions and annotating deployments.
 Workflows help with this, especially when used through the Litmus Portal, but they still add an extra layer of complexity.
-This isn’t helped by the fact that some features—like the Litmus Portal itself—don’t appear in the documentation,
-and are only available through the project’s GitHub repository.
+This isn’t helped by the fact that some features—like the Litmus Portal itself—don’t appear in the documentation and are only available through the project’s GitHub repository.
 
 
 ## Which tool is right for me?
