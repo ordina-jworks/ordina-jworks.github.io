@@ -296,7 +296,7 @@ The Post Mortem should follow the usual incident process if you have one in your
 ## Simian Army
 
 <div style="text-align: center;">
-  <img alt="Must Have" src="/img/2020-11-20-chaos-engineering/SimianArmySmall.jpg" width="auto" height="auto" target="_blank" class="image">
+  <img alt="Must Have" src="/img/2020-11-20-chaos-engineering/SimianArmySmall.jpg" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 <br>
 
