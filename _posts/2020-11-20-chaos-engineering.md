@@ -19,11 +19,11 @@ comments: true
 
 ## Introduction
 
-In Cloud-based, distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen.
+In Cloud-based distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen.
 Because these networks are more complex and have built-in uncertainty by the nature of how they function,
 it's essential for software developers to utilize an empirical approach to testing for vulnerabilities that's systematic and innovative.
 This can be achieved through controlled experimentation that creates chaos in an effort to determine how much stress any given system can withstand.
-The goal is to observe and identify systematic weaknesses.
+The goal is to observe and identify systemic weaknesses.
 
 ## What is Chaos Engineering? 
 
@@ -72,11 +72,11 @@ Also, it is important that there are ways your team can analyze the results of t
 
 Some metrics examples:
 * service metrics
-  * (example: The time it normally takes to start up your application, the time it takes for a request to the service...)
-  * (example: a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%.)
+  * Example: The time it normally takes to start up your application, the time it takes for a request to the service...
+  * Example: a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%.
 
 * business metrics
-  * (example: number of orders on your web shop. When doing an experiment where you are increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly)
+  * Example: number of orders on your web shop. When doing an experiment where you are increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly
 
 It's always a good idea to have some resilience already built in to your application/service before introducing Chaos.
 
@@ -103,7 +103,7 @@ The reason you do this, is because after injection failure,
 you want to make sure you can return to a well-known state and the experiment is no longer interfering with the system's normal behavior.
 The key is not to focus on internal attributes of the system like CPU, memory, etc. but to look for measurable output.
 Measurements of that output over a short period of time constitute a proxy for the system’s steady state.
-The overall system’s throughput, error rates, latency percentiles, etc. could all be metrics of interest representing steady state behavior. 
+The system’s overall throughput, error rates, latency percentiles, etc. could all be metrics of interest representing steady state behavior. 
 
 ### Hypothesis about state
 
@@ -125,8 +125,8 @@ A few examples:
 * What will happen if latency increases with 300ms?
 * What will happen if we lose connection to our DB?
 
-Make hypothesis on parts of the system you believe are resilient — after all, that’s the whole point of the experiment.
-Also think about what the preferred outcome will be in one of these situations and don’t make a hypothesis that you know will break you!
+Make hypotheses on parts of the system you believe are resilient — after all, that’s the whole point of the experiment.
+Also think about what the preferred outcome will be in one of these situations and don’t make a hypothesis that you know you will break!
 
 Example:
 * What if the 'Shop By Category' service fails to load in our online webshop?
@@ -162,7 +162,7 @@ At Netflix, they turn off machines because instance termination happens frequent
 They simulate regional failures even though to do so is costly and complex,
 because a regional outage has a huge impact on their customers unless they are resilient to it.
 
-Or Consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident.
+Or consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident.
 The organization may have a contingency plan for handling the outage when the messaging app is down during an outage,
 but how well do the on-call engineers know the contingency plan?
 Running a chaos experiment is a great way to find out.
@@ -251,16 +251,16 @@ So, when starting out, it is a good practice to manually make your experiments a
 but running experiments manually is labor-intensive and ultimately unsustainable.
 So try to automate experiments and run them continuously.
 
-## Chaos Gamedays & benefits
+## Chaos GameDays & benefits
 
-Chaos Gamedays are often known as days where a 'Master of Disaster' or a MoD, often in secret,
+Chaos GameDays are often known as days where a 'Master of Disaster' or a MoD, often in secret,
 will decide what kind of failure or disaster will happen on the system.
 He or She will generally start with something simple like the loss of capacity or the loss of connectivity.
 You may find, that until you can easily and clearly see the simple cases,
 doing harder or more complex failures is not a good way to build confidence or spend time. 
 
 If you follow this process regularly, you will see a transformation in your team.
-Being first on-call for Chaos Gamedays builds composure under pressure when doing on-call for production outages.
+Being first on-call for Chaos GameDays builds composure under pressure when doing on-call for production outages.
 Not only will all developers gain confidence in their uderstanding of the systems and how they fail,
 but they also get used to the feeling of being under pressure.
 
@@ -287,7 +287,7 @@ Knowing this is the first step in fixing your instrumentation and visualization 
 ### Post Mortem
 
 A Post Mortem is the stage in which the team will analyze the failure and the solution.
-This can consist of sharing perspectives, assumption that were made, expectations that didn't reflect the behavior of the system or observability tools.
+This can consist of sharing perspectives, assumptions that were made, expectations that didn't reflect the behavior of the system or observability tools.
 Following out of the Post Mortem,
 the team should have come up with a set of actions to fix any observability issues for the scenario and some ideas about how to improve resilience to that failure.
 
@@ -300,7 +300,7 @@ The Post Mortem should follow the usual incident process if you have one in your
 </div>
 <br>
 
-Netflix has already developed some tools which they bundled in their suite of tools named 'The simian army'.
+Netflix has already developed some tools which they bundled in their suite of tools named 'The Simian Army'.
 These tools were made to test reliability, security and resilience of its AWS infrastructure.
 The Simian Army is designed to add more capabilities beyond Chaos Monkey. 
 While Chaos Monkey solely handles termination of random instances,
