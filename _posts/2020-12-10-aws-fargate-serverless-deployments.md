@@ -83,6 +83,6 @@ spring-boot-docker-6656b9d9fb-h82pk   1/1       Running   0          2m26s
 ```
 
 # Conclusion
-So right now we have a fully functioning Kubernetes cluster without having to touch or setup any node or configuration.
+So right now we have a fully functioning Kubernetes cluster without having to touch or set up any node or configuration.
 Fargate takes away all the stress of maintaining and scaling worker nodes, so you can concentrate on the actual deployment of your application(s) and not worry about cluster resources.
 Of course, you would still need additional resources to access your application from outside the cluster, but it's not covered in this post as this does not fall under the Fargate scope. 
