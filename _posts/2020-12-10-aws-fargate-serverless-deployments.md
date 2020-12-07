@@ -20,11 +20,11 @@ Node scaling and configuration is done by AWS, which means that you only have to
 Fargate eliminates the struggle of configuring, scaling and initializing nodes on its own.
 Because as we know, managing clusters / servers / nodes can be a challenging and expensive task.
 
-Pricing is based on the CPU and RAM that your Pod allocates.
-You don't pay for separate nodes anymore, but instead per Pod which could drastically decrease computing costs.
+Pricing is based on the CPU and RAM that is allocated to your pod.
+Instead of paying for compute nodes you pay for resources allocated to your pods which could drastically decrease computing costs.
 
 # Setup
-AWS Fargate introduced for Amazon ECS first in 2017 and then in 2019, they added compatibility for Amazon EKS.
+AWS Fargate was initially introduced for ECS in 2017. Later in 2019 they added support for EKS.
 You can configure your current cluster to integrate Fargate. 
 This requires a Fargate pod execution role (to communicate with different Amazon services), and a Fargate profile to specify which pods should use Fargate.
 You can also create a new cluster with instant Fargate support. 
@@ -51,8 +51,8 @@ coredns-58c89c64-pmjh4   1/1       Running   0          12m
 coredns-58c89c64-rm4dr   1/1       Running   0          12m
 ```
 
-Each Pod gets its own Fargate node and represents the resources that the Pods get in order to successfully function. 
-When you create a new Deployment, you will notice that you have a pending Pod creation.
+Each pod gets its own Fargate node and represents the resources that the pods get in order to successfully function. 
+When you create a new deployment, you will notice that you have a pod in the status pending creation.
 
 ```
 $> kubectl create deployment spring-boot-docker --image springio/gs-spring-boot-docker
@@ -64,8 +64,7 @@ spring-boot-docker-6656b9d9fb-h82pk   0/1       Pending   0          5s
 ```
 
 This is because Fargate has yet to create a virtual node for the Pod to run in.
-Wait a few seconds.
-Consulting the cluster's nodes will show that a new node has been added to your cluster.
+After a few second you can see that a new node has been added to your cluster.
 
 ```
 $> kubectl get nodes 
@@ -74,7 +73,7 @@ fargate-ip-192-168-113-246.eu-west-1.compute.internal   Ready     <none>    16s 
 fargate-ip-192-168-124-46.eu-west-1.compute.internal    Ready     <none>    52m       v1.18.8-eks-7c9bda
 fargate-ip-192-168-97-139.eu-west-1.compute.internal    Ready     <none>    52m       v1.18.8-eks-7c9bda
 ```
-Now your virtual node has been added, you will see your Pod starting up and fully functioning shortly.
+Now that your virtual node has been added you can see that your pod is starting up.
 
 ```
 $> kubectl get pods
@@ -83,6 +82,6 @@ spring-boot-docker-6656b9d9fb-h82pk   1/1       Running   0          2m26s
 ```
 
 # Conclusion
-So right now we have a fully functioning Kubernetes cluster without having to touch or set up any node or configuration.
+So right now we have a fully functioning Kubernetes cluster without having to touch or set up any nodes or configuration.
 Fargate takes away all the stress of maintaining and scaling worker nodes, so you can concentrate on the actual deployment of your application(s) and not worry about cluster resources.
 Of course, you would still need additional resources to access your application from outside the cluster, but it's not covered in this post as this does not fall under the Fargate scope. 
