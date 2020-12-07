@@ -64,7 +64,7 @@ spring-boot-docker-6656b9d9fb-h82pk   0/1       Pending   0          5s
 ```
 
 This is because Fargate has yet to create a virtual node for the Pod to run in.
-After a few second you can see that a new node has been added to your cluster.
+After a few seconds you can see that a new node has been added to your cluster.
 
 ```
 $> kubectl get nodes 
