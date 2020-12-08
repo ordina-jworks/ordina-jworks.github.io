@@ -1,5 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-12-08T20:52:16+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">That is Quite the Story</title><link href="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html" rel="alternate" type="text/html" title="That is Quite the Story" /><published>2020-11-25T00:00:00+00:00</published><updated>2020-11-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html">&lt;p&gt;October marked the 2020 edition of &lt;a href=&quot;https://ba-beyond.eu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the BA &amp;amp; Beyond conference&lt;/a&gt;). 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-12-10T09:59:07+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Serverless Kubernetes deployments with AWS Fargate</title><link href="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html" rel="alternate" type="text/html" title="Serverless Kubernetes deployments with AWS Fargate" /><published>2020-12-10T00:00:00+00:00</published><updated>2020-12-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html">&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;An AWS account&lt;/li&gt;
+  &lt;li&gt;kubectl, aws-cli &amp;amp; eksctl installed&lt;/li&gt;
+  &lt;li&gt;Some Kubernetes knowledge&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Introduced in late 2017, AWS Fargate is a compute engine for serverless container deployments. 
+The engine allows you to run containers without worrying about your infrastructure. &lt;br /&gt;
+Node scaling and configuration is done by AWS, which means that you only have to worry about the health of your own resources, not of your Kubernetes infrastructure.&lt;/p&gt;
+
+&lt;p&gt;Fargate eliminates the struggle of configuring, scaling and initializing nodes on its own.
+Because as we know, managing clusters / servers / nodes can be a challenging and expensive task.&lt;/p&gt;
+
+&lt;p&gt;Pricing is based on the CPU and RAM that is allocated to your pod.
+Instead of paying for compute nodes you pay for resources allocated to your pods which could drastically decrease computing costs.&lt;/p&gt;
+
+&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
+&lt;p&gt;AWS Fargate was initially introduced for ECS in 2017. Later in 2019 they added support for EKS.
+You can configure your current cluster to integrate Fargate. 
+This requires a Fargate pod execution role (to communicate with different Amazon services), and a Fargate profile to specify which pods should use Fargate.
+You can also create a new cluster with instant Fargate support. 
+For simplicity, I will initialize a new cluster.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eksctl create cluster --name &amp;lt;cluster-name&amp;gt; --region eu-west-1 --fargate&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The initialization process takes a while, so don’t wait around for it and find something else to do in the meantime.
+It shouldn’t take more than 15 minutes.&lt;/p&gt;
+
+&lt;h1 id=&quot;fargate-in-action&quot;&gt;Fargate in action&lt;/h1&gt;
+&lt;p&gt;After your cluster has been created, you should see two Fargate nodes already running.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get nodes 
+NAME                                                    STATUS    ROLES     AGE       VERSION
+fargate-ip-192-168-124-46.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    5m       v1.18.8-eks-7c9bda
+fargate-ip-192-168-97-139.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    5m       v1.18.8-eks-7c9bda
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This is because of the two CoreDNS pods that get spun up after the setup of the cluster.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get pods -n kube-system
+NAME                     READY     STATUS    RESTARTS   AGE
+coredns-58c89c64-pmjh4   1/1       Running   0          12m
+coredns-58c89c64-rm4dr   1/1       Running   0          12m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Each pod gets its own Fargate node and represents the resources that the pods get in order to successfully function. 
+When you create a new deployment, you will notice that you have a pod in the status pending creation.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl create deployment spring-boot-docker --image springio/gs-spring-boot-docker
+deployment.apps/spring-boot-docker created
+
+$&amp;gt; kubectl get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+spring-boot-docker-6656b9d9fb-h82pk   0/1       Pending   0          5s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is because Fargate has yet to create a virtual node for the Pod to run in.
+After a few seconds you can see that a new node has been added to your cluster.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get nodes 
+NAME                                                    STATUS    ROLES     AGE       VERSION
+fargate-ip-192-168-113-246.eu-west-1.compute.internal   Ready     &amp;lt;none&amp;gt;    16s       v1.18.8-eks-7c9bda
+fargate-ip-192-168-124-46.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    52m       v1.18.8-eks-7c9bda
+fargate-ip-192-168-97-139.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    52m       v1.18.8-eks-7c9bda
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now that your virtual node has been added you can see that your pod is starting up.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+spring-boot-docker-6656b9d9fb-h82pk   1/1       Running   0          2m26s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;So right now we have a fully functioning Kubernetes cluster without having to touch or set up any nodes or configuration.
+Fargate takes away all the stress of maintaining and scaling worker nodes, so you can concentrate on the actual deployment of your application(s) and not worry about cluster resources.
+Of course, you would still need additional resources to access your application from outside the cluster, but it’s not covered in this post as this does not fall under the Fargate scope.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Fargate" /><category term="Kubernetes" /><summary type="html">Prerequisites An AWS account kubectl, aws-cli &amp;amp; eksctl installed Some Kubernetes knowledge</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">That is Quite the Story</title><link href="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html" rel="alternate" type="text/html" title="That is Quite the Story" /><published>2020-11-25T00:00:00+00:00</published><updated>2020-11-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html">&lt;p&gt;October marked the 2020 edition of &lt;a href=&quot;https://ba-beyond.eu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the BA &amp;amp; Beyond conference&lt;/a&gt;). 
 As with all conferences being held in these COVID-ridden times, it was a virtual gathering and there were a variety of people from across the globe that came to share their insights, experiences and opinions on topics from their respective fields of knowledge. 
 This ranged from agile practices to data science to process analysis and management. 
 For me the workshop that struck a chord was given by Lori L. Silverman (&lt;a href=&quot;https://www.partnersforprogress.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Partners for Progress&lt;/a&gt;). 
@@ -3285,245 +3359,4 @@ The result can be seen in the following screenshots:&lt;/p&gt;
 
 &lt;p&gt;&lt;img class=&quot;image&quot; alt=&quot;Upload Page&quot; style=&quot;max-width: 100%;&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/upload.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;image&quot; alt=&quot;Fox Icon&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/icons8-fox-48.png&quot; title=&quot;Fox icon by Icons8, those who know, will know.&quot; style=&quot;margin: auto;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hannelore&quot;, &quot;last_name&quot;=&gt;&quot;Verbraekel&quot;, &quot;permalink&quot;=&gt;&quot;/author/hannelore_verbraekel&quot;, &quot;avatar&quot;=&gt;&quot;hannelore-verbraekel.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;hannelore.verbraekel@ordina.be&quot;, &quot;github&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;linkedin&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;bio&quot;=&gt;&quot;Hannelore is a junior front-end developer who is creative and open-minded and always eager to learn new skills. She achieved her bachelor’s degree in Applied Information Technology with a focus on Web and Mobile Applications in 2019.&quot;}</name><email>hannelore.verbraekel@ordina.be</email></author><category term="Young Professional Programme" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit testing" /><category term="Mocking" /><category term="Cloud-Native" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="TypeScript" /><category term="Kickstarter" /><category term="Young Professional Program" /><category term="Security" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kicks.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Percona Live Europe 2019</title><link href="https://ordina-jworks.github.io/conference/2020/08/19/percona.html" rel="alternate" type="text/html" title="Percona Live Europe 2019" /><published>2020-08-19T00:00:00+00:00</published><updated>2020-08-19T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2020/08/19/percona</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2020/08/19/percona.html">&lt;h1 id=&quot;percona-open-source-database-conference-2019&quot;&gt;Percona Open Source Database Conference 2019&lt;/h1&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Percona, a leading provider of unbiased open source database solutions, organized its yearly European Open Source Database Conference in Amsterdam from September 30th till October the 2nd. This conference is an excellent opportunity to discover and discuss the latest open source trends, technologies and innovations, and of course Percona’s own solutions. After Amsterdam in 2016 and Dublin in 2017, it was the third time Ordina JWorks signed up for this conference so it is gradually becoming a tradition.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#keynotes&quot;&gt;Keynotes&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-state-of-the-elephant-postgresql&quot;&gt;The state of the elephant: PostgreSQL&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-state-of-the-dolphin-mysql&quot;&gt;The state of the dolphin: MySQL&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-state-of-the-sea-lion-mariadb&quot;&gt;The state of the sea lion: MariaDB&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Nowadays, a company has to make many choices when determining an optimal database strategy. 
-For example, does a company choose to lower the TCO (Total Cost of Ownership) or avoid vendor lock-in by switching from a commercial to an open source database management system? 
-Another choice your company faces is whether a relational or non-relational database management system or both should be chosen. 
-And does a company bring its data to the cloud, or keep it on-premise? 
-Choosing the right solution for the database strategy can sometimes be overwhelming.&lt;/p&gt;
-
-&lt;p&gt;We looked for answers to these questions during the Percona Open Source Conference. 
-Of course this conference is not only an excellent opportunity for Percona to showcase its own products such as Percona Server for MySQL, Percona XtraDB Cluster, Percona Backup for MongoDB and much more, but it also shows that there are many interesting things to tell about databases and more specifically about open source databases. 
-As a supporter of commercial database systems, you’re not in the right place here.&lt;/p&gt;
-
-&lt;p&gt;As in previous editions of the conference, the concept remains unchanged.&lt;br /&gt;
-The conference starts with a ‘Tutorials Day’ on the first day followed by 2 days of actual conference. 
-Percona is the organizer of the conference so their tools and services will be discussed in detail, but with about 90 talks about everything that has to do with relational and non-relational open source databases, everyone will get their money’s worth. 
-It only makes it more difficult to choose which sessions to attend.&lt;/p&gt;
-
-&lt;h2 id=&quot;keynotes&quot;&gt;Keynotes&lt;/h2&gt;
-&lt;p&gt;Each self-respecting conference starts with one or more keynotes. 
-Percona Live was no exception to this and kicked off with 3 keynotes :&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-12-20-percona/keynote.jpg&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/keynotes/ple19-keynote-the-state-of-open-source-databases.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The state of open source databases&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/keynotes/mysql_pleurope_keynote_2019_v9.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MySQL The state of the dolphin&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/keynotes/hashicorp-deck-2019.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Dynamic / Cloud Infrastructure Automation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The first keynote was a great plea for the cloud and open source software and the benefits of both were well discussed. Also it mainly summarised the results of The Open Source Data Management Software Survey conducted by Percona in the run-up to the conference. 
-More insights and useful information can be found in the &lt;a href=&quot;https://learn.percona.com/hubfs/Percona_Open_Source_DataManagement_Software_Survey_2019.pdf?__hstc=221416967.b5bed1057192b82e1b3e510771501218.1569922151538.1583767811856.1583848866284.9&amp;amp;__hssc=221416967.1.1583848866284&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Open Source Data Management Software Survey&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;To gain a good insight into how the open source database landscape is evolving, various sources such as db-engines and Stack Overflow were consulted. 
-The graph below shows the most commonly used databases according to Stack Overflow.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-12-20-percona/stackoverflow.png&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;In these disruptive times, the popularity of open source databases is undoubtedly increasing. 
-But how are the elephant, dolphin and sea lion currently doing? 
-Which one is the most popular and how do they relate to each other? A small tour along the mini zoo of relational open source databases.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-state-of-the-elephant-postgresql&quot;&gt;The state of the elephant: PostgreSQL&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img src=&quot;/img/2019-12-20-percona/postgreslogo.png&quot; class=&quot;image fit&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;PostgreSQL, as we know it under this name, is celebrating its 24th anniversary this year and the chart below clearly shows that its popularity is still growing. 
-According to DB-engines that measures database popularity, PostgreSQL is now the fourth most popular database, after Oracle, MySQL and Microsoft SQL Server, and was referred to as ‘Database of the year’ in both 2017 and 2018. 
-In 2019 it had to pass on this title to MySQL. 
-The last major release, version 12, was launched the day after the Percona conference.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-12-20-percona/dbengines_postgresql.png&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Although the focus of the conference was on MySQL, PostgreSQL was also well represented at the conference with more than 37 talks on the subject. 
-The PostgreSQL sessions carried away my preference not least because it is a popular migration target, but also because the popularity increased in the most recent years, many developers think it is the coolest database out there.&lt;/p&gt;
-
-&lt;h3 id=&quot;day-1-tutorials&quot;&gt;Day 1 (Tutorials):&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;&lt;a href=&quot;https://www.percona.com/live/19/sites/default/files/slides/PostgreSQL%20Tutorial%20for%20Oracle,%20MySQL%20DBAs%20and%20Beginners.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PostgreSQL For Oracle and MySQL DBAs and For Beginners&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;From a Database administrator point of view this was the most interesting training. 
-  After a brief overview of the different features within Postgres, the specific terminology was also discussed.&lt;br /&gt;
-  Within this training the necessary attention was also paid to the installation of PostgreSQL, the architecture, backup and partitioning within PostgreSQL.&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-12-20-percona/Introduction to PostgresSQL.jpeg&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;&lt;a href=&quot;https://www.percona.com/live/19/sites/default/files/slides/Introduction%20to%20PL_pgSQL%20Development%20-%20FileId%20-%20187790.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Introduction to PL/pgSQL Development&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;While the morning tutorial was intended for DBAs, the developers were given due attention in the afternoon. 
-  The standard PostgreSQL distribution includes four procedural languages, PL/Tcl, PL/Perl, PL/Python and PL/pgSQL. 
-  In addition, there are a number of procedural languages that are developed and maintained outside the core PostgreSQL distribution, like PL/Java, PL/PHP, PL/Ruby and a few others. 
-  This tutorial only focused on development in PL/pgSQL. 
-  Because of the many similarities between PL/pgSQL and the programming language of Oracle PL/SQL, this 3-hour session was a good repetition for a developer experienced in PL/SQL programming. 
-  Fortunately, the differences between the two were also sufficiently addressed. 
-  And just these differences are important if you want to port an application from Oracle to PostgreSQL.&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;day-2&quot;&gt;Day 2:&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;Why PostgreSQL is Becoming A Migration Target in Large Enterprises&lt;/b&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;The driving reasons for migrating to PostgreSQL are not only initiated from the management	of an organization, who is particularly interested in the lower TCO, the no-vendor lock-in and the licencing policy.
-  Also developers, operation teams, architects all have their reasons to migrate from proprietary databases or noSQL databases to PostgreSQL.
-  PostgreSQL is not only the most loved relational database among developers, it contains the latest SQL standards, contains many programming languages and it supports JSON. 
-  Operation teams especially appreciate the legendary stability, the options for High Availability and the good backup tools. 
-  For architects, the support of procedures in PostgreSQL is very interesting. 
-  These are very helpful for Oracle to PostgreSQL migration. 
-  The interoperability and sharding capabilities are also a plus. 
-  The session ended with a demo of Oracle Foreign Data Wrappers.&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;Pg_catalog Unrevealed! That Part of PostgreSQL You Are Probably Underusing&lt;/b&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;This talk was intended to review the possibilities offered by the PostgreSQL catalog.
-  Plenty of information is available there but it is unknown to many users, and therefore unused. 
-  The speaker demonstrated in an enlightening way how to exploit the catalog, how to send the information to other monitoring tools, and how the tables in pg_catalog are fundamentally interconnected to other topics such as performance, replication, MVCC, security, the universe and everything.&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;&lt;a href=&quot;https://www.percona.com/live/19/sites/default/files/slides/Join%20Heterogeneous%20Databases%20Using%20PostgreSQL%20Foreign%20Data%20Wrappers%20.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Join Heterogeneous Databases Using PostgreSQL Foreign Data Wrappers&lt;/a&gt;&lt;/b&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;I followed this presentation because I was especially interested in how PostgreSQL can communicate with other databases like Oracle, MySQL, PostgreSQL itself or even NoSQL data sources like MongoDB. 
- The feature to achieve this are Foreign Data Wrappers. 
- Simply put, it allows you to create foreign tables in a PostgreSQL database that are proxies for some other data source. 
- With a few examples it was shown how you can easily set up these Foreign Data Wrappers. 
- An extensive overview of the different data wrappers that exist can be found on the &lt;a href=&quot;https://wiki.postgresql.org/wiki/Foreign_data_wrappers&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;wiki&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;day-3&quot;&gt;Day 3:&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/day2-am/parted-ways-with-partitioning.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Parted Ways with Partitioning? It’s Time to Reconsider&lt;/a&gt;&lt;/b&gt;&lt;br /&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;When a DBA has to deal with very large tables of which the performance has to be improved, partitioning comes into the picture. 
-  Partitioning splits a table into multiple tables, and is generally done in a way that applications accessing the table don’t notice any difference, other than being faster to access the data that it needs. 
-  Before PostgreSQL 10, table partitioning in PostgreSQL was only possible via table inheritance, but with release 10, declarative partitioning made its appearance, which actually means that natively partitioned tables were introduced. 
-  Declarative partitioning in PostgreSQL 10 initially provided built-in support for Range partitioning and List partitioning and in version 11 has also been added. 
-  Many more improvements were added. 
-  During this talk it was shown how Partitioning has evolved within the latest versions of PostgreSQL.&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;Handling Transaction ID Wraparound in PostgreSQL&lt;/b&gt;&lt;br /&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;Transaction IDs in PostgreSQL are stored in a 32-bit counter. 
-  But that involves potential risks.&lt;br /&gt;
-  Without any form of intervention, transaction ids could get exhausted after 2 billion transactions. 
-  A way to deal with this is described in detail on the following &lt;a href=&quot;https://info.crunchydata.com/blog/managing-transaction-id-wraparound-in-postgresql&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;blog&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;&lt;a href=&quot;https://www.percona.com/live/19/sites/default/files/slides/Top%2010%20Mistakes%20When%20Migrating%20From%20Oracle%20to%20PostgreSQL%20-%20FileId%20-%20187795.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Top 10 Mistakes When Migrating From Oracle to PostgreSQL&lt;/a&gt;&lt;/b&gt;&lt;br /&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;Very interesting session that exposes a handful of grammatical differences, for which the functionality is the same, between both database systems. 
-  This way you learn, for example, that synonyms or nulls do not exactly mean the same thing in Oracle and PostgreSQL.&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;b&gt;PostgreSQL Plan at Execution Time: A Quick Show&lt;/b&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;em&gt;The last lightning talk about PostgreSQL on the conference showed a look behind the scenes of Explain plan in PostgreSQL and what decisions could be made from it during the execution phase. 
-  This was demonstrated by means of a demo.&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;migrating-to-postgresql&quot;&gt;Migrating to PostgreSQL&lt;/h3&gt;
-&lt;p&gt;PostgreSQL has become a mature database and is known for its reliability, feature robustness, and performance. 
-Able to handle all levels of workload with thousands of tools, extensions, connectors and community-contributed add-ons, it is a popular choice for Oracle database migration. 
-But one of the main drivers is of course the cost, because Oracle’s licensing model is often a nightmare. 
-PostgreSQL commends itself as the world’s most advanced open source relational database.&lt;/p&gt;
-
-&lt;p&gt;So when the company’s management has decided to migrate to PostgreSQL, is it a difficult task as Oracle DBA to make the switch? 
-Not really. 
-Because the fundamentals and features remain largely the same, the learning curve is not steep at all. 
-A good starting point is the &lt;a href=&quot;https://wiki.postgresql.org/wiki/Oracle_to_Postgres_Conversion&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;wiki of Postgres&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;There are several tools on the market that can assist you in converting an Oracle database into a PostgreSQL database, but keep in mind that there is no tool that can convert a 100% Oracle database into PostgreSQL.
-Some manual changes are required. 
-Below is a list of frequently used conversion tools, but a detailed description of each tool is beyond the scope of this blog post.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://ora2pg.darold.net&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ora2pg : Ideal for large migration projects&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;PostgreSQL Foreign Data Wrapper for Oracle : Ideal to move schemas and data&lt;/li&gt;
-  &lt;li&gt;Orafce : Compatibility functions&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP_Welcome.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Schema Conversion Tool&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The pitfalls you often encounter as an administrator were discussed in the session &lt;strong&gt;&lt;em&gt;“Top 10 Mistakes When Migrating From Oracle to PostgreSQL”&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-state-of-the-dolphin-mysql&quot;&gt;The state of the dolphin: MySQL&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img src=&quot;/img/2019-12-20-percona/mysqllogo2.png&quot; width=&quot;5%&quot; class=&quot;image fit&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;In 2019, MySQL took over the torch again from PostgreSQL as Database of the year. 
-MySQL is one of the most widely used databases in the world and, in terms of popularity, only has to accept Oracle in front of them. 
-The latest release, release 8, was released on April 19, 2018. 
-With no less than 250 new features it was a big leap forward from version 5.7. 
-An overview of these new features can be found &lt;a href=&quot;https://mysqlserverteam.com/the-complete-list-of-new-features-in-mysql-8-0/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;. 
-During several sessions some of these new features were discussed in more detail.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-12-20-percona/mysql.png&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;A selection of some interesting talks on MySQL :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/day2-pm/how-to-upgrade-like-a-boss-to-mysql8.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How to Upgrade Like a Boss to MySQL 8.0&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/day1-pm/enhancing-mysql-security.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Enhancing MySQL Security&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/histograms_plam2019.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Billion Goods in Few Categories How Histograms Save a Life?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/ple19-new-features-mysql-8-replication.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MySQL 8.0: The New Replication Features&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/day1-pm/hash-join-and-explain-analyze.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MySQL 8.0.18 latest updates : Hash join and EXPLAIN ANALYZE&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/day1-pm/mysql-in-k8s.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RUNNING MYSQL IN K8S&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;the-state-of-the-sea-lion-mariadb&quot;&gt;The state of the sea lion: MariaDB&lt;/h2&gt;
-&lt;p&gt;&lt;span class=&quot;image left&quot;&gt;&lt;img src=&quot;/img/2019-12-20-percona/mariadblogo.png&quot; class=&quot;image fit&quot; /&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;From the MariaDB graph we can deduce that the popularity has risen sharply in recent years, but the rate of increase has slowed down over the past year. 
-MariaDB has not followed the same release path as MySQL in recent years and the latest stable release of MariaDB is 10.4.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img src=&quot;/img/2019-12-20-percona/mariadb.png&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;There were only a handful of sessions on MySQL’s fork at the conference. 
-But with a talk that takes a look at the query optimizer of MariaDB and another one that goes into the security setup within MariaDB, two very interesting topics were covered.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/sites/default/files/ple19-slides/day2-am/how-a-database-optimizer-gets-your-data-fast.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How a database optimizer gets your data, fast&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/live/19/sites/default/files/slides/MariaDB%20Security%20Features%20and%20Best%20Practices%20-%20FileId%20-%20187568.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MariaDB Security Features and Best Practices&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To see the full schedule of the Conference have a look here: &lt;a href=&quot;https://learn.percona.com/hubfs/Percona-Live/PerconaLiveEurope2019-Schedule.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Percona Live Europe Schedule&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;useful-links--further-reading&quot;&gt;Useful links &amp;amp; further reading&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.percona.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Percona site&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.postgresql.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PostgreSQL site&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Dieter&quot;, &quot;last_name&quot;=&gt;&quot;Wallecan&quot;, &quot;permalink&quot;=&gt;&quot;/author/dieter_wallecan/&quot;, &quot;avatar&quot;=&gt;&quot;/dieter_wallecan.jpeg&quot;, &quot;title&quot;=&gt;&quot;Oracle DBA&quot;, &quot;email&quot;=&gt;&quot;dieter.wallecan@ordina.be&quot;, &quot;twitter&quot;=&gt;&quot;dwallecan&quot;, &quot;github&quot;=&gt;&quot;diwall&quot;, &quot;linkedin&quot;=&gt;&quot;dieterwallecan&quot;, &quot;bio&quot;=&gt;&quot;Dieter is Oracle DBA at Ordina Belgium. He has a very strong interest in Open Source RDBMS and Next generation databases.&quot;}</name><email>dieter.wallecan@ordina.be</email></author><category term="Conference" /><category term="Percona Live" /><category term="Conference" /><category term="Database" /><category term="Opensource" /><category term="PostgreSQL" /><summary type="html">Percona Open Source Database Conference 2019 Percona, a leading provider of unbiased open source database solutions, organized its yearly European Open Source Database Conference in Amsterdam from September 30th till October the 2nd. This conference is an excellent opportunity to discover and discuss the latest open source trends, technologies and innovations, and of course Percona’s own solutions. After Amsterdam in 2016 and Dublin in 2017, it was the third time Ordina JWorks signed up for this conference so it is gradually becoming a tradition.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2019-12-20-percona/percona-live-europe2019_2.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2019-12-20-percona/percona-live-europe2019_2.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;&lt;img class=&quot;image&quot; alt=&quot;Fox Icon&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/icons8-fox-48.png&quot; title=&quot;Fox icon by Icons8, those who know, will know.&quot; style=&quot;margin: auto;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hannelore&quot;, &quot;last_name&quot;=&gt;&quot;Verbraekel&quot;, &quot;permalink&quot;=&gt;&quot;/author/hannelore_verbraekel&quot;, &quot;avatar&quot;=&gt;&quot;hannelore-verbraekel.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;hannelore.verbraekel@ordina.be&quot;, &quot;github&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;linkedin&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;bio&quot;=&gt;&quot;Hannelore is a junior front-end developer who is creative and open-minded and always eager to learn new skills. She achieved her bachelor’s degree in Applied Information Technology with a focus on Web and Mobile Applications in 2019.&quot;}</name><email>hannelore.verbraekel@ordina.be</email></author><category term="Young Professional Programme" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit testing" /><category term="Mocking" /><category term="Cloud-Native" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="TypeScript" /><category term="Kickstarter" /><category term="Young Professional Program" /><category term="Security" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kicks.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

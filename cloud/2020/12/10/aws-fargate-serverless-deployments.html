@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Serverless Kubernetes deployments with AWS Fargate - Yolan Vloeberghs">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Serverless Kubernetes deployments with AWS Fargate - Yolan Vloeberghs"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg"/>
+
+    
+    <title>Serverless Kubernetes deployments with AWS Fargate - Yolan Vloeberghs &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Serverless Kubernetes deployments with AWS Fargate</h2>
+                
+
+                
+                    Posted Dec 10, 2020
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/yolan-vloeberghs/">Yolan Vloeberghs</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/aws/">AWS</a>, 
+    
+        <a href="/tags/fargate/">Fargate</a>, 
+    
+        <a href="/tags/kubernetes/">Kubernetes</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="prerequisites">Prerequisites</h1>
+<ul>
+  <li>An AWS account</li>
+  <li>kubectl, aws-cli &amp; eksctl installed</li>
+  <li>Some Kubernetes knowledge</li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+<p>Introduced in late 2017, AWS Fargate is a compute engine for serverless container deployments. 
+The engine allows you to run containers without worrying about your infrastructure. <br />
+Node scaling and configuration is done by AWS, which means that you only have to worry about the health of your own resources, not of your Kubernetes infrastructure.</p>
+
+<p>Fargate eliminates the struggle of configuring, scaling and initializing nodes on its own.
+Because as we know, managing clusters / servers / nodes can be a challenging and expensive task.</p>
+
+<p>Pricing is based on the CPU and RAM that is allocated to your pod.
+Instead of paying for compute nodes you pay for resources allocated to your pods which could drastically decrease computing costs.</p>
+
+<h1 id="setup">Setup</h1>
+<p>AWS Fargate was initially introduced for ECS in 2017. Later in 2019 they added support for EKS.
+You can configure your current cluster to integrate Fargate. 
+This requires a Fargate pod execution role (to communicate with different Amazon services), and a Fargate profile to specify which pods should use Fargate.
+You can also create a new cluster with instant Fargate support. 
+For simplicity, I will initialize a new cluster.</p>
+
+<p><code class="language-plaintext highlighter-rouge">eksctl create cluster --name &lt;cluster-name&gt; --region eu-west-1 --fargate</code></p>
+
+<p>The initialization process takes a while, so don’t wait around for it and find something else to do in the meantime.
+It shouldn’t take more than 15 minutes.</p>
+
+<h1 id="fargate-in-action">Fargate in action</h1>
+<p>After your cluster has been created, you should see two Fargate nodes already running.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$&gt; kubectl get nodes 
+NAME                                                    STATUS    ROLES     AGE       VERSION
+fargate-ip-192-168-124-46.eu-west-1.compute.internal    Ready     &lt;none&gt;    5m       v1.18.8-eks-7c9bda
+fargate-ip-192-168-97-139.eu-west-1.compute.internal    Ready     &lt;none&gt;    5m       v1.18.8-eks-7c9bda
+</code></pre></div></div>
+<p>This is because of the two CoreDNS pods that get spun up after the setup of the cluster.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$&gt; kubectl get pods -n kube-system
+NAME                     READY     STATUS    RESTARTS   AGE
+coredns-58c89c64-pmjh4   1/1       Running   0          12m
+coredns-58c89c64-rm4dr   1/1       Running   0          12m
+</code></pre></div></div>
+
+<p>Each pod gets its own Fargate node and represents the resources that the pods get in order to successfully function. 
+When you create a new deployment, you will notice that you have a pod in the status pending creation.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$&gt; kubectl create deployment spring-boot-docker --image springio/gs-spring-boot-docker
+deployment.apps/spring-boot-docker created
+
+$&gt; kubectl get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+spring-boot-docker-6656b9d9fb-h82pk   0/1       Pending   0          5s
+</code></pre></div></div>
+
+<p>This is because Fargate has yet to create a virtual node for the Pod to run in.
+After a few seconds you can see that a new node has been added to your cluster.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$&gt; kubectl get nodes 
+NAME                                                    STATUS    ROLES     AGE       VERSION
+fargate-ip-192-168-113-246.eu-west-1.compute.internal   Ready     &lt;none&gt;    16s       v1.18.8-eks-7c9bda
+fargate-ip-192-168-124-46.eu-west-1.compute.internal    Ready     &lt;none&gt;    52m       v1.18.8-eks-7c9bda
+fargate-ip-192-168-97-139.eu-west-1.compute.internal    Ready     &lt;none&gt;    52m       v1.18.8-eks-7c9bda
+</code></pre></div></div>
+<p>Now that your virtual node has been added you can see that your pod is starting up.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$&gt; kubectl get pods
+NAME                                  READY     STATUS    RESTARTS   AGE
+spring-boot-docker-6656b9d9fb-h82pk   1/1       Running   0          2m26s
+</code></pre></div></div>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>So right now we have a fully functioning Kubernetes cluster without having to touch or set up any nodes or configuration.
+Fargate takes away all the stress of maintaining and scaling worker nodes, so you can concentrate on the actual deployment of your application(s) and not worry about cluster resources.
+Of course, you would still need additional resources to access your application from outside the cluster, but it’s not covered in this post as this does not fall under the Fargate scope.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html&title=Serverless Kubernetes deployments with AWS Fargate&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Serverless Kubernetes deployments with AWS Fargate&url=https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yolan-vloeberghs/" class="image spotlight-image" title="">
+            <img src="/img/author/yolan-vloeberghs.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2020-12-10-aws-fargate-serverless-deployments.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
