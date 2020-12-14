@@ -37,7 +37,7 @@ Please note that if you want to test this by yourself it is advised to have a de
 
 ## Yolo V5
 
-YoloV5 is the firth mayor iteration for the 'You Only Look Once' model.
+YoloV5 is the firth mayor iteration for the `You Only Look Once` model.
 It's a very high performing and popular model for performing object detection.
 The model is fully open source and is trained on the CoCo dataset and can perform detections of about 80 classes of objects.
 It's also relatively easy to retrain the model with custom data so it can perform detection on other things than the CoCo dataset & objects.
@@ -48,7 +48,7 @@ The speed and accuracy is quite impressive, make sure to give it a try!
 The model has different sizes that can be used, each specific size has pro/contras.
 The larger models will perform better but require a lot more compute power.
 
-TODO: Image
+<img alt="YoloV5 model sizes" src="{{ '/img/2020-12-20-ordina-logo-detector/v5-model-sizes.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 For this example we will be retraining the large model, since I have a decent NVidia GPU I can use.
 
@@ -74,8 +74,14 @@ It is a python program that can be run on most operating systems.
 Annotating is simple yet time consuming.
 We run the program, select the folder where all the images are stored and manually go over each photo, drawing a bounding box over each Ordina logo and saving the data before moving on to the next photo.
 
-TODO: photos
-
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/label-img.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/label-img.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    </a>
+</div>
 
 ## RoboFlow
 
@@ -96,12 +102,32 @@ The photos in the dataset are subdivided into three categories:
 - Validation: Used for hyperparameter tuning during the training process
 - Testing: Used to evalute the model in each epoch
 
-TODO: Photos
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    </a>
+</div>
 
 Once we have added the photos and the augmentations we can generate a version of the dataset and use the link to the dataset zip file to retrain the model.
 It's very important to select the correct export format, being Yolo V5 pytorch.
 
-TODO: Export
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    </a>
+</div>
 
 ## Training the model
 
@@ -141,7 +167,7 @@ The used parameters do the following:
 - img: Specified the size of the image, it will automatically resize any image input to match this number, has to be 416 this model
 - conf: The minimum confidence level that should be reached to count as a detection
 - source: A media file, being an image(or a folder containing multiple)/video/stream/
-- name: Name of the folder to output the results to
+- name: Name of the folder to output the results to (will be stored under yolov5/runs/detect/NAME)
 - exist-ok: Overwrite existing output instead of incrementing the name
 - save-txt: Save the detection data to a text file (bounding box)
 - save-conf: Add the confidence level to the text file 
@@ -150,12 +176,26 @@ The result will be a folder named custom where all the images and text files res
 Each image will have a bounding box drawn around the detected logo, if any, with a confidence level.
 Each text file will contain the box coordinates in normalized whxy format.
 
-TODO: box coords
+Example of text output
+```
+0 0.503968 0.540551 0.207672 0.0691964 0.791504
+```
+
+<img alt="Box coordinates" src="{{ '/img/2020-12-20-ordina-logo-detector/bbox.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 As you can see down below one of my retrained models was able to detect the logo in all three never before seen images!
 
-TODO: success
-
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+    </a>
+</div>
 
 ## Resources
 
