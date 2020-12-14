@@ -188,8 +188,8 @@ Class W H X Y Conf
 The text file contains all the basic info that is needed to further process the detection result:
 
 - Class: Class that has been detected
-- W: The width of the detected object/bounding box
-- H: The height of the detected object
+- W: The width of the detected object/bounding box, to be divided by 2 and extended from the X-Coordinate in both directions
+- H: The height of the detected object, to be divided by 2 and extended from the Y-Coordinate in both directions
 - X: The X-coordinate of the center of the detected object
 - Y: The Y-coordinate of the center of the detected object
 - Conf: (Optional) The confidence level, between 1 and 0.000001 (or between 1 and the minimum specified during detection), 1 being 100% certain, 0.000001 being the least certain possible
