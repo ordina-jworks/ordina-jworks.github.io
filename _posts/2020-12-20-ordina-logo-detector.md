@@ -179,10 +179,20 @@ Each text file will contain the box coordinates in normalized WHXY format.
 
 Example of text output
 ```
+Class W H X Y Conf
 0 0.503968 0.540551 0.207672 0.0691964 0.791504
 ```
 
 <img alt="Box coordinates" src="{{ '/img/2020-12-20-ordina-logo-detector/bbox.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+
+The text file contains all the basic info that is needed to further process the detection result:
+
+- Class: Class that has been detected
+- W: The width of the detected object/bounding box
+- H: The height of the detected object
+- X: The X-coordinate of the center of the detected object
+- Y: The Y-coordinate of the center of the detected object
+- Conf: (Optional) The confidence level, between 1 and 0.000001 (or between 1 and the minimum specified during detection), 1 being 100% certain, 0.000001 being the least certain possible
 
 As you can see down below one of my retrained models was able to detect the logo in all three never before seen images!
 
