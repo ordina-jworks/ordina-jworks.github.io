@@ -2,8 +2,8 @@
 layout: post
 authors: [tim_verte]
 title: 'Chaos Engineering'
-image: /img/2020-11-20-chaos-engineering/thumbnail.jpg
-tags: [Chaos Engineering, DevOps, Chaos, Backend, Netflix, Simian Army]
+image: /img/2020-12-14-chaos-engineering/thumbnail.jpg
+tags: [Chaos Engineering, DevOps, Chaos, Backend, Netflix, Simian Army, Resiliency]
 category: Cloud
 comments: true
 ---
@@ -16,6 +16,7 @@ comments: true
 ----
 
 # Chaos Engineering
+{:.no_toc}
 
 ## Introduction
 
@@ -38,6 +39,7 @@ you can also do the experiments in another controlled environment (TST, DEV, ...
 Building confidence is key! You do not want to break things in production without being able to find a solution.
 
 ## Why use Chaos Engineering?
+{:.no_toc}
 
 In software development, a given software system's ability to tolerate failures while still ensuring adequate quality of service,
 is typically specified as a requirement (Resilience).
@@ -50,6 +52,7 @@ Chaos engineering can be used to achieve resilience against:
 * Application failures
 
 ## Chaos Engineering and Traditional Testing
+{:.no_toc}
 
 With traditional testing, you are only testing assumptions and not generating new knowledge about the system.
 You are testing the code correctness and how functions and methods work in your application.
@@ -58,6 +61,7 @@ Chaos Engineering on the other hand will also explore the many different and unp
 In this way you will be able to find new weaknesses before the actual event will take place and make sure future outages will not happen.
 
 ## Prerequisites for Chaos Engineering
+{:.no_toc}
 
 To determine whether your organization is ready to start adopting Chaos Engineering, you need to answer one question:
 Is your system resilient to real-world events such as service failures and network latency spikes?
@@ -82,7 +86,7 @@ It's always a good idea to have some resilience already built in to your applica
 
 Some key points for resilience are:
 <div style="text-align: right; width: 60%; margin-left:20%">
-  <img alt="Must Have" src="/img/2020-11-20-chaos-engineering/ResilienceSmall.jpg" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Must Have" src="/img/2020-12-14-chaos-engineering/ResilienceSmall.jpg" width="auto" height="auto" target="_blank" class="image fit">
 </div>
 
 <br>
@@ -90,7 +94,7 @@ Some key points for resilience are:
 ## Principles of Chaos Engineering
 
 <div style="text-align: center;">
-  <img alt="Experiment Process" src="/img/2020-11-20-chaos-engineering/chaos-engineering-process.jpg" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Experiment Process" src="/img/2020-12-14-chaos-engineering/chaos-engineering-process.jpg" width="auto" height="auto" target="_blank" class="image fit">
 </div> 
 
 <br>
@@ -268,6 +272,7 @@ There will also be a dramatic change in your systems, since developers will expe
 They consider how to make every change and every system observable and also carefully choose resilience strategies because this is now something the team knows and talks about during the experiments.
 
 ### Planned Failure
+{:.no_toc}
 
 The MoD will gather the team before the 'start of the incident' and then will start with the planned failure. 
 Normally there will be one member of the team who will be 'first on-call'.
@@ -278,6 +283,7 @@ When the team has a solution for the issue or the allocated time has ended,
 the MoD will reverse the failure and the team will proceed to do a Post Mortem of the incident.
 
 ### Escalation
+{:.no_toc}
 
 It is also possible that the team will not be able to find a solution for the problem.
 Then the MoD can escalate this failure to make it more visible,
@@ -296,7 +302,7 @@ The Post Mortem should follow the usual incident process if you have one in your
 ## Simian Army
 
 <div style="text-align: center;">
-  <img alt="Must Have" src="/img/2020-11-20-chaos-engineering/SimianArmySmall.jpg" width="auto" height="auto" target="_blank" class="image fit">
+  <img alt="Must Have" src="/img/2020-12-14-chaos-engineering/SimianArmySmall.jpg" width="40%" height="auto" target="_blank" class="image">
 </div>
 <br>
 
@@ -330,20 +336,24 @@ A tool that determines whether an instance is nonconforming by testing it agains
 If any of the rules determines that the instance is not conforming, the monkey sends an email notification to the owner of the instance.
 
 ### Chaos Kong (deprecated or not publicaly released)
+{:.no_toc}
 
 At the very top of the Simian Army hierarchy, Chaos Kong drops a full AWS "Region". 
 Though rare, loss of an entire region does happen, and Chaos Kong simulates a systems response and recovery to this type of event.
 
 ### Chaos Gorilla (deprecated or not publicaly released)
+{:.no_toc}
 
 Chaos Gorilla drops a full AWS "Availability Zone" (one or more entire data centers serving a geographical region).
 
 ### Latency Monkey (deprecated or not publicaly released)
+{:.no_toc}
 
 Introduces communication delays to simulate degradation or outages in a network.
 Netflix never publicly released the Latency Monkey code, and it eventually evolved into their Failure Injection Testing (FIT) service.
 
 ### FIT (Failure Injection Testing)
+{:.no_toc}
 
 FIT was built to inject microservice level failures.
 Latency monkey adds a delay and/or failure on the server side of a request for a given service.
@@ -355,6 +365,7 @@ What we need is a way to limit the impact of failure testing while still breakin
 This is where FIT comes in.
 
 ### Doctor Monkey (deprecated or not publicaly released)
+{:.no_toc}
 
 Performs health checks, by monitoring performance metrics such as CPU load to detect unhealthy instances,
 for root-cause analysis and eventual fixing or retirement of the instance.
@@ -363,44 +374,52 @@ which includes a load balancer health checker,
 so instances that fail certain criteria are terminated and immediately replaced by new ones.
 
 ### Security Monkey (Still available but will be end-of-life in 2020)
+{:.no_toc}
 
 Derived from Conformity Monkey, a tool that searches for and disables instances that have known vulnerabilities or improper configurations.
 
 ### 10-18 Monkey (deprecated or not publicaly released)
+{:.no_toc}
 
 A tool that detects problems with localization and internationalization (known by the abbreviations "l10n" and "i18n")
 for software serving customers across different geographic regions.
 
 <br>
 
-## Other Tools for Chaos Engineering:
+## Other Tools for Chaos Engineering
 
 ### ChAP (Chaos Automation Platform)
+{:.no_toc}
 
 ChAP was built to overcome the limitations of FIT so we can increase the safety, cadence, and breadth of experimentation.
 
 ### Byte-Monkey
+{:.no_toc}
 
 A small Java library for testing failure scenarios in JVM applications.
 It works by instrumenting application code on the fly to deliberately introduce faults such as exceptions and latency.
 
 ### ChaosBlade By Alibaba
+{:.no_toc}
 
 ChaosBlade is a versatile tool supporting a wide range of experiment types and target platforms.
 However, it lacks some useful features such as centralized reporting, experiment scheduling, target randomization, and health checks. 
 It’s a great tool if you’re new to Chaos Engineering and want to experiment with different attacks.
 
 ### Chaos Machine
+{:.no_toc}
 
 ChaosMachine is a tool that does chaos engineering at the application level in the JVM.
 It concentrates on analyzing the error-handling capability of each try-catch block involved in the application by injecting exceptions.
 
 ### Proofdock Chaos Engineering Platform
+{:.no_toc}
 
 A chaos engineering platform that focuses on and leverages the Microsoft Azure platform and the Azure DevOps services.
 Users can inject failures on the infrastructure, platform and application level.
 
 ### Gremlin platform
+{:.no_toc}
 
 A "failure-as-a-service" platform built to make the Internet more reliable.
 It turns failure into resilience by offering engineers a fully hosted solution to safely experiment on complex systems,
@@ -410,17 +429,20 @@ In addition to killing instances, Gremlin can fill available disk space,
 hog CPU and memory, overload IO, perform advanced network traffic manipulation, terminate processes, and much more.
 
 ### Facebook Storm
+{:.no_toc}
 
 To prepare for the loss of a datacenter, Facebook regularly tests the resistance of its infrastructures to extreme events.
 Known as the Storm Project, the program simulates massive data center failures.
 
 ### ChaoSlingr
+{:.no_toc}
 
 ChaoSlingr is the first Open Source application of Chaos Engineering to Cyber Security.
 ChaoSlingr is focused primarily on performing security experimentation on AWS Infrastructure to proactively discover system security weaknesses in complex distributed system environments.
 Published on Github in September 2017.
 
 ### Chaos Toolkit by ChaosIQ
+{:.no_toc}
 
 The Chaos Toolkit was born from the desire to simplify access to the discipline of chaos engineering and demonstrate that the experimentation approach can be done at different levels: infrastructure, platform but also application. The Chaos Toolkit is an open-source tool.
 Few tools are as flexible in how they let you design chaos experiments.
@@ -428,6 +450,7 @@ Chaos Toolkit gives you full control over how your experiments operate, right do
 But because of this DIY approach, Chaos Toolkit is more of a framework that you need to build on than a ready-to-go Chaos Engineering solution
 
 ### Mangle
+{:.no_toc}
 
 Mangle enables you to run chaos engineering experiments seamlessly against applications and infrastructure components to assess resiliency and fault tolerance.
 It is designed to introduce faults with very little pre-configuration and can support any infrastructure that you might have including K8S,
@@ -436,6 +459,7 @@ With its powerful plugin model,
 you can define a custom fault of your choice based on a template and run it without building your code from scratch.
 
 ### Chaos Mesh by PingCAP
+{:.no_toc}
 
 Chaos Mesh is an open-source cloud-native Chaos Engineering platform that orchestrates chaos experiments in Kubernetes environments.
 It supports comprehensive types of failure simulation, including Pod failures, container failures,
@@ -445,6 +469,7 @@ However, its biggest limitations are its lack of node-level experiments,
 lack of native scheduling, and lack of time limits on ad-hoc experiments.
 
 ### Litmus Chaos
+{:.no_toc}
 
 LitmusChaos Litmus is a toolset to do cloud-native chaos engineering.
 Litmus provides tools to orchestrate chaos on Kubernetes to help SREs find weaknesses in their deployments.
@@ -458,6 +483,7 @@ This isn’t helped by the fact that some features—like the Litmus Portal itse
 
 
 ## Which tool is right for me?
+{:.no_toc}
 
 Ultimately, the goal of any Chaos Engineering tool is to help you achieve greater reliability.
 The question is: which tool will help you achieve that goal faster and more easily? 
@@ -493,7 +519,6 @@ Chaos Engineering is still a very young field, and the techniques and associated
 - [FIT by Netflix](https://netflixtechblog.com/fit-failure-injection-testing-35d8e2a9bb2){:target="_blank" rel="noopener noreferrer"}
 - [Chaos Automation Platform](https://netflixtechblog.com/chap-chaos-automation-platform-53e6d528371f){:target="_blank" rel="noopener noreferrer"}
 - [How to run a Chaos GameDay](https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/){:target="_blank" rel="noopener noreferrer"}
-- [Chaos Engineering post](https://medium.com/the-cloud-architect/chaos-engineering-ab0cc9fbd12a){:target="_blank" rel="noopener noreferrer"}
 - [Chaos Engineering post](https://adhorn.medium.com/chaos-engineering-ab0cc9fbd12a){:target="_blank" rel="noopener noreferrer"}
 - [Gremlin - Chaos Engineering](https://www.gremlin.com/chaos-monkey/the-simian-army/){:target="_blank" rel="noopener noreferrer"}
 - [Gremlin - Chaos Engineering tools](https://www.gremlin.com/community/tutorials/chaos-engineering-tools-comparison/){:target="_blank" rel="noopener noreferrer"}
