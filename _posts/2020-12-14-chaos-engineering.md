@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [tim_verte]
-title: 'Introduction into the world of Chaos Engineering'
+title: 'An introduction into the world of Chaos Engineering'
 image: /img/2020-12-14-chaos-engineering/thumbnail.jpg
 tags: [Chaos Engineering, DevOps, Chaos, Backend, Netflix, Simian Army, Resiliency]
 category: Cloud
