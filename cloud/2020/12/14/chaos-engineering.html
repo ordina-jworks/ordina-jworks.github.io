@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Introduction into the world of Chaos Engineering - Tim Verte">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2020/12/14/chaos-engineering.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Introduction into the world of Chaos Engineering - Tim Verte"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg"/>
+
+    
+    <title>Introduction into the world of Chaos Engineering - Tim Verte &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Introduction into the world of Chaos Engineering</h2>
+                
+
+                
+                    Posted Dec 14, 2020
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/tim-verte/">Tim Verte</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/chaos-engineering/">Chaos Engineering</a>, 
+    
+        <a href="/tags/devops/">DevOps</a>, 
+    
+        <a href="/tags/chaos/">Chaos</a>, 
+    
+        <a href="/tags/backend/">Backend</a>, 
+    
+        <a href="/tags/netflix/">Netflix</a>, 
+    
+        <a href="/tags/simian-army/">Simian Army</a>, 
+    
+        <a href="/tags/resiliency/">Resiliency</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 class="no_toc" id="table-of-contents">Table of contents</h1>
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#what-is-chaos-engineering" id="markdown-toc-what-is-chaos-engineering">What is Chaos Engineering?</a></li>
+  <li><a href="#principles-of-chaos-engineering" id="markdown-toc-principles-of-chaos-engineering">Principles of Chaos Engineering</a>    <ul>
+      <li><a href="#steady-state" id="markdown-toc-steady-state">Steady state</a></li>
+      <li><a href="#hypothesis-about-state" id="markdown-toc-hypothesis-about-state">Hypothesis about state</a></li>
+      <li><a href="#vary-real-world-events" id="markdown-toc-vary-real-world-events">Vary real-world events</a></li>
+      <li><a href="#design-and-run-the-experiment" id="markdown-toc-design-and-run-the-experiment">Design and run the experiment</a></li>
+      <li><a href="#learn-and-verify" id="markdown-toc-learn-and-verify">Learn and verify</a></li>
+      <li><a href="#improve-and-fix-it" id="markdown-toc-improve-and-fix-it">Improve and fix it</a></li>
+    </ul>
+  </li>
+  <li><a href="#manually-vs-auto" id="markdown-toc-manually-vs-auto">Manually VS Auto</a></li>
+  <li><a href="#chaos-gamedays--benefits" id="markdown-toc-chaos-gamedays--benefits">Chaos GameDays &amp; benefits</a>    <ul>
+      <li><a href="#post-mortem" id="markdown-toc-post-mortem">Post Mortem</a></li>
+    </ul>
+  </li>
+  <li><a href="#simian-army" id="markdown-toc-simian-army">Simian Army</a>    <ul>
+      <li><a href="#chaos-monkey-still-available-as-a-standalone-service" id="markdown-toc-chaos-monkey-still-available-as-a-standalone-service">Chaos Monkey (Still available as a standalone service)</a></li>
+      <li><a href="#janitor-monkey--replaced-by-new-standalone-service-swabbie-still-available" id="markdown-toc-janitor-monkey--replaced-by-new-standalone-service-swabbie-still-available">Janitor Monkey =&gt; replaced by new standalone service ‘Swabbie’ (Still available)</a></li>
+      <li><a href="#conformity-monkey--now-rolled-out-in-spinnaker-services-still-available" id="markdown-toc-conformity-monkey--now-rolled-out-in-spinnaker-services-still-available">Conformity Monkey =&gt; now rolled out in spinnaker services (Still available)</a></li>
+    </ul>
+  </li>
+  <li><a href="#other-tools-for-chaos-engineering" id="markdown-toc-other-tools-for-chaos-engineering">Other Tools for Chaos Engineering</a></li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+  <li><a href="#resources" id="markdown-toc-resources">Resources</a></li>
+</ul>
+
+<hr />
+
+<h1 class="no_toc" id="chaos-engineering">Chaos Engineering</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In cloud-based distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen.
+Because these networks are more complex and have built-in uncertainty,
+it’s essential for software developers to utilize an empirical approach to testing for vulnerabilities that’s systematic and innovative.
+This can be achieved through controlled experimentation that creates chaos in an effort to determine how much stress any given system can withstand.
+The goal is to observe and identify systemic weaknesses.</p>
+
+<h2 id="what-is-chaos-engineering">What is Chaos Engineering?</h2>
+
+<p>Chaos Engineering is the discipline of experimenting on a software system in production in order to build confidence in the system’s capability to withstand turbulent and unexpected conditions.
+You can think of Chaos Engineering as an empirical approach to addressing the question: “How close is our system to the edge of chaos?” 
+Another way to think about this is: “How would our system fare if we injected chaos into it?”
+It is not meant to break random things without a purpose.</p>
+
+<p>However if you and your team are just starting with Chaos Engineering and you are not confident enough to work in the production environment,
+you can also do the experiments in another controlled environment (TST, DEV, …).</p>
+
+<p>Building confidence is key! You do not want to break things in production without being able to find a solution.</p>
+
+<h2 class="no_toc" id="why-use-chaos-engineering">Why use Chaos Engineering?</h2>
+
+<p>In software development, a given software system’s ability to tolerate failures while still ensuring adequate quality of service,
+is typically specified as a requirement (Resilience).
+However, development teams often fail to meet this requirement due to factors such as short deadlines or lack of knowledge of the field.
+Chaos engineering is a technique to meet the resilience requirement.</p>
+
+<p>Chaos engineering can be used to achieve resilience against:</p>
+<ul>
+  <li>Infrastructure failures</li>
+  <li>Network failures</li>
+  <li>Application failures</li>
+</ul>
+
+<h2 class="no_toc" id="chaos-engineering-and-traditional-testing">Chaos Engineering and Traditional Testing</h2>
+
+<p>With traditional testing, you are only testing assumptions and not generating new knowledge about the system.
+You are testing the code correctness and how functions and methods work in your application.
+Chaos Engineering on the other hand will also explore the many different and unpredictable scenarios that could happen to your systems.</p>
+
+<p>In this way you will be able to find new weaknesses before the actual event will take place and make sure future outages will not happen.</p>
+
+<h2 class="no_toc" id="prerequisites-for-chaos-engineering">Prerequisites for Chaos Engineering</h2>
+
+<p>To determine whether your organization is ready to start adopting Chaos Engineering, you need to answer one question:
+Is your system resilient to real-world events such as service failures and network latency spikes?
+If you know the answer to that question is no, you have some work to do before using Chaos Engineering.</p>
+
+<p>Chaos Engineering is great for exposing unknown weaknesses in your production system,
+but if you are certain that a Chaos Engineering experiment will lead to a significant problem with the system,
+there’s no sense in running that experiment.
+Fix the weakness first! Then come back to Chaos Engineering to uncover more weaknesses you didn’t know about.</p>
+
+<p>Also, it is important that there are ways your team can analyze the results of the experiments by making sure there is a monitoring system in place to check the state of your application.</p>
+
+<p>Some metrics examples:</p>
+<ul>
+  <li>service metrics
+    <ul>
+      <li>Example: The time it normally takes to start up your application, the time it takes for a request to the service…</li>
+      <li>Example: a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%.</li>
+    </ul>
+  </li>
+  <li>business metrics
+    <ul>
+      <li>Example: number of orders on your web shop. When doing an experiment where you are increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly</li>
+    </ul>
+  </li>
+</ul>
+
+<p>It’s always a good idea to have some resilience already built in to your application/service before introducing Chaos.</p>
+
+<p>Some key points for resilience are:</p>
+<div style="text-align: right; width: 60%; margin-left:20%">
+  <img alt="Must Have" src="/img/2020-12-14-chaos-engineering/ResilienceSmall.jpg" width="auto" height="auto" target="_blank" class="image fit" />
+</div>
+
+<p><br /></p>
+
+<h2 id="principles-of-chaos-engineering">Principles of Chaos Engineering</h2>
+
+<div style="text-align: center;">
+  <img alt="Experiment Process" src="/img/2020-12-14-chaos-engineering/chaos-engineering-process.jpg" width="auto" height="auto" target="_blank" class="image fit" />
+</div>
+
+<p><br /></p>
+
+<h3 id="steady-state">Steady state</h3>
+
+<p>Define a measurable steady state that represents normal circumstances to use as a baseline.</p>
+
+<p>The reason you do this, is because after injection failure,
+you want to make sure you can return to a well-known state and the experiment is no longer interfering with the system’s normal behavior.
+The key is not to focus on internal attributes of the system like CPU, memory, etc. but to look for measurable output.
+Measurements of that output over a short period of time constitute a proxy for the system’s steady state.
+The system’s overall throughput, error rates, latency percentiles, etc. could all be metrics of interest representing steady state behavior.</p>
+
+<h3 id="hypothesis-about-state">Hypothesis about state</h3>
+
+<p>Once you have your metrics and an understanding of their steady state behavior,
+you can use them to define the hypotheses and preferred results for your experiment.
+Start small and choose only one hypothesis at a time.
+When you are doing this, it is important to bring everybody around the table that is involved with the project.
+The team, the product owner, developers, designers, etc.</p>
+
+<p>It can be tempting to subject your system to different events (for example, increasing amounts of traffic) to “see what happens.”
+However, without having a prior hypothesis in mind, it can be difficult to draw conclusions if you don’t know what to look for in the data.
+Think about how the steady state behavior will change when you inject different types of events into your system.
+If you add requests to a service, will the steady state be disrupted or stay the same?
+If disrupted, do you expect the system output to increase or decrease?</p>
+
+<p>A few examples:</p>
+<ul>
+  <li>What will happen if this load balancer breaks?</li>
+  <li>What will happen if caching fails?</li>
+  <li>What will happen if latency increases with 300ms?</li>
+  <li>What will happen if we lose connection to our DB?</li>
+</ul>
+
+<p>Make hypotheses on parts of the system you believe are resilient — after all, that’s the whole point of the experiment.
+Also think about what the preferred outcome will be in one of these situations and don’t make a hypothesis that you know you will break!</p>
+
+<p>Example:</p>
+<ul>
+  <li>What if the ‘Shop By Category’ service fails to load in our online webshop?</li>
+</ul>
+
+<p>The Preferred Outcome:</p>
+<ul>
+  <li>Should we return a 404?</li>
+  <li>Should the page gracefully degrade and collapse?</li>
+  <li>What should happen on the backend?</li>
+  <li>Should alerts be sent?</li>
+  <li>Should the failing dependency continue to receive requests every time a user goes to this page?</li>
+</ul>
+
+<h3 id="vary-real-world-events">Vary real-world events</h3>
+
+<p>Every system, from simple to complex, is subject to unpredictable events and conditions if it runs long enough.
+Examples include increase in load, hardware malfunction,
+deployment of faulty software, and the introduction of invalid data (sometimes known as poison data).</p>
+
+<p>The most common ones fall under the following categories:</p>
+<ul>
+  <li>Hardware failures</li>
+  <li>Functional bugs</li>
+  <li>State transmission errors (e.g., inconsistency of states between sender and receiver nodes)</li>
+  <li>Network latency and partition</li>
+  <li>Large fluctuations in input (up or down) and retry storms</li>
+  <li>Resource exhaustion</li>
+  <li>Unusual or unpredictable combinations of interservice communication</li>
+  <li>Byzantine failures (e.g., a node believing it has the most current data when it actually does not)</li>
+  <li>Race conditions</li>
+  <li>Downstream dependencies malfunction</li>
+</ul>
+
+<p>Real World Examples:</p>
+
+<p>At Netflix, they turn off machines because instance termination happens frequently in the wild and the act of turning off a server is cheap and easy.
+They simulate regional failures even though to do so is costly and complex,
+because a regional outage has a huge impact on their customers unless they are resilient to it.</p>
+
+<p>Consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident.
+The organization may have a contingency plan for handling the outage when the messaging app is down during an outage,
+but how well do the on-call engineers know the contingency plan?
+Running a chaos experiment is a great way to find out.</p>
+
+<h3 id="design-and-run-the-experiment">Design and run the experiment</h3>
+
+<ul>
+  <li>Pick one hypothesis</li>
+  <li>Scope your experiment (the closer you are to production the more you will learn about the results)</li>
+  <li>Identify the relevant metrics to measure</li>
+  <li>Notify the organization</li>
+</ul>
+
+<p>Prioritize events either by potential impact or estimated frequency.
+Consider events that correspond to hardware failures like servers dying, software failures like malformed responses,
+and non-failure events like a spike in traffic or a scaling event.
+Any event capable of disrupting steady state is a potential variable in a Chaos experiment.</p>
+
+<p>One of the most important things during the experiment phase is understanding the potential blast radius of the experiment and the failure you’re injecting — and minimize it.
+You’ll almost certainly want to start out in your test environment to do a dry run before you move into production.
+Once you do move to production, you’ll want to start out with experiments that impact the minimal amount of customer traffic.
+For example, if you’re investigating what happens when your cache times out,
+you could start by calling into your production system using a test client, and just inducing the timeouts for that client.</p>
+
+<p>Some good questions you can ask yourself to check the blast radius are:</p>
+<ul>
+  <li>How many customers are affected?</li>
+  <li>What functionality is impaired?</li>
+  <li>Which locations are impacted?</li>
+</ul>
+
+<p>Also try to have some sort of ‘emergency button’ you can use to cancel the experiment or to return to the normal state of the system in case you cannot find a solution.
+Be careful with experiments that modify the application state (cache or databases) or that can’t be rolled back easily or at all.</p>
+
+<p>Eventually when you start doing Chaos Experiments in your production environment,
+you want to inform members of your organization about what you’re doing, why you’re doing it and when.</p>
+
+<h3 id="learn-and-verify">Learn and verify</h3>
+
+<p>In order to learn and verify you need to measure. Invest in measuring everything!
+After the test you can use your collected metrics to check if your hypothesis is correct.</p>
+
+<p>Another important metric during this phase, is the time it takes to detect the problem. 
+You do not want your customers to be the ones that detect the problem. 
+So, use Chaos Engineering as a way of testing your monitoring and alerting systems as well.</p>
+
+<p>There are several ways that you can expand the testing in order to increase your knowledge and find potential solutions.
+Once you’ve resolved one area of concern, reset the testing criteria or parameters and run the experiment again with a new hypothesis.
+You can also expand the blast radius by increments with each test,
+introducing new or more powerful stressors into the testing environment in order to gauge the limits of your system.
+The idea is to introduce as much controlled chaos into the mix, one element at a time,
+in order to determine the maximum limits of your system before it breaks down completely.
+This can be done by introducing automation after the initial test.</p>
+
+<p>Always do a Post Mortem of the experiment.
+A few questions the team can ask themselves during this phase:</p>
+
+<ul>
+  <li>Time to detect?</li>
+  <li>Time for notification? And escalation?</li>
+  <li>Time to public notification?</li>
+  <li>Time for graceful degradation to kick-in?</li>
+  <li>Time for self-healing?</li>
+  <li>Time to recovery — partial and full?</li>
+  <li>Time to all-clear and stable?</li>
+</ul>
+
+<p>At AWS, the output from the Post Mortem is called a Correction-of-Errors document, or COE.
+They use COE to learn from their mistakes, whether they’re flaws in technology, process, or even the organization.
+They use this mechanism to resolve root causes and drive continuous improvement.
+The key to being successful in this process is being open and transparent about what went wrong.
+One of the most important guidelines for writing a good COE is to be blameless and avoid identifying individuals by name.</p>
+
+<p>There are five main sections in a COE document:</p>
+<ul>
+  <li>What happened? (Timeline)</li>
+  <li>What was the impact to our customers?</li>
+  <li>Why did the error occur? (The 5 Why’s)</li>
+  <li>What did you learn?</li>
+  <li>And how will you prevent it from happening again in the future?</li>
+</ul>
+
+<h3 id="improve-and-fix-it">Improve and fix it</h3>
+
+<p>The most important lesson here is to prioritize fixing the findings of your chaos experiments over developing new features!
+Get upper management to enforce that process and buy into the idea that fixing current issues is more important than continuing the development of new features.</p>
+
+<h2 id="manually-vs-auto">Manually VS Auto</h2>
+
+<p>Using Chaos Engineering may be as simple as manually running ‘kill -9’ on a box inside of your staging environment to simulate failure of a service.
+Or it can be as sophisticated as automatically designing and carrying out experiments in a production environment against a small but statistically significant fraction of live traffic.
+So, when starting out, it is a good practice to manually make your experiments and check the results,
+but running experiments manually is labor-intensive and ultimately unsustainable.
+So try to automate experiments and run them continuously.</p>
+
+<h2 id="chaos-gamedays--benefits">Chaos GameDays &amp; benefits</h2>
+
+<p>Chaos GameDays are often known as days where a ‘Master of Disaster’ or a MoD, often in secret,
+will decide what kind of failure or disaster will happen on the system.
+He or she will generally start with something simple like the loss of capacity or the loss of connectivity.
+You may find, that until you can easily and clearly see the simple cases,
+doing harder or more complex failures is not a good way to build confidence or spend time.</p>
+
+<p>If you follow this process regularly, you will see a transformation in your team.
+Being first on-call for Chaos GameDays builds composure under pressure when doing on-call for production outages.
+Not only will all developers gain confidence in their uderstanding of the systems and how they fail,
+but they also get used to the feeling of being under pressure.</p>
+
+<p>There will also be a dramatic change in your systems, since developers will experience failure as a part of their job and thus, they will start designing for failure.
+They consider how to make every change and every system observable and also carefully choose resilience strategies because this is now something the team knows and talks about during the experiments.</p>
+
+<h3 class="no_toc" id="planned-failure">Planned Failure</h3>
+
+<p>The MoD will gather the team before the ‘start of the incident’ and then will start with the planned failure. 
+Normally there will be one member of the team who will be ‘first on-call’.
+This person is strongly encouraged to contact the other members
+so they can start working together and find out what failure the MoD has caused.
+Ideally, the team will find and solve the issue in less than 75% of the allocated time.
+When the team has a solution for the issue or the allocated time has ended,
+the MoD will reverse the failure and the team will proceed to do a Post Mortem of the incident.</p>
+
+<h3 class="no_toc" id="escalation">Escalation</h3>
+
+<p>It is also possible that the team will not be able to find a solution for the problem.
+Then the MoD can escalate this failure to make it more visible,
+because often full outages are the only observable failures.
+Knowing this is the first step in fixing your instrumentation and visualization (FE. Dashboards with monitoring…)</p>
+
+<h3 id="post-mortem">Post Mortem</h3>
+
+<p>A Post Mortem is the stage in which the team will analyze the failure and the solution.
+This can consist of sharing perspectives, assumptions that were made, expectations that didn’t reflect the behavior of the system or observability tools.
+Following out of the Post Mortem,
+the team should have come up with a set of actions to fix any observability issues for the scenario and some ideas about how to improve resilience to that failure.</p>
+
+<p>The Post Mortem should follow the usual incident process if you have one in your company.</p>
+
+<h2 id="simian-army">Simian Army</h2>
+
+<div style="text-align: center;">
+  <img alt="Must Have" src="/img/2020-12-14-chaos-engineering/SimianArmySmall.jpg" width="40%" height="auto" target="_blank" class="image" />
+</div>
+<p><br /></p>
+
+<p>Netflix has already developed some tools which they bundled in their suite of tools named ‘The Simian Army’.
+These tools were made to test reliability, security and resilience of its AWS infrastructure.
+The Simian Army is designed to add more capabilities beyond Chaos Monkey. 
+While Chaos Monkey solely handles termination of random instances,
+Netflix engineers needed additional tools able to induce other types of failure.
+Some of the Simian Army tools have fallen out of favor in recent years and are deprecated,
+but each of the members serves a specific purpose aimed at bolstering a system’s failure resilience.</p>
+
+<h3 id="chaos-monkey-still-available-as-a-standalone-service">Chaos Monkey (Still available as a standalone service)</h3>
+
+<p>Chaos Monkey is a tool invented to test the resilience of its IT infrastructure. 
+It works by intentionally disabling virtual machine instances and containers in the production network to test how remaining systems respond to the outage. (prepares you for a random instance failure in an application managed by Spinnaker)
+This tool has been in the game for a long time, so there might be better tools for your needs.</p>
+
+<p>Chaos Monkey is deliberately unpredictable.
+It only has one attack type: terminating virtual machine instances.
+You set a general time frame for it to run, and at some point during that time it will terminate a random instance. 
+This is meant to help replicate unpredictable production incidents,
+but it can easily cause more harm than good if you’re not prepared to respond.</p>
+
+<h3 id="janitor-monkey--replaced-by-new-standalone-service-swabbie-still-available">Janitor Monkey =&gt; replaced by new standalone service ‘Swabbie’ (Still available)</h3>
+
+<p>Identifies and disposes unused resources to avoid waste and clutter.</p>
+
+<h3 id="conformity-monkey--now-rolled-out-in-spinnaker-services-still-available">Conformity Monkey =&gt; now rolled out in spinnaker services (Still available)</h3>
+
+<p>A tool that determines whether an instance is nonconforming by testing it against a set of rules.
+If any of the rules determines that the instance is not conforming, the monkey sends an email notification to the owner of the instance.</p>
+
+<h3 class="no_toc" id="chaos-kong-deprecated-or-not-publicaly-released">Chaos Kong (deprecated or not publicaly released)</h3>
+
+<p>At the very top of the Simian Army hierarchy, Chaos Kong drops a full AWS “Region”. 
+Though rare, loss of an entire region does happen, and Chaos Kong simulates a systems response and recovery to this type of event.</p>
+
+<h3 class="no_toc" id="chaos-gorilla-deprecated-or-not-publicaly-released">Chaos Gorilla (deprecated or not publicaly released)</h3>
+
+<p>Chaos Gorilla drops a full AWS “Availability Zone” (one or more entire data centers serving a geographical region).</p>
+
+<h3 class="no_toc" id="latency-monkey-deprecated-or-not-publicaly-released">Latency Monkey (deprecated or not publicaly released)</h3>
+
+<p>Introduces communication delays to simulate degradation or outages in a network.
+Netflix never publicly released the Latency Monkey code, and it eventually evolved into their Failure Injection Testing (FIT) service.</p>
+
+<h3 class="no_toc" id="fit-failure-injection-testing">FIT (Failure Injection Testing)</h3>
+
+<p>FIT was built to inject microservice level failures.
+Latency monkey adds a delay and/or failure on the server side of a request for a given service.
+This provides us good insight into how calling applications behave when their dependency slows down — 
+threads pile up, the network becomes congested, etc.
+Latency monkey also impacts all calling applications — whether they want to participate or not,
+and can result in customer pain if proper fallback handling, timeouts, and bulkheads don’t work as expected.
+What we need is a way to limit the impact of failure testing while still breaking things in realistic ways.
+This is where FIT comes in.</p>
+
+<h3 class="no_toc" id="doctor-monkey-deprecated-or-not-publicaly-released">Doctor Monkey (deprecated or not publicaly released)</h3>
+
+<p>Performs health checks, by monitoring performance metrics such as CPU load to detect unhealthy instances,
+for root-cause analysis and eventual fixing or retirement of the instance.
+Doctor Monkey is not open-sourced, but most of its functionality is built into other tools like Spinnaker, 
+which includes a load balancer health checker,
+so instances that fail certain criteria are terminated and immediately replaced by new ones.</p>
+
+<h3 class="no_toc" id="security-monkey-still-available-but-will-be-end-of-life-in-2020">Security Monkey (Still available but will be end-of-life in 2020)</h3>
+
+<p>Derived from Conformity Monkey, a tool that searches for and disables instances that have known vulnerabilities or improper configurations.</p>
+
+<h3 class="no_toc" id="10-18-monkey-deprecated-or-not-publicaly-released">10-18 Monkey (deprecated or not publicaly released)</h3>
+
+<p>A tool that detects problems with localization and internationalization (known by the abbreviations “l10n” and “i18n”)
+for software serving customers across different geographic regions.</p>
+
+<p><br /></p>
+
+<h2 id="other-tools-for-chaos-engineering">Other Tools for Chaos Engineering</h2>
+
+<h3 class="no_toc" id="chap-chaos-automation-platform">ChAP (Chaos Automation Platform)</h3>
+
+<p>ChAP was built to overcome the limitations of FIT so we can increase the safety, cadence, and breadth of experimentation.</p>
+
+<h3 class="no_toc" id="byte-monkey">Byte-Monkey</h3>
+
+<p>A small Java library for testing failure scenarios in JVM applications.
+It works by instrumenting application code on the fly to deliberately introduce faults such as exceptions and latency.</p>
+
+<h3 class="no_toc" id="chaosblade-by-alibaba">ChaosBlade By Alibaba</h3>
+
+<p>ChaosBlade is a versatile tool supporting a wide range of experiment types and target platforms.
+However, it lacks some useful features such as centralized reporting, experiment scheduling, target randomization, and health checks. 
+It’s a great tool if you’re new to Chaos Engineering and want to experiment with different attacks.</p>
+
+<h3 class="no_toc" id="chaos-machine">Chaos Machine</h3>
+
+<p>ChaosMachine is a tool that does chaos engineering at the application level in the JVM.
+It concentrates on analyzing the error-handling capability of each try-catch block involved in the application by injecting exceptions.</p>
+
+<h3 class="no_toc" id="proofdock-chaos-engineering-platform">Proofdock Chaos Engineering Platform</h3>
+
+<p>A chaos engineering platform that focuses on and leverages the Microsoft Azure platform and the Azure DevOps services.
+Users can inject failures on the infrastructure, platform and application level.</p>
+
+<h3 class="no_toc" id="gremlin-platform">Gremlin platform</h3>
+
+<p>A “failure-as-a-service” platform built to make the Internet more reliable.
+It turns failure into resilience by offering engineers a fully hosted solution to safely experiment on complex systems,
+in order to identify weaknesses before they impact customers and cause revenue loss.
+Unlike Chaos Monkey, tools like FIT and Gremlin are able to test for a wide range of failure states beyond simple instance destruction.
+In addition to killing instances, Gremlin can fill available disk space,
+hog CPU and memory, overload IO, perform advanced network traffic manipulation, terminate processes, and much more.</p>
+
+<h3 class="no_toc" id="facebook-storm">Facebook Storm</h3>
+
+<p>To prepare for the loss of a datacenter, Facebook regularly tests the resistance of its infrastructures to extreme events.
+Known as the Storm Project, the program simulates massive data center failures.</p>
+
+<h3 class="no_toc" id="chaoslingr">ChaoSlingr</h3>
+
+<p>ChaoSlingr is the first Open Source application of Chaos Engineering to Cyber Security.
+ChaoSlingr is focused primarily on performing security experimentation on AWS Infrastructure to proactively discover system security weaknesses in complex distributed system environments.
+Published on Github in September 2017.</p>
+
+<h3 class="no_toc" id="chaos-toolkit-by-chaosiq">Chaos Toolkit by ChaosIQ</h3>
+
+<p>The Chaos Toolkit was born from the desire to simplify access to the discipline of chaos engineering and demonstrate that the experimentation approach can be done at different levels: infrastructure, platform but also application. The Chaos Toolkit is an open-source tool.
+Few tools are as flexible in how they let you design chaos experiments.
+Chaos Toolkit gives you full control over how your experiments operate, right down to the commands executed on the target system.
+But because of this DIY approach, Chaos Toolkit is more of a framework that you need to build on than a ready-to-go Chaos Engineering solution</p>
+
+<h3 class="no_toc" id="mangle">Mangle</h3>
+
+<p>Mangle enables you to run chaos engineering experiments seamlessly against applications and infrastructure components to assess resiliency and fault tolerance.
+It is designed to introduce faults with very little pre-configuration and can support any infrastructure that you might have including K8S,
+Docker, vCenter or any Remote Machine with ssh enabled.
+With its powerful plugin model,
+you can define a custom fault of your choice based on a template and run it without building your code from scratch.</p>
+
+<h3 class="no_toc" id="chaos-mesh-by-pingcap">Chaos Mesh by PingCAP</h3>
+
+<p>Chaos Mesh is an open-source cloud-native Chaos Engineering platform that orchestrates chaos experiments in Kubernetes environments.
+It supports comprehensive types of failure simulation, including Pod failures, container failures,
+network failures, file system failures, system time failures, and kernel failures.<br />
+Chaos Mesh is one of the few open source tools to include a fully-featured web user interface (UI) called the Chaos Dashboard.
+However, its biggest limitations are its lack of node-level experiments,
+lack of native scheduling, and lack of time limits on ad-hoc experiments.</p>
+
+<h3 class="no_toc" id="litmus-chaos">Litmus Chaos</h3>
+
+<p>LitmusChaos is a toolset to do cloud-native chaos engineering.
+Litmus provides tools to orchestrate chaos on Kubernetes to help SREs find weaknesses in their deployments.
+SREs use Litmus to run chaos experiments initially in the staging environment and eventually in production to find bugs,
+vulnerabilities. Fixing the weaknesses leads to increased resilience of the system.</p>
+
+<p>While Litmus is a comprehensive tool with many useful attacks and monitoring features, it comes with a steep learning curve.
+Simply running an experiment is a multi-step process that involves setting permissions and annotating deployments.
+Workflows help with this, especially when used through the Litmus Portal, but they still add an extra layer of complexity.
+This isn’t helped by the fact that some features—like the Litmus Portal itself—don’t appear in the documentation and are only available through the project’s GitHub repository.</p>
+
+<h2 class="no_toc" id="which-tool-is-right-for-me">Which tool is right for me?</h2>
+
+<p>Ultimately, the goal of any Chaos Engineering tool is to help you achieve greater reliability.
+The question is: which tool will help you achieve that goal faster and more easily? 
+This question of course depends on your tech stack, the experience and expertise of your engineering team,
+and how much time you can dedicate to testing and evaluating each tool.</p>
+
+<p>The following table are just a handful of tools which are interesting for our preferred stack.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>platform</th>
+      <th>Attack types</th>
+      <th>App Attacks</th>
+      <th>Container / Pod attacks</th>
+      <th>GUI ?</th>
+      <th>CLI ?</th>
+      <th>Metrics</th>
+      <th>Attack Sharing</th>
+      <th>Attack Halting</th>
+      <th>Attack Scheduling</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chaos Monkey</td>
+      <td>Spinnaker</td>
+      <td>1</td>
+      <td>true</td>
+      <td>false</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+      <td>false</td>
+      <td>false</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>Gremlin</td>
+      <td>SaaS</td>
+      <td>11</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>Chaos Blade</td>
+      <td>K8S, Docker, Cloud, Bare metal</td>
+      <td>40</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+      <td>true</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>Chaos Toolkit</td>
+      <td>K8S, Docker, Cloud, Bare metal</td>
+      <td>depends on driver</td>
+      <td>false</td>
+      <td>true</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>Chaos Mesh</td>
+      <td>K8S</td>
+      <td>17</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>Litmus</td>
+      <td>K8S</td>
+      <td>39</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>!! Chaos Toolkit is the only tool you can use to create Custom Attacks with !!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Any organization that builds and operates a distributed system and wishes to achieve a high rate of development velocity will want to add Chaos Engineering to their collection of approaches for improving resiliency.</p>
+
+<p>Chaos Engineering is still a very young field, and the techniques and associated tooling are still evolving.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://principlesofchaos.org/" target="_blank" rel="noopener noreferrer">Principles of Chaos</a></li>
+  <li><a href="https://www.oreilly.com/content/chaos-engineering/#chapter_cmm" target="_blank" rel="noopener noreferrer">O’Reilly Chaos Engineering paper</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Chaos_engineering#History" target="_blank" rel="noopener noreferrer">Wikipedia</a></li>
+  <li><a href="https://www.bmc.com/blogs/chaos-monkey/" target="_blank" rel="noopener noreferrer">Chaos Monkey</a></li>
+  <li><a href="https://github.com/Netflix/SimianArmy" target="_blank" rel="noopener noreferrer">Simian Army</a></li>
+  <li><a href="https://netflixtechblog.com/fit-failure-injection-testing-35d8e2a9bb2" target="_blank" rel="noopener noreferrer">FIT by Netflix</a></li>
+  <li><a href="https://netflixtechblog.com/chap-chaos-automation-platform-53e6d528371f" target="_blank" rel="noopener noreferrer">Chaos Automation Platform</a></li>
+  <li><a href="https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/" target="_blank" rel="noopener noreferrer">How to run a Chaos GameDay</a></li>
+  <li><a href="https://adhorn.medium.com/chaos-engineering-ab0cc9fbd12a" target="_blank" rel="noopener noreferrer">Chaos Engineering post</a></li>
+  <li><a href="https://www.gremlin.com/chaos-monkey/the-simian-army/" target="_blank" rel="noopener noreferrer">Gremlin - Chaos Engineering</a></li>
+  <li><a href="https://www.gremlin.com/community/tutorials/chaos-engineering-tools-comparison/" target="_blank" rel="noopener noreferrer">Gremlin - Chaos Engineering tools</a></li>
+  <li><a href="https://response.pagerduty.com/" target="_blank" rel="noopener noreferrer">PagerDuty - Post Mortem</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2020/12/14/chaos-engineering.html&title=Introduction into the world of Chaos Engineering&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Introduction into the world of Chaos Engineering&url=https://ordina-jworks.github.io/cloud/2020/12/14/chaos-engineering.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2020/12/14/chaos-engineering.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-verte/" class="image spotlight-image" title="">
+            <img src="/img/author/tim-verte.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a Java consultant at Ordina Belgium. He enjoys to discover new technologies and challenges. Besides his work he has a keen interest in everything that involves sports and music.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2020-12-14-chaos-engineering/thumbnail.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

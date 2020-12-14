@@ -1,5 +1,631 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-12-10T09:59:07+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Serverless Kubernetes deployments with AWS Fargate</title><link href="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html" rel="alternate" type="text/html" title="Serverless Kubernetes deployments with AWS Fargate" /><published>2020-12-10T00:00:00+00:00</published><updated>2020-12-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html">&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-12-14T15:43:08+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Introduction into the world of Chaos Engineering</title><link href="https://ordina-jworks.github.io/cloud/2020/12/14/chaos-engineering.html" rel="alternate" type="text/html" title="Introduction into the world of Chaos Engineering" /><published>2020-12-14T00:00:00+00:00</published><updated>2020-12-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/12/14/chaos-engineering</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/12/14/chaos-engineering.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-chaos-engineering&quot; id=&quot;markdown-toc-what-is-chaos-engineering&quot;&gt;What is Chaos Engineering?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#principles-of-chaos-engineering&quot; id=&quot;markdown-toc-principles-of-chaos-engineering&quot;&gt;Principles of Chaos Engineering&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#steady-state&quot; id=&quot;markdown-toc-steady-state&quot;&gt;Steady state&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#hypothesis-about-state&quot; id=&quot;markdown-toc-hypothesis-about-state&quot;&gt;Hypothesis about state&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#vary-real-world-events&quot; id=&quot;markdown-toc-vary-real-world-events&quot;&gt;Vary real-world events&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#design-and-run-the-experiment&quot; id=&quot;markdown-toc-design-and-run-the-experiment&quot;&gt;Design and run the experiment&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#learn-and-verify&quot; id=&quot;markdown-toc-learn-and-verify&quot;&gt;Learn and verify&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#improve-and-fix-it&quot; id=&quot;markdown-toc-improve-and-fix-it&quot;&gt;Improve and fix it&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#manually-vs-auto&quot; id=&quot;markdown-toc-manually-vs-auto&quot;&gt;Manually VS Auto&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chaos-gamedays--benefits&quot; id=&quot;markdown-toc-chaos-gamedays--benefits&quot;&gt;Chaos GameDays &amp;amp; benefits&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#post-mortem&quot; id=&quot;markdown-toc-post-mortem&quot;&gt;Post Mortem&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#simian-army&quot; id=&quot;markdown-toc-simian-army&quot;&gt;Simian Army&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#chaos-monkey-still-available-as-a-standalone-service&quot; id=&quot;markdown-toc-chaos-monkey-still-available-as-a-standalone-service&quot;&gt;Chaos Monkey (Still available as a standalone service)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#janitor-monkey--replaced-by-new-standalone-service-swabbie-still-available&quot; id=&quot;markdown-toc-janitor-monkey--replaced-by-new-standalone-service-swabbie-still-available&quot;&gt;Janitor Monkey =&amp;gt; replaced by new standalone service ‘Swabbie’ (Still available)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#conformity-monkey--now-rolled-out-in-spinnaker-services-still-available&quot; id=&quot;markdown-toc-conformity-monkey--now-rolled-out-in-spinnaker-services-still-available&quot;&gt;Conformity Monkey =&amp;gt; now rolled out in spinnaker services (Still available)&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#other-tools-for-chaos-engineering&quot; id=&quot;markdown-toc-other-tools-for-chaos-engineering&quot;&gt;Other Tools for Chaos Engineering&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot; id=&quot;markdown-toc-conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot; id=&quot;markdown-toc-resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 class=&quot;no_toc&quot; id=&quot;chaos-engineering&quot;&gt;Chaos Engineering&lt;/h1&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In cloud-based distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen.
+Because these networks are more complex and have built-in uncertainty,
+it’s essential for software developers to utilize an empirical approach to testing for vulnerabilities that’s systematic and innovative.
+This can be achieved through controlled experimentation that creates chaos in an effort to determine how much stress any given system can withstand.
+The goal is to observe and identify systemic weaknesses.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-chaos-engineering&quot;&gt;What is Chaos Engineering?&lt;/h2&gt;
+
+&lt;p&gt;Chaos Engineering is the discipline of experimenting on a software system in production in order to build confidence in the system’s capability to withstand turbulent and unexpected conditions.
+You can think of Chaos Engineering as an empirical approach to addressing the question: “How close is our system to the edge of chaos?” 
+Another way to think about this is: “How would our system fare if we injected chaos into it?”
+It is not meant to break random things without a purpose.&lt;/p&gt;
+
+&lt;p&gt;However if you and your team are just starting with Chaos Engineering and you are not confident enough to work in the production environment,
+you can also do the experiments in another controlled environment (TST, DEV, …).&lt;/p&gt;
+
+&lt;p&gt;Building confidence is key! You do not want to break things in production without being able to find a solution.&lt;/p&gt;
+
+&lt;h2 class=&quot;no_toc&quot; id=&quot;why-use-chaos-engineering&quot;&gt;Why use Chaos Engineering?&lt;/h2&gt;
+
+&lt;p&gt;In software development, a given software system’s ability to tolerate failures while still ensuring adequate quality of service,
+is typically specified as a requirement (Resilience).
+However, development teams often fail to meet this requirement due to factors such as short deadlines or lack of knowledge of the field.
+Chaos engineering is a technique to meet the resilience requirement.&lt;/p&gt;
+
+&lt;p&gt;Chaos engineering can be used to achieve resilience against:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Infrastructure failures&lt;/li&gt;
+  &lt;li&gt;Network failures&lt;/li&gt;
+  &lt;li&gt;Application failures&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 class=&quot;no_toc&quot; id=&quot;chaos-engineering-and-traditional-testing&quot;&gt;Chaos Engineering and Traditional Testing&lt;/h2&gt;
+
+&lt;p&gt;With traditional testing, you are only testing assumptions and not generating new knowledge about the system.
+You are testing the code correctness and how functions and methods work in your application.
+Chaos Engineering on the other hand will also explore the many different and unpredictable scenarios that could happen to your systems.&lt;/p&gt;
+
+&lt;p&gt;In this way you will be able to find new weaknesses before the actual event will take place and make sure future outages will not happen.&lt;/p&gt;
+
+&lt;h2 class=&quot;no_toc&quot; id=&quot;prerequisites-for-chaos-engineering&quot;&gt;Prerequisites for Chaos Engineering&lt;/h2&gt;
+
+&lt;p&gt;To determine whether your organization is ready to start adopting Chaos Engineering, you need to answer one question:
+Is your system resilient to real-world events such as service failures and network latency spikes?
+If you know the answer to that question is no, you have some work to do before using Chaos Engineering.&lt;/p&gt;
+
+&lt;p&gt;Chaos Engineering is great for exposing unknown weaknesses in your production system,
+but if you are certain that a Chaos Engineering experiment will lead to a significant problem with the system,
+there’s no sense in running that experiment.
+Fix the weakness first! Then come back to Chaos Engineering to uncover more weaknesses you didn’t know about.&lt;/p&gt;
+
+&lt;p&gt;Also, it is important that there are ways your team can analyze the results of the experiments by making sure there is a monitoring system in place to check the state of your application.&lt;/p&gt;
+
+&lt;p&gt;Some metrics examples:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;service metrics
+    &lt;ul&gt;
+      &lt;li&gt;Example: The time it normally takes to start up your application, the time it takes for a request to the service…&lt;/li&gt;
+      &lt;li&gt;Example: a simple metric for us to determine the overall health of the system is the percentage of 200 responses from the User Service, specifically we want 100%.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;business metrics
+    &lt;ul&gt;
+      &lt;li&gt;Example: number of orders on your web shop. When doing an experiment where you are increasing the response times of your service by 100 ms, you see that the number of orders has decreased significantly&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It’s always a good idea to have some resilience already built in to your application/service before introducing Chaos.&lt;/p&gt;
+
+&lt;p&gt;Some key points for resilience are:&lt;/p&gt;
+&lt;div style=&quot;text-align: right; width: 60%; margin-left:20%&quot;&gt;
+  &lt;img alt=&quot;Must Have&quot; src=&quot;/img/2020-12-14-chaos-engineering/ResilienceSmall.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;principles-of-chaos-engineering&quot;&gt;Principles of Chaos Engineering&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Experiment Process&quot; src=&quot;/img/2020-12-14-chaos-engineering/chaos-engineering-process.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;steady-state&quot;&gt;Steady state&lt;/h3&gt;
+
+&lt;p&gt;Define a measurable steady state that represents normal circumstances to use as a baseline.&lt;/p&gt;
+
+&lt;p&gt;The reason you do this, is because after injection failure,
+you want to make sure you can return to a well-known state and the experiment is no longer interfering with the system’s normal behavior.
+The key is not to focus on internal attributes of the system like CPU, memory, etc. but to look for measurable output.
+Measurements of that output over a short period of time constitute a proxy for the system’s steady state.
+The system’s overall throughput, error rates, latency percentiles, etc. could all be metrics of interest representing steady state behavior.&lt;/p&gt;
+
+&lt;h3 id=&quot;hypothesis-about-state&quot;&gt;Hypothesis about state&lt;/h3&gt;
+
+&lt;p&gt;Once you have your metrics and an understanding of their steady state behavior,
+you can use them to define the hypotheses and preferred results for your experiment.
+Start small and choose only one hypothesis at a time.
+When you are doing this, it is important to bring everybody around the table that is involved with the project.
+The team, the product owner, developers, designers, etc.&lt;/p&gt;
+
+&lt;p&gt;It can be tempting to subject your system to different events (for example, increasing amounts of traffic) to “see what happens.”
+However, without having a prior hypothesis in mind, it can be difficult to draw conclusions if you don’t know what to look for in the data.
+Think about how the steady state behavior will change when you inject different types of events into your system.
+If you add requests to a service, will the steady state be disrupted or stay the same?
+If disrupted, do you expect the system output to increase or decrease?&lt;/p&gt;
+
+&lt;p&gt;A few examples:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;What will happen if this load balancer breaks?&lt;/li&gt;
+  &lt;li&gt;What will happen if caching fails?&lt;/li&gt;
+  &lt;li&gt;What will happen if latency increases with 300ms?&lt;/li&gt;
+  &lt;li&gt;What will happen if we lose connection to our DB?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Make hypotheses on parts of the system you believe are resilient — after all, that’s the whole point of the experiment.
+Also think about what the preferred outcome will be in one of these situations and don’t make a hypothesis that you know you will break!&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;What if the ‘Shop By Category’ service fails to load in our online webshop?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The Preferred Outcome:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Should we return a 404?&lt;/li&gt;
+  &lt;li&gt;Should the page gracefully degrade and collapse?&lt;/li&gt;
+  &lt;li&gt;What should happen on the backend?&lt;/li&gt;
+  &lt;li&gt;Should alerts be sent?&lt;/li&gt;
+  &lt;li&gt;Should the failing dependency continue to receive requests every time a user goes to this page?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;vary-real-world-events&quot;&gt;Vary real-world events&lt;/h3&gt;
+
+&lt;p&gt;Every system, from simple to complex, is subject to unpredictable events and conditions if it runs long enough.
+Examples include increase in load, hardware malfunction,
+deployment of faulty software, and the introduction of invalid data (sometimes known as poison data).&lt;/p&gt;
+
+&lt;p&gt;The most common ones fall under the following categories:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Hardware failures&lt;/li&gt;
+  &lt;li&gt;Functional bugs&lt;/li&gt;
+  &lt;li&gt;State transmission errors (e.g., inconsistency of states between sender and receiver nodes)&lt;/li&gt;
+  &lt;li&gt;Network latency and partition&lt;/li&gt;
+  &lt;li&gt;Large fluctuations in input (up or down) and retry storms&lt;/li&gt;
+  &lt;li&gt;Resource exhaustion&lt;/li&gt;
+  &lt;li&gt;Unusual or unpredictable combinations of interservice communication&lt;/li&gt;
+  &lt;li&gt;Byzantine failures (e.g., a node believing it has the most current data when it actually does not)&lt;/li&gt;
+  &lt;li&gt;Race conditions&lt;/li&gt;
+  &lt;li&gt;Downstream dependencies malfunction&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Real World Examples:&lt;/p&gt;
+
+&lt;p&gt;At Netflix, they turn off machines because instance termination happens frequently in the wild and the act of turning off a server is cheap and easy.
+They simulate regional failures even though to do so is costly and complex,
+because a regional outage has a huge impact on their customers unless they are resilient to it.&lt;/p&gt;
+
+&lt;p&gt;Consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident.
+The organization may have a contingency plan for handling the outage when the messaging app is down during an outage,
+but how well do the on-call engineers know the contingency plan?
+Running a chaos experiment is a great way to find out.&lt;/p&gt;
+
+&lt;h3 id=&quot;design-and-run-the-experiment&quot;&gt;Design and run the experiment&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pick one hypothesis&lt;/li&gt;
+  &lt;li&gt;Scope your experiment (the closer you are to production the more you will learn about the results)&lt;/li&gt;
+  &lt;li&gt;Identify the relevant metrics to measure&lt;/li&gt;
+  &lt;li&gt;Notify the organization&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Prioritize events either by potential impact or estimated frequency.
+Consider events that correspond to hardware failures like servers dying, software failures like malformed responses,
+and non-failure events like a spike in traffic or a scaling event.
+Any event capable of disrupting steady state is a potential variable in a Chaos experiment.&lt;/p&gt;
+
+&lt;p&gt;One of the most important things during the experiment phase is understanding the potential blast radius of the experiment and the failure you’re injecting — and minimize it.
+You’ll almost certainly want to start out in your test environment to do a dry run before you move into production.
+Once you do move to production, you’ll want to start out with experiments that impact the minimal amount of customer traffic.
+For example, if you’re investigating what happens when your cache times out,
+you could start by calling into your production system using a test client, and just inducing the timeouts for that client.&lt;/p&gt;
+
+&lt;p&gt;Some good questions you can ask yourself to check the blast radius are:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;How many customers are affected?&lt;/li&gt;
+  &lt;li&gt;What functionality is impaired?&lt;/li&gt;
+  &lt;li&gt;Which locations are impacted?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also try to have some sort of ‘emergency button’ you can use to cancel the experiment or to return to the normal state of the system in case you cannot find a solution.
+Be careful with experiments that modify the application state (cache or databases) or that can’t be rolled back easily or at all.&lt;/p&gt;
+
+&lt;p&gt;Eventually when you start doing Chaos Experiments in your production environment,
+you want to inform members of your organization about what you’re doing, why you’re doing it and when.&lt;/p&gt;
+
+&lt;h3 id=&quot;learn-and-verify&quot;&gt;Learn and verify&lt;/h3&gt;
+
+&lt;p&gt;In order to learn and verify you need to measure. Invest in measuring everything!
+After the test you can use your collected metrics to check if your hypothesis is correct.&lt;/p&gt;
+
+&lt;p&gt;Another important metric during this phase, is the time it takes to detect the problem. 
+You do not want your customers to be the ones that detect the problem. 
+So, use Chaos Engineering as a way of testing your monitoring and alerting systems as well.&lt;/p&gt;
+
+&lt;p&gt;There are several ways that you can expand the testing in order to increase your knowledge and find potential solutions.
+Once you’ve resolved one area of concern, reset the testing criteria or parameters and run the experiment again with a new hypothesis.
+You can also expand the blast radius by increments with each test,
+introducing new or more powerful stressors into the testing environment in order to gauge the limits of your system.
+The idea is to introduce as much controlled chaos into the mix, one element at a time,
+in order to determine the maximum limits of your system before it breaks down completely.
+This can be done by introducing automation after the initial test.&lt;/p&gt;
+
+&lt;p&gt;Always do a Post Mortem of the experiment.
+A few questions the team can ask themselves during this phase:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Time to detect?&lt;/li&gt;
+  &lt;li&gt;Time for notification? And escalation?&lt;/li&gt;
+  &lt;li&gt;Time to public notification?&lt;/li&gt;
+  &lt;li&gt;Time for graceful degradation to kick-in?&lt;/li&gt;
+  &lt;li&gt;Time for self-healing?&lt;/li&gt;
+  &lt;li&gt;Time to recovery — partial and full?&lt;/li&gt;
+  &lt;li&gt;Time to all-clear and stable?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;At AWS, the output from the Post Mortem is called a Correction-of-Errors document, or COE.
+They use COE to learn from their mistakes, whether they’re flaws in technology, process, or even the organization.
+They use this mechanism to resolve root causes and drive continuous improvement.
+The key to being successful in this process is being open and transparent about what went wrong.
+One of the most important guidelines for writing a good COE is to be blameless and avoid identifying individuals by name.&lt;/p&gt;
+
+&lt;p&gt;There are five main sections in a COE document:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;What happened? (Timeline)&lt;/li&gt;
+  &lt;li&gt;What was the impact to our customers?&lt;/li&gt;
+  &lt;li&gt;Why did the error occur? (The 5 Why’s)&lt;/li&gt;
+  &lt;li&gt;What did you learn?&lt;/li&gt;
+  &lt;li&gt;And how will you prevent it from happening again in the future?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;improve-and-fix-it&quot;&gt;Improve and fix it&lt;/h3&gt;
+
+&lt;p&gt;The most important lesson here is to prioritize fixing the findings of your chaos experiments over developing new features!
+Get upper management to enforce that process and buy into the idea that fixing current issues is more important than continuing the development of new features.&lt;/p&gt;
+
+&lt;h2 id=&quot;manually-vs-auto&quot;&gt;Manually VS Auto&lt;/h2&gt;
+
+&lt;p&gt;Using Chaos Engineering may be as simple as manually running ‘kill -9’ on a box inside of your staging environment to simulate failure of a service.
+Or it can be as sophisticated as automatically designing and carrying out experiments in a production environment against a small but statistically significant fraction of live traffic.
+So, when starting out, it is a good practice to manually make your experiments and check the results,
+but running experiments manually is labor-intensive and ultimately unsustainable.
+So try to automate experiments and run them continuously.&lt;/p&gt;
+
+&lt;h2 id=&quot;chaos-gamedays--benefits&quot;&gt;Chaos GameDays &amp;amp; benefits&lt;/h2&gt;
+
+&lt;p&gt;Chaos GameDays are often known as days where a ‘Master of Disaster’ or a MoD, often in secret,
+will decide what kind of failure or disaster will happen on the system.
+He or she will generally start with something simple like the loss of capacity or the loss of connectivity.
+You may find, that until you can easily and clearly see the simple cases,
+doing harder or more complex failures is not a good way to build confidence or spend time.&lt;/p&gt;
+
+&lt;p&gt;If you follow this process regularly, you will see a transformation in your team.
+Being first on-call for Chaos GameDays builds composure under pressure when doing on-call for production outages.
+Not only will all developers gain confidence in their uderstanding of the systems and how they fail,
+but they also get used to the feeling of being under pressure.&lt;/p&gt;
+
+&lt;p&gt;There will also be a dramatic change in your systems, since developers will experience failure as a part of their job and thus, they will start designing for failure.
+They consider how to make every change and every system observable and also carefully choose resilience strategies because this is now something the team knows and talks about during the experiments.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;planned-failure&quot;&gt;Planned Failure&lt;/h3&gt;
+
+&lt;p&gt;The MoD will gather the team before the ‘start of the incident’ and then will start with the planned failure. 
+Normally there will be one member of the team who will be ‘first on-call’.
+This person is strongly encouraged to contact the other members
+so they can start working together and find out what failure the MoD has caused.
+Ideally, the team will find and solve the issue in less than 75% of the allocated time.
+When the team has a solution for the issue or the allocated time has ended,
+the MoD will reverse the failure and the team will proceed to do a Post Mortem of the incident.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;escalation&quot;&gt;Escalation&lt;/h3&gt;
+
+&lt;p&gt;It is also possible that the team will not be able to find a solution for the problem.
+Then the MoD can escalate this failure to make it more visible,
+because often full outages are the only observable failures.
+Knowing this is the first step in fixing your instrumentation and visualization (FE. Dashboards with monitoring…)&lt;/p&gt;
+
+&lt;h3 id=&quot;post-mortem&quot;&gt;Post Mortem&lt;/h3&gt;
+
+&lt;p&gt;A Post Mortem is the stage in which the team will analyze the failure and the solution.
+This can consist of sharing perspectives, assumptions that were made, expectations that didn’t reflect the behavior of the system or observability tools.
+Following out of the Post Mortem,
+the team should have come up with a set of actions to fix any observability issues for the scenario and some ideas about how to improve resilience to that failure.&lt;/p&gt;
+
+&lt;p&gt;The Post Mortem should follow the usual incident process if you have one in your company.&lt;/p&gt;
+
+&lt;h2 id=&quot;simian-army&quot;&gt;Simian Army&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;
+  &lt;img alt=&quot;Must Have&quot; src=&quot;/img/2020-12-14-chaos-engineering/SimianArmySmall.jpg&quot; width=&quot;40%&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Netflix has already developed some tools which they bundled in their suite of tools named ‘The Simian Army’.
+These tools were made to test reliability, security and resilience of its AWS infrastructure.
+The Simian Army is designed to add more capabilities beyond Chaos Monkey. 
+While Chaos Monkey solely handles termination of random instances,
+Netflix engineers needed additional tools able to induce other types of failure.
+Some of the Simian Army tools have fallen out of favor in recent years and are deprecated,
+but each of the members serves a specific purpose aimed at bolstering a system’s failure resilience.&lt;/p&gt;
+
+&lt;h3 id=&quot;chaos-monkey-still-available-as-a-standalone-service&quot;&gt;Chaos Monkey (Still available as a standalone service)&lt;/h3&gt;
+
+&lt;p&gt;Chaos Monkey is a tool invented to test the resilience of its IT infrastructure. 
+It works by intentionally disabling virtual machine instances and containers in the production network to test how remaining systems respond to the outage. (prepares you for a random instance failure in an application managed by Spinnaker)
+This tool has been in the game for a long time, so there might be better tools for your needs.&lt;/p&gt;
+
+&lt;p&gt;Chaos Monkey is deliberately unpredictable.
+It only has one attack type: terminating virtual machine instances.
+You set a general time frame for it to run, and at some point during that time it will terminate a random instance. 
+This is meant to help replicate unpredictable production incidents,
+but it can easily cause more harm than good if you’re not prepared to respond.&lt;/p&gt;
+
+&lt;h3 id=&quot;janitor-monkey--replaced-by-new-standalone-service-swabbie-still-available&quot;&gt;Janitor Monkey =&amp;gt; replaced by new standalone service ‘Swabbie’ (Still available)&lt;/h3&gt;
+
+&lt;p&gt;Identifies and disposes unused resources to avoid waste and clutter.&lt;/p&gt;
+
+&lt;h3 id=&quot;conformity-monkey--now-rolled-out-in-spinnaker-services-still-available&quot;&gt;Conformity Monkey =&amp;gt; now rolled out in spinnaker services (Still available)&lt;/h3&gt;
+
+&lt;p&gt;A tool that determines whether an instance is nonconforming by testing it against a set of rules.
+If any of the rules determines that the instance is not conforming, the monkey sends an email notification to the owner of the instance.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chaos-kong-deprecated-or-not-publicaly-released&quot;&gt;Chaos Kong (deprecated or not publicaly released)&lt;/h3&gt;
+
+&lt;p&gt;At the very top of the Simian Army hierarchy, Chaos Kong drops a full AWS “Region”. 
+Though rare, loss of an entire region does happen, and Chaos Kong simulates a systems response and recovery to this type of event.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chaos-gorilla-deprecated-or-not-publicaly-released&quot;&gt;Chaos Gorilla (deprecated or not publicaly released)&lt;/h3&gt;
+
+&lt;p&gt;Chaos Gorilla drops a full AWS “Availability Zone” (one or more entire data centers serving a geographical region).&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;latency-monkey-deprecated-or-not-publicaly-released&quot;&gt;Latency Monkey (deprecated or not publicaly released)&lt;/h3&gt;
+
+&lt;p&gt;Introduces communication delays to simulate degradation or outages in a network.
+Netflix never publicly released the Latency Monkey code, and it eventually evolved into their Failure Injection Testing (FIT) service.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;fit-failure-injection-testing&quot;&gt;FIT (Failure Injection Testing)&lt;/h3&gt;
+
+&lt;p&gt;FIT was built to inject microservice level failures.
+Latency monkey adds a delay and/or failure on the server side of a request for a given service.
+This provides us good insight into how calling applications behave when their dependency slows down — 
+threads pile up, the network becomes congested, etc.
+Latency monkey also impacts all calling applications — whether they want to participate or not,
+and can result in customer pain if proper fallback handling, timeouts, and bulkheads don’t work as expected.
+What we need is a way to limit the impact of failure testing while still breaking things in realistic ways.
+This is where FIT comes in.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;doctor-monkey-deprecated-or-not-publicaly-released&quot;&gt;Doctor Monkey (deprecated or not publicaly released)&lt;/h3&gt;
+
+&lt;p&gt;Performs health checks, by monitoring performance metrics such as CPU load to detect unhealthy instances,
+for root-cause analysis and eventual fixing or retirement of the instance.
+Doctor Monkey is not open-sourced, but most of its functionality is built into other tools like Spinnaker, 
+which includes a load balancer health checker,
+so instances that fail certain criteria are terminated and immediately replaced by new ones.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;security-monkey-still-available-but-will-be-end-of-life-in-2020&quot;&gt;Security Monkey (Still available but will be end-of-life in 2020)&lt;/h3&gt;
+
+&lt;p&gt;Derived from Conformity Monkey, a tool that searches for and disables instances that have known vulnerabilities or improper configurations.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;10-18-monkey-deprecated-or-not-publicaly-released&quot;&gt;10-18 Monkey (deprecated or not publicaly released)&lt;/h3&gt;
+
+&lt;p&gt;A tool that detects problems with localization and internationalization (known by the abbreviations “l10n” and “i18n”)
+for software serving customers across different geographic regions.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;other-tools-for-chaos-engineering&quot;&gt;Other Tools for Chaos Engineering&lt;/h2&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chap-chaos-automation-platform&quot;&gt;ChAP (Chaos Automation Platform)&lt;/h3&gt;
+
+&lt;p&gt;ChAP was built to overcome the limitations of FIT so we can increase the safety, cadence, and breadth of experimentation.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;byte-monkey&quot;&gt;Byte-Monkey&lt;/h3&gt;
+
+&lt;p&gt;A small Java library for testing failure scenarios in JVM applications.
+It works by instrumenting application code on the fly to deliberately introduce faults such as exceptions and latency.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chaosblade-by-alibaba&quot;&gt;ChaosBlade By Alibaba&lt;/h3&gt;
+
+&lt;p&gt;ChaosBlade is a versatile tool supporting a wide range of experiment types and target platforms.
+However, it lacks some useful features such as centralized reporting, experiment scheduling, target randomization, and health checks. 
+It’s a great tool if you’re new to Chaos Engineering and want to experiment with different attacks.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chaos-machine&quot;&gt;Chaos Machine&lt;/h3&gt;
+
+&lt;p&gt;ChaosMachine is a tool that does chaos engineering at the application level in the JVM.
+It concentrates on analyzing the error-handling capability of each try-catch block involved in the application by injecting exceptions.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;proofdock-chaos-engineering-platform&quot;&gt;Proofdock Chaos Engineering Platform&lt;/h3&gt;
+
+&lt;p&gt;A chaos engineering platform that focuses on and leverages the Microsoft Azure platform and the Azure DevOps services.
+Users can inject failures on the infrastructure, platform and application level.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;gremlin-platform&quot;&gt;Gremlin platform&lt;/h3&gt;
+
+&lt;p&gt;A “failure-as-a-service” platform built to make the Internet more reliable.
+It turns failure into resilience by offering engineers a fully hosted solution to safely experiment on complex systems,
+in order to identify weaknesses before they impact customers and cause revenue loss.
+Unlike Chaos Monkey, tools like FIT and Gremlin are able to test for a wide range of failure states beyond simple instance destruction.
+In addition to killing instances, Gremlin can fill available disk space,
+hog CPU and memory, overload IO, perform advanced network traffic manipulation, terminate processes, and much more.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;facebook-storm&quot;&gt;Facebook Storm&lt;/h3&gt;
+
+&lt;p&gt;To prepare for the loss of a datacenter, Facebook regularly tests the resistance of its infrastructures to extreme events.
+Known as the Storm Project, the program simulates massive data center failures.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chaoslingr&quot;&gt;ChaoSlingr&lt;/h3&gt;
+
+&lt;p&gt;ChaoSlingr is the first Open Source application of Chaos Engineering to Cyber Security.
+ChaoSlingr is focused primarily on performing security experimentation on AWS Infrastructure to proactively discover system security weaknesses in complex distributed system environments.
+Published on Github in September 2017.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chaos-toolkit-by-chaosiq&quot;&gt;Chaos Toolkit by ChaosIQ&lt;/h3&gt;
+
+&lt;p&gt;The Chaos Toolkit was born from the desire to simplify access to the discipline of chaos engineering and demonstrate that the experimentation approach can be done at different levels: infrastructure, platform but also application. The Chaos Toolkit is an open-source tool.
+Few tools are as flexible in how they let you design chaos experiments.
+Chaos Toolkit gives you full control over how your experiments operate, right down to the commands executed on the target system.
+But because of this DIY approach, Chaos Toolkit is more of a framework that you need to build on than a ready-to-go Chaos Engineering solution&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;mangle&quot;&gt;Mangle&lt;/h3&gt;
+
+&lt;p&gt;Mangle enables you to run chaos engineering experiments seamlessly against applications and infrastructure components to assess resiliency and fault tolerance.
+It is designed to introduce faults with very little pre-configuration and can support any infrastructure that you might have including K8S,
+Docker, vCenter or any Remote Machine with ssh enabled.
+With its powerful plugin model,
+you can define a custom fault of your choice based on a template and run it without building your code from scratch.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;chaos-mesh-by-pingcap&quot;&gt;Chaos Mesh by PingCAP&lt;/h3&gt;
+
+&lt;p&gt;Chaos Mesh is an open-source cloud-native Chaos Engineering platform that orchestrates chaos experiments in Kubernetes environments.
+It supports comprehensive types of failure simulation, including Pod failures, container failures,
+network failures, file system failures, system time failures, and kernel failures.&lt;br /&gt;
+Chaos Mesh is one of the few open source tools to include a fully-featured web user interface (UI) called the Chaos Dashboard.
+However, its biggest limitations are its lack of node-level experiments,
+lack of native scheduling, and lack of time limits on ad-hoc experiments.&lt;/p&gt;
+
+&lt;h3 class=&quot;no_toc&quot; id=&quot;litmus-chaos&quot;&gt;Litmus Chaos&lt;/h3&gt;
+
+&lt;p&gt;LitmusChaos is a toolset to do cloud-native chaos engineering.
+Litmus provides tools to orchestrate chaos on Kubernetes to help SREs find weaknesses in their deployments.
+SREs use Litmus to run chaos experiments initially in the staging environment and eventually in production to find bugs,
+vulnerabilities. Fixing the weaknesses leads to increased resilience of the system.&lt;/p&gt;
+
+&lt;p&gt;While Litmus is a comprehensive tool with many useful attacks and monitoring features, it comes with a steep learning curve.
+Simply running an experiment is a multi-step process that involves setting permissions and annotating deployments.
+Workflows help with this, especially when used through the Litmus Portal, but they still add an extra layer of complexity.
+This isn’t helped by the fact that some features—like the Litmus Portal itself—don’t appear in the documentation and are only available through the project’s GitHub repository.&lt;/p&gt;
+
+&lt;h2 class=&quot;no_toc&quot; id=&quot;which-tool-is-right-for-me&quot;&gt;Which tool is right for me?&lt;/h2&gt;
+
+&lt;p&gt;Ultimately, the goal of any Chaos Engineering tool is to help you achieve greater reliability.
+The question is: which tool will help you achieve that goal faster and more easily? 
+This question of course depends on your tech stack, the experience and expertise of your engineering team,
+and how much time you can dedicate to testing and evaluating each tool.&lt;/p&gt;
+
+&lt;p&gt;The following table are just a handful of tools which are interesting for our preferred stack.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Tool&lt;/th&gt;
+      &lt;th&gt;platform&lt;/th&gt;
+      &lt;th&gt;Attack types&lt;/th&gt;
+      &lt;th&gt;App Attacks&lt;/th&gt;
+      &lt;th&gt;Container / Pod attacks&lt;/th&gt;
+      &lt;th&gt;GUI ?&lt;/th&gt;
+      &lt;th&gt;CLI ?&lt;/th&gt;
+      &lt;th&gt;Metrics&lt;/th&gt;
+      &lt;th&gt;Attack Sharing&lt;/th&gt;
+      &lt;th&gt;Attack Halting&lt;/th&gt;
+      &lt;th&gt;Attack Scheduling&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chaos Monkey&lt;/td&gt;
+      &lt;td&gt;Spinnaker&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Gremlin&lt;/td&gt;
+      &lt;td&gt;SaaS&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chaos Blade&lt;/td&gt;
+      &lt;td&gt;K8S, Docker, Cloud, Bare metal&lt;/td&gt;
+      &lt;td&gt;40&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chaos Toolkit&lt;/td&gt;
+      &lt;td&gt;K8S, Docker, Cloud, Bare metal&lt;/td&gt;
+      &lt;td&gt;depends on driver&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chaos Mesh&lt;/td&gt;
+      &lt;td&gt;K8S&lt;/td&gt;
+      &lt;td&gt;17&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Litmus&lt;/td&gt;
+      &lt;td&gt;K8S&lt;/td&gt;
+      &lt;td&gt;39&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+      &lt;td&gt;true&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;!! Chaos Toolkit is the only tool you can use to create Custom Attacks with !!&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Any organization that builds and operates a distributed system and wishes to achieve a high rate of development velocity will want to add Chaos Engineering to their collection of approaches for improving resiliency.&lt;/p&gt;
+
+&lt;p&gt;Chaos Engineering is still a very young field, and the techniques and associated tooling are still evolving.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://principlesofchaos.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Principles of Chaos&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.oreilly.com/content/chaos-engineering/#chapter_cmm&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;O’Reilly Chaos Engineering paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Chaos_engineering#History&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bmc.com/blogs/chaos-monkey/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chaos Monkey&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/Netflix/SimianArmy&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Simian Army&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://netflixtechblog.com/fit-failure-injection-testing-35d8e2a9bb2&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;FIT by Netflix&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://netflixtechblog.com/chap-chaos-automation-platform-53e6d528371f&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chaos Automation Platform&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.gremlin.com/community/tutorials/how-to-run-a-gameday/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;How to run a Chaos GameDay&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://adhorn.medium.com/chaos-engineering-ab0cc9fbd12a&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chaos Engineering post&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.gremlin.com/chaos-monkey/the-simian-army/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gremlin - Chaos Engineering&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.gremlin.com/community/tutorials/chaos-engineering-tools-comparison/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gremlin - Chaos Engineering tools&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://response.pagerduty.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PagerDuty - Post Mortem&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Verte&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-verte/&quot;, &quot;avatar&quot;=&gt;&quot;tim-verte.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;tim.verte@ordina.be&quot;, &quot;phone&quot;=&gt;32472466091, &quot;bio&quot;=&gt;&quot;Tim is a Java consultant at Ordina Belgium. He enjoys to discover new technologies and challenges. Besides his work he has a keen interest in everything that involves sports and music.&quot;}</name><email>tim.verte@ordina.be</email></author><category term="Cloud" /><category term="Chaos Engineering" /><category term="DevOps" /><category term="Chaos" /><category term="Backend" /><category term="Netflix" /><category term="Simian Army" /><category term="Resiliency" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Serverless Kubernetes deployments with AWS Fargate</title><link href="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html" rel="alternate" type="text/html" title="Serverless Kubernetes deployments with AWS Fargate" /><published>2020-12-10T00:00:00+00:00</published><updated>2020-12-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html">&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;An AWS account&lt;/li&gt;
   &lt;li&gt;kubectl, aws-cli &amp;amp; eksctl installed&lt;/li&gt;
@@ -73,7 +699,7 @@ spring-boot-docker-6656b9d9fb-h82pk   1/1       Running   0          2m26s
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;So right now we have a fully functioning Kubernetes cluster without having to touch or set up any nodes or configuration.
 Fargate takes away all the stress of maintaining and scaling worker nodes, so you can concentrate on the actual deployment of your application(s) and not worry about cluster resources.
-Of course, you would still need additional resources to access your application from outside the cluster, but it’s not covered in this post as this does not fall under the Fargate scope.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Fargate" /><category term="Kubernetes" /><summary type="html">Prerequisites An AWS account kubectl, aws-cli &amp;amp; eksctl installed Some Kubernetes knowledge</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">That is Quite the Story</title><link href="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html" rel="alternate" type="text/html" title="That is Quite the Story" /><published>2020-11-25T00:00:00+00:00</published><updated>2020-11-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html">&lt;p&gt;October marked the 2020 edition of &lt;a href=&quot;https://ba-beyond.eu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the BA &amp;amp; Beyond conference&lt;/a&gt;). 
+Of course, you would still need additional resources to access your application from outside the cluster, but it’s not covered in this post as this does not fall under the Fargate scope.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Fargate" /><category term="Kubernetes" /><summary type="html">Prerequisites An AWS account kubectl, aws-cli &amp;amp; eksctl installed Some Kubernetes knowledge</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">That is Quite the Story</title><link href="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html" rel="alternate" type="text/html" title="That is Quite the Story" /><published>2020-11-25T00:00:00+00:00</published><updated>2020-11-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2020/11/25/Quite-The-Story.html">&lt;p&gt;October marked the 2020 edition of &lt;a href=&quot;https://ba-beyond.eu/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the BA &amp;amp; Beyond conference&lt;/a&gt;. 
 As with all conferences being held in these COVID-ridden times, it was a virtual gathering and there were a variety of people from across the globe that came to share their insights, experiences and opinions on topics from their respective fields of knowledge. 
 This ranged from agile practices to data science to process analysis and management. 
 For me the workshop that struck a chord was given by Lori L. Silverman (&lt;a href=&quot;https://www.partnersforprogress.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Partners for Progress&lt;/a&gt;). 
@@ -176,7 +802,7 @@ A study by Bradley R. Staats, Diwas S. KC, and Francesca Gino titled “Maintain
 &lt;p&gt;Stories are powerful tools to guide projects that need to gather actionable insight and form the decisions that are needed to move forward and address the initial requirement be it an opportunity or a problem. 
 They give a sense of familiarity to the different participants. 
 They provide a form of abstraction on the complexities of the project that can serve as a reduction of said complexities when communicating with those stakeholders that don’t need to give into the nitty-gritty details. 
-And last but not least, they present a unified way of thinking about the project that helps with the onboarding of the stakeholders as well as the marketing towards external parties.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="architecture" /><category term="business architecture" /><category term="technical leadership" /><category term="leadership" /><summary type="html">October marked the 2020 edition of the BA &amp;amp; Beyond conference). As with all conferences being held in these COVID-ridden times, it was a virtual gathering and there were a variety of people from across the globe that came to share their insights, experiences and opinions on topics from their respective fields of knowledge. This ranged from agile practices to data science to process analysis and management. For me the workshop that struck a chord was given by Lori L. Silverman (Partners for Progress). She is a leading authority on decision management and its underlying data analysis techniques and an advocate for business storytelling. This workshop was titled “Facts Tell, Stories Sell”.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-11-25-Quite-The-Story/storiesmatter.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-11-25-Quite-The-Story/storiesmatter.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Monitoring Spring Boot with Prometheus and Grafana</title><link href="https://ordina-jworks.github.io/monitoring/2020/11/16/monitoring-spring-prometheus-grafana.html" rel="alternate" type="text/html" title="Monitoring Spring Boot with Prometheus and Grafana" /><published>2020-11-16T00:00:00+00:00</published><updated>2020-11-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/monitoring/2020/11/16/monitoring-spring-prometheus-grafana</id><content type="html" xml:base="https://ordina-jworks.github.io/monitoring/2020/11/16/monitoring-spring-prometheus-grafana.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+And last but not least, they present a unified way of thinking about the project that helps with the onboarding of the stakeholders as well as the marketing towards external parties.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="architecture" /><category term="business architecture" /><category term="technical leadership" /><category term="leadership" /><summary type="html">October marked the 2020 edition of the BA &amp;amp; Beyond conference. As with all conferences being held in these COVID-ridden times, it was a virtual gathering and there were a variety of people from across the globe that came to share their insights, experiences and opinions on topics from their respective fields of knowledge. This ranged from agile practices to data science to process analysis and management. For me the workshop that struck a chord was given by Lori L. Silverman (Partners for Progress). She is a leading authority on decision management and its underlying data analysis techniques and an advocate for business storytelling. This workshop was titled “Facts Tell, Stories Sell”.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-11-25-Quite-The-Story/storiesmatter.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-11-25-Quite-The-Story/storiesmatter.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Monitoring Spring Boot with Prometheus and Grafana</title><link href="https://ordina-jworks.github.io/monitoring/2020/11/16/monitoring-spring-prometheus-grafana.html" rel="alternate" type="text/html" title="Monitoring Spring Boot with Prometheus and Grafana" /><published>2020-11-16T00:00:00+00:00</published><updated>2020-11-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/monitoring/2020/11/16/monitoring-spring-prometheus-grafana</id><content type="html" xml:base="https://ordina-jworks.github.io/monitoring/2020/11/16/monitoring-spring-prometheus-grafana.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 
 &lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
@@ -3168,195 +3794,4 @@ If you want to get used to the UI and dive into this software, we would suggest 
 interface with not too many features (yet), then Infra is the right choice for you.&lt;/p&gt;
 
 &lt;p&gt;But our final advice is: just try them out yourself and see which fits your workflow best.
-Most of them share the same basic functionality and it just depends on your use-cases and workflow which one fits best.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Kubernetes" /><category term="kubectl" /><category term="tools" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-08-06-kubernetes-clients-comparison/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-08-06-kubernetes-clients-comparison/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ordina Young Professional Programme 2020 Light Edition</title><link href="https://ordina-jworks.github.io/young%20professional%20programme/2020/08/24/Ordina-Young-Professional-Programme-2020-Light-Edition.html" rel="alternate" type="text/html" title="Ordina Young Professional Programme 2020 Light Edition" /><published>2020-08-24T00:00:00+00:00</published><updated>2020-08-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/young%20professional%20programme/2020/08/24/Ordina-Young-Professional-Programme-2020-Light-Edition</id><content type="html" xml:base="https://ordina-jworks.github.io/young%20professional%20programme/2020/08/24/Ordina-Young-Professional-Programme-2020-Light-Edition.html">&lt;style&gt;
-    .image.left {
-        margin: 0;
-    }
-&lt;/style&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;The Young Professional Programme is made for starting developers who want to take their skills to the next level. 
-This year, the light edition started on the 9th of March 2020 and lasted for about 3 months. 
-We started with 4 junior developers. 
-Youri was freshly graduated from school, while Eduard, Pieter and Hannelore had professional experience in IT.
-Every one of us is mainly interested in front end web development by sheer coincidence.
-In the first month of the Young Professional Programme we followed different workshops about the preferred stack used at Ordina. Sadly, about a week in, our sessions were held remotely due to the coronavirus. 
-This made things more complicated, but because of the flexibility and effort of the mentors, 
-the sessions were still clear and educational.&lt;/p&gt;
-
-&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
-&lt;p&gt;The first few days of our training were centered around building a base for the upcoming weeks. 
-Since we all just got our laptops the day before we didn’t have anything installed on them 
-so that was the focus on the first training day.
-We got the chance to install all programs and tools required for the rest of our training, 
-like Docker, Visual Studio Code, IntelliJ, Git,…
-A variety of different editors and IDEs were shown and we were allowed to pick the ones we preferred.&lt;/p&gt;
-
-&lt;h1 id=&quot;git&quot;&gt;Git&lt;/h1&gt;
-&lt;p&gt;&lt;img class=&quot;image left small&quot; alt=&quot;Git logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/git.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We also had a session about Git which is obviously an essential tool to understand for any modern developer. 
-We saw the ins and outs of most of the Git commands and we practiced the most common ones. 
-We didn’t just see Git but also how it came to be and its predecessors. 
-Overall, it was an interesting session giving us a decent understanding of Git.&lt;/p&gt;
-
-&lt;h1 id=&quot;back-end&quot;&gt;Back end&lt;/h1&gt;
-&lt;h3 id=&quot;java&quot;&gt;Java&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;Java logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/java.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Java is a general-purpose programming language that was released in 1995, which means it has been around for 25 years. 
-It has become very popular over these years. In 2019, Java was one of the most used programming languages according to Github.
-Java is also the preferred back end language of JWorks. 
-Yannick De Turck gave us a workshop around this programming language. 
-We talked about the new features that were released with each version from Java 7 until 14. 
-In between the theory lessons we made some hands-on exercises on the new features like lambdas, streams and optionals. 
-This was also the last day before the corona outbreak in Belgium. 
-This meant the rest of the Young Professionals Programme was given remotely.&lt;/p&gt;
-
-&lt;h3 id=&quot;spring&quot;&gt;Spring&lt;/h3&gt;
-
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;Spring logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/spring.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The Spring framework is an application framework and inversion of control container for the Java platform. 
-It has become wildly popular in organizations and the Java community. 
-We followed a three-day self study course, where we read the book ‘Spring in action’ by Craig Walls. 
-This book gives you a general understanding of the Spring framework. 
-On the second day there was a short Spring Presentation by Ken Coenen. 
-Ken explained how all the Spring magic works behind the scenes 
-and talked about the common components of the full Spring framework.&lt;/p&gt;
-
-&lt;h3 id=&quot;unit-testing&quot;&gt;Unit Testing&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;JUnit logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/junit.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We also had a course about testing. We had an interactive hands-on session about multiple subjects like Test Driven Development, 
-goals of testing, what to test, fixtures, mocks and assertions.&lt;/p&gt;
-
-&lt;h3 id=&quot;databases&quot;&gt;Databases&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;PostgreSql logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/postgre-sql.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Databases are essential to the development of applications, you will almost always need some form of data storage. 
-So we followed a session with Tom Van den Bulck who showed us all kinds of databases. 
-First we saw a traditional relational database, in this case PostgreSQL, 
-a database which is widely known and used in many different projects around the world.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;MongoDB logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/mongodb.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then we stepped away from relational databases to look at other kinds. 
-More specifically MongoDB which is a non relational database, otherwise known as a NoSQL database. 
-In MongoDB’s case it’s a document store. 
-Here you don’t have a fixed schema, 
-instead you upload JSON documents which you can then easily query using an SQL style query syntax. 
-Apart from MongoDB we also learned about Cassandra, which is a NoSQL column store, and Redis, which is a key value store. 
-Last but not least we studied a graph database, namely Neo4J.&lt;/p&gt;
-
-&lt;h1 id=&quot;front-end&quot;&gt;Front end&lt;/h1&gt;
-
-&lt;h3 id=&quot;html-css-javascript&quot;&gt;HTML, CSS, Javascript&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;HtmlCssJs logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/html-css-js.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Since the Young Professional programme teaches a wide array of technologies we have seen quite a few front end technologies.
-Starting off with the basics of almost every front end technology, HTML5, CSS and JavaScript. 
-In the first part of this session we took a dive into the basics of HTML and CSS, 
-and after this we learned about the more recent features of HTML5 and CSS3. 
-The remainder of the session was mainly about JavaScript. 
-Throughout the session we had some exercises to have a bit of a hands-on approach.&lt;/p&gt;
-
-&lt;h3 id=&quot;typescript&quot;&gt;Typescript&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;Typescript logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/typescript.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Building on the basics we learned prior, we had a session about TypeScript, 
-a derivative of JavaScript that is becoming more and more popular amongst most front end frameworks 
-because of its similarity to JavaScript but also having types allowing stricter rules to be enforced 
-and less random unexplainable errors. 
-Similarly to the previous session we got an explanation on the basics of TypeScript which was then used in some exercises.&lt;/p&gt;
-
-&lt;h3 id=&quot;angular&quot;&gt;Angular&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;Angular logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/angular.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Eventually we reached the end of our front end training with a 2-day Angular course. 
-Everything we learnt the previous days was now being poured into a framework. 
-In this course we, again, saw the basics of this massive TypeScript framework. 
-We saw everything from dependency injection to property binding. 
-Angular is a framework built by Google so there are lots of features, 
-because of this we didn’t have enough time in those 2 days to really explore Angular in-depth. 
-This is the preferred front end technology in JWorks. 
-We were also going to use it in the dev case, so we would have enough time to understand it on a deeper level.&lt;/p&gt;
-
-&lt;h1 id=&quot;cloud&quot;&gt;Cloud&lt;/h1&gt;
-
-&lt;h3 id=&quot;docker&quot;&gt;Docker&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;Docker logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/docker.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;To start off our cloud education we had a session about Docker, which is essential to many cloud technologies. 
-Tom Verelst gave an interesting hand-on session where he first explained the concepts of Docker, 
-then we started writing our own yaml deployment files to set up our first full stack application.&lt;/p&gt;
-
-&lt;h3 id=&quot;kubernetes&quot;&gt;Kubernetes&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; alt=&quot;Kubernetes logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/kubernetes.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Kubernetes is an open source container orchestration framework, which is commonly used to deploy applications. 
-Pieter Vincken taught us the basics of Kubernetes. 
-We started with a presentation about the core concepts like pods, secrets and more. 
-Then we learned how to deploy and manage our Docker containers using Kubernetes. 
-During this session we got the hang of how you could manage your clusters by using various techniques provided by Kubernetes 
-like auto scaling, load balancing,… 
-It was really insightful to see how easy it is to deploy and manage your applications on a Kubernetes cluster.&lt;/p&gt;
-
-&lt;h3 id=&quot;security-principles&quot;&gt;Security Principles&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image right medium&quot; alt=&quot;Security logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/security.jpeg&quot; /&gt;
-In this day and age security is a hot topic. 
-During this session we went over the basics on how to protect your application. 
-From validating user input to database security, but also how to protect the users’ data.&lt;/p&gt;
-
-&lt;h1 id=&quot;clean-code&quot;&gt;Clean Code&lt;/h1&gt;
-&lt;p&gt;&lt;img class=&quot;image left medium&quot; style=&quot;margin: 1.5em;&quot; alt=&quot;CleanCode logo&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/clean-code.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Today, one of the most important skills a developer has is Clean Code. 
-To explore this complex topic, we read the book ‘Clean Code’ by Robert C. Martin, 
-which is one of the must reads for every programmer.
-To be able to write clean code, an understanding of what bad code is is needed. 
-This is also explained in the first chapter of the book.
-Some examples of topics in the book we still use everyday are:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Avoiding comments but using descriptive names&lt;/li&gt;
-  &lt;li&gt;Functions should be small and do one thing&lt;/li&gt;
-  &lt;li&gt;Use one word per concept&lt;/li&gt;
-  &lt;li&gt;…&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;dev-case&quot;&gt;Dev case&lt;/h1&gt;
-&lt;h3 id=&quot;introduction-1&quot;&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;For our dev case, our task was to make a fully functional web application for &lt;a href=&quot;https://www.mfccombo.be&quot; target=&quot;blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MFC Combo&lt;/a&gt;. 
-MFC Combo is an organization in youth care who guide families and children with a difficult situation at home. 
-They use the “Combobox” in their meetings with the families. 
-This is used to make communication easier and more fun.
-Right now, they have physical stickers and papers to let the child express their feelings, 
-but they want it to become digital so that it’s easier to follow up a child.&lt;/p&gt;
-
-&lt;h2 id=&quot;technology--methodologies&quot;&gt;Technology &amp;amp; Methodologies&lt;/h2&gt;
-&lt;p&gt;We worked Agile in two-weekly sprints with all the Scrum Ceremonies. 
-Azure DevOps made this process easy and made sure our code was always clean and working as expected using CI/CD. 
-For the front end, we used the Angular Framework to develop the application, combined with Jasmine and Karma for testing. Authentication was done using AWS Amplify, which is a development platform. 
-This allowed us to quickly set up the authentication and authorization of our app. 
-Sentry.io was used for front end logging and monitoring after deployment. 
-This way, we had full control over our code, from development to deployment and even after deployment.
-For the back end, we used Java Spring Boot 2.3.1. 
-Our Database was a NoSQL DynamoDB, for user management we used Cognito and finally for our file storage we used an S3 bucket. All of these services were set up in AWS. 
-This means we used the AWS Java SDK to manipulate these services in an easy and structured way.&lt;/p&gt;
-
-&lt;h3 id=&quot;result&quot;&gt;Result&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&quot;image&quot; alt=&quot;Drag &amp;amp; drop gif&quot; style=&quot;max-width: 50%; padding-left medium: 4px&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/board.gif&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After 10 sprints we created an online platform for Combobox. 
-This platform would assist them in their day-to-day operations. 
-The application included various features like: drag &amp;amp; drop capabilities, user management, file management, 
-sticker management, overview of current cases, authorization &amp;amp; authentication. 
-One of the most challenging parts of the project was the implementation of the Drag &amp;amp; Drop feature, 
-for which we created a new directive. 
-The result can be seen in the following screenshots:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image&quot; alt=&quot;Login Page&quot; style=&quot;max-width: 100%;&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/login.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image&quot; alt=&quot;Upload Page&quot; style=&quot;max-width: 100%;&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/upload.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image&quot; alt=&quot;Fox Icon&quot; src=&quot;/img/2020-03-31-Young-Professional-2020-Light/icons8-fox-48.png&quot; title=&quot;Fox icon by Icons8, those who know, will know.&quot; style=&quot;margin: auto;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hannelore&quot;, &quot;last_name&quot;=&gt;&quot;Verbraekel&quot;, &quot;permalink&quot;=&gt;&quot;/author/hannelore_verbraekel&quot;, &quot;avatar&quot;=&gt;&quot;hannelore-verbraekel.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;hannelore.verbraekel@ordina.be&quot;, &quot;github&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;linkedin&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;bio&quot;=&gt;&quot;Hannelore is a junior front-end developer who is creative and open-minded and always eager to learn new skills. She achieved her bachelor’s degree in Applied Information Technology with a focus on Web and Mobile Applications in 2019.&quot;}</name><email>hannelore.verbraekel@ordina.be</email></author><category term="Young Professional Programme" /><category term="Spring" /><category term="Spring Boot" /><category term="Angular" /><category term="Unit testing" /><category term="Mocking" /><category term="Cloud-Native" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="TypeScript" /><category term="Kickstarter" /><category term="Young Professional Program" /><category term="Security" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/kicks.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/kicks.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+Most of them share the same basic functionality and it just depends on your use-cases and workflow which one fits best.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Kubernetes" /><category term="kubectl" /><category term="tools" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-08-06-kubernetes-clients-comparison/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-08-06-kubernetes-clients-comparison/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
