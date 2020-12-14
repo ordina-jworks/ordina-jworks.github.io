@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [kevin_van_den_abeele]
-title: "Building a custom YoloV5 Ordina logo detector"
+title: "Building a custom YOLOv5 Ordina logo detector"
 image: /img/2020-12-20-ordina-logo-detector/banner.jpeg
-tags: [Ordina, JWorks, AI, ML, Machine Learning, Artificial Intelligence, Yolo, image detection, object detection, cuda, nvidia, training]
+tags: [Ordina, JWorks, AI, ML, Machine Learning, Artificial Intelligence, YOLO, YOLOv5, image detection, object detection, cuda, nvidia, training, coco, dataset, image recognition]
 category: IoT
 comments: true
 ---
