@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [tim_verte]
-title: 'Chaos Engineering'
+title: 'Introduction into the world of Chaos Engineering'
 image: /img/2020-12-14-chaos-engineering/thumbnail.jpg
 tags: [Chaos Engineering, DevOps, Chaos, Backend, Netflix, Simian Army, Resiliency]
 category: Cloud
@@ -20,8 +20,8 @@ comments: true
 
 ## Introduction
 
-In Cloud-based distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen.
-Because these networks are more complex and have built-in uncertainty by the nature of how they function,
+In cloud-based distributed networks we need a certain level of scalability and resilience because unpredictable events are bound to happen.
+Because these networks are more complex and have built-in uncertainty,
 it's essential for software developers to utilize an empirical approach to testing for vulnerabilities that's systematic and innovative.
 This can be achieved through controlled experimentation that creates chaos in an effort to determine how much stress any given system can withstand.
 The goal is to observe and identify systemic weaknesses.
@@ -33,7 +33,7 @@ You can think of Chaos Engineering as an empirical approach to addressing the qu
 Another way to think about this is: “How would our system fare if we injected chaos into it?”
 It is not meant to break random things without a purpose. 
 
-However if you or the team is just starting with Chaos Engineering and you are not confident enough to work in the production environment,
+However if you and your team are just starting with Chaos Engineering and you are not confident enough to work in the production environment,
 you can also do the experiments in another controlled environment (TST, DEV, ...).
 
 Building confidence is key! You do not want to break things in production without being able to find a solution.
@@ -166,7 +166,7 @@ At Netflix, they turn off machines because instance termination happens frequent
 They simulate regional failures even though to do so is costly and complex,
 because a regional outage has a huge impact on their customers unless they are resilient to it.
 
-Or consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident.
+Consider an organization that uses a messaging app such as Slack or HipChat to communicate during an incident.
 The organization may have a contingency plan for handling the outage when the messaging app is down during an outage,
 but how well do the on-call engineers know the contingency plan?
 Running a chaos experiment is a great way to find out.
@@ -199,7 +199,7 @@ Also try to have some sort of 'emergency button' you can use to cancel the exper
 Be careful with experiments that modify the application state (cache or databases) or that can’t be rolled back easily or at all.
 
 Eventually when you start doing Chaos Experiments in your production environment,
-you will want to inform members of your organization about what you're doing, why you're doing it and when.
+you want to inform members of your organization about what you're doing, why you're doing it and when.
 
 ### Learn and verify
 
@@ -259,7 +259,7 @@ So try to automate experiments and run them continuously.
 
 Chaos GameDays are often known as days where a 'Master of Disaster' or a MoD, often in secret,
 will decide what kind of failure or disaster will happen on the system.
-He or She will generally start with something simple like the loss of capacity or the loss of connectivity.
+He or she will generally start with something simple like the loss of capacity or the loss of connectivity.
 You may find, that until you can easily and clearly see the simple cases,
 doing harder or more complex failures is not a good way to build confidence or spend time. 
 
@@ -471,7 +471,7 @@ lack of native scheduling, and lack of time limits on ad-hoc experiments.
 ### Litmus Chaos
 {:.no_toc}
 
-LitmusChaos Litmus is a toolset to do cloud-native chaos engineering.
+LitmusChaos is a toolset to do cloud-native chaos engineering.
 Litmus provides tools to orchestrate chaos on Kubernetes to help SREs find weaknesses in their deployments.
 SREs use Litmus to run chaos experiments initially in the staging environment and eventually in production to find bugs,
 vulnerabilities. Fixing the weaknesses leads to increased resilience of the system.
