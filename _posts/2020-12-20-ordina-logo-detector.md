@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [kevin_van_den_abeele]
-title: "Custom YoloV5 Ordina logo detector"
+title: "Building a custom YoloV5 Ordina logo detector"
 image: /img/2020-12-20-ordina-logo-detector/banner.jpeg
 tags: [Ordina, JWorks, AI, ML, Machine Learning, Artificial Intelligence, Yolo, image detection, object detection, cuda, nvidia, training]
 category: IoT
@@ -29,15 +29,15 @@ comments: true
 Machine learning is here to stay.
 It's also a must look into type of thing for a lot of people.
 However making a fully custom model to do a specific task is very hard.
-This blogpost will go into detail how to take a prebuilt/trained model and use it for our own purpose.
-We will take the YoloV5 model and retrain it with a fully custom dataset to detect the company logo.
-Read on down below and folow along for the ride.
+This blog post will go into detail how to take a prebuilt/trained model and use it for our own purpose.
+We will take the YOLOv5 model and retrain it with a fully custom dataset to detect the company logo.
+Read on down below and follow along for the ride.
 
-Please note that if you want to test this by yourself it is advised to have a decent computer with a CUDA capable GPU or use an online platform like Google Colab.
+Please note that if you want to test this by yourself it is advised to have a decent computer with an NVidia CUDA capable GPU or use an online platform like Google Colab.
 
 ## Yolo V5
 
-YoloV5 is the firth mayor iteration for the `You Only Look Once` model.
+YOLOv5 is the firth mayor iteration for the `You Only Look Once` model.
 It's a very high performing and popular model for performing object detection.
 The model is fully open source and is trained on the CoCo dataset and can perform detections of about 80 classes of objects.
 It's also relatively easy to retrain the model with custom data so it can perform detection on other things than the CoCo dataset & objects.
@@ -48,7 +48,7 @@ The speed and accuracy is quite impressive, make sure to give it a try!
 The model has different sizes that can be used, each specific size has pro/contras.
 The larger models will perform better but require a lot more compute power.
 
-<img alt="YoloV5 model sizes" src="{{ '/img/2020-12-20-ordina-logo-detector/v5-model-sizes.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="YoloV5 model sizes" src="{{ '/img/2020-12-20-ordina-logo-detector/v5-model-sizes.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 For this example we will be retraining the large model, since I have a decent NVidia GPU I can use.
 
@@ -59,15 +59,15 @@ It has an immense effect on the training process.
 
 For our custom logo detection I've made about 100 photos of the Ordina logo if different forms and under different conditions.
 It's very important that there are a lot of different images and most single images should have different versions with slight alterations.
-This can be a very time consuming thing to do! 
+This can be a very time consuming thing to do!
 As we will later see there are tools to help with this!
 
 Making and gathering photos with the logo is only one part of the preparations that need to be done.
 The second part can be even more tedious but is quintessential to the training process.
-The photos need to be labelled. 
-This means creating a file that defines where the logos are in ther photo.
+The photos need to be labelled.
+This means creating a file that defines where the logos are located in the photo.
 
-A tool for doing this is Labelimg. 
+This can be done by hand, but it's easier to use a decent tool, one of the tools that can do this is Labelimg.
 An open source tool for annotating images.
 It is a python program that can be run on most operating systems.
 
@@ -75,21 +75,21 @@ Annotating is simple yet time consuming.
 We run the program, select the folder where all the images are stored and manually go over each photo, drawing a bounding box over each Ordina logo and saving the data before moving on to the next photo.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/label-img.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/label-img.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/label-img.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/label-img.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 46%; display: inline-block;">
     </a>
 </div>
 
 ## RoboFlow
 
 Once the data is labelled we want to use it to our advantage.
-A single photo can be skewed, blurred, pixellation added, hue moved (preferably a combination of all).
+A single photo can be skewed, blurred, pixelation added, hue moved (preferably a combination of all).
 This allows a single photo to become many more versions.
 
-The manual method for doing this could involve using photoshop macros on all the photos, then adding the annotations for the newly generated files.
+The manual method for doing this could involve using Photoshop macros on all the photos, then adding the annotations for the newly generated files.
 There are however tools that manage this for us.
 One of these tools is RoboFlow, an online dataset management system.
 RoboFlow allows you to upload images and add "augmentations" to the images.
@@ -100,52 +100,53 @@ The photos in the dataset are subdivided into three categories:
 
 - Training: Used for training the model
 - Validation: Used for hyperparameter tuning during the training process
-- Testing: Used to evalute the model in each epoch
+- Testing: Used to evaluate the model in each epoch
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 27%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 21%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+     <a href="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 13%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+     <a href="{{ '/img/2020-12-20-ordina-logo-detector/dataset-overview.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/dataset-overview.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 26%; display: inline-block;">
     </a>
 </div>
 
 Once we have added the photos and the augmentations we can generate a version of the dataset and use the link to the dataset zip file to retrain the model.
-It's very important to select the correct export format, being Yolo V5 pytorch.
+It's very important to select the correct export format, being YOLOv5 pytorch.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.png' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
     </a>
 </div>
 
 ## Training the model
 
-For training the model I used the excellent blogpost on the RoboFlow blog as a starting point, combined with the "Train-Custom-Data" section on the YoloV5 github wiki.
-I did use Google collab for the first try and it does work, be it slower than on my personal machine.
+For training the model I used the excellent blog post on the RoboFlow blog as a starting point, combined with the "Train-Custom-Data" section on the YoloV5 github wiki.
+I did use Google Colab for the first try and it does work, be it slower than on my personal machine.
 
 Doing the training locally requires python3 and pip to be installed, virtualenv to be setup and the correct NVidia drivers to be loaded (at least on debian).
-I created a new folder in which I cloned the yoloV5 repo and created a new python virtual environment and started Jupyter notebook.
+I created a new folder in which I cloned the YOLOv5 repo and created a new python virtual environment and started Jupyter notebook.
 The [RoboFlow Google Colab](https://colab.research.google.com/drive/1gDZ2xcTOgR39tGGs-EZ6i3RTs16wmzZQ){:target="_blank" rel="noopener noreferrer"} is a great place to start.
 I copied all the steps over, making edits to allow it to run on my local machine.
-If you want to test this too, just copy the Collab to your own Google Drive and start it from there. 
+If you want to test this too, just copy the Google Colab file to your own Google Drive and start it from there.
 Google will even give you a cloud based GPU to use, for free!
 
 The retraining process contains these main steps:
+
 - Clone the YoloV5 repo, install any dependencies
 - Download the dataset zip file and extract its contents
 - Process the data generated in the dataset, choosing the size of the Yolo model to retrain and setting the number of classes that are in the dataset
-- Retrain the model by using the 'train.py' file in the yoloV5 repo
+- Retrain the model by using the 'train.py' file in the YOLOv5 repo
 - Evaluate the training progress by using TensorBoard
 - Save the best & latest model weights to a folder for later use
 - Perform some own detection on previously unseen images
@@ -153,7 +154,7 @@ The retraining process contains these main steps:
 ## Testing the model
 
 The last step after the model has been trained is to see how well it does when presented some new photos which were not in the dataset.
-Performing the detection is simple, we use the 'detect.py' file in the yoloV5 repo.
+Performing the detection is simple, we use the 'detect.py' file in the YOLOv5 repo.
 
 An example to perform detection on all files in a folder:
 
@@ -170,11 +171,11 @@ The used parameters do the following:
 - name: Name of the folder to output the results to (will be stored under yolov5/runs/detect/NAME)
 - exist-ok: Overwrite existing output instead of incrementing the name
 - save-txt: Save the detection data to a text file (bounding box)
-- save-conf: Add the confidence level to the text file 
+- save-conf: Add the confidence level to the text file
 
 The result will be a folder named custom where all the images and text files reside.
 Each image will have a bounding box drawn around the detected logo, if any, with a confidence level.
-Each text file will contain the box coordinates in normalized whxy format.
+Each text file will contain the box coordinates in normalized WHXY format.
 
 Example of text output
 ```
@@ -186,23 +187,23 @@ Example of text output
 As you can see down below one of my retrained models was able to detect the logo in all three never before seen images!
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 22%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1 - 79%">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 37.4%; display: inline-block;">
+    <a href="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2 - 91%">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 39%; display: inline-block;">
+     <a href="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3 - 73%">
+        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 41%; display: inline-block;">
     </a>
 </div>
 
 ## Resources
 
-- [YoloV5](https://github.com/ultralytics/yolov5){:target="_blank" rel="noopener noreferrer"}
-- [YoloV5 IOS app](https://apps.apple.com/app/id1452689527){:target="_blank" rel="noopener noreferrer"}
+- [YOLOv5](https://github.com/ultralytics/yolov5){:target="_blank" rel="noopener noreferrer"}
+- [YOLOv5 IOS app](https://apps.apple.com/app/id1452689527){:target="_blank" rel="noopener noreferrer"}
 - [CoCo dataset](https://cocodataset.org/#home){:target="_blank" rel="noopener noreferrer"}
 - [RoboFlow](https://app.roboflow.com/){:target="_blank" rel="noopener noreferrer"}
-- [Train yolo V5 with custom data 1](https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data){:target="_blank" rel="noopener noreferrer"}
-- [Train yolo V5 with custom data 2](https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/){:target="_blank" rel="noopener noreferrer"}
+- [Train YOLOv5 with custom data 1](https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data){:target="_blank" rel="noopener noreferrer"}
+- [Train YOLOv5 with custom data 2](https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/){:target="_blank" rel="noopener noreferrer"}
 - [Train/Test/Validate](https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets){:target="_blank" rel="noopener noreferrer"}
