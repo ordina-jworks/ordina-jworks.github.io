@@ -29,7 +29,7 @@ comments: true
 Machine learning is here to stay.
 It's also a must look into type of thing for a lot of people.
 However making a fully custom model to do a specific task is very hard.
-This blog post will go into detail how to take a prebuilt/trained model and use it for our own purpose.
+This blog post will go into detail on how to take a prebuilt/trained model and use it for our own purpose.
 We will take the YOLOv5 model and retrain it with a fully custom dataset to detect the company logo.
 Read on down below and follow along for the ride.
 
