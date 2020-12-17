@@ -2,7 +2,7 @@
 layout: post
 authors: [kevin_van_den_abeele]
 title: "Building a custom YOLOv5 Ordina logo detector"
-image: /img/2020-12-20-ordina-logo-detector/banner.jpeg
+image: /img/2020-12-17-ordina-logo-detector/banner.jpeg
 tags: [Ordina, JWorks, AI, ML, Machine Learning, Artificial Intelligence, YOLO, YOLOv5, image detection, object detection, cuda, nvidia, training, coco, dataset, image recognition]
 category: IoT
 comments: true
@@ -48,7 +48,7 @@ The speed and accuracy is quite impressive, make sure to give it a try!
 The model has different sizes that can be used, each specific size has pros and cons.
 The larger models will perform better but require a lot more compute power.
 
-<img alt="YoloV5 model sizes" src="{{ '/img/2020-12-20-ordina-logo-detector/v5-model-sizes.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="YoloV5 model sizes" src="{{ '/img/2020-12-17-ordina-logo-detector/v5-model-sizes.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 For this example we will be retraining the large model, since I have a decent NVidia GPU I can use.
 
@@ -75,11 +75,11 @@ Annotating is simple yet time consuming.
 We run the program, select the folder where all the images are stored and manually go over each photo, drawing a bounding box over each Ordina logo and saving the data before moving on to the next photo.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/label-img.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/label-img.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/label-img.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/label-img.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/labelimg-done.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 46%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/labelimg-done.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/labelimg-done.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 46%; display: inline-block;">
     </a>
 </div>
 
@@ -103,17 +103,17 @@ The pictures in the dataset are subdivided into three categories:
 - Testing: Used to evaluate the model in each epoch
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-upload-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 27%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/roboflow-upload-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/roboflow-upload-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 27%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/roboflow-test-split.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 21%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/roboflow-test-split.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/roboflow-test-split.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 21%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/add_augmentation.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 13%; display: inline-block;">
+     <a href="{{ '/img/2020-12-17-ordina-logo-detector/add_augmentation.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/add_augmentation.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 13%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-12-20-ordina-logo-detector/dataset-overview.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/dataset-overview.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 26%; display: inline-block;">
+     <a href="{{ '/img/2020-12-17-ordina-logo-detector/dataset-overview.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/dataset-overview.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 26%; display: inline-block;">
     </a>
 </div>
 
@@ -121,11 +121,11 @@ Once we have added the photos and the augmentations we can generate a version of
 It's very important to select the correct export format, being YOLOv5 PyTorch.
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/download-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/download-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/download-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/link-to-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/link-to-dataset.jpeg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/link-to-dataset.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;">
     </a>
 </div>
 
@@ -184,7 +184,7 @@ Class W H X Y Conf
 0 0.503968 0.540551 0.207672 0.0691964 0.791504
 ```
 
-<img alt="Box coordinates" src="{{ '/img/2020-12-20-ordina-logo-detector/bbox.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
+<img alt="Box coordinates" src="{{ '/img/2020-12-17-ordina-logo-detector/bbox.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 800px;">
 
 The text file contains all the basic info that is needed to further process the detection result:
 
@@ -198,14 +198,14 @@ The text file contains all the basic info that is needed to further process the 
 As you can see below one of my retrained models was able to detect the logo in all three never before seen images!
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1 - 79%">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 1 - 79%">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/1.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2 - 91%">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
+    <a href="{{ '/img/2020-12-17-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 2 - 91%">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
     </a>
-     <a href="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3 - 73%">
-        <img alt="stack" src="{{ '/img/2020-12-20-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 41%; display: inline-block;">
+     <a href="{{ '/img/2020-12-17-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" data-lightbox="fdm" data-title="Logo detected 3 - 73%">
+        <img alt="stack" src="{{ '/img/2020-12-17-ordina-logo-detector/3.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 41%; display: inline-block;">
     </a>
 </div>
 
