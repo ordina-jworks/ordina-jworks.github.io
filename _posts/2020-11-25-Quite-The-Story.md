@@ -8,7 +8,7 @@ category: Architecture
 comments: true
 ---
 
-October marked the 2020 edition of [the BA & Beyond conference](https://ba-beyond.eu/){:target="_blank" rel="noopener noreferrer"}). 
+October marked the 2020 edition of [the BA & Beyond conference](https://ba-beyond.eu/){:target="_blank" rel="noopener noreferrer"}. 
 As with all conferences being held in these COVID-ridden times, it was a virtual gathering and there were a variety of people from across the globe that came to share their insights, experiences and opinions on topics from their respective fields of knowledge. 
 This ranged from agile practices to data science to process analysis and management. 
 For me the workshop that struck a chord was given by Lori L. Silverman ([Partners for Progress](https://www.partnersforprogress.com/){:target="_blank" rel="noopener noreferrer"}). 
