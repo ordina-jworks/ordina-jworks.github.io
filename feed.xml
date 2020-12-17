@@ -1,5 +1,231 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-12-16T15:34:12+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Mobile Design Done Right</title><link href="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html" rel="alternate" type="text/html" title="Mobile Design Done Right" /><published>2020-12-16T00:00:00+00:00</published><updated>2020-12-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design</id><content type="html" xml:base="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html">&lt;h2 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-12-17T11:15:43+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Building a custom YOLOv5 Ordina logo detector</title><link href="https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html" rel="alternate" type="text/html" title="Building a custom YOLOv5 Ordina logo detector" /><published>2020-12-17T00:00:00+00:00</published><updated>2020-12-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#yolo-V5&quot;&gt;YoloV5&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#creating-a-dataset&quot;&gt;Creating a dataset&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#roboflow&quot;&gt;RoboFlow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#training-the-model&quot;&gt;Training the model&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#testing-the-model&quot;&gt;Testing the model&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Machine learning is here to stay.
+It’s also a must look into type of thing for a lot of people.
+However making a fully custom model to do a specific task is very hard.
+This blog post will go into detail on how to take a prebuilt/trained model and use it for our own purpose.
+We will take the YOLOv5 model and retrain it with a fully custom dataset to detect the company logo.
+Read on down below and follow along for the ride.&lt;/p&gt;
+
+&lt;p&gt;Please note that if you want to test this by yourself it is advised to have a decent computer with an NVidia CUDA capable GPU or use an online platform like Google &lt;a href=&quot;https://colab.research.google.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Colab&lt;/a&gt; which will give you a free cloud GPU to test things with.&lt;/p&gt;
+
+&lt;h2 id=&quot;yolo-v5&quot;&gt;Yolo V5&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YOLOv5&lt;/a&gt; is the fifth mayor iteration for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;You Only Look Once&lt;/code&gt; model.
+It’s a very high performing and popular model for performing object detection.
+The model is fully open source and is trained on the CoCo dataset and can perform detections of about 80 classes of objects.
+It’s also relatively easy to retrain the model with custom data so it can perform detection on other things than the &lt;a href=&quot;https://cocodataset.org/#home&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CoCo dataset&lt;/a&gt; &amp;amp; objects.&lt;/p&gt;
+
+&lt;p&gt;For iOS users there is an app available &lt;a href=&quot;https://apps.apple.com/app/id1452689527&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;on the app store&lt;/a&gt; that allows you to use the YoloV5 model in realtime with the camera your device.
+The speed and accuracy is quite impressive, make sure to give it a try!&lt;/p&gt;
+
+&lt;p&gt;The model has different sizes that can be used, each specific size has pros and cons.
+The larger models will perform better but require a lot more compute power.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;YoloV5 model sizes&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/v5-model-sizes.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For this example we will be retraining the large model, since I have a decent NVidia GPU I can use.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-dataset&quot;&gt;Creating a dataset&lt;/h2&gt;
+
+&lt;p&gt;A good dataset is extremely important when (re)training a model.
+It has an immense effect on the training process.&lt;/p&gt;
+
+&lt;p&gt;For our custom logo detection I’ve made about 100 photos of the Ordina logo in different forms and under different conditions.
+It’s very important that there are a lot of different images and most single images should have different versions with slight alterations.
+This can be a very time consuming thing to do!
+As we will later see there are tools to help with this!&lt;/p&gt;
+
+&lt;p&gt;Making and gathering photos with the logo is only one part of the preparations that need to be done.
+The second part can be even more tedious but is quintessential to the training process.
+The photos need to be labelled.
+This means creating a file that defines where the logos are located in the photo.&lt;/p&gt;
+
+&lt;p&gt;This can be done by hand, but it’s easier to use a decent tool, one of the tools that can do this is &lt;a href=&quot;https://github.com/tzutalin/labelImg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LabelImg&lt;/a&gt;.
+An open source tool for annotating images.
+It is a python program that can be run on most operating systems.&lt;/p&gt;
+
+&lt;p&gt;Annotating is simple yet time consuming.
+We run the program, select the folder where all the images are stored and manually go over each photo, drawing a bounding box over each Ordina logo and saving the data before moving on to the next photo.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/label-img.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 1&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/label-img.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 42%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/labelimg-done.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 2&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/labelimg-done.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 46%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;roboflow&quot;&gt;RoboFlow&lt;/h2&gt;
+
+&lt;p&gt;Once the data is labelled we want to use it to our advantage.
+A single photo can be skewed, blurred, pixelation added, hue moved (preferably a combination of all).
+This allows a single photo to become many more versions.&lt;/p&gt;
+
+&lt;p&gt;The manual method for doing this could involve using Photoshop macros on all the photos, then adding the annotations for the newly generated files.
+There are however tools that manage this for us.
+One of these tools is &lt;a href=&quot;https://app.roboflow.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RoboFlow&lt;/a&gt;, an online dataset management system.
+RoboFlow allows you to upload images and add “augmentations” to the images.
+These augmentations are combined and like in our example we can create 226 images out of 94 base images, not bad.
+This is greatly beneficial in preventing the model from &lt;a href=&quot;https://en.wikipedia.org/wiki/Overfitting&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;overfitting&lt;/a&gt; when used correctly.
+The free tier only allows a maximum of 3 augmentations per image so a large starting set of images is recommended.
+The pictures in the dataset are subdivided into three categories:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Training: Used for training the model&lt;/li&gt;
+  &lt;li&gt;Validation: Used for hyperparameter tuning during the training process&lt;/li&gt;
+  &lt;li&gt;Testing: Used to evaluate the model in each epoch&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/roboflow-upload-dataset.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 1&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/roboflow-upload-dataset.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 27%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/roboflow-test-split.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 2&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/roboflow-test-split.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 21%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+     &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/add_augmentation.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 3&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/add_augmentation.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 13%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+     &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/dataset-overview.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 3&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/dataset-overview.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 26%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Once we have added the photos and the augmentations we can generate a version of the dataset and use the link to the dataset zip file to retrain the model.
+It’s very important to select the correct export format, being YOLOv5 PyTorch.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/download-dataset.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 1&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/download-dataset.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 50%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/link-to-dataset.jpeg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 2&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/link-to-dataset.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 42%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;training-the-model&quot;&gt;Training the model&lt;/h2&gt;
+
+&lt;p&gt;For training the model I used the &lt;a href=&quot;https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;excellent blog post&lt;/a&gt; on the RoboFlow blog as a starting point, combined with the “Train-Custom-Data” section on the YoloV5 github wiki.
+I did use Google Colab for the first try and it does work, be it slower than on my personal machine.&lt;/p&gt;
+
+&lt;p&gt;Doing the training locally requires python3 and pip to be installed, virtualenv to be setup and the correct NVidia drivers to be loaded (at least on Debian).
+I created a new folder in which I cloned the YOLOv5 repo and created a new python virtual environment and started Jupyter notebook.
+The &lt;a href=&quot;https://colab.research.google.com/drive/1gDZ2xcTOgR39tGGs-EZ6i3RTs16wmzZQ&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RoboFlow Google Colab&lt;/a&gt; is a great place to start.
+I copied all the steps over, making edits to allow it to run on my local machine.
+If you want to test this too, just copy the Google Colab file to your own Google Drive and start it from there.
+Google will even give you a cloud based GPU to use, for free!&lt;/p&gt;
+
+&lt;p&gt;The retraining process contains these main steps:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Clone the YoloV5 repo, install any dependencies&lt;/li&gt;
+  &lt;li&gt;Download the dataset zip file and extract its contents&lt;/li&gt;
+  &lt;li&gt;Process the data generated in the dataset, choosing the size of the Yolo model to retrain and setting the number of classes that are in the dataset&lt;/li&gt;
+  &lt;li&gt;Retrain the model by using the ‘train.py’ file in the YOLOv5 repo&lt;/li&gt;
+  &lt;li&gt;Evaluate the training progress by using TensorBoard&lt;/li&gt;
+  &lt;li&gt;Save the best &amp;amp; latest model weights to a folder for later use&lt;/li&gt;
+  &lt;li&gt;Perform some own detection on previously unseen images&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;testing-the-model&quot;&gt;Testing the model&lt;/h2&gt;
+
+&lt;p&gt;The last step after the model has been trained is to see how well it does when presented some new photos which were not in the dataset.
+Performing the detection is simple.
+We use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;detect.py&lt;/code&gt; file in the YOLOv5 repo.&lt;/p&gt;
+
+&lt;p&gt;An example to perform detection on all files in a folder:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weights&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;train&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weights&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;best&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;416&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;custom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;custom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;txt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The used parameters do the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;weights: This points to the weights file that has been created and saved by the retraining process&lt;/li&gt;
+  &lt;li&gt;img: Specified the size of the image, it will automatically resize any image input to match this number, has to be 416 this model&lt;/li&gt;
+  &lt;li&gt;conf: The minimum confidence level that should be reached to count as a detection&lt;/li&gt;
+  &lt;li&gt;source: A media file, being an image(or a folder containing multiple)/video/stream/&lt;/li&gt;
+  &lt;li&gt;name: Name of the folder to output the results to (will be stored under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yolov5/runs/detect/NAME&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;exist-ok: Overwrite existing output instead of incrementing the name&lt;/li&gt;
+  &lt;li&gt;save-txt: Save the detection data to a text file (bounding box)&lt;/li&gt;
+  &lt;li&gt;save-conf: Add the confidence level to the text file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The result will be a folder named custom where all the images and text files reside.
+Each image will have a bounding box drawn around the detected logo, if any, with a confidence level.
+Each text file will contain the box coordinates in normalized WHXY format.&lt;/p&gt;
+
+&lt;p&gt;Example of text output&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class W H X Y Conf
+0 0.503968 0.540551 0.207672 0.0691964 0.791504
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Box coordinates&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/bbox.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The text file contains all the basic info that is needed to further process the detection result:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Class: Class that has been detected&lt;/li&gt;
+  &lt;li&gt;W: The width of the detected object/bounding box, to be divided by 2 and extended from the X-Coordinate in both directions&lt;/li&gt;
+  &lt;li&gt;H: The height of the detected object, to be divided by 2 and extended from the Y-Coordinate in both directions&lt;/li&gt;
+  &lt;li&gt;X: The X-coordinate of the center of the detected object&lt;/li&gt;
+  &lt;li&gt;Y: The Y-coordinate of the center of the detected object&lt;/li&gt;
+  &lt;li&gt;Conf: (Optional) The confidence level, between 1 and 0.000001 (or between 1 and the minimum specified during detection), 1 being 100% certain, 0.000001 being the least certain possible&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As you can see below one of my retrained models was able to detect the logo in all three never before seen images!&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/1.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 1 - 79%&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/1.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 23%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/2.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 2 - 91%&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/2.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 23%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+     &lt;a href=&quot;/img/2020-12-17-ordina-logo-detector/3.jpg&quot; data-lightbox=&quot;fdm&quot; data-title=&quot;Logo detected 3 - 73%&quot;&gt;
+        &lt;img alt=&quot;stack&quot; src=&quot;/img/2020-12-17-ordina-logo-detector/3.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 41%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YOLOv5&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://apps.apple.com/app/id1452689527&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;YOLOv5 IOS app&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cocodataset.org/#home&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CoCo dataset&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tzutalin/labelImg&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LabelImg&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://app.roboflow.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;RoboFlow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Train YOLOv5 with custom data 1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Train YOLOv5 with custom data 2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://colab.research.google.com/drive/1gDZ2xcTOgR39tGGs-EZ6i3RTs16wmzZQ#scrollTo=1NcFxRcFdJ_O&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Colab document&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Overfitting&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Overfitting&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Train/Test/Validate&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a frontend consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Ordina" /><category term="JWorks" /><category term="AI" /><category term="ML" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><category term="YOLO" /><category term="YOLOv5" /><category term="image detection" /><category term="object detection" /><category term="cuda" /><category term="nvidia" /><category term="training" /><category term="coco" /><category term="dataset" /><category term="image recognition" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mobile Design Done Right</title><link href="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html" rel="alternate" type="text/html" title="Mobile Design Done Right" /><published>2020-12-16T00:00:00+00:00</published><updated>2020-12-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design</id><content type="html" xml:base="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html">&lt;h2 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h2&gt;
 
 &lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#mobile-design&quot; id=&quot;markdown-toc-mobile-design&quot;&gt;Mobile design&lt;/a&gt;&lt;/li&gt;
@@ -3812,245 +4038,4 @@ Being able to have someone who makes you self-reflect on the work you did and ta
 That is the biggest asset to provide to a junior programmer.&lt;/p&gt;
 
 &lt;p&gt;Also, a big thanks to Frederick Bousson &amp;amp; Ordina for the opportunity and resources provided.&lt;br /&gt;
-This really was a great project and I enjoyed every minute of it!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Govaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-govaerts/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-govaerts.jpg&quot;, &quot;title&quot;=&gt;&quot;Java developer&quot;, &quot;email&quot;=&gt;&quot;kevin.govaerts1@gmail.com&quot;, &quot;linkedin&quot;=&gt;&quot;kevingovaerts&quot;, &quot;bio&quot;=&gt;&quot;Kevin works as a back-end developer for Ordina Belgium, focussing mainly on Spring boot, Angular and AWS-technologies.&quot;}</name><email>kevin.govaerts1@gmail.com</email></author><category term="Cloud" /><category term="IoT" /><category term="RPi" /><category term="AWS" /><category term="Serverless" /><category term="API Gateway" /><category term="S3" /><category term="Lambda" /><category term="Route 53" /><category term="CloudFront" /><category term="Greengrass" /><category term="Docker" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Scaling CSS with BEM</title><link href="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html" rel="alternate" type="text/html" title="Scaling CSS with BEM" /><published>2020-09-18T00:00:00+00:00</published><updated>2020-09-18T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem</id><content type="html" xml:base="https://ordina-jworks.github.io/frontend/2020/09/18/scaling-css-with-bem.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-is-bem&quot;&gt;What is BEM?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#bem-combined-with-sass&quot;&gt;BEM combined with SASS&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#is-bem-still-viable-in-the-era-of-web-components&quot;&gt;Is BEM still viable in the era of web components?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#resources-and-interesting-reads&quot;&gt;Resources and interesting reads&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;what-is-bem&quot;&gt;What is BEM?&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://getbem.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BEM&lt;/a&gt; is a methodology that helps developers to create reusable components and code sharing in front-end development.&lt;/p&gt;
-
-&lt;p&gt;BEM is an abbreviation as you could have guessed.
-It stands for the three core elements of the methodology: Block, Element and Modifier.&lt;/p&gt;
-
-&lt;p&gt;Blocks are standalone entities that are meaningful on its own.
-For example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;header, container, menu, checkbox, input&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Elements are a part of a block that has no standalone meaning and are semantically tied to its block.
-For example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;menu item, list item, header title&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Modifiers are a flag on a block or element.
-They are meant to change appearance or behavior.
-For example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;disabled, highlighted, color yellow, size big, fixed&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;bem-a-naming-convention&quot;&gt;BEM: a naming convention&lt;/h2&gt;
-&lt;p&gt;BEM is in short a highly useful, powerful, and simple &lt;a href=&quot;https://getbem.com/naming&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;naming convention&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;It makes your front end code easier to scale, more robust and explicit, and a lot more strict.
-Which makes it easier to read and understand and also easier to work with.&lt;/p&gt;
-
-&lt;p&gt;Namings of BEM are as followed:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;BEM&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Naming&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;HTML&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;CSS&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Block&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;.block&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block&quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block {...}&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Element&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;.block__element&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block__element&quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block__element {...}&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Block Modifier&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;.block–modifier&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block block--modifier&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block--modifier {...}&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Element Modifier&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;.block__element–modifier&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div class=&quot;block__element block__element--modifier&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.block__element--modifier {...}&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;For example:
-You have 2 images.
-One on it’s own as a ‘block’ and the other is an ‘element’ inside a profile section which is another ‘block’ to keep it simple.&lt;/p&gt;
-
-&lt;p&gt;This is how the HTML would look like:&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The CSS would look like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {...}
-.profile {...}
-.profile__image {...}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you want to add different versions, states or ‘modifiers’, for example a rounded or smaller image. 
-Your code would look like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image image--rounded&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__image profile__image--small&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {...}
-.image--rounded {...}
-.profile {...}
-.profile__image {...}
-.profile__image--small {...}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The modifier class should only be added to blocks or elements you want to modify and you should keep the original class.&lt;/p&gt;
-
-&lt;h2 id=&quot;why-use-bem&quot;&gt;Why use BEM?&lt;/h2&gt;
-
-&lt;p&gt;As stated above, BEM makes your code easier to read, understand, work with et cetera.
-But how does it achieve that?&lt;/p&gt;
-
-&lt;p&gt;First of all, BEM avoids inheritance and provides some sort of scope by using unique CSS classes per element (like .profile__image).
-It reduces style conflicts by keeping CSS specificity to a minimum level.
-It avoids the use of element type selectors like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;div &amp;gt; ul &amp;gt; li&lt;/code&gt; and keeps your CSS loose coupled from your HTML.
-BEM avoids nesting and keeps your CSS flat (even with preprocessors).&lt;/p&gt;
-
-&lt;h2 id=&quot;when-not-to-use-bem&quot;&gt;When not to use BEM?&lt;/h2&gt;
-&lt;p&gt;You should always question yourself if it is really necessary to use BEM notation for a certain CSS class.&lt;/p&gt;
-
-&lt;p&gt;If we would add two buttons to the example above like so:&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;button&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Default button&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__image&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;profile__button&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Profile button&lt;span class=&quot;nt&quot;&gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;If the second button should be styled differently because it lives inside the profile block you SHOULD use BEM notation.
-Otherwise if it should be styled the same as the other button and it just happens to live in profile you definitely DO NOT need BEM notation there.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.underline { text-decoration: underline; }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This CSS would never fall into any BEM category, as it is merely a standalone rule.&lt;/p&gt;
-
-&lt;h1 id=&quot;bem-combined-with-sass&quot;&gt;BEM combined with SASS&lt;/h1&gt;
-&lt;p&gt;Is the BEM methodology easy to combine with preprocessors like &lt;a href=&quot;https://sass-lang.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SASS&lt;/a&gt;?
-The answer is: ‘Yes, absolutely!’&lt;/p&gt;
-
-&lt;p&gt;With the help of SASS and its &lt;a href=&quot;https://sass-lang.com/documentation/style-rules/parent-selector&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;‘parent selector’&lt;/a&gt; we could transform the above CSS to the following code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {
-    &amp;amp;--rounded {...}
-}
-.profile {
-    &amp;amp;__image {
-        &amp;amp;--small {...}
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The parent selector of SASS makes it easy to add suffixes to the outer selector resulting in an improvement of readability and cleaner style sheets.&lt;/p&gt;
-
-&lt;p&gt;All while the resulting CSS stays flat.
-The above SASS compiles to:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.image {...}
-.image--rounded {...}
-.profile {...}
-.profile__image {...}
-.profile__image--small {...}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As you can see it is the same CSS as above.
-You want to be avoiding CSS combinators like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.profile .profile__image .profile__image--small {...}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;is-bem-still-viable-in-the-era-of-web-components&quot;&gt;Is BEM still viable in the era of web components?&lt;/h1&gt;
-&lt;p&gt;Yes and no.&lt;/p&gt;
-
-&lt;p&gt;First of all BEM was created to make large scale style sheets easier to scale, read et cetera.
-It avoids class name collisions and the quick fixes with ‘!important’.&lt;/p&gt;
-
-&lt;p&gt;When you are working component based, you can make use of Shadow DOM to make the styles encapsulated in that component.
-This prevents them from affecting outer elements.
-Angular, Vue or React use similar approaches, either using Shadow DOM or appending unique attributes to the class names.
-This ensures that the styles are scoped to that certain component.&lt;/p&gt;
-
-&lt;p&gt;Since this makes class name collisions no issue anymore you could consider BEM obsolete.&lt;/p&gt;
-
-&lt;p&gt;BEM helps you create reusable components.
-But that is also no longer necessary here, because we are already using seperate components.&lt;/p&gt;
-
-&lt;p&gt;Although, I still believe BEM could be useful as a developer.
-Take our profile component for example.
-With the traditional approach, profile would be seen as the Block and we would end up with following classes:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.profile {...}
-.profile__header {...}
-.profile__header__title {...}
-.profile__header__title--short {...}
-.profile__header__name {...}
-.profile__bio {...}
-.profile__image {...}
-.profile__image--small {...}
-.profile__image-description {...}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;By encapsulating the styles, we could drop the profile part as we already are inside the profile component.
-We do not need to worry about class name collisions, so we can shorten our class names and keep them meaningful:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-CSS&quot;&gt;.profile {...}
-.header {...}
-.header__title {...}
-.header__title--short {...}
-.header__name {...}
-.bio {...}
-.image {...}
-.image--small {...}
-.image-description {...}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now the responsibility of each class is much clearer just by looking at it.
-It is easier to split the component later if needed, and overall it is much easier to read.&lt;/p&gt;
-
-&lt;p&gt;So is BEM still necessary in component driven development?
-No, not at all, but I do recommend using a convention, be it BEM or anything else.
-The most important part is that the team agrees on it and follows it.
-Consistency is ‘mucho importante’ to keep the code base lean and clean.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;BEM is a useful class naming convention to keep gigantic style sheets organisable and readable and to avoid class name collisions.&lt;/p&gt;
-
-&lt;p&gt;It is easy to use with preprocessors as SASS which makes your code even cleaner.&lt;/p&gt;
-
-&lt;p&gt;In CDD (component driven development) BEM might be considered obsolete, but a naming convention is still recommended.
-This counts for any language, including CSS.&lt;/p&gt;
-
-&lt;h1 id=&quot;resources-and-interesting-reads&quot;&gt;Resources and interesting reads&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://getbem.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BEM&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://sass-lang.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SASS&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://medium.com/@andrew_barnes/bem-and-sass-a-perfect-match-5e48d9bc3894&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BEM and SASS a perfect match&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://bitsofco.de/what-is-the-shadow-dom/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;What is the Shadow DOM&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.componentdriven.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CDD (Component Driven Development)&lt;/a&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Michaël&quot;, &quot;last_name&quot;=&gt;&quot;De Wree&quot;, &quot;github&quot;=&gt;&quot;mdewree&quot;, &quot;linkedin&quot;=&gt;&quot;michaeldewree&quot;, &quot;permalink&quot;=&gt;&quot;/author/michael-de-wree/&quot;, &quot;avatar&quot;=&gt;&quot;michael-de-wree.jpg&quot;, &quot;title&quot;=&gt;&quot;Front-End Developer&quot;, &quot;email&quot;=&gt;&quot;michael.dewree@ordina.be&quot;, &quot;phone&quot;=&gt;&quot;0032484297782&quot;, &quot;bio&quot;=&gt;&quot;Michaël is a Front-End Developer at Ordina, passionate about all JavaScript related technologies. In his spare time, Michaël enjoys working out, running and enjoying his time with friends and family.&quot;}</name><email>michael.dewree@ordina.be</email></author><category term="Frontend" /><category term="BEM" /><category term="CSS" /><category term="DESIGN" /><category term="FRONTEND" /><category term="CDD" /><category term="FRONTEND ARCHITECTURE" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/BEM.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/BEM.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+This really was a great project and I enjoyed every minute of it!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Govaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-govaerts/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-govaerts.jpg&quot;, &quot;title&quot;=&gt;&quot;Java developer&quot;, &quot;email&quot;=&gt;&quot;kevin.govaerts1@gmail.com&quot;, &quot;linkedin&quot;=&gt;&quot;kevingovaerts&quot;, &quot;bio&quot;=&gt;&quot;Kevin works as a back-end developer for Ordina Belgium, focussing mainly on Spring boot, Angular and AWS-technologies.&quot;}</name><email>kevin.govaerts1@gmail.com</email></author><category term="Cloud" /><category term="IoT" /><category term="RPi" /><category term="AWS" /><category term="Serverless" /><category term="API Gateway" /><category term="S3" /><category term="Lambda" /><category term="Route 53" /><category term="CloudFront" /><category term="Greengrass" /><category term="Docker" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

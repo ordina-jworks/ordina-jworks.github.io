@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Building a custom YOLOv5 Ordina logo detector - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Building a custom YOLOv5 Ordina logo detector - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg"/>
+
+    
+    <title>Building a custom YOLOv5 Ordina logo detector - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Building a custom YOLOv5 Ordina logo detector</h2>
+                
+
+                
+                    Posted Dec 17, 2020
+
+
+    in <a href="/categories/iot/">IoT</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/ordina/">Ordina</a>, 
+    
+        <a href="/tags/jworks/">JWorks</a>, 
+    
+        <a href="/tags/ai/">AI</a>, 
+    
+        <a href="/tags/ml/">ML</a>, 
+    
+        <a href="/tags/machine-learning/">Machine Learning</a>, 
+    
+        <a href="/tags/artificial-intelligence/">Artificial Intelligence</a>, 
+    
+        <a href="/tags/yolo/">YOLO</a>, 
+    
+        <a href="/tags/yolov5/">YOLOv5</a>, 
+    
+        <a href="/tags/image-detection/">image detection</a>, 
+    
+        <a href="/tags/object-detection/">object detection</a>, 
+    
+        <a href="/tags/cuda/">cuda</a>, 
+    
+        <a href="/tags/nvidia/">nvidia</a>, 
+    
+        <a href="/tags/training/">training</a>, 
+    
+        <a href="/tags/coco/">coco</a>, 
+    
+        <a href="/tags/dataset/">dataset</a>, 
+    
+        <a href="/tags/image-recognition/">image recognition</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#yolo-V5">YoloV5</a></li>
+  <li><a href="#creating-a-dataset">Creating a dataset</a></li>
+  <li><a href="#roboflow">RoboFlow</a></li>
+  <li><a href="#training-the-model">Training the model</a></li>
+  <li><a href="#testing-the-model">Testing the model</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Machine learning is here to stay.
+It’s also a must look into type of thing for a lot of people.
+However making a fully custom model to do a specific task is very hard.
+This blog post will go into detail on how to take a prebuilt/trained model and use it for our own purpose.
+We will take the YOLOv5 model and retrain it with a fully custom dataset to detect the company logo.
+Read on down below and follow along for the ride.</p>
+
+<p>Please note that if you want to test this by yourself it is advised to have a decent computer with an NVidia CUDA capable GPU or use an online platform like Google <a href="https://colab.research.google.com/" target="_blank" rel="noopener noreferrer">Colab</a> which will give you a free cloud GPU to test things with.</p>
+
+<h2 id="yolo-v5">Yolo V5</h2>
+
+<p><a href="https://github.com/ultralytics/yolov5" target="_blank" rel="noopener noreferrer">YOLOv5</a> is the fifth mayor iteration for the <code class="language-plaintext highlighter-rouge">You Only Look Once</code> model.
+It’s a very high performing and popular model for performing object detection.
+The model is fully open source and is trained on the CoCo dataset and can perform detections of about 80 classes of objects.
+It’s also relatively easy to retrain the model with custom data so it can perform detection on other things than the <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">CoCo dataset</a> &amp; objects.</p>
+
+<p>For iOS users there is an app available <a href="https://apps.apple.com/app/id1452689527" target="_blank" rel="noopener noreferrer">on the app store</a> that allows you to use the YoloV5 model in realtime with the camera your device.
+The speed and accuracy is quite impressive, make sure to give it a try!</p>
+
+<p>The model has different sizes that can be used, each specific size has pros and cons.
+The larger models will perform better but require a lot more compute power.</p>
+
+<p><img alt="YoloV5 model sizes" src="/img/2020-12-17-ordina-logo-detector/v5-model-sizes.jpeg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>For this example we will be retraining the large model, since I have a decent NVidia GPU I can use.</p>
+
+<h2 id="creating-a-dataset">Creating a dataset</h2>
+
+<p>A good dataset is extremely important when (re)training a model.
+It has an immense effect on the training process.</p>
+
+<p>For our custom logo detection I’ve made about 100 photos of the Ordina logo in different forms and under different conditions.
+It’s very important that there are a lot of different images and most single images should have different versions with slight alterations.
+This can be a very time consuming thing to do!
+As we will later see there are tools to help with this!</p>
+
+<p>Making and gathering photos with the logo is only one part of the preparations that need to be done.
+The second part can be even more tedious but is quintessential to the training process.
+The photos need to be labelled.
+This means creating a file that defines where the logos are located in the photo.</p>
+
+<p>This can be done by hand, but it’s easier to use a decent tool, one of the tools that can do this is <a href="https://github.com/tzutalin/labelImg" target="_blank" rel="noopener noreferrer">LabelImg</a>.
+An open source tool for annotating images.
+It is a python program that can be run on most operating systems.</p>
+
+<p>Annotating is simple yet time consuming.
+We run the program, select the folder where all the images are stored and manually go over each photo, drawing a bounding box over each Ordina logo and saving the data before moving on to the next photo.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2020-12-17-ordina-logo-detector/label-img.jpeg" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/label-img.jpeg" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;" />
+    </a>
+    <a href="/img/2020-12-17-ordina-logo-detector/labelimg-done.jpeg" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/labelimg-done.jpeg" class="image fit" style="margin:0px auto; width: 46%; display: inline-block;" />
+    </a>
+</div>
+
+<h2 id="roboflow">RoboFlow</h2>
+
+<p>Once the data is labelled we want to use it to our advantage.
+A single photo can be skewed, blurred, pixelation added, hue moved (preferably a combination of all).
+This allows a single photo to become many more versions.</p>
+
+<p>The manual method for doing this could involve using Photoshop macros on all the photos, then adding the annotations for the newly generated files.
+There are however tools that manage this for us.
+One of these tools is <a href="https://app.roboflow.com/" target="_blank" rel="noopener noreferrer">RoboFlow</a>, an online dataset management system.
+RoboFlow allows you to upload images and add “augmentations” to the images.
+These augmentations are combined and like in our example we can create 226 images out of 94 base images, not bad.
+This is greatly beneficial in preventing the model from <a href="https://en.wikipedia.org/wiki/Overfitting" target="_blank" rel="noopener noreferrer">overfitting</a> when used correctly.
+The free tier only allows a maximum of 3 augmentations per image so a large starting set of images is recommended.
+The pictures in the dataset are subdivided into three categories:</p>
+
+<ul>
+  <li>Training: Used for training the model</li>
+  <li>Validation: Used for hyperparameter tuning during the training process</li>
+  <li>Testing: Used to evaluate the model in each epoch</li>
+</ul>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2020-12-17-ordina-logo-detector/roboflow-upload-dataset.jpeg" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/roboflow-upload-dataset.jpeg" class="image fit" style="margin:0px auto; width: 27%; display: inline-block;" />
+    </a>
+    <a href="/img/2020-12-17-ordina-logo-detector/roboflow-test-split.jpeg" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/roboflow-test-split.jpeg" class="image fit" style="margin:0px auto; width: 21%; display: inline-block;" />
+    </a>
+     <a href="/img/2020-12-17-ordina-logo-detector/add_augmentation.jpeg" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/add_augmentation.jpeg" class="image fit" style="margin:0px auto; width: 13%; display: inline-block;" />
+    </a>
+     <a href="/img/2020-12-17-ordina-logo-detector/dataset-overview.jpeg" data-lightbox="fdm" data-title="Logo detected 3">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/dataset-overview.jpeg" class="image fit" style="margin:0px auto; width: 26%; display: inline-block;" />
+    </a>
+</div>
+
+<p>Once we have added the photos and the augmentations we can generate a version of the dataset and use the link to the dataset zip file to retrain the model.
+It’s very important to select the correct export format, being YOLOv5 PyTorch.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2020-12-17-ordina-logo-detector/download-dataset.jpeg" data-lightbox="fdm" data-title="Logo detected 1">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/download-dataset.jpeg" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;" />
+    </a>
+    <a href="/img/2020-12-17-ordina-logo-detector/link-to-dataset.jpeg" data-lightbox="fdm" data-title="Logo detected 2">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/link-to-dataset.jpeg" class="image fit" style="margin:0px auto; width: 42%; display: inline-block;" />
+    </a>
+</div>
+
+<h2 id="training-the-model">Training the model</h2>
+
+<p>For training the model I used the <a href="https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/" target="_blank" rel="noopener noreferrer">excellent blog post</a> on the RoboFlow blog as a starting point, combined with the “Train-Custom-Data” section on the YoloV5 github wiki.
+I did use Google Colab for the first try and it does work, be it slower than on my personal machine.</p>
+
+<p>Doing the training locally requires python3 and pip to be installed, virtualenv to be setup and the correct NVidia drivers to be loaded (at least on Debian).
+I created a new folder in which I cloned the YOLOv5 repo and created a new python virtual environment and started Jupyter notebook.
+The <a href="https://colab.research.google.com/drive/1gDZ2xcTOgR39tGGs-EZ6i3RTs16wmzZQ" target="_blank" rel="noopener noreferrer">RoboFlow Google Colab</a> is a great place to start.
+I copied all the steps over, making edits to allow it to run on my local machine.
+If you want to test this too, just copy the Google Colab file to your own Google Drive and start it from there.
+Google will even give you a cloud based GPU to use, for free!</p>
+
+<p>The retraining process contains these main steps:</p>
+
+<ul>
+  <li>Clone the YoloV5 repo, install any dependencies</li>
+  <li>Download the dataset zip file and extract its contents</li>
+  <li>Process the data generated in the dataset, choosing the size of the Yolo model to retrain and setting the number of classes that are in the dataset</li>
+  <li>Retrain the model by using the ‘train.py’ file in the YOLOv5 repo</li>
+  <li>Evaluate the training progress by using TensorBoard</li>
+  <li>Save the best &amp; latest model weights to a folder for later use</li>
+  <li>Perform some own detection on previously unseen images</li>
+</ul>
+
+<h2 id="testing-the-model">Testing the model</h2>
+
+<p>The last step after the model has been trained is to see how well it does when presented some new photos which were not in the dataset.
+Performing the detection is simple.
+We use the <code class="language-plaintext highlighter-rouge">detect.py</code> file in the YOLOv5 repo.</p>
+
+<p>An example to perform detection on all files in a folder:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">python</span> <span class="n">detect</span><span class="p">.</span><span class="n">py</span> <span class="o">--</span><span class="n">weights</span> <span class="n">runs</span><span class="o">/</span><span class="n">train</span><span class="o">/</span><span class="p">{</span><span class="n">today</span><span class="p">}</span><span class="o">/</span><span class="n">weights</span><span class="o">/</span><span class="n">best</span><span class="p">.</span><span class="n">pt</span> <span class="o">--</span><span class="n">img</span> <span class="mi">416</span> <span class="o">--</span><span class="n">conf</span> <span class="mf">0.5</span> <span class="o">--</span><span class="n">source</span> <span class="p">..</span><span class="o">/</span><span class="n">custom</span><span class="o">-</span><span class="n">test</span> <span class="o">--</span><span class="n">name</span> <span class="n">custom</span> <span class="o">--</span><span class="n">exist</span><span class="o">-</span><span class="n">ok</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">txt</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">conf</span>
+</code></pre></div></div>
+
+<p>The used parameters do the following:</p>
+
+<ul>
+  <li>weights: This points to the weights file that has been created and saved by the retraining process</li>
+  <li>img: Specified the size of the image, it will automatically resize any image input to match this number, has to be 416 this model</li>
+  <li>conf: The minimum confidence level that should be reached to count as a detection</li>
+  <li>source: A media file, being an image(or a folder containing multiple)/video/stream/</li>
+  <li>name: Name of the folder to output the results to (will be stored under <code class="language-plaintext highlighter-rouge">yolov5/runs/detect/NAME</code>)</li>
+  <li>exist-ok: Overwrite existing output instead of incrementing the name</li>
+  <li>save-txt: Save the detection data to a text file (bounding box)</li>
+  <li>save-conf: Add the confidence level to the text file</li>
+</ul>
+
+<p>The result will be a folder named custom where all the images and text files reside.
+Each image will have a bounding box drawn around the detected logo, if any, with a confidence level.
+Each text file will contain the box coordinates in normalized WHXY format.</p>
+
+<p>Example of text output</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class W H X Y Conf
+0 0.503968 0.540551 0.207672 0.0691964 0.791504
+</code></pre></div></div>
+
+<p><img alt="Box coordinates" src="/img/2020-12-17-ordina-logo-detector/bbox.jpg" class="image fit" style="margin:0px auto; max-width: 800px;" /></p>
+
+<p>The text file contains all the basic info that is needed to further process the detection result:</p>
+
+<ul>
+  <li>Class: Class that has been detected</li>
+  <li>W: The width of the detected object/bounding box, to be divided by 2 and extended from the X-Coordinate in both directions</li>
+  <li>H: The height of the detected object, to be divided by 2 and extended from the Y-Coordinate in both directions</li>
+  <li>X: The X-coordinate of the center of the detected object</li>
+  <li>Y: The Y-coordinate of the center of the detected object</li>
+  <li>Conf: (Optional) The confidence level, between 1 and 0.000001 (or between 1 and the minimum specified during detection), 1 being 100% certain, 0.000001 being the least certain possible</li>
+</ul>
+
+<p>As you can see below one of my retrained models was able to detect the logo in all three never before seen images!</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2020-12-17-ordina-logo-detector/1.jpg" data-lightbox="fdm" data-title="Logo detected 1 - 79%">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/1.jpg" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;" />
+    </a>
+    <a href="/img/2020-12-17-ordina-logo-detector/2.jpg" data-lightbox="fdm" data-title="Logo detected 2 - 91%">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/2.jpg" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;" />
+    </a>
+     <a href="/img/2020-12-17-ordina-logo-detector/3.jpg" data-lightbox="fdm" data-title="Logo detected 3 - 73%">
+        <img alt="stack" src="/img/2020-12-17-ordina-logo-detector/3.jpg" class="image fit" style="margin:0px auto; width: 41%; display: inline-block;" />
+    </a>
+</div>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://github.com/ultralytics/yolov5" target="_blank" rel="noopener noreferrer">YOLOv5</a></li>
+  <li><a href="https://apps.apple.com/app/id1452689527" target="_blank" rel="noopener noreferrer">YOLOv5 IOS app</a></li>
+  <li><a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">CoCo dataset</a></li>
+  <li><a href="https://github.com/tzutalin/labelImg" target="_blank" rel="noopener noreferrer">LabelImg</a></li>
+  <li><a href="https://app.roboflow.com/" target="_blank" rel="noopener noreferrer">RoboFlow</a></li>
+  <li><a href="https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data" target="_blank" rel="noopener noreferrer">Train YOLOv5 with custom data 1</a></li>
+  <li><a href="https://blog.roboflow.com/how-to-train-yolov5-on-a-custom-dataset/" target="_blank" rel="noopener noreferrer">Train YOLOv5 with custom data 2</a></li>
+  <li><a href="https://colab.research.google.com/drive/1gDZ2xcTOgR39tGGs-EZ6i3RTs16wmzZQ#scrollTo=1NcFxRcFdJ_O" target="_blank" rel="noopener noreferrer">Google Colab document</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Overfitting" target="_blank" rel="noopener noreferrer">Overfitting</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets" target="_blank" rel="noopener noreferrer">Train/Test/Validate</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html&title=Building a custom YOLOv5 Ordina logo detector&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Building a custom YOLOv5 Ordina logo detector&url=https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image" title="">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a frontend consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2020 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2020-12-17-ordina-logo-detector/banner.jpeg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
