@@ -17,21 +17,22 @@ comments: true
 ----
 
 # Introduction
-When you detect that one microservice in your application is slow, this is when the Spring Cloud Circuit Breaker can be used in your application.
-Its basic function is to interrupt current flow after a fault is detected. A circuit breaker can be reset (manually or automatically)  to resume normal operation.
-This can be used in your microservice application when you want a service request is slow, you want it to fail fast and have some fallback functionality and have automatic recovery.
- 
-By making usage of the Circuit Breaker pattern you can let a microservice continue operating when a related service fails, preventing the failure from cascading and giving the failing service time to recover 
+When you detect that an application in your landscape is getting slow or starts failing, a circuit breaker can be used to stop all the communication to that application.
+Its basic function is to interrupt the current flow after a fault is detected and when the circuit breaker is reset (manually or automatically), It can resume its normal operation.
 
+You want to avoid that your end users are hitting high load times. 
+That's why you want to fail fast and have some fallback functionality.
+
+By making usage of the Circuit Breaker pattern you can let an application continue to operate when a related service fails, preventing the failure from cascading and giving the failing service time to recover
+ 
 # Types of implementation
 The Spring Cloud Circuit Breaker project provides an abstraction API for adding circuit breakers to your application. 
-There are four supported implementations: 
+There are three supported implementations: 
+ 
 
-Hystrix Netflix 
+Resilience4J
 
-Resilience4J 
-
-Sentinel 
+Resilience4J Reactive
 
 Spring Retry 
 
@@ -69,7 +70,7 @@ public class CircuitBreakerSoupApplication {
 ```
  
 We’re going to run this application locally alongside a client service application, so in src/main/resources/application.properties, 
-set server.port so that the CircuitBreakerSoup application service won’t conflict with the client when we get that running.
+set 'server.port' so that the CircuitBreakerSoup application service won’t conflict with the client when we startup.
 
 ingredients/src/main/resources/application.properties
 
@@ -338,11 +339,12 @@ Spring-retry depends on Aspectj which is not included in the skeleton project, s
 </dependency>
 ```
 Create one  Rest controller which will call the backend service class where we will simulate the exception and spring-retry module will automatically retry.
-In the Rest Api we will add two optional request parameters.
+In the REST Api we will add two optional request parameters.
 
-simulateretry – parameter to simulate the exception scenario, so that spring can retry.
-simulateretryfallback – as we are simulating the exception, after retry certain times we can either expect a successful backend call or all retry falls. 
-In this case we will go to the fall back method to get hard-coded/error response. Now this parameter will ensure all the retry will fail and we will go to fall back path only
+'simulateretry' – parameter to simulate the exception scenario, so that spring can retry.
+'simulateretryfallback' – as we are simulating the exception, after retrying a certain amount of time we can either expect a successful backend call or a complete failure.
+In this case, we will go to the fall back method to get a hard-coded/error response. Now this parameter will ensure all the retries will fail and go to fall back path.
+ 
 ```
 package com.example.springretry;
  
@@ -371,7 +373,8 @@ public class MyRestController {
 }
 ```
 
-To enable spring-retry we need to put one annotation in the Spring Boot Application class. So open SpringRetryApplication class and add @EnableRetry in class level.
+To enable spring-retry we need to put one annotation in the Spring Boot Application class. So open `SpringRetryApplication` class and add `@EnableRetry` at class level.
+
 ```
 package com.example.springretry;
  
@@ -389,7 +392,7 @@ public class SpringRetryApplication {
 }
 ```
 Now we will create one interface/implementation for calling the external service. 
-Here we will not actually call any external service call, rather will simulate the success/failure scenarios by adding some random logic, as below.
+Here we will not actually call any external service call, but rather simulate the success/failure scenarios by adding some random logic, as below.
 ```
 package com.example.springretry;
  
@@ -408,11 +411,11 @@ public interface BackendAdapter {
 }
 
 ```
-@Retryable – This is the main annotation after @EnableRetry. 
-This annotation tells that if we get RemoteServiceNotAvailableException from the method then retry maximum 3 times before sending the response. 
+'@Retryable' – This is the main annotation after '@EnableRetry'. 
+This annotation tells us that if we get a RemoteServiceNotAvailableException from the method, we retry three more times before sending the fallback response.  
 Also we are introducing delay of 1 second in each retry.
-@Recover – in the fallback method indicates that if we don’t get any success response after 3 retry, response will come from this fallback method. 
-Make sure you pass expected exception as parameter, else spring will have hard time finding the exact method.
+'@Recover' – this fallback annotation indicates that if we don’t get any successful response after 3 retries, the response will come from this fallback method.
+ Make sure you pass the expected exception as a parameter, else spring will have a hard time finding the exact method.
 ```
 package com.example.springretry;
  
@@ -452,8 +455,10 @@ public class BackendAdapterImpl implements BackendAdapter {
 ```
 
 Testing the retry methods from Spring Retry
-Start with 'http://localhost:8080/retry?simulateretry=true&simulateretryfallback=false' in your browser. Based on the parameter, we are expecting exception in the backend service call and at the same time as simulateretryfallback=false, we are depending on the random logic (random % 2 == 0 –> even random number) we can expect a success response while retry.
-So once we hit the request in browser, we might get exception in backend and spring will retry the same method multiple times. The outcome could be the Success response from backend. Here are the few lines of log from one of my request where spring is trying retry.
+Start with browsing to 'http://localhost:8080/retry?simulateretry=true&simulateretryfallback=false'. 
+Based on the parameter, we are expecting exceptions and because `simulateretryfallback` is false, we are depending on the random logic (random % 2 == 0 –> even random number) that will random give us a successful response while retrying.
+So once we hit the request in the browser, we might get an exception in the backend and spring will retry the same method multiple times. The outcome could be a successful response from the backend. Here are a few lines of the log from one of my requests where spring is retrying.
+
 ```
 Console logging
 ===============================
@@ -472,8 +477,8 @@ Random Number : 0
 All retries completed, so Fallback method called!!!
 ```
 
-Now try with 'http://localhost:8080/retry?simulateretry=true&simulateretryfallback=true', you will get fallback response after retry limit as from code everytime we are throwing RuntimeException. 
-Here are my last few lines of code, it tried 3 times before sending the response.
+Now try with 'http://localhost:8080/retry?simulateretry=true&simulateretryfallback=true', you will get a fallback response after you hit the retry limit.
+ 
 ```
 Console logging
 ===============================
@@ -487,9 +492,9 @@ All retries completed, so Fallback method called!!!
 Spring Retry provides declarative retry support for Spring applications. A subset of the project includes the ability to implement circuit breaker functionality. 
 Spring Retry provides a circuit breaker implementation via a combination of it’s CircuitBreakerRetryPolicy and a stateful retry. 
 All circuit breakers created using Spring Retry will be created using the CircuitBreakerRetryPolicy and a DefaultRetryState. 
-Both of these classes can be configured using SpringRetryConfigBuilder.
-To provide a default configuration for all of your circuit breakers create a Customize bean that is passed a SpringRetryCircuitBreakerFactory. 
-The configureDefault method can be used to provide a default configuration.
+Both of these classes can be configured using 'SpringRetryConfigBuilder'.
+To provide a default configuration for all of your circuit breakers create a 'Customize'  bean that is passed a 'SpringRetryCircuitBreakerFactory'. 
+The 'configure Default' method can be used to provide a default configuration.
 
 
 ```
@@ -500,15 +505,15 @@ public Customizer<SpringRetryCircuitBreakerFactory> defaultCustomizer() {
 }
 ```
 
-Similarly to providing a default configuration, you can create a Customize bean this is passed a SpringRetryCircuitBreakerFactory.
+Similarly to providing a default configuration, you can create a 'Customize' bean this is passed a 'SpringRetryCircuitBreakerFactory'.
 ```
 @Bean
 public Customizer<SpringRetryCircuitBreakerFactory> slowCustomizer() {
     return factory -> factory.configure(builder -> builder.retryPolicy(new SimpleRetryPolicy(1)).build(), "slow");
 }
 ```
-In addition to configuring the circuit breaker that is created you can also customize the circuit breaker after it has been created but before it is returned to the caller. 
-To do this you can use the addRetryTemplateCustomizers method. This can be useful for adding event handlers to the RetryTemplate.
+In addition to configuring the circuit breaker that is created, you can also customize the circuit breaker after it has been created but before it is returned to the caller. 
+To do this you can use the 'addRetryTemplateCustomizers' method. This can be useful for adding event handlers to the 'RetryTemplate'.
 ```
 @Bean
 public Customizer<SpringRetryCircuitBreakerFactory> slowCustomizer() {
@@ -533,14 +538,14 @@ public Customizer<SpringRetryCircuitBreakerFactory> slowCustomizer() {
 ```
 
 ## Differences Resilience4j with Netflix Hystrix and Spring Retry
-Although Resilience4j is inspired by Netflix Hystrix it is more lightweight and you don’t have to go all-in.
+Although Resilience4j is inspired by Netflix Hystrix, it is more lightweight and you don’t have to go all-in.
 Quoting the official page “Resilience4j is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for functional programming.”
 
 <div style="text-align: center;">
   <img alt="Hystrix" src="/img/2020-11-05-spring-cloud-circuit-breaker/differences.png" width="auto" height="auto" class="image fit">
 </div>
 
-Since 2019 when Spring announced that Hystrix Dashboard would be removed from Spring Cloud 3.1, one year after Netflix announces that they were putting this project into maintenance mode.
+In 2019 when Spring announced that Hystrix Dashboard would be removed from Spring Cloud 3.1, one year after Netflix announces that they were putting this project into maintenance mode.
 
 Resilience4J provides the following core components:
 RateLimiter
