@@ -210,7 +210,7 @@ However, there are some recurring factors influencing the size of the resource r
 * Cacheability: This is greatly enhanced if none of the components of the resource changed at a different frequency from the others.
 
 Designing the contract before implementing the service is what is called the contract-first approach. 
-This approach might seem like a lot of design/thinking upfront, but despite this additional preparatory work, it does grant several benefits:
+This approach might seem like a lot of design/thinking upfront, and it will require additional development when exposing legacy code as a service or implementing retrofits, but despite this additional preparatory work, it does grant several benefits:
 * Implementation teams that will make use of the service can work in parallel with the service development team.
 * The contract is known before starting development so all teams have an idea of what to expect from the service. This can give a healthy discussion between provider and consumer teams on how to tweak the service an get ahead of mismatches in expectations.
 * An existing contract allows for code generation of stubs and proxies of the service to test for connectivity and availability of the service that will be developed.
