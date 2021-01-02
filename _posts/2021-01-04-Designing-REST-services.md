@@ -49,7 +49,7 @@ In order to clarify the success factors of the WWW as a platform for services on
 Formalized by the World Wide Web Consortium (W3C), the specification can be found [here](https://www.w3.org/TR/webarch/){:target="_blank" rel="noopener noreferrer"}. 
 Services are exposing resources through Uniform Resource Identifiers (URI). 
 Their relation is many-to-one: A resource can be identified by more than one URI, but any URI will only point to one resource, making it addressable and accessible for manipulation via HTTP.
-This endpoint will follow a specific structure: &lt;protocol&gt;://&lt;host&gt;/&lt;resource&gt;/&lt;identifier&gt; with the identifier piece being optional. 
+This endpoint will follow a specific structure: `<protocol>://<host>/<resource>/<identifier>` with the identifier piece being optional. 
 To fetch consultant Peter De Kinder from the service would look something like this:
 ```
     https://www.bestitpeople.com/consultant/peterdekinder
@@ -74,7 +74,7 @@ But since the Web doesn’t try to incorporate QoS guaranties and other non-func
 
 ## Level 2 - HTTP Verbs
 
-The manipulation through HTTP is done using the verbs that are supported in the protocol: GET, POST, PUT, DELETE, OPTIONS, HEAD, TRACE, CONNECT and the somewhat newer PATCH. 
+The manipulation through HTTP is done using the verbs that are supported in the protocol: GET, POST, PUT, DELETE, OPTIONS, HEAD, TRACE, CONNECT and the somewhat "newer" PATCH. 
 These verbs form a uniform interface with widely accepted semantics that cover almost all possible requirements for distributed systems. 
 Add to this a set of response codes that can be returned together with a payload of which the most famous is the 404 – Not Found.
 
@@ -184,7 +184,7 @@ This type adheres to the format:
 <media type>/vnd.<owner of custom media type>.<type of data>+<media suffix>
 ```
 
-For example: If the return of a service would list the detail of a consultant for the company “Best IT People” in XML format, you would get the following media type: “application/vnd.bestitpeople.consultant+xml”. 
+For example: If the return of a service would list the detail of a consultant for the company “Best IT People” in XML format, you would get the following media type: `application/vnd.bestitpeople.consultant+xml`. 
 Beware however not to create a set of customer media types that map directly onto the representation formats in the code of the service. 
 That would create unnecessary tight coupling.
 
@@ -218,7 +218,7 @@ This approach might seem like a lot of design/thinking upfront, but despite this
 
 ## Non-Functional Characteristics
 
-There are several considerations that way on the design and implementation of services that are of a more technical nature. 
+There are several considerations that weigh on the design and implementation of services that are of a more technical nature. 
 Some of them have already been mentioned, but there is a selection of these characteristics that are worked out in the book, each with its proper impact on the scalability of the services.
 
 ### Caching
@@ -297,11 +297,11 @@ Personally, I feel that this adds the additional complication of syncing the dat
 ### Security
 
 There is an entire chapter dedicated to security in the book. 
-However, since this is one of those areas of expertise that has rapid evolutions the contents of this book (written in 2015) are somewhat dated. 
+However, since this is one of those areas of expertise that has rapid evolutions, the contents of this book (written in 2015) are somewhat dated. 
 It evaluates authentication and authorization mechanisms based on four characteristics associated with secure distributed systems: Confidentiality (how well data can be kept private), Integrity (how to prevent unlawful changes to data), Identity (how to identify parties involved in the transactions) and Trust (what to allow the previously mentioned parties in transactions).
 
 The book offers up the following mechanisms to achieve these characteristics:
-* Basic Authentication: a very straightforward username/password combination passed along as a base64-encoded string in the request by using the Authorization header. To easily intercepted and decoded to be useful in production systems.
+* Basic Authentication: a very straightforward username/password combination passed along as a base64-encoded string in the request by using the Authorization header. Too easily intercepted and decoded to be useful in production systems.
 * Digest Authentication: A challenge/response exchange that happens in reaction to sending a request. The initial request is resent with additional information stored in the various security headers (qop, nonce, opaque, username, uri, nc, cnonce, response). This mechanism is safer than Basic Authentication, but still falls prey to man-in-the-middle attacks.
 * Transport-Level Encryption: This application of HTTPS for service exchange remains up till today a gold standard in security. One caveat is that this does not affect the payload, so this payload is still vulnerable at the termination point of the HTTPS connection. HTTPS is more expensive than HTTP in terms of performance, and does hamper caching in the network components, most of the time this tradeoff is warranted.
 * OpenID and OAuth: Since the book describes version 1 of Oauth, this part of the book is outdated, and is only of interest as a historical perspective. For an elaboration on OAUTH2, see [my blog post](https://evolute.be/thoughts/secsocial.html){:target="_blank" rel="noopener noreferrer"} on the topic. 
@@ -309,7 +309,7 @@ The book offers up the following mechanisms to achieve these characteristics:
 ## Web Semantics
 
 There is a chapter dedicated to Web Semantics. 
-This concept can be characterized as the meaning behind data and information, and stems from a need to make sure that all parties involved in the management of a resource have to same interpretation for it. 
+This concept can be characterized as the meaning behind data and information, and stems from a need to make sure that all parties involved in the management of a resource have the same interpretation for it. 
 This shared interpretation is then formalized in a	contract (using frameworks such as OWL or RDF), making the resource meaningful for both people and consuming services. 
 It mostly deals with the difference between [data, information and knowledge](https://evolute.be/thoughts/betweenlines.html){:target="_blank" rel="noopener noreferrer"} in terms of structure (relationship between different information pieces that make up a resource) and representation (in which format to expose it). 
 
