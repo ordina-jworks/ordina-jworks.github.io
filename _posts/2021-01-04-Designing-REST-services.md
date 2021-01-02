@@ -216,6 +216,10 @@ This approach might seem like a lot of design/thinking upfront, but despite this
 * An existing contract allows for code generation of stubs and proxies of the service to test for connectivity and availability of the service that will be developed.
 * Contract-first helps with keeping the contract and the underlying implementation loosely coupled as the contract is not based on the code that is run.
 
+There are concepts that I like from this level, such as the use of vendor-specific media types and contract-first design, but mostly this level carries with it a lot of added complexity for a return that only becomes tangible when working with experienced development teams and an organization with sufficient maturity in the field of service design. 
+This is the main reason that level 2 services are the most common.
+And nothing stops us from cherry picking these concepts and applying them to our level 2 services.
+
 ## Non-Functional Characteristics
 
 There are several considerations that weigh on the design and implementation of services that are of a more technical nature. 
