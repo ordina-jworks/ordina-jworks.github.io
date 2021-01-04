@@ -1,5 +1,382 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2020-12-17T11:15:43+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Building a custom YOLOv5 Ordina logo detector</title><link href="https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html" rel="alternate" type="text/html" title="Building a custom YOLOv5 Ordina logo detector" /><published>2020-12-17T00:00:00+00:00</published><updated>2020-12-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-01-04T08:09:43+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Designing REST Services</title><link href="https://ordina-jworks.github.io/architecture/2021/01/04/Designing-REST-services.html" rel="alternate" type="text/html" title="Designing REST Services" /><published>2021-01-04T00:00:00+00:00</published><updated>2021-01-04T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2021/01/04/Designing-REST-services</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2021/01/04/Designing-REST-services.html">&lt;p&gt;The World Wide Web (WWW) and its underlying architectural style of REpresentational State Transfer (REST), is a hugely successful application platform with an unprecedented adoption scope. 
+As such, it will come as no surprise that architects will look at this structure and attempt to distill the factors that made it so successful and apply these to similar systems. 
+This is what REST service design attempts to do. 
+The book “&lt;a href=&quot;https://www.amazon.co.uk/REST-Practice-Hypermedia-Systems-Architecture/dp/0596805829/ref=sr_1_1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;REST in Practice&lt;/a&gt;”, written by Jim Webber, Savas Parastatidis, and Ian Robinson finds its main purpose in the pursuit of these success factors and apply them to software development in general.&lt;/p&gt;
+
+&lt;p&gt;With REST (based on the doctoral work of Roy Fielding) as its weapon of choice, it seeks to position this style as a viable (and even better?) alternative for Classic SOA. 
+In its purest essence, REST is a state machine, tracking progression within a workflow by transitioning from one state to another. 
+This state machine has one caveat though in that it is not known in advance how many different states there are. 
+However, it displays numerous admirable qualities such as scalability, loose coupling and functional composition across service boundaries.&lt;/p&gt;
+
+&lt;p&gt;The book pits HTTP(S) against SOAP in the battle of protocols when implementing web services. 
+Where SOAP only uses HTTP(S) as its transport channel, REST embraces all of the principles of the protocol. 
+In order to assess why REST is such a good fit for service design, let’s review what a web service is all about.&lt;br /&gt;
+Web services are software components that are developed to expose business capabilities. 
+To do so, they are comprised of the following elements (available through the provided contract):&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Operations: A set of exportable operation signatures that can be accessed by the consumer of the service.&lt;/li&gt;
+  &lt;li&gt;Document Schemas: A definition of the data types that can be exchanged with the service through the provided interfaces.&lt;/li&gt;
+  &lt;li&gt;Non-Functional Specifications:
+    &lt;ul&gt;
+      &lt;li&gt;Conversation Specifics: Indication on how information can be exchanged with the services, such as request-response or fire-and-forget.&lt;/li&gt;
+      &lt;li&gt;Quality-of-Service Characteristics (QoS): Indicators for QoS characteristics such as availability, latency and throughput.&lt;/li&gt;
+      &lt;li&gt;Policy Specifics: Requirements specifications for how to interact with the service. These are stipulations on for example security and transactional contexts.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first five chapters of the book deal mainly in building a transformative journey for an organization to shift to using REST services according to the Richardson’s maturity model. 
+The model starts from a very basic implementation not following any of the REST standards up to a full implementation of services with the principle of “Hypermedia As The Engine Of Application State” (HATEOS). 
+The remaining chapters deal with how to address any non-functional specifications these services must cover. 
+In these remaining chapters there is a brief intermezzo where the authors delve into the ATOM format as a substitute for transferring data and a means for event driven service design. 
+As these chapters are a bit the odd ones out, this synopsis will not delve into them too deeply.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-01-04-Designing-REST-services/maturitymodel.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;Richardson’s Maturity Model&lt;/p&gt;
+
+&lt;h2 id=&quot;level-1---resources&quot;&gt;Level 1 - Resources&lt;/h2&gt;
+
+&lt;p&gt;In order to clarify the success factors of the WWW as a platform for services on a global scale, the book sketches a high-level overview of the architecture behind it, and the salient points for the REST architecture. 
+Formalized by the World Wide Web Consortium (W3C), the specification can be found &lt;a href=&quot;https://www.w3.org/TR/webarch/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;. 
+Services are exposing resources through Uniform Resource Identifiers (URI). 
+Their relation is many-to-one: A resource can be identified by more than one URI, but any URI will only point to one resource, making it addressable and accessible for manipulation via HTTP.
+This endpoint will follow a specific structure: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;protocol&amp;gt;://&amp;lt;host&amp;gt;/&amp;lt;resource&amp;gt;/&amp;lt;identifier&amp;gt;&lt;/code&gt; with the identifier piece being optional. 
+To fetch consultant Peter De Kinder from the service would look something like this:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    https://www.bestitpeople.com/consultant/peterdekinder
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The Web does not differentiate between resource representations. 
+Resources can thus have multiple representations. 
+These representations are views encoded in a specific format (Json, XML, MP3…) to match the needs of the consumers through content negotiation (see further down).
+This consumer friendliness does not relinquish control on how to represent or modify these resources. This is still the purview of the services that control them. 
+The encapsulation of the resources support isolation and allow for independent evolution of functionality in order to preserve loose coupling, one of the key aspects of the Web. 
+One consideration to make is that you should name your resources in such a way that they are intuitive: They must indicate the intent of the service as well as already provide a rudimentary level of documentation.&lt;/p&gt;
+
+&lt;p&gt;As stated earlier: HTTP is the spearpoint for this architecture, and this protocol stacks on top of the TCP/IP protocols and a series of WANs and LANs for its communication. 
+These networks are hosted on a set of geographically widespread and commoditized web servers, proxies, web caches and Content Delivery Networks (CDN) that host the resources and manage traffic flow without intricate canonical data models or middleware solutions.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-01-04-Designing-REST-services/http.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Loose coupling in combination with the caching possibilities of the network allow for the needed scalability asked from services and application in today’s software development. 
+But since the Web doesn’t try to incorporate QoS guaranties and other non-functional specifications, there is a need for fault tolerance in the services design, as the Web will always try to retrieve resources, even if they are nonexistent.&lt;/p&gt;
+
+&lt;h2 id=&quot;level-2---http-verbs&quot;&gt;Level 2 - HTTP Verbs&lt;/h2&gt;
+
+&lt;p&gt;The manipulation through HTTP is done using the verbs that are supported in the protocol: GET, POST, PUT, DELETE, OPTIONS, HEAD, TRACE, CONNECT and the somewhat “newer” PATCH. 
+These verbs form a uniform interface with widely accepted semantics that cover almost all possible requirements for distributed systems. 
+Add to this a set of response codes that can be returned together with a payload of which the most famous is the 404 – Not Found.&lt;/p&gt;
+
+&lt;p&gt;Combined with employing HTTP and URIs for this implementation, we are compliant with level two of Richardson’s maturity model. 
+In addition to this we need a way of communicating and handling failures that might occur during the execution of a transaction.
+For example: If we take a standard ordering system where the transactions manipulate said order (our resource), we get the following contract:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;&lt;th style=&quot;width:15%&quot;&gt;VERB&lt;/th&gt;&lt;th style=&quot;width:15%&quot;&gt;URI&lt;/th&gt;&lt;th style=&quot;width:15%&quot;&gt;STATUS&lt;/th&gt;&lt;th style=&quot;width:55%&quot;&gt;Description&lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;POST&lt;/td&gt;&lt;td&gt;/order&lt;/td&gt;&lt;td&gt;201&lt;/td&gt;&lt;td&gt;A new order is created, and the location header returns the new order’s URI. The complete order needs to be provided.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;409&lt;/td&gt;&lt;td&gt;The creation of the order conflicts with the current state of another resource and is rejected. For example: The order being created already exists.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;GET&lt;/td&gt;&lt;td&gt;/order/{id}&lt;/td&gt;&lt;td&gt;200&lt;/td&gt;&lt;td&gt;Returns the current state of the Order identified by the URI.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;404&lt;/td&gt;&lt;td&gt;Returns a status code indicating the requested resource cannot be found by the service.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;PUT&lt;/td&gt;&lt;td&gt;/order/{id}&lt;/td&gt;&lt;td&gt;200/204&lt;/td&gt;&lt;td&gt;Updates the Order identified by the URI with new information. Only a partial order is needed (with all fields that need to change). The difference between the 200 and 204 response is just aesthetic and depends on the choice of the organization.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;404&lt;/td&gt;&lt;td&gt;Returns a status code indicating the requested resource cannot be found by the service.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;409&lt;/td&gt;&lt;td&gt;The update has created a conflict with the current state of the order and is rejected.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;412&lt;/td&gt;&lt;td&gt;The update is attempting to update a resource that has been modified since it was last fetched. This signals a concurrency issue.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;DELETE&lt;/td&gt;&lt;td&gt;/order/{id}&lt;/td&gt;&lt;td&gt;200/204&lt;/td&gt;&lt;td&gt;Logically removes the order identified by the URI, and in the case of a 200 response, we could return the final state of the order.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Some response statuses can be generated by all of the above HTTP verbs:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;&lt;th style=&quot;width:20%&quot;&gt;STATUS&lt;/th&gt;&lt;th style=&quot;width:80%&quot;&gt;Description&lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;400&lt;/td&gt;&lt;td&gt;A malformed request was sent to the service.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;401&lt;/td&gt;&lt;td&gt;Unauthorized Access. The party trying to act in a transaction does not have the proper authorization to perform the requested actions.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;405&lt;/td&gt;&lt;td&gt;Method not allowed. The execution of this verb is not allowed on the current resource type (in our case order). In case of a DELETE this could also mean that the resource is currently in a state that doesn’t allow it to be deleted.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;500&lt;/td&gt;&lt;td&gt;Internal Server Error when the service is unavailable or internally crashing without possible recovery.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;&lt;u&gt;Sidebar: Singular versus Plural&lt;/u&gt;&lt;br /&gt;
+This book identifies resources using their singular noun in the URI. 
+Many service providers will use the plural noun instead. 
+There are many philosophical debates to be had whether to use singular or plural. 
+For example: Amazon and Google use plural in their API. 
+There is no clear reason or advantage for either to be preferred over the other, so in my opinion it is largely up to the designer(s) to choose as long as they remain consistent across the many components within the organization. 
+The only vaguely logical argument I found was that there are apparently more words in the English language, called mass nouns, that don’t have a plural form (such as “luggage”) than there are words that don’t have a singular form (such as “clothes”). 
+Bear in mind that I didn’t perform any due diligence of this argument, so the author of this reasoning might just be wrong about this.&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;When designing and implementing services we always need to consider whether calling these services should be safe and/or idempotent. 
+Safe services have no server-side side effects that the consumer of the service can be held accountable for. 
+These service calls will not trigger any effects that will change the state of resources. 
+Idempotency is the fact that a service call can be done multiple times without yielding a different result in any of its calls. 
+Each identical call will result in an identical response. 
+The GET of a resource is a call that is considered both safe and idempotent. 
+The service call will return the same result no matter how many times it is called, and it will not alter the state of the resource it is requesting.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;HTTP Verb&lt;/th&gt;
+      &lt;th&gt;Safe&lt;/th&gt;
+      &lt;th&gt;Idempotent&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GET&lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;POST&lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PUT&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DELETE&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PATCH&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Other verbs (all both safe and idempotent) that are commonly enabled on REST services are the following:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;HEAD: Returns only the HTTP headers of the request in order to determine the context of the resource.&lt;/li&gt;
+  &lt;li&gt;OPTIONS: Queries the endpoint for the possibilities it offers. This verb is typically also used by browsers as a preflight request to determine whether Cross-Origin Resource Sharing (CORS) is allowed&lt;/li&gt;
+  &lt;li&gt;TRACE: Allows for a loop-back test with debug information. This method is not included in default authorization checking, and should be disabled in production, as it can be a security risk.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The book concludes its elaboration on the second level of Richardson’s Maturity with an overview of some of the more popular technologies and frameworks and how they tackle the creation of a consumer for the services defined with REST. 
+These are rather straightforward for those developers that routinely use them, so we will not go deeper into them.&lt;/p&gt;
+
+&lt;h2 id=&quot;level-3---hypermedia-controls&quot;&gt;Level 3 - Hypermedia Controls&lt;/h2&gt;
+
+&lt;p&gt;Hypermedia systems extend the resource state that is being manipulated by the services with additional characteristics. 
+The resource state becomes a combination of:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The values of the individual variables that make up the resource&lt;/li&gt;
+  &lt;li&gt;Links to related resources&lt;/li&gt;
+  &lt;li&gt;Links to manipulate the current resource (creating, updating, deleting…)&lt;/li&gt;
+  &lt;li&gt;Evaluation results of business rules encompassing the resource and other related resources&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The links mentioned make up a domain application protocol (DAP) that advertises all possible interactions with the resource. 
+The consumers of this service use these published interactions to discover how to interact with the resource. 
+Hyperlinks are the weapon of choice when adding such links to interactions. 
+A DAP also consists of two other key components: Media Types (as mentioned before), and HTTP Idioms (which make up the HTTP uniform interface: verbs, standard headers, error codes…). 
+In short: Link relation values tell why the consumer should activate a hypermedia control by stating the role of the linked resource, the media type tells the consumer what it can expect as the response of a link, and the idioms manipulate the resources represented by the links.&lt;/p&gt;
+
+&lt;p&gt;The resource state can be in any format as REST’s hypermedia tenet does not force any set media type. 
+IANA is the official registry of MIME media types and maintains a &lt;a href=&quot;http://www.iana.org/assignments/media-types/media-types.xhtml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;list of all the universally accepted MIME types&lt;/a&gt;.
+The resource should indicate in the Content-Type header of its responses the ideal way of interpreting it. 
+Similarly, the Accept header is part of the HTTP spec for requests. 
+In this header the consumer can indicate which media type it wishes to receive. 
+Based on these two headers, a system of content negotiation is set up where the request of a consumer can be matched to the proper implementation to return the desired result and how it is conveyed.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-01-04-Designing-REST-services/mediatypes.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The HTTP specification allows for the definition of custom media types as well. 
+This is used to inform the consumer about the result to be expected in greater detail. 
+Where “application/xml” informs the consumer which format to expect, it doesn’t give any insight on which data to expect. 
+This can be done by creating a custom media type in the vendor range (vnd). 
+This type adheres to the format:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;media type&amp;gt;/vnd.&amp;lt;owner of custom media type&amp;gt;.&amp;lt;type of data&amp;gt;+&amp;lt;media suffix&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For example: If the return of a service would list the detail of a consultant for the company “Best IT People” in XML format, you would get the following media type: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application/vnd.bestitpeople.consultant+xml&lt;/code&gt;. 
+Beware however not to create a set of customer media types that map directly onto the representation formats in the code of the service. 
+That would create unnecessary tight coupling.&lt;/p&gt;
+
+&lt;p&gt;By utilizing the HTTP specs, URIs and hypermedia, REST allows for scalability, uniformity, performance, and encapsulation when designing a distributed system. 
+These conventions guide the service design, and thus have an impact on how the service will be exposed to the outside world. 
+This exposure is what we call the service contract. 
+A service contract informs the consumers of the service about the format of the resource (media type), its processing model (protocol) and the links to related resources. 
+The contract also shields the consumer from the implementation details, decreasing the coupling between the service and its consumers, and at the same time heightening security through obfuscation. 
+This loose coupling is further enhanced by applying Postel’s Law: “Be conservative in what you do, be liberal in what you accept from others”, also known as the robustness principle. 
+An example of how to go about implementing this law, is the Tolerant Reader pattern.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-01-04-Designing-REST-services/servicecontract.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Although the service contract has these conventions as a foundation to build upon, there is still a need for some thought to be put into the data modeling of the resources that will be exposed. 
+The decisions on how to divvy up the data assets that make up the business context into exposable resources can be a daunting endeavor, and numerous design factors should be taken into account based on the context in which this services and their contract are designed.&lt;/p&gt;
+
+&lt;p&gt;However, there are some recurring factors influencing the size of the resource representation:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Atomicity: Composite resources that share blocks of data can cause the other resource to enter an inconsistent state.&lt;/li&gt;
+  &lt;li&gt;Importance of the Information: The optionality of certain components could indicate them belonging to a separate resource representation.&lt;/li&gt;
+  &lt;li&gt;Performance and Scalability: the size of the resource and the frequency with which it is accessed, determines how long it takes for it to be passed over the network.&lt;/li&gt;
+  &lt;li&gt;Cacheability: This is greatly enhanced if none of the components of the resource changed at a different frequency from the others.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Designing the contract before implementing the service is what is called the contract-first approach. 
+This approach might seem like a lot of design/thinking upfront, and it will require additional development when exposing legacy code as a service or implementing retrofits, but despite this additional preparatory work, it does grant several benefits:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Implementation teams that will make use of the service can work in parallel with the service development team.&lt;/li&gt;
+  &lt;li&gt;The contract is known before starting development so all teams have an idea of what to expect from the service. This can give a healthy discussion between provider and consumer teams on how to tweak the service an get ahead of mismatches in expectations.&lt;/li&gt;
+  &lt;li&gt;An existing contract allows for code generation of stubs and proxies of the service to test for connectivity and availability of the service that will be developed.&lt;/li&gt;
+  &lt;li&gt;Contract-first helps with keeping the contract and the underlying implementation loosely coupled as the contract is not based on the code that is run.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are concepts that I like from this level, such as the use of vendor-specific media types and contract-first design, but mostly this level carries with it a lot of added complexity for a return that only becomes tangible when working with experienced development teams and an organization with sufficient maturity in the field of service design. 
+This is the main reason that level 2 services are the most common.
+And nothing stops us from cherry picking these concepts and applying them to our level 2 services.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-functional-characteristics&quot;&gt;Non-Functional Characteristics&lt;/h2&gt;
+
+&lt;p&gt;There are several considerations that weigh on the design and implementation of services that are of a more technical nature. 
+Some of them have already been mentioned, but there is a selection of these characteristics that are worked out in the book, each with its proper impact on the scalability of the services.&lt;/p&gt;
+
+&lt;h3 id=&quot;caching&quot;&gt;Caching&lt;/h3&gt;
+
+&lt;p&gt;Caching can be done at numerous points along the request/response chain of a service call. 
+When a resource is requested, and one of the intermediate components has a version of this resource, they will provide it back. 
+Otherwise the service call will reach the origin service and collect the real-time data. 
+The origin service should provide the intermediate components the rules for when and how to cache as well as how long the data would be considered “fresh”. 
+Evidently, the closer the caching component is to the consumer in the request/response chain, the less expensive (reduction of bandwidth and of load on the origin service) the call. 
+The other benefits of caching are a reduced latency (a quicker roundtrip time) and a reduced impact of possible network failures.&lt;/p&gt;
+
+&lt;p&gt;While there are benefits to caching, there are also reasons not to do so. 
+In these situations, caching will harm more than it benefits, or might simply not be allowed:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If the GET of the resource generates side effects from being accessed (for example a counter system that limits how many times the resource may be requested by consumers or some early bird system that benefits the first so many consumers), the cache would prevent these side effects.&lt;/li&gt;
+  &lt;li&gt;When the system in place doesn’t tolerate any latency in data to be retrieved and we need to be sure that the data received is real-time (for example a heart monitor in ICU wards).&lt;/li&gt;
+  &lt;li&gt;When caching is not allowed for regulatory reasons or security/privacy risks.&lt;/li&gt;
+  &lt;li&gt;When the frequency with which the data changes is so high and the period that the data is not stale is so small that caching would never trigger.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Aside from all the caching that can be added on an applicative level, there are already several components capable of caching that are native to the infrastructure of the web:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Local Cache: A store of cached representations from many origin servers at the behest of a single consumer, either in memory or persisted.&lt;/li&gt;
+  &lt;li&gt;Proxy Cache: A server that stores representations from many origin servers to many different consumers. This component can reside either outside or inside the corporate firewall.&lt;/li&gt;
+  &lt;li&gt;Reverse Proxy: A component that is a type of proxy server that retrieves resources from a single origin server on behalf of any number of consumers. It focuses mainly on load balancing, HTTP acceleration and security features.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The caching components are instructed on how to handle the caching of the resources they hold by using these specific HTTP response headers:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Expires: Indicates the length of the period the cached resource can be used before being considered stale.&lt;/li&gt;
+  &lt;li&gt;Cache-Control: This header can also be provided by the consumer of the service in the request. It allows for a set of comma-separated directives on how to handle the caching of the resource:
+    &lt;ul&gt;
+      &lt;li&gt;Request-only directives:
+        &lt;ul&gt;
+          &lt;li&gt;max-stale[=&amp;lt;seconds&amp;gt;]: Indicates the client will accept a stale response. An optional value in seconds indicates the upper limit of staleness the client will accept.&lt;/li&gt;
+          &lt;li&gt;min-fresh=&amp;lt;seconds&amp;gt;: Indicates the client wants a response that will still be fresh for at least the specified number of seconds.&lt;/li&gt;
+          &lt;li&gt;only-if-cached: The cache should either respond using a stored response, or respond with a 504 status code if no cached version of the resource is available.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Response-only directives:
+        &lt;ul&gt;
+          &lt;li&gt;must-revalidate: Indicates that once a resource becomes stale, caches must not use their stale copy without successful validation on the origin server.&lt;/li&gt;
+          &lt;li&gt;public: The response may be stored by any cache, even if the response is normally non-cacheable.&lt;/li&gt;
+          &lt;li&gt;private: The response may be stored only by a browser’s cache, even if the response is normally non-cacheable.&lt;/li&gt;
+          &lt;li&gt;proxy-revalidate: Like must-revalidate, but only for shared caches. Ignored by private caches.&lt;/li&gt;
+          &lt;li&gt;s-maxage=&amp;lt;seconds&amp;gt;: Overrides max-age or the Expires header, but only for shared caches (e.g., proxies). Ignored by private caches.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Generic directives:
+        &lt;ul&gt;
+          &lt;li&gt;max-age=&amp;lt;seconds&amp;gt;: The maximum amount of time a resource is considered fresh. Unlike Expires, this directive is relative to the time of the request.&lt;/li&gt;
+          &lt;li&gt;no-cache: The response may be stored by any cache, even if the response is normally non-cacheable. However, the stored response MUST always go through validation with the origin server first before using it&lt;/li&gt;
+          &lt;li&gt;no-transform: An intermediate cache or proxy cannot edit the response body, Content-Encoding, Content-Range, or Content-Type.&lt;/li&gt;
+          &lt;li&gt;no-store: The response may not be stored in any cache. Note that this will not prevent a valid pre-existing cached response being returned.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Extended directives (not part of the official HTTP standard, but universally used):
+        &lt;ul&gt;
+          &lt;li&gt;Immutable: Indicates that the response body will not change over time.&lt;/li&gt;
+          &lt;li&gt;stale-while-revalidate=&amp;lt;seconds&amp;gt;: Indicates the client will accept a stale response, while asynchronously checking in the background for a fresh one. The seconds value indicates how long the client will accept a stale response.&lt;/li&gt;
+          &lt;li&gt;stale-if-error=&amp;lt;seconds&amp;gt;: Indicates the client will accept a stale response if the check for a fresh one fails. The seconds value indicates how long the client will accept the stale response after the initial expiration.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ETag: An opaque string token that is associated with the resource to verify its state. This can be used to determine whether or not a resource has changed since the last time it was requested. Therefor this will also be used in concurrency tests.&lt;/li&gt;
+  &lt;li&gt;Last-Modified: The date at which the resource was modified the last time before this request.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;consistency&quot;&gt;Consistency&lt;/h3&gt;
+
+&lt;p&gt;It is important that data is kept consistent across various manipulations, especially when it is being exposed to and manipulated by the consumers of stateless services. 
+One of the key risks that threaten this consistency is concurrent writes to the same resource. 
+The scenario is straightforward. Consumer A reads the current resource. Consumer B reads the same resource. 
+Consumer B updates the resource, followed by consumer A updating the resource. 
+In this scenario, consumer A never saw the changes that consumer B made, and more than likely erases them by updating the resource.&lt;/p&gt;
+
+&lt;p&gt;One way to tackle this scenario is to introduce conditional updates. 
+The idea is that when a consumer reads a certain resource, it gets passed a unique representation of this resource in the “Etag”-header (for example a MD5-hash of the non-transient fields of the resource). 
+Each time any consumer is updating a resource, the consumer needs to provide this value in the “If-Match”-header. 
+The idea is that when the update is processed by the service, it checks whether the content of the header still matches the representation of the resource. 
+If it is still the same, it will update the resource and return the result (HTTP 200 OK status). 
+If between the read and update of the resource by this consumer, another consumer modified the resource, the representation value will have changed, and the update is denied (HTTP 412 PRECONDITION FAILED status). 
+It is then up to the consumer to fetch an up to date resource and decide whether or not still to process its changes. 
+The “If-None-Match”-header checks whether a resource exists with the representation, and if not, proceed with the update. 
+This could be used to prevent the creation of duplicate resources in the database.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-01-04-Designing-REST-services/etag.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are also headers based on the modification date of a resource for indicating to the service that it should behave in a conditional way. 
+Personally, I feel that this adds the additional complication of syncing the date between the service and its consumers, and that using the ETag is more resilient:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The “If-Modified-Since” header only executes when the resource has been modified since the given date. This header works with the last-modified header instead of the ETag.&lt;/li&gt;
+  &lt;li&gt;The “If-Unmodified-Since” header is the inverse of the “If-Modified-Since” header.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;security&quot;&gt;Security&lt;/h3&gt;
+
+&lt;p&gt;There is an entire chapter dedicated to security in the book. 
+However, since this is one of those areas of expertise that has rapid evolutions, the contents of this book (written in 2015) are somewhat dated. 
+It evaluates authentication and authorization mechanisms based on four characteristics associated with secure distributed systems: Confidentiality (how well data can be kept private), Integrity (how to prevent unlawful changes to data), Identity (how to identify parties involved in the transactions) and Trust (what to allow the previously mentioned parties in transactions).&lt;/p&gt;
+
+&lt;p&gt;The book offers up the following mechanisms to achieve these characteristics:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Basic Authentication: a very straightforward username/password combination passed along as a base64-encoded string in the request by using the Authorization header. Too easily intercepted and decoded to be useful in production systems.&lt;/li&gt;
+  &lt;li&gt;Digest Authentication: A challenge/response exchange that happens in reaction to sending a request. The initial request is resent with additional information stored in the various security headers (qop, nonce, opaque, username, uri, nc, cnonce, response). This mechanism is safer than Basic Authentication, but still falls prey to man-in-the-middle attacks.&lt;/li&gt;
+  &lt;li&gt;Transport-Level Encryption: This application of HTTPS for service exchange remains up till today a gold standard in security. One caveat is that this does not affect the payload, so this payload is still vulnerable at the termination point of the HTTPS connection. HTTPS is more expensive than HTTP in terms of performance, and does hamper caching in the network components, most of the time this tradeoff is warranted.&lt;/li&gt;
+  &lt;li&gt;OpenID and OAuth: Since the book describes version 1 of Oauth, this part of the book is outdated, and is only of interest as a historical perspective. For an elaboration on OAUTH2, see &lt;a href=&quot;https://evolute.be/thoughts/secsocial.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;my blog post&lt;/a&gt; on the topic.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;web-semantics&quot;&gt;Web Semantics&lt;/h2&gt;
+
+&lt;p&gt;There is a chapter dedicated to Web Semantics. 
+This concept can be characterized as the meaning behind data and information, and stems from a need to make sure that all parties involved in the management of a resource have the same interpretation for it. 
+This shared interpretation is then formalized in a	contract (using frameworks such as OWL or RDF), making the resource meaningful for both people and consuming services. 
+It mostly deals with the difference between &lt;a href=&quot;https://evolute.be/thoughts/betweenlines.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;data, information and knowledge&lt;/a&gt; in terms of structure (relationship between different information pieces that make up a resource) and representation (in which format to expose it).&lt;/p&gt;
+
+&lt;p&gt;Web Semantics was very popular for a time, but as I have described in a &lt;a href=&quot;https://evolute.be/thoughts/semantics.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;previous blog post&lt;/a&gt;, for me it no longer bears much relevance. 
+That being said, remnants of the technologies can still be found in for example the &lt;a href=&quot;https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;twitter card headers&lt;/a&gt; used to aptly represent website links on the twitter feed. 
+These metatags use RDF as their foundation.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The WS-* protocol stack might still be considered more developed, but this comes with an increased complexity that hinders its uses. 
+It still has some legacy that it cannot shed, such as for example the disregard of encapsulation in exposing its internal workings via the WSDL. 
+But it does come with several strong points to cover the non-functional needs of service design. 
+Not in the least its security features that come with a full suite of cryptographic techniques provides an end-to-end mechanism or transferring information.
+And we cannot forget that at this time its adoption by organizations is still very widespread.&lt;/p&gt;
+
+&lt;p&gt;However, REST has gained substantial maturity on these topics as evidenced by this book and has since become the new favorite. 
+REST isn’t a perfect fit for every situation, as no solution ever is. 
+And its distributed nature does necessitate strict monitoring of performance and other metrics such as mean time between failures. 
+But the familiarity with the World Wide Web architecture carries enough weight to add an intuitive aspect to its development and use.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="architecture" /><category term="software architecture" /><category term="microservices" /><category term="integration" /><category term="software design" /><summary type="html">The World Wide Web (WWW) and its underlying architectural style of REpresentational State Transfer (REST), is a hugely successful application platform with an unprecedented adoption scope. As such, it will come as no surprise that architects will look at this structure and attempt to distill the factors that made it so successful and apply these to similar systems. This is what REST service design attempts to do. The book “REST in Practice”, written by Jim Webber, Savas Parastatidis, and Ian Robinson finds its main purpose in the pursuit of these success factors and apply them to software development in general.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-01-04-Designing-REST-services/servicedesign.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-01-04-Designing-REST-services/servicedesign.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Building a custom YOLOv5 Ordina logo detector</title><link href="https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html" rel="alternate" type="text/html" title="Building a custom YOLOv5 Ordina logo detector" /><published>2020-12-17T00:00:00+00:00</published><updated>2020-12-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/12/17/ordina-logo-detector.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
 
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
 
@@ -3182,860 +3559,4 @@ To summarize, we have learned that &lt;code class=&quot;language-plaintext highl
 Besides that, it also offers asynchronous reactive streams, which works in a non-blocking way.&lt;/p&gt;
 
 &lt;p&gt;We have looked into R2DBC, which supports reactive connections with relational databases. 
-Bear in mind that this does not offer a lot of features of ORM frameworks at the moment.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Lowie&quot;, &quot;last_name&quot;=&gt;&quot;Cuypers&quot;, &quot;permalink&quot;=&gt;&quot;/author/lowie_cuypers&quot;, &quot;avatar&quot;=&gt;&quot;lowie-cuypers.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;lowie.cuypers@ordina.be&quot;, &quot;github&quot;=&gt;&quot;cuypers&quot;, &quot;bio&quot;=&gt;&quot;Lowie is a Java back-end developer who also knows his way around Angular. He is a Spring Boot enthusiast and loves cloud-native development.&quot;}</name><email>lowie.cuypers@ordina.be</email></author><category term="Rest" /><category term="Spring" /><category term="RestTemplate" /><category term="WebClient" /><category term="Reactive" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-09-11-resttemplate-vs-webclient/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-09-11-resttemplate-vs-webclient/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ghelamco Alert</title><link href="https://ordina-jworks.github.io/cloud/2020/09/28/ghelamco-alert.html" rel="alternate" type="text/html" title="Ghelamco Alert" /><published>2020-09-28T00:00:00+00:00</published><updated>2020-09-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/09/28/ghelamco-alert</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/09/28/ghelamco-alert.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-
-&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#practicalities&quot; id=&quot;markdown-toc-practicalities&quot;&gt;Practicalities&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#solution-design&quot; id=&quot;markdown-toc-solution-design&quot;&gt;Solution design&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#backend-rpi&quot; id=&quot;markdown-toc-backend-rpi&quot;&gt;Backend RPi&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#spring-boot-application&quot; id=&quot;markdown-toc-spring-boot-application&quot;&gt;Spring Boot application&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#connecting-our-rpi-to-the-cloud&quot; id=&quot;markdown-toc-connecting-our-rpi-to-the-cloud&quot;&gt;Connecting our RPi to the cloud&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#aws-iot-greengrass&quot; id=&quot;markdown-toc-aws-iot-greengrass&quot;&gt;AWS IoT Greengrass&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#cicd-pipeline-rpi-backend&quot; id=&quot;markdown-toc-cicd-pipeline-rpi-backend&quot;&gt;CICD pipeline RPi Backend&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#frontend-web-application&quot; id=&quot;markdown-toc-frontend-web-application&quot;&gt;Frontend web application&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#angular&quot; id=&quot;markdown-toc-angular&quot;&gt;Angular&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#aws-amplify&quot; id=&quot;markdown-toc-aws-amplify&quot;&gt;AWS Amplify&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#aws-cognito&quot; id=&quot;markdown-toc-aws-cognito&quot;&gt;AWS Cognito&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#the-application-itself&quot; id=&quot;markdown-toc-the-application-itself&quot;&gt;The application itself&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#hosting-the-application&quot; id=&quot;markdown-toc-hosting-the-application&quot;&gt;Hosting the application&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#cicd-pipeline-frontend&quot; id=&quot;markdown-toc-cicd-pipeline-frontend&quot;&gt;CICD pipeline Frontend&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#serverless-framework&quot; id=&quot;markdown-toc-serverless-framework&quot;&gt;Serverless framework&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#why-the-serverless-framework&quot; id=&quot;markdown-toc-why-the-serverless-framework&quot;&gt;Why the serverless framework?&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#serverlessyml&quot; id=&quot;markdown-toc-serverlessyml&quot;&gt;Serverless.yml&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#cicd-pipeline-serverless&quot; id=&quot;markdown-toc-cicd-pipeline-serverless&quot;&gt;CICD pipeline Serverless&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#application-flow&quot; id=&quot;markdown-toc-application-flow&quot;&gt;Application flow&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot; id=&quot;markdown-toc-conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;At Ordina, we have a beautiful office in the Ghelamco arena in Gent.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco office&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghelamco_arena_office.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-&lt;p&gt;The drawback of having an office in this stadium is that whenever KAA Gent plays a game in the stadium we have to make sure our parking lot is empty 3 hours before the start of the game.&lt;br /&gt;
-If the parking lot isn’t cleared in time we risk fines up to €500,00 per car.&lt;br /&gt;
-Of course we don’t want to spend our money on fines when instead we could be buying more pizzas.&lt;br /&gt;
-So we came up with a solution called &lt;strong&gt;Ghelamco Alert&lt;/strong&gt;.&lt;br /&gt;
-The idea for the project is pretty straightforward.&lt;br /&gt;
-We will run &lt;a href=&quot;https://www.raspberrypi.org&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;a Raspberry Pi&lt;/a&gt; device that is hooked up to an alert light.&lt;br /&gt;
-The Raspberry Pi will run an application that parses the game fixtures on the website of KAA Gent to search for any home fixtures.&lt;br /&gt;
-Whenever a home fixture occurs, the RPi will start turning on the alert light on a preset schedule.&lt;br /&gt;
-This way the employees in the office will have a visual warning on game day and they will be reminded to leave the parking lot on time.&lt;br /&gt;
-Since we wanted to build a user-friendly solution we added a serverless backend in the AWS cloud combined with an Angular application so that our users can also look at the web application to get some additional feedback and even manipulate the alerting schedule.&lt;br /&gt;
-This enables users to do some additional operations through the web application:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Snooze alerts&lt;/li&gt;
-  &lt;li&gt;Create additional alerts&lt;/li&gt;
-  &lt;li&gt;Create custom events&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;practicalities&quot;&gt;Practicalities&lt;/h1&gt;
-&lt;p&gt;I received my assignment from my internship supervisor Frederick Bousson.&lt;br /&gt;
-Bas Moorkens was my mentor for the internship.&lt;br /&gt;
-He designed the high-level architecture of the solution and then helped translate it into smaller blocks of work for me.&lt;br /&gt;
-We decided to set up the project using these three big components:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;An IoT module on the RPi.&lt;/li&gt;
-  &lt;li&gt;A serverless backend that runs in the AWS cloud using Node.js.&lt;/li&gt;
-  &lt;li&gt;A frontend application built with the Angular framework.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The architecture was tweaked several times to account for lessons learned during the internship.&lt;br /&gt;
-We ended up using over 10 AWS services which over the course of the internship, made me develop a real interest in everything that is AWS and cloud related.&lt;br /&gt;
-Once you get the hang of serverless, the speed of setting up infrastructure is absolutely mind-blowing!&lt;/p&gt;
-
-&lt;h1 id=&quot;solution-design&quot;&gt;Solution design&lt;/h1&gt;
-&lt;p&gt;Below you can see the high-level design of our solution.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco Alert architecture&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghela-alert-architecture.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-&lt;p&gt;As you can see the architecture has lots of moving parts.
-We will zoom in on these in the next sections.&lt;/p&gt;
-
-&lt;h2 id=&quot;backend-rpi&quot;&gt;Backend RPi&lt;/h2&gt;
-&lt;p&gt;The core part of our solution consists of the Raspberry Pi device with our backend Spring Boot application that runs on it.&lt;br /&gt;
-This application controls the actual alert light and does most of the heavy lifting in the overall scheme.&lt;br /&gt;
-The RPi works with a microSD card on which you can easily install any Linux distribution.&lt;br /&gt;
-You install the distribution of your choosing on SD card and then plug the card into your RPi device and you’re good to go.&lt;br /&gt;
-We used a &lt;a href=&quot;https://www.raspberrypi.org/products/raspberry-pi-4-model-b/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;model 4 Raspberry Pi&lt;/a&gt; and installed the default Raspbian Linux distribution on it.&lt;/p&gt;
-
-&lt;h3 id=&quot;spring-boot-application&quot;&gt;Spring Boot application&lt;/h3&gt;
-&lt;p&gt;The actual business logic of our solution runs as a Spring Boot project on our RPi device.&lt;/p&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;basics-of-the-application&quot;&gt;Basics of the application&lt;/h4&gt;
-
-&lt;p&gt;The core of our application revolves around &lt;strong&gt;events&lt;/strong&gt; which happen at the Ghelamco Arena.&lt;br /&gt;
-These can be of type &lt;strong&gt;&lt;em&gt;GameEvent&lt;/em&gt;&lt;/strong&gt; or &lt;strong&gt;&lt;em&gt;CustomEvent&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The GameEvents are all the KAA Gent home games.&lt;/li&gt;
-  &lt;li&gt;As an added feature, I also added the possibility to create custom events, which are handy for scheduling concerts or alarming a pizza party.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For each event we generate a couple of standard &lt;strong&gt;alerts&lt;/strong&gt; based on the &lt;strong&gt;event time&lt;/strong&gt;.&lt;br /&gt;
-These alerts are responsible to set off the alarm light in the office.&lt;br /&gt;
-This means that we will use the &lt;a href=&quot;https://www.raspberrypi.org/documentation/usage/gpio/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GPIO&lt;/a&gt; interface of our RPi to turn on the alarm light every time an alert gets triggered in our backend application.&lt;br /&gt;
-To set off an alert, the GPIO interface changes the voltage on a GPIO-pin to 0V or 3.3V.&lt;br /&gt;
-This pin gets coupled to a relay, which acts as a regular switch, but electrically controlled.&lt;br /&gt;
-If we put 0V on the relay, the circuit remains open, when we put 3.3V on it, the circuit gets closed and thus starting our alarm light.&lt;/p&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;webscraper&quot;&gt;WebScraper&lt;/h4&gt;
-
-&lt;p&gt;Our Spring backend is running a scheduler that is configured to run a service every hour that checks the website of KAA Gent for the up-to-date fixtures of the games.&lt;br /&gt;
-The approach I took for scraping the website is by using X-Path with a library called &lt;a href=&quot;https://htmlunit.sourceforge.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HtmlUnit&lt;/a&gt;.&lt;br /&gt;
-In our application we fetch every game from the website, filter them on home games, attach alerts and save those games to our H2-database using Spring Data.&lt;/p&gt;
-
-&lt;p&gt;Every time we scan the website, we compare the scraped games’ data with the games that already were saved in our database.&lt;br /&gt;
-Games can get updated or rescheduled on the website, but our application will recognize it and update the database records accordingly.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/scrape-games.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;h2-database&quot;&gt;H2 database&lt;/h4&gt;
-
-&lt;p&gt;One of the requirements for the project was that the RPi should be able to function on his own without constant internet connection.&lt;br /&gt;
-This meant that we needed to use a database that can run locally on the RPi.&lt;br /&gt;
-If we would use a remote database we wouldn’t be able to send any data to the RPi when it is not connected to a network.&lt;br /&gt;
-We chose to use a H2-database because it is a SQL database which is easy to set up for local use.&lt;br /&gt;
-Then we configured the H2-database to be backed by a flatfile on our local filesystem.
-This way the database is persistent even when the application restarts.&lt;br /&gt;
-As the last step we just need to add the H2 dependency to our projects pom.xml .&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
-    &amp;lt;groupId&amp;gt;com.h2database&amp;lt;/groupId&amp;gt;
-    &amp;lt;artifactId&amp;gt;h2&amp;lt;/artifactId&amp;gt;
-    &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt;
-&amp;lt;/dependency&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Add some configuration in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application.properties&lt;/code&gt; file.&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;### H2 Storage
-spring.datasource.url=jdbc:h2:file:c:\\h2-ghela\\h2db
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=kevin
-spring.datasource.password=admin
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-spring.jpa.hibernate.ddl-auto=create-drop
-spring.h2.console.enabled=true
-spring.h2.console.settings.web-allow-others=false
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This just works out of the box, it even comes with a console to check your database if enabled.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/h2-console.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;metrics&quot;&gt;Metrics&lt;/h4&gt;
-
-&lt;p&gt;Our application generates metrics to provide us with some data about our backend.&lt;br /&gt;
-We collect data and push it into &lt;a href=&quot;https://aws.amazon.com/cloudwatch&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS CloudWatch&lt;/a&gt; as metrics for:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Number of events added&lt;/li&gt;
-  &lt;li&gt;Number of events updated&lt;/li&gt;
-  &lt;li&gt;Number of events cancelled&lt;/li&gt;
-  &lt;li&gt;Number of alerts snoozed&lt;/li&gt;
-  &lt;li&gt;Number of alerts started&lt;/li&gt;
-  &lt;li&gt;Number of alerts stopped&lt;/li&gt;
-  &lt;li&gt;A basic heartbeat&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;When our application is running, we are constantly gathering this data which we push to Cloudwatch metrics every 5 minutes.
-Afterwards we reset our data counters and start collecting again.&lt;br /&gt;
-This allows us to create a dashboard which has data-points every 5 minutes for all the metrics we defined.&lt;/p&gt;
-
-&lt;h3 id=&quot;connecting-our-rpi-to-the-cloud&quot;&gt;Connecting our RPi to the cloud&lt;/h3&gt;
-&lt;p&gt;We have two ways of connecting back to the AWS cloud.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Use AWS credentials and the AWS APIs.&lt;/li&gt;
-  &lt;li&gt;Use AWS IoT MQTT protocol and the according certificates.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-cloudwatch-integration&quot;&gt;AWS Cloudwatch integration&lt;/h4&gt;
-
-&lt;p&gt;The CloudWatch integration is done entirely by having a set of credentials with limited permissions on our RPi device.&lt;br /&gt;
-We use these credentials inside our application to access the AWS SDK from our Java code.&lt;br /&gt;
-We integrate with CloudWatch in two different ways:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;We push custom metrics from our application to CloudWatch metrics.&lt;/li&gt;
-  &lt;li&gt;We send the logs from our application to CloudWatch logs.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;cloudwatch-metrics&quot;&gt;CloudWatch metrics&lt;/h5&gt;
-
-&lt;p&gt;The metrics that we generate in our application should of course get sent to AWS CloudWatch, so we can actually make use of them in the AWS cloud.&lt;br /&gt;
-We use the metric data to build dashboards and alerts within CloudWatch for added visibility into our application.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert Metrics&quot; src=&quot;/img/2020-09-25-ghelamco-alert/all-metric-data-graph.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We have created an alarm that triggers when our &lt;strong&gt;RPI_BACKEND_STATUS&lt;/strong&gt; status metric is missing for three data points in a row.&lt;br /&gt;
-This means that after 15 minutes of not receiving this metric, the CloudWatch alarm will trigger and notifies us via email that the RPi is either down or disconnected from the internet.&lt;br /&gt;
-This enables us to respond quickly and take action to restore connectivity to the device.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghelamco-rpi-backend-down-alert.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;cloudwatch-logs&quot;&gt;CloudWatch logs&lt;/h5&gt;
-
-&lt;p&gt;The logs from our Spring Boot application get sent to CloudWatch logs. 
-This allows us to check the log files in the AWS cloud without needing access to the RPi device itself.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/cloudwatch-logs.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-iot&quot;&gt;AWS IoT&lt;/h4&gt;
-
-&lt;p&gt;The reason for using &lt;a href=&quot;https://aws.amazon.com/iot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS IoT&lt;/a&gt; is for the sake of “being connected to the cloud”.&lt;br /&gt;
-When we are connected to the cloud, we are able to communicate with our device “through the cloud”, meaning from anywhere we want! &lt;br /&gt;
-In our case this means that we want our RPi device to be connected to AWS IoT whenever it is up and running and has internet connectivity.&lt;br /&gt;
-Of course the communication between our RPi and the AWS cloud has to be secured.
-AWS IoT uses authentication and authorization workflow by using certificates that you issue from AWS IoT and upload to your edge device.&lt;br /&gt;
-We treat our RPi as an edge device in this project.&lt;/p&gt;
-
-&lt;p&gt;Authentication works based on the certificates that the edge device presents to AWS IoT.&lt;br /&gt;
-Once the certificate authentication is successful, AWS IoT checks which policies got attached to those certificates to grant it specific authorizations within the AWS cloud.&lt;/p&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;authentication-certificates&quot;&gt;Authentication: certificates&lt;/h5&gt;
-
-&lt;p&gt;When you add a new edge device in AWS IoT it is called “a thing”.&lt;br /&gt;
-When registering “a thing” it generates two keys for us: a public key and a private key.&lt;br /&gt;
-AWS IoT will provide a certificate signing request for the public key, which will sign the generated certificate with the root certificate’s private key.&lt;/p&gt;
-
-&lt;p&gt;Our thing-certificate and our private key are our credentials when we try to communicate with AWS IoT to access our edge device.&lt;br /&gt;
-The only additional input that we need to provide on top of the generated signing request is the root certificate to check the signing.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Certificates&lt;/li&gt;
-  &lt;li&gt;Private Key&lt;/li&gt;
-  &lt;li&gt;Root CA&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Since these certificates get generated per thing that you register they should only be used for one device.&lt;br /&gt;
-When I developed the application I had to register another thing for my laptop.&lt;br /&gt;
-Connecting from the RPi and the laptop with the same certificates caused some unwanted behavior like connection interrupts.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/cert-aws-iot.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;authorization-policies&quot;&gt;Authorization: policies&lt;/h5&gt;
-
-&lt;p&gt;After creating our certificates and keys we need to handle the authorization part.&lt;br /&gt;
-We do this by adding some policies to our certificates.&lt;br /&gt;
-When presenting our certificates on connecting, AWS IoT now also knows what services we can access within the AWS cloud.&lt;/p&gt;
-
-&lt;p&gt;An example of such a policy:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
-  &quot;Version&quot;: &quot;2012-10-17&quot;,
-  &quot;Statement&quot;: [
-    {
-      &quot;Effect&quot;: &quot;Allow&quot;,
-      &quot;Action&quot;: [
-        &quot;iot:Publish&quot;,
-        &quot;iot:Subscribe&quot;,
-        &quot;iot:Connect&quot;,
-        &quot;iot:Receive&quot;
-      ],
-      &quot;Resource&quot;: [
-        &quot;*&quot;
-      ]
-    },
-    {
-      &quot;Effect&quot;: &quot;Allow&quot;,
-      &quot;Action&quot;: [
-        &quot;iot:GetThingShadow&quot;,
-        &quot;iot:UpdateThingShadow&quot;,
-        &quot;iot:DeleteThingShadow&quot;
-      ],
-      &quot;Resource&quot;: [
-        &quot;*&quot;
-      ]
-    },
-    {
-      &quot;Effect&quot;: &quot;Allow&quot;,
-      &quot;Action&quot;: [
-        &quot;greengrass:*&quot;
-      ],
-      &quot;Resource&quot;: [
-        &quot;*&quot;
-      ]
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We define which services we want to access:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:Publish&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:Subscribe&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:GetThingShadow&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:UpdateThingShadow&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot:DeleteThingShadow&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This system of generating certificates and coupling policies is a very secure and easy way of working with edge devices.&lt;/p&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;iot-job&quot;&gt;IoT job&lt;/h5&gt;
-
-&lt;p&gt;A crucial part of AWS IoT is the job section. 
-We can create a job by using the AWS CLI.&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aws iot update-job  
-  --job-id 010  
-  --description &quot;updated description&quot; 
-  --timeout-config inProgressTimeoutInMinutes=100
-  --job-executions-rollout-config {exponentialRate:{baseRatePerMinute: 50, incrementFactor: 2, rateIncreaseCriteria: &amp;lt;{numberOfNotifiedThings: 1000, numberOfSucceededThings: 1000}, maximumPerMinute: 1000}}
-  --abort-config { criteriaList: [ { action: CANCEL, failureType: FAILED, minNumberOfExecutedThings: 100, thresholdPercentage: 20}, { action: CANCEL, failureType: TIMED_OUT, minNumberOfExecutedThings: 200, thresholdPercentage: 50}]}          
-  --presigned-url-config {roleArn:arn:aws:iam::123456789012:role/S3DownloadRole, expiresInSec:3600}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;We use AWS IoT to create these jobs and send them to our RPi where they get executed by our application code.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert device update&quot; src=&quot;/img/2020-09-25-ghelamco-alert/device-update-iot.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We have the possibility to put multiple “things” in a group of devices.&lt;br /&gt;
-This way we can send jobs to the entire group and these jobs get executed on every device from that group.&lt;br /&gt;
-These jobs could be software updates, reboot commands, rotation of certificates, … &lt;br /&gt;
-Anything we want really!&lt;/p&gt;
-
-&lt;p&gt;In our project we used IoT jobs for a multitude of processes:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Update our backend application - over the air&lt;/li&gt;
-  &lt;li&gt;Create new events&lt;/li&gt;
-  &lt;li&gt;Snooze and update existing alerts&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/aws-iot-jobs.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;It is pretty straightforward to create an IoT job:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Create a job&lt;/li&gt;
-  &lt;li&gt;Add a job document (JSON file) which defines the content of the job&lt;/li&gt;
-  &lt;li&gt;Push the job onto the job queue to send it to your devices&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Example job document:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
-    &quot;operation&quot;: &quot;snoozeAlert&quot;,
-    &quot;local_alert_id&quot;: 31,
-    &quot;event_title&quot;: &quot;test from lambda snooze alert&quot;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;mqtt-protocol&quot;&gt;MQTT protocol&lt;/h5&gt;
-
-&lt;p&gt;AWS IoT can communicate with its registered devices through two protocols: HTTP or MQTT.&lt;br /&gt;
-So why would we choose MQTT over the more familiar HTTP protocol?&lt;br /&gt;
-The HTTP protocol has some severe limitations for our use case:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;HTTP is a synchronous protocol, the client waits for the server to respond.&lt;br /&gt;
-That is a requirement for web browsers, but it comes at the cost of poor scalability.&lt;br /&gt;
-In the world of IoT where we have numerous devices and most likely an unreliable / high-latency network connection this synchronous communication is problematic.&lt;br /&gt;
-An asynchronous messaging protocol is much more suitable for IoT applications.&lt;br /&gt;
-The sensors can send in readings and let the network figure out the optimal path and timing for delivery to its destination devices and services.&lt;/li&gt;
-  &lt;li&gt;HTTP is a one-way protocol. The client must initiate the connection.&lt;br /&gt;
-In an IoT application, the devices or sensors are typically clients, which means that they cannot passively receive commands from the network.&lt;/li&gt;
-  &lt;li&gt;HTTP is a 1-1 protocol. The client makes a request and the server responds.&lt;br /&gt;
-It is difficult and expensive to broadcast a message to all devices on the network, which is a common use case in IoT applications.&lt;/li&gt;
-  &lt;li&gt;HTTP is a heavyweight protocol with many headers and rules. It is not suitable for constrained networks.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;MQTT on the other hand defines two types of entities in the network: a message broker (AWS IoT) and a number of edge devices (clients).&lt;br /&gt;
-The broker is a server that receives all messages from the clients and then routes those messages to relevant destination clients.&lt;br /&gt;
-A client is anything that can interact with the broker to send and receive messages.&lt;br /&gt;
-Our client is the RPi but it could also be an IoT sensor in the field or an application in a data center that processes IoT data.&lt;/p&gt;
-
-&lt;p&gt;In our backend Java code we have an MQTTJobService which connects to AWS IoT by using the &lt;a href=&quot;https://aws.amazon.com/sdk-for-java/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS SDK&lt;/a&gt; and subscribes to the relevant topics to receive and respond to AWS IoT jobs.&lt;br /&gt;
-Every 30 seconds we will read these topics to see if there are any new jobs to be processed.&lt;/p&gt;
-
-&lt;h3 id=&quot;aws-iot-greengrass&quot;&gt;AWS IoT Greengrass&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://aws.amazon.com/greengrass&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Greengrass&lt;/a&gt; is a service that extends the AWS cloud onto your edge device.&lt;br /&gt;
-This was fascinating for us since we had some tough problems to solve:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;How can we deploy our application on the RPi device?&lt;/li&gt;
-  &lt;li&gt;How can we make sure our application recovers from failures?&lt;/li&gt;
-  &lt;li&gt;How can we make sure that our system keeps itself up to date?&lt;/li&gt;
-  &lt;li&gt;How do we find the network address from our device when we are not in the same network?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;AWS Greengrass offers solutions to all these challenges!&lt;br /&gt;
-Greengrass is an extension of the AWS IoT service and since we had already set up our device in AWS IoT it was easy for us to set up Greengrass.&lt;br /&gt;
-To get started with Greengrass we had to do 2 additional steps:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Define a Greengrass group. This group will contain your IoT devices and deployments.&lt;/li&gt;
-  &lt;li&gt;Define a Greengrass core. The core is the device that you will use to run the additional AWS capabilities on.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The Greengrass group allows us to push deployments to all the devices in our group.&lt;br /&gt;
-It also allows you to run lambda functions on your core device or install additional connectors with your own runtime of choice.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Greengrass group&quot; src=&quot;/img/2020-09-25-ghelamco-alert/gg_group.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;When you register your device as a core device in Greengrass you immediately get some nice additional benefits from this.&lt;br /&gt;
-For example, you can immediately see all the network interfaces on your core device and what IP addresses got allocated.&lt;br /&gt;
-This is especially useful if you want to ssh to your device and do not have a fixed IP attached to it.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Greengrass core&quot; src=&quot;/img/2020-09-25-ghelamco-alert/gg_core.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Now we that Greengrass is installed and our RPi is configured as a core device our Greengrass group we can start making full use of the capabilities that Greengrass offers.&lt;br /&gt;
-We decided that we wanted our application to run as a Docker container, so we installed and configured the &lt;a href=&quot;https://docs.aws.amazon.com/greengrass/latest/developerguide/docker-app-connector.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Docker connector&lt;/a&gt; for Greengrass. &lt;br /&gt;
-This plugin allows you to run Docker containers on your core device and makes use of &lt;strong&gt;Docker&lt;/strong&gt; and &lt;strong&gt;Docker Compose&lt;/strong&gt;.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Greengrass Docker connector&quot; src=&quot;/img/2020-09-25-ghelamco-alert/gg_connector_docker_cfg.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-&lt;p&gt;For this to work you have to install Docker and Docker Compose on your core device.&lt;br /&gt;
-Since we are using a RPi it was a bit harder to install since the RPi uses the ARM7 chipset instead of x64/x32.&lt;br /&gt;
-We had no trouble installing Docker itself, but for Docker Compose we had to clone the source code from GitHub and compile the binaries ourself on the RPi.&lt;br /&gt;
-After all the setup was done we could just create a Docker container in our CICD pipeline and tell Greengrass to run that container on RPi.&lt;/p&gt;
-
-&lt;h3 id=&quot;cicd-pipeline-rpi-backend&quot;&gt;CICD pipeline RPi Backend&lt;/h3&gt;
-
-&lt;p&gt;To make sure we did not need to bother ourselves with manual builds and installs of our code on the RPi we built a CICD pipeline to automatically deploy our software onto the RPi.&lt;br /&gt;
-We trigger the pipeline whenever a push to our master branch hapens in our Git repository.&lt;br /&gt;
-We used &lt;a href=&quot;https://azure.microsoft.com/en-us/services/devops/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Azure DevOps&lt;/a&gt; as our CICD system.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert Azure pipeline backend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/azure-backpipe.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The pipeline has a lot of pipeline steps defined and integrates with several AWS services as well.&lt;br /&gt;
-We drew up a chart to provide additional insight into how this pipeline works:&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert Azure pipeline backend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-rpi.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;As you can see there are two major parts of this pipeline:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;the Azure DevOps pipeline&lt;/li&gt;
-  &lt;li&gt;the Greengrass deployment process.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;azure-devops-pipeline&quot;&gt;Azure devops pipeline&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Build and test our Java code.&lt;br /&gt;
-We use Maven to build and test our code.&lt;/li&gt;
-  &lt;li&gt;We use &lt;a href=&quot;https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS SSM - Parameter Store&lt;/a&gt; to safely store our config files and certificates for the RPi.&lt;br /&gt;
-In step 2 and 3 we fetch those config files and secrets from the parameter store and store them locally for use later in the pipeline.&lt;/li&gt;
-  &lt;li&gt;In order to control the alert light hooked up to our RPi we need to download the &lt;a href=&quot;http://wiringpi.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;WiringPi library&lt;/a&gt; as we used that to communicate with our alert light. 
-We stored this library in our release S3 bucket.&lt;/li&gt;
-  &lt;li&gt;We have to register an ARM hardware emulator as our Docker image has to be run in the pipeline to install additional software.&lt;br /&gt;
-Without the emulator our pipeline would just crash as Azure DevOps would have no way to run the ARM7 Docker image.&lt;/li&gt;
-  &lt;li&gt;We build our Docker image.&lt;br /&gt;
-We install all the config, certificates and dependencies into our container in this step.&lt;/li&gt;
-  &lt;li&gt;We push the container into &lt;a href=&quot;https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS ECR - Elastic Container Registry&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;We fill in the container name and version from the previous step in our template &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file and upload it to our S3 releases bucket.&lt;/li&gt;
-  &lt;li&gt;We use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greengrass create-deployment&lt;/code&gt; CLI command to deploy our Docker container to our RPi device.&lt;br /&gt;
-This deployment fetches the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file from our S3 release bucket and then launches the container that we defined in that compose file.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Some additional explanation on the Docker image and running containers on ARM7 processor architectures.&lt;/p&gt;
-
-&lt;p&gt;Our application’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt; looks like this:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FROM balenalib/am571x-evm-openjdk:11-jre-bullseye-20200901
-ADD ./wiringpi-2.52.deb /tmp/wiringpi-2.52.deb
-RUN apt-get update &amp;amp;&amp;amp; \ 
-    cd /tmp &amp;amp;&amp;amp; \ 
-    dpkg -i wiringpi-2.52.deb
-COPY ./target/ghela-business-0.0.1-SNAPSHOT.jar /app.jar
-ADD ./config /config
-ADD ./certificates /certificates
-ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;app.jar&quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Because we are running this container on our RPi we need to make sure it can run on the ARM7 processor.&lt;br /&gt;
-This is why we started from an ARM7 image that already has JRE11 installed on it.&lt;br /&gt;
-As you can see we need to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt-get update&lt;/code&gt;**` and some other commands in our container to get it fully functioning.&lt;br /&gt;
-This means that our container will be actually executed during the build phase.&lt;br /&gt;
-This is the reason why we need to register the ARM7 emulator in our pipeline.&lt;br /&gt;
-Otherwise, Azure DevOps would have no way of running our Docker image since it cannot interpret the ARM7 processor instruction set natively.&lt;/p&gt;
-
-&lt;p&gt;In our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker-compose.yml&lt;/code&gt; file we describe how the container should behave when it’s running:&lt;/p&gt;
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3.3'&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;${ecr.imageTag}&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;privileged&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8080:8080&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/home/pi/.aws/:/root/.aws:ro&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/ghela/db:/ghela/db&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;db-data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Several things are happening in this file:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;We dynamically inject the image name and version in our CICD pipeline into the  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${ecr.imageTag}&lt;/code&gt; field.&lt;/li&gt;
-  &lt;li&gt;We run our container in privileged mode as this is needed to access the RPis native interface to control our alert light through GPIO with wiringPi.&lt;/li&gt;
-  &lt;li&gt;We expose our application port 8080 to the outside world.&lt;/li&gt;
-  &lt;li&gt;We mount our AWS credentials and H2 database as volumes from the RPi host system.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;greengrass-deployment-process&quot;&gt;Greengrass deployment process&lt;/h4&gt;
-
-&lt;p&gt;For the Greengrass deployment process we did not have to create any code.&lt;br /&gt;
-This works out of the box when you set up Greengrass.&lt;br /&gt;
-However, for full transparency I will briefly describe the process here:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;AWS Greengrass receives a new deployment (this is the last step of our Azure DevOps pipeline).&lt;/li&gt;
-  &lt;li&gt;Greengrass sends the new deployment to the Greengrass agent on our device.&lt;/li&gt;
-  &lt;li&gt;Download the Docker Compose file from S3 which is associated with our deployment.&lt;/li&gt;
-  &lt;li&gt;Download the Docker image and version from ECR that is defined in the Docker Compose file.&lt;/li&gt;
-  &lt;li&gt;Terminate the current running container.&lt;/li&gt;
-  &lt;li&gt;Start the new container.&lt;/li&gt;
-  &lt;li&gt;Set up the mounted volumes defined in our Docker Compose file.&lt;/li&gt;
-  &lt;li&gt;Start the Spring Boot application in the container.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;All these steps get done automatically for us by the Greengrass agent running on our RPi device.&lt;br /&gt;
-As you can see this CICD pipeline makes it incredibly easy for us to deploy new software to our RPi device.&lt;/p&gt;
-
-&lt;h2 id=&quot;frontend-web-application&quot;&gt;Frontend web application&lt;/h2&gt;
-
-&lt;p&gt;To get data from our RPi into our web application we needed a way to connect to our H2 database on the RPi.&lt;br /&gt;
-It would be pretty complex to set up our RPi device to be accessible from the internet, so we chose to build a backend in AWS to function as a proxy for our RPi backend application.&lt;br /&gt;
-This allows us to use this proxy backend in AWS to access the data from our RPi device and send new commands to update existing data on the RPi.&lt;br /&gt;
-More about this backend in the serverless part.&lt;br /&gt;
-First let’s take a look into our frontend application.&lt;/p&gt;
-
-&lt;h3 id=&quot;angular&quot;&gt;Angular&lt;/h3&gt;
-&lt;p&gt;I wanted to create a simple web application to get more insight in the data of our RPi device.&lt;br /&gt;
-Any modern frontend framework would be suitable for this but I decided to go with Angular since I had already had some basic experience with it.&lt;br /&gt;
-We did however use some extra frameworks and AWS services to make it easier to build our frontend application.&lt;/p&gt;
-
-&lt;h3 id=&quot;aws-amplify&quot;&gt;AWS Amplify&lt;/h3&gt;
-
-&lt;p&gt;To help us bootstrap our web application, we decided to use the &lt;a href=&quot;https://aws.amazon.com/amplify/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Amplify framework&lt;/a&gt;.&lt;br /&gt;
-The open-source Amplify Framework provides:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Amplify CLI - Configure AWS services needed to power your backend through a simple command line interface.&lt;/li&gt;
-  &lt;li&gt;Amplify Libraries - Use case-centric client libraries to integrate your app code with a backend using declarative interfaces.&lt;/li&gt;
-  &lt;li&gt;Amplify UI Components - UI libraries for React, React Native, Angular, Ionic and Vue.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For our project we only used the libraries and UI components from Amplify for our web application.&lt;br /&gt;
-When we use the Amplify CLI to bootstrap our project it generated a new file in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./src&lt;/code&gt; folder of our project called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aws-exports.js&lt;/code&gt;.&lt;br /&gt;
-This file contains configuration of various backend AWS services that we will be using:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Cognito user pool id&lt;/li&gt;
-  &lt;li&gt;Cognito identity pool url&lt;/li&gt;
-  &lt;li&gt;Region&lt;/li&gt;
-  &lt;li&gt;API gateway url&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The backend itself is build and deployed with the &lt;strong&gt;serverless framework&lt;/strong&gt;.&lt;br /&gt;
-More about this in the section regarding serverless.&lt;/p&gt;
-
-&lt;h3 id=&quot;aws-cognito&quot;&gt;AWS Cognito&lt;/h3&gt;
-
-&lt;p&gt;We used &lt;a href=&quot;https://aws.amazon.com/cognito/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Cognito&lt;/a&gt; as authentication and authorization provider.&lt;br /&gt;
-This means that new users can sign up to our Cogito user pool and login to our web application by authenticating themselves via that user pool.&lt;/p&gt;
-
-&lt;p&gt;There are several excellent reasons to use Cogito instead of building a home-grown identity solution:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Secure and scalable user directory.&lt;br /&gt;
-It scales dynamically as you would expect from AWS.&lt;/li&gt;
-  &lt;li&gt;Fine grained access control through the use of Cogito user pools and identity pools. &lt;br /&gt;
-You can define users and groups in a Cogito user pool which you then can map to AWS IAM roles.&lt;br /&gt;
-This is a straightforward and very secure way to allow users of the web application a federated access into your AWS account.&lt;/li&gt;
-  &lt;li&gt;Easy integration into our frontend application through components that are provided in the Amplify UI library.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert login-screen frontend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/login-frontend.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;cognito-user-pool&quot;&gt;Cognito User pool&lt;/h5&gt;
-&lt;p&gt;User Pools are user directories used to manage sign-up and sign-in functionality for mobile and web applications.&lt;br /&gt;
-Users can register directly in our &lt;strong&gt;user pool&lt;/strong&gt; or they can register themselves through web identity federation via a well-known 3rd party like: Facebook, Amazon, Google.&lt;br /&gt;
-Whenever a user logs in to our user pool they receive a &lt;strong&gt;JWT token&lt;/strong&gt; that contains information about their identity and authorizations.&lt;br /&gt;
-We call this information JWT claims.&lt;/p&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;cognito-identity-pool&quot;&gt;Cognito identity pool&lt;/h5&gt;
-
-&lt;p&gt;To be able to use the claims in this JWT token we created an AWS &lt;strong&gt;identity pool&lt;/strong&gt; as well.&lt;br /&gt;
-The identity pool allows users to exchange their valid JWT token for temporary AWS credentials.&lt;br /&gt;
-These temporary credentials then get used by our application, to call AWS services in our account. 
-For example: call API gateway, update a dynamodb table , fetch a CloudWatch metric.&lt;br /&gt;
-This process is called federated access and is very powerful to expose services from within your AWS account to your end users.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-application-itself&quot;&gt;The application itself&lt;/h3&gt;
-&lt;p&gt;Now I covered all the technologies that I used for the web application, I will walk you through the application itself.&lt;/p&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;dashboard-view&quot;&gt;Dashboard view&lt;/h4&gt;
-
-&lt;p&gt;On the dashboard view we can see which events are coming up next.&lt;br /&gt;
-When we click on an event we also get to see all the alerts which are set for that event.&lt;br /&gt;
-We can update or snooze alerts from this screen, BUT…
-This works a bit different from how you would expect it to work.&lt;br /&gt;
-In a normal setting you would expect us to update the records in our DynamoDB table, right?&lt;br /&gt;
-Since we want our H2 database on the RPi device to be the single source of truth this is not the case here.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert Dashboard frontend&quot; src=&quot;/img/2020-09-25-ghelamco-alert/dashboard-frontend.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;When you update or snooze an alert we actually create an AWS IoT job for our RPi to process.&lt;br /&gt;
-The backend application on the RPi knows how to handle these events and updates his H2 database accordingly.&lt;br /&gt;
-Together with our sync component we built on the RPi backend, those changes get updated directly to our DynamoDB table.&lt;/p&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;create-custom-event&quot;&gt;Create Custom event&lt;/h4&gt;
-
-&lt;p&gt;On this tab we can create our own custom events.&lt;br /&gt;
-This works in the same way as snoozing or updating on alert on the dashboard view.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert create event screen&quot; src=&quot;/img/2020-09-25-ghelamco-alert/frontend-create.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;job-overview&quot;&gt;Job overview&lt;/h4&gt;
-
-&lt;p&gt;In the job overview view we query our API gateway to fetch us all the pending jobs from our DynamoDB job table.&lt;br /&gt;
-The lambda function that listens to this endpoint reads the ghela-jobs DynamoDB table and list all jobs that have a status of not yet “COMPLETED”.&lt;br /&gt;
-The moment this list is empty all changes from our webapp have been processed successfully by our RPi backend application and will have updated the ghela-events and ghela-jobs DynamoDB tables.&lt;/p&gt;
-
-&lt;p&gt;Important note: our RPi can only receive new jobs from AWS IoT if it is connected to the internet.&lt;br /&gt;
-So if we do not have a working network connection, jobs will stay queued within AWS IoT and not get pushed to the RPi backend application.&lt;br /&gt;
-For the same reason it is important to know that our RPi device is connected and functioning well, to make sure our commands from our web application get processed by our RPi backend application.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert jobs screen&quot; src=&quot;/img/2020-09-25-ghelamco-alert/frontend-jobs.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;metrics-1&quot;&gt;Metrics&lt;/h4&gt;
-
-&lt;p&gt;On this tab we can see the status of the RPi backend as a graph.&lt;br /&gt;
-Remember the metrics we talked about before?&lt;br /&gt;
-Via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/metrics&lt;/code&gt; API endpoint we invoke a lambda function that fetches this dynamic graph and sends it back to our frontend as a Base64 encoded stream of byte data.&lt;br /&gt;
-We can then render this data as an image in our frontend web application.&lt;br /&gt;
-By adding this graph in our web application users of the application can see that the RPi backend device is up and running and functioning well without ever having to access our AWS account itself, pretty cool huh?&lt;/p&gt;
-
-&lt;h3 id=&quot;hosting-the-application&quot;&gt;Hosting the application&lt;/h3&gt;
-
-&lt;p&gt;In order to make our web application accessible to the public we needed some kind of hosting service.&lt;br /&gt;
-In our case we used &lt;a href=&quot;https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS S3&lt;/a&gt; to host our website.&lt;br /&gt;
-Our S3 bucket is prefaced by a &lt;a href=&quot;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS CloudFront&lt;/a&gt; that acts as our global, scalable CDN.&lt;br /&gt;
-CloudFront delivers our content through a worldwide network of data centers called edge locations.&lt;br /&gt;
-When a user requests content that we’re serving with CloudFront, the user gets routed to the edge location that provides the lowest latency.&lt;br /&gt;
-We used &lt;a href=&quot;https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Route 53&lt;/a&gt; as our DNS service so that we can access our application on the url  &lt;a href=&quot;https://ghelamco-alert.ordina-jworks.io&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ghelamco-alert.ordina-jworks.io&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;cicd-pipeline-frontend&quot;&gt;CICD pipeline Frontend&lt;/h3&gt;
-
-&lt;p&gt;Since CICD pipelines were completely new to me when starting this project, Bas created the pipeline for our RPi backend.&lt;br /&gt;
-For the frontend CICD pipeline he wanted me to create it.&lt;br /&gt;
-Even though he still helped me, he let me think about how this pipeline would run, what steps we needed and had me create the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;azure-pipelines.yml&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert frontend pipeline&quot; src=&quot;/img/2020-09-25-ghelamco-alert/azure-frontpipe.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The pipeline is less complex than the pipeline to build and deploy our backend on our RPi device.&lt;br /&gt;
-We created a diagram of all the steps and interactions with AWS services for this pipeline as well.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert frontend pipeline&quot; src=&quot;/img/2020-09-25-ghelamco-alert/ghela-alert-cicd-frontend.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Install Node.js.&lt;/li&gt;
-  &lt;li&gt;Download the needed configuration files from AWS SSM parameter store and save it locally.&lt;br /&gt;
-In this case we download an entire &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aws-exports.js&lt;/code&gt; file from SSM and inject this in the final build of our application.&lt;br /&gt;
-This file contains all the endpoints for wiring our frontend application to our production backend.&lt;/li&gt;
-  &lt;li&gt;Install npm dependencies.&lt;/li&gt;
-  &lt;li&gt;Build our Angular application. We use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm build&lt;/code&gt; command to do this.&lt;/li&gt;
-  &lt;li&gt;Override the configuration file in the application we just built with the configuration file we downloaded from SSM.&lt;/li&gt;
-  &lt;li&gt;Empty the S3 bucket we are using for hosting.&lt;/li&gt;
-  &lt;li&gt;Upload the newly compiled web application to this S3 bucket.&lt;/li&gt;
-  &lt;li&gt;Invalidate the &lt;a href=&quot;https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS CloudFront&lt;/a&gt; cache to make sure our application gets updated on each AWS edge location. 
-If we don’t do this, our old version could be cached for up to 24h!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;serverless-framework&quot;&gt;Serverless framework&lt;/h2&gt;
-&lt;p&gt;Our frontend application would be pretty useless if no backend existed for it.&lt;br /&gt;
-Since it is difficult to access our RPi backend application directly we decided to build a proxy backend in the AWS cloud as explained before.&lt;br /&gt;
-We decided to use the serverless framework for its ease of use and speed of development to build this backend.&lt;/p&gt;
-
-&lt;p&gt;What exactly are the requirements for our backend in the AWS cloud? We listed following list of requirements:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynamoDB&lt;/a&gt; tables for our events and jobs.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Cognito UserPool&lt;/a&gt; and a &lt;a href=&quot;https://docs.aws.amazon.com/cognito/latest/developerguide/identity-pools.html&quot;&gt;Cognito IdentityPool&lt;/a&gt; to provide authentication and authorisation for our frontend application.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS API Gateway&lt;/a&gt; to expose REST endpoints from our cloud backend to our frontend web application.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/lambda/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lambda functions&lt;/a&gt; that actually implement our backend code. We used the &lt;a href=&quot;https://aws.amazon.com/sdk-for-node-js/&quot;&gt;AWS Node.js SDK&lt;/a&gt; to program our lambda functions.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS IAM&lt;/a&gt; roles and permissions to perform operations inside of our Lambdas (connect and create jobs on AWS IoT, scan and put to our DynamoDB tables, etc…).&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;why-the-serverless-framework&quot;&gt;Why the serverless framework?&lt;/h3&gt;
-
-&lt;p&gt;In the beginning we configured everything by hand in the console.&lt;br /&gt;
-This approach has several drawbacks:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;It is very time-consuming to click in the AWS console&lt;/li&gt;
-  &lt;li&gt;It is an error prone and not easily repeatable process to set up&lt;/li&gt;
-  &lt;li&gt;It does not adhere to industry best practices as we want our infrastructure to be defined as code&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Bas then introduced me to the concept of &lt;a href=&quot;https://en.wikipedia.org/wiki/Infrastructure_as_code&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;IaC or Infrastructure as Code&lt;/a&gt; and &lt;a href=&quot;https://www.serverless.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the Serverless framework&lt;/a&gt;.&lt;br /&gt;
-There are several options to do IaC on AWS but for our particular project serverless seemed the best fit.&lt;br /&gt;
-Our entire cloud backend gets configured in our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serverless.yml&lt;/code&gt; file, that is versioned on GitHub in our cloud backend project.&lt;br /&gt;
-This way we can set up our infrastructure through IaC in a repeatable manner.&lt;/p&gt;
-
-&lt;h3 id=&quot;serverlessyml&quot;&gt;Serverless.yml&lt;/h3&gt;
-
-&lt;p&gt;This file is the heart of our serverless setup.&lt;br /&gt;
-Everything that is needed to run our serverless stack got described in this file.&lt;br /&gt;
-We used the &lt;strong&gt;yaml&lt;/strong&gt; notation as it is less convoluted than JSON, but you can also use JSON or TypeScript to build this. &lt;br /&gt;
-We will explain the different parts of our serverless setup to show you in detail how everything works.&lt;/p&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;functions-and-api-gateway&quot;&gt;Functions and Api Gateway&lt;/h4&gt;
-
-&lt;p&gt;The essential part of our serverless setup is the functions section.&lt;br /&gt;
-A function is an AWS Lambda function.&lt;br /&gt;
-It’s an independent unit of deployment like a true microservice.&lt;br /&gt;
-It is generally a very small piece of code that does one thing and does it well.&lt;br /&gt;
-In our project, for example, we have a lambda function &lt;strong&gt;list-events&lt;/strong&gt; which does exactly that, list the events from our DynamoDB table.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-functions.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-&lt;p&gt;Our API gateway is generated based on the configuration of our functions in this section.&lt;br /&gt;
-Everything under the &lt;strong&gt;events&lt;/strong&gt; property is used as configuration for our API gateway.&lt;br /&gt;
-In this example you can see that we define a &lt;strong&gt;path&lt;/strong&gt; of event and a &lt;strong&gt;method&lt;/strong&gt; GET.&lt;br /&gt;
-We also enable &lt;strong&gt;CORS&lt;/strong&gt; and tell the API gateway to authorize calls made to this endpoint with the &lt;strong&gt;AWS_IAM&lt;/strong&gt; authorizer.&lt;/p&gt;
-
-&lt;p&gt;This results in the path &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/event&lt;/code&gt; getting added to our API gateway which then maps to our lambda function we defined.&lt;br /&gt;
-This path is CORS enabled and is secured by the aws_iam authorizer.&lt;br /&gt;
-So you can only invoke this function if you have a valid AWS access credential from our Cogito identity pool.&lt;br /&gt;
-If you don’t have a valid credential you will receive a 403 denied response from the API gateway.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;API gw&quot; src=&quot;/img/2020-09-25-ghelamco-alert/api-gw.PNG&quot; target=&quot;_blank&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Our function needs several additional pieces of configuration to be able to do its job well.&lt;/p&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-iam-roles&quot;&gt;AWS IAM Roles&lt;/h4&gt;
-
-&lt;p&gt;To allow our lambda function to have fine-grained access to our AWS services we defined IAM roles in our serverless project that are attached to our lambda functions.&lt;br /&gt;
-We defined the IAM roles in a separate file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lambda-iam-roles.yml&lt;/code&gt; which gets included into our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serverless.yml&lt;/code&gt; file.&lt;br /&gt;
-We can then freely use any roles we wish.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-iamroles.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-dynamodb&quot;&gt;AWS DynamoDB&lt;/h4&gt;
-
-&lt;p&gt;We decided to use AWS DynamoDB as our datastore in the cloud.&lt;br /&gt;
-&lt;a href=&quot;https://aws.amazon.com/dynamodb/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS DynamoDB&lt;/a&gt; is a key-value, document and NoSQL database, that delivers single-digit millisecond performance at any scale.&lt;br /&gt;
-DynamoDB is a very cost effective and low maintenance way of storing data so it looked perfect for us.&lt;br /&gt;
-Since our lambda function relies on these DynamoDB tables for its data we pass the table name to the function as an environment variable.&lt;br /&gt;
-This allows us to have separate tables for different environment like development, integration, production.&lt;br /&gt;
-Our DynamoDB tables get created by the serverless framework as well.&lt;br /&gt;
-They are described in a separate file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dynamodb-tables.yml&lt;/code&gt; and gets included in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serverless.yml&lt;/code&gt; file.&lt;br /&gt;
-Our DynamoDB tables get created by a naming policy which allows us to easily reuse that naming scheme in our environment variables for the lambda functions.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-dynamo.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h5 class=&quot;no_toc&quot; id=&quot;data-sync&quot;&gt;Data sync&lt;/h5&gt;
-
-&lt;p&gt;Our data gets pushed from our RPi backend into DynamoDB tables so that our web application has access to the latest data.&lt;br /&gt;
-To achieve this push mechanism I made a service in our backend application that syncs the local H2 database to our DynamoDB table.&lt;br /&gt;
-We added some triggers in our RPi backend application that allows us to sync the current state of the H2 database to the DynamoDB table.&lt;br /&gt;
-For example, when we are done with our website scraping process, we trigger a sync to DynamoDB if there are any updates or inserts into our H2 database.&lt;br /&gt;
-This ensures that our RPi H2 database acts as the single source of truth.&lt;br /&gt;
-The DynamoDB is just a read-only copy of the data in the AWS cloud that is kept up to date by our RPi backend application.&lt;br /&gt;
-So as long as the backend application is running on the RPi we have access to the latest data in our web application.&lt;/p&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-lambda-functions-with-aws-nodejs-sdk&quot;&gt;AWS Lambda functions with AWS Node.js SDK&lt;/h4&gt;
-
-&lt;p&gt;The handler is the entry point in our lambda function.&lt;br /&gt;
-This is defined in our serverless stack which handler should be invoked by the API gateway.&lt;br /&gt;
-Following example illustrates how our lambda reads data from our DynamoDB table (using the environment variable from our config) and returns the result to our API gateway.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-lambda.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 class=&quot;no_toc&quot; id=&quot;aws-api-gateway-additional-configuration&quot;&gt;AWS API Gateway additional configuration&lt;/h4&gt;
-
-&lt;p&gt;We needed to add some additional configuration for our API gateway that was not possible to include in the functions part of our serverless template.&lt;br /&gt;
-To make sure our application does not get CORS errors when it receives a 4XX or 5XX response from the API gateway we had set up CORS for these error responses.&lt;br /&gt;
-As you can see below we added response headers to allow all origins and headers.&lt;/p&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/sls-api.PNG&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;cicd-pipeline-serverless&quot;&gt;CICD pipeline Serverless&lt;/h3&gt;
-
-&lt;p&gt;Since the serverless framework is so easy to use, and we only had one environment available, we decided not to build a CICD pipeline for this part.&lt;br /&gt;
-Instead, we just use the &lt;strong&gt;serverless CLI&lt;/strong&gt; to deploy and update our stack from our local development machines.&lt;/p&gt;
-
-&lt;h1 id=&quot;application-flow&quot;&gt;Application flow&lt;/h1&gt;
-&lt;p&gt;To finish off the technical part of this blogpost I would like to show you the end-to-end workflow of the application.&lt;br /&gt;
-For example let’s say the user logs in to the web application and wants to &lt;strong&gt;snooze an alert&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;We click snooze alert in the frontend web application.&lt;/li&gt;
-  &lt;li&gt;This calls our API gateway endpoint &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/alert/snooze&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;This call is authorized by the &lt;strong&gt;userpool JWT token&lt;/strong&gt; and &lt;strong&gt;identitypool temporary AWS credential&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;This API gateway endpoint invokes an &lt;strong&gt;AWS Lambda function&lt;/strong&gt; which creates a job and &lt;strong&gt;job document in AWS IoT&lt;/strong&gt; for the RPi.
-It also inserts a row into a second &lt;strong&gt;DynamoDB table&lt;/strong&gt; (ghela-jobs) to register the job we created on the frontend.&lt;/li&gt;
-  &lt;li&gt;The job gets send to the RPi and processed by our backend application, thus snoozing the alert in the &lt;strong&gt;H2 database&lt;/strong&gt;.
-This will effectively turn the alert light off.&lt;/li&gt;
-  &lt;li&gt;The RPi &lt;strong&gt;synchronizes&lt;/strong&gt; its H2 database with the event &lt;strong&gt;DynamoDB table&lt;/strong&gt;. Thus updating the status of the alert in the DynamoDB table.&lt;/li&gt;
-  &lt;li&gt;This new status will then be reflected in the &lt;strong&gt;frontend web application&lt;/strong&gt; so our user can see the result of his action.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;This same workflow applies to all commands that can be sent from the frontend application to our RPi device.&lt;br /&gt;
-This is a prime example of how a distributed system works and operates.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;This internship gave me such a big overview of all best practices and new technologies, that this was a real eye-opener and educational experience.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;I’ve had the chance to develop an application in Spring, with different databases;&lt;/li&gt;
-  &lt;li&gt;learned how to properly test my code with unit and integration tests;&lt;/li&gt;
-  &lt;li&gt;learned how to use the Java and Node AWS SDKs;&lt;/li&gt;
-  &lt;li&gt;APIs, connecting it all together…;&lt;/li&gt;
-  &lt;li&gt;came in touch with a lot of Linux, sharpening my command-line skills;&lt;/li&gt;
-  &lt;li&gt;developed an Angular app from start to finish;&lt;/li&gt;
-  &lt;li&gt;learned a lot about AWS: IAM, IoT Core, DynamoDB, API Gateway, SNS, SSM, EKS, S3, CloudWatch, CloudFront, lambdas, Route53, …;&lt;/li&gt;
-  &lt;li&gt;CICD pipelines and their best practices in the industry&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I’m very thankful for being able to do this and having the chance to work with Bas on a real project.&lt;/p&gt;
-
-&lt;p&gt;He always motivated me to go the extra mile !&lt;br /&gt;
-And he could destroy a day of hard work in a few sentences … :)&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center;&quot;&gt;
-  &lt;img alt=&quot;Ghelamco-alert CloudWatch Alarm&quot; src=&quot;/img/2020-09-25-ghelamco-alert/bas-smile.png&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;But afterwards he would always take the time to explain why, and how, I should do it to make my solution comply with the industry best practices.&lt;br /&gt;
-Being able to have someone who makes you self-reflect on the work you did and takes his time to give you proper feedback.
-That is the biggest asset to provide to a junior programmer.&lt;/p&gt;
-
-&lt;p&gt;Also, a big thanks to Frederick Bousson &amp;amp; Ordina for the opportunity and resources provided.&lt;br /&gt;
-This really was a great project and I enjoyed every minute of it!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Govaerts&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-govaerts/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-govaerts.jpg&quot;, &quot;title&quot;=&gt;&quot;Java developer&quot;, &quot;email&quot;=&gt;&quot;kevin.govaerts1@gmail.com&quot;, &quot;linkedin&quot;=&gt;&quot;kevingovaerts&quot;, &quot;bio&quot;=&gt;&quot;Kevin works as a back-end developer for Ordina Belgium, focussing mainly on Spring boot, Angular and AWS-technologies.&quot;}</name><email>kevin.govaerts1@gmail.com</email></author><category term="Cloud" /><category term="IoT" /><category term="RPi" /><category term="AWS" /><category term="Serverless" /><category term="API Gateway" /><category term="S3" /><category term="Lambda" /><category term="Route 53" /><category term="CloudFront" /><category term="Greengrass" /><category term="Docker" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-09-25-ghelamco-alert/rpi-front.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+Bear in mind that this does not offer a lot of features of ORM frameworks at the moment.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Lowie&quot;, &quot;last_name&quot;=&gt;&quot;Cuypers&quot;, &quot;permalink&quot;=&gt;&quot;/author/lowie_cuypers&quot;, &quot;avatar&quot;=&gt;&quot;lowie-cuypers.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;lowie.cuypers@ordina.be&quot;, &quot;github&quot;=&gt;&quot;cuypers&quot;, &quot;bio&quot;=&gt;&quot;Lowie is a Java back-end developer who also knows his way around Angular. He is a Spring Boot enthusiast and loves cloud-native development.&quot;}</name><email>lowie.cuypers@ordina.be</email></author><category term="Rest" /><category term="Spring" /><category term="RestTemplate" /><category term="WebClient" /><category term="Reactive" /><summary type="html">Table of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-09-11-resttemplate-vs-webclient/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-09-11-resttemplate-vs-webclient/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
