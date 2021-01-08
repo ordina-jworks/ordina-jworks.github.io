@@ -16,7 +16,7 @@ I am, however, a firm believer that no one framework or library is better than a
 
 Those who know a little bit about React will know that, like Angular, Vue and others, it’s a JavaScript library to create web applications by means of components.
 These components are considered building blocks and can consist themselves of smaller components.
-These components have properties, being passed by their parents and can these properties can influence the rendered view and logic of the components.
+These components have properties, being passed by their parents and these properties can influence the rendered view and logic of the components.
 
 Those with a bit more React experience, will know that in a larger tree of components, it’s a nuisance to get a property from a component near the root of the tree to a component near the leafs of the tree by simple property binding.
 It also muddies intermediary components with irrelevant code.
@@ -24,7 +24,7 @@ It also muddies intermediary components with irrelevant code.
 Fortunately React includes **Context** [Docs](https://reactjs.org/docs/context.html){:target="_blank" rel="noopener noreferrer"}.
 It provides a way to share value like preferences/themes and authentication data without having to explicitly set those values in each component’s properties.
 
-The developer basically creates a `Context` variable which is provided by a near root component using a `Provider`, and can be consumed by other components  using either a `Consumer` or a `useContext` hook.
+The developer basically creates a `Context` variable which is provided by a container component (e.g. App) using a `Provider`, and can be consumed by other components  using either a `Consumer` or a `useContext` hook.
 
 ## The Challenge
 <img class="image fit center" alt="A man reading a scroll with a quest on it" src="/img/react-generic-context/reading-a-scroll.jpg">
@@ -139,7 +139,7 @@ import { createUseAuth } from './hooks/useAuth';
 import { createAuthProvider } from './providers/AuthProvider';
 import { AuthService } from './services/auth.service';
 
-export function createAuthService<T = unknown>(authService: AuthService<T>) {
+export function createAuthentication<T = unknown>(authService: AuthService<T>) {
   const AuthContext = createAuthContext<T>(); // We type the Context based on the generic AuthService
   const useAuth = createUseAuth(AuthContext);
   const AuthProvider = createAuthProvider(AuthContext, authService);
@@ -158,29 +158,30 @@ They too expose a factory function, calling the core factory function with some 
 
 ```typescript
 // authentication-oidc/factory.ts
-import { createAuthService } from '@our-scope/authentication-core';
+import { createAuthentication } from '@our-scope/authentication-core';
 import { OidcProps } from './domain/oidc-props';
 import { OidcAuthService } from './services/oidc-auth.service';
 
-export function createOidcAuthService(oidcProps: OidcProps) {
+export function createOidcAuthentication(oidcProps: OidcProps) {
   const oidcService = new OidcAuthService(oidcProps);
-  return createAuthService(oidcService);
+  return createAuthentication(oidcService);
 }
 
 ```
 
+Due to TypeScript's type inference, the resulting Authentication and its components will have the same type as OidcAuthService's implementation of AuthService.
 Now the implementation for applications can use the factored and typed components instead of static components and the eventual switch from one implementation to another is as easy as ever.
 The only changes which might have to be made to components, are for those components that actually consume an implementation-specific part of the user data.
 
 ```typescript
 // auth.ts
 // This is the only file to change when switching auth providers
-import { createOidcAuthService, OidcProps } from '@our-scope/authentication-oidc';
+import { createOidcAuthentication, OidcProps } from '@our-scope/authentication-oidc';
 
 const config: OidcProps = { ... };
 
-const { AuthProvider, AuthConsumer, useAuth } = createOidcAuthService(config);
-// const { AuthProvider, AuthConsumer, useAuth } = createBasicAuthService();
+const { AuthProvider, AuthConsumer, useAuth } = createOidcAuthentication(config);
+// const { AuthProvider, AuthConsumer, useAuth } = createBasicAuthentication();
 
 export { AuthProvider, AuthConsumer, useAuth };
 ```
