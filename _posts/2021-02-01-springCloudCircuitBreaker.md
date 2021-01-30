@@ -2,7 +2,7 @@
 layout: post
 authors: [lina_romanelli]
 title: 'Spring Cloud Circuit Breaker'
-image: /img/2020-11-05-spring-cloud-circuit-breaker/CircuitBreaker.png
+image: /img/2021-02-01-spring-cloud-circuit-breaker/CircuitBreaker.png
 tags: [Spring, Spring Boot, Cloud, Microservices]
 category: Spring
 comments: true
@@ -34,7 +34,7 @@ There are three supported implementations:
 
 # Configuring Circuit Breakers with Resilience4j for non-reactive applications
 <div style="text-align: left;">
-  <img alt="Resilience4j" src="/img/2021-01-18-spring-cloud-circuit-breaker/resilience4j.png" width="100" height="100" class="-1u(medium)">
+  <img alt="Resilience4j" src="/img/2021-02-01-spring-cloud-circuit-breaker/resilience4j.png" width="100" height="100" class="-1u(medium)">
 </div>
 
 
@@ -542,7 +542,7 @@ Although Resilience4J is inspired by Netflix Hystrix, it is more lightweight and
 Quoting the official page "Resilience4J is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for functional programming."
 
 <div style="text-align: center;">
-  <img alt="Hystrix" src="/img/2021-01-18-spring-cloud-circuit-breaker/differences.png" width="auto" height="auto" class="image fit">
+  <img alt="Hystrix" src="/img/2021-02-01-spring-cloud-circuit-breaker/differences.png" width="auto" height="auto" class="image fit">
 </div>
 
 In 2019 when Spring announced that Hystrix Dashboard would be removed from Spring Cloud 3.1, one year after, Netflix announces that they were putting this project into maintenance mode.
