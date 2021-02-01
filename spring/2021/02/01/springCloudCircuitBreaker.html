@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Spring Cloud Circuit Breaker - Lina Romanelli">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2021-02-01-spring-cloud-circuit-breaker/CircuitBreaker.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Spring Cloud Circuit Breaker - Lina Romanelli"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2021-02-01-spring-cloud-circuit-breaker/CircuitBreaker.png"/>
+
+    
+    <title>Spring Cloud Circuit Breaker - Lina Romanelli &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Spring Cloud Circuit Breaker</h2>
+                
+
+                
+                    Posted Feb 1, 2021
+
+
+    in <a href="/categories/spring/">Spring</a>
+
+
+
+    by
+    
+        <a href="/author/lina-romanelli/">Lina Romanelli</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/spring-boot/">Spring Boot</a>, 
+    
+        <a href="/tags/cloud/">Cloud</a>, 
+    
+        <a href="/tags/microservices/">Microservices</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 class="no_toc" id="table-of-contents">Table of contents</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#types-of-implementation" id="markdown-toc-types-of-implementation">Types of implementation</a></li>
+  <li><a href="#configuring-circuit-breakers-with-resilience4j-for-non-reactive-applications" id="markdown-toc-configuring-circuit-breakers-with-resilience4j-for-non-reactive-applications">Configuring Circuit Breakers with Resilience4j for non-reactive applications</a></li>
+  <li><a href="#configuring-circuit-breakers-with-resilience4j-for-reactive-applications" id="markdown-toc-configuring-circuit-breakers-with-resilience4j-for-reactive-applications">Configuring Circuit Breakers with Resilience4J for reactive applications</a></li>
+  <li><a href="#configuring-circuit-breakers-with-spring-retry" id="markdown-toc-configuring-circuit-breakers-with-spring-retry">Configuring Circuit Breakers with Spring Retry</a>    <ul>
+      <li><a href="#differences-resilience4j-with-netflix-hystrix-and-spring-retry" id="markdown-toc-differences-resilience4j-with-netflix-hystrix-and-spring-retry">Differences Resilience4j with Netflix Hystrix and Spring Retry</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="introduction">Introduction</h1>
+<p>When you detect that an application in your landscape is getting slow or starts failing, a circuit breaker can be used to stop all the communication to that application.
+It is basic function is to interrupt the current flow after a fault is detected and when the circuit breaker is reset (manually or automatically), it can resume its normal operation.</p>
+
+<p>You want to avoid that your end users are hitting high load times. 
+That’s why you want to fail fast and have some fallback functionality.</p>
+
+<p>By making usage of the Circuit Breaker pattern you can let an application continue to operate when a related service fails, preventing the failure from cascading and giving the failing service time to recover.</p>
+
+<h1 id="types-of-implementation">Types of implementation</h1>
+<p>The <a href="https://spring.io/projects/spring-cloud-circuitbreaker" target="_blank" rel="noopener noreferrer">Spring Cloud Circuit Breaker project</a> provides an abstraction API for adding circuit breakers to your application. 
+There are three supported implementations:</p>
+<ul>
+  <li>Resilience4J</li>
+  <li>Resilience4J Reactive</li>
+  <li>Spring Retry</li>
+</ul>
+
+<h1 id="configuring-circuit-breakers-with-resilience4j-for-non-reactive-applications">Configuring Circuit Breakers with Resilience4j for non-reactive applications</h1>
+<div style="text-align: left;">
+  <img alt="Resilience4j" src="/img/2021-02-01-spring-cloud-circuit-breaker/resilience4j.png" width="100" height="100" class="-1u(medium)" />
+</div>
+
+<p>We set up a Spring Boot application that returns a list of ingredients for making soup.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CircuitBreakerSoupApplication</span> <span class="o">{</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/recommended"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">ingredientsList</span><span class="o">(){</span>
+    <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"Onions, Potatoes, Celery, Carrots"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">CircuitBreakerSoupApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We’re going to run this application locally alongside a client service application, so in <code class="language-plaintext highlighter-rouge">src/main/resources/application.properties</code>, 
+set <code class="language-plaintext highlighter-rouge">server.port</code> so that the CircuitBreakerSoup application service won’t conflict with the client when we start up.</p>
+
+<p><strong>ingredients/src/main/resources/application.properties</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server.port=8090
+</code></pre></div></div>
+
+<p>We now configure an Ingredients service application that will be our front-end to the CircuitBreakerSoup application. 
+We’ll be able to view our list there at <code class="language-plaintext highlighter-rouge">/basics</code>, 
+and that reading list will be retrieved from the CircuitBreakerIngredients application.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.reactive.function.client.WebClient</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IngredientsApplication</span> <span class="o">{</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/basics"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">toCook</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">build</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">uri</span><span class="o">(</span><span class="s">"http://localhost:8090/recommended"</span><span class="o">).</span><span class="na">retrieve</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">bodyToMono</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">ReadingApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We also add the <code class="language-plaintext highlighter-rouge">server.port</code> property to <code class="language-plaintext highlighter-rouge">src/main/resources/application.properties</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server.port=8080
+</code></pre></div></div>
+<p>We now can access, in a browser, the <code class="language-plaintext highlighter-rouge">/basics</code> endpoint on our Ingredients application, and see our ingredients list. 
+Yet, since we rely on the CircuitBreakerSoup application, if anything happens to it, 
+or if Ingredients is simply unable to access CircuitBreakerSoup, we’ll have no list and our users will get a nasty HTTP 500 error message.
+We want to prevent getting this error. This can be done by using the Circuit breaker.</p>
+
+<p>Spring Cloud’s Circuit Breaker library provides an implementation of the Circuit Breaker pattern: when we wrap a method call in a circuit breaker, 
+Spring Cloud Circuit Breaker watches for failing calls to that method, and if failures build up to a threshold,
+Spring Cloud Circuit Breaker opens the circuit so that subsequent calls automatically fail.
+While the circuit is open, Spring Cloud Circuit Breaker redirects calls to the method, and they’re passed on to our specified fallback method.</p>
+
+<p>You need to add the Spring Cloud Circuit Breaker Resilience4J dependency to your application. When using Maven:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span> 
+    <span class="nt">&lt;dependency&gt;</span> 
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span> 
+        <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-circuitbreaker-resilience4j<span class="nt">&lt;/artifactId&gt;</span> 
+        <span class="nt">&lt;version&gt;</span>0.0.1.BUILD-SNAPSHOT<span class="nt">&lt;/version&gt;</span> 
+    <span class="nt">&lt;/dependency&gt;</span> 
+<span class="nt">&lt;/dependencies&gt;</span> 
+</code></pre></div></div>
+
+<p>Spring Cloud Circuit Breaker provides an interface called <code class="language-plaintext highlighter-rouge">Resilience4JCircuitBreakerFactory</code> which we can use to create new circuit breakers for our application. 
+An implementation of this interface will be auto-configured based on the starter that is on your application’s classpath. 
+We will do this by creating a new service that uses this interface to make API calls to the CircuitBreakerSoup application.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.LoggerFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.client.circuitbreaker.Resilience4JCircuitBreakerFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.reactive.function.client.WebClient</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IngredientsService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="no">LOG</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">IngredientsService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WebClient</span> <span class="n">webClient</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ReactiveCircuitBreaker</span> <span class="n">readingListCircuitBreaker</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">BookService</span><span class="o">(</span><span class="nc">Resilience4JCircuitBreakerFactory</span> <span class="n">circuitBreakerFactory</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">webClient</span> <span class="o">=</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">"http://localhost:8090"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">readingListCircuitBreaker</span> <span class="o">=</span> <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"recommended"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">ingredientsList</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">readingListCircuitBreaker</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">webClient</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">uri</span><span class="o">(</span><span class="s">"/recommended"</span><span class="o">).</span><span class="na">retrieve</span><span class="o">().</span><span class="na">bodyToMono</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="no">LOG</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"Error making request to ingredients service"</span><span class="o">,</span> <span class="n">throwable</span><span class="o">);</span>
+      <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"Onions"</span><span class="o">);</span>
+    <span class="o">});</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Resilience4JCircuitBreakerFactory</code> has a single method called create we can use to create new circuit breakers. 
+Once we have our circuit breaker all we have to do is call run. Run takes a <code class="language-plaintext highlighter-rouge">Mono</code> or <code class="language-plaintext highlighter-rouge">Flux</code> and an optional Function. 
+The optional <code class="language-plaintext highlighter-rouge">Function</code> parameter acts as our fallback if anything goes wrong. 
+In our sample here the fallback will just return a <code class="language-plaintext highlighter-rouge">Mono</code> containing the “Onions”.</p>
+
+<p>With our new service in place, we can update the code in <code class="language-plaintext highlighter-rouge">IngredientsApplication</code> to use this new service.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.reactive.function.client.WebClient</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IngredientsApplication</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">IngredientsService</span> <span class="n">ingredientsService</span><span class="o">;</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/basics"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">toCook</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">ingredientsService</span><span class="o">.</span><span class="na">ingredientsList</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">ReadingApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>When we run both the Ingredients service and the Soup application, and then open a browser to the Ingredients service, at <a href="https://localhost:8080/basics">http://localhost:8080/basics</a>. 
+You should see the complete recommended ingredients list: “Onions, Potatoes, Celery, Carrots”.</p>
+
+<p>Now shut down the Soup application.
+Our list source is gone, but thanks to Resilience4J we have a reliable list to stand in.
+You should see: “Onions”.</p>
+
+<h1 id="configuring-circuit-breakers-with-resilience4j-for-reactive-applications">Configuring Circuit Breakers with Resilience4J for reactive applications</h1>
+
+<p>You need to add the Spring Cloud Circuit Breaker Reactor Resilience4J dependency to your application. When using maven:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span> 
+    <span class="nt">&lt;dependency&gt;</span> 
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span> 
+        <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-circuitbreaker-reactor-resilience4j<span class="nt">&lt;/artifactId&gt;</span> 
+        <span class="nt">&lt;version&gt;</span>0.0.1.BUILD-SNAPSHOT<span class="nt">&lt;/version&gt;</span> 
+    <span class="nt">&lt;/dependency&gt;</span> 
+<span class="nt">&lt;/dependencies&gt;</span> 
+</code></pre></div></div>
+
+<p>We can now use the same application as in the previous example.</p>
+
+<p>Spring Cloud Circuit Breaker provides an interface called <code class="language-plaintext highlighter-rouge">ReactiveResilience4JCircuitBreakerFactory</code> which we can use to create new circuit breakers for our application. 
+An implementation of this interface will be auto-configured based on the starter that is on your application’s classpath. 
+We will do this by creating a new service that uses this interface to make API calls to the CircuitBreakerSoup application.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.LoggerFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.cloud.client.circuitbreaker.ReactiveResilience4JCircuitBreakerFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.reactive.function.client.WebClient</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IngredientsService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="no">LOG</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">IngredientsService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WebClient</span> <span class="n">webClient</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ReactiveCircuitBreaker</span> <span class="n">readingListCircuitBreaker</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">BookService</span><span class="o">(</span><span class="nc">ReactiveResilience4JCircuitBreakerFactory</span> <span class="n">circuitBreakerFactory</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">webClient</span> <span class="o">=</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">"http://localhost:8090"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">readingListCircuitBreaker</span> <span class="o">=</span> <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"recommended"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">ingredientsList</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">readingListCircuitBreaker</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">webClient</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">uri</span><span class="o">(</span><span class="s">"/recommended"</span><span class="o">).</span><span class="na">retrieve</span><span class="o">().</span><span class="na">bodyToMono</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="no">LOG</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"Error making request to ingredients service"</span><span class="o">,</span> <span class="n">throwable</span><span class="o">);</span>
+      <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"Onions"</span><span class="o">);</span>
+    <span class="o">});</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">ReactiveResilience4JCircuitBreakerFactory</code> has a single method called create we can use to create new circuit breakers. 
+Once we have our circuit breaker all we have to do is call run. Run takes a <code class="language-plaintext highlighter-rouge">Mono</code> or <code class="language-plaintext highlighter-rouge">Flux</code> and an optional Function. 
+The optional <code class="language-plaintext highlighter-rouge">Function</code> parameter acts as our fallback if anything goes wrong. 
+In our sample here the fallback will just return a <code class="language-plaintext highlighter-rouge">Mono</code> containing the “Onions”.</p>
+
+<p>With our new service in place, we can update the code in <code class="language-plaintext highlighter-rouge">IngredientsApplication</code> to use this new service.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.reactive.function.client.WebClient</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IngredientsApplication</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">IngredientsService</span> <span class="n">ingredientsService</span><span class="o">;</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/basics"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">toCook</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">ingredientsService</span><span class="o">.</span><span class="na">ingredientsList</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">ReadingApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>When we run both the Ingredients service and the Soup application, and then open a browser to the Ingredients service, at <a href="https://localhost:8080/basics">http://localhost:8080/basics</a>. 
+You should see the complete recommended ingredients list: “Onions, Potatoes, Celery, Carrots”.</p>
+
+<p>Now shut down the Soup application.
+Our list source is gone, but thanks to Resilience4J we have a reliable list to stand in.
+You should see: “Onions”.</p>
+
+<h1 id="configuring-circuit-breakers-with-spring-retry">Configuring Circuit Breakers with Spring Retry</h1>
+<p>Spring Retry depends on AspectJ which is not included in the skeleton project, so we will add below dependency in the <code class="language-plaintext highlighter-rouge">pom.xml</code> file.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.retry<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-retry<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-aspects<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>Create a Rest controller which will call the backend service class where we will simulate the exception and the Spring Retry module will automatically retry.
+In the REST Api we will add two optional request parameters.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">simulateretry</code>: Parameter to simulate the exception scenario, so that Spring can retry.</li>
+  <li><code class="language-plaintext highlighter-rouge">simulateretryfallback</code>: As we are simulating the exception, after retrying a certain amount of time we can either expect a successful backend call or a complete failure.
+In this case, we will go to the fallback method to get a hard-coded/error response.
+Now this parameter will ensure all the retries will fail and go to fall back path.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.springretry</span><span class="o">;</span>
+ 
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.ExceptionHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+ 
+<span class="nd">@RestController</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRestController</span> <span class="o">{</span>
+ 
+    <span class="nd">@Autowired</span>
+    <span class="nc">BackendAdapter</span> <span class="n">backendAdapter</span><span class="o">;</span>
+ 
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/retry"</span><span class="o">)</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">({</span> <span class="nc">Exception</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">validateSPringRetryCapability</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="kt">boolean</span> <span class="n">simulateretry</span><span class="o">,</span>
+                                <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="kt">boolean</span> <span class="n">simulateretryfallback</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"==============================="</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside RestController method.."</span><span class="o">);</span>
+ 
+        <span class="k">return</span> <span class="n">backendAdapter</span><span class="o">.</span><span class="na">getBackendResponse</span><span class="o">(</span><span class="n">simulateretry</span><span class="o">,</span> <span class="n">simulateretryfallback</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To enable Spring Retry we need to put one annotation in the Spring Boot Application class. So open <code class="language-plaintext highlighter-rouge">SpringRetryApplication</code> class and add <code class="language-plaintext highlighter-rouge">@EnableRetry</code> at class level.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.springretry</span><span class="o">;</span>
+ 
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.retry.annotation.EnableRetry</span><span class="o">;</span>
+ 
+<span class="nd">@EnableRetry</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringRetryApplication</span> <span class="o">{</span>
+ 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">SpringRetryApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>Now we will create one interface/implementation for calling the external service. 
+Here we will not actually call any external service call, but rather simulate the success/failure scenarios by adding some random logic, as below.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.springretry</span><span class="o">;</span>
+ 
+<span class="kn">import</span> <span class="nn">org.springframework.retry.annotation.Backoff</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.retry.annotation.Recover</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.retry.annotation.Retryable</span><span class="o">;</span>
+ 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BackendAdapter</span> <span class="o">{</span>
+ 
+    <span class="nd">@Retryable</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span> <span class="nc">RemoteServiceNotAvailableException</span><span class="o">.</span><span class="na">class</span> <span class="o">},</span> <span class="n">maxAttempts</span> <span class="o">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">backoff</span> <span class="o">=</span> <span class="nd">@Backoff</span><span class="o">(</span><span class="n">delay</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">))</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getBackendResponse</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">simulateretry</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">simulateretryfallback</span><span class="o">);</span>
+ 
+    <span class="nd">@Recover</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getBackendResponseFallback</span><span class="o">(</span><span class="nc">RuntimeException</span> <span class="n">e</span><span class="o">);</span>
+ 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">@Retryable</code>: This is the main annotation after <code class="language-plaintext highlighter-rouge">@EnableRetry</code>. 
+This annotation tells us that if we get a <code class="language-plaintext highlighter-rouge">RemoteServiceNotAvailableException</code> from the method, we retry three more times before sending the fallback response.<br />
+Also we are introducing a delay of one second in each retry.</p>
+
+<p><code class="language-plaintext highlighter-rouge">@Recover</code>: This fallback annotation indicates that if we don’t get any successful response after three retries, the response will come from this fallback method.
+Make sure you pass the expected exception as a parameter or else Spring will have a hard time finding the exact method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.springretry</span><span class="o">;</span>
+ 
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+ 
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BackendAdapterImpl</span> <span class="kd">implements</span> <span class="nc">BackendAdapter</span> <span class="o">{</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getBackendResponse</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">simulateretry</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">simulateretryfallback</span><span class="o">)</span> <span class="o">{</span>
+ 
+        <span class="k">if</span> <span class="o">(</span><span class="n">simulateretry</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Simulateretry is true, so try to simulate exception scenario."</span><span class="o">);</span>
+ 
+            <span class="k">if</span> <span class="o">(</span><span class="n">simulateretryfallback</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RemoteServiceNotAvailableException</span><span class="o">(</span>
+                        <span class="s">"Don't worry!! Just Simulated for Spring-retry..Must fallback as all retry will get exception!!!"</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="kt">int</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">().</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+ 
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Random Number : "</span> <span class="o">+</span> <span class="n">random</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">random</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RemoteServiceNotAvailableException</span><span class="o">(</span><span class="s">"Don't worry!! Just Simulated for Spring-retry.."</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+ 
+        <span class="k">return</span> <span class="s">"Hello from Remote Backend!!!"</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getBackendResponseFallback</span><span class="o">(</span><span class="nc">RuntimeException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"All retries completed, so Fallback method called!!!"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">"All retries completed, so Fallback method called!!!"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Testing the retry methods from Spring Retry:</p>
+<ul>
+  <li>Start with browsing to <a href="http://localhost:8080/retry?simulateretry=true&amp;simulateretryfallback=false">http://localhost:8080/retry?simulateretry=true&amp;simulateretryfallback=false</a>.</li>
+  <li>Based on the parameter, we are expecting exceptions and because <code class="language-plaintext highlighter-rouge">simulateretryfallback</code> is false, we are depending on the random logic (<code class="language-plaintext highlighter-rouge">random % 2 == 0</code> –&gt; even random number) that will random give us a successful response while retrying.</li>
+  <li>So once we hit the request in the browser, we might get an exception in the backend and spring will retry the same method multiple times.
+The outcome could be a successful response from the backend.</li>
+</ul>
+
+<p>Here are a few lines of the log from one of my requests where Spring is retrying.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Console logging
+===============================
+Inside RestController method..
+Simulateretry is true, so try to simulate exception scenario.
+Random Number : 1
+ 
+===============================
+Inside RestController mathod..
+Simulateretry is true, so try to simulate exception scenario.
+Random Number : 2
+Simulateretry is true, so try to simulate exception scenario.
+Random Number : 2
+Simulateretry is true, so try to simulate exception scenario.
+Random Number : 0
+All retries completed, so Fallback method called!!!
+</code></pre></div></div>
+
+<p>Now try with <a href="http://localhost:8080/retry?simulateretry=true&amp;simulateretryfallback=true">http://localhost:8080/retry?simulateretry=true&amp;simulateretryfallback=true</a>, you will get a fallback response after you hit the retry limit.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Console logging
+===============================
+Inside RestController method..
+Simulateretry is true, so try to simulate exception scenario.
+Simulateretry is true, so try to simulate exception scenario.
+Simulateretry is true, so try to simulate exception scenario.
+All retries completed, so Fallback method called!!!
+</code></pre></div></div>
+
+<p>Spring Retry provides declarative retry support for Spring applications. A subset of the project includes the ability to implement circuit breaker functionality. 
+Spring Retry provides a circuit breaker implementation via a combination of its <code class="language-plaintext highlighter-rouge">CircuitBreakerRetryPolicy</code> and a stateful retry. 
+All circuit breakers created using Spring Retry will be created using the <code class="language-plaintext highlighter-rouge">CircuitBreakerRetryPolicy</code> and a <code class="language-plaintext highlighter-rouge">DefaultRetryState</code>. 
+Both of these classes can be configured using <code class="language-plaintext highlighter-rouge">SpringRetryConfigBuilder</code>.
+To provide a default configuration for all of your circuit breakers create a <code class="language-plaintext highlighter-rouge">Customizer</code> bean that is passed a <code class="language-plaintext highlighter-rouge">SpringRetryCircuitBreakerFactory</code>. 
+The <code class="language-plaintext highlighter-rouge">configureDefault</code> method can be used to provide a default configuration.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">Customizer</span><span class="o">&lt;</span><span class="nc">SpringRetryCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">defaultCustomizer</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configureDefault</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">SpringRetryConfigBuilder</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">retryPolicy</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutRetryPolicy</span><span class="o">()).</span><span class="na">build</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Similarly to providing a default configuration, you can create a <code class="language-plaintext highlighter-rouge">Customizer</code> bean this is passed a <code class="language-plaintext highlighter-rouge">SpringRetryCircuitBreakerFactory</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">Customizer</span><span class="o">&lt;</span><span class="nc">SpringRetryCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">slowCustomizer</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="na">retryPolicy</span><span class="o">(</span><span class="k">new</span> <span class="nc">SimpleRetryPolicy</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">build</span><span class="o">(),</span> <span class="s">"slow"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In addition to configuring the circuit breaker that is created, you can also customize the circuit breaker after it has been created but before it is returned to the caller. 
+To do this you can use the <code class="language-plaintext highlighter-rouge">addRetryTemplateCustomizers</code> method.
+This can be useful for adding event handlers to the <code class="language-plaintext highlighter-rouge">RetryTemplate</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">Customizer</span><span class="o">&lt;</span><span class="nc">SpringRetryCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">slowCustomizer</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">addRetryTemplateCustomizers</span><span class="o">(</span><span class="n">retryTemplate</span> <span class="o">-&gt;</span> <span class="n">retryTemplate</span><span class="o">.</span><span class="na">registerListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">RetryListener</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">E</span> <span class="kd">extends</span> <span class="nc">Throwable</span><span class="o">&gt;</span> <span class="kt">boolean</span> <span class="nf">open</span><span class="o">(</span><span class="nc">RetryContext</span> <span class="n">context</span><span class="o">,</span> <span class="nc">RetryCallback</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">E</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">E</span> <span class="kd">extends</span> <span class="nc">Throwable</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">(</span><span class="nc">RetryContext</span> <span class="n">context</span><span class="o">,</span> <span class="nc">RetryCallback</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">E</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">,</span> <span class="nc">Throwable</span> <span class="n">throwable</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">E</span> <span class="kd">extends</span> <span class="nc">Throwable</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="nc">RetryContext</span> <span class="n">context</span><span class="o">,</span> <span class="nc">RetryCallback</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">E</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">,</span> <span class="nc">Throwable</span> <span class="n">throwable</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="o">}</span>
+    <span class="o">}));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="differences-resilience4j-with-netflix-hystrix-and-spring-retry">Differences Resilience4j with Netflix Hystrix and Spring Retry</h2>
+<p>Although Resilience4J is inspired by Netflix Hystrix, it is more lightweight and you don’t have to go all-in.
+Quoting the official page “Resilience4J is a lightweight fault tolerance library inspired by Netflix Hystrix, but designed for functional programming.”</p>
+
+<div style="text-align: center;">
+  <img alt="Hystrix" src="/img/2021-02-01-spring-cloud-circuit-breaker/differences.png" width="auto" height="auto" class="image fit" />
+</div>
+
+<p>In 2019 when Spring announced that Hystrix Dashboard would be removed from Spring Cloud 3.1, one year after, Netflix announces that they were putting this project into maintenance mode.</p>
+
+<p>Resilience4J provides the following core components:</p>
+<ul>
+  <li>RateLimiter</li>
+  <li>TimeLimiter</li>
+  <li>CircuitBreaker</li>
+  <li>Retry</li>
+  <li>Bulkhead</li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html&title=Spring Cloud Circuit Breaker&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Spring Cloud Circuit Breaker&url=https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/lina-romanelli/" class="image spotlight-image" title="">
+            <img src="/img/author/lina-romanelli.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Lina Romanelli is a Java Developer with an interest in both back-end and front-end. She likes to learn new technologies to improve herself and work more efficiently.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2021 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2021-02-01-spring-cloud-circuit-breaker/CircuitBreaker.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
