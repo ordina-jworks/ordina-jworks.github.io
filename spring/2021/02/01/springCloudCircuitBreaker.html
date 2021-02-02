@@ -321,7 +321,7 @@ We will do this by creating a new service that uses this interface to make API c
   <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WebClient</span> <span class="n">webClient</span><span class="o">;</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ReactiveCircuitBreaker</span> <span class="n">readingListCircuitBreaker</span><span class="o">;</span>
 
-  <span class="kd">public</span> <span class="nf">BookService</span><span class="o">(</span><span class="nc">Resilience4JCircuitBreakerFactory</span> <span class="n">circuitBreakerFactory</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nf">IngredientsService</span><span class="o">(</span><span class="nc">Resilience4JCircuitBreakerFactory</span> <span class="n">circuitBreakerFactory</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">webClient</span> <span class="o">=</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">"http://localhost:8090"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
     <span class="k">this</span><span class="o">.</span><span class="na">readingListCircuitBreaker</span> <span class="o">=</span> <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"recommended"</span><span class="o">);</span>
   <span class="o">}</span>
@@ -417,7 +417,7 @@ We will do this by creating a new service that uses this interface to make API c
   <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WebClient</span> <span class="n">webClient</span><span class="o">;</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ReactiveCircuitBreaker</span> <span class="n">readingListCircuitBreaker</span><span class="o">;</span>
 
-  <span class="kd">public</span> <span class="nf">BookService</span><span class="o">(</span><span class="nc">ReactiveResilience4JCircuitBreakerFactory</span> <span class="n">circuitBreakerFactory</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nf">IngredientsService</span><span class="o">(</span><span class="nc">ReactiveResilience4JCircuitBreakerFactory</span> <span class="n">circuitBreakerFactory</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">webClient</span> <span class="o">=</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">"http://localhost:8090"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
     <span class="k">this</span><span class="o">.</span><span class="na">readingListCircuitBreaker</span> <span class="o">=</span> <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"recommended"</span><span class="o">);</span>
   <span class="o">}</span>
