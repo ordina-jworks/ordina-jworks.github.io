@@ -156,7 +156,7 @@ public class IngredientsService {
   private final WebClient webClient;
   private final ReactiveCircuitBreaker readingListCircuitBreaker;
 
-  public BookService(Resilience4JCircuitBreakerFactory circuitBreakerFactory) {
+  public IngredientsService(Resilience4JCircuitBreakerFactory circuitBreakerFactory) {
     this.webClient = WebClient.builder().baseUrl("http://localhost:8090").build();
     this.readingListCircuitBreaker = circuitBreakerFactory.create("recommended");
   }
@@ -255,7 +255,7 @@ public class IngredientsService {
   private final WebClient webClient;
   private final ReactiveCircuitBreaker readingListCircuitBreaker;
 
-  public BookService(ReactiveResilience4JCircuitBreakerFactory circuitBreakerFactory) {
+  public IngredientsService(ReactiveResilience4JCircuitBreakerFactory circuitBreakerFactory) {
     this.webClient = WebClient.builder().baseUrl("http://localhost:8090").build();
     this.readingListCircuitBreaker = circuitBreakerFactory.create("recommended");
   }
