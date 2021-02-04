@@ -133,6 +133,8 @@ Some often used integrations are:
 - Ikea Tradfri (lights)
 
 Like with the auto detected integrations a wizard will guide you through the setup process.
+The Home Assistant website has a [collection of all published integrations](https://www.home-assistant.io/integrations/){:target="_blank" rel="noopener noreferrer"}, you can browse through and search the list.
+Each plugin on the site also has all the info to configure it correctly.
 During the setup process you should be able to assign each device to a specific area, you can skip this if wanted and assign a device to an area later (By opening the device and clicking the settings icon and picking the area there).
 
 <div style="text-align: center; margin: 0px auto;">
@@ -262,6 +264,7 @@ A valid alternative to the home automation systems from Google and Amazon whilst
 - [Raspberry Pi USB Boot](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md){:target="_blank" rel="noopener noreferrer"}
 - [Balena Etcher image burning tool](https://www.balena.io/etcher/){:target="_blank" rel="noopener noreferrer"}
 - [Rufus image burning tool](https://rufus.ie/){:target="_blank" rel="noopener noreferrer"}
+- [HA Available Integrations](https://www.home-assistant.io/integrations/){:target="_blank" rel="noopener noreferrer"}
 - [HA Automations](https://www.home-assistant.io/docs/automation){:target="_blank" rel="noopener noreferrer"}
 - [HA Blueprints](https://www.home-assistant.io/docs/automation/using_blueprints/){:target="_blank" rel="noopener noreferrer"}
 - [HA Scripts](https://www.home-assistant.io/integrations/script/){:target="_blank" rel="noopener noreferrer"}
