@@ -27,6 +27,12 @@ comments: true
 
 ## Introduction
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/logo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Setting up a areas">
+        <img alt="HomeKit devices 1" src="{{ '/img/2021-02-10-home-automation-part-2/logo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
+
 After the first general post about home automation it's time to kick things into higher gear.
 In this post we'll go into detail about Home Assistant.
 Home Assistant is fully open source home automation platform.
@@ -70,6 +76,18 @@ Follow the setup guide, this will let you create an account (local, no cloud she
 You can set up integrations during this wizard but we will be doing this later, click complete to exit the wizard.
 You will then be greeted with your home's dashboard amd Home Assistant is ready to be used.
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/setup-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Setting up a new home">
+        <img alt="HomeKit devices 1" src="{{ '/img/2021-02-10-home-automation-part-2/setup-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/setup-2.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Setting home details">
+        <img alt="HomeKit devices 2" src="{{ '/img/2021-02-10-home-automation-part-2/setup-2.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 17%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/dashboard-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Home Assistant dashboard">
+        <img alt="HomeKit devices 2" src="{{ '/img/2021-02-10-home-automation-part-2/dashboard-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 55%; display: inline-block;">
+    </a>
+</div>
+
 ## Setting up and using Home Assistant
 
 Your home has some types of objects in it, these are:
@@ -96,6 +114,12 @@ First select the `Areas` option.
 By default some rooms have been added, you can delete the existing ones if desired or add extra ones.
 It's easiest to add all the rooms you want to have available in the Home Assistant web UI and app before we continue.
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/areas-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Setting up a areas">
+        <img alt="HomeKit devices 1" src="{{ '/img/2021-02-10-home-automation-part-2/areas-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
+
 After we have set up the rooms we want to pick the `Integrations` option.
 If you have your Home Assistant installation correctly configured it probably will suggest some integrations based on the results of a network scan.
 Click on the `Configure` option to add the integration, a wizard will guide you through the process.
@@ -110,6 +134,21 @@ Some often used integrations are:
 Like with the auto detected integrations a wizard will guide you through the setup process.
 During the setup process you should be able to assign each device to a specific area, you can skip this if wanted and assign a device to an area later (By opening the device and clicking the settings icon and picking the area there).
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/integrations-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Integrations overview">
+        <img alt="HomeKit devices 1" src="{{ '/img/2021-02-10-home-automation-part-2/integrations-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/devices-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Devices overview">
+        <img alt="HomeKit devices 2" src="{{ '/img/2021-02-10-home-automation-part-2/devices-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 19%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/device-info-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Device details">
+        <img alt="HomeKit devices 2" src="{{ '/img/2021-02-10-home-automation-part-2/device-info-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 34%; display: inline-block;">
+    </a>
+     <a href="{{ '/img/2021-02-10-home-automation-part-2/entities-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Entities overview">
+        <img alt="HomeKit devices 2" src="{{ '/img/2021-02-10-home-automation-part-2/entities-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 20%; display: inline-block;">
+    </a>
+</div>
+
 There are integrations which do not provide a setup wizard.
 To configure these integrations a more hands on approach is required:
 
@@ -122,6 +161,12 @@ To configure these integrations a more hands on approach is required:
   Home Assistant uses the YAML format for its configuration, this is a well known format for most developers and has a very basic indentation based syntax.
   A plugin which does not provide a wizard based setup will probably describe the configuration that needs to be added manually in the documentation.
   For more detailed information about editing files and changing the `configuration.yaml` see [the online documentation](https://www.home-assistant.io/getting-started/configuration/){:target="_blank" rel="noopener noreferrer"} of Home Assistant
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/file-editor-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="File editor">
+        <img alt="HomeKit devices 1" src="{{ '/img/2021-02-10-home-automation-part-2/file-editor-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
 
 If you go back to the dashboard you should see all available devices that have been assigned to a room.
 You can manage the dashboard manually too but this requires quite a bit of config, experiment with this as you see fit.
@@ -165,6 +210,24 @@ It is also possible to edit the automation using the yaml format.
 In the top right click on the three dots and select `Edit as YAML`, this will give you an editor to edit the automation in its raw yaml formatting.
 You can always test the automation by clicking the `execute button`, this will ignore the trigger but test any of the given conditions and execute the specified actions.
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/automation-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="New automation dialog">
+        <img alt="HomeKit devices 1" src="{{ '/img/2021-02-10-home-automation-part-2/automation-1.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 21%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/automation-2.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Automation setup triggers">
+        <img alt="HomeKit devices 2" src="{{ '/img/2021-02-10-home-automation-part-2/automation-2.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 19%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/automation-3.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Automation conditions and actions">
+        <img alt="HomeKit automations" src="{{ '/img/2021-02-10-home-automation-part-2/automation-3.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 24%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/automation-4.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Automation edit as yaml">
+        <img alt="HomeKit automations" src="{{ '/img/2021-02-10-home-automation-part-2/automation-4.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 11%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/automation-5.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Automation yaml editor">
+        <img alt="HomeKit automations" src="{{ '/img/2021-02-10-home-automation-part-2/automation-5.jpeg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 19%; display: inline-block;">
+    </a>
+</div>
+
 ## Development
 
 Whilst there are plenty of integration available for Home Assistant some might be missing, or you have a very specific use case.
@@ -185,15 +248,25 @@ To start building a custom integration:
 
 ## Conclusion
 
-TODO
+Home Assistant is a very extensive home automation platform that is relatively easy to set up.
+Basic automations are fast to set up and use, while also providing very extensive options for advanced users.
+The extensive documentation and lively community make sure that most questions can be answered.
+If you are willing to get your hands dirty creating your own integrations is also an option.
+A valid alternative to the home automation systems from Google and Amazon whilst not giving them access to all your home data!
 
 ## Resources
 
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
-- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
+- [Home Assistant](https://www.home-assistant.io/){:target="_blank" rel="noopener noreferrer"}
+- [Downloads](https://www.home-assistant.io/hassio/installation/){:target="_blank" rel="noopener noreferrer"}
+- [Raspberry Pi USB Boot](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md){:target="_blank" rel="noopener noreferrer"}
+- [Balena Etcher image burning tool](https://www.balena.io/etcher/){:target="_blank" rel="noopener noreferrer"}
+- [Rufus image burning tool](https://rufus.ie/){:target="_blank" rel="noopener noreferrer"}
+- [HA Automations](https://www.home-assistant.io/docs/automation){:target="_blank" rel="noopener noreferrer"}
+- [HA Blueprints](https://www.home-assistant.io/docs/automation/using_blueprints/){:target="_blank" rel="noopener noreferrer"}
+- [HA Scripts](https://www.home-assistant.io/integrations/script/){:target="_blank" rel="noopener noreferrer"}
+- [HA YAML Config](https://www.home-assistant.io/getting-started/configuration/){:target="_blank" rel="noopener noreferrer"}
+- [HA General Docs](https://www.home-assistant.io/docs/){:target="_blank" rel="noopener noreferrer"}
+- [HA Developer sections](https://developers.home-assistant.io/){:target="_blank" rel="noopener noreferrer"}
+- [HA Dev Environment](https://developers.home-assistant.io/docs/development_environment){:target="_blank" rel="noopener noreferrer"}
+- [HA Custom Integration File Structure](https://developers.home-assistant.io/docs/creating_integration_file_structure){:target="_blank" rel="noopener noreferrer"}
+- [HA Example Integrations Source Code](https://github.com/home-assistant/example-custom-config/tree/master/custom_components/){:target="_blank" rel="noopener noreferrer"}
