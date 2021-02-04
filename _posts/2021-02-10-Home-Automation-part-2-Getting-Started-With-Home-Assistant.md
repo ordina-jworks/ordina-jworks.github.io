@@ -33,12 +33,13 @@ comments: true
     </a>
 </div>
 
-After the first general post about home automation it's time to kick things into higher gear.
+After the [first general post](/iot/2019/09/30/Home-automation-part-1.html){:target="_blank" rel="noopener noreferrer"} about home automation it's time to kick things into higher gear.
 In this post we'll go into detail about Home Assistant.
-Home Assistant is fully open source home automation platform.
+Home Assistant is a fully open source home automation platform.
+It has a web interface as well as apps for Android and iOS.
 It features over 1700 integrations at the time of writing and allows for full local control of your smart home without using any of the big cloud vendors.
 As with many things, home assistant is relatively easy to pick up but hard to master.
-Read on down below for all the details.
+Read on down below for more the details.
 
 ## Preparations
 
@@ -230,7 +231,7 @@ You can always test the automation by clicking the `execute button`, this will i
 
 ## Development
 
-Whilst there are plenty of integration available for Home Assistant some might be missing, or you have a very specific use case.
+Whilst there are plenty of integrations available for Home Assistant some might be missing, or you have a very specific use case that is not available yet.
 By supporting web hooks, scripts, MQTT,... you can sometimes work around devices and platforms that have no ready to use integration, but sometimes you cannot.
 
 It is possible by developing your own integrations for Home Assistant.
