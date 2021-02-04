@@ -28,7 +28,7 @@ comments: true
 ## Introduction
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2021-02-10-home-automation-part-2/logo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Setting up a areas">
+    <a href="{{ '/img/2021-02-10-home-automation-part-2/logo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Logo">
         <img alt="HomeKit devices 1" src="{{ '/img/2021-02-10-home-automation-part-2/logo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
     </a>
 </div>
