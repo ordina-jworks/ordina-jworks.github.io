@@ -167,7 +167,21 @@ You can always test the automation by clicking the `execute button`, this will i
 
 ## Development
 
-TODO
+Whilst there are plenty of integration available for Home Assistant some might be missing, or you have a very specific use case.
+By supporting web hooks, scripts, MQTT,... you can sometimes work around devices and platforms that have no ready to use integration, but sometimes you cannot.
+
+It is possible by developing your own integrations for Home Assistant.
+[A special website](https://developers.home-assistant.io/){:target="_blank" rel="noopener noreferrer"} dedicated to developers is available to get started.
+
+To start building a custom integration:
+
+- Have experience with Python, YAML and JSON
+- Set up the Home Assistant [dev environment](https://developers.home-assistant.io/docs/development_environment){:target="_blank" rel="noopener noreferrer"}
+- Read through [the documentation](https://developers.home-assistant.io/docs/creating_integration_file_structure){:target="_blank" rel="noopener noreferrer"} first, to prevent any RTFM situations later on.
+  Everything you need is laid out in separate topics to read through.
+- From the dev environment, execute: `python3 -m script.scaffold integration`, this will create a new basic integration
+- Look at the [example integrations](https://github.com/home-assistant/example-custom-config/tree/master/custom_components/){:target="_blank" rel="noopener noreferrer"}
+- Test your integration locally by adding an entry to your integrations `__init__.py` file to the `configuration.yaml` file: `<config_dir>/custom_components/custom_integration/__init__.py`
 
 ## Conclusion
 
