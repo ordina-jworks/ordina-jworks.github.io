@@ -76,10 +76,10 @@ Your home has some types of objects in it, these are:
 - Integrations: These are the building blocks that integrate with physical devices or services.
 - Devices: Any physical device that is added through an integration has a representation here.
 - Entities: A device can expose one or multiple entities.
-- Blueprints: TODO
-- Automations: TODO
+- Blueprints: an automation instance that is re-usable.
+- Automations: An automation is an action that is activated by a trigger and when an optional condition is met.
 - Scenes: A collection of predefined states for one or more devices/entities.
-- Scripts: TODO
+- Scripts: Is what it says it is, a sequence of commands and/or actions to execute.
 - Areas: A home can have multiple areas, think rooms.
   Each area can have zero or more devices/automations/scenes and or scripts assigned to it.
 
@@ -111,17 +111,30 @@ During the setup process you should be able to assign each device to a specific 
 
 There are integrations which do not provide a setup wizard.
 To configure these integrations a more hands on approach is required.
-
-TODO
+First click on the `Supervisor` link in the left bottom sidebar, this will open a section, in there select the `Add-on Store` in the top menu.
+In the search field type `File editor`, select the one add-on (it's an official one) and click `install`.
+This will install a file editor so we can edit the configuration.yaml file without needing the login on the Home Assistant server itself via ssh.
+Once the add-on has been installed you can find it in the supervisor UI under the `Dashboard` section.
+Click on the add-on and click on `start`, then select `open web ui`, this will open the file editor.
+In the top control bar of the editor click on the folder icon and select `configuration.yaml`.
+Home Assistant uses the YAML format for its configuration, this is a well known format for most developers and has a very basic indentation based syntax.
+A plugin which does not provide a wizard based setup will probably describe the configuration that needs to be added manually in the documentation.
+For more detailed information about editing files and changing the `configuration.yaml` see [the online documentation]({:target="_blank" rel="noopener noreferrer"}) of Home Assistant
 
 If you go back to the dashboard you should see all available devices that have been assigned to a room.
 You can manage the dashboard manually too but this requires quite a bit of config, experiment with this as you see fit.
+You can now control any device that is exposed and visible on the dashboard.
 
 Home Assistant has a [very extensive documentation](https://www.home-assistant.io/docs/){:target="_blank" rel="noopener noreferrer"}, consult it or the community if you get stuck!
 
 ## Automations
 
-TODO
+While having all the devices visible is nice a smart home wouldn't be a smart home if it didn't involve some automation.
+We want to make live easier and having to spend less time controlling our smart devices is one good way to do so.
+As with most things that involve automation it will take some initial time investment to get things right, don't give up if it doesn't work from the first time!
+
+Home Assistant has an extensive automation framework that has multiple entities to its disposal for automating things.
+
 
 ## Development
 
