@@ -22,7 +22,8 @@ comments: true
 4. [setting up and using Home Assistant](#setting-up-and-using-home-assistant)
 5. [Automations](#automations)
 6. [Development](#development)
-7. [Resources](#resources)
+7. [Conclusion](#conclusion)
+8. [Resources](#resources)
 
 ## Introduction
 
@@ -76,10 +77,10 @@ Your home has some types of objects in it, these are:
 - Integrations: These are the building blocks that integrate with physical devices or services.
 - Devices: Any physical device that is added through an integration has a representation here.
 - Entities: A device can expose one or multiple entities.
-- Blueprints: an automation instance that is re-usable.
-- Automations: An automation is an action that is activated by a trigger and when an optional condition is met.
+- [Automations](https://www.home-assistant.io/docs/automation){:target="_blank" rel="noopener noreferrer"}: An automation is an action that is activated by a trigger and when an optional condition is met.
+- [Blueprints](https://www.home-assistant.io/docs/automation/using_blueprints/){:target="_blank" rel="noopener noreferrer"}: an automation instance that is re-usable.
 - Scenes: A collection of predefined states for one or more devices/entities.
-- Scripts: Is what it says it is, a sequence of commands and/or actions to execute.
+- [Scripts](https://www.home-assistant.io/integrations/script/){:target="_blank" rel="noopener noreferrer"}: Is what it says it is, a sequence of commands and/or actions to execute.
 - Areas: A home can have multiple areas, think rooms.
   Each area can have zero or more devices/automations/scenes and or scripts assigned to it.
 
@@ -88,17 +89,17 @@ These integrations allow greater flexibility than most integrations that are mad
 Most integrations are maintained by the open source community and development is quite active.
 
 In the previous section we installed the Home Assistant, now we are going to add some stuff to it.
-Open the dashboard again and in the lower right side menu click on the `configuration` link.
+Open the dashboard again and in the lower right side menu click on the `Configuration` link.
 This will open the configuration view where we can manage the home.
 
 First select the `Areas` option.
-By default some rooms have been added, you delete the existing ones if desired or add extra ones.
+By default some rooms have been added, you can delete the existing ones if desired or add extra ones.
 It's easiest to add all the rooms you want to have available in the Home Assistant web UI and app before we continue.
 
-After we have set up the rooms we want to pick the `integrations` option.
+After we have set up the rooms we want to pick the `Integrations` option.
 If you have your Home Assistant installation correctly configured it probably will suggest some integrations based on the results of a network scan.
 Click on the `Configure` option to add the integration, a wizard will guide you through the process.
-For the devices in your home that have not been automatically detected click the `ADD INTEGRATION` button in the lower left corner and search for a device you have at home that might be supported.
+For the devices in your home that have not been automatically detected click the `Add Integration` button in the lower left corner and search for a device you have at home that might be supported.
 Some often used integrations are:
 
 - Sonos (speakers)
@@ -110,20 +111,33 @@ Like with the auto detected integrations a wizard will guide you through the set
 During the setup process you should be able to assign each device to a specific area, you can skip this if wanted and assign a device to an area later (By opening the device and clicking the settings icon and picking the area there).
 
 There are integrations which do not provide a setup wizard.
-To configure these integrations a more hands on approach is required.
-First click on the `Supervisor` link in the left bottom sidebar, this will open a section, in there select the `Add-on Store` in the top menu.
-In the search field type `File editor`, select the one add-on (it's an official one) and click `install`.
-This will install a file editor so we can edit the configuration.yaml file without needing the login on the Home Assistant server itself via ssh.
-Once the add-on has been installed you can find it in the supervisor UI under the `Dashboard` section.
-Click on the add-on and click on `start`, then select `open web ui`, this will open the file editor.
-In the top control bar of the editor click on the folder icon and select `configuration.yaml`.
-Home Assistant uses the YAML format for its configuration, this is a well known format for most developers and has a very basic indentation based syntax.
-A plugin which does not provide a wizard based setup will probably describe the configuration that needs to be added manually in the documentation.
-For more detailed information about editing files and changing the `configuration.yaml` see [the online documentation]({:target="_blank" rel="noopener noreferrer"}) of Home Assistant
+To configure these integrations a more hands on approach is required:
+
+- First click on the `Supervisor` link in the left bottom sidebar, this will open a section, in there select the `Add-on Store` in the top menu.
+- In the search field type `File editor`, select the one add-on (it's an official one) and click `install`.
+  This will install a file editor so we can edit the configuration.yaml file without needing the login on the Home Assistant server itself via ssh.
+  Once the add-on has been installed you can find it in the supervisor UI under the `Dashboard` section.
+- Click on the add-on and click on `start`, then select `open web ui`, this will open the file editor.
+- In the top control bar of the editor click on the folder icon and select `configuration.yaml`.
+  Home Assistant uses the YAML format for its configuration, this is a well known format for most developers and has a very basic indentation based syntax.
+  A plugin which does not provide a wizard based setup will probably describe the configuration that needs to be added manually in the documentation.
+  For more detailed information about editing files and changing the `configuration.yaml` see [the online documentation](https://www.home-assistant.io/getting-started/configuration/){:target="_blank" rel="noopener noreferrer"} of Home Assistant
 
 If you go back to the dashboard you should see all available devices that have been assigned to a room.
 You can manage the dashboard manually too but this requires quite a bit of config, experiment with this as you see fit.
 You can now control any device that is exposed and visible on the dashboard.
+
+It might also be handy to create a number of scenes.
+A scene is a predefined set of states for one or multiple devices.
+For example a `Good night` and `Good morning` scene could be created to turn on/off lights, lower/raise any blinds or shutters and set any other device to a desired state.
+The scenes can then be used in automations to simplify the setup.
+To create a new scene:
+
+- Click the `Configuration` link in the left sidebar
+- Select the `Scenes` entry
+- Click on `Add Scene`
+- Give the scene a name and one or multiple devices with to it
+  You set the state of each device when adding it as you want it to be when the scene is activated
 
 Home Assistant has a [very extensive documentation](https://www.home-assistant.io/docs/){:target="_blank" rel="noopener noreferrer"}, consult it or the community if you get stuck!
 
@@ -135,11 +149,37 @@ As with most things that involve automation it will take some initial time inves
 
 Home Assistant has an extensive automation framework that has multiple entities to its disposal for automating things.
 
+To create a basic automation:
+
+- Click the `Configuration` link in the left sidebar
+- Select the `Automations` entry
+- Click `Add Automation` and select `Start with an empty automation`
+- Give the automation a name and description that tells you what it will do
+- Set the execution mode, `single` is a good default, this is mostly used for longer running automations
+- Select a trigger type, for example a when another device is controlled, an event is sent
+- If wanted add a condition, this will be evaluated after the trigger is fired and before any actions are executed
+- Select one or multiple actions or scenes to control or activate
+- Click the `Save` button
+
+It is also possible to edit the automation using the yaml format.
+In the top right click on the three dots and select `Edit as YAML`, this will give you an editor to edit the automation in its raw yaml formatting.
+You can always test the automation by clicking the `execute button`, this will ignore the trigger but test any of the given conditions and execute the specified actions.
 
 ## Development
 
 TODO
 
+## Conclusion
+
+TODO
+
 ## Resources
 
+- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
+- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
+- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
+- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
+- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
+- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
+- [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
 - [TODO](https://google.be){:target="_blank" rel="noopener noreferrer"}
