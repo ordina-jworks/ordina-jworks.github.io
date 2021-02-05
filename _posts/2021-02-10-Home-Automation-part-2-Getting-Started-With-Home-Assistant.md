@@ -19,7 +19,7 @@ comments: true
 1. [Introduction](#introduction)
 2. [Preparations](#preparations)
 3. [Installing](#installing)
-4. [setting up and using Home Assistant](#setting-up-and-using-home-assistant)
+4. [Setting up and using Home Assistant](#setting-up-and-using-home-assistant)
 5. [Automations](#automations)
 6. [Development](#development)
 7. [Conclusion](#conclusion)
@@ -37,16 +37,16 @@ After the [first general post](/iot/2019/09/30/Home-automation-part-1.html){:tar
 In this post we'll go into detail about Home Assistant.
 Home Assistant is a fully open source home automation platform.
 It has a web interface as well as apps for Android and iOS.
-It features over 1700 integrations at the time of writing and allows for full local control of your smart home without using any of the big cloud vendors.
-As with many things, home assistant is relatively easy to pick up but hard to master.
+It features over 1.700 integrations at the time of writing and allows for full local control of your smart home without using any of the big cloud vendors.
+As with many things, Home Assistant is relatively easy to pick up but hard to master.
 Read on down below for more the details.
 
 ## Preparations
 
-Before we get to installing home assistant it is handy to have some items at hand:
+Before we get to installing Home Assistant it is handy to have some items at hand:
 
-- A machine/vm to run the assistant on, can be a Raspberry Pi (3b or 4b recommended)
-  - If you are using a SBC, a decent micro SD card, or even better an external ssd to install everything on at least 32 GiB in size
+- A machine/VM to run the assistant on, can be a Raspberry Pi (3b or 4b recommended)
+  - If you are using a SBC, a decent micro SD card, or even better, an external ssd to install everything on at least 32 GiB in size
 - The correct image of the Home Assistant OS, [download the file](https://www.home-assistant.io/hassio/installation/){:target="_blank" rel="noopener noreferrer"} best suited for your device.
   The download page also features detailed information for each specific option
   - Raspberry Pi (and other board) images
@@ -65,16 +65,17 @@ Before we get to installing home assistant it is handy to have some items at han
 
 Once you have everything downloaded and prepared we can get to installing and doing the basic setup for Home Assistant.
 If you have downloaded the virtual machine hard disk image, load the downloaded image in the software by creating a new VM and assigning it the downloaded disk image.
-2 GiB of RAM and 1 or 2 cores are usually more than sufficient, these values can always be increased later on if needed.
-Follow the instructions on [the download page](https://www.home-assistant.io/hassio/installation/){:target="_blank" rel="noopener noreferrer"} for you specific vm technology.
+2GiB of RAM and 1 or 2 cores are usually more than sufficient, these values can always be increased later on if needed.
+Follow the instructions on [the download page](https://www.home-assistant.io/hassio/installation/){:target="_blank" rel="noopener noreferrer"} for you specific VM technology.
 
-If you have downloaded a device image, flash it onto the micro sd card, or even better an external SSD ([Booting the Raspberry Pi from USB](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md){:target="_blank" rel="noopener noreferrer"})
+If you have downloaded a device image, flash it onto the micro sd card, or even better an external SSD ([Booting the Raspberry Pi from USB](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md){:target="_blank" rel="noopener noreferrer"}).
 An external SSD or decent USB 3.1 stick will last much longer than most SD cards, especially when writing a lot of log files.
-You can use a tool like [Balena Etcher](https://www.balena.io/etcher/){:target="_blank" rel="noopener noreferrer"} (multi OS) or [Rufus](https://rufus.ie/){:target="_blank" rel="noopener noreferrer"} (Windows) to flash the image, once done insert the SD card or USB device into your Raspberry Pi.
-
+You can use a tool like [Balena Etcher](https://www.balena.io/etcher/){:target="_blank" rel="noopener noreferrer"} (multi OS) or [Rufus](https://rufus.ie/){:target="_blank" rel="noopener noreferrer"} (Windows) to flash the image.
+Once done, insert the SD card or USB device into your Raspberry Pi.
 Once you have set up your device or VM and powered it on, you should be able to visit it by entering [`http://homeassistant.local:8123`](http://homeassistant.local:8123){:target="_blank" rel="noopener noreferrer"} in the browser, this is where we will continue.
-Follow the setup guide, this will let you create an account (local, no cloud shenanigans), set up the details about your home.
-You can set up integrations during this wizard but we will be doing this later, click complete to exit the wizard.
+Follow the setup guide, this will let you create an account (local, no cloud shenanigans) and set up the details about your home.
+You can set up integrations during this wizard but we will be doing this later.
+Click complete to exit the wizard.
 You will then be greeted with your home's dashboard amd Home Assistant is ready to be used.
 
 <div style="text-align: center; margin: 0px auto;">
@@ -97,7 +98,7 @@ Your home has some types of objects in it, these are:
 - Devices: Any physical device that is added through an integration has a representation here.
 - Entities: A device can expose one or multiple entities.
 - [Automations](https://www.home-assistant.io/docs/automation){:target="_blank" rel="noopener noreferrer"}: An automation is an action that is activated by a trigger and when an optional condition is met.
-- [Blueprints](https://www.home-assistant.io/docs/automation/using_blueprints/){:target="_blank" rel="noopener noreferrer"}: an automation instance that is re-usable.
+- [Blueprints](https://www.home-assistant.io/docs/automation/using_blueprints/){:target="_blank" rel="noopener noreferrer"}: An automation instance that is re-usable.
 - Scenes: A collection of predefined states for one or more devices/entities.
 - [Scripts](https://www.home-assistant.io/integrations/script/){:target="_blank" rel="noopener noreferrer"}: Is what it says it is, a sequence of commands and/or actions to execute.
 - Areas: A home can have multiple areas, think rooms.
@@ -121,10 +122,10 @@ It's easiest to add all the rooms you want to have available in the Home Assista
     </a>
 </div>
 
-After we have set up the rooms we want to pick the `Integrations` option.
-If you have your Home Assistant installation correctly configured it probably will suggest some integrations based on the results of a network scan.
+After we have set up the rooms, we want to pick the `Integrations` option.
+If you have your Home Assistant installation correctly configured, it probably will suggest some integrations based on the results of a network scan.
 Click on the `Configure` option to add the integration, a wizard will guide you through the process.
-For the devices in your home that have not been automatically detected click the `Add Integration` button in the lower left corner and search for a device you have at home that might be supported.
+For the devices in your home that have not been automatically detected, click the `Add Integration` button in the lower left corner and search for a device you have at home that might be supported.
 Some often used integrations are:
 
 - Sonos (speakers)
@@ -132,10 +133,11 @@ Some often used integrations are:
 - Nest (thermostat, fire alarms)
 - Ikea Tradfri (lights)
 
-Like with the auto detected integrations a wizard will guide you through the setup process.
+Like with the auto detected integrations, a wizard will guide you through the setup process.
 The Home Assistant website has a [collection of all published integrations](https://www.home-assistant.io/integrations/){:target="_blank" rel="noopener noreferrer"}, you can browse through and search the list.
 Each plugin on the site also has all the info to configure it correctly.
-During the setup process you should be able to assign each device to a specific area, you can skip this if wanted and assign a device to an area later (By opening the device and clicking the settings icon and picking the area there).
+During the setup process you should be able to assign each device to a specific area.
+You can skip this if wanted and assign a device to an area later (By opening the device and clicking the settings icon and picking the area there).
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2021-02-10-home-automation-part-2/integrations-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Integrations overview">
@@ -153,17 +155,21 @@ During the setup process you should be able to assign each device to a specific 
 </div>
 
 There are integrations which do not provide a setup wizard.
-To configure these integrations a more hands on approach is required:
+To configure these integrations, a more hands on approach is required:
 
-- First click on the `Supervisor` link in the left bottom sidebar, this will open a section, in there select the `Add-on Store` in the top menu.
-- In the search field type `File editor`, select the one add-on (it's an official one) and click `install`.
-  This will install a file editor so we can edit the configuration.yaml file without needing the login on the Home Assistant server itself via ssh.
-  Once the add-on has been installed you can find it in the supervisor UI under the `Dashboard` section.
-- Click on the add-on and click on `start`, then select `open web ui`, this will open the file editor.
-- In the top control bar of the editor click on the folder icon and select `configuration.yaml`.
-  Home Assistant uses the YAML format for its configuration, this is a well known format for most developers and has a very basic indentation based syntax.
-  A plugin which does not provide a wizard based setup will probably describe the configuration that needs to be added manually in the documentation.
-  For more detailed information about editing files and changing the `configuration.yaml` see [the online documentation](https://www.home-assistant.io/getting-started/configuration/){:target="_blank" rel="noopener noreferrer"} of Home Assistant
+- First click on the `Supervisor` link in the left bottom sidebar.
+  This will open a section.
+  In there select the `Add-on Store` in the top menu.
+- In the search field, type `File editor`, select the one add-on (it's an official one) and click `install`.
+  This will install a file editor so we can edit the configuration.yaml file without needing the login on the Home Assistant server itself via SSH.
+  Once the add-on has been installed, you can find it in the supervisor UI under the `Dashboard` section.
+- Click on the add-on and click on `start`, then select `open web ui`.
+  This will open the file editor.
+- In the top control bar of the editor, click on the folder icon and select `configuration.yaml`.
+  Home Assistant uses the YAML format for its configuration.
+  This is a well known format for most developers and has a very basic indentation based syntax.
+  A plugin which does not provide a wizard-based setup will probably describe the configuration that needs to be added manually in the documentation.
+  For more detailed information about editing files and changing the `configuration.yaml`, see [the online documentation](https://www.home-assistant.io/getting-started/configuration/){:target="_blank" rel="noopener noreferrer"} of Home Assistant
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2021-02-10-home-automation-part-2/file-editor-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="File editor">
@@ -171,8 +177,9 @@ To configure these integrations a more hands on approach is required:
     </a>
 </div>
 
-If you go back to the dashboard you should see all available devices that have been assigned to a room.
-You can manage the dashboard manually too but this requires quite a bit of config, experiment with this as you see fit.
+If you go back to the dashboard, you should see all available devices that have been assigned to a room.
+You can manage the dashboard manually too but this requires quite a bit of config.
+Experiment with this as you see fit.
 You can now control any device that is exposed and visible on the dashboard.
 
 It might also be handy to create a number of scenes.
@@ -184,16 +191,18 @@ To create a new scene:
 - Click the `Configuration` link in the left sidebar
 - Select the `Scenes` entry
 - Click on `Add Scene`
-- Give the scene a name and one or multiple devices with to it
+- Give the scene a name and one or multiple devices with it
   You set the state of each device when adding it as you want it to be when the scene is activated
 
-Home Assistant has a [very extensive documentation](https://www.home-assistant.io/docs/){:target="_blank" rel="noopener noreferrer"}, consult it or the community if you get stuck!
+Home Assistant has a [very extensive documentation](https://www.home-assistant.io/docs/){:target="_blank" rel="noopener noreferrer"}.
+Consult it or the community if you get stuck!
 
 ## Automations
 
-While having all the devices visible is nice a smart home wouldn't be a smart home if it didn't involve some automation.
-We want to make live easier and having to spend less time controlling our smart devices is one good way to do so.
-As with most things that involve automation it will take some initial time investment to get things right, don't give up if it doesn't work from the first time!
+While having all the devices visible is nice, a smart home wouldn't be a smart home if it didn't involve some automation.
+We want to make life easier and having to spend less time controlling our smart devices is one good way to do so.
+As with most things that involve automation, it will take some initial time investment to get things right.
+Don't give up if it doesn't work from the first time!
 
 Home Assistant has an extensive automation framework that has multiple entities to its disposal for automating things.
 
@@ -203,15 +212,19 @@ To create a basic automation:
 - Select the `Automations` entry
 - Click `Add Automation` and select `Start with an empty automation`
 - Give the automation a name and description that tells you what it will do
-- Set the execution mode, `single` is a good default, this is mostly used for longer running automations
-- Select a trigger type, for example a when another device is controlled, an event is sent
-- If wanted add a condition, this will be evaluated after the trigger is fired and before any actions are executed
+- Set the execution mode, `single` is a good default.
+  This is mostly used for longer running automations
+- Select a trigger type, for example when another device is controlled, an event is sent
+- If desired add a condition
+  This will be evaluated after the trigger is fired and before any actions are executed
 - Select one or multiple actions or scenes to control or activate
 - Click the `Save` button
 
 It is also possible to edit the automation using the yaml format.
-In the top right click on the three dots and select `Edit as YAML`, this will give you an editor to edit the automation in its raw yaml formatting.
-You can always test the automation by clicking the `execute button`, this will ignore the trigger but test any of the given conditions and execute the specified actions.
+In the top right click on the three dots and select `Edit as YAML`. 
+This will give you an editor to edit the automation in its raw yaml formatting.
+You can always test the automation by clicking the `execute button`.
+This will ignore the trigger but test any of the given conditions and execute the specified actions.
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2021-02-10-home-automation-part-2/automation-1.jpeg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="New automation dialog">
@@ -233,7 +246,7 @@ You can always test the automation by clicking the `execute button`, this will i
 
 ## Development
 
-Whilst there are plenty of integrations available for Home Assistant some might be missing, or you have a very specific use case that is not available yet.
+Whilst there are plenty of integrations available for Home Assistant, some might be missing, or you have a very specific use case that is not available yet.
 By supporting web hooks, scripts, MQTT,... you can sometimes work around devices and platforms that have no ready to use integration, but sometimes you cannot.
 
 It is possible by developing your own integrations for Home Assistant.
@@ -245,7 +258,8 @@ To start building a custom integration:
 - Set up the Home Assistant [dev environment](https://developers.home-assistant.io/docs/development_environment){:target="_blank" rel="noopener noreferrer"}
 - Read through [the documentation](https://developers.home-assistant.io/docs/creating_integration_file_structure){:target="_blank" rel="noopener noreferrer"} first, to prevent any RTFM situations later on.
   Everything you need is laid out in separate topics to read through.
-- From the dev environment, execute: `python3 -m script.scaffold integration`, this will create a new basic integration
+- From the dev environment, execute: `python3 -m script.scaffold integration`.
+  This will create a new basic integration
 - Look at the [example integrations](https://github.com/home-assistant/example-custom-config/tree/master/custom_components/){:target="_blank" rel="noopener noreferrer"}
 - Test your integration locally by adding an entry to your integrations `__init__.py` file to the `configuration.yaml` file: `<config_dir>/custom_components/custom_integration/__init__.py`
 
@@ -254,7 +268,7 @@ To start building a custom integration:
 Home Assistant is a very extensive home automation platform that is relatively easy to set up.
 Basic automations are fast to set up and use, while also providing very extensive options for advanced users.
 The extensive documentation and lively community make sure that most questions can be answered.
-If you are willing to get your hands dirty creating your own integrations is also an option.
+If you are willing to get your hands dirty, creating your own integrations is also an option.
 A valid alternative to the home automation systems from Google and Amazon whilst not giving them access to all your home data!
 
 ## Resources
