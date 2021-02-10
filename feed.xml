@@ -1,5 +1,315 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-02-02T11:06:55+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Spring Cloud Circuit Breaker</title><link href="https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html" rel="alternate" type="text/html" title="Spring Cloud Circuit Breaker" /><published>2021-02-01T00:00:00+00:00</published><updated>2021-02-01T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-02-10T06:50:03+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Home Automation part 2: Getting started with Home Assistant</title><link href="https://ordina-jworks.github.io/iot/2021/02/10/Home-Automation-part-2-Getting-Started-With-Home-Assistant.html" rel="alternate" type="text/html" title="Home Automation part 2: Getting started with Home Assistant" /><published>2021-02-10T00:00:00+00:00</published><updated>2021-02-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2021/02/10/Home-Automation-part-2-Getting-Started-With-Home-Assistant</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2021/02/10/Home-Automation-part-2-Getting-Started-With-Home-Assistant.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#preparations&quot;&gt;Preparations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#installing&quot;&gt;Installing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setting-up-and-using-home-assistant&quot;&gt;Setting up and using Home Assistant&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#automations&quot;&gt;Automations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#development&quot;&gt;Development&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/logo.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Logo&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 1&quot; src=&quot;/img/2021-02-10-home-automation-part-2/logo.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 100%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After the &lt;a href=&quot;/iot/2019/09/30/Home-automation-part-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;first general post&lt;/a&gt; about home automation it’s time to kick things into higher gear.
+In this post we’ll go into detail about Home Assistant.
+Home Assistant is a fully open source home automation platform.
+It has a web interface as well as apps for Android and iOS.
+It features over 1.700 integrations at the time of writing and allows for full local control of your smart home without using any of the big cloud vendors.
+As with many things, Home Assistant is relatively easy to pick up but hard to master.
+Read on down below for more the details.&lt;/p&gt;
+
+&lt;h2 id=&quot;preparations&quot;&gt;Preparations&lt;/h2&gt;
+
+&lt;p&gt;Before we get to installing Home Assistant it is handy to have some items at hand:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A machine/VM to run the assistant on, can be a Raspberry Pi (3b or 4b recommended)
+    &lt;ul&gt;
+      &lt;li&gt;If you are using a SBC, a decent micro SD card, or even better, an external ssd to install everything on at least 32 GiB in size&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The correct image of the Home Assistant OS, &lt;a href=&quot;https://www.home-assistant.io/hassio/installation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;download the file&lt;/a&gt; best suited for your device.
+The download page also features detailed information for each specific option
+    &lt;ul&gt;
+      &lt;li&gt;Raspberry Pi (and other board) images&lt;/li&gt;
+      &lt;li&gt;Intel NUC image (or any other intel based board)&lt;/li&gt;
+      &lt;li&gt;Virtual machine
+        &lt;ul&gt;
+          &lt;li&gt;Virtual Box =&amp;gt; VDI disk image&lt;/li&gt;
+          &lt;li&gt;Hyper-V =&amp;gt; VHDX disk image&lt;/li&gt;
+          &lt;li&gt;KVM =&amp;gt; QCOW2 disk image&lt;/li&gt;
+          &lt;li&gt;VMware Workstation =&amp;gt; VMDK disk image&lt;/li&gt;
+          &lt;li&gt;Proxmox =&amp;gt; QCOW2 disk image&lt;/li&gt;
+          &lt;li&gt;VMware ESXi =&amp;gt; OVA disk image&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;An ethernet connection, WiFi can work too but ethernet might be more reliable depending on your personal WiFi setup&lt;/li&gt;
+  &lt;li&gt;Patience, don’t be afraid to start over if things don’t work after the first try!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;installing&quot;&gt;Installing&lt;/h2&gt;
+
+&lt;p&gt;Once you have everything downloaded and prepared we can get to installing and doing the basic setup for Home Assistant.
+If you have downloaded the virtual machine hard disk image, load the downloaded image in the software by creating a new VM and assigning it the downloaded disk image.
+2GiB of RAM and 1 or 2 cores are usually more than sufficient, these values can always be increased later on if needed.
+Follow the instructions on &lt;a href=&quot;https://www.home-assistant.io/hassio/installation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the download page&lt;/a&gt; for you specific VM technology.&lt;/p&gt;
+
+&lt;p&gt;If you have downloaded a device image, flash it onto the micro sd card, or even better an external SSD (&lt;a href=&quot;https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Booting the Raspberry Pi from USB&lt;/a&gt;).
+An external SSD or decent USB 3.1 stick will last much longer than most SD cards, especially when writing a lot of log files.
+You can use a tool like &lt;a href=&quot;https://www.balena.io/etcher/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Balena Etcher&lt;/a&gt; (multi OS) or &lt;a href=&quot;https://rufus.ie/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Rufus&lt;/a&gt; (Windows) to flash the image.
+Once done, insert the SD card or USB device into your Raspberry Pi.
+Once you have set up your device or VM and powered it on, you should be able to visit it by entering &lt;a href=&quot;http://homeassistant.local:8123&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://homeassistant.local:8123&lt;/code&gt;&lt;/a&gt; in the browser, this is where we will continue.
+Follow the setup guide, this will let you create an account (local, no cloud shenanigans) and set up the details about your home.
+You can set up integrations during this wizard but we will be doing this later.
+Click complete to exit the wizard.
+You will then be greeted with your home’s dashboard amd Home Assistant is ready to be used.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/setup-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Setting up a new home&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 1&quot; src=&quot;/img/2021-02-10-home-automation-part-2/setup-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 23%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/setup-2.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Setting home details&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 2&quot; src=&quot;/img/2021-02-10-home-automation-part-2/setup-2.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 17%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/dashboard-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Home Assistant dashboard&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 2&quot; src=&quot;/img/2021-02-10-home-automation-part-2/dashboard-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 55%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;setting-up-and-using-home-assistant&quot;&gt;Setting up and using Home Assistant&lt;/h2&gt;
+
+&lt;p&gt;Your home has some types of objects in it, these are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Integrations: These are the building blocks that integrate with physical devices or services.&lt;/li&gt;
+  &lt;li&gt;Devices: Any physical device that is added through an integration has a representation here.&lt;/li&gt;
+  &lt;li&gt;Entities: A device can expose one or multiple entities.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/docs/automation&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Automations&lt;/a&gt;: An automation is an action that is activated by a trigger and when an optional condition is met.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/docs/automation/using_blueprints/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Blueprints&lt;/a&gt;: An automation instance that is re-usable.&lt;/li&gt;
+  &lt;li&gt;Scenes: A collection of predefined states for one or more devices/entities.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/integrations/script/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Scripts&lt;/a&gt;: Is what it says it is, a sequence of commands and/or actions to execute.&lt;/li&gt;
+  &lt;li&gt;Areas: A home can have multiple areas, think rooms.
+Each area can have zero or more devices/automations/scenes and or scripts assigned to it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One of the advantages of Home Assistant is that is has a vast library of available integrations.
+These integrations allow greater flexibility than most integrations that are made for Apple HomeKit, Amazon Alexa or Google Home.
+Most integrations are maintained by the open source community and development is quite active.&lt;/p&gt;
+
+&lt;p&gt;In the previous section we installed the Home Assistant, now we are going to add some stuff to it.
+Open the dashboard again and in the lower right side menu click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Configuration&lt;/code&gt; link.
+This will open the configuration view where we can manage the home.&lt;/p&gt;
+
+&lt;p&gt;First select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Areas&lt;/code&gt; option.
+By default some rooms have been added, you can delete the existing ones if desired or add extra ones.
+It’s easiest to add all the rooms you want to have available in the Home Assistant web UI and app before we continue.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/areas-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Setting up a areas&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 1&quot; src=&quot;/img/2021-02-10-home-automation-part-2/areas-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 100%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After we have set up the rooms, we want to pick the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Integrations&lt;/code&gt; option.
+If you have your Home Assistant installation correctly configured, it probably will suggest some integrations based on the results of a network scan.
+Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Configure&lt;/code&gt; option to add the integration, a wizard will guide you through the process.
+For the devices in your home that have not been automatically detected, click the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add Integration&lt;/code&gt; button in the lower left corner and search for a device you have at home that might be supported.
+Some often used integrations are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Sonos (speakers)&lt;/li&gt;
+  &lt;li&gt;Tuya (lights, outlets, sensors)&lt;/li&gt;
+  &lt;li&gt;Nest (thermostat, fire alarms)&lt;/li&gt;
+  &lt;li&gt;Ikea Tradfri (lights)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Like with the auto detected integrations, a wizard will guide you through the setup process.
+The Home Assistant website has a &lt;a href=&quot;https://www.home-assistant.io/integrations/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;collection of all published integrations&lt;/a&gt;, you can browse through and search the list.
+Each plugin on the site also has all the info to configure it correctly.
+During the setup process you should be able to assign each device to a specific area.
+You can skip this if wanted and assign a device to an area later (By opening the device and clicking the settings icon and picking the area there).&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/integrations-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Integrations overview&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 1&quot; src=&quot;/img/2021-02-10-home-automation-part-2/integrations-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 23%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/devices-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Devices overview&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 2&quot; src=&quot;/img/2021-02-10-home-automation-part-2/devices-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 19%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/device-info-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Device details&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 2&quot; src=&quot;/img/2021-02-10-home-automation-part-2/device-info-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 34%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+     &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/entities-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Entities overview&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 2&quot; src=&quot;/img/2021-02-10-home-automation-part-2/entities-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 20%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There are integrations which do not provide a setup wizard.
+To configure these integrations, a more hands on approach is required:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;First click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Supervisor&lt;/code&gt; link in the left bottom sidebar.
+This will open a section.
+In there select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add-on Store&lt;/code&gt; in the top menu.&lt;/li&gt;
+  &lt;li&gt;In the search field, type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;File editor&lt;/code&gt;, select the one add-on (it’s an official one) and click &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;install&lt;/code&gt;.
+This will install a file editor so we can edit the configuration.yaml file without needing the login on the Home Assistant server itself via SSH.
+Once the add-on has been installed, you can find it in the supervisor UI under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dashboard&lt;/code&gt; section.&lt;/li&gt;
+  &lt;li&gt;Click on the add-on and click on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;start&lt;/code&gt;, then select &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;open web ui&lt;/code&gt;.
+This will open the file editor.&lt;/li&gt;
+  &lt;li&gt;In the top control bar of the editor, click on the folder icon and select &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt;.
+Home Assistant uses the YAML format for its configuration.
+This is a well known format for most developers and has a very basic indentation based syntax.
+A plugin which does not provide a wizard-based setup will probably describe the configuration that needs to be added manually in the documentation.
+For more detailed information about editing files and changing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt;, see &lt;a href=&quot;https://www.home-assistant.io/getting-started/configuration/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the online documentation&lt;/a&gt; of Home Assistant&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/file-editor-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;File editor&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 1&quot; src=&quot;/img/2021-02-10-home-automation-part-2/file-editor-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 100%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If you go back to the dashboard, you should see all available devices that have been assigned to a room.
+You can manage the dashboard manually too but this requires quite a bit of config.
+Experiment with this as you see fit.
+You can now control any device that is exposed and visible on the dashboard.&lt;/p&gt;
+
+&lt;p&gt;It might also be handy to create a number of scenes.
+A scene is a predefined set of states for one or multiple devices.
+For example a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Good night&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Good morning&lt;/code&gt; scene could be created to turn on/off lights, lower/raise any blinds or shutters and set any other device to a desired state.
+The scenes can then be used in automations to simplify the setup.
+To create a new scene:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Click the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Configuration&lt;/code&gt; link in the left sidebar&lt;/li&gt;
+  &lt;li&gt;Select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scenes&lt;/code&gt; entry&lt;/li&gt;
+  &lt;li&gt;Click on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add Scene&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Give the scene a name and one or multiple devices with it
+You set the state of each device when adding it as you want it to be when the scene is activated&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Home Assistant has a &lt;a href=&quot;https://www.home-assistant.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;very extensive documentation&lt;/a&gt;.
+Consult it or the community if you get stuck!&lt;/p&gt;
+
+&lt;h2 id=&quot;automations&quot;&gt;Automations&lt;/h2&gt;
+
+&lt;p&gt;While having all the devices visible is nice, a smart home wouldn’t be a smart home if it didn’t involve some automation.
+We want to make life easier and having to spend less time controlling our smart devices is one good way to do so.
+As with most things that involve automation, it will take some initial time investment to get things right.
+Don’t give up if it doesn’t work from the first time!&lt;/p&gt;
+
+&lt;p&gt;Home Assistant has an extensive automation framework that has multiple entities to its disposal for automating things.&lt;/p&gt;
+
+&lt;p&gt;To create a basic automation:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Click the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Configuration&lt;/code&gt; link in the left sidebar&lt;/li&gt;
+  &lt;li&gt;Select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Automations&lt;/code&gt; entry&lt;/li&gt;
+  &lt;li&gt;Click &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add Automation&lt;/code&gt; and select &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Start with an empty automation&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Give the automation a name and description that tells you what it will do&lt;/li&gt;
+  &lt;li&gt;Set the execution mode, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;single&lt;/code&gt; is a good default.
+This is mostly used for longer running automations&lt;/li&gt;
+  &lt;li&gt;Select a trigger type, for example when another device is controlled, an event is sent&lt;/li&gt;
+  &lt;li&gt;If desired add a condition
+This will be evaluated after the trigger is fired and before any actions are executed&lt;/li&gt;
+  &lt;li&gt;Select one or multiple actions or scenes to control or activate&lt;/li&gt;
+  &lt;li&gt;Click the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Save&lt;/code&gt; button&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It is also possible to edit the automation using the yaml format.
+In the top right click on the three dots and select &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Edit as YAML&lt;/code&gt;. 
+This will give you an editor to edit the automation in its raw yaml formatting.
+You can always test the automation by clicking the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execute button&lt;/code&gt;.
+This will ignore the trigger but test any of the given conditions and execute the specified actions.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/automation-1.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;New automation dialog&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 1&quot; src=&quot;/img/2021-02-10-home-automation-part-2/automation-1.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 21%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/automation-2.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Automation setup triggers&quot;&gt;
+        &lt;img alt=&quot;HomeKit devices 2&quot; src=&quot;/img/2021-02-10-home-automation-part-2/automation-2.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 19%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/automation-3.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Automation conditions and actions&quot;&gt;
+        &lt;img alt=&quot;HomeKit automations&quot; src=&quot;/img/2021-02-10-home-automation-part-2/automation-3.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 24%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/automation-4.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Automation edit as yaml&quot;&gt;
+        &lt;img alt=&quot;HomeKit automations&quot; src=&quot;/img/2021-02-10-home-automation-part-2/automation-4.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 11%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-02-10-home-automation-part-2/automation-5.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Automation yaml editor&quot;&gt;
+        &lt;img alt=&quot;HomeKit automations&quot; src=&quot;/img/2021-02-10-home-automation-part-2/automation-5.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 19%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;development&quot;&gt;Development&lt;/h2&gt;
+
+&lt;p&gt;Whilst there are plenty of integrations available for Home Assistant, some might be missing, or you have a very specific use case that is not available yet.
+By supporting web hooks, scripts, MQTT,… you can sometimes work around devices and platforms that have no ready to use integration, but sometimes you cannot.&lt;/p&gt;
+
+&lt;p&gt;It is possible by developing your own integrations for Home Assistant.
+&lt;a href=&quot;https://developers.home-assistant.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;A special website&lt;/a&gt; dedicated to developers is available to get started.&lt;/p&gt;
+
+&lt;p&gt;To start building a custom integration:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Have experience with Python, YAML and JSON&lt;/li&gt;
+  &lt;li&gt;Set up the Home Assistant &lt;a href=&quot;https://developers.home-assistant.io/docs/development_environment&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;dev environment&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Read through &lt;a href=&quot;https://developers.home-assistant.io/docs/creating_integration_file_structure&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the documentation&lt;/a&gt; first, to prevent any RTFM situations later on.
+Everything you need is laid out in separate topics to read through.&lt;/li&gt;
+  &lt;li&gt;From the dev environment, execute: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 -m script.scaffold integration&lt;/code&gt;.
+This will create a new basic integration&lt;/li&gt;
+  &lt;li&gt;Look at the &lt;a href=&quot;https://github.com/home-assistant/example-custom-config/tree/master/custom_components/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;example integrations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Test your integration locally by adding an entry to your integrations &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt; file to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;config_dir&amp;gt;/custom_components/custom_integration/__init__.py&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Home Assistant is a very extensive home automation platform that is relatively easy to set up.
+Basic automations are fast to set up and use, while also providing very extensive options for advanced users.
+The extensive documentation and lively community make sure that most questions can be answered.
+If you are willing to get your hands dirty, creating your own integrations is also an option.
+A valid alternative to the home automation systems from Google and Amazon whilst not giving them access to all your home data!&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Home Assistant&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/hassio/installation/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Downloads&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Raspberry Pi USB Boot&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.balena.io/etcher/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Balena Etcher image burning tool&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://rufus.ie/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Rufus image burning tool&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/integrations/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Available Integrations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/docs/automation&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Automations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/docs/automation/using_blueprints/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Blueprints&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/integrations/script/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Scripts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/getting-started/configuration/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA YAML Config&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA General Docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developers.home-assistant.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Developer sections&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developers.home-assistant.io/docs/development_environment&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Dev Environment&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developers.home-assistant.io/docs/creating_integration_file_structure&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Custom Integration File Structure&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/home-assistant/example-custom-config/tree/master/custom_components/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;HA Example Integrations Source Code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Internet of Things" /><category term="Smart Tech" /><category term="Home" /><category term="Smart Home" /><category term="Automation" /><category term="Home Automation" /><category term="Home Assistant" /><category term="python" /><category term="yaml" /><category term="plugins" /><category term="devices" /><category term="accessories" /><category term="integrations" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-02-10-home-automation-part-2/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-02-10-home-automation-part-2/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Spring Cloud Circuit Breaker</title><link href="https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html" rel="alternate" type="text/html" title="Spring Cloud Circuit Breaker" /><published>2021-02-01T00:00:00+00:00</published><updated>2021-02-01T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker</id><content type="html" xml:base="https://ordina-jworks.github.io/spring/2021/02/01/springCloudCircuitBreaker.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 
 &lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
@@ -1139,7 +1449,7 @@ Each text file will contain the box coordinates in normalized WHXY format.&lt;/p
   &lt;li&gt;&lt;a href=&quot;https://colab.research.google.com/drive/1gDZ2xcTOgR39tGGs-EZ6i3RTs16wmzZQ#scrollTo=1NcFxRcFdJ_O&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Colab document&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Overfitting&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Overfitting&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Train/Test/Validate&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a frontend consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Ordina" /><category term="JWorks" /><category term="AI" /><category term="ML" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><category term="YOLO" /><category term="YOLOv5" /><category term="image detection" /><category term="object detection" /><category term="cuda" /><category term="nvidia" /><category term="training" /><category term="coco" /><category term="dataset" /><category term="image recognition" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mobile Design Done Right</title><link href="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html" rel="alternate" type="text/html" title="Mobile Design Done Right" /><published>2020-12-16T00:00:00+00:00</published><updated>2020-12-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design</id><content type="html" xml:base="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html">&lt;h2 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Ordina" /><category term="JWorks" /><category term="AI" /><category term="ML" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><category term="YOLO" /><category term="YOLOv5" /><category term="image detection" /><category term="object detection" /><category term="cuda" /><category term="nvidia" /><category term="training" /><category term="coco" /><category term="dataset" /><category term="image recognition" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mobile Design Done Right</title><link href="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html" rel="alternate" type="text/html" title="Mobile Design Done Right" /><published>2020-12-16T00:00:00+00:00</published><updated>2020-12-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design</id><content type="html" xml:base="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html">&lt;h2 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h2&gt;
 
 &lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#mobile-design&quot; id=&quot;markdown-toc-mobile-design&quot;&gt;Mobile design&lt;/a&gt;&lt;/li&gt;
@@ -3203,365 +3513,4 @@ For more information on NestJS and its features, check out the very thorough &lt
   &lt;li&gt;&lt;a href=&quot;https://docs.nestjs.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NestJS docs&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.theodo.com/2019/06/deploy-a-nestjs-app-in-5-minutes-with-serverless-framework/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Lambda integration&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://jacob-do.medium.com/token-validation-with-aws-cognito-and-nestjs-6f9e4088393c&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Cognito integration&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jasper&quot;, &quot;last_name&quot;=&gt;&quot;Rosiers&quot;, &quot;github&quot;=&gt;&quot;jasperrosiers&quot;, &quot;linkedin&quot;=&gt;&quot;jasper-rosiers&quot;, &quot;permalink&quot;=&gt;&quot;/author/jasper-rosiers/&quot;, &quot;avatar&quot;=&gt;&quot;jasper-rosiers.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;jasper.rosiers@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jasper is a Java Developer with a love for IoT and innovative tech. He has a lot of experience in building chatbots using various platforms and coupling them to different chat clients. He also has a passion for the Agile way of working, Scrum and communication, both inside and outside the team.&quot;}</name><email>jasper.rosiers@ordina.be</email></author><category term="Backend" /><category term="TypeScript" /><category term="Backend" /><category term="NestJS" /><category term="Azure" /><category term="Serverless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">JOIN 2020</title><link href="https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020.html" rel="alternate" type="text/html" title="JOIN 2020" /><published>2020-11-06T00:00:00+00:00</published><updated>2020-11-06T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2020/11/06/JOIN-2020.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
-
-&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#our-speakers&quot;&gt;Our speakers&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#tech-track-sessions&quot;&gt;Tech Track sessions&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#agile-and-business-track-sessions&quot;&gt;Agile and Business Track Sessions&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#in-the-spotlight-ghelamco-alert&quot;&gt;In the spotlight Ghelamco alert&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#in-the-spotlight-some-pitfalls-of-ai&quot;&gt;In the spotlight Some pitfalls of AI&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;As is annual tradition, even despite Corona, we held our 8th JOIN event in the beginning of October.
-JOIN stands for JWorks Open Innovation &amp;amp; Networking and aims to bring interesting talks on a wide variety of topics.
-This years edition was a bit different being that large gatherings of people are a no-no, so we opted for an online only edition.&lt;/p&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/NeuqRdB60G0&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We stuck to our dual track approach to provide some interesting sessions for everybody:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A Tech track consisting of 4 sessions:
-    &lt;ul&gt;
-      &lt;li&gt;Ghelamco alert: Combining Raspberry Pi and AWS Cloud to get the best of both worlds - Bas Moorkens&lt;/li&gt;
-      &lt;li&gt;Infrastructure is code with the AWS Cloud Development Kit (AWS CDK) - Kevin Azijn&lt;/li&gt;
-      &lt;li&gt;Moving a complex and slow deployment pipeline to a streamlined and lightning fast Azure deployment - Pieter Vincken&lt;/li&gt;
-      &lt;li&gt;Some pitfalls of AI - Joachim Ganseman&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;An agile and business track also consisting of 4 sessions:
-    &lt;ul&gt;
-      &lt;li&gt;Dancing the BOSSA nova – how to bring a culture of experimentation into your company - Edwin Burgers &amp;amp; Maryse Meinen&lt;/li&gt;
-      &lt;li&gt;The power of Kata - Michaëla Broeckx&lt;/li&gt;
-      &lt;li&gt;Failure Culture – what it means to fail and how we can gain value from it - Anke Maerz&lt;/li&gt;
-      &lt;li&gt;Why don’t you get my code? - Francis Laleman&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Read and watch on down below as we go over each speaker and talk.&lt;/p&gt;
-
-&lt;h2 id=&quot;our-speakers&quot;&gt;Our speakers&lt;/h2&gt;
-
-&lt;p&gt;Like any event we depend on our contributors, in our case being our speakers.
-Without them our event would not be possible, they provide us with the awesome and interesting sessions.&lt;/p&gt;
-
-&lt;h3 id=&quot;bas-moorkens&quot;&gt;Bas Moorkens&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;img alt=&quot;Bas Moorkens&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/bas-moorkens.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;Bas is a cloud platform architect at Ordina Belgium who is fascinated by AWS, containers and pipeline automation. He started off as a Java full stack developer but got more and more into the DevOps and cloud world where he currently spends most of his time.&lt;/p&gt;&lt;p&gt;Company: JWorks - Ordina Belgium&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;kevin-azijn&quot;&gt;Kevin Azijn&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;After spending more than 10 years as a Software Engineer and Tech Lead in both consulting and financial world, Kevin got introduced to public cloud and started building web/mobile solutions and managing DevOps teams on AWS for the Flemish Government. After several years the call of technology over management became too loud to ignore and Kevin decided to join AWS as a Solutions Architect. At AWS Kevin is supporting customers with building a vision and architecting for the future.&lt;/p&gt;&lt;p&gt;Company: Amazon Web Services&lt;/p&gt;&lt;/td&gt;
-&lt;td&gt;&lt;img alt=&quot;Kevin Azijn&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/kevin-azijn.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;pieter-vincken&quot;&gt;Pieter Vincken&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;img alt=&quot;Pieter Vincken&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/pieter-vincken.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.
-&lt;/p&gt;&lt;p&gt;Company: JWorks - Ordina Belgium&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;joachim-ganseman&quot;&gt;Joachim Ganseman&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;Joachim Ganseman is a computer scientist and has a history as a PhD student at the University of Antwerp, with side jumps to Queen Mary University in London and Stanford University, focusing on digital signal processing, machine learning and audio analysis. Since 2018, he has been working at Smals Research where he focuses on AI-related topics, including Natural Language Processing and Conversational Interfaces, and their potential applications in governmental contexts. In addition to his work, he is an excellent pianist, and as co-founder and organiser of the Belgian Informatics Olympiad, he received the annual prize for science communication from the Royal Flemish Academy of Sciences of Belgium in 2016.&lt;/p&gt;&lt;p&gt;Company: Smals Research&lt;/p&gt;&lt;/td&gt;
-&lt;td&gt;&lt;img alt=&quot;Joachim Ganseman&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/joachim-ganseman.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;edwin-burgers--maryse-meinen&quot;&gt;Edwin Burgers &amp;amp; Maryse Meinen&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;img alt=&quot;Edwin Burgers &amp;amp; Maryse Meinen&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/edwin-burgers-and-maryse-meinen.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;Edwin is a Scrum Master, agile coach and leader with 10+ years in the agile field. He has supported many teams and organisations to improve value delivery. To survive in the
-current highly competitive world agile frameworks, practices and leadership are not enough. Less hierarchy, more autonomy and a higher involvement from the
-people on the floor in strategy and decision making  are crucial. That´s why he is focussing on ways to address these aspects in his work as a coach or leader.&lt;/p&gt;&lt;p&gt;Maryse is a 100% scrum master, helping people and organisations increase their agility, so that they can reduce their (organisational) suffering. She coaches teams and executives in solving their own challenges and impediments in their work. As a true corporate rebel, the Socratic method for better conversations is key in her approach. More ancient philosophy should be compulsory in the agile world. And she is not dogmatic: all should use scrum.&lt;/p&gt;&lt;p&gt;Maryse and Edwin worked together at Ordina from 2015 and started their own business in Practical Agile in 2018.&lt;/p&gt;&lt;p&gt;Company: Practical Agile&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;michaëla-broeckx&quot;&gt;Michaëla Broeckx&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;Michaëla is an Agile coach with a focus on value and the human aspects of work. She is devoted to Agile &amp;amp; Scrum, not just as a mindset and framework for collaborative product delivery, but also for their general quality as ways to unlearn innate/inbred habits that prevent us from learning efficiently. A true Agile mindset enables enterprises to break down siloes, and build professional human networks throughout the company and beyond.&lt;/p&gt;&lt;p&gt;Company: AgileWorks - Ordina Belgium&lt;/p&gt;&lt;/td&gt;
-&lt;td&gt;&lt;img alt=&quot;Michaëla Broeckx&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/michaela-broeckx.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;anke-maerz&quot;&gt;Anke Maerz&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;img alt=&quot;Anke Maerz&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/anke-maerz.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;I am Anke and I have a mission in my life: To see and enjoy beauty in life, and to help other people to see and enjoy it, too.&lt;/p&gt;&lt;p&gt;As a Scrum Master and Agile Coach I live this mission by asking myself every morning THE question: What is it that keeps these amazing people from achieving their goals? – And whatever my answer is, that is where I want to support. Because that is where I can create space for them to see and enjoy the beauty of life.&lt;/p&gt;&lt;p&gt;This has proven very purposeful to me since 2014, when I first got introduced to Agile – and through various big and huge companies in Belgium as well as Germany.&lt;/p&gt;&lt;p&gt;Before getting into Agile I’ve been project manager and requirements engineer for 2 years, and before that I studied mathematics and psychology at the university of Tübingen (crazy mix? YES! Beautiful, right?!!)&lt;/p&gt;&lt;p&gt;Even before that time I’ve already been practicing to be a human, which has proven to be most useful on a personal as well as professional level!&lt;/p&gt;&lt;p&gt;Company: AgileWorks - Ordina Belgium&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;francis-laleman&quot;&gt;Francis Laleman&lt;/h3&gt;
-
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&quot;vertical-align:top;&quot;&gt;&lt;p&gt;Today, I mainly work as a designer of cooperative learning processes and learning cultures. I am a gentle facilitator of (Agile) transformation processes, a train-the-trainer, a cooperative learning facilitator and an Agile coach.
-Having spent so much time in the Middle East and in the Indian subcontinent, I have now been turning my attention to Japan - studying TPS, Lean and Kata, but also the less obvious, such as ikigai, Taoism and Zen Buddhism, or the shuhari learning process in traditional Japanese craftsmanship.
-Most probably, however, you will find me in the garden.&lt;/p&gt;&lt;p&gt;Company: Agile &amp;amp; Learning Beyond Borders&lt;/p&gt;&lt;/td&gt;
-&lt;td&gt;&lt;img alt=&quot;Francis Laleman&quot; src=&quot;/img/2020-11-06-JOIN-2020/speakers/francis-laleman.jpg&quot; width=&quot;auto&quot; height=&quot;auto&quot; target=&quot;_blank&quot; class=&quot;image fit&quot; /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;i-would-like-to-thank-our-speakers-once-more-from-the-whole-of-ordina-for-the-interesting-sessions-they-have-given&quot;&gt;I would like to thank our speakers once more from the whole of Ordina for the interesting sessions they have given.&lt;/h3&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;tech-track-sessions&quot;&gt;Tech Track sessions&lt;/h2&gt;
-
-&lt;h3 id=&quot;session-1---ghelamco-alert-combining-raspberry-pi-and-aws-cloud-to-get-the-best-of-both-worlds---bas-moorkens&quot;&gt;Session 1 - Ghelamco alert: Combining Raspberry Pi and AWS Cloud to get the best of both worlds - Bas Moorkens&lt;/h3&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/Iach3_dh83g&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;In this talk we will present our Ghelamco alerting solution which runs on a Raspberry Pi and is empowered by the AWS cloud to provide additional capabilities.
-Come discover how we turned our RPI into a managed device by leveraging the AWS cloud.
-We will demonstrate the power of this technology set by first covering the scenario where the solution is not connected to the internet.
-In the second part we will do a deep dive on the scenario where the RPI is connected to the internet.
-In this part we will show you how we can leverage more services of the AWS cloud to bring out the full potential of this solution, effectively giving us the best of both worlds.&lt;/p&gt;
-
-&lt;h3 id=&quot;session-2---infrastructure-is-code-with-the-aws-cloud-development-kit-aws-cdk---kevin-azijn&quot;&gt;Session 2 - Infrastructure is code with the AWS Cloud Development Kit (AWS CDK) - Kevin Azijn&lt;/h3&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/wRX9W-hdq5k&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The AWS Cloud Development Kit (AWS CDK) is an open source software development framework to model and provision your cloud application resources using familiar programming languages.
-Provisioning cloud applications can be a challenging process that requires you to perform manual actions, write custom scripts, maintain templates, or learn domain-specific languages.
-AWS CDK uses the familiarity and expressive power of programming languages for modeling your applications.
-It provides you with high-level components that pre-configure cloud resources with proven defaults, so you can build cloud applications without needing to be an expert.
-AWS CDK provisions your resources in a safe, repeatable manner through AWS CloudFormation.
-It also enables you to compose and share your own custom components that incorporate your organization’s requirements, helping you start new projects faster.&lt;/p&gt;
-
-&lt;h3 id=&quot;session-3---moving-a-complex-and-slow-deployment-pipeline-to-a-streamlined-and-lightning-fast-azure-deployment---pieter-vincken&quot;&gt;Session 3 - Moving a complex and slow deployment pipeline to a streamlined and lightning fast Azure deployment - Pieter Vincken&lt;/h3&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/uz4bs9EQA0E&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;How to automate application platform deployments.
-Tips and tricks about a migration from an on-premise solution onto Microsoft Azure.
-Want to know how we went from 6 week lead times on a development environment to only 90 minutes and a single push of a button?&lt;/p&gt;
-
-&lt;h3 id=&quot;session-4---some-pitfalls-of-ai---joachim-ganseman&quot;&gt;Session 4 - Some pitfalls of AI - Joachim Ganseman&lt;/h3&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/I32IWBlcl5o&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The hype surrounding AI and machine learning creates high expectations.
-There is a strong focus on software that ultimately has to make autonomous decisions and relies on difficult to access and complex statistical conclusions from large amounts of data.
-This comes with some risk: errors can creep in all steps from design to rollout, which can thoroughly mess up the end result.
-In addition to the spectacular AI success stories of recent years, there were also quite a few spectacular mistakes.
-In this webinar we highlight that downside: what can go wrong in an AI project and what should you pay attention to?
-The agenda includes: bias and fairness, adversarial attacks, explainability, as well as concerns about security, privacy and ethics.&lt;/p&gt;
-
-&lt;h2 id=&quot;agile-and-business-track-sessions&quot;&gt;Agile and Business Track sessions&lt;/h2&gt;
-
-&lt;h3 id=&quot;session-1---dancing-the-bossa-nova--how-to-bring-a-culture-of-experimentation-into-your-company---edwin-burgers--maryse-meinen&quot;&gt;Session 1 - Dancing the BOSSA nova – how to bring a culture of experimentation into your company - Edwin Burgers &amp;amp; Maryse Meinen&lt;/h3&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/xDxdfoqZxvg&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;In the VUCA world that we are in, companies are expected to be flexible and both rapidly responsive and resilient to change, which basically asks them to be agile.
-The authors of the book BOSSAnova, Jutta Eckstein and John Buck saw 4 recurring problems at the agile transformations they were involved in, where they saw that all that comes with the agile frameworks, principles and practices is not sufficient for company-wide agility.
-They combine Beyond Budgeting, Open Space, Sociocracy and Agile in practical guide for creating company-wide agility, in a probe-sense-respond manner.
-This workshop gives a short introduction to BOSSAnova and how it can help to start probes and experiments in your own organization.
-With an approach and a lot of good practice experiments done in other organizations.&lt;/p&gt;
-
-&lt;h3 id=&quot;session-2---the-power-of-kata---michaëla-broeckx&quot;&gt;Session 2 - The power of Kata - Michaëla Broeckx&lt;/h3&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/2IUNBhErVD0&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We will jointly look for efficient ways to convert good intentions into value, by investigating some personal challenges and how we succeeded or failed.
-We will examine these techniques and connect them to how our brain works.
-For every challenge we take on, our human tendency to take the easiest path (the one we imagine to be right) can be counterbalanced by deliberate scientific thinking.&lt;/p&gt;
-
-&lt;h3 id=&quot;session-3---failure-culture--what-it-means-to-fail-and-how-we-can-gain-value-from-it---anke-maerz&quot;&gt;Session 3 - Failure Culture – what it means to fail and how we can gain value from it - Anke Maerz&lt;/h3&gt;
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/PayZ4lKsr-w&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I don’t like failing.
-I want to achieve a goal, I invest my time and energy, I am looking forward to achieving this goal, I am getting closer, closer - and fail.
-The goal is not achieved and I want to retreat into a dark corner and just forget.
-This is a perfectly normal human reaction.
-Yet, as we all know, no big endeavor happens without its fair share of failure - some huge achievements even happen out of failure alone…
-Hence, there is something useful to it.
-Something that even smells like success!
-This talk analyses different projects, their main impediments and success or failure factors, includes some interactive parts - and in the end (hopefully) leaves us with some renewed courage to face the failures in our lives… to gain value from them.&lt;/p&gt;
-
-&lt;h3 id=&quot;session-4---why-dont-you-get-my-code---francis-laleman&quot;&gt;Session 4 - Why don’t you get my code? - Francis Laleman&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Video under review - will be added soon!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;This is a playful, interactive session on the concept of “code” - as a formal, grammar-and-syntax-driven substitute for “meaning”.
-We all know that code is the central edifice of what it is that we are doing - at work, and, perhaps, even in life.
-But do we fully understand the profound relationship between code and meaning? Do we really grasp how code, in all its formality and conventions, both pins us down into the confinement of “knowns”, and has the power to liberate us from what is already known and drive us forward?
-After this session, expect to be aware of more than just “code”, and to be able to understand “meaning”, in life and work, through a variety of grammars and syntaxes, more diverse than ever imagined.&lt;/p&gt;
-
-&lt;h2 id=&quot;in-the-spotlight-ghelamco-alert&quot;&gt;In the spotlight Ghelamco alert&lt;/h2&gt;
-
-&lt;p&gt;The awesome internship project by Kevin Govaerts is a shining example of an end-to-end integrated IoT project.
-It touches a lot of interesting technologies and integrates everything very nicely and includes managing a Raspberry Pi device via AWS.&lt;/p&gt;
-
-&lt;p&gt;The project provides a solution to our parking problem at our Ghelamco office in Ghent.
-Since the parking lot needs to be vacated whenever there is a “home” soccer match or we get a hefty fine per car that remains, we needed an automated solution to warn the people at the office.
-This project does just that, end-to-end.
-It reads &amp;amp; scrapes the data and determines when the matches are and commands the Raspberry Pi to light up the alarm light.&lt;/p&gt;
-
-&lt;p&gt;It uses at least 10 different AWS services and the usage of AWS Greengrass allows you to deploy production ready applications to edge devices without having to manage it yourself.
-I wont go into all the technical details since you should absolutely read Bas and Kevin’s their &lt;a href=&quot;https://ordina-jworks.github.io/cloud/2020/09/28/ghelamco-alert.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;excellent blog post&lt;/a&gt; about the project!
-Be sure to check out the blog post and the video of the project!&lt;/p&gt;
-
-&lt;h2 id=&quot;in-the-spotlight-some-pitfalls-of-ai&quot;&gt;In the spotlight Some pitfalls of AI&lt;/h2&gt;
-
-&lt;p&gt;As I myself am very interested in Machine Learning and Artificial Intelligence, this talk in particular peaked my interest.
-Machine Learning and AI are being portrayed as the silver bullet, as the thing every project needs.
-However developing a Machine Learning model/system is not as straightforward as one might think.&lt;/p&gt;
-
-&lt;p&gt;This talk goes into detail about what can go “wrong” and what the common pitfalls are when developing such a system.
-Datasets can be a tricky matter to fully grasp and get right.
-Hidden correlations or biases make that our trained models can often show the same discriminatory tendencies like normal people do.
-Removing biases from a dataset is hard, very hard.
-Even if you think you are not biased, please go on and go over &lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_cognitive_biases&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the list of cognitive biases&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Removing certain data fields/variables from the dataset in order to prevent biases can have little to no effect due to the fact that there are hidden variables.
-The talk explains this with a great example, when a model has a gender bias one might think that removing the gender from the dataset might solve the issue.
-This might not work since other variables might indirectly propagate the same gender bias.
-If the model handles text, the gender is actually also encoded in the vocabulary and way of speaking.
-It is very different between women and men.&lt;/p&gt;
-
-&lt;p&gt;Machine Learning models are vulnerable to attacks:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Data poisoning attacks
-    &lt;ul&gt;
-      &lt;li&gt;When people can enter data or find a way to add data to a source that is being used to train a model.&lt;/li&gt;
-      &lt;li&gt;Verifying and cleaning data is very important to prevent this!&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Adversarial attacks
-    &lt;ul&gt;
-      &lt;li&gt;Changing a few pixels in an image might throw off the model completely.&lt;/li&gt;
-      &lt;li&gt;Because the training dataset is so large the model becomes sensitive to small and very particular changes in the input.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;These attacks makes using these models for very critical things like autonomous driving tricky and potentially dangerous.
-While this problem is not fully solved yet, the field is advancing at an extremely high tempo, so these type of problems pose less and less of an issue.&lt;/p&gt;
-
-&lt;p&gt;Machine Learning can be, and is used, for less legal &amp;amp; nice practices:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Spear &amp;amp; laser phishing
-    &lt;ul&gt;
-      &lt;li&gt;Phishing attacks that use very specific data collected on the target to believe extremely believable phishing vectors.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Deepfakes
-    &lt;ul&gt;
-      &lt;li&gt;Fake news becomes harder and harder to detect because images and even videos can be altered.
-Faces can be swapped, even audio can be changed to match the voice of someone else.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/nsuAQcvafCs&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;GPT3
-    &lt;ul&gt;
-      &lt;li&gt;This model can write full texts, code, layouts.
-Often the text that is generated makes more sense than anything a certain American president would say.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 55%; margin-bottom:25px;&quot;&gt;
-    &lt;iframe src=&quot;https://www.youtube.com/embed/_x9AwxfjxvE&quot; width=&quot;100%&quot; height=&quot;100%;&quot; style=&quot;position: absolute; left: 0; top: 0; bottom: 0; right: 0;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Recommendation engines
-    &lt;ul&gt;
-      &lt;li&gt;Watch a certain type of video, get suggested more of the same but more extreme.
-This enables a feedback loop, the type of suggested content is in your area of interest just a tad more extreme/strange/unbelievable, so you keep watching, and the next suggestions rinse and repeat the cycle.
-This is a big issue since it has a tendency to propagate extremes.
-What you see is not what other people see, it is curated for you by your past consumed content.
-More than ever it is extremely important to check facts and do some digging on independent sites/new sources.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://ordina-jworks.github.io/join/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;JOIN 2020 website&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/playlist?list=PLgWyY-g33NlWg7rStHmTYPiN_0yJd4PxQ&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Tech Track playlist&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/playlist?list=PLgWyY-g33NlUR9F2PJ1h3bkd0cxSr4xab&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Agile &amp;amp; Business playlist&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.ordina.be/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ordina Belgium&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.practical-agile.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Practical Agile&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/local/benelux/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Amazon Web Services&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.smalsresearch.be/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Smals Research&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.francislaleman.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Agile &amp;amp; Learning Beyond Borders&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a frontend consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="JOIN" /><category term="Ordina" /><category term="JWorks" /><category term="JWorks Open Innovation and Networking" /><category term="talks" /><category term="learning" /><category term="conference" /><category term="meeting" /><category term="online" /><category term="agile" /><category term="tech" /><category term="development" /><category term="AWS" /><category term="Amazon" /><category term="Azure" /><category term="Microsoft" /><category term="Scrum" /><category term="AI" /><category term="ML" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-11-06-JOIN-2020/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-11-06-JOIN-2020/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jasper&quot;, &quot;last_name&quot;=&gt;&quot;Rosiers&quot;, &quot;github&quot;=&gt;&quot;jasperrosiers&quot;, &quot;linkedin&quot;=&gt;&quot;jasper-rosiers&quot;, &quot;permalink&quot;=&gt;&quot;/author/jasper-rosiers/&quot;, &quot;avatar&quot;=&gt;&quot;jasper-rosiers.png&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;jasper.rosiers@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jasper is a Java Developer with a love for IoT and innovative tech. He has a lot of experience in building chatbots using various platforms and coupling them to different chat clients. He also has a passion for the Agile way of working, Scrum and communication, both inside and outside the team.&quot;}</name><email>jasper.rosiers@ordina.be</email></author><category term="Backend" /><category term="TypeScript" /><category term="Backend" /><category term="NestJS" /><category term="Azure" /><category term="Serverless" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-11-12-Typescript-in-the-backend-with-NestJS-and-Azure-Functions/banner.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
