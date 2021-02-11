@@ -33,7 +33,7 @@ comments: true
     </a>
 </div>
 
-After the [first general post](/iot/2019/09/30/Home-automation-part-1.html){:target="_blank" rel="noopener noreferrer"} about home automation it's time to kick things into higher gear.
+After the [first general post](/machine%20learning/2019/09/30/Home-automation-part-1.html){:target="_blank" rel="noopener noreferrer"} about home automation it's time to kick things into higher gear.
 In this post we'll go into detail about Home Assistant.
 Home Assistant is a fully open source home automation platform.
 It has a web interface as well as apps for Android and iOS.
