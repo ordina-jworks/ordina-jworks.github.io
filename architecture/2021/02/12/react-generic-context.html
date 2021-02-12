@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Making a generic Context in React - Orjan De Smet">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/react-generic-context/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/architecture/2021/02/12/react-generic-context.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Making a generic Context in React - Orjan De Smet"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/react-generic-context/banner.jpg"/>
+
+    
+    <title>Making a generic Context in React - Orjan De Smet &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Making a generic Context in React</h2>
+                
+
+                
+                    Posted Feb 12, 2021
+
+
+    in <a href="/categories/architecture/">Architecture</a>
+
+
+
+    by
+    
+        <a href="/author/orjan-de-smet">Orjan De Smet</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/react/">React</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h2 id="a-background">A background</h2>
+<p><img class="image fit center" alt="A picture of the Windows XP background" src="/img/react-generic-context/a-background.jpg" /></p>
+
+<p>I have been mostly working with Angular for the past 4 years.
+I am, however, a firm believer that no one framework or library is better than all others and I love a sporadic challenging dive into the unknown.</p>
+
+<p>Those who know a little bit about React will know that, like Angular, Vue and others, it’s a JavaScript library to create web applications by means of components.
+These components are considered building blocks and can consist themselves of smaller components.
+These components have properties, being passed by their parents and these properties can influence the rendered view and logic of the components.</p>
+
+<p>Those with a bit more React experience, will know that in a larger tree of components, it’s a nuisance to get a property from a component near the root of the tree to a component near the leafs of the tree by simple property binding.
+It also muddies intermediary components with irrelevant code.</p>
+
+<p>Fortunately React includes <strong>Context</strong> <a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener noreferrer">Docs</a>.
+It provides a way to share value like preferences/themes and authentication data without having to explicitly set those values in each component’s properties.</p>
+
+<p>The developer basically creates a <code class="language-plaintext highlighter-rouge">Context</code> variable which is provided by a container component (e.g. App) using a <code class="language-plaintext highlighter-rouge">Provider</code>, and can be consumed by other components  using either a <code class="language-plaintext highlighter-rouge">Consumer</code> or a <code class="language-plaintext highlighter-rouge">useContext</code> hook.</p>
+
+<h2 id="the-challenge">The Challenge</h2>
+<p><img class="image fit center" alt="A man reading a scroll with a quest on it" src="/img/react-generic-context/reading-a-scroll.jpg" /></p>
+
+<p>The official React documentation mentions that Context is a great use for keeping data about the authenticated user, so it looked like this was the way to go.</p>
+
+<p>But we ran into a problem quite soon.
+We currently use an Nx Workspace with multiple applications.
+Some of these applications still use Basic Auth for authentication, while others use OpenID Connect.
+Of course sooner or later, the Basic Auth applications will be converted to use OIDC too.
+In the meantime, I wanted developers for these applications to be able to have the same structure, with the same basic components.
+Knowing how it goes in the world of IT, and also as a challenge to myself I did an effort to make the eventual switch from Basic to OIDC as easy as possible for our developers and created an <code class="language-plaintext highlighter-rouge">authentication-core</code> library which would house the <code class="language-plaintext highlighter-rouge">AuthContext</code> and expose a <code class="language-plaintext highlighter-rouge">AuthProvider</code> and <code class="language-plaintext highlighter-rouge">AuthConsumer</code> components and a <code class="language-plaintext highlighter-rouge">useAuth</code> hook.
+The libraries <code class="language-plaintext highlighter-rouge">authentication-basic</code> and <code class="language-plaintext highlighter-rouge">authentication-oidc</code> would have specific implementation of the service being used by the provider.
+This way, it’s also future-proof for a crazy decision that would have us switch to another authentication system.</p>
+
+<p>And this worked like a charm.
+The developer only had to create an instance of the required service, and pass it to the <code class="language-plaintext highlighter-rouge">AuthProvider</code>component.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// App.tsx</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@our-scope/authentication-core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OidcProps</span><span class="p">,</span> <span class="nx">createOidcAuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@our-scope/authentication-oidc</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MyFirstComponent</span><span class="p">,</span> <span class="nx">MySecondComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Components</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">props</span><span class="p">:</span> <span class="nx">OidcProps</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+<span class="kd">const</span> <span class="nx">myAuthService</span> <span class="o">=</span> <span class="nx">createOidcAuthService</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">AuthProvider</span> <span class="nx">authService</span><span class="o">=</span><span class="p">{</span><span class="nx">myAuthService</span><span class="p">}</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MyFirstComponent</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MySecondComponent</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/AuthProvider</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>He could then use <code class="language-plaintext highlighter-rouge">AuthConsumer</code> to wrap around the components where there was need for the authenticated user data.
+Or use the <code class="language-plaintext highlighter-rouge">useAuth</code> hook to get the user data directly.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Components.tsx</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthConsumer</span><span class="p">,</span> <span class="nx">useAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@our-scope/authentication-core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">MyFirstComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">AuthConsumer</span><span class="o">&gt;</span>
+    <span class="p">{(</span><span class="nx">authData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">username</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)}</span>
+    <span class="o">&lt;</span><span class="sr">/AuthConsumer</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">MySecondComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">authData</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useAuth</span><span class="p">();</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">displayName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>However, we noticed that the <code class="language-plaintext highlighter-rouge">AuthConsumer</code> and <code class="language-plaintext highlighter-rouge">useAuth</code> hook couldn’t infer the type of the user data.
+Not all developers like TypeScript, but I love having it around, especially when creating libraries that are meant to be used by other developers.
+No type on the authentication data could lead to bugs when switching implementations.</p>
+
+<p>So back to the drawing board.
+I did several attempts at making the functional component <code class="language-plaintext highlighter-rouge">AuthProvider</code> generic, but I was unable to get the <code class="language-plaintext highlighter-rouge">AuthContext</code> generic.
+Mostly because the <code class="language-plaintext highlighter-rouge">AuthConsumer</code> and the <code class="language-plaintext highlighter-rouge">AuthProvider</code>  exposed by the core library had to point to a specific context object, so a function creating this context didn’t make sense.
+My knowledge of React is still limited and I decided to call it a day and submit the merge request for review.</p>
+
+<p>As I feared, type safety was a concern and had to be taken care of.
+Luckily we have a team with members with a lot more React experience and they guided me to a solution.</p>
+
+<h2 id="the-solution">The Solution</h2>
+<p><img class="image fit center" alt="A picture of the holy grail" src="/img/react-generic-context/the-grail.jpg" /></p>
+
+<p>When looking back, the solution is fairly simple, but elegant.
+Instead of letting the core library expose actual components, we let it expose a factory function.
+This factory function would create a context and in its turn call factory functions of each component and pass the context to it.
+Finally the function would just return the created components.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// authentication-core/context/AuthContext.tsx</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthContextProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../domain/auth-context</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kr">interface</span> <span class="nx">AuthContextProps</span><span class="o">&lt;</span><span class="nx">T</span> <span class="o">=</span> <span class="nx">unknown</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="na">signIn</span><span class="p">:</span> <span class="p">(</span><span class="nx">args</span><span class="p">?:</span> <span class="nx">unknown</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">signOut</span><span class="p">:</span> <span class="p">(</span><span class="nx">args</span><span class="p">?:</span> <span class="nx">unknown</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nl">userData</span><span class="p">?:</span> <span class="nx">T</span> <span class="o">|</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="nl">isExpired</span><span class="p">?:</span> <span class="nx">boolean</span><span class="p">;</span>
+  <span class="nl">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">loading</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">idle</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">createAuthContext</span><span class="o">&lt;</span><span class="nx">T</span> <span class="o">=</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="o">&lt;</span><span class="nx">AuthContextProps</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">|</span> <span class="kc">null</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// authentication-core/factory.ts</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createAuthConsumer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/AuthConsumer</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createProtectedRoute</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/ProtectedRoute</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createWithAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/withAuth</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createAuthContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./context/AuthContext</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createUseAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hooks/useAuth</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createAuthProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./providers/AuthProvider</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./services/auth.service</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">createAuthentication</span><span class="o">&lt;</span><span class="nx">T</span> <span class="o">=</span> <span class="nx">unknown</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">authService</span><span class="p">:</span> <span class="nx">AuthService</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">AuthContext</span> <span class="o">=</span> <span class="nx">createAuthContext</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">// We type the Context based on the generic AuthService</span>
+  <span class="kd">const</span> <span class="nx">useAuth</span> <span class="o">=</span> <span class="nx">createUseAuth</span><span class="p">(</span><span class="nx">AuthContext</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">AuthProvider</span> <span class="o">=</span> <span class="nx">createAuthProvider</span><span class="p">(</span><span class="nx">AuthContext</span><span class="p">,</span> <span class="nx">authService</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">AuthConsumer</span> <span class="o">=</span> <span class="nx">createAuthConsumer</span><span class="p">(</span><span class="nx">AuthContext</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">AuthContext</span><span class="p">,</span>
+    <span class="nx">AuthProvider</span><span class="p">,</span>
+    <span class="nx">AuthConsumer</span><span class="p">,</span>
+    <span class="nx">useAuth</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The implementation libraries had to be adapted as well.
+They too expose a factory function, calling the core factory function with some pre-setup data and their respective service.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// authentication-oidc/factory.ts</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createAuthentication</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@our-scope/authentication-core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OidcProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./domain/oidc-props</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OidcAuthService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./services/oidc-auth.service</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">createOidcAuthentication</span><span class="p">(</span><span class="nx">oidcProps</span><span class="p">:</span> <span class="nx">OidcProps</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">oidcService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OidcAuthService</span><span class="p">(</span><span class="nx">oidcProps</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">createAuthentication</span><span class="p">(</span><span class="nx">oidcService</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Due to TypeScript’s type inference, the resulting Authentication and its components will have the same type as OidcAuthService’s implementation of AuthService.
+Now the implementation for applications can use the factored and typed components instead of static components and the eventual switch from one implementation to another is as easy as ever.
+The only changes which might have to be made to components, are for those components that actually consume an implementation-specific part of the user data.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// auth.ts</span>
+<span class="c1">// This is the only file to change when switching auth providers</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createOidcAuthentication</span><span class="p">,</span> <span class="nx">OidcProps</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@our-scope/authentication-oidc</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">config</span><span class="p">:</span> <span class="nx">OidcProps</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">AuthProvider</span><span class="p">,</span> <span class="nx">AuthConsumer</span><span class="p">,</span> <span class="nx">useAuth</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">createOidcAuthentication</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+<span class="c1">// const { AuthProvider, AuthConsumer, useAuth } = createBasicAuthentication();</span>
+
+<span class="k">export</span> <span class="p">{</span> <span class="nx">AuthProvider</span><span class="p">,</span> <span class="nx">AuthConsumer</span><span class="p">,</span> <span class="nx">useAuth</span> <span class="p">};</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// App.tsx</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./auth</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">MyFirstComponent</span><span class="p">,</span> <span class="nx">MySecondComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Components</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">AuthProvider</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MyFirstComponent</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MySecondComponent</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/AuthProvider</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Components.tsx</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AuthConsumer</span><span class="p">,</span> <span class="nx">useAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./auth</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">MyFirstComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">AuthConsumer</span><span class="o">&gt;</span>
+    <span class="p">{(</span><span class="nx">authData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span> <span class="c1">// Now authData's type is inferred</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">username</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)}</span>
+    <span class="o">&lt;</span><span class="sr">/AuthConsumer</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">MySecondComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">authData</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useAuth</span><span class="p">();</span> <span class="c1">// Now authData's type is inferred</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">displayName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>It’s great to not focus on one framework at the time, but this can confuse too.
+Because of my background in Angular, I was trying to solve this problem like I would with Angular’s dependency injection.
+Because components are just functions in React, they can be generic by themselves and typed using factory functions.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/architecture/2021/02/12/react-generic-context.html&title=Making a generic Context in React&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Making a generic Context in React&url=https://ordina-jworks.github.io/architecture/2021/02/12/react-generic-context.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/architecture/2021/02/12/react-generic-context.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/orjan-de-smet" class="image spotlight-image" title="">
+            <img src="/img/author/orjan-de-smet.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Orjan is a Frontend Developer at Ordina Belgium, keen on building structured quality applications with a focus on Reactive Programming and dealing with it. He is always interested to try new technologies and to share his experiences. In his spare time, he enjoys a good game or movie or dining out.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2021 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/react-generic-context/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
