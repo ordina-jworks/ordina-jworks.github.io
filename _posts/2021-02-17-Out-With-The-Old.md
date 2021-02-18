@@ -17,7 +17,7 @@ Especially in the IT domain, the balancing efforts between the operational resou
 Together with other parameters they determine the nature of the initiatives that happen by and for these departments.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2021-02-17-Out-With-The-Old/itparameters.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2021-02-17-Out-With-The-Old/itparameters.png' | prepend: site.baseurl }}" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 Oftentimes we see that the operational budget far outweighs the budget that can be allocated to these new developments. 
@@ -54,7 +54,7 @@ The innovation types proposed by the matrix are characterized by the willingness
 * Experimenters: These organizations try to organize their innovation around their own resources, but try to limit the effort they expend for these initiatives. They tend to focus on low-cost techniques such as innovation training and design sprints in order to mature their internal resources and build a solid innovation capability and mindset. Spotify and Netflix are the success stories in this type of innovation.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2021-02-17-Out-With-The-Old/innovationmatrix.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2021-02-17-Out-With-The-Old/innovationmatrix.png' | prepend: site.baseurl }}" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 ##	Considerations for the Hunter Type
@@ -91,7 +91,7 @@ To clarify: The term “disruptive technologies” is used here as sort of an um
 In the [same reference article](https://evolute.be/thoughts/disruption.html){:target="_blank" rel="noopener noreferrer"} where I tackled technical debt I also discuss other numerous forms of disruption, each with their causes and effects on how the bottom line for an organization is achieved.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2021-02-17-Out-With-The-Old/disruptivetechassessment.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2021-02-17-Out-With-The-Old/disruptivetechassessment.png' | prepend: site.baseurl }}" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 One benefit over Hunter types is that if a working innovation (one that catches on in the market) is discovered within the organization, that organization has a first mover advantage, allowing the organization to establish brand recognition and customer loyalty before competitors are able to reproduce or approximate the innovative endeavor. 
@@ -112,7 +112,7 @@ A multitude of environments (typically in the form of a Cloud offering such as A
 Getting these POCs mature enough can be achieved through such approaches as for example the Design Thinking Process.
 
 {:refdef: style="text-align: center;"}
-<a href="https://dschool.stanford.edu/resources/getting-started-with-design-thinking" target="_blank"><img src="{{ '/img/2021-02-17-Out-With-The-Old/designthinking.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%"></a>
+<a href="https://dschool.stanford.edu/resources/getting-started-with-design-thinking" target="_blank"><img src="{{ '/img/2021-02-17-Out-With-The-Old/designthinking.png' | prepend: site.baseurl }}" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%"></a>
 {: refdef}
 
 ## Considerations for the Experimenter Type
@@ -126,7 +126,7 @@ Not everyone drives a Maserati.
 Some drive Audi, and others go for cars in an even lower price bracket. 
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2021-02-17-Out-With-The-Old/growthtrajectory.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2021-02-17-Out-With-The-Old/growthtrajectory.png' | prepend: site.baseurl }}" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 A valid strategy for Experimenter innovation is to aim for a just-enough innovation to keep up with the product leaders, but aiming for that mainstream market where profit margins are lower. 
@@ -136,7 +136,7 @@ If not for the fact that this drop in profit margin and resulting increase in po
 This is what is known in Michael Porter’s Five Forces Model as the Threat of New Entrants, and is a vital consideration in evaluating whether you are adopted a viable business strategy. 
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2021-02-17-Out-With-The-Old/porter5forces.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2021-02-17-Out-With-The-Old/porter5forces.png' | prepend: site.baseurl }}" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%">
 {: refdef}
 {:refdef: style="text-align: center;"}
 Taken from [EZY Education](https://www.ezyeducation.co.uk/ezybusinessdetails/ezybusiness-news/entry/business-studies-year-13-revision-day-6-porters-five-forces-model.html){:target="_blank" rel="noopener noreferrer"}
