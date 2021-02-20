@@ -9,7 +9,7 @@ comments: true
 ---
 
 Almost fifty years ago, the movie “Logan’s Run” introduced the phrase “Out with the old, in with the new” into pop culture vernacular. 
-The story depicted a dystopian world where all needs where met by advanced technology, but due to scarcity of resources the population was kept under control by forced termination of the citizens of this society at the age of 30. 
+The story depicted a dystopian world where all needs were met by advanced technology, but due to scarcity of resources the population was kept under control by forced termination of the citizens of this society at the age of 30. 
 If we were to flip this around on technology, we could conclude that in order to keep our business landscape manageable we need to address the lifespan of the assets in this landscape.
 
 In every organization there is only a finite amount of budget and capacity for changing the way things are done. 
@@ -26,13 +26,13 @@ This is why it is important to keep technical debt under control.
 [In a past thought](https://evolute.be/thoughts/disruption.html){:target="_blank" rel="noopener noreferrer"} I pointed out the dangers of technical debt that could lead to disruption by neglect. 
 But within the space of the new developments budget there dwells an even more esoteric beast. 
 This beast is called innovation. 
-All too often Peter Drucker’s mantra “Innovate or Die” resounds in the hallowed halls of upper management, but to see it in practice is a different matter.
+All too often, Peter Drucker’s mantra “Innovate or Die” resounds in the hallowed halls of upper management, but to see it in practice is a different matter.
 
 It is the job of the architect tasked with innovation to determine a framework consisting of processes and tools to support the various stakeholders (either individuals and/or teams) that are working within this context. 
 Depending on the level at which the architect can steer innovation initiatives, any number of mechanisms can be devised. 
 The framework you create should be aligned with the particularities of those stakeholders, and as such an understanding of their motivations and skillsets forms its foundation.
 
-As with any major initiative one of the success factors is management sponsorship. 
+As with any major initiative, one of the success factors is management sponsorship. 
 In order to properly tackle innovation from a leadership perspective, the manager must first determine the type of leader best suits the needs. 
 The primary focus of a manager concerned with innovation is to weigh the freedom to pursue innovation (or fostering the creativity of talent) versus establishing the internal controls needed to keep the innovation process grounded and avoid chaos. 
 Taking note of the research done in 2019 by Deborah Ancona and Kate Isaacs, both researchers at the MIT Sloan School of Management, most innovative or “nimble” leaders can be categorized as one of these categories:
@@ -74,10 +74,10 @@ This is rather straightforward with all resources extracted from one of the orga
 This incurs the least risk and thus the least potential for returns. 
 The current infrastructure of the master organization needs to be extended with the new components of the disappearing organization and it needs to scale its existing components to support the additional load. 
 The second way is called the Reinvent-my-Business-Model (RBM). 
-The business model of the acquired organization is used to revamp the existing business model of the master organization and create of fusion business model and infrastructure. 
+The business model of the acquired organization is used to revamp the existing business model of the master organization and create a fusion of business models and infrastructure. 
 This is a best-of-breed solution where each individual component of both organizations is considered for optimal use.
 
-A consequence of having a steady stream of innovations assimilated into your organizational structure is the need for ways to quickly and as seamless as possible integrate the new components and value chains into your existing setup. 
+A consequence of having a steady stream of innovations assimilated into your organizational structure is the need for ways to quickly and, as seamless as possible, integrate the new components and value chains into your existing setup. 
 On a solution architecture level this means providing the tools to achieve this with the least amount of hassle. 
 This leads us to state that integration capabilities should receive fair amount of attention. 
 Examples of such integration capabilities can be API Management, Enterprise Service Buses (ESB) or the Hybrid Integration Platform (HIP) that Gartner places as one of the necessary tools for any digital transformation. 
@@ -107,7 +107,7 @@ According to Oracle there are certain indispensable requirements for achieving s
 
 Having decided that innovation comes from within means that the innovative teams need to have the proper tooling to support their efforts. 
 Wanting to design new ideas and testing them out requires them to have a lot of sandbox capabilities at their disposal where they can quickly launch a Proof of Concept (POC) and ascertain whether or not to continue in the same vein or drop it to pursue other ideas. 
-The faster the turnover of new ideas to quicker your innovations can be launched in the market and start paying off. 
+The faster the turnover of new ideas, the quicker your innovations can be launched in the market and start paying off. 
 A multitude of environments (typically in the form of a Cloud offering such as AWS or Azure) and the optimized CI/CD pipelines to get them up to date with your newest POCs makes this possible. 
 Getting these POCs mature enough can be achieved through such approaches as for example the Design Thinking Process.
 
@@ -118,7 +118,7 @@ Getting these POCs mature enough can be achieved through such approaches as for 
 ## Considerations for the Experimenter Type
 
 While not wanting to expend quite as much liquidity on innovation as the Hunter and Builder types, there are still some avenues that beckon for the Experimenter type. 
-Hunters and Builders push heavily on innovation in order to attain the patronage of the high end market. 
+Hunters and Builders push heavily on innovation in order to attain the patronage of the high-end market. 
 When your product excels over all other similar products in the market, you can sell it at a higher markup as the customers in this segment have heavier purses. 
 A higher markup equals higher profits. 
 This does mean that there are two entire segments for whom the increased product excellence will not warrant the price they have to pay for it. 
@@ -130,8 +130,8 @@ Some drive Audi, and others go for cars in an even lower price bracket.
 {: refdef}
 
 A valid strategy for Experimenter innovation is to aim for a just-enough innovation to keep up with the product leaders, but aiming for that mainstream market where profit margins are lower. 
-In return your customer base is much larger to make up for this. 
-It might seem that the same philosophy can be taken on the low end market. 
+In return, your customer base is much larger to make up for this. 
+It might seem that the same philosophy can be taken on the low-end market. 
 If not for the fact that this drop in profit margin and resulting increase in potential customer base does come with a warning: The lower in cost and product excellence you go on the spectrum, the easier it becomes for new competitors to enter it, and take a piece of the pie. 
 This is what is known in Michael Porter’s Five Forces Model as the Threat of New Entrants, and is a vital consideration in evaluating whether you are adopted a viable business strategy. 
 
@@ -161,7 +161,7 @@ This can range from having co-creation sessions to incubators to simply scouting
 As there are numerous obstacles that can be encountered on the road to innovative products, these organizations accept the shared benefits to reduce the impact these obstacles also called barriers will have on them. 
 
 The obstacles can be grouped into four overall categories:
-* Financial Barriers: R&D can be a costly affair, and can be too much for your organization zo bear alone. So to be able to divide costs of innovation, even resulting in a split profit could be preferable over not pursuing innovation, and sticking with sustaining your products for the foreseeable future.
+* Financial Barriers: R&D can be a costly affair, and can be too much for your organization to bear alone. So to be able to divide costs of innovation, even if it results in a split profit, could be preferable over not pursuing innovation, and sticking with sustaining your products for the foreseeable future.
 * Unpredictable Success: Success of innovative products is hard to predict. This could complicate finding willing business sponsors or investors from outside the organization. The return on investment (ROI) has been a mainstay in building business cases, and it is almost impossible to calculate for innovation. Thus, spreading the cost and risks through sharing the effort can help in this department.
 * Missing Marketing Skills: Producing a viable innovative product is one thing. Being able to convince your customers that they need it is another. The marketing team that will help your product become the new need-to-have product should have the same innovative mindset as your innovation team. Seeking these marketing skills outside your organization might be just what the doctor ordered.   
 * Management Barriers: Missing the innovation leaders within the organization can slow the progress made by the innovation initiatives. Looking for these innovation managers in an organization that is willing to cooperate can lessen the hurt with this barrier.
