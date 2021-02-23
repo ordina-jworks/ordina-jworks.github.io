@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Introduction to HAPI FHIR - Youri Vermeir">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Introduction to HAPI FHIR - Youri Vermeir"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png"/>
+
+    
+    <title>Introduction to HAPI FHIR - Youri Vermeir &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Introduction to HAPI FHIR</h2>
+                
+
+                
+                    Posted Feb 23, 2021
+
+
+    in <a href="/categories/ehealth/">eHealth</a>
+
+
+
+    by
+    
+        <a href="/author/youri_vermeir/">Youri Vermeir</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/ehealth/">eHealth</a>, 
+    
+        <a href="/tags/fhir/">FHIR</a>, 
+    
+        <a href="/tags/interoperability/">Interoperability</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 class="no_toc" id="table-of-contents">Table of contents</h1>
+<ul id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#hapi-servers-types" id="markdown-toc-hapi-servers-types">HAPI Servers Types</a>    <ul>
+      <li><a href="#plain-server" id="markdown-toc-plain-server">Plain server</a></li>
+      <li><a href="#jpa-server" id="markdown-toc-jpa-server">JPA Server</a></li>
+      <li><a href="#jax-rs-server" id="markdown-toc-jax-rs-server">JAX-RS Server</a></li>
+    </ul>
+  </li>
+  <li><a href="#custom-plain-server-implementation" id="markdown-toc-custom-plain-server-implementation">Custom Plain server implementation</a>    <ul>
+      <li><a href="#modules" id="markdown-toc-modules">Modules</a></li>
+      <li><a href="#server" id="markdown-toc-server">Server</a></li>
+      <li><a href="#resources" id="markdown-toc-resources">Resources</a></li>
+      <li><a href="#security" id="markdown-toc-security">Security</a>        <ul>
+          <li><a href="#cross-origin-resource-sharing-cors" id="markdown-toc-cross-origin-resource-sharing-cors">Cross-Origin Resource Sharing (CORS)</a></li>
+          <li><a href="#authorizationinterceptor" id="markdown-toc-authorizationinterceptor">AuthorizationInterceptor</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#conclusion" id="markdown-toc-conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The Fast Healthcare Interoperability Resource, commonly known as FHIR, 
+has quickly become one of the most popular protocols for joining disparate systems together, 
+and holds great promise for the development of an application-based approach to interoperability and health information exchange.</p>
+
+<p>If you haven’t heard of FHIR, 
+I recommend you read the <a href="https://ordina-jworks.github.io/ehealth/2020/03/28/Healthcare-on-FHIR.html" target="_blank&quot;,rel=&quot;noopener noreferrer">Healthcare on FHIR</a> blogpost from my colleague Martin Kwee.<br />
+In this article we’ll focus on implementing the FHIR specification through the open source Java libraries called HAPI-FHIR.
+<a href="https://hapifhir.io/" target="_blank&quot;,rel=&quot;noopener noreferrer">HAPI FHIR</a> is a complete implementation of the HL7 FHIR standard for healthcare interoperability in Java.</p>
+
+<h2 id="hapi-servers-types">HAPI Servers Types</h2>
+
+<p>HAPI FHIR provides several mechanisms for building FHIR servers. 
+The appropriate choice depends on the specifics of what you are trying to accomplish.</p>
+
+<h3 id="plain-server">Plain server</h3>
+
+<p>The HAPI FHIR Plain Server (often referred to as a Facade) is an implementation of a FHIR server against an arbitrary backend that you provide.
+In this mode, you write code that handles resource storage and retrieval logic, and HAPI FHIR takes care of:</p>
+
+<ul>
+  <li>
+    <p>HTTP Processing</p>
+  </li>
+  <li>
+    <p>Parsing / Serialization</p>
+  </li>
+  <li>
+    <p>FHIR REST semantics</p>
+  </li>
+</ul>
+
+<p>This module was originally created at <a href="https://uhn.ca/" target="_blank&quot;,rel=&quot;noopener noreferrer">University Health Network</a> (UHN) as a mechanism for placing a common FHIR layer on top of a series of existing data sources, 
+including an electronic medical record system (EMR), an enterprise patient scheduling system, and a series of clinical data repositories. 
+All of these systems existed long before FHIR was adopted at UHN and HAPI FHIR was created to make the process of adopting FHIR easier.</p>
+
+<h3 id="jpa-server">JPA Server</h3>
+
+<p>The HAPI FHIR JPA Server is a complete implementation of a FHIR server against a relational database. 
+Unlike the Plain Server, the JPA server provides its own database schema and handles all storage and retrieval logic without any coding being required.</p>
+
+<h3 id="jax-rs-server">JAX-RS Server</h3>
+
+<p>The HAPI FHIR Plain Server (RestfulServer) is implemented as a standard JEE Servlet, meaning that it can be deployed in any compliant JEE web container.
+The JAX-RS module is a community-supported module that was not developed by the core HAPI FHIR team. 
+Before deciding to use the HAPI FHIR JAX-RS module, please be aware that it does not have as complete of support for the full FHIR REST specification as the Plain Server.</p>
+
+<p>For users in an environment where existing JAX-RS services have been created, 
+it is often desirable to use JAX-RS for FHIR servers as well. HAPI FHIR provides a JAX-RS FHIR server implementation for this purpose.</p>
+
+<h2 id="custom-plain-server-implementation">Custom Plain server implementation</h2>
+
+<p>As you have read above, there are different server types for different needs.
+Since the JPA implementation is a fully out-of-the-box working implementation with a SQL database, I thought it would be a nice challenge to set up my own Plain server implementation using a NoSQL database.
+The remainder of this blogpost will cover some practical code snippets of how I’ve set up a FHIR RESTful server using Spring Boot and a MongoDB database.</p>
+
+<p>Below a comparison between our custom developed Plain server and an out-of-the-box JPA server:</p>
+
+<p><img class="image" style="margin:0px auto; max-width:80%" alt="custom diagram" src="/img/2021-01-23-hapi-fhir/diagram.png" /></p>
+
+<p>Out-of-the-box JPA server:</p>
+
+<p><img class="image" style="margin:0px auto; max-width:80%" alt="jpa diagram" src="/img/2021-01-23-hapi-fhir/JPAdiagram.png" /></p>
+
+<p>Compared to the JPA server that is provided out-of-the-box, 
+there are some minor differences but by and large they are similar. 
+The differences are the database technologies and mapping technologies.</p>
+
+<h3 id="modules">Modules</h3>
+
+<p>First of all, we will create a simple Spring Boot project and load the HAPI library using Maven.
+While there are many subprojects in the FHIR Codebase we only need 3 for the FHIR Façade or as the HAPI FHIR project lead James Agnew puts it, for HAPI Plain Server implementation.</p>
+
+<ul>
+  <li>Hapi-fhir-base
+    <ul>
+      <li>This is the core HAPI FHIR library and is always required in order to use the framework. It contains the context,     parsers, and other support classes.</li>
+    </ul>
+  </li>
+  <li>Hapi-fhir-structures
+    <ul>
+      <li>This module contains the StructureDefinitions, ValueSets, CodeSystems, Schemas, and Schematrons for a specific FHIR version.</li>
+    </ul>
+  </li>
+  <li>Hapi-fhir-server
+    <ul>
+      <li>This module contains the HAPI FHIR Server framework, which can be used to develop FHIR compliant servers against your own data storage layer.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>pom.xml</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>ca.uhn.hapi.fhir<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>hapi-fhir-structures-r4<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>5.2.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>ca.uhn.hapi.fhir<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>hapi-fhir-base<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>5.2.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>ca.uhn.hapi.fhir<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>hapi-fhir-server<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>5.2.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></div>
+
+<h3 id="server">Server</h3>
+
+<p>The class in the code snippet below is going to be the heart of your custom HAPI FHIR implementation. 
+We will be using Release 4 (R4) of the FHIR specification.
+Here you will configure most of your HAPI server settings. 
+You can add security, select which resources your server will support, 
+set defaults on the server to use XML or JSON and many more options. We will implement some more later in this post.</p>
+
+<p>FhirRestfulServer.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.fhirexample</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.context.FhirContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.RestfulServer</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.example.fhirexample.providors.ObservationProvidor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.example.fhirexample.providors.PatientProvider</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.ApplicationContext</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.annotation.WebServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+
+<span class="nd">@WebServlet</span><span class="o">(</span><span class="s">"/*"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FhirRestfulServer</span> <span class="kd">extends</span> <span class="nc">RestfulServer</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">;</span>
+
+    <span class="nc">FhirRestfulServer</span><span class="o">(</span><span class="nc">ApplicationContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="na">applicationContext</span> <span class="o">=</span> <span class="n">context</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">ServletException</span><span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">initialize</span><span class="o">();</span>
+        <span class="n">setFhirContext</span><span class="o">(</span><span class="nc">FhirContext</span><span class="o">.</span><span class="na">forR4</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now lets setup the Servlet Context. 
+We’re using the standard setup of a Spring Boot application and register the FhirRestfulServer web servlet we’ve created earlier.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.fhirexample</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.servlet.ServletRegistrationBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.ApplicationContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FhirExampleApplication</span><span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">ApplicationContext</span> <span class="n">context</span><span class="o">;</span>
+
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">FhirExampleApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">ServletRegistrationBean</span> <span class="nf">ServletRegistrationBean</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">ServletRegistrationBean</span> <span class="n">registration</span><span class="o">=</span> <span class="k">new</span> <span class="nc">ServletRegistrationBean</span><span class="o">(</span><span class="k">new</span> <span class="nc">FhirRestfulServer</span><span class="o">(</span><span class="n">context</span><span class="o">),</span><span class="s">"/*"</span><span class="o">);</span>
+        <span class="n">registration</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"FhirServlet"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">registration</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Once your server has started, open up your Postman and GET the following URL: http://localhost:8080/metadata. 
+A capability statement will appear just like the screenshot below.
+A Capability Statement documents a set of capabilities (behaviors) of a FHIR Server for a particular version of FHIR that may be used as a statement of actual server functionality or a statement of required or desired server implementation. 
+Congratulations you are now FHIR enabled!</p>
+
+<p><img class="image" style="margin:0px auto; max-width:80%" alt="postman" src="/img/2021-01-23-hapi-fhir/postman.png" /></p>
+
+<h3 id="resources">Resources</h3>
+
+<p>The PatientProvider is where the FHIR Patient behaviour is configured. 
+HAPI uses annotations to indicate what kind of REST service a class method provides. 
+The procedure “createPatient” in the diagram is annotated with @Create which indicates that it handles POST/create. 
+This procedure then uses a PatientDAO (DAO - data access object) class which Spring Data uses to persist the Patient resource in MongoDB.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.fhirexample</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.context.FhirContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.annotation.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.api.MethodOutcome</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.param.DateRangeParam</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.param.StringParam</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.param.TokenParam</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.IResourceProvider</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.example.fhirexample.dao.patient.PatientDAO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.hl7.fhir.instance.model.api.IBaseResource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.hl7.fhir.r4.model.IdType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.hl7.fhir.r4.model.OperationOutcome</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.hl7.fhir.r4.model.Patient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.hl7.fhir.r4.model.Resource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PatientProvider</span> <span class="kd">implements</span> <span class="nc">IResourceProvider</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">FhirContext</span> <span class="n">ctx</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">PatientDAO</span> <span class="n">patientDao</span><span class="o">;</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">IBaseResource</span><span class="o">&gt;</span> <span class="nf">getResourceType</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span>  <span class="nc">Patient</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Search</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Resource</span><span class="o">&gt;</span> <span class="nf">searchPatient</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                        <span class="nd">@OptionalParam</span><span class="o">(</span><span class="n">name</span><span class="o">=</span> <span class="nc">Patient</span><span class="o">.</span><span class="na">SP_BIRTHDATE</span><span class="o">)</span> <span class="nc">DateRangeParam</span> <span class="n">birthDate</span><span class="o">,</span>
+                                        <span class="nd">@OptionalParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="nc">Patient</span><span class="o">.</span><span class="na">SP_FAMILY</span><span class="o">)</span> <span class="nc">StringParam</span> <span class="n">familyName</span><span class="o">,</span>
+                                        <span class="nd">@OptionalParam</span><span class="o">(</span><span class="n">name</span><span class="o">=</span> <span class="nc">Patient</span><span class="o">.</span><span class="na">SP_GENDER</span><span class="o">)</span> <span class="nc">StringParam</span> <span class="n">gender</span><span class="o">,</span>   
+                                        <span class="nd">@OptionalParam</span><span class="o">(</span><span class="n">name</span><span class="o">=</span> <span class="nc">Patient</span><span class="o">.</span><span class="na">SP_GIVEN</span><span class="o">)</span> <span class="nc">StringParam</span> <span class="n">givenName</span><span class="o">,</span>
+                                        <span class="nd">@OptionalParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="nc">Patient</span><span class="o">.</span><span class="na">SP_IDENTIFIER</span><span class="o">)</span> <span class="nc">TokenParam</span> <span class="n">identifier</span><span class="o">,</span>
+                                        <span class="nd">@OptionalParam</span><span class="o">(</span><span class="n">name</span><span class="o">=</span> <span class="nc">Patient</span><span class="o">.</span><span class="na">SP_NAME</span><span class="o">)</span> <span class="nc">StringParam</span> <span class="n">name</span><span class="o">,</span>
+                                        <span class="nd">@OptionalParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="nc">Patient</span><span class="o">.</span><span class="na">SP_RES_ID</span><span class="o">)</span> <span class="nc">TokenParam</span> <span class="n">resid</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">return</span> <span class="n">patientDao</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">ctx</span><span class="o">,</span> <span class="n">birthDate</span><span class="o">,</span> <span class="n">familyName</span><span class="o">,</span> <span class="n">gender</span><span class="o">,</span> <span class="n">givenName</span><span class="o">,</span> <span class="n">identifier</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Read</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="nc">Patient</span> <span class="nf">read</span><span class="o">(</span><span class="nd">@IdParam</span> <span class="nc">IdType</span> <span class="n">theId</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">return</span> <span class="n">patientDao</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">ctx</span><span class="o">,</span><span class="n">theId</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Create</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="nc">MethodOutcome</span> <span class="nf">createPatient</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">theRequest</span><span class="o">,</span> <span class="nd">@ResourceParam</span> <span class="nc">Patient</span> <span class="n">patient</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">MethodOutcome</span>  <span class="n">method</span> <span class="o">=</span> <span class="k">new</span>  <span class="nc">MethodOutcome</span><span class="o">();</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">setCreated</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="nc">OperationOutcome</span>  <span class="n">opOutcome</span> <span class="o">=</span> <span class="k">new</span>  <span class="nc">OperationOutcome</span><span class="o">();</span>
+        <span class="n">method</span><span class="o">.</span><span class="na">setOperationOutcome</span><span class="o">(</span><span class="n">opOutcome</span><span class="o">)</span>
+       
+        <span class="k">return</span> <span class="n">patientDao</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">ctx</span><span class="o">,</span> <span class="n">patient</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Search</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Resource</span><span class="o">&gt;</span> <span class="nf">getAllPatients</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">patientDao</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">ctx</span><span class="o">);</span>
+    
+    <span class="o">}</span>
+
+  
+
+    <span class="nd">@Delete</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">(</span><span class="nd">@IdParam</span>  <span class="nc">IdType</span>  <span class="n">theId</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="n">patientDao</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">ctx</span><span class="o">,</span><span class="n">theId</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p>In the previous code snippet I want to highlight some important details like:</p>
+<ul>
+  <li>The MethodOutcome object must be returned on update and create methods. This object contains the identity of the created resource. 
+On a delete and validate method you have a choice between void and MethodOutcome.</li>
+  <li>Operation outcomes are sets of error, warning and information messages that provide detailed information about the outcome of an attempted system operation. 
+  The operationOutcome can be used as a direct response from the server (or as a component of the response). For example when the method fails the operationOutcome can provide more information about the outcome. This can be used to provide meaningful error messages.</li>
+</ul>
+
+<p>Now we configure our HAPI Server to support the Patient resource.</p>
+
+<p>FhirRestfulServer.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.fhirexample</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.context.FhirContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.RestfulServer</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.interceptor.CorsInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.example.fhirexample.providors.ObservationProvidor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.example.fhirexample.providors.PatientProvidor</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.ApplicationContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.cors.CorsConfiguration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.annotation.WebServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+
+<span class="nd">@WebServlet</span><span class="o">(</span><span class="s">"/*"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FhirRestfulServer</span> <span class="kd">extends</span> <span class="nc">RestfulServer</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="nc">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">;</span>
+
+    <span class="nc">FhirRestfulServer</span><span class="o">(</span><span class="nc">ApplicationContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">applicationContext</span> <span class="o">=</span> <span class="n">context</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">ServletException</span> <span class="o">{</span>   
+
+        <span class="kd">super</span><span class="o">.</span><span class="na">initialize</span><span class="o">();</span>
+        <span class="n">setFhirContext</span><span class="o">(</span><span class="nc">FhirContext</span><span class="o">.</span><span class="na">forR4</span><span class="o">());</span>
+        <span class="n">setResourceProviders</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+            <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="nc">PatientProvider</span><span class="o">.</span><span class="na">class</span><span class="o">)));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>In this section we have shown you how to implement a Patient resource on a HAPI FHIR server.</p>
+
+<h3 id="security">Security</h3>
+<p>Security is a crucial part of setting up a server especially when it comes to sensitive data like health information.
+To easily facilitate this security concern, there are some out-of-the box features that HAPI provides to ensure the safeguarding of sensitive patient data
+The following code snippets comes from the HAPI FHIR documentation.</p>
+
+<h4 id="cross-origin-resource-sharing-cors">Cross-Origin Resource Sharing (CORS)</h4>
+
+<p>The HAPI FHIR server framework includes an interceptor that can be used to provide CORS functionality on your server. 
+This mechanism relies purely on Java configuration. 
+HAPI’s interceptor is a thin wrapper around Spring Framework’s CorsProcessor class, 
+so it requires Spring to be present on your classpath.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.fhirexample</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.interceptor.CorsInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.cors.CorsConfiguration</span><span class="o">;</span>
+
+<span class="nd">@WebServlet</span><span class="o">(</span><span class="n">urlPatterns</span> <span class="o">=</span> <span class="o">{</span><span class="s">"/fhir/*"</span><span class="o">},</span> <span class="n">displayName</span> <span class="o">=</span> <span class="s">"FHIR Server"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestfulServerWithCors</span> <span class="kd">extends</span> <span class="nc">RestfulServer</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span>  <span class="kt">void</span>  <span class="nf">initialize</span><span class="o">()</span> <span class="kd">throws</span>  <span class="nc">ServletException</span> <span class="o">{</span>
+    <span class="c1">// ... define your resource providers here ...</span>
+    <span class="c1">// Define your CORS configuration. This is an example</span>
+    <span class="c1">// showing a typical setup. You should customize this</span>
+    <span class="c1">// to your specific needs</span>
+    <span class="nc">CorsConfiguration</span>  <span class="n">config</span> <span class="o">=</span> <span class="k">new</span>  <span class="nc">CorsConfiguration</span><span class="o">();</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addAllowedHeader</span><span class="o">(</span><span class="s">"x-fhir-starter"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addAllowedHeader</span><span class="o">(</span><span class="s">"Origin"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addAllowedHeader</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addAllowedHeader</span><span class="o">(</span><span class="s">"X-Requested-With"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addAllowedHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addAllowedOrigin</span><span class="o">(</span><span class="s">"*"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addExposedHeader</span><span class="o">(</span><span class="s">"Location"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">addExposedHeader</span><span class="o">(</span><span class="s">"Content-Location"</span><span class="o">);</span>
+    <span class="n">config</span><span class="o">.</span><span class="na">setAllowedMethods</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"GET"</span><span class="o">,</span> <span class="s">"POST"</span><span class="o">,</span> <span class="s">"PUT"</span><span class="o">,</span> <span class="s">"DELETE"</span><span class="o">,</span> <span class="s">"OPTIONS"</span><span class="o">,</span> <span class="s">"PATCH"</span><span class="o">));</span>
+    <span class="c1">// Create the interceptor and register it</span>
+    <span class="nc">CorsInterceptor</span>  <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span>  <span class="nc">CorsInterceptor</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+    <span class="n">registerInterceptor</span><span class="o">(</span><span class="n">interceptor</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="authorizationinterceptor">AuthorizationInterceptor</h4>
+
+<p>HAPI FHIR provides you with an AuthorizationInterceptor which can be helpful to determine whether a user has the appropriate permission to perform a given task on a FHIR server. 
+This is done by declaring a set of rules that can selectively allow (whitelist) and/or selectively block (blacklist) requests. 
+The interceptor works by allowing you to declare permission based on an individual request coming in.</p>
+
+<p>The AuthorizationInterceptor is used by subclassing it and then registering your subclass with the RestfulServer. 
+The following example shows a subclassed interceptor implementing some basic rules:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.example.fhirexample</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.api.server.RequestDetails</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.exceptions.AuthenticationException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.interceptor.auth.AuthorizationInterceptor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.interceptor.auth.IAuthRule</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">ca.uhn.fhir.rest.server.interceptor.auth.RuleBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.hl7.fhir.r4.model.IdType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PatientAndAdminAuthorizationInterceptor</span> <span class="kd">extends</span> <span class="nc">AuthorizationInterceptor</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">IAuthRule</span><span class="o">&gt;</span> <span class="nf">buildRuleList</span><span class="o">(</span><span class="nc">RequestDetails</span> <span class="n">theRequestDetails</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="c1">// Process authorization header - The following is a fake</span>
+        <span class="c1">// implementation. Obviously we'd want something more real</span>
+        <span class="c1">// for a production scenario.</span>
+        <span class="c1">//</span>
+        <span class="c1">// In this basic example we have two hardcoded bearer tokens,</span>
+        <span class="c1">// one which is for a user that has access to one patient, and</span>
+        <span class="c1">// another that has full access.</span>
+        <span class="nc">IdType</span> <span class="n">userIdPatientId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">authHeader</span> <span class="o">=</span> <span class="n">theRequestDetails</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">isNormalUser</span><span class="o">(</span><span class="n">authHeader</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// This user has only access to the Patient resource with id 1.</span>
+            <span class="c1">// If the user is a specific patient, we create the following rule chain:</span>
+            <span class="c1">// Allow the user to read anything in their own patient compartment</span>
+            <span class="c1">// Allow the user to write anything in their own patient compartment</span>
+            <span class="c1">// If a client request doesn't pass either of the above, deny it</span>
+            <span class="n">userIdPatientId</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">IdType</span><span class="o">(</span><span class="s">"Patient"</span><span class="o">,</span> <span class="mi">1L</span><span class="o">);</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">RuleBuilder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">allow</span><span class="o">().</span><span class="na">read</span><span class="o">().</span><span class="na">allResources</span><span class="o">().</span><span class="na">inCompartment</span><span class="o">(</span><span class="s">"Patient"</span><span class="o">,</span> <span class="n">userIdPatientId</span><span class="o">).</span><span class="na">andThen</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">allow</span><span class="o">().</span><span class="na">write</span><span class="o">().</span><span class="na">allResources</span><span class="o">().</span><span class="na">inCompartment</span><span class="o">(</span><span class="s">"Patient"</span><span class="o">,</span> <span class="n">userIdPatientId</span><span class="o">).</span><span class="na">andThen</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">denyAll</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">isAdmin</span><span class="o">(</span><span class="n">authHeader</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// If the user is an admin, allow everything</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">RuleBuilder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">allowAll</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// Throw an HTTP 401</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">AuthenticationException</span><span class="o">(</span><span class="s">"Missing or invalid Authorization header value"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isNormalUser</span><span class="o">(</span><span class="nc">String</span> <span class="n">authHeader</span><span class="o">){</span>
+        <span class="k">return</span> <span class="s">"Bearer dfw98h38r"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">authHeader</span><span class="o">);</span>
+
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isAdmin</span><span class="o">(</span><span class="nc">String</span> <span class="n">authHeader</span><span class="o">){</span>
+        <span class="k">return</span> <span class="s">"Bearer 39ff939jgg"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">authHeader</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>After the server was set up and ready to use,I’ve set up a small Angular front-end application where it was possible to retrieve all the Patients and add a Patient.
+Finally Observations were added which could be linked to a specific Patient.
+In order not to define all the Javascript interfaces myself I used the following module <a href="https://www.npmjs.com/package/@ahryman40k/ts-fhir-types" target="_blank&quot;,rel=&quot;noopener noreferrer">@ahryman40k/ts-fhir-types</a>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>For several years, the FHIR specification has been providing enhancements at various levels
+from application development to inter-application integration</p>
+
+<p>We can conclude that setting up a FHIR server in Java is made easy by using the HAPI libraries.
+They provide different server types for different needs.
+There are servers that work out-of-the box but there are also possibilities to link existing databases to a HAPI FHIR façade. 
+In addition, the security libraries provided by HAPI make the development process a lot easier and secure.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html&title=Introduction to HAPI FHIR&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Introduction to HAPI FHIR&url=https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/youri_vermeir/" class="image spotlight-image" title="">
+            <img src="/img/author/youri-vermeir.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Youri is an ambitious back-end developer with a problem-solving mindset. He is a team-oriented person who is always motivated to learn and master new skills.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2021 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2021-01-23-hapi-fhir/hapi-logo.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
