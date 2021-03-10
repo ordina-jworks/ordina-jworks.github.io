@@ -30,22 +30,47 @@ comments: true
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/logo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Logo">
-        <img alt="HomeKit devices 1" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/logo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/logo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
     </a>
 </div>
 
-After the [first general post](/iot/2019/09/30/Home-automation-part-1.html){:target="_blank" rel="noopener noreferrer"} about home automation it's time to kick things into higher gear.
-In this post we'll go into detail about OpenHAB.
+By now everybody likely has heard about the Raspberry Pi single board computers.
+And even more than probable some, if not most of you, have one or more of these.
 
-TODO
+Recently the Raspberry Pi Foundation has released a new type of Raspberry Pi, the Raspberry Pi Pico.
+Contrary to the regular Raspberry Pi, the Pico is not a single board computer which runs Linux.
+The Pico is a microcontroller, like the Arduino or Teensy.
+It's cheap, it's powerful, and in this blog post we'll be exploring what it has to offer.
 
 ## Differences with the Raspberry Pi
 
-TODO
+Like I said in the introduction, the regular Raspberry Pi is a single board computer, as in an actual computer which can run a fully fledged operating system.
+It also has interfacing options like a display and camera port, along side ethernet and USB ports as well as the 40 GPIO pins.
+
+TODO: PI vs PICO picture
+
+As you can see in the pictures, the Raspberry Pi looks like a tiny computer and the Pico looks like a much simpler board, because it also is.
+Both devices serve different purposes but do have some overlap.
+The Raspberry Pi is used for more computationally intensive tasks and can be used to run very complex software.
+The Pi Pico is used for far simpler tasks were power usage and device footprint are more important, it is a much more low level device.
+While they both have GPIO pins the ones on the Pi Pico are much more capable than those on the Raspberry Pi.
 
 ## Getting to know the board
 
-TODO
+TODO: PICO pinout picture
+
+The main technical specifications of the Pi Pico are:
+
+- Dual-core Arm Cortex-M0+ processor, flexible clock running up to 133 MHz
+- 264KB on-chip SRAM
+- 2MB on-board QSPI Flash
+- 26 multifunction GPIO pins, including 3 analogue inputs
+- 2 × UART, 2 × SPI controllers, 2 × I2C controllers, 16 × PWM channels
+- 1 × USB 1.1 controller and PHY, with host and device support
+- 8 × Programmable I/O (PIO) state machines for custom peripheral support
+
+These specs are in line with some of the more popular microcontrollers like teensy and esp32 devices.
+The small footprint of microcontrollers like the Pico allows it to be integrated into DIY projects easily.
 
 ## Development options
 
