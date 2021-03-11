@@ -61,7 +61,7 @@ TODO: PICO pinout picture
 
 The main technical specifications of the Pi Pico are:
 
-- Dual-core Arm Cortex-M0+ processor, flexible clock running up to 133 MHz
+- RP2040: Dual-core Arm Cortex-M0+ processor, flexible clock running up to 133 MHz
 - 264KB on-chip SRAM
 - 2MB on-board QSPI Flash
 - 26 multifunction GPIO pins, including 3 analogue inputs
@@ -72,9 +72,26 @@ The main technical specifications of the Pi Pico are:
 These specs are in line with some of the more popular microcontrollers like teensy and esp32 devices.
 The small footprint of microcontrollers like the Pico allows it to be integrated into DIY projects easily.
 
+The Pi Pico is built around the RP2040, the actual microcontroller that powers it.
+There are other boards with varying pinouts and functions available with this microcontroller.
+In this blog post we will be focussing on the Pi Pico implementation of the RP2040.
+
+The dual core chip give a lot of flexibility to create project which require a bit more processing power, as do the PIO state machines.
+With 26 GPIO boards there are loads of options to connect sensors, screens, inputs and outputs.
+
 ## Development options
 
-TODO
+One of the nice features is that the Pico supports drag and drop programming/flashing.
+This is accomplished by utilizing UF2 files.
+The process of doing this is very simple, simply press the `BOOTSEL` button when connecting the Pico to your computer.
+It will show up as a storage device, drag the UF2 file onto it and the device will reboot and the flashing is completed.
+
+The Pico has several development options available.
+Three different main options are available to program it:
+
+- C/C++ SDK: Oldschool hardcore mode microcontroller programming
+- MicroPython: More beginner friendly with lots of options
+- CircuitPython: Adafruit backed variation on MicroPython, made even simpler
 
 ## A C++ Hello World
 
