@@ -69,7 +69,7 @@ The main technical specifications of the Pi Pico are:
 - 1 × USB 1.1 controller and PHY, with host and device support
 - 8 × Programmable I/O (PIO) state machines for custom peripheral support
 
-These specs are in line with some of the more popular microcontrollers like teensy and esp32 devices.
+These specs are in line with some of the more popular microcontrollers like teensy and ESP32 devices.
 The small footprint of microcontrollers like the Pico allows it to be integrated into DIY projects easily.
 
 The Pi Pico is built around the RP2040, the actual microcontroller that powers it.
@@ -93,13 +93,57 @@ Three different main options are available to program it:
 - MicroPython: More beginner friendly with lots of options
 - CircuitPython: Adafruit backed variation on MicroPython, made even simpler
 
-## A C++ Hello World
+## A C++ Blink example
 
-TODO
+Programming microcontrollers has long been done in C and C++ and the Pi Pico forms no exception to this.
+The basic code for a LED blink example is listed below.
+
+```c++
+/**
+ * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#include "pico/stdlib.h"
+
+int main() {
+#ifndef PICO_DEFAULT_LED_PIN
+#warning blink example requires a board with a regular LED
+#else
+    const uint LED_PIN = PICO_DEFAULT_LED_PIN;
+    gpio_init(LED_PIN);
+    gpio_set_dir(LED_PIN, GPIO_OUT);
+    while (true) {
+        gpio_put(LED_PIN, 1);
+        sleep_ms(250);
+        gpio_put(LED_PIN, 0);
+        sleep_ms(250);
+    }
+#endif
+}
+```
+
+This code will include the stdlib.h header file from the Pi Pico C++ SDK and will blink the build in LED every 250ms.
+The trick is to compile this code and build the required UF2 file.
+
+While the code looks and feels very similar to what you would write for lets say an Arduino board, compiling it and to run on the Pico is a different case.
+The contrast with Arduino development could not be bigger, where you simply download the Arduino IDE, write your code, click upload and you're running your code on the device!
+With the Pico it's not that simple it requires a few dependencies which cannot be one click installed and the instructions are different based on the OS you're running.
+It's do-able but it's not exactly hassle free and convenient.
+
+Setting up for development:
+
+- [General C/C++ SDK documentation](https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf){:target="_blank" rel="noopener noreferrer"}
+- [Linux](https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh){:target="_blank" rel="noopener noreferrer"}: Simply run the script
+- [Mac](https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
+- [Windows](https://notenoughtech.com/featured/c-c-and-micropython-sdk-for-raspberry-pi-pico-on-windows/){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
+
+One bright point is that Arduino will also be releasing a board based on the RP2040 so there is hope that the Arduino IDE will support it later down the line and enable hassle free C++ development for the Pi Pico and other RP2040 based microcontrollers.
 
 ## A microPython Hello World
 
-TODO
+Contrary to the C++ development, using MicroPython is like a breath of fresh air.
 
 ## A circuitPython Hello World
 
@@ -111,4 +155,4 @@ TODO
 
 ## Resources
 
-TODO
+[Pi Pico Getting started](https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython){:target="_blank" rel="noopener noreferrer"}
