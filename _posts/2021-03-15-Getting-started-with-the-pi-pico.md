@@ -20,9 +20,9 @@ comments: true
 2. [Differences with the Raspberry Pi](#differences-with-the-raspberry-pi)
 3. [Getting to know the board](#getting-to-know-the-board)
 4. [Development options](#development-options)
-5. [A C++ Hello World](#a-c++-hello-world)
-6. [A microPython Hello World](#a-micropython-hello-world)
-7. [A circuitPython Hello World](#a-micropython-hello-world)
+5. [C++ development](#c++-development)
+6. [MicroPython development](#micropython-development)
+7. [CircuitPython development](#micropython-development)
 8. [Conclusion](#conclusion)
 9. [Resources](#resources)
 
@@ -93,7 +93,20 @@ Three different main options are available to program it:
 - MicroPython: More beginner friendly with lots of options
 - CircuitPython: Adafruit backed variation on MicroPython, made even simpler
 
-## A C++ Blink example
+## C++ Development
+
+### Development setup
+
+Setting up for development:
+
+- [General C/C++ SDK documentation](https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf){:target="_blank" rel="noopener noreferrer"}
+- [Linux](https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh){:target="_blank" rel="noopener noreferrer"}: Simply run the script
+- [Mac](https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
+- [Windows](https://github.com/ndabas/pico-setup-windows){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
+
+One bright point is that Arduino will also be releasing a board based on the RP2040 so there is hope that the Arduino IDE will support it later down the line and enable hassle free C++ development for the Pi Pico and other RP2040 based microcontrollers.
+
+### Code example
 
 Programming microcontrollers has long been done in C and C++ and the Pi Pico forms no exception to this.
 The basic code for a LED blink example is listed below.
@@ -116,15 +129,15 @@ int main() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
     while (true) {
         gpio_put(LED_PIN, 1);
-        sleep_ms(250);
+        sleep_ms(500);
         gpio_put(LED_PIN, 0);
-        sleep_ms(250);
+        sleep_ms(500);
     }
 #endif
 }
 ```
 
-This code will include the stdlib.h header file from the Pi Pico C++ SDK and will blink the build in LED every 250ms.
+This code will include the stdlib.h header file from the Pi Pico C++ SDK and will blink the build in LED every 500ms.
 The trick is to compile this code and build the required UF2 file.
 
 While the code looks and feels very similar to what you would write for lets say an Arduino board, compiling it and to run on the Pico is a different case.
@@ -132,28 +145,25 @@ The contrast with Arduino development could not be bigger, where you simply down
 With the Pico it's not that simple it requires a few dependencies which cannot be one click installed and the instructions are different based on the OS you're running.
 It's do-able but it's not exactly hassle free and convenient.
 
-Setting up for development:
-
-- [General C/C++ SDK documentation](https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf){:target="_blank" rel="noopener noreferrer"}
-- [Linux](https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh){:target="_blank" rel="noopener noreferrer"}: Simply run the script
-- [Mac](https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
-- [Windows](https://github.com/ndabas/pico-setup-windows){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
-
-One bright point is that Arduino will also be releasing a board based on the RP2040 so there is hope that the Arduino IDE will support it later down the line and enable hassle free C++ development for the Pi Pico and other RP2040 based microcontrollers.
-
-## A microPython Hello World
+## MicroPython development
 
 Contrary to the C++ development, using MicroPython is like a breath of fresh air.
 I'm not the biggest fan of regular Python but using MicroPython for simple microcontroller programming, has in my opinion, made it a lot easier.
 
+### Preparing the board
+
 First of all we need to prepare the Pico to accept and run MicroPython files:
 
-- Download the latest (stable) version of MicroPython for the pico, this is a UF2 file and can be found [here]()
+- Download the latest (stable) version of MicroPython for the pico, this is a UF2 file and can be found [here](https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython){:target="_blank" rel="noopener noreferrer"}
 - Plug in your Pico while holding the `BOOTSEL` button
 - Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer
 - The board will reboot by itself and 'install' the UF2 file
 
+### Development setup
+
 TODO : Dev environment options
+
+### Code example
 
 The basic code for a LED blink example is listed below.
 
@@ -161,24 +171,42 @@ The basic code for a LED blink example is listed below.
 print('TODO BLINK program')
 ```
 
-## A circuitPython Hello World
+## CircuitPython development
 
 CircuitPython is a variation on MicroPython created by Adafruit industries.
 It is targeted at beginners and students and is even simpler than the regular MicroPython.
 
+### Preparing the board
+
 First of all we need to prepare the Pico to accept and run CircuitPython files:
 
-- Download the latest (stable) version of CircuitPython for the pico, this is a UF2 file and can be found [here]()
+- Download the latest (stable) version of CircuitPython for the pico, this is a UF2 file and can be found [here](https://circuitpython.org/board/raspberry_pi_pico/){:target="_blank" rel="noopener noreferrer"}
 - Plug in your Pico while holding the `BOOTSEL` button
 - Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer
 - The board will reboot by itself and 'install' the UF2 file
 
+### Development setup
+
 TODO : Dev environment options
+
+### Code example
 
 The basic code for a LED blink example is listed below.
 
 ```python
-print('TODO BLINK program')
+import board
+import digitalio
+import time
+
+led = digitalio.DigitalInOut(board.GP25)
+led.direction = digitalio.Direction.OUTPUT
+
+while True:
+    led.value = True
+    time.sleep(0.5)
+    led.value = False
+    time.sleep(0.5)
+
 ```
 
 ## Conclusion
