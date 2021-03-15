@@ -168,7 +168,17 @@ TODO : Dev environment options
 The basic code for a LED blink example is listed below.
 
 ```python
-print('TODO BLINK program')
+from machine import Pin
+import time
+
+pin = Pin(25, Pin.OUT)
+
+while True:
+    pin.value(1)
+    time.sleep(0.5)
+    pin.value(0)
+    time.sleep(0.5)
+
 ```
 
 ## CircuitPython development
