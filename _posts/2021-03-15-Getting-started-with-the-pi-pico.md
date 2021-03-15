@@ -137,17 +137,49 @@ Setting up for development:
 - [General C/C++ SDK documentation](https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf){:target="_blank" rel="noopener noreferrer"}
 - [Linux](https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh){:target="_blank" rel="noopener noreferrer"}: Simply run the script
 - [Mac](https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
-- [Windows](https://notenoughtech.com/featured/c-c-and-micropython-sdk-for-raspberry-pi-pico-on-windows/){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
+- [Windows](https://github.com/ndabas/pico-setup-windows){:target="_blank" rel="noopener noreferrer"}: Follow the instructions
 
 One bright point is that Arduino will also be releasing a board based on the RP2040 so there is hope that the Arduino IDE will support it later down the line and enable hassle free C++ development for the Pi Pico and other RP2040 based microcontrollers.
 
 ## A microPython Hello World
 
 Contrary to the C++ development, using MicroPython is like a breath of fresh air.
+I'm not the biggest fan of regular Python but using MicroPython for simple microcontroller programming, has in my opinion, made it a lot easier.
+
+First of all we need to prepare the Pico to accept and run MicroPython files:
+
+- Download the latest (stable) version of MicroPython for the pico, this is a UF2 file and can be found [here]()
+- Plug in your Pico while holding the `BOOTSEL` button
+- Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer
+- The board will reboot by itself and 'install' the UF2 file
+
+TODO : Dev environment options
+
+The basic code for a LED blink example is listed below.
+
+```python
+print('TODO BLINK program')
+```
 
 ## A circuitPython Hello World
 
-TODO
+CircuitPython is a variation on MicroPython created by Adafruit industries.
+It is targeted at beginners and students and is even simpler than the regular MicroPython.
+
+First of all we need to prepare the Pico to accept and run CircuitPython files:
+
+- Download the latest (stable) version of CircuitPython for the pico, this is a UF2 file and can be found [here]()
+- Plug in your Pico while holding the `BOOTSEL` button
+- Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer
+- The board will reboot by itself and 'install' the UF2 file
+
+TODO : Dev environment options
+
+The basic code for a LED blink example is listed below.
+
+```python
+print('TODO BLINK program')
+```
 
 ## Conclusion
 
