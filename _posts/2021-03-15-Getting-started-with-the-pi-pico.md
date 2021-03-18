@@ -149,6 +149,8 @@ It's do-able but it's not exactly hassle free and convenient.
 
 Contrary to the C++ development, using MicroPython is like a breath of fresh air.
 I'm not the biggest fan of regular Python but using MicroPython for simple microcontroller programming, has in my opinion, made it a lot easier.
+Another big plus of Python based development is having a REPL available.
+It allows you to write and execute code on the fly, which allows for easier development and testing something quickly.
 
 ### Preparing the board
 
@@ -161,7 +163,27 @@ First of all we need to prepare the Pico to accept and run MicroPython files:
 
 ### Development setup
 
-TODO : Dev environment options
+The easiest way to do MicroPython development for the Pi Pico is by using the Thonny IDE.
+Thonny is a simple code editor that can directly save your code to the Pico and also provides an easy way to access the REPL.
+
+Setting up Thonny is very easy, just [download](https://thonny.org/) the binary for your operating system, install and start it.
+Only one more step is required to set it up for use with the Pi Pico.
+Head into the preferences, select the `interpreter` tab and from the dropdown select the option `MicroPython (Raspberry Pi Pico)`.
+After this Thonny is ready to be used!
+
+Another option for development is using the great PyCharm IDE.
+While I view Thonny to be a glorified text editor, PyCharm (from JetBrains) is a fully fledged Python IDE, for our purposes the community edition will do just fine.
+The setup is a bit more involved and has some caveats, but it is certainly workable.
+[Download](https://www.jetbrains.com/pycharm/download/) and install the PyCharm Community Edition, once done, open it up and in the welcome screen select the plugin option.
+In here search for `micropython` and install the MicroPython plugin by JetBrains, this will add support for flashing the device from within the IDE.
+Now we can create a new project and write some code.
+To upload the code to the Pico we need to perform some more changes and enable the MicroPython support for the newly created project.
+Head into the IDE preferences, select the `Languages & Frameworks` option in the sidebar and select the `MicroPython` sub option.
+In this section, check the `Enable MicroPython support` and set the device type to `ESP8266`.
+Finally we need to enter the device path, you could try the auto-detect option, but on my machine that did nothing.
+To get this path we will open Thonny with the Pico plugged in, it will show the device path and we can enter it in PyCharm.
+
+TODO: Finish
 
 ### Code example
 
@@ -181,6 +203,11 @@ while True:
 
 ```
 
+This code does the same as the C++ code mentioned above.
+It however is far more readable.
+The [MicroPython documentation](https://docs.micropython.org/en/latest/) has examples and information on what is available and what is not.
+Please be reminded that MicroPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.
+
 ## CircuitPython development
 
 CircuitPython is a variation on MicroPython created by Adafruit industries.
@@ -197,7 +224,14 @@ First of all we need to prepare the Pico to accept and run CircuitPython files:
 
 ### Development setup
 
-TODO : Dev environment options
+CircuitPython can also be developed using Thonny, you however need to open the Thonny preferences once more, select the interpreter tab and select the `CircuitPython (generic)` option.
+Using PyCharm for CircuitPython can be done, however I've not had many success to flash the files to the Pico device, so for CircuitPython the best option remains Thonny.
+Adafruit recommends using the [Mu](https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor) IDE for CircuitPython development, however I could never get it to work on my Big Sur installation.
+
+Developing CircuitPython does not really differ from MicroPython except for two things:
+
+- Language features and API
+- Project structure
 
 ### Code example
 
@@ -218,6 +252,16 @@ while True:
     time.sleep(0.5)
 
 ```
+
+Again this code does the same as the C++ code mentioned above.
+It is also more readable, but differs slightly from the MicroPython flavour of Python.
+The [CircuitPython documentation](https://circuitpython.readthedocs.io/en/6.1.x/README.html) has examples and information on what is available and what is not.
+Please be reminded that CircuitPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.
+
+Another thing to note is that the CircuitPython implementation has some additional pros and cons:
+
+- It does not support _thread, so you can only use one of the cores of the Pi Pico
+- It supports a lot more devices, if there is an Adafruit peripheral/device/sensor, chances are big they have a library/driver available for it
 
 ## Conclusion
 
