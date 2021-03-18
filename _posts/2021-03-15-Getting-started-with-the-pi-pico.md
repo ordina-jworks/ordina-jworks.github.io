@@ -169,6 +169,7 @@ Thonny is a simple code editor that can directly save your code to the Pico and 
 Setting up Thonny is very easy, just [download](https://thonny.org/) the binary for your operating system, install and start it.
 Only one more step is required to set it up for use with the Pi Pico.
 Head into the preferences, select the `interpreter` tab and from the dropdown select the option `MicroPython (Raspberry Pi Pico)`.
+Select the correct port from the dropdown.
 After this Thonny is ready to be used!
 
 Another option for development is using the great PyCharm IDE.
@@ -181,7 +182,7 @@ To upload the code to the Pico we need to perform some more changes and enable t
 Head into the IDE preferences, select the `Languages & Frameworks` option in the sidebar and select the `MicroPython` sub option.
 In this section, check the `Enable MicroPython support` and set the device type to `ESP8266`.
 Finally we need to enter the device path, you could try the auto-detect option, but on my machine that did nothing.
-To get this path we will open Thonny with the Pico plugged in, it will show the device path and we can enter it in PyCharm.
+To get this path we will open Thonny with the Pico plugged in, it will show the device path under preferences/interpreter and we can copy it to PyCharm.
 
 TODO: Finish
 
