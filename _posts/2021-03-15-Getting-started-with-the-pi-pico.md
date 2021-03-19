@@ -184,8 +184,13 @@ In this section, check the `Enable MicroPython support` and set the device type 
 Finally we need to enter the device path, you could try the auto-detect option, but on my machine that did nothing.
 To get this path we will open Thonny with the Pico plugged in, it will show the device path under preferences/interpreter and we can copy it to PyCharm.
 
-TODO: Finish
-
+With this done we can now copy over code to the Pico.
+Make sure you main code file is called main.py, as this will be executed automatically by the Pico.
+To do this simply right click on the file (or entire folder) and select the `Run Flash FILENAME`.
+Make sure you do not have the REPL open in the PyCharm terminal window, in contrary to Thonny, PyCharm will fail the copy action!
+If you have copied too many files or simply want to wipe the device, from the menu select: `tools/MicroPython/Remove All Files from MicroPython Device`.
+To open the REPL and directly interact with the Pico select the `tools/MicroPython/MicroPython REPL`, this will open up a REPL in a terminal window.
+ 
 ### Code example
 
 The basic code for a LED blink example is listed below.
@@ -233,6 +238,9 @@ Developing CircuitPython does not really differ from MicroPython except for two 
 
 - Language features and API
 - Project structure
+  - No main.py but a boot.py and code.py file to do bootstrapping and have a main entry point for code execution
+
+Further in depth information on how to get started with CircuitPython development can be found on [their excellent website](https://learn.adafruit.com/welcome-to-circuitpython/overview) as we will be focussing on MicroPython in future projects.
 
 ### Code example
 
@@ -266,7 +274,11 @@ Another thing to note is that the CircuitPython implementation has some addition
 
 ## Conclusion
 
-TODO
+The Pi Pico is a nice little microcontroller that has a lot of potential.
+It isn't particularly outstanding in features but it's cheap and is backed by the Raspberry Pi foundation.
+
+Being able to use MicroPython, or CircuitPython, is like a breath of fresh air.
+It allows for faster prototyping without having to deal with C/C++ per se.
 
 ## Resources
 
