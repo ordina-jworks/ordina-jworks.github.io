@@ -181,11 +181,11 @@ Select the correct port from the dropdown.
 After this Thonny is ready to be used!
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-interpreter.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Thonny select interpreter">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-interpreter.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 40%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-interpreter.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Thonny select interpreter">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-interpreter.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 40%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-ports.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Thonny select port">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-ports.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-ports.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Thonny select port">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-ports.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;">
     </a>
 </div>
 
@@ -209,23 +209,23 @@ If you have copied too many files or simply want to wipe the device, from the me
 To open the REPL and directly interact with the Pico select the `tools/MicroPython/MicroPython REPL`, this will open up a REPL in a terminal window.
  
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-plugin.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Install the MicroPython plugin">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-plugin.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 12%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-plugin.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Install the MicroPython plugin">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-plugin.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 12%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-setup.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="MicroPython project settings">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-setup.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 12.5%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-setup.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="MicroPython project settings">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-setup.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 12.5%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-flash-to-device.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flash main file to device">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-flash-to-device.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 14%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-flash-to-device.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flash main file to device">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-flash-to-device.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 14%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flash other files to device">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flash other files to device">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash-progress.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flashing progress">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash-progress.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash-progress.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flashing progress">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash-progress.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;">
     </a>
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-tools.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="REPL and device wipe">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-tools.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 18%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-tools.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="REPL and device wipe">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-tools.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 18%; display: inline-block;">
     </a>
 </div>
 
