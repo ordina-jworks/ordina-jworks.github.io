@@ -29,8 +29,8 @@ comments: true
 ## Introduction
 
 <div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/logo.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Logo">
-        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/logo.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pi-pico.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Raspberry Pi Pico">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pi-pico.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 60%; display: inline-block;">
     </a>
 </div>
 
@@ -47,7 +47,11 @@ It's cheap, it's powerful, and in this blog post we'll be exploring what it has 
 Like I said in the introduction, the regular Raspberry Pi is a single board computer, as in an actual computer which can run a fully fledged operating system.
 It also has interfacing options like a display and camera port, along side ethernet and USB ports as well as the 40 GPIO pins.
 
-TODO: PI vs PICO picture
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pi-vs-pico.jpg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Raspberry Pi Model 4 vs Raspberry Pi Pico">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pi-vs-pico.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
 
 As you can see in the pictures, the Raspberry Pi looks like a tiny computer and the Pico looks like a much simpler board, because it also is.
 Both devices serve different purposes but do have some overlap.
@@ -57,7 +61,11 @@ While they both have GPIO pins the ones on the Pi Pico are much more capable tha
 
 ## Getting to know the board
 
-TODO: PICO pinout picture
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pi-pico-pinout.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="GPIO layout">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pi-pico-pinout.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
 
 The main technical specifications of the Pi Pico are:
 
@@ -166,16 +174,25 @@ First of all we need to prepare the Pico to accept and run MicroPython files:
 The easiest way to do MicroPython development for the Pi Pico is by using the Thonny IDE.
 Thonny is a simple code editor that can directly save your code to the Pico and also provides an easy way to access the REPL.
 
-Setting up Thonny is very easy, just [download](https://thonny.org/) the binary for your operating system, install and start it.
+Setting up Thonny is very easy, just [download](https://thonny.org/){:target="_blank" rel="noopener noreferrer"} the binary for your operating system, install and start it.
 Only one more step is required to set it up for use with the Pi Pico.
 Head into the preferences, select the `interpreter` tab and from the dropdown select the option `MicroPython (Raspberry Pi Pico)`.
 Select the correct port from the dropdown.
 After this Thonny is ready to be used!
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-interpreter.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Thonny select interpreter">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-interpreter.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-ports.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Thonny select port">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/thonny-ports.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 45%; display: inline-block;">
+    </a>
+</div>
+
 Another option for development is using the great PyCharm IDE.
 While I view Thonny to be a glorified text editor, PyCharm (from JetBrains) is a fully fledged Python IDE, for our purposes the community edition will do just fine.
 The setup is a bit more involved and has some caveats, but it is certainly workable.
-[Download](https://www.jetbrains.com/pycharm/download/) and install the PyCharm Community Edition, once done, open it up and in the welcome screen select the plugin option.
+[Download](https://www.jetbrains.com/pycharm/download/){:target="_blank" rel="noopener noreferrer"} and install the PyCharm Community Edition, once done, open it up and in the welcome screen select the plugin option.
 In here search for `micropython` and install the MicroPython plugin by JetBrains, this will add support for flashing the device from within the IDE.
 Now we can create a new project and write some code.
 To upload the code to the Pico we need to perform some more changes and enable the MicroPython support for the newly created project.
@@ -191,6 +208,27 @@ Make sure you do not have the REPL open in the PyCharm terminal window, in contr
 If you have copied too many files or simply want to wipe the device, from the menu select: `tools/MicroPython/Remove All Files from MicroPython Device`.
 To open the REPL and directly interact with the Pico select the `tools/MicroPython/MicroPython REPL`, this will open up a REPL in a terminal window.
  
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-plugin.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Install the MicroPython plugin">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-plugin.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-setup.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="MicroPython project settings">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-micropython-setup.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-flash-to-device.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flash main file to device">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-flash-to-device.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flash other files to device">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash-progress.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="Flashing progress">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-run-flash-progress.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
+    </a>
+    <a href="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-tools.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="REPL and device wipe">
+        <img alt="Pi Pico Blueprint" src="{{ '/img/2021-03-15-getting-started-with-the-pi-pico/pycharm-tools.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;">
+    </a>
+</div>
+
 ### Code example
 
 The basic code for a LED blink example is listed below.
@@ -211,7 +249,7 @@ while True:
 
 This code does the same as the C++ code mentioned above.
 It however is far more readable.
-The [MicroPython documentation](https://docs.micropython.org/en/latest/) has examples and information on what is available and what is not.
+The [MicroPython documentation](https://docs.micropython.org/en/latest/){:target="_blank" rel="noopener noreferrer"} has examples and information on what is available and what is not.
 Please be reminded that MicroPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.
 
 ## CircuitPython development
@@ -232,7 +270,7 @@ First of all we need to prepare the Pico to accept and run CircuitPython files:
 
 CircuitPython can also be developed using Thonny, you however need to open the Thonny preferences once more, select the interpreter tab and select the `CircuitPython (generic)` option.
 Using PyCharm for CircuitPython can be done, however I've not had many success to flash the files to the Pico device, so for CircuitPython the best option remains Thonny.
-Adafruit recommends using the [Mu](https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor) IDE for CircuitPython development, however I could never get it to work on my Big Sur installation.
+Adafruit recommends using the [Mu](https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor){:target="_blank" rel="noopener noreferrer"} IDE for CircuitPython development, however I could never get it to work on my Big Sur installation.
 
 Developing CircuitPython does not really differ from MicroPython except for two things:
 
@@ -240,7 +278,7 @@ Developing CircuitPython does not really differ from MicroPython except for two 
 - Project structure
   - No main.py but a boot.py and code.py file to do bootstrapping and have a main entry point for code execution
 
-Further in depth information on how to get started with CircuitPython development can be found on [their excellent website](https://learn.adafruit.com/welcome-to-circuitpython/overview) as we will be focussing on MicroPython in future projects.
+Further in depth information on how to get started with CircuitPython development can be found on [their excellent website](https://learn.adafruit.com/welcome-to-circuitpython/overview){:target="_blank" rel="noopener noreferrer"} as we will be focussing on MicroPython in future projects.
 
 ### Code example
 
@@ -264,7 +302,7 @@ while True:
 
 Again this code does the same as the C++ code mentioned above.
 It is also more readable, but differs slightly from the MicroPython flavour of Python.
-The [CircuitPython documentation](https://circuitpython.readthedocs.io/en/6.1.x/README.html) has examples and information on what is available and what is not.
+The [CircuitPython documentation](https://circuitpython.readthedocs.io/en/6.1.x/README.html){:target="_blank" rel="noopener noreferrer"} has examples and information on what is available and what is not.
 Please be reminded that CircuitPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.
 
 Another thing to note is that the CircuitPython implementation has some additional pros and cons:
@@ -282,4 +320,16 @@ It allows for faster prototyping without having to deal with C/C++ per se.
 
 ## Resources
 
-[Pi Pico Getting started](https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython){:target="_blank" rel="noopener noreferrer"}
+- [Pi Pico Getting started](https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython){:target="_blank" rel="noopener noreferrer"}
+- [General C/C++ SDK documentation](https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf){:target="_blank" rel="noopener noreferrer"}
+- [C++ setup Linux](https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh){:target="_blank" rel="noopener noreferrer"}
+- [C++ setup Mac](https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/){:target="_blank" rel="noopener noreferrer"}
+- [C++ setup Windows](https://github.com/ndabas/pico-setup-windows){:target="_blank" rel="noopener noreferrer"}
+- [Getting started with MicroPython](https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython){:target="_blank" rel="noopener noreferrer"}
+- [Thonny IDE](https://thonny.org/){:target="_blank" rel="noopener noreferrer"}
+- [PyCharm](https://www.jetbrains.com/pycharm/download/){:target="_blank" rel="noopener noreferrer"}
+- [MicroPython documentation](https://docs.micropython.org/en/latest/){:target="_blank" rel="noopener noreferrer"}
+- [CircuitPython download](https://circuitpython.org/board/raspberry_pi_pico/){:target="_blank" rel="noopener noreferrer"}
+- [Mu IDE](https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor){:target="_blank" rel="noopener noreferrer"}
+- [Getting started with CircuitPython](https://learn.adafruit.com/welcome-to-circuitpython/overview){:target="_blank" rel="noopener noreferrer"}
+- [CircuitPython documentation](https://circuitpython.readthedocs.io/en/6.1.x/README.html){:target="_blank" rel="noopener noreferrer"}
