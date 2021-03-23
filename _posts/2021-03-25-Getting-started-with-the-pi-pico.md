@@ -56,8 +56,8 @@ It also has interfacing options like a display and camera port, along side ether
 As you can see in the pictures, the Raspberry Pi looks like a tiny computer and the Pico looks like a much simpler board, because it also is.
 Both devices serve different purposes but do have some overlap.
 The Raspberry Pi is used for more computationally intensive tasks and can be used to run very complex software.
-The Pi Pico is used for far simpler tasks were power usage and device footprint are more important, it is a much more low level device.
-While they both have GPIO pins the ones on the Pi Pico are much more capable than those on the Raspberry Pi.
+The Pi Pico is used for far simpler tasks where power usage and device footprint are more important, it is a much more low-level device.
+While they both have GPIO pins, the ones on the Pi Pico are much more capable than those on the Raspberry Pi.
 
 ## Getting to know the board
 
@@ -72,7 +72,7 @@ The main technical specifications of the Pi Pico are:
 - RP2040: Dual-core Arm Cortex-M0+ processor, flexible clock running up to 133 MHz
 - 264KB on-chip SRAM
 - 2MB on-board QSPI Flash
-- 26 multifunction GPIO pins, including 3 analogue inputs
+- 26 multi-function GPIO pins, including 3 analogue inputs
 - 2 × UART, 2 × SPI controllers, 2 × I2C controllers, 16 × PWM channels
 - 1 × USB 1.1 controller and PHY, with host and device support
 - 8 × Programmable I/O (PIO) state machines for custom peripheral support
@@ -145,12 +145,13 @@ int main() {
 }
 ```
 
-This code will include the stdlib.h header file from the Pi Pico C++ SDK and will blink the build in LED every 500ms.
+This code will include the `stdlib.h` header file from the Pi Pico C++ SDK and will blink the built-in LED every 500ms.
 The trick is to compile this code and build the required UF2 file.
 
 While the code looks and feels very similar to what you would write for lets say an Arduino board, compiling it and to run on the Pico is a different case.
 The contrast with Arduino development could not be bigger, where you simply download the Arduino IDE, write your code, click upload and you're running your code on the device!
-With the Pico it's not that simple it requires a few dependencies which cannot be one click installed and the instructions are different based on the OS you're running.
+With the Pico it's not that simple.
+It requires a few dependencies which cannot be one-click installed and the instructions are different based on the OS you're running.
 It's do-able but it's not exactly hassle free and convenient.
 
 ## MicroPython development
@@ -174,7 +175,8 @@ First of all we need to prepare the Pico to accept and run MicroPython files:
 The easiest way to do MicroPython development for the Pi Pico is by using the Thonny IDE.
 Thonny is a simple code editor that can directly save your code to the Pico and also provides an easy way to access the REPL.
 
-Setting up Thonny is very easy, just [download](https://thonny.org/){:target="_blank" rel="noopener noreferrer"} the binary for your operating system, install and start it.
+Setting up Thonny is very easy.
+Just [download](https://thonny.org/){:target="_blank" rel="noopener noreferrer"} the binary for your operating system, install and start it.
 Only one more step is required to set it up for use with the Pi Pico.
 Head into the preferences, select the `interpreter` tab and from the dropdown select the option `MicroPython (Raspberry Pi Pico)`.
 Select the correct port from the dropdown.
@@ -192,20 +194,23 @@ After this Thonny is ready to be used!
 Another option for development is using the great PyCharm IDE.
 While I view Thonny to be a glorified text editor, PyCharm (from JetBrains) is a fully fledged Python IDE, for our purposes the community edition will do just fine.
 The setup is a bit more involved and has some caveats, but it is certainly workable.
-[Download](https://www.jetbrains.com/pycharm/download/){:target="_blank" rel="noopener noreferrer"} and install the PyCharm Community Edition, once done, open it up and in the welcome screen select the plugin option.
-In here search for `micropython` and install the MicroPython plugin by JetBrains, this will add support for flashing the device from within the IDE.
+[Download](https://www.jetbrains.com/pycharm/download/){:target="_blank" rel="noopener noreferrer"} and install the PyCharm Community Edition.
+Once done, open it up and in the welcome screen select the `Plugins` option.
+In here, search for `micropython` and install the MicroPython plugin by JetBrains, this will add support for flashing the device from within the IDE.
 Now we can create a new project and write some code.
-To upload the code to the Pico we need to perform some more changes and enable the MicroPython support for the newly created project.
+To upload the code to the Pico, we need to perform some more changes and enable the MicroPython support for the newly created project.
 Head into the IDE preferences, select the `Languages & Frameworks` option in the sidebar and select the `MicroPython` sub option.
 In this section, check the `Enable MicroPython support` and set the device type to `ESP8266`.
-Finally we need to enter the device path, you could try the auto-detect option, but on my machine that did nothing.
-To get this path we will open Thonny with the Pico plugged in, it will show the device path under preferences/interpreter and we can copy it to PyCharm.
+Finally, we need to enter the device path.
+You could try the auto-detect option, but on my machine that did nothing.
+To get this path, we will open Thonny with the Pico plugged in.
+It will show the device path under `Preferences/Interpreter` and we can copy it to PyCharm.
 
-With this done we can now copy over code to the Pico.
-Make sure you main code file is called main.py, as this will be executed automatically by the Pico.
-To do this simply right click on the file (or entire folder) and select the `Run Flash FILENAME`.
+With this done, we can now copy over code to the Pico.
+Make sure your main code file is called `main.py`, as this will be executed automatically by the Pico.
+To do this, simply right-click on the file (or entire folder) and select the `Run Flash FILENAME`.
 Make sure you do not have the REPL open in the PyCharm terminal window, in contrary to Thonny, PyCharm will fail the copy action!
-If you have copied too many files or simply want to wipe the device, from the menu select: `tools/MicroPython/Remove All Files from MicroPython Device`.
+If you have copied too many files or simply want to wipe the device, from the menu, select: `tools/MicroPython/Remove All Files from MicroPython Device`.
 To open the REPL and directly interact with the Pico select the `tools/MicroPython/MicroPython REPL`, this will open up a REPL in a terminal window.
  
 <div style="text-align: center; margin: 0px auto;">
@@ -255,7 +260,7 @@ Please be reminded that MicroPython support for the Pi Pico is still very new an
 ## CircuitPython development
 
 CircuitPython is a variation on MicroPython created by Adafruit industries.
-It is targeted at beginners and students and is even simpler than the regular MicroPython.
+It is targeted at beginners and students, and is even simpler than the regular MicroPython.
 
 ### Preparing the board
 
@@ -268,17 +273,20 @@ First of all we need to prepare the Pico to accept and run CircuitPython files:
 
 ### Development setup
 
-CircuitPython can also be developed using Thonny, you however need to open the Thonny preferences once more, select the interpreter tab and select the `CircuitPython (generic)` option.
-Using PyCharm for CircuitPython can be done, however I've not had many success to flash the files to the Pico device, so for CircuitPython the best option remains Thonny.
-Adafruit recommends using the [Mu](https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor){:target="_blank" rel="noopener noreferrer"} IDE for CircuitPython development, however I could never get it to work on my Big Sur installation.
+CircuitPython can also be developed using Thonny, you however need to open the Thonny `Preferences` once more, select the `Interpreter` tab and select the `CircuitPython (generic)` option.
+Using PyCharm for CircuitPython can be done.
+However, I've not had much success to flash the files to the Pico device.
+So for CircuitPython the best option remains Thonny.
+Adafruit recommends using the [Mu](https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor){:target="_blank" rel="noopener noreferrer"} IDE for CircuitPython development.
+However, I could never get it to work on my Big Sur installation.
 
 Developing CircuitPython does not really differ from MicroPython except for two things:
 
 - Language features and API
 - Project structure
-  - No main.py but a boot.py and code.py file to do bootstrapping and have a main entry point for code execution
+  - No `main.py` but a `boot.py` and `code.py` file to do bootstrapping and have a main entry point for code execution
 
-Further in depth information on how to get started with CircuitPython development can be found on [their excellent website](https://learn.adafruit.com/welcome-to-circuitpython/overview){:target="_blank" rel="noopener noreferrer"} as we will be focussing on MicroPython in future projects.
+Further in-depth information on how to get started with CircuitPython development can be found on [their excellent website](https://learn.adafruit.com/welcome-to-circuitpython/overview){:target="_blank" rel="noopener noreferrer"} as we will be focussing on MicroPython in future projects.
 
 ### Code example
 
