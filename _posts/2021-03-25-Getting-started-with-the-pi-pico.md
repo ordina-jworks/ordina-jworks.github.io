@@ -20,7 +20,7 @@ comments: true
 2. [Differences with the Raspberry Pi](#differences-with-the-raspberry-pi)
 3. [Getting to know the board](#getting-to-know-the-board)
 4. [Development options](#development-options)
-5. [C++ development](#c++-development)
+5. [C++ development](#c-development)
 6. [MicroPython development](#micropython-development)
 7. [CircuitPython development](#micropython-development)
 8. [Conclusion](#conclusion)
