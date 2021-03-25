@@ -1,5 +1,359 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-02-23T11:56:21+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Introduction to HAPI FHIR</title><link href="https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html" rel="alternate" type="text/html" title="Introduction to HAPI FHIR" /><published>2021-02-23T00:00:00+00:00</published><updated>2021-02-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir</id><content type="html" xml:base="https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-03-25T10:38:27+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Getting started with the Pi Pico</title><link href="https://ordina-jworks.github.io/iot/2021/03/25/Getting-started-with-the-pi-pico.html" rel="alternate" type="text/html" title="Getting started with the Pi Pico" /><published>2021-03-25T00:00:00+00:00</published><updated>2021-03-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2021/03/25/Getting-started-with-the-pi-pico</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2021/03/25/Getting-started-with-the-pi-pico.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#differences-with-the-raspberry-pi&quot;&gt;Differences with the Raspberry Pi&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#getting-to-know-the-board&quot;&gt;Getting to know the board&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#development-options&quot;&gt;Development options&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#c-development&quot;&gt;C++ development&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#micropython-development&quot;&gt;MicroPython development&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#micropython-development&quot;&gt;CircuitPython development&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Raspberry Pi Pico&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 60%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;By now everybody likely has heard about the Raspberry Pi single board computers.
+And even more than probable some, if not most of you, have one or more of these.&lt;/p&gt;
+
+&lt;p&gt;Recently the Raspberry Pi Foundation has released a new type of Raspberry Pi, the Raspberry Pi Pico.
+Contrary to the regular Raspberry Pi, the Pico is not a single board computer which runs Linux.
+The Pico is a microcontroller, like the Arduino or Teensy.
+It’s cheap, it’s powerful, and in this blog post we’ll be exploring what it has to offer.&lt;/p&gt;
+
+&lt;h2 id=&quot;differences-with-the-raspberry-pi&quot;&gt;Differences with the Raspberry Pi&lt;/h2&gt;
+
+&lt;p&gt;Like I said in the introduction, the regular Raspberry Pi is a single board computer, as in an actual computer which can run a fully fledged operating system.
+It also has interfacing options like a display and camera port, along side ethernet and USB ports as well as the 40 GPIO pins.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pi-vs-pico.jpg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Raspberry Pi Model 4 vs Raspberry Pi Pico&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pi-vs-pico.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 100%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see in the pictures, the Raspberry Pi looks like a tiny computer and the Pico looks like a much simpler board, because it also is.
+Both devices serve different purposes but do have some overlap.
+The Raspberry Pi is used for more computationally intensive tasks and can be used to run very complex software.
+The Pi Pico is used for far simpler tasks where power usage and device footprint are more important, it is a much more low-level device.
+While they both have GPIO pins, the ones on the Pi Pico are much more capable than those on the Raspberry Pi.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-to-know-the-board&quot;&gt;Getting to know the board&lt;/h2&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico-pinout.svg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;GPIO layout&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico-pinout.svg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 100%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The main technical specifications of the Pi Pico are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RP2040: Dual-core Arm Cortex-M0+ processor, flexible clock running up to 133 MHz&lt;/li&gt;
+  &lt;li&gt;264KB on-chip SRAM&lt;/li&gt;
+  &lt;li&gt;2MB on-board QSPI Flash&lt;/li&gt;
+  &lt;li&gt;26 multi-function GPIO pins, including 3 analogue inputs&lt;/li&gt;
+  &lt;li&gt;2 × UART, 2 × SPI controllers, 2 × I2C controllers, 16 × PWM channels&lt;/li&gt;
+  &lt;li&gt;1 × USB 1.1 controller and PHY, with host and device support&lt;/li&gt;
+  &lt;li&gt;8 × Programmable I/O (PIO) state machines for custom peripheral support&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These specs are in line with some of the more popular microcontrollers like teensy and ESP32 devices.
+The small footprint of microcontrollers like the Pico allows it to be integrated into DIY projects easily.&lt;/p&gt;
+
+&lt;p&gt;The Pi Pico is built around the RP2040, the actual microcontroller that powers it.
+There are other boards with varying pinouts and functions available with this microcontroller.
+In this blog post we will be focussing on the Pi Pico implementation of the RP2040.&lt;/p&gt;
+
+&lt;p&gt;The dual core chip give a lot of flexibility to create project which require a bit more processing power, as do the PIO state machines.
+With 26 GPIO boards there are loads of options to connect sensors, screens, inputs and outputs.&lt;/p&gt;
+
+&lt;h2 id=&quot;development-options&quot;&gt;Development options&lt;/h2&gt;
+
+&lt;p&gt;One of the nice features is that the Pico supports drag and drop programming/flashing.
+This is accomplished by utilizing UF2 files.
+The process of doing this is very simple, simply press the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BOOTSEL&lt;/code&gt; button when connecting the Pico to your computer.
+It will show up as a storage device, drag the UF2 file onto it and the device will reboot and the flashing is completed.&lt;/p&gt;
+
+&lt;p&gt;The Pico has several development options available.
+Three different main options are available to program it:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;C/C++ SDK: Oldschool hardcore mode microcontroller programming&lt;/li&gt;
+  &lt;li&gt;MicroPython: More beginner friendly with lots of options&lt;/li&gt;
+  &lt;li&gt;CircuitPython: Adafruit backed variation on MicroPython, made even simpler&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;c-development&quot;&gt;C++ Development&lt;/h2&gt;
+
+&lt;h3 id=&quot;development-setup&quot;&gt;Development setup&lt;/h3&gt;
+
+&lt;p&gt;Setting up for development:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;General C/C++ SDK documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Linux&lt;/a&gt;: Simply run the script&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mac&lt;/a&gt;: Follow the instructions&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ndabas/pico-setup-windows&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Windows&lt;/a&gt;: Follow the instructions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One bright point is that Arduino will also be releasing a board based on the RP2040 so there is hope that the Arduino IDE will support it later down the line and enable hassle free C++ development for the Pi Pico and other RP2040 based microcontrollers.&lt;/p&gt;
+
+&lt;h3 id=&quot;code-example&quot;&gt;Code example&lt;/h3&gt;
+
+&lt;p&gt;Programming microcontrollers has long been done in C and C++ and the Pi Pico forms no exception to this.
+The basic code for a LED blink example is listed below.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/**
+ * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */&lt;/span&gt;
+
+&lt;span class=&quot;cp&quot;&gt;#include &quot;pico/stdlib.h&quot;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#ifndef PICO_DEFAULT_LED_PIN
+#warning blink example requires a board with a regular LED
+#else
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uint&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LED_PIN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PICO_DEFAULT_LED_PIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gpio_init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LED_PIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gpio_set_dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LED_PIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIO_OUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;gpio_put&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LED_PIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sleep_ms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;gpio_put&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LED_PIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;sleep_ms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#endif
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This code will include the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stdlib.h&lt;/code&gt; header file from the Pi Pico C++ SDK and will blink the built-in LED every 500ms.
+The trick is to compile this code and build the required UF2 file.&lt;/p&gt;
+
+&lt;p&gt;While the code looks and feels very similar to what you would write for lets say an Arduino board, compiling it and to run on the Pico is a different case.
+The contrast with Arduino development could not be bigger, where you simply download the Arduino IDE, write your code, click upload and you’re running your code on the device!
+With the Pico it’s not that simple.
+It requires a few dependencies which cannot be one-click installed and the instructions are different based on the OS you’re running.
+It’s do-able but it’s not exactly hassle free and convenient.&lt;/p&gt;
+
+&lt;h2 id=&quot;micropython-development&quot;&gt;MicroPython development&lt;/h2&gt;
+
+&lt;p&gt;Contrary to the C++ development, using MicroPython is like a breath of fresh air.
+I’m not the biggest fan of regular Python but using MicroPython for simple microcontroller programming, has in my opinion, made it a lot easier.
+Another big plus of Python based development is having a REPL available.
+It allows you to write and execute code on the fly, which allows for easier development and testing something quickly.&lt;/p&gt;
+
+&lt;h3 id=&quot;preparing-the-board&quot;&gt;Preparing the board&lt;/h3&gt;
+
+&lt;p&gt;First of all we need to prepare the Pico to accept and run MicroPython files:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Download the latest (stable) version of MicroPython for the pico, this is a UF2 file and can be found &lt;a href=&quot;https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Plug in your Pico while holding the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BOOTSEL&lt;/code&gt; button&lt;/li&gt;
+  &lt;li&gt;Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer&lt;/li&gt;
+  &lt;li&gt;The board will reboot by itself and ‘install’ the UF2 file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;development-setup-1&quot;&gt;Development setup&lt;/h3&gt;
+
+&lt;p&gt;The easiest way to do MicroPython development for the Pi Pico is by using the Thonny IDE.
+Thonny is a simple code editor that can directly save your code to the Pico and also provides an easy way to access the REPL.&lt;/p&gt;
+
+&lt;p&gt;Setting up Thonny is very easy.
+Just &lt;a href=&quot;https://thonny.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;download&lt;/a&gt; the binary for your operating system, install and start it.
+Only one more step is required to set it up for use with the Pi Pico.
+Head into the preferences, select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interpreter&lt;/code&gt; tab and from the dropdown select the option &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MicroPython (Raspberry Pi Pico)&lt;/code&gt;.
+Select the correct port from the dropdown.
+After this Thonny is ready to be used!&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/thonny-interpreter.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Thonny select interpreter&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/thonny-interpreter.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 40%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/thonny-ports.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Thonny select port&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/thonny-ports.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 50%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Another option for development is using the great PyCharm IDE.
+While I view Thonny to be a glorified text editor, PyCharm (from JetBrains) is a fully fledged Python IDE, for our purposes the community edition will do just fine.
+The setup is a bit more involved and has some caveats, but it is certainly workable.
+&lt;a href=&quot;https://www.jetbrains.com/pycharm/download/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Download&lt;/a&gt; and install the PyCharm Community Edition.
+Once done, open it up and in the welcome screen select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Plugins&lt;/code&gt; option.
+In here, search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;micropython&lt;/code&gt; and install the MicroPython plugin by JetBrains, this will add support for flashing the device from within the IDE.
+Now we can create a new project and write some code.
+To upload the code to the Pico, we need to perform some more changes and enable the MicroPython support for the newly created project.
+Head into the IDE preferences, select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Languages &amp;amp; Frameworks&lt;/code&gt; option in the sidebar and select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MicroPython&lt;/code&gt; sub option.
+In this section, check the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Enable MicroPython support&lt;/code&gt; and set the device type to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP8266&lt;/code&gt;.
+Finally, we need to enter the device path.
+You could try the auto-detect option, but on my machine that did nothing.
+To get this path, we will open Thonny with the Pico plugged in.
+It will show the device path under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Preferences/Interpreter&lt;/code&gt; and we can copy it to PyCharm.&lt;/p&gt;
+
+&lt;p&gt;With this done, we can now copy over code to the Pico.
+Make sure your main code file is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.py&lt;/code&gt;, as this will be executed automatically by the Pico.
+To do this, simply right-click on the file (or entire folder) and select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Run Flash FILENAME&lt;/code&gt;.
+Make sure you do not have the REPL open in the PyCharm terminal window, in contrary to Thonny, PyCharm will fail the copy action!
+If you have copied too many files or simply want to wipe the device, from the menu, select: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tools/MicroPython/Remove All Files from MicroPython Device&lt;/code&gt;.
+To open the REPL and directly interact with the Pico select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tools/MicroPython/MicroPython REPL&lt;/code&gt;, this will open up a REPL in a terminal window.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; margin: 0px auto;&quot;&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-plugin.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Install the MicroPython plugin&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-plugin.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 12%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-setup.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;MicroPython project settings&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-setup.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 12.5%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-flash-to-device.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Flash main file to device&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-flash-to-device.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 14%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Flash other files to device&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 15%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash-progress.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;Flashing progress&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash-progress.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 23%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+    &lt;a href=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-tools.jpeg&quot; data-lightbox=&quot;ui&quot; data-title=&quot;REPL and device wipe&quot;&gt;
+        &lt;img alt=&quot;Pi Pico Blueprint&quot; src=&quot;/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-tools.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; width: 18%; display: inline-block;&quot; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;code-example-1&quot;&gt;Code example&lt;/h3&gt;
+
+&lt;p&gt;The basic code for a LED blink example is listed below.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;machine&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This code does the same as the C++ code mentioned above.
+It however is far more readable.
+The &lt;a href=&quot;https://docs.micropython.org/en/latest/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MicroPython documentation&lt;/a&gt; has examples and information on what is available and what is not.
+Please be reminded that MicroPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.&lt;/p&gt;
+
+&lt;h2 id=&quot;circuitpython-development&quot;&gt;CircuitPython development&lt;/h2&gt;
+
+&lt;p&gt;CircuitPython is a variation on MicroPython created by Adafruit industries.
+It is targeted at beginners and students, and is even simpler than the regular MicroPython.&lt;/p&gt;
+
+&lt;h3 id=&quot;preparing-the-board-1&quot;&gt;Preparing the board&lt;/h3&gt;
+
+&lt;p&gt;First of all we need to prepare the Pico to accept and run CircuitPython files:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Download the latest (stable) version of CircuitPython for the pico, this is a UF2 file and can be found &lt;a href=&quot;https://circuitpython.org/board/raspberry_pi_pico/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Plug in your Pico while holding the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BOOTSEL&lt;/code&gt; button&lt;/li&gt;
+  &lt;li&gt;Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer&lt;/li&gt;
+  &lt;li&gt;The board will reboot by itself and ‘install’ the UF2 file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;development-setup-2&quot;&gt;Development setup&lt;/h3&gt;
+
+&lt;p&gt;CircuitPython can also be developed using Thonny, you however need to open the Thonny &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Preferences&lt;/code&gt; once more, select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Interpreter&lt;/code&gt; tab and select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CircuitPython (generic)&lt;/code&gt; option.
+Using PyCharm for CircuitPython can be done.
+However, I’ve not had much success to flash the files to the Pico device.
+So for CircuitPython the best option remains Thonny.
+Adafruit recommends using the &lt;a href=&quot;https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mu&lt;/a&gt; IDE for CircuitPython development.
+However, I could never get it to work on my Big Sur installation.&lt;/p&gt;
+
+&lt;p&gt;Developing CircuitPython does not really differ from MicroPython except for two things:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Language features and API&lt;/li&gt;
+  &lt;li&gt;Project structure
+    &lt;ul&gt;
+      &lt;li&gt;No &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.py&lt;/code&gt; but a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;boot.py&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;code.py&lt;/code&gt; file to do bootstrapping and have a main entry point for code execution&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Further in-depth information on how to get started with CircuitPython development can be found on &lt;a href=&quot;https://learn.adafruit.com/welcome-to-circuitpython/overview&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;their excellent website&lt;/a&gt; as we will be focussing on MicroPython in future projects.&lt;/p&gt;
+
+&lt;h3 id=&quot;code-example-2&quot;&gt;Code example&lt;/h3&gt;
+
+&lt;p&gt;The basic code for a LED blink example is listed below.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;board&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;digitalio&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;led&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digitalio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DigitalInOut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;board&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GP25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;led&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;direction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digitalio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Direction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OUTPUT&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;led&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;led&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Again this code does the same as the C++ code mentioned above.
+It is also more readable, but differs slightly from the MicroPython flavour of Python.
+The &lt;a href=&quot;https://circuitpython.readthedocs.io/en/6.1.x/README.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CircuitPython documentation&lt;/a&gt; has examples and information on what is available and what is not.
+Please be reminded that CircuitPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.&lt;/p&gt;
+
+&lt;p&gt;Another thing to note is that the CircuitPython implementation has some additional pros and cons:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It does not support _thread, so you can only use one of the cores of the Pi Pico&lt;/li&gt;
+  &lt;li&gt;It supports a lot more devices, if there is an Adafruit peripheral/device/sensor, chances are big they have a library/driver available for it&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The Pi Pico is a nice little microcontroller that has a lot of potential.
+It isn’t particularly outstanding in features but it’s cheap and is backed by the Raspberry Pi foundation.&lt;/p&gt;
+
+&lt;p&gt;Being able to use MicroPython, or CircuitPython, is like a breath of fresh air.
+It allows for faster prototyping without having to deal with C/C++ per se.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Pi Pico Getting started&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;General C/C++ SDK documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;C++ setup Linux&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;C++ setup Mac&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ndabas/pico-setup-windows&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;C++ setup Windows&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Getting started with MicroPython&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://thonny.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Thonny IDE&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jetbrains.com/pycharm/download/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PyCharm&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.micropython.org/en/latest/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MicroPython documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://circuitpython.org/board/raspberry_pi_pico/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CircuitPython download&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mu IDE&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.adafruit.com/welcome-to-circuitpython/overview&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Getting started with CircuitPython&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://circuitpython.readthedocs.io/en/6.1.x/README.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CircuitPython documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Internet of Things" /><category term="Smart Tech" /><category term="microcontrollers" /><category term="c" /><category term="c++" /><category term="python" /><category term="micropython" /><category term="tinkering" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Introduction to HAPI FHIR</title><link href="https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html" rel="alternate" type="text/html" title="Introduction to HAPI FHIR" /><published>2021-02-23T00:00:00+00:00</published><updated>2021-02-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir</id><content type="html" xml:base="https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ul id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#hapi-servers-types&quot; id=&quot;markdown-toc-hapi-servers-types&quot;&gt;HAPI Servers Types&lt;/a&gt;    &lt;ul&gt;
@@ -3395,78 +3749,4 @@ and how much time you can dedicate to testing and evaluating each tool.&lt;/p&gt
   &lt;li&gt;&lt;a href=&quot;https://www.gremlin.com/chaos-monkey/the-simian-army/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gremlin - Chaos Engineering&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.gremlin.com/community/tutorials/chaos-engineering-tools-comparison/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gremlin - Chaos Engineering tools&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://response.pagerduty.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PagerDuty - Post Mortem&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Verte&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-verte/&quot;, &quot;avatar&quot;=&gt;&quot;tim-verte.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;tim.verte@ordina.be&quot;, &quot;phone&quot;=&gt;32472466091, &quot;bio&quot;=&gt;&quot;Tim is a Java consultant at Ordina Belgium. He enjoys to discover new technologies and challenges. Besides his work he has a keen interest in everything that involves sports and music.&quot;}</name><email>tim.verte@ordina.be</email></author><category term="Cloud" /><category term="Chaos Engineering" /><category term="DevOps" /><category term="Chaos" /><category term="Backend" /><category term="Netflix" /><category term="Simian Army" /><category term="Resiliency" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Serverless Kubernetes deployments with AWS Fargate</title><link href="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html" rel="alternate" type="text/html" title="Serverless Kubernetes deployments with AWS Fargate" /><published>2020-12-10T00:00:00+00:00</published><updated>2020-12-10T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2020/12/10/aws-fargate-serverless-deployments.html">&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;An AWS account&lt;/li&gt;
-  &lt;li&gt;kubectl, aws-cli &amp;amp; eksctl installed&lt;/li&gt;
-  &lt;li&gt;Some Kubernetes knowledge&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;Introduced in late 2017, AWS Fargate is a compute engine for serverless container deployments. 
-The engine allows you to run containers without worrying about your infrastructure. &lt;br /&gt;
-Node scaling and configuration is done by AWS, which means that you only have to worry about the health of your own resources, not of your Kubernetes infrastructure.&lt;/p&gt;
-
-&lt;p&gt;Fargate eliminates the struggle of configuring, scaling and initializing nodes on its own.
-Because as we know, managing clusters / servers / nodes can be a challenging and expensive task.&lt;/p&gt;
-
-&lt;p&gt;Pricing is based on the CPU and RAM that is allocated to your pod.
-Instead of paying for compute nodes you pay for resources allocated to your pods which could drastically decrease computing costs.&lt;/p&gt;
-
-&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
-&lt;p&gt;AWS Fargate was initially introduced for ECS in 2017. Later in 2019 they added support for EKS.
-You can configure your current cluster to integrate Fargate. 
-This requires a Fargate pod execution role (to communicate with different Amazon services), and a Fargate profile to specify which pods should use Fargate.
-You can also create a new cluster with instant Fargate support. 
-For simplicity, I will initialize a new cluster.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eksctl create cluster --name &amp;lt;cluster-name&amp;gt; --region eu-west-1 --fargate&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The initialization process takes a while, so don’t wait around for it and find something else to do in the meantime.
-It shouldn’t take more than 15 minutes.&lt;/p&gt;
-
-&lt;h1 id=&quot;fargate-in-action&quot;&gt;Fargate in action&lt;/h1&gt;
-&lt;p&gt;After your cluster has been created, you should see two Fargate nodes already running.&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get nodes 
-NAME                                                    STATUS    ROLES     AGE       VERSION
-fargate-ip-192-168-124-46.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    5m       v1.18.8-eks-7c9bda
-fargate-ip-192-168-97-139.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    5m       v1.18.8-eks-7c9bda
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This is because of the two CoreDNS pods that get spun up after the setup of the cluster.&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get pods -n kube-system
-NAME                     READY     STATUS    RESTARTS   AGE
-coredns-58c89c64-pmjh4   1/1       Running   0          12m
-coredns-58c89c64-rm4dr   1/1       Running   0          12m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Each pod gets its own Fargate node and represents the resources that the pods get in order to successfully function. 
-When you create a new deployment, you will notice that you have a pod in the status pending creation.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl create deployment spring-boot-docker --image springio/gs-spring-boot-docker
-deployment.apps/spring-boot-docker created
-
-$&amp;gt; kubectl get pods
-NAME                                  READY     STATUS    RESTARTS   AGE
-spring-boot-docker-6656b9d9fb-h82pk   0/1       Pending   0          5s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This is because Fargate has yet to create a virtual node for the Pod to run in.
-After a few seconds you can see that a new node has been added to your cluster.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get nodes 
-NAME                                                    STATUS    ROLES     AGE       VERSION
-fargate-ip-192-168-113-246.eu-west-1.compute.internal   Ready     &amp;lt;none&amp;gt;    16s       v1.18.8-eks-7c9bda
-fargate-ip-192-168-124-46.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    52m       v1.18.8-eks-7c9bda
-fargate-ip-192-168-97-139.eu-west-1.compute.internal    Ready     &amp;lt;none&amp;gt;    52m       v1.18.8-eks-7c9bda
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Now that your virtual node has been added you can see that your pod is starting up.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$&amp;gt; kubectl get pods
-NAME                                  READY     STATUS    RESTARTS   AGE
-spring-boot-docker-6656b9d9fb-h82pk   1/1       Running   0          2m26s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;So right now we have a fully functioning Kubernetes cluster without having to touch or set up any nodes or configuration.
-Fargate takes away all the stress of maintaining and scaling worker nodes, so you can concentrate on the actual deployment of your application(s) and not worry about cluster resources.
-Of course, you would still need additional resources to access your application from outside the cluster, but it’s not covered in this post as this does not fall under the Fargate scope.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="AWS" /><category term="Fargate" /><category term="Kubernetes" /><summary type="html">Prerequisites An AWS account kubectl, aws-cli &amp;amp; eksctl installed Some Kubernetes knowledge</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-10-aws-fargate-serverless-deployments.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Tim&quot;, &quot;last_name&quot;=&gt;&quot;Verte&quot;, &quot;permalink&quot;=&gt;&quot;/author/tim-verte/&quot;, &quot;avatar&quot;=&gt;&quot;tim-verte.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;tim.verte@ordina.be&quot;, &quot;phone&quot;=&gt;32472466091, &quot;bio&quot;=&gt;&quot;Tim is a Java consultant at Ordina Belgium. He enjoys to discover new technologies and challenges. Besides his work he has a keen interest in everything that involves sports and music.&quot;}</name><email>tim.verte@ordina.be</email></author><category term="Cloud" /><category term="Chaos Engineering" /><category term="DevOps" /><category term="Chaos" /><category term="Backend" /><category term="Netflix" /><category term="Simian Army" /><category term="Resiliency" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-14-chaos-engineering/thumbnail.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

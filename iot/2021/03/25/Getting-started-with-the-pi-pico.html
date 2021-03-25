@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Getting started with the Pi Pico - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/iot/2021/03/25/Getting-started-with-the-pi-pico.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Getting started with the Pi Pico - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg"/>
+
+    
+    <title>Getting started with the Pi Pico - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Getting started with the Pi Pico</h2>
+                
+
+                
+                    Posted Mar 25, 2021
+
+
+    in <a href="/categories/iot/">IoT</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/internet-of-things/">Internet of Things</a>, 
+    
+        <a href="/tags/smart-tech/">Smart Tech</a>, 
+    
+        <a href="/tags/microcontrollers/">microcontrollers</a>, 
+    
+        <a href="/tags/c/">c</a>, 
+    
+        <a href="/tags/c++/">c++</a>, 
+    
+        <a href="/tags/python/">python</a>, 
+    
+        <a href="/tags/micropython/">micropython</a>, 
+    
+        <a href="/tags/tinkering/">tinkering</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#differences-with-the-raspberry-pi">Differences with the Raspberry Pi</a></li>
+  <li><a href="#getting-to-know-the-board">Getting to know the board</a></li>
+  <li><a href="#development-options">Development options</a></li>
+  <li><a href="#c-development">C++ development</a></li>
+  <li><a href="#micropython-development">MicroPython development</a></li>
+  <li><a href="#micropython-development">CircuitPython development</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico.jpg" data-lightbox="ui" data-title="Raspberry Pi Pico">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico.jpg" class="image fit" style="margin:0px auto; width: 60%; display: inline-block;" />
+    </a>
+</div>
+
+<p>By now everybody likely has heard about the Raspberry Pi single board computers.
+And even more than probable some, if not most of you, have one or more of these.</p>
+
+<p>Recently the Raspberry Pi Foundation has released a new type of Raspberry Pi, the Raspberry Pi Pico.
+Contrary to the regular Raspberry Pi, the Pico is not a single board computer which runs Linux.
+The Pico is a microcontroller, like the Arduino or Teensy.
+It’s cheap, it’s powerful, and in this blog post we’ll be exploring what it has to offer.</p>
+
+<h2 id="differences-with-the-raspberry-pi">Differences with the Raspberry Pi</h2>
+
+<p>Like I said in the introduction, the regular Raspberry Pi is a single board computer, as in an actual computer which can run a fully fledged operating system.
+It also has interfacing options like a display and camera port, along side ethernet and USB ports as well as the 40 GPIO pins.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pi-vs-pico.jpg" data-lightbox="ui" data-title="Raspberry Pi Model 4 vs Raspberry Pi Pico">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pi-vs-pico.jpg" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;" />
+    </a>
+</div>
+
+<p>As you can see in the pictures, the Raspberry Pi looks like a tiny computer and the Pico looks like a much simpler board, because it also is.
+Both devices serve different purposes but do have some overlap.
+The Raspberry Pi is used for more computationally intensive tasks and can be used to run very complex software.
+The Pi Pico is used for far simpler tasks where power usage and device footprint are more important, it is a much more low-level device.
+While they both have GPIO pins, the ones on the Pi Pico are much more capable than those on the Raspberry Pi.</p>
+
+<h2 id="getting-to-know-the-board">Getting to know the board</h2>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico-pinout.svg" data-lightbox="ui" data-title="GPIO layout">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pi-pico-pinout.svg" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;" />
+    </a>
+</div>
+
+<p>The main technical specifications of the Pi Pico are:</p>
+
+<ul>
+  <li>RP2040: Dual-core Arm Cortex-M0+ processor, flexible clock running up to 133 MHz</li>
+  <li>264KB on-chip SRAM</li>
+  <li>2MB on-board QSPI Flash</li>
+  <li>26 multi-function GPIO pins, including 3 analogue inputs</li>
+  <li>2 × UART, 2 × SPI controllers, 2 × I2C controllers, 16 × PWM channels</li>
+  <li>1 × USB 1.1 controller and PHY, with host and device support</li>
+  <li>8 × Programmable I/O (PIO) state machines for custom peripheral support</li>
+</ul>
+
+<p>These specs are in line with some of the more popular microcontrollers like teensy and ESP32 devices.
+The small footprint of microcontrollers like the Pico allows it to be integrated into DIY projects easily.</p>
+
+<p>The Pi Pico is built around the RP2040, the actual microcontroller that powers it.
+There are other boards with varying pinouts and functions available with this microcontroller.
+In this blog post we will be focussing on the Pi Pico implementation of the RP2040.</p>
+
+<p>The dual core chip give a lot of flexibility to create project which require a bit more processing power, as do the PIO state machines.
+With 26 GPIO boards there are loads of options to connect sensors, screens, inputs and outputs.</p>
+
+<h2 id="development-options">Development options</h2>
+
+<p>One of the nice features is that the Pico supports drag and drop programming/flashing.
+This is accomplished by utilizing UF2 files.
+The process of doing this is very simple, simply press the <code class="language-plaintext highlighter-rouge">BOOTSEL</code> button when connecting the Pico to your computer.
+It will show up as a storage device, drag the UF2 file onto it and the device will reboot and the flashing is completed.</p>
+
+<p>The Pico has several development options available.
+Three different main options are available to program it:</p>
+
+<ul>
+  <li>C/C++ SDK: Oldschool hardcore mode microcontroller programming</li>
+  <li>MicroPython: More beginner friendly with lots of options</li>
+  <li>CircuitPython: Adafruit backed variation on MicroPython, made even simpler</li>
+</ul>
+
+<h2 id="c-development">C++ Development</h2>
+
+<h3 id="development-setup">Development setup</h3>
+
+<p>Setting up for development:</p>
+
+<ul>
+  <li><a href="https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf" target="_blank" rel="noopener noreferrer">General C/C++ SDK documentation</a></li>
+  <li><a href="https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh" target="_blank" rel="noopener noreferrer">Linux</a>: Simply run the script</li>
+  <li><a href="https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/" target="_blank" rel="noopener noreferrer">Mac</a>: Follow the instructions</li>
+  <li><a href="https://github.com/ndabas/pico-setup-windows" target="_blank" rel="noopener noreferrer">Windows</a>: Follow the instructions</li>
+</ul>
+
+<p>One bright point is that Arduino will also be releasing a board based on the RP2040 so there is hope that the Arduino IDE will support it later down the line and enable hassle free C++ development for the Pi Pico and other RP2040 based microcontrollers.</p>
+
+<h3 id="code-example">Code example</h3>
+
+<p>Programming microcontrollers has long been done in C and C++ and the Pi Pico forms no exception to this.
+The basic code for a LED blink example is listed below.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */</span>
+
+<span class="cp">#include "pico/stdlib.h"
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="cp">#ifndef PICO_DEFAULT_LED_PIN
+#warning blink example requires a board with a regular LED
+#else
+</span>    <span class="k">const</span> <span class="n">uint</span> <span class="n">LED_PIN</span> <span class="o">=</span> <span class="n">PICO_DEFAULT_LED_PIN</span><span class="p">;</span>
+    <span class="n">gpio_init</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">);</span>
+    <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">gpio_put</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+        <span class="n">gpio_put</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="cp">#endif
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>This code will include the <code class="language-plaintext highlighter-rouge">stdlib.h</code> header file from the Pi Pico C++ SDK and will blink the built-in LED every 500ms.
+The trick is to compile this code and build the required UF2 file.</p>
+
+<p>While the code looks and feels very similar to what you would write for lets say an Arduino board, compiling it and to run on the Pico is a different case.
+The contrast with Arduino development could not be bigger, where you simply download the Arduino IDE, write your code, click upload and you’re running your code on the device!
+With the Pico it’s not that simple.
+It requires a few dependencies which cannot be one-click installed and the instructions are different based on the OS you’re running.
+It’s do-able but it’s not exactly hassle free and convenient.</p>
+
+<h2 id="micropython-development">MicroPython development</h2>
+
+<p>Contrary to the C++ development, using MicroPython is like a breath of fresh air.
+I’m not the biggest fan of regular Python but using MicroPython for simple microcontroller programming, has in my opinion, made it a lot easier.
+Another big plus of Python based development is having a REPL available.
+It allows you to write and execute code on the fly, which allows for easier development and testing something quickly.</p>
+
+<h3 id="preparing-the-board">Preparing the board</h3>
+
+<p>First of all we need to prepare the Pico to accept and run MicroPython files:</p>
+
+<ul>
+  <li>Download the latest (stable) version of MicroPython for the pico, this is a UF2 file and can be found <a href="https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython" target="_blank" rel="noopener noreferrer">here</a></li>
+  <li>Plug in your Pico while holding the <code class="language-plaintext highlighter-rouge">BOOTSEL</code> button</li>
+  <li>Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer</li>
+  <li>The board will reboot by itself and ‘install’ the UF2 file</li>
+</ul>
+
+<h3 id="development-setup-1">Development setup</h3>
+
+<p>The easiest way to do MicroPython development for the Pi Pico is by using the Thonny IDE.
+Thonny is a simple code editor that can directly save your code to the Pico and also provides an easy way to access the REPL.</p>
+
+<p>Setting up Thonny is very easy.
+Just <a href="https://thonny.org/" target="_blank" rel="noopener noreferrer">download</a> the binary for your operating system, install and start it.
+Only one more step is required to set it up for use with the Pi Pico.
+Head into the preferences, select the <code class="language-plaintext highlighter-rouge">interpreter</code> tab and from the dropdown select the option <code class="language-plaintext highlighter-rouge">MicroPython (Raspberry Pi Pico)</code>.
+Select the correct port from the dropdown.
+After this Thonny is ready to be used!</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/thonny-interpreter.jpeg" data-lightbox="ui" data-title="Thonny select interpreter">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/thonny-interpreter.jpeg" class="image fit" style="margin:0px auto; width: 40%; display: inline-block;" />
+    </a>
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/thonny-ports.jpeg" data-lightbox="ui" data-title="Thonny select port">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/thonny-ports.jpeg" class="image fit" style="margin:0px auto; width: 50%; display: inline-block;" />
+    </a>
+</div>
+
+<p>Another option for development is using the great PyCharm IDE.
+While I view Thonny to be a glorified text editor, PyCharm (from JetBrains) is a fully fledged Python IDE, for our purposes the community edition will do just fine.
+The setup is a bit more involved and has some caveats, but it is certainly workable.
+<a href="https://www.jetbrains.com/pycharm/download/" target="_blank" rel="noopener noreferrer">Download</a> and install the PyCharm Community Edition.
+Once done, open it up and in the welcome screen select the <code class="language-plaintext highlighter-rouge">Plugins</code> option.
+In here, search for <code class="language-plaintext highlighter-rouge">micropython</code> and install the MicroPython plugin by JetBrains, this will add support for flashing the device from within the IDE.
+Now we can create a new project and write some code.
+To upload the code to the Pico, we need to perform some more changes and enable the MicroPython support for the newly created project.
+Head into the IDE preferences, select the <code class="language-plaintext highlighter-rouge">Languages &amp; Frameworks</code> option in the sidebar and select the <code class="language-plaintext highlighter-rouge">MicroPython</code> sub option.
+In this section, check the <code class="language-plaintext highlighter-rouge">Enable MicroPython support</code> and set the device type to <code class="language-plaintext highlighter-rouge">ESP8266</code>.
+Finally, we need to enter the device path.
+You could try the auto-detect option, but on my machine that did nothing.
+To get this path, we will open Thonny with the Pico plugged in.
+It will show the device path under <code class="language-plaintext highlighter-rouge">Preferences/Interpreter</code> and we can copy it to PyCharm.</p>
+
+<p>With this done, we can now copy over code to the Pico.
+Make sure your main code file is called <code class="language-plaintext highlighter-rouge">main.py</code>, as this will be executed automatically by the Pico.
+To do this, simply right-click on the file (or entire folder) and select the <code class="language-plaintext highlighter-rouge">Run Flash FILENAME</code>.
+Make sure you do not have the REPL open in the PyCharm terminal window, in contrary to Thonny, PyCharm will fail the copy action!
+If you have copied too many files or simply want to wipe the device, from the menu, select: <code class="language-plaintext highlighter-rouge">tools/MicroPython/Remove All Files from MicroPython Device</code>.
+To open the REPL and directly interact with the Pico select the <code class="language-plaintext highlighter-rouge">tools/MicroPython/MicroPython REPL</code>, this will open up a REPL in a terminal window.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-plugin.jpeg" data-lightbox="ui" data-title="Install the MicroPython plugin">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-plugin.jpeg" class="image fit" style="margin:0px auto; width: 12%; display: inline-block;" />
+    </a>
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-setup.jpeg" data-lightbox="ui" data-title="MicroPython project settings">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-micropython-setup.jpeg" class="image fit" style="margin:0px auto; width: 12.5%; display: inline-block;" />
+    </a>
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-flash-to-device.jpeg" data-lightbox="ui" data-title="Flash main file to device">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-flash-to-device.jpeg" class="image fit" style="margin:0px auto; width: 14%; display: inline-block;" />
+    </a>
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash.jpeg" data-lightbox="ui" data-title="Flash other files to device">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash.jpeg" class="image fit" style="margin:0px auto; width: 15%; display: inline-block;" />
+    </a>
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash-progress.jpeg" data-lightbox="ui" data-title="Flashing progress">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-run-flash-progress.jpeg" class="image fit" style="margin:0px auto; width: 23%; display: inline-block;" />
+    </a>
+    <a href="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-tools.jpeg" data-lightbox="ui" data-title="REPL and device wipe">
+        <img alt="Pi Pico Blueprint" src="/img/2021-03-25-getting-started-with-the-pi-pico/pycharm-tools.jpeg" class="image fit" style="margin:0px auto; width: 18%; display: inline-block;" />
+    </a>
+</div>
+
+<h3 id="code-example-1">Code example</h3>
+
+<p>The basic code for a LED blink example is listed below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">pin</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">Pin</span><span class="p">.</span><span class="n">OUT</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pin</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">pin</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>This code does the same as the C++ code mentioned above.
+It however is far more readable.
+The <a href="https://docs.micropython.org/en/latest/" target="_blank" rel="noopener noreferrer">MicroPython documentation</a> has examples and information on what is available and what is not.
+Please be reminded that MicroPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.</p>
+
+<h2 id="circuitpython-development">CircuitPython development</h2>
+
+<p>CircuitPython is a variation on MicroPython created by Adafruit industries.
+It is targeted at beginners and students, and is even simpler than the regular MicroPython.</p>
+
+<h3 id="preparing-the-board-1">Preparing the board</h3>
+
+<p>First of all we need to prepare the Pico to accept and run CircuitPython files:</p>
+
+<ul>
+  <li>Download the latest (stable) version of CircuitPython for the pico, this is a UF2 file and can be found <a href="https://circuitpython.org/board/raspberry_pi_pico/" target="_blank" rel="noopener noreferrer">here</a></li>
+  <li>Plug in your Pico while holding the <code class="language-plaintext highlighter-rouge">BOOTSEL</code> button</li>
+  <li>Drag the downloaded UF2 file onto the mass storage device that has just appeared in your file explorer</li>
+  <li>The board will reboot by itself and ‘install’ the UF2 file</li>
+</ul>
+
+<h3 id="development-setup-2">Development setup</h3>
+
+<p>CircuitPython can also be developed using Thonny, you however need to open the Thonny <code class="language-plaintext highlighter-rouge">Preferences</code> once more, select the <code class="language-plaintext highlighter-rouge">Interpreter</code> tab and select the <code class="language-plaintext highlighter-rouge">CircuitPython (generic)</code> option.
+Using PyCharm for CircuitPython can be done.
+However, I’ve not had much success to flash the files to the Pico device.
+So for CircuitPython the best option remains Thonny.
+Adafruit recommends using the <a href="https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor" target="_blank" rel="noopener noreferrer">Mu</a> IDE for CircuitPython development.
+However, I could never get it to work on my Big Sur installation.</p>
+
+<p>Developing CircuitPython does not really differ from MicroPython except for two things:</p>
+
+<ul>
+  <li>Language features and API</li>
+  <li>Project structure
+    <ul>
+      <li>No <code class="language-plaintext highlighter-rouge">main.py</code> but a <code class="language-plaintext highlighter-rouge">boot.py</code> and <code class="language-plaintext highlighter-rouge">code.py</code> file to do bootstrapping and have a main entry point for code execution</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Further in-depth information on how to get started with CircuitPython development can be found on <a href="https://learn.adafruit.com/welcome-to-circuitpython/overview" target="_blank" rel="noopener noreferrer">their excellent website</a> as we will be focussing on MicroPython in future projects.</p>
+
+<h3 id="code-example-2">Code example</h3>
+
+<p>The basic code for a LED blink example is listed below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">board</span>
+<span class="kn">import</span> <span class="nn">digitalio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">led</span> <span class="o">=</span> <span class="n">digitalio</span><span class="p">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">GP25</span><span class="p">)</span>
+<span class="n">led</span><span class="p">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="p">.</span><span class="n">Direction</span><span class="p">.</span><span class="n">OUTPUT</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">led</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">led</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Again this code does the same as the C++ code mentioned above.
+It is also more readable, but differs slightly from the MicroPython flavour of Python.
+The <a href="https://circuitpython.readthedocs.io/en/6.1.x/README.html" target="_blank" rel="noopener noreferrer">CircuitPython documentation</a> has examples and information on what is available and what is not.
+Please be reminded that CircuitPython support for the Pi Pico is still very new and some APIs may contain bugs, not work at all or even not be available yet.</p>
+
+<p>Another thing to note is that the CircuitPython implementation has some additional pros and cons:</p>
+
+<ul>
+  <li>It does not support _thread, so you can only use one of the cores of the Pi Pico</li>
+  <li>It supports a lot more devices, if there is an Adafruit peripheral/device/sensor, chances are big they have a library/driver available for it</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The Pi Pico is a nice little microcontroller that has a lot of potential.
+It isn’t particularly outstanding in features but it’s cheap and is backed by the Raspberry Pi foundation.</p>
+
+<p>Being able to use MicroPython, or CircuitPython, is like a breath of fresh air.
+It allows for faster prototyping without having to deal with C/C++ per se.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython" target="_blank" rel="noopener noreferrer">Pi Pico Getting started</a></li>
+  <li><a href="https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf" target="_blank" rel="noopener noreferrer">General C/C++ SDK documentation</a></li>
+  <li><a href="https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh" target="_blank" rel="noopener noreferrer">C++ setup Linux</a></li>
+  <li><a href="https://smittytone.wordpress.com/2021/02/02/program-raspberry-pi-pico-c-mac/" target="_blank" rel="noopener noreferrer">C++ setup Mac</a></li>
+  <li><a href="https://github.com/ndabas/pico-setup-windows" target="_blank" rel="noopener noreferrer">C++ setup Windows</a></li>
+  <li><a href="https://www.raspberrypi.org/documentation/rp2040/getting-started/#getting-started-with-micropython" target="_blank" rel="noopener noreferrer">Getting started with MicroPython</a></li>
+  <li><a href="https://thonny.org/" target="_blank" rel="noopener noreferrer">Thonny IDE</a></li>
+  <li><a href="https://www.jetbrains.com/pycharm/download/" target="_blank" rel="noopener noreferrer">PyCharm</a></li>
+  <li><a href="https://docs.micropython.org/en/latest/" target="_blank" rel="noopener noreferrer">MicroPython documentation</a></li>
+  <li><a href="https://circuitpython.org/board/raspberry_pi_pico/" target="_blank" rel="noopener noreferrer">CircuitPython download</a></li>
+  <li><a href="https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor" target="_blank" rel="noopener noreferrer">Mu IDE</a></li>
+  <li><a href="https://learn.adafruit.com/welcome-to-circuitpython/overview" target="_blank" rel="noopener noreferrer">Getting started with CircuitPython</a></li>
+  <li><a href="https://circuitpython.readthedocs.io/en/6.1.x/README.html" target="_blank" rel="noopener noreferrer">CircuitPython documentation</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/iot/2021/03/25/Getting-started-with-the-pi-pico.html&title=Getting started with the Pi Pico&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Getting started with the Pi Pico&url=https://ordina-jworks.github.io/iot/2021/03/25/Getting-started-with-the-pi-pico.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/iot/2021/03/25/Getting-started-with-the-pi-pico.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image" title="">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2021 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
