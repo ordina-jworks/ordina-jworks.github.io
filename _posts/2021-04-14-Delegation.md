@@ -20,7 +20,7 @@ Common pitfalls new tech leads often experience is that they feel like they must
 By doing this, they unintentionally become a bottleneck and slow the team down.
 At worst, they even make the team members feel micromanaged and disempowered.
 I realised that in order to keep my team productive and thus becoming an effective tech lead, delegation was one of the major keys to success.
-At first I struggled with learning this new skill.
+At first, I struggled with learning this new skill.
 After all, I was not producing anything concrete anymore.
 There was no rewarding merge request afterwards, nor a notification of a successful build.
 The new skill I yet had to learn did not have the same tangible output as writing code.
@@ -82,4 +82,3 @@ So while the Tannenbaum & Schmidt Leadership Continuum does not present a clear 
 Although the appropriate level of delegation depends on the context, the advantages of effective delegation for both team lead as well as the team are clear: the team lead gets more time to focus on critical issues, and the team develops new skills and grows into future technical team leaders.
 
 > “If you want to do a few small things right, do them yourself. If you want to do great things and make a big impact, learn to delegate.” – John C. Maxwell
-
