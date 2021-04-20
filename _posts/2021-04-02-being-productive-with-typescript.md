@@ -18,27 +18,26 @@ comments: true
 
 # Introduction
 Many a frontend project is nowadays being developed in Typescript.
-There are lots of alternatives, but the common language for browsers is still mainly Javascript. 
-As a Javascript dev, it is pretty easy to switch to Typescript.
+There are a lot of alternatives, but the common language for browsers is still mainly Javascript. 
+As a Javascript developer, it is pretty easy to switch to Typescript.
 Why would you go with Typescript and therefore adding an extra build step?
 'Because of the type safety' is the usual answer.
 
 While I completely agree with that statement, I often see code where Typescript has no additional value.
-Even worse, it adds negative value by getting in the way of a developer and by not being readable.
-How can that be? Well, let's see for ourselves.
+Even worse, it adds negative value by getting in the way of a developer and by being unreadable.
+How can that be? Well, let's have a look.
 
 In my opinion these are the main features that Typescript adds to Javascript:
 
 **Readability:**
-As a Javascript developer you need to master 'naming', because it is the only information you can provide in variables and functions.
-Typed languages have the advantage that a type will always be part of a variable, and thus communicates some information.
-Functions in a typed language have contracts existing of a name, the variable types and a return type.
-In Javascript your contract is nothing but the function name. 
-Using Typescript you can enrich both variables and functions with types, making the code more readable.
+As a Javascript developer you need to master 'naming', because it is the only information you can provide with variables.
+Functions are even harder, in Javascript your contract is nothing but the function name.
+Using Typescript you can enrich variables with types, giving them more meaning.
+Functions in a typed language have contracts existing of a name, the parameter types and a return type.
 
 **Code hinting:**
 While a good IDE can help you out with Javascript, it will rock your world using Typescript.
-Instead of guessing, it knows which properties are on an item, which functions are (publicly) available, and gives you the power to create a clean public API for the next developer that does not rely on conventions.
+Instead of guessing, it knows which properties are on an item, which functions are (publicly) available, and gives you the power to create a clean public API that does not rely on conventions.
 As an added bonus it allows your IDE to generate code that is actually better than yours.
 
 **Compile-time errors:**
@@ -56,12 +55,12 @@ When working in a classic frontend/backend setup, the frontend its job is to dis
 This means that frontend receives its data in a predefined format from a source and should not add more functionality to it.
 For me this means an interface will do. 
 Also, interfaces do not get transpiled to Javascript, while classes do.
-They give code hinting, they give compilation errors and they are not in your dist folder which is an ideal scenario to me.
-When do I want classes? For everything that needs added functionality. 
-Frankly for everything not coming from an external source, I probably would use a class.
+They give code hinting, they give compilation errors and they are not in your production code, which is an ideal scenario to me.
+When do I prefer classes? For everything that needs added functionality. 
+Frankly for everything not coming from an external source, I would probably use a class.
 Yet there are still exceptions to this, and every case should be handled pragmatically.
-But for this post I am working with interfaces.
-And without any further ado, let's dive into some code.
+For this post I am working with interfaces.
+Without any further ado, let's dive into some code.
 
 # Literal narrowing
 ```typescript
@@ -84,7 +83,7 @@ function pickColor(status: string) {
 The code above seems okay. 
 I used to write like this all the time. 
 But the question is: **What is the added value of Typescript?** 
-Let us make a list with what Typescript does for us here:
+Let's make a list of what Typescript does for us here:
 
 - ~~Readability~~
 - ~~Code hinting~~
@@ -94,7 +93,7 @@ Needless to say, this code isn't any better than its Javascript counterpart.
 Let's have a look at an improved version.
 
 ```typescript
-type AgendaItemStatus = 'OPEN' | 'CLOSED' | 'IN PROGRESS' | 'DELETED';
+type AgendaItemStatus = 'OPEN' | 'CLOSED' | 'IN PROGRESS';
 
 interface AgendaItem {
  status: AgendaItemStatus;
@@ -140,7 +139,6 @@ interface AgendaItem {
 }
 
 type AgendaItemStatusMap<T> = Record<AgendaItemStatus, T>;
-// type AgendaItemStatusToColorMap<T> = { [K in AgendaItemStatus]: T }
     
 function pickColor(status: AgendaItemStatus) {
  const map: AgendaItemStatusMap<Color> = {
@@ -154,9 +152,9 @@ function pickColor(status: AgendaItemStatus) {
 This is more than just adding Typescript, we refactored the [switch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch){:target="_blank" rel="noopener noreferrer"} into a _lookup map_.
 For the [switch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch){:target="_blank" rel="noopener noreferrer"} we had in our example, this can be done. But that is not always the case.
 The _lookup map_ has a type which is generated entirely within Typescript.
-[Record](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeystype){:target="_blank" rel="noopener noreferrer"} is the utility type to be used, but in the comment below I wrote a more expressive way that achieves the same.
-So how does it help us? Reimagine that a new status is added. 
-I adapt the `agendaItemStatus`, hit ctrl-s (it starts a build).
+[Record](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeystype){:target="_blank" rel="noopener noreferrer"} is the utility type to be used.
+So how does it help us? Reimagine that a new status 'DELETED' is added. 
+I adapt the type `AgendaItemStatus`, and hit ctrl-s (it starts a build).
 In a matter of seconds I will be informed that property 'DELETED' is missing on line _x_ of file _y_.
 Now we are using the potential of Typescript
 
@@ -201,9 +199,10 @@ And when I post them back to backend, I parse them back to strings (`remapCalend
 
 The first thing to notice here, is that the interface is unstable. 
 `startTime` and `dueDate` are using a [union type](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types){:target="_blank" rel="noopener noreferrer"}, this means it can be either a string or a Date.
-Then there is also the difference for Date and Time, having a ymd-string or a isoString respectively.
-Finally there is the [type assertion](https://www.typescriptlang.org/docs/handbook/basic-types.html#type-assertions){:target="_blank" rel="noopener noreferrer"}. 
-Type assertions happen when Typescript is getting in your way. It is adding negative value at this point.
+Then there is also the fact that we're working with a date and a timestamp, having a ymd-string or a isoString respectively.
+Finally there is the [type assertion](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions){:target="_blank" rel="noopener noreferrer"}, where we are telling typescript to interpret `startTime` and `dueDate` `as Date`.
+Type assertions happen when Typescript is getting in your way. 
+It is adding negative value at this point.
 
 - ~~Readability~~
 - ~~Code hinting~~
@@ -248,7 +247,7 @@ The code became a lot bigger.
 Some people grade code on the amount of lines written to achieve a goal.
 While it is fun to think about shorter code, I would always argue that maintainability is key in production code.
 
-Let us begin with the types. 
+Let's begin with the types. 
 Typescript allows us to create [Type Aliases](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases){:target="_blank" rel="noopener noreferrer"}. 
 Its only purpose, is making your code more readable. 
 It does not improve error descriptions, neither does it add typesafety, but it improves your variable declarations.
@@ -289,11 +288,13 @@ interface CalenderItem extends Omit<CalenderItemDTO, 'startTime'| 'dueDate'> {
 }
 ```
 I focused on the interfaces, because the other code should stay untouched (even the transpiled result should be identical).
-Typescript provides some [utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html){:target="_blank" rel="noopener noreferrer"}, and one of them is used here to create our `calenderItem`.
+Typescript provides some [utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html){:target="_blank" rel="noopener noreferrer"}, and one of them is used here to create our `calenderItem` interface.
 [Omit](https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys){:target="_blank" rel="noopener noreferrer"} just takes an interface (or class) and drops the properties you pass as second argument. 
 This allows us to redeclare these properties with the Type we will be using internally.
 When the DTO changes, we only need to change the `CalendarItem` when we need to map something.
 Now we are sure that a change in the interface will always be accompanied by a functional change (in the transpiled code that is).
+In the example above this means we only had to add `title` and `location` to the DTO, not to `CalenderItem` itself.
+Also take note that this change has no influence on the mapping functions.
 
 # Typeguards
 
@@ -335,7 +336,7 @@ If he passes an unplanned item, things will go wrong at runtime.
 - ~~Code hinting~~
 - ~~Compile-time errors~~
 
-So let us fix this error prone code with some nice Typescript features.
+So le's fix this error prone code with some nice Typescript features.
 
 ```typescript
 interface Item {
@@ -379,7 +380,7 @@ Because I passed a union of just 2 types in the guard, Typescript also knows tha
 Thanks to the [typeguard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards){:target="_blank" rel="noopener noreferrer"} we now have a very readable _if_ statement.
 But it gets better, the parameters for `willFinishOnTime` and `canFinishOnTime` can be narrowed down to `Planned` and `Unplanned`, which solves the potential runtime issue.
 
-Let us run trough the Typescript features once more:
+Let's run trough the Typescript features once more:
 - Readability
 - Code hinting
 - Compile-time errors 
@@ -475,3 +476,6 @@ And if you use Typescript, try to honestly evaluate if it actually adds value.
 If it is not adding value, you might be doing something wrong.
 A good place to start is where you are using Union types, often this can be done better (via Generics).
 Another indicator is the use of _any_. 
+personally, I wouldn't start a project without using Typescript.
+It makes me more productive and improves my code quality without effortlessly.
+And a big bonus is that there is less need to test every function because typescript already limits the possible in and outputs.
