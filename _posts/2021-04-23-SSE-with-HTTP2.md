@@ -2,14 +2,14 @@
 layout: post
 authors: [jago_staes]
 title: 'SSE with HTTP2'
-image: 
+image: /img/2021-04-23-SSE-HTTP2/SSE-HTTP2.png
 tags: [spring, event-driven, server-sent-events, cloud-native, http]
 category: Event-Driven
 comments: true
 ---
 
 
-## Table Of Contents
+# Table Of Contents
 
 * [What are Server-Sent Events?](#what-are-server-sent-events)
 * [Why SSE over Websockets?](#why-sse-over-websockets)
@@ -17,10 +17,7 @@ comments: true
 * [Summary](#summary)
 * [Demo application](#demo-application)
 
-
-
-
-## What are Server-Sent Events?
+# What are Server-Sent Events?
 Server-Sent Events is a technology where the client receives data (events) pushed by a server over HTTP.
 This data can be a random update (for example a tweet). Or a constant stream of data (stock market price updates).
 The main point is that the client does not need to poll for this data. There is no communication required from client to server.
@@ -28,15 +25,19 @@ This technology may have been overshadowed by WebSockets because of SSE limitati
 but as you will see and learn in this blogpost, you have nothing to worry about anymore!
 
 
-## Why SSE over WebSockets?
-While it is true that WebSockets have more capabilities than SSE, when these capabilities are not part of your use-case SSE in my opinion a much better choice. 
+# Why SSE over WebSockets?
+While it is true that WebSockets have more capabilities than SSE, when these capabilities are not part of your use-case SSE in my opinion is a much better choice. 
 for example with Websockets you have the ability to communicate from your client to the server.
 But you are going to have to take care of this connection yourself,
 One of the implications this brings is that the connection between server and client is a **stateful connection** which is a pretty important thing to take into consideration when you are trying to build cloud-native applications.
 WebSockets are also more supported by older browsers than SSE but this is easily solved by using the **JavaScript EventSource interface** to create your own connection to the server and receive the data that way.
 I will demonstrate how easy it is to use this interface and solve this issue while building the demo application at the end of the blogpost.
 
-## But then why use SSE?
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2021-04-23-SSE-HTTP2/SSE-vs-WS.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:70%">
+{: refdef}
+
+# But then why use SSE?
 One of the key differences between SSE and WS is that SSE uses simple HTTP to send data to the clients.
 This means it does not require a special protocol like STOMP or MQTT which in turn requires server implementation to get it working making SSE a lot easier to set up.
 SSE also has built in support for reestablishing connections and event IDs which WS lacks by design.
@@ -45,9 +46,9 @@ So the main question you have to ask yourself is whether your use-case fits into
 Is there no communication from client to server required?
 Is the application you are trying to build supposed to be cloud-native?
 
-If the answer to this question is no and there is no need to have communication from client to server, it might save you a lot of work going for SSE over WS.
+If the answer to these questions is no and there is no it might save you a lot of work going for SSE over WS.
 
-## HTTP/1.1 vs HTTP/2
+# HTTP/1.1 vs HTTP/2
 HTTP/1.1 is an old protocol, it loads requests one-by-one over a single TCP connection or in parallel over multiple TCP connections in an effort to decrease loading times while requiring more resources.
 This was fine when this protocol was new, about 23 years ago, but as time goes by and webpages become more advanced, the limitations of this protocol are really starting to show.
 This is why HTTP/2 was made, it aims to tackle the limitations set by HTTP/1.1 and be more future-proof.
@@ -60,23 +61,26 @@ All these advantages eliminate the need for developers to write best practice wo
 they decrease loading times and improve the websites infrastructure.
 This on top of full backwards compatibility make the choice between HTTP/1.1 and HTTP/2 for Server-sent events a no-brainer.
 
-## Summary
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2021-04-23-SSE-HTTP2/HTTP1-vs-HTTP2.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:70%">
+{: refdef}
+
+# Summary
 The key takeaways from this post are that the choice between SSE and Websocket is entirely dependent on the use-case of the application you are trying to develop.
 If you are looking for a stateless approach, or you don't have a need for client to server communication, SSE might be the solution for you!
 The other takeaway is that you should definitely use HTTP/2 to get the most out of your application and not run into the limitations that HTTP/1.1 lays upon SSE.
 
 If after reading this blogpost you have come to the conclusion that you would be better off building a Websocket application to fit your use-case you can read through a blogpost on websockets made by my colleague Kevin Van Houtte [here](https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html){:target="_blank" rel="noopener noreferrer"}.
 
-## Demo application
+# Demo application
 In this part of the blogpost I am going to show you how easy it is to develop your own SSE application.
 
-#### The use-case
+### The use-case
 For the application we are going to build we are going to build a Spring Boot application that consumes a Chuck Norris joke REST API and then use a Flux to push joke data from the server using Server-Sent events to any clients that are subscribed.
 
+# The SSE server
 
-### The SSE server
-
-#### pom.xml
+### pom.xml
 To start off we are going to make a Spring Boot application and add the following Maven dependencies:
 
 ```xml
@@ -104,7 +108,7 @@ To start off we are going to make a Spring Boot application and add the followin
 </dependencies>
 ```
 
-#### ChuckNorrisJoke.java
+### ChuckNorrisJoke.java
 Now we are going to add our data model, as explained in the use-case this will be a simple Chuck Norris joke object containing a String value.
 
 ```java
@@ -123,7 +127,7 @@ public class ChuckNorrisJoke {
 ```
 
 
-#### JokeService.java
+### JokeService.java
 The next step is to get the joke data by consuming a public [Chuck Norris joke API](https://api.chucknorris.io/){:target="_blank" rel="noopener noreferrer"}.
 First we create a `JokeService` interface and implementation:
 
@@ -172,7 +176,7 @@ public class JokeServiceImpl  implements JokeService{
 }
 ```
 
-#### ServerConfig.java
+### ServerConfig.java
 The `RestTemplate` and `HttpHeaders` beans are defined in the ServerConfig class as follows:
 
 ```java
@@ -206,7 +210,7 @@ public class ServerConfig {
 }
 ```
 
-#### JokeController
+### JokeController
 Now for the final part of the Java code, all we have to do is create an endpoint for clients to subscribe to and push the joke data to this endpoint.
 For this we are going to create a JokeController and use a Flux which is a Reactive Stream publisher to periodically emit Server-Sent events containing ChuckNorrisJokes to this endpoint.
 
@@ -241,10 +245,10 @@ public class JokeController {
 
 When we run our application and go to [http://localhost:8080/sse-server/chuck-norris-joke-stream](http://localhost:8080/sse-server/chuck-norris-joke-stream){:target="_blank" rel="noopener noreferrer"} you can see data coming in every 5 seconds.
 
-### The web client
+# The web client
 Now all that's left to do is use the [JavaScript EventSource interface](https://developer.mozilla.org/en-US/docs/Web/API/EventSource){:target="_blank" rel="noopener noreferrer"} to open a connection to our SSE server and transform the events into text to display in our basic HTML demo page.
 
-#### index.html
+### index.html
 
 ```html
 <!DOCTYPE html>
@@ -267,7 +271,7 @@ Now all that's left to do is use the [JavaScript EventSource interface](https://
 </html>
 ```
 
-#### app.js
+### app.js
 
 ```javascript
 const eventSource = new EventSource('sse-server/chuck-norris-joke-stream')
@@ -285,7 +289,7 @@ function showJoke(joke) {
 }
 ```
 
-#### Result
+## Result
 I will leave the styling up to you but you should now have a working SSE server and client that receives data in the form of Server-Sent events.
 All that is left to do for you is to enable HTTP2 by adding `server.http2.enabled=true` to your application.properties file and to enable HTTPS the way you would do it in any Spring Boot application.
 
@@ -293,7 +297,6 @@ All that is left to do for you is to enable HTTP2 by adding `server.http2.enable
 <img src="{{ '/img/2021-04-23-SSE-HTTP2/jokes.gif' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:100%">
 {: refdef}
 
-### One final note
+# One final note
 You can find the code for this application using HTTP/1.1 and HTTP/2 as well as an example to achieve the same thing using Websockets on my [github](https://github.com/jagostaes/sse-servers){:target="_blank" rel="noopener noreferrer"}.
 If you have any questions regarding this topic you can reach out to me on my [Twitter](https://twitter.com/jagostaes){:target="_blank" rel="noopener noreferrer"} and I will try my best to help you out.
-g
