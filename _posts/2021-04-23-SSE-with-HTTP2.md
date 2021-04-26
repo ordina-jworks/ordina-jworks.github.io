@@ -58,7 +58,7 @@ HTTP/2 is a binary protocol, removing security issues and error-proneness that c
 It is backwards compatible with earlier versions of the protocol and is compatible with almost all browsers.
 HTTP/2 also avoids the round trip to the server by having the server intuitively sending resources that will be required to render the page.
 All these advantages eliminate the need for developers to write best practice workarounds to deal with the limitations of older versions of the protocol,
-they decrease loading times and improve the websites infrastructure.
+they decrease loading times and improve the website infrastructure.
 This on top of full backwards compatibility make the choice between HTTP/1.1 and HTTP/2 for Server-sent events a no-brainer.
 
 {:refdef: style="text-align: center;"}
