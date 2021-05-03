@@ -19,19 +19,19 @@ comments: true
 
 # What are Server-Sent Events?
 Server-Sent Events is a technology where the client receives data (events) pushed by a server over HTTP.
-This data can be a random update (for example a tweet). Or a constant stream of data (stock market price updates).
-The main point is that the client does not need to poll for this data. There is no communication required from client to server.
+This data can be a random update (for example a tweet) or a constant stream of data (stock market price updates).
+The main thing to note is that the client does not need to poll for this data. There is no communication required from client to server.
 This technology may have been overshadowed by WebSockets because of SSE limitations in the past, 
 but as you will see and learn in this blogpost, you have nothing to worry about anymore!
 
 
 # Why SSE over WebSockets?
-While it is true that WebSockets have more capabilities than SSE, when these capabilities are not part of your use-case SSE in my opinion is a much better choice. 
-for example with Websockets you have the ability to communicate from your client to the server.
-But you are going to have to take care of this connection yourself,
-One of the implications this brings is that the connection between server and client is a **stateful connection** which is a pretty important thing to take into consideration when you are trying to build cloud-native applications.
+While it is true that WebSockets have more capabilities than SSE, when these capabilities are not part of your use case, SSE in my opinion is a much better choice. 
+With Websockets, you have the ability to communicate from your client to the server.
+But you are going to have to take care of this connection yourself.
+One of the implications is that the connection needs to be  **stateful**, which is a pretty important thing to take into consideration when you are trying to build cloud-native applications.
 WebSockets are also more supported by older browsers than SSE but this is easily solved by using the **JavaScript EventSource interface** to create your own connection to the server and receive the data that way.
-I will demonstrate how easy it is to use this interface and solve this issue while building the demo application at the end of the blogpost.
+I will demonstrate how easy it is to use this interface and solve this issue while building the demo application at the end of the blog post.
 
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2021-04-23-SSE-HTTP2/SSE-vs-WS.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:70%">
@@ -40,43 +40,42 @@ I will demonstrate how easy it is to use this interface and solve this issue whi
 # But then why use SSE?
 One of the key differences between SSE and WS is that SSE uses simple HTTP to send data to the clients.
 This means it does not require a special protocol like STOMP or MQTT which in turn requires server implementation to get it working making SSE a lot easier to set up.
-SSE also has built in support for reestablishing connections and event IDs which WS lacks by design.
+SSE also has built-in support for reestablishing connections and event IDs which WS lacks by design.
 
-So the main question you have to ask yourself is whether your use-case fits into the whole SSE story.
-Is there no communication from client to server required?
-Is the application you are trying to build supposed to be cloud-native?
-
-If the answer to these questions is no and there is no it might save you a lot of work going for SSE over WS.
+So the main questions you have to ask yourself is whether your use-case fits into the whole SSE story?
+Is it OK to have no communication back to the server?
+Is the application you are trying to build supposed to be used in a cloud-native environment and if so will a stateful connection between client and server be a problem?
+These questions will hopefully help make your choice between Server-sent Events and WebSockets easier.
 
 # HTTP/1.1 vs HTTP/2
 HTTP/1.1 is an old protocol, it loads requests one-by-one over a single TCP connection or in parallel over multiple TCP connections in an effort to decrease loading times while requiring more resources.
 This was fine when this protocol was new, about 23 years ago, but as time goes by and webpages become more advanced, the limitations of this protocol are really starting to show.
 This is why HTTP/2 was made, it aims to tackle the limitations set by HTTP/1.1 and be more future-proof.
 
-With HTTP/2 multiple requests can be sent over the same TCP connection with responses arriving out of order.
+With HTTP/2, multiple requests can be sent over the same TCP connection with responses arriving out of order.
 HTTP/2 is a binary protocol, removing security issues and error-proneness that come with text-based protocols.
-It is backwards compatible with earlier versions of the protocol and is compatible with almost all browsers.
+It is backward compatible with earlier versions of the protocol and is compatible with almost all browsers.
 HTTP/2 also avoids the round trip to the server by having the server intuitively sending resources that will be required to render the page.
 All these advantages eliminate the need for developers to write best practice workarounds to deal with the limitations of older versions of the protocol,
 they decrease loading times and improve the website infrastructure.
-This on top of full backwards compatibility make the choice between HTTP/1.1 and HTTP/2 for Server-sent events a no-brainer.
+This on top of full backward compatibility makes the choice between HTTP/1.1 and HTTP/2 for Server-sent events a no-brainer.
 
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2021-04-23-SSE-HTTP2/HTTP1-vs-HTTP2.png' | prepend: site.baseurl }}" alt="Workspace" class="image" style="margin:0px auto; max-width:70%">
 {: refdef}
 
 # Summary
-The key takeaways from this post are that the choice between SSE and Websocket is entirely dependent on the use-case of the application you are trying to develop.
-If you are looking for a stateless approach, or you don't have a need for client to server communication, SSE might be the solution for you!
+The key takeaways in choosing WS or SSE are entirely dependent on the use-case of the application you are trying to develop.
+If you are looking for a stateless approach, or you don't have a need for client-to-server communication, SSE might be the solution for you!
 The other takeaway is that you should definitely use HTTP/2 to get the most out of your application and not run into the limitations that HTTP/1.1 lays upon SSE.
 
-If after reading this blogpost you have come to the conclusion that you would be better off building a Websocket application to fit your use-case you can read through a blogpost on websockets made by my colleague Kevin Van Houtte [here](https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html){:target="_blank" rel="noopener noreferrer"}.
+If after reading this blogpost you have come to the conclusion that you would be better off building a Websocket application to fit your use-case you can read through a blog post on WebSockets made by my colleague Kevin Van Houtte [here](https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html){:target="_blank" rel="noopener noreferrer"}.
 
 # Demo application
 In this part of the blogpost I am going to show you how easy it is to develop your own SSE application.
 
 ### The use-case
-For the application we are going to build we are going to build a Spring Boot application that consumes a Chuck Norris joke REST API and then use a Flux to push joke data from the server using Server-Sent events to any clients that are subscribed.
+We are going to build a Spring Boot application that consumes a Chuck Norris joke REST API and uses Flux to push joke data from the server using Server-Sent events to any clients that are subscribed.
 
 # The SSE server
 
