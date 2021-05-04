@@ -1,5 +1,280 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-04-15T14:22:15+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">How to delegate effectively as a technical team lead</title><link href="https://ordina-jworks.github.io/leadership/2021/04/14/Delegation.html" rel="alternate" type="text/html" title="How to delegate effectively as a technical team lead" /><published>2021-04-14T00:00:00+00:00</published><updated>2021-04-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2021/04/14/Delegation</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2021/04/14/Delegation.html">&lt;h2 id=&quot;dont-be-the-bottleneck&quot;&gt;Don’t be the bottleneck.&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-05-04T08:50:49+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">SSE with HTTP2</title><link href="https://ordina-jworks.github.io/event-driven/2021/04/23/SSE-with-HTTP2.html" rel="alternate" type="text/html" title="SSE with HTTP2" /><published>2021-04-23T00:00:00+00:00</published><updated>2021-04-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/event-driven/2021/04/23/SSE-with-HTTP2</id><content type="html" xml:base="https://ordina-jworks.github.io/event-driven/2021/04/23/SSE-with-HTTP2.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-are-server-sent-events&quot;&gt;What are Server-Sent Events?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-sse-over-websockets&quot;&gt;Why SSE over Websockets?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#http11-vs-http2&quot;&gt;HTTP/1.1 vs HTTP/2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#summary&quot;&gt;Summary&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#demo-application&quot;&gt;Demo application&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;what-are-server-sent-events&quot;&gt;What are Server-Sent Events?&lt;/h1&gt;
+&lt;p&gt;Server-Sent Events is a technology where the client receives data (events) pushed by a server over HTTP.
+This data can be a random update (for example a tweet) or a constant stream of data (stock market price updates).
+The main thing to note is that the client does not need to poll for this data. There is no communication required from client to server.
+This technology may have been overshadowed by WebSockets because of SSE limitations in the past, 
+but as you will see and learn in this blogpost, you have nothing to worry about anymore!&lt;/p&gt;
+
+&lt;h1 id=&quot;why-sse-over-websockets&quot;&gt;Why SSE over WebSockets?&lt;/h1&gt;
+&lt;p&gt;While it is true that WebSockets have more capabilities than SSE, when these capabilities are not part of your use case, SSE in my opinion is a much better choice. 
+With Websockets, you have the ability to communicate from your client to the server.
+But you are going to have to take care of this connection yourself.
+One of the implications is that the connection needs to be  &lt;strong&gt;stateful&lt;/strong&gt;, which is a pretty important thing to take into consideration when you are trying to build cloud-native applications.
+WebSockets are also more supported by older browsers than SSE but this is easily solved by using the &lt;strong&gt;JavaScript EventSource interface&lt;/strong&gt; to create your own connection to the server and receive the data that way.
+I will demonstrate how easy it is to use this interface and solve this issue while building the demo application at the end of the blog post.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-04-23-SSE-HTTP2/SSE-vs-WS.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:70%&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;but-then-why-use-sse&quot;&gt;But then why use SSE?&lt;/h1&gt;
+&lt;p&gt;One of the key differences between SSE and WS is that SSE uses simple HTTP to send data to the clients.
+This means it does not require a special protocol like STOMP or MQTT which in turn requires server implementation to get it working making SSE a lot easier to set up.
+SSE also has built-in support for reestablishing connections and event IDs which WS lacks by design.&lt;/p&gt;
+
+&lt;p&gt;So the main questions you have to ask yourself is whether your use-case fits into the whole SSE story?
+Is it OK to have no communication back to the server?
+Is the application you are trying to build supposed to be used in a cloud-native environment and if so will a stateful connection between client and server be a problem?
+These questions will hopefully help make your choice between Server-sent Events and WebSockets easier.&lt;/p&gt;
+
+&lt;h1 id=&quot;http11-vs-http2&quot;&gt;HTTP/1.1 vs HTTP/2&lt;/h1&gt;
+&lt;p&gt;HTTP/1.1 is an old protocol, it loads requests one-by-one over a single TCP connection or in parallel over multiple TCP connections in an effort to decrease loading times while requiring more resources.
+This was fine when this protocol was new, about 23 years ago, but as time goes by and webpages become more advanced, the limitations of this protocol are really starting to show.
+This is why HTTP/2 was made, it aims to tackle the limitations set by HTTP/1.1 and be more future-proof.&lt;/p&gt;
+
+&lt;p&gt;With HTTP/2, multiple requests can be sent over the same TCP connection with responses arriving out of order.
+HTTP/2 is a binary protocol, removing security issues and error-proneness that come with text-based protocols.
+It is backward compatible with earlier versions of the protocol and is compatible with almost all browsers.
+HTTP/2 also avoids the round trip to the server by having the server intuitively sending resources that will be required to render the page.
+All these advantages eliminate the need for developers to write best practice workarounds to deal with the limitations of older versions of the protocol,
+they decrease loading times and improve the website infrastructure.
+This on top of full backward compatibility makes the choice between HTTP/1.1 and HTTP/2 for Server-sent events a no-brainer.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-04-23-SSE-HTTP2/HTTP1-vs-HTTP2.png&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:70%&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
+&lt;p&gt;The key takeaways in choosing WS or SSE are entirely dependent on the use-case of the application you are trying to develop.
+If you are looking for a stateless approach, or you don’t have a need for client-to-server communication, SSE might be the solution for you!
+The other takeaway is that you should definitely use HTTP/2 to get the most out of your application and not run into the limitations that HTTP/1.1 lays upon SSE.&lt;/p&gt;
+
+&lt;p&gt;If after reading this blogpost you have come to the conclusion that you would be better off building a Websocket application to fit your use-case you can read through a blog post on WebSockets made by my colleague Kevin Van Houtte &lt;a href=&quot;https://ordina-jworks.github.io/event-driven/2020/06/30/user-feedback-websockets.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;demo-application&quot;&gt;Demo application&lt;/h1&gt;
+&lt;p&gt;In this part of the blogpost I am going to show you how easy it is to develop your own SSE application.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-use-case&quot;&gt;The use-case&lt;/h3&gt;
+&lt;p&gt;We are going to build a Spring Boot application that consumes a Chuck Norris joke REST API and uses Flux to push joke data from the server using Server-Sent events to any clients that are subscribed.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-sse-server&quot;&gt;The SSE server&lt;/h1&gt;
+
+&lt;h3 id=&quot;pomxml&quot;&gt;pom.xml&lt;/h3&gt;
+&lt;p&gt;To start off we are going to make a Spring Boot application and add the following Maven dependencies:&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-web&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-webflux&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-devtools&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;runtime&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;optional&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/optional&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;chucknorrisjokejava&quot;&gt;ChuckNorrisJoke.java&lt;/h3&gt;
+&lt;p&gt;Now we are going to add our data model, as explained in the use-case this will be a simple Chuck Norris joke object containing a String value.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;jokeservicejava&quot;&gt;JokeService.java&lt;/h3&gt;
+&lt;p&gt;The next step is to get the joke data by consuming a public &lt;a href=&quot;https://api.chucknorris.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Chuck Norris joke API&lt;/a&gt;.
+First we create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JokeService&lt;/code&gt; interface and implementation:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.stereotype.Service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JokeService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getRandomChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.HttpEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.HttpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.HttpMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.stereotype.Component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.client.RestTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JokeServiceImpl&lt;/span&gt;  &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JokeService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RestTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpHeaders&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chuckNorrisJokeUrl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://api.chucknorris.io/jokes/random&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nc&quot;&gt;JokeServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RestTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpHeaders&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;restTemplate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;httpHeaders&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getRandomChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;joke&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exchange&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chuckNorrisJokeUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;nc&quot;&gt;HttpMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;GET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;httpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
+                &lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;joke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;joke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;serverconfigjava&quot;&gt;ServerConfig.java&lt;/h3&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RestTemplate&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HttpHeaders&lt;/code&gt; beans are defined in the ServerConfig class as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.web.client.RestTemplateBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.Bean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.Configuration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.CacheControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.client.RestTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.HttpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.time.Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServerConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RestTemplate&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;restTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RestTemplateBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setConnectTimeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setReadTimeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofMillis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;HttpHeaders&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;httpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;HttpHeaders&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HttpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HttpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ACCEPT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON_VALUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HttpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;CACHE_CONTROL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CacheControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;noCache&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;cachePrivate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mustRevalidate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHeaderValue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;jokecontroller&quot;&gt;JokeController&lt;/h3&gt;
+&lt;p&gt;Now for the final part of the Java code, all we have to do is create an endpoint for clients to subscribe to and push the joke data to this endpoint.
+For this we are going to create a JokeController and use a Flux which is a Reactive Stream publisher to periodically emit Server-Sent events containing ChuckNorrisJokes to this endpoint.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.http.codec.ServerSentEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.bind.annotation.RestController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;reactor.core.publisher.Flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.time.Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@RestController&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;sse-server&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JokeController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JokeService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jokeService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nc&quot;&gt;JokeController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;JokeService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jokeService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jokeService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jokeService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/chuck-norris-joke-stream&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ServerSentEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;streamJokes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Flux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Duration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ofSeconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServerSentEvent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jokeService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRandomChuckNorrisJoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When we run our application and go to &lt;a href=&quot;http://localhost:8080/sse-server/chuck-norris-joke-stream&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;http://localhost:8080/sse-server/chuck-norris-joke-stream&lt;/a&gt; you can see data coming in every 5 seconds.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-web-client&quot;&gt;The web client&lt;/h1&gt;
+&lt;p&gt;Now all that’s left to do is use the &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/EventSource&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;JavaScript EventSource interface&lt;/a&gt; to open a connection to our SSE server and transform the events into text to display in our basic HTML demo page.&lt;/p&gt;
+
+&lt;h3 id=&quot;indexhtml&quot;&gt;index.html&lt;/h3&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Server-sent events app&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/app.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;main-content&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;container&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;row&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;table&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jokes&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;table table-striped&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;tr&amp;gt;&lt;/span&gt;
+                        &lt;span class=&quot;nt&quot;&gt;&amp;lt;th&amp;gt;&lt;/span&gt;Chuck Norris Jokes&lt;span class=&quot;nt&quot;&gt;&amp;lt;/th&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;appjs&quot;&gt;app.js&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;eventSource&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EventSource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;sse-server/chuck-norris-joke-stream&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;eventSource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onmessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;joke&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;showJoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;joke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;showJoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;joke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;jokes&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insertRow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insertCell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;cell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;joke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
+&lt;p&gt;I will leave the styling up to you but you should now have a working SSE server and client that receives data in the form of Server-Sent events.
+All that is left to do for you is to enable HTTP2 by adding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.http2.enabled=true&lt;/code&gt; to your application.properties file and to enable HTTPS the way you would do it in any Spring Boot application.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-04-23-SSE-HTTP2/jokes.gif&quot; alt=&quot;Workspace&quot; class=&quot;image&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;one-final-note&quot;&gt;One final note&lt;/h1&gt;
+&lt;p&gt;You can find the code for this application using HTTP/1.1 and HTTP/2 as well as an example to achieve the same thing using Websockets on my &lt;a href=&quot;https://github.com/jagostaes/sse-servers&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;github&lt;/a&gt;.
+If you have any questions regarding this topic you can reach out to me on my &lt;a href=&quot;https://twitter.com/jagostaes&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Twitter&lt;/a&gt; and I will try my best to help you out.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Jago&quot;, &quot;last_name&quot;=&gt;&quot;Staes&quot;, &quot;linkedin&quot;=&gt;&quot;jago-staes-547177117&quot;, &quot;github&quot;=&gt;&quot;jagostaes&quot;, &quot;permalink&quot;=&gt;&quot;/author/jago_staes/&quot;, &quot;avatar&quot;=&gt;&quot;jago-staes.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;jago.staes@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Jago Staes is a Java Consultant with a strong interest for Spring Boot projects, enjoys learning about new technologies and wants to learn more about frontend technologies and microservices.&quot;}</name><email>jago.staes@ordina.be</email></author><category term="Event-Driven" /><category term="spring" /><category term="event-driven" /><category term="server-sent-events" /><category term="cloud-native" /><category term="http" /><summary type="html">Table Of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-04-23-SSE-HTTP2/SSE-HTTP2.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-04-23-SSE-HTTP2/SSE-HTTP2.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to delegate effectively as a technical team lead</title><link href="https://ordina-jworks.github.io/leadership/2021/04/14/Delegation.html" rel="alternate" type="text/html" title="How to delegate effectively as a technical team lead" /><published>2021-04-14T00:00:00+00:00</published><updated>2021-04-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2021/04/14/Delegation</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2021/04/14/Delegation.html">&lt;h2 id=&quot;dont-be-the-bottleneck&quot;&gt;Don’t be the bottleneck.&lt;/h2&gt;
 
 &lt;p&gt;Although it has been quite some time, I still remember my first project as technical team lead like it was yesterday.
 Before taking on that responsibility, I had worked hard as a developer and had naturally stepped into some minor leadership roles along the way.
@@ -2737,468 +3012,4 @@ Each text file will contain the box coordinates in normalized WHXY format.&lt;/p
   &lt;li&gt;&lt;a href=&quot;https://colab.research.google.com/drive/1gDZ2xcTOgR39tGGs-EZ6i3RTs16wmzZQ#scrollTo=1NcFxRcFdJ_O&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Google Colab document&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Overfitting&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Overfitting&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Train/Test/Validate&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Ordina" /><category term="JWorks" /><category term="AI" /><category term="ML" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><category term="YOLO" /><category term="YOLOv5" /><category term="image detection" /><category term="object detection" /><category term="cuda" /><category term="nvidia" /><category term="training" /><category term="coco" /><category term="dataset" /><category term="image recognition" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Mobile Design Done Right</title><link href="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html" rel="alternate" type="text/html" title="Mobile Design Done Right" /><published>2020-12-16T00:00:00+00:00</published><updated>2020-12-16T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design</id><content type="html" xml:base="https://ordina-jworks.github.io/design/2020/12/16/Mobile-Design.html">&lt;h2 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h2&gt;
-
-&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#mobile-design&quot; id=&quot;markdown-toc-mobile-design&quot;&gt;Mobile design&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#the-bad-and-the-ugly&quot; id=&quot;markdown-toc-the-bad-and-the-ugly&quot;&gt;The bad and… the ugly?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#donts&quot; id=&quot;markdown-toc-donts&quot;&gt;Don’ts&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#custom-gestures&quot; id=&quot;markdown-toc-custom-gestures&quot;&gt;Custom gestures&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#no-labels&quot; id=&quot;markdown-toc-no-labels&quot;&gt;No labels&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#hamburger-menu&quot; id=&quot;markdown-toc-hamburger-menu&quot;&gt;Hamburger menu&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#hidden-search-bar&quot; id=&quot;markdown-toc-hidden-search-bar&quot;&gt;Hidden search bar&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#unreadable-text&quot; id=&quot;markdown-toc-unreadable-text&quot;&gt;Unreadable text&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#contrast&quot; id=&quot;markdown-toc-contrast&quot;&gt;Contrast&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#typeface&quot; id=&quot;markdown-toc-typeface&quot;&gt;Typeface&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#font-size&quot; id=&quot;markdown-toc-font-size&quot;&gt;Font size&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#clutter&quot; id=&quot;markdown-toc-clutter&quot;&gt;Clutter&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#forms&quot; id=&quot;markdown-toc-forms&quot;&gt;Forms&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#typing-too-much&quot; id=&quot;markdown-toc-typing-too-much&quot;&gt;Typing too much&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#input-labels&quot; id=&quot;markdown-toc-input-labels&quot;&gt;Input labels&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#break-tasks-into-chunks&quot; id=&quot;markdown-toc-break-tasks-into-chunks&quot;&gt;Break tasks into chunks&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#too-small-buttons&quot; id=&quot;markdown-toc-too-small-buttons&quot;&gt;Too small buttons&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#underlined-links&quot; id=&quot;markdown-toc-underlined-links&quot;&gt;Underlined links&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#dos&quot; id=&quot;markdown-toc-dos&quot;&gt;Do’s&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#put-focus-on-what-matters&quot; id=&quot;markdown-toc-put-focus-on-what-matters&quot;&gt;Put focus on what matters&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#provide-feedback&quot; id=&quot;markdown-toc-provide-feedback&quot;&gt;Provide feedback&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#thumb-position&quot; id=&quot;markdown-toc-thumb-position&quot;&gt;Thumb position&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#tips&quot; id=&quot;markdown-toc-tips&quot;&gt;Tips&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#test-your-design&quot; id=&quot;markdown-toc-test-your-design&quot;&gt;Test your design&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#optimizing-flow&quot; id=&quot;markdown-toc-optimizing-flow&quot;&gt;Optimizing flow&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#onboarding&quot; id=&quot;markdown-toc-onboarding&quot;&gt;Onboarding&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#response-time&quot; id=&quot;markdown-toc-response-time&quot;&gt;Response time&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#prioritize-features&quot; id=&quot;markdown-toc-prioritize-features&quot;&gt;Prioritize features&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#asking-for-permissions&quot; id=&quot;markdown-toc-asking-for-permissions&quot;&gt;Asking for permissions&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#tooltips&quot; id=&quot;markdown-toc-tooltips&quot;&gt;Tooltips&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#trends-of-2020&quot; id=&quot;markdown-toc-trends-of-2020&quot;&gt;Trends of 2020&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#advanced-animation&quot; id=&quot;markdown-toc-advanced-animation&quot;&gt;Advanced animation&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#personalizations&quot; id=&quot;markdown-toc-personalizations&quot;&gt;Personalizations&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#password-less-login&quot; id=&quot;markdown-toc-password-less-login&quot;&gt;Password-less login&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#dark-themes&quot; id=&quot;markdown-toc-dark-themes&quot;&gt;Dark themes&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#skeleton-screens&quot; id=&quot;markdown-toc-skeleton-screens&quot;&gt;Skeleton screens&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#are-we-done-yet&quot; id=&quot;markdown-toc-are-we-done-yet&quot;&gt;Are we done yet?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;mobile-design&quot;&gt;Mobile design&lt;/h2&gt;
-
-&lt;p&gt;Mobile has taken over desktop when it comes to web browsing. 
-Because of this, the importance of user-friendly mobile interfaces is bigger than ever. 
-In this recipe, we will go from a bad design to a user-friendly design in a couple of steps. 
-This will help you make better design choices when developing for a customer!&lt;/p&gt;
-
-&lt;h2 id=&quot;the-bad-and-the-ugly&quot;&gt;The bad and… the ugly?&lt;/h2&gt;
-
-&lt;p&gt;This is a design created for the fictional webshop Lux, a company that sells luxury items.
-If you take a look at this design, you will notice that it’s pretty clean. 
-But a good-looking design doesn’t always check off the criteria of a good design. 
-Take a moment to think about what could be wrong.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Lux Example: Bad design&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Bad-design.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;donts&quot;&gt;Don’ts&lt;/h2&gt;
-
-&lt;p&gt;First, we will discuss the don’ts when creating a design for your application. 
-We will take everything step by step. 
-There will always be imperfections to the design, so keep thinking about what else could be wrong!&lt;/p&gt;
-
-&lt;h3 id=&quot;custom-gestures&quot;&gt;Custom gestures&lt;/h3&gt;
-&lt;p&gt;Gestures are a fun way of working with a touch screen. 
-It might result in faster interactions, but keep in mind that there is a learning curve to custom gestures. 
-Don’t replace UI elements with them, but give the user the choice.&lt;/p&gt;
-
-&lt;p&gt;In our example, to go to the wishlist page, you have to swipe left. 
-Some people might not know this and never get to this page. 
-However, we can solve this by adding a tab bar that contains all the pages you can go to. 
-Let’s combine this with the swipe gesture.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Bad design&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Bad-design.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block;&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Added tab bar&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Gestures.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block;&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;no-labels&quot;&gt;No labels&lt;/h3&gt;
-&lt;p&gt;Do you see anything wrong with the newly added tab bar?
-You probably know by now that the heart means wishlist and the user icon has something to do with your account. 
-These are assumptions that our brain makes when seeing those icons in this context, but it’s not always that obvious to other users. 
-This is why labelling preferably all icons is necessary. 
-As you can see, our tab bar is way clearer now and it will gain more engagement!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Added tab bar&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Gestures.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block;&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Tab bar with labels&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Labels.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block;&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;hamburger-menu&quot;&gt;Hamburger menu&lt;/h3&gt;
-&lt;p&gt;The first thing developers do when they have to make a website responsive is adding the hamburger menu, but this is not always the way to go. 
-Let’s take a look at our Lux application. 
-There are only three buttons in our hamburger menu and there is plenty of space in our header. 
-If you don’t hide them behind a button, people will be more tempted to go to one of these pages. 
-This doesn’t mean that you should never use a hamburger menu, but you should try to make the most important features easily accessible.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Bad design&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Hamburger-before.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block;&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Removed hamburger icon&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Hamburger.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block;&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;hidden-search-bar&quot;&gt;Hidden search bar&lt;/h3&gt;
-&lt;p&gt;Another thing that decreases engagement, is hiding the search bar behind a button. 
-If you show it all the time, you will see more users using the search functionality.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Removed hamburger icon&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Hamburger.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block;&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Added search bar&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Search-bar.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;unreadable-text&quot;&gt;Unreadable text&lt;/h3&gt;
-
-&lt;h4 id=&quot;contrast&quot;&gt;Contrast&lt;/h4&gt;
-&lt;p&gt;More important than ever because of the smaller screen sizes is the readability of text. 
-First of all, you need enough contrast between the text colour and background colour. 
-You can use a tool like &lt;a href=&quot;https://colourcontrast.cc/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Colour contrast&lt;/a&gt; to check the contrast between the foreground and background. 
-For the Lux webshop, I used a grey colour that is too light for a white background. 
-To change this, I played around with the colour contrast tool. 
-I decided to go with a darker greyish-blue tone to grey out text and a dark grey colour for text that should be readable.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Added search bar&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Search-bar.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Colour contrast of text&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Text-contrast.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;typeface&quot;&gt;Typeface&lt;/h4&gt;
-&lt;p&gt;You need to choose a typeface that works well in multiple sizes and weights to maintain readability and usability. 
-Test your typeface before using it and avoid typefaces that are complicated. 
-In the Lux design, the typeface ‘Stalemate’ was used for the title of the items. 
-This might look fun, but on smaller screens, it can be harder to read handwritten fonts.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Colour contrast of text&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Text-contrast.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Readable typeface&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Typeface.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;font-size&quot;&gt;Font size&lt;/h4&gt;
-&lt;p&gt;Don’t use font sizes smaller than 12px. 
-You might be tempted to make your font small on mobile screens, but readability always goes before design!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Readable typeface&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Typeface.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Bigger font size&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Font-size.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;clutter&quot;&gt;Clutter&lt;/h3&gt;
-&lt;p&gt;We have a better design than what we started with, but it is still not perfect. 
-A famous saying by Antoine de Saint-Exupéry can be applied to mobile UX design:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Il semble que la perfection soit atteinte non quand il n’y a plus rien à ajouter, mais quand il n’y a plus rien à retrancher.“&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;which translates to: “Perfection is finally attained not when there is no longer anything to add, but when there is no longer anything to take away.” 
-Get rid of everything you don’t need.&lt;/p&gt;
-
-&lt;p&gt;Especially when designing for mobile, you have to focus on what matters. 
-In our example, there is a log out button. 
-Logging out is not something people will often do and there is also an easily accessible account button available. 
-That account page also has the log out functionality, so let’s just remove the log out button from our header. 
-Another thing we can remove is the informational text on the sales items. 
-You can click on the item to read more, but there is no need to put this information on the overview.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Bigger font size&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Font-size.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Removed clutter&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Clutter.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;forms&quot;&gt;Forms&lt;/h3&gt;
-&lt;p&gt;When you want to sign up to Lux, you have to fill in a form. 
-Since we are creating this application for mobile, we have to take a lot of things into account when creating this form.
-Let’s see what our form looks like right now…&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Lux Example: Bad form&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Bad-form.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;typing-too-much&quot;&gt;Typing too much&lt;/h4&gt;
-&lt;p&gt;One thing that can scare off mobile users from filling in forms is having to type too much. 
-There are many ways to still get the same information but make it easier for users to fill everything in. 
-You can use their contact information to prefill forms and avoid them having to fill in their name, e-mail, phone number, etc. for the hundredth time. 
-Next to that, you can make sure the right keyboard comes up when they click on a certain input. 
-For example, when they are filling in a phone number, you show the number keyboard. 
-That way, they don’t have to change it themselves. This saves a lot of time. 
-Also, something that a lot of apps are starting to do right now, is using the camera for input. 
-We can use this here for the credit card number. 
-People just have to scan their credit card with their camera and the number is automatically filled in. 
-Next to that, you can change text inputs to different inputs that require less or no typing. 
-Here, I added a date input for the birth date and a custom selector for the categories.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Bad form&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Bad-form.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Less typing&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Too-much-typing.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;input-labels&quot;&gt;Input labels&lt;/h4&gt;
-&lt;p&gt;Imagine filling in a form and having to go get your credit card. 
-When you come back, you might have forgotten what the other input fields were about. 
-In our example, the labels are placeholders which disappear when you’ve entered something in them. 
-The best practice for input labels is to show them at all times, because yes, people tend to forget what they were for.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Labels not visible&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Labels-not-visible.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Labels always visible&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Visible-labels.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;break-tasks-into-chunks&quot;&gt;Break tasks into chunks&lt;/h4&gt;
-&lt;p&gt;If you have a large form, break your tasks into chunks. 
-You can create a step-by-step form. 
-Do this by asking the main questions in the beginning and then asking questions that don’t seem as important in the following steps. 
-Make sure people always know why they are filling in certain information and make sure the info you’re asking for is needed at that time. 
-In the Lux example, I changed the form so that people can sign up with just an e-mail address and a password. 
-I added an explanation for why we need the other information and why it benefits the user to fill in a second form. 
-I added a save button so they can always fill it in later.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Lux Example: Break tasks into chunks&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Break-tasks.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;too-small-buttons&quot;&gt;Too small buttons&lt;/h3&gt;
-&lt;p&gt;There are two major rules when it comes to using buttons on a touchscreen. 
-The first rule is that you need to create controls that measure at least 7–10 mm so they can be accurately tapped with a finger. 
-Nothing is more annoying than having to tap very precisely with a smartphone. 
-The buttons on our newly created form are very small and you might accidentally click on the wrong button.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Buttons too small&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Buttons-too-small.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Bigger buttons&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Small-buttons.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Buttons too small&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Buttons-too-small-2.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Bigger buttons&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Small-buttons-2.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Rule number two is that you need to ensure that there is the right amount of spacing between tap targets.
-Our tab bar looks alright, but I think a little more spacing between the buttons won’t hurt.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Removed clutter&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Clutter.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: More spacing between buttons&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Button-spacing.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;underlined-links&quot;&gt;Underlined links&lt;/h3&gt;
-&lt;p&gt;For desktop applications, we use a lot of underlined links. 
-On mobile devices however, it’s best to avoid them. 
-Usually, links are replaced with buttons for mobile applications, because they are way easier to tap on with a touch device. 
-And, one more plus: they grab your attention.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: More spacing between buttons&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Button-spacing.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Buttons instead of links&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Underlined-links.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;dos&quot;&gt;Do’s&lt;/h2&gt;
-
-&lt;h3 id=&quot;put-focus-on-what-matters&quot;&gt;Put focus on what matters&lt;/h3&gt;
-&lt;p&gt;The title says it all: put focus on what matters. 
-Try to think about what you want users to do.
-For our webshop, we want people to buy the Sale items.
-There is no reason for the titles to be this big because we don’t want the customer to interact with them.
-We can make them smaller and make sure the Sale title stands out a bit more.
-Now, our focus goes to the sale items instead of the two titles.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Buttons instead of links&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Underlined-links.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Focus on what matters&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Focus.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;provide-feedback&quot;&gt;Provide feedback&lt;/h3&gt;
-&lt;p&gt;Provide feedback on interactions so people know what’s going on.
-Take a look at what happens when someone adds something to their bag:&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Lux Example: Bad feedback&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Bad-feedback.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You had to look very close to see there was something added to the bag, right?
-Using a pop-up message here will grab your user’s attention and make it clear the action was successful.&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt=&quot;Lux Example: Good feedback&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Good-feedback.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Another example for which you need to provide feedback is when a page is loading.
-A small loading animation is enough, but don’t let people think they’re stuck on a page when things are loading.
-It might annoy them and even let them leave your application!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Loading animation&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Loading-animation.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://dribbble.com/shots/3162915-Shopping-Loader-GIF-Animation&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LePraveen Tewatia on Dribbble&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;thumb-position&quot;&gt;Thumb position&lt;/h3&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Thumb position with zone chart&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Thumb-position.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://dribbble.com/shots/6869746-Twitter-Search&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ranjith Manoharan on Dribbble&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Always keep the thumb position in mind.
-Know what spaces on your screen are more easily accessible with the right thumb and use them for your advantage.
-What buttons do you want people to click on? As you can see on the thumb zone-chart, our bag is in the red zone.
-We want people to buy stuff, so we might have to swap the places of the account and the bag button.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center&quot;&gt;
-    &lt;img alt=&quot;Lux Example: Focus on what matters&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Focus.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-    &lt;img alt=&quot;Lux Example: Thumb position&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Thumb-position.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px; display: inline-block&quot; /&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;tips&quot;&gt;Tips&lt;/h2&gt;
-
-&lt;p&gt;Our Lux design is finished. Nothing is ever perfect, but we should always strive for perfection.
-Here are a few more tips to help you with designing an interface for mobile!&lt;/p&gt;
-
-&lt;h3 id=&quot;test-your-design&quot;&gt;Test your design&lt;/h3&gt;
-&lt;p&gt;In our example, we swapped the bag and account icon because we want people to easily go to the checkout.
-According to our thumb zone-chart, this is the right positioning for our goal, but in practice, this might not work.
-This is why you should always test your design. The numbers are what counts. 
-You might have done everything by the rules and still not have the engagement you aimed for.&lt;/p&gt;
-
-&lt;h3 id=&quot;optimizing-flow&quot;&gt;Optimizing flow&lt;/h3&gt;
-&lt;p&gt;A user flow is a sequence of actions a user has to perform to acquire different functionalities in your app, such as set up, purchasing an item, … 
-Users might find the perfect app but still delete it because there is friction in one of the flows.
-You can use the &lt;a href=&quot;https://pageflows.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Page flows website&lt;/a&gt; to learn from proven products!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Flow chart&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/UX-flow-chart.jpg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://www.leanplum.com/blog/user-flow/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Leanplum&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;onboarding&quot;&gt;Onboarding&lt;/h3&gt;
-&lt;p&gt;Good onboarding is essential and shows the value of your application.
-A very effective way of onboarding is having an interactive tour of your app.
-This is a fun and easy way for people to get the hang of using your application.
-One thing to keep in mind is that your onboarding doesn’t make up for the fact that some things just may not be clear to your users.
-The app should still be easy to use, even when you’ve skipped the tutorial.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Onboarding example&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Onboarding.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 800px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://www.habitify.me/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Habitify app&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;response-time&quot;&gt;Response time&lt;/h3&gt;
-&lt;p&gt;One thing that is especially important to keep in mind for us developers is the response time.
-As technology progresses, people get more impatient and they might leave your app if they have to wait longer than 2 seconds for something to load.
-We directly influence the response time, and we should continuously improve the quality of our code.
-It’s also interesting to take a look at your target audience.
-We are used to fast internet connections in Western Europe but other countries might not have that privilege.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Bounce time&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Bounce-time.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;
-    Source: Google/SOASTA Research, 2017
-&lt;/div&gt;
-
-&lt;h3 id=&quot;prioritize-features&quot;&gt;Prioritize features&lt;/h3&gt;
-&lt;p&gt;You can pack your app with thousands of interesting features to make it more attractive to potential users.
-While you might have a lot of traffic going to your application, a lot of users will be scared off by the overload of features.
-The rule is to prioritize the features your application needs and omit the nice-to-haves.&lt;/p&gt;
-
-&lt;h3 id=&quot;asking-for-permissions&quot;&gt;Asking for permissions&lt;/h3&gt;
-&lt;p&gt;Your app might need permission for using the user’s location at some point.
-Don’t ask for this the moment they open your application.
-The user might not get why they have to give you permission and will decline the request.
-That would mean they have to go back into their settings later.
-Instead, ask for it whenever they are starting to use the feature that needs location and provide a clear message as to why you need this permission.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Approach for asking for permissions&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Location-permission.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://www.plotprojects.com/blog/how-to-ask-for-location-permissions-in-ios11-recommended-approaches-10-examples/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PlotProjects&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;tooltips&quot;&gt;Tooltips&lt;/h3&gt;
-&lt;p&gt;Tooltips display information when a user hovers, focus on or taps on an element. 
-Most commonly, a tooltip is shown on hover, but there is no such thing as hover on a mobile device.
-You can show it on long press, but people might not even know it’s there.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Approach for tooltips on mobile&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Tooltips.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://material.io/components/tooltips#placement&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Material Design&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Ask yourself the question: do I really need to hide this tooltip?
-You can show the tooltip by default or conveniently place it alongside the element you would hover over.
-While on large screens a tooltip might look really small, it will draw the attention on smaller devices.
-Another good practice for mobile is to hide it behind a hint icon. 
-By using hints like a question mark or info icon, you can make it clear that tapping on this icon could open a tooltip.&lt;/p&gt;
-
-&lt;h2 id=&quot;trends-of-2020&quot;&gt;Trends of 2020&lt;/h2&gt;
-
-&lt;h3 id=&quot;advanced-animation&quot;&gt;Advanced animation&lt;/h3&gt;
-&lt;p&gt;Animation can give the user feedback on their actions and add some rhythm to interactions.
-Advanced animations are animations that are used as part of the branding of a company.
-It can help you express your brand and build loyalty.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Note: A lot of people get motion sickness because of animations. There should always be a way to turn off or minimize animations in your application.&lt;/em&gt;&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Advanced animation&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Advanced-animation.gif&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://dribbble.com/shots/6832505-Food-Menu&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Asha Rajput on Dribbble&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;personalizations&quot;&gt;Personalizations&lt;/h3&gt;
-&lt;p&gt;Artificial Intelligence is rapidly gaining popularity and is being used in everyday applications.
-Apps like Spotify and Netflix use AI to recommend certain songs or movies.
-This way of personalization can add value to your application and might make it easier for users to find what they are looking for.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Discover Weekly on Spotify&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Discover-Spotify.jpeg&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://medium.com/the-sound-of-ai/spotifys-discover-weekly-explained-breaking-from-your-music-bubble-or-maybe-not-b506da144123&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Medium&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;password-less-login&quot;&gt;Password-less login&lt;/h3&gt;
-&lt;p&gt;As I already mentioned in the part about forms, mobile users don’t like to type.
-Because of that, new ways of logging in are coming to the surface.
-Popular alternatives for passwords are: facial or fingerprint recognition, sign-in links via mail or text and using key generators.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Password-less login&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Passwordless.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 500px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://dribbble.com/shots/2260567-Password-less-login&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jason Zimdars on Dribbble&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;dark-themes&quot;&gt;Dark themes&lt;/h3&gt;
-&lt;p&gt;Dark themes have two essential advantages: they use less battery power and reduce eye strain.
-A lot of popular apps give you the choice to swap between a light or dark theme or automatically swap between those two during the day or night.
-Others just go all the way and embrace the dark theme!&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Dark vs. light theme&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Dark-light-theme.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 600px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://blog.smartlauncher.net/designing-a-dark-theme-on-android-2dd9a1da16db&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Giovanni Piemontese on SmartLauncher&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;skeleton-screens&quot;&gt;Skeleton screens&lt;/h3&gt;
-&lt;p&gt;People don’t like waiting and you might have done everything to have a fast load time, but it still doesn’t feel like enough.
-Skeleton screens are being used by big companies like Facebook to give you a feeling of fast loading.
-Skeleton screens give you a general idea of what the page is going to look like in a wireframe-like design.&lt;/p&gt;
-
-&lt;div style=&quot;text-align: center; margin-bottom: 1em;&quot;&gt;
-    &lt;img alt=&quot;Skeleton screen Facebook&quot; src=&quot;/img/2020-12-16-mobile-design-done-right/Skeleton-screen.png&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width: 400px;&quot; /&gt;
-    Source: &lt;a href=&quot;https://medium.com/the-aesthetic-programmer/facebook-loading-labels-animation-simple-approach-for-skeleton-view-in-swift-4-4fcdfeffd121&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Medium&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;are-we-done-yet&quot;&gt;Are we done yet?&lt;/h2&gt;
-&lt;p&gt;We will never be done redesigning our website for mobile. 
-There’s always something we could do better.
-You can find many more tips and tricks for mobile design online, 
-but these key points will always help you:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;People are lazy, literally! People don’t grab their phone to write out monologues, but just type some emojis and get it over with.&lt;/li&gt;
-  &lt;li&gt;Mobile screens are really small, don’t pack everything on them and keep removing everything you don’t need.&lt;/li&gt;
-  &lt;li&gt;Have you ever heard anyone say “I’ve got fat fingers” except for when they are using a smartphone? Make your tap targets big enough!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;User testing is one of the most important things to do when improving your user experience.
-There is always more to learn about mobile design and it is definitely worth looking more into user testing.
-If you’re looking for UI/UX experts to help you tackle these issues, don’t hesitate to contact my colleagues at &lt;a href=&quot;http://www.cw.be/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ClockWork&lt;/a&gt;!&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Icons on Lux prototype made by &lt;a href=&quot;https://www.flaticon.com/authors/kiranshastry&quot; title=&quot;Kiranshastry&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kiranshastry&lt;/a&gt; from &lt;a href=&quot;https://www.flaticon.com/&quot; title=&quot;Flaticon&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;www.flaticon.com&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Hannelore&quot;, &quot;last_name&quot;=&gt;&quot;Verbraekel&quot;, &quot;permalink&quot;=&gt;&quot;/author/hannelore_verbraekel&quot;, &quot;avatar&quot;=&gt;&quot;hannelore-verbraekel.jpg&quot;, &quot;title&quot;=&gt;&quot;Frontend Developer&quot;, &quot;email&quot;=&gt;&quot;hannelore.verbraekel@ordina.be&quot;, &quot;github&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;linkedin&quot;=&gt;&quot;hanneloreverbraekel&quot;, &quot;bio&quot;=&gt;&quot;Hannelore is a junior front-end developer who is creative and open-minded and always eager to learn new skills. She achieved her bachelor’s degree in Applied Information Technology with a focus on Web and Mobile Applications in 2019.&quot;}</name><email>hannelore.verbraekel@ordina.be</email></author><category term="Design" /><category term="Design" /><category term="UX Design" /><category term="UI Design" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-16-mobile-design-done-right/mobile-design.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-16-mobile-design-done-right/mobile-design.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Ordina" /><category term="JWorks" /><category term="AI" /><category term="ML" /><category term="Machine Learning" /><category term="Artificial Intelligence" /><category term="YOLO" /><category term="YOLOv5" /><category term="image detection" /><category term="object detection" /><category term="cuda" /><category term="nvidia" /><category term="training" /><category term="coco" /><category term="dataset" /><category term="image recognition" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2020-12-17-ordina-logo-detector/banner.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
