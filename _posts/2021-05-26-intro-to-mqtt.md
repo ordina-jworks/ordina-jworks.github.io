@@ -18,7 +18,7 @@ comments: true
 
 1. [Introduction](#introduction)
 2. [MQTT terminology](#mqtt-terminology)
-3. [IoT and home automation options](#iot-and-home-automation-options)
+3. [Basic example](#basic-examples)
 4. [Broker options](#broker-options)
 5. [Conclusion](#conclusion)
 6. [Resources](#resources)
@@ -103,17 +103,47 @@ Is a feature to notify clients about a client that has disconnected in an ungrac
 The message is sent to the broker when a client connects so it can be sent to other clients later on if required.
 If the client disconnects gracefully the broker discards the LWT message.
 
-## IoT and home automation options
+## Basic examples
 
 TODO
 
 ## Broker options
 
+As MQTT requires a broker instance to function choosing the right one is crucial.
+There many different options available, both run run locally or hosted in the cloud.
+
+There are also different versions of the MQTT protocol, not every broker supports all the different versions:
+
+- 3.1: The older IBM based version, less used these days
+- 3.1.1: OASIS standard compliant, the most used version nowadays
+- 5: The newest version (2019), not yet widely used
+
+### Eclipse Mosquitto
+
+TODO
+
+### Aedes
+
+TODO
+
+### HiveMQ
+
+TODO
+
+### emqttd
+
+TODO
+
+### VerneMQ
+
 TODO
 
 ## Conclusion
 
-TODO
+MQTT is an ideal protocol to use for lightweight communication on ip enabled devices.
+The pu/sub architecture allows for a decoupled environment of clients that can operate independently of each other.
+
+Good support for MQTT in home automation platforms means that "dumb" devices can be enabled for use in the smart home.
 
 ## Resources
 
