@@ -18,8 +18,8 @@ comments: true
 
 1. [Introduction](#introduction)
 2. [MQTT terminology](#mqtt-terminology)
-3. [Basic example](#basic-examples)
-4. [Broker options](#broker-options)
+3. [Broker options](#broker-options)
+4. [Basic example](#basic-examples)
 5. [Conclusion](#conclusion)
 6. [Resources](#resources)
 
@@ -103,10 +103,6 @@ Is a feature to notify clients about a client that has disconnected in an ungrac
 The message is sent to the broker when a client connects so it can be sent to other clients later on if required.
 If the client disconnects gracefully the broker discards the LWT message.
 
-## Basic examples
-
-TODO
-
 ## Broker options
 
 As MQTT requires a broker instance to function choosing the right one is crucial.
@@ -118,32 +114,95 @@ There are also different versions of the MQTT protocol, not every broker support
 - 3.1.1: OASIS standard compliant, the most used version nowadays
 - 5: The newest version (2019), not yet widely used
 
-### Eclipse Mosquitto
+### [Eclipse Mosquitto](https://mosquitto.org/){:target="_blank" rel="noopener noreferrer"}
+
+Eclipse Mosquitto is an open source implementation of an MQTT message broker.
+It supports all three mayor versions of the protocol.
+The broker is very lightweight and can run on low powered devices like the Raspberry Pi.
+I use this one at home for my home automation projects.
+
+Installing it is very easy (rbpi on debian buster):
+
+```shell
+wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+sudo apt-key add mosquitto-repo.gpg.key
+cd /etc/apt/sources.list.d/
+
+# Pick the correct url for your flavour of debian (we pick buster as the default):
+# sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
+# sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
+sudo wget http://repo.mosquitto.org/debian/mosquitto-buster.list
+
+sudo apt-get update
+apt-get install mosquitto
+
+# We will add username/password auth for connections to the auth (anonymous is allowed by default, we don't want this, skip this section if you do)
+# username: myuser, password: enter into the mosquitto_passwd tool (enter any valid password)
+sudo mosquitto_passwd -c /etc/mosquitto/credentials myuser
+sudo nano /etc/mosquitto/mosquitto.conf
+# At the end of the file add:
+# allow_anonymous false
+# password_file /etc/mosquitto/credentials
+sudo service mosquitto restart
+```
+
+### [Aedes](https://github.com/moscajs/aedes){:target="_blank" rel="noopener noreferrer"}
+
+Aedes is the follow up/split from Mosca and is fully open source.
+It is a node based MQTT broker that is scalable and lightweight.
+The broker only has support for the 3.1 and 3.1.1 protocol versions, 5.0 is not supported yet.
+
+Installing is very simple, just make sure you have node installed and simply install it by using npm: `npm install aedes`.
+You are responsible for creating the server instance from code.
+A very basic implementation of the broker is:
+
+```js
+const aedes = require('aedes')();
+const server = require('net').createServer(aedes.handle);
+const port = 1883;
+
+server.listen(port, () => {
+  console.log('Server started and listening on port ', port);
+});
+```
+
+### [HiveMQ](https://www.hivemq.com/){:target="_blank" rel="noopener noreferrer"}
+
+HiveMQ is an MQTT-based platform that includes a broker.
+It has the option to be hosted in the cloud (with a free trial tier) or to be run locally.
+The broker has support for all three mayor versions of the protocol.
+
+It does require you to create an account before you can use the cloud tier or even download the zip package for local installation.
+
+### [Emqttd](https://emqtt.io/docs/v1/index.html){:target="_blank" rel="noopener noreferrer"}
+
+Emqttd is another fully open source broker.
+The project is written in Erlang and is fully compatible with the 3.1 and 3.1.1 versions of the protocol.
+
+### [VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"}
+
+VerneMQ is another well known broker that is also fully open source, and written in Erlang.
+It has the ability to scale very well, both vertically and horizontally.
+The broker has support for all three mayor versions of the protocol.
+
+In addition to the free to use broker they also have paid tiers of support.
+
+## Basic examples
+
+Basic C example (for use on an ESP-01):
 
 TODO
 
-### Aedes
-
-TODO
-
-### HiveMQ
-
-TODO
-
-### emqttd
-
-TODO
-
-### VerneMQ
+Basic node example:
 
 TODO
 
 ## Conclusion
 
 MQTT is an ideal protocol to use for lightweight communication on ip enabled devices.
-The pu/sub architecture allows for a decoupled environment of clients that can operate independently of each other.
+The pub/sub architecture allows for a decoupled environment of clients that can operate independently of each other.
 
-Good support for MQTT in home automation platforms means that "dumb" devices can be enabled for use in the smart home.
+Thanks to the protocol and its implementations being very lightweight it is very handy to use in combination with IoT and home automation projects.
 
 ## Resources
 
