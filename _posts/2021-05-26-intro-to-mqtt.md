@@ -191,11 +191,85 @@ In addition to the free to use broker they also have paid tiers of support.
 
 Basic C example (for use on an ESP-01):
 
-TODO
+```cpp
+#include "EspMQTTClient.h"
+
+EspMQTTClient *client;
+
+void setup()
+{
+  client = new EspMQTTClient("SSID", "SSID_PASS", "BROKER_URL", "MQTT_USERNAME", "MQTT_PASSWORD", "CLIENT_NAME", 1883);
+  //client->enableDebuggingMessages(true);
+
+  client->enableLastWillMessage("LAST_WILL_TOPIC", "LAST_WILL_MESSAGE");
+}
+
+void onConnectionEstablished()
+{
+    Serial.println("MQTT: Connected");
+    client->publish("TOPIC", "connected");
+
+    client.subscribe(actionTopic, [](const String & payload) {
+        Serial.println(payload);
+    });
+}
+
+void loop()
+{
+  client->publish("TOPIC", "DATA");
+  sleep(1000);
+}
+
+```
+
+This example uses the [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient){:target="_blank" rel="noopener noreferrer"} library to enable low powered IoT devices with WiFi connectivity to connect to an SSID and broker.
+The library handles both the WiFi and broker connections.
 
 Basic node example:
 
-TODO
+```js
+import mqtt, {Client} from "mqtt";
+import {ISubscriptionGrant} from "mqtt/types/lib/client";
+import {Packet} from "mqtt-packet";
+
+export class Main {
+
+    private readonly client: Client;
+
+    constructor() {
+        this.client = this.connectMqtt();
+        this.receive();
+    }
+
+    private connectMqtt(): any {
+        const client: Client = mqtt.connect('mqtt://broker-url:1883', {username: 'username', password: 'password'});
+
+        client.on('connect', () => {
+            console.log('Connected to MQTT broker!');
+        });
+
+        return client;
+    }
+
+    private receive(): void {
+        this.client.subscribe('topic', {qos: 0}, (err: Error, granted: ISubscriptionGrant[]) => {
+            console.log(granted);
+
+            if (granted && granted.length === 1) {
+               this.client.on('message', (topic: string, payload: Buffer, packet: Packet) => {
+                    console.log(payload.toString());
+               });
+            }
+        })
+    }
+}
+
+const main = new Main();
+```
+
+The node code is a bit more complex but allows you to create more complex applications.
+This is not meant to run on the IoT device but on a separate device that reacts to messages from the IoT devices.
+Please not that this will not manage the WiFi/ethernet connection of the device that it is running on, that is left to the OS/User.
 
 ## Conclusion
 
