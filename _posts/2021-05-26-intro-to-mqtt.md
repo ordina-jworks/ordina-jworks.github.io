@@ -268,6 +268,7 @@ const main = new Main();
 ```
 
 The node code is a bit more complex but allows you to create more complex applications.
+It uses the [MQTT.js](https://www.npmjs.com/package/mqtt){:target="_blank" rel="noopener noreferrer"} library which has very good and extensive documentation.
 This is not meant to run on the IoT device but on a separate device that reacts to messages from the IoT devices.
 Please not that this will not manage the WiFi/ethernet connection of the device that it is running on, that is left to the OS/User.
 
@@ -277,9 +278,24 @@ MQTT is an ideal protocol to use for lightweight communication on ip enabled dev
 The pub/sub architecture allows for a decoupled environment of clients that can operate independently of each other.
 
 Thanks to the protocol and its implementations being very lightweight it is very handy to use in combination with IoT and home automation projects.
+Getting started with some simple setup is relatively easy and does not require difficult programming to wire things up.
+
+In a future blog post I will go a bit more in depth and show off a project which makes use of MQTT to wire devices together.
 
 ## Resources
 
 - [MQTTT](https://mqtt.org/){:target="_blank" rel="noopener noreferrer"}
 - [Beginners guide](http://www.steves-internet-guide.com/mqtt/){:target="_blank" rel="noopener noreferrer"}
 - [MQTT essentials](https://www.hivemq.com/mqtt-essentials/){:target="_blank" rel="noopener noreferrer"}
+- [Broker](https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/){:target="_blank" rel="noopener noreferrer"}
+- [Client](https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/){:target="_blank" rel="noopener noreferrer"}
+- [Quality of Service (QoS)](https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/){:target="_blank" rel="noopener noreferrer"}
+- [Retained messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/){:target="_blank" rel="noopener noreferrer"}
+- [Last Will and Testament (LWT)](https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/){:target="_blank" rel="noopener noreferrer"}
+- [Eclipse Mosquitto](https://mosquitto.org/){:target="_blank" rel="noopener noreferrer"}
+- [Aedes](https://github.com/moscajs/aedes){:target="_blank" rel="noopener noreferrer"}
+- [HiveMQ](https://www.hivemq.com/){:target="_blank" rel="noopener noreferrer"}
+- [Emqttd](https://emqtt.io/docs/v1/index.html){:target="_blank" rel="noopener noreferrer"}
+- [VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"}
+- [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient){:target="_blank" rel="noopener noreferrer"}
+- [MQTT.js](https://www.npmjs.com/package/mqtt){:target="_blank" rel="noopener noreferrer"}
