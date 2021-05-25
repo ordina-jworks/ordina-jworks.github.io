@@ -68,29 +68,35 @@ A string that acts as a subject for publishing to or subscribing to.
 Is a setting to ensure a certain level of guaranteed delivery.
 In MQTT there are 3 QoS options:
 
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos0.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QoS level 0">
+        <img alt="QoS level 0" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos0.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
 - 0: At most once
   This service level only guarantees a best effort delivery of messages.
   Delivery of messages is not guaranteed so data might be lost in transit.
   No acknowledgement are sent and no data is retransmitted.
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QoS level 1">
+        <img alt="QoS level 1" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
 - 1: At least once
   This service level guarantees that messages are delivered at least once.
   The sender stores the message until it receives an acknowledgement from the broker.
   If the acknowledgement is not received in a timely manner the message is retransmitted.
+
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos2.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QoS level 2">
+        <img alt="QoS level 2" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos2.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
+    </a>
+</div>
 - 2: Exactly once
   This service level guarantees that messages are delivered exactly once.
   To enable this a four-way handshake is used between the client and the broker.
-
-<div style="text-align: center; margin: 0px auto;">
-    <a href="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos0.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QoS level 0">
-        <img alt="QoS level 0" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos0.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 33%; display: inline-block;">
-    </a>
-    <a href="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QoS level 1">
-        <img alt="QoS level 1" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 33%; display: inline-block;">
-    </a>
-    <a href="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos2.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QoS level 2">
-        <img alt="QoS level 2" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos2.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 33%; display: inline-block;">
-    </a>
-</div>
 
 [Retained messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/){:target="_blank" rel="noopener noreferrer"}:
 These are messages with the retained flag set to true.
