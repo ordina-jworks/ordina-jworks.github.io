@@ -42,6 +42,8 @@ If you are unable to run `rvm install 2.4.0` execute the following:
 ## Running Jekyll on your Mac or Linux
 - Run `jekyll serve` in the root directory of the tech blog
     - If your post is to be published in the future, run `jekyll serve --future`
+    - Enable incremental builds by adding the `--incremental` flag
+    - Add extra logging by adding the `--trace` flag
 - Browse to [http://localhost:4000/](http://localhost:4000/)
 
 ## Add yourself as an author

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Intro to mqtt - Kevin Van den Abeele">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2021-05-26-intro-to-mqtt/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/iot/2021/05/26/intro-to-mqtt.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Intro to mqtt - Kevin Van den Abeele"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2021-05-26-intro-to-mqtt/banner.jpg"/>
+
+    
+    <title>Intro to mqtt - Kevin Van den Abeele &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Intro to mqtt</h2>
+                
+
+                
+                    Posted May 26, 2021
+
+
+    in <a href="/categories/iot/">IoT</a>
+
+
+
+    by
+    
+        <a href="/author/kevin-van-den-abeele/">Kevin Van den Abeele</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/internet-of-things/">Internet of Things</a>, 
+    
+        <a href="/tags/smart-tech/">Smart Tech</a>, 
+    
+        <a href="/tags/home/">Home</a>, 
+    
+        <a href="/tags/smart-home/">Smart Home</a>, 
+    
+        <a href="/tags/automation/">Automation</a>, 
+    
+        <a href="/tags/home-automation/">Home Automation</a>, 
+    
+        <a href="/tags/home-assistant/">Home Assistant</a>, 
+    
+        <a href="/tags/mqtt/">mqtt</a>, 
+    
+        <a href="/tags/publish/">publish</a>, 
+    
+        <a href="/tags/subscribe/">subscribe</a>, 
+    
+        <a href="/tags/message-broker/">message broker</a>, 
+    
+        <a href="/tags/transport-protocol/">transport protocol</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/js/lightbox.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/index.min.js"></script>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ol>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#mqtt-terminology">MQTT terminology</a></li>
+  <li><a href="#broker-options">Broker options</a></li>
+  <li><a href="#basic-examples">Basic example</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<h2 id="introduction">Introduction</h2>
+
+<p><a href="https://mqtt.org/mqtt-specification/" target="_blank" rel="noopener noreferrer">MQTT</a> or Message Queuing Telemetry Transport is a very lightweight IoT messaging protocol.
+It was originally designed by IBM and has become royalty free since 2010.</p>
+
+<p>It is very lightweight, both on computational and network resources to send and receive messages, making it ideal for use with IoT applications as well as restrained network conditions.
+The protocol is built on top of tcp/ip so both broker and client require a tcp/ip stack.
+This allows for reliable bi-directional communication that supports authentication and TLS encryption and uses the publish/subscribe pattern.</p>
+
+<p>Using this pattern has multiple advantages:</p>
+
+<ul>
+  <li>Space decoupling: Publisher and subscriber clients do not need to know each other.</li>
+  <li>Time decoupling: Publisher and subscribers do not need to run at the same point in time.</li>
+  <li>Synchronization decoupling: Operations do not need to be interrupted during publishing or receiving.</li>
+</ul>
+
+<p>Also be reminded that MQTT is <strong>NOT</strong> a message queue!
+By default, messages will not be stored if there are no clients to consume them, and even retained messages only keep the last retained message, overwriting any previous retained message.</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-05-26-intro-to-mqtt/mqtt-publish-subscribe.png" data-lightbox="ui" data-title="MQTT">
+        <img alt="MQTT" src="/img/2021-05-26-intro-to-mqtt/mqtt-publish-subscribe.png" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;" />
+    </a>
+</div>
+
+<h2 id="mqtt-terminology">MQTT terminology</h2>
+
+<p>Let’s go over some terminology to better understand and grasp the concepts of the MQTT protocol:</p>
+
+<p><a href="https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/" target="_blank" rel="noopener noreferrer">Broker</a>:
+The host that acts as the manager for all messages.
+It is responsible for receiving messages from publishers, performing checks to see which subscribers match the topic and sending the messages to those subscribers.</p>
+
+<p><a href="https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/" target="_blank" rel="noopener noreferrer">Client</a>:
+An MQTT client, meaning any instance that implements logic to connect to a broker.
+Clients can be a publisher, a subscriber, or both.
+A client who is a publisher sends messages, while a client whom is a subscriber receives and consumes messages.
+It is perfectly possible, and often used, that a client is both a publisher and a subscriber at the same time.</p>
+
+<p>Topics &amp; wildcards:
+A string that acts as a subject for publishing to or subscribing to.</p>
+
+<p><a href="https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/" target="_blank" rel="noopener noreferrer">Quality of Service (QoS)</a>:
+Is a setting to ensure a certain level of guaranteed delivery.
+In MQTT there are 3 QoS options:</p>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-05-26-intro-to-mqtt/qos-levels_qos0.svg" data-lightbox="ui" data-title="QoS level 0">
+        <img alt="QoS level 0" src="/img/2021-05-26-intro-to-mqtt/qos-levels_qos0.svg" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;" />
+    </a>
+</div>
+<ul>
+  <li>0: At most once
+This service level only guarantees a best effort delivery of messages.
+Delivery of messages is not guaranteed so data might be lost in transit.
+No acknowledgements are sent and no data is retransmitted.</li>
+</ul>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg" data-lightbox="ui" data-title="QoS level 1">
+        <img alt="QoS level 1" src="/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;" />
+    </a>
+</div>
+<ul>
+  <li>1: At least once
+This service level guarantees that messages are delivered at least once.
+The sender stores the message until it receives an acknowledgement from the broker.
+If the acknowledgement is not received in a timely manner the message is retransmitted.</li>
+</ul>
+
+<div style="text-align: center; margin: 0px auto;">
+    <a href="/img/2021-05-26-intro-to-mqtt/qos-levels_qos2.svg" data-lightbox="ui" data-title="QoS level 2">
+        <img alt="QoS level 2" src="/img/2021-05-26-intro-to-mqtt/qos-levels_qos2.svg" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;" />
+    </a>
+</div>
+<ul>
+  <li>2: Exactly once
+This service level guarantees that messages are delivered exactly once.
+To enable this a <a href="https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/" target="_blank" rel="noopener noreferrer">four-way handshake</a> is used between the client and the broker.</li>
+</ul>
+
+<p><a href="https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/" target="_blank" rel="noopener noreferrer">Retained messages</a>:
+These are messages with the retained flag set to true.
+The broker will store these messages with their QoS and send it to any client that connects.
+This enables newly connected client get an update quicker since they do not need to wait for a new message to be published.
+Retained messages can also be deleted easily: the client just needs to send an empty (0 byte payload) retained message.</p>
+
+<p><a href="https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/" target="_blank" rel="noopener noreferrer">Last Will and Testament (LWT)</a>:
+Is a feature to notify clients about a client that has disconnected in an ungraceful manner.
+The message is sent to the broker when a client connects so it can be sent to other clients later on if required.
+If the client disconnects gracefully the broker discards the LWT message.</p>
+
+<h2 id="broker-options">Broker options</h2>
+
+<p>As MQTT requires a broker instance to function, choosing the right one is crucial.
+There many different options available, both can run locally or hosted in the cloud.</p>
+
+<p>There are also different versions of the MQTT protocol and not every broker supports all the different versions:</p>
+
+<ul>
+  <li>3.1: The older IBM based version, less used these days</li>
+  <li>3.1.1: OASIS standard compliant, the most used version nowadays</li>
+  <li>5: The newest version (2019), not yet widely used</li>
+</ul>
+
+<h3 id="eclipse-mosquitto">Eclipse Mosquitto</h3>
+
+<p><a href="https://mosquitto.org/" target="_blank" rel="noopener noreferrer">Eclipse Mosquitto</a> is an open source implementation of an MQTT message broker.
+It supports all three major versions of the protocol.
+The broker supports all three major versions and can run on low-powered devices like the Raspberry Pi.
+I use this one at home for my home automation projects.</p>
+
+<p>It is very easy to install on a Debian based distro:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+<span class="nb">sudo </span>apt-key add mosquitto-repo.gpg.key
+<span class="nb">cd</span> /etc/apt/sources.list.d/
+
+<span class="c"># Pick the correct URL for your flavour of Debian (we pick buster as the default):</span>
+<span class="c"># sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list</span>
+<span class="c"># sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list</span>
+<span class="nb">sudo </span>wget http://repo.mosquitto.org/debian/mosquitto-buster.list
+
+<span class="nb">sudo </span>apt-get update
+apt-get <span class="nb">install </span>mosquitto
+
+<span class="c"># We will add username/password auth for connections to the auth (anonymous is allowed by default, we don't want this, skip this section if you do)</span>
+<span class="c"># username: myuser, password: enter into the mosquitto_passwd tool (enter any valid password)</span>
+<span class="nb">sudo </span>mosquitto_passwd <span class="nt">-c</span> /etc/mosquitto/credentials myuser
+<span class="nb">sudo </span>nano /etc/mosquitto/mosquitto.conf
+<span class="c"># At the end of the file add:</span>
+<span class="c"># allow_anonymous false</span>
+<span class="c"># password_file /etc/mosquitto/credentials</span>
+<span class="nb">sudo </span>service mosquitto restart
+</code></pre></div></div>
+
+<h3 id="aedes">Aedes</h3>
+
+<p><a href="https://github.com/moscajs/aedes" target="_blank" rel="noopener noreferrer">Aedes</a> is the follow up/split from <a href="https://github.com/moscajs/mosca" target="_blank" rel="noopener noreferrer">Mosca</a> and is fully open source.
+It is a node based MQTT broker that is scalable and lightweight.
+The broker only has support for the 3.1 and 3.1.1 protocol versions, 5.0 is not supported yet.</p>
+
+<p>Installing is very simple, just make sure you have node installed and simply install it by using npm: <code class="language-plaintext highlighter-rouge">npm install aedes</code>.
+You are responsible for creating the server instance from code.
+A very basic implementation of the broker is:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">aedes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">aedes</span><span class="dl">'</span><span class="p">)();</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">net</span><span class="dl">'</span><span class="p">).</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">aedes</span><span class="p">.</span><span class="nx">handle</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="mi">1883</span><span class="p">;</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Server started and listening on port </span><span class="dl">'</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="hivemq">HiveMQ</h3>
+
+<p><a href="https://www.hivemq.com/" target="_blank" rel="noopener noreferrer">HiveMQ</a> is an MQTT-based platform that includes a broker.
+It has the option to be hosted in the cloud (with a free trial tier) or to be run locally.
+The broker has support for all three major versions of the protocol.</p>
+
+<p>It does require you to create an account before you can use the cloud tier or even download the zip package for local installation.</p>
+
+<h3 id="emqttd">Emqttd</h3>
+
+<p><a href="https://emqtt.io/docs/v1/index.html" target="_blank" rel="noopener noreferrer">Emqttd</a> is another fully open source broker.
+The project is written in Erlang and is fully compatible with the 3.1 and 3.1.1 versions of the protocol.</p>
+
+<h3 id="vernemq">VerneMQ</h3>
+
+<p><a href="https://vernemq.com/" target="_blank" rel="noopener noreferrer">VerneMQ</a> is another well-known broker that is also fully open-source and written in Erlang.
+It has the ability to scale very well, both vertically and horizontally.
+The broker has support for all three major versions of the protocol.</p>
+
+<p>In addition to the free-to-use broker, they also have paid tiers of support.</p>
+
+<h2 id="basic-examples">Basic examples</h2>
+
+<p>Basic C example (for use on an ESP-01):</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "EspMQTTClient.h"
+</span>
+<span class="n">EspMQTTClient</span> <span class="o">*</span><span class="n">client</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EspMQTTClient</span><span class="p">(</span><span class="s">"SSID"</span><span class="p">,</span> <span class="s">"SSID_PASS"</span><span class="p">,</span> <span class="s">"BROKER_URL"</span><span class="p">,</span> <span class="s">"MQTT_USERNAME"</span><span class="p">,</span> <span class="s">"MQTT_PASSWORD"</span><span class="p">,</span> <span class="s">"CLIENT_NAME"</span><span class="p">,</span> <span class="mi">1883</span><span class="p">);</span>
+  <span class="c1">//client-&gt;enableDebuggingMessages(true);</span>
+
+  <span class="n">client</span><span class="o">-&gt;</span><span class="n">enableLastWillMessage</span><span class="p">(</span><span class="s">"LAST_WILL_TOPIC"</span><span class="p">,</span> <span class="s">"LAST_WILL_MESSAGE"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">onConnectionEstablished</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"MQTT: Connected"</span><span class="p">);</span>
+    <span class="n">client</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="s">"TOPIC"</span><span class="p">,</span> <span class="s">"connected"</span><span class="p">);</span>
+
+    <span class="n">client</span><span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">actionTopic</span><span class="p">,</span> <span class="p">[](</span><span class="k">const</span> <span class="n">String</span> <span class="o">&amp;</span> <span class="n">payload</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">client</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="s">"TOPIC"</span><span class="p">,</span> <span class="s">"DATA"</span><span class="p">);</span>
+  <span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This example uses the <a href="https://github.com/plapointe6/EspMQTTClient" target="_blank" rel="noopener noreferrer">EspMQTTClient</a> library to enable low powered IoT devices with WiFi connectivity to connect to an SSID and broker.
+The library handles both the WiFi and broker connections.</p>
+
+<p>Basic node example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">mqtt</span><span class="p">,</span> <span class="p">{</span><span class="nx">Client</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">mqtt</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">ISubscriptionGrant</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">mqtt/types/lib/client</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">Packet</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">mqtt-packet</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Main</span> <span class="p">{</span>
+
+    <span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">client</span><span class="p">:</span> <span class="nx">Client</span><span class="p">;</span>
+
+    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">client</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">connectMqtt</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">receive</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kr">private</span> <span class="nx">connectMqtt</span><span class="p">():</span> <span class="nx">any</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">client</span><span class="p">:</span> <span class="nx">Client</span> <span class="o">=</span> <span class="nx">mqtt</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mqtt://broker-url:1883</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">username</span><span class="p">:</span> <span class="dl">'</span><span class="s1">username</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">password</span><span class="dl">'</span><span class="p">});</span>
+
+        <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">connect</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connected to MQTT broker!</span><span class="dl">'</span><span class="p">);</span>
+        <span class="p">});</span>
+
+        <span class="k">return</span> <span class="nx">client</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kr">private</span> <span class="nx">receive</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">topic</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">qos</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">(</span><span class="na">err</span><span class="p">:</span> <span class="nb">Error</span><span class="p">,</span> <span class="na">granted</span><span class="p">:</span> <span class="nx">ISubscriptionGrant</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">granted</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nx">granted</span> <span class="o">&amp;&amp;</span> <span class="nx">granted</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="na">topic</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="na">payload</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="na">packet</span><span class="p">:</span> <span class="nx">Packet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+               <span class="p">});</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Main</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>The node code is a bit more complex but allows you to create more complex applications.
+It uses the <a href="https://www.npmjs.com/package/mqtt" target="_blank" rel="noopener noreferrer">MQTT.js</a> library which has very good and extensive documentation.
+This is not meant to run on the IoT device but on a separate device that reacts to messages from the IoT devices.
+Please note that this will not manage the WiFi/ethernet connection of the device that it is running on, which is left to the OS/User.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>MQTT is an ideal protocol to use for lightweight communication on ip enabled devices.
+The pub/sub architecture allows for a decoupled environment of clients that can operate independently of each other.</p>
+
+<p>Thanks to the protocol and its implementations being very lightweight, it is very handy to use in combination with IoT and home automation projects.
+Getting started with some simple setup is relatively easy and does not require difficult programming to wire things up.</p>
+
+<p>In a future blog post, I will go a bit more in depth and show off a project which makes use of MQTT to wire devices together.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://mqtt.org/" target="_blank" rel="noopener noreferrer">MQTTT</a></li>
+  <li><a href="https://mqtt.org/mqtt-specification/" target="_blank" rel="noopener noreferrer">MQTT specifications</a></li>
+  <li><a href="http://www.steves-internet-guide.com/mqtt/" target="_blank" rel="noopener noreferrer">Beginners guide</a></li>
+  <li><a href="https://www.hivemq.com/mqtt-essentials/" target="_blank" rel="noopener noreferrer">MQTT essentials</a></li>
+  <li><a href="https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/" target="_blank" rel="noopener noreferrer">Broker</a></li>
+  <li><a href="https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/" target="_blank" rel="noopener noreferrer">Client</a></li>
+  <li><a href="https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/" target="_blank" rel="noopener noreferrer">Quality of Service (QoS)</a></li>
+  <li><a href="https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/" target="_blank" rel="noopener noreferrer">four-way handshake</a></li>
+  <li><a href="https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/" target="_blank" rel="noopener noreferrer">Retained messages</a></li>
+  <li><a href="https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/" target="_blank" rel="noopener noreferrer">Last Will and Testament (LWT)</a></li>
+  <li><a href="https://mosquitto.org/" target="_blank" rel="noopener noreferrer">Eclipse Mosquitto</a></li>
+  <li><a href="https://github.com/moscajs/aedes" target="_blank" rel="noopener noreferrer">Aedes</a></li>
+  <li><a href="https://github.com/moscajs/mosca" target="_blank" rel="noopener noreferrer">Mosca</a></li>
+  <li><a href="https://www.hivemq.com/" target="_blank" rel="noopener noreferrer">HiveMQ</a></li>
+  <li><a href="https://emqtt.io/docs/v1/index.html" target="_blank" rel="noopener noreferrer">Emqttd</a></li>
+  <li><a href="https://vernemq.com/" target="_blank" rel="noopener noreferrer">VerneMQ</a></li>
+  <li><a href="https://github.com/plapointe6/EspMQTTClient" target="_blank" rel="noopener noreferrer">EspMQTTClient</a></li>
+  <li><a href="https://www.npmjs.com/package/mqtt" target="_blank" rel="noopener noreferrer">MQTT.js</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/iot/2021/05/26/intro-to-mqtt.html&title=Intro to mqtt&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Intro to mqtt&url=https://ordina-jworks.github.io/iot/2021/05/26/intro-to-mqtt.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/iot/2021/05/26/intro-to-mqtt.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/kevin-van-den-abeele/" class="image spotlight-image" title="">
+            <img src="/img/author/kevin-van-den-abeele.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2021 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2021-05-26-intro-to-mqtt/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
