@@ -28,9 +28,9 @@ comments: true
 MQTT or Message Queuing Telemetry Transport is a very lightweight IoT messaging protocol.
 It was originally designed by IBM and has become royalty free since 2010.
 
-It is very lightweight, both on resources to send and receive messages, making it ideal for use with IoT applications as well as restrained network conditions.
+It is very lightweight, both on computational and network resources to send and receive messages, making it ideal for use with IoT applications as well as restrained network conditions.
 The protocol is built on top of tcp/ip so both broker and client require a tcp/ip stack.
-The protocol allows for reliable bi-directional communication that supports authentication and TLS encryption and uses the publish/subscribe pattern.
+This allows for reliable bi-directional communication that supports authentication and TLS encryption and uses the publish/subscribe pattern.
 
 Using this pattern has multiple advantages:
 
@@ -39,7 +39,7 @@ Using this pattern has multiple advantages:
 - Synchronization decoupling: Operations do not need to be interrupted during publishing or receiving.
 
 Also be reminded that MQTT is **NOT** a message queue!
-By default messages will not be stored if there are no clients to consume them, and even retained messages only keep the last retained message, overwriting any previous retained message.
+By default, messages will not be stored if there are no clients to consume them, and even retained messages only keep the last retained message, overwriting any previous retained message.
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2021-05-26-intro-to-mqtt/mqtt-publish-subscribe.png' | prepend: site.baseurl }}" data-lightbox="ui" data-title="MQTT">
@@ -49,17 +49,17 @@ By default messages will not be stored if there are no clients to consume them, 
 
 ## MQTT terminology
 
-To better understand and grasp the concepts of the MQTT protocol explained in this blog post I have listed some terminology below:
+Let's go over some terminology to better understand and grasp the concepts of the MQTT protocol:
 
 [Broker](https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/){:target="_blank" rel="noopener noreferrer"}:
 The host that acts as the manager for all messages.
-It is responsible for receiving messages from publishers, performing checks to see which subscribers match the topic and sending the messages to said subscribers.
+It is responsible for receiving messages from publishers, performing checks to see which subscribers match the topic and sending the messages to those subscribers.
 
 [Client](https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/){:target="_blank" rel="noopener noreferrer"}:
 An MQTT client, meaning any instance that implements logic to connect to a broker.
-Both publishers and subscribers are clients.
-Publishers send messages and subscribers consume messages.
-A client can implement both sides and act as both a publisher and a subscriber.
+Clients can be a publisher, a subscriber, or both.
+A client who is a publisher sends messages, while a client whom is a subscriber receives and consumes messages.
+It is perfectly possible, and often used, that a client is both a publisher and a subscriber at the same time.
 
 Topics & wildcards:
 A string that acts as a subject for publishing to or subscribing to.
@@ -76,7 +76,7 @@ In MQTT there are 3 QoS options:
 - 0: At most once
   This service level only guarantees a best effort delivery of messages.
   Delivery of messages is not guaranteed so data might be lost in transit.
-  No acknowledgement are sent and no data is retransmitted.
+  No acknowledgements are sent and no data is retransmitted.
 
 <div style="text-align: center; margin: 0px auto;">
     <a href="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg' | prepend: site.baseurl }}" data-lightbox="ui" data-title="QoS level 1">
@@ -101,7 +101,7 @@ In MQTT there are 3 QoS options:
 [Retained messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/){:target="_blank" rel="noopener noreferrer"}:
 These are messages with the retained flag set to true.
 The broker will store these messages with their QoS and send it to any client that connects.
-This enabled newly connected client get an update quicker since they do not need to wait for a new message to be published.
+This enables newly connected client get an update quicker since they do not need to wait for a new message to be published.
 Retained messages can also be deleted easily: the client just needs to send an empty (0 byte payload) retained message.
 
 [Last Will and Testament (LWT)](https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/){:target="_blank" rel="noopener noreferrer"}:
@@ -111,10 +111,10 @@ If the client disconnects gracefully the broker discards the LWT message.
 
 ## Broker options
 
-As MQTT requires a broker instance to function choosing the right one is crucial.
-There many different options available, both run run locally or hosted in the cloud.
+As MQTT requires a broker instance to function, choosing the right one is crucial.
+There many different options available, both can run locally or hosted in the cloud.
 
-There are also different versions of the MQTT protocol, not every broker supports all the different versions:
+There are also different versions of the MQTT protocol and not every broker supports all the different versions:
 
 - 3.1: The older IBM based version, less used these days
 - 3.1.1: OASIS standard compliant, the most used version nowadays
@@ -123,18 +123,18 @@ There are also different versions of the MQTT protocol, not every broker support
 ### [Eclipse Mosquitto](https://mosquitto.org/){:target="_blank" rel="noopener noreferrer"}
 
 Eclipse Mosquitto is an open source implementation of an MQTT message broker.
-It supports all three mayor versions of the protocol.
-The broker is very lightweight and can run on low powered devices like the Raspberry Pi.
+It supports all three major versions of the protocol.
+The broker supports all three major versions and can run on low-powered devices like the Raspberry Pi.
 I use this one at home for my home automation projects.
 
-Installing it is very easy (rbpi on debian buster):
+It is very easy to install on a Debian based distro:
 
 ```shell
 wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
 sudo apt-key add mosquitto-repo.gpg.key
 cd /etc/apt/sources.list.d/
 
-# Pick the correct url for your flavour of debian (we pick buster as the default):
+# Pick the correct URL for your flavour of Debian (we pick buster as the default):
 # sudo wget http://repo.mosquitto.org/debian/mosquitto-wheezy.list
 # sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
 sudo wget http://repo.mosquitto.org/debian/mosquitto-buster.list
@@ -176,7 +176,7 @@ server.listen(port, () => {
 
 HiveMQ is an MQTT-based platform that includes a broker.
 It has the option to be hosted in the cloud (with a free trial tier) or to be run locally.
-The broker has support for all three mayor versions of the protocol.
+The broker has support for all three major versions of the protocol.
 
 It does require you to create an account before you can use the cloud tier or even download the zip package for local installation.
 
@@ -187,11 +187,11 @@ The project is written in Erlang and is fully compatible with the 3.1 and 3.1.1 
 
 ### [VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"}
 
-VerneMQ is another well known broker that is also fully open source, and written in Erlang.
+VerneMQ is another well-known broker that is also fully open-source and written in Erlang.
 It has the ability to scale very well, both vertically and horizontally.
-The broker has support for all three mayor versions of the protocol.
+The broker has support for all three major versions of the protocol.
 
-In addition to the free to use broker they also have paid tiers of support.
+In addition to the free-to-use broker, they also have paid tiers of support.
 
 ## Basic examples
 
@@ -225,7 +225,6 @@ void loop()
   client->publish("TOPIC", "DATA");
   sleep(1000);
 }
-
 ```
 
 This example uses the [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient){:target="_blank" rel="noopener noreferrer"} library to enable low powered IoT devices with WiFi connectivity to connect to an SSID and broker.
@@ -276,17 +275,17 @@ const main = new Main();
 The node code is a bit more complex but allows you to create more complex applications.
 It uses the [MQTT.js](https://www.npmjs.com/package/mqtt){:target="_blank" rel="noopener noreferrer"} library which has very good and extensive documentation.
 This is not meant to run on the IoT device but on a separate device that reacts to messages from the IoT devices.
-Please not that this will not manage the WiFi/ethernet connection of the device that it is running on, that is left to the OS/User.
+Please note that this will not manage the WiFi/ethernet connection of the device that it is running on, which is left to the OS/User.
 
 ## Conclusion
 
 MQTT is an ideal protocol to use for lightweight communication on ip enabled devices.
 The pub/sub architecture allows for a decoupled environment of clients that can operate independently of each other.
 
-Thanks to the protocol and its implementations being very lightweight it is very handy to use in combination with IoT and home automation projects.
+Thanks to the protocol and its implementations being very lightweight, it is very handy to use in combination with IoT and home automation projects.
 Getting started with some simple setup is relatively easy and does not require difficult programming to wire things up.
 
-In a future blog post I will go a bit more in depth and show off a project which makes use of MQTT to wire devices together.
+In a future blog post, I will go a bit more in depth and show off a project which makes use of MQTT to wire devices together.
 
 ## Resources
 
