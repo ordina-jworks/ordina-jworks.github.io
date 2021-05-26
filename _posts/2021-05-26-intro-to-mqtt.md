@@ -25,7 +25,7 @@ comments: true
 
 ## Introduction
 
-MQTT or Message Queuing Telemetry Transport is a very lightweight IoT messaging protocol.
+[MQTT](https://mqtt.org/mqtt-specification/){:target="_blank" rel="noopener noreferrer"} or Message Queuing Telemetry Transport is a very lightweight IoT messaging protocol.
 It was originally designed by IBM and has become royalty free since 2010.
 
 It is very lightweight, both on computational and network resources to send and receive messages, making it ideal for use with IoT applications as well as restrained network conditions.
@@ -96,7 +96,7 @@ In MQTT there are 3 QoS options:
 </div>
 - 2: Exactly once
   This service level guarantees that messages are delivered exactly once.
-  To enable this a four-way handshake is used between the client and the broker.
+  To enable this a [four-way handshake](https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/){:target="_blank" rel="noopener noreferrer"} is used between the client and the broker.
 
 [Retained messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/){:target="_blank" rel="noopener noreferrer"}:
 These are messages with the retained flag set to true.
@@ -120,9 +120,9 @@ There are also different versions of the MQTT protocol and not every broker supp
 - 3.1.1: OASIS standard compliant, the most used version nowadays
 - 5: The newest version (2019), not yet widely used
 
-### [Eclipse Mosquitto](https://mosquitto.org/){:target="_blank" rel="noopener noreferrer"}
+### Eclipse Mosquitto
 
-Eclipse Mosquitto is an open source implementation of an MQTT message broker.
+[Eclipse Mosquitto](https://mosquitto.org/){:target="_blank" rel="noopener noreferrer"} is an open source implementation of an MQTT message broker.
 It supports all three major versions of the protocol.
 The broker supports all three major versions and can run on low-powered devices like the Raspberry Pi.
 I use this one at home for my home automation projects.
@@ -152,9 +152,9 @@ sudo nano /etc/mosquitto/mosquitto.conf
 sudo service mosquitto restart
 ```
 
-### [Aedes](https://github.com/moscajs/aedes){:target="_blank" rel="noopener noreferrer"}
+### Aedes
 
-Aedes is the follow up/split from Mosca and is fully open source.
+[Aedes](https://github.com/moscajs/aedes){:target="_blank" rel="noopener noreferrer"} is the follow up/split from [Mosca](https://github.com/moscajs/mosca){:target="_blank" rel="noopener noreferrer"} and is fully open source.
 It is a node based MQTT broker that is scalable and lightweight.
 The broker only has support for the 3.1 and 3.1.1 protocol versions, 5.0 is not supported yet.
 
@@ -172,22 +172,22 @@ server.listen(port, () => {
 });
 ```
 
-### [HiveMQ](https://www.hivemq.com/){:target="_blank" rel="noopener noreferrer"}
+### HiveMQ
 
-HiveMQ is an MQTT-based platform that includes a broker.
+[HiveMQ](https://www.hivemq.com/){:target="_blank" rel="noopener noreferrer"} is an MQTT-based platform that includes a broker.
 It has the option to be hosted in the cloud (with a free trial tier) or to be run locally.
 The broker has support for all three major versions of the protocol.
 
 It does require you to create an account before you can use the cloud tier or even download the zip package for local installation.
 
-### [Emqttd](https://emqtt.io/docs/v1/index.html){:target="_blank" rel="noopener noreferrer"}
+### Emqttd
 
-Emqttd is another fully open source broker.
+[Emqttd](https://emqtt.io/docs/v1/index.html){:target="_blank" rel="noopener noreferrer"} is another fully open source broker.
 The project is written in Erlang and is fully compatible with the 3.1 and 3.1.1 versions of the protocol.
 
-### [VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"}
+### VerneMQ
 
-VerneMQ is another well-known broker that is also fully open-source and written in Erlang.
+[VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"} is another well-known broker that is also fully open-source and written in Erlang.
 It has the ability to scale very well, both vertically and horizontally.
 The broker has support for all three major versions of the protocol.
 
@@ -290,15 +290,18 @@ In a future blog post, I will go a bit more in depth and show off a project whic
 ## Resources
 
 - [MQTTT](https://mqtt.org/){:target="_blank" rel="noopener noreferrer"}
+- [MQTT specifications](https://mqtt.org/mqtt-specification/){:target="_blank" rel="noopener noreferrer"}
 - [Beginners guide](http://www.steves-internet-guide.com/mqtt/){:target="_blank" rel="noopener noreferrer"}
 - [MQTT essentials](https://www.hivemq.com/mqtt-essentials/){:target="_blank" rel="noopener noreferrer"}
 - [Broker](https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/){:target="_blank" rel="noopener noreferrer"}
 - [Client](https://www.hivemq.com/blog/mqtt-essentials-part-3-client-broker-connection-establishment/){:target="_blank" rel="noopener noreferrer"}
 - [Quality of Service (QoS)](https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/){:target="_blank" rel="noopener noreferrer"}
+- [four-way handshake](https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/){:target="_blank" rel="noopener noreferrer"}
 - [Retained messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/){:target="_blank" rel="noopener noreferrer"}
 - [Last Will and Testament (LWT)](https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/){:target="_blank" rel="noopener noreferrer"}
 - [Eclipse Mosquitto](https://mosquitto.org/){:target="_blank" rel="noopener noreferrer"}
 - [Aedes](https://github.com/moscajs/aedes){:target="_blank" rel="noopener noreferrer"}
+- [Mosca](https://github.com/moscajs/mosca){:target="_blank" rel="noopener noreferrer"}
 - [HiveMQ](https://www.hivemq.com/){:target="_blank" rel="noopener noreferrer"}
 - [Emqttd](https://emqtt.io/docs/v1/index.html){:target="_blank" rel="noopener noreferrer"}
 - [VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"}
