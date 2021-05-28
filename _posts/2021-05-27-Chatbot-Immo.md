@@ -59,13 +59,13 @@ Another important term related to intents is ‘expression’. In order for the 
 **Entities:**  
 At last, we have the entities. These are small words or even word groups that are very relevant for the flow of the conversation. Entities could be names, cities, companies, etc. If we go back to the example I gave at Intent, Brussels is an entity. It holds the name of the city where the user would like to go to. Be aware that you should only use entities when the value is needed in the continuation of the flow.
 
-<span class="image"><img alt="intent" src="/img/2021-05-27-Chatbot-Immo/intent.jpg" style="margin:0px auto; max-width: 700px;"></span>
+<span class="image"><img alt="intent" src="/img/2021-05-27-Chatbot-Immo/intent.jpg" class="image fit" style="margin:0px auto; max-width: 700px;"></span>
 
 ## Building blocks
 To build a chatbot, Chatlayer provides us with several different building blocks. Each of these has a different function.
 On every bot dialog, you can put an intent, a required context, and an output context.
 
-<span class="image left"><img alt="feedback" src="/img/2021-05-27-Chatbot-Immo/feedback.jpg" style="margin:0px auto; max-width: 400px;"></span>
+<span class="image left"><img alt="feedback" src="/img/2021-05-27-Chatbot-Immo/feedback.jpg" class="image fit" style="margin:0px auto; max-width: 400px;"></span>
 
 An intent is explained before so you should know what that is 😉. If the user sends a message to the bot the AI will check if it recognizes an intent. If this is the case the chatbot will display the message where the intent is set.
 
@@ -85,11 +85,11 @@ Not every chatbot provider offers this functionality, which is one of the reason
 ### Search a premises
 Our first flow relates to searching for premises. I of course didn’t have access to the database of the real estate agency so I had to find a different solution. So in this flow, the user gets asked a lot of questions about the premises, like maximum price, location, number of bedrooms…. With this information, I could construct a URL where the user could click on. This leads the user to the the real estate agency website with the search results. In a more extended practical case, the bot could list the relevant premises right into the chatbot.
 
-<span class="image right"><img alt="houseSearch" src="/img/2021-05-27-Chatbot-Immo/houseSearch.jpg" style="margin:0px auto; max-width: 400px;"></span>
+<span class="image right"><img alt="houseSearch" src="/img/2021-05-27-Chatbot-Immo/houseSearch.jpg" class="image fit" style="margin:0px auto; max-width: 400px;"></span>
 
 At the end of each flow, the bot asks the user if he/she needs help with something else. If the user answers with yes, a new flow can begin. Below you can see the diagram of this first flow. As you can see, a lot of the parameters are optional. If the user wants to see all the houses without filling out the other questions he/she can do so. The decision in the beginning “Does premises have bedrooms” is a decision the chatbot will make based on the type of premises the user chooses. I made this a go-to. If the type of the premises equals “houses” or “apartments”, the bot will go to the dialog where the user could enter his/her preference about the rooms. Otherwise, the bot will go to the next bot dialog.
 
-<span class="image fit"><img alt="flow-diagram" src="/img/2021-05-27-Chatbot-Immo/flow-diagram.jpg" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="flow-diagram" src="/img/2021-05-27-Chatbot-Immo/flow-diagram.jpg" class="image fit" style="margin:0px auto; max-width: 1200px;"></span>
 
 #### API implementation
 At the end of the flow, the chatbot will send an API call with the necessary parameters to construct a URL. There is a basic url to which we can attach a piece depending on which parameter has been entered.
@@ -98,7 +98,7 @@ In the service the first thing I check is if the Koh parameter has a value. The 
 
 It would be nice if we could just send a string back to the chatbot which it will display in a bot message. Sadly this is not the case. Chatlayer expects the API response to be in a specific format. The structure needs to be like the image below but they could be null.
 
-<span class="image"><img alt="profile" src="/img/2021-05-27-Chatbot-Immo/ChatlayerResponse.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="profile" src="/img/2021-05-27-Chatbot-Immo/ChatlayerResponse.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 
 As you can see we need to provide chatlayer with three things:
@@ -123,12 +123,12 @@ To start at the beginning, the first thing a user has to do is log in to his/her
 #### Database
 In the architecture you can see that there is a MySQL database. You might wonder “If we already use a Solid database, then why would we use another?”. A Solid database is not really designed for searching through large amounts of data. So the data from the Solid is copied to this database in the cloud where we can easily search through the data. Below you will find a simple ERD of the database. I made this together with Jasper. This is the only flow where the database is currently used.
 
-<span class="image"><img alt="profile" src="/img/2021-05-27-Chatbot-Immo/ERD.jpg" style="margin:0px auto; max-width: 1300px;"></span>
+<span class="image"><img alt="profile" src="/img/2021-05-27-Chatbot-Immo/ERD.jpg" class="image fit" style="margin:0px auto; max-width: 1300px;"></span>
 
 #### Repairs
 One of the paths that are worked out is if the user has a reparation that needs to be done or they have a question about who has to pay for the reparation. The user can reach this flow by clicking “Repairs” at the start, or just asking their question. They would have to answer a couple of questions about the reparation, think about the location and what is broken or needs to be repaired. Then, the bot will answer the most important question: “who has to pay for this?”. At the end of the conversation, the chatbot will send a request to the API with the problem and the user information to be saved in the database.
 
-<span class="image left"><img alt="houseRepairs" src="/img/2021-05-27-Chatbot-Immo/houseRepairs.jpg" style="margin:0px auto; max-width: 400px;"></span>
+<span class="image left"><img alt="houseRepairs" src="/img/2021-05-27-Chatbot-Immo/houseRepairs.jpg" class="image fit" style="margin:0px auto; max-width: 400px;"></span>
 
 #### Renovations / design
 The other path that is worked out is for the design and renovation questions. When the user clicks on “questions about the house”, he/she will get the first choice, is it a question about the design, or renovations. Design questions are for example questions about the repainting off the walls. This is a question that the bot could answer.
@@ -212,7 +212,7 @@ In the actual flow I used the refresh token to get an access token from the Goog
 ### Getting the data from the calendar
 #### Creating new client
 
-<span class="image left"><img alt="clientObject" src="/img/2021-05-27-Chatbot-Immo/clientObject.jpg" style="margin:0px auto; max-width: 600px;"></span>
+<span class="image left"><img alt="clientObject" src="/img/2021-05-27-Chatbot-Immo/clientObject.jpg" class="image fit" style="margin:0px auto; max-width: 600px;"></span>
 
 As you could see in the code examples above, to have easy access to the calendar and get the events etc. we create a client object. The client object is an instance of the Calendar object.
 
@@ -313,9 +313,9 @@ public void createEvent(String date, String meetingTime, String name, String add
 ```
 After the event is created in the calendar, I’m sending a response message to the chatbot that the event is created and setting the appropriate next dialog id.
 
-<span class="image"><img alt="chatbotconv part 1" src="/img/2021-05-27-Chatbot-Immo/chatbotConvP1.PNG" style="margin:0px auto; max-width: 500px;"></span>
+<span class="image"><img alt="chatbotconv part 1" src="/img/2021-05-27-Chatbot-Immo/chatbotConvP1.PNG" class="image fit" style="margin:0px auto; max-width: 500px;"></span>
 
-<span class="image"><img alt="chatbotconv part 2" src="/img/2021-05-27-Chatbot-Immo/chatbotConvP2.PNG" style="margin:0px auto; max-width: 500px;"></span>
+<span class="image"><img alt="chatbotconv part 2" src="/img/2021-05-27-Chatbot-Immo/chatbotConvP2.PNG" class="image fit" style="margin:0px auto; max-width: 500px;"></span>
 
 [Have a look at the demo!](https://www.youtube.com/watch?v=qWsC7zrawBA){:target="_blank" rel="noopener noreferrer"}
 
@@ -375,7 +375,7 @@ docker run -p 8443:8443 --name solid-server.
 
 If we navigate to localhost:8443, we visit the homepage off the Solid server. First we get the message that the page is not secure but when clicking through we arrive at the page where we can register a new account or login to an existing one.
 
-<span class="image"><img alt="Homepage Solid Server" src="/img/2021-05-27-Chatbot-Immo/homepageSolidServer.jpg" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Homepage Solid Server" src="/img/2021-05-27-Chatbot-Immo/homepageSolidServer.jpg" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 ```
 {
@@ -410,53 +410,53 @@ When you want to register an account you need to provide some simple information
 127.0.0.1		newuser.localhost
 ```
 
-<span class="image"><img alt="Register Solid Server" src="/img/2021-05-27-Chatbot-Immo/RegisterSolidServer.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Register Solid Server" src="/img/2021-05-27-Chatbot-Immo/RegisterSolidServer.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 ### Login
 When the account is created you could login to your own Solid pod. When you login you first get a popup. You can enter your webId or you identity provider. In this case I’m logging in with my identity provider. 
 
-<span class="image"><img alt="Login p1 Solid Server" src="/img/2021-05-27-Chatbot-Immo/loginPopup1.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Login p1 Solid Server" src="/img/2021-05-27-Chatbot-Immo/loginPopup1.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 And enter your username and password which you specified when the account is registered. 
 
-<span class="image"><img alt="Login p2 Solid Server" src="/img/2021-05-27-Chatbot-Immo/loginPopup2.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Login p2 Solid Server" src="/img/2021-05-27-Chatbot-Immo/loginPopup2.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 ### Edit profile
 As a logged in user you can see your profile, but when you first login there is nothing there. However, you can easily edit your own information.
 
-<span class="image"><img alt="Home Page pod" src="/img/2021-05-27-Chatbot-Immo/podHomepage.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Home Page pod" src="/img/2021-05-27-Chatbot-Immo/podHomepage.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
-<span class="image"><img alt="Edit profile" src="/img/2021-05-27-Chatbot-Immo/podEditProfile.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Edit profile" src="/img/2021-05-27-Chatbot-Immo/podEditProfile.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 ## Your data
 Of course, the main thing you want to know about Solid is your storage. When the pod is created you have these standard sections ready for you. The sharing settings for these folders have also been set when the pod is created. Profile and public are two folders which everyone can read but not change. And as you would expect, private is only for you.
 
-<span class="image"><img alt="Pod Data" src="/img/2021-05-27-Chatbot-Immo/podData.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Pod Data" src="/img/2021-05-27-Chatbot-Immo/podData.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 ### Sharing of data
 Within the Solid interface it is very easy to share data with other people, groups, apps… 
 
-<span class="image"><img alt="Pod Sharing" src="/img/2021-05-27-Chatbot-Immo/podSharing.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Pod Sharing" src="/img/2021-05-27-Chatbot-Immo/podSharing.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 You could set these sharing permissions on a folder but also on a specific file. In the standard scenario the files inside a folder just inherit the sharing permissions.
 
 Solid also has a nice overview of which applications have access to your pod, and also which kind of access they have (read, write, append or control). In this overview you could also revoke access and update the kind off access that these applications have.
 
-<span class="image"><img alt="Pod Trused applications" src="/img/2021-05-27-Chatbot-Immo/podTrusted.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="Pod Trused applications" src="/img/2021-05-27-Chatbot-Immo/podTrusted.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 As mentioned before you can store any kind of data on your pod, this goes from .txt files, to .html files and even .ttl files. For this project I’ve chosen to store data in .ttl files because that’s what I saw the most in the documentation. 
 
 ### Turtle (RDF)
 Before we can discuss turtle we need to have a basic understanding off RDF and linked data. RDF stands for Resource Description Framework and is used to describe resources on the internet. A resource is anything on the internet, for example: a person, a book… With RDF every resource is described as a triple. Those triples consist of a subject, a predicate and an object. Using this simple model, data (structured and semi-structured) can be mixed and shared between different applications. This linking structure forms a directed and labeled graph. 
 
-<span class="image"><img alt="RDF graph" src="/img/2021-05-27-Chatbot-Immo/rdf.jpg" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="RDF graph" src="/img/2021-05-27-Chatbot-Immo/rdf.jpg" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 Turtle itself is a format that allows RDF graphs to be written in a natural text form. Next to N-Triples, JSON-LD and RDF/XML it is one off the four common formats to write RDF. In turtle you can declare prefixes to use as a shortcut throughout the rest of the file so you don’t have to write full URI’s everywhere. 
 
 Example:
 This is the card file in the profile folder which contains all the information about the user. 
 
-<span class="image"><img alt="profile" src="/img/2021-05-27-Chatbot-Immo/profileCard.png" style="margin:0px auto; max-width: 1000px;"></span>
+<span class="image"><img alt="profile" src="/img/2021-05-27-Chatbot-Immo/profileCard.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 The full notation for the full name would be:
 
@@ -499,7 +499,7 @@ import { LoginButton, LoggedOut, LogoutButton, LoggedIn } from '@solid/react';
 </LoggedOut>
 
 ```
-The loggedIn and loggedOut component do exactly what you expect them to do, show some content when the user is logged in and show other content when the user isn’t logged in. Then we have the loginButton component which shows popup.html which is the popup screen you see [here](#Login). 
+The loggedIn and loggedOut component do exactly what you expect them to do, show some content when the user is logged in and show other content when the user isn’t logged in. Then we have the loginButton component which shows popup.html which is the popup screen you see in the login section above. 
 
 To get the actual data, from for example the profile, you would first need to get the webId. You can get this with the react hook provided by the same library from above. 
 
