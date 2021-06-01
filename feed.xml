@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-05-26T09:31:48+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-06-01T05:48:17+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">Intro to mqtt</title><link href="https://ordina-jworks.github.io/iot/2021/05/26/intro-to-mqtt.html" rel="alternate" type="text/html" title="Intro to mqtt" /><published>2021-05-26T00:00:00+00:00</published><updated>2021-05-26T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/iot/2021/05/26/intro-to-mqtt</id><content type="html" xml:base="https://ordina-jworks.github.io/iot/2021/05/26/intro-to-mqtt.html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css&quot; /&gt;
 
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap-grid-only@1.0.0/bootstrap.css&quot; /&gt;
@@ -73,7 +73,7 @@ In MQTT there are 3 QoS options:&lt;/p&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 &lt;ul&gt;
-  &lt;li&gt;0: At most once
+  &lt;li&gt;0: At most once&lt;br /&gt;
 This service level only guarantees a best effort delivery of messages.
 Delivery of messages is not guaranteed so data might be lost in transit.
 No acknowledgements are sent and no data is retransmitted.&lt;/li&gt;
@@ -85,7 +85,7 @@ No acknowledgements are sent and no data is retransmitted.&lt;/li&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 &lt;ul&gt;
-  &lt;li&gt;1: At least once
+  &lt;li&gt;1: At least once&lt;br /&gt;
 This service level guarantees that messages are delivered at least once.
 The sender stores the message until it receives an acknowledgement from the broker.
 If the acknowledgement is not received in a timely manner the message is retransmitted.&lt;/li&gt;
@@ -97,15 +97,15 @@ If the acknowledgement is not received in a timely manner the message is retrans
     &lt;/a&gt;
 &lt;/div&gt;
 &lt;ul&gt;
-  &lt;li&gt;2: Exactly once
+  &lt;li&gt;2: Exactly once&lt;br /&gt;
 This service level guarantees that messages are delivered exactly once.
-To enable this a &lt;a href=&quot;https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;four-way handshake&lt;/a&gt; is used between the client and the broker.&lt;/li&gt;
+To enable this, a &lt;a href=&quot;https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;four-way handshake&lt;/a&gt; is used between the client and the broker.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Retained messages&lt;/a&gt;:
 These are messages with the retained flag set to true.
 The broker will store these messages with their QoS and send it to any client that connects.
-This enables newly connected client get an update quicker since they do not need to wait for a new message to be published.
+This enables newly connected clients get an update quicker since they do not need to wait for a new message to be published.
 Retained messages can also be deleted easily: the client just needs to send an empty (0 byte payload) retained message.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Last Will and Testament (LWT)&lt;/a&gt;:
@@ -159,7 +159,7 @@ apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;mosquitto
 
 &lt;h3 id=&quot;aedes&quot;&gt;Aedes&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/moscajs/aedes&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Aedes&lt;/a&gt; is the follow up/split from &lt;a href=&quot;https://github.com/moscajs/mosca&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mosca&lt;/a&gt; and is fully open source.
+&lt;p&gt;&lt;a href=&quot;https://github.com/moscajs/aedes&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Aedes&lt;/a&gt; is the follow-up/split from &lt;a href=&quot;https://github.com/moscajs/mosca&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mosca&lt;/a&gt; and is fully open source.
 It is a node based MQTT broker that is scalable and lightweight.
 The broker only has support for the 3.1 and 3.1.1 protocol versions, 5.0 is not supported yet.&lt;/p&gt;
 
@@ -191,7 +191,7 @@ The project is written in Erlang and is fully compatible with the 3.1 and 3.1.1 
 
 &lt;h3 id=&quot;vernemq&quot;&gt;VerneMQ&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://vernemq.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;VerneMQ&lt;/a&gt; is another well-known broker that is also fully open-source and written in Erlang.
+&lt;p&gt;&lt;a href=&quot;https://vernemq.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;VerneMQ&lt;/a&gt; is another well-known broker that is also fully open source and written in Erlang.
 It has the ability to scale very well, both vertically and horizontally.
 The broker has support for all three major versions of the protocol.&lt;/p&gt;
 
