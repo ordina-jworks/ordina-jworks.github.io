@@ -73,7 +73,7 @@ In MQTT there are 3 QoS options:
         <img alt="QoS level 0" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos0.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
     </a>
 </div>
-- 0: At most once
+- 0: At most once<br/>
   This service level only guarantees a best effort delivery of messages.
   Delivery of messages is not guaranteed so data might be lost in transit.
   No acknowledgements are sent and no data is retransmitted.
@@ -83,7 +83,7 @@ In MQTT there are 3 QoS options:
         <img alt="QoS level 1" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos1.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
     </a>
 </div>
-- 1: At least once
+- 1: At least once<br/>
   This service level guarantees that messages are delivered at least once.
   The sender stores the message until it receives an acknowledgement from the broker.
   If the acknowledgement is not received in a timely manner the message is retransmitted.
@@ -94,14 +94,14 @@ In MQTT there are 3 QoS options:
         <img alt="QoS level 2" src="{{ '/img/2021-05-26-intro-to-mqtt/qos-levels_qos2.svg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; width: 100%; display: inline-block;">
     </a>
 </div>
-- 2: Exactly once
+- 2: Exactly once<br/>
   This service level guarantees that messages are delivered exactly once.
-  To enable this a [four-way handshake](https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/){:target="_blank" rel="noopener noreferrer"} is used between the client and the broker.
+  To enable this, a [four-way handshake](https://bytesofgigabytes.com/mqtt/mqtt-protocol-handshake/){:target="_blank" rel="noopener noreferrer"} is used between the client and the broker.
 
 [Retained messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages/){:target="_blank" rel="noopener noreferrer"}:
 These are messages with the retained flag set to true.
 The broker will store these messages with their QoS and send it to any client that connects.
-This enables newly connected client get an update quicker since they do not need to wait for a new message to be published.
+This enables newly connected clients get an update quicker since they do not need to wait for a new message to be published.
 Retained messages can also be deleted easily: the client just needs to send an empty (0 byte payload) retained message.
 
 [Last Will and Testament (LWT)](https://www.hivemq.com/blog/mqtt-essentials-part-9-last-will-and-testament/){:target="_blank" rel="noopener noreferrer"}:
@@ -154,7 +154,7 @@ sudo service mosquitto restart
 
 ### Aedes
 
-[Aedes](https://github.com/moscajs/aedes){:target="_blank" rel="noopener noreferrer"} is the follow up/split from [Mosca](https://github.com/moscajs/mosca){:target="_blank" rel="noopener noreferrer"} and is fully open source.
+[Aedes](https://github.com/moscajs/aedes){:target="_blank" rel="noopener noreferrer"} is the follow-up/split from [Mosca](https://github.com/moscajs/mosca){:target="_blank" rel="noopener noreferrer"} and is fully open source.
 It is a node based MQTT broker that is scalable and lightweight.
 The broker only has support for the 3.1 and 3.1.1 protocol versions, 5.0 is not supported yet.
 
@@ -187,7 +187,7 @@ The project is written in Erlang and is fully compatible with the 3.1 and 3.1.1 
 
 ### VerneMQ
 
-[VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"} is another well-known broker that is also fully open-source and written in Erlang.
+[VerneMQ](https://vernemq.com/){:target="_blank" rel="noopener noreferrer"} is another well-known broker that is also fully open source and written in Erlang.
 It has the ability to scale very well, both vertically and horizontally.
 The broker has support for all three major versions of the protocol.
 
