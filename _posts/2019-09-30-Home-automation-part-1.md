@@ -4,7 +4,7 @@ authors: [kevin_van_den_abeele]
 title: "Home Automation part 1"
 image: /img/2019-09-30-home-automation/banner.jpg
 tags: [Internet of Things, Smart Tech, Home, Smart Home, Automation, Home Automation, Siri, Apple, Google Assistant, Amazon, Alexa, HomeKit, Home Assistant, openHAB]
-category: Machine Learning
+category: IoT
 comments: true
 ---
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.9.0/css/lightbox.css" />
