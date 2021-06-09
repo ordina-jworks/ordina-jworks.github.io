@@ -1,0 +1,25 @@
+---
+layout: default
+title: Meet the team
+permalink: /meet-the-team/
+---
+<section class="wrapper spotlight alt style1">
+    <div class="inner">
+        <section class="team">
+            {% for authorEntry in site.data.authors %}
+            {% assign author = authorEntry[1] %}
+            {% if author.inactive != true %}
+            <div class="team-member">
+                {% include team-member-image.html author=author %}
+                <h1 class="team-member-name"><a href="{{ author.permalink | prepend: site.baseurl }}">{{ author.first_name }} {{ author.last_name }}</a></h1>
+                <span class="team-member-title">{{ author.title }}</span>
+                {% if author.title2 %}
+                <span class="team-member-title">{{ author.title2 }}</span>
+                {% endif %}
+                {% include team-member-links.html author=author %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </section>
+    </div>
+</section>
