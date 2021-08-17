@@ -151,17 +151,34 @@ Almost always, this freedome heavily outways the additional "management" of the 
 
 ## This works fine, why bother?
 
+This question should actually be the first one that should be asked by every manager when a potential move to anywhere (not just the public cloud) comes up.
+`What's in it for me?`
+This question can be answered with all of the above arguments we already discussed, but we'll highlight a couple of side-effects additionally here. 
 
-<!-- We can't use the cloud because it's just a hype. We've got everything we need and are fast and flexible on our current solution. -->
+### Reducing time to market
 
+Being able to react to quickly changing markets and circumstances from a business standpoint is already important today, but it will only become more important in the future. 
+Building software solutions that take months or even years before they see the first real usage, isn't the best strategy in 2021 and it will be a terrible strategy in the near future. 
+Companies that are able to respond quickly to changes and are able to validate new business ideas quickly will win the markets. 
+The public cloud can help here as well. 
+Since it offers a lot of managed solutions which can grow over time, it facilitates this testing and validating strategy. 
+A simple application can be put live in a matter of days or even hours to validate a business idea. 
+When the time comes to scale out the solution, it because as easy allowing your application to scale to the required size and picking up the bill at the end of the month.
+
+### Attracting talent
+
+The public cloud is a hot topic within the software engineering community and there are a lot of people interested in it.
+A nice side-effect of using the public cloud is that you'll have an easier time attracting highly skilled talent to work on the project.
+On-premise solutions are often considered legacy and aren't as attractive to new hires.
+The cloud also provides a lot of certification and specialisation tracks, allowing you to effectively find people that have proper record for using the solutions.
 
 ## Conclusion
 
-- Talk to people
-- Find project / efforts in your company that have already moved to tried to
-- Don't accept NO as a valid response, ask what needs to be in place to allow it
+The key takeaway of this post should be to talk to people.
+Ask them why they are opposing to moving to the public cloud. 
+Ask them what is needed to be allowed to move, which requirements you need to fulfill and why these requirements are relevant.
+Don't accept a plain `NO` without valid reasoning. 
+Try to look for similar project withinn your organisation and find out if there are examples of projects that have moved to the public cloud already.
+Failing that, look at others like the [Deutsche Boerse](https://deutsche-boerse.com/dbg-en/media/press-releases/Deutsche-B-rse-and-Microsoft-reach-a-significant-milestone-for-cloud-adoption-in-the-financial-services-industry-1540058) or [Alphabet International Gmbh](https://www.youtube.com/watch?v=uz4bs9EQA0E) that have adopted public cloud as well. 
 
-Reasons
-- You need to be air-gapped
-- You have very specialised hardware requirements
-- You have extremely low latency on-premise interactions
+Feel free to reach out to [me](https://www.linkedin.com/in/pieter-vincken-a94b5153/) or any other Ordina colleagues if you want help with starting to adopt the cloud. 
