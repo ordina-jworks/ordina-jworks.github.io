@@ -45,7 +45,7 @@ Ask questions like the following:
 - What roles and rights would they like to have?
 - What reporting information do you need to provide?
 - Who is allowed to perform which actions and even more important which roles separation needs to exist?
-- Which controls need to be in place and how they would like to seem them implemented?
+- Which controls need to be in place and how they would like to see them implemented?
 - What measures need to be in place to prevent which scenarios?
 - Which public cloud services meet the requirements out-of-the-box and which need additional measures?
 
