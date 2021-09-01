@@ -10,7 +10,7 @@ comments: true
 
 You were triggered by the title, weren't you. 
 You came here to look at the stupid arguments I wrote for defending legacy and on-premise solutions.
-Unfortunatly, I have to disappoint you already.
+Unfortunately, I have to disappoint you already.
 The title was indeed to trigger your interest.
 This article will however provide you with some battle tested answers to common reasons "not to go to the cloud".
 It will provide you with a strategy to counter common misconceptions for why the cloud "isn't right for this project". 
@@ -64,7 +64,7 @@ This one actually originates from a lot of horror stories about companies moving
 Or some hacker got access to the account and started spinning up expensive machines to mine bitcoins.
 There are multiple examples small and not so small companies having experienced this: [Tesla](https://arstechnica.com/information-technology/2018/02/tesla-cloud-resources-are-hacked-to-run-cryptocurrency-mining-malware/), [Announce](https://blog.tomilkieway.com/72k-1/) and [Adobe](https://www.teampay.co/insights/manage-cloud-costs/)
 
-To get started, the cloud isn't for free, eventhough a lot of provider will give you some `free` resources every month.
+To get started, the cloud isn't for free, even though a lot of providers will give you some `free` resources every month.
 It's still a service that you're using and there will be a bill for it at the end of the month. 
 But it's not a reason to stay away from the cloud, quite the opposite. 
 
@@ -85,7 +85,7 @@ And finally, if you're in this situation and your are looking at a cloud provide
 It might seem obvious, but costs could be heavily reduced by looking into managed solutions for existing components and since you're changing anyway, you might as well invest in optimizing the solution. 
 
 A second scenario is when there isn't an application yet or it's not `live` yet. 
-This makes it harder to estimate how much resources you'll need ofcourse.
+This makes it harder to estimate how many resources you'll need of course.
 On the other hand, it will allow you to create solutions which use more integrated solutions from the public cloud provider.
 These solutions are often more tightly integrated, but can also save you a lot of money because they are easier to operate and faster to build compared to traditional solutions. 
 As most companies only have bare metal machines, a VM or container platform on-premise, the higher level solutions can provide better operational abstractions and a lower cost of operating them.
@@ -144,10 +144,10 @@ If you're a startup looking to leverage ready to use building blocks and focus a
 If you're a large coorperation that wants to reduce their TCO of owning, managing and operating their on-premise solutions, they've got you covered.
 
 I'd actually argue that the size of the organisation doesn't really dictate if you can move to the cloud, it's the culture and people.
-Using the public cloud requires a slightly different and less silod mindset in the organisation. 
+Using the public cloud requires a slightly different and less siloed mindset in the organisation. 
 Most of the time, you'll get end-to-end responsibility and access to the components that you need in the cloud. 
 This provides you with the flexibility to create the solution that fits you best, but it also means that there is no other team that will maintain or operate the resources you're using.
-Almost always, this freedome heavily outways the additional "management" of the resources and if it's too much management, you probably need to look into one of the managed solutions offered by your cloud provider as a replacement for the resources you're using. 
+Almost always, this freedom heavily outweighs the additional "management" of the resources and if it's too much management, you probably need to look into one of the managed solutions offered by your cloud provider as a replacement for the resources you're using. 
 
 ## This works fine, why bother?
 
