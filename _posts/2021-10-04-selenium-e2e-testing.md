@@ -14,8 +14,8 @@ comments: true
 
 # End-to-End Testing
 <img src = "/img/2021-10-04-selenium-e2e-testing/end-to-end.png" class = "image right medium">
-End-to-end (often referred to as E2E) testing is a testing methodology used to test a complete flow from the beginning to the end of one of more specific use cases within your application.
-It's main goal is to test your full application from an end user's perspective and simulate everything that a real user would do.
+End-to-end (often referred to as E2E) testing is a testing methodology used to test a complete flow from the beginning to the end of one or more specific use cases within your application.
+Its main goal is to test your full application from an end user's perspective and simulate everything that a real user would do.
 This includes typing stuff, clicking buttons and/or links and test how your application responds to this behaviour. 
 
 End-to-end testing can avoid, if done correctly, many complex situations and ensures that your application is stable and keeps working how it is intended to work.
