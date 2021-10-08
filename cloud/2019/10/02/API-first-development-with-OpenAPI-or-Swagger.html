@@ -647,8 +647,8 @@ SAM allows you to use an OpenAPI specification to create your API Gateway.</p>
       <span class="na">StageName</span><span class="pi">:</span> <span class="s">dev</span>
       <span class="na">DefinitionBody</span><span class="pi">:</span>
         <span class="s">Fn::Transform:</span>
-          <span class="s">Name</span><span class="pi">:</span> <span class="s">AWS::Include</span>
-          <span class="s">Parameters</span><span class="pi">:</span>
+          <span class="s">Name</span><span class="err">:</span> <span class="s">AWS::Include</span>
+          <span class="s">Parameters</span><span class="err">:</span>
             <span class="na">Location</span><span class="pi">:</span> <span class="s">./openapi.yaml</span>
 </code></pre></div></div>
 
@@ -658,7 +658,7 @@ SAM allows you to use an OpenAPI specification to create your API Gateway.</p>
     <span class="na">Type</span><span class="pi">:</span> <span class="s">AWS::Serverless::Function</span>
     <span class="na">Properties</span><span class="pi">:</span>
       <span class="s">...</span>
-      <span class="s">Events</span><span class="pi">:</span>
+      <span class="s">Events</span><span class="err">:</span>
         <span class="na">CreateSessionApi</span><span class="pi">:</span>
           <span class="na">Type</span><span class="pi">:</span> <span class="s">Api</span>
           <span class="na">Properties</span><span class="pi">:</span>
@@ -670,10 +670,10 @@ SAM allows you to use an OpenAPI specification to create your API Gateway.</p>
 <p>Add the <code class="language-plaintext highlighter-rouge">x-amazon-apigateway-integration</code> extension in your <code class="language-plaintext highlighter-rouge">api.yml</code> to specify how the api has to integrate with the backend Lambda service.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">paths</span><span class="pi">:</span>
-  <span class="s2">"</span><span class="s">/sessions"</span><span class="pi">:</span>
+  <span class="s2">"</span><span class="s">/sessions"</span><span class="err">:</span>
     <span class="na">get</span><span class="pi">:</span>
       <span class="s">...</span>
-      <span class="s">x-amazon-apigateway-integration</span><span class="pi">:</span>
+      <span class="s">x-amazon-apigateway-integration</span><span class="err">:</span>
         <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">aws_proxy"</span>
         <span class="na">httpMethod</span><span class="pi">:</span> <span class="s2">"</span><span class="s">POST"</span>
         <span class="na">uri</span><span class="pi">:</span>
