@@ -8,7 +8,7 @@ category: Leadership
 comments: true
 ---
 
-You were triggered by the title, weren't you. 
+You were triggered by the title, weren't you? 
 You came here to look at the stupid arguments I wrote for defending legacy and on-premise solutions.
 Unfortunately, I have to disappoint you already.
 The title was indeed to trigger your interest.
@@ -19,11 +19,11 @@ So if you're working on a project and think you might benefit from moving to the
 
 This blog will discuss the following 5 common scenarios which are used as reasons not to go to the cloud: 
 
-We can't use the cloud because audit said we can't.
-We can't use the cloud because it's too expensive
-We can't use the cloud because it's not secure
-We can't use the cloud because we're not the size of Netflix
-This works fine, why bother?
+- We can't use the cloud because audit said we can't.
+- We can't use the cloud because it's too expensive
+- We can't use the cloud because it's not secure
+- We can't use the cloud because we're not the size of Netflix
+- This works fine, why bother?
 
 ## We can't use the cloud because audit said we can't
 
@@ -123,7 +123,7 @@ If you're already live with an on-premise solution, make sure to make the compar
 You'll often find that the cloud provides more secure features and that especially auditability of these features is a lot easier compared to the on-premise solutions. 
 
 Lastly, create a set of known good configurations for the services you want to use. 
-For example, if your organisation requires data at rest is encrypted with your own key, create automation scripts or runbooks on how to configure that service in a way that is compliant with the security requirements. 
+For example, if your organisation requires data-at-rest is encrypted with your own key, create automation scripts or runbooks on how to configure that service in a way that is compliant with the security requirements. 
 Creating governance policies (E.g. on [Azure](https://docs.microsoft.com/en-us/azure/governance/policy/overview){:target="_blank" rel="noopener noreferrer"}) which are validated on the entire platform might help with proving that you're in fact working securily. 
 Due to the level of automation that's possible on the cloud and the integration options between the different solutions there are quite a lot of scenarios where the public cloud is actually more secure than an on-premise solution. 
 
@@ -163,7 +163,7 @@ Companies that are able to respond quickly to changes and are able to validate n
 The public cloud can help here as well. 
 Since it offers a lot of managed solutions which can grow over time, it facilitates this testing and validating strategy. 
 A simple application can be put live in a matter of days or even hours to validate a business idea. 
-When the time comes to scale out the solution, it because as easy allowing your application to scale to the required size and picking up the bill at the end of the month.
+When the time comes to scale out the solution, it becomes as easy as allowing your application to scale to the required size and picking up the bill at the end of the month.
 
 ### Attracting talent
 
