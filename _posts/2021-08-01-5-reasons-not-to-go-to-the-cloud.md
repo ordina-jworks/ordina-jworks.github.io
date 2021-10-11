@@ -37,15 +37,15 @@ Simply stating that "public cloud isn't allowed by audit" is therefore a gross o
 
 ### How to tackle this scenario
 
-As with most issue in companies, talking to the right people is paramount to getting something approved or resolved. 
+As with most issues in companies, talking to the right people is paramount to getting something approved or resolved. 
 This case is no different. 
 Before moving workloads or spinning up resources in the cloud, ask (internal) audit about their requirements. 
 Ask questions like the following: 
 
 - What roles and rights would they like to have?
 - What reporting information do you need to provide?
-- Who is allowed to perform which actions and even more important which roles separation needs to exist?
-- Which controls need to be in place and how they would like to see them implemented?
+- Who is allowed to perform which actions, and even more important, which roles separation needs to exist?
+- Which controls need to be in place and how would they like to see them implemented?
 - What measures need to be in place to prevent which scenarios?
 - Which public cloud services meet the requirements out-of-the-box and which need additional measures?
 
@@ -62,7 +62,7 @@ On Microsoft Azure, this is already available through the Activity Logs which ar
 
 This one actually originates from a lot of horror stories about companies moving to the cloud and forgetting about the cloud bill at the end of the month. 
 Or some hacker got access to the account and started spinning up expensive machines to mine bitcoins.
-There are multiple examples small and not so small companies having experienced this: [Tesla](https://arstechnica.com/information-technology/2018/02/tesla-cloud-resources-are-hacked-to-run-cryptocurrency-mining-malware/), [Announce](https://blog.tomilkieway.com/72k-1/) and [Adobe](https://www.teampay.co/insights/manage-cloud-costs/)
+There are multiple examples small and not so small companies having experienced this: [Tesla](https://arstechnica.com/information-technology/2018/02/tesla-cloud-resources-are-hacked-to-run-cryptocurrency-mining-malware/){:target="_blank" rel="noopener noreferrer"}, [Announce](https://blog.tomilkieway.com/72k-1/){:target="_blank" rel="noopener noreferrer"} and [Adobe](https://www.teampay.co/insights/manage-cloud-costs/){:target="_blank" rel="noopener noreferrer"}.
 
 To get started, the cloud isn't for free, even though a lot of providers will give you some `free` resources every month.
 It's still a service that you're using and there will be a bill for it at the end of the month. 
@@ -79,9 +79,9 @@ So if you're in the position to input this information, this should provide you 
 Being able to calculate the cost of the current platform is probably the harder part.
 If you have internal cost centers, using those might be a good start if they reflect the real cost.
 In some companies the cost of the platform might actually be paid for by some central IT budget and isn't really available to the different projects. 
-If this is the case, try to ask the central deparement to provide you with some rough numbers or make a best effort estimation yourself based on the budget, headcount and your own footprint in the platform. 
+If this is the case, try to ask the central department to provide you with some rough numbers or make a best effort estimation yourself based on the budget, headcount and your own footprint in the platform. 
 Make sure to include the head count in the calculation of the platform as this is often forgotten when making these comparisons. 
-And finally, if you're in this situation and your are looking at a cloud provider, don't forget to take the opportunity to look at replatforming or re-architecting your solution. 
+And finally, if you're in this situation and you are looking at a cloud provider, don't forget to take the opportunity to look at replatforming or re-architecting your solution. 
 It might seem obvious, but costs could be heavily reduced by looking into managed solutions for existing components and since you're changing anyway, you might as well invest in optimizing the solution. 
 
 A second scenario is when there isn't an application yet or it's not `live` yet. 
@@ -111,7 +111,7 @@ And that's about all the valid reasons, security wise.
 
 It's a common misconceptions that the public cloud isn't as secure as your own datacenter.
 It's commonly told that it's more secure to run software applications behind the firewall within an organisation because the organisation owns all the moving parts.
-Looking at the multitude of security certifications that all mayor cloud providers have, it's a pretty bold statement to claim that an organisation would be more secure compared to public cloud. ([Azure compliance](https://docs.microsoft.com/en-us/azure/compliance/), [AWS](https://aws.amazon.com/compliance/programs/), [Google](https://cloud.google.com/security/compliance/offerings))
+Looking at the multitude of security certifications that all major cloud providers have, it's a pretty bold statement to claim that an organisation would be more secure compared to public cloud ([Azure compliance](https://docs.microsoft.com/en-us/azure/compliance/), [AWS](https://aws.amazon.com/compliance/programs/), [Google](https://cloud.google.com/security/compliance/offerings)).
 I'd personally argue that most cloud providers are an order of magnitude more secure than most on-premise datacenters. 
 For every security role in your organisation, they probably have dozens. 
 Just because it doesn't run in your datacenter, doesn't mean that it's less secure. 
@@ -124,7 +124,7 @@ You'll often find that the cloud provides more secure features and that especial
 
 Lastly, create a set of known good configurations for the services you want to use. 
 For example, if your organisation requires data at rest is encrypted with your own key, create automation scripts or runbooks on how to configure that service in a way that is compliant with the security requirements. 
-Creating governance policies (E.g. on [Azure](https://docs.microsoft.com/en-us/azure/governance/policy/overview)) which are validated on the entire platform might help with proving that you're in fact working securily. 
+Creating governance policies (E.g. on [Azure](https://docs.microsoft.com/en-us/azure/governance/policy/overview){:target="_blank" rel="noopener noreferrer"}) which are validated on the entire platform might help with proving that you're in fact working securily. 
 Due to the level of automation that's possible on the cloud and the integration options between the different solutions there are quite a lot of scenarios where the public cloud is actually more secure than an on-premise solution. 
 
 ## We can't use the cloud because we're not the size of Netflix
@@ -153,7 +153,7 @@ Almost always, this freedom heavily outweighs the additional "management" of the
 
 This question should actually be the first one that should be asked by every manager when a potential move to anywhere (not just the public cloud) comes up.
 `What's in it for me?`
-This question can be answered with all of the above arguments we already discussed, but we'll highlight a couple of side-effects additionally here. 
+This question can be answered with all of the above arguments we already discussed, but we'll highlight a couple of opportunities additionally here. 
 
 ### Reducing time to market
 
@@ -168,7 +168,7 @@ When the time comes to scale out the solution, it because as easy allowing your 
 ### Attracting talent
 
 The public cloud is a hot topic within the software engineering community and there are a lot of people interested in it.
-A nice side-effect of using the public cloud is that you'll have an easier time attracting highly skilled talent to work on the project.
+A nice advantage of using the public cloud is that you'll have an easier time attracting highly-skilled talent to work on the project.
 On-premise solutions are often considered legacy and aren't as attractive to new hires.
 The cloud also provides a lot of certification and specialisation tracks, allowing you to effectively find people that have proper record for using the solutions.
 
@@ -178,7 +178,7 @@ The key takeaway of this post should be to talk to people.
 Ask them why they are opposing to moving to the public cloud. 
 Ask them what is needed to be allowed to move, which requirements you need to fulfill and why these requirements are relevant.
 Don't accept a plain `NO` without valid reasoning. 
-Try to look for similar project withinn your organisation and find out if there are examples of projects that have moved to the public cloud already.
-Failing that, look at others like the [Deutsche Boerse](https://deutsche-boerse.com/dbg-en/media/press-releases/Deutsche-B-rse-and-Microsoft-reach-a-significant-milestone-for-cloud-adoption-in-the-financial-services-industry-1540058) or [Alphabet International Gmbh](https://www.youtube.com/watch?v=uz4bs9EQA0E) that have adopted public cloud as well. 
+Try to look for similar projects within your organisation and find out if there are examples of projects that have moved to the public cloud already.
+Failing that, look at others like the [Deutsche Boerse](https://deutsche-boerse.com/dbg-en/media/press-releases/Deutsche-B-rse-and-Microsoft-reach-a-significant-milestone-for-cloud-adoption-in-the-financial-services-industry-1540058){:target="_blank" rel="noopener noreferrer"} or [Alphabet International Gmbh](https://www.youtube.com/watch?v=uz4bs9EQA0E){:target="_blank" rel="noopener noreferrer"} that have adopted public cloud as well. 
 
 Feel free to reach out to [me](https://www.linkedin.com/in/pieter-vincken-a94b5153/) or any other Ordina colleagues if you want help with starting to adopt the cloud. 
