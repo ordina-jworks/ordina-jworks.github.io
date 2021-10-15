@@ -110,7 +110,7 @@ And that's about all the valid reasons, security-wise.
 
 It's a common misconception that the public cloud isn't as secure as your own data center.
 It's commonly told that it's more secure to run software applications behind the firewall within an organisation because the organisation owns all the moving parts.
-Looking at the multitude of security certifications that all major cloud providers have, it's a pretty bold statement to claim that an organisation would be more secure compared to public cloud ([Azure compliance](https://docs.microsoft.com/en-us/azure/compliance/), [AWS](https://aws.amazon.com/compliance/programs/), [Google](https://cloud.google.com/security/compliance/offerings)).
+Looking at the multitude of security certifications that all major cloud providers have, it's a pretty bold statement to claim that an organisation would be more secure compared to public cloud ([Azure compliance](https://docs.microsoft.com/en-us/azure/compliance/){:target="_blank" rel="noopener noreferrer"}, [AWS](https://aws.amazon.com/compliance/programs/){:target="_blank" rel="noopener noreferrer"}, [Google](https://cloud.google.com/security/compliance/offerings){:target="_blank" rel="noopener noreferrer"}).
 I'd personally argue that most cloud providers are an order of magnitude more secure than most on-premise datacenters. 
 For every security role in your organisation, they probably have dozens. 
 Just because it doesn't run in your data center, doesn't mean that it's less secure. 
@@ -180,4 +180,4 @@ Don't accept a plain `NO` without valid reasoning.
 Try to look for similar projects within your organisation and find out if there are examples of projects that have moved to the public cloud already.
 Failing that, look at others like the [Deutsche Boerse](https://deutsche-boerse.com/dbg-en/media/press-releases/Deutsche-B-rse-and-Microsoft-reach-a-significant-milestone-for-cloud-adoption-in-the-financial-services-industry-1540058){:target="_blank" rel="noopener noreferrer"} or [Alphabet International Gmbh](https://www.youtube.com/watch?v=uz4bs9EQA0E){:target="_blank" rel="noopener noreferrer"} that have adopted public cloud as well. 
 
-Feel free to reach out to [me](https://www.linkedin.com/in/pieter-vincken-a94b5153/) or any other Ordina colleagues if you want help with starting to adopt the cloud. 
+Feel free to reach out to [me](https://www.linkedin.com/in/pieter-vincken-a94b5153/){:target="_blank" rel="noopener noreferrer"} or any other Ordina colleagues if you want help with starting to adopt the cloud. 
