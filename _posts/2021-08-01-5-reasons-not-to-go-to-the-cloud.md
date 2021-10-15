@@ -42,10 +42,9 @@ This case is no different.
 Before moving workloads or spinning up resources in the cloud, ask (internal) audit about their requirements. 
 Ask questions like the following: 
 
-- What roles and rights would they like to have?
 - What reporting information do you need to provide?
 - Who is allowed to perform which actions, and even more important, which roles separation needs to exist?
-- Which controls need to be in place and how would they like to see them implemented?
+- Which scenarios need to be covered by controls?
 - What measures need to be in place to prevent which scenarios?
 - Which public cloud services meet the requirements out-of-the-box and which need additional measures?
 
