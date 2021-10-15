@@ -19,11 +19,11 @@ So if you're working on a project and think you might benefit from moving to the
 
 This blog will discuss the following 5 common scenarios which are used as reasons not to go to the cloud: 
 
-- We can't use the cloud because audit said we can't.
-- We can't use the cloud because it's too expensive
-- We can't use the cloud because it's not secure
-- We can't use the cloud because we're not the size of Netflix
-- This works fine, why bother?
+- [We can't use the cloud because audit said we can't.](#we-cant-use-the-cloud-because-audit-said-we-cant)
+- [We can't use the cloud because it's too expensive](#we-cant-use-the-cloud-because-its-too-expensive)
+- [We can't use the cloud because it's not secure](#we-cant-use-the-cloud-because-its-not-secure)
+- [We can't use the cloud because we're not the size of Netflix](#we-cant-use-the-cloud-because-were-not-the-size-of-netflix)
+- [This works fine, why bother?](#this-works-fine-why-bother)
 
 ## We can't use the cloud because audit said we can't
 
@@ -83,7 +83,7 @@ Make sure to include the headcount in the calculation of the platform as this is
 And finally, if you're in this situation and you are looking at a cloud provider, don't forget to take the opportunity to look at re-platforming or re-architecting your solution. 
 It might seem obvious, but costs could be heavily reduced by looking into managed solutions for existing components and since you're changing anyway, you might as well invest in optimizing the solution. 
 
-A second scenario is when there isn't an application yet or it's not `live` yet. 
+A second scenario is when there isn't an application yet or it's not live yet. 
 This makes it harder to estimate how many resources you'll need of course.
 On the other hand, it will allow you to create solutions that use more integrated solutions from the public cloud provider.
 These solutions are often more tightly integrated, but can also save you a lot of money because they are easier to operate and faster to build compared to traditional solutions. 
@@ -151,7 +151,7 @@ Almost always, this freedom heavily outweighs the additional "management" of the
 ## This works fine, why bother?
 
 This question should actually be the first one that should be asked by every manager when a potential move to anywhere (not just the public cloud) comes up.
-`What's in it for me?`
+"What's in it for me?"
 This question can be answered with all of the above arguments we already discussed, but we'll highlight a couple of opportunities additionally here. 
 
 ### Reducing time to market
@@ -176,7 +176,7 @@ The cloud also provides a lot of certification and specialisation tracks, allowi
 The key takeaway of this post should be to talk to people.
 Ask them why they are opposed to moving to the public cloud. 
 Ask them what is needed to be allowed to move, which requirements you need to fulfil and why these requirements are relevant.
-Don't accept a plain `NO` without valid reasoning. 
+Don't accept a plain NO without valid reasoning. 
 Try to look for similar projects within your organisation and find out if there are examples of projects that have moved to the public cloud already.
 Failing that, look at others like the [Deutsche Boerse](https://deutsche-boerse.com/dbg-en/media/press-releases/Deutsche-B-rse-and-Microsoft-reach-a-significant-milestone-for-cloud-adoption-in-the-financial-services-industry-1540058){:target="_blank" rel="noopener noreferrer"} or [Alphabet International Gmbh](https://www.youtube.com/watch?v=uz4bs9EQA0E){:target="_blank" rel="noopener noreferrer"} that have adopted public cloud as well. 
 
