@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [jasper_rosiers, hans_vanbellingen]
+authors: [iebe_maes]
 title: 'Immo chatbot'
 image: /img/2021-05-27-Chatbot-Immo/cover_blog.jpg
 tags: [Spring, Solid, Chatbot]
@@ -156,7 +156,7 @@ Otherwise, the bot will go to the next bot dialog.
 At the end of the flow, the chatbot will send an API call with the necessary parameters to construct a URL. 
 There is a basic url to which we can attach a piece depending on which parameter has been entered.
 
-In the service the first thing I check is if the Koh parameter has a value. 
+In the service the first thing I check is if the 'status' parameter has a value. 
 The parameter can contain either ‘buy’ or ‘rent’. 
 If this is not the case, there will be an error message which is sent back to the chatbot. 
 The option if the user wants to buy, or to rent, is the only mandatory parameter. 
@@ -270,7 +270,6 @@ public String getAuthTokenGoogle() throws Exception {
     authorizationUrl = flow.newAuthorizationUrl()
             .setRedirectUri(redirectUri)
             .setAccessType("offline");
-    System.out.println("cal authorizationUrl->" + authorizationUrl);
     return authorizationUrl.build();
 }
 ```
@@ -288,17 +287,14 @@ When the redirect URI is called, the following function is executed:
 @Override
 public ResponseEntity<String> callback(String code) {
     com.google.api.services.calendar.model.Events eventList;
-    System.out.println(code);
     String message;
     try {
         TokenResponse response = flow.newTokenRequest(code).setRedirectUri(redirectUri).execute();
         credential = flow.createAndStoreCredential(response, "userID");
-        System.out.println(credential.getAccessToken() + "----" + credential.getRefreshToken());
         client = new com.google.api.services.calendar.Calendar.Builder(httpTransport, JSON_FACTORY, credential).build();
         Events events = client.events();
         eventList = events.list("primary").setTimeMin(date1).setTimeMax(date2).execute();
         message = eventList.getItems().toString();
-        System.out.println("My:" + eventList.getItems());
     } catch (Exception e) {
         LOG.warn("Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                 + " Redirecting to google connection status page.");
@@ -306,13 +302,12 @@ public ResponseEntity<String> callback(String code) {
                 + " Redirecting to google connection status page.";
     }
 
-    System.out.println("cal message:" + message);
     return new ResponseEntity<>(message, HttpStatus.OK);
 }
 ```
 
 This is the part where we are exchanging the authorization code for the access and refresh tokens.
-When I got those tokens from the server, I saved the refresh token in the application.properties file so I could use it later to get new access tokens.
+When I got those tokens from the server, I manually set the refresh token in the `application.properties` file so I could use it later to get new access tokens.
 As a test, there is also some code to get the events between two dates, to make sure that I have access to the Google calendar API with the acquired access token.
 
 #### Getting an access token with the refresh token
@@ -411,7 +406,6 @@ public void createEvent(String date, String meetingTime, String name, String add
         calStartDate.add(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(hours[0]));
         Date startDate = calStartDate.getTime();
         DateTime dateTimemin = new DateTime(startDate);
-        System.out.println(dateTimemin);
 
         EventDateTime start = new EventDateTime();
         start.setDateTime(dateTimemin);
@@ -422,7 +416,6 @@ public void createEvent(String date, String meetingTime, String name, String add
         calEndDate.add(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(hours[1]));
         Date endDate = calEndDate.getTime();
         DateTime dateTimeMax = new DateTime(endDate);
-        System.out.println(dateTimeMax);
 
         EventDateTime end = new EventDateTime();
         end.setDateTime(dateTimeMax);
