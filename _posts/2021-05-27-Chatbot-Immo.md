@@ -16,7 +16,7 @@ comments: true
 ----
 
 # Introduction
-As we all know is Ordina a company that is always looking to be ahead of change, by looking for the newest technologies to work with and seeing where these technologies can be useful. 
+As we all know, Ordina is a company that is always looking to be ahead of change, by looking for the newest technologies to work with and seeing where these technologies can be useful. 
 This is also one of the main objectives of my internship, investigating a new technology, investigating how fast and easy it is for non-IT users with almost no knowledge of chatbots, to set one up.
 
 In this case, I made a chatbot for a real estate agency. 
@@ -33,8 +33,10 @@ My official mentor was Frederick Bousson, he had help from Jasper Rosiers and Ha
 This is the setup of the project. 
 This architecture has been changed a few times during the internship. 
 This mostly has to do with the Solid database because this is such a new technology. 
-At the start, we didn’t quite know how to start and how it all worked. So as the internship progressed the architecture grew bigger. 
-All the different parts of the architecture will be explained in dept in the next chapters. For the API connecting everything together, we built a Spring Boot application.
+At the start, we didn’t quite know how to start and how it all worked.
+So as the internship progressed, the architecture grew bigger. 
+All the different parts of the architecture will be explained in depth in the next chapters.
+For the APIs, connecting everything together, we built a Spring Boot application.
 
 # Chatlayer
 First things first, the chatbot. 
@@ -61,7 +63,7 @@ There are three main types of chatbots:
    For the understanding of the language, the chatbot uses NLP (Natural Language Processing). 
    This involves two processes, NLU (Natural Language Understanding) and NLG (Natural Language Generation).
    NLU is the ability that a chatbot has to understand the user. 
-   It changes the text that a user enters to a format that a computer can understand. 
+   It maps the text that a user enters to a format that a computer can understand. 
    Then we have NLG, the other important part of NLP. 
    NLG is the process that, as you can probably get from the name, transforms data into words. 
    So it’s the generation of text.
@@ -81,7 +83,7 @@ The intent is ‘buy a train ticket’.
 Another important term related to intents is ‘expression’. 
 In order for the AI to correctly identify an intent, it has to learn a couple of ways to express a certain intent. 
 This is where the expressions come into play. 
-When we add an intent to the chatbot we must provide the bot with a couple of ways a user could say/express the intent. 
+When we add an intent to the chatbot, we must provide the bot with a couple of ways a user could say/express the intent. 
 It's obvious that we need to provide enough examples that convey the same message for each intent. 
 The more expressions that are added, the more accurate the chatbot will be. 
 When you add expressions to an intent you need to make sure that there is enough variation between the different expressions.
@@ -104,15 +106,15 @@ On every bot dialog, you can put an intent, a required context, and an output co
 <span class="image left"><img alt="feedback" src="/img/2021-05-27-Chatbot-Immo/feedback.jpg" class="image fit" style="margin:0px auto; max-width: 400px;"></span>
 
 An intent is explained before so you should know what that is 😉. 
-If the user sends a message to the bot the AI will check if it recognizes an intent. 
-If this is the case the chatbot will display the message where the intent is set.
+If the user sends a message to the bot, the AI will check if it recognizes an intent. 
+If this is the case, the chatbot will display the message where the intent is set.
 
 The required context and output context belong together. 
 Think for example about the intent ‘Yes’ or ‘No’. 
 If the bot asks a question where the user can answer yes or no, we can use these intents. 
 But if there are multiple dialogs with the ‘Yes’ and ‘No’ intent, how could the bot know which dialog to go to?
 
-If you take a look at this example in the first dialog the bot asks the user if he/she wants to give some feedback about the bot. 
+If you take a look at this example in the first dialog, the bot asks the user if he/she wants to give some feedback about the bot. 
 The user can answer with yes or no. If the answer is yes, the bot will go to the input validation (green), otherwise, it will go to the bot message (grey). 
 To know to which “general.yes_or_agreed” intent the bot should go to, it can look at the output context and required context. 
 In the dialog where the question is asked, you can give an output context. 
@@ -134,7 +136,7 @@ Our first flow relates to searching for premises.
 I of course didn’t have access to the database of the real estate agency so I had to find a different solution. 
 So in this flow, the user gets asked a lot of questions about the premises, like maximum price, location, number of bedrooms…. 
 With this information, I could construct a URL where the user could click on. 
-This leads the user to the the real estate agency website with the search results. 
+This leads the user to the real estate agency website with the search results. 
 In a more extended practical case, the bot could list the relevant premises right into the chatbot.
 
 <span class="image right"><img alt="houseSearch" src="/img/2021-05-27-Chatbot-Immo/houseSearch.jpg" class="image fit" style="margin:0px auto; max-width: 400px;"></span>
@@ -143,7 +145,7 @@ At the end of each flow, the bot asks the user if he/she needs help with somethi
 If the user answers with yes, a new flow can begin. 
 Below you can see the diagram of this first flow. 
 As you can see, a lot of the parameters are optional. 
-If the user wants to see all the houses without filling out the other questions he/she can do so. 
+If the user wants to see all the houses without filling out the other questions, he/she can do so. 
 The decision in the beginning “Does premises have bedrooms” is a decision the chatbot will make based on the type of premises the user chooses. 
 I made this a go-to. If the type of the premises equals “houses” or “apartments”, the bot will go to the dialog where the user could enter his/her preference about the rooms. 
 Otherwise, the bot will go to the next bot dialog.
@@ -157,7 +159,7 @@ There is a basic url to which we can attach a piece depending on which parameter
 In the service the first thing I check is if the Koh parameter has a value. 
 The parameter can contain either ‘buy’ or ‘rent’. 
 If this is not the case, there will be an error message which is sent back to the chatbot. 
-The option if the user wants to buy, or to rent is the only mandatory parameter. 
+The option if the user wants to buy, or to rent, is the only mandatory parameter. 
 It could be possible that all the other parameters are empty. 
 The rest of the function is all about checking if these parameters are null or not and attaching the correct pieces of the url.
 
@@ -168,22 +170,22 @@ The structure needs to be like the image below but they could be null.
 <span class="image"><img alt="profile" src="/img/2021-05-27-Chatbot-Immo/ChatlayerResponse.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 
-As you can see we need to provide chatlayer with three things:
-1. Session  
-   Here we can pass along some variables that will be stored in de session storage
+As you can see, we need to provide Chatlayer with three things:
+1. Session<br/>
+   Here we can pass along some variables that will be stored in de session storage.
 
 
-2. Messages 
+2. Messages<br/>
    Here we can specify which messages we would like to send to the chatbot, which will then display those messages to the user. 
-   Its not limited to a normal text message, you could also construct some buttons, a carousel…
+   It's not limited to a normal text message, you could also construct some buttons, a carousel…
 
 
-3. Action
+3. Action<br/>
    This is used to specify the next dialog the bot should go to.
 
-In this flow I used this twice. 
+In this flow, I used this twice. 
 One time to send the URL back to the user and once to display an error message if something has gone wrong. 
-Because this was the first simple flow that we had setup in the chatbot and we knew that this was not the main flow I had chosen to, for now, just send the URL back to the chatbot as a text message.
+Because this was the first simple flow that we had set up in the chatbot and we knew that this was not the main flow I had chosen to, for now, just send the URL back to the chatbot as a text message.
 
 ### Report a problem / ask a question
 The second flow has a connection to the React application and is able to send problems/questions to the API which saves these in the database. 
@@ -232,12 +234,12 @@ He/she gets to re-read the email to check for mistakes and then the bot will sen
 To get access to the API there are some different steps we need to follow.
 
 The first step is enabling the Google Calendar API in the API console. 
-To do this we need to create a project on the Google Cloud Platform. 
+To do this, we need to create a project on the Google Cloud Platform. 
 Then we can navigate to the API library and enable the calendar API for our project.
 
-When this is done the next step is to create a client id. 
+When this is done, the next step is to create a client id. 
 This can also be done in the Google Cloud Platform. 
-The redirect URI is important here because this is where the access token is send to. 
+The redirect URI is important here because this is where the access token is sent to. 
 As you can see in the image below, when the client id is created, you get the client id and the client secret. 
 These are important for authentication later on in this flow.
 
@@ -248,13 +250,13 @@ These are important for authentication later on in this flow.
 With the flow I’m following you won’t only get an access token back from the server but also a refresh token. 
 This is needed because the connection with the API and the collection of the free meeting times all happens in the Spring Boot application without the interference of a user. 
 The first time the user will have to open a url in the browser to authenticate him/her-self and give consent that the application may have access to the calendar of the user. 
-The following times that we need to access the API we can simply use the refresh token to get a new access token from the server.
+The following times that we need to access the API, we can simply use the refresh token to get a new access token from the server.
 
 #### Get authorization code
 This step only gets executed the first time that the user logs in. 
 So we start the process by asking the Google OAuth 2.0 server for an authorization code.
 
-```Java
+```java
 @Override
 public String getAuthTokenGoogle() throws Exception {
     AuthorizationCodeRequestUrl authorizationUrl;
@@ -273,7 +275,7 @@ public String getAuthTokenGoogle() throws Exception {
 }
 ```
 
-In the code above we get the url where the user should login. 
+In the code above, we get the url where the user should login. 
 We need to pass the client id and the client secret with the request as well as the redirect URI. 
 You could also see that I only ask for the calendar scope, which is the only one I needed for this project. 
 When the user opens this URL in the browser, the user has to login to his/her Google account after which Google prompts the user for consent to grant access to the calendar. 
@@ -282,7 +284,7 @@ When the login is successful, the server will send the authorization code back t
 #### Exchange authorization code for refresh and access tokens
 When the redirect URI is called, the following function is executed:
 
-```Java
+```java
 @Override
 public ResponseEntity<String> callback(String code) {
     com.google.api.services.calendar.model.Events eventList;
@@ -311,12 +313,12 @@ public ResponseEntity<String> callback(String code) {
 
 This is the part where we are exchanging the authorization code for the access and refresh tokens.
 When I got those tokens from the server, I saved the refresh token in the application.properties file so I could use it later to get new access tokens.
-As a test there is also some code to get the events between two dates, to make sure that I have access to the Google calendar API with the acquired access token.
+As a test, there is also some code to get the events between two dates, to make sure that I have access to the Google calendar API with the acquired access token.
 
 #### Getting an access token with the refresh token
 In the actual flow I used the refresh token to get an access token from the Google server. 
 This can be done with a simple POST request to the server with the client id, client secret and the refresh token. 
-We then get a response with a new access token which we can use to send request to the API.
+We then get a response with a new access token which we can use to send the request to the API.
 
 ### Getting the data from the calendar
 #### Creating new client
@@ -329,12 +331,12 @@ The client object is an instance of the Calendar object.
 With this object we can get the calendars, the events and much more.
 
 #### Get freebusy schedule
-Because we need the free meeting times off the user, we would need the freebusy schedule. 
+Because we need the free meeting times of the user, we would need the freebusy schedule. 
 This gives us an overview when the user is busy and we can extract the free meeting times from that. 
 To know for which date I have to get the freebusy schedule, I first get the next 5 working days in the chatbot from which the user can choose. 
 This date is then forwarded to the API to retrieve the schedule.
 
-```Java
+```java
 List<FreeBusyRequestItem> items = new ArrayList<>();
 FreeBusyRequestItem freeBusyRequestItem = new FreeBusyRequestItem();
 freeBusyRequestItem.setId("iebemaes");
@@ -360,11 +362,11 @@ That way I ended up with a list with only free timeslots.
 
 #### Send the meeting times back to Chatlayer
 Now that we have a list with all the free timeslots, we need to get this list in the chatbot. 
-I wanted the timeslots to appear in the chatbot as quick reply’s. 
+I wanted the timeslots to appear in the chatbot as quick replies. 
 For each item in the timeslot list there should be a quick reply item. 
-When I had the correct structure I could send these quick reply’s back to Chatlayer with a simple POST request.
+When I had the correct structure, I could send these quick replies back to Chatlayer with a simple POST request.
 
-```Java
+```java
 for(String meetingTime: meetingTimes){
         String[]hours=meetingTime.split("-");
         QuickRepliesItem quickRepliesItem=new QuickRepliesItem();
@@ -394,7 +396,7 @@ When the user has selected a day, a timeslot and entered his/her name and addres
 This can also be done with the client object. 
 So I pass the previously stated parameters to the API which will create the event.
 
-```Java
+```java
 @Override
 public void createEvent(String date, String meetingTime, String name, String address, String problemType) throws Exception {
         String[] hours =  meetingTime.split("-");
@@ -453,14 +455,14 @@ Some examples of issues today:
       * Data-breaches
     * Les innovation
     * Political concerns
-      * Have ability to affect the public debate and our perception of right and wrong
-  * Companies are so successful because they have such a large amount of data, not because of there innovations
-  * Because of these couple big companies its difficult for new companies to innovate because they don’t have the data for it
+      * Can affect the public debate and our perception of right and wrong
+  * Companies are so successful because they have such a large amount of data, not because of their innovations
+  * Because of these couple big companies, it is difficult for new companies to innovate because they don’t have the data for it
     * Examples 
       * Google
       * Amazon
       * Facebook
-      * ..
+      * ...
 * People have lost control of their data
   * Hardly any visibility into what of your data is being retained
   * Little to no control over how your data is used and who is using it
@@ -489,23 +491,23 @@ Applications:
 Pods:
 * The data stores where you store your data
 * You can store any kind of data in a Solid pod
-* Right now you can get your pod from a pod provider or you could host your pod yourself.
+* Right now you can get your pod from a pod provider or you could host your pod yourself
 
 ## Self hosting Solid pod server
 There are different ways to setup a pod server where you can host your pod(s). 
-I used the Docker container to setup my solid server. 
+I used the Docker container to setup my Solid server. 
 
 To run the docker container I could execute this command in a terminal: 
 ```
 docker run -p 8443:8443 --name solid-server.
 ```
 
-If we navigate to localhost:8443, we visit the homepage off the Solid server. 
-First we get the message that the page is not secure but when clicking through we arrive at the page where we can register a new account or login to an existing one.
+If we navigate to `localhost:8443`, we visit the homepage of the Solid server. 
+First we get the message that the page is not secure but when clicking through, we arrive at the page where we can register a new account or login to an existing one.
 
 <span class="image"><img alt="Homepage Solid Server" src="/img/2021-05-27-Chatbot-Immo/homepageSolidServer.jpg" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
-```
+```json
 {
   "root": "./data/localhost.com/",
   "port": "8443",
@@ -531,14 +533,14 @@ First we get the message that the page is not secure but when clicking through w
 ```
 
 When you host a pod server, there are some configuration options which you can modify. 
-I think the most important one here is whether or not you want your server to be able to host more then one pod or not. 
-For testing purposes I set the multiuser setting to ‘true’ so my server is capable off hosting multiple pods.
+I think the most important one here is whether or not you want your server to be able to host more than one pod or not. 
+For testing purposes, I set the multiuser setting to `true` so my server is capable of hosting multiple pods.
 
 ### Register
 When you want to register an account you need to provide some simple information like your name, email address, password and username. 
-As you can see below, when creating an account, your webId (unique identifier for Solid pods) is made off your username and the domain (in this case is this localhost:8443). 
-The ‘/profile/card#me’ is just to specify where your profile information is stored. 
-When registering a new account you need to add an entry for it in you local hosts file like this: 
+As you can see below, when creating an account, your webId (unique identifier for Solid pods) is made of your username and the domain (in this case this is `localhost:8443`). 
+The `/profile/card#me` is just to specify where your profile information is stored. 
+When registering a new account you need to add an entry for it in you local `hosts` file like this: 
 ```
 127.0.0.1		newuser.localhost
 ```
@@ -582,15 +584,15 @@ You could set these sharing permissions on a folder but also on a specific file.
 In the standard scenario the files inside a folder just inherit the sharing permissions.
 
 Solid also has a nice overview of which applications have access to your pod, and also which kind of access they have (read, write, append or control). 
-In this overview you could also revoke access and update the kind off access that these applications have.
+In this overview you could also revoke access and update the kind of access that these applications have.
 
 <span class="image"><img alt="Pod Trused applications" src="/img/2021-05-27-Chatbot-Immo/podTrusted.png" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
-As mentioned before you can store any kind of data on your pod, this goes from .txt files, to .html files and even .ttl files. 
+As mentioned before, you can store any kind of data on your pod, this goes from `.txt` files, to `.html` files and even `.ttl` files. 
 For this project I’ve chosen to store data in .ttl files because that’s what I saw the most in the documentation. 
 
 ### Turtle (RDF)
-Before we can discuss turtle we need to have a basic understanding off RDF and linked data. 
+Before we can discuss Turtle we need to have a basic understanding of RDF and linked data. 
 RDF stands for Resource Description Framework and is used to describe resources on the internet. 
 A resource is anything on the internet, for example: a person, a book… With RDF every resource is described as a triple. 
 Those triples consist of a subject, a predicate and an object. 
@@ -600,8 +602,8 @@ This linking structure forms a directed and labeled graph.
 <span class="image"><img alt="RDF graph" src="/img/2021-05-27-Chatbot-Immo/rdf.jpg" class="image fit" style="margin:0px auto; max-width: 1000px;"></span>
 
 Turtle itself is a format that allows RDF graphs to be written in a natural text form. 
-Next to N-Triples, JSON-LD and RDF/XML it is one off the four common formats to write RDF. 
-In turtle you can declare prefixes to use as a shortcut throughout the rest of the file so you don’t have to write full URI’s everywhere. 
+Next to N-Triples, JSON-LD and RDF/XML it is one of the four common formats to write RDF. 
+In Turtle you can declare prefixes to use as a shortcut throughout the rest of the file so you don’t have to write full URI’s everywhere. 
 
 Example:
 This is the card file in the profile folder which contains all the information about the user. 
@@ -613,12 +615,12 @@ The full notation for the full name would be:
 ```
 #me http://www.w3.org/2006/vcard/ns#fn Iebe Maes
 ```
-Because of the short notation Turtle is much easier to understand then the other formats.
+Because of the short notation, Turtle is much easier to understand than the other formats.
 
 ### How to access your data?
 The login page is built in React.
 
-The first step in to get information your solid pod is authentication. 
+The first step to get information in your solid pod is authentication. 
 Luckily Solid has a library with some nice components that make the login process much easier. 
 
 ```react
@@ -650,36 +652,37 @@ import { LoginButton, LoggedOut, LogoutButton, LoggedIn } from '@solid/react';
 </LoggedOut>
 
 ```
-The loggedIn and loggedOut component do exactly what you expect them to do, show some content when the user is logged in and show other content when the user isn’t logged in. 
-Then we have the loginButton component which shows popup.html which is the popup screen you see in the login section above. 
+The `loggedIn` and `loggedOut` component do exactly what you expect them to do, show some content when the user is logged in and show other content when the user isn’t logged in. 
+Then we have the `loginButton` component which shows `popup.html` which is the popup screen you see in the login section above. 
 
 To get the actual data, from for example the profile, you would first need to get the webId. 
 You can get this with the react hook provided by the same library from above. 
 
-```
+```typescript
 const webId = useWebId();
 ```
 
-Then we would need de data object.
-```
+Then we would need the data object.
+```typescript
 const { default: data } = require('@solid/query-ldflex');
 ```
 
-And with the data object and the webId we can get the profile, once we have this object you can ask for anything you see in the structure off the profile card under :me. 
+And with the data object and the webId, we can get the profile.
+Once we have this object you can ask for anything you see in the structure off the profile card under `:me`. 
 Because your webid is something like “username.domain/profile/card#me”. 
-The profile object we would get would actually be the #me part off the card. 
-```
+The profile object we would get would actually be the `#me` part of the card. 
+```typescript
 const profile = data[webId];
 ```
 
-To get the full name we place the predicate between [ ] after the profile object.
-```
+To get the full name, we place the predicate between `[ ]` after the profile object.
+```typescript
 const fn = await profile['http://www.w3.org/2006/vcard/ns#fn']
 ```
 
-You can also see that for example the address isn’t stored under the :me part but has an id. 
-To get the properties off the address we would have to do something like this:
-```
+You can also see that for example the address isn’t stored under the `:me` part but it has an id. 
+To get the properties of the address we would have to do something like this:
+```typescript
 const addressURL = await profile['http://www.w3.org/2006/vcard/ns#hasAddress']
 
 const city = await addressURL['http://www.w3.org/2006/vcard/ns#locality']
@@ -689,9 +692,9 @@ const street = await addressURL['http://www.w3.org/2006/vcard/ns#street-address'
 
 # Conclusion
 
-First off all, I want to thank Ordina for the chance that they have given me to do this internship. 
+First of all, I want to thank Ordina for the chance that they have given me to do this internship. 
 Also a special thanks to all three of my mentors: Frederick Bousson, Jasper Rosiers and Hans Vanbellingen! 
-They always provided me with feedback when I finished a part off the solution and would always make time to help me with my questions or to explain things that weren’t clear. 
+They always provided me with feedback when I finished a part of the solution and would always make time to help me with my questions or to explain things that weren’t clear. 
 
 It really was an educational internship, where I’ve learned a lot!
 * I learned more about how to properly develop a Spring Boot application
