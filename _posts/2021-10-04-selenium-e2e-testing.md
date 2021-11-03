@@ -107,7 +107,7 @@ By far the best approach to find elements on the page is to use XPath, which is 
 
 ## test_E2E_addNewTodoToTable_And_DeleteTodoFromTable()
 The second (and last) E2E test actually interacts with the browser and asserts various elements based on these interactions.
-The test is responsible for clicking on the "Add" button, fill in an item in the description text box and confirming the item, adding it to the table of TODO's.
+The test is responsible for clicking on the "Add" button, fill in an item in the description text box and confirming the item, adding it to the table of TODOs.
 Right after adding the item to the table, the test assures that the table contains an item and has the correct content, then deletes the item from the table.
 Again, we use XPath in order to find the correct element because of the simple approach.
 This time, the syntax is a little bit more advanced but definitely still easy to  use.
@@ -118,51 +118,51 @@ The "Delete" button is found by searching for the text inside the button (`//but
 ```java
     @Test
     void test_E2E_addNewTodoToTable_And_DeleteTodoFromTable() throws InterruptedException {
-            var addButton = getAddTodoButton();
-            // interact with the button
-            addButton.click();
+        var addButton = getAddTodoButton();
+        // interact with the button
+        addButton.click();
 
-            // Wait two seconds to show visible changes
-            Thread.sleep(2000);
+        // Wait two seconds to show visible changes
+        Thread.sleep(2000);
 
-            // Find an element on the page by using its id in the HTML element
-            var formTitle = driver.findElement(By.id("modalTitle"));
-            assertThat(formTitle.getText()).isEqualTo(MODAL_TITLE);
+        // Find an element on the page by using its id in the HTML element
+        var formTitle = driver.findElement(By.id("modalTitle"));
+        assertThat(formTitle.getText()).isEqualTo(MODAL_TITLE);
 
-            var descriptionBox = driver.findElement(By.id("todoDescription"));
-            assertThat(descriptionBox.getTagName()).isEqualTo("input");
-            // Type "this is an E2E test" in the input field
-            descriptionBox.sendKeys("This is an E2E test");
+        var descriptionBox = driver.findElement(By.id("todoDescription"));
+        assertThat(descriptionBox.getTagName()).isEqualTo("input");
+        // Type "this is an E2E test" in the input field
+        descriptionBox.sendKeys("This is an E2E test");
 
-            // Wait two seconds to show visible changes
-            Thread.sleep(2000);
+        // Wait two seconds to show visible changes
+        Thread.sleep(2000);
 
-            var confirmButton = driver.findElement(By.xpath("//div[@class='modal-body']/form/button[@type='submit']"));
+        var confirmButton = driver.findElement(By.xpath("//div[@class='modal-body']/form/button[@type='submit']"));
 
-            // Interact with the "Add todo" button
-            confirmButton.click();
+        // Interact with the "Add todo" button
+        confirmButton.click();
 
-            captureScreenshot();
+        captureScreenshot();
 
-            var tbody = getTableBody();
-            var rows = tbody.findElements(By.tagName("tr"));
-            assertThat(rows.size()).isEqualTo(1);
+        var tbody = getTableBody();
+        var rows = tbody.findElements(By.tagName("tr"));
+        assertThat(rows.size()).isEqualTo(1);
 
-            // Use CSS selectors to find the columns of the TODO entry on the page
-            assertThat(tbody.findElement(By.cssSelector("tr:nth-child(1)"))
+        // Use CSS selectors to find the columns of the TODO entry on the page
+        assertThat(tbody.findElement(By.cssSelector("tr:nth-child(1)"))
             .findElements(By.tagName("td")).size()).isEqualTo(2);
 
-            assertThat(rows.get(0).findElement(By.xpath("//td[1]")).getText()).isEqualTo("This is an E2E test");
+        assertThat(rows.get(0).findElement(By.xpath("//td[1]")).getText()).isEqualTo("This is an E2E test");
 
-            // Wait two seconds to show visible changes
-            Thread.sleep(2000);
+        // Wait two seconds to show visible changes
+        Thread.sleep(2000);
 
-            // Find the delete button based on the input type and the text in the button
-            var deleteButton = tbody.findElement(By.xpath("//button[@type='submit' and text() = 'Delete']"));
-            deleteButton.click();
+        // Find the delete button based on the input type and the text in the button
+        var deleteButton = tbody.findElement(By.xpath("//button[@type='submit' and text() = 'Delete']"));
+        deleteButton.click();
 
-            // Verify that the item is removed from the table by checking if there are no <tr> elements
-            assertThat(getTableBody().findElements(By.tagName("tr")).size()).isEqualTo(0);
-            }
+        // Verify that the item is removed from the table by checking if there are no <tr> elements
+        assertThat(getTableBody().findElements(By.tagName("tr")).size()).isEqualTo(0);
+    }
 
 ```
