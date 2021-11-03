@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Writing End-to-End Tests in Java with Selenium - Yolan Vloeberghs">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2021-10-04-selenium-e2e-testing/banner.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Writing End-to-End Tests in Java with Selenium - Yolan Vloeberghs"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2021-10-04-selenium-e2e-testing/banner.jpg"/>
+
+    
+    <title>Writing End-to-End Tests in Java with Selenium - Yolan Vloeberghs &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/meet-the-team">Meet the team</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Writing End-to-End Tests in Java with Selenium</h2>
+                
+
+                
+                    Posted Nov 3, 2021
+
+
+    in <a href="/categories/development/">development</a>
+
+
+
+    by
+    
+        <a href="/author/yolan-vloeberghs/">Yolan Vloeberghs</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/java/">Java</a>, 
+    
+        <a href="/tags/selenium/">Selenium</a>, 
+    
+        <a href="/tags/testing/">Testing</a>, 
+    
+        <a href="/tags/end-to-end/">End-To-End</a>, 
+    
+        <a href="/tags/e2e/">E2E</a>, 
+    
+        <a href="/tags/test/">Test</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h1 id="table-of-contents">Table of contents</h1>
+<ol>
+  <li><a href="#end-to-end-testing">End-To-End Testing</a></li>
+  <li><a href="#selenium">Selenium</a></li>
+  <li><a href="#practical-example">Practical Example</a></li>
+</ol>
+
+<h1 id="end-to-end-testing">End-to-End Testing</h1>
+<p><img src="/img/2021-10-04-selenium-e2e-testing/end-to-end.png" class="image right medium" />
+End-to-end (often referred to as E2E) testing is a testing methodology used to test a complete flow from the beginning to the end of one or more specific use cases within your application.
+Its main goal is to test your full application from an end user’s perspective and simulate everything that a real user would do.
+This includes typing stuff, clicking buttons and/or links and test how your application responds to this behaviour.</p>
+
+<p>End-to-end testing can avoid, if done correctly, many complex situations and ensures that your application is stable and keeps working how it is intended to work.
+If a button suddenly does not respond or does not behave in a way that you expect it to behave, end-to-end testing can detect this and warn you that your application is not functioning correctly.
+Thanks to this, you can drastically improve stability, which gives you more time to implement features and reduces development costs.</p>
+
+<p>End-to-end testing often starts with a user interacting with a user interface which then interacts with your backend that executes code behind-the-scenes in order to display the correct information on the user interface.
+This is done through an automated browser where the end-to-end test clicks and types for you.</p>
+<h1 id="selenium">Selenium</h1>
+<p><a href="https://www.selenium.dev/documentation/en/" target="_blank" rel="noopener noreferrer">Selenium</a> is an end-to-end testing framework which is available in many popular programming languages including Java, Python, JavaScript, … .
+It provides a set of tools that allows you to connect with an automated browser that interacts with your frontend.
+<img src="/img/2021-10-04-selenium-e2e-testing/selenium-logo.png" class="image right medium" /></p>
+
+<p>Some of Selenium’s features are:</p>
+<ul>
+  <li>Cross-platform testing (PC, Android, iPhone, …);</li>
+  <li>Locating web elements on a page with advanced filtering such as XPath;</li>
+  <li>Selecting and interacting with found elements;</li>
+  <li>Capture screenshots at critical moments such as adding an entry in a table, submitting a form, …;</li>
+  <li>Keyboard &amp; mouse emulation;</li>
+</ul>
+
+<p>Selenium offers other products such as Selenium IDE and Selenium Grid, but at the core of Selenium, there is <a href="https://www.selenium.dev/documentation/webdriver/" target="_blank" rel="noopener noreferrer">WebDriver</a>.
+WebDriver is an API provided by Selenium which controls the automated browser and is used to fluently write your test code. 
+Each browser (Firefox, Chrome, …) has its own implementation of WebDriver. WebDriver then interacts with your browser’s driver in order to execute the behaviour that you have specified in your test.</p>
+
+<h1 id="practical-example">Practical example</h1>
+<p>This post comes with <a href="https://github.com/yolanv/spring-boot-todo-demo/tree/selenium" target="_blank" rel="noopener noreferrer">a repository</a> (branch <code class="language-plaintext highlighter-rouge">selenium</code>) with a basic example of how Selenium works in a Spring Boot application.
+This explains how you can use the WebDriver API to fetch and interact with certain elements and do various assertions or interactions to write your tests.
+It also includes a small example of <code class="language-plaintext highlighter-rouge">WebDriverWait</code>, which allows to pause the test and wait until a specific condition has been met on the page (i.e. loading an image, adding an entry to a table, …).
+Both E2E tests capture a screenshot during interaction with the frontend and those screenshots can be found in the target folder. You can check in the implementation (<code class="language-plaintext highlighter-rouge">ScreenshotService</code>) on how easy it is to add screenshot support.
+This can be combined with JUnit functionality (Rule for JUnit 4 and Extension for JUnit 5), for example when you can take a screenshot if your test ends or fails.</p>
+
+<p>For simplicity, I chose to use the Firefox browser. You will need the browser installed (or change the WebDriver implementation to your browser) in order for the test to work.
+You can run the tests yourself and watch how Selenium interacts with the automated browser. Make sure you changed the path of the <a href="https://github.com/mozilla/geckodriver/releases" target="_blank" rel="noopener noreferrer">geckodriver</a> binary in <code class="language-plaintext highlighter-rouge">BaseSeleniumE2ETest</code>.</p>
+
+<h2 id="test_e2e_assertvisiblehtmlelements">test_E2E_AssertVisibleHtmlElements()</h2>
+<p>The first E2E test is a basic test that covers all the HTML elements that are visible (or, should be visible) on the main page.
+In this test, various methods and approaches are used to find the desired elements and then to assert attributes like visiblity, text, colors, … .
+Notice how the <code class="language-plaintext highlighter-rouge">WebDriverWait</code> pauses the test and waits for the image to load before proceeding.
+By far the best approach to find elements on the page is to use XPath, which is a language that provides an easy way to find HTML elements on the page.
+<code class="language-plaintext highlighter-rouge">//table[@class='table']</code> means that we want to find a <code class="language-plaintext highlighter-rouge">table</code> element on the page that contains the class <code class="language-plaintext highlighter-rouge">table</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">test_E2E_AssertVisibleHtmlElements</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Find the content of the title by going through various HTML attributes on the page</span>
+        <span class="c1">// You can go step-wise through your HTML elements to find the right one by chaining findElement()</span>
+        <span class="kt">var</span> <span class="n">title</span> <span class="o">=</span> <span class="n">driver</span>
+                <span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"header"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">className</span><span class="o">(</span><span class="s">"navbar"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">tagName</span><span class="o">(</span><span class="s">"a"</span><span class="o">)).</span><span class="na">getText</span><span class="o">();</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">driver</span><span class="o">.</span><span class="na">getTitle</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="no">APP_TITLE</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">title</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="no">APP_TITLE</span><span class="o">);</span>
+
+        <span class="c1">// Find the CSS value of a HTML element</span>
+        <span class="kt">var</span> <span class="n">navColor</span> <span class="o">=</span> <span class="n">driver</span>
+                <span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"header"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">className</span><span class="o">(</span><span class="s">"navbar"</span><span class="o">)).</span><span class="na">getCssValue</span><span class="o">(</span><span class="s">"background-color"</span><span class="o">);</span>
+        <span class="kt">var</span> <span class="n">navColorHex</span> <span class="o">=</span> <span class="nc">Color</span><span class="o">.</span><span class="na">fromString</span><span class="o">(</span><span class="n">navColor</span><span class="o">).</span><span class="na">asHex</span><span class="o">();</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">navColorHex</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="no">COLOR_HEX_ORANGE</span><span class="o">);</span>
+
+        <span class="c1">// We can ask the WebDriverWait to wait until the logo is done loading so we can proceed with the test</span>
+        <span class="c1">// No chaining needed here, because 'logo' is only used by the img tag</span>
+        <span class="n">waitDriver</span><span class="o">.</span><span class="na">until</span><span class="o">(</span><span class="nc">ExpectedConditions</span><span class="o">.</span><span class="na">elementToBeClickable</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">className</span><span class="o">(</span><span class="s">"logo"</span><span class="o">)));</span>
+        <span class="c1">// Find the image through the class name 'logo'</span>
+        <span class="kt">var</span> <span class="n">image</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">className</span><span class="o">(</span><span class="s">"logo"</span><span class="o">));</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">getTagName</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"img"</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">isDisplayed</span><span class="o">()).</span><span class="na">isTrue</span><span class="o">();</span>
+
+        <span class="c1">// Easily find the table and the button on the page through XPath</span>
+        <span class="kt">var</span> <span class="n">thead</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">xpath</span><span class="o">(</span><span class="s">"//table[@class='table']/thead"</span><span class="o">));</span>
+        <span class="kt">var</span> <span class="n">theadRows</span> <span class="o">=</span> <span class="n">thead</span><span class="o">.</span><span class="na">findElements</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">tagName</span><span class="o">(</span><span class="s">"th"</span><span class="o">));</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">theadRows</span><span class="o">.</span><span class="na">size</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">theadRows</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">getText</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"Description"</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">theadRows</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="na">getText</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"Delete"</span><span class="o">);</span>
+
+        <span class="kt">var</span> <span class="n">tbody</span> <span class="o">=</span> <span class="n">getTableBody</span><span class="o">();</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">tbody</span><span class="o">.</span><span class="na">findElements</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">tagName</span><span class="o">(</span><span class="s">"tr"</span><span class="o">)).</span><span class="na">size</span><span class="o">()).</span><span class="na">isZero</span><span class="o">();</span>
+
+        <span class="kt">var</span> <span class="n">addButton</span> <span class="o">=</span> <span class="n">getAddTodoButton</span><span class="o">();</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">addButton</span><span class="o">.</span><span class="na">getText</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="no">ADD_NEW_TODO_BUTTON</span><span class="o">);</span>
+
+        <span class="n">captureScreenshot</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="test_e2e_addnewtodototable_and_deletetodofromtable">test_E2E_addNewTodoToTable_And_DeleteTodoFromTable()</h2>
+<p>The second (and last) E2E test actually interacts with the browser and asserts various elements based on these interactions.
+The test is responsible for clicking on the “Add” button, fill in an item in the description text box and confirming the item, adding it to the table of TODOs.
+Right after adding the item to the table, the test assures that the table contains an item and has the correct content, then deletes the item from the table.
+Again, we use XPath in order to find the correct element because of the simple approach.
+This time, the syntax is a little bit more advanced but definitely still easy to  use.
+<code class="language-plaintext highlighter-rouge">//div[@class='modal-body']/form/button[@type='submit']</code> searches for a button of type <code class="language-plaintext highlighter-rouge">submit</code> in a form in a div with class <code class="language-plaintext highlighter-rouge">modal-body</code>.
+We can find the first element in the table by using <code class="language-plaintext highlighter-rouge">//td[1]</code>. Notice how it says <code class="language-plaintext highlighter-rouge">[1]</code> and not <code class="language-plaintext highlighter-rouge">[0]</code>. The starting index in XPath is always 1.
+The “Delete” button is found by searching for the text inside the button (<code class="language-plaintext highlighter-rouge">//button[@type='submit' and text() = 'Delete']</code>).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">test_E2E_addNewTodoToTable_And_DeleteTodoFromTable</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="kt">var</span> <span class="n">addButton</span> <span class="o">=</span> <span class="n">getAddTodoButton</span><span class="o">();</span>
+        <span class="c1">// interact with the button</span>
+        <span class="n">addButton</span><span class="o">.</span><span class="na">click</span><span class="o">();</span>
+
+        <span class="c1">// Wait two seconds to show visible changes</span>
+        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+
+        <span class="c1">// Find an element on the page by using its id in the HTML element</span>
+        <span class="kt">var</span> <span class="n">formTitle</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"modalTitle"</span><span class="o">));</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">formTitle</span><span class="o">.</span><span class="na">getText</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="no">MODAL_TITLE</span><span class="o">);</span>
+
+        <span class="kt">var</span> <span class="n">descriptionBox</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="s">"todoDescription"</span><span class="o">));</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">descriptionBox</span><span class="o">.</span><span class="na">getTagName</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"input"</span><span class="o">);</span>
+        <span class="c1">// Type "this is an E2E test" in the input field</span>
+        <span class="n">descriptionBox</span><span class="o">.</span><span class="na">sendKeys</span><span class="o">(</span><span class="s">"This is an E2E test"</span><span class="o">);</span>
+
+        <span class="c1">// Wait two seconds to show visible changes</span>
+        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+
+        <span class="kt">var</span> <span class="n">confirmButton</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">xpath</span><span class="o">(</span><span class="s">"//div[@class='modal-body']/form/button[@type='submit']"</span><span class="o">));</span>
+
+        <span class="c1">// Interact with the "Add todo" button</span>
+        <span class="n">confirmButton</span><span class="o">.</span><span class="na">click</span><span class="o">();</span>
+
+        <span class="n">captureScreenshot</span><span class="o">();</span>
+
+        <span class="kt">var</span> <span class="n">tbody</span> <span class="o">=</span> <span class="n">getTableBody</span><span class="o">();</span>
+        <span class="kt">var</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">tbody</span><span class="o">.</span><span class="na">findElements</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">tagName</span><span class="o">(</span><span class="s">"tr"</span><span class="o">));</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">rows</span><span class="o">.</span><span class="na">size</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+        <span class="c1">// Use CSS selectors to find the columns of the TODO entry on the page</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">tbody</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">cssSelector</span><span class="o">(</span><span class="s">"tr:nth-child(1)"</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">findElements</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">tagName</span><span class="o">(</span><span class="s">"td"</span><span class="o">)).</span><span class="na">size</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">rows</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">xpath</span><span class="o">(</span><span class="s">"//td[1]"</span><span class="o">)).</span><span class="na">getText</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"This is an E2E test"</span><span class="o">);</span>
+
+        <span class="c1">// Wait two seconds to show visible changes</span>
+        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+
+        <span class="c1">// Find the delete button based on the input type and the text in the button</span>
+        <span class="kt">var</span> <span class="n">deleteButton</span> <span class="o">=</span> <span class="n">tbody</span><span class="o">.</span><span class="na">findElement</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">xpath</span><span class="o">(</span><span class="s">"//button[@type='submit' and text() = 'Delete']"</span><span class="o">));</span>
+        <span class="n">deleteButton</span><span class="o">.</span><span class="na">click</span><span class="o">();</span>
+
+        <span class="c1">// Verify that the item is removed from the table by checking if there are no &lt;tr&gt; elements</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">getTableBody</span><span class="o">().</span><span class="na">findElements</span><span class="o">(</span><span class="nc">By</span><span class="o">.</span><span class="na">tagName</span><span class="o">(</span><span class="s">"tr"</span><span class="o">)).</span><span class="na">size</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+</code></pre></div></div>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html&title=Writing End-to-End Tests in Java with Selenium&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Writing End-to-End Tests in Java with Selenium&url=https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yolan-vloeberghs/" class="image spotlight-image" title="">
+            <img src="/img/author/yolan-vloeberghs.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2021 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2021-10-04-selenium-e2e-testing/banner.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
