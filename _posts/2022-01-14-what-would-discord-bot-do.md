@@ -148,7 +148,7 @@ For those of you that are not familiar with the WebSocket protocol, it is a way 
 It is identified by the ws://-scheme (as opposed to the http:// or https:// schemes) and only a single TCP/IP socket is used for this channel (HTTP/HTTPS) throughout its existence.
 
 The exchange starts with the client sending a standard request to the server with a number of headers indicating that a WebSocket is needed (protocol switch). 
-The response coming from the server (HTTP 101) indicates that it agrees to this, and passed a verification for the originator to identify it is responded to the client’s request. 
+The response coming from the server (HTTP 101) indicates that it agrees to this, and passed a verification for the originator to identify it is responding to the client’s request. 
 Once this WebSocket has been established, the server (or client) will send payloads wrapped in frames (ws scheme) to its counterpart. 
 This will continue until either the server or the client sends a closing frame, prompting a closing reply. 
 Once the closing reply is received, the WebSocket is terminated. 
