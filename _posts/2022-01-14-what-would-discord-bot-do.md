@@ -70,7 +70,7 @@ Giving it the Administrator permission will allow the bot to do almost anything 
 
 We head over the the URL Generator submenu item of the OAut2 menu, and fill in the scope “Bot” and permission set “Administrator” once more to get an INVITE URL, which will look something like this (with the client id filled in properly):
 {:refdef: style="text-align: center; padding-left: 20px; padding-right: 20px; font-style: italic;font-color:blue;"}
-https://discord.com/api/oauth2/authorize?client_id=<clientid>&permissions=8&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=&lt;clientid&gt;&permissions=8&scope=bot
 {: refdef} 
 
 Dropping this link in a browser will take you to a web page where you can add the bot to your Discord server. 
