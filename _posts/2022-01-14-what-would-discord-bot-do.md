@@ -191,7 +191,7 @@ public class CommandsListener extends ListenerAdapter {
 
 Since the commands I listen to might have parameters in the future, I decide to split up the incoming message with spaces as my delimiter. 
 Then I have to verify that the incoming message is indeed a command, and not just a chat message from the guild members. 
-For this reason I check that the message is indeed the “/status” command the bot will need to react to. 
+For this reason, I check that the message is indeed the “/status” command the bot will need to react to. 
 Once those checks have been made, I make the bot return the truth about any robot implementation: “Danger, Will Robinson!”. 
 The messages in Discord can also be styled using a trimmed down version of Markdown. 
 If you want to know what is possible, visit this [link](https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-){:target="_blank" rel="noopener noreferrer"}. 
