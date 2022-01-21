@@ -207,7 +207,7 @@ You might even want to pay homage to EverQuest, one of the first successful MMOR
 
 TextMessage replies are however very bland. 
 A more fanciful option is to send an Embed message. 
-This allows to set additional components such as a title, a color board, images, a footer with thumbnail and lots of other stuff. 
+This allows setting additional components such as a title, a colour board, images, a footer with thumbnail and lots of other stuff. 
 This gives for more options should the need be there.
 
 ```java
