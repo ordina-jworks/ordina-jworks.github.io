@@ -22,7 +22,7 @@ It makes for a more enjoyable and streamlined experience in your interactions.
 But what if there is no bot available to suit the needs of your community? 
 For these occasions, Discord offers a development platform where you can code your very own bot, with the functionalities you need. 
 There are many possible frameworks to code such a bot (and even a few solutions that offer this functionality without the need to code), and they come in many different coding languages (Java, Python, .NET, Rust, …). 
-But since my expertise with coding lies mainly in the Java world, I opted to make my bot in the [Java Discord API (JDA) framework](https://github.com/DV8FromTheWorld/JDA){:target="_blank" rel="noopener noreferrer"}.  
+Since my expertise with coding lies mainly in the Java world, I opted to make my bot in the [Java Discord API (JDA) framework](https://github.com/DV8FromTheWorld/JDA){:target="_blank" rel="noopener noreferrer"}.  
  
 To get started we first need to register an application in the [Discord Developer Portal](https://discord.com/developers/applications){:target="_blank" rel="noopener noreferrer"}. 
 This is freely available to anyone who has registered a (free) account on Discord. 
