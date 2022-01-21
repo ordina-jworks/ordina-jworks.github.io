@@ -205,7 +205,7 @@ In short, you can prep the message you are about send to the server with numerou
 Sending back a simple message is maybe not that useful, but you can insert any java code here that you wish for: performing calculations, calling services, … 
 You might even want to pay homage to EverQuest, one of the first successful MMORPGs, and implement a “/pizza” command allowing your members to order pizza, so they don’t have to leave their chairs for anything.
 
-TextMessage reply are however very bland. 
+TextMessage replies are however very bland. 
 A more fanciful option is to send an Embed message. 
 This allows to set additional components such as a title, a color board, images, a footer with thumbnail and lots of other stuff. 
 This gives for more options should the need be there.
