@@ -1,5 +1,228 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2021-11-03T13:21:21+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Writing End-to-End Tests in Java with Selenium</title><link href="https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html" rel="alternate" type="text/html" title="Writing End-to-End Tests in Java with Selenium" /><published>2021-11-03T00:00:00+00:00</published><updated>2021-11-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-01-21T09:42:19+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">What Would Discord Bot Do?</title><link href="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html" rel="alternate" type="text/html" title="What Would Discord Bot Do?" /><published>2022-01-14T00:00:00+00:00</published><updated>2022-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html">&lt;p&gt;Online communication has been widespread for years already. 
+But the current world situation has made it near ubiquitous. 
+With social contact in real life (IRL) being restricted, our need for communication shifts to the digital world through a wide variety of platforms. 
+One of those platforms that focuses heavily on the online gaming community is Discord. 
+It offers text communication channels, functionality to videoconference with your friends, and share your screen as a live stream, usually showing off your gaming skills. 
+It also offers a way to code interactions with those channels by employing bots.&lt;/p&gt;
+
+&lt;p&gt;Bots in the Discord world are services that take the input presented on a discord server, and perform some automated tasks based on this input. 
+Popular bots on Discord allow you to moderate the channel, script shortcut commands, play videos or music, or add all sorts of files. 
+There are various possibilities out there that an administrator of a server can add or remove with the click of a button. 
+It makes for a more enjoyable and streamlined experience in your interactions.&lt;/p&gt;
+
+&lt;p&gt;But what if there is no bot available to suit the needs of your community? 
+For these occasions, Discord offers a development platform where you can code your very own bot, with the functionalities you need. 
+There are many possible frameworks to code such a bot (and even a few solutions that offer this functionality without the need to code), and they come in many different coding languages (Java, Python, .NET, Rust, …). 
+Since my expertise with coding lies mainly in the Java world, I opted to make my bot in the &lt;a href=&quot;https://github.com/DV8FromTheWorld/JDA&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Java Discord API (JDA) framework&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To get started we first need to register an application in the &lt;a href=&quot;https://discord.com/developers/applications&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Discord Developer Portal&lt;/a&gt;. 
+This is freely available to anyone who has registered a (free) account on Discord. 
+It will look similar to the screenshot below, and presents a “New Application” button from where to start. 
+After clicking the button, it prompts to enter a name for the new application, which I dubbed TestBotApplication all the while feeling like the next Shakespeare of the Digital Age.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-01-14-what-would-discord-bot-do/discordportal01.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This takes you to a screen that will allow you to fill in general information about your application, such as an image to identify it with, a description on what the application is for, and some tags to align your new application with searches performed by Discord members on the lookout for the next hot bot. 
+It also gives you some technical information that you will need while coding such as the Application ID and the Public Key. 
+To round off this section, you can optionally enter some URLs where you describe the Terms of Use and Privacy Policy.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-01-14-what-would-discord-bot-do/discordportal02.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once this general information is set up, it is time to define a bot that is linked to this application. 
+This is done by clicking on the Bot navigation item on the left side of the screen, which takes us to the Bot section, with a button labeled “Add Bot”. 
+Here you can specify the name under which your bot will be visible on the servers that use it. 
+Once again, in a fit of unbridled imagination, I went for “Developer Test Bot”. Nobel Prize for Literature, you will be mine!&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-01-14-what-would-discord-bot-do/discordportal03.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another important piece of the developer puzzle is the token that can be taken from this page. 
+This will be the secret used by our code to access this bot. 
+Other configurations that can be determined in this page are the visibility of your bot, as well as activating the usage of OAuth to authenticate with. 
+At the bottom of the screen we can already see the different permissions we would like to give our bot. 
+But the final piece of the puzzle before trying our hands with the JDA framework is to set up the permissions and connections over at the Oauth2 screen.&lt;/p&gt;
+
+&lt;p&gt;On this page, there are only a few things that need to be set up. 
+First off, the client id and secret are shown, which we need for our invite URL. 
+The bot also needs a redirect in case of OAUTH2 authentication, should we choose to  activate it. 
+It is clear that this should be: https://www.evolute.be/discord as we do not intend to activate OAuth for the time being. 
+We therefore set the Authorization Method to In-app authorization, which will prompt the administrator of the server where the bot is activated to confirm the rights of the bot. 
+We identify our bot as a “Bot” in the scope section, and decide on the rights the bot will need to perform its duties. 
+Giving it the Administrator permission will allow the bot to do almost anything in the server, and is thus too wide a permission set for a bot in production, but for test purposes, we will leave it as such for now.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-01-14-what-would-discord-bot-do/discordportal04.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We head over the the URL Generator submenu item of the OAut2 menu, and fill in the scope “Bot” and permission set “Administrator” once more to get an INVITE URL, which will look something like this (with the client id filled in properly):&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;https://discord.com/api/oauth2/authorize?client_id=&amp;lt;clientid&amp;gt;&amp;amp;permissions=8&amp;amp;scope=bot&lt;/p&gt;
+
+&lt;p&gt;Dropping this link in a browser will take you to a web page where you can add the bot to your Discord server. 
+If everything is done correctly, it should show up in the member list of the server. 
+But since there is not yet any code behind it, it will be shown as offline.&lt;/p&gt;
+
+&lt;p&gt;Time to start coding. 
+We first set up a simple Maven project with the JDA dependency wired in. 
+It has its own maven repository, so that one we need to add as well. 
+I am going for the latest LTS release, although more recent versions are already available (though still in alpha).&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;project&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://maven.apache.org/POM/4.0.0&quot;&lt;/span&gt;
+         &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt;
+         &lt;span class=&quot;na&quot;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;modelVersion&amp;gt;&lt;/span&gt;4.0.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/modelVersion&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;be.evolute.discord&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;DeveloperTestBot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;packaging&amp;gt;&lt;/span&gt;jar&lt;span class=&quot;nt&quot;&gt;&amp;lt;/packaging&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0.0-initial&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;maven.compiler.source&amp;gt;&lt;/span&gt;8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/maven.compiler.source&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;maven.compiler.target&amp;gt;&lt;/span&gt;8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/maven.compiler.target&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;resources&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;resources&lt;span class=&quot;nt&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/resources&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;net.dv8tion&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;JDA&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;4.4.0_350&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;repositories&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;repository&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;dv8tion&lt;span class=&quot;nt&quot;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;m2-dv8tion&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;url&amp;gt;&lt;/span&gt;https://m2.dv8tion.net/releases&lt;span class=&quot;nt&quot;&gt;&amp;lt;/url&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/repository&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/repositories&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Since Discord expects you to pilot the bot using WebSocket, I do not feel the need to create a service or a web application. 
+I am just going to write a simple java class with a main method, so that I can run this from my IDE. 
+This will connect to the bot by initializing the JDA context. 
+With the JDBBuilder.createDefault method, you set up a WebSocket connection to your bot and to all resources the bot has been given access to (through permissions). 
+This bot is identified by passing the Bot Token we can find in the Developer Portal on our bot page. 
+If the JDA context cannot access the bot, it will throw a &lt;strong&gt;javax.security.auth.login.LoginException&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JDA&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jda&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoginException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Booting up Developer Test Bot...&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;jda&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JDABuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createDefault&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;DISCORD_TEST_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Presence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jdaPresence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jda&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPresence&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;jdaPresence&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setActivity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Activity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;listening&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/status...&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;jdaPresence&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;OnlineStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;ONLINE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;jda&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CommandsListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;For those of you that are not familiar with the WebSocket protocol, it is a way to set up a stable connection between client and server to allow for bidirectional full-duplex communication between them (as opposed to the standard unidirectional requests a client sends towards server to immediately get a response). 
+It is identified by the ws://-scheme (as opposed to the http:// or https:// schemes) and only a single TCP/IP socket is used for this channel (HTTP/HTTPS) throughout its existence.&lt;/p&gt;
+
+&lt;p&gt;The exchange starts with the client sending a standard request to the server with a number of headers indicating that a WebSocket is needed (protocol switch). 
+The response coming from the server (HTTP 101) indicates that it agrees to this, and passed a verification for the originator to identify it is responding to the client’s request. 
+Once this WebSocket has been established, the server (or client) will send payloads wrapped in frames (ws scheme) to its counterpart. 
+This will continue until either the server or the client sends a closing frame, prompting a closing reply. 
+Once the closing reply is received, the WebSocket is terminated.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-01-14-what-would-discord-bot-do/discordwebsocket.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are various things you can do to the visualization of the bot in the server member list. 
+The most common are setting the activity status of the bot and its activity label. 
+My main method will set up the label the bot will show by setting its activity. 
+I will set it with the label “Listening to /status…”. 
+Other possible activities are Playing, Watching, Streaming… 
+These activities do not do anything else than setting the label shown on the bot. 
+The status of the bot (similar to your status in Teams) can be set with the setStatus method.&lt;/p&gt;
+
+&lt;p&gt;The next thing to do, is to create a Listener for my bot that will react to events happening on the server. 
+We add this listener (CommandsListener) to the JDA context with the addEventListener method. 
+The Listener class itself should extend from the JDA class ListenerAdapter class. 
+This gives us a number of methods we can overload to react to specific events. 
+I have chosen only to react to messages posted in the text channels of my server, thus the onGuildMessageReceived method needs to be overloaded. 
+A Discord guild is the collection of all particularities associated with your server: members, channels, etc…&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CommandsListener&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ListenerAdapter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onGuildMessageReceived&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Nonnull&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GuildMessageReceivedEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Message&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getContentRaw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\s+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/status&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;TextChannel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendTyping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Danger, Will Robinson!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Since the commands I listen to might have parameters in the future, I decide to split up the incoming message with spaces as my delimiter. 
+Then I have to verify that the incoming message is indeed a command, and not just a chat message from the guild members. 
+For this reason, I check that the message is indeed the “/status” command the bot will need to react to. 
+Once those checks have been made, I make the bot return the truth about any robot implementation: “Danger, Will Robinson!”. 
+The messages in Discord can also be styled using a trimmed down version of Markdown. 
+If you want to know what is possible, visit this &lt;a href=&quot;https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Another interesting command is the sendTyping method. 
+This creates the three blinking dots indicating a bot is typing something. 
+This is turned off when a message is sent to the Discord server. 
+As you might have noticed, there is a bit functional programming going on in these code snippets. 
+In short, you can prep the message you are about send to the server with numerous options, and at the end, when you execute the queue method, it will be sent.&lt;/p&gt;
+
+&lt;p&gt;Sending back a simple message is maybe not that useful, but you can insert any java code here that you wish for: performing calculations, calling services, … 
+You might even want to pay homage to EverQuest, one of the first successful MMORPGs, and implement a “/pizza” command allowing your members to order pizza, so they don’t have to leave their chairs for anything.&lt;/p&gt;
+
+&lt;p&gt;TextMessage replies are however very bland. 
+A more fanciful option is to send an Embed message. 
+This allows setting additional components such as a title, a colour board, images, a footer with thumbnail and lots of other stuff. 
+This gives for more options should the need be there.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CommandsListener&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ListenerAdapter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onGuildMessageReceived&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@Nonnull&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GuildMessageReceivedEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Message&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getContentRaw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\s+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/status&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;TextChannel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getChannel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendTyping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;EmbedBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EmbedBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;**Lost In Space**&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setDescription&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The answer to your question: Danger, Will Robinson&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RED&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setThumbnail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdn-icons-png.flaticon.com/512/3662/3662817.png&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setFooter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Status Alert!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;https:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//st.depositphotos.com/1008244/1873/v/950/” + &lt;/span&gt;
+	    &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;depositphotos_18734623&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;illustration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;danger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;signs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jpg&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendMessageEmbeds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Triggering this listener will add the following message to the channel:&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-01-14-what-would-discord-bot-do/discordembed.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;One last nugget of wisdom I will impart in this article: If you want to mention the member that typed the command for the bot in your bot’s reply, this can be done by adding the following piece of markup (&amp;lt;@!&amp;gt;):&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMember&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Replying&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; + userId + &quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;there&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mentionUsers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mentionRepliedUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Your bot is ready to go and be enjoyed by all the members that grace your digital playground. 
+Now that it is clear what your bot should do, you should probably go back to the permissions in the Discord Developer Platform, remove the Administrator permission, and activate only those permissions it will need.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="development" /><category term="Java" /><category term="Discord" /><category term="EDA" /><category term="architecture" /><category term="software architecture" /><summary type="html">Online communication has been widespread for years already. But the current world situation has made it near ubiquitous. With social contact in real life (IRL) being restricted, our need for communication shifts to the digital world through a wide variety of platforms. One of those platforms that focuses heavily on the online gaming community is Discord. It offers text communication channels, functionality to videoconference with your friends, and share your screen as a live stream, usually showing off your gaming skills. It also offers a way to code interactions with those channels by employing bots.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-01-14-what-would-discord-bot-do/discorddanger.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-01-14-what-would-discord-bot-do/discorddanger.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Writing End-to-End Tests in Java with Selenium</title><link href="https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html" rel="alternate" type="text/html" title="Writing End-to-End Tests in Java with Selenium" /><published>2021-11-03T00:00:00+00:00</published><updated>2021-11-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2021/11/03/selenium-e2e-testing.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#end-to-end-testing&quot;&gt;End-To-End Testing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#selenium&quot;&gt;Selenium&lt;/a&gt;&lt;/li&gt;
@@ -2074,166 +2297,4 @@ from application development to inter-application integration&lt;/p&gt;
 &lt;p&gt;We can conclude that setting up a FHIR server in Java is made easy by using the HAPI libraries.
 They provide different server types for different needs.
 There are servers that work out-of-the box but there are also possibilities to link existing databases to a HAPI FHIR façade. 
-In addition, the security libraries provided by HAPI make the development process a lot easier and secure.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Youri&quot;, &quot;last_name&quot;=&gt;&quot;Vermeir&quot;, &quot;github&quot;=&gt;&quot;Vermeir&quot;, &quot;linkedin&quot;=&gt;&quot;youri-vermeir&quot;, &quot;permalink&quot;=&gt;&quot;/author/youri_vermeir/&quot;, &quot;avatar&quot;=&gt;&quot;youri-vermeir.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;youri.vermeir@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Youri is an ambitious back-end developer with a problem-solving mindset. He is a team-oriented person who is always motivated to learn and master new skills.&quot;}</name><email>youri.vermeir@ordina.be</email></author><category term="eHealth" /><category term="eHealth" /><category term="FHIR" /><category term="Interoperability" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Out With The Old, In With The New</title><link href="https://ordina-jworks.github.io/architecture/2021/02/17/Out-With-The-Old.html" rel="alternate" type="text/html" title="Out With The Old, In With The New" /><published>2021-02-17T00:00:00+00:00</published><updated>2021-02-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2021/02/17/Out-With-The-Old</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2021/02/17/Out-With-The-Old.html">&lt;p&gt;Almost fifty years ago, the movie “Logan’s Run” introduced the phrase “Out with the old, in with the new” into pop culture vernacular. 
-The story depicted a dystopian world where all needs were met by advanced technology, but due to scarcity of resources the population was kept under control by forced termination of the citizens of this society at the age of 30. 
-If we were to flip this around on technology, we could conclude that in order to keep our business landscape manageable we need to address the lifespan of the assets in this landscape.&lt;/p&gt;
-
-&lt;p&gt;In every organization there is only a finite amount of budget and capacity for changing the way things are done. 
-Especially in the IT domain, the balancing efforts between the operational resources (keeping the lights on) and those resources that can be allocated to new developments is a delicate exercise that the departments responsible for these expenditures have to go through on a recurring basis. 
-Together with other parameters they determine the nature of the initiatives that happen by and for these departments.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-02-17-Out-With-The-Old/itparameters.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Oftentimes we see that the operational budget far outweighs the budget that can be allocated to these new developments. 
-This is normal as the need for business continuity reigns supreme in most organizations. 
-This is why it is important to keep technical debt under control. 
-&lt;a href=&quot;https://evolute.be/thoughts/disruption.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;In a past thought&lt;/a&gt; I pointed out the dangers of technical debt that could lead to disruption by neglect. 
-But within the space of the new developments budget there dwells an even more esoteric beast. 
-This beast is called innovation. 
-All too often, Peter Drucker’s mantra “Innovate or Die” resounds in the hallowed halls of upper management, but to see it in practice is a different matter.&lt;/p&gt;
-
-&lt;p&gt;It is the job of the architect tasked with innovation to determine a framework consisting of processes and tools to support the various stakeholders (either individuals and/or teams) that are working within this context. 
-Depending on the level at which the architect can steer innovation initiatives, any number of mechanisms can be devised. 
-The framework you create should be aligned with the particularities of those stakeholders, and as such an understanding of their motivations and skillsets forms its foundation.&lt;/p&gt;
-
-&lt;p&gt;As with any major initiative, one of the success factors is management sponsorship. 
-In order to properly tackle innovation from a leadership perspective, the manager must first determine the type of leader best suits the needs. 
-The primary focus of a manager concerned with innovation is to weigh the freedom to pursue innovation (or fostering the creativity of talent) versus establishing the internal controls needed to keep the innovation process grounded and avoid chaos. 
-Taking note of the research done in 2019 by Deborah Ancona and Kate Isaacs, both researchers at the MIT Sloan School of Management, most innovative or “nimble” leaders can be categorized as one of these categories:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Entrepreneurial Leaders: Usually located in lower levels of management. They are in charge of creating new products and/or services and as a collective they can influence the direction the organization is taking and as such also take the organization into new areas. The innovation bubbles up from bottom to top. A famous example of this type of leader is Steve Jobs at Apple when he was in charge of the new designs.&lt;/li&gt;
-  &lt;li&gt;Enabling Leaders: Mostly occupying the middle tier of management, these leaders enable innovation by facilitating the entrepreneurial leaders in their organization. This can be done through ensuring budget, resources, and information or meeting other demands needed for the entrepreneurial leader to effect the innovation being pursued. They also tend to take on the role of mentor to make sure employees grow individually and that departments can navigate possible hardships on the horizon. Think of Patrick Lencioni, writer of the “&lt;a href=&quot;https://ordina-jworks.github.io/architecture/2020/07/08/Book-Five-Dysfunctions.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Five Dysfunctions of a Team&lt;/a&gt;”.&lt;/li&gt;
-  &lt;li&gt;Architecting Leaders: Usually found in the upper echelons of management, they have a helicopter view of the ecosystem their organization operates in, and a vision (big picture) on how to proceed in such a context. These leaders possess a keen insight into the various innovation initiatives per domain and start to play a role when this innovation necessitates changes on an organizational level (culture, strategy, structure). As such they create a set of blueprints allowing the other leaders to achieve their individual goals, and unifying these initiatives into what the organization and its customers need. A well-known example of this type of leader would be Jeff Bezos at Amazon.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;These types bear more than a passing resemblance to the types of administrators identified by Robert Katz as he set out his Three-Skill Approach. 
-Where the innovation types focus more on who the leaders are, Katz focuses more on dividing managerial types based on what skills they possess: technical skills (an understanding of certain activities, processes, and/or techniques), human skills (the ability to work with and motivate team members and other human assets), and conceptual skills (forming a vision of the organization as a whole and where it needs to go).&lt;/p&gt;
-
-&lt;p&gt;Managers do not operate in a vacuum. 
-There is always the as-is organizational structure that forms boundaries of how far innovation can be taken, and innovation initiatives should align themselves to the corporate strategy. 
-Where the architecting leaders set the blueprints, these constraints are distilled from the type of organization the management is a part of. 
-A useful tool for determining how the organization should characterize its initiatives, and how it goes about achieving them is the &lt;a href=&quot;https://www.boardofinnovation.com/tools/innovation-matrix/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Innovation Matrix&lt;/a&gt; from Board of Innovators. 
-The innovation types proposed by the matrix are characterized by the willingness to invest and the focus for the innovation influx (either from external or internal sources):&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Hunters: Organizations that are willing to invest heavily in innovation, but seek to import innovative ideas into their existing portfolio though cooperation with startups, acquisitions, corporate ventures… This is the innovation approach of Google. Techniques to go about this are venture funds, structural partnerships, external accelerators, and co-development tracks.&lt;/li&gt;
-  &lt;li&gt;Builders: Organizations that are willing to invest heavily in innovation, but put their stock in their own capabilities to achieve this innovation, with significant resources (both budget and people) being poured into transforming their organization and even going so far as to create dedicated departments (also called centers of excellence and/or innovation labs). Famous amongst these types of innovators is Apple.&lt;/li&gt;
-  &lt;li&gt;Explorers: Explorer organizations are the low(er) investment counterpart of the hunters. Innovation experimentation in the form of hackatons or casual preliminary contacts with startups give an idea to the organization if and where they want to put their investments. These organizations recognize the need for innovation, but are not willing to go all-in. Orange has been adopting this style of innovation.&lt;/li&gt;
-  &lt;li&gt;Experimenters: These organizations try to organize their innovation around their own resources, but try to limit the effort they expend for these initiatives. They tend to focus on low-cost techniques such as innovation training and design sprints in order to mature their internal resources and build a solid innovation capability and mindset. Spotify and Netflix are the success stories in this type of innovation.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-02-17-Out-With-The-Old/innovationmatrix.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;considerations-for-the-hunter-type&quot;&gt;Considerations for the Hunter Type&lt;/h2&gt;
-
-&lt;p&gt;Deciding which merger or acquisition to go for might seem as arbitrary as betting on which innovation horse will win the race, but there are consequences to this approach. 
-Clayton Christensen, father of the theory of disruptive innovation, pointed out that there are several valid reasons for joining two organizations (either by takeover or merger): either to improve current operations by boosting performance or reducing operational cost, and/or dramatically transform the organization’s growth prospects by reinventing the business model, and/or optimizing/diversifying the business portfolio.&lt;/p&gt;
-
-&lt;p&gt;In any case, the business models of the two organizations will need to be integrated on a number of facets:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Customer Value Proposition: The services/products that customers value above the alternatives within the organization’s market segments.&lt;/li&gt;
-  &lt;li&gt;Profit Formula: The revenue model and cost structure in place to ensure the organization is able to deliver the customer value proposition and generate the revenues needed to sustain the organization.&lt;/li&gt;
-  &lt;li&gt;Organizational Resources: Any resources (employees, customers, products/services, infrastructure, cash flow…) that the organizations have to deliver the customer value proposition.&lt;/li&gt;
-  &lt;li&gt;Organizational Processes: Some domains (manufacturing, R&amp;amp;D, budgeting, sales…) will be easier to match than others depending how much the views of the two organizations in these domains differ.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This integration can happen in two distinct ways. 
-The first way is called the Leverage-my-Business-Model acquisition (LBM). 
-This is rather straightforward with all resources extracted from one of the organizations, and infused on the other one. 
-This incurs the least risk and thus the least potential for returns. 
-The current infrastructure of the master organization needs to be extended with the new components of the disappearing organization and it needs to scale its existing components to support the additional load. 
-The second way is called the Reinvent-my-Business-Model (RBM). 
-The business model of the acquired organization is used to revamp the existing business model of the master organization and create a fusion of business models and infrastructure. 
-This is a best-of-breed solution where each individual component of both organizations is considered for optimal use.&lt;/p&gt;
-
-&lt;p&gt;A consequence of having a steady stream of innovations assimilated into your organizational structure is the need for ways to quickly and, as seamless as possible, integrate the new components and value chains into your existing setup. 
-On a solution architecture level this means providing the tools to achieve this with the least amount of hassle. 
-This leads us to state that integration capabilities should receive fair amount of attention. 
-Examples of such integration capabilities can be API Management, Enterprise Service Buses (ESB) or the Hybrid Integration Platform (HIP) that Gartner places as one of the necessary tools for any digital transformation.&lt;/p&gt;
-
-&lt;h2 id=&quot;considerations-for-the-builder-type&quot;&gt;Considerations for the Builder Type&lt;/h2&gt;
-
-&lt;p&gt;Having to foster innovation from within can be a trickier than to just scrutinize the market and acquire what seems to be working. 
-It requires either making sure that there are products/services in your organization’s portfolio that can be improved upon (sustaining technologies) or detecting disruptive technologies to create a completely new market to capitalize on. 
-These disruptive technologies come with the burden of lower profit margins but higher profit potential as the market matures. 
-To clarify: The term “disruptive technologies” is used here as sort of an umbrella term. 
-In the &lt;a href=&quot;https://evolute.be/thoughts/disruption.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;same reference article&lt;/a&gt; where I tackled technical debt I also discuss other numerous forms of disruption, each with their causes and effects on how the bottom line for an organization is achieved.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-02-17-Out-With-The-Old/disruptivetechassessment.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;One benefit over Hunter types is that if a working innovation (one that catches on in the market) is discovered within the organization, that organization has a first mover advantage, allowing the organization to establish brand recognition and customer loyalty before competitors are able to reproduce or approximate the innovative endeavor. 
-It allows for setting yourself up as the benchmark and industry standard against which customers will judge copycat products and services.&lt;/p&gt;
-
-&lt;p&gt;Since disruptive technologies come in at a lower profit margin, partly due to higher costs associated with them, it is only natural to attempt to curb these costs by matching your infrastructure to the needs of the innovations. 
-This requires digital transformation initiatives in order to support them. 
-According to Oracle there are certain indispensable requirements for achieving success in such transformations:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;An executive mandate to implement transformations. The Architecting Leaders of the organization should be on board, and even sponsor and propel these transformations forward. The sponsorship and support could be handled by Enabling Leaders if they are backed by the Architecting leader.&lt;/li&gt;
-  &lt;li&gt;The focus of the transformation initiative should be fixed on the final result, and should not deviate from it course once begun.&lt;/li&gt;
-  &lt;li&gt;There needs to exist a sense of urgency to get the transformation done. Time is essential, and the longer the initiative lasts, the likelier it is that it will become irrelevant and superseded by another similar initiative.&lt;/li&gt;
-  &lt;li&gt;The initiative should not only care about modernizing customer touchpoints and enabling infrastructure, but also about the impact the transformation will have on the human factors of the equation. The change management aspect of the initiative dealing with employee experience and corporate culture is an important slice of the overall initiative.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Having decided that innovation comes from within means that the innovative teams need to have the proper tooling to support their efforts. 
-Wanting to design new ideas and testing them out requires them to have a lot of sandbox capabilities at their disposal where they can quickly launch a Proof of Concept (POC) and ascertain whether or not to continue in the same vein or drop it to pursue other ideas. 
-The faster the turnover of new ideas, the quicker your innovations can be launched in the market and start paying off. 
-A multitude of environments (typically in the form of a Cloud offering such as AWS or Azure) and the optimized CI/CD pipelines to get them up to date with your newest POCs makes this possible. 
-Getting these POCs mature enough can be achieved through such approaches as for example the Design Thinking Process.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;https://dschool.stanford.edu/resources/getting-started-with-design-thinking&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;/img/2021-02-17-Out-With-The-Old/designthinking.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;considerations-for-the-experimenter-type&quot;&gt;Considerations for the Experimenter Type&lt;/h2&gt;
-
-&lt;p&gt;While not wanting to expend quite as much liquidity on innovation as the Hunter and Builder types, there are still some avenues that beckon for the Experimenter type. 
-Hunters and Builders push heavily on innovation in order to attain the patronage of the high-end market. 
-When your product excels over all other similar products in the market, you can sell it at a higher markup as the customers in this segment have heavier purses. 
-A higher markup equals higher profits. 
-This does mean that there are two entire segments for whom the increased product excellence will not warrant the price they have to pay for it. 
-Not everyone drives a Maserati. 
-Some drive Audi, and others go for cars in an even lower price bracket.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-02-17-Out-With-The-Old/growthtrajectory.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A valid strategy for Experimenter innovation is to aim for a just-enough innovation to keep up with the product leaders, but aiming for that mainstream market where profit margins are lower. 
-In return, your customer base is much larger to make up for this. 
-It might seem that the same philosophy can be taken on the low-end market. 
-If not for the fact that this drop in profit margin and resulting increase in potential customer base does come with a warning: The lower in cost and product excellence you go on the spectrum, the easier it becomes for new competitors to enter it, and take a piece of the pie. 
-This is what is known in Michael Porter’s Five Forces Model as the Threat of New Entrants, and is a vital consideration in evaluating whether you are adopted a viable business strategy.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-02-17-Out-With-The-Old/porter5forces.png&quot; alt=&quot;Workspace&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-&lt;p style=&quot;text-align: center;&quot;&gt;Taken from &lt;a href=&quot;https://www.ezyeducation.co.uk/ezybusinessdetails/ezybusiness-news/entry/business-studies-year-13-revision-day-6-porters-five-forces-model.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;EZY Education&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This approach also allows for the emergence of a sleeper hit. 
-These are innovations that the organization wasn’t actively or explicitly pursuing, but kind of crept up next to the main business model. 
-This sleeper hit might even overtake the original business model, and replace it as the main source of revenue. 
-A good example of this is Slack. 
-When its organization developed the technology to support the development of their main product, an online game called Glitch, it was soon discovered that there was a greater market for this tool than for the game they were developing, and they decided to switch gears to pursue this sleeper hit.&lt;/p&gt;
-
-&lt;p&gt;Banking on innovation to emerge from within without structurally investing a lot of capital and resources, there needs to be fertile ground from which these innovations can spring. 
-Since innovation seldom erupts from the thought and action of a single individual, the crux of the matter becomes getting like-minded people into contact with each other. 
-Cross pollination between their views and ideas is what makes this innovation type possible. 
-So the solutions that should be developed within such organizations are mostly collaborative and social engagement tools that allow for this cross pollination.&lt;/p&gt;
-
-&lt;h2 id=&quot;considerations-for-the-explorer-type&quot;&gt;Considerations for the Explorer Type&lt;/h2&gt;
-
-&lt;p&gt;Organizations of the Explorer type opt not to engage in the innovation business on their own. 
-To hedge their bets and spread the risk and cost of the innovation they engage with similar organizations to get traction. 
-This can range from having co-creation sessions to incubators to simply scouting the market for talent that can further their objectives. 
-As there are numerous obstacles that can be encountered on the road to innovative products, these organizations accept the shared benefits to reduce the impact these obstacles also called barriers will have on them.&lt;/p&gt;
-
-&lt;p&gt;The obstacles can be grouped into four overall categories:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Financial Barriers: R&amp;amp;D can be a costly affair, and can be too much for your organization to bear alone. So to be able to divide costs of innovation, even if it results in a split profit, could be preferable over not pursuing innovation, and sticking with sustaining your products for the foreseeable future.&lt;/li&gt;
-  &lt;li&gt;Unpredictable Success: Success of innovative products is hard to predict. This could complicate finding willing business sponsors or investors from outside the organization. The return on investment (ROI) has been a mainstay in building business cases, and it is almost impossible to calculate for innovation. Thus, spreading the cost and risks through sharing the effort can help in this department.&lt;/li&gt;
-  &lt;li&gt;Missing Marketing Skills: Producing a viable innovative product is one thing. Being able to convince your customers that they need it is another. The marketing team that will help your product become the new need-to-have product should have the same innovative mindset as your innovation team. Seeking these marketing skills outside your organization might be just what the doctor ordered.&lt;/li&gt;
-  &lt;li&gt;Management Barriers: Missing the innovation leaders within the organization can slow the progress made by the innovation initiatives. Looking for these innovation managers in an organization that is willing to cooperate can lessen the hurt with this barrier.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The main takeaway of these barriers is that there is a correlation between risk and success in the innovation game. 
-The increased risk of innovation initiatives reflects on what can be achieved in the areas of improving your organization’s market position and competitiveness. 
-Getting a firm understanding of which barriers your organization faces mitigates some of the risks in this type of endeavor.&lt;/p&gt;
-
-&lt;p&gt;Similar to the Experimenter type, these organizations depend heavily on emergent innovations. 
-This necessitates the same focus on collaboration and social tooling, but with the added complication that this collaboration takes place across organizational boundaries. 
-This adds an increased need for the proper security capabilities to make sure the interaction between participant organizations is limited to those organizations. 
-It also means that the reputation of the organization in the fields of innovation becomes a currency that can buy the partnerships that are needed. 
-This reputation is mostly constructed from the visibility of the human capital and talent your organization brings to the table, and can be positively influenced with getting your people out there, writing blog posts, giving key notes and networking as much as possible.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="Architecture" /><category term="architecture" /><category term="software architecture" /><category term="business architecture" /><category term="technical leadership" /><summary type="html">Almost fifty years ago, the movie “Logan’s Run” introduced the phrase “Out with the old, in with the new” into pop culture vernacular. The story depicted a dystopian world where all needs were met by advanced technology, but due to scarcity of resources the population was kept under control by forced termination of the citizens of this society at the age of 30. If we were to flip this around on technology, we could conclude that in order to keep our business landscape manageable we need to address the lifespan of the assets in this landscape.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-02-17-Out-With-The-Old/logansrun.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-02-17-Out-With-The-Old/logansrun.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+In addition, the security libraries provided by HAPI make the development process a lot easier and secure.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Youri&quot;, &quot;last_name&quot;=&gt;&quot;Vermeir&quot;, &quot;github&quot;=&gt;&quot;Vermeir&quot;, &quot;linkedin&quot;=&gt;&quot;youri-vermeir&quot;, &quot;permalink&quot;=&gt;&quot;/author/youri_vermeir/&quot;, &quot;avatar&quot;=&gt;&quot;youri-vermeir.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;youri.vermeir@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Youri is an ambitious back-end developer with a problem-solving mindset. He is a team-oriented person who is always motivated to learn and master new skills.&quot;}</name><email>youri.vermeir@ordina.be</email></author><category term="eHealth" /><category term="eHealth" /><category term="FHIR" /><category term="Interoperability" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
