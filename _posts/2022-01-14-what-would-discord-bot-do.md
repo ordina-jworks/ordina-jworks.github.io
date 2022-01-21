@@ -51,7 +51,7 @@ Once again, in a fit of unbridled imagination, I went for â€œDeveloper Test Botâ
 {: refdef}
 
 Another important piece of the developer puzzle is the token that can be taken from this page. 
-This will be the secret used by our code to access this Bot. 
+This will be the secret used by our code to access this bot. 
 Other configurations that can be determined in this page are the visibility of your bot, as well as activating the usage of OAuth to authenticate with. 
 At the bottom of the screen we can already see the different permissions we would like to give our bot. 
 But the final piece of the puzzle before trying our hands with the JDA framework is to set up the permissions and connections over at the Oauth2 screen.
