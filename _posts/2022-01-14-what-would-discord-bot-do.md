@@ -56,7 +56,7 @@ Other configurations that can be determined in this page are the visibility of y
 At the bottom of the screen we can already see the different permissions we would like to give our bot. 
 But the final piece of the puzzle before trying our hands with the JDA framework is to set up the permissions and connections over at the Oauth2 screen.
 
-In this screen, there are only a few things that need to be set up. 
+On this page, there are only a few things that need to be set up. 
 First off, the client id and secret are shown, which we need for our invite URL. 
 The bot also needs a redirect in case of OAUTH2 authentication, should we choose to  activate it. 
 It is clear that this should be: https://www.evolute.be/discord as we do not intend to activate OAuth for the time being. 
