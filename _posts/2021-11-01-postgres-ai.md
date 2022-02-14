@@ -114,9 +114,53 @@ The advantage here is that you don't need additional configuration on the source
 Unfortunately, due to the nature of the point-in-time copy of the dump, it's not possible to have a real live clone available. 
 
 For the example we'll show here, we'll use the logical mode as we're copying from an Azure Database for PostgreSQL managed database. 
-All code for the example is available [here](/DEMO CODE #TODO){:target="_blank" rel="noopener noreferrer"}
+All code for the example is available [here](https://github.com/pietervincken/dblab-azure-demo){:target="_blank" rel="noopener noreferrer"}
 
-## The cool bonus
+NOTE: This code is only provided for demo purposes and is not to be used as is for any productive systems.
+All ports are opened by default on the instance and a public IP will be assigned to the VM.
+The scripts also include cleanup steps which remove **ALL DATA** from the instances. 
+Use at your own risk.
+
+The demo code will provision a database and a VM. 
+Next, it will configure the VM to act as a DBLab Engine instance.
+Some random test data will be automatically injected into the PostgreSQL database.
+Finally, you can use the UI or the CLI to interact with the instance.
+A brief use case will be shown in the next paragraph.
+
+## How to use it
+
+DBLab allows three ways of interaction with the engine: SaaS, CLI, local UI. 
+For the scope of this demo, we'll only show the local UI and mention the CLI counterparts.
+
+Once the instance is deployed, you can access the DLE UI through a webbrowser.
+You'll be prompted to enter the token in order to access to instance.
+Next, you'll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar which shows the available snapshots.
+
+For the purpose of this demo, we'll create a new clone of the database that's linked to this instance
+We do this by clicking "Create Clone" and filling out the form that's prompted next.
+After completing the form, click create clone and take a very fast sip of coffee as your clone will be availabe in a matter of seconds.
+
+This same process can be achieved by executing the following commands through the DBLab CLI:
+```
+dblab init --token <secret-token> --url <public ip of the instance> --environment-id local --insecure
+dblab clone create --username jworks --password rocks --id testclone 
+```
+
+Now in a real use-case you'd connect the thin clone to your application in a development environment or local setup. 
+We'll simulate the changes being made by connecting to the database using your favorite PostgreSQL client.
+Make some changes to the database (create a table, delete or change some rows in the provided users table, ...).
+Now let's imagine we're testing a migration script and we discovered a bug (like the scenario mentioned earlier).
+We fix the bug, but now our data in the thin clone is corrupted and useless for furter testing.
+
+Now a really cool feature of DBLab comes into plan: clone resetting.
+Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.
+
+We do this by going back the the local UI and selecting our thin clone.
+Next, we click on reset clone and confirm in the dialog.
+Only seconds later, our database is reset to the original snapshot and we can start testing again.
+From the same view you can destroy the clone as well if you don't need it anymore.
+
+## More cool features
 
 DBLab has added some additional features on top of the cloning process. 
 A very helpful feature is their support for [data masking and obfuscation](https://postgres.ai/docs/database-lab/masking){:target="_blank" rel="noopener noreferrer"}.
@@ -141,6 +185,8 @@ It provides an easy, scalable and safe way to provide copies of large databases 
 Adding to that the possibility to obfuscate the data with the same tool and allow developers to work with obfuscated data during their developer, makes it an even more compelling choice.
 
 The software is opensourced on [Gitlab](https://gitlab.com/postgres-ai){:target="_blank" rel="noopener noreferrer"} and the community on [Slack](https://slack.postgres.ai/){:target="_blank" rel="noopener noreferrer"} is very helpful and response if you have any questions or issues with the software.
+
+If you want a more in depth post about how to configure DBLab and which pitfalls we found, let me know on [LinkedIn!](https://www.linkedin.com/in/pieter-vincken-a94b5153/){:target="_blank" rel="noopener noreferrer"}
 
 ### Links
 
