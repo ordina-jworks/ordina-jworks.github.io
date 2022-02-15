@@ -2,7 +2,7 @@
 layout: post
 authors: [pieter_vincken]
 title: 'Testing with production data made easy'
-image: /img/20211101-postgres-ai/db-lab.png
+image: /img/20211101-postgres-ai/logo-resized.png
 tags: [cloud, automation, testing]
 category: Cloud
 comments: true
