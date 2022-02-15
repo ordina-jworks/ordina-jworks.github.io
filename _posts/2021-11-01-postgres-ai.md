@@ -8,16 +8,15 @@ category: Cloud
 comments: true
 ---
 
-- What's the problem?
-- What is DBLab?
-- How does it work?
-- End user interaction
-- Behind the curtains
-- How to setup
-- How to use it
-- More cool features
-- Why should I use it?
-- Links
+- [What's the problem?](#whats-the-problem)
+- [What is DBLab?](#what-is-dblab)
+- [End user interaction](#end-user-interaction)
+- [Behind the curtains](#behind-the-curtains)
+- [How to setup](#how-to-setup)
+- [How to use it](#how-to-use-it)
+- [More cool features](#more-cool-features)
+- [Why should I use it?](#why-should-i-use-it)
+- [Links](#links)
 
 ## What's the problem?
 
@@ -143,11 +142,11 @@ You'll be prompted to enter the token to access the instance.
 Next, you'll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar that shows the available snapshots.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/clones-dashboard.png' | prepend: site.baseurl }}" alt="Dashboard" class="image fit" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/20211101-postgres-ai/clones-dashboard.png' | prepend: site.baseurl }}" alt="Dashboard" class="image center">
 {: refdef}
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/instance-status.png' | prepend: site.baseurl }}" alt="Instance status" class="image fit" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/20211101-postgres-ai/instance-status.png' | prepend: site.baseurl }}" alt="Instance status" class="image center">
 {: refdef}
 
 For this demo, we'll create a new clone of the database that's linked to this instance
@@ -155,7 +154,7 @@ We do this by clicking "Create Clone" and filling out the form that's prompted n
 After completing the form, click "Create Clone" and take a very fast sip of coffee as your clone will be available in a matter of seconds.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/create-clone.png' | prepend: site.baseurl }}" alt="Create clone" class="image fit" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/20211101-postgres-ai/create-clone.png' | prepend: site.baseurl }}" alt="Create clone" class="image center">
 {: refdef}
 
 This same process can be achieved by executing the following commands through the DBLab CLI:
@@ -171,14 +170,14 @@ Now let's imagine we're testing a migration script and we discovered a bug (like
 We fix the bug, but now our data in the thin clone is corrupted and useless for further testing.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/clone-details.png' | prepend: site.baseurl }}" alt="Clone details" class="image fit" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/20211101-postgres-ai/clone-details.png' | prepend: site.baseurl }}" alt="Clone details" class="image center">
 {: refdef}
 
 Now a cool feature of DBLab comes into play: clone resetting.
 Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/reset-clone.png' | prepend: site.baseurl }}" alt="Reset clone" class="image fit" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/20211101-postgres-ai/reset-clone.png' | prepend: site.baseurl }}" alt="Reset clone" class="image center">
 {: refdef}
 
 We do this by going back to the local UI and selecting our thin clone.
@@ -216,7 +215,7 @@ If you want a more in-depth post about how to configure DBLab and which pitfalls
 
 ### Links
 
-- [Postgres AI website](https://postgres.ai/{:target="_blank" rel="noopener noreferrer"}
+- [Postgres AI website](https://postgres.ai/){:target="_blank" rel="noopener noreferrer"}
 - [Source code](https://gitlab.com/postgres-ai){:target="_blank" rel="noopener noreferrer"}
 - [SaaS offering](https://postgres.ai/docs/platform){:target="_blank" rel="noopener noreferrer"}
 - [Anomization setup](https://postgres.ai/docs/database-lab/masking){:target="_blank" rel="noopener noreferrer"}
