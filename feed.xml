@@ -1,5 +1,209 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-02-16T16:04:02+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">What Would Discord Bot Do?</title><link href="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html" rel="alternate" type="text/html" title="What Would Discord Bot Do?" /><published>2022-01-14T00:00:00+00:00</published><updated>2022-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html">&lt;p&gt;Online communication has been widespread for years already. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-02-16T16:11:30+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Testing with production data made easy</title><link href="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html" rel="alternate" type="text/html" title="Testing with production data made easy" /><published>2022-02-14T00:00:00+00:00</published><updated>2022-02-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html">&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#whats-the-problem&quot;&gt;What’s the problem?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-dblab&quot;&gt;What is DBLab?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#end-user-interaction&quot;&gt;End user interaction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#behind-the-curtains&quot;&gt;Behind the curtains&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-to-setup&quot;&gt;How to setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-to-use-it&quot;&gt;How to use it&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#more-cool-features&quot;&gt;More cool features&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-should-i-use-it&quot;&gt;Why should I use it?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#links&quot;&gt;Links&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;whats-the-problem&quot;&gt;What’s the problem?&lt;/h2&gt;
+
+&lt;p&gt;Testing data migrations is one of the cases where investing in good testing is crucial. 
+Unfortunatly it’s hard to cover all the scenarios and it can be very time consuming to write test code for all of the scenarios you need to cover, especially in a one off migration.
+Moreover, if the data quality of your production system isn’t 100%, it’s very easy to miss a few scenarios in the analysis, which leads to missed migration scenarios that lead to bugs and incidents.&lt;/p&gt;
+
+&lt;p&gt;In most cases, developers don’t have access to production systems directly, especially databases.
+This requirements has become more important over the years due to GDPR or similar regulations. 
+It makes it almost impossible for developers to have a good insight into what data is available in a production database.
+In some organisations, regulars dumps are made to a dedicated environment for testing database migrations.
+Both technically and regulatory, this can be challenging as copying over large portions of data is an expensive and time intensive operation.&lt;/p&gt;
+
+&lt;p&gt;This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai’s DBLab Engine.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-dblab&quot;&gt;What is DBLab?&lt;/h2&gt;
+
+&lt;p&gt;DBLab is software that allows you to easily and quickly create thin clones of databases.
+At the time of writing, it supports PostgreSQL databases.
+It has been created by Postgres.ai which was founded by &lt;a href=&quot;https://twitter.com/samokhvalov&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nikolay Samokhvalov&lt;/a&gt;.
+They are specialised in creating solutions to assist with database management.&lt;/p&gt;
+
+&lt;p&gt;The software exists in 4 main parts, their engine, their CLI, a GUI and the SaaS platform.
+This post will mostly discuss the DBLab Engine (DLE) community edition, so without the SaaS platform.&lt;/p&gt;
+
+&lt;h3 id=&quot;end-user-interaction&quot;&gt;End user interaction&lt;/h3&gt;
+
+&lt;p&gt;Let’s start with what DBLab can ultimately bring you.&lt;/p&gt;
+
+&lt;p&gt;Let’s say a developer, Neal, wants to validate a data migration he has created. 
+Performing an export and import from one database to another isn’t that hard, especially in PostgreSQL.
+You run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pg_dumpall&lt;/code&gt; on the exporting database and just run a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pqsl&lt;/code&gt; with the dump on the importing one and you’re done. 
+Now imagine that the dataset he’s using is not just a few megabytes in size, but consists of 100s of 1000s of rows across a multitude of tables. 
+That import is going to take a while, more than just a coffee break, let’s say 30 minutes. 
+After the import completes, since he’s working on another data migration, he runs his migration script against the clone and as we, developers, aren’t perfect, he finds a bug halfway through his migration. 
+He fixes the bug and wants to run the migration again. 
+To do that, he needs to re-run the import (provided he kept the export) and restart his migration.
+Again 30 minutes plus his migration time are lost.&lt;/p&gt;
+
+&lt;p&gt;This is a scenario where DBLab shines.
+Let’s say Neal’s company has a DBLab setup for the database he wants to use. 
+The same scenario would look like this:&lt;/p&gt;
+
+&lt;p&gt;Neal requests a DBLab clone: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dblab clone create neals-special-clone --username neal --password nealisawesome&lt;/code&gt; or through the GUI.
+This takes seconds to complete. 
+Later in this post, we’ll discuss how that’s possible with so much data.
+Next, Neal runs his migration script, as before, it fails halfway through and he needs to fix the bug. 
+After the fix, he wants to retest the migration with the original data.
+To do this, he simply runs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dblab clone reset neals-special-clone&lt;/code&gt; and the clone will be reset to the original state before the failed migration was executed.
+Again, taking just seconds to complete.&lt;/p&gt;
+
+&lt;h2 id=&quot;behind-the-curtains&quot;&gt;Behind the curtains&lt;/h2&gt;
+
+&lt;p&gt;The scenario described earlier almost sounds too good to be true, doesn’t it?
+In this section, we’ll discuss how DBLab can achieve this and where the magic happens.&lt;/p&gt;
+
+&lt;p&gt;The magic is mostly done by the use of a &lt;a href=&quot;https://en.wikipedia.org/wiki/ZFS&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ZFS&lt;/a&gt; filesystem underneath the PostgreSQL instances used by DBLab. 
+Specifically the copy-on-write and snapshotting features are primarily used. 
+This is combined with running the instances themselves in Docker containers, which allows multiple PostgreSQL instances to easily exist on a single system. 
+More info on the details can be found &lt;a href=&quot;https://postgres.ai/docs/database-lab#database-lab-engine&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;DBLab Engine has 2 operating modes for enabling clones: physical or logical.&lt;/p&gt;
+
+&lt;p&gt;With the physical mode, a replica of the source PostgreSQL database is created and managed by DLE. 
+This database is treated as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sync instance&lt;/code&gt; from which all copies are created.
+The replication can be set up just like any other PostgreSQL replication.&lt;/p&gt;
+
+&lt;p&gt;In logical mode, the copy of the original data is achieved by a regular dump (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pg_dumpall&lt;/code&gt;) from the source PostgreSQL instance. 
+This phase is called the logical dump in the &lt;a href=&quot;https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicaldump&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DLE documentation&lt;/a&gt;.
+This dump is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restored&lt;/code&gt; onto a local PostgreSQL install and from there clone could be created. 
+This is called the logical restore phase in the &lt;a href=&quot;https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalrestore&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt;.
+After the dump has been completed a ZFS snapshot will be created for the database which is used later for creating clones. 
+This last phase is called &lt;a href=&quot;https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalsnapshot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;logical snapshot&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;After the initial copy has been created, in whichever mode, clones can be created.
+These clones are created by first creating a new (ZFS) snapshot of the restored instance. 
+Next, a Docker container with a modified PostgreSQL instance is used in combination with a volume bind of the created snapshot.&lt;/p&gt;
+
+&lt;p&gt;This results in a seemingly regular PostgreSQL instance running in Docker with some data preloaded in it. 
+When executing changes on the database, the copy-on-write feature of ZFS makes sure that the new changes are only made to the snapshot volume that’s attached to the clone.&lt;/p&gt;
+
+&lt;p&gt;When a reset is requested on a clone, the snapshot is simply restored to its original state by ZFS and the PostgreSQL instance is restarted.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-setup&quot;&gt;How to setup&lt;/h2&gt;
+
+&lt;p&gt;The setup process is highly dependent on your starting situation. 
+The first choice you’d need to make is if you want to use a physical or logical setup.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;physical setup&lt;/em&gt; has the advantage of being an always-online solution. 
+This means that DLE manages a live (async replication) copy of the source instance you want to clone.
+The downside of this approach is that you need to be able to change some configuration on your source instance to set up the replication and that you need to be able to create a replicated instance from your source instance. 
+For managed PostgreSQL databases provided by cloud providers, for example, this might be an issue.&lt;/p&gt;
+
+&lt;p&gt;Luckily there is a secondary approach available: the &lt;em&gt;logical mode&lt;/em&gt;.
+In this mode, an initial clone is created by dumping the original database to the DBLab instance and restoring it locally onto the main clone instance. 
+The advantage here is that you don’t need additional configuration on the source instance. 
+Unfortunately, due to the nature of the point-in-time copy of the dump, it’s not possible to have a real live clone available.&lt;/p&gt;
+
+&lt;p&gt;For the example we’ll show here, we’ll use the logical mode as we’re copying from an Azure Database for PostgreSQL managed database. 
+All code for the example is available &lt;a href=&quot;https://github.com/pietervincken/dblab-azure-demo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;NOTE: This code is only provided for demo purposes and is not to be used as-is for any production systems.
+All ports are opened by default on the instance and a public IP will be assigned to the VM.
+The scripts also include cleanup steps that remove &lt;strong&gt;ALL DATA&lt;/strong&gt; from the instances. 
+Use at your own risk.&lt;/p&gt;
+
+&lt;p&gt;The demo code will create a database and a VM. 
+Next, it will configure the VM to act as a DBLab Engine instance.
+Some random test data will be automatically injected into the PostgreSQL database.
+Finally, you can use the UI or the CLI to interact with the instance.
+A brief use case will be shown in the next paragraph.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-use-it&quot;&gt;How to use it&lt;/h2&gt;
+
+&lt;p&gt;DBLab allows three ways of interaction with the engine: SaaS, CLI, local UI. 
+For the scope of this demo, we’ll only show the local UI and mention the CLI counterparts.&lt;/p&gt;
+
+&lt;p&gt;Once the instance is deployed, you can access the DLE UI through a web browser.
+You’ll be prompted to enter the token to access the instance.
+This is the token that’s set in the configuration of the DLE server.
+Using the demo setup, this token will be outputted by during the installation.
+Next, you’ll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar that shows the available snapshots.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clones-dashboard.png&quot; alt=&quot;Dashboard&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/instance-status.png&quot; alt=&quot;Instance status&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For this demo, we’ll create a new clone of the database that’s linked to this instance
+We do this by clicking “Create Clone” and filling out the form that’s prompted next.
+After completing the form, click “Create Clone” and take a very fast sip of coffee as your clone will be available in a matter of seconds.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/create-clone.png&quot; alt=&quot;Create clone&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This same process can be achieved by executing the following commands through the DBLab CLI:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dblab init --token &amp;lt;secret-token&amp;gt; --url &amp;lt;public ip of the instance&amp;gt; --environment-id local --insecure
+dblab clone create --username jworks --password rocks --id testclone 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now in a real use-case, you’d connect the thin clone to your application in a development environment or local setup. 
+We’ll simulate the changes being made by connecting to the database using your favourite PostgreSQL client.
+Make some changes to the database (create a table, delete or change some rows in the provided users table, …).
+Now let’s imagine we’re testing a migration script and we discovered a bug (like the scenario mentioned earlier).
+We fix the bug, but now our data in the thin clone is corrupted and useless for further testing.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clone-details.png&quot; alt=&quot;Clone details&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now a cool feature of DBLab comes into play: clone resetting.
+Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/reset-clone.png&quot; alt=&quot;Reset clone&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We do this by going back to the local UI and selecting our thin clone.
+Next, we click on reset clone and confirm in the dialogue.
+Only seconds later, our database is reset to the original snapshot and we can start testing again.
+From the same view, you can destroy the clone as well if you don’t need it anymore.&lt;/p&gt;
+
+&lt;h2 id=&quot;more-cool-features&quot;&gt;More cool features&lt;/h2&gt;
+
+&lt;p&gt;DBLab has added some additional features on top of the cloning process. 
+A very helpful feature is their support for &lt;a href=&quot;https://postgres.ai/docs/database-lab/masking&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;data masking and obfuscation&lt;/a&gt;.
+In short, they support multiple scenarios for using production data in a development environment without exposing any Person Identifiable Information (PII) to the developers using the test systems. 
+This makes it possible to use the clones during normal development without risking overexposing PII and therefore making it easier to adhere to guidelines like GDPR while still being able to test with production-like data.&lt;/p&gt;
+
+&lt;p&gt;The mechanism to do this is quite simple.
+DLE supports writing preprocessing scripts that are executed on the main copy during the restore phase.
+Using this, data can be obfuscated or masked using predefined scripts, which you’ll have to provide yourself. 
+By making it part of the restore phase of DLE, it’s ensured that no data is ever exposed without being obfuscated first.&lt;/p&gt;
+
+&lt;p&gt;Another option that DLE support is using &lt;a href=&quot;https://postgresql-anonymizer.readthedocs.io/en/stable/static_masking.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PostgreSQL Anonymizer&lt;/a&gt;. 
+This is a well known PostgreSQL extension that can be used to mask and obfuscate data in a PostgreSQL database. 
+The nice advantage of this solution is that the obfuscation configuration can be part of the original data creation in the original database. 
+It allows DevOps teams to create the obfuscation code directly with the table creation code which of course makes it way easier to maintain properly and correct judge with data should be obfuscated and in which way.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-should-i-use-it&quot;&gt;Why should I use it?&lt;/h2&gt;
+
+&lt;p&gt;If you’re in a project where access to production systems is not available and/or testing migration scenarios is very time consuming, this might be a good tool for you to investigate, provided of course that you’re using PostgreSQL databases.
+It provides an easy, scalable and safe way to provide copies of large databases without having to wait hours or days to copy over data from one database to the next to test something.&lt;/p&gt;
+
+&lt;p&gt;Adding to that the possibility to obfuscate the data with the same tool and allow developers to work with obfuscated data during their developer, makes it an even more compelling choice.&lt;/p&gt;
+
+&lt;p&gt;The software is opensourced on &lt;a href=&quot;https://gitlab.com/postgres-ai&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gitlab&lt;/a&gt; and the community on &lt;a href=&quot;https://slack.postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Slack&lt;/a&gt; is very helpful and response if you have any questions or issues with the software.&lt;/p&gt;
+
+&lt;p&gt;If you want a more in-depth post about how to configure DBLab and which pitfalls we found, let me know on &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LinkedIn!&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;links&quot;&gt;Links&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Postgres AI website&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gitlab.com/postgres-ai&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Source code&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://postgres.ai/docs/platform&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SaaS offering&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://postgres.ai/docs/database-lab/masking&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Anomization setup&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Feel free to reach out to &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;me&lt;/a&gt; or directly to lovely people of &lt;a href=&quot;https://postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Postgres.ai&lt;/a&gt; if you want to look into this solution.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="testing" /><summary type="html">What’s the problem? What is DBLab? End user interaction Behind the curtains How to setup How to use it More cool features Why should I use it? Links</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">What Would Discord Bot Do?</title><link href="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html" rel="alternate" type="text/html" title="What Would Discord Bot Do?" /><published>2022-01-14T00:00:00+00:00</published><updated>2022-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html">&lt;p&gt;Online communication has been widespread for years already. 
 But the current world situation has made it near ubiquitous. 
 With social contact in real life (IRL) being restricted, our need for communication shifts to the digital world through a wide variety of platforms. 
 One of those platforms that focuses heavily on the online gaming community is Discord. 
@@ -1817,484 +2021,4 @@ It allows for faster prototyping without having to deal with C/C++ per se.&lt;/p
   &lt;li&gt;&lt;a href=&quot;https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mu IDE&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://learn.adafruit.com/welcome-to-circuitpython/overview&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Getting started with CircuitPython&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://circuitpython.readthedocs.io/en/6.1.x/README.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CircuitPython documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Internet of Things" /><category term="Smart Tech" /><category term="microcontrollers" /><category term="c" /><category term="c++" /><category term="python" /><category term="micropython" /><category term="tinkering" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Introduction to HAPI FHIR</title><link href="https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html" rel="alternate" type="text/html" title="Introduction to HAPI FHIR" /><published>2021-02-23T00:00:00+00:00</published><updated>2021-02-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir</id><content type="html" xml:base="https://ordina-jworks.github.io/ehealth/2021/02/23/hapi-fhir.html">&lt;h1 class=&quot;no_toc&quot; id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ul id=&quot;markdown-toc&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#hapi-servers-types&quot; id=&quot;markdown-toc-hapi-servers-types&quot;&gt;HAPI Servers Types&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#plain-server&quot; id=&quot;markdown-toc-plain-server&quot;&gt;Plain server&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#jpa-server&quot; id=&quot;markdown-toc-jpa-server&quot;&gt;JPA Server&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#jax-rs-server&quot; id=&quot;markdown-toc-jax-rs-server&quot;&gt;JAX-RS Server&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#custom-plain-server-implementation&quot; id=&quot;markdown-toc-custom-plain-server-implementation&quot;&gt;Custom Plain server implementation&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#modules&quot; id=&quot;markdown-toc-modules&quot;&gt;Modules&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#server&quot; id=&quot;markdown-toc-server&quot;&gt;Server&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#resources&quot; id=&quot;markdown-toc-resources&quot;&gt;Resources&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#security&quot; id=&quot;markdown-toc-security&quot;&gt;Security&lt;/a&gt;        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#cross-origin-resource-sharing-cors&quot; id=&quot;markdown-toc-cross-origin-resource-sharing-cors&quot;&gt;Cross-Origin Resource Sharing (CORS)&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#authorizationinterceptor&quot; id=&quot;markdown-toc-authorizationinterceptor&quot;&gt;AuthorizationInterceptor&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot; id=&quot;markdown-toc-conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;The Fast Healthcare Interoperability Resource, commonly known as FHIR, 
-has quickly become one of the most popular protocols for joining disparate systems together, 
-and holds great promise for the development of an application-based approach to interoperability and health information exchange.&lt;/p&gt;
-
-&lt;p&gt;If you haven’t heard of FHIR, 
-I recommend you read the &lt;a href=&quot;https://ordina-jworks.github.io/ehealth/2020/03/28/Healthcare-on-FHIR.html&quot; target=&quot;_blank&amp;quot;,rel=&amp;quot;noopener noreferrer&quot;&gt;Healthcare on FHIR&lt;/a&gt; blogpost from my colleague Martin Kwee.&lt;br /&gt;
-In this article we’ll focus on implementing the FHIR specification through the open source Java libraries called HAPI-FHIR.
-&lt;a href=&quot;https://hapifhir.io/&quot; target=&quot;_blank&amp;quot;,rel=&amp;quot;noopener noreferrer&quot;&gt;HAPI FHIR&lt;/a&gt; is a complete implementation of the HL7 FHIR standard for healthcare interoperability in Java.&lt;/p&gt;
-
-&lt;h2 id=&quot;hapi-servers-types&quot;&gt;HAPI Servers Types&lt;/h2&gt;
-
-&lt;p&gt;HAPI FHIR provides several mechanisms for building FHIR servers. 
-The appropriate choice depends on the specifics of what you are trying to accomplish.&lt;/p&gt;
-
-&lt;h3 id=&quot;plain-server&quot;&gt;Plain server&lt;/h3&gt;
-
-&lt;p&gt;The HAPI FHIR Plain Server (often referred to as a Facade) is an implementation of a FHIR server against an arbitrary backend that you provide.
-In this mode, you write code that handles resource storage and retrieval logic, and HAPI FHIR takes care of:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;HTTP Processing&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Parsing / Serialization&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;FHIR REST semantics&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This module was originally created at &lt;a href=&quot;https://uhn.ca/&quot; target=&quot;_blank&amp;quot;,rel=&amp;quot;noopener noreferrer&quot;&gt;University Health Network&lt;/a&gt; (UHN) as a mechanism for placing a common FHIR layer on top of a series of existing data sources, 
-including an electronic medical record system (EMR), an enterprise patient scheduling system, and a series of clinical data repositories. 
-All of these systems existed long before FHIR was adopted at UHN and HAPI FHIR was created to make the process of adopting FHIR easier.&lt;/p&gt;
-
-&lt;h3 id=&quot;jpa-server&quot;&gt;JPA Server&lt;/h3&gt;
-
-&lt;p&gt;The HAPI FHIR JPA Server is a complete implementation of a FHIR server against a relational database. 
-Unlike the Plain Server, the JPA server provides its own database schema and handles all storage and retrieval logic without any coding being required.&lt;/p&gt;
-
-&lt;h3 id=&quot;jax-rs-server&quot;&gt;JAX-RS Server&lt;/h3&gt;
-
-&lt;p&gt;The HAPI FHIR Plain Server (RestfulServer) is implemented as a standard JEE Servlet, meaning that it can be deployed in any compliant JEE web container.
-The JAX-RS module is a community-supported module that was not developed by the core HAPI FHIR team. 
-Before deciding to use the HAPI FHIR JAX-RS module, please be aware that it does not have as complete of support for the full FHIR REST specification as the Plain Server.&lt;/p&gt;
-
-&lt;p&gt;For users in an environment where existing JAX-RS services have been created, 
-it is often desirable to use JAX-RS for FHIR servers as well. HAPI FHIR provides a JAX-RS FHIR server implementation for this purpose.&lt;/p&gt;
-
-&lt;h2 id=&quot;custom-plain-server-implementation&quot;&gt;Custom Plain server implementation&lt;/h2&gt;
-
-&lt;p&gt;As you have read above, there are different server types for different needs.
-Since the JPA implementation is a fully out-of-the-box working implementation with a SQL database, I thought it would be a nice challenge to set up my own Plain server implementation using a NoSQL database.
-The remainder of this blogpost will cover some practical code snippets of how I’ve set up a FHIR RESTful server using Spring Boot and a MongoDB database.&lt;/p&gt;
-
-&lt;p&gt;Below a comparison between our custom developed Plain server and an out-of-the-box JPA server:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image&quot; style=&quot;margin:0px auto; max-width:80%&quot; alt=&quot;custom diagram&quot; src=&quot;/img/2021-01-23-hapi-fhir/diagram.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Out-of-the-box JPA server:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image&quot; style=&quot;margin:0px auto; max-width:80%&quot; alt=&quot;jpa diagram&quot; src=&quot;/img/2021-01-23-hapi-fhir/JPAdiagram.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Compared to the JPA server that is provided out-of-the-box, 
-there are some minor differences but by and large they are similar. 
-The differences are the database technologies and mapping technologies.&lt;/p&gt;
-
-&lt;h3 id=&quot;modules&quot;&gt;Modules&lt;/h3&gt;
-
-&lt;p&gt;First of all, we will create a simple Spring Boot project and load the HAPI library using Maven.
-While there are many subprojects in the FHIR Codebase we only need 3 for the FHIR Façade or as the HAPI FHIR project lead James Agnew puts it, for HAPI Plain Server implementation.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Hapi-fhir-base
-    &lt;ul&gt;
-      &lt;li&gt;This is the core HAPI FHIR library and is always required in order to use the framework. It contains the context,     parsers, and other support classes.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Hapi-fhir-structures
-    &lt;ul&gt;
-      &lt;li&gt;This module contains the StructureDefinitions, ValueSets, CodeSystems, Schemas, and Schematrons for a specific FHIR version.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Hapi-fhir-server
-    &lt;ul&gt;
-      &lt;li&gt;This module contains the HAPI FHIR Server framework, which can be used to develop FHIR compliant servers against your own data storage layer.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;pom.xml&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;ca.uhn.hapi.fhir&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;hapi-fhir-structures-r4&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;5.2.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;ca.uhn.hapi.fhir&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;hapi-fhir-base&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;5.2.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;ca.uhn.hapi.fhir&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;hapi-fhir-server&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;5.2.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;server&quot;&gt;Server&lt;/h3&gt;
-
-&lt;p&gt;The class in the code snippet below is going to be the heart of your custom HAPI FHIR implementation. 
-We will be using Release 4 (R4) of the FHIR specification.
-Here you will configure most of your HAPI server settings. 
-You can add security, select which resources your server will support, 
-set defaults on the server to use XML or JSON and many more options. We will implement some more later in this post.&lt;/p&gt;
-
-&lt;p&gt;FhirRestfulServer.java&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.context.FhirContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.RestfulServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample.providors.ObservationProvidor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample.providors.PatientProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.ApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.servlet.ServletException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.servlet.annotation.WebServlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@WebServlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FhirRestfulServer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RestfulServer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nc&quot;&gt;FhirRestfulServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;applicationContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServletException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;setFhirContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;FhirContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forR4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now lets setup the Servlet Context. 
-We’re using the standard setup of a Spring Boot application and register the FhirRestfulServer web servlet we’ve created earlier.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.beans.factory.annotation.Autowired&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.autoconfigure.SpringBootApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.web.servlet.ServletRegistrationBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.ApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.Bean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FhirExampleApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;FhirExampleApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServletRegistrationBean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ServletRegistrationBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;ServletRegistrationBean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServletRegistrationBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FhirRestfulServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;registration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;FhirServlet&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Once your server has started, open up your Postman and GET the following URL: http://localhost:8080/metadata. 
-A capability statement will appear just like the screenshot below.
-A Capability Statement documents a set of capabilities (behaviors) of a FHIR Server for a particular version of FHIR that may be used as a statement of actual server functionality or a statement of required or desired server implementation. 
-Congratulations you are now FHIR enabled!&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;image&quot; style=&quot;margin:0px auto; max-width:80%&quot; alt=&quot;postman&quot; src=&quot;/img/2021-01-23-hapi-fhir/postman.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;resources&quot;&gt;Resources&lt;/h3&gt;
-
-&lt;p&gt;The PatientProvider is where the FHIR Patient behaviour is configured. 
-HAPI uses annotations to indicate what kind of REST service a class method provides. 
-The procedure “createPatient” in the diagram is annotated with @Create which indicates that it handles POST/create. 
-This procedure then uses a PatientDAO (DAO - data access object) class which Spring Data uses to persist the Patient resource in MongoDB.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.context.FhirContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.annotation.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.api.MethodOutcome&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.param.DateRangeParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.param.StringParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.param.TokenParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.IResourceProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample.dao.patient.PatientDAO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.hl7.fhir.instance.model.api.IBaseResource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.hl7.fhir.r4.model.IdType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.hl7.fhir.r4.model.OperationOutcome&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.hl7.fhir.r4.model.Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.hl7.fhir.r4.model.Resource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.beans.factory.annotation.Autowired&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.stereotype.Component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.servlet.http.HttpServletRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-
-&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PatientProvider&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IResourceProvider&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FhirContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PatientDAO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patientDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;?&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IBaseResource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getResourceType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;  &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Search&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Resource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;searchPatient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                                        &lt;span class=&quot;nd&quot;&gt;@OptionalParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SP_BIRTHDATE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DateRangeParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;birthDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                                        &lt;span class=&quot;nd&quot;&gt;@OptionalParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SP_FAMILY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StringParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;familyName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                                        &lt;span class=&quot;nd&quot;&gt;@OptionalParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SP_GENDER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StringParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;   
-                                        &lt;span class=&quot;nd&quot;&gt;@OptionalParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SP_GIVEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StringParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;givenName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                                        &lt;span class=&quot;nd&quot;&gt;@OptionalParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SP_IDENTIFIER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TokenParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                                        &lt;span class=&quot;nd&quot;&gt;@OptionalParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SP_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StringParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                                        &lt;span class=&quot;nd&quot;&gt;@OptionalParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SP_RES_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TokenParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patientDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;birthDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;familyName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;givenName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;identifier&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@IdParam&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IdType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patientDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MethodOutcome&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createPatient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@ResourceParam&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Patient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;nc&quot;&gt;MethodOutcome&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;  &lt;span class=&quot;nc&quot;&gt;MethodOutcome&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCreated&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;OperationOutcome&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;opOutcome&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;  &lt;span class=&quot;nc&quot;&gt;OperationOutcome&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setOperationOutcome&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;opOutcome&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-       
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patientDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Search&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Resource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getAllPatients&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;patientDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  
-
-    &lt;span class=&quot;nd&quot;&gt;@Delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@IdParam&lt;/span&gt;  &lt;span class=&quot;nc&quot;&gt;IdType&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;theId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        
-        &lt;span class=&quot;n&quot;&gt;patientDao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;In the previous code snippet I want to highlight some important details like:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The MethodOutcome object must be returned on update and create methods. This object contains the identity of the created resource. 
-On a delete and validate method you have a choice between void and MethodOutcome.&lt;/li&gt;
-  &lt;li&gt;Operation outcomes are sets of error, warning and information messages that provide detailed information about the outcome of an attempted system operation. 
-  The operationOutcome can be used as a direct response from the server (or as a component of the response). For example when the method fails the operationOutcome can provide more information about the outcome. This can be used to provide meaningful error messages.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Now we configure our HAPI Server to support the Patient resource.&lt;/p&gt;
-
-&lt;p&gt;FhirRestfulServer.java&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.context.FhirContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.RestfulServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.interceptor.CorsInterceptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample.providors.ObservationProvidor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample.providors.PatientProvidor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.ApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.cors.CorsConfiguration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.servlet.ServletException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;javax.servlet.annotation.WebServlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@WebServlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FhirRestfulServer&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RestfulServer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;nc&quot;&gt;FhirRestfulServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;applicationContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServletException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;   
-
-        &lt;span class=&quot;kd&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;setFhirContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;FhirContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;forR4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;setResourceProviders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;PatientProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In this section we have shown you how to implement a Patient resource on a HAPI FHIR server.&lt;/p&gt;
-
-&lt;h3 id=&quot;security&quot;&gt;Security&lt;/h3&gt;
-&lt;p&gt;Security is a crucial part of setting up a server especially when it comes to sensitive data like health information.
-To easily facilitate this security concern, there are some out-of-the box features that HAPI provides to ensure the safeguarding of sensitive patient data
-The following code snippets comes from the HAPI FHIR documentation.&lt;/p&gt;
-
-&lt;h4 id=&quot;cross-origin-resource-sharing-cors&quot;&gt;Cross-Origin Resource Sharing (CORS)&lt;/h4&gt;
-
-&lt;p&gt;The HAPI FHIR server framework includes an interceptor that can be used to provide CORS functionality on your server. 
-This mechanism relies purely on Java configuration. 
-HAPI’s interceptor is a thin wrapper around Spring Framework’s CorsProcessor class, 
-so it requires Spring to be present on your classpath.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.interceptor.CorsInterceptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.web.cors.CorsConfiguration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@WebServlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlPatterns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/fhir/*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;displayName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;FHIR Server&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RestfulServerWithCors&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RestfulServer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;  &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt;  &lt;span class=&quot;nc&quot;&gt;ServletException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ... define your resource providers here ...&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Define your CORS configuration. This is an example&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// showing a typical setup. You should customize this&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// to your specific needs&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;CorsConfiguration&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;  &lt;span class=&quot;nc&quot;&gt;CorsConfiguration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addAllowedHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x-fhir-starter&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addAllowedHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Origin&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addAllowedHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Accept&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addAllowedHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X-Requested-With&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addAllowedHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Content-Type&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addAllowedOrigin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addExposedHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Location&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addExposedHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Content-Location&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setAllowedMethods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Arrays&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GET&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;POST&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;PUT&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;DELETE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;OPTIONS&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;PATCH&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Create the interceptor and register it&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;CorsInterceptor&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;interceptor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;  &lt;span class=&quot;nc&quot;&gt;CorsInterceptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;registerInterceptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interceptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;authorizationinterceptor&quot;&gt;AuthorizationInterceptor&lt;/h4&gt;
-
-&lt;p&gt;HAPI FHIR provides you with an AuthorizationInterceptor which can be helpful to determine whether a user has the appropriate permission to perform a given task on a FHIR server. 
-This is done by declaring a set of rules that can selectively allow (whitelist) and/or selectively block (blacklist) requests. 
-The interceptor works by allowing you to declare permission based on an individual request coming in.&lt;/p&gt;
-
-&lt;p&gt;The AuthorizationInterceptor is used by subclassing it and then registering your subclass with the RestfulServer. 
-The following example shows a subclassed interceptor implementing some basic rules:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.fhirexample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.api.server.RequestDetails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.exceptions.AuthenticationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.interceptor.auth.AuthorizationInterceptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.interceptor.auth.IAuthRule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ca.uhn.fhir.rest.server.interceptor.auth.RuleBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.hl7.fhir.r4.model.IdType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PatientAndAdminAuthorizationInterceptor&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorizationInterceptor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;IAuthRule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;buildRuleList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RequestDetails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theRequestDetails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// Process authorization header - The following is a fake&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// implementation. Obviously we'd want something more real&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// for a production scenario.&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// In this basic example we have two hardcoded bearer tokens,&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// one which is for a user that has access to one patient, and&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// another that has full access.&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;IdType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userIdPatientId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authHeader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theRequestDetails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Authorization&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isNormalUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;authHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// This user has only access to the Patient resource with id 1.&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// If the user is a specific patient, we create the following rule chain:&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// Allow the user to read anything in their own patient compartment&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// Allow the user to write anything in their own patient compartment&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// If a client request doesn't pass either of the above, deny it&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;userIdPatientId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IdType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Patient&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuleBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;allResources&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;inCompartment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Patient&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userIdPatientId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andThen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;allResources&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;inCompartment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Patient&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userIdPatientId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;andThen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;denyAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isAdmin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;authHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// If the user is an admin, allow everything&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuleBuilder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;allowAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// Throw an HTTP 401&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AuthenticationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Missing or invalid Authorization header value&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isNormalUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Bearer dfw98h38r&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;authHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isAdmin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Bearer 39ff939jgg&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;authHeader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;After the server was set up and ready to use,I’ve set up a small Angular front-end application where it was possible to retrieve all the Patients and add a Patient.
-Finally Observations were added which could be linked to a specific Patient.
-In order not to define all the Javascript interfaces myself I used the following module &lt;a href=&quot;https://www.npmjs.com/package/@ahryman40k/ts-fhir-types&quot; target=&quot;_blank&amp;quot;,rel=&amp;quot;noopener noreferrer&quot;&gt;@ahryman40k/ts-fhir-types&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;For several years, the FHIR specification has been providing enhancements at various levels
-from application development to inter-application integration&lt;/p&gt;
-
-&lt;p&gt;We can conclude that setting up a FHIR server in Java is made easy by using the HAPI libraries.
-They provide different server types for different needs.
-There are servers that work out-of-the box but there are also possibilities to link existing databases to a HAPI FHIR façade. 
-In addition, the security libraries provided by HAPI make the development process a lot easier and secure.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Youri&quot;, &quot;last_name&quot;=&gt;&quot;Vermeir&quot;, &quot;github&quot;=&gt;&quot;Vermeir&quot;, &quot;linkedin&quot;=&gt;&quot;youri-vermeir&quot;, &quot;permalink&quot;=&gt;&quot;/author/youri_vermeir/&quot;, &quot;avatar&quot;=&gt;&quot;youri-vermeir.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;email&quot;=&gt;&quot;youri.vermeir@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Youri is an ambitious back-end developer with a problem-solving mindset. He is a team-oriented person who is always motivated to learn and master new skills.&quot;}</name><email>youri.vermeir@ordina.be</email></author><category term="eHealth" /><category term="eHealth" /><category term="FHIR" /><category term="Interoperability" /><summary type="html">Table of contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-01-23-hapi-fhir/hapi-logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/ul&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Kevin&quot;, &quot;last_name&quot;=&gt;&quot;Van den Abeele&quot;, &quot;github&quot;=&gt;&quot;beele&quot;, &quot;twitter&quot;=&gt;&quot;_nabeele&quot;, &quot;linkedin&quot;=&gt;&quot;Mr-IoT&quot;, &quot;permalink&quot;=&gt;&quot;/author/kevin-van-den-abeele/&quot;, &quot;avatar&quot;=&gt;&quot;kevin-van-den-abeele.jpg&quot;, &quot;title&quot;=&gt;&quot;Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader Internet of Things&quot;, &quot;email&quot;=&gt;&quot;kevin.vandenabeele@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Kevin is a senior consultant at Ordina, passionate about all modern web applications and smart tech. In his role as Competence Leader Smart Technologies he uses his knowledge of building custom software to build innovative solutions using new technologies. Loves to tinker with gadgets and electronics.&quot;}</name><email>kevin.vandenabeele@ordina.be</email></author><category term="IoT" /><category term="Internet of Things" /><category term="Smart Tech" /><category term="microcontrollers" /><category term="c" /><category term="c++" /><category term="python" /><category term="micropython" /><category term="tinkering" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-03-25-getting-started-with-the-pi-pico/banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

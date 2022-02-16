@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Testing with production data made easy - Pieter Vincken">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Testing with production data made easy - Pieter Vincken"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png"/>
+
+    
+    <title>Testing with production data made easy - Pieter Vincken &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/meet-the-team">Meet the team</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Testing with production data made easy</h2>
+                
+
+                
+                    Posted Feb 14, 2022
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/pieter_vincken/">Pieter Vincken</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/cloud/">cloud</a>, 
+    
+        <a href="/tags/automation/">automation</a>, 
+    
+        <a href="/tags/testing/">testing</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <ul>
+  <li><a href="#whats-the-problem">What’s the problem?</a></li>
+  <li><a href="#what-is-dblab">What is DBLab?</a></li>
+  <li><a href="#end-user-interaction">End user interaction</a></li>
+  <li><a href="#behind-the-curtains">Behind the curtains</a></li>
+  <li><a href="#how-to-setup">How to setup</a></li>
+  <li><a href="#how-to-use-it">How to use it</a></li>
+  <li><a href="#more-cool-features">More cool features</a></li>
+  <li><a href="#why-should-i-use-it">Why should I use it?</a></li>
+  <li><a href="#links">Links</a></li>
+</ul>
+
+<h2 id="whats-the-problem">What’s the problem?</h2>
+
+<p>Testing data migrations is one of the cases where investing in good testing is crucial. 
+Unfortunatly it’s hard to cover all the scenarios and it can be very time consuming to write test code for all of the scenarios you need to cover, especially in a one off migration.
+Moreover, if the data quality of your production system isn’t 100%, it’s very easy to miss a few scenarios in the analysis, which leads to missed migration scenarios that lead to bugs and incidents.</p>
+
+<p>In most cases, developers don’t have access to production systems directly, especially databases.
+This requirements has become more important over the years due to GDPR or similar regulations. 
+It makes it almost impossible for developers to have a good insight into what data is available in a production database.
+In some organisations, regulars dumps are made to a dedicated environment for testing database migrations.
+Both technically and regulatory, this can be challenging as copying over large portions of data is an expensive and time intensive operation.</p>
+
+<p>This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai’s DBLab Engine.</p>
+
+<h2 id="what-is-dblab">What is DBLab?</h2>
+
+<p>DBLab is software that allows you to easily and quickly create thin clones of databases.
+At the time of writing, it supports PostgreSQL databases.
+It has been created by Postgres.ai which was founded by <a href="https://twitter.com/samokhvalov" target="_blank" rel="noopener noreferrer">Nikolay Samokhvalov</a>.
+They are specialised in creating solutions to assist with database management.</p>
+
+<p>The software exists in 4 main parts, their engine, their CLI, a GUI and the SaaS platform.
+This post will mostly discuss the DBLab Engine (DLE) community edition, so without the SaaS platform.</p>
+
+<h3 id="end-user-interaction">End user interaction</h3>
+
+<p>Let’s start with what DBLab can ultimately bring you.</p>
+
+<p>Let’s say a developer, Neal, wants to validate a data migration he has created. 
+Performing an export and import from one database to another isn’t that hard, especially in PostgreSQL.
+You run <code class="language-plaintext highlighter-rouge">pg_dumpall</code> on the exporting database and just run a <code class="language-plaintext highlighter-rouge">pqsl</code> with the dump on the importing one and you’re done. 
+Now imagine that the dataset he’s using is not just a few megabytes in size, but consists of 100s of 1000s of rows across a multitude of tables. 
+That import is going to take a while, more than just a coffee break, let’s say 30 minutes. 
+After the import completes, since he’s working on another data migration, he runs his migration script against the clone and as we, developers, aren’t perfect, he finds a bug halfway through his migration. 
+He fixes the bug and wants to run the migration again. 
+To do that, he needs to re-run the import (provided he kept the export) and restart his migration.
+Again 30 minutes plus his migration time are lost.</p>
+
+<p>This is a scenario where DBLab shines.
+Let’s say Neal’s company has a DBLab setup for the database he wants to use. 
+The same scenario would look like this:</p>
+
+<p>Neal requests a DBLab clone: <code class="language-plaintext highlighter-rouge">dblab clone create neals-special-clone --username neal --password nealisawesome</code> or through the GUI.
+This takes seconds to complete. 
+Later in this post, we’ll discuss how that’s possible with so much data.
+Next, Neal runs his migration script, as before, it fails halfway through and he needs to fix the bug. 
+After the fix, he wants to retest the migration with the original data.
+To do this, he simply runs <code class="language-plaintext highlighter-rouge">dblab clone reset neals-special-clone</code> and the clone will be reset to the original state before the failed migration was executed.
+Again, taking just seconds to complete.</p>
+
+<h2 id="behind-the-curtains">Behind the curtains</h2>
+
+<p>The scenario described earlier almost sounds too good to be true, doesn’t it?
+In this section, we’ll discuss how DBLab can achieve this and where the magic happens.</p>
+
+<p>The magic is mostly done by the use of a <a href="https://en.wikipedia.org/wiki/ZFS" target="_blank" rel="noopener noreferrer">ZFS</a> filesystem underneath the PostgreSQL instances used by DBLab. 
+Specifically the copy-on-write and snapshotting features are primarily used. 
+This is combined with running the instances themselves in Docker containers, which allows multiple PostgreSQL instances to easily exist on a single system. 
+More info on the details can be found <a href="https://postgres.ai/docs/database-lab#database-lab-engine" target="_blank" rel="noopener noreferrer">here</a></p>
+
+<p>DBLab Engine has 2 operating modes for enabling clones: physical or logical.</p>
+
+<p>With the physical mode, a replica of the source PostgreSQL database is created and managed by DLE. 
+This database is treated as the <code class="language-plaintext highlighter-rouge">sync instance</code> from which all copies are created.
+The replication can be set up just like any other PostgreSQL replication.</p>
+
+<p>In logical mode, the copy of the original data is achieved by a regular dump (<code class="language-plaintext highlighter-rouge">pg_dumpall</code>) from the source PostgreSQL instance. 
+This phase is called the logical dump in the <a href="https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicaldump" target="_blank" rel="noopener noreferrer">DLE documentation</a>.
+This dump is <code class="language-plaintext highlighter-rouge">restored</code> onto a local PostgreSQL install and from there clone could be created. 
+This is called the logical restore phase in the <a href="https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalrestore" target="_blank" rel="noopener noreferrer">documentation</a>.
+After the dump has been completed a ZFS snapshot will be created for the database which is used later for creating clones. 
+This last phase is called <a href="https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalsnapshot" target="_blank" rel="noopener noreferrer">logical snapshot</a>.</p>
+
+<p>After the initial copy has been created, in whichever mode, clones can be created.
+These clones are created by first creating a new (ZFS) snapshot of the restored instance. 
+Next, a Docker container with a modified PostgreSQL instance is used in combination with a volume bind of the created snapshot.</p>
+
+<p>This results in a seemingly regular PostgreSQL instance running in Docker with some data preloaded in it. 
+When executing changes on the database, the copy-on-write feature of ZFS makes sure that the new changes are only made to the snapshot volume that’s attached to the clone.</p>
+
+<p>When a reset is requested on a clone, the snapshot is simply restored to its original state by ZFS and the PostgreSQL instance is restarted.</p>
+
+<h2 id="how-to-setup">How to setup</h2>
+
+<p>The setup process is highly dependent on your starting situation. 
+The first choice you’d need to make is if you want to use a physical or logical setup.</p>
+
+<p>The <em>physical setup</em> has the advantage of being an always-online solution. 
+This means that DLE manages a live (async replication) copy of the source instance you want to clone.
+The downside of this approach is that you need to be able to change some configuration on your source instance to set up the replication and that you need to be able to create a replicated instance from your source instance. 
+For managed PostgreSQL databases provided by cloud providers, for example, this might be an issue.</p>
+
+<p>Luckily there is a secondary approach available: the <em>logical mode</em>.
+In this mode, an initial clone is created by dumping the original database to the DBLab instance and restoring it locally onto the main clone instance. 
+The advantage here is that you don’t need additional configuration on the source instance. 
+Unfortunately, due to the nature of the point-in-time copy of the dump, it’s not possible to have a real live clone available.</p>
+
+<p>For the example we’ll show here, we’ll use the logical mode as we’re copying from an Azure Database for PostgreSQL managed database. 
+All code for the example is available <a href="https://github.com/pietervincken/dblab-azure-demo" target="_blank" rel="noopener noreferrer">here</a></p>
+
+<p>NOTE: This code is only provided for demo purposes and is not to be used as-is for any production systems.
+All ports are opened by default on the instance and a public IP will be assigned to the VM.
+The scripts also include cleanup steps that remove <strong>ALL DATA</strong> from the instances. 
+Use at your own risk.</p>
+
+<p>The demo code will create a database and a VM. 
+Next, it will configure the VM to act as a DBLab Engine instance.
+Some random test data will be automatically injected into the PostgreSQL database.
+Finally, you can use the UI or the CLI to interact with the instance.
+A brief use case will be shown in the next paragraph.</p>
+
+<h2 id="how-to-use-it">How to use it</h2>
+
+<p>DBLab allows three ways of interaction with the engine: SaaS, CLI, local UI. 
+For the scope of this demo, we’ll only show the local UI and mention the CLI counterparts.</p>
+
+<p>Once the instance is deployed, you can access the DLE UI through a web browser.
+You’ll be prompted to enter the token to access the instance.
+This is the token that’s set in the configuration of the DLE server.
+Using the demo setup, this token will be outputted by during the installation.
+Next, you’ll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar that shows the available snapshots.</p>
+
+<p style="text-align: center;"><img src="/img/20211101-postgres-ai/clones-dashboard.png" alt="Dashboard" class="image center" /></p>
+
+<p style="text-align: center;"><img src="/img/20211101-postgres-ai/instance-status.png" alt="Instance status" class="image center" /></p>
+
+<p>For this demo, we’ll create a new clone of the database that’s linked to this instance
+We do this by clicking “Create Clone” and filling out the form that’s prompted next.
+After completing the form, click “Create Clone” and take a very fast sip of coffee as your clone will be available in a matter of seconds.</p>
+
+<p style="text-align: center;"><img src="/img/20211101-postgres-ai/create-clone.png" alt="Create clone" class="image center" /></p>
+
+<p>This same process can be achieved by executing the following commands through the DBLab CLI:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dblab init --token &lt;secret-token&gt; --url &lt;public ip of the instance&gt; --environment-id local --insecure
+dblab clone create --username jworks --password rocks --id testclone 
+</code></pre></div></div>
+
+<p>Now in a real use-case, you’d connect the thin clone to your application in a development environment or local setup. 
+We’ll simulate the changes being made by connecting to the database using your favourite PostgreSQL client.
+Make some changes to the database (create a table, delete or change some rows in the provided users table, …).
+Now let’s imagine we’re testing a migration script and we discovered a bug (like the scenario mentioned earlier).
+We fix the bug, but now our data in the thin clone is corrupted and useless for further testing.</p>
+
+<p style="text-align: center;"><img src="/img/20211101-postgres-ai/clone-details.png" alt="Clone details" class="image center" /></p>
+
+<p>Now a cool feature of DBLab comes into play: clone resetting.
+Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.</p>
+
+<p style="text-align: center;"><img src="/img/20211101-postgres-ai/reset-clone.png" alt="Reset clone" class="image center" /></p>
+
+<p>We do this by going back to the local UI and selecting our thin clone.
+Next, we click on reset clone and confirm in the dialogue.
+Only seconds later, our database is reset to the original snapshot and we can start testing again.
+From the same view, you can destroy the clone as well if you don’t need it anymore.</p>
+
+<h2 id="more-cool-features">More cool features</h2>
+
+<p>DBLab has added some additional features on top of the cloning process. 
+A very helpful feature is their support for <a href="https://postgres.ai/docs/database-lab/masking" target="_blank" rel="noopener noreferrer">data masking and obfuscation</a>.
+In short, they support multiple scenarios for using production data in a development environment without exposing any Person Identifiable Information (PII) to the developers using the test systems. 
+This makes it possible to use the clones during normal development without risking overexposing PII and therefore making it easier to adhere to guidelines like GDPR while still being able to test with production-like data.</p>
+
+<p>The mechanism to do this is quite simple.
+DLE supports writing preprocessing scripts that are executed on the main copy during the restore phase.
+Using this, data can be obfuscated or masked using predefined scripts, which you’ll have to provide yourself. 
+By making it part of the restore phase of DLE, it’s ensured that no data is ever exposed without being obfuscated first.</p>
+
+<p>Another option that DLE support is using <a href="https://postgresql-anonymizer.readthedocs.io/en/stable/static_masking.html" target="_blank" rel="noopener noreferrer">PostgreSQL Anonymizer</a>. 
+This is a well known PostgreSQL extension that can be used to mask and obfuscate data in a PostgreSQL database. 
+The nice advantage of this solution is that the obfuscation configuration can be part of the original data creation in the original database. 
+It allows DevOps teams to create the obfuscation code directly with the table creation code which of course makes it way easier to maintain properly and correct judge with data should be obfuscated and in which way.</p>
+
+<h2 id="why-should-i-use-it">Why should I use it?</h2>
+
+<p>If you’re in a project where access to production systems is not available and/or testing migration scenarios is very time consuming, this might be a good tool for you to investigate, provided of course that you’re using PostgreSQL databases.
+It provides an easy, scalable and safe way to provide copies of large databases without having to wait hours or days to copy over data from one database to the next to test something.</p>
+
+<p>Adding to that the possibility to obfuscate the data with the same tool and allow developers to work with obfuscated data during their developer, makes it an even more compelling choice.</p>
+
+<p>The software is opensourced on <a href="https://gitlab.com/postgres-ai" target="_blank" rel="noopener noreferrer">Gitlab</a> and the community on <a href="https://slack.postgres.ai/" target="_blank" rel="noopener noreferrer">Slack</a> is very helpful and response if you have any questions or issues with the software.</p>
+
+<p>If you want a more in-depth post about how to configure DBLab and which pitfalls we found, let me know on <a href="https://www.linkedin.com/in/pieter-vincken-a94b5153/" target="_blank" rel="noopener noreferrer">LinkedIn!</a></p>
+
+<h3 id="links">Links</h3>
+
+<ul>
+  <li><a href="https://postgres.ai/" target="_blank" rel="noopener noreferrer">Postgres AI website</a></li>
+  <li><a href="https://gitlab.com/postgres-ai" target="_blank" rel="noopener noreferrer">Source code</a></li>
+  <li><a href="https://postgres.ai/docs/platform" target="_blank" rel="noopener noreferrer">SaaS offering</a></li>
+  <li><a href="https://postgres.ai/docs/database-lab/masking" target="_blank" rel="noopener noreferrer">Anomization setup</a></li>
+</ul>
+
+<p>Feel free to reach out to <a href="https://www.linkedin.com/in/pieter-vincken-a94b5153/" target="_blank" rel="noopener noreferrer">me</a> or directly to lovely people of <a href="https://postgres.ai/" target="_blank" rel="noopener noreferrer">Postgres.ai</a> if you want to look into this solution.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html&title=Testing with production data made easy&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Testing with production data made easy&url=https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/pieter_vincken/" class="image spotlight-image" title="">
+            <img src="/img/author/pieter-vincken.jpeg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2022 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/20211101-postgres-ai/logo-resized.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
