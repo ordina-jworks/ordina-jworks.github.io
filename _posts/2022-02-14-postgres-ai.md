@@ -139,6 +139,7 @@ For the scope of this demo, we'll only show the local UI and mention the CLI cou
 
 Once the instance is deployed, you can access the DLE UI through a web browser.
 You'll be prompted to enter the token to access the instance.
+Using the demo setup, this token will be outputted by during the installation.
 Next, you'll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar that shows the available snapshots.
 
 {:refdef: style="text-align: center;"}
