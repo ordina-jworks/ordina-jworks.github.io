@@ -39,7 +39,7 @@ Moreover, if the data quality of your production system isn't 100%, it's very ea
 
 DBLab is software that allows you to easily and quickly create thin clones of databases.
 At the time of writing, it supports PostgreSQL databases.
-It has been created by Postgres.ai which was founded by Nikolay Samokhvalov.
+It has been created by Postgres.ai which was founded by [Nikolay Samokhvalov](https://twitter.com/samokhvalov){:target="_blank" rel="noopener noreferrer"}.
 They are specialised in creating solutions to assist with database management.
 
 The software exists in 4 main parts, their engine, their CLI, a GUI and the SaaS platform.
@@ -91,7 +91,7 @@ In logical mode, the copy of the original data is achieved by a regular dump (`p
 This phase is called the logical dump in the [DLE documentation](https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicaldump){:target="_blank" rel="noopener noreferrer"}.
 This dump is `restored` onto a local PostgreSQL install and from there clone could be created. 
 This is called the logical restore phase in the [documentation](https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalrestore){:target="_blank" rel="noopener noreferrer"}.
-After this has been completed a ZFS snapshot will be created for the database which is used later for creating clones. 
+After the dump has been completed a ZFS snapshot will be created for the database which is used later for creating clones. 
 This last phase is called [logical snapshot](https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalsnapshot){:target="_blank" rel="noopener noreferrer"}.
 
 After the initial copy has been created, in whichever mode, clones can be created.
@@ -108,12 +108,12 @@ When a reset is requested on a clone, the snapshot is simply restored to its ori
 The setup process is highly dependent on your starting situation. 
 The first choice you'd need to make is if you want to use a physical or logical setup. 
 
-The physical setup has the advantage of being an always-online solution. 
+The _physical setup_ has the advantage of being an always-online solution. 
 This means that DLE manages a live (async replication) copy of the source instance you want to clone.
 The downside of this approach is that you need to be able to change some configuration on your source instance to set up the replication and that you need to be able to create a replicated instance from your source instance. 
 For managed PostgreSQL databases provided by cloud providers, for example, this might be an issue.
 
-Luckily there is a secondary approach available: the logical mode.
+Luckily there is a secondary approach available: the _logical mode_.
 In this mode, an initial clone is created by dumping the original database to the DBLab instance and restoring it locally onto the main clone instance. 
 The advantage here is that you don't need additional configuration on the source instance. 
 Unfortunately, due to the nature of the point-in-time copy of the dump, it's not possible to have a real live clone available. 
