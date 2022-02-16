@@ -20,20 +20,17 @@ comments: true
 
 ## What's the problem?
 
-Testing software is a whole discipline on its own. 
-Writing automated tests has been a best practice for long enough now that we can assume it to be everywhere.
-Writing good automated tests is hard, writing software that's testable is even harder. 
-Properly combining the two is a challenge for every company and project. 
-
-A trade-off has to be made between investing in writing test code and time. 
-As we all know and have seen time and time again, finding this balance is a hard challenge. 
-Spending too much time on testing eats into your feature development.
-But spending too little time on testing creates more bugs, which leads to incidents which, you guessed it, eats into your feature development budget.
-
-So the ideal world is the one where we can write tests to maintain high enough code quality to prevent bugs, but also not writing so many that feature development completely halts. 
-
-Testing data migrations is one of the cases where investing in good testing is crucial but it's really hard to cover all the scenarios and it can be very time consuming to write test code for all of the scenarios you need to cover.
+Testing data migrations is one of the cases where investing in good testing is crucial. 
+Unfortunatly it's hard to cover all the scenarios and it can be very time consuming to write test code for all of the scenarios you need to cover, especially in a one off migration.
 Moreover, if the data quality of your production system isn't 100%, it's very easy to miss a few scenarios in the analysis, which leads to missed migration scenarios that lead to bugs and incidents. 
+
+In most cases, developers don't have access to production systems directly, especially databases.
+This requirements has become more important over the years due to GDPR or similar regulations. 
+It makes it almost impossible for developers to have a good insight into what data is available in a production database.
+In some organisations, regulars dumps are made to a dedicated environment for testing database migrations.
+Both technically and regulatory, this can be challenging as copying over large portions of data is an expensive and time intensive operation. 
+
+This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai's DBLab Engine.
 
 ## What is DBLab?
 
