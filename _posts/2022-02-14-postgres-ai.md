@@ -141,11 +141,11 @@ Using the demo setup, this token will be outputted by during the installation.
 Next, you'll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar that shows the available snapshots.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/clones-dashboard.png' | prepend: site.baseurl }}" alt="Dashboard" class="image center">
+<img src="{{ '/img/20211101-postgres-ai/clones-dashboard.png' | prepend: site.baseurl }}" alt="Dashboard" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/instance-status.png' | prepend: site.baseurl }}" alt="Instance status" class="image center">
+<img src="{{ '/img/20211101-postgres-ai/instance-status.png' | prepend: site.baseurl }}" alt="Instance status" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 For this demo, we'll create a new clone of the database that's linked to this instance
@@ -153,7 +153,7 @@ We do this by clicking "Create Clone" and filling out the form that's prompted n
 After completing the form, click "Create Clone" and take a very fast sip of coffee as your clone will be available in a matter of seconds.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/create-clone.png' | prepend: site.baseurl }}" alt="Create clone" class="image center">
+<img src="{{ '/img/20211101-postgres-ai/create-clone.png' | prepend: site.baseurl }}" alt="Create clone" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
 
 This same process can be achieved by executing the following commands through the Database Lab Engine CLI:
@@ -169,14 +169,14 @@ Now let's imagine we're testing a migration script and we discovered a bug (like
 We fix the bug, but now our data in the thin clone is corrupted and useless for further testing.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/clone-details.png' | prepend: site.baseurl }}" alt="Clone details" class="image center">
+<img src="{{ '/img/20211101-postgres-ai/clone-details.png' | prepend: site.baseurl }}" alt="Clone details" class="image center" style="margin:0px auto; max-width:100%">>
 {: refdef}
 
 Now a cool feature of DLE comes into play: clone resetting.
 Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/20211101-postgres-ai/reset-clone.png' | prepend: site.baseurl }}" alt="Reset clone" class="image center">
+<img src="{{ '/img/20211101-postgres-ai/reset-clone.png' | prepend: site.baseurl }}" alt="Reset clone" class="image center" style="margin:0px auto; max-width:100%">>
 {: refdef}
 
 We do this by going back to the local UI and selecting our thin clone.
