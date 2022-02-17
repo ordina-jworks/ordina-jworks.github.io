@@ -221,4 +221,4 @@ If you want a more in-depth post about how to configure DBLab and which pitfalls
 
 Feel free to reach out to [me](https://www.linkedin.com/in/pieter-vincken-a94b5153/){:target="_blank" rel="noopener noreferrer"} or directly to lovely people of [Postgres.ai](https://postgres.ai/){:target="_blank" rel="noopener noreferrer"} if you want to look into this solution. 
 
-Special thank to the Unicorn team for helping with the blogpost and creating a great DBLab setup!
+Special thanks to the Unicorn team for helping with the blogpost and creating a great DBLab setup!
