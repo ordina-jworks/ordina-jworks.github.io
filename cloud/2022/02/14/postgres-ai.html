@@ -172,7 +172,7 @@
         <div class="content">
             <ul>
   <li><a href="#whats-the-problem">What’s the problem?</a></li>
-  <li><a href="#what-is-dblab">What is DBLab?</a></li>
+  <li><a href="#what-is-database-lab">What is Database Lab?</a></li>
   <li><a href="#end-user-interaction">End user interaction</a></li>
   <li><a href="#behind-the-curtains">Behind the curtains</a></li>
   <li><a href="#how-to-setup">How to setup</a></li>
@@ -194,21 +194,21 @@ It makes it almost impossible for developers to have a good insight into what da
 In some organisations, regulars dumps are made to a dedicated environment for testing database migrations.
 Both technically and regulatory, this can be challenging as copying over large portions of data is an expensive and time intensive operation.</p>
 
-<p>This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai’s DBLab Engine.</p>
+<p>This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai’s Database Lab Engine.</p>
 
-<h2 id="what-is-dblab">What is DBLab?</h2>
+<h2 id="what-is-database-lab">What is Database Lab?</h2>
 
-<p>DBLab is software that allows you to easily and quickly create thin clones of databases.
+<p>Database Lab is software that allows you to easily and quickly create thin clones of databases.
 At the time of writing, it supports PostgreSQL databases.
 It has been created by Postgres.ai which was founded by <a href="https://twitter.com/samokhvalov" target="_blank" rel="noopener noreferrer">Nikolay Samokhvalov</a>.
 They are specialised in creating solutions to assist with database management.</p>
 
 <p>The software exists in 4 main parts, their engine, their CLI, a GUI and the SaaS platform.
-This post will mostly discuss the DBLab Engine (DLE) community edition, so without the SaaS platform.</p>
+This post will mostly discuss the Database Lab Engine (DLE) community edition, so without the SaaS platform.</p>
 
 <h3 id="end-user-interaction">End user interaction</h3>
 
-<p>Let’s start with what DBLab can ultimately bring you.</p>
+<p>Let’s start with what DLE can ultimately bring you.</p>
 
 <p>Let’s say a developer, Neal, wants to validate a data migration he has created. 
 Performing an export and import from one database to another isn’t that hard, especially in PostgreSQL.
@@ -220,11 +220,11 @@ He fixes the bug and wants to run the migration again.
 To do that, he needs to re-run the import (provided he kept the export) and restart his migration.
 Again 30 minutes plus his migration time are lost.</p>
 
-<p>This is a scenario where DBLab shines.
-Let’s say Neal’s company has a DBLab setup for the database he wants to use. 
+<p>This is a scenario where DLE shines.
+Let’s say Neal’s company has a DLE setup for the database he wants to use. 
 The same scenario would look like this:</p>
 
-<p>Neal requests a DBLab clone: <code class="language-plaintext highlighter-rouge">dblab clone create neals-special-clone --username neal --password nealisawesome</code> or through the GUI.
+<p>Neal requests a DLE clone: <code class="language-plaintext highlighter-rouge">dblab clone create neals-special-clone --username neal --password nealisawesome</code> or through the GUI.
 This takes seconds to complete. 
 Later in this post, we’ll discuss how that’s possible with so much data.
 Next, Neal runs his migration script, as before, it fails halfway through and he needs to fix the bug. 
@@ -235,14 +235,14 @@ Again, taking just seconds to complete.</p>
 <h2 id="behind-the-curtains">Behind the curtains</h2>
 
 <p>The scenario described earlier almost sounds too good to be true, doesn’t it?
-In this section, we’ll discuss how DBLab can achieve this and where the magic happens.</p>
+In this section, we’ll discuss how DLE can achieve this and where the magic happens.</p>
 
-<p>The magic is mostly done by the use of a <a href="https://en.wikipedia.org/wiki/ZFS" target="_blank" rel="noopener noreferrer">ZFS</a> filesystem underneath the PostgreSQL instances used by DBLab. 
+<p>The magic is mostly done by the use of a <a href="https://en.wikipedia.org/wiki/ZFS" target="_blank" rel="noopener noreferrer">ZFS</a> filesystem underneath the PostgreSQL instances used by DLE. 
 Specifically the copy-on-write and snapshotting features are primarily used. 
 This is combined with running the instances themselves in Docker containers, which allows multiple PostgreSQL instances to easily exist on a single system. 
 More info on the details can be found <a href="https://postgres.ai/docs/database-lab#database-lab-engine" target="_blank" rel="noopener noreferrer">here</a></p>
 
-<p>DBLab Engine has 2 operating modes for enabling clones: physical or logical.</p>
+<p>DLE has 2 operating modes for enabling clones: physical or logical.</p>
 
 <p>With the physical mode, a replica of the source PostgreSQL database is created and managed by DLE. 
 This database is treated as the <code class="language-plaintext highlighter-rouge">sync instance</code> from which all copies are created.
@@ -275,7 +275,7 @@ The downside of this approach is that you need to be able to change some configu
 For managed PostgreSQL databases provided by cloud providers, for example, this might be an issue.</p>
 
 <p>Luckily there is a secondary approach available: the <em>logical mode</em>.
-In this mode, an initial clone is created by dumping the original database to the DBLab instance and restoring it locally onto the main clone instance. 
+In this mode, an initial clone is created by dumping the original database to the DLE instance and restoring it locally onto the main clone instance. 
 The advantage here is that you don’t need additional configuration on the source instance. 
 Unfortunately, due to the nature of the point-in-time copy of the dump, it’s not possible to have a real live clone available.</p>
 
@@ -288,14 +288,14 @@ The scripts also include cleanup steps that remove <strong>ALL DATA</strong> fro
 Use at your own risk.</p>
 
 <p>The demo code will create a database and a VM. 
-Next, it will configure the VM to act as a DBLab Engine instance.
+Next, it will configure the VM to act as a Database Lab Engine instance.
 Some random test data will be automatically injected into the PostgreSQL database.
 Finally, you can use the UI or the CLI to interact with the instance.
 A brief use case will be shown in the next paragraph.</p>
 
 <h2 id="how-to-use-it">How to use it</h2>
 
-<p>DBLab allows three ways of interaction with the engine: SaaS, CLI, local UI. 
+<p>DLE allows three ways of interaction with the engine: SaaS, CLI, local UI. 
 For the scope of this demo, we’ll only show the local UI and mention the CLI counterparts.</p>
 
 <p>Once the instance is deployed, you can access the DLE UI through a web browser.
@@ -314,7 +314,7 @@ After completing the form, click “Create Clone” and take a very fast sip of 
 
 <p style="text-align: center;"><img src="/img/20211101-postgres-ai/create-clone.png" alt="Create clone" class="image center" /></p>
 
-<p>This same process can be achieved by executing the following commands through the DBLab CLI:</p>
+<p>This same process can be achieved by executing the following commands through the Database Lab Engine CLI:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dblab init --token &lt;secret-token&gt; --url &lt;public ip of the instance&gt; --environment-id local --insecure
 dblab clone create --username jworks --password rocks --id testclone 
 </code></pre></div></div>
@@ -327,7 +327,7 @@ We fix the bug, but now our data in the thin clone is corrupted and useless for 
 
 <p style="text-align: center;"><img src="/img/20211101-postgres-ai/clone-details.png" alt="Clone details" class="image center" /></p>
 
-<p>Now a cool feature of DBLab comes into play: clone resetting.
+<p>Now a cool feature of DLE comes into play: clone resetting.
 Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.</p>
 
 <p style="text-align: center;"><img src="/img/20211101-postgres-ai/reset-clone.png" alt="Reset clone" class="image center" /></p>
@@ -339,7 +339,7 @@ From the same view, you can destroy the clone as well if you don’t need it any
 
 <h2 id="more-cool-features">More cool features</h2>
 
-<p>DBLab has added some additional features on top of the cloning process. 
+<p>DLE has added some additional features on top of the cloning process. 
 A very helpful feature is their support for <a href="https://postgres.ai/docs/database-lab/masking" target="_blank" rel="noopener noreferrer">data masking and obfuscation</a>.
 In short, they support multiple scenarios for using production data in a development environment without exposing any Person Identifiable Information (PII) to the developers using the test systems. 
 This makes it possible to use the clones during normal development without risking overexposing PII and therefore making it easier to adhere to guidelines like GDPR while still being able to test with production-like data.</p>
@@ -363,7 +363,7 @@ It provides an easy, scalable and safe way to provide copies of large databases 
 
 <p>The software is opensourced on <a href="https://gitlab.com/postgres-ai" target="_blank" rel="noopener noreferrer">Gitlab</a> and the community on <a href="https://slack.postgres.ai/" target="_blank" rel="noopener noreferrer">Slack</a> is very helpful and response if you have any questions or issues with the software.</p>
 
-<p>If you want a more in-depth post about how to configure DBLab and which pitfalls we found, let me know on <a href="https://www.linkedin.com/in/pieter-vincken-a94b5153/" target="_blank" rel="noopener noreferrer">LinkedIn!</a></p>
+<p>If you want a more in-depth post about how to configure DLE and which pitfalls we found, let me know on <a href="https://www.linkedin.com/in/pieter-vincken-a94b5153/" target="_blank" rel="noopener noreferrer">LinkedIn!</a></p>
 
 <h3 id="links">Links</h3>
 
@@ -375,6 +375,8 @@ It provides an easy, scalable and safe way to provide copies of large databases 
 </ul>
 
 <p>Feel free to reach out to <a href="https://www.linkedin.com/in/pieter-vincken-a94b5153/" target="_blank" rel="noopener noreferrer">me</a> or directly to lovely people of <a href="https://postgres.ai/" target="_blank" rel="noopener noreferrer">Postgres.ai</a> if you want to look into this solution.</p>
+
+<p>Special thanks to the Unicorn team for helping with the blogpost and creating a great Database Lab Engine setup!</p>
 
         </div>
     </div>

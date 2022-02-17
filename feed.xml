@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-02-16T16:11:30+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-02-17T08:02:10+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">Testing with production data made easy</title><link href="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html" rel="alternate" type="text/html" title="Testing with production data made easy" /><published>2022-02-14T00:00:00+00:00</published><updated>2022-02-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html">&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#whats-the-problem&quot;&gt;What’s the problem?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-is-dblab&quot;&gt;What is DBLab?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-database-lab&quot;&gt;What is Database Lab?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#end-user-interaction&quot;&gt;End user interaction&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#behind-the-curtains&quot;&gt;Behind the curtains&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#how-to-setup&quot;&gt;How to setup&lt;/a&gt;&lt;/li&gt;
@@ -23,21 +23,21 @@ It makes it almost impossible for developers to have a good insight into what da
 In some organisations, regulars dumps are made to a dedicated environment for testing database migrations.
 Both technically and regulatory, this can be challenging as copying over large portions of data is an expensive and time intensive operation.&lt;/p&gt;
 
-&lt;p&gt;This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai’s DBLab Engine.&lt;/p&gt;
+&lt;p&gt;This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai’s Database Lab Engine.&lt;/p&gt;
 
-&lt;h2 id=&quot;what-is-dblab&quot;&gt;What is DBLab?&lt;/h2&gt;
+&lt;h2 id=&quot;what-is-database-lab&quot;&gt;What is Database Lab?&lt;/h2&gt;
 
-&lt;p&gt;DBLab is software that allows you to easily and quickly create thin clones of databases.
+&lt;p&gt;Database Lab is software that allows you to easily and quickly create thin clones of databases.
 At the time of writing, it supports PostgreSQL databases.
 It has been created by Postgres.ai which was founded by &lt;a href=&quot;https://twitter.com/samokhvalov&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nikolay Samokhvalov&lt;/a&gt;.
 They are specialised in creating solutions to assist with database management.&lt;/p&gt;
 
 &lt;p&gt;The software exists in 4 main parts, their engine, their CLI, a GUI and the SaaS platform.
-This post will mostly discuss the DBLab Engine (DLE) community edition, so without the SaaS platform.&lt;/p&gt;
+This post will mostly discuss the Database Lab Engine (DLE) community edition, so without the SaaS platform.&lt;/p&gt;
 
 &lt;h3 id=&quot;end-user-interaction&quot;&gt;End user interaction&lt;/h3&gt;
 
-&lt;p&gt;Let’s start with what DBLab can ultimately bring you.&lt;/p&gt;
+&lt;p&gt;Let’s start with what DLE can ultimately bring you.&lt;/p&gt;
 
 &lt;p&gt;Let’s say a developer, Neal, wants to validate a data migration he has created. 
 Performing an export and import from one database to another isn’t that hard, especially in PostgreSQL.
@@ -49,11 +49,11 @@ He fixes the bug and wants to run the migration again.
 To do that, he needs to re-run the import (provided he kept the export) and restart his migration.
 Again 30 minutes plus his migration time are lost.&lt;/p&gt;
 
-&lt;p&gt;This is a scenario where DBLab shines.
-Let’s say Neal’s company has a DBLab setup for the database he wants to use. 
+&lt;p&gt;This is a scenario where DLE shines.
+Let’s say Neal’s company has a DLE setup for the database he wants to use. 
 The same scenario would look like this:&lt;/p&gt;
 
-&lt;p&gt;Neal requests a DBLab clone: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dblab clone create neals-special-clone --username neal --password nealisawesome&lt;/code&gt; or through the GUI.
+&lt;p&gt;Neal requests a DLE clone: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dblab clone create neals-special-clone --username neal --password nealisawesome&lt;/code&gt; or through the GUI.
 This takes seconds to complete. 
 Later in this post, we’ll discuss how that’s possible with so much data.
 Next, Neal runs his migration script, as before, it fails halfway through and he needs to fix the bug. 
@@ -64,14 +64,14 @@ Again, taking just seconds to complete.&lt;/p&gt;
 &lt;h2 id=&quot;behind-the-curtains&quot;&gt;Behind the curtains&lt;/h2&gt;
 
 &lt;p&gt;The scenario described earlier almost sounds too good to be true, doesn’t it?
-In this section, we’ll discuss how DBLab can achieve this and where the magic happens.&lt;/p&gt;
+In this section, we’ll discuss how DLE can achieve this and where the magic happens.&lt;/p&gt;
 
-&lt;p&gt;The magic is mostly done by the use of a &lt;a href=&quot;https://en.wikipedia.org/wiki/ZFS&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ZFS&lt;/a&gt; filesystem underneath the PostgreSQL instances used by DBLab. 
+&lt;p&gt;The magic is mostly done by the use of a &lt;a href=&quot;https://en.wikipedia.org/wiki/ZFS&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ZFS&lt;/a&gt; filesystem underneath the PostgreSQL instances used by DLE. 
 Specifically the copy-on-write and snapshotting features are primarily used. 
 This is combined with running the instances themselves in Docker containers, which allows multiple PostgreSQL instances to easily exist on a single system. 
 More info on the details can be found &lt;a href=&quot;https://postgres.ai/docs/database-lab#database-lab-engine&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;DBLab Engine has 2 operating modes for enabling clones: physical or logical.&lt;/p&gt;
+&lt;p&gt;DLE has 2 operating modes for enabling clones: physical or logical.&lt;/p&gt;
 
 &lt;p&gt;With the physical mode, a replica of the source PostgreSQL database is created and managed by DLE. 
 This database is treated as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sync instance&lt;/code&gt; from which all copies are created.
@@ -104,7 +104,7 @@ The downside of this approach is that you need to be able to change some configu
 For managed PostgreSQL databases provided by cloud providers, for example, this might be an issue.&lt;/p&gt;
 
 &lt;p&gt;Luckily there is a secondary approach available: the &lt;em&gt;logical mode&lt;/em&gt;.
-In this mode, an initial clone is created by dumping the original database to the DBLab instance and restoring it locally onto the main clone instance. 
+In this mode, an initial clone is created by dumping the original database to the DLE instance and restoring it locally onto the main clone instance. 
 The advantage here is that you don’t need additional configuration on the source instance. 
 Unfortunately, due to the nature of the point-in-time copy of the dump, it’s not possible to have a real live clone available.&lt;/p&gt;
 
@@ -117,14 +117,14 @@ The scripts also include cleanup steps that remove &lt;strong&gt;ALL DATA&lt;/st
 Use at your own risk.&lt;/p&gt;
 
 &lt;p&gt;The demo code will create a database and a VM. 
-Next, it will configure the VM to act as a DBLab Engine instance.
+Next, it will configure the VM to act as a Database Lab Engine instance.
 Some random test data will be automatically injected into the PostgreSQL database.
 Finally, you can use the UI or the CLI to interact with the instance.
 A brief use case will be shown in the next paragraph.&lt;/p&gt;
 
 &lt;h2 id=&quot;how-to-use-it&quot;&gt;How to use it&lt;/h2&gt;
 
-&lt;p&gt;DBLab allows three ways of interaction with the engine: SaaS, CLI, local UI. 
+&lt;p&gt;DLE allows three ways of interaction with the engine: SaaS, CLI, local UI. 
 For the scope of this demo, we’ll only show the local UI and mention the CLI counterparts.&lt;/p&gt;
 
 &lt;p&gt;Once the instance is deployed, you can access the DLE UI through a web browser.
@@ -143,7 +143,7 @@ After completing the form, click “Create Clone” and take a very fast sip of 
 
 &lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/create-clone.png&quot; alt=&quot;Create clone&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;This same process can be achieved by executing the following commands through the DBLab CLI:&lt;/p&gt;
+&lt;p&gt;This same process can be achieved by executing the following commands through the Database Lab Engine CLI:&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dblab init --token &amp;lt;secret-token&amp;gt; --url &amp;lt;public ip of the instance&amp;gt; --environment-id local --insecure
 dblab clone create --username jworks --password rocks --id testclone 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -156,7 +156,7 @@ We fix the bug, but now our data in the thin clone is corrupted and useless for 
 
 &lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clone-details.png&quot; alt=&quot;Clone details&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Now a cool feature of DBLab comes into play: clone resetting.
+&lt;p&gt;Now a cool feature of DLE comes into play: clone resetting.
 Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.&lt;/p&gt;
 
 &lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/reset-clone.png&quot; alt=&quot;Reset clone&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
@@ -168,7 +168,7 @@ From the same view, you can destroy the clone as well if you don’t need it any
 
 &lt;h2 id=&quot;more-cool-features&quot;&gt;More cool features&lt;/h2&gt;
 
-&lt;p&gt;DBLab has added some additional features on top of the cloning process. 
+&lt;p&gt;DLE has added some additional features on top of the cloning process. 
 A very helpful feature is their support for &lt;a href=&quot;https://postgres.ai/docs/database-lab/masking&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;data masking and obfuscation&lt;/a&gt;.
 In short, they support multiple scenarios for using production data in a development environment without exposing any Person Identifiable Information (PII) to the developers using the test systems. 
 This makes it possible to use the clones during normal development without risking overexposing PII and therefore making it easier to adhere to guidelines like GDPR while still being able to test with production-like data.&lt;/p&gt;
@@ -192,7 +192,7 @@ It provides an easy, scalable and safe way to provide copies of large databases 
 
 &lt;p&gt;The software is opensourced on &lt;a href=&quot;https://gitlab.com/postgres-ai&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gitlab&lt;/a&gt; and the community on &lt;a href=&quot;https://slack.postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Slack&lt;/a&gt; is very helpful and response if you have any questions or issues with the software.&lt;/p&gt;
 
-&lt;p&gt;If you want a more in-depth post about how to configure DBLab and which pitfalls we found, let me know on &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LinkedIn!&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you want a more in-depth post about how to configure DLE and which pitfalls we found, let me know on &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LinkedIn!&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;links&quot;&gt;Links&lt;/h3&gt;
 
@@ -203,7 +203,9 @@ It provides an easy, scalable and safe way to provide copies of large databases 
   &lt;li&gt;&lt;a href=&quot;https://postgres.ai/docs/database-lab/masking&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Anomization setup&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Feel free to reach out to &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;me&lt;/a&gt; or directly to lovely people of &lt;a href=&quot;https://postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Postgres.ai&lt;/a&gt; if you want to look into this solution.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="testing" /><summary type="html">What’s the problem? What is DBLab? End user interaction Behind the curtains How to setup How to use it More cool features Why should I use it? Links</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">What Would Discord Bot Do?</title><link href="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html" rel="alternate" type="text/html" title="What Would Discord Bot Do?" /><published>2022-01-14T00:00:00+00:00</published><updated>2022-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html">&lt;p&gt;Online communication has been widespread for years already. 
+&lt;p&gt;Feel free to reach out to &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;me&lt;/a&gt; or directly to lovely people of &lt;a href=&quot;https://postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Postgres.ai&lt;/a&gt; if you want to look into this solution.&lt;/p&gt;
+
+&lt;p&gt;Special thanks to the Unicorn team for helping with the blogpost and creating a great Database Lab Engine setup!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="testing" /><summary type="html">What’s the problem? What is Database Lab? End user interaction Behind the curtains How to setup How to use it More cool features Why should I use it? Links</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">What Would Discord Bot Do?</title><link href="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html" rel="alternate" type="text/html" title="What Would Discord Bot Do?" /><published>2022-01-14T00:00:00+00:00</published><updated>2022-01-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/01/14/what-would-discord-bot-do.html">&lt;p&gt;Online communication has been widespread for years already. 
 But the current world situation has made it near ubiquitous. 
 With social contact in real life (IRL) being restricted, our need for communication shifts to the digital world through a wide variety of platforms. 
 One of those platforms that focuses heavily on the online gaming community is Discord. 
