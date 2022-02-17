@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-02-17T08:02:10+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-02-17T17:29:34+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">Testing with production data made easy</title><link href="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html" rel="alternate" type="text/html" title="Testing with production data made easy" /><published>2022-02-14T00:00:00+00:00</published><updated>2022-02-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html">&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#whats-the-problem&quot;&gt;What’s the problem?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#what-is-database-lab&quot;&gt;What is Database Lab?&lt;/a&gt;&lt;/li&gt;
@@ -133,15 +133,15 @@ This is the token that’s set in the configuration of the DLE server.
 Using the demo setup, this token will be outputted by during the installation.
 Next, you’ll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar that shows the available snapshots.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clones-dashboard.png&quot; alt=&quot;Dashboard&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clones-dashboard.png&quot; alt=&quot;Dashboard&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/instance-status.png&quot; alt=&quot;Instance status&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/instance-status.png&quot; alt=&quot;Instance status&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For this demo, we’ll create a new clone of the database that’s linked to this instance
 We do this by clicking “Create Clone” and filling out the form that’s prompted next.
 After completing the form, click “Create Clone” and take a very fast sip of coffee as your clone will be available in a matter of seconds.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/create-clone.png&quot; alt=&quot;Create clone&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/create-clone.png&quot; alt=&quot;Create clone&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This same process can be achieved by executing the following commands through the Database Lab Engine CLI:&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dblab init --token &amp;lt;secret-token&amp;gt; --url &amp;lt;public ip of the instance&amp;gt; --environment-id local --insecure
@@ -154,12 +154,12 @@ Make some changes to the database (create a table, delete or change some rows in
 Now let’s imagine we’re testing a migration script and we discovered a bug (like the scenario mentioned earlier).
 We fix the bug, but now our data in the thin clone is corrupted and useless for further testing.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clone-details.png&quot; alt=&quot;Clone details&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clone-details.png&quot; alt=&quot;Clone details&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&amp;gt;&lt;/p&gt;
 
 &lt;p&gt;Now a cool feature of DLE comes into play: clone resetting.
 Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/reset-clone.png&quot; alt=&quot;Reset clone&quot; class=&quot;image center&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/reset-clone.png&quot; alt=&quot;Reset clone&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&amp;gt;&lt;/p&gt;
 
 &lt;p&gt;We do this by going back to the local UI and selecting our thin clone.
 Next, we click on reset clone and confirm in the dialogue.
