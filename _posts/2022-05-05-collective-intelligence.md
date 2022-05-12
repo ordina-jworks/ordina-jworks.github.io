@@ -13,10 +13,10 @@ comments: true
 # Table of contents
 * [Introduction](#introduction)
   * [In which situation is the collective intelligence useful?](#in-which-situation-is-the-collective-intelligence-useful)
-* [Content](#how-does-it-work)
+* [Content](#content)
 	* [Rules](#rules)
 	* [Fundamentals](#fundamentals)
-		* [Fundamentals for the emergence of collective intelligence](#fundamentals-for-the-emergence-of-collective-intelligence-are)
+		* [Fundamentals for the emergence of collective intelligence](#fundamentals-that-help-the-emergence-of-collective-intelligence-are)
 		* [Fundamentals to insure the quality of the interaction](#fundamentals-to-insure-the-quality-of-the-interaction)
 	* [Process at a collective intelligence meeting](#process-at-a-collective-intelligence-meeting)
 	* [Illustration of a potential Intervision at Ordina](#illustration-of-a-potential-intervision-at-ordina)
@@ -49,7 +49,7 @@ Collective intelligence is useful in all kinds of situations where we feel that 
 - Developing more innovation, more shared intelligence, more agility.
 It is very powerful each time a complex situation needs to be managed with many diverse actors.
 
-# How does it work?
+# Content
 To implement collective intelligence, we need to follow simple but rigorous rules. These rules aim not to constrain people but to support their freedom, creativity and responsibility.
 
 ## Rules 
