@@ -11,9 +11,9 @@ comments: true
 - [Introduction](#introduction)
 - [What is GNSS?](#what-is-gnss)
 - [What is RTK?](#what-is-rtk)
-- [What is FLEPOS?](#What-is-FLEPOS)
-- [NEO-M8P-2 RTK module + antenna](#NEO-M8P-2-RTK-module-antenna)
-- [Extra: Sending it to the cloud](#Extra-Sending-it-to-the-cloud)
+- [What is FLEPOS?](#what-is-flepos)
+- [RTK module and antenna](#rtk-module-and-antenna)
+- [Sending data to the cloud](#sending-data-to-the-cloud)
 
 ## Introduction
 Whats the problem?
@@ -31,7 +31,7 @@ GNSS performance is evaluated against four criteria:
 
 
 <div class="responsive-video">
-    <iframe width="900" height="506" src="https://www.youtube.com/embed/gffG5sTegT4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></iframe>
+    <iframe width="900" height="506" src="https://www.youtube.com/embed/gffG5sTegT4" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 <br/>
 
@@ -147,11 +147,11 @@ Data stream FLEPOSMARIVRS31GR is recommended only for measurement in the North S
 <img src="{{ '/img/2022-05-04-RTK-Internship/Mounpoints.png' | prepend: site.baseurl }}" alt="FLEPOS" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
 
-## NEO-M8P-2 RTK module + antenna
+## RTK module and antenna
 ### EXPLAIN
 
 
 
 
-## Extra: Sending it to the cloud
+## Sending data to the cloud
 ### EXPLAIN
