@@ -295,15 +295,19 @@ All I had to do now was hook it up to a media player.
 
 A succesfull pipeline run broadcast(Sound up):
 
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/W4LZsEbTRF4" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+<div class="responsive-video">
+  
+    <iframe src="https://www.youtube.com/embed/W4LZsEbTRF4" frameborder="0" allowfullscreen="true"> </iframe>
+  
+</div>
 
 A failed pipeline run broadcast(Sound up):
 
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/6PS0K2zdW-o" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+<div class="responsive-video">
+  
+    <iframe src="https://www.youtube.com/embed/6PS0K2zdW-o" frameborder="0" allowfullscreen="true"> </iframe>
+  
+</div>
 
 # The Good, The Bad & ... The Ugly? : Summary
 
