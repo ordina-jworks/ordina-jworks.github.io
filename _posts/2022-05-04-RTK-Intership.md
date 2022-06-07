@@ -26,7 +26,7 @@ The receivers then use this data to determine the location, GNSS provides worldw
 
 GNSS performance is evaluated against four criteria:
 1.	Accuracy: the difference between a receiver's measured and actual position, time or speed.
-2.	Integrity: the ability of a system to provide a confidence threshold and, in the event of an anomaly in the positioning data, to provide an alarm signal.
+2.	Integrity: the ability of a system to provide a confidence threshold and, in the event of an anomaly in the positional data, to provide an alarm signal.
 3.	Continuity: the ability of a system to operate without interruption.
 4.	Availability: the percentage of time that a signal meets the above criteria for accuracy, integrity and continuity.
 
@@ -51,7 +51,7 @@ This is a relatively large system that works through careful planning and calibr
 The location is calculated by the receiver, this by means of the distance and time between him and the satellite.
 This is calculated as follows, the speed of the signal (speed of light) is multiplied by the atomic clock time of the satellite.
 The location can already be determined from three satellites, but this is not accurate.
-A total of four satellites are needed to get an accurate location determination.
+A total of four satellites is needed to get an accurate location determination.
 The first three satellites are used to determine the location in three dimensions x, y and z coordinates.
 The fourth satellite is used to determine the time it takes for the signal to travel from the satellite to the receiver, as shown in the figure below.
 
@@ -100,13 +100,13 @@ Other national SBASs :
 
 ### Testing with SBAS
 For certain applications, SBAS is already accurate enough. 
-This can be seen in the video below where I attached the antenna to my car and made a test drive.
+This can be seen in the video below where I attached the antenna to my car and did a test drive.
 In this video you can see that the accuracy is already pretty good with SBAS, the pointer stays on the road pretty well.
 The video is sped up because it was too long otherwise.
 
 <iframe width="400" height="214" src="https://www.youtube.com/embed/kG72kCYS0KY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-The images below show the setup:
+The images below shows the setup:
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/TestingSBAS.JPG' | prepend: site.baseurl }}" alt="TestingSBAS" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
@@ -121,19 +121,19 @@ This allows us to achieve an accuracy of up to 1cm.
 ### Calculation of the range
 On a basic conceptual level, the range is calculated by determining the amount of carrier waves between the satellite and the rover, which is then multiplied by the length of the carrier.
 
-In this range there are still errors, these errors are caused by satellite clock and ephemeris but also by ionospheric and tropospheric delays. 
+In this range there are still errors, these errors are caused by satellite clock and ephemeris, but also by ionospheric and tropospheric delays. 
 We can solve this by sending correction data from the base station to the rover over a mobile network or another type of wireless communication such as LoRa.
 ### Network RTK
 Network RTK is based on the use of several fixed reference stations spread out over the network. 
 Depending on the application, the rover sends its location to the reference stations, so the rover is not dependent on one base station but can connect to several reference stations. 
-This allows for a greater range than a single fixed base station which is about 10 km.
+This allows for a greater range than a single fixed base station, which is about 10 km.
 ### How to receive correction data?
 There are a few ways to receive this correction data. You can build your own base station or use a service. 
 Not all services are free, for example Skylark, this service has coverage over 3 continents but is paying. 
 Fortunately, the Flemish government has set up a service called FLEPOS. 
 
 ## What is FLEPOS?
-Flemish Positioning Service (FLEPOS) is a service of Digital Flanders where correction streams from navigation satellites are distributed via a mobile network, using the NTRIP protocol. 
+Flemish Positioning Service (FLEPOS) is a service of Digital Flanders, where correction streams from navigation satellites are distributed via a mobile network, using the NTRIP protocol. 
 These correction streams make it possible to determine an accurate position anywhere in Flanders. 
 Using FLEPOS services is completely free, the connection costs over mobile networks, such as 4G, are not free.
 {:refdef: style="text-align: center;"}
@@ -155,7 +155,7 @@ A specific RTK service has been set up for each of these markets.
 FLEPOS also offers data for scientific research. 
 Before FLEPOS can be used, the registration form must be completed and approved on the website of Digitaal Vlaanderen.
 
-### FLEPOS mounpoint
+### FLEPOS mountpoint
 To receive the correction data, it is necessary to connect to a mountpoint of FLEPOS. 
 The figure below shows all available mountpoints. 
 The most commonly used data streams are FLEPOSVRS31GR and FLEPOSVRS32GREC. 
@@ -168,7 +168,7 @@ Data stream FLEPOSMARIVRS31GR is recommended only for measurement in the North S
 
 ## RTK module and antenna
 ### SparkFun GPS-RTK Board - NEO-M8P-2
-The Sparkfun GPS-RTK Board is a powerful breakout board for the NEO-M8P-2 module from U-blox.
+The Sparkfun GPS-RTK Board is a powerful breakout board for the NEO-M8P-2 module from u-blox.
 The NEO-M8P-2 is a highly accurate module for the use of GNSS and GPS location solutions such as RTK.
 The module is unique in that it can be configured as a rover as well as a base station.
 There are 4 different methods to connect with this board: USB, I²C, UART or SPI.
@@ -180,11 +180,11 @@ I'm using a combination with I²C and USB.
 First, I had a cheap antenna that was laying around at the office.
 With this cheap antenna the signals were weak, inaccurate and it took a long time to receive them.
 Therefore the testing was quite challenging and hard to do.
-That's why a good accurate antenna,  like the  ANN-MB-00 GNSS multiband antenna, is necessary.
+That's why a good, accurate antenna,  like the  ANN-MB-00 GNSS multiband antenna, is necessary.
 
 ### ANN-MB-00 GNSS multiband antenna
 The ANN-MB-00 GNSS multiband antenna is unique from other GNSS/GPS antennas in that it is designed to receive both the classic L1 GPS band and the fairly newly launched L2 GPS band. 
-Furthermore, the u-Blox ANN-MB-00 is well constructed with a magnetic base with mounting holes for additional anchoring for the toughest environments.
+Furthermore, the u-blox ANN-MB-00 is well constructed with a magnetic base with mounting holes for additional anchoring for the toughest environments.
 It is suitable for use with any GPS/GNSS receiver with dual L1/L2 reception and supports GPS, GLONASS, Galileo and BeiDou.
 
 <img src="{{ '/img/2022-05-04-RTK-Internship/antenna.jpg' | prepend: site.baseurl }}" alt="ANN-MB-00 antenna" class="image center" style="margin:0px auto; max-width:100%">
@@ -199,7 +199,7 @@ These are the results (the more compact the data points the more accurate):
 {: refdef}
 
 
-U-blox ANN-MB-00-00 (new antenne):
+u-blox ANN-MB-00-00 (new antenne):
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/newantenna.png' | prepend: site.baseurl }}" alt="newantenna" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
@@ -213,11 +213,11 @@ Unknown first cheap antenna:
 {: refdef}
 
 First of all it took way longer to establish a connection, a couple of minutes. 
-The datapoints are further apart from each other. 
+The data points are further apart from each other. 
 Whereas you can see with the other antenna that they are much closer together. 
 So that means that there is a lot of play between each data point. 
-This means that the newer antenna is more accurate. 
-As last you can also see that the range of the antenna went over the 2.5 meter mark.
+This means that the new antenna is more accurate. 
+At last you can also see that the range of the antenna went over the 2.5 meter mark.
 
 
 From this we can conclude that it is necessary to have a good antenna when we want to work precisely.
@@ -230,9 +230,9 @@ That is why I don't have a video which shows the use of RTK on the SparkFun GPS-
 
 ## Sending data to the cloud
 As an extra you can send the data to the cloud, during my internship at Ordina I did this as follows:
-- I received the positioning data with a raspberry pi and sent it to Azure IoT Hub
+- I received the positioning data with a Raspberry Pi and sent it to the Azure IoT Hub
 - Then through Azure functions the data got stored in a Mongodb with Azure Cosmos DB-API
-- After that the data got handled with springboot and visualized.
+- After that, the data got handled with springboot and visualized.
 
 In the image below you can see the diagram that visualizes this process:
 {:refdef: style="text-align: center;"}
