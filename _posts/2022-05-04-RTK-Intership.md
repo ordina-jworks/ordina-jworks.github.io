@@ -2,7 +2,7 @@
 layout: post
 authors: [cisse_tsyen]
 title: 'RTK Internship'
-image: /img/2022-05-04-RTK-Internship/DiagramRTK.png
+image: /img/2022-05-04-RTK-Internship/DiagramRTKrsz.jpg
 tags: [Internet of Things, RTK, cloud, testing]
 category: IoT
 comments: true
@@ -57,7 +57,8 @@ The fourth satellite is used to determine the time it takes for the signal to tr
 
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/GPSDiagram.jpg' | prepend: site.baseurl }}" alt="GPSDiagram" class="image center" style="margin:0px auto; max-width:100%">
-<figcaption>Sparkfun</figcaption>
+{: refdef}
+<figcaption>&copy;Sparkfun</figcaption>
 
 ### Improving GNSS Accuracy
 GNSS accuracy is affected by numerous factors, the most important of which is atmospheric interference, as signals travel through space and into the Earth's atmosphere. 
@@ -95,16 +96,18 @@ Other national SBASs :
   
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/Sbas.png' | prepend: site.baseurl }}" alt="InputStream" class="image center" style="margin:0px auto; max-width:100%">
-<figcaption> &copy; EUSPA 2021</figcaption>
 {: refdef}
+<figcaption> &copy; EUSPA 2021</figcaption>
 
 ### Testing with SBAS
 For certain applications, SBAS is already accurate enough. 
 This can be seen in the video below where I attached the antenna to my car and did a test drive.
 In this video you can see that the accuracy is already pretty good with SBAS, the pointer stays on the road pretty well.
 The video is sped up because it was too long otherwise.
-
-<iframe width="400" height="214" src="https://www.youtube.com/embed/kG72kCYS0KY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="responsive-video">
+    <iframe width="900" height="506" src="https://www.youtube.com/embed/kG72kCYS0KY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br/>
 
 The images below shows the setup:
 {:refdef: style="text-align: center;"}
@@ -173,8 +176,9 @@ The NEO-M8P-2 is a highly accurate module for the use of GNSS and GPS location s
 The module is unique in that it can be configured as a rover as well as a base station.
 There are 4 different methods to connect with this board: USB, I²C, UART or SPI.
 I'm using a combination with I²C and USB.
-
+{:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/RTKBoard.jpg' | prepend: site.baseurl }}" alt="RTKBoard" class="image center" style="margin:0px auto; max-width:100%">
+{: refdef}
 
 ### Antenna
 First, I had a cheap antenna that was laying around at the office.
@@ -186,9 +190,9 @@ That's why a good, accurate antenna,  like the  ANN-MB-00 GNSS multiband antenna
 The ANN-MB-00 GNSS multiband antenna is unique from other GNSS/GPS antennas in that it is designed to receive both the classic L1 GPS band and the fairly newly launched L2 GPS band. 
 Furthermore, the u-blox ANN-MB-00 is well constructed with a magnetic base with mounting holes for additional anchoring for the toughest environments.
 It is suitable for use with any GPS/GNSS receiver with dual L1/L2 reception and supports GPS, GLONASS, Galileo and BeiDou.
-
+{:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/antenna.jpg' | prepend: site.baseurl }}" alt="ANN-MB-00 antenna" class="image center" style="margin:0px auto; max-width:100%">
-
+{: refdef}
 
 ### Testing of the antennas
 I tested both antennas side by side for 5 minutes while outside on the table, using SBAS as the correction method.
@@ -205,7 +209,7 @@ u-blox ANN-MB-00-00 (new antenne):
 {: refdef}
 
 You can see that the antenna stays within a range of max 2.5m when stationary. 
-It got connected immediately when I started the module.
+It got a connection to the signal immediately when I started the module.
 
 Unknown first cheap antenna:
 {:refdef: style="text-align: center;"}
@@ -223,8 +227,8 @@ At last you can also see that the range of the antenna went over the 2.5 meter m
 From this we can conclude that it is necessary to have a good antenna when we want to work precisely.
 
 ### Testing with RTK
-There were a couple of problems with the SparkFun GPS-RTK Board during my internship it didn't calculate the accurate positioning altho it did receive the correction correctly from FLEPOS.
-The Sparkfun RTK-board is supposed to do this automatically, but it didn't and I could not change the configuration to the right settings.
+There were a couple of problems with the SparkFun GPS-RTK Board during my internship, it didn't calculate the accurate positioning altho it did receive the correction data correctly from FLEPOS.
+The Sparkfun RTK-board is supposed to calculate this automatically, but it didn't and I could not change the configuration to the right settings.
 That is why I don't have a video which shows the use of RTK on the SparkFun GPS-RTK Board like in the section with SBAS.
 
 
