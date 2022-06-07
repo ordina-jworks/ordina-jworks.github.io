@@ -106,6 +106,10 @@ The video is sped up because it was too long otherwise.
 
 <iframe width="400" height="214" src="https://www.youtube.com/embed/kG72kCYS0KY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+The images below show the setup:
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2022-05-04-RTK-Internship/TestingSBAS.JPG' | prepend: site.baseurl }}" alt="TestingSBAS" class="image center" style="margin:0px auto; max-width:100%">
+{: refdef}
 
 ## What is RTK?
 RTK stands for Real-Time Kinematic and is a technique that uses carrier-based distance determination. 
@@ -187,8 +191,13 @@ It is suitable for use with any GPS/GNSS receiver with dual L1/L2 reception and 
 
 
 ### Testing of the antennas
-I tested both of the antenna’s side by side for 5 minutes laying stationary on the table outside. 
-These are the results:
+I tested both antennas side by side for 5 minutes while outside on the table, using SBAS as the correction method.
+These are the results (the more compact the data points the more accurate):
+
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2022-05-04-RTK-Internship/TestingAntennasOutside.JPG' | prepend: site.baseurl }}" alt="TestingAntennasOutside" class="image center" style="margin:0px auto; max-width:100%">
+{: refdef}
+
 
 U-blox ANN-MB-00-00 (new antenne):
 {:refdef: style="text-align: center;"}
