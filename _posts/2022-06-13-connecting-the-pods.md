@@ -77,7 +77,7 @@ There are other [forms of disruption](https://evolute.be/thoughts/disruption.htm
 ##	Part 2: What is a Connected Company?
 
 Companies must stop acting like machines, but should behave as learning organisms who interact with their environment and improve based on experiments and feedback. 
-This is the premise of the author and vert reminiscent of the argumentation of Friedrich August von Hayek, renowned economist and contemporary (although in theories diametrically opposed) to John Meynard Keynes. 
+This is the premise of the author and reminiscent of the argumentation of Friedrich August von Hayek, renowned economist and contemporary (although in theories diametrically opposed) to John Meynard Keynes. 
 F. A. Hayek would go on record stating the economy is organic, not like a well-oiled machine that can be fixed as stipulated by Keynes. 
 
 The comparison of a company to a machine comes from the scientific management theory of Frederick Taylor and has helped some of the great industry giants get to where they were at the pinnacle of their profit. 
