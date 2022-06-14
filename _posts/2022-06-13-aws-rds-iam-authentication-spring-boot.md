@@ -16,10 +16,10 @@ comments: true
 
 ## Introduction
 Database authentication in Spring Boot has traditionally always been very simple to implement and configure to your needs.
-Whether it is with a custom data source, or just using the `spring.datasource` properties, it was always pretty straight forward to get a working database connection.
+Whether it is with a custom data source, or just using the `spring.datasource` properties, it was always pretty straightforward to get a working database connection.
 Handling the sensitive data such as database passwords in different environments can be tricky, but nowadays, there are enough solutions to tackle this problem in a secure and discrete way.
 
-However, if you are deploying your application on the AWS cloud, you don't have to struggle passwords anymore or need a fancy tool, because you simply don't need a password.
+Fortunately, if you are deploying your application on the AWS cloud, you don't have to struggle passwords anymore or need a fancy tool, because you simply don't need a password.
 You are now able to establish a database connection by authenticating through IAM. 
 Note that this feature only works for MariaDB, MySQL and PostgreSQL. 
 
@@ -71,9 +71,17 @@ On EKS (Kubernetes for AWS), you can use [IAM roles for service accounts](https:
 
 
 ## Spring Boot
-To achieve the token fetching in Spring Boot, I created a custom `HikariDataSource` which overrides the `getPassword()` method and used the AWS Java SDK to create a request for an authentication token from RDS.
+You will only need the [AWS SDK for RDS](https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-rds){:target="_blank" rel="noopener noreferrer"} to fetch an authentication token, which you can add as a dependency in Maven by adding the following code block:
 
-Note that for MariaDB, you do not need your own custom implementation as [they have an implementation of their own](https://mariadb.com/kb/en/mariadb-connector-j-250-release-notes/#aws-iam){:target="_blank" rel="noopener noreferrer"}. 
+```xml
+<dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-rds</artifactId>
+    <version>1.12.238</version>
+</dependency>
+```
+
+To achieve the token fetching in Spring Boot, I created a custom `HikariDataSource` which overrides the `getPassword()` method and used `RdsIamAuthTokenGenerator` and `GetIamAuthTokenRequest` to create a request for an authentication token from RDS.
 
 ```java
 public class RdsIAMDataSource extends HikariDataSource {
@@ -101,6 +109,10 @@ public class RdsIAMDataSource extends HikariDataSource {
     }
 }
 ```
+
+{:refdef: style="text-align: center; font-style: italic;"}
+Note that for MariaDB, you do not need your own custom implementation as [they have an implementation of their own](https://mariadb.com/kb/en/mariadb-connector-j-250-release-notes/#aws-iam){:target="_blank" rel="noopener noreferrer"}. 
+{: refdef}
 
 To make sure that our connection does not drop due to authentication failures, we are going to set the maximum lifespan for the connection (remember that authentication tokens are only valid for 15 minutes).
 
