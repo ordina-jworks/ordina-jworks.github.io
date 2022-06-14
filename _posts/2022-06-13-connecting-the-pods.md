@@ -67,7 +67,7 @@ The former are ideal candidates for such an automation drive (or standardization
 This comes down to finding a balance between efficiency and adaptability/innovation.
 
 Another game changer is the number of companies that go belly up. 
-This is largely due to the complexity of the market increasing, with new technologies popping up all over and disrupting the market in addition to the previously mentioned globalization increases the number of competitors companies have to deal with. 
+This is largely due to the complexity of the market increasing, with new technologies popping up all over and disrupting the market in addition to the previously mentioned globalization which increases the number of competitors companies have to deal with. 
 This might have seemed like a new reality, but remember the phrase “Innovate or Die” by Peter Drucker who was already advocating such disruptions back in 1985. 
 According to the author, the solution to this disruption is the Coevolutionary Process. 
 Every time you adapt, the others in your industry are forced to do so as well and vice versa. 
@@ -97,7 +97,7 @@ Ashby’s Law (also called the Law of Requisite Variety) is mentioned in one bre
 However, this seems to assume that processes within companies are fixed, while the whole discipline of Business Process Management is predicated on the fact that a process is never finished, and that there is always room for improvement, either induced by internal or external factors.
 
 In any case, a case is made for customers resisting standardization, and that to meet such required variety, the company needs innovation. 
-And one of those ways to achieve this is to give the employees of the company the freedom to experiment. 
+One of those ways to achieve this is to give the employees of the company the freedom to experiment. 
 This also benefits the employees in their learning, which is fundamentally different from receiving training. 
 Learning is a way to deal with new situations, and how an employee deals with the uncertainties that might be encountered.
 
@@ -142,7 +142,7 @@ Business agility is the name of the game and the Connected Company tries to addr
 * Service Oriented Development with service contracts, a focus on composability, and loose coupling
 
 The idea is to transform a business into a podular organization. 
-This is an approach to combines the traditional organization split into divisions with pods where you divide the required work into “businesses within businesses”, which can function independently from other pods, and take on the responsibility for a complete “service”. 
+This is an approach that combines the traditional organization split into divisions with pods where you divide the required work into “businesses within businesses”, which can function independently from other pods, and take on the responsibility for a complete “service”. 
 This allows the organization to represent itself as a group of smaller organizations. 
 Each of these pods is autonomous and can function on behalf of the business as a whole.
 
