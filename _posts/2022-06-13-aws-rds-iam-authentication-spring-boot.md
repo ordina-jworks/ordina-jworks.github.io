@@ -130,5 +130,8 @@ spring.datasource.username=<db user>
 With this implementation, the `getPassword()` method will be called every 14 minutes.
 
 ## Conclusion
-Security is an important factor in many companies and environments, and this is definitely a recommended way of securely accessing your database from inside your application.
+Security is an important factor in many companies and environments, and this is definitely a recommended way of securely accessing your database from inside your application as it is a big improvement over the traditional username/password authentication method.
+You don't have a password, which means you don't have to share it, so you have zero risk of exposing your password to unwanted parties. Not having a password also eliminates the need to manage passwords and to rotate passwords every now and then.
+With the authentication token lifespan of 15 minutes, each generated token is secure and expires rapidly in case the token gets leaked.
+
 While it is slightly more of a hassle to set it up, it is definitely worth your while to implement RDS IAM authentication, especially if you are already running your application and infrastructure on AWS.
