@@ -6,8 +6,8 @@ image: /img/2022-06-13-connecting-the-pods/tile.jpg
 tags: [technical leadership, architecture, software architecture]
 category: development
 comments: true
----
-Although I finished the book several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. 
+--- 
+Although I finished the book "[The Connected Company](https://www.amazon.co.uk/Connected-Company-Dave-Gray/dp/1491919477/ref=sr_1_1){:target="_blank" rel="noopener noreferrer"}" several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. 
 The book itself came out in 2012, which at this point is already 10 years in the past, and it largely builds on the idea of the quantum organization (Ralph Kilmann), on which I already briefly extrapolated when I wrote about [the Five Dysfunctions of a Team](https://ordina-jworks.github.io/architecture/2020/07/08/Book-Five-Dysfunctions.html){:target="_blank" rel="noopener noreferrer"}.
 
 The book consists of 5 parts:
