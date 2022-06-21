@@ -219,7 +219,7 @@ Unknown first cheap antenna:
 <img src="{{ '/img/2022-05-04-RTK-Internship/Cheapantenna.png' | prepend: site.baseurl }}" alt="Cheapantenna" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
 
-First of all it took way longer to establish a connection, a couple of minutes. 
+First of all, it took multiple minutes to establish a connection. 
 The data points are further apart from each other. 
 You can see that with the other antenna the data points are much closer together. 
 So that means that there is a lot of play between each data point. 
