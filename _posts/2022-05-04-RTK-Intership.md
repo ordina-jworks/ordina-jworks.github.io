@@ -228,7 +228,7 @@ Finally, you can also see that the range of the antenna went over the 2.5 meter 
 From this we can conclude that it is necessary to have a good antenna when we want to work precisely.
 
 ### Testing with RTK
-There were a couple of problems with the SparkFun GPS-RTK Board during my internship, it didn't calculate the accurate positioning altho it did receive the correction data correctly from FLEPOS.
+There were a couple of problems with the SparkFun GPS-RTK Board during my internship, it didn't calculate the accurate positioning although it did receive the correction data correctly from FLEPOS.
 The Sparkfun RTK-board is supposed to calculate this automatically, but it didn't and I could not change the configuration to the right settings.
 That is why I don't have a video which shows the use of RTK on the SparkFun GPS-RTK Board like in the section with SBAS.
 
