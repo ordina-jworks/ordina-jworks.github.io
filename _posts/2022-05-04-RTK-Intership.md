@@ -77,7 +77,7 @@ SBAS enhances the accuracy and reliability of GNSS information by correcting sig
 
 SBAS uses GNSS measurements from precisely located reference stations spread over a continent.
 All measured GNSS errors are sent to a central computer centre, where differential corrections and integrity messages are calculated. 
-These calculations are then broadcast over the covered area using geostationary satellites (satellite always located over the same place on earth) that serve as a supplement, or overlay, to the original GNSS message. 
+These calculations are then broadcast over the covered area using geostationary satellites, satellite which are always located over the same place on earth,  that serve as a supplement, or overlay, to the original GNSS message. 
 SBAS can be accurate to within about 2m.
 ### Existing SBAS
 Several countries have adopted their own Satellite Based Augmentation System. 
