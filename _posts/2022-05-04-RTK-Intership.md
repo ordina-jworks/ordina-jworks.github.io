@@ -110,7 +110,7 @@ The video is sped up <insert x> times
 </div>
 <br/>
 
-The images below shows the setup:
+The images below show the setup:
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/TestingSBAS.JPG' | prepend: site.baseurl }}" alt="TestingSBAS" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
