@@ -178,7 +178,7 @@ The Sparkfun GPS-RTK Board is a powerful breakout board for the NEO-M8P-2 module
 The NEO-M8P-2 is a highly accurate module for the use of GNSS and GPS location solutions such as RTK.
 The module is unique in that it can be configured as a rover as well as a base station.
 There are 4 different methods to connect with this board: USB, I²C, UART or SPI.
-I'm using a combination with I²C and USB.
+I'm using a combination of I²C and USB.
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/RTKBoard.jpg' | prepend: site.baseurl }}" alt="RTKBoard" class="image center" style="margin:0px auto; max-width:100%">
 {: refdef}
