@@ -130,7 +130,7 @@ We can solve this by sending correction data from the base station to the rover 
 ### Network RTK
 Network RTK is based on the use of several fixed reference stations spread out over the network. 
 Depending on the application, the rover sends its location to the reference stations, so the rover is not dependent on one base station but can connect to several reference stations. 
-This allows for a greater range than a single fixed base station, which is about 10 km.
+This allows for a greater range than a single fixed base station, which would be about 10 km.
 ### How to receive correction data?
 There are a few ways to receive this correction data. You can build your own base station or use a service. 
 Not all services are free, for example Skylark, this service has coverage over 3 continents but is paying. 
