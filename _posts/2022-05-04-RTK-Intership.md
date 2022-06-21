@@ -22,7 +22,8 @@ For this, systems such as Real-Time Kinematic (RTK) have been developed that can
 
 ## What is GNSS?
 Global Navigation Satellite System (GNSS) refers to a group of satellites that broadcast signals from space that relay positioning and timing data to GNSS receivers. 
-The receivers then use this data to determine the location, GNSS provides worldwide coverage.
+The receivers use this data to determine the location. 
+GNSS provides worldwide coverage.
 
 GNSS performance is evaluated against four criteria:
 1.	Accuracy: the difference between a receiver's measured and actual position, time or speed.
