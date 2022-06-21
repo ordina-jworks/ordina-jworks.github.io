@@ -104,7 +104,7 @@ Other national SBASs :
 For certain applications, SBAS is already accurate enough. 
 This can be seen in the video below where I attached the antenna to my car and did a test drive.
 In this video you can see that the accuracy is already pretty good with SBAS, the pointer stays on the road pretty well.
-The video is sped up because it was too long otherwise.
+The video is sped up <insert x> times
 <div class="responsive-video">
     <iframe width="900" height="506" src="https://www.youtube.com/embed/kG72kCYS0KY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
