@@ -18,7 +18,7 @@ comments: true
 
 ## Introduction
 GPS and GNSS are not accurate on their own, this can lead to crucial errors when one needs accurate positioning, such as with surveyors. 
-For this, systems  such as Real-Time Kinematic (RTK) have been developed that will improve this inaccurate positioning.
+For this, systems such as Real-Time Kinematic (RTK) have been developed that can improve this inaccurate positioning.
 
 ## What is GNSS?
 Global Navigation Satellite System (GNSS) refers to a group of satellites that broadcast signals from space that relay positioning and timing data to GNSS receivers. 
