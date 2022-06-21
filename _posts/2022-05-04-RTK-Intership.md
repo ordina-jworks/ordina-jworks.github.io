@@ -53,7 +53,7 @@ The location is calculated by the receiver, by means of the distance and time be
 This is calculated as follows: the speed of the signal (speed of light) is multiplied by the atomic clock time of the satellite.
 The location can be determined with as little as three satellites, unfortunately not accurately.
 A total of four satellites is needed to get an accurate location determination.
-The first three satellites are used to determine the location in three dimensions x, y and z coordinates.
+The first three satellites are used to determine the location in three dimensions: the x, y and z coordinates.
 The fourth satellite is used to determine the time it takes for the signal to travel from the satellite to the receiver, as shown in the figure below.
 
 {:refdef: style="text-align: center;"}
