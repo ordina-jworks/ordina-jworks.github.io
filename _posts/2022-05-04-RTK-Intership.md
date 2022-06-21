@@ -17,7 +17,7 @@ comments: true
 - [Conclusion](#conclusion)
 
 ## Introduction
-GPS and GNSS are not really accurate on their own, this can lead to crucial errors when one needs accurate positioning, such as with surveyors. 
+GPS and GNSS are not accurate on their own, this can lead to crucial errors when one needs accurate positioning, such as with surveyors. 
 For this, systems  such as Real-Time Kinematic (RTK) have been developed that will improve this inaccurate positioning.
 
 ## What is GNSS?
