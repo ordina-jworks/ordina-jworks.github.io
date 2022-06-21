@@ -199,7 +199,7 @@ It is suitable for use with any GPS/GNSS receiver with dual L1/L2 reception and 
 
 ### Testing of the antennas
 I tested both antennas side by side for 5 minutes while outside on the table, using SBAS as the correction method.
-These are the results (the more compact the data points the more accurate):
+These are the results, the more compact the data points the more accurate:
 
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-05-04-RTK-Internship/TestingAntennasOutside.JPG' | prepend: site.baseurl }}" alt="TestingAntennasOutside" class="image center" style="margin:0px auto; max-width:100%">
