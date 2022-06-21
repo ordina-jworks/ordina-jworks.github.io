@@ -134,7 +134,8 @@ This allows for a greater range than a single fixed base station, which would be
 ### How to receive correction data?
 There are a few ways to receive this correction data. 
 You can build your own base station or use a service. 
-Not all services are free, for example Skylark, this service has coverage over 3 continents but is paying. 
+Not all services are free.
+For example Skylark, this service has coverage over 3 continents but it is a paid service. 
 Fortunately, the Flemish government has set up a service called FLEPOS. 
 
 ## What is FLEPOS?
