@@ -62,7 +62,7 @@ The fourth satellite is used to determine the time it takes for the signal to tr
 <figcaption>&copy;Sparkfun</figcaption>
 
 ### Improving GNSS Accuracy
-GNSS accuracy is affected by numerous factors, the most important of which is atmospheric interference, as signals travel through space and into the Earth's atmosphere. 
+GNSS accuracy is affected by numerous factors, the most important of which is atmospheric interference, as the signals travel through space and into the Earth's atmosphere. 
 Without taking these errors into account, we will see inaccuracies in the positions transmitted.
 The chart below shows a number of different methods that can improve GNSS performance. 
 We are going to focus on Real Time Kinematics (RTK) and Satellite Based Augmentation System (SBAS) because RTK is the most accurate and SBAS is one of the best known.
