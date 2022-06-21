@@ -165,7 +165,7 @@ Before FLEPOS can be used, the registration form must be completed and approved 
 To receive the correction data, it is necessary to connect to a mountpoint of FLEPOS. 
 The figure below shows all available mountpoints. 
 The most commonly used data streams are FLEPOSVRS31GR and FLEPOSVRS32GREC. 
-The user is free to take one of the other available data streams for the GNSS receiver. 
+The user is free to take one of the available data streams for the GNSS receiver. 
 Data stream FLEPOSMARIVRS31GR is recommended only for measurement in the North Sea because this data stream uses the 2 overseas stations ALDB and SHOE and the station BLIG located on the Bligh sandbank.
 
 {:refdef: style="text-align: center;"}
