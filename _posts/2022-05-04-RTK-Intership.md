@@ -49,7 +49,7 @@ GNSS performance is evaluated against four criteria:
 I'm going to explain GPS because it is by far the most known GNSS system.
 There are about 32 GPS satellites in space. 
 This is a relatively large system that works through careful planning and calibration.
-The location is calculated by the receiver, this by means of the distance and time between him and the satellite.
+The location is calculated by the receiver, by means of the distance and time between the receiver and the satellite.
 This is calculated as follows, the speed of the signal (speed of light) is multiplied by the atomic clock time of the satellite.
 The location can already be determined from three satellites, but this is not accurate.
 A total of four satellites is needed to get an accurate location determination.
