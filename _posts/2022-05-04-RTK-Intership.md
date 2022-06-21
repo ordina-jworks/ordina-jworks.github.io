@@ -184,7 +184,7 @@ I'm using a combination of I²C and USB.
 {: refdef}
 
 ### Antenna
-First, I had a cheap antenna that was laying around at the office.
+First, I had a cheap antenna that was already available in the office.
 With this cheap antenna the signals were weak, inaccurate and it took a long time to receive them.
 Therefore the testing was quite challenging and hard to do.
 That's why a good, accurate antenna,  like the  ANN-MB-00 GNSS multiband antenna, is necessary.
