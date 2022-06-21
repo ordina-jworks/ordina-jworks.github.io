@@ -187,7 +187,7 @@ I'm using a combination of I²C and USB.
 First, I had a cheap antenna that was already available in the office.
 With this cheap antenna the signals were weak, inaccurate and it took a long time to receive them.
 Therefore the testing was quite challenging and hard to do.
-That's why a good, accurate antenna,  like the  ANN-MB-00 GNSS multiband antenna, is necessary.
+That's why a good, accurate antenna, like the  ANN-MB-00 GNSS multiband antenna, is necessary.
 
 ### ANN-MB-00 GNSS multiband antenna
 The ANN-MB-00 GNSS multiband antenna is unique from other GNSS/GPS antennas in that it is designed to receive both the classic L1 GPS band and the fairly newly launched L2 GPS band. 
