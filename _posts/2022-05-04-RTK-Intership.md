@@ -222,7 +222,7 @@ The data points are further apart from each other.
 You can see that with the other antenna the data points are much closer together. 
 So that means that there is a lot of play between each data point. 
 This means that the new antenna is more accurate. 
-At last you can also see that the range of the antenna went over the 2.5 meter mark.
+Finally, you can also see that the range of the antenna went over the 2.5 meter mark.
 
 
 From this we can conclude that it is necessary to have a good antenna when we want to work precisely.
