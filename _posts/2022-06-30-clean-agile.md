@@ -45,9 +45,9 @@ This way he introduces some Agile tools (known from everyone that already worked
 
 If you have to read only one chapter of this book, it should be this one. In it, Uncle Bob reminds us that even if many of the Agile tools have been proliferating since 20 years (Scrum, Kanban, XP, SAFe, etc.), it makes no sense to use them without keeping in mind the essence of Agility.
 
-There are the two evanescent reasons of using Agile methodologies: **professionalism** and **reasonable expectations** of our customer.
+There are the two straightforward reasons of using Agile methodologies: **professionalism** and **reasonable expectations** of our customer.
 
-- Professionalism in the sense that developers are those who design todays' world (software is everywhere). And as the quote of the first Spiderman movie warns: **"With great power comes great responsibility"**.
+- Professionalism in the sense that developers are those who design today's world (software is everywhere). And as the quote of the first Spiderman movie warns: **"With great power comes great responsibility"**.
 
 <img class="p-image" src="{{ '/img/2022-06-30-clean-agile/clean-agile-2.jpg' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
