@@ -17,7 +17,7 @@ comments: true
 	* [Rules](#rules)
 	* [Fundamentals](#fundamentals)
 		* [Fundamentals for the emergence of collective intelligence](#fundamentals-that-help-the-emergence-of-collective-intelligence-are)
-		* [Fundamentals to ensure the quality of the interaction](#fundamentals-to-ensure-the-quality-of-the-interaction)
+		* [Fundamentals to ensure the quality of the interaction](#fundamentals-to-ensure-the-quality-of-the-interaction)$
 	* [Process at a collective intelligence meeting](#process-at-a-collective-intelligence-meeting)
 	* [Illustration of a potential Intervision at Ordina](#illustration-of-a-potential-intervision-at-ordina)
 * [Conclusion](#conclusion)
