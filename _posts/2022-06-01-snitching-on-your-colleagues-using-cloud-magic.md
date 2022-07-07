@@ -55,14 +55,14 @@ comments: true
 7 weeks ago I started my internship at Ordina Mechelen.
 I had several project options available all looking to touch new and unknown tech that might be relevant for future operations.
 
-My inner Judas spoke to me when I saw a listing about a project that would shoot rockets at developers if they broke a build, and it would provide a great opportunity to pull myself out of my comfort zone focusing more on Devops and Cloud platforms rather than pure programming.
-Sadly due to a global hardware shortage the rocket launcher was not available for delivery anymore, so I decided to use a raspberry pi to fetch the build logs and convert them into audio using google text to speech.
+My inner Judas spoke to me when I saw a listing about a project that would shoot toy rockets at developers if they broke a build, and it would provide a great opportunity to pull myself out of my comfort zone focusing more on Devops and Cloud platforms rather than pure programming.
+Sadly due to a global hardware shortage the toy rocket launcher was not available for delivery anymore, so I decided to use a raspberry pi to fetch the build logs and convert them into audio using google text to speech.
 
 
 # The Task At Hand
 
-The project described a ci-cd pipeline that would trigger a raspberry pi once a build fails, then in response the pi would operate a rocket launcher unit that would target the developer responsible for breaking the build.
-As such I broke the final project can be broken down into these steps:
+The project described a ci-cd pipeline that would trigger a raspberry pi once a build fails, then in response the pi would operate a toy rocket launcher unit that would target the developer responsible for breaking the build.
+As such the final project can be broken down into these steps:
 
 - Create a sacrificial bare-bones spring boot project to put through the ringer
 - Create a pipeline which performs some cookie cutter tasks
@@ -98,13 +98,15 @@ Predefined connections to internal (Azure) or external services from which we ca
 <img class="p-image" src="{{ '/img/2022-06-01-snitching-on-your-colleagues-using-cloud-magic/ServiceConnectionPosition.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 # Into The Rabbit-Hole: Setting Up The Pipeline
-In this section I will initially explain how to set up some basic tasks within our yaml file for building and testing then move on to containerizing our build and finally explain how I have used IaC (Infrastructure as Code) to firstly erect an RDS (AWS) instance based on Postgres and secondly use HELM to provision an EKS (AWS) cluster owned by Jworks.
+In this section I will initially explain how to set up some basic tasks within our yaml file for building and testing. 
+Next, I'll move on to containerizing our build. 
+Finally, I'll explain how I have used IaC (Infrastructure as Code) to firstly spin up an RDS (AWS) instance based on Postgres and secondly use Helm to deploy the application to an EKS (AWS) cluster owned by JWorks.
 ### Before We Dive In
-Before we dive in there are some nice to know things about the inner workings and structure of a pipeline defined in a yaml file.
-I'll briefly go over some key definitions, so you can follow along nicely when each individual task gets explained.
+Before we dive in, there are some nice to know things about the inner workings and structure of a pipeline defined in a yaml file.
+I'll briefly go over some key definitions, so you can follow along when each individual task gets explained.
 - Triggers :
-  - Triggers are (like the word implies) what sets off your pipeline
-  - These can be changes in a branch like ***master*** or ***develop*** but could also be specific events happening in another pipeline such as failed jobs/stages or a specific variable value
+  - Triggers are (like the word implies) what starts a pipeline
+  - These can be changes in a branch like ***main*** or ***develop*** but could also be specific events happening in another pipeline such as failed jobs/stages or a specific variable value
 - Variables :
   - A hardcoded variable defined at the start of your pipeline
   - A variable group containing secret values like tokens that can not be acquired using service connections
@@ -113,7 +115,7 @@ I'll briefly go over some key definitions, so you can follow along nicely when e
   - Defines what steps your pipeline should take in what order.
   - Encapsulation of ***stage*** sections
 - Stage :
-  - A "section" of your pipeline
+  - A section of your pipeline
   - Can be given a name of your choosing eg: Test,Docker,CloudSetup ...
   - Encapsulation for ***jobs***
 - Jobs : 
@@ -124,7 +126,7 @@ I'll briefly go over some key definitions, so you can follow along nicely when e
   - Encapsulation of one or more ***task*** sections
 - Task :
   - A pre-built or custom-made task to be performed on your pipeline run.
-  - has a variety of attributes that can be manually filled up such as credentials or dictating your preferred working directories
+  - Has a variety of attributes that can be manually filled up such as credentials or dictating your preferred working directories
 - Agents :
   - A machine hosted by the cloud provider (Azure in our case) that runs on a specific OS
   - Defined in the ***pool*** attribute of a ***job*** or at the start of a pipeline.
@@ -138,7 +140,8 @@ All of the above gets combined into a structure that resembles the image below.
 ### Basic Tasks
 Following are the pipeline tasks used to test our java project, generate a test rapport and then build it using Maven.
 #### Maven Test
-To test our application we will be using JUnit because of the pre-existing support given by Azure. This will also generate a test rapport during each pipeline run based on the unit tests defined in our project.
+To test our application we will be using JUnit because of the pre-existing support given by Azure. 
+This will also generate a test rapport during each pipeline run based on the unit tests defined in our project.
 
 <img class="p-image" src="{{ '/img/2022-06-01-snitching-on-your-colleagues-using-cloud-magic/MavenTest.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
@@ -192,11 +195,11 @@ Finally our Terraform file gets executed and our Postgres database is configured
 ### Provisioning A Cloud Cluster
 Now that we have an image of our app and place to store data to only one crucial step remains, launching our application.
 Our application gets deployed to EKS (Elastic Kubernetes Service) which is another AWS service designed for running cloud based Kubernetes.
-In order to do so a HELM chart has been made which like the Terraform files is stored under the infrastructure directory of our project.
-These charts are (much like our pipeline) defined in a yaml format where specifications crucial to Kubernetes are being made eg: Name of the app, Kind , Amount of replicas, Image to use ...
+In order to do so a Helm chart has been made which like the Terraform files is stored under the infrastructure directory of our project.
+These charts are defined in a yaml format where specifications for Kubernetes are being made eg: Name of the app, Kind , Amount of replicas, Image to use ...
 
-#### HELM Deploy
-Using our HELM chart and a service connection giving us authorization to supply the Jworks cluster we deploy our application (which gets pulled from Dockerhub) to the "stage-thomas-more" namespace within EKS.
+#### Helm Deploy
+Using our Helm chart and a service connection allowing us to deploy to the Jworks cluster, we deploy our application, which gets pulled from Dockerhub, to the "stage-thomas-more" namespace within EKS.
 
 <img class="p-image" src="{{ '/img/2022-06-01-snitching-on-your-colleagues-using-cloud-magic/HelmTask.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
@@ -206,7 +209,7 @@ I did this using a Telegram bot that will broadcast a message for every build th
 The bot token was stored in the **library** as a secret key-value pair.
 #### Creating Our Bot
 This is a prerequisite if you want to work with Telegram since a bot token and a chat id are required to function.
-Telegram has a neat tutorial on how to create your own bot using the "Botfather" which you can find here : [The Botfather](https://core.telegram.org/bots)
+Telegram has a neat tutorial on how to create your own bot using the "Botfather" which you can find here : [The Botfather](https://core.telegram.org/bots){:target="_blank" rel="noopener noreferrer"}
 #### Sending Out Notifications
 Now that we have our bot token and a chat id we can define a message that gets sent everytime the task is reached.
 
@@ -236,9 +239,9 @@ Those logs get filtered and send to a DynamoDB instance hosted on AWS.
 - A Visual Studio publisher account (free)
 
 #### Getting The Logs
-This was done using the Azure Devops REST API: [Documentation](https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-7.1) 
+This was done using the Azure Devops REST API: [Documentation](https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-7.1){:target="_blank" rel="noopener noreferrer"}
 
-To get builds a couple of things are required:
+To get builds, a couple of things are required:
 - The Azure Devops organization name
 - The project name
 - The build number
@@ -252,7 +255,7 @@ Now that we have our desired logs all that remains is filtering, formatting and 
 In order to complete this operation the following steps were taken:
 - Set up authorization in a way that allows developers to use their AWS service connection.
 - Use the AWS SDK combined with the credentials from the service connection to authorize the user.
-- Filter the received logs that which had a format of plain text using regex to find possible error messages
+- Filter the received logs which had a format of plain text using regex to find possible error messages
 - Format the error messages together with the developer responsible for the build and the time of build.
 - Push our formatted object to DynamoDB
 
@@ -272,14 +275,14 @@ In the pipeline:
 
 # The Berry On Top : Our Physical Feedback
 Almost there!
-Finally it is time for the actual dirty work namely snitching on our dear colleagues.
+Finally, it is time for the actual dirty work namely snitching on our dear colleagues.
 To do this I only needed two things, a raspberry pi and a bluetooth speaker.
 
 ### Dollar Store Google Assistant
-Initially we had planned to use a rocket launcher as our physical feedback machine.
+Initially we had planned to use a toy rocket launcher as our physical feedback machine.
 That idea was scrapped however because of a global shortage (or tremendous price increase) for all hardware components.
 
-Next up the Google Assistant came to mind which is embedded in android devices or a Google home speaker(And probably a lot of other devices).
+Next the Google Assistant came to mind which is embedded in Android devices or a Google home speaker.
 The problem with this idea unfortunately was that the Google Assistant was never designed to take in text input through an API because devices running Google Assistant had no direct endpoints.
 Now we could in fact work around this and set up a Home automation system like Home Assistant or Node Red but this would mean that our speaker could never change location without reconfiguring access to its new network.
 
@@ -291,7 +294,7 @@ Using Node file system I programmatically created a text file where each audio u
 What I had just created was some sort of playlist which dictated the order of audio files to be played.
 All I had to do now was hook it up to a media player.
 
-***note***: By all means was this not the ideal solution, but it allowed the Pi and speaker to be portable to any location as long as we could connect it to wi-fi.
+***note***: This not the ideal solution, but it allowed the Pi and speaker to be portable to any location as long as we could connect it to wi-fi.
 
 A succesfull pipeline run broadcast(Sound up):
 
