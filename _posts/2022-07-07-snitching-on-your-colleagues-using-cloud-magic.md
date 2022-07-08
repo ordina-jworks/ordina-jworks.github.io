@@ -2,7 +2,7 @@
 layout: post
 authors: [lander_marien]
 title: 'Snitching On Your Colleagues Using Cloud Magic'
-image: /img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/betrayal.jpg
+image: /img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg
 tags: [Spring, Spring Boot, Git, DevOps, Docker, Kubernetes, Terraform, Helm, Azure, Internet Of Things, RaspberryPi, Javascript, Node.js, AWS, DynamoDB, RDS, Postgres]
 category: Internship
 comments: true
