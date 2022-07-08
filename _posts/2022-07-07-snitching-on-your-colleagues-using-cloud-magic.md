@@ -2,7 +2,7 @@
 layout: post
 authors: [lander_marien]
 title: 'Snitching On Your Colleagues Using Cloud Magic'
-image: /img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg
+image: /img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/betrayal.jpg
 tags: [Spring, Spring Boot, Git, DevOps, Docker, Kubernetes, Terraform, Helm, Azure, Internet Of Things, RaspberryPi, Javascript, Node.js, AWS, DynamoDB, RDS, Postgres]
 category: Internship
 comments: true
@@ -68,22 +68,22 @@ The devops environment that was used consisted of a couple of things.
 ### Azure Repos
 A simple git instance on the Azure platform used for version control of our spring boot project.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/RepoPosition.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/repo_position.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 ### Pipeline
 The bread and butter of our operation. Using a data serialization language called yaml we are able to define each individual task we want applied to our code.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/PipelinePosition.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/pipeline_position.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 ### Library
 A place to store key value pairs that we can group and later reference in our yaml file.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/LibraryPosition.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/library_position.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 ### Service Connections
 Predefined connections to internal (Azure) or external services from which we can later extract credentials to gain access in the pipeline.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/ServiceConnectionPosition.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/service_connection_position.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 # Into The Rabbit-Hole: Setting Up The Pipeline
 In this section I will initially explain how to set up some basic tasks within our yaml file for building and testing. 
@@ -148,12 +148,12 @@ Following are the pipeline tasks used to test our java project, generate a test 
 To test our application we will be using JUnit because of the pre-existing support given by Azure. 
 This will also generate a test rapport during each pipeline run based on the unit tests defined in our project.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/MavenTest.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/maven_test.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 #### Maven Build
 A standard task using the Maven goal of 'package' which returns a JAR file that can later be used by Docker.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/MavenBuild.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/maven_build.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 #### Copying And Creating An Artifact
 In order to use our build across multiple agents we need to create an artifact out of the build.
@@ -161,19 +161,19 @@ This artifact gets stored within the pipeline and can get called upon whenever w
 We do this by first copying our build to a directory on our agent that functions as the default staging directory for artifacts.
 By using a second task we take that build and publish it to our pipeline storage.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/CopyAndPublish.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/copy_and_publish.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 ### Containerization
 Here we use the artifact we created during our last job to create an image and push it to Dockerhub.
 #### Fetching Our Artifact
 First we have to fetch the artifact that we uploaded to our pipeline and place it in the appropriate directory on our new agent.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/DownloadArtifact.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/download_artifact.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 #### Creating An Image
 Then we use said artifact together with a Dockerfile that was previously placed within our java project to create and upload an image to Dockerhub.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/DockerTask.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/docker_task.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 ### Setting Up A Cloud Database
 In this job we will use Terraform to set up an RDS (AWS) database based on Postgres for our containerized java application.
@@ -182,22 +182,22 @@ Credentials needed to get access to AWS services come from a manually pre-define
 #### Installing Terraform
 In order to use Terraform on our agent we have to first install it to our agent since it is not supplied by default.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/TerraformInstallTask.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_install_task.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 #### Initializing Terraform
 This task performs several initialization steps in order to prepare the current working directory for use with Terraform.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/TerraformInit.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_init.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 #### Terraform Plan
 Plans out what configurations and steps will be made once the apply command is given.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/TerraformPlanTask.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_plan_task.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 #### Terraform Apply
 Excecuting our Terraform plan defined in the previous step.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/TerraformApply.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_apply.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 ### Provisioning A Cloud Cluster
 Now that we have an image of our app and place to store data to only one crucial step remains, launching our application.
@@ -208,7 +208,7 @@ These charts are defined in a yaml format where specifications for Kubernetes ar
 #### Helm Deploy
 Using our Helm chart and a service connection allowing us to deploy to the Jworks cluster, we deploy our application, which gets pulled from Dockerhub, to the "stage-thomas-more" namespace within EKS.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/HelmTask.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/helm_task.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 ### Giving A Signal
 Now that everything has been set up and all the services are up and running it's time to give our developers a heads-up.
@@ -220,16 +220,16 @@ Telegram has a neat tutorial on how to create your own bot using the "Botfather"
 #### Sending Out Notifications
 Now that we have our bot token and a chat id we can define a message that gets sent everytime the task is reached.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/TelegramTask.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/telegram_task.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 ### A Visual Representation
 Displayed below you will find two images representing the pipeline and the goals they accomplish on the Cloud.
 
 For now pay no attention to the little logo displaying Eric Cartman, this is the image I used to represent my custom task which we will get to in the following section. 
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/PipelineFlow.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/pipeline_flow.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/AWS_diagram_final_image.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/aws_diagram_final_image.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 # Out Of The Frying Pan And Into The Fire: Creating Our Own Task
 During week 5 all of the above was learned, implemented and configured to a working state so a question was asked by Frederick Bousson the solutions lead at the Jworks Ordina Unit if it was possible to create a custom task for use in the pipeline.
@@ -276,10 +276,10 @@ We then package our extension, and finally upload it using the management portal
 The result:
 
 In my publisher account:
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/CustomTaskInMarketplace.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/custom_task_in_marketplace.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 In the pipeline:
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/CustomExtensionTask.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/custom_extension_task.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 50%;">
 
 Want to check out the code? Take a look at the project repo : [Github](https://github.com/MarienL1995/customTaskPublic){:target="_blank" rel="noopener noreferrer"}
 
@@ -333,7 +333,7 @@ After 7 weeks of submerging myself mostly in configuration files like .yaml and 
 
 For a total recap of tools and software used during the project, I put together the following image.
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/techSummary.png' | prepend: site.baseurl }}" 
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/tech_summary.png' | prepend: site.baseurl }}" 
 class="image fit" style="margin:0px auto; max-width: 75%;">
 
 As a final sendoff I want to say a quick thank you to my mentor Nick Geudens for guiding me through the jungle of DevOps and AWS and to Frederick Bousson for coming up with the project and allowing me the opportunity to execute it.
