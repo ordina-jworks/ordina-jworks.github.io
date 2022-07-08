@@ -175,4 +175,3 @@ As a reviewer you should verify the following things:
     - eg: `[foo](http://bar.com){:target="_blank" rel="noopener noreferrer"}`
 
 Feel free to share your opinion about something for example if you would like see a specific part explained more clearly or if you want the author to cover something that is missing.
-
