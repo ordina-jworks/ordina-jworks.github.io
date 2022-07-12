@@ -1,5 +1,374 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-07-07T07:04:10+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Clean Agile - Back to Basics</title><link href="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html" rel="alternate" type="text/html" title="Clean Agile - Back to Basics" /><published>2022-06-30T00:00:00+00:00</published><updated>2022-06-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-07-12T04:53:02+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Snitching On Your Colleagues Using Cloud Magic</title><link href="https://ordina-jworks.github.io/internship/2022/07/07/snitching-on-your-colleagues-using-cloud-magic.html" rel="alternate" type="text/html" title="Snitching On Your Colleagues Using Cloud Magic" /><published>2022-07-07T00:00:00+00:00</published><updated>2022-07-07T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/internship/2022/07/07/snitching-on-your-colleagues-using-cloud-magic</id><content type="html" xml:base="https://ordina-jworks.github.io/internship/2022/07/07/snitching-on-your-colleagues-using-cloud-magic.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table Of Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-task-at-hand&quot;&gt;The Task At Hand&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#exploring-the-environment&quot;&gt;Exploring The Environment&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#azure-repos&quot;&gt;Azure Repos&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pipeline&quot;&gt;Pipeline&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#library&quot;&gt;Library&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#service-connections&quot;&gt;Service Connections&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#into-the-rabbit-hole-setting-up-the-pipeline&quot;&gt;Into The Rabbit-Hole : Setting Up The Pipeline&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#before-we-dive-in&quot;&gt;Before We Dive In&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#basic-tasks&quot;&gt;Basic Tasks&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#containerization&quot;&gt;Containerization&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#setting-up-a-cloud-database&quot;&gt;Setting Up A Cloud Database&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#provisioning-a-cloud-cluster&quot;&gt;Provisioning A Cloud Cluster&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#giving-a-signal&quot;&gt;Giving A Signal&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#a-visual-representation&quot;&gt;A Visual Representation&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#out-of-the-frying-pan-and-into-the-fire-creating-our-own-task&quot;&gt;Out Of The Frying Pan And Into The Fire: Creating Our Own Task&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#requirements&quot;&gt;Requirements&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#getting-the-logs&quot;&gt;Getting The Logs&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#filtering-and-saving-failures&quot;&gt;Filtering And Saving Failures&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#factory-fresh&quot;&gt;Factory Fresh&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-berry-on-top--our-physical-feedback&quot;&gt;The Berry On Top: Our Physical Feedback&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#dollar-store-google-assistant&quot;&gt;Dollar Store Google Assistant&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#the-good-the-bad---the-ugly--summary&quot;&gt;The Good, The Bad &amp;amp; … The Ugly?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;7 weeks ago I started my internship at Ordina Mechelen.
+I had several project options available all looking to touch new and unknown tech that might be relevant for future operations.&lt;/p&gt;
+
+&lt;p&gt;My inner Judas spoke to me when I saw a listing about a project that would shoot toy rockets at developers if they broke a build, and it would provide a great opportunity to pull myself out of my comfort zone focusing more on Devops and Cloud platforms rather than pure programming.
+Sadly due to a global hardware shortage the toy rocket launcher was not available for delivery anymore, so I decided to use a raspberry pi to fetch the build logs and convert them into audio using google text to speech.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-task-at-hand&quot;&gt;The Task At Hand&lt;/h1&gt;
+
+&lt;p&gt;The project described a ci-cd pipeline that would trigger a raspberry pi once a build fails, then in response the pi would operate a toy rocket launcher unit that would target the developer responsible for breaking the build.
+As such the final project can be broken down into these steps:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create a sacrificial bare-bones spring boot project to put through the ringer&lt;/li&gt;
+  &lt;li&gt;Create a pipeline which performs some cookie cutter tasks&lt;/li&gt;
+  &lt;li&gt;Expand pipeline to setup AWS infrastructure&lt;/li&gt;
+  &lt;li&gt;Expand pipeline to provision said infrastructure&lt;/li&gt;
+  &lt;li&gt;Create a custom pipeline task to fetch and push build logs&lt;/li&gt;
+  &lt;li&gt;Configure raspberry pi to host a node.js server&lt;/li&gt;
+  &lt;li&gt;Listen for new log files&lt;/li&gt;
+  &lt;li&gt;If new log files have been found, search for error messages and convert those via text to speech(TTS)&lt;/li&gt;
+  &lt;li&gt;Broadcast the failures of your colleagues&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;exploring-the-environment&quot;&gt;Exploring The Environment&lt;/h1&gt;
+&lt;p&gt;I’m going to dive right into the meat and potatoes of this project and write about the pipeline since the spring boot application does nothing more than display some basic html and runs a couple of unit tests.
+The devops environment that was used consisted of a couple of things.&lt;/p&gt;
+&lt;h3 id=&quot;azure-repos&quot;&gt;Azure Repos&lt;/h3&gt;
+&lt;p&gt;A simple git instance on the Azure platform used for version control of our spring boot project.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/repo_position.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;pipeline&quot;&gt;Pipeline&lt;/h3&gt;
+&lt;p&gt;The bread and butter of our operation. Using a data serialization language called yaml we are able to define each individual task we want applied to our code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/pipeline_position.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;library&quot;&gt;Library&lt;/h3&gt;
+&lt;p&gt;A place to store key value pairs that we can group and later reference in our yaml file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/library_position.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;service-connections&quot;&gt;Service Connections&lt;/h3&gt;
+&lt;p&gt;Predefined connections to internal (Azure) or external services from which we can later extract credentials to gain access in the pipeline.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/service_connection_position.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;into-the-rabbit-hole-setting-up-the-pipeline&quot;&gt;Into The Rabbit-Hole: Setting Up The Pipeline&lt;/h1&gt;
+&lt;p&gt;In this section I will initially explain how to set up some basic tasks within our yaml file for building and testing. 
+Next, I’ll move on to containerizing our build. 
+Finally, I’ll explain how I have used IaC (Infrastructure as Code) to firstly spin up an RDS (AWS) instance based on Postgres and secondly use Helm to deploy the application to an EKS (AWS) cluster owned by JWorks.&lt;/p&gt;
+&lt;h3 id=&quot;before-we-dive-in&quot;&gt;Before We Dive In&lt;/h3&gt;
+&lt;p&gt;Before we dive in, there are some nice to know things about the inner workings and structure of a pipeline defined in a yaml file.
+I’ll briefly go over some key definitions, so you can follow along when each individual task gets explained.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Triggers :
+    &lt;ul&gt;
+      &lt;li&gt;Triggers are (like the word implies) what starts a pipeline&lt;/li&gt;
+      &lt;li&gt;These can be changes in a branch like &lt;strong&gt;&lt;em&gt;main&lt;/em&gt;&lt;/strong&gt; or &lt;strong&gt;&lt;em&gt;develop&lt;/em&gt;&lt;/strong&gt; but could also be specific events happening in another pipeline such as failed jobs/stages or a specific variable value&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Variables :
+    &lt;ul&gt;
+      &lt;li&gt;A hardcoded variable defined at the start of your pipeline&lt;/li&gt;
+      &lt;li&gt;A variable group containing secret values like tokens that can not be acquired using service connections&lt;/li&gt;
+      &lt;li&gt;Both of these options can be defined at the same time or individually and used anywhere in the pipeline including in additional task commands if the task allows it.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Stages :
+    &lt;ul&gt;
+      &lt;li&gt;Defines what steps your pipeline should take in what order.&lt;/li&gt;
+      &lt;li&gt;Encapsulation of &lt;strong&gt;&lt;em&gt;stage&lt;/em&gt;&lt;/strong&gt; sections&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Stage :
+    &lt;ul&gt;
+      &lt;li&gt;A section of your pipeline&lt;/li&gt;
+      &lt;li&gt;Can be given a name of your choosing eg: Test,Docker,CloudSetup …&lt;/li&gt;
+      &lt;li&gt;Encapsulation for &lt;strong&gt;&lt;em&gt;jobs&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Jobs :
+    &lt;ul&gt;
+      &lt;li&gt;Encapsulation of &lt;strong&gt;&lt;em&gt;job&lt;/em&gt;&lt;/strong&gt; sections&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Job :
+    &lt;ul&gt;
+      &lt;li&gt;Can be given a name of your choosing just like the &lt;strong&gt;&lt;em&gt;stage&lt;/em&gt;&lt;/strong&gt; section&lt;/li&gt;
+      &lt;li&gt;Can be given a &lt;strong&gt;&lt;em&gt;pool&lt;/em&gt;&lt;/strong&gt; attribute to define which agent OS has to run this job&lt;/li&gt;
+      &lt;li&gt;Encapsulation of one or more &lt;strong&gt;&lt;em&gt;task&lt;/em&gt;&lt;/strong&gt; sections&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Task :
+    &lt;ul&gt;
+      &lt;li&gt;A pre-built or custom-made task to be performed on your pipeline run.&lt;/li&gt;
+      &lt;li&gt;Has a variety of attributes that can be manually filled up such as credentials or dictating your preferred working directories&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Agents :
+    &lt;ul&gt;
+      &lt;li&gt;A machine hosted by the cloud provider (Azure in our case) that runs on a specific OS&lt;/li&gt;
+      &lt;li&gt;Defined in the &lt;strong&gt;&lt;em&gt;pool&lt;/em&gt;&lt;/strong&gt; attribute of a &lt;strong&gt;&lt;em&gt;job&lt;/em&gt;&lt;/strong&gt; or at the start of a pipeline.&lt;/li&gt;
+      &lt;li&gt;Mostly a clean slate with only some essential software pre-installed eg: Docker&lt;/li&gt;
+      &lt;li&gt;Gets wiped after use in order to accommodate the next job.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All of the above gets combined into a structure that resembles following code.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;variables&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my-variable-group&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;main&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;pool&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;vmImage&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ubuntu-latest&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;stages&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;stage&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;job&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;myJob&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;echo &quot;Hello&quot;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;basic-tasks&quot;&gt;Basic Tasks&lt;/h3&gt;
+&lt;p&gt;Following are the pipeline tasks used to test our java project, generate a test rapport and then build it using Maven.&lt;/p&gt;
+&lt;h4 id=&quot;maven-test&quot;&gt;Maven Test&lt;/h4&gt;
+&lt;p&gt;To test our application we will be using JUnit because of the pre-existing support given by Azure. 
+This will also generate a test rapport during each pipeline run based on the unit tests defined in our project.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/maven_test.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;maven-build&quot;&gt;Maven Build&lt;/h4&gt;
+&lt;p&gt;A standard task using the Maven goal of ‘package’ which returns a JAR file that can later be used by Docker.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/maven_build.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;copying-and-creating-an-artifact&quot;&gt;Copying And Creating An Artifact&lt;/h4&gt;
+&lt;p&gt;In order to use our build across multiple agents we need to create an artifact out of the build.
+This artifact gets stored within the pipeline and can get called upon whenever we please.
+We do this by first copying our build to a directory on our agent that functions as the default staging directory for artifacts.
+By using a second task we take that build and publish it to our pipeline storage.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/copy_and_publish.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;containerization&quot;&gt;Containerization&lt;/h3&gt;
+&lt;p&gt;Here we use the artifact we created during our last job to create an image and push it to Dockerhub.&lt;/p&gt;
+&lt;h4 id=&quot;fetching-our-artifact&quot;&gt;Fetching Our Artifact&lt;/h4&gt;
+&lt;p&gt;First we have to fetch the artifact that we uploaded to our pipeline and place it in the appropriate directory on our new agent.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/download_artifact.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;creating-an-image&quot;&gt;Creating An Image&lt;/h4&gt;
+&lt;p&gt;Then we use said artifact together with a Dockerfile that was previously placed within our java project to create and upload an image to Dockerhub.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/docker_task.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;setting-up-a-cloud-database&quot;&gt;Setting Up A Cloud Database&lt;/h3&gt;
+&lt;p&gt;In this job we will use Terraform to set up an RDS (AWS) database based on Postgres for our containerized java application.
+Our Terraform files are stored in the java project under a folder called infrastructure and can be called upon directly, alternatively a remote folder containing Terraform files can be specified if you want or need to split up your project files.
+Credentials needed to get access to AWS services come from a manually pre-defined service connection.&lt;/p&gt;
+&lt;h4 id=&quot;installing-terraform&quot;&gt;Installing Terraform&lt;/h4&gt;
+&lt;p&gt;In order to use Terraform on our agent we have to first install it to our agent since it is not supplied by default.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_install_task.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;initializing-terraform&quot;&gt;Initializing Terraform&lt;/h4&gt;
+&lt;p&gt;This task performs several initialization steps in order to prepare the current working directory for use with Terraform.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_init.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;terraform-plan&quot;&gt;Terraform Plan&lt;/h4&gt;
+&lt;p&gt;Plans out what configurations and steps will be made once the apply command is given.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_plan_task.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;terraform-apply&quot;&gt;Terraform Apply&lt;/h4&gt;
+&lt;p&gt;Excecuting our Terraform plan defined in the previous step.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_apply.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;provisioning-a-cloud-cluster&quot;&gt;Provisioning A Cloud Cluster&lt;/h3&gt;
+&lt;p&gt;Now that we have an image of our app and place to store data to only one crucial step remains, launching our application.
+Our application gets deployed to EKS (Elastic Kubernetes Service) which is another AWS service designed for running cloud based Kubernetes.
+In order to do so a Helm chart has been made which like the Terraform files is stored under the infrastructure directory of our project.
+These charts are defined in a yaml format where specifications for Kubernetes are being made eg: Name of the app, Kind , Amount of replicas, Image to use …&lt;/p&gt;
+
+&lt;h4 id=&quot;helm-deploy&quot;&gt;Helm Deploy&lt;/h4&gt;
+&lt;p&gt;Using our Helm chart and a service connection allowing us to deploy to the Jworks cluster, we deploy our application, which gets pulled from Dockerhub, to the “stage-thomas-more” namespace within EKS.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/helm_task.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;giving-a-signal&quot;&gt;Giving A Signal&lt;/h3&gt;
+&lt;p&gt;Now that everything has been set up and all the services are up and running it’s time to give our developers a heads-up.
+I did this using a Telegram bot that will broadcast a message for every build that has run.
+The bot token was stored in the &lt;strong&gt;library&lt;/strong&gt; as a secret key-value pair.&lt;/p&gt;
+&lt;h4 id=&quot;creating-our-bot&quot;&gt;Creating Our Bot&lt;/h4&gt;
+&lt;p&gt;This is a prerequisite if you want to work with Telegram since a bot token and a chat id are required to function.
+Telegram has a neat tutorial on how to create your own bot using the “Botfather” which you can find here : &lt;a href=&quot;https://core.telegram.org/bots&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The Botfather&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;sending-out-notifications&quot;&gt;Sending Out Notifications&lt;/h4&gt;
+&lt;p&gt;Now that we have our bot token and a chat id we can define a message that gets sent everytime the task is reached.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/telegram_task.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;a-visual-representation&quot;&gt;A Visual Representation&lt;/h3&gt;
+&lt;p&gt;Displayed below you will find two images representing the pipeline and the goals they accomplish on the Cloud.&lt;/p&gt;
+
+&lt;p&gt;For now pay no attention to the little logo displaying Eric Cartman, this is the image I used to represent my custom task which we will get to in the following section.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/pipeline_flow.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/aws_diagram_final_image.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;out-of-the-frying-pan-and-into-the-fire-creating-our-own-task&quot;&gt;Out Of The Frying Pan And Into The Fire: Creating Our Own Task&lt;/h1&gt;
+&lt;p&gt;During week 5 all of the above was learned, implemented and configured to a working state so a question was asked by Frederick Bousson the solutions lead at the Jworks Ordina Unit if it was possible to create a custom task for use in the pipeline.&lt;/p&gt;
+
+&lt;p&gt;Up for another challenge I stepped into the pretty unexplored (And not fully documented) lands of developing a task for a pipeline.
+The main objective of the task is to get the pipeline logs from a predefined pipeline run or from the current one as default.
+Those logs get filtered and send to a DynamoDB instance hosted on AWS.&lt;/p&gt;
+
+&lt;h4 id=&quot;requirements&quot;&gt;Requirements&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Node.js&lt;/li&gt;
+  &lt;li&gt;TFX : A packaging tool&lt;/li&gt;
+  &lt;li&gt;Microsoft VSS Web Extension SDK package&lt;/li&gt;
+  &lt;li&gt;Some experience writing in Javascript or Typescript&lt;/li&gt;
+  &lt;li&gt;A Visual Studio publisher account (free)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;getting-the-logs&quot;&gt;Getting The Logs&lt;/h4&gt;
+&lt;p&gt;This was done using the Azure Devops REST API: &lt;a href=&quot;https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-7.1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To get builds, a couple of things are required:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The Azure Devops organization name&lt;/li&gt;
+  &lt;li&gt;The project name&lt;/li&gt;
+  &lt;li&gt;The build number&lt;/li&gt;
+  &lt;li&gt;Authorization&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;While the values for point one and two were pretty straightforward gaining access to the &lt;strong&gt;build logs&lt;/strong&gt; required a &lt;strong&gt;build id&lt;/strong&gt; instead of a &lt;strong&gt;build number&lt;/strong&gt; , and since the &lt;strong&gt;build id&lt;/strong&gt; can not be traced through the UI of Azure Devops some nested API requests were required.&lt;/p&gt;
+
+&lt;p&gt;The Authorization was gained through the creation of a PAT token that can be used as a header in the GET Request.&lt;/p&gt;
+&lt;h4 id=&quot;filtering-and-saving-failures&quot;&gt;Filtering And Saving Failures&lt;/h4&gt;
+&lt;p&gt;Now that we have our desired logs all that remains is filtering, formatting and sending those logs to DynamoDB.
+In order to complete this operation the following steps were taken:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Set up authorization in a way that allows developers to use their AWS service connection.&lt;/li&gt;
+  &lt;li&gt;Use the AWS SDK combined with the credentials from the service connection to authorize the user.&lt;/li&gt;
+  &lt;li&gt;Filter the received logs which had a format of plain text using regex to find possible error messages&lt;/li&gt;
+  &lt;li&gt;Format the error messages together with the developer responsible for the build and the time of build.&lt;/li&gt;
+  &lt;li&gt;Push our formatted object to DynamoDB&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;factory-fresh&quot;&gt;Factory Fresh&lt;/h4&gt;
+&lt;p&gt;Eh Voilà!
+Our extension does everything we hoped it would do, so it’s time implement it in our pipeline.&lt;/p&gt;
+
+&lt;p&gt;First we compile our Typescript to Javascript since the index.js file is the default node entry point.
+We then package our extension, and finally upload it using the management portal where we share it with our organizations of choice.&lt;/p&gt;
+
+&lt;p&gt;The result:&lt;/p&gt;
+
+&lt;p&gt;In my publisher account:
+&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/custom_task_in_marketplace.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the pipeline:
+&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/custom_extension_task.png&quot; style=&quot;margin:0px auto; max-width: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Want to check out the code? Take a look at the project repo : &lt;a href=&quot;https://github.com/MarienL1995/customTaskPublic&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-berry-on-top--our-physical-feedback&quot;&gt;The Berry On Top : Our Physical Feedback&lt;/h1&gt;
+&lt;p&gt;Almost there!
+Finally, it is time for the actual dirty work namely snitching on our dear colleagues.
+To do this I only needed two things, a raspberry pi and a bluetooth speaker.&lt;/p&gt;
+
+&lt;h3 id=&quot;dollar-store-google-assistant&quot;&gt;Dollar Store Google Assistant&lt;/h3&gt;
+&lt;p&gt;Initially we had planned to use a toy rocket launcher as our physical feedback machine.
+That idea was scrapped however because of a global shortage (or tremendous price increase) for all hardware components.&lt;/p&gt;
+
+&lt;p&gt;Next the Google Assistant came to mind which is embedded in Android devices or a Google home speaker.
+The problem with this idea unfortunately was that the Google Assistant was never designed to take in text input through an API because devices running Google Assistant had no direct endpoints.
+Now we could in fact work around this and set up a Home automation system like Home Assistant or Node Red but this would mean that our speaker could never change location without reconfiguring access to its new network.&lt;/p&gt;
+
+&lt;p&gt;A final solution I came up with in secret while my mentor was away on a conference in Valencia, was to run a Node.js server on a Raspberry Pi that after booting takes a reference log from our DynamoDB database.
+Every minute it would get the latest log available and compare it to the log it had stored, this way when a difference in logs had been found it knew it was time to call out the developer.&lt;/p&gt;
+
+&lt;p&gt;Through a nifty npm package we are able to send our text message that we want converted to an audio file and get an url in return pointing to an audio file.
+Using Node file system I programmatically created a text file where each audio url alternated with a path to a local audio file gets written on a line in the previously created text file.
+What I had just created was a playlist which dictated the order of audio files to be played.
+All I had to do now was hook it up to a media player.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;note&lt;/em&gt;&lt;/strong&gt;: This not the ideal solution, but it allowed the Pi and speaker to be portable to any location as long as we could connect it to wi-fi.&lt;/p&gt;
+
+&lt;p&gt;A succesfull pipeline run broadcast(Sound up):&lt;/p&gt;
+
+&lt;div class=&quot;responsive-video&quot;&gt;
+  
+    &lt;iframe src=&quot;https://www.youtube.com/embed/W4LZsEbTRF4&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;true&quot;&gt; &lt;/iframe&gt;
+  
+&lt;/div&gt;
+
+&lt;p&gt;A failed pipeline run broadcast(Sound up):&lt;/p&gt;
+
+&lt;div class=&quot;responsive-video&quot;&gt;
+  
+    &lt;iframe src=&quot;https://www.youtube.com/embed/6PS0K2zdW-o&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;true&quot;&gt; &lt;/iframe&gt;
+  
+&lt;/div&gt;
+
+&lt;h1 id=&quot;the-good-the-bad---the-ugly--summary&quot;&gt;The Good, The Bad &amp;amp; … The Ugly? : Summary&lt;/h1&gt;
+
+&lt;p&gt;Like I mentioned at the start of this blog, there were a number of different project options to choose from as an internship topic.
+The reason I went with the ci-cd route is that I knew it would pull me out of my comfort zone and broaden my view on development in general.&lt;/p&gt;
+
+&lt;p&gt;While having touched on basic CLI environments like Docker or Bash it always felt cryptic to use a multitude of flags and if you messed up the error messages weren’t all that clear compared to an error with a web framework like React for example.&lt;/p&gt;
+
+&lt;p&gt;After 7 weeks of submerging myself mostly in configuration files like .yaml and .tf(Terraform) combined with CLI tools such as kubectl for Kubernetes, psql for Postgres and AWS CLI for AWS Configuration, I’m glad to say that i feel a lot more at home touching on tools not necessarily meant for pure programming.&lt;/p&gt;
+
+&lt;p&gt;For a total recap of tools and software used during the project, I put together the following image.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/tech_summary.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As a final sendoff I want to say a quick thank you to my mentor Nick Geudens for guiding me through the jungle of DevOps and AWS and to Frederick Bousson for coming up with the project and allowing me the opportunity to execute it.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Lander&quot;, &quot;last_name&quot;=&gt;&quot;Marien&quot;, &quot;permalink&quot;=&gt;&quot;/author/lander_marien/&quot;, &quot;avatar&quot;=&gt;&quot;lander_marien.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;linkedin&quot;=&gt;&quot;lander-marien&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Lander is a graduating student Programming at Thomas More Campus De Nayer.&quot;}</name><email>laura.prevost@ordina.be</email></author><category term="Internship" /><category term="Spring" /><category term="Spring Boot" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Kubernetes" /><category term="Terraform" /><category term="Helm" /><category term="Azure" /><category term="Internet Of Things" /><category term="RaspberryPi" /><category term="Javascript" /><category term="Node.js" /><category term="AWS" /><category term="DynamoDB" /><category term="RDS" /><category term="Postgres" /><summary type="html">Table Of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Clean Agile - Back to Basics</title><link href="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html" rel="alternate" type="text/html" title="Clean Agile - Back to Basics" /><published>2022-06-30T00:00:00+00:00</published><updated>2022-06-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#the-reasons-for-agile&quot;&gt;The Reasons for Agile&lt;/a&gt;&lt;/li&gt;
@@ -1581,88 +1950,4 @@ Don’t accept a plain NO without valid reasoning.
 Try to look for similar projects within your organisation and find out if there are examples of projects that have moved to the public cloud already.
 Failing that, look at others like the &lt;a href=&quot;https://deutsche-boerse.com/dbg-en/media/press-releases/Deutsche-B-rse-and-Microsoft-reach-a-significant-milestone-for-cloud-adoption-in-the-financial-services-industry-1540058&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Deutsche Boerse&lt;/a&gt; or &lt;a href=&quot;https://www.youtube.com/watch?v=uz4bs9EQA0E&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Alphabet International Gmbh&lt;/a&gt; that have adopted public cloud as well.&lt;/p&gt;
 
-&lt;p&gt;Feel free to reach out to &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;me&lt;/a&gt; or any other Ordina colleagues if you want help with starting to adopt the cloud.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Leadership" /><category term="cloud" /><category term="technical leadership" /><category term="architecture" /><summary type="html">You were triggered by the title, weren’t you? You came here to look at the stupid arguments I wrote for defending legacy and on-premise solutions. Unfortunately, I have to disappoint you already. The title was indeed to trigger your interest. This article will however provide you with some battle-tested answers to common reasons “not to go to the cloud”. It will provide you with a strategy to counter common misconceptions for why the cloud “isn’t right for this project”.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-08-01-5-reasons-not-to-go-to-the-cloud/intro.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-08-01-5-reasons-not-to-go-to-the-cloud/intro.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Tips for being an influential technical team lead</title><link href="https://ordina-jworks.github.io/leadership/2021/07/06/Influential-tech-lead.html" rel="alternate" type="text/html" title="Tips for being an influential technical team lead" /><published>2021-07-06T00:00:00+00:00</published><updated>2021-07-06T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2021/07/06/Influential-tech-lead</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2021/07/06/Influential-tech-lead.html">&lt;p&gt;As a software engineer, I really enjoy creating applications and solving complex technical problems.
-But some years ago, there it suddenly was: I was no longer only a “do-er” but an “oversee-er” as well.
-At that point I had received very little formal managerial training, so learning on the job or from mentors was crucial to be successful.
-The soft skills I needed for my new role turned out to be more difficult than I initially thought.
-One of those difficult soft skills for me was (and often still is) the ability to influence people.
-Influencing others is not just about getting them to agree with your point of view or manipulating them to get your way, nor does it involve forcing others to change by using power and control.
-It’s about noticing what motivates others and using that knowledge to leverage performance and positive results.&lt;/p&gt;
-
-&lt;p&gt;Taking up the technical team lead role is not always an easy one.
-Often the skills necessary to be a great developer don’t translate easily to the role of a technical team lead.
-In this post, I will give some tips on how to be an influential technical team lead.&lt;/p&gt;
-
-&lt;h2 id=&quot;have-a-clear-vision&quot;&gt;Have a clear vision&lt;/h2&gt;
-&lt;p&gt;A vision is a clear image of how you see the future.
-It’s something that keeps you motivated and excited to do what you do.
-A technical team lead must be able to both zoom in and zoom out on a project.
-On one hand, you need to be able to look in detail into a technical requirement.
-On the other hand, you also need to keep the bigger picture in mind and how the requirement fits into the greater vision.
-If you’re a technical team lead that has no vision and isn’t going anywhere, then how can you expect your team will follow you?
-In order to create a vision you can ask yourself questions like ”What do you want to achieve?, “Which (tangible) output do you want when achieving your goal?”, “How would that output change the way things are done now?”, …
-Setting specific goals together with your team that move towards your vision will help you to achieve it.&lt;/p&gt;
-
-&lt;p&gt;Once you have that vision and goals, being predictable is key.
-By doing so, everybody knows what you’re trying to achieve.
-The Don’t-Repeat-Yourself principle, which is a key principle for each software engineer, does not apply when working with people.
-Communicate your vision and goals over and over again: repetition and predictability are key.&lt;/p&gt;
-
-&lt;h2 id=&quot;be-collaborative&quot;&gt;Be collaborative&lt;/h2&gt;
-&lt;p&gt;A top-down approach where nobody has a say in the process and where both vision and goals are pushed downwards, is very easy for team members to reject.
-A different and more sustainable approach is to be a collaborative technical team lead.
-This means that you regularly seek out a diversity of opinions and ideas amongst teammates to solve problems.
-Involve your team in creating a shared vision, and identify the behaviours necessary to accomplish it.
-It’s all about getting the team to think through these difficulties themselves instead of telling them what to do all the time.
-As a result they are more engaged, feel trusted, and are more likely to take ownership of their work.
-Building meaningful relationships is one of the key responsibilities of a technical team lead.&lt;/p&gt;
-
-&lt;h2 id=&quot;practice-active-listening&quot;&gt;Practice active listening&lt;/h2&gt;
-&lt;p&gt;We often think about influence as being what we say or how we say it, but improving your listening skills is key to gaining your team’s trust and creating psychological safety.
-As technical team leads we’re often pulled in many directions throughout the day. 
-The most common pitfall is that we listen to reply, not to understand.
-It’s easy to be a passive listener by multitasking and only listening to the highlights. 
-While it may seem like you don’t have time, making the time to really listen to your team can increase your leadership capacity significantly.
-Active listening is the ability to focus completely on your team, understand their message, comprehend the information and respond thoughtfully in a relevant way.
-This also includes not only capturing the message, but paying attention to subtle hints and non-verbal communication such as tone, emphasis, facial expressions and body language.
-Keep in mind that a true servant leader only speaks about 20 to 30% of the time, the rest should be spent on listening.&lt;/p&gt;
-
-&lt;p&gt;When your team members know that they will be heard, they are more likely to openly share their ideas and provide honest feedback.
-Knowing how and when to gather knowledge of your team members is important, since you can then synthesize it into a better solution before deciding the course forward.&lt;/p&gt;
-
-&lt;h2 id=&quot;influenceothers&quot;&gt;Influence others&lt;/h2&gt;
-&lt;p&gt;At a basic level, influence is about compliance.
-It is about getting someone to do what you want them to do, it allows you to get things done and achieve desired outcomes.
-However, this can never be accomplished by power and control, but only by genuine commitment of other people.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2021-07-06-Influential-tech-lead/planned-behaviour.png&quot; alt=&quot;Planned Behaviour&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This simplified diagram is based on “The theory of planned behaviour” by Icek Ajzen, a social psychologist and professor emeritus at the University of Massachusetts Amherst.
-His theory assumes that before every Behaviour, there is an Intention.&lt;/p&gt;
-
-&lt;p&gt;A simple practical example: you notice a specific behaviour from a software engineer on your team, namely that he/she refuses to write unit tests.
-As a technical team lead, you are interested in why he/she formed the intention not to write these unit tests because you’re convinced that unit tests have a variety of benefits such as improving of code quality, finding bugs early and facilitating change.&lt;/p&gt;
-
-&lt;p&gt;There are three elements that can help us trying to understand why your colleague formed this intention:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Attitude a.k.a “Is the behaviour good and is it right?”&lt;/strong&gt;:  We’re deciding if the behaviour is in our own best interest or if it is the right thing to do. So if we have a positive attitude towards the behaviour, it is more likely that we will perform the behaviour. &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Subjective norm a.k.a “What’s everyone else doing?”&lt;/strong&gt;: We’re asking ourselves what others think of the behaviour and how they judge it. If we think that others consider the behaviour to be normal or good, it is more likely that we will perform the behaviour. &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Perceived behavioural control a.k.a “Can I do it?”&lt;/strong&gt;: When we believe that behaviour is easy to perform, we are more likely to perform the behaviour.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So when you’re asking the software engineer on your team to write unit tests, the three elements listed above will cross his mind and he/she will ask himself questions like: “Is it a good thing to write unit tests?”, “Is it in my own interest to write unit tests?”, “Does everyone write unit tests or is it just me?”, “Do I know how to write unit tests and do I have enough information/time to write them?”, …
-Targeting each and every one of these elements is the key to success when you want your colleague to start writing unit tests.&lt;/p&gt;
-
-&lt;p&gt;So what can you do to influence the other person’s thinking?&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;“Is the behaviour good and is it right?”&lt;/strong&gt;: Identify what the other person cares about, what he/she thinks is good and what he/she thinks is the right thing to do. For example, your colleague might think it’s super important to finish his user story as quickly as possible. The key thing to do here as a technical team lead is not to be manipulative or dishonest, but to genuinely align your goals with his motivations and things he/she already cares about. Writing unit tests facilitates change, provides documentation, and ultimately saves time.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;“What’s everyone else doing?”&lt;/strong&gt;: You can present that writing unit tests is an industry standard and not some kind of crazy idea you’ve just come up with.
-Presenting it as a good practice and being able to demonstrate why other successful teams or companies do it, is a good way to help your colleague see that what you’re asking him to do is normal in the industry.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;“Can I do it?”&lt;/strong&gt;: If your colleague thinks it is too difficult, he/she will never start writing unit tests. Therefore, present it as a clear and small change, and make it easy for him to do. Offer your support and show examples of good and successful unit tests so he/she gains confidence and knows he/she can do it.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“The key to successful leadership is influence, not authority.” – Ken Blanchard&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Martin&quot;, &quot;last_name&quot;=&gt;&quot;Kwee&quot;, &quot;permalink&quot;=&gt;&quot;/author/martin-kwee/&quot;, &quot;avatar&quot;=&gt;&quot;martin-kwee.jpg&quot;, &quot;title&quot;=&gt;&quot;Principal Consultant&quot;, &quot;title2&quot;=&gt;&quot;Competence Leader eHealth&quot;, &quot;email&quot;=&gt;&quot;martin.kwee@ordina.be&quot;, &quot;linkedin&quot;=&gt;&quot;martinkwee&quot;, &quot;bio&quot;=&gt;&quot;Martin is a Java consultant at Ordina Belgium. He enjoys a good technical challenge and has a strong interest in architecture and eHealth.&quot;}</name><email>martin.kwee@ordina.be</email></author><category term="Leadership" /><category term="leadership" /><category term="technical leadership" /><category term="influence" /><summary type="html">As a software engineer, I really enjoy creating applications and solving complex technical problems. But some years ago, there it suddenly was: I was no longer only a “do-er” but an “oversee-er” as well. At that point I had received very little formal managerial training, so learning on the job or from mentors was crucial to be successful. The soft skills I needed for my new role turned out to be more difficult than I initially thought. One of those difficult soft skills for me was (and often still is) the ability to influence people. Influencing others is not just about getting them to agree with your point of view or manipulating them to get your way, nor does it involve forcing others to change by using power and control. It’s about noticing what motivates others and using that knowledge to leverage performance and positive results.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-07-06-Influential-tech-lead/influence.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-07-06-Influential-tech-lead/influence.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;p&gt;Feel free to reach out to &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;me&lt;/a&gt; or any other Ordina colleagues if you want help with starting to adopt the cloud.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Leadership" /><category term="cloud" /><category term="technical leadership" /><category term="architecture" /><summary type="html">You were triggered by the title, weren’t you? You came here to look at the stupid arguments I wrote for defending legacy and on-premise solutions. Unfortunately, I have to disappoint you already. The title was indeed to trigger your interest. This article will however provide you with some battle-tested answers to common reasons “not to go to the cloud”. It will provide you with a strategy to counter common misconceptions for why the cloud “isn’t right for this project”.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2021-08-01-5-reasons-not-to-go-to-the-cloud/intro.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2021-08-01-5-reasons-not-to-go-to-the-cloud/intro.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
