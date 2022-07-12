@@ -229,7 +229,7 @@ For now pay no attention to the little logo displaying Eric Cartman, this is the
 
 <img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/pipeline_flow.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
-<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/aws_diagram_final_image.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/AWS_diagram_final_image.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 # Out Of The Frying Pan And Into The Fire: Creating Our Own Task
 During week 5 all of the above was learned, implemented and configured to a working state so a question was asked by Frederick Bousson the solutions lead at the Jworks Ordina Unit if it was possible to create a custom task for use in the pipeline.
