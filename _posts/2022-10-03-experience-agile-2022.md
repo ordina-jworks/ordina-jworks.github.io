@@ -62,12 +62,12 @@ More information on FAST can be found at [Fluid Scaling Tech](https://fluid.scal
 
 # Optimise your neurophysiology for agile thinking, by Delia McCabe
 
-A suprising talk about the functioning of the brain and how it correlates with agile.
+A surprising talk about the functioning of the brain and how it correlates with agile.
 > "Thinking occurs across a sensitive and sophisticated neural network. Our neurophysiology depends heavily on lifestyle choices, which include the nutrients we consume. Other lifestyle factors, which include sleep quality, physical activity, and work and relationships, also impact this sophisticated network, although nutrition  forms the foundation of our neurophysiology. It is therefore the first principle we need to address if we aim to maximise cognitive strategies such as agile, creative, and flexible thinking."
 
 <img alt="Feed your brain" src="{{ '/img/2022-10-03-experience-agile-2022/feed_your_brain.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
-I was most curious about this talk, as it doesn't immediatly connect with an agile conference. She said it herself that she was suprised to have been invited, but took it as a challenge to explain how the brain works and how that affects the agile way of thinking.
+I was most curious about this talk, as it doesn't immediately connect with an agile conference. She said it herself that she was surprised to have been invited, but took it as a challenge to explain how the brain works and how that affects the agile way of thinking.
 
 She started the talk with explaining how our brains have evolved to work in a jungle environment, to survive.
 But that the current office life is a lot different and our brains have difficulties handling it. Back in the ancient times, stress was present in short bursts (for example when hunting), but not continuously like it is in the current times.
@@ -86,7 +86,7 @@ Almost every company uses agile nowadays. But not everyone gets it right.
 <img alt="Practice does not make perfect" src="{{ '/img/2022-10-03-experience-agile-2022/practice_does_not_make_perfect.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
 
 The talk started with the explanation of the logical levels model.
-It goes top-down from identity and role, to values and belief, to capability, behavior and environment.
+It goes top-down from identity and role, to values and belief, to capability, behaviour and environment.
 He gave the following example in his current role:
 
 <img alt="Logical levels example" src="{{ '/img/2022-10-03-experience-agile-2022/logical_levels.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 750px;">
