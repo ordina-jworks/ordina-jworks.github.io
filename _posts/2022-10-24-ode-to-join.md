@@ -46,7 +46,7 @@ Ending the Conference by Queueing up for the Barbecue Diner
 Not only did we have a new team, but the founding member of the conference, the jWorks unit or Ordina was joined by their colleagues from the BOLD unit to make it an even more impressive package deal. 
 The talks reflected this, not only in a healthy mix of speakers but also in a healthy mix of topics ranging from the concerns about patching 3rd party software to the accessibility concerns of digital products for disabled people. 
 We had people from AWS talking about the various ways to modernize applications, and we had people from Flowable showing process automation at its finest. 
-With Flutter, experts came various insights into the world of mobile app design, and even the mysteries of the design system were laid bare for all to understand.
+On the subject of Flutter, experts came various insights into the world of mobile app design, and even the mysteries of the design system were laid bare for all to understand.
 
 Even though the topics were varied, the main theme was clear: Software development for the current times, leveraged by the possibilities that are present in the Cloud and the options we have for multi-channel approaches toward the customer. 
 Thinking back to the Nexus of Force that Gartner used to taut: Social, Mobile, Analytics, and Cloud, the talks covered three of these four topics. 
