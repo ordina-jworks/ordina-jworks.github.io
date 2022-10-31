@@ -1,5 +1,214 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-10-26T06:28:45+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Ode to JOIN</title><link href="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html" rel="alternate" type="text/html" title="Ode to JOIN" /><published>2022-10-24T00:00:00+00:00</published><updated>2022-10-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html">&lt;p&gt;We had JOIN, we had fun, we had seasons in the sun. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-10-31T09:00:41+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Keeping up with dependencies like a boss</title><link href="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html" rel="alternate" type="text/html" title="Keeping up with dependencies like a boss" /><published>2022-10-27T00:00:00+00:00</published><updated>2022-10-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/10/27/renovate</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html">&lt;blockquote&gt;
+  &lt;p&gt;Anything worth doing twice is worth automation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#whats-the-problem&quot;&gt;What’s the problem?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-mend-renovate&quot;&gt;What is Mend Renovate?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#behind-the-curtains&quot;&gt;Behind the curtains&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#how-to-setup&quot;&gt;How to setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tips-and-tricks&quot;&gt;Tips and tricks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-should-i-use-it&quot;&gt;Why should I use it?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#links&quot;&gt;Links&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;whats-the-problem&quot;&gt;What’s the problem?&lt;/h2&gt;
+
+&lt;h3 id=&quot;lack-of-features&quot;&gt;Lack of features&lt;/h3&gt;
+
+&lt;p&gt;Let’s imagine you need to implement support for a new feature.
+Let’s imagine that that feature is super easy to implement due to almost native support for the functionality in a library you’re already using. 
+That sounds like a great day, right? 
+You add the code to glue together the API and the library, perform some tests and call it a day. 
+There is just one problem, you didn’t check which version of the dependency you were using and the feature you need is only supported in versions 8.x.x and beyond. 
+You check your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;, only to figure out that you’re on version &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6.8.21&lt;/code&gt;.
+Now you have two options, refactor 25% of your codebase to be able to use the new library or 5x your effort for implementing the feature without the support of the library.
+That doesn’t sound like a great day at the (home-)office, now does it?&lt;/p&gt;
+
+&lt;p&gt;Wouldn’t be great to have been on version &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8.1.2&lt;/code&gt; already?&lt;/p&gt;
+
+&lt;h3 id=&quot;dependent-systems&quot;&gt;Dependent systems&lt;/h3&gt;
+
+&lt;p&gt;Let’s imagine another scenario.
+You’re using a library to connect to an Elasticsearch cluster that’s provided by another team. 
+Your application is running nicely in production and you’re steadily adding features to the codebase.
+The end of the year approaches and with that, the pressure to deliver the final set of promised features increases.
+All of a sudden, your application starts throwing all kinds of errors in your development environment. 
+After some stressful debugging, you figure out that the Elasticsearch cluster has been upgraded to the latest version by the other team. 
+Furiously, you open up your mailbox and look for an email about the upgrade. 
+Of course, you find the email dating back four weeks where the team announced that they will start upgrading this week for development and do production in two weeks.&lt;/p&gt;
+
+&lt;p&gt;Since it’s a shared system, you can’t fault the other team, nor can you halt their upgrade path. 
+So the only way forward is to upgrade the library. 
+You open up your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt; file only to discover that you’re already 2 major versions behind. 
+Upgrading will take ages since your code depends on previously deprecated and by now removed API support.&lt;/p&gt;
+
+&lt;p&gt;That sounds like a lot of overtime, stress and/or missed deadlines for the end of the year, doesn’t it…&lt;/p&gt;
+
+&lt;h3 id=&quot;security-vulnerability&quot;&gt;Security Vulnerability&lt;/h3&gt;
+
+&lt;p&gt;Now we get to a scenario that maybe 50% of the Java community experienced at the end of 2021.
+A severe security vulnerability was discovered in a very popular logging library: Log4J. 
+Normally, vulnerabilities aren’t this severe and there aren’t part of the nine o’clock news.
+Now imagine that you are using a vulnerable software component and you aren’t informed by the news that you need to urgently update, how would you know about the vulnerability? 
+Maybe you have some scanning software that checks for know CVEs?
+Maybe you have really good developers that are subscribed to the mailing lists of all dependencies they’re using?
+Or more likely than not, you just don’t know you’re vulnerable. 
+OWASP identified &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Vulnerable and outdated components&lt;/code&gt; as number six on their &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Top 10 Web Application Security Risks&lt;/code&gt; of 2021.&lt;/p&gt;
+
+&lt;p&gt;Wouldn’t it have been nice to have a PR on every repository that had the Log4J dependency with the new version updated? 
+So that you only had to merge that PR to mitigate the vulnerability?&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-mend-renovate&quot;&gt;What is Mend Renovate?&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.mend.io/free-developer-tools/renovate/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mend Renovate&lt;/a&gt; (formerly known as WhiteSource Renovate) is a tool that detects dependencies in your code and informs you about new versions of your dependencies.
+It’s a free (at the time of writing) tool that can be used as a GitHub App or as a self-hosted tool. 
+Renovate scans a repository and detects the used dependencies, relying on dependency managers.
+As of time of writing, Renovate supports about &lt;a href=&quot;https://docs.renovatebot.com/modules/manager/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;80 different dependency management&lt;/a&gt; systems out of the box.
+Next, it can integrate with your code repositories (e.g. Bitbucket, Github, Gitlab, …) and automatically update the dependency in your code. 
+It can create pull requests (PR) for every update it detects and even adds changelog (if available) information to the PR. 
+This is especially helpful if there are (manual) changes required to use the new version of the dependency.
+So Renovate can &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;detect&lt;/code&gt; your dependencies, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inform&lt;/code&gt; you about the updates and even tell you &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;how&lt;/code&gt; to update.&lt;/p&gt;
+
+&lt;h2 id=&quot;behind-the-curtains&quot;&gt;Behind the curtains&lt;/h2&gt;
+
+&lt;p&gt;Now, how does this magic work?&lt;/p&gt;
+
+&lt;p&gt;Renovate starts by scanning your source code for dependencies.
+It does this by looking for dependency files in your repository, let’s take the file structure below as an example.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;repo/ 
+├─ src/ 
+├─ Dockerfile 
+├─ pom.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Renovate will detect the Dockerfile and the Maven dependency file (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;).
+It will pass these files to the dependency managers internally and detect which dependencies are being used.
+Let’s imagine that the Dockerfile has the following &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FROM&lt;/code&gt; line at the top: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FROM amazoncorretto:18.0.0&lt;/code&gt;
+The dependency manager for docker will detect that this is the repository &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amazoncorretto&lt;/code&gt; with tag &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;18.0.0&lt;/code&gt; on Docker Hub.
+Next, it will look in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pom.xml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Excerpt of the pom.xml:&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.logging.log4j&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;log4j-core&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.12.2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Note: Never use this dependency! This is a vulnerable version of log4j-core.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Renovate will detect the following Maven dependency: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.apache.logging.log4j:log4j-core:2.12.2&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, Renovate will check for new versions of those dependencies. 
+By default, Renovate will use the central Apache Maven Repository to check for newer versions of Maven dependencies. 
+For Docker images, Docker Hub is used by default.
+Like almost everything in Renovate, you can configure it to use different data sources, like your own Nexus, Artifactory or AWS Elastic Container Registry for example.
+This way you can limit what sources are considered and you can also use Renovate to update internal dependencies instead of just public ones.&lt;/p&gt;
+
+&lt;p&gt;Now let’s imagine that the most recent version of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amazoncorretto&lt;/code&gt; image is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;18.0.2&lt;/code&gt; (This is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;latest&lt;/code&gt; at the time of writing).
+Renovate will create a branch from your main branch, update the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FROM&lt;/code&gt; entry in your Dockerfile and push the changes into your repository as a new branch. 
+Now your regular CI/CD process can be followed to build, test, merge and deploy your component with the updated dependency.&lt;/p&gt;
+
+&lt;p&gt;The same scenario, with a second branch, will be performed to update the log4j dependency.&lt;/p&gt;
+
+&lt;p&gt;As an additional bonus, if the dependency exposes it, Renovate will add the changelogs in the pull/merge request it creates in your repository.
+This makes it visible if any breaking changes were introduced and allows you to easily check, together with your tests, if you need to make changes to your code to update the dependency.&lt;/p&gt;
+
+&lt;p&gt;Example of changelogs embedded in PR.&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20221009-renovate/pr-changelog.png&quot; alt=&quot;PR with changelogs&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-setup&quot;&gt;How to setup&lt;/h2&gt;
+
+&lt;p&gt;How to use Renovate depends a bit on where your code lives.&lt;/p&gt;
+
+&lt;h3 id=&quot;renovate-github-app&quot;&gt;Renovate GitHub App&lt;/h3&gt;
+
+&lt;p&gt;If you’re using GitHub, the setup is as easy as enabling the &lt;a href=&quot;https://github.com/apps/renovate&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub Renovate app&lt;/a&gt; for your repository. 
+Next, Renovate will create an onboarding pull request where it will suggest a default Renovate configuration, show a preview of what dependencies it detected and an example of what updates it has found. 
+The only thing left is to merge the pull request and renovate will automatically start scanning your repository and start creating branches and pull requests with dependency updates.&lt;/p&gt;
+
+&lt;h3 id=&quot;self-hosted-renovate&quot;&gt;Self-hosted Renovate&lt;/h3&gt;
+
+&lt;p&gt;The second option is to host Renovate yourself.
+This option also comes with a lot more configuration capabilities, especially w.r.t. private data sources. 
+You can run Renovate &lt;a href=&quot;https://docs.renovatebot.com/examples/self-hosting/#gitlab-cicd-pipeline&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;as (part of) a pipeline&lt;/a&gt;, as a &lt;a href=&quot;https://docs.renovatebot.com/examples/self-hosting/#docker&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Docker container&lt;/a&gt; or even as a &lt;a href=&quot;https://docs.renovatebot.com/examples/self-hosting/#kubernetes&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CronJob on Kubernetes&lt;/a&gt;.
+Since you only need NodeJS/NPM to be available, you can run it almost anywhere you want. 
+You can find an example of how to run Renovate as a Cronjob on a Kubernetes cluster in &lt;a href=&quot;https://github.com/pietervincken/renovate-tekton-argo-talk/tree/main/k8s/renovate&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;this repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;With the self-hosted deployment method, you need to either explicitly tell Renovate which repositories it needs to consider or configure it to auto-detect repositories based on the access of its user or the integration with your code repositories.
+For Bitbucket Server you can for example configure Renovate to automatically discover all repositories in a specific project.
+This prevents you from having to make changes to the Renovate configuration every time a new repository gets added.&lt;/p&gt;
+
+&lt;p&gt;In this scenario, you’ll have to provide Renovate an identity to interact with the code repositories as well, as it needs to be able to create branches and push code changes.&lt;/p&gt;
+
+&lt;h2 id=&quot;tips-and-tricks&quot;&gt;Tips and tricks&lt;/h2&gt;
+
+&lt;p&gt;Aka things we discovered and/or went wrong while we started using Renovate.&lt;/p&gt;
+
+&lt;h3 id=&quot;limit-concurrent-branches--prs&quot;&gt;Limit concurrent branches / PRs&lt;/h3&gt;
+
+&lt;p&gt;An important tip, especially if your repository contains quite some outdated components, is to limit the number of concurrent branches and pull requests that Renovate is allowed to create. 
+By default, Renovate is not limited to a specific number which might result in literally 10s if not over 100 pull requests being created. 
+To prevent you and/or your developers from becoming overwhelmed by this, &lt;a href=&quot;https://docs.renovatebot.com/configuration-options/#prconcurrentlimit&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;limiting the concurrent pull requests&lt;/a&gt; is a must!&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-auto-merging&quot;&gt;Setup auto-merging&lt;/h3&gt;
+
+&lt;p&gt;Auto-merging is a very powerful feature in Renovate, especially in combination with very good automated tests and continuous integration practices. 
+&lt;strong&gt;Don’t&lt;/strong&gt; enable this when starting with Renovate. 
+Over time, you’ll be able to identify repositories and data sources for which updates are becoming as easy as just accepting the PRs. 
+For these combinations of repositories and data sources, you can enable auto-merging in Renovate. 
+This means that Renovate will perform the update to the code repository and if the result of the pipeline for that change is green, it will attempt to merge that PR.
+If you have a well-automated CI/CD process, this can allow Renovate to automatically update your dependencies and make sure that your software automatically has the latest dependencies.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-it-in-deployment-repositories&quot;&gt;Use it in deployment repositories&lt;/h3&gt;
+
+&lt;p&gt;The term dependency is interpreted quite broadly in Renovate. 
+Not only classical libraries and Docker base images can be detected. (aka build phase dependencies)
+It can also detect dependencies in your deployment setups. 
+This means that it can detect updates in &lt;a href=&quot;https://docs.renovatebot.com/modules/manager/ansible/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ansible playbooks&lt;/a&gt;, update &lt;a href=&quot;https://docs.renovatebot.com/modules/manager/helmv3/https://docs.renovatebot.com/modules/manager/helmv3/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Helm Chart&lt;/a&gt; references, update &lt;a href=&quot;https://docs.renovatebot.com/modules/manager/kubernetes/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kubernetes manifests&lt;/a&gt; (including the API versions as shown below!) and even &lt;a href=&quot;https://docs.renovatebot.com/modules/manager/kustomize/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Kustomize&lt;/a&gt; and &lt;a href=&quot;https://docs.renovatebot.com/modules/manager/terraform/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Terraform&lt;/a&gt; setups.&lt;/p&gt;
+
+&lt;p&gt;Enabling automated dependency management for those deployment repositories can greatly reduce the amount of effort that is required to update a newer external dependency. 
+It also helps to make sure that an update is rolled out consistently across many different environments. 
+Especially in a larger corporate context, it can be hard to determine what the latest version of a specific service is and on which environments it’s running or not. 
+By enabling Renovate to detect the dependencies, it can easily inform the different teams/users of newer versions.&lt;/p&gt;
+
+&lt;p&gt;Example of automated Kubernetes API updates.&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20221009-renovate/k8s-api-update.jpg&quot; alt=&quot;Kubernetes API updates&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;start-slow&quot;&gt;Start slow!&lt;/h3&gt;
+
+&lt;p&gt;The last tip might sound a bit contradictory, but starting small with Renovate is key. 
+You want to build confidence in the data sources you’re using and prevent your teams from being overwhelmed by Renovate PRs. 
+A good way to start with Renovate is to enable it on just one or maybe a handful of low-impact repositories. 
+This way, you can see what effect it has on your workflow and how teams react to having these PRs pop up in their change feed.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-should-i-use-it&quot;&gt;Why should I use it?&lt;/h2&gt;
+
+&lt;p&gt;At the start of this blog post, we’ve discussed why updating dependencies is important.
+As discussed, bulk updating dependencies is an option, but it might be time-consuming and therefore might be bumped to the bottom of the priority list.
+Not to mention that you might miss important security updates if you need to “look” for the changes manually. 
+Automating the update process and allowing a tool to automatically discover the updates, makes the update process a lot simpler and faster. 
+If you already have a good CI/CD process that allows you to build, test, merge and deploy small changes easily, Renovate will save you tons of time and prevent you from running unsafe, outdated software.&lt;/p&gt;
+
+&lt;p&gt;And as one of my favorite sayings goes: &lt;strong&gt;anything worth doing twice is worth automating&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;links&quot;&gt;Links&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.mend.io/free-developer-tools/renovate/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Mend Renovate website&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/renovatebot/renovate&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Renovate Github Repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.renovatebot.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Renovate docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://youtu.be/fAEbRmD4-G0&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;JOIN 2022 Talk YouTube Link&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/pietervincken/renovate-tekton-argo-talk/tree/main/k8s/renovate&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Sample Renovate Setup&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This blog post is a companion to a talk at the JOIN 2022 conference.&lt;/p&gt;
+
+&lt;p&gt;Feel free to reach out to &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;me&lt;/a&gt; if you want to look into this solution.&lt;/p&gt;
+
+&lt;p&gt;Special thanks to the Unicorn team for helping with the blog post and automating the dependency updates!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="cicd" /><summary type="html">Anything worth doing twice is worth automation.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ode to JOIN</title><link href="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html" rel="alternate" type="text/html" title="Ode to JOIN" /><published>2022-10-24T00:00:00+00:00</published><updated>2022-10-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html">&lt;p&gt;We had JOIN, we had fun, we had seasons in the sun. 
 It has already been a month since the 9th edition of the JOIN conference was concluded. 
 And even though it had been ten years since the first edition, the skipped year due to the pandemic will cause us to have an additional anniversary edition next year. 
 The aluminum edition will be a sight to see, and it would be a shame to miss it.&lt;/p&gt;
@@ -1649,210 +1858,4 @@ As an introduction, we can realize a “&lt;strong&gt;weather tour&lt;/strong&gt
 &lt;p&gt;Therefore, while not being the holy grail, collective intelligence can be seen as the hat of Mary Poppins:  we play with processes, we open a space for dreams and creativity, we draw, we laugh, before converging into a collective and rewarding action plan.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;“Great things in business are never done by one person. They are done by a team of people”&lt;/em&gt;.&lt;/strong&gt;
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/conclusion.jpg&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Laura&quot;, &quot;last_name&quot;=&gt;&quot;Prevost&quot;, &quot;permalink&quot;=&gt;&quot;/author/laura-prevost/&quot;, &quot;avatar&quot;=&gt;&quot;laura-prevost.jpg&quot;, &quot;title&quot;=&gt;&quot;Analyst&quot;, &quot;linkedin&quot;=&gt;&quot;laura-prevost-72097255&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Laura is an Analyst at Ordina Belgium. Also Competence Lead of Technical Leadership at Jworks. Passionate about people. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>laura.prevost@ordina.be</email></author><category term="Leadership" /><category term="Leadership" /><category term="Collective" /><category term="Intelligence" /><summary type="html">Collective Intelligence - The Best of Synergy.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-05-05-collective-intelligence/collective-intelligence-home.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-05-05-collective-intelligence/collective-intelligence-home.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Testing with production data made easy</title><link href="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html" rel="alternate" type="text/html" title="Testing with production data made easy" /><published>2022-02-14T00:00:00+00:00</published><updated>2022-02-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/02/14/postgres-ai.html">&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#whats-the-problem&quot;&gt;What’s the problem?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#what-is-database-lab&quot;&gt;What is Database Lab?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#end-user-interaction&quot;&gt;End user interaction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#behind-the-curtains&quot;&gt;Behind the curtains&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#how-to-setup&quot;&gt;How to setup&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#how-to-use-it&quot;&gt;How to use it&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#more-cool-features&quot;&gt;More cool features&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#why-should-i-use-it&quot;&gt;Why should I use it?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#links&quot;&gt;Links&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;whats-the-problem&quot;&gt;What’s the problem?&lt;/h2&gt;
-
-&lt;p&gt;Testing data migrations is one of the cases where investing in good testing is crucial. 
-Unfortunatly it’s hard to cover all the scenarios and it can be very time consuming to write test code for all of the scenarios you need to cover, especially in a one off migration.
-Moreover, if the data quality of your production system isn’t 100%, it’s very easy to miss a few scenarios in the analysis, which leads to missed migration scenarios that lead to bugs and incidents.&lt;/p&gt;
-
-&lt;p&gt;In most cases, developers don’t have access to production systems directly, especially databases.
-This requirements has become more important over the years due to GDPR or similar regulations. 
-It makes it almost impossible for developers to have a good insight into what data is available in a production database.
-In some organisations, regulars dumps are made to a dedicated environment for testing database migrations.
-Both technically and regulatory, this can be challenging as copying over large portions of data is an expensive and time intensive operation.&lt;/p&gt;
-
-&lt;p&gt;This blogpost will provide an alternative way to handle this scenario in a safe and fast way using Postgres.ai’s Database Lab Engine.&lt;/p&gt;
-
-&lt;h2 id=&quot;what-is-database-lab&quot;&gt;What is Database Lab?&lt;/h2&gt;
-
-&lt;p&gt;Database Lab is software that allows you to easily and quickly create thin clones of databases.
-At the time of writing, it supports PostgreSQL databases.
-It has been created by Postgres.ai which was founded by &lt;a href=&quot;https://twitter.com/samokhvalov&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Nikolay Samokhvalov&lt;/a&gt;.
-They are specialised in creating solutions to assist with database management.&lt;/p&gt;
-
-&lt;p&gt;The software exists in 4 main parts, their engine, their CLI, a GUI and the SaaS platform.
-This post will mostly discuss the Database Lab Engine (DLE) community edition, so without the SaaS platform.&lt;/p&gt;
-
-&lt;h3 id=&quot;end-user-interaction&quot;&gt;End user interaction&lt;/h3&gt;
-
-&lt;p&gt;Let’s start with what DLE can ultimately bring you.&lt;/p&gt;
-
-&lt;p&gt;Let’s say a developer, Neal, wants to validate a data migration he has created. 
-Performing an export and import from one database to another isn’t that hard, especially in PostgreSQL.
-You run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pg_dumpall&lt;/code&gt; on the exporting database and just run a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pqsl&lt;/code&gt; with the dump on the importing one and you’re done. 
-Now imagine that the dataset he’s using is not just a few megabytes in size, but consists of 100s of 1000s of rows across a multitude of tables. 
-That import is going to take a while, more than just a coffee break, let’s say 30 minutes. 
-After the import completes, since he’s working on another data migration, he runs his migration script against the clone and as we, developers, aren’t perfect, he finds a bug halfway through his migration. 
-He fixes the bug and wants to run the migration again. 
-To do that, he needs to re-run the import (provided he kept the export) and restart his migration.
-Again 30 minutes plus his migration time are lost.&lt;/p&gt;
-
-&lt;p&gt;This is a scenario where DLE shines.
-Let’s say Neal’s company has a DLE setup for the database he wants to use. 
-The same scenario would look like this:&lt;/p&gt;
-
-&lt;p&gt;Neal requests a DLE clone: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dblab clone create neals-special-clone --username neal --password nealisawesome&lt;/code&gt; or through the GUI.
-This takes seconds to complete. 
-Later in this post, we’ll discuss how that’s possible with so much data.
-Next, Neal runs his migration script, as before, it fails halfway through and he needs to fix the bug. 
-After the fix, he wants to retest the migration with the original data.
-To do this, he simply runs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dblab clone reset neals-special-clone&lt;/code&gt; and the clone will be reset to the original state before the failed migration was executed.
-Again, taking just seconds to complete.&lt;/p&gt;
-
-&lt;h2 id=&quot;behind-the-curtains&quot;&gt;Behind the curtains&lt;/h2&gt;
-
-&lt;p&gt;The scenario described earlier almost sounds too good to be true, doesn’t it?
-In this section, we’ll discuss how DLE can achieve this and where the magic happens.&lt;/p&gt;
-
-&lt;p&gt;The magic is mostly done by the use of a &lt;a href=&quot;https://en.wikipedia.org/wiki/ZFS&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;ZFS&lt;/a&gt; filesystem underneath the PostgreSQL instances used by DLE. 
-Specifically the copy-on-write and snapshotting features are primarily used. 
-This is combined with running the instances themselves in Docker containers, which allows multiple PostgreSQL instances to easily exist on a single system. 
-More info on the details can be found &lt;a href=&quot;https://postgres.ai/docs/database-lab#database-lab-engine&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;DLE has 2 operating modes for enabling clones: physical or logical.&lt;/p&gt;
-
-&lt;p&gt;With the physical mode, a replica of the source PostgreSQL database is created and managed by DLE. 
-This database is treated as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sync instance&lt;/code&gt; from which all copies are created.
-The replication can be set up just like any other PostgreSQL replication.&lt;/p&gt;
-
-&lt;p&gt;In logical mode, the copy of the original data is achieved by a regular dump (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pg_dumpall&lt;/code&gt;) from the source PostgreSQL instance. 
-This phase is called the logical dump in the &lt;a href=&quot;https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicaldump&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DLE documentation&lt;/a&gt;.
-This dump is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restored&lt;/code&gt; onto a local PostgreSQL install and from there clone could be created. 
-This is called the logical restore phase in the &lt;a href=&quot;https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalrestore&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation&lt;/a&gt;.
-After the dump has been completed a ZFS snapshot will be created for the database which is used later for creating clones. 
-This last phase is called &lt;a href=&quot;https://postgres.ai/docs/reference-guides/database-lab-engine-configuration-reference#job-logicalsnapshot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;logical snapshot&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;After the initial copy has been created, in whichever mode, clones can be created.
-These clones are created by first creating a new (ZFS) snapshot of the restored instance. 
-Next, a Docker container with a modified PostgreSQL instance is used in combination with a volume bind of the created snapshot.&lt;/p&gt;
-
-&lt;p&gt;This results in a seemingly regular PostgreSQL instance running in Docker with some data preloaded in it. 
-When executing changes on the database, the copy-on-write feature of ZFS makes sure that the new changes are only made to the snapshot volume that’s attached to the clone.&lt;/p&gt;
-
-&lt;p&gt;When a reset is requested on a clone, the snapshot is simply restored to its original state by ZFS and the PostgreSQL instance is restarted.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-to-setup&quot;&gt;How to setup&lt;/h2&gt;
-
-&lt;p&gt;The setup process is highly dependent on your starting situation. 
-The first choice you’d need to make is if you want to use a physical or logical setup.&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;physical setup&lt;/em&gt; has the advantage of being an always-online solution. 
-This means that DLE manages a live (async replication) copy of the source instance you want to clone.
-The downside of this approach is that you need to be able to change some configuration on your source instance to set up the replication and that you need to be able to create a replicated instance from your source instance. 
-For managed PostgreSQL databases provided by cloud providers, for example, this might be an issue.&lt;/p&gt;
-
-&lt;p&gt;Luckily there is a secondary approach available: the &lt;em&gt;logical mode&lt;/em&gt;.
-In this mode, an initial clone is created by dumping the original database to the DLE instance and restoring it locally onto the main clone instance. 
-The advantage here is that you don’t need additional configuration on the source instance. 
-Unfortunately, due to the nature of the point-in-time copy of the dump, it’s not possible to have a real live clone available.&lt;/p&gt;
-
-&lt;p&gt;For the example we’ll show here, we’ll use the logical mode as we’re copying from an Azure Database for PostgreSQL managed database. 
-All code for the example is available &lt;a href=&quot;https://github.com/pietervincken/dblab-azure-demo&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;NOTE: This code is only provided for demo purposes and is not to be used as-is for any production systems.
-All ports are opened by default on the instance and a public IP will be assigned to the VM.
-The scripts also include cleanup steps that remove &lt;strong&gt;ALL DATA&lt;/strong&gt; from the instances. 
-Use at your own risk.&lt;/p&gt;
-
-&lt;p&gt;The demo code will create a database and a VM. 
-Next, it will configure the VM to act as a Database Lab Engine instance.
-Some random test data will be automatically injected into the PostgreSQL database.
-Finally, you can use the UI or the CLI to interact with the instance.
-A brief use case will be shown in the next paragraph.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-to-use-it&quot;&gt;How to use it&lt;/h2&gt;
-
-&lt;p&gt;DLE allows three ways of interaction with the engine: SaaS, CLI, local UI. 
-For the scope of this demo, we’ll only show the local UI and mention the CLI counterparts.&lt;/p&gt;
-
-&lt;p&gt;Once the instance is deployed, you can access the DLE UI through a web browser.
-You’ll be prompted to enter the token to access the instance.
-This is the token that’s set in the configuration of the DLE server.
-Using the demo setup, this token will be outputted by during the installation.
-Next, you’ll see the dashboard which provides an overview of all the active clones, the state of the DLE engine and a calendar that shows the available snapshots.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clones-dashboard.png&quot; alt=&quot;Dashboard&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/instance-status.png&quot; alt=&quot;Instance status&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;For this demo, we’ll create a new clone of the database that’s linked to this instance
-We do this by clicking “Create Clone” and filling out the form that’s prompted next.
-After completing the form, click “Create Clone” and take a very fast sip of coffee as your clone will be available in a matter of seconds.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/create-clone.png&quot; alt=&quot;Create clone&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This same process can be achieved by executing the following commands through the Database Lab Engine CLI:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dblab init --token &amp;lt;secret-token&amp;gt; --url &amp;lt;public ip of the instance&amp;gt; --environment-id local --insecure
-dblab clone create --username jworks --password rocks --id testclone 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now in a real use-case, you’d connect the thin clone to your application in a development environment or local setup. 
-We’ll simulate the changes being made by connecting to the database using your favourite PostgreSQL client.
-Make some changes to the database (create a table, delete or change some rows in the provided users table, …).
-Now let’s imagine we’re testing a migration script and we discovered a bug (like the scenario mentioned earlier).
-We fix the bug, but now our data in the thin clone is corrupted and useless for further testing.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/clone-details.png&quot; alt=&quot;Clone details&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&amp;gt;&lt;/p&gt;
-
-&lt;p&gt;Now a cool feature of DLE comes into play: clone resetting.
-Because the database is running on a ZFS snapshot, we can easily revert to the original snapshot and continue working from there again.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/20211101-postgres-ai/reset-clone.png&quot; alt=&quot;Reset clone&quot; class=&quot;image center&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&amp;gt;&lt;/p&gt;
-
-&lt;p&gt;We do this by going back to the local UI and selecting our thin clone.
-Next, we click on reset clone and confirm in the dialogue.
-Only seconds later, our database is reset to the original snapshot and we can start testing again.
-From the same view, you can destroy the clone as well if you don’t need it anymore.&lt;/p&gt;
-
-&lt;h2 id=&quot;more-cool-features&quot;&gt;More cool features&lt;/h2&gt;
-
-&lt;p&gt;DLE has added some additional features on top of the cloning process. 
-A very helpful feature is their support for &lt;a href=&quot;https://postgres.ai/docs/database-lab/masking&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;data masking and obfuscation&lt;/a&gt;.
-In short, they support multiple scenarios for using production data in a development environment without exposing any Person Identifiable Information (PII) to the developers using the test systems. 
-This makes it possible to use the clones during normal development without risking overexposing PII and therefore making it easier to adhere to guidelines like GDPR while still being able to test with production-like data.&lt;/p&gt;
-
-&lt;p&gt;The mechanism to do this is quite simple.
-DLE supports writing preprocessing scripts that are executed on the main copy during the restore phase.
-Using this, data can be obfuscated or masked using predefined scripts, which you’ll have to provide yourself. 
-By making it part of the restore phase of DLE, it’s ensured that no data is ever exposed without being obfuscated first.&lt;/p&gt;
-
-&lt;p&gt;Another option that DLE support is using &lt;a href=&quot;https://postgresql-anonymizer.readthedocs.io/en/stable/static_masking.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PostgreSQL Anonymizer&lt;/a&gt;. 
-This is a well known PostgreSQL extension that can be used to mask and obfuscate data in a PostgreSQL database. 
-The nice advantage of this solution is that the obfuscation configuration can be part of the original data creation in the original database. 
-It allows DevOps teams to create the obfuscation code directly with the table creation code which of course makes it way easier to maintain properly and correct judge with data should be obfuscated and in which way.&lt;/p&gt;
-
-&lt;h2 id=&quot;why-should-i-use-it&quot;&gt;Why should I use it?&lt;/h2&gt;
-
-&lt;p&gt;If you’re in a project where access to production systems is not available and/or testing migration scenarios is very time consuming, this might be a good tool for you to investigate, provided of course that you’re using PostgreSQL databases.
-It provides an easy, scalable and safe way to provide copies of large databases without having to wait hours or days to copy over data from one database to the next to test something.&lt;/p&gt;
-
-&lt;p&gt;Adding to that the possibility to obfuscate the data with the same tool and allow developers to work with obfuscated data during their developer, makes it an even more compelling choice.&lt;/p&gt;
-
-&lt;p&gt;The software is opensourced on &lt;a href=&quot;https://gitlab.com/postgres-ai&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Gitlab&lt;/a&gt; and the community on &lt;a href=&quot;https://slack.postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Slack&lt;/a&gt; is very helpful and response if you have any questions or issues with the software.&lt;/p&gt;
-
-&lt;p&gt;If you want a more in-depth post about how to configure DLE and which pitfalls we found, let me know on &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LinkedIn!&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;links&quot;&gt;Links&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Postgres AI website&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gitlab.com/postgres-ai&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Source code&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://postgres.ai/docs/platform&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SaaS offering&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://postgres.ai/docs/database-lab/masking&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Anomization setup&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Feel free to reach out to &lt;a href=&quot;https://www.linkedin.com/in/pieter-vincken-a94b5153/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;me&lt;/a&gt; or directly to lovely people of &lt;a href=&quot;https://postgres.ai/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Postgres.ai&lt;/a&gt; if you want to look into this solution.&lt;/p&gt;
-
-&lt;p&gt;Special thanks to the Unicorn team for helping with the blogpost and creating a great Database Lab Engine setup!&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="testing" /><summary type="html">What’s the problem? What is Database Lab? End user interaction Behind the curtains How to setup How to use it More cool features Why should I use it? Links</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20211101-postgres-ai/logo-resized.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/conclusion.jpg&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Laura&quot;, &quot;last_name&quot;=&gt;&quot;Prevost&quot;, &quot;permalink&quot;=&gt;&quot;/author/laura-prevost/&quot;, &quot;avatar&quot;=&gt;&quot;laura-prevost.jpg&quot;, &quot;title&quot;=&gt;&quot;Analyst&quot;, &quot;linkedin&quot;=&gt;&quot;laura-prevost-72097255&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Laura is an Analyst at Ordina Belgium. Also Competence Lead of Technical Leadership at Jworks. Passionate about people. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>laura.prevost@ordina.be</email></author><category term="Leadership" /><category term="Leadership" /><category term="Collective" /><category term="Intelligence" /><summary type="html">Collective Intelligence - The Best of Synergy.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-05-05-collective-intelligence/collective-intelligence-home.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-05-05-collective-intelligence/collective-intelligence-home.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
