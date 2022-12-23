@@ -34,7 +34,8 @@ AWS has always recognized the problem and now comes with a solution called [Lamb
 Introduced this year at AWS re:Invent 2022, AWS [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"} is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
 Basically, it takes a snapshot (through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"}  which AWS uses to run Lambda and Fargate on), encrypts and caches it so it can be instantly accessed whenever it is required.
 So when a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).
-
+### Setup
+// TODO: add setup with versions & stuff
 ### Pricing
 The SnapStart feature comes with AWS Lambda and has no additional pricing.
 
@@ -47,12 +48,23 @@ SnapStart currently does not support the following features and services:
 - [EFS](https://aws.amazon.com/efs/){:target="_blank" rel="noopener noreferrer"}
 - [X-Ray](https://aws.amazon.com/xray/){:target="_blank" rel="noopener noreferrer"}
 - Ephemeral storage up to 512 MB
+- Limited to Java 11 runtime
 
+#### Uniqueness
 SnapStart always requires your snapshot to be unique. 
 This means that if you have initialization code which generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
 The goal is to generate this content after the initialization process, so it is not part of the snapshot.
 Luckily, AWS has provided a [documentation page](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html){:target="_blank" rel="noopener noreferrer"} in which they provide best practices on how to tackle that problem.
 They even came up with a [SpotBugs plugin](https://github.com/aws/aws-lambda-snapstart-java-rules){:target="_blank" rel="noopener noreferrer"}  which finds potential issues in your code that could prevent SnapStart from working correctly.
+
+#### Networking
+Network connections are not being shared across different environments.
+Thus, if network connections (for example, to other AWS services such as a RDS or SQS) are instantiated in the initialization phase, they will not be shared and will most likely fail when the snapshot is being used later again.
+Although most popular frameworks have automatic database connection retries, it is worth the time to make sure that it works correctly.
+
+#### Ephemeral data
+Data that is fetched or temporary (for example a password or secret) should be fetched after the initialization phase.
+Otherwise it will save the secret in the snapshot, meaning that authentication failures (and security risks) might occur once the secret has been changed.
 
 ## Using SnapStart
 To investigate the improvement in execution speed when using Lambda SnapStart, we wrote a simple lambda function in Java using [Spring Cloud Function](https://spring.io/projects/spring-cloud-function){:target="_blank" rel="noopener noreferrer"}.
