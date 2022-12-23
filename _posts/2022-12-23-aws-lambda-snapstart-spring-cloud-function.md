@@ -13,6 +13,47 @@ comments: true
 - [Using SnapStart](#using-snapstart)
 - [Conclusion](#conclusion)
 
+## Introduction
+If you use [AWS Lambda](https://aws.amazon.com/lambda/){:target="_blank" rel="noopener noreferrer"} in combination with Java runtimes, you will notice (or probably have already noticed) that one of the main setbacks is the cold start time.
+A cold start refers to the process where a Lambda is invoked for the first time and the Lambda has to be initialized.
+AWS needs to create a new function instance and spin it up with every [initialization process](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html#runtimes-lifecycle-ib){:target="_blank" rel="noopener noreferrer"}. 
+
+Depending on your environment and application size, it can take up to 10 seconds to complete the init phase.
+Especially with using frameworks such as Spring Boot where features like dependency injection and component scanning can take a lot of time to initialize.
+This is a delay that most, if not all consumers and customers want to avoid as it significantly slows down your application flow in some situations.
+**Do mind** that this is only during the init phase; once the Lambda instance is running, the cold start process is over until the next time your Lambda needs to be instantiated again.
+
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-execution-lifecycle.png' | prepend: site.baseurl }}" alt="Lambda execution lifecycle" class="image center" style="margin:0px auto; max-width:100%">
+_Lambda execution environment lifecycle - all phases_
+{: refdef}
+
+AWS has always recognized the problem and now comes with a solution called [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"}.
+
+## What is SnapStart?
+Introduced this year at AWS re:Invent 2022, AWS [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"} is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
+Basically, it takes a snapshot (through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"}  which AWS uses to run Lambda and Fargate on), encrypts and caches it so it can be instantly accessed whenever it is required.
+So when a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).
+
+### Pricing
+The SnapStart feature comes with AWS Lambda and has no additional pricing.
+
+### Limitations
+While SnapStart is a great feature and can save time in Lambda cold starts, it also comes with its limitations.
+SnapStart currently does not support the following features and services:
+- [provisioned concurrency](https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html){:target="_blank" rel="noopener noreferrer"}
+- arm64 architecture
+- the [Lambda Extensions API](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html){:target="_blank" rel="noopener noreferrer"}
+- [EFS](https://aws.amazon.com/efs/){:target="_blank" rel="noopener noreferrer"}
+- [X-Ray](https://aws.amazon.com/xray/){:target="_blank" rel="noopener noreferrer"}
+- Ephemeral storage up to 512 MB
+
+SnapStart always requires your snapshot to be unique. 
+This means that if you have initialization code which generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
+The goal is to generate this content after the initialization process, so it is not part of the snapshot.
+Luckily, AWS has provided a [documentation page](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html){:target="_blank" rel="noopener noreferrer"} in which they provide best practices on how to tackle that problem.
+They even came up with a [SpotBugs plugin](https://github.com/aws/aws-lambda-snapstart-java-rules){:target="_blank" rel="noopener noreferrer"}  which finds potential issues in your code that could prevent SnapStart from working correctly.
+
 ## Using SnapStart
 To investigate the improvement in execution speed when using Lambda SnapStart, we wrote a simple lambda function in Java using [Spring Cloud Function](https://spring.io/projects/spring-cloud-function){:target="_blank" rel="noopener noreferrer"}.
 This lambda function, when invoked, will retrieve some dummy JSON data from a REST API and return it to the user.
