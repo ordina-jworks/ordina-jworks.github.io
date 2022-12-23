@@ -23,22 +23,30 @@ Especially with using frameworks such as Spring Boot where features like depende
 This is a delay that most, if not all consumers and customers want to avoid as it significantly slows down your application flow in some situations.
 **Do mind** that this is only during the init phase; once the Lambda instance is running, the cold start process is over until the next time your Lambda needs to be instantiated again.
 
+
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-execution-lifecycle.png' | prepend: site.baseurl }}" alt="Lambda execution lifecycle" class="image center" style="margin:0px auto; max-width:100%">
-_Lambda execution environment lifecycle - all phases_
+_Lambda execution environment lifecycle - without SnapStart - [Best practices of advanced serverless developers (AWS re:Invent 2021)](https://www.youtube.com/watch?v=dnFm6MlPnco){:target="_blank" rel="noopener noreferrer"}_
 {: refdef}
 
 AWS has always recognized the problem and now comes with a solution called [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"}.
-
 ## What is SnapStart?
 Introduced this year at AWS re:Invent 2022, AWS [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"} is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
 Basically, it takes a snapshot (through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"}  which AWS uses to run Lambda and Fargate on), encrypts and caches it so it can be instantly accessed whenever it is required.
 So when a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).
-### Setup
-// TODO: add setup with versions & stuff
+### Versions
+By default, SnapStart is disabled.
+You can enable it, but only for published Lambda versions.
+This means that it only works for versions that are published on the AWS account, and that it is not implemented on the $[LATEST] tag. If you want to make use of Lambda SnapStart, be sure to do so on a published version.
+The snapshot of your Lambda is created upon the version publishing process.
+
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/snapstart-overview.png' | prepend: site.baseurl }}" alt="SnapStart overview" class="image center" style="margin:0px auto; max-width:100%">
+_SnapStart overview - snapshot gets created during version publishing_
+{: refdef}
+
 ### Pricing
 The SnapStart feature comes with AWS Lambda and has no additional pricing.
-
 ### Limitations
 While SnapStart is a great feature and can save time in Lambda cold starts, it also comes with its limitations.
 SnapStart currently does not support the following features and services:
@@ -49,23 +57,19 @@ SnapStart currently does not support the following features and services:
 - [X-Ray](https://aws.amazon.com/xray/){:target="_blank" rel="noopener noreferrer"}
 - Ephemeral storage up to 512 MB
 - Limited to Java 11 runtime
-
 #### Uniqueness
 SnapStart always requires your snapshot to be unique. 
 This means that if you have initialization code which generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
 The goal is to generate this content after the initialization process, so it is not part of the snapshot.
 Luckily, AWS has provided a [documentation page](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html){:target="_blank" rel="noopener noreferrer"} in which they provide best practices on how to tackle that problem.
 They even came up with a [SpotBugs plugin](https://github.com/aws/aws-lambda-snapstart-java-rules){:target="_blank" rel="noopener noreferrer"}  which finds potential issues in your code that could prevent SnapStart from working correctly.
-
 #### Networking
 Network connections are not being shared across different environments.
-Thus, if network connections (for example, to other AWS services such as a RDS or SQS) are instantiated in the initialization phase, they will not be shared and will most likely fail when the snapshot is being used later again.
+Thus, if network connections (for example, to other AWS services such as an RDS or SQS) are instantiated in the initialization phase, they will not be shared and will most likely fail when the snapshot is being used later again.
 Although most popular frameworks have automatic database connection retries, it is worth the time to make sure that it works correctly.
-
 #### Ephemeral data
 Data that is fetched or temporary (for example a password or secret) should be fetched after the initialization phase.
-Otherwise it will save the secret in the snapshot, meaning that authentication failures (and security risks) might occur once the secret has been changed.
-
+Otherwise, it will save the secret in the snapshot, meaning that authentication failures (and security risks) might occur once the initial secret value has expired or has been changed.
 ## Using SnapStart
 To investigate the improvement in execution speed when using Lambda SnapStart, we wrote a simple lambda function in Java using [Spring Cloud Function](https://spring.io/projects/spring-cloud-function){:target="_blank" rel="noopener noreferrer"}.
 This lambda function, when invoked, will retrieve some dummy JSON data from a REST API and return it to the user.
@@ -85,3 +89,7 @@ TODO:
 - Explain we published a new version using the Console
 - Show new version (image)
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/summary-snapstart.jpeg' | prepend: site.baseurl }}" alt="Summary lambda with SnapStart" class="image fit">
+## Conclusion
+SnapStart is a really great feature and can save a lot of time in your application flow.
+It's a feature that should have been present already as it comes a bit too late. 
+// TODO: write more
