@@ -42,7 +42,7 @@ The snapshot of your Lambda is created upon the version publishing process.
 
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/snapstart-overview.png' | prepend: site.baseurl }}" alt="SnapStart overview" class="image center" style="margin:0px auto; max-width:100%">
-_SnapStart overview - snapshot gets created during version publishing_
+_SnapStart overview - snapshot gets created during version publishing - [AWS Lambda SnapStart (AWS re:Invent 2022)](https://www.youtube.com/watch?v=ZbnAithBNYY){:target="_blank" rel="noopener noreferrer"}_
 {: refdef}
 
 ### Pricing
