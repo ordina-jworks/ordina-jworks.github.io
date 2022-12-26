@@ -98,7 +98,7 @@ We started by invoking our Lambda function's unpublished version ($LATEST), in w
 
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-cold-start.png' | prepend: site.baseurl }}" alt="Summary lambda without SnapStart" class="image fit">
 
-We can observe an **Init** duration of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.
+We can observe an **Init duration** of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.
 
 Then, we manually published a new version of our Lambda function using the AWS Console.
 This can done by navigating to the _Versions_ tab of our Lamdba function and pressing the _Publish new version_ button.
@@ -106,13 +106,13 @@ This can done by navigating to the _Versions_ tab of our Lamdba function and pre
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png' | prepend: site.baseurl }}" alt="Lambda function verions" class="image fit">_Versions tab listing all published versions of a Lambda function._
 {: refdef} 
 
-Invoking this new version provides us with the following summary:
+Invoking this newly published version provides us with the following summary:
 
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-snapstart.png' | prepend: site.baseurl }}" alt="Summary lambda with SnapStart" class="image fit">
 
-In this case, SnapStart is in fact used.
-The initialization of the execution environment, represented by the Init duration we saw earlier, now happens when publishing the new version.
-Only the restoration of the snapshot, represented by the **Restore duration**, has to be performed now.
+In this case, we can see SnapStart is used.
+The initialization of the execution environment, represented by the **Init duration** we saw earlier, now happens when publishing the new version.
+Only the restoration of the snapshot, represented by the **Restore duration**, is performed now.
 
 It is quite clear that using Lambda SnapStart is advantageous in most cases.
 We managed to decrease the cold start execution time of our Lambda function from almost 5s (**Init duration** + **duration**) to around 2.6s (**Restore duration** + **duration**), just by enabling this feature.
