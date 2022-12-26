@@ -10,6 +10,12 @@ comments: true
 
 - [Introduction](#introduction)
 - [What is SnapStart?](#what-is-snapstart)
+  - [Versions](#versions)
+  - [Pricing](#pricing)
+  - [Limitations](#limitations)
+    - [Uniqueness](#uniqueness)
+    - [Networking](#networking)
+    - [Ephemeral data](#ephemeral-data)
 - [Using SnapStart](#using-snapstart)
 - [Conclusion](#conclusion)
 
@@ -23,17 +29,18 @@ Especially with using frameworks such as Spring Boot where features like depende
 This is a delay that most, if not all consumers and customers want to avoid as it significantly slows down your application flow in some situations.
 **Do mind** that this is only during the init phase; once the Lambda instance is running, the cold start process is over until the next time your Lambda needs to be instantiated again.
 
-
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-execution-lifecycle.png' | prepend: site.baseurl }}" alt="Lambda execution lifecycle" class="image center" style="margin:0px auto; max-width:100%">
 _Lambda execution environment lifecycle - without SnapStart - [Best practices of advanced serverless developers (AWS re:Invent 2021)](https://www.youtube.com/watch?v=dnFm6MlPnco){:target="_blank" rel="noopener noreferrer"}_
 {: refdef}
 
 AWS has always recognized the problem and now comes with a solution called [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"}.
+
 ## What is SnapStart?
 Introduced this year at AWS re:Invent 2022, AWS [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"} is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
 Basically, it takes a snapshot (through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"}  which AWS uses to run Lambda and Fargate on), encrypts and caches it so it can be instantly accessed whenever it is required.
 So when a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).
+
 ### Versions
 By default, SnapStart is disabled.
 You can enable it, but only for published Lambda versions.
@@ -47,6 +54,7 @@ _SnapStart overview - snapshot gets created during version publishing - [AWS Lam
 
 ### Pricing
 The SnapStart feature comes with AWS Lambda and has no additional pricing.
+
 ### Limitations
 While SnapStart is a great feature and can save time in Lambda cold starts, it also comes with its limitations.
 SnapStart currently does not support the following features and services:
@@ -57,38 +65,57 @@ SnapStart currently does not support the following features and services:
 - [X-Ray](https://aws.amazon.com/xray/){:target="_blank" rel="noopener noreferrer"}
 - Ephemeral storage up to 512 MB
 - Limited to Java 11 runtime
+
 #### Uniqueness
 SnapStart always requires your snapshot to be unique. 
 This means that if you have initialization code which generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
 The goal is to generate this content after the initialization process, so it is not part of the snapshot.
 Luckily, AWS has provided a [documentation page](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html){:target="_blank" rel="noopener noreferrer"} in which they provide best practices on how to tackle that problem.
 They even came up with a [SpotBugs plugin](https://github.com/aws/aws-lambda-snapstart-java-rules){:target="_blank" rel="noopener noreferrer"}  which finds potential issues in your code that could prevent SnapStart from working correctly.
+
 #### Networking
 Network connections are not being shared across different environments.
 Thus, if network connections (for example, to other AWS services such as an RDS or SQS) are instantiated in the initialization phase, they will not be shared and will most likely fail when the snapshot is being used later again.
 Although most popular frameworks have automatic database connection retries, it is worth the time to make sure that it works correctly.
+
 #### Ephemeral data
 Data that is fetched or temporary (for example a password or secret) should be fetched after the initialization phase.
 Otherwise, it will save the secret in the snapshot, meaning that authentication failures (and security risks) might occur once the initial secret value has expired or has been changed.
+
 ## Using SnapStart
-To investigate the improvement in execution speed when using Lambda SnapStart, we wrote a simple lambda function in Java using [Spring Cloud Function](https://spring.io/projects/spring-cloud-function){:target="_blank" rel="noopener noreferrer"}.
-This lambda function, when invoked, will retrieve some dummy JSON data from a REST API and return it to the user.
-We made use of [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html){:target="_blank" rel="noopener noreferrer"} to build and deploy our lambda function to AWS.
-To enable the use of AWS SnapStart when publishing a new version of the lambda function, we need to include the following two lines in the `Properties` section of the lambda function resource in the `template.yaml` file used by SAM:
+To investigate the improvement in cold start execution time when using AWS Lambda SnapStart, we wrote a simple Lambda function in Java 11 using [Spring Cloud Function](https://spring.io/projects/spring-cloud-function){:target="_blank" rel="noopener noreferrer"}.
+This Lambda function, when invoked, will retrieve some JSON data from a [dummy REST API](https://dummyjson.com/){:target="_blank" rel="noopener noreferrer"} and return it to the user.
+The code can be found on [Github](https://github.com/ordina-jworks/aws-lambda-snapstart-spring-boot){:target="_blank" rel="noopener noreferrer"}.
+
+We made use of the [AWS Serverless Application Model (SAM)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html){:target="_blank" rel="noopener noreferrer"} to build our Lambda function and deploy it to AWS.
+Enabling the SnapStart feature can be easily done by adding the following two lines to the `Properties` section of the Lambda function resource in the `template.yaml` file used by AWS SAM:
 ```
 SnapStart:
   ApplyOn: PublishedVersions
 ```
 
-When we manually invoked the $LATEST version of our lambda function, meaning SnapStart was not used, AWS provided us with the following summary:
-<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/summary-cold-start.jpeg' | prepend: site.baseurl }}" alt="Summary lambda without SnapStart" class="image fit">
+We started by invoking our Lambda function's unpublished version ($LATEST), in which case SnapStart is not used, and received the following summary from AWS:
 
-We can see an **Init** duration of around 2.7s.
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-cold-start.png' | prepend: site.baseurl }}" alt="Summary lambda without SnapStart" class="image fit">
 
-TODO:
-- Explain we published a new version using the Console
-- Show new version (image)
-<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/summary-snapstart.jpeg' | prepend: site.baseurl }}" alt="Summary lambda with SnapStart" class="image fit">
+We can observe an **Init** duration of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.
+Then, we manually published a new version of our Lambda function using the AWS Console.
+This can done by navigating to the _Versions_ tab of our Lamdba function and pressing the _Publish new version_ button.
+
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png' | prepend: site.baseurl }}" alt="Lambda function verions" class="image fit">_Versions tab listing all published versions of a Lambda function._
+{: refdef} 
+
+Invoking this new version provides us with the following summary:
+
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-snapstart.png' | prepend: site.baseurl }}" alt="Summary lambda with SnapStart" class="image fit">
+
+In this case, SnapStart is in fact used.
+The initialization of the execution environment, represented by the Init duration we saw earlier, now happens when publishing the new version.
+Only the restoration of the snapshot, represented by the **Restore duration**, has to be performed now.
+
+It is quite clear that using Lambda SnapStart is advantageous.
+We managed to decrease the cold start execution time of our Lambda function from almost 5s (**Init duration** + **duration**) to around 2.6s (**Restore duration** + **duration**), just by enabling this feature.
+
 ## Conclusion
 SnapStart is a really great feature and can save a lot of time in your application flow.
 It's a feature that should have been present already as it comes a bit too late. 
