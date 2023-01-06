@@ -38,13 +38,13 @@ AWS has always recognized the problem and now comes with a solution called [Lamb
 
 ## What is SnapStart?
 Introduced this year at AWS re:Invent 2022, AWS [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"} is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
-Basically, it takes a snapshot (through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"}  which AWS uses to run Lambda and Fargate on), encrypts and caches it so it can be instantly accessed whenever it is required.
+It takes a snapshot (through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"}  which AWS uses to run Lambda and Fargate), encrypts and caches it so it can be instantly accessed whenever it is required.
 So when a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).
 
 ### Versions
 By default, SnapStart is disabled.
 You can enable it, but only for published Lambda versions.
-This means that it only works for versions that are published on the AWS account, and that it is not implemented on the $[LATEST] tag. If you want to make use of Lambda SnapStart, be sure to do so on a published version.
+This means that it only works for versions that are published on the AWS account and that it is not implemented on the $[LATEST] tag. If you want to make use of Lambda SnapStart, be sure to do so on a published version.
 The snapshot of your Lambda is created upon the version publishing process.
 
 {:refdef: style="text-align: center;"}
@@ -68,7 +68,7 @@ SnapStart currently does not support the following features and services:
 
 #### Uniqueness
 SnapStart always requires your snapshot to be unique. 
-This means that if you have initialization code which generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
+This means that if you have initialization code that generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
 The goal is to generate this content after the initialization process, so it is not part of the snapshot.
 Luckily, AWS has provided a [documentation page](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html){:target="_blank" rel="noopener noreferrer"} in which they provide best practices on how to tackle that problem.
 They even came up with a [SpotBugs plugin](https://github.com/aws/aws-lambda-snapstart-java-rules){:target="_blank" rel="noopener noreferrer"}  which finds potential issues in your code that could prevent SnapStart from working correctly.
@@ -101,7 +101,7 @@ We started by invoking our Lambda function's unpublished version ($LATEST), in w
 We can observe an **Init duration** of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.
 
 Then, we manually published a new version of our Lambda function using the AWS Console.
-This can done by navigating to the _Versions_ tab of our Lamdba function and pressing the _Publish new version_ button.
+This can be done by navigating to the _Versions_ tab of our Lamdba function and pressing the _Publish new version_ button.
 
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png' | prepend: site.baseurl }}" alt="Lambda function verions" class="image fit">_Versions tab listing all published versions of a Lambda function._
 {: refdef} 
@@ -118,6 +118,6 @@ It is quite clear that using Lambda SnapStart is advantageous in most cases.
 We managed to decrease the cold start execution time of our Lambda function from almost 5s (**Init duration** + **duration**) to around 2.6s (**Restore duration** + **duration**), just by enabling this feature.
 
 ## Conclusion
-SnapStart is a really great feature and can save a lot of time in your application flow.
+SnapStart is a great feature and can save a lot of time in your application flow.
 It's a feature that should have been present already as it comes a bit too late. 
 // TODO: write more
