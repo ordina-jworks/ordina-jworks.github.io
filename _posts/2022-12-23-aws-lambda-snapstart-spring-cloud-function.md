@@ -100,7 +100,7 @@ We started by invoking our Lambda function's unpublished version ($LATEST), in w
 
 We can observe an **Init duration** of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.
 
-Then, we manually published a new version of our Lambda function using the AWS Console.
+Next, we manually published a new version of our Lambda function using the AWS Console.
 This can be done by navigating to the _Versions_ tab of our Lamdba function and pressing the _Publish new version_ button.
 
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png' | prepend: site.baseurl }}" alt="Lambda function verions" class="image fit">_Versions tab listing all published versions of a Lambda function._
