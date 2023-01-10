@@ -120,4 +120,9 @@ We managed to decrease the cold start execution time of our Lambda function from
 ## Conclusion
 SnapStart is a great feature and can save a lot of time in your application flow.
 It's a feature that should have been present already as it comes a bit too late. 
-// TODO: write more
+But now that it is here, Java developers should take measures in order to implement this as it can save a lot of time in cold-starting their Java Lambdas.
+We would have liked to see it implemented by default when you create a version, but sadly, this is not the case (yet).
+It comes only for Java, which is understandable as Java Lambdas face this obstacle the most. 
+Still, we certainly won't be surprised if AWS decides to release this feature for other languages and/or frameworks.
+
+Altogether we can definitely recommend using this new feature for your Java Lambdas.
