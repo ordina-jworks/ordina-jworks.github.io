@@ -26,11 +26,11 @@ AWS needs to create a new function instance and spin it up with every [initializ
 
 Depending on your environment and application size, it can take up to 10 seconds to complete the init phase.
 Especially when using frameworks such as Spring Boot where features like dependency injection and component scanning can take a lot of time to initialize.
-This is a delay that most, if not all consumers and customers want to avoid as it significantly slows down your application flow in some situations.
+This is a delay that most want to avoid as it significantly slows down your application flow in some situations.
 **Do mind** that this is only during the init phase; once the Lambda instance is running, the cold start process is over until the next time your Lambda needs to be instantiated again.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-execution-lifecycle.png' | prepend: site.baseurl }}" alt="Lambda execution lifecycle" class="image center" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-execution-lifecycle.png' | prepend: site.baseurl }}" alt="Lambda execution lifecycle" class="image fit" style="margin:0px auto; max-width:100%">
 _Lambda execution environment lifecycle - without SnapStart - [Best practices of advanced serverless developers (AWS re:Invent 2021)](https://www.youtube.com/watch?v=dnFm6MlPnco){:target="_blank" rel="noopener noreferrer"}_
 {: refdef}
 
@@ -44,11 +44,11 @@ When a Lambda is invoked and needs to set up a new instance, it will simply use 
 ### Versions
 By default, SnapStart is disabled.
 You can enable it, but only for published Lambda versions.
-This means that it only works for versions that are published on the AWS account and that it is not implemented on the $[LATEST] tag. If you want to make use of Lambda SnapStart, be sure to do so on a published version.
+This means that it only works for versions that are published on the AWS account and that it is not implemented on the $LATEST tag. If you want to make use of Lambda SnapStart, be sure to do so on a published version.
 The snapshot of your Lambda is created upon the version publishing process.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/snapstart-overview.png' | prepend: site.baseurl }}" alt="SnapStart overview" class="image center" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/snapstart-overview.png' | prepend: site.baseurl }}" alt="SnapStart overview" class="image fit" style="margin:0px auto; max-width:100%">
 _SnapStart overview - snapshot gets created during version publishing - [AWS Lambda SnapStart (AWS re:Invent 2022)](https://www.youtube.com/watch?v=ZbnAithBNYY){:target="_blank" rel="noopener noreferrer"}_
 {: refdef}
 
@@ -96,7 +96,7 @@ SnapStart:
 
 We started by invoking our Lambda function's unpublished version ($LATEST), in which case SnapStart is not used, and received the following summary from AWS:
 
-<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-cold-start.png' | prepend: site.baseurl }}" alt="Summary lambda without SnapStart" class="image fit">
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-cold-start.png' | prepend: site.baseurl }}" alt="Summary lambda without SnapStart" class="image fit" style="margin:0px auto; max-width:100%">
 
 We can observe an **Init duration** of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.
 
@@ -104,12 +104,13 @@ Next, we manually published a new version of our Lambda function using the AWS C
 This can be done by navigating to the _Versions_ tab of our Lamdba function and pressing the _Publish new version_ button.
 
 {:refdef: style="text-align: center;"}
-<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png' | prepend: site.baseurl }}" alt="Lambda function verions" class="image fit">_Versions tab listing all published versions of a Lambda function._
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png' | prepend: site.baseurl }}" alt="Lambda function verions" class="image fit" style="margin:0px auto; max-width:100%">
+_Versions tab listing all published versions of a Lambda function._
 {: refdef} 
 
 Invoking this newly published version provides us with the following summary:
 
-<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-snapstart.png' | prepend: site.baseurl }}" alt="Summary lambda with SnapStart" class="image fit">
+<img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-snapstart.png' | prepend: site.baseurl }}" alt="Summary lambda with SnapStart" class="image fit" style="margin:0px auto; max-width:100%">
 
 In this case, we can see SnapStart is used.
 The initialization of the execution environment, represented by the **Init duration** we saw earlier, now happens when publishing the new version.
