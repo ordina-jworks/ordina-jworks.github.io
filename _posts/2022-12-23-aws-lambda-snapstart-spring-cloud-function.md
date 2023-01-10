@@ -22,10 +22,10 @@ comments: true
 ## Introduction
 If you use [AWS Lambda](https://aws.amazon.com/lambda/){:target="_blank" rel="noopener noreferrer"} in combination with Java runtimes, you will notice (or probably have already noticed) that one of the main setbacks is the cold start time.
 A cold start refers to the process where a Lambda is invoked for the first time and the Lambda has to be initialized.
-AWS needs to create a new function instance and spin it up with every [initialization process](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html#runtimes-lifecycle-ib){:target="_blank" rel="noopener noreferrer"}. 
+AWS needs to create a new function instance and spin it up with every [initialization](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html#runtimes-lifecycle-ib){:target="_blank" rel="noopener noreferrer"}.
 
 Depending on your environment and application size, it can take up to 10 seconds to complete the init phase.
-Especially with using frameworks such as Spring Boot where features like dependency injection and component scanning can take a lot of time to initialize.
+Especially when using frameworks such as Spring Boot where features like dependency injection and component scanning can take a lot of time to initialize.
 This is a delay that most, if not all consumers and customers want to avoid as it significantly slows down your application flow in some situations.
 **Do mind** that this is only during the init phase; once the Lambda instance is running, the cold start process is over until the next time your Lambda needs to be instantiated again.
 
@@ -37,9 +37,9 @@ _Lambda execution environment lifecycle - without SnapStart - [Best practices of
 AWS has always recognized the problem and now comes with a solution called [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"}.
 
 ## What is SnapStart?
-Introduced this year at AWS re:Invent 2022, AWS [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"} is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
-It takes a snapshot (through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"}  which AWS uses to run Lambda and Fargate), encrypts and caches it so it can be instantly accessed whenever it is required.
-So when a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).
+Introduced at AWS re:Invent 2022, AWS [Lambda SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html){:target="_blank" rel="noopener noreferrer"} is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
+It takes a snapshot, through [Firecracker](https://firecracker-microvm.github.io/){:target="_blank" rel="noopener noreferrer"} which AWS uses to run Lambda and Fargate, encrypts and caches it so it can be instantly accessed whenever it is required.
+When a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).
 
 ### Versions
 By default, SnapStart is disabled.
@@ -103,6 +103,7 @@ We can observe an **Init duration** of around 2.7s, i.e. the time that is spent 
 Next, we manually published a new version of our Lambda function using the AWS Console.
 This can be done by navigating to the _Versions_ tab of our Lamdba function and pressing the _Publish new version_ button.
 
+{:refdef: style="text-align: center;"}
 <img src="{{ '/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png' | prepend: site.baseurl }}" alt="Lambda function verions" class="image fit">_Versions tab listing all published versions of a Lambda function._
 {: refdef} 
 
