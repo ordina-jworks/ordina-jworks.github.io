@@ -117,7 +117,7 @@ The initialization of the execution environment, represented by the **Init durat
 Only the restoration of the snapshot, represented by the **Restore duration**, is performed now.
 
 It is quite clear that using Lambda SnapStart is advantageous in most cases.
-We managed to decrease the cold start execution time of our Lambda function from almost 5s (**Init duration** + **duration**) to around 2.6s (**Restore duration** + **duration**), just by enabling this feature.
+We managed to decrease the cold start execution time of our Lambda function from almost 5s (**Init duration** + **Duration**) to around 2.6s (**Restore duration** + **Duration**), just by enabling this feature.
 
 ## Conclusion
 SnapStart is a great feature and can save a lot of time in your application flow.
