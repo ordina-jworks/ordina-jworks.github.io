@@ -71,7 +71,7 @@ SnapStart always requires your snapshot to be unique.
 This means that if you have initialization code that generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
 The goal is to generate this content after the initialization process, so it is not part of the snapshot.
 Luckily, AWS has provided a [documentation page](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html){:target="_blank" rel="noopener noreferrer"} in which they provide best practices on how to tackle that problem.
-They even came up with a [SpotBugs plugin](https://github.com/aws/aws-lambda-snapstart-java-rules){:target="_blank" rel="noopener noreferrer"}  which finds potential issues in your code that could prevent SnapStart from working correctly.
+They even came up with a [SpotBugs plugin](https://github.com/aws/aws-lambda-snapstart-java-rules){:target="_blank" rel="noopener noreferrer"} which finds potential issues in your code that could prevent SnapStart from working correctly.
 
 #### Networking
 Network connections are not being shared across different environments.
