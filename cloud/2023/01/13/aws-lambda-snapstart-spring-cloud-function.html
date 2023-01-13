@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Accelerating your slow Java Lambda with AWS Lambda SnapStart - Yolan Vloeberghs and Robbe De Proft">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2023/01/13/aws-lambda-snapstart-spring-cloud-function.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Accelerating your slow Java Lambda with AWS Lambda SnapStart - Yolan Vloeberghs and Robbe De Proft"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png"/>
+
+    
+    <title>Accelerating your slow Java Lambda with AWS Lambda SnapStart - Yolan Vloeberghs and Robbe De Proft &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/meet-the-team">Meet the team</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="https://join.ordina-jworks.io/">JOIN</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Accelerating your slow Java Lambda with AWS Lambda SnapStart</h2>
+                
+
+                
+                    Posted Jan 13, 2023
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/yolan-vloeberghs/">Yolan Vloeberghs</a>
+        
+            
+                 and 
+        
+        
+    
+        <a href="/author/robbe-de-proft/">Robbe De Proft</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/aws/">aws</a>, 
+    
+        <a href="/tags/lambda/">lambda</a>, 
+    
+        <a href="/tags/snapstart/">snapstart</a>, 
+    
+        <a href="/tags/cloud/">cloud</a>, 
+    
+        <a href="/tags/spring/">spring</a>, 
+    
+        <a href="/tags/java/">java</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#what-is-snapstart">What is SnapStart?</a>
+    <ul>
+      <li><a href="#versions">Versions</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#limitations">Limitations</a>
+        <ul>
+          <li><a href="#uniqueness">Uniqueness</a></li>
+          <li><a href="#networking">Networking</a></li>
+          <li><a href="#ephemeral-data">Ephemeral data</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#using-snapstart">Using SnapStart</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+<p>If you use <a href="https://aws.amazon.com/lambda/" target="_blank" rel="noopener noreferrer">AWS Lambda</a> in combination with Java runtimes, you will notice (or probably have already noticed) that one of the main setbacks is the cold start time.
+A cold start refers to the process where a Lambda is invoked for the first time and the Lambda has to be initialized.
+AWS needs to create a new function instance and spin it up with every <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html#runtimes-lifecycle-ib" target="_blank" rel="noopener noreferrer">initialization</a>.</p>
+
+<p>Depending on your environment and application size, it can take up to 10 seconds to complete the init phase.
+Especially when using frameworks such as Spring Boot where features like dependency injection and component scanning can take a lot of time to initialize.
+This is a delay that most want to avoid as it significantly slows down your application flow in some situations.
+<strong>Do mind</strong> that this is only during the init phase; once the Lambda instance is running, the cold start process is over until the next time your Lambda needs to be instantiated again.</p>
+
+<p style="text-align: center;"><img src="/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-execution-lifecycle.png" alt="Lambda execution lifecycle" class="image fit" style="margin:0px auto; max-width:100%" />
+<em>Lambda execution environment lifecycle - without SnapStart - <a href="https://www.youtube.com/watch?v=dnFm6MlPnco" target="_blank" rel="noopener noreferrer">Best practices of advanced serverless developers (AWS re:Invent 2021)</a></em></p>
+
+<p>AWS has always recognized the problem and now comes with a solution called <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html" target="_blank" rel="noopener noreferrer">Lambda SnapStart</a>.</p>
+
+<h2 id="what-is-snapstart">What is SnapStart?</h2>
+<p>Introduced at AWS re:Invent 2022, AWS <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html" target="_blank" rel="noopener noreferrer">Lambda SnapStart</a> is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
+It takes a snapshot, through <a href="https://firecracker-microvm.github.io/" target="_blank" rel="noopener noreferrer">Firecracker</a> which AWS uses to run Lambda and Fargate, encrypts and caches it so it can be instantly accessed whenever it is required.
+When a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).</p>
+
+<h3 id="versions">Versions</h3>
+<p>By default, SnapStart is disabled.
+You can enable it, but only for published Lambda versions.
+This means that it only works for versions that are published on the AWS account and that it is not implemented on the $LATEST tag. If you want to make use of Lambda SnapStart, be sure to do so on a published version.
+The snapshot of your Lambda is created upon the version publishing process.</p>
+
+<p style="text-align: center;"><img src="/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/snapstart-overview.png" alt="SnapStart overview" class="image fit" style="margin:0px auto; max-width:100%" />
+<em>SnapStart overview - snapshot gets created during version publishing - <a href="https://www.youtube.com/watch?v=ZbnAithBNYY" target="_blank" rel="noopener noreferrer">AWS Lambda SnapStart (AWS re:Invent 2022)</a></em></p>
+
+<h3 id="pricing">Pricing</h3>
+<p>The SnapStart feature comes with AWS Lambda and has no additional pricing.</p>
+
+<h3 id="limitations">Limitations</h3>
+<p>While SnapStart is a great feature and can save time in Lambda cold starts, it also comes with its limitations.
+SnapStart currently does not support the following features and services:</p>
+<ul>
+  <li><a href="https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html" target="_blank" rel="noopener noreferrer">provisioned concurrency</a></li>
+  <li>arm64 architecture</li>
+  <li>the <a href="https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html" target="_blank" rel="noopener noreferrer">Lambda Extensions API</a></li>
+  <li><a href="https://aws.amazon.com/efs/" target="_blank" rel="noopener noreferrer">EFS</a></li>
+  <li><a href="https://aws.amazon.com/xray/" target="_blank" rel="noopener noreferrer">X-Ray</a></li>
+  <li>Ephemeral storage up to 512 MB</li>
+  <li>Limited to Java 11 runtime</li>
+</ul>
+
+<h4 id="uniqueness">Uniqueness</h4>
+<p>SnapStart always requires your snapshot to be unique. 
+This means that if you have initialization code that generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
+The goal is to generate this content after the initialization process, so it is not part of the snapshot.
+Luckily, AWS has provided a <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html" target="_blank" rel="noopener noreferrer">documentation page</a> in which they provide best practices on how to tackle that problem.
+They even came up with a <a href="https://github.com/aws/aws-lambda-snapstart-java-rules" target="_blank" rel="noopener noreferrer">SpotBugs plugin</a> which finds potential issues in your code that could prevent SnapStart from working correctly.</p>
+
+<h4 id="networking">Networking</h4>
+<p>Network connections are not being shared across different environments.
+Thus, if network connections (for example, to other AWS services such as an RDS or SQS) are instantiated in the initialization phase, they will not be shared and will most likely fail when the snapshot is being used later again.
+Although most popular frameworks have automatic database connection retries, it is worth the time to make sure that it works correctly.</p>
+
+<h4 id="ephemeral-data">Ephemeral data</h4>
+<p>Data that is fetched or temporary (for example a password or secret) should be fetched after the initialization phase.
+Otherwise, it will save the secret in the snapshot, meaning that authentication failures (and security risks) might occur once the initial secret value has expired or has been changed.</p>
+
+<h2 id="using-snapstart">Using SnapStart</h2>
+<p>To investigate the improvement in cold start execution time when using AWS Lambda SnapStart, we wrote a simple Lambda function in Java 11 using <a href="https://spring.io/projects/spring-cloud-function" target="_blank" rel="noopener noreferrer">Spring Cloud Function</a>.
+This Lambda function, when invoked, will retrieve some JSON data from a <a href="https://dummyjson.com/" target="_blank" rel="noopener noreferrer">dummy REST API</a> and return it to the user.
+The code can be found on <a href="https://github.com/ordina-jworks/aws-lambda-snapstart-spring-boot" target="_blank" rel="noopener noreferrer">Github</a>.</p>
+
+<p>We made use of the <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html" target="_blank" rel="noopener noreferrer">AWS Serverless Application Model (SAM)</a> to build our Lambda function and deploy it to AWS.
+Enabling the SnapStart feature can be easily done by adding the following two lines to the <code class="language-plaintext highlighter-rouge">Properties</code> section of the Lambda function resource in the <code class="language-plaintext highlighter-rouge">template.yaml</code> file used by AWS SAM:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SnapStart:
+  ApplyOn: PublishedVersions
+</code></pre></div></div>
+
+<p>We started by invoking our Lambda function’s unpublished version ($LATEST), in which case SnapStart is not used, and received the following summary from AWS:</p>
+
+<p><img src="/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-cold-start.png" alt="Summary lambda without SnapStart" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<p>We can observe an <strong>Init duration</strong> of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.</p>
+
+<p>Next, we manually published a new version of our Lambda function using the AWS Console.
+This can be done by navigating to the <em>Versions</em> tab of our Lamdba function and pressing the <em>Publish new version</em> button.</p>
+
+<p style="text-align: center;"><img src="/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png" alt="Lambda function verions" class="image fit" style="margin:0px auto; max-width:100%" />
+<em>Versions tab listing all published versions of a Lambda function.</em></p>
+
+<p>Invoking this newly published version provides us with the following summary:</p>
+
+<p><img src="/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-snapstart.png" alt="Summary lambda with SnapStart" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<p>In this case, we can see SnapStart is used.
+The initialization of the execution environment, represented by the <strong>Init duration</strong> we saw earlier, now happens when publishing the new version.
+Only the restoration of the snapshot, represented by the <strong>Restore duration</strong>, is performed now.</p>
+
+<p>It is quite clear that using Lambda SnapStart is advantageous in most cases.
+We managed to decrease the cold start execution time of our Lambda function from almost 5s (<strong>Init duration</strong> + <strong>Duration</strong>) to around 2.6s (<strong>Restore duration</strong> + <strong>Duration</strong>), just by enabling this feature.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>SnapStart is a great feature and can save a lot of time in your application flow.
+It’s a feature that should have been present already as it comes a bit too late. 
+But now that it is here, Java developers should take measures in order to implement this as it can save a lot of time in cold-starting their Java Lambdas.
+We would have liked to see it implemented by default when you create a version, but sadly, this is not the case (yet).
+It comes only for Java, which is understandable as Java Lambdas face this obstacle the most. 
+Still, we certainly won’t be surprised if AWS decides to release this feature for other languages and/or frameworks.</p>
+
+<p>Altogether we can definitely recommend using this new feature for your Java Lambdas.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2023/01/13/aws-lambda-snapstart-spring-cloud-function.html&title=Accelerating your slow Java Lambda with AWS Lambda SnapStart&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Accelerating your slow Java Lambda with AWS Lambda SnapStart&url=https://ordina-jworks.github.io/cloud/2023/01/13/aws-lambda-snapstart-spring-cloud-function.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2023/01/13/aws-lambda-snapstart-spring-cloud-function.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yolan-vloeberghs/" class="image spotlight-image" title="">
+            <img src="/img/author/yolan-vloeberghs.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yolan Vloeberghs is a Java and Cloud engineer with a sharpened focus on all things related to cloud, specifically AWS. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud-native development.</p>
+</p>
+            
+        </div>
+    </div>
+    
+    <div class="inner">
+        <a href="/author/robbe-de-proft/" class="image spotlight-image" title="">
+            <img src="/img/author/robbe-de-proft.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Robbe is a Java Developer with a strong interest in back-end and cloud development. He is curious by nature, so continuous learning is very important to him.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2023 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
