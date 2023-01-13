@@ -1,5 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2022-10-31T09:00:41+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Keeping up with dependencies like a boss</title><link href="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html" rel="alternate" type="text/html" title="Keeping up with dependencies like a boss" /><published>2022-10-27T00:00:00+00:00</published><updated>2022-10-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/10/27/renovate</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-01-13T09:18:40+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Accelerating your slow Java Lambda with AWS Lambda SnapStart</title><link href="https://ordina-jworks.github.io/cloud/2022/12/23/aws-lambda-snapstart-spring-cloud-function.html" rel="alternate" type="text/html" title="Accelerating your slow Java Lambda with AWS Lambda SnapStart" /><published>2022-12-23T00:00:00+00:00</published><updated>2022-12-23T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/12/23/aws-lambda-snapstart-spring-cloud-function</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/12/23/aws-lambda-snapstart-spring-cloud-function.html">&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#what-is-snapstart&quot;&gt;What is SnapStart?&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#versions&quot;&gt;Versions&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pricing&quot;&gt;Pricing&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#limitations&quot;&gt;Limitations&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#uniqueness&quot;&gt;Uniqueness&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#networking&quot;&gt;Networking&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#ephemeral-data&quot;&gt;Ephemeral data&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#using-snapstart&quot;&gt;Using SnapStart&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;If you use &lt;a href=&quot;https://aws.amazon.com/lambda/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Lambda&lt;/a&gt; in combination with Java runtimes, you will notice (or probably have already noticed) that one of the main setbacks is the cold start time.
+A cold start refers to the process where a Lambda is invoked for the first time and the Lambda has to be initialized.
+AWS needs to create a new function instance and spin it up with every &lt;a href=&quot;https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html#runtimes-lifecycle-ib&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;initialization&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Depending on your environment and application size, it can take up to 10 seconds to complete the init phase.
+Especially when using frameworks such as Spring Boot where features like dependency injection and component scanning can take a lot of time to initialize.
+This is a delay that most want to avoid as it significantly slows down your application flow in some situations.
+&lt;strong&gt;Do mind&lt;/strong&gt; that this is only during the init phase; once the Lambda instance is running, the cold start process is over until the next time your Lambda needs to be instantiated again.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-execution-lifecycle.png&quot; alt=&quot;Lambda execution lifecycle&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;
+&lt;em&gt;Lambda execution environment lifecycle - without SnapStart - &lt;a href=&quot;https://www.youtube.com/watch?v=dnFm6MlPnco&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Best practices of advanced serverless developers (AWS re:Invent 2021)&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;AWS has always recognized the problem and now comes with a solution called &lt;a href=&quot;https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lambda SnapStart&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-snapstart&quot;&gt;What is SnapStart?&lt;/h2&gt;
+&lt;p&gt;Introduced at AWS re:Invent 2022, AWS &lt;a href=&quot;https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lambda SnapStart&lt;/a&gt; is the newest feature to eliminate the cold start problem by initializing the function when you publish a new version of a Lambda.
+It takes a snapshot, through &lt;a href=&quot;https://firecracker-microvm.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Firecracker&lt;/a&gt; which AWS uses to run Lambda and Fargate, encrypts and caches it so it can be instantly accessed whenever it is required.
+When a Lambda is invoked and needs to set up a new instance, it will simply use the cached snapshot, which greatly improves startup times (officially up to 10x).&lt;/p&gt;
+
+&lt;h3 id=&quot;versions&quot;&gt;Versions&lt;/h3&gt;
+&lt;p&gt;By default, SnapStart is disabled.
+You can enable it, but only for published Lambda versions.
+This means that it only works for versions that are published on the AWS account and that it is not implemented on the $LATEST tag. If you want to make use of Lambda SnapStart, be sure to do so on a published version.
+The snapshot of your Lambda is created upon the version publishing process.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/snapstart-overview.png&quot; alt=&quot;SnapStart overview&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;
+&lt;em&gt;SnapStart overview - snapshot gets created during version publishing - &lt;a href=&quot;https://www.youtube.com/watch?v=ZbnAithBNYY&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Lambda SnapStart (AWS re:Invent 2022)&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;pricing&quot;&gt;Pricing&lt;/h3&gt;
+&lt;p&gt;The SnapStart feature comes with AWS Lambda and has no additional pricing.&lt;/p&gt;
+
+&lt;h3 id=&quot;limitations&quot;&gt;Limitations&lt;/h3&gt;
+&lt;p&gt;While SnapStart is a great feature and can save time in Lambda cold starts, it also comes with its limitations.
+SnapStart currently does not support the following features and services:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;provisioned concurrency&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;arm64 architecture&lt;/li&gt;
+  &lt;li&gt;the &lt;a href=&quot;https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Lambda Extensions API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/efs/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;EFS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/xray/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;X-Ray&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Ephemeral storage up to 512 MB&lt;/li&gt;
+  &lt;li&gt;Limited to Java 11 runtime&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;uniqueness&quot;&gt;Uniqueness&lt;/h4&gt;
+&lt;p&gt;SnapStart always requires your snapshot to be unique. 
+This means that if you have initialization code that generates unique content, it might not always be unique in the snapshot once it is restored in other Lambda invocations.
+The goal is to generate this content after the initialization process, so it is not part of the snapshot.
+Luckily, AWS has provided a &lt;a href=&quot;https://docs.aws.amazon.com/lambda/latest/dg/snapstart-uniqueness.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;documentation page&lt;/a&gt; in which they provide best practices on how to tackle that problem.
+They even came up with a &lt;a href=&quot;https://github.com/aws/aws-lambda-snapstart-java-rules&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SpotBugs plugin&lt;/a&gt; which finds potential issues in your code that could prevent SnapStart from working correctly.&lt;/p&gt;
+
+&lt;h4 id=&quot;networking&quot;&gt;Networking&lt;/h4&gt;
+&lt;p&gt;Network connections are not being shared across different environments.
+Thus, if network connections (for example, to other AWS services such as an RDS or SQS) are instantiated in the initialization phase, they will not be shared and will most likely fail when the snapshot is being used later again.
+Although most popular frameworks have automatic database connection retries, it is worth the time to make sure that it works correctly.&lt;/p&gt;
+
+&lt;h4 id=&quot;ephemeral-data&quot;&gt;Ephemeral data&lt;/h4&gt;
+&lt;p&gt;Data that is fetched or temporary (for example a password or secret) should be fetched after the initialization phase.
+Otherwise, it will save the secret in the snapshot, meaning that authentication failures (and security risks) might occur once the initial secret value has expired or has been changed.&lt;/p&gt;
+
+&lt;h2 id=&quot;using-snapstart&quot;&gt;Using SnapStart&lt;/h2&gt;
+&lt;p&gt;To investigate the improvement in cold start execution time when using AWS Lambda SnapStart, we wrote a simple Lambda function in Java 11 using &lt;a href=&quot;https://spring.io/projects/spring-cloud-function&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Spring Cloud Function&lt;/a&gt;.
+This Lambda function, when invoked, will retrieve some JSON data from a &lt;a href=&quot;https://dummyjson.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;dummy REST API&lt;/a&gt; and return it to the user.
+The code can be found on &lt;a href=&quot;https://github.com/ordina-jworks/aws-lambda-snapstart-spring-boot&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We made use of the &lt;a href=&quot;https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;AWS Serverless Application Model (SAM)&lt;/a&gt; to build our Lambda function and deploy it to AWS.
+Enabling the SnapStart feature can be easily done by adding the following two lines to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Properties&lt;/code&gt; section of the Lambda function resource in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;template.yaml&lt;/code&gt; file used by AWS SAM:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SnapStart:
+  ApplyOn: PublishedVersions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We started by invoking our Lambda function’s unpublished version ($LATEST), in which case SnapStart is not used, and received the following summary from AWS:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-cold-start.png&quot; alt=&quot;Summary lambda without SnapStart&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can observe an &lt;strong&gt;Init duration&lt;/strong&gt; of around 2.7s, i.e. the time that is spent initializing the execution environment for our Lambda function.&lt;/p&gt;
+
+&lt;p&gt;Next, we manually published a new version of our Lambda function using the AWS Console.
+This can be done by navigating to the &lt;em&gt;Versions&lt;/em&gt; tab of our Lamdba function and pressing the &lt;em&gt;Publish new version&lt;/em&gt; button.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-versions.png&quot; alt=&quot;Lambda function verions&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;
+&lt;em&gt;Versions tab listing all published versions of a Lambda function.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Invoking this newly published version provides us with the following summary:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/lambda-snapstart.png&quot; alt=&quot;Summary lambda with SnapStart&quot; class=&quot;image fit&quot; style=&quot;margin:0px auto; max-width:100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this case, we can see SnapStart is used.
+The initialization of the execution environment, represented by the &lt;strong&gt;Init duration&lt;/strong&gt; we saw earlier, now happens when publishing the new version.
+Only the restoration of the snapshot, represented by the &lt;strong&gt;Restore duration&lt;/strong&gt;, is performed now.&lt;/p&gt;
+
+&lt;p&gt;It is quite clear that using Lambda SnapStart is advantageous in most cases.
+We managed to decrease the cold start execution time of our Lambda function from almost 5s (&lt;strong&gt;Init duration&lt;/strong&gt; + &lt;strong&gt;Duration&lt;/strong&gt;) to around 2.6s (&lt;strong&gt;Restore duration&lt;/strong&gt; + &lt;strong&gt;Duration&lt;/strong&gt;), just by enabling this feature.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;SnapStart is a great feature and can save a lot of time in your application flow.
+It’s a feature that should have been present already as it comes a bit too late. 
+But now that it is here, Java developers should take measures in order to implement this as it can save a lot of time in cold-starting their Java Lambdas.
+We would have liked to see it implemented by default when you create a version, but sadly, this is not the case (yet).
+It comes only for Java, which is understandable as Java Lambdas face this obstacle the most. 
+Still, we certainly won’t be surprised if AWS decides to release this feature for other languages and/or frameworks.&lt;/p&gt;
+
+&lt;p&gt;Altogether we can definitely recommend using this new feature for your Java Lambdas.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java and Cloud engineer with a sharpened focus on all things related to cloud, specifically AWS. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud-native development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="aws" /><category term="lambda" /><category term="snapstart" /><category term="cloud" /><category term="spring" /><category term="java" /><summary type="html">Introduction What is SnapStart? Versions Pricing Limitations Uniqueness Networking Ephemeral data Using SnapStart Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/header.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/header.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Keeping up with dependencies like a boss</title><link href="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html" rel="alternate" type="text/html" title="Keeping up with dependencies like a boss" /><published>2022-10-27T00:00:00+00:00</published><updated>2022-10-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/10/27/renovate</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html">&lt;blockquote&gt;
   &lt;p&gt;Anything worth doing twice is worth automation.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1043,7 +1165,7 @@ The reason I went with the ci-cd route is that I knew it would pull me out of my
 
 &lt;p&gt;&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/tech_summary.png&quot; style=&quot;margin:0px auto; max-width: 75%;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;As a final sendoff I want to say a quick thank you to my mentor Nick Geudens for guiding me through the jungle of DevOps and AWS and to Frederick Bousson for coming up with the project and allowing me the opportunity to execute it.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Lander&quot;, &quot;last_name&quot;=&gt;&quot;Marien&quot;, &quot;permalink&quot;=&gt;&quot;/author/lander_marien/&quot;, &quot;avatar&quot;=&gt;&quot;lander_marien.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;linkedin&quot;=&gt;&quot;lander-marien&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Lander is a graduating student Programming at Thomas More Campus De Nayer.&quot;}</name><email>laura.prevost@ordina.be</email></author><category term="Internship" /><category term="Spring" /><category term="Spring Boot" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Kubernetes" /><category term="Terraform" /><category term="Helm" /><category term="Azure" /><category term="Internet Of Things" /><category term="RaspberryPi" /><category term="Javascript" /><category term="Node.js" /><category term="AWS" /><category term="DynamoDB" /><category term="RDS" /><category term="Postgres" /><summary type="html">Table Of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Clean Agile - Back to Basics</title><link href="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html" rel="alternate" type="text/html" title="Clean Agile - Back to Basics" /><published>2022-06-30T00:00:00+00:00</published><updated>2022-06-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
+&lt;p&gt;As a final sendoff I want to say a quick thank you to my mentor Nick Geudens for guiding me through the jungle of DevOps and AWS and to Frederick Bousson for coming up with the project and allowing me the opportunity to execute it.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Lander&quot;, &quot;last_name&quot;=&gt;&quot;Marien&quot;, &quot;permalink&quot;=&gt;&quot;/author/lander_marien/&quot;, &quot;avatar&quot;=&gt;&quot;lander_marien.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;linkedin&quot;=&gt;&quot;lander-mariën&quot;, &quot;email&quot;=&gt;&quot;lander.marien@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Lander is a graduating student Programming at Thomas More Campus De Nayer.&quot;}</name><email>lander.marien@ordina.be</email></author><category term="Internship" /><category term="Spring" /><category term="Spring Boot" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Kubernetes" /><category term="Terraform" /><category term="Helm" /><category term="Azure" /><category term="Internet Of Things" /><category term="RaspberryPi" /><category term="Javascript" /><category term="Node.js" /><category term="AWS" /><category term="DynamoDB" /><category term="RDS" /><category term="Postgres" /><summary type="html">Table Of Contents</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Clean Agile - Back to Basics</title><link href="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html" rel="alternate" type="text/html" title="Clean Agile - Back to Basics" /><published>2022-06-30T00:00:00+00:00</published><updated>2022-06-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#the-reasons-for-agile&quot;&gt;The Reasons for Agile&lt;/a&gt;&lt;/li&gt;
@@ -1320,7 +1442,7 @@ On EKS (Kubernetes for AWS), you can use &lt;a href=&quot;https://docs.aws.amazo
 You don’t have a password, which means you don’t have to share it, so you have zero risk of exposing your password to unwanted parties. Not having a password also eliminates the need to manage passwords and to rotate passwords every now and then.
 With the authentication token lifespan of 15 minutes, each generated token is secure and expires rapidly in case the token gets leaked.&lt;/p&gt;
 
-&lt;p&gt;While it is slightly more of a hassle to set it up, it is definitely worth your while to implement RDS IAM authentication, especially if you are already running your application and infrastructure on AWS.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java Consultant with a keen passion for Spring Boot projects and Java technology. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Spring Boot" /><category term="AWS" /><category term="Spring" /><category term="Security" /><summary type="html">Introduction Database role grant AWS Spring Boot Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-13-aws-rds-iam-authentication-spring-boot.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-13-aws-rds-iam-authentication-spring-boot.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Connecting the Pods</title><link href="https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods.html" rel="alternate" type="text/html" title="Connecting the Pods" /><published>2022-06-13T00:00:00+00:00</published><updated>2022-06-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods.html">&lt;p&gt;Although I finished the book “&lt;a href=&quot;https://www.amazon.co.uk/Connected-Company-Dave-Gray/dp/1491919477/ref=sr_1_1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The Connected Company&lt;/a&gt;” several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. 
+&lt;p&gt;While it is slightly more of a hassle to set it up, it is definitely worth your while to implement RDS IAM authentication, especially if you are already running your application and infrastructure on AWS.&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java and Cloud engineer with a sharpened focus on all things related to cloud, specifically AWS. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud-native development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Spring Boot" /><category term="AWS" /><category term="Spring" /><category term="Security" /><summary type="html">Introduction Database role grant AWS Spring Boot Conclusion</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-13-aws-rds-iam-authentication-spring-boot.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-13-aws-rds-iam-authentication-spring-boot.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Connecting the Pods</title><link href="https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods.html" rel="alternate" type="text/html" title="Connecting the Pods" /><published>2022-06-13T00:00:00+00:00</published><updated>2022-06-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods.html">&lt;p&gt;Although I finished the book “&lt;a href=&quot;https://www.amazon.co.uk/Connected-Company-Dave-Gray/dp/1491919477/ref=sr_1_1&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;The Connected Company&lt;/a&gt;” several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. 
 The book itself came out in 2012, which at this point is already 10 years in the past, and it largely builds on the idea of the quantum organization (Ralph Kilmann), on which I already briefly extrapolated when I wrote about &lt;a href=&quot;https://ordina-jworks.github.io/architecture/2020/07/08/Book-Five-Dysfunctions.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;the Five Dysfunctions of a Team&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The book consists of 5 parts:&lt;/p&gt;
@@ -1712,150 +1834,4 @@ Connections with key people at vendors and open source projects have been made w
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;“Great things in business are never done by one person. They are done by a team of people”&lt;/em&gt;.&lt;/strong&gt; –&amp;gt;
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-20-kubecon/go-team.jpg&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="Cloud" /><category term="Cloud-Native" /><category term="Conference" /><summary type="html">KubeCon - CloudNativeCon - JWorks was there!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-05-20-kubecon/kccnc-eu-2022-color-resized.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-05-20-kubecon/kccnc-eu-2022-color-resized.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Collective Intelligence</title><link href="https://ordina-jworks.github.io/leadership/2022/05/05/collective-intelligence.html" rel="alternate" type="text/html" title="Collective Intelligence" /><published>2022-05-05T00:00:00+00:00</published><updated>2022-05-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2022/05/05/collective-intelligence</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2022/05/05/collective-intelligence.html">&lt;blockquote&gt;
-  &lt;p&gt;Collective Intelligence - The Best of Synergy.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of contents&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#in-which-situation-is-the-collective-intelligence-useful&quot;&gt;In which situation is the collective intelligence useful?&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#content&quot;&gt;Content&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#rules&quot;&gt;Rules&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#fundamentals&quot;&gt;Fundamentals&lt;/a&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#fundamentals-that-help-the-emergence-of-collective-intelligence-are&quot;&gt;Fundamentals for the emergence of collective intelligence&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#fundamentals-to-ensure-the-quality-of-the-interaction&quot;&gt;Fundamentals to ensure the quality of the interaction&lt;/a&gt;$&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#process-at-a-collective-intelligence-meeting&quot;&gt;Process at a collective intelligence meeting&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#illustration-of-a-potential-intervision-at-ordina&quot;&gt;Illustration of a potential Intervision at Ordina&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#what-collective-intelligence-is-not&quot;&gt;What collective intelligence is not&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;Have you already been in a meeting where:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;All members do not participate in the same way?&lt;/li&gt;
-  &lt;li&gt;Some speak all the time – even to say nothing – while others barely speak ?&lt;/li&gt;
-  &lt;li&gt;Different opinions lead to battles of the egos that prevent a project from functioning well?&lt;/li&gt;
-  &lt;li&gt;A solution is decided by decision-makers that is beside the point?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We live in a culture of expertise and compartmentalization. To face a problem, we usually call on experts, specialists in several domains : we let our decision-making power in their hands.
-Collective intelligence makes the bet that people in a collective are good enough to combine their expertise, their creativity, their capabilities, and their natural aptitude to apply a solution that they will have generated themselves.
-In the old hierarchical management system, managers had two contradictory objectives :&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;They needed to count on the participation, the know-how, and the initiative of collaborators&lt;/li&gt;
-  &lt;li&gt;They were tempted to control them&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This management system is sadly still operating in our society.
-The principle of collective intelligence approach is very different. The aim is no longer to control the people but to control the process. This framed process will create a common and secured envelope around the group, that will support responsibility and freedom of each member.
-Collective intelligence is based on three values: peace, freedom and responsibility. These values use several tools such as cooperation, trust, sharing, empathy, and kindness in order to create a social intelligence that transcends the sum of individual intelligence.&lt;/p&gt;
-
-&lt;p&gt;We can use collective intelligence in many interactions, including the professional domain – where Collective intelligence is usually called &lt;strong&gt;Intervision&lt;/strong&gt; – : from a small project meeting to a strategic transformation brainstorming. While keeping his leading role, the leader is no longer there to manage each collaborator, but to support a bigger structure that surpasses him.
-The processes of collective intelligence / intervision do not put different skills in competition but multiply expertise in a collaborative way. The results are more creative, innovative and rewarding.&lt;/p&gt;
-
-&lt;h2 id=&quot;in-which-situation-is-the-collective-intelligence-useful&quot;&gt;In which situation is the collective intelligence useful?&lt;/h2&gt;
-&lt;p&gt;Collective intelligence is useful in all kinds of situations where we feel that the human being would profit from:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Sharing his resources and utilizing those of others.&lt;/li&gt;
-  &lt;li&gt;Developing more innovation, more shared intelligence, more agility.
-It is very powerful each time a complex situation needs to be managed with many diverse actors.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;content&quot;&gt;Content&lt;/h1&gt;
-&lt;p&gt;To implement collective intelligence, we need to follow simple but rigorous rules. These rules aim not to constrain people but to support their freedom, creativity and responsibility.&lt;/p&gt;
-
-&lt;h2 id=&quot;rules&quot;&gt;Rules&lt;/h2&gt;
-&lt;p&gt;Rules can first be described by the collective’s components:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;The place&lt;/strong&gt;, which needs to comfortably welcome the participants: bright, airy, with enough space to display group productions.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;The sponsor&lt;/strong&gt;, the organizer: he carries the intention that unites the participants.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;The team&lt;/strong&gt;, that takes care of all the necessary materials needed for the meeting.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;The facilitator&lt;/strong&gt;, the keeper that supports this space of co-creation, by verifying the rules are kept and facilitating the process during the meeting.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;The process&lt;/strong&gt;: simple, solid, helping creativity and innovation to pop up through diversity and expertise valorization.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;fundamentals&quot;&gt;Fundamentals&lt;/h2&gt;
-&lt;h3 id=&quot;fundamentals-that-help-the-emergence-of-collective-intelligence-are&quot;&gt;Fundamentals that help the emergence of collective intelligence are:&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Organization in circle&lt;/strong&gt;: representing humanity equivalence. Keeping in mind that everyone speaks from his role in the group.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Turn to speak:&lt;/strong&gt; inviting everyone to voice their concern.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Power of silence:&lt;/strong&gt; through the turn to speak, or proposed during the meeting, this moment helps to mature the ideas that have emerged from the interaction.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Speech in the center:&lt;/strong&gt; there is no debate in collective intelligence, no judgment. Everyone speaks in his name, his role and his responsibility.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Addition and multiplication of opinions&lt;/strong&gt;: helping innovation instead of competition.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Rules and processes kept in mind:&lt;/strong&gt; the facilitator is the guardian to ensure that rules and processes are followed by the collective.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Everyone is responsible for himself&lt;/strong&gt;: his emotions, his needs and his acts.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;fundamentals-to-ensure-the-quality-of-the-interaction&quot;&gt;Fundamentals to ensure the quality of the interaction:&lt;/h3&gt;
-&lt;p&gt;To ensure a good and trustful relationship between participants and to avoid overflows, some pre-requisites are necessary :&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Attentive, benevolent and active listening&lt;/strong&gt; to what is being said.&lt;/li&gt;
-  &lt;li&gt;Active listening is made with &lt;strong&gt;empathy and kindness.&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Differences and disagreements are expressed&lt;/strong&gt; without judgment or aggressivity.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Everyone’s speech is respected&lt;/strong&gt;, which does not mean everyone has to have the same opinion.&lt;/li&gt;
-  &lt;li&gt;Speaking in our &lt;strong&gt;own name&lt;/strong&gt; : preferably using “I” instead of “You”, without judging anyone’s opinion.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Silence&lt;/strong&gt; as well as the &lt;strong&gt;need of&lt;/strong&gt; &lt;strong&gt;withdrawal are respected&lt;/strong&gt; : evolution in communication can be adapted by protocols created by the group.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Communication is fluid&lt;/strong&gt; : protocols can be created in order to ease communication – time to ask questions, to issue a problem or to emit a proposed solution can be defined by the group.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Confidence is primordial&lt;/strong&gt; : participants can speak freely during the meeting without fearing that their confidence will be violated outside the meeting.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Speaking should be concise and straightforward&lt;/strong&gt; : while speaking, we always must keep in mind the interest of the group.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;process-at-a-collective-intelligence-meeting&quot;&gt;Process at a collective intelligence meeting&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;Step 1 – Introduction -&lt;/em&gt; A routine can be decided by the group before beginning a new session. That can be a breathing exercise, or a song we can dance on. This aims to help devote one’s time to the meeting, to be &lt;strong&gt;present in the moment&lt;/strong&gt; before beginning the speaking round.
-As an introduction, we can realize a “&lt;strong&gt;weather tour&lt;/strong&gt;” in order to understand in which state of mind we are. The goal is to take care about the inclusion of each participant within the group.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Step 2 – Content of the meeting -&lt;/em&gt; Everyone at his turn announces &lt;strong&gt;a topic, a problem&lt;/strong&gt;. Within the group, a &lt;strong&gt;prioritization&lt;/strong&gt; is made between all topics. One after the other, they are discussed from the most important to the less one, regarding the time spent on the reunion.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Step 3 – Conclusion -&lt;/em&gt; At the end of the session, a moment is given to conclude in order to help everyone to give his &lt;strong&gt;feedback&lt;/strong&gt; about the session.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;illustration-of-a-potential-intervision-at-ordina&quot;&gt;Illustration of a potential Intervision at Ordina&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;Let’s imagine an intervention between Jworks colleagues to improve the department community. Beforehand, a security framework had been established. This framework will help members to feel in a safe environment to be able to speak without judgment feelings.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_1.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;The facilitator suggests an introduction tour to let people be present for this moment of gathering.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_2.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;The facilitator suggests to enter the content where everyone will be able to give the problems they face or the ideas they have in mind to improve the department.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_3.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;A prioritization is made between all topics. The first tour, everyone can vote for multiple topics. If some are ex-aequo, we only can vote for one of them.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_4.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;The group begins with the first prioritized topic. The person who gave the topic tries to be concise and precise to explain it.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_5.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;After first explanations, other members of the group ask clarification questions.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_6.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;After clarification, the topic owner decides how he wants to handle his topic. 
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_7.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;Many tools of collective intelligence can therefore be used. The “if I were you” is one of them.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_8.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;When the topic owner decides, a closing tour is made, starting with him. The next prioritized topic is addressed. Etc.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_9.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;The timekeeper keeps his role in mind until the end of the session. He usually pinpoints when it is 5 minutes before the end.
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/intervision_10.png&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;h2 id=&quot;what-collective-intelligence-is-not&quot;&gt;What collective intelligence is not&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Working in collective intelligence does not mean there is no structure or hierarchy. &lt;strong&gt;Everyone has their role and responsibility&lt;/strong&gt; regarding the whole. Hierarchy of power leaves space to hierarchy of responsibility. Each member assumes his own responsibility and respects the responsibility of the others with profound respect. This idea can be translated into two principles: “everyone has the right to a place” and “everyone must be at his place”.&lt;/li&gt;
-  &lt;li&gt;Collective intelligence does not always work without a hustle. Cooperation between humans and relational maturity is feasible but, as for every relationship, the way to create innovation, agility and reward is not always easy. Every collaborator needs &lt;strong&gt;to find his space of expression&lt;/strong&gt; while knowing his responsibility within the group. Those processes ask each member to stay at his place, which can be sometimes painful. That is why a facilitator is necessary to welcome and guide those moments.&lt;/li&gt;
-  &lt;li&gt;Collective intelligence is not the Holy Grail. Collective intelligence can be seen as very aggressive from a system that is not &lt;strong&gt;ready to transform&lt;/strong&gt;. This can be the case when the system is based on a power struggle, is very rigid or with fears and limiting beliefs. As collective intelligence is proposed and never imposed on a collective, we usually quickly feel the “go” or  “no go” of the group.  “No go” signs can be expressed as repeated absences or role confusion. In that case, it is preferable to stop the process, wait and try to understand the fears that are expressed.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Therefore, while not being the holy grail, collective intelligence can be seen as the hat of Mary Poppins:  we play with processes, we open a space for dreams and creativity, we draw, we laugh, before converging into a collective and rewarding action plan.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;“Great things in business are never done by one person. They are done by a team of people”&lt;/em&gt;.&lt;/strong&gt;
-&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-05-collective-intelligence/conclusion.jpg&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Laura&quot;, &quot;last_name&quot;=&gt;&quot;Prevost&quot;, &quot;permalink&quot;=&gt;&quot;/author/laura-prevost/&quot;, &quot;avatar&quot;=&gt;&quot;laura-prevost.jpg&quot;, &quot;title&quot;=&gt;&quot;Analyst&quot;, &quot;linkedin&quot;=&gt;&quot;laura-prevost-72097255&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Laura is an Analyst at Ordina Belgium. Also Competence Lead of Technical Leadership at Jworks. Passionate about people. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>laura.prevost@ordina.be</email></author><category term="Leadership" /><category term="Leadership" /><category term="Collective" /><category term="Intelligence" /><summary type="html">Collective Intelligence - The Best of Synergy.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-05-05-collective-intelligence/collective-intelligence-home.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-05-05-collective-intelligence/collective-intelligence-home.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;img class=&quot;image fit&quot; src=&quot;/img/2022-05-20-kubecon/go-team.jpg&quot; style=&quot;margin:0px auto; max-width: 100%;&quot; /&gt;&lt;/p&gt;</content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="Cloud" /><category term="Cloud-Native" /><category term="Conference" /><summary type="html">KubeCon - CloudNativeCon - JWorks was there!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-05-20-kubecon/kccnc-eu-2022-color-resized.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-05-20-kubecon/kccnc-eu-2022-color-resized.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
