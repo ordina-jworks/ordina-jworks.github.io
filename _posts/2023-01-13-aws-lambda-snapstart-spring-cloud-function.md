@@ -2,7 +2,7 @@
 layout: post
 authors: [yolan_vloeberghs, robbe_de_proft]
 title: 'Accelerating your slow Java Lambda with AWS Lambda SnapStart'
-image: /img/2022-12-23-aws-lambda-snapstart-spring-cloud-function/header.png
+image: /img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png
 tags: [aws, lambda, snapstart, cloud, spring, java]
 category: Cloud
 comments: true
