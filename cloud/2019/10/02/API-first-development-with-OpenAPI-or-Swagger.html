@@ -646,9 +646,9 @@ SAM allows you to use an OpenAPI specification to create your API Gateway.</p>
     <span class="na">Properties</span><span class="pi">:</span>
       <span class="na">StageName</span><span class="pi">:</span> <span class="s">dev</span>
       <span class="na">DefinitionBody</span><span class="pi">:</span>
-        <span class="s">Fn::Transform:</span>
-          <span class="s">Name</span><span class="err">:</span> <span class="s">AWS::Include</span>
-          <span class="s">Parameters</span><span class="err">:</span>
+        <span class="na">Fn::Transform</span><span class="pi">:</span>
+          <span class="na">Name</span><span class="pi">:</span> <span class="s">AWS::Include</span>
+          <span class="na">Parameters</span><span class="pi">:</span>
             <span class="na">Location</span><span class="pi">:</span> <span class="s">./openapi.yaml</span>
 </code></pre></div></div>
 
@@ -677,7 +677,7 @@ SAM allows you to use an OpenAPI specification to create your API Gateway.</p>
         <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">aws_proxy"</span>
         <span class="na">httpMethod</span><span class="pi">:</span> <span class="s2">"</span><span class="s">POST"</span>
         <span class="na">uri</span><span class="pi">:</span>
-          <span class="s">Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations</span>
+          <span class="na">Fn::Sub</span><span class="pi">:</span> <span class="s">arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetAllSessionsFunction.Arn}/invocations</span>
 </code></pre></div></div>
 
 <p>For a full template example including the Lambda resources, check out this <a href="https://gist.github.com/Nxtra/3600ccab85d92faebf3c465701ba7c21" target="_blank">gist</a>.</p>
