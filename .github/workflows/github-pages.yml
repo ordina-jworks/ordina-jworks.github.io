@@ -9,10 +9,11 @@ jobs:
   jekyll:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v3
 
-    # Use GitHub Actions' cache to shorten build times and decrease load on servers
-    - uses: actions/cache@v2
+    - name: Gen Cache
+      uses: actions/cache@v2
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
@@ -22,9 +23,8 @@ jobs:
     # Specify the Jekyll source location as a parameter
     - uses: helaili/jekyll-action@v2
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        jekyll_src: './'
-        target_branch: 'master'
         keep_history: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        target_branch: master
         pre_build_commands: |
           apk --update add imagemagick musl
