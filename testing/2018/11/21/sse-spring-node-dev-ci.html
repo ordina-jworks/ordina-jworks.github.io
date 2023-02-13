@@ -426,26 +426,26 @@ Writing custom middleware is very easy and well documented in the <a href="https
 
 <p>sse-middleware.js:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">sse_middleware</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">sse_middleware</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">res</span><span class="p">.</span><span class="nx">sseSetup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setNoDelay</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nx">setKeepAlive</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">text/event-stream</span><span class="dl">'</span><span class="p">);</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Cache-Control</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">no-cache</span><span class="dl">'</span><span class="p">);</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connection</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">keep-alive</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nf">setTimeout</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nf">setNoDelay</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">socket</span><span class="p">.</span><span class="nf">setKeepAlive</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nf">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">text/event-stream</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nf">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Cache-Control</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">no-cache</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nf">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connection</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">keep-alive</span><span class="dl">'</span><span class="p">);</span>
       <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>   
     <span class="p">}</span>
 
     <span class="nx">res</span><span class="p">.</span><span class="nx">sseSend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
     <span class="p">}</span>
 
     <span class="nx">res</span><span class="p">.</span><span class="nx">sseOnClose</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">onClose</span><span class="dl">"</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">onClose</span><span class="dl">"</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="nx">next</span><span class="p">()</span>
+    <span class="nf">next</span><span class="p">()</span>
 <span class="p">}</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">sse_middleware</span><span class="p">;</span>
 </code></pre></div></div>
@@ -493,42 +493,42 @@ Depending on specific parameters, you can then choose to send back a different t
 
 <p>server.js:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">sse_middleware</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./sse-middleware</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">database</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./database</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">sse_middleware</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./sse-middleware</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">database</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./database</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">DATA_LENGTH</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">sse_middleware</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nf">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">sse_middleware</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">channels</span> <span class="o">=</span> <span class="p">[];</span>
 <span class="kd">var</span> <span class="nx">interval</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">start</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">interval</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createMockEvent</span><span class="p">();</span> <span class="c1">// to implement yourself</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">channels</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">channels</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nx">channels</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">sseSend</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="c1">// console.log('Emitting to ' + key);</span>
+<span class="kd">function</span> <span class="nf">start</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">interval</span> <span class="o">=</span> <span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nf">createMockEvent</span><span class="p">();</span> <span class="c1">// to implement yourself</span>
+    <span class="nf">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">channels</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nf">if</span><span class="p">(</span><span class="nx">channels</span><span class="p">.</span><span class="nf">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">channels</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nf">sseSend</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="c1">// console.log('Emitting to ' + key);</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stream</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">New subscriber request</span><span class="dl">"</span><span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">sseSetup</span><span class="p">();</span>
-  <span class="nx">channels</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">sseSend</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connection open</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// if you want to send feedback for opening connection</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stream</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">New subscriber request</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">sseSetup</span><span class="p">();</span>
+  <span class="nx">channels</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">sseSend</span><span class="p">(</span><span class="dl">"</span><span class="s2">Connection open</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// if you want to send feedback for opening connection</span>
   <span class="c1">// res.sendStatus(200);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">sseOnClose</span><span class="p">(()</span><span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">sseOnClose</span><span class="p">(()</span><span class="o">=&gt;</span> <span class="p">{</span>
      <span class="c1">// implement your own strategy for removing a channel</span>
   <span class="p">})</span>
 <span class="p">})</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Listening on port 8080...</span><span class="dl">'</span><span class="p">);</span>
-  <span class="nx">start</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Listening on port 8080...</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nf">start</span><span class="p">();</span>
 <span class="p">})</span>
 </code></pre></div></div>
 
@@ -559,16 +559,16 @@ You can also add the other fields, just separate them with <code class="language
 <p>For development purposes, it isn’t a bad idea to add a start en stop action for managing the interval.
 Just add the following to your server:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/start</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Starting stream</span><span class="dl">"</span><span class="p">);</span>
-  <span class="nx">start</span><span class="p">();</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/start</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Starting stream</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nf">start</span><span class="p">();</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stop</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Stopping stream</span><span class="dl">"</span><span class="p">);</span>
-  <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">interval</span><span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stop</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Stopping stream</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nf">clearInterval</span><span class="p">(</span><span class="nx">interval</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nf">sendStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div></div>
 
@@ -606,40 +606,40 @@ In this service, you can make use of the <a href="https://developer.mozilla.org/
 <span class="p">@</span><span class="nd">Injectable</span><span class="p">({</span>
   <span class="na">providedIn</span><span class="p">:</span> <span class="dl">'</span><span class="s1">root</span><span class="dl">'</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">SseService</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">SseService</span> <span class="p">{</span>
 
   <span class="nx">readonly</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">api/stream</span><span class="dl">'</span><span class="p">;</span>
 
   <span class="kr">private</span> <span class="nx">_eventSource</span><span class="p">:</span> <span class="nx">EventSource</span><span class="p">;</span>
   <span class="kr">private</span> <span class="nx">_open</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>
 
-  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">_http</span><span class="p">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+  <span class="nf">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">_http</span><span class="p">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nf">init</span><span class="p">();</span>
   <span class="p">}</span>
 
-  <span class="kr">public</span> <span class="nx">init</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventSource</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onMessage</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onerror</span>   <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onError</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_onOpen</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+  <span class="kr">public</span> <span class="nf">init</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">EventSource</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nf">_onMessage</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onerror</span>   <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nf">_onError</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_eventSource</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nf">_onOpen</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_onMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_handleEvent</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="kr">private</span> <span class="nf">_onMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nf">_handleEvent</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_onError</span><span class="p">(</span><span class="nx">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+  <span class="kr">private</span> <span class="nf">_onError</span><span class="p">(</span><span class="nx">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
     <span class="c1">// implement your own strategy for reconnection</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_onOpen</span><span class="p">(</span><span class="nx">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Open:</span><span class="dl">"</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+  <span class="kr">private</span> <span class="nf">_onOpen</span><span class="p">(</span><span class="nx">evt</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Open:</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="kr">private</span> <span class="nx">_handleEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nf">_handleEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">MessageEvent</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
       <span class="c1">// e.g. dispatch to ngrx store</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -783,8 +783,8 @@ You want all your api calls to go to the other mock (Node-RED in this case) whil
 <p>The advantage of implementing the start/stop functionality, is that you can tell your test framework to start the sse-mock events stream and then start watching the response in the UI.</p>
 
 <p>e.g. (protractor, jasmine):</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">beforeAll</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/start</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// depending on the host/address</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">beforeAll</span><span class="p">(</span><span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/start</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// depending on the host/address</span>
 <span class="p">});</span>
 </code></pre></div></div>
 

@@ -215,7 +215,7 @@ The Router offers two preloading strategies out of the box:</p>
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
     <span class="p">...</span>
     <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
-        <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">ROUTES</span><span class="p">,</span> <span class="p">{</span> <span class="na">preloadingStrategy</span><span class="p">:</span> <span class="nx">PreloadAllModules</span> <span class="p">})</span>
+        <span class="nx">RouterModule</span><span class="p">.</span><span class="nf">forRoot</span><span class="p">(</span><span class="nx">ROUTES</span><span class="p">,</span> <span class="p">{</span> <span class="na">preloadingStrategy</span><span class="p">:</span> <span class="nx">PreloadAllModules</span> <span class="p">})</span>
     <span class="p">]</span>
 <span class="p">});</span></code></pre></figure>
 
@@ -248,7 +248,7 @@ This results in pagespeed optimisations as the browser can quickly serve the sha
 <p>Among other optimisations the <a href="https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk">extra async commons chunk</a> allows us to drastically improve performance by moving common modules out of the parent so that a new async-loaded additional commons chunk is used, which decreases initial load time.
 This is automatically downloaded in parallel when the additional chunk is downloaded.</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">CommonsChunkPlugin</span><span class="p">({</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nc">CommonsChunkPlugin</span><span class="p">({</span>
   <span class="na">children</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="c1">// (use all children of the chunk)</span>
 
@@ -295,10 +295,10 @@ The OnPush strategy will let the change detector run only in the following situa
        <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ item.name }}`</span><span class="p">,</span>
        <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>
-   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+   <span class="k">export</span> <span class="kd">class</span> <span class="nc">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
        <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">item</span><span class="p">:</span> <span class="p">{</span><span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">};</span>
 
-       <span class="kd">constructor</span><span class="p">()</span> <span class="p">{}</span>
+       <span class="nf">constructor</span><span class="p">()</span> <span class="p">{}</span>
    <span class="p">}</span>
    </code></pre></figure>
 
@@ -317,16 +317,16 @@ The OnPush strategy will let the change detector run only in the following situa
        <span class="na">template</span><span class="p">:</span> <span class="s2">`{{ myItemName }}`</span><span class="p">,</span>
        <span class="na">changeDetection</span><span class="p">:</span> <span class="nx">ChangeDetectionStrategy</span><span class="p">.</span><span class="nx">OnPush</span>
    <span class="p">})</span>
-   <span class="k">export</span> <span class="kd">class</span> <span class="nx">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+   <span class="k">export</span> <span class="kd">class</span> <span class="nc">MySubComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
        <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">itemStream</span><span class="p">:</span><span class="nx">Observable</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">;</span>
        <span class="nl">myItemName</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 
-       <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">changeDetectorRef</span><span class="p">:</span> <span class="nx">ChangeDetectorRef</span><span class="p">)</span> <span class="p">{}</span>
+       <span class="nf">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">changeDetectorRef</span><span class="p">:</span> <span class="nx">ChangeDetectorRef</span><span class="p">)</span> <span class="p">{}</span>
 
-       <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
-           <span class="k">this</span><span class="p">.</span><span class="nx">itemStream</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+       <span class="nf">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
+           <span class="k">this</span><span class="p">.</span><span class="nx">itemStream</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
                <span class="k">this</span><span class="p">.</span><span class="nx">myItemName</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
-               <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nx">markForCheck</span><span class="p">();</span>
+               <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nf">markForCheck</span><span class="p">();</span>
            <span class="p">});</span>
        <span class="p">}</span>
    <span class="p">}</span>

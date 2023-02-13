@@ -356,12 +356,12 @@ The broker only has support for the 3.1 and 3.1.1 protocol versions, 5.0 is not 
 You are responsible for creating the server instance from code.
 A very basic implementation of the broker is:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">aedes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">aedes</span><span class="dl">'</span><span class="p">)();</span>
-<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">net</span><span class="dl">'</span><span class="p">).</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">aedes</span><span class="p">.</span><span class="nx">handle</span><span class="p">);</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">aedes</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">aedes</span><span class="dl">'</span><span class="p">)();</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">net</span><span class="dl">'</span><span class="p">).</span><span class="nf">createServer</span><span class="p">(</span><span class="nx">aedes</span><span class="p">.</span><span class="nx">handle</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="mi">1883</span><span class="p">;</span>
 
-<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Server started and listening on port </span><span class="dl">'</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
+<span class="nx">server</span><span class="p">.</span><span class="nf">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Server started and listening on port </span><span class="dl">'</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div></div>
 
@@ -402,7 +402,7 @@ The broker has support for all three major versions of the protocol.</p>
   <span class="n">client</span><span class="o">-&gt;</span><span class="n">enableLastWillMessage</span><span class="p">(</span><span class="s">"LAST_WILL_TOPIC"</span><span class="p">,</span> <span class="s">"LAST_WILL_MESSAGE"</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">onConnectionEstablished</span><span class="p">()</span>
+<span class="kt">void</span> <span class="nf">onConnectionEstablished</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"MQTT: Connected"</span><span class="p">);</span>
     <span class="n">client</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="s">"TOPIC"</span><span class="p">,</span> <span class="s">"connected"</span><span class="p">);</span>
@@ -412,7 +412,7 @@ The broker has support for all three major versions of the protocol.</p>
     <span class="p">});</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span>
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">client</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="s">"TOPIC"</span><span class="p">,</span> <span class="s">"DATA"</span><span class="p">);</span>
   <span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
@@ -428,39 +428,39 @@ The library handles both the WiFi and broker connections.</p>
 <span class="k">import</span> <span class="p">{</span><span class="nx">ISubscriptionGrant</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">mqtt/types/lib/client</span><span class="dl">"</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span><span class="nx">Packet</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">mqtt-packet</span><span class="dl">"</span><span class="p">;</span>
 
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">Main</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="p">{</span>
 
     <span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">client</span><span class="p">:</span> <span class="nx">Client</span><span class="p">;</span>
 
-    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">client</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">connectMqtt</span><span class="p">();</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">receive</span><span class="p">();</span>
+    <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">client</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nf">connectMqtt</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nf">receive</span><span class="p">();</span>
     <span class="p">}</span>
 
-    <span class="kr">private</span> <span class="nx">connectMqtt</span><span class="p">():</span> <span class="nx">any</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">client</span><span class="p">:</span> <span class="nx">Client</span> <span class="o">=</span> <span class="nx">mqtt</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mqtt://broker-url:1883</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">username</span><span class="p">:</span> <span class="dl">'</span><span class="s1">username</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">password</span><span class="dl">'</span><span class="p">});</span>
+    <span class="kr">private</span> <span class="nf">connectMqtt</span><span class="p">():</span> <span class="nx">any</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">client</span><span class="p">:</span> <span class="nx">Client</span> <span class="o">=</span> <span class="nx">mqtt</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mqtt://broker-url:1883</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">username</span><span class="p">:</span> <span class="dl">'</span><span class="s1">username</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">password</span><span class="dl">'</span><span class="p">});</span>
 
-        <span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">connect</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connected to MQTT broker!</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nx">client</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">connect</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connected to MQTT broker!</span><span class="dl">'</span><span class="p">);</span>
         <span class="p">});</span>
 
         <span class="k">return</span> <span class="nx">client</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="kr">private</span> <span class="nx">receive</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">topic</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">qos</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">(</span><span class="na">err</span><span class="p">:</span> <span class="nb">Error</span><span class="p">,</span> <span class="na">granted</span><span class="p">:</span> <span class="nx">ISubscriptionGrant</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">granted</span><span class="p">);</span>
+    <span class="kr">private</span> <span class="nf">receive</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">topic</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">qos</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">(</span><span class="na">err</span><span class="p">:</span> <span class="nb">Error</span><span class="p">,</span> <span class="na">granted</span><span class="p">:</span> <span class="nx">ISubscriptionGrant</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">granted</span><span class="p">);</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="nx">granted</span> <span class="o">&amp;&amp;</span> <span class="nx">granted</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-               <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="na">topic</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="na">payload</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="na">packet</span><span class="p">:</span> <span class="nx">Packet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+            <span class="nf">if </span><span class="p">(</span><span class="nx">granted</span> <span class="o">&amp;&amp;</span> <span class="nx">granted</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+               <span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="na">topic</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="na">payload</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="na">packet</span><span class="p">:</span> <span class="nx">Packet</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nf">toString</span><span class="p">());</span>
                <span class="p">});</span>
             <span class="p">}</span>
         <span class="p">})</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Main</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Main</span><span class="p">();</span>
 </code></pre></div></div>
 
 <p>The node code is a bit more complex but allows you to create more complex applications.

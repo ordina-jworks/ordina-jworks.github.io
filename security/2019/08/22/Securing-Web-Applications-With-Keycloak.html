@@ -459,7 +459,7 @@ And most importantly, it’s kept up to date with the latest version of Angular.
 <p>The example app uses an in-memory service to return some heroes. 
 Since you’ll want to serve them from Spring Boot instead, change the url in <code class="language-plaintext highlighter-rouge">hero.service.ts</code> from <code class="language-plaintext highlighter-rouge">"api/heroes"</code> into <code class="language-plaintext highlighter-rouge">"http://localhost:9090/api/heroes"</code>.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nc">HeroService</span> <span class="p">{</span>
 
   <span class="k">private</span> <span class="nx">heroesUrl</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://localhost:9090/api/heroes</span><span class="dl">'</span><span class="p">;</span>
   <span class="p">...</span>
@@ -753,7 +753,7 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
   <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">...</span>
     <span class="nx">HttpClientModule</span><span class="p">,</span>
-    <span class="nx">OAuthModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({</span>
+    <span class="nx">OAuthModule</span><span class="p">.</span><span class="nf">forRoot</span><span class="p">({</span>
       <span class="na">resourceServer</span><span class="p">:</span> <span class="p">{</span>
           <span class="na">allowedUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">http://localhost:9090/api</span><span class="dl">'</span><span class="p">],</span>
           <span class="na">sendAccessToken</span><span class="p">:</span> <span class="kc">true</span>
@@ -783,11 +783,11 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
   <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./app.component.html</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">./app.component.css</span><span class="dl">'</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">AppComponent</span> <span class="p">{</span>
   <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
   
-  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">configure</span><span class="p">();</span>
+  <span class="nf">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nf">configure</span><span class="p">();</span>
   <span class="p">}</span>
 
   <span class="nl">authConfig</span><span class="p">:</span> <span class="nx">AuthConfig</span> <span class="o">=</span> <span class="p">{</span>
@@ -802,17 +802,17 @@ Date: Sun, 18 Aug 2019 21:25:36 GMT
     <span class="na">showDebugInformation</span><span class="p">:</span> <span class="kc">true</span>
   <span class="p">}</span>
   
-  <span class="k">public</span> <span class="nx">login</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">initLoginFlow</span><span class="p">();</span>
+  <span class="k">public</span> <span class="nf">login</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nf">initLoginFlow</span><span class="p">();</span>
   <span class="p">}</span>
   
-  <span class="k">public</span> <span class="nx">logoff</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">logOut</span><span class="p">();</span>
+  <span class="k">public</span> <span class="nf">logoff</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nf">logOut</span><span class="p">();</span>
   <span class="p">}</span>
   
-  <span class="k">private</span> <span class="nx">configure</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">authConfig</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">loadDiscoveryDocumentAndTryLogin</span><span class="p">();</span>
+  <span class="k">private</span> <span class="nf">configure</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">authConfig</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nf">loadDiscoveryDocumentAndTryLogin</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>

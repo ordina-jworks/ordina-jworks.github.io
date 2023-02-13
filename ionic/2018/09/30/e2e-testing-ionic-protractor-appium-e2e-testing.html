@@ -541,7 +541,7 @@ Create a file called <strong>/e2e/protractor.config.ts</strong> with the followi
   <span class="p">},</span>
   <span class="na">seleniumAddress</span><span class="p">:</span> <span class="nx">serverAddress</span><span class="p">,</span>
   <span class="na">onPrepare</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">tsNode</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+    <span class="nx">tsNode</span><span class="p">.</span><span class="nf">register</span><span class="p">({</span>
       <span class="na">project</span><span class="p">:</span> <span class="dl">'</span><span class="s1">e2e/tsconfig.json</span><span class="dl">'</span>
     <span class="p">});</span>
   <span class="p">}</span>
@@ -648,22 +648,22 @@ but here is an example test script that you should be able to run on both iOS an
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">browser</span><span class="p">,</span> <span class="nx">by</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">ElementFinder</span><span class="p">,</span> <span class="nx">protractor</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">protractor</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">App</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Tutorial Screen</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should skip to the welcome screen and have the correct button labels</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="na">skipButton</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">skip</span><span class="dl">'</span><span class="p">));</span>
-      <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">skipButton</span><span class="p">));</span>
-      <span class="kd">const</span> <span class="na">skipButtonLabel</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">skipButton</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">skipButtonLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SKIP</span><span class="dl">'</span><span class="p">);</span>
+<span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">App</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Tutorial Screen</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should skip to the welcome screen and have the correct button labels</span><span class="dl">'</span><span class="p">,</span> <span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="na">skipButton</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="nf">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nf">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">skip</span><span class="dl">'</span><span class="p">));</span>
+      <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nf">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nf">elementToBeClickable</span><span class="p">(</span><span class="nx">skipButton</span><span class="p">));</span>
+      <span class="kd">const</span> <span class="na">skipButtonLabel</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">skipButton</span><span class="p">.</span><span class="nf">getText</span><span class="p">();</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">skipButtonLabel</span><span class="p">).</span><span class="nf">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SKIP</span><span class="dl">'</span><span class="p">);</span>
 
-      <span class="nx">skipButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+      <span class="nx">skipButton</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
 
-      <span class="kd">const</span> <span class="na">loginBtn</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nx">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">btn-login</span><span class="dl">'</span><span class="p">));</span>
-      <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nx">elementToBeClickable</span><span class="p">(</span><span class="nx">loginBtn</span><span class="p">));</span>
-      <span class="kd">const</span> <span class="na">loginBtnLabel</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">getText</span><span class="p">();</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">loginBtnLabel</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SIGN IN</span><span class="dl">'</span><span class="p">);</span>
+      <span class="kd">const</span> <span class="na">loginBtn</span><span class="p">:</span> <span class="nx">ElementFinder</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">element</span><span class="p">(</span><span class="nx">by</span><span class="p">.</span><span class="nf">id</span><span class="p">(</span><span class="dl">'</span><span class="s1">btn-login</span><span class="dl">'</span><span class="p">));</span>
+      <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nf">wait</span><span class="p">(</span><span class="nx">protractor</span><span class="p">.</span><span class="nx">ExpectedConditions</span><span class="p">.</span><span class="nf">elementToBeClickable</span><span class="p">(</span><span class="nx">loginBtn</span><span class="p">));</span>
+      <span class="kd">const</span> <span class="na">loginBtnLabel</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">loginBtn</span><span class="p">.</span><span class="nf">getText</span><span class="p">();</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">loginBtnLabel</span><span class="p">).</span><span class="nf">toEqual</span><span class="p">(</span><span class="dl">'</span><span class="s1">SIGN IN</span><span class="dl">'</span><span class="p">);</span>
 
-      <span class="nx">loginBtn</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+      <span class="nx">loginBtn</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
     <span class="p">});</span>
   <span class="p">});</span>
 <span class="p">});</span>
@@ -728,24 +728,24 @@ Then I should see the Login failed page
 
 <p>Developers write an implementation for the feature in a step definitions file:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Given</span><span class="p">(</span><span class="sr">/^I am on the Login page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="dl">'</span><span class="s1">Login</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Given</span><span class="p">(</span><span class="sr">/^I am on the Login page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nf">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nf">equal</span><span class="p">(</span><span class="dl">'</span><span class="s1">Login</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">When</span><span class="p">(</span><span class="sr">/^I click on "Login", </span><span class="se">()</span><span class="sr"> =&gt; </span><span class="err">{
-</span>    <span class="nx">LoginPage</span><span class="p">.</span><span class="nx">loginButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+<span class="nc">When</span><span class="p">(</span><span class="sr">/^I click on "Login", </span><span class="se">()</span><span class="sr"> =&gt; </span><span class="err">{
+</span>    <span class="nx">LoginPage</span><span class="p">.</span><span class="nx">loginButton</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
 <span class="p">});</span>
 
-<span class="nx">When</span><span class="p">(</span><span class="sr">/^I provide my credentials$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">WindowsAuthPage</span><span class="p">.</span><span class="nx">enterCredentials</span><span class="p">(</span><span class="nx">usr</span><span class="p">,</span><span class="nx">pass</span><span class="p">);</span>
+<span class="nc">When</span><span class="p">(</span><span class="sr">/^I provide my credentials$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">WindowsAuthPage</span><span class="p">.</span><span class="nf">enterCredentials</span><span class="p">(</span><span class="nx">usr</span><span class="p">,</span><span class="nx">pass</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">When</span><span class="p">(</span><span class="sr">/^I click on the "Submit" button$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">WindowsAuthPage</span><span class="p">.</span><span class="nx">submitButton</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+<span class="nc">When</span><span class="p">(</span><span class="sr">/^I click on the "Submit" button$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">WindowsAuthPage</span><span class="p">.</span><span class="nx">submitButton</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
 <span class="p">});</span>
 
-<span class="nx">Then</span><span class="p">(</span><span class="sr">/^I should see the Dashboard page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="dl">'</span><span class="s1">Dashboard</span><span class="dl">'</span><span class="p">);</span>
+<span class="nc">Then</span><span class="p">(</span><span class="sr">/^I should see the Dashboard page$/</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">expect</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nf">getTitle</span><span class="p">()).</span><span class="nx">to</span><span class="p">.</span><span class="nf">equal</span><span class="p">(</span><span class="dl">'</span><span class="s1">Dashboard</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div></div>
 

@@ -282,24 +282,24 @@ The most important ones are enabling SSL and using the keep-alive period as desc
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">wsbroker</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">{rabbitmq_hostname/ws}</span><span class="dl">'</span>
 <span class="kd">var</span> <span class="nx">wsport</span> <span class="o">=</span> <span class="mi">443</span><span class="p">;</span> <span class="c1">// port for above</span>
 <span class="c1">// you can use randomizer to be unique "myclientid_" + parseInt(Math.random() * 100, 10));</span>
-<span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Paho</span><span class="p">.</span><span class="nx">MQTT</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">wsbroker</span><span class="p">,</span><span class="nx">wsport</span><span class="p">,</span> <span class="dl">"</span><span class="s2">?access_token={token}</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">{client}</span><span class="dl">"</span><span class="p">);</span> 
+<span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Paho</span><span class="p">.</span><span class="nx">MQTT</span><span class="p">.</span><span class="nc">Client</span><span class="p">(</span><span class="nx">wsbroker</span><span class="p">,</span><span class="nx">wsport</span><span class="p">,</span> <span class="dl">"</span><span class="s2">?access_token={token}</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">{client}</span><span class="dl">"</span><span class="p">);</span> 
     
-<span class="nx">client</span><span class="p">.</span><span class="nx">onConnectionLost</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">responseObject</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION LOST - </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">responseObject</span><span class="p">.</span><span class="nx">errorMessage</span><span class="p">);</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">onConnectionLost</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">responseObject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION LOST - </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">responseObject</span><span class="p">.</span><span class="nx">errorMessage</span><span class="p">);</span>
 <span class="p">};</span>
-<span class="nx">client</span><span class="p">.</span><span class="nx">onMessageArrived</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">RECEIVE ON </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">destinationName</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> PAYLOAD </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">payloadString</span><span class="p">);</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">onMessageArrived</span> <span class="o">=</span> <span class="nf">function </span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">RECEIVE ON </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">destinationName</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> PAYLOAD </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">payloadString</span><span class="p">);</span>
 <span class="p">};</span>
   
   
-<span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span>
+<span class="nx">client</span><span class="p">.</span><span class="nf">connect</span><span class="p">({</span>
     <span class="na">useSSL</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="na">onSuccess</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION SUCCESS</span><span class="dl">"</span><span class="p">);</span>
-        <span class="nx">client</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">events</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">qos</span><span class="p">:</span> <span class="mi">0</span><span class="p">});</span>
+    <span class="na">onSuccess</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION SUCCESS</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">client</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">(</span><span class="dl">'</span><span class="s1">events</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">qos</span><span class="p">:</span> <span class="mi">0</span><span class="p">});</span>
     <span class="p">},</span>
-    <span class="na">onFailure</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">debug</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION FAILURE - </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">errorMessage</span><span class="p">);</span>
+    <span class="na">onFailure</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">debug</span><span class="p">(</span><span class="dl">"</span><span class="s2">CONNECTION FAILURE - </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">errorMessage</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -318,7 +318,7 @@ It is the responsibility of the client to ensure the interval between the contro
 The client can send a ping at any time, irrespective of the keep-alive value, and use the pong to determine that the network and the server are working.</p>
 
 <p>To configure the keep-alive period, the client can add the property to enable the feature.</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">client</span><span class="p">.</span><span class="nf">connect</span><span class="p">({</span>
         <span class="na">keepAliveInterval</span><span class="p">:</span> <span class="mi">20</span>
 <span class="p">})</span>
 </code></pre></div></div>
@@ -327,7 +327,7 @@ The client can send a ping at any time, irrespective of the keep-alive value, an
 Like HTTP, WebSockets supports TLS with using the prefix <code class="language-plaintext highlighter-rouge">wss://</code> instead of <code class="language-plaintext highlighter-rouge">ws://</code> and port <code class="language-plaintext highlighter-rouge">443</code> instead of <code class="language-plaintext highlighter-rouge">80</code>.</p>
 
 <p>The client can enable TLS by adding a property.</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">client</span><span class="p">.</span><span class="nf">connect</span><span class="p">({</span>
         <span class="na">useSSL</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">})</span>
 </code></pre></div></div>
@@ -335,7 +335,7 @@ Like HTTP, WebSockets supports TLS with using the prefix <code class="language-p
 <p>The best practice for securing your resources is to propagate your token via the query parameter.<br />
 If you are targeting a backend, the backend can handle this token but for this use-case, we need a reverse proxy/API gateway to validate this token for us.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Paho</span><span class="p">.</span><span class="nx">MQTT</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">wsbroker</span><span class="p">,</span><span class="nx">wsport</span><span class="p">,</span> <span class="dl">"</span><span class="s2">?access_token={token}</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">{client}</span><span class="dl">"</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Paho</span><span class="p">.</span><span class="nx">MQTT</span><span class="p">.</span><span class="nc">Client</span><span class="p">(</span><span class="nx">wsbroker</span><span class="p">,</span><span class="nx">wsport</span><span class="p">,</span> <span class="dl">"</span><span class="s2">?access_token={token}</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">{client}</span><span class="dl">"</span><span class="p">);</span>
 </code></pre></div></div>
 
 <h3 id="clean-session">Clean Session</h3>
@@ -420,11 +420,11 @@ If the header is filled with <code class="language-plaintext highlighter-rouge">
           <span class="na">globalNotificationChannel</span><span class="pi">:</span>
             <span class="na">producer</span><span class="pi">:</span>
               <span class="na">routingKeyExpression</span><span class="pi">:</span> <span class="s1">'</span><span class="s">'</span><span class="s1">'</span><span class="s">events'</span><span class="s1">'</span><span class="s">'</span>
-              <span class="na">declareExchange</span><span class="pi">:</span> <span class="no">false</span>
+              <span class="na">declareExchange</span><span class="pi">:</span> <span class="kc">false</span>
           <span class="na">specificNotificationChannel</span><span class="pi">:</span>
             <span class="na">producer</span><span class="pi">:</span>
               <span class="na">routingKeyExpression</span><span class="pi">:</span> <span class="s">headers.routingKey</span>
-              <span class="na">declareExchange</span><span class="pi">:</span> <span class="no">false</span>
+              <span class="na">declareExchange</span><span class="pi">:</span> <span class="kc">false</span>
 </code></pre></div></div>
 
 <h3 id="publisher">Publisher</h3>

@@ -277,9 +277,9 @@ We have used this in our little app, more on that <a href="#demo-application">be
 <span class="nt">&lt;/ViroARImageMarker&gt;</span>
 </code></pre></div></div>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nx">createTargets</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nf">createTargets</span><span class="p">({</span>
   <span class="dl">"</span><span class="s2">targetOne</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
-	<span class="na">source</span> <span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/targetOne.jpg</span><span class="dl">'</span><span class="p">),</span>
+	<span class="na">source</span> <span class="p">:</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/targetOne.jpg</span><span class="dl">'</span><span class="p">),</span>
 	<span class="na">orientation</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Up</span><span class="dl">"</span><span class="p">,</span>
 	<span class="na">physicalWidth</span> <span class="p">:</span> <span class="mf">0.1</span> <span class="c1">// real world width in meters</span>
   <span class="p">},</span>
@@ -351,11 +351,11 @@ It shines over the whole scene in a specific direction.</p>
 <h4 id="to-make-these-objects-look-good-we-need-materials">To make these objects look good we need Materials</h4>
 <p><a href="http://viro.readme.io/docs/3d-scene-lighting">Materials</a> are used to place texture images on 3d objects.
 They can make a long box look like a brick wall or a sphere look like our planet.</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroMaterials</span><span class="p">.</span><span class="nx">createMaterials</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroMaterials</span><span class="p">.</span><span class="nf">createMaterials</span><span class="p">({</span>
   <span class="na">earth</span><span class="p">:</span> <span class="p">{</span>
 	<span class="na">shininess</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>
 	<span class="na">lightingModel</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Lambert</span><span class="dl">"</span><span class="p">,</span>
-	<span class="na">diffuseTexture</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/earth_texture.jpg</span><span class="dl">'</span><span class="p">),</span>
+	<span class="na">diffuseTexture</span><span class="p">:</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/earth_texture.jpg</span><span class="dl">'</span><span class="p">),</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -369,7 +369,7 @@ Complex Viro3DObjects can have multiple materials.</p>
 <p>Our scenes are still lacking motion.
 That’s where <a href="https://docs.viromedia.com/docs/animation">animations</a> come in handy.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroAnimations</span><span class="p">.</span><span class="nx">registerAnimations</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ViroAnimations</span><span class="p">.</span><span class="nf">registerAnimations</span><span class="p">({</span>
 	<span class="na">animateImage</span><span class="p">:{</span><span class="na">properties</span><span class="p">:{</span><span class="na">scaleX</span><span class="p">:</span><span class="mf">1.0</span><span class="p">,</span> <span class="na">scaleY</span><span class="p">:</span><span class="mf">0.6</span><span class="p">},</span>
 				  <span class="na">easing</span><span class="p">:</span><span class="dl">"</span><span class="s2">Bounce</span><span class="dl">"</span><span class="p">,</span> <span class="na">duration</span><span class="p">:</span> <span class="mi">5000</span><span class="p">}});</span>
 </code></pre></div></div>
@@ -399,12 +399,12 @@ These events are very useful for UI.</p>
 They follow the same principles but each have their own properties.
 This being built on React Native we can also declare our own components of course!</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">CustomComponent</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">CustomComponent</span> <span class="kd">extends</span> <span class="nc">Component</span> <span class="p">{</span>
 	<span class="kd">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span><span class="na">customProperty</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span>
 
-    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span><span class="k">super</span><span class="p">()</span> <span class="p">;}</span>
+    <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span><span class="nf">super</span><span class="p">()</span> <span class="p">;}</span>
 
-	<span class="nx">render</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="p">(</span>
+	<span class="nf">render</span><span class="p">()</span> <span class="p">{</span><span class="nf">return </span><span class="p">(</span>
 		<span class="o">&lt;</span><span class="nx">ViroText</span> <span class="nx">text</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">customProperty</span><span class="p">}</span><span class="o">&gt;</span> <span class="p">);}</span>
 	<span class="p">}</span>
 
@@ -483,7 +483,7 @@ this will act as the marker to scan the meeting room information.</p>
 <p>Because the file extension was in capital letters (.JPG), 
 I had to configure this extension in the <code class="language-plaintext highlighter-rouge">rn-cli.config.js</code> file inside of the root folder.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">getAssetExts</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nf">getAssetExts</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">[</span><span class="dl">"</span><span class="s2">obj</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">mtl</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">JPG</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">vrx</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">hdr</span><span class="dl">"</span><span class="p">];</span>
   <span class="p">},</span>
 </code></pre></div></div>
@@ -501,10 +501,10 @@ I had to configure this extension in the <code class="language-plaintext highlig
 
 <p>We call this method inside of the constructor.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nx">setMarker</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nx">createTargets</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nf">setMarker</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nf">createTargets</span><span class="p">({</span>
             <span class="dl">"</span><span class="s2">mr7</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">source</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/mr7.JPG</span><span class="dl">'</span><span class="p">),</span>
+                <span class="na">source</span><span class="p">:</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/mr7.JPG</span><span class="dl">'</span><span class="p">),</span>
                 <span class="na">orientation</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Up</span><span class="dl">"</span><span class="p">,</span>
                 <span class="na">physicalWidth</span><span class="p">:</span> <span class="mi">1</span>
             <span class="p">},</span>
@@ -526,19 +526,19 @@ Every time one of these events occurs, we want to fetch the latest meeting room 
 
 <p><code class="language-plaintext highlighter-rouge">onAnchorFound</code> gets called when the Image Marker has been detected.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getInfo</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://rooms.meeting/rm7</span><span class="dl">'</span><span class="p">)</span>
-        <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
-        <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">getInfo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://rooms.meeting/rm7</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+        <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="kd">const</span> <span class="nx">isTrueSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">isAvailable</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+            <span class="k">this</span><span class="p">.</span><span class="nf">setState</span><span class="p">({</span>
                 <span class="na">isAvailable</span><span class="p">:</span> <span class="nx">isTrueSet</span><span class="p">,</span>
                 <span class="na">nextMeeting</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Next meeting: </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span> <span class="p">:</span> <span class="s2">`Free @ </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span><span class="p">,</span>
                 <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Not Available</span><span class="dl">'</span>
             <span class="p">})</span>
         <span class="p">})</span>
-        <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+        <span class="p">.</span><span class="nf">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
         <span class="p">});</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -575,7 +575,7 @@ In our case, two TextViews positioned with a FlexView.</p>
 
 <p>And these are the styles we defined for the ViroText and ViroFlexView.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nf">create</span><span class="p">({</span>
     <span class="na">text</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Arial</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">fontSize</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
@@ -618,10 +618,10 @@ In our case, two TextViews positioned with a FlexView.</p>
     <span class="nx">ViroFlexView</span>
 <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-viro</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">MarkerScene</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">MarkerScene</span> <span class="kd">extends</span> <span class="nc">Component</span> <span class="p">{</span>
 
-    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">super</span><span class="p">();</span>
+    <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">super</span><span class="p">();</span>
 
         <span class="c1">// Set initial state here</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
@@ -630,22 +630,22 @@ In our case, two TextViews positioned with a FlexView.</p>
             <span class="na">isAvailable</span><span class="p">:</span> <span class="kc">true</span>
         <span class="p">};</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">setMarker</span><span class="p">();</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nf">setMarker</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">.</span><span class="nf">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="nx">setMarker</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nx">createTargets</span><span class="p">({</span>
+    <span class="nf">setMarker</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">ViroARTrackingTargets</span><span class="p">.</span><span class="nf">createTargets</span><span class="p">({</span>
             <span class="dl">"</span><span class="s2">mr7</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-                <span class="na">source</span><span class="p">:</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/mr7.JPG</span><span class="dl">'</span><span class="p">),</span>
+                <span class="na">source</span><span class="p">:</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./res/mr7.JPG</span><span class="dl">'</span><span class="p">),</span>
                 <span class="na">orientation</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Up</span><span class="dl">"</span><span class="p">,</span>
                 <span class="na">physicalWidth</span><span class="p">:</span> <span class="mi">1</span>
             <span class="p">},</span>
         <span class="p">});</span>
     <span class="p">}</span>
 
-    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span>
+    <span class="nf">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">return </span><span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">ViroARScene</span> <span class="nx">onAnchorFound</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">}</span>
                          <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">}</span><span class="o">&gt;</span>
                 <span class="o">&lt;</span><span class="nx">ViroARImageMarker</span> <span class="nx">target</span><span class="o">=</span><span class="p">{</span><span class="dl">"</span><span class="s2">mr7</span><span class="dl">"</span><span class="p">}</span><span class="o">&gt;</span>
@@ -669,24 +669,24 @@ In our case, two TextViews positioned with a FlexView.</p>
 </span>        <span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="nx">_getInfo</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://rooms.meeting/rm7</span><span class="dl">'</span><span class="p">)</span>
-            <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
-            <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">_getInfo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://rooms.meeting/rm7</span><span class="dl">'</span><span class="p">)</span>
+            <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+            <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
                 <span class="kd">const</span> <span class="nx">isTrueSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">isAvailable</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">true</span><span class="dl">'</span><span class="p">);</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+                <span class="k">this</span><span class="p">.</span><span class="nf">setState</span><span class="p">({</span>
                     <span class="na">isAvailable</span><span class="p">:</span> <span class="nx">isTrueSet</span><span class="p">,</span>
                     <span class="na">nextMeeting</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Next meeting: </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span> <span class="p">:</span> <span class="s2">`Free @ </span><span class="p">${</span><span class="nx">res</span><span class="p">.</span><span class="nx">nextMeeting</span><span class="p">}</span><span class="s2">h`</span><span class="p">,</span>
                     <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Not Available</span><span class="dl">'</span>
                 <span class="p">})</span>
             <span class="p">})</span>
-            <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+            <span class="p">.</span><span class="nf">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
             <span class="p">});</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="kd">var</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">StyleSheet</span><span class="p">.</span><span class="nf">create</span><span class="p">({</span>
     <span class="na">text</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">fontFamily</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Arial</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">fontSize</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
@@ -729,7 +729,7 @@ Here we can define which scene to load when starting up the application.</p>
 
 <p>Import your marker scene.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./js/MarkerScene</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./js/MarkerScene</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>Render your AR Scene.</p>
@@ -743,25 +743,25 @@ Here we can define which scene to load when starting up the application.</p>
     <span class="na">apiKey</span><span class="p">:</span> <span class="dl">"</span><span class="s2">6E2805CC-xxxx-4Ex0-8xx0-02xxxxxxx</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 
-<span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./js/MarkerScene</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">MarkerScene</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./js/MarkerScene</span><span class="dl">'</span><span class="p">);</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">ViroSample</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">super</span><span class="p">();</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">ViroSample</span> <span class="kd">extends</span> <span class="nc">Component</span> <span class="p">{</span>
+    <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">super</span><span class="p">();</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
             <span class="na">sharedProps</span><span class="p">:</span> <span class="nx">sharedProps</span>
         <span class="p">};</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">_getARNavigator</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_getARNavigator</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_getARNavigator</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_getARNavigator</span><span class="p">.</span><span class="nf">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_getARNavigator</span><span class="p">();</span>
+    <span class="nf">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nf">_getARNavigator</span><span class="p">();</span>
     <span class="p">}</span>
 
-    <span class="nx">_getARNavigator</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span>
+    <span class="nf">_getARNavigator</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">return </span><span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">ViroARSceneNavigator</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">sharedProps</span><span class="p">}</span>
                                   <span class="nx">initialScene</span><span class="o">=</span><span class="sr">/</span><span class="err">&gt;
 </span>        <span class="p">);</span>

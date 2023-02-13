@@ -244,24 +244,24 @@ We will now explain the difference between using the class-style component synta
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Vue</span><span class="p">,</span> <span class="p">{</span> <span class="nx">VNode</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span>
 
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">HelloComponent</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-    <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">HelloComponent</span> <span class="o">=</span> <span class="nx">Vue</span><span class="p">.</span><span class="nf">extend</span><span class="p">({</span>
+    <span class="nf">data </span><span class="p">()</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nx">greet</span> <span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
+        <span class="nf">greet </span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> world</span><span class="dl">'</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="na">computed</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nx">greeting</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">;</span>
+        <span class="nf">greeting</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nf">greet</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">},</span>
-    <span class="nx">render</span> <span class="p">(</span><span class="nx">createElement</span><span class="p">):</span> <span class="nx">VNode</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">greeting</span><span class="p">);</span>
+    <span class="nf">render </span><span class="p">(</span><span class="nx">createElement</span><span class="p">):</span> <span class="nx">VNode</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">greeting</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -277,13 +277,13 @@ We will now explain the difference between using the class-style component synta
 <span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
     <span class="na">template</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;div&gt;&lt;/div&gt;</span><span class="dl">'</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">HelloComponent</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">HelloComponent</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
     <span class="nl">message</span><span class="p">:</span> <span class="kr">string</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Hello</span><span class="dl">'</span>
-    <span class="nx">greet</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
+    <span class="nf">greet</span><span class="p">():</span> <span class="kr">string</span> <span class="p">{</span>
         <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> world</span><span class="dl">'</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="kd">get</span> <span class="nx">greeting</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">;</span>
+    <span class="kd">get</span> <span class="nf">greeting</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nf">greet</span><span class="p">()</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">!</span><span class="dl">'</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -397,9 +397,9 @@ This should always be present in your <code class="language-plaintext highlighte
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
-<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
-	<span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
-<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">new</span> <span class="nc">Vue</span><span class="p">({</span>
+	<span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nf">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
+<span class="p">}).</span><span class="nf">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>When you look in the <code class="language-plaintext highlighter-rouge">src</code> folder, you will find a <code class="language-plaintext highlighter-rouge">main.ts</code> file.
@@ -423,12 +423,12 @@ For example, a <code class="language-plaintext highlighter-rouge">main.ts</code>
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
-<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+<span class="k">new</span> <span class="nc">Vue</span><span class="p">({</span>
     <span class="nx">router</span><span class="p">,</span> <span class="c1">// custom router configuration</span>
     <span class="nx">store</span><span class="p">,</span> <span class="c1">// custom store implementation</span>
     <span class="nx">i18n</span><span class="p">,</span> <span class="c1">// my translations</span>
-    <span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="na">h</span><span class="p">:</span> <span class="nx">CreateElement</span><span class="p">):</span> <span class="nx">VNode</span> <span class="o">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
-<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
+    <span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="na">h</span><span class="p">:</span> <span class="nx">CreateElement</span><span class="p">):</span> <span class="nx">VNode</span> <span class="o">=&gt;</span> <span class="nf">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
+<span class="p">}).</span><span class="nf">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>As you can see, I have added three core functionalities: a router, a store and an i18n library.
@@ -488,7 +488,7 @@ The Vue CLI generates the App component with one child component.</p>
 		<span class="nx">HelloWorld</span><span class="p">,</span>
 	<span class="p">},</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{}</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">style</span><span class="nt">&gt;</span>
@@ -522,7 +522,7 @@ For example in our <code class="language-plaintext highlighter-rouge">App</code>
 These components are local components.
 If you would want to write a component that is global, you have to register it like this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">my-component-name</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Vue</span><span class="p">.</span><span class="nf">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">my-component-name</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
 	<span class="c1">// ... options ...</span>
 <span class="p">})</span>
 </code></pre></div></div>
@@ -531,12 +531,12 @@ If you would want to write a component that is global, you have to register it l
 Try to avoid this as much as possible as it fills up the global namespace.
 An example of a use case that is justified would be an icon library like <a href="https://github.com/FortAwesome/vue-fontawesome" target="_blank" rel="noopener noreferrer">Font Awesome</a>:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">library</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">library</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
     <span class="nx">faBars</span><span class="p">,</span>
     <span class="p">...</span>
     <span class="nx">faCameraRetro</span><span class="p">,</span>
 <span class="p">);</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">font-awesome-icon</span><span class="dl">'</span><span class="p">,</span> <span class="nx">FontAwesomeIcon</span><span class="p">);</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">component</span><span class="p">(</span><span class="dl">'</span><span class="s1">font-awesome-icon</span><span class="dl">'</span><span class="p">,</span> <span class="nx">FontAwesomeIcon</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>After this we can access the <code class="language-plaintext highlighter-rouge">font-awesome-icon</code> tag from everywhere.</p>
@@ -565,7 +565,7 @@ Firstly I will explain the basics of a Vue Component so that you will fully unde
 		<span class="nx">HelloWorld</span><span class="p">,</span>
 	<span class="p">},</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{}</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;</span><span class="k">style</span> <span class="na">lang=</span><span class="s">"scss"</span><span class="nt">&gt;</span>
@@ -730,11 +730,11 @@ The <code class="language-plaintext highlighter-rouge">BlogPost</code> component
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Component</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">BlogPost</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">BlogPost</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
 	<span class="p">@</span><span class="nd">Prop</span><span class="p">()</span> <span class="kr">private</span> <span class="nx">post</span><span class="o">!</span><span class="p">:</span> <span class="nx">Post</span><span class="p">;</span>
 
-	<span class="kd">get</span> <span class="nx">date</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()}</span><span class="s2">`</span><span class="p">;</span>
+	<span class="kd">get</span> <span class="nf">date</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getDate</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getMonth</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getFullYear</span><span class="p">()}</span><span class="s2">`</span><span class="p">;</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
@@ -773,7 +773,7 @@ The exclamation mark is the <a href="https://github.com/Microsoft/TypeScript/wik
 If we were to use the <code class="language-plaintext highlighter-rouge">BlogPost</code> component, we can always pass along another object into the <code class="language-plaintext highlighter-rouge">post</code> attribute.
 We can pass along a <code class="language-plaintext highlighter-rouge">type</code> attribute in the <code class="language-plaintext highlighter-rouge">Props</code> decorator but even that is not that stable.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Prop</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nb">Object</span> <span class="k">as</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">Post</span><span class="p">})</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Prop</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nb">Object</span> <span class="nf">as </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">Post</span><span class="p">})</span>
 </code></pre></div></div>
 
 <p>We end the component with our styling in which we make use of SCSS to nest all our styling.</p>
@@ -799,25 +799,25 @@ We adapt <code class="language-plaintext highlighter-rouge">App.vue</code> as fo
 		<span class="nx">BlogPost</span><span class="p">,</span>
 	<span class="p">},</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
 	<span class="kr">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
 		<span class="p">{</span>
 			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My first blogpost ever!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Lorem ipsum dolor sit amet.</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
-			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
 			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Look I am blogging!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hurray for me, this is my second post!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
-			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
+			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
 			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one?!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
-			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
 		<span class="p">},</span>
 	<span class="p">];</span>
 <span class="p">}</span>
@@ -922,11 +922,11 @@ We extend our <code class="language-plaintext highlighter-rouge">Post</code> int
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Component</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">BlogPost</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">BlogPost</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
 	<span class="p">@</span><span class="nd">Prop</span><span class="p">()</span> <span class="kr">private</span> <span class="nx">post</span><span class="o">!</span><span class="p">:</span> <span class="nx">Post</span><span class="p">;</span>
 
-	<span class="kd">get</span> <span class="nx">date</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()}</span><span class="s2">`</span><span class="p">;</span>
+	<span class="kd">get</span> <span class="nf">date</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getDate</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getMonth</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getFullYear</span><span class="p">()}</span><span class="s2">`</span><span class="p">;</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
@@ -1018,11 +1018,11 @@ So we can shorten <code class="language-plaintext highlighter-rouge">v-bind:clas
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Component</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">BlogPost</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">BlogPost</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
 	<span class="p">@</span><span class="nd">Prop</span><span class="p">()</span> <span class="kr">private</span> <span class="nx">post</span><span class="o">!</span><span class="p">:</span> <span class="nx">Post</span><span class="p">;</span>
 
-	<span class="kd">get</span> <span class="nx">date</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()}</span><span class="s2">`</span><span class="p">;</span>
+	<span class="kd">get</span> <span class="nf">date</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getDate</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getMonth</span><span class="p">()}</span><span class="s2">/</span><span class="p">${</span><span class="k">this</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">.</span><span class="nf">getFullYear</span><span class="p">()}</span><span class="s2">`</span><span class="p">;</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
@@ -1062,17 +1062,17 @@ We can also use the shorthand version which is <code class="language-plaintext h
 <p>After that we write the event handler along with some variables in our component.
 The code block is followed by an explanation about what we have done exactly:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
 	<span class="c1">// ...</span>
 	<span class="k">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
 	<span class="k">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
 
-	<span class="kd">get</span> <span class="nx">visibleBlogPosts</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">post</span><span class="p">:</span> <span class="nx">Post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>  <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">);</span>
+	<span class="kd">get</span> <span class="nf">visibleBlogPosts</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nf">filter</span><span class="p">((</span><span class="nx">post</span><span class="p">:</span> <span class="nx">Post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>  <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">);</span>
 	<span class="p">}</span>
 
-	<span class="k">public</span> <span class="nx">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">public</span> <span class="nf">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">;</span>
 	<span class="p">}</span>
 	<span class="c1">// ...</span>
@@ -1128,7 +1128,7 @@ We update the button to the following code:</p>
 		<span class="nx">BlogPost</span><span class="p">,</span>
 	<span class="p">},</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
 
 	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
@@ -1137,28 +1137,28 @@ We update the button to the following code:</p>
 			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My first blogpost ever!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Lorem ipsum dolor sit amet.</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
-			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
 			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Look I am blogging!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hurray for me, this is my second post!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
-			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
+			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
 			<span class="na">highlighted</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
 		<span class="p">},</span>
 		<span class="p">{</span>
 			<span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one?!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Another one!</span><span class="dl">'</span><span class="p">,</span>
 			<span class="na">author</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Elke</span><span class="dl">'</span><span class="p">,</span>
-			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+			<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
 		<span class="p">},</span>
 	<span class="p">];</span>
 
-	<span class="kd">get</span> <span class="nx">visibleBlogPosts</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">post</span><span class="p">:</span> <span class="nx">Post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>  <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">);</span>
+	<span class="kd">get</span> <span class="nf">visibleBlogPosts</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nf">filter</span><span class="p">((</span><span class="nx">post</span><span class="p">:</span> <span class="nx">Post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>  <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">);</span>
 	<span class="p">}</span>
 
-	<span class="kr">public</span> <span class="nx">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kr">public</span> <span class="nf">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">;</span>
 	<span class="p">}</span>
 <span class="p">}</span>
@@ -1204,11 +1204,11 @@ We add a <code class="language-plaintext highlighter-rouge">Vue.use(plugin, opti
 
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueAxios</span><span class="p">,</span> <span class="nx">axios</span><span class="p">);</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nf">use</span><span class="p">(</span><span class="nx">VueAxios</span><span class="p">,</span> <span class="nx">axios</span><span class="p">);</span>
 
-<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
-	<span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
-<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">new</span> <span class="nc">Vue</span><span class="p">({</span>
+	<span class="na">render</span><span class="p">:</span> <span class="p">(</span><span class="nx">h</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nf">h</span><span class="p">(</span><span class="nx">App</span><span class="p">),</span>
+<span class="p">}).</span><span class="nf">$mount</span><span class="p">(</span><span class="dl">'</span><span class="s1">#app</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>The important part is that we put the <code class="language-plaintext highlighter-rouge">Vue.use(...)</code> statement before we actually bootstrap the application with <code class="language-plaintext highlighter-rouge">new Vue(...)</code>.</p>
@@ -1242,13 +1242,13 @@ The mounted hook is used for when the element is mounted into the HTML DOM, whic
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Vue</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-property-decorator</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="p">@</span><span class="nd">Component</span><span class="p">({})</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
-	<span class="kr">private</span> <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">The app is created!</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
+	<span class="kr">private</span> <span class="nf">created</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">The app is created!</span><span class="dl">'</span><span class="p">);</span>
 	<span class="p">}</span>
 
-	<span class="kr">private</span> <span class="nx">mounted</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">The app is mounted!</span><span class="dl">'</span><span class="p">);</span>
+	<span class="kr">private</span> <span class="nf">mounted</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">The app is mounted!</span><span class="dl">'</span><span class="p">);</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 <span class="nt">&lt;/</span><span class="k">script</span><span class="nt">&gt;</span>
@@ -1285,27 +1285,27 @@ To ensure that our code is compatible with all use cases, we place the HTTP call
 		<span class="nx">BlogPost</span><span class="p">,</span>
 	<span class="p">},</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Vue</span> <span class="p">{</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">App</span> <span class="kd">extends</span> <span class="nc">Vue</span> <span class="p">{</span>
 
 	<span class="kr">public</span> <span class="nx">showHighlighted</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
 	<span class="kr">private</span> <span class="nx">blogPosts</span><span class="p">:</span> <span class="nx">Post</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
 
-	<span class="kd">get</span> <span class="nx">visibleBlogPosts</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">post</span><span class="p">:</span> <span class="nx">Post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>  <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">);</span>
+	<span class="kd">get</span> <span class="nf">visibleBlogPosts</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span><span class="p">.</span><span class="nf">filter</span><span class="p">((</span><span class="nx">post</span><span class="p">:</span> <span class="nx">Post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>  <span class="nx">post</span><span class="p">.</span><span class="nx">highlighted</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">);</span>
 	<span class="p">}</span>
 
-	<span class="kr">public</span> <span class="nx">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kr">public</span> <span class="nf">toggleHighlightedPostsVisibility</span><span class="p">()</span> <span class="p">{</span>
 		<span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">showHighlighted</span><span class="p">;</span>
 	<span class="p">}</span>
 
-	<span class="kr">private</span> <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">this</span><span class="p">.</span><span class="nx">$http</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:3000/blogposts</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">response</span><span class="p">:</span> <span class="nx">AxiosResponse</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-			<span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="na">val</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+	<span class="kr">private</span> <span class="nf">created</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">$http</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:3000/blogposts</span><span class="dl">'</span><span class="p">).</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">:</span> <span class="nx">AxiosResponse</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">blogPosts</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="na">val</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
 				<span class="na">title</span><span class="p">:</span> <span class="nx">val</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span>
 				<span class="na">body</span><span class="p">:</span> <span class="nx">val</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
 				<span class="na">author</span><span class="p">:</span> <span class="nx">val</span><span class="p">.</span><span class="nx">author</span><span class="p">,</span>
-				<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">val</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">),</span>
+				<span class="na">datePosted</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="nx">val</span><span class="p">.</span><span class="nx">datePosted</span><span class="p">),</span>
 				<span class="na">highlighted</span><span class="p">:</span> <span class="nx">val</span><span class="p">.</span><span class="nx">highlighted</span><span class="p">,</span>
 			<span class="p">}));</span>
 		<span class="p">});</span>

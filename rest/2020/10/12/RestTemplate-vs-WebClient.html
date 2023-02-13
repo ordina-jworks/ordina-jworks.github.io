@@ -652,15 +652,15 @@ There are plenty of other interesting methods to use for combining or transformi
 <p>Instead of using a <code class="language-plaintext highlighter-rouge">HttpClient</code>, I use an <code class="language-plaintext highlighter-rouge">EventSource</code> to call our service. 
  Every time an event is received, it is parsed and pushed onto the <code class="language-plaintext highlighter-rouge">Observable</code>.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getMenusForGivenAmountOfDays</span><span class="p">(</span><span class="nx">amountOfDays</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Menu</span><span class="o">&gt;</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">getMenusForGivenAmountOfDays</span><span class="p">(</span><span class="nx">amountOfDays</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Menu</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Menu</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">menuSubscriber</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="kd">const</span> <span class="nx">eventSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventSource</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8081/menu?amountOfDays=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">amountOfDays</span><span class="p">);</span>
-      <span class="nx">eventSource</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">menuSubscriber</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span> <span class="o">!==</span> <span class="kc">null</span> <span class="p">?</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="kd">const</span> <span class="nx">eventSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">EventSource</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:8081/menu?amountOfDays=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">amountOfDays</span><span class="p">);</span>
+      <span class="nx">eventSource</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="na">event</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">menuSubscriber</span><span class="p">.</span><span class="nf">next</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span> <span class="o">!==</span> <span class="kc">null</span> <span class="p">?</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
       <span class="p">});</span>
       <span class="nx">eventSource</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">eventSource</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-        <span class="nx">menuSubscriber</span><span class="p">.</span><span class="nx">complete</span><span class="p">();</span>
+        <span class="nx">eventSource</span><span class="p">.</span><span class="nf">close</span><span class="p">();</span>
+        <span class="nx">menuSubscriber</span><span class="p">.</span><span class="nf">complete</span><span class="p">();</span>
       <span class="p">};</span>
     <span class="p">});</span>
 <span class="p">}</span>
@@ -670,21 +670,21 @@ There are plenty of other interesting methods to use for combining or transformi
  It subscribes the <code class="language-plaintext highlighter-rouge">Observable</code> we created in the previous example from the <code class="language-plaintext highlighter-rouge">EventSource</code>. 
  We push each element in an array which is displayed on our webpage.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">RecipesComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nc">RecipesComponent</span> <span class="k">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
   <span class="nl">menuArray</span><span class="p">:</span> <span class="nx">Menu</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
   <span class="nl">amountOfDays</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
 
-  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">recipeService</span><span class="p">:</span> <span class="nx">RecipeService</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="nf">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">recipeService</span><span class="p">:</span> <span class="nx">RecipeService</span><span class="p">)</span> <span class="p">{}</span>
 
-  <span class="nx">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{}</span>
+  <span class="nf">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{}</span>
 
-  <span class="nx">generateMenu</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">amountOfDays</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">generateMenu</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">amountOfDays</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">menuArray</span> <span class="o">=</span> <span class="p">[];</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">recipeService</span><span class="p">.</span><span class="nx">getMenusForGivenAmountOfDays</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">amountOfDays</span><span class="p">)</span>
-        <span class="p">.</span><span class="nx">subscribe</span><span class="p">({</span>
-          <span class="na">next</span><span class="p">:</span> <span class="nx">menu</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">menuArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">menu</span><span class="p">),</span>
-          <span class="na">complete</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">complete</span><span class="dl">'</span><span class="p">)</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">recipeService</span><span class="p">.</span><span class="nf">getMenusForGivenAmountOfDays</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">amountOfDays</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">subscribe</span><span class="p">({</span>
+          <span class="na">next</span><span class="p">:</span> <span class="nx">menu</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">menuArray</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">menu</span><span class="p">),</span>
+          <span class="na">complete</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">complete</span><span class="dl">'</span><span class="p">)</span>
         <span class="p">});</span>
     <span class="p">}</span>
   <span class="p">}</span>

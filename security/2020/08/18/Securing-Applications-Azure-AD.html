@@ -497,7 +497,7 @@ Of course, if you are using your own application or checked out <a href="https:/
 <span class="c1">// The HttpclientInMemoryWebApiModule module intercepts HTTP requests</span>
 <span class="c1">// and returns simulated server responses.</span>
 <span class="c1">// Remove it when a real server is ready to receive requests.</span>
-<span class="nx">HttpclientInMemoryWebApiModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span>
+<span class="nx">HttpclientInMemoryWebApiModule</span><span class="p">.</span><span class="nf">forRoot</span><span class="p">(</span>
   <span class="nx">InMemoryDataService</span><span class="p">,</span> <span class="p">{</span> <span class="na">dataEncapsulation</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}</span>
 <span class="p">)</span>
 
@@ -529,7 +529,7 @@ Of course, if you are using your own application or checked out <a href="https:/
 <span class="nl">imports</span><span class="p">:</span> <span class="p">[</span>
 	<span class="c1">// etc.</span>
     <span class="nx">HttpclientModule</span><span class="p">,</span>
-	<span class="nx">OAuthModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({</span>
+	<span class="nx">OAuthModule</span><span class="p">.</span><span class="nf">forRoot</span><span class="p">({</span>
       <span class="na">resourceServer</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">allowedUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">http://localhost:8080/api</span><span class="dl">'</span><span class="p">],</span>
         <span class="na">sendAccessToken</span><span class="p">:</span> <span class="kc">true</span>
@@ -600,11 +600,11 @@ We will not only receive an access token to contact the back-end API, but also a
 <p>The next step is to trigger the login when a user has not logged in yet:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app.component.ts</span>
-<span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="nx">authCodeFlowConfig</span><span class="p">);</span> <span class="c1">// (1)</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nx">loadDiscoveryDocumentAndLogin</span><span class="p">();</span> <span class="c1">// (2)</span>
+<span class="nf">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">oauthService</span><span class="p">:</span> <span class="nx">OAuthService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="nx">authCodeFlowConfig</span><span class="p">);</span> <span class="c1">// (1)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="nf">loadDiscoveryDocumentAndLogin</span><span class="p">();</span> <span class="c1">// (2)</span>
 
-    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="kd">set</span><span class="o">-</span><span class="nx">upAutomaticSilentRefresh</span><span class="p">();</span> <span class="c1">// (3)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">oauthService</span><span class="p">.</span><span class="kd">set</span><span class="o">-</span><span class="nf">upAutomaticSilentRefresh</span><span class="p">();</span> <span class="c1">// (3)</span>
 <span class="p">}</span>
 </code></pre></div></div>
 

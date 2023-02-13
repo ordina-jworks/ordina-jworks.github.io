@@ -191,7 +191,7 @@ If we want to deploy our application we have to overwrite our configuration file
 This file will expose the data as global variables.
 One could set the URL where our API is hosted like this:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
   <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">||</span> <span class="p">{};</span>
 
   <span class="c1">// API url</span>
@@ -204,16 +204,16 @@ We created an injectable <code class="language-plaintext highlighter-rouge">Conf
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Injectable</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">_env</span><span class="p">():</span> <span class="kr">any</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">_env</span><span class="p">():</span> <span class="kr">any</span> <span class="p">{</span>
   <span class="c1">// return the native window obj</span>
   <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">Configuration</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">Configuration</span> <span class="p">{</span>
   
-  <span class="kd">get</span> <span class="nx">apiUrl</span><span class="p">():</span> <span class="kr">any</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">_env</span><span class="p">().</span><span class="nx">apiUrl</span><span class="p">;</span>
+  <span class="kd">get</span> <span class="nf">apiUrl</span><span class="p">():</span> <span class="kr">any</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">_env</span><span class="p">().</span><span class="nx">apiUrl</span><span class="p">;</span>
   <span class="p">}</span>
   
 <span class="p">}</span>
@@ -231,7 +231,7 @@ This is where the second part of our solution starts.</p>
 <p>Using the <code class="language-plaintext highlighter-rouge">envsubst</code> bash command we’re going to convert a template file into an <code class="language-plaintext highlighter-rouge">env.js</code> file which contains all our data.
 Our <code class="language-plaintext highlighter-rouge">env.js.tpl</code> file looks like this:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
   <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__env</span> <span class="o">||</span> <span class="p">{};</span>
 
   <span class="c1">// API url</span>

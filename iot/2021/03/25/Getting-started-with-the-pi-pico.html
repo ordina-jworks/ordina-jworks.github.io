@@ -423,16 +423,16 @@ To open the REPL and directly interact with the Pico select the <code class="lan
 
 <p>The basic code for a LED blink example is listed below.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="n">time</span>
 
-<span class="n">pin</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">Pin</span><span class="p">.</span><span class="n">OUT</span><span class="p">)</span>
+<span class="n">pin</span> <span class="o">=</span> <span class="nc">Pin</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">Pin</span><span class="p">.</span><span class="n">OUT</span><span class="p">)</span>
 
 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">pin</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">pin</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">pin</span><span class="p">.</span><span class="nf">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">pin</span><span class="p">.</span><span class="nf">value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
 </code></pre></div></div>
 
@@ -483,18 +483,18 @@ However, I could never get it to work on my Big Sur installation.</p>
 
 <p>The basic code for a LED blink example is listed below.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">board</span>
-<span class="kn">import</span> <span class="nn">digitalio</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">board</span>
+<span class="kn">import</span> <span class="n">digitalio</span>
+<span class="kn">import</span> <span class="n">time</span>
 
-<span class="n">led</span> <span class="o">=</span> <span class="n">digitalio</span><span class="p">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">GP25</span><span class="p">)</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">digitalio</span><span class="p">.</span><span class="nc">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">GP25</span><span class="p">)</span>
 <span class="n">led</span><span class="p">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="p">.</span><span class="n">Direction</span><span class="p">.</span><span class="n">OUTPUT</span>
 
 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
     <span class="n">led</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">led</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 
 </code></pre></div></div>
 

@@ -407,29 +407,29 @@ Create a <code class="language-plaintext highlighter-rouge">spec</code> file in 
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// &lt;reference types="Cypress" /&gt;</span>
 
-<span class="nx">context</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients test</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nx">cy</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="dl">'</span><span class="s1">/clients</span><span class="dl">'</span><span class="p">)</span>
+<span class="nf">context</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients test</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">cy</span><span class="p">.</span><span class="nf">visit</span><span class="p">(</span><span class="dl">'</span><span class="s1">/clients</span><span class="dl">'</span><span class="p">)</span>
     <span class="p">})</span>
 
-    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients page should have Clients as a title</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nx">cy</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">.table-container-header h1</span><span class="dl">'</span><span class="p">).</span><span class="nx">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients page should have Clients as a title</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">cy</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">.table-container-header h1</span><span class="dl">'</span><span class="p">).</span><span class="nf">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">});</span>
 
-    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients table should initially have 20 rows</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">cy</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">.mat-row</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">$rows</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-          <span class="nx">expect</span><span class="p">(</span><span class="nx">$rows</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients table should initially have 20 rows</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">cy</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">.mat-row</span><span class="dl">'</span><span class="p">).</span><span class="nf">then</span><span class="p">((</span><span class="nx">$rows</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nf">expect</span><span class="p">(</span><span class="nx">$rows</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nf">eq</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">});</span>
 
-    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients table should show 10 rows when pagesize is set to 10</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">cy</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">mat-select</span><span class="dl">'</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span>
-        <span class="nx">cy</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">mat-option</span><span class="dl">'</span><span class="p">).</span><span class="nx">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">10</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">option</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">cy</span><span class="p">.</span><span class="nx">wrap</span><span class="p">(</span><span class="nx">option</span><span class="p">).</span><span class="nx">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">10</span><span class="dl">'</span><span class="p">);</span>
-            <span class="nx">option</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">click</span><span class="p">();</span>
-            <span class="nx">cy</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">mat-select</span><span class="dl">'</span><span class="p">).</span><span class="nx">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">10</span><span class="dl">'</span><span class="p">);</span>
-            <span class="nx">cy</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">.mat-row</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">$rows</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-                <span class="nx">expect</span><span class="p">(</span><span class="nx">$rows</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Clients table should show 10 rows when pagesize is set to 10</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">cy</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">mat-select</span><span class="dl">'</span><span class="p">).</span><span class="nf">click</span><span class="p">();</span>
+        <span class="nx">cy</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">mat-option</span><span class="dl">'</span><span class="p">).</span><span class="nf">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">10</span><span class="dl">'</span><span class="p">).</span><span class="nf">then</span><span class="p">(</span><span class="nx">option</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">cy</span><span class="p">.</span><span class="nf">wrap</span><span class="p">(</span><span class="nx">option</span><span class="p">).</span><span class="nf">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">10</span><span class="dl">'</span><span class="p">);</span>
+            <span class="nx">option</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">click</span><span class="p">();</span>
+            <span class="nx">cy</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">mat-select</span><span class="dl">'</span><span class="p">).</span><span class="nf">contains</span><span class="p">(</span><span class="dl">'</span><span class="s1">10</span><span class="dl">'</span><span class="p">);</span>
+            <span class="nx">cy</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">.mat-row</span><span class="dl">'</span><span class="p">).</span><span class="nf">then</span><span class="p">((</span><span class="nx">$rows</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nf">expect</span><span class="p">(</span><span class="nx">$rows</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="nf">eq</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
               <span class="p">});</span>
         <span class="p">});</span>
 
@@ -487,9 +487,9 @@ This can be done by just running <code class="language-plaintext highlighter-rou
 Next step is to define the route you want to listen on and attach new data to it.
 Cypress enables this with its <code class="language-plaintext highlighter-rouge">route</code> configuration.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">cy</span><span class="p">.</span><span class="nx">server</span><span class="p">();</span>
-  <span class="nx">cy</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">**/*/api/client-service/**/*</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">cy</span><span class="p">.</span><span class="nf">server</span><span class="p">();</span>
+  <span class="nx">cy</span><span class="p">.</span><span class="nf">route</span><span class="p">(</span><span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">**/*/api/client-service/**/*</span><span class="dl">'</span><span class="p">,</span>
     <span class="p">{</span>
       <span class="dl">"</span><span class="s2">content</span><span class="dl">"</span><span class="p">:[</span>
         <span class="p">{</span>
@@ -525,8 +525,8 @@ Cypress enables this with its <code class="language-plaintext highlighter-rouge"
       <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
       <span class="dl">"</span><span class="s2">number</span><span class="dl">"</span><span class="p">:</span><span class="mi">0</span>
     <span class="p">}</span>
-  <span class="p">).</span><span class="k">as</span><span class="p">(</span><span class="dl">'</span><span class="s1">stub-clients</span><span class="dl">'</span><span class="p">);</span>   
-  <span class="nx">cy</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="dl">'</span><span class="s1">/clients</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">).</span><span class="nf">as</span><span class="p">(</span><span class="dl">'</span><span class="s1">stub-clients</span><span class="dl">'</span><span class="p">);</span>   
+  <span class="nx">cy</span><span class="p">.</span><span class="nf">visit</span><span class="p">(</span><span class="dl">'</span><span class="s1">/clients</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">})</span>
 </code></pre></div></div>
 

@@ -259,7 +259,7 @@ An example Svelte component could look like this:</p>
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span>
 	<span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-	<span class="kd">function</span> <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">function</span> <span class="nf">handleClick</span><span class="p">()</span> <span class="p">{</span>
 		<span class="nx">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
 	<span class="p">}</span>
 <span class="nt">&lt;/script&gt;</span>
@@ -317,23 +317,23 @@ It is a Node library to automate the Chromium, Webkit and Firefox browsers with 
 <p>An example of how powerful PlayWright is, lies in the fact that we have full control over the browser context.
 For example, we can emulate that we visit a website from a specific location with a specific type of mobile browser and take a screenshot:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">webkit</span><span class="p">,</span> <span class="nx">devices</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">playwright</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">webkit</span><span class="p">,</span> <span class="nx">devices</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">playwright</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">iPhone11</span> <span class="o">=</span> <span class="nx">devices</span><span class="p">[</span><span class="dl">'</span><span class="s1">iPhone 11 Pro</span><span class="dl">'</span><span class="p">];</span>
 
-<span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">browser</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">webkit</span><span class="p">.</span><span class="nx">launch</span><span class="p">();</span>
-  <span class="kd">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">newContext</span><span class="p">({</span>
+<span class="p">(</span><span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">browser</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">webkit</span><span class="p">.</span><span class="nf">launch</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nf">newContext</span><span class="p">({</span>
     <span class="na">viewport</span><span class="p">:</span> <span class="nx">iPhone11</span><span class="p">.</span><span class="nx">viewport</span><span class="p">,</span>
     <span class="na">userAgent</span><span class="p">:</span> <span class="nx">iPhone11</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">,</span>
     <span class="na">geolocation</span><span class="p">:</span> <span class="p">{</span> <span class="na">longitude</span><span class="p">:</span> <span class="mf">12.492507</span><span class="p">,</span> <span class="na">latitude</span><span class="p">:</span> <span class="mf">41.889938</span> <span class="p">},</span>
     <span class="na">permissions</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">geolocation</span><span class="dl">'</span><span class="p">]</span>
   <span class="p">});</span>
-  <span class="kd">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">context</span><span class="p">.</span><span class="nx">newPage</span><span class="p">();</span>
-  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">goto</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://maps.google.com</span><span class="dl">'</span><span class="p">);</span>
-  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="dl">'</span><span class="s1">text="Your location"</span><span class="dl">'</span><span class="p">);</span>
-  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitForRequest</span><span class="p">(</span><span class="sr">/.*preview</span><span class="se">\/</span><span class="sr">pwa/</span><span class="p">);</span>
-  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">screenshot</span><span class="p">({</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">colosseum-iphone.png</span><span class="dl">'</span> <span class="p">});</span>
-  <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">page</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">context</span><span class="p">.</span><span class="nf">newPage</span><span class="p">();</span>
+  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">goto</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://maps.google.com</span><span class="dl">'</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">click</span><span class="p">(</span><span class="dl">'</span><span class="s1">text="Your location"</span><span class="dl">'</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">waitForRequest</span><span class="p">(</span><span class="sr">/.*preview</span><span class="se">\/</span><span class="sr">pwa/</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">page</span><span class="p">.</span><span class="nf">screenshot</span><span class="p">({</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">colosseum-iphone.png</span><span class="dl">'</span> <span class="p">});</span>
+  <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nf">close</span><span class="p">();</span>
 <span class="p">})();</span>
 </code></pre></div></div>
 
@@ -399,8 +399,8 @@ It is best to keep in mind that:</p>
 React-spring looks to be an interesting library that exposes hooks such as <code class="language-plaintext highlighter-rouge">useSpring()</code> to easily configure animations.
 Having for example a menu slide in from the top of your page with a change in opacity, could be something as simple as this in your component:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">[</span><span class="nx">fullMenuVisible</span><span class="p">,</span> <span class="nx">setFullMenuVisible</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">fullMenuAnimation</span> <span class="o">=</span> <span class="nx">useSpring</span><span class="p">({</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">[</span><span class="nx">fullMenuVisible</span><span class="p">,</span> <span class="nx">setFullMenuVisible</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">fullMenuAnimation</span> <span class="o">=</span> <span class="nf">useSpring</span><span class="p">({</span>
 	<span class="na">transform</span><span class="p">:</span> <span class="nx">fullMenuVisible</span> <span class="p">?</span> <span class="s2">`translateY(0)`</span> <span class="p">:</span> <span class="s2">`translateY(-100%)`</span><span class="p">,</span>
 	<span class="na">opacity</span><span class="p">:</span> <span class="nx">fullMenuVisible</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span>
 <span class="p">});</span>
@@ -519,21 +519,21 @@ An example she gave of a decorator to add a store to your components is this:</p
 <span class="k">import</span> <span class="nx">addons</span><span class="p">,</span> <span class="p">{</span> <span class="nx">makeDecorator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@storybook/addons</span><span class="dl">'</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">STORY_CHANGED</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@storybook/core-events</span><span class="dl">'</span>
  
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">withStore</span> <span class="o">=</span> <span class="nx">makeDecorator</span><span class="p">({</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">withStore</span> <span class="o">=</span> <span class="nf">makeDecorator</span><span class="p">({</span>
   <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">withStore</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">parameterName</span><span class="p">:</span> <span class="dl">'</span><span class="s1">store</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">skipIfNoParametersOrOptions</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
   <span class="na">wrapper</span><span class="p">:</span> <span class="p">(</span><span class="nx">getStory</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="p">{</span> <span class="nx">parameters</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">modules</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">parameters</span>
     <span class="k">return</span> <span class="p">{</span>
-      <span class="nx">created</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">registerModule</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">modules</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span>
+      <span class="nf">created</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">for </span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">registerModule</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">modules</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span>
         <span class="p">}</span>
-        <span class="kd">const</span> <span class="nx">channel</span> <span class="o">=</span> <span class="nx">addons</span><span class="p">.</span><span class="nx">getChannel</span><span class="p">()</span>
-        <span class="nx">channel</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">STORY_CHANGED</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-          <span class="k">for</span> <span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">unregisterModule</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+        <span class="kd">const</span> <span class="nx">channel</span> <span class="o">=</span> <span class="nx">addons</span><span class="p">.</span><span class="nf">getChannel</span><span class="p">()</span>
+        <span class="nx">channel</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="nx">STORY_CHANGED</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nf">for </span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">unregisterModule</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
           <span class="p">}</span>
         <span class="p">})</span>
       <span class="p">},</span>
@@ -580,7 +580,7 @@ This has one big benefit: you can share code and libraries between your front- a
 <span class="p">@</span><span class="nd">code</span> <span class="p">{</span>
 	<span class="kr">private</span> <span class="nx">int</span> <span class="nx">currentCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-	<span class="kr">private</span> <span class="k">void</span> <span class="nx">IncrementCount</span><span class="p">()</span>
+	<span class="kr">private</span> <span class="k">void</span> <span class="nc">IncrementCount</span><span class="p">()</span>
 	<span class="p">{</span>
 		<span class="nx">currentCount</span><span class="o">++</span><span class="p">;</span>
 	<span class="p">}</span>

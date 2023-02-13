@@ -216,28 +216,28 @@ It also provides a <code class="language-plaintext highlighter-rouge">clear</cod
 A second button is the <code class="language-plaintext highlighter-rouge">filter</code> button.
 When pressed, it will emit an event that can be listened to by other microfrontends.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nx">filterCCs</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="k">if</span><span class="p">(</span><span class="nx">isPlatformBrowser</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">platformId</span><span class="p">))</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="dl">'</span><span class="s1">filterCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">detail</span><span class="p">:</span> <span class="p">{</span> <span class="na">needle</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">}</span> <span class="p">});</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nf">filterCCs</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="nf">if</span><span class="p">(</span><span class="nf">isPlatformBrowser</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">platformId</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CustomEvent</span><span class="p">(</span><span class="dl">'</span><span class="s1">filterCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">detail</span><span class="p">:</span> <span class="p">{</span> <span class="na">needle</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">}</span> <span class="p">});</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nf">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">public</span> <span class="nx">filterStats</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">===</span> <span class="dl">''</span> <span class="p">)</span> <span class="p">{</span>
+<span class="kr">public</span> <span class="nf">filterStats</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nf">if </span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">===</span> <span class="dl">''</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_updateData</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nf">_updateData</span><span class="p">();</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">private</span> <span class="nx">_updateData</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">_ccService</span><span class="p">.</span><span class="nx">getStats</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kr">private</span> <span class="nf">_updateData</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_ccService</span><span class="p">.</span><span class="nf">getStats</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">).</span><span class="nf">subscribe</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">;</span>
   <span class="p">});</span>
 <span class="p">}</span>
 
-<span class="kr">public</span> <span class="nx">resetSearch</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+<span class="kr">public</span> <span class="nf">resetSearch</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
 <span class="p">}</span>
@@ -254,21 +254,21 @@ So we’re just resetting our local data to an empty array.</p>
 <p>The back-end API is exposing three endpoints:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Get</span><span class="p">()</span>
-<span class="k">async</span> <span class="nx">getAllCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">ccs</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getAllCCs</span><span class="p">();</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">ccs</span><span class="p">);</span>
+<span class="k">async</span> <span class="nf">getAllCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">ccs</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nf">getAllCCs</span><span class="p">();</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nf">json</span><span class="p">(</span><span class="nx">ccs</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/search</span><span class="dl">'</span><span class="p">)</span>
-<span class="k">async</span> <span class="nx">searchCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Query</span><span class="p">(</span><span class="dl">'</span><span class="s1">needle</span><span class="dl">'</span><span class="p">)</span> <span class="nx">searchString</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">filtered</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">searchCCs</span><span class="p">(</span><span class="nx">searchString</span><span class="p">);</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">filtered</span><span class="p">);</span>
+<span class="k">async</span> <span class="nf">searchCCs</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Query</span><span class="p">(</span><span class="dl">'</span><span class="s1">needle</span><span class="dl">'</span><span class="p">)</span> <span class="nx">searchString</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">filtered</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nf">searchCCs</span><span class="p">(</span><span class="nx">searchString</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nf">json</span><span class="p">(</span><span class="nx">filtered</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">)</span>
-<span class="k">async</span> <span class="nx">getCC</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">cc</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nx">getCC</span><span class="p">(</span><span class="o">+</span><span class="nx">id</span><span class="p">);</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">cc</span><span class="p">);</span>
+<span class="k">async</span> <span class="nf">getCC</span><span class="p">(@</span><span class="nd">Response</span><span class="p">()</span> <span class="nx">res</span><span class="p">,</span> <span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">cc</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">_ccsService</span><span class="p">.</span><span class="nf">getCC</span><span class="p">(</span><span class="o">+</span><span class="nx">id</span><span class="p">);</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nf">status</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">OK</span><span class="p">).</span><span class="nf">json</span><span class="p">(</span><span class="nx">cc</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -292,22 +292,22 @@ When the needle is undefined (or an empty string), the search endpoint will retu
 <p>For unit testing our front-end Angular 5 application, we are going to use the <code class="language-plaintext highlighter-rouge">import { MockBackend } from '@angular/http/testing';</code> from Angular itself to mock our back-end.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
-<span class="nx">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">TestBed</span><span class="p">.</span><span class="nx">configureTestingModule</span><span class="p">({</span>
+<span class="nf">beforeEach</span><span class="p">(</span><span class="nf">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">TestBed</span><span class="p">.</span><span class="nf">configureTestingModule</span><span class="p">({</span>
         <span class="p">...</span>
       <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
         <span class="nx">CCService</span><span class="p">,</span> <span class="c1">// our service that is handling the communication</span>
         <span class="p">{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">XHRBackend</span><span class="p">,</span> <span class="na">useClass</span><span class="p">:</span> <span class="nx">MockBackend</span><span class="p">}</span> <span class="c1">// our mock</span>
       <span class="p">]</span>
     <span class="p">})</span>
-    <span class="p">.</span><span class="nx">compileComponents</span><span class="p">();</span>
+    <span class="p">.</span><span class="nf">compileComponents</span><span class="p">();</span>
   <span class="p">}));</span>
 <span class="p">...</span>
 </code></pre></div></div>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Should query ccs with an observable</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
-    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Should return data</span><span class="dl">'</span><span class="p">,</span> <span class="nx">inject</span><span class="p">([</span><span class="nx">CCService</span><span class="p">,</span> <span class="nx">XHRBackend</span><span class="p">],</span> <span class="p">(</span><span class="nx">ccService</span><span class="p">,</span> <span class="nx">mockBackend</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nx">mockBackend</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">((</span><span class="nx">connection</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Should query ccs with an observable</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
+    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">Should return data</span><span class="dl">'</span><span class="p">,</span> <span class="nf">inject</span><span class="p">([</span><span class="nx">CCService</span><span class="p">,</span> <span class="nx">XHRBackend</span><span class="p">],</span> <span class="p">(</span><span class="nx">ccService</span><span class="p">,</span> <span class="nx">mockBackend</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">mockBackend</span><span class="p">.</span><span class="nx">connections</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">((</span><span class="nx">connection</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="kd">const</span> <span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
           <span class="p">{</span>
               <span class="p">...</span>
@@ -316,13 +316,13 @@ When the needle is undefined (or an empty string), the search endpoint will retu
               <span class="p">...</span>
           <span class="p">}</span>
         <span class="p">];</span>
-        <span class="nx">connection</span><span class="p">.</span><span class="nx">mockRespond</span><span class="p">(</span><span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="k">new</span> <span class="nx">ResponseOptions</span><span class="p">({</span>
-          <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">ccs</span><span class="p">)</span>
+        <span class="nx">connection</span><span class="p">.</span><span class="nf">mockRespond</span><span class="p">(</span><span class="k">new</span> <span class="nc">Response</span><span class="p">(</span><span class="k">new</span> <span class="nc">ResponseOptions</span><span class="p">({</span>
+          <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">ccs</span><span class="p">)</span>
         <span class="p">})));</span>
       <span class="p">});</span>
-      <span class="nx">ccService</span><span class="p">.</span><span class="nx">getStats</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">((</span><span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim.vierbergen@ordina.be</span><span class="dl">'</span><span class="p">);</span>
+      <span class="nx">ccService</span><span class="p">.</span><span class="nf">getStats</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">).</span><span class="nf">subscribe</span><span class="p">((</span><span class="na">ccs</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CC</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nf">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+        <span class="nf">expect</span><span class="p">(</span><span class="nx">ccs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim.vierbergen@ordina.be</span><span class="dl">'</span><span class="p">);</span>
        <span class="p">});</span>
       <span class="p">})</span>
     <span class="p">)</span>
@@ -348,12 +348,12 @@ Just as with our front-end, we trust the framework to correctly handle the commu
 
 <p>Our unit tests will start at the controller level of our API.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">searchCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should return a filtered array of competence centers</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="k">await</span> <span class="nx">ccsController</span><span class="p">.</span><span class="nx">searchCCs</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">,</span> <span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">);</span>
-      <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim.vierbergen@ordina.be</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">searchCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should return a filtered array of competence centers</span><span class="dl">'</span><span class="p">,</span> <span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">await</span> <span class="nx">ccsController</span><span class="p">.</span><span class="nf">searchCCs</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">,</span> <span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">);</span>
+      <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+      <span class="nf">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">clEmail</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim.vierbergen@ordina.be</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div></div>
@@ -442,17 +442,17 @@ We want to trigger the search REST call by sending the search string <code class
 </p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
-<span class="nx">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Searching with Tim should show 2 results</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">page</span><span class="p">.</span><span class="nx">setSeachText</span><span class="p">(</span><span class="dl">'</span><span class="s1">mySearchString</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Input field should contain 'tim'</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getSearchText</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">);</span>
+<span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Searching with Tim should show 2 results</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">page</span><span class="p">.</span><span class="nf">setSeachText</span><span class="p">(</span><span class="dl">'</span><span class="s1">mySearchString</span><span class="dl">'</span><span class="p">).</span><span class="nf">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">Input field should contain 'tim'</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nf">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nf">getSearchText</span><span class="p">()).</span><span class="nf">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">);</span>
         <span class="p">});</span>
-        <span class="nx">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Result should show 2 entries</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    	    <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">will show the number 2</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getResultNumber</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">2</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nf">describe</span><span class="p">(</span><span class="dl">"</span><span class="s2">Result should show 2 entries</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    	    <span class="nf">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">will show the number 2</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nf">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nf">getResultNumber</span><span class="p">()).</span><span class="nf">toBe</span><span class="p">(</span><span class="dl">'</span><span class="s1">2</span><span class="dl">'</span><span class="p">);</span>
             <span class="p">});</span>
-            <span class="nx">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">will show a dropdown with 2 results</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nx">getResultList</span><span class="p">().</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="nf">it</span><span class="p">(</span><span class="dl">"</span><span class="s2">will show a dropdown with 2 results</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nf">expect</span><span class="p">(</span><span class="nx">page</span><span class="p">.</span><span class="nf">getResultList</span><span class="p">().</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
             <span class="p">});</span>
         <span class="p">});</span>
     <span class="p">});</span>

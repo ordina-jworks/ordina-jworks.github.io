@@ -256,10 +256,10 @@ You can find a <code class="language-plaintext highlighter-rouge">.env-sample</c
   <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
       <span class="nx">LoggerModule</span><span class="p">,</span>
       <span class="nx">ConfigModule</span><span class="p">,</span>
-      <span class="nx">AzureCosmosDbModule</span><span class="p">.</span><span class="nx">forFeature</span><span class="p">([{</span><span class="na">dto</span><span class="p">:</span> <span class="nx">ParametersEntity</span><span class="p">}])</span>
+      <span class="nx">AzureCosmosDbModule</span><span class="p">.</span><span class="nf">forFeature</span><span class="p">([{</span><span class="na">dto</span><span class="p">:</span> <span class="nx">ParametersEntity</span><span class="p">}])</span>
   <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">ParametersModule</span> <span class="p">{}</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">ParametersModule</span> <span class="p">{}</span>
 </code></pre></div></div>
 
 <p>The first step when receiving an HTTP request to the application is the <code class="language-plaintext highlighter-rouge">ParametersController</code> as shown below.
@@ -280,42 +280,42 @@ For this update, it will map the new info to the existing object.
 Again, we use the <code class="language-plaintext highlighter-rouge">parametersService</code> for its abstraction layer, the controller should only be used for methods capturing HTTP calls.</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">parameters</span><span class="dl">'</span><span class="p">)</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">ParametersController</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">parametersService</span><span class="p">:</span> <span class="nx">ParametersService</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">loggerSerivce</span><span class="p">:</span> <span class="nx">LoggerService</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">loggerService</span><span class="p">.</span><span class="nx">setContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">ParametersController</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">ParametersController</span> <span class="p">{</span>
+    <span class="nf">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">parametersService</span><span class="p">:</span> <span class="nx">ParametersService</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">loggerSerivce</span><span class="p">:</span> <span class="nx">LoggerService</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">loggerService</span><span class="p">.</span><span class="nf">setContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">ParametersController</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="p">@</span><span class="nd">Post</span><span class="p">()</span>
     <span class="p">@</span><span class="nd">HttpCode</span><span class="p">(</span><span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">CREATED</span><span class="p">)</span>
     <span class="p">@</span><span class="nd">UseGuards</span><span class="p">(</span><span class="nx">AuthGuard</span><span class="p">)</span>
-    <span class="k">async</span> <span class="nx">createParameters</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">parametersDto</span><span class="p">:</span> <span class="nx">ParametersDto</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">parametersDto</span> <span class="o">||</span> <span class="nx">parametersDto</span><span class="p">.</span><span class="nx">userName</span> <span class="o">||</span> <span class="p">(</span><span class="o">!</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">bodyWeight</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">fatPercentage</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">musclePercentage</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">async</span> <span class="nf">createParameters</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">parametersDto</span><span class="p">:</span> <span class="nx">ParametersDto</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nx">parametersDto</span> <span class="o">||</span> <span class="nx">parametersDto</span><span class="p">.</span><span class="nx">userName</span> <span class="o">||</span> <span class="p">(</span><span class="o">!</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">bodyWeight</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">fatPercentage</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">musclePercentage</span><span class="p">))</span> <span class="p">{</span>
             <span class="c1">// could implement @Res() from express to send a proper response to say it should at least contain one of the parameters or a userName</span>
             <span class="k">return</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="kd">const</span> <span class="na">existingParams</span><span class="p">:</span> <span class="nx">ParametersEntity</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nx">getParametersEntityByUserName</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">userName</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="na">existingParams</span><span class="p">:</span> <span class="nx">ParametersEntity</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nf">getParametersEntityByUserName</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">userName</span><span class="p">);</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="nx">existingParams</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">const</span> <span class="na">updatedParams</span><span class="p">:</span> <span class="nx">ParametersEntity</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nx">mapDtoToEntity</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">,</span> <span class="nx">existingParams</span><span class="p">);</span>
-            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">updatedParams</span><span class="p">);</span>
+        <span class="nf">if </span><span class="p">(</span><span class="nx">existingParams</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="na">updatedParams</span><span class="p">:</span> <span class="nx">ParametersEntity</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nf">mapDtoToEntity</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">,</span> <span class="nx">existingParams</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="nx">updatedParams</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
     <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">:id</span><span class="dl">'</span><span class="p">)</span>
     <span class="p">@</span><span class="nd">UseGuards</span><span class="p">(</span><span class="nx">AuthGuard</span><span class="p">)</span>
     <span class="p">@</span><span class="nd">Roles</span><span class="p">(</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">)</span>
-    <span class="k">async</span> <span class="nx">findOne</span><span class="p">(@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">userName</span><span class="dl">'</span><span class="p">)</span> <span class="nx">userName</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nx">getParametersEntityByUserName</span><span class="p">(</span><span class="nx">userName</span><span class="p">);</span>
+    <span class="k">async</span> <span class="nf">findOne</span><span class="p">(@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">userName</span><span class="dl">'</span><span class="p">)</span> <span class="nx">userName</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nf">getParametersEntityByUserName</span><span class="p">(</span><span class="nx">userName</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="p">@</span><span class="nd">Get</span><span class="p">()</span>
     <span class="p">@</span><span class="nd">UseGuards</span><span class="p">(</span><span class="nx">AuthGuard</span><span class="p">)</span>
     <span class="p">@</span><span class="nd">Roles</span><span class="p">(</span><span class="dl">'</span><span class="s1">admin</span><span class="dl">'</span><span class="p">)</span>
-    <span class="k">async</span> <span class="nx">findAll</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nx">getAll</span><span class="p">();</span>
+    <span class="k">async</span> <span class="nf">findAll</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersService</span><span class="p">.</span><span class="nf">getAll</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -327,35 +327,35 @@ The <code class="language-plaintext highlighter-rouge">update</code> field conta
 The parameters will then be put into a <code class="language-plaintext highlighter-rouge">ParametersEntity</code> (Discussed in <a href="#azure-function-and-cosmosdb">Azure Function and CosmosDB</a>) and added to the database using the <code class="language-plaintext highlighter-rouge">parametersRepository</code>.</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">ParametersService</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">parametersRepository</span><span class="p">:</span> <span class="nx">ParametersRepository</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">ParametersService</span> <span class="p">{</span>
+    <span class="nf">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">parametersRepository</span><span class="p">:</span> <span class="nx">ParametersRepository</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">}</span>
 
-    <span class="k">async</span> <span class="nx">create</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">:</span> <span class="nx">ParametersDto</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">async</span> <span class="nf">create</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">:</span> <span class="nx">ParametersDto</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
         <span class="kd">let</span> <span class="na">bodyweight</span><span class="p">:</span> <span class="nx">BodyweightDto</span><span class="p">;</span>
         <span class="kd">let</span> <span class="na">fatPercentage</span><span class="p">:</span> <span class="nx">PercentageDto</span><span class="p">;</span>
         <span class="kd">let</span> <span class="na">musclePercentage</span><span class="p">:</span> <span class="nx">PercentageDto</span><span class="p">;</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">bodyWeight</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">if </span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">bodyWeight</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">bodyweight</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="na">weight</span><span class="p">:</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">([</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">bodyWeight</span><span class="p">]),</span>
-                <span class="na">update</span><span class="p">:</span> <span class="p">[</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()]</span>
+                <span class="na">weight</span><span class="p">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nf">from</span><span class="p">([</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">bodyWeight</span><span class="p">]),</span>
+                <span class="na">update</span><span class="p">:</span> <span class="p">[</span><span class="k">new</span> <span class="nc">Date</span><span class="p">()]</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">fatPercentage</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">if </span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">fatPercentage</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">fatPercentage</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="na">percentage</span><span class="p">:</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">([</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">fatPercentage</span><span class="p">]),</span>
-                <span class="na">update</span><span class="p">:</span> <span class="p">[</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()]</span>
+                <span class="na">percentage</span><span class="p">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nf">from</span><span class="p">([</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">fatPercentage</span><span class="p">]),</span>
+                <span class="na">update</span><span class="p">:</span> <span class="p">[</span><span class="k">new</span> <span class="nc">Date</span><span class="p">()]</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">musclePercentage</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">if </span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">musclePercentage</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">musclePercentage</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="na">percentage</span><span class="p">:</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">([</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">musclePercentage</span><span class="p">]),</span>
-                <span class="na">update</span><span class="p">:</span> <span class="p">[</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()]</span>
+                <span class="na">percentage</span><span class="p">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nf">from</span><span class="p">([</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">musclePercentage</span><span class="p">]),</span>
+                <span class="na">update</span><span class="p">:</span> <span class="p">[</span><span class="k">new</span> <span class="nc">Date</span><span class="p">()]</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersRepository</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="k">new</span> <span class="nx">ParametersEntity</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">userName</span><span class="p">,</span> <span class="nx">bodyweight</span><span class="p">,</span> <span class="nx">fatPercentage</span><span class="p">,</span> <span class="nx">musclePercentage</span><span class="p">));</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parametersRepository</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="k">new</span> <span class="nc">ParametersEntity</span><span class="p">(</span><span class="nx">parametersDto</span><span class="p">.</span><span class="nx">userName</span><span class="p">,</span> <span class="nx">bodyweight</span><span class="p">,</span> <span class="nx">fatPercentage</span><span class="p">,</span> <span class="nx">musclePercentage</span><span class="p">));</span>
     <span class="p">}</span>
 
     <span class="c1">// More code</span>
@@ -368,16 +368,16 @@ First, we set the context to ‘ParametersRepository’, so that, when it logs s
 This way, logs can easily be retraced to its origin.</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">ParametersRepository</span> <span class="p">{</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">ParametersRepository</span> <span class="p">{</span>
 
-    <span class="kd">constructor</span><span class="p">(@</span><span class="nd">InjectModel</span><span class="p">(</span><span class="nx">ParametersEntity</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">container</span><span class="p">:</span> <span class="nx">Container</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">loggerService</span><span class="p">:</span> <span class="nx">LoggerService</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">loggerService</span><span class="p">.</span><span class="nx">setContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">ParametersRepository</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nf">constructor</span><span class="p">(@</span><span class="nd">InjectModel</span><span class="p">(</span><span class="nx">ParametersEntity</span><span class="p">)</span> <span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">container</span><span class="p">:</span> <span class="nx">Container</span><span class="p">,</span> <span class="kr">private</span> <span class="nx">loggerService</span><span class="p">:</span> <span class="nx">LoggerService</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">loggerService</span><span class="p">.</span><span class="nf">setContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">ParametersRepository</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="k">async</span> <span class="nx">create</span><span class="p">(</span><span class="nx">item</span><span class="p">:</span> <span class="nx">ParametersEntity</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="nx">item</span><span class="p">.</span><span class="nx">createdAt</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
-        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">loggerService</span><span class="p">.</span><span class="nx">verbose</span><span class="p">(</span><span class="s2">`Create RUs: </span><span class="p">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">requestCharge</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="k">async</span> <span class="nf">create</span><span class="p">(</span><span class="nx">item</span><span class="p">:</span> <span class="nx">ParametersEntity</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ParametersEntity</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="nx">item</span><span class="p">.</span><span class="nx">createdAt</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">loggerService</span><span class="p">.</span><span class="nf">verbose</span><span class="p">(</span><span class="s2">`Create RUs: </span><span class="p">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">requestCharge</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
         <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">resource</span><span class="p">;</span>
     <span class="p">}</span>
 </code></pre></div></div>
@@ -394,18 +394,18 @@ In this case, we check if the authorization header has the correct value as conf
 Other setups, like OAuth, Cognito or JWT tokens are also possible.</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">AuthGuard</span> <span class="kr">implements</span> <span class="nx">CanActivate</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">configService</span><span class="p">:</span> <span class="nx">ConfigService</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">AuthGuard</span> <span class="kr">implements</span> <span class="nx">CanActivate</span> <span class="p">{</span>
+    <span class="nf">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">readonly</span> <span class="nx">configService</span><span class="p">:</span> <span class="nx">ConfigService</span><span class="p">)</span> <span class="p">{}</span>
 
-    <span class="k">async</span> <span class="nx">canActivate</span><span class="p">(</span><span class="nx">context</span><span class="p">:</span> <span class="nx">ExecutionContext</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">boolean</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">switchToHttp</span><span class="p">().</span><span class="nx">getRequest</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">authorization</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">async</span> <span class="nf">canActivate</span><span class="p">(</span><span class="nx">context</span><span class="p">:</span> <span class="nx">ExecutionContext</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">boolean</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">switchToHttp</span><span class="p">().</span><span class="nf">getRequest</span><span class="p">();</span>
+        <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">authorization</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">authorization</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">Bearer</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">HttpException</span><span class="p">(</span><span class="dl">'</span><span class="s1">Invalid token</span><span class="dl">'</span><span class="p">,</span> <span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">FORBIDDEN</span><span class="p">);</span>
+        <span class="nf">if </span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">authorization</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">Bearer</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nc">HttpException</span><span class="p">(</span><span class="dl">'</span><span class="s1">Invalid token</span><span class="dl">'</span><span class="p">,</span> <span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">FORBIDDEN</span><span class="p">);</span>
         <span class="p">}</span>
-        <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">authorization</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">authorization</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
 
         <span class="k">return</span> <span class="nx">token</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">configService</span><span class="p">.</span><span class="kd">get</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">'</span><span class="s1">BEARER_TOKEN</span><span class="dl">'</span><span class="p">);</span>
     <span class="p">}</span>
@@ -421,11 +421,11 @@ Other setups, like OAuth, Cognito or JWT tokens are also possible.</p>
 <p>This will add some files and folders, including a <code class="language-plaintext highlighter-rouge">main.azure.ts</code> through which your app can be started.
 It will set a global prefix ‘api’ to all your controllers, the standard for Azure Functions.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">createApp</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">INestApplication</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">NestFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">,</span> <span class="k">new</span> <span class="nx">AzureHttpRouter</span><span class="p">());</span>
-  <span class="nx">app</span><span class="p">.</span><span class="nx">setGlobalPrefix</span><span class="p">(</span><span class="dl">'</span><span class="s1">api</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nf">createApp</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">INestApplication</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">NestFactory</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">,</span> <span class="k">new</span> <span class="nc">AzureHttpRouter</span><span class="p">());</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nf">setGlobalPrefix</span><span class="p">(</span><span class="dl">'</span><span class="s1">api</span><span class="dl">'</span><span class="p">);</span>
 
-  <span class="k">await</span> <span class="nx">app</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
+  <span class="k">await</span> <span class="nx">app</span><span class="p">.</span><span class="nf">init</span><span class="p">();</span>
   <span class="k">return</span> <span class="nx">app</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -451,10 +451,10 @@ Notice that we can’t use the <code class="language-plaintext highlighter-rouge
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Module</span><span class="p">({</span>
   <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
-      <span class="nx">ConfigModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(),</span>
+      <span class="nx">ConfigModule</span><span class="p">.</span><span class="nf">forRoot</span><span class="p">(),</span>
       <span class="nx">ParametersModule</span><span class="p">,</span>
       <span class="nx">LoggerModule</span><span class="p">,</span>
-      <span class="nx">AzureCosmosDbModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({</span>
+      <span class="nx">AzureCosmosDbModule</span><span class="p">.</span><span class="nf">forRoot</span><span class="p">({</span>
           <span class="na">dbName</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DATABASE_NAME</span><span class="p">,</span>
           <span class="na">endpoint</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DATABASE_ENDPOINT</span><span class="p">,</span>
           <span class="na">key</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">DATABASE_KEY</span><span class="p">,</span>
@@ -467,7 +467,7 @@ Notice that we can’t use the <code class="language-plaintext highlighter-rouge
       <span class="nx">AppService</span><span class="p">,</span>
   <span class="p">],</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{}</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">AppModule</span> <span class="p">{}</span>
 </code></pre></div></div>
 
 <p>That’s it!

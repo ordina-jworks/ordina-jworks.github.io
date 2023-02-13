@@ -257,7 +257,7 @@ We can thus write a styled <code class="language-plaintext highlighter-rouge">in
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">styled</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-styled-components</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">btnProps</span> <span class="o">=</span> <span class="p">{</span> <span class="na">primary</span><span class="p">:</span> <span class="nb">Boolean</span> <span class="p">};</span>
-<span class="kd">const</span> <span class="nx">StyledButton</span> <span class="o">=</span> <span class="nx">styled</span><span class="p">(</span><span class="dl">'</span><span class="s1">button</span><span class="dl">'</span><span class="p">,</span> <span class="nx">btnProps</span><span class="p">)</span><span class="s2">`
+<span class="kd">const</span> <span class="nx">StyledButton</span> <span class="o">=</span> <span class="nf">styled</span><span class="p">(</span><span class="dl">'</span><span class="s1">button</span><span class="dl">'</span><span class="p">,</span> <span class="nx">btnProps</span><span class="p">)</span><span class="s2">`
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
@@ -307,7 +307,7 @@ When we used to have this:</p>
 
 <p>we can now rewrite it to this:</p>
 
-<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Foo</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="dl">'</span><span class="s1">pages/foo.vue</span><span class="dl">'</span><span class="p">);</span>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Foo</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nf">import</span><span class="p">(</span><span class="dl">'</span><span class="s1">pages/foo.vue</span><span class="dl">'</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>The result is that our bundle size can get a lot smaller as components are only loaded when they are actually requested for that specific page.
@@ -368,7 +368,7 @@ This is a much used technique in for example an infinite scroll where we can alr
 Another example is to prefetch the components that we are lazy loading for our pages.
 Thanks to Webpack we can <a href="https://webpack.js.org/guides/code-splitting/#prefetchingpreloading-modules" target="_blank" rel="noopener noreferrer">add a specific comment</a> to accommodate this behaviour:</p>
 
-<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Product</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">import</span><span class="p">(</span><span class="cm">/* webpackPrefetch:true */</span> <span class="dl">"</span><span class="s2">product.vue</span><span class="dl">"</span><span class="p">)</span>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Product</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nf">import</span><span class="p">(</span><span class="cm">/* webpackPrefetch:true */</span> <span class="dl">"</span><span class="s2">product.vue</span><span class="dl">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h3 id="more-performance-wins">More performance wins</h3>
@@ -499,7 +499,7 @@ By adding a basic directive to your component that uses the <code class="languag
 	<span class="na">directives</span><span class="p">:</span> <span class="p">{</span>
 		<span class="na">focus</span><span class="p">:</span> <span class="p">{</span>
 			<span class="na">inserted</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
-				<span class="nx">el</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+				<span class="nx">el</span><span class="p">.</span><span class="nf">focus</span><span class="p">();</span>
 			<span class="p">}</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
@@ -566,8 +566,8 @@ Thanks to the portable reactivity of the Composition API, we can simplify our co
 
 <div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">usePagination</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./use-pagination</span><span class="dl">'</span>
 <span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
-	<span class="nx">setup</span><span class="p">()</span> <span class="p">{</span>
-		<span class="kd">const</span> <span class="nx">pagination</span> <span class="o">=</span> <span class="nx">usePagination</span><span class="p">({</span>
+	<span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+		<span class="kd">const</span> <span class="nx">pagination</span> <span class="o">=</span> <span class="nf">usePagination</span><span class="p">({</span>
 			<span class="na">perPage</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
 			<span class="na">items</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">...,</span> <span class="mi">100</span><span class="p">],</span>
 		<span class="p">});</span>
@@ -580,16 +580,16 @@ Thanks to the portable reactivity of the Composition API, we can simplify our co
 <span class="p">}</span>
 </code></pre></div></div>
 <p><code class="language-plaintext highlighter-rouge">usePagination</code> is a function that encapsulates all functionality specific for pagination:</p>
-<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">usePagination</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span> <span class="p">{</span>
-	<span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">reactive</span><span class="p">({</span>
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nf">usePagination</span><span class="p">(</span><span class="nx">settings</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nf">reactive</span><span class="p">({</span>
 		<span class="na">perPage</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
 		<span class="na">currentPage</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 		<span class="p">...</span><span class="nx">settings</span>
 	<span class="p">});</span>
-	<span class="kd">const</span> <span class="nx">amountOfPages</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">settings</span><span class="p">.</span><span class="nx">items</span> <span class="o">/</span> <span class="nx">perPage</span><span class="p">));</span>
+	<span class="kd">const</span> <span class="nx">amountOfPages</span> <span class="o">=</span> <span class="nf">computed</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nx">settings</span><span class="p">.</span><span class="nx">items</span> <span class="o">/</span> <span class="nx">perPage</span><span class="p">));</span>
 	<span class="c1">// other functionalities here</span>
 	<span class="k">return</span> <span class="p">{</span>
-		<span class="p">...</span><span class="nx">toRefs</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
+		<span class="p">...</span><span class="nf">toRefs</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
 		<span class="nx">amountOfPages</span>
 	<span class="p">};</span>
 <span class="p">}</span>

@@ -281,11 +281,11 @@ Numbers you’ll get to know by heart.</p>
 <p>All the API calls used are documented on the <a href="https://js.tensorflow.org/api/latest/" target="_blank" rel="noopener noreferrer">TensorFlow.js website</a>.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tf.sequential provides an API where the output from one layer is used as the input to the next layer.</span>
-<span class="kd">const</span> <span class="nx">model</span> <span class="o">=</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">sequential</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">model</span> <span class="o">=</span> <span class="nx">tf</span><span class="p">.</span><span class="nf">sequential</span><span class="p">();</span>
 
 <span class="c1">// The first layer of the convolutional neural network plays a dual role:</span>
 <span class="c1">// it is both the input layer of the neural network and a layer that performs the first convolution operation on the input.</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">conv2d</span><span class="p">({</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">conv2d</span><span class="p">({</span>
     <span class="na">inputShape</span><span class="p">:</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
     <span class="na">kernelSize</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="na">filters</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
@@ -293,26 +293,26 @@ Numbers you’ll get to know by heart.</p>
 <span class="p">}));</span>
 
 <span class="c1">// MaxPooling layer for downsampling =&gt; https://www.quora.com/What-is-max-pooling-in-convolutional-neural-networks</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">maxPooling2d</span><span class="p">({</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">maxPooling2d</span><span class="p">({</span>
     <span class="na">poolSize</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="na">strides</span><span class="p">:</span> <span class="mi">2</span>
 <span class="p">}));</span>
 
 <span class="c1">// Our third layer is another convolution, this time with 32 filters.</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">conv2d</span><span class="p">({</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">conv2d</span><span class="p">({</span>
     <span class="na">kernelSize</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="na">filters</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
     <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">relu</span><span class="dl">'</span>
 <span class="p">}));</span>
 
 <span class="c1">// Max pooling again.</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">maxPooling2d</span><span class="p">({</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">maxPooling2d</span><span class="p">({</span>
     <span class="na">poolSize</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="na">strides</span><span class="p">:</span> <span class="mi">2</span>
 <span class="p">}));</span>
 
 <span class="c1">// Add another conv2d layer.</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">conv2d</span><span class="p">({</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">conv2d</span><span class="p">({</span>
     <span class="na">kernelSize</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="na">filters</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
     <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">relu</span><span class="dl">'</span>
@@ -321,9 +321,9 @@ Numbers you’ll get to know by heart.</p>
 <span class="c1">// Now we flatten the output from the 2D filters into a 1D vector to prepare</span>
 <span class="c1">// it for input into our last layer. This is common practice when feeding</span>
 <span class="c1">// higher dimensional data to a final classification output layer.</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">flatten</span><span class="p">({}));</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">flatten</span><span class="p">({}));</span>
 
- <span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">dense</span><span class="p">({</span>
+ <span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">dense</span><span class="p">({</span>
     <span class="na">units</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
     <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">relu</span><span class="dl">'</span>
 <span class="p">}));</span>
@@ -331,7 +331,7 @@ Numbers you’ll get to know by heart.</p>
 <span class="c1">// Our last layer is a dense layer which has 10 output units, one for each</span>
 <span class="c1">// We use the softmax function as the activation for the output layer as it</span>
 <span class="c1">// creates a probability distribution over our 10 classes so their output values sum to 1.</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nx">dense</span><span class="p">({</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">tf</span><span class="p">.</span><span class="nx">layers</span><span class="p">.</span><span class="nf">dense</span><span class="p">({</span>
     <span class="na">units</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
     <span class="na">activation</span><span class="p">:</span> <span class="dl">'</span><span class="s1">softmax</span><span class="dl">'</span>
 <span class="p">}));</span>
@@ -354,7 +354,7 @@ A working example of this code can be found <a href="https://storage.googleapis.
 <span class="c1">// We compile our model by specifying an optimizer, a loss function, and a</span>
 <span class="c1">// list of metrics that we will use for model evaluation. Here we're using a</span>
 <span class="c1">// categorical crossentropy loss.</span>
-<span class="nx">model</span><span class="p">.</span><span class="nx">compile</span><span class="p">({</span>
+<span class="nx">model</span><span class="p">.</span><span class="nf">compile</span><span class="p">({</span>
     <span class="nx">optimizer</span><span class="p">,</span>
     <span class="na">loss</span><span class="p">:</span> <span class="dl">'</span><span class="s1">categoricalCrossentropy</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">metrics</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">accuracy</span><span class="dl">'</span><span class="p">],</span>
@@ -370,46 +370,46 @@ A working example of this code can be found <a href="https://storage.googleapis.
 <span class="kd">const</span> <span class="nx">validationSplit</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">;</span>
 
 <span class="kd">let</span> <span class="nx">trainBatchCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">trainData</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">getTrainData</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">testData</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">getTestData</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">totalNumBatches</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">trainData</span><span class="p">.</span><span class="nx">xs</span><span class="p">.</span><span class="nx">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">validationSplit</span><span class="p">)</span> <span class="o">/</span> <span class="nx">batchSize</span><span class="p">)</span> <span class="o">*</span> <span class="nx">trainEpochs</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">trainData</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nf">getTrainData</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">testData</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nf">getTestData</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">totalNumBatches</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nx">trainData</span><span class="p">.</span><span class="nx">xs</span><span class="p">.</span><span class="nx">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">validationSplit</span><span class="p">)</span> <span class="o">/</span> <span class="nx">batchSize</span><span class="p">)</span> <span class="o">*</span> <span class="nx">trainEpochs</span><span class="p">;</span>
 
 <span class="c1">// During the long-running fit() call for model training, we include callbacks.  </span>
 <span class="kd">let</span> <span class="nx">valAcc</span><span class="p">;</span>
-<span class="k">await</span> <span class="nx">model</span><span class="p">.</span><span class="nx">fit</span><span class="p">(</span><span class="nx">trainData</span><span class="p">.</span><span class="nx">xs</span><span class="p">,</span> <span class="nx">trainData</span><span class="p">.</span><span class="nx">labels</span><span class="p">,</span> <span class="p">{</span>
+<span class="k">await</span> <span class="nx">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="nx">trainData</span><span class="p">.</span><span class="nx">xs</span><span class="p">,</span> <span class="nx">trainData</span><span class="p">.</span><span class="nx">labels</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">batchSize</span><span class="p">,</span>
     <span class="nx">validationSplit</span><span class="p">,</span>
     <span class="na">epochs</span><span class="p">:</span> <span class="nx">trainEpochs</span><span class="p">,</span>
     <span class="na">callbacks</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">onBatchEnd</span><span class="p">:</span> <span class="k">async</span> <span class="p">(</span><span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="na">onBatchEnd</span><span class="p">:</span> <span class="nf">async </span><span class="p">(</span><span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nx">trainBatchCount</span><span class="o">++</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">onIteration</span> <span class="o">&amp;&amp;</span> <span class="nx">batch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onBatchEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
+            <span class="nf">if </span><span class="p">(</span><span class="nx">onIteration</span> <span class="o">&amp;&amp;</span> <span class="nx">batch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nf">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onBatchEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
             <span class="p">}</span>
-            <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">nextFrame</span><span class="p">();</span>
+            <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nf">nextFrame</span><span class="p">();</span>
         <span class="p">},</span>
-        <span class="na">onEpochEnd</span><span class="p">:</span> <span class="k">async</span> <span class="p">(</span><span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="na">onEpochEnd</span><span class="p">:</span> <span class="nf">async </span><span class="p">(</span><span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nx">valAcc</span> <span class="o">=</span> <span class="nx">logs</span><span class="p">.</span><span class="nx">val_acc</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">onIteration</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onEpochEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
+            <span class="nf">if </span><span class="p">(</span><span class="nx">onIteration</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nf">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onEpochEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
             <span class="p">}</span>
-            <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nx">nextFrame</span><span class="p">();</span>
+            <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nf">nextFrame</span><span class="p">();</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">});</span>
 
 
-<span class="kd">const</span> <span class="nx">testResult</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">testData</span><span class="p">.</span><span class="nx">xs</span><span class="p">,</span> <span class="nx">testData</span><span class="p">.</span><span class="nx">labels</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">testAccPercent</span> <span class="o">=</span> <span class="nx">testResult</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">dataSync</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">testResult</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="nx">testData</span><span class="p">.</span><span class="nx">xs</span><span class="p">,</span> <span class="nx">testData</span><span class="p">.</span><span class="nx">labels</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">testAccPercent</span> <span class="o">=</span> <span class="nx">testResult</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">dataSync</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">finalValAccPercent</span> <span class="o">=</span> <span class="nx">valAcc</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">testExamples</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">examples</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">getTestData</span><span class="p">(</span><span class="nx">testExamples</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">examples</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nf">getTestData</span><span class="p">(</span><span class="nx">testExamples</span><span class="p">);</span>
 
 <span class="c1">// Code wrapped in a tf.tidy() function callback will have their tensors freed</span>
 <span class="c1">// from GPU memory after execution without having to call dispose().</span>
-<span class="nx">tf</span><span class="p">.</span><span class="nx">tidy</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">predict</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">xs</span><span class="p">);</span>
+<span class="nx">tf</span><span class="p">.</span><span class="nf">tidy</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">output</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">xs</span><span class="p">);</span>
 
     <span class="c1">// tf.argMax() returns the indices of the maximum values in the tensor along</span>
     <span class="c1">// a specific axis. Categorical classification tasks like this one often</span>
@@ -417,8 +417,8 @@ A working example of this code can be found <a href="https://storage.googleapis.
     <span class="c1">// one element for each output class. All values in the vector are 0</span>
     <span class="c1">// except for one, which has a value of 1 (e.g. [0, 0, 0, 1, 0]). </span>
     <span class="kd">const</span> <span class="nx">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kd">const</span> <span class="nx">labels</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">labels</span><span class="p">.</span><span class="nx">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nx">dataSync</span><span class="p">());</span>
-    <span class="kd">const</span> <span class="nx">predictions</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nx">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nx">dataSync</span><span class="p">());</span>
+    <span class="kd">const</span> <span class="nx">labels</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">labels</span><span class="p">.</span><span class="nf">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nf">dataSync</span><span class="p">());</span>
+    <span class="kd">const</span> <span class="nx">predictions</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nf">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nf">dataSync</span><span class="p">());</span>
 <span class="p">});</span>
 </code></pre></div></div>
 
@@ -444,25 +444,25 @@ This is provided the machine learning technique is available within the ML5 libr
 <p>Classifying an image becomes really simple:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Initialize the Image Classifier method with MobileNet. A callback needs to be passed.</span>
-<span class="kd">const</span> <span class="nx">classifier</span> <span class="o">=</span> <span class="nx">ml5</span><span class="p">.</span><span class="nx">imageClassifier</span><span class="p">(</span><span class="dl">'</span><span class="s1">MobileNet</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">‘</span><span class="nx">ready</span><span class="err">’</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">classifier</span> <span class="o">=</span> <span class="nx">ml5</span><span class="p">.</span><span class="nf">imageClassifier</span><span class="p">(</span><span class="dl">'</span><span class="s1">MobileNet</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="err">‘</span><span class="nx">ready</span><span class="err">’</span><span class="p">);</span>
 <span class="p">});</span>
 <span class="kd">let</span> <span class="nx">img</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">setup</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">noCanvas</span><span class="p">();</span>
-    <span class="nx">img</span> <span class="o">=</span> <span class="nx">createImg</span><span class="p">(</span><span class="dl">'</span><span class="s1">images/bird.jpg</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">classifier</span><span class="p">.</span><span class="nx">predict</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">gotResult</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">noCanvas</span><span class="p">();</span>
+    <span class="nx">img</span> <span class="o">=</span> <span class="nf">createImg</span><span class="p">(</span><span class="dl">'</span><span class="s1">images/bird.jpg</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">classifier</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="nx">gotResult</span><span class="p">);</span>
     <span class="p">});</span>
-    <span class="nx">img</span><span class="p">.</span><span class="nx">size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
+    <span class="nx">img</span><span class="p">.</span><span class="nf">size</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">gotResult</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nf">gotResult</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">if </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="nx">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">#result</span><span class="dl">'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">className</span><span class="p">);</span>
-    <span class="nx">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">#probability</span><span class="dl">'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">nf</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">probability</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+    <span class="nf">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">#result</span><span class="dl">'</span><span class="p">).</span><span class="nf">html</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">className</span><span class="p">);</span>
+    <span class="nf">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">#probability</span><span class="dl">'</span><span class="p">).</span><span class="nf">html</span><span class="p">(</span><span class="nf">nf</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">probability</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
