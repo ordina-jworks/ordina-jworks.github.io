@@ -17,27 +17,27 @@ For running the blog locally you can either opt for using Docker or setting up J
 ## Setting up Jekyll on your Mac or Linux
 
 Prerequisites: 
-- Ruby (>= 2.4.0): this can be easily accomplished by using [rvm](https://rvm.io).
+- Ruby (>= 2.7): this can be easily accomplished by using [rvm](https://rvm.io).
 - ImageMagick: this can be easily accomplished by using [Homebrew](https://brew.sh/).
 
 After installing RVM and Homebrew, execute the following commands to install Ruby and ImageMagick and set up Jekyll:
 
-    $ rvm install 2.4.0
-    $ rvm use 2.4.0
+    $ rvm install 2.7
+    $ rvm use 2.7
     $ (sudo) gem install bundler
     $ bundle install
     $ brew install imagemagick
 
-Note that setting the Ruby version via `rvm use 2.4.0` is only active for the current session.
-In order to set 2.4.0 as the default Ruby version you can use the following command:
+Note that setting the Ruby version via `rvm use 2.7` is only active for the current session.
+In order to set 2.7 as the default Ruby version you can use the following command:
 
-    $ rvm --default use 2.4.0
+    $ rvm --default use 2.7
     
-If you are unable to run `rvm install 2.4.0` execute the following:
+If you are unable to run `rvm install 2.7` execute the following:
 
     $ /bin/bash --login 
     $ source ~/.rvm/scripts/rvm; 
-    $ rvm use 2.4.0
+    $ rvm use 2.7
 
 ## Running Jekyll on your Mac or Linux
 - Run `jekyll serve` in the root directory of the tech blog
@@ -154,7 +154,7 @@ These files need to begin with two lines of `---` for Jekyll to pick them up for
 You can read more on Jekyll and SASS integration [here](https://jekyllrb.com/docs/assets/).
 
 ## Submit your blog post for publication
-- Create a **pull request** and ask people to proof read your new blog post (we don't want to have any spelling mistakes, do we? ;))
+- Create a **pull request** and ask people to proofread your new blog post (we don't want to have any spelling mistakes, do we? ;))
 - If changes need to be made, you can just commit and push to the original feature branch
 - When your blog post has been reviewed, one of the competence leaders will approve and merge your pull request.
 - Congratulations! Your blog post is now visible to the whole world! :)
