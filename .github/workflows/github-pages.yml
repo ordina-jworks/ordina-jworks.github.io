@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
 
       - name: Gen Cache
-        uses: actions/cache@v2
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # v2
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile') }}
@@ -24,7 +24,7 @@ jobs:
             ${{ runner.os }}-gems-
 
       # Specify the Jekyll source location as a parameter
-      - uses: helaili/jekyll-action@v2
+      - uses: helaili/jekyll-action@c1527523361ec3ecc54b2371ddef44826e28c0f5 # v2
         with:
           keep_history: true
           token: ${{ secrets.GITHUB_TOKEN }}
