@@ -10,7 +10,7 @@ comments: true
 
 - [Introduction](#introduction)
 
-## Introduction
+# Introduction
 
 If you have ever come in to contact with an enterprise cloud environment,
 you know that keeping it secure and compliant can be a cumbersome task.
@@ -22,11 +22,52 @@ You'll find out that because access to the cloud is splintered over so many team
 that there will be so many violations to the security and compliance requirements,
 that you can not keep up with all the changes in your enterprise cloud environment.
 
-Originally when we started investigating solutions to scan your infrastructure as code, cloud environment,
-container images, ... We thought it would be short document for internal use only.
+Originally when we started investigating solutions to scan your infrastructure as code and cloud environment.
+We thought it would be short document for internal use only.
 
 We quickly discovered there are actually quite some interesting tools out their,
-some that are free and some that cost you a lot of money.
+some that are free and some that cost you a lot of money,
+and some that can not just do cloud, but much more.
 
-We'll be summarizing the tools we found and how they can help you to secure your cloud environment.
-What they can do and what they can't do.
+We'll be summarizing the tools we found and how they can help you to secure your cloud environment or other resources.
+What they can do, what they can't do, what you can use them with and for.
+
+## AWS
+
+### Snyk
+
+Lorem ipsum
+
+### Trivy
+
+Trivy Ipsum
+
+## Kubernetes
+
+### Snyk
+
+Snyk ipsum
+
+### Trivy
+
+Trivy Ipsum
+
+## AWS ECS
+
+### Snyk
+
+Snyk ipsum
+
+### Trivy
+
+Trivy Ipsum
+
+## Terraform
+
+### Snyk
+
+Snyk ipsum
+
+### Trivy
+
+Trivy Ipsum
