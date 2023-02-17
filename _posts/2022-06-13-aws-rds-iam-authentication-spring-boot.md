@@ -75,32 +75,34 @@ You will only need the [AWS SDK for RDS](https://mvnrepository.com/artifact/com.
 
 ```xml
 <dependency>
-    <groupId>com.amazonaws</groupId>
-    <artifactId>aws-java-sdk-rds</artifactId>
-    <version>1.12.238</version>
+    <groupId>software.amazon.awssdk</groupId>
+    <artifactId>rds</artifactId>
+    <version>2.20.5</version>
 </dependency>
 ```
 
 To achieve the token fetching in Spring Boot, I created a custom `HikariDataSource` which overrides the `getPassword()` method and used `RdsIamAuthTokenGenerator` and `GetIamAuthTokenRequest` to create a request for an authentication token from RDS.
 
 ```java
-public class RdsIAMDataSource extends HikariDataSource {
+public class RDSIAMDataSource extends HikariDataSource {
     @Override
     public String getPassword() {
-        RdsIamAuthTokenGenerator authTokenGenerator = RdsIamAuthTokenGenerator.builder()
-                .credentials(new DefaultAWSCredentialsProviderChain())
+        // Alternatively, you can create a Bean declaration of RdsClient. For demo purposes, I have decided to instantiate it here.
+        RdsClient rdsClient = RdsClient.builder()
                 .region(new DefaultAwsRegionProviderChain().getRegion())
                 .build();
+        
+        RdsUtilities rdsUtilities = rdsClient.utilities();
 
         URI jdbcUri = parseJdbcURL(getJdbcUrl());
 
-        GetIamAuthTokenRequest iamAuthTokenRequest = GetIamAuthTokenRequest.builder()
+        GenerateAuthenticationTokenRequest request = GenerateAuthenticationTokenRequest.builder()
+                .username(getUsername())
                 .hostname(jdbcUri.getHost())
                 .port(jdbcUri.getPort())
-                .userName(getUsername())
                 .build();
 
-        return authTokenGenerator.getAuthToken(iamAuthTokenRequest);
+        return rdsUtilities.generateAuthenticationToken(request);
     }
 
     private URI parseJdbcURL(String jdbcUrl) {
