@@ -32,42 +32,37 @@ and some that can not just do cloud, but much more.
 We'll be summarizing the tools we found and how they can help you to secure your cloud environment or other resources.
 What they can do, what they can't do, what you can use them with and for.
 
-## AWS
-
-### Snyk
+## Snyk
 
 Lorem ipsum
 
-### Trivy
+## Trivy
 
 Trivy Ipsum
 
-## Kubernetes
+## Fugue
 
-### Snyk
+Fugue is a cloud security platform that helps you to secure your cloud environment,
+it was bought by Snyk some time ago and after this take-over Snyk started working on Snyk Cloud.
 
-Snyk ipsum
+### Baseline enforcement
 
-### Trivy
+Fugue allows you to take a snapshot of your Cloud environment and use it as baseline.
 
-Trivy Ipsum
+This prevents anyone from making modifications to your environment that are not compliant with your baseline.
 
-## AWS ECS
+It can't recreate or delete resources it only enforces by modifying them back to the original state of the snapshot.
 
-### Snyk
+### Policy scanning
 
-Snyk ipsum
+Fugue allows you to write policies to scan your AWS environment for compliance,
+or you can use one of the pre-defined policies like CIS AWS Foundations Benchmark.
 
-### Trivy
+It does not provide automatic solutions to fix the violations, but has descriptions on how to fix them.
 
-Trivy Ipsum
+### CI/CD integration
 
-## Terraform
+Fugue can be integrated with your CI/CD pipeline to scan your infrastructure as code for compliance using their cli.
 
-### Snyk
-
-Snyk ipsum
-
-### Trivy
-
-Trivy Ipsum
+They have a guide on how to set this up with CircleCI,
+but it should be possible to set this up with any other CI/CD tools.
