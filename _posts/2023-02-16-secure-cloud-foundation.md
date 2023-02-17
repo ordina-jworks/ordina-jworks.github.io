@@ -8,6 +8,7 @@ category: Cloud
 comments: true
 ---
 
+<!-- TODO complete index -->
 - [Introduction](#introduction)
 
 # Introduction
@@ -34,7 +35,42 @@ What they can do, what they can't do, what you can use them with and for.
 
 ## Snyk
 
-Lorem ipsum
+Snyk is a cloud security platform that helps you to secure allot.
+
+### Code scanning
+
+Snyk can scan your code for vulnerabilities and compliance issues.
+It can scan your code for security issues like introducing sql injection or path traversal vulnerabilities in your code.
+
+You also have data flow that shows you the entry point and method invocation of the vulnerability.
+Which shows you the entire stack path to the vulnerability in your source code.
+
+To solve the vulnerability you can read the details of the vulnerability and a best practice for prevention if
+available.
+There is also another tab that shows 3 open source projects that had the vulnerability and how they fixed it their code.
+
+### Licence scanning
+
+You can configure Snyk to scan your open source dependencies for licence issues with your dependencies,
+which can be useful for example if your company wants to avoid using dependencies with a certain licence,
+because they want to commercialize the software in the future.
+
+### Container scanning
+
+Snyk can scan your container images for vulnerabilities it can do this from docker images, Amazon ECR, Docker hub, ...
+You can set this up in your Kubernetes cluster, but currently Fargate is not supported.
+
+For scanning that is linked to a git repository you have the option
+to create a pull request to update to a fixed image version.
+
+### Infrastructure as code scanning
+
+Snyk can scan your infrastructure as code against the CIS AWS Foundations Benchmark or you can write custom policies.
+
+### Cloud scanning
+
+Snyk also has cloud scanning, but this service is still in closed beta and is not available for everyone.
+We were not able to test this product, because it requires an enterprise licence at the time of writing.
 
 ## Trivy
 
