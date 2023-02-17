@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-02-16T07:20:54+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-02-17T17:42:01+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
 </subtitle><entry><title type="html">Accelerating your slow Java Lambda with AWS Lambda SnapStart</title><link href="https://ordina-jworks.github.io/cloud/2023/01/13/aws-lambda-snapstart-spring-cloud-function.html" rel="alternate" type="text/html" title="Accelerating your slow Java Lambda with AWS Lambda SnapStart" /><published>2023-01-13T00:00:00+00:00</published><updated>2023-01-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/01/13/aws-lambda-snapstart-spring-cloud-function</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/01/13/aws-lambda-snapstart-spring-cloud-function.html"><![CDATA[<ul>
   <li><a href="#introduction">Introduction</a></li>
   <li><a href="#what-is-snapstart">What is SnapStart?</a>
@@ -1387,31 +1387,33 @@ On EKS (Kubernetes for AWS), you can use <a href="https://docs.aws.amazon.com/ek
 <p>You will only need the <a href="https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-rds" target="_blank" rel="noopener noreferrer">AWS SDK for RDS</a> to fetch an authentication token, which you can add as a dependency in Maven by adding the following code block:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>com.amazonaws<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>aws-java-sdk-rds<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.12.238<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>software.amazon.awssdk<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>rds<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.20.5<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div></div>
 
 <p>To achieve the token fetching in Spring Boot, I created a custom <code class="language-plaintext highlighter-rouge">HikariDataSource</code> which overrides the <code class="language-plaintext highlighter-rouge">getPassword()</code> method and used <code class="language-plaintext highlighter-rouge">RdsIamAuthTokenGenerator</code> and <code class="language-plaintext highlighter-rouge">GetIamAuthTokenRequest</code> to create a request for an authentication token from RDS.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RdsIAMDataSource</span> <span class="kd">extends</span> <span class="nc">HikariDataSource</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RDSIAMDataSource</span> <span class="kd">extends</span> <span class="nc">HikariDataSource</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getPassword</span><span class="o">()</span> <span class="o">{</span>
-        <span class="nc">RdsIamAuthTokenGenerator</span> <span class="n">authTokenGenerator</span> <span class="o">=</span> <span class="nc">RdsIamAuthTokenGenerator</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">credentials</span><span class="o">(</span><span class="k">new</span> <span class="nc">DefaultAWSCredentialsProviderChain</span><span class="o">())</span>
+        <span class="c1">// Alternatively, you can create a Bean declaration of RdsClient. For demo purposes, I have decided to instantiate it here.</span>
+        <span class="nc">RdsClient</span> <span class="n">rdsClient</span> <span class="o">=</span> <span class="nc">RdsClient</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
                 <span class="o">.</span><span class="na">region</span><span class="o">(</span><span class="k">new</span> <span class="nc">DefaultAwsRegionProviderChain</span><span class="o">().</span><span class="na">getRegion</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">RdsUtilities</span> <span class="n">rdsUtilities</span> <span class="o">=</span> <span class="n">rdsClient</span><span class="o">.</span><span class="na">utilities</span><span class="o">();</span>
 
         <span class="no">URI</span> <span class="n">jdbcUri</span> <span class="o">=</span> <span class="n">parseJdbcURL</span><span class="o">(</span><span class="n">getJdbcUrl</span><span class="o">());</span>
 
-        <span class="nc">GetIamAuthTokenRequest</span> <span class="n">iamAuthTokenRequest</span> <span class="o">=</span> <span class="nc">GetIamAuthTokenRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="nc">GenerateAuthenticationTokenRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">GenerateAuthenticationTokenRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">getUsername</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">hostname</span><span class="o">(</span><span class="n">jdbcUri</span><span class="o">.</span><span class="na">getHost</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">port</span><span class="o">(</span><span class="n">jdbcUri</span><span class="o">.</span><span class="na">getPort</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">userName</span><span class="o">(</span><span class="n">getUsername</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
-        <span class="k">return</span> <span class="n">authTokenGenerator</span><span class="o">.</span><span class="na">getAuthToken</span><span class="o">(</span><span class="n">iamAuthTokenRequest</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">rdsUtilities</span><span class="o">.</span><span class="na">generateAuthenticationToken</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="no">URI</span> <span class="nf">parseJdbcURL</span><span class="o">(</span><span class="nc">String</span> <span class="n">jdbcUrl</span><span class="o">)</span> <span class="o">{</span>
