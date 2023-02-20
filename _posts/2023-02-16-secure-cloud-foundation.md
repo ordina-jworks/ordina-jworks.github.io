@@ -9,6 +9,7 @@ comments: true
 ---
 
 <!-- TODO complete index -->
+
 - [Introduction](#introduction)
 
 # Introduction
@@ -72,9 +73,51 @@ Snyk can scan your infrastructure as code against the CIS AWS Foundations Benchm
 Snyk also has cloud scanning, but this service is still in closed beta and is not available for everyone.
 We were not able to test this product, because it requires an enterprise licence at the time of writing.
 
+### Custom policies
+
+Snyk allows you to write custom policies in Rego, but only for IaC scanning and platform policies.
+
 ## Trivy
 
-Trivy Ipsum
+Trivy is an open-source cli tool provided by Aqua Security.
+
+### Container scanning
+
+Trivy can scan container images against well known vulnerabilities.
+On the [tool's homepage](https://trivy.dev/), you can enter public available docker hub images to test it out.
+
+### Dependency scanning
+
+Trivy can scan your dependencies for well known vulnerabilities.
+It has a mode that automatically discovers, declarations files for various package managers
+
+### CI/CD integration
+
+Because Trivy is a cli tool it can easily be integrates in CI/CD pipelines.
+Trivy also maintains a [GitHub action](https://github.com/aquasecurity/trivy-action) to integrate it in GitHub actions.
+But the community has created 2 additional GitHub actions.
+
+### AWS integration
+
+Trivy can be run locally to scan your AWS environment using the AWS cli.
+The default included check scans against AWS CIS 1.2.0 benchmark.
+It shows summarizes a lists of issues, and gives description of how to resolve the issue, it won't automatically fix it.
+
+### Secret scanning
+
+Trivy can scan your code for secrets, it can scan for AWS access key, GCP service account, GitHub personal access token,
+GitLab personal access token, Slack access token, etc.
+
+It can do this either on the file system or inside a container image.
+
+### Configuration issues
+
+Trivy can scan your configuration files like Dockerfiles, Kubernetes manifests, Terraform, CloudFormation, etc.
+against known configuration issues
+
+### Custom policies
+
+For all the mentioned functionality custom policies can be written in Rego.
 
 ## Fugue
 
@@ -102,3 +145,7 @@ Fugue can be integrated with your CI/CD pipeline to scan your infrastructure as 
 
 They have a guide on how to set this up with CircleCI,
 but it should be possible to set this up with any other CI/CD tools.
+
+### Custom policies
+
+Fugue allows you to write custom policies in Rego.
