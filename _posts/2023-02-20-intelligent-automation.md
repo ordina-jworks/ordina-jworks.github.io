@@ -13,7 +13,7 @@ This is the extension of the classical Process Management approach using Intelli
 When the [titular book](https://bpm-books.com/products/intelligent-automation){:target="_blank" rel="noopener noreferrer"} was published by Future Strategies, I picked up my copy and started reading in the hopes of figuring out how to implement this. 
 The book is similar in structure to other volumes of Future Strategies in that it is a collection of articles by luminaries in the field, accompanied by several award-winning case studies.
 
-Not that the rise in importance for technologies such as AI should come as a surprise. 
+Not that the rise in importance of technologies such as AI should come as a surprise. 
 Going back to 2016 the Artificial Intelligence Information Society as well as the World Bank offered up this infographic showing AI to be considered the 4th industrial revolution to shape our society.
 
 {:refdef: style="text-align: center;"}
