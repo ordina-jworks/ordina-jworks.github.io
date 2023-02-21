@@ -132,7 +132,7 @@ And with the introduction of machine learning, the need for this data to be stru
 Traditional BPM tells us that data/information steers the process. 
 It decides which route is taken through its execution. 
 But with unstructured data in the mix, this becomes a lot harder. 
-As such, interpreting this data correctly had become a science. 
+As such, interpreting this data correctly has become a science. 
 Data science has become a de facto foundation for every digital transformation effort. 
 When we speak of intelligent business processes, the role data plays has outgrown the classic summaries and reports delivered to the process manager and has taken on the form of the process able to dynamically digest and process an ever-changing data set. 
 This data set needs to combine both the transactional process data and the integration-based business data to leverage results in correct business decisions.
