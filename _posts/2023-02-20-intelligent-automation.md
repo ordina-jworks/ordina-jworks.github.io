@@ -75,7 +75,8 @@ It is easy to have initiatives for intelligent automation derail, but here we ca
 
 ## Robots
 
-When it comes to robots, RPA springs to mind. But it is not the only game in town. 
+When it comes to robots, RPA springs to mind. 
+But it is not the only game in town. 
 Automation can also be handed over to an AI, which can determine things like the shortest path (think of your GPS) and other non-trivial decisions. 
 The illustration below showcases the most common attributes of both these types of robots.
 
