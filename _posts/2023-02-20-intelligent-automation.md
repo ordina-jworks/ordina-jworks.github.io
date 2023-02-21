@@ -65,7 +65,7 @@ And herein lies the business value of this proposition.
 If traditional BPMS automation proves too rigid for the task, consider splitting up the end-to-end process into process fragments to become more flexible. 
 Recreating this end-to-end process from these fragments can be done by structuring them through a case that indicates the major phases in the process. 
 As such these fragments become once again linked, but still retain a dynamic and adaptable nature. 
-This is the intentional process as posited by the people from Flowable.
+This is the [intentional process](https://www.youtube.com/watch?v=uSQVtm8O7SA&t=1s&ab_channel=bpmNEXT%3ADefiningtheNextGenerationofProcessInnovation){:target="_blank" rel="noopener noreferrer"} as posited by the people from Flowable.
 
 It is easy to have initiatives for intelligent automation derail, but here we can apply the same lessons we learned for process management adoption:
 1.	Make everyone, on every level, in the organization aware of the benefits and how it will help them in their jobs, not replace them. It alleviates tedious repetitive work and frees up time for employees to pursue more worthwhile endeavors within their organization.  
@@ -98,7 +98,7 @@ For RPA, the biggest gains will be attained by using the robots as a stepping st
 They are tools to be used to quickly replace error-prone human tasks and capitalize on the quick gains this provides. 
 They can also be utilized to quickly set up proof-of-concept endeavors to prove added value derived from ideation. 
 Once these steps in the automated process reach the proper level of maturity, they can then more easily be replaced by technologies that trade in the hyper agility RPA provides for more grip on the governance and maintainability that API solutions offer. 
-Camunda specified a three-step approach along those lines in their 2020 White Paper titled “Beyond RPA: How to Build Toward End-to-End Process Automation”. 
+Camunda specified a three-step approach along those lines in their 2020 White Paper titled [“Beyond RPA: How to Build Toward End-to-End Process Automation”](https://camunda.com/blog/2021/01/beyond-rpa-how-to-build-toward-end-to-end-process-automation/){:target="_blank" rel="noopener noreferrer"}. 
 These steps are the following:
 
 {:refdef: style="text-align: center;"}
