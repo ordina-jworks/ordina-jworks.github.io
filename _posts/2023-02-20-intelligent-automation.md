@@ -107,7 +107,7 @@ These steps are the following:
 
 A big part of the added value realized by introducing AI robots into the process automation toolbox is knowing where and when to use them. 
 Predictive models can help decisioning in organizations, but there are some points to keep in mind:
-- At its core effective decisioning should answer not only answer the “What is Happening?” question, but also the “Why is it happening?”-question. This understanding of the reasons behind information leads to better opportunity detection and initiatives.
+- At its core, effective decisioning should not only answer the “What is Happening?” question, but also the “Why is it happening?”-question. This understanding of the reasons behind information leads to better opportunity detection and initiatives.
 - Risk/Reward considerations should be available with each option of the decisions.
 - Even with decisions where there are ambiguous or even unknown factors, or where the risk/reward cannot be determined, there is a need to automate, and this is where deep learning/machine learning models can make the difference.
 
