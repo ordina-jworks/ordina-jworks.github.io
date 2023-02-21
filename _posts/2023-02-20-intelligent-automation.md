@@ -213,7 +213,7 @@ These should be detected when present in these types of projects and proper miti
 - Don’t try to create complete comprehensive processes from the beginning. You won’t be able to capture all requirements in the first iteration. Build your solution for adaptability to embrace new requirements as they become known.
 
 The main realization to make is to determine the maturity of your organization in four distinct areas: data, training, deployment, and management. 
-In each of these areas an increase in maturity will yield additional benefits as shown in the table below:
+In each of these areas, an increase in maturity will yield additional benefits as shown in the table below:
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2023-02-20-intelligent-automation/mlmaturity.png' | prepend: site.baseurl }}" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%">
 {: refdef}
