@@ -68,7 +68,7 @@ As such these fragments become once again linked, but still retain a dynamic and
 This is the intentional process as posited by the people from Flowable.
 
 It is easy to have initiatives for intelligent automation derail, but here we can apply the same lessons we learned for process management adoption:
-1.	Make everyone (on every level) in the organization aware of the benefits and how it will help them in their jobs (not replace them). It alleviates tedious repetitive work and frees up time for employees to pursue more worthwhile endeavors within their organization.  
+1.	Make everyone, on every level, in the organization aware of the benefits and how it will help them in their jobs, not replace them. It alleviates tedious repetitive work and frees up time for employees to pursue more worthwhile endeavors within their organization.  
 2.	Think Big, Start Small. It is okay to have a grandiose goal in mind. But starting with a simple proof of concept to show quick results goes a long way to prepare for more complex processes and garner goodwill from those involved.
 3.	If at all possible, get expert help for those first few initiatives to build up expertise within the organization.
 4.	Get intimately acquainted with the data assets available to your processes, in the organization, and external data. What they are, in which format they exist, and their availability. This understanding will facilitate the analytics involved.
