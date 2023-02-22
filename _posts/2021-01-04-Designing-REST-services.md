@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [peter_dekinder]
+authors: [peter_de_kinder]
 title: 'Designing REST Services'
 image: /img/2021-01-04-Designing-REST-services/servicedesign.jpg
 tags: [architecture, software architecture, microservices, integration, software design]

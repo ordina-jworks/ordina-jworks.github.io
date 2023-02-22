@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [peter_dekinder]
+authors: [peter_de_kinder]
 title: 'Architecture Effort in Projects'
 image: /img/2020-01-24-Architecture-in-Projects/architectureeffort.jpg
 tags: [Architecture]

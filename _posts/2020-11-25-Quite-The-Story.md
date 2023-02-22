@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [peter_dekinder]
+authors: [peter_de_kinder]
 title: 'That is Quite the Story'
 image: /img/2020-11-25-Quite-The-Story/storiesmatter.jpg
 tags: [architecture, business architecture, technical leadership, leadership]

@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [peter_dekinder]
+authors: [peter_de_kinder]
 title: 'Out With The Old, In With The New'
 image: /img/2021-02-17-Out-With-The-Old/logansrun.png
 tags: [architecture, software architecture, business architecture, technical leadership]
