@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [peter_dekinder]
+authors: [peter_de_kinder]
 title: 'Pondering The Five Dysfunctions of a Team'
 image: /img/2020-07-08-Book-Five-Dysfunctions/bookreview.jpg
 tags: [architecture, business architecture, technical leadership, leadership]

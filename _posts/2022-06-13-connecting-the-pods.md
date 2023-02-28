@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [peter_dekinder]
+authors: [peter_de_kinder]
 title: 'Connecting the Pods'
 image: /img/2022-06-13-connecting-the-pods/tile.jpg
 tags: [technical leadership, architecture, software architecture]

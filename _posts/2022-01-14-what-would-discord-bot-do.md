@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [peter_dekinder]
+authors: [peter_de_kinder]
 title: 'What Would Discord Bot Do?'
 image: /img/2022-01-14-what-would-discord-bot-do/discorddanger.jpg
 tags: [Java, Discord, EDA, architecture, software architecture]
