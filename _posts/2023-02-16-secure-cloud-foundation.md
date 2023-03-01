@@ -34,6 +34,27 @@ and some that can not just do cloud, but much more.
 We'll be summarizing the tools we found and how they can help you to secure your cloud environment or other resources.
 What they can do, what they can't do, what you can use them with and for.
 
+## The Warden: Open Policy Agent
+
+Cloud computing has made it easy for organizations to manage their IT infrastructure on a large scale. However, with the ease of cloud computing comes the challenge of securing the environment and preventing accidental misconfigurations. This is where Open Policy Agent (OPA) comes into play.
+
+<img src="{{ '/img/2023-02-16-secure-cloud-foundation/warden.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%">
+
+OPA is an open-source, general-purpose policy engine that can be used to enforce policies across various systems, including cloud infrastructure.
+
+Some of OPA's strenghts summed up:
+
+### Policy Management
+OPA provides a simple and flexible policy language used by writing [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/){:target="_blank" rel="noopener noreferrer"}.  that allows organizations to define and manage policies across multiple cloud platforms. Policies can be created to enforce security controls, compliancy, and cost optimization rules. The policies can be customized to meet specific operational needs.
+
+### Automated Compliancy Enforcement
+
+OPA automates policy enforcement by integrating with various cloud platforms, such as AWS, Azure, and GCP. Once policies are defined, OPA can automatically enforce them in real-time, reducing the need for manual intervention.
+
+### Intergrations
+
+OPA can integrate with various cloud native tools, including Kubernetes, Istio, and Envoy. This allows organizations to extend their policy management across various systems, making it easier to enforce policies across multiple platforms.
+
 ## Snyk
 
 Snyk is a cloud security platform that helps you to secure allot.
