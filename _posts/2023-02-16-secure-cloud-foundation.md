@@ -55,7 +55,27 @@ OPA automates policy enforcement by integrating with various cloud platforms, su
 
 OPA can integrate with various cloud native tools, including Kubernetes, Istio, and Envoy. This allows organizations to extend their policy management across various systems, making it easier to enforce policies across multiple platforms.
 
-## Snyk
+## The Janitor: Cloud Custodian
+
+Cloud Custodian is an open-source tool that helps organizations manage their cloud infrastructure in a secure and compliant way. One of the key features of Cloud Custodian is its ability to scan cloud resources across multiple cloud platforms, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).
+
+Cloud Custodian uses a policy-driven approach to scan cloud resources. Policies are written using a simple and flexible policy language that allows organizations to define and manage policies.
+
+The feats of Cloud Custodian for a secure cloud environment:
+
+### Automated Remediation
+
+Cloud Custodian not only identifies policy violations but also automates the remediation process. For example, if a policy violation is identified, such as an unsecured storage bucket in AWS, Cloud Custodian can automatically take corrective actions, such as deleting the unsecured bucket or encrypting it.
+
+### Continuous Compliance
+
+Cloud Custodian helps organizations maintain continuous compliance by ensuring that policies are enforced at all times. The tool can detect any changes in the cloud infrastructure that may violate the policies and take corrective actions in real-time.
+
+### Cost Optimization
+
+Cloud Custodian also helps organizations optimize cloud costs by automating the deletion of unused resources, enforcing tagging policies to identify unused resources, and providing reports on cost savings.
+
+## The Watchdog: Snyk
 
 Snyk is a cloud security platform that helps you to secure allot.
 
@@ -98,7 +118,7 @@ We were not able to test this product, because it requires an enterprise licence
 
 Snyk allows you to write custom policies in Rego, but only for IaC scanning and platform policies.
 
-## Trivy
+## The Detective: Trivy
 
 Trivy is an open-source cli tool provided by Aqua Security.
 
@@ -140,7 +160,7 @@ against known configuration issues
 
 For all the mentioned functionality custom policies can be written in Rego.
 
-## Fugue
+## The Composer: Fugue
 
 Fugue is a cloud security platform that helps you to secure your cloud environment,
 it was bought by Snyk some time ago and after this take-over Snyk started working on Snyk Cloud.
