@@ -11,6 +11,11 @@ comments: true
 <!-- TODO complete index -->
 
 - [Introduction](#introduction)
+- [The Warden: Open Policy Agent](#the-warden-open-policy-agent)
+- [The Janitor: Cloud Custodian](#the-janitor-cloud-custodian)
+- [The Watchdog: Snyk](#the-watchdog-snyk)
+- [The Container Detective: Trivy](#the-container-detective-trivy)
+- [The Composer: Fugue](#the-composer-fugue)
 
 # Introduction
 
@@ -118,7 +123,7 @@ We were not able to test this product, because it requires an enterprise licence
 
 Snyk allows you to write custom policies in Rego, but only for IaC scanning and platform policies.
 
-## The Detective: Trivy
+## The Container Detective: Trivy
 
 Trivy is an open-source cli tool provided by Aqua Security.
 
