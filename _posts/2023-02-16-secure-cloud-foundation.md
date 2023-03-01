@@ -190,3 +190,15 @@ but it should be possible to set this up with any other CI/CD tools.
 ### Custom policies
 
 Fugue allows you to write custom policies in Rego.
+
+<!---
+TO DO -- 
+
+Add images for each section.
+
+Enrich post with links
+
+Check for spelling/grammar erros
+
+Get banner image
+-->
