@@ -19,22 +19,21 @@ comments: true
 
 # Introduction
 
-If you have ever come in to contact with an enterprise cloud environment,
-you know that keeping it secure and compliant can be a cumbersome task.
+If you ever came in contact with an enterprise cloud environment,
+you know that keeping it secure and compliant can be a challenging task.
 
-Many companies have their own security and compliance requirements,
+Every company has their own security and compliance requirements,
 and they should at least follow a best practice standard like CIS AWS Foundations Benchmark.
 
-You'll find out that because access to the cloud is splintered over so many teams and projects,
-that there will be so many violations to the security and compliance requirements,
-that you can not keep up with all the changes in your enterprise cloud environment.
+Often, you'll find that because of the segmented responsibilities across many teams and projects, gaps exist in the security and compliancy posture of the organisation. 
+Add to that the rate of change that companies need to handle to stay competitive and you end up with a puzzle that no-one can oversee. 
 
-Originally when we started investigating solutions to scan your infrastructure as code and cloud environment.
-We thought it would be short document for internal use only.
+Originally, we started investigating solutions to scan your infrastructure as code and cloud environment.
+We thought we'd look at a handful of tools, evaluate them and select a clear winner.
 
-We quickly discovered there are actually quite some interesting tools out their,
+We quickly discovered there are quite some interesting tools out their,
 some that are free and some that cost you a lot of money,
-and some that can not just do cloud, but much more.
+and some not only do cloud, but can do much more.
 
 We'll be summarizing the tools we found and how they can help you to secure your cloud environment or other resources.
 What they can do, what they can't do, what you can use them with and for.
@@ -50,13 +49,16 @@ OPA is an open-source, general-purpose policy engine that can be used to enforce
 Some of OPA's strenghts summed up:
 
 ### Policy Management
-OPA provides a simple and flexible policy language used by writing [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/){:target="_blank" rel="noopener noreferrer"}.  that allows organizations to define and manage policies across multiple cloud platforms. Policies can be created to enforce security controls, compliancy, and cost optimization rules. The policies can be customized to meet specific operational needs.
+OPA provides a simple and flexible policy language used by writing [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/){:target="_blank" rel="noopener noreferrer"}.  that allows organizations to define and manage policies across multiple cloud platforms. 
+Policies can be created to enforce security controls, compliancy, and cost optimization rules. 
+The policies can be customized to meet specific operational needs.
+These policies are available as code and can be managed like any other code, including automated testing(?) in an organisation. 
 
 ### Automated Compliancy Enforcement
 
 OPA automates policy enforcement by integrating with various cloud platforms, such as AWS, Azure, and GCP. Once policies are defined, OPA can automatically enforce them in real-time, reducing the need for manual intervention.
 
-### Intergrations
+### Integrations
 
 OPA can integrate with various cloud native tools, including Kubernetes, Istio, and Envoy. This allows organizations to extend their policy management across various systems, making it easier to enforce policies across multiple platforms.
 
@@ -66,7 +68,7 @@ Cloud Custodian is an open-source tool that helps organizations manage their clo
 
 Cloud Custodian uses a policy-driven approach to scan cloud resources. Policies are written using a simple and flexible policy language that allows organizations to define and manage policies.
 
-The feats of Cloud Custodian for a secure cloud environment:
+The features of Cloud Custodian for a secure cloud environment:
 
 ### Automated Remediation
 
@@ -82,12 +84,12 @@ Cloud Custodian also helps organizations optimize cloud costs by automating the 
 
 ## The Watchdog: Snyk
 
-Snyk is a cloud security platform that helps you to secure allot.
+Snyk is a cloud security platform that helps you to get end-to-end insight into your security footprint.
 
 ### Code scanning
 
 Snyk can scan your code for vulnerabilities and compliance issues.
-It can scan your code for security issues like introducing sql injection or path traversal vulnerabilities in your code.
+It can scan your code for security issues like sql injection or path traversal vulnerabilities.
 
 You also have data flow that shows you the entry point and method invocation of the vulnerability.
 Which shows you the entire stack path to the vulnerability in your source code.
