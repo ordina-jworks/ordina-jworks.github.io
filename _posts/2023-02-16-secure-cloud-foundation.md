@@ -60,7 +60,7 @@ OPA automates policy enforcement by integrating with various cloud platforms, su
 
 ### Integrations
 
-OPA can integrate with various cloud native tools, including Kubernetes, Istio, and Envoy. This allows organizations to extend their policy management across various systems, making it easier to enforce policies across multiple platforms.
+OPA can integrate with various cloud native tools, including Kubernetes, Istio, and Envoy. This allows organizations to extend their policy management across various systems, helps to ensure end-to-end compliance, making it easier to enforce policies across multiple platforms and cover broad ecosystems.
 
 ## The Janitor: Cloud Custodian
 
