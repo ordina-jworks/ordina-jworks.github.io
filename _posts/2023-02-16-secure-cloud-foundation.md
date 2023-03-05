@@ -67,6 +67,8 @@ OPA can integrate with various cloud native tools, including Kubernetes, Istio, 
 
 Cloud Custodian is an open-source tool that helps organizations manage their cloud infrastructure in a secure and compliant way. One of the key features of Cloud Custodian is its ability to scan cloud resources across multiple cloud platforms, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).
 
+<img src="{{ '/img/2023-02-16-secure-cloud-foundation/janitor.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%">
+
 Cloud Custodian uses a policy-driven approach to scan cloud resources. Policies are written using a simple and flexible policy language that allows organizations to define and manage policies.
 
 The features of Cloud Custodian for a secure cloud environment:
@@ -86,6 +88,8 @@ Cloud Custodian also helps organizations optimize cloud costs by automating the 
 ## The Watchdog: Snyk
 
 Snyk is a cloud security platform that helps you to get end-to-end insight into your security footprint.
+
+<img src="{{ '/img/2023-02-16-secure-cloud-foundation/snyk.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%">
 
 ### Code scanning
 
@@ -130,6 +134,8 @@ Snyk allows you to write custom policies in Rego, but only for IaC scanning and 
 
 Trivy is an open-source cli tool provided by Aqua Security.
 
+<img src="{{ '/img/2023-02-16-secure-cloud-foundation/Trivy.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%">
+
 ### Container scanning
 
 Trivy can scan container images against well known vulnerabilities.
@@ -172,6 +178,8 @@ For all the mentioned functionality custom policies can be written in Rego.
 
 Fugue is a cloud security platform that helps you to secure your cloud environment,
 it was bought by Snyk some time ago and after this take-over Snyk started working on Snyk Cloud.
+
+<img src="{{ '/img/2023-02-16-secure-cloud-foundation/Fugue.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%">
 
 ### Baseline enforcement
 
