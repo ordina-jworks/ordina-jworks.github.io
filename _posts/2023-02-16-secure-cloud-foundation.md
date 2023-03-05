@@ -56,7 +56,7 @@ These policies are available as code and can be managed like any other code, inc
 
 ### Automated Compliancy Enforcement
 
-OPA automates policy enforcement by integrating with various cloud platforms, such as AWS, Azure, and GCP. Once policies are defined, OPA can automatically enforce them in real-time, reducing the need for manual intervention.
+OPA can be integrated into the Cloud environment using various methods, such as by deploying it as a sidecar container in a Kubernetes cluster or by using Google Cloud functions, AWS Lambda or Azure Automation to run OPA policies. Once integrated, OPA can provide real-time policy evaluation and enforcement across the AWS environment, enabling organizations to maintain compliance and security posture.
 
 ### Integrations
 
