@@ -40,7 +40,7 @@ What they can do, what they can't do, what you can use them with and for.
 
 ## The Warden: Open Policy Agent
 
-Cloud computing has made it easy for organizations to manage their IT infrastructure on a large scale. However, with the ease of cloud computing comes the challenge of securing the environment and preventing accidental misconfigurations. This is where Open Policy Agent (OPA) comes into play.
+Cloud computing has made it easy for organizations to manage their IT infrastructure on a large scale. However, with the ease of cloud computing comes the challenge of securing the environment and preventing accidental misconfigurations. This is where [Open Policy Agent](https://www.openpolicyagent.org/){:target="_blank" rel="noopener noreferrer"} (OPA) comes into play.
 
 <img src="{{ '/img/2023-02-16-secure-cloud-foundation/warden.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%">
 
@@ -56,7 +56,7 @@ These policies are available as code and can be managed like any other code, inc
 
 ### Automated Compliancy Enforcement
 
-OPA can be integrated into the Cloud environment using various methods, such as by deploying it as a sidecar container in a Kubernetes cluster or by using Google Cloud functions, AWS Lambda or Azure Automation to run OPA policies. 
+OPA can be integrated into the Cloud environment using various methods, such as by deploying it as a sidecar container in a Kubernetes cluster or by using Google Cloud functions, [AWS Lambda](https://aws.amazon.com/blogs/opensource/easily-running-open-policy-agent-serverless-with-aws-lambda-and-amazon-api-gateway/){:target="_blank" rel="noopener noreferrer"} or Azure Automation to run OPA policies. 
 Once integrated, OPA can provide real-time policy evaluation and enforcement across the AWS environment, enabling organizations to maintain compliance and security posture.
 
 ### Integrations
@@ -65,7 +65,7 @@ OPA can integrate with various cloud native tools, including Kubernetes, Istio, 
 
 ## The Janitor: Cloud Custodian
 
-Cloud Custodian is an open-source tool that helps organizations manage their cloud infrastructure in a secure and compliant way. One of the key features of Cloud Custodian is its ability to scan cloud resources across multiple cloud platforms, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).
+[Cloud Custodian](https://cloudcustodian.io/){:target="_blank" rel="noopener noreferrer"} is an open-source tool that helps organizations manage their cloud infrastructure in a secure and compliant way. One of the key features of Cloud Custodian is its ability to scan cloud resources across multiple cloud platforms, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).
 
 <img src="{{ '/img/2023-02-16-secure-cloud-foundation/janitor.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%; height:60%;">
 
@@ -87,7 +87,7 @@ Cloud Custodian also helps organizations optimize cloud costs by automating the 
 
 ## The Watchdog: Snyk
 
-Snyk is a cloud security platform that helps you to get end-to-end insight into your security footprint.
+[Snyk](https://snyk.io/){:target="_blank" rel="noopener noreferrer"} is a cloud security platform that helps you to get end-to-end insight into your security footprint.
 
 <img src="{{ '/img/2023-02-16-secure-cloud-foundation/snyk.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%; height:60%">
 
@@ -132,7 +132,7 @@ Snyk allows you to write custom policies in Rego, but only for IaC scanning and 
 
 ## The Container Detective: Trivy
 
-Trivy is an open-source cli tool provided by Aqua Security.
+[Trivy](https://trivy.dev/){:target="_blank" rel="noopener noreferrer"} is an open-source cli tool provided by Aqua Security.
 
 <img src="{{ '/img/2023-02-16-secure-cloud-foundation/Trivy.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%; height:60%">
 
@@ -176,7 +176,7 @@ For all the mentioned functionality custom policies can be written in Rego.
 
 ## The Composer: Fugue
 
-Fugue is a cloud security platform that helps you to secure your cloud environment,
+[Fugue](https://www.fugue.co/){:target="_blank" rel="noopener noreferrer"} is a cloud security platform that helps you to secure your cloud environment,
 it was bought by Snyk some time ago and after this take-over Snyk started working on Snyk Cloud.
 
 <img src="{{ '/img/2023-02-16-secure-cloud-foundation/Fugue.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%; height:60%">
@@ -210,9 +210,9 @@ Fugue allows you to write custom policies in Rego.
 <!---
 TO DO -- 
 
-Enrich post with links
-
 Check for spelling/grammar erros
 
 Get banner image
+
+Write closing toughts
 -->
