@@ -96,43 +96,56 @@ Cloud Custodian also helps organizations optimize cloud costs by automating the 
 Snyk can scan your code for vulnerabilities and compliance issues.
 It can scan your code for security issues like sql injection or path traversal vulnerabilities.
 
-You also have data flow that shows you the entry point and method invocation of the vulnerability.
+You might be thinking that nice but how do I figure out how to solve it?
+They have a data flow that shows you the entry point and method invocation of the vulnerability.
 Which shows you the entire stack path to the vulnerability in your source code.
+This helps you in assessing what the impact of a vulnerability is and how urgent you need to provide a patch for it.
+(method that is publicly accessible vs library code that isn't used)
 
-To solve the vulnerability you can read the details of the vulnerability and a best practice for prevention if
-available.
-There is also another tab that shows 3 open source projects that had the vulnerability and how they fixed it their code.
+To help you further even more with solving the vulnerability you can read the details of the vulnerability
+and a best practice for preventing it, if available.
+If you thought that would be enough they have another tab that shows 3 open source projects that had the vulnerability
+and how they fixed it in their code base.
 
 ### Licence scanning
 
 You can configure Snyk to scan your open source dependencies for licence issues with your dependencies,
 which can be useful for example if your company wants to avoid using dependencies with a certain licence,
 because they want to commercialize the software in the future.
+For example a library that uses patents,
+but its software rights don't include that you may use their patents when using their library.
+The company might for various reason not allow AGPLv3 libraries for example, because of various reasons.
 
 ### Container scanning
 
 Snyk can scan your container images for vulnerabilities it can do this from docker images, Amazon ECR, Docker hub, ...
 You can set this up in your Kubernetes cluster, but currently Fargate is not supported.
 
-For scanning that is linked to a git repository you have the option
-to create a pull request to update to a fixed image version.
+If you want to automate the updating of your images you can do this by using container scanning on your git repository,
+using this method Snyk can automatically create pull requests for you that you can test and then merge if satisfied.
+This reduces your effort to stay safe and up to date.
 
 ### Infrastructure as code scanning
 
 Snyk can scan your infrastructure as code against the CIS AWS Foundations Benchmark or you can write custom policies.
-
-### Cloud scanning
-
-Snyk also has cloud scanning, but this service is still in closed beta and is not available for everyone.
-We were not able to test this product, because it requires an enterprise licence at the time of writing.
+To scan you IaC you simply have to add your git repository that contains your IaC
+and the Snyk platform will start scanning if for you.
+You can also use the Snyk CLI to scan your IaC if you want to make it part of your CI/CD pipelines.
+By using it this way you can make this a requirement before pull requests are merged that you pass the CLI tool's scan
+or even block deployment to environments.
 
 ### Custom policies
 
 Snyk allows you to write custom policies in Rego, but only for IaC scanning and platform policies.
 
+OPA is easy to use because applications can easily delegate police validation to OPA if needed.
+Snyk IaC leverages OPA to do it's polic scanning according to one of their blogposts.
+You get a preset of policies out o the box from Snyk and you can add your own custom policies writen in Rego.
+
 ## The Container Detective: Trivy
 
-[Trivy](https://trivy.dev/){:target="_blank" rel="noopener noreferrer"} is an open-source cli tool provided by Aqua Security.
+[Trivy](https://trivy.dev/){:target="_blank" rel="noopener noreferrer"} is an open-source cli tool provided by Aqua
+Security.
 
 <img src="{{ '/img/2023-02-16-secure-cloud-foundation/Trivy.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%; height:60%">
 
