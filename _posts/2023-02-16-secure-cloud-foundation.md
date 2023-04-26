@@ -25,7 +25,7 @@ you know that keeping it secure and compliant can be a challenging task.
 Every company has their own security and compliance requirements,
 and they should at least follow a best practice standard like CIS AWS Foundations Benchmark.
 
-Often, you'll find that because of the segmented responsibilities across many teams and projects, gaps exist in the security and compliancy posture of the organisation. 
+Often, you'll find that because of the segmented responsibilities across many teams and projects, gaps exist in the security and compliance posture of the organisation. 
 Add to that the rate of change that companies need to handle to stay competitive and you end up with a puzzle that no-one can oversee. 
 
 Originally, we started investigating solutions to scan your infrastructure as code and cloud environment.
@@ -52,7 +52,7 @@ Some of OPA's strenghts summed up:
 OPA provides a simple and flexible policy language used by writing [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/){:target="_blank" rel="noopener noreferrer"}.  that allows organizations to define and manage policies across multiple cloud platforms. 
 Policies can be created to enforce security controls, compliancy, and cost optimization rules. 
 The policies can be customized to meet specific operational needs.
-These policies are available as code and can be managed like any other code, including automated testing(?) in an organisation. 
+These policies are available as code and can be managed like any other code, including automated testing in an organisation. 
 
 ### Automated Compliancy Enforcement
 
@@ -220,12 +220,16 @@ but it should be possible to set this up with any other CI/CD tools.
 
 Fugue allows you to write custom policies in Rego.
 
+## Conclusion
+
+In conclusion, managing and securing cloud environments can be a complex and challenging task due to segmented responsibilities across different teams and projects. Open Policy Agent, Cloud Custodian, and Snyk are three tools of many that can help organizations enforce policies, maintain continuous compliance and governance, and optimize costs across multiple cloud platforms.
+
+While these tools can be valuable additions to any organization’s cloud security and compliance toolset, it’s worth noting that cloud providers also offer native solutions like AWS Security Hub, Azure Security Center/Sentinel that can offer similar functionality. 
+However, the native solutions may lack the flexibility and customization options of third-party tools like OPA, Cloud Custodian, and Snyk, which may be essential for meeting specific organizational requirements. 
+
 <!---
 TO DO -- 
 
-Check for spelling/grammar erros
+Change blogpost date
 
-Get banner image
-
-Write closing toughts
 -->
