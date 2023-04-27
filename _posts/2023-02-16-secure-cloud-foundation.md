@@ -153,17 +153,39 @@ Security.
 
 Trivy can scan container images against well known vulnerabilities.
 On the [tool's homepage](https://trivy.dev/), you can enter public available docker hub images to test it out.
+Trivy will scan files inside container images and container image metadata.
+
+Trivy scans the files inside container images for:
+
+* Vulnerabilities
+* Misconfigurations
+* Secrets
+* Licenses
+
+The image metadata will be scanned for:
+
+* Misconfigurations
+* Secrets
 
 ### Dependency scanning
 
 Trivy can scan your dependencies for well known vulnerabilities.
 It has a mode that automatically discovers, declarations files for various package managers
+This Dependency scanning is very powerful it scans the file system for typical files used to declare dependencies,
+like a `pom.xml`, but can also scan into jar and war files.
+If you thought that's nice well it can also scan your linux systems package managers installed packages, apt and apk are
+supported of the box for alpine and ubuntu based images.
 
 ### CI/CD integration
 
 Because Trivy is a cli tool it can easily be integrates in CI/CD pipelines.
+To integrate it into GitHub you could tell trivy the run should fail (exit code 1 instead of 0) only for HIGH and
+Critical issues.
+
 Trivy also maintains a [GitHub action](https://github.com/aquasecurity/trivy-action) to integrate it in GitHub actions.
 But the community has created 2 additional GitHub actions.
+
+This action has some examples of how you can integrate this with GitHub Advanced Security.
 
 ### AWS integration
 
@@ -171,21 +193,41 @@ Trivy can be run locally to scan your AWS environment using the AWS cli.
 The default included check scans against AWS CIS 1.2.0 benchmark.
 It shows summarizes a lists of issues, and gives description of how to resolve the issue, it won't automatically fix it.
 
+The benefit compared to AWS security hub is that here you can stop the issue from being created before merge or deploy.
+While security hub would tell you after the resource already exists in AWS.
+
 ### Secret scanning
 
-Trivy can scan your code for secrets, it can scan for AWS access key, GCP service account, GitHub personal access token,
-GitLab personal access token, Slack access token, etc.
+Trivy can scan your code for secrets,
+because it's not like you have ever had a developer push your precious AWS access key.
+I really wonder why we suddenly have EC2s booting up with the biggest possible instance size and GPU's.
+it can scan for:
+
+* AWS access key
+* GCP service account
+* GitHub personal access token
+* GitLab personal access token
+* Slack access token
+* etc.
 
 It can do this either on the file system or inside a container image.
 
 ### Configuration issues
 
-Trivy can scan your configuration files like Dockerfiles, Kubernetes manifests, Terraform, CloudFormation, etc.
-against known configuration issues
+Trivy can scan your configuration files against known configuration issues it support files like:
+
+* Dockerfiles
+* Kubernetes manifests
+* Terraform
+* CloudFormation
+* etc.
 
 ### Custom policies
 
 For all the mentioned functionality custom policies can be written in Rego.
+Trivy uses defsec their cloud rules engine for Docker and Kubernetes
+and tfsec a static analysis scanner for terraform code, both of these rule engines are open-source.
+Under the hood they both use OPA.
 
 ## The Composer: Fugue
 
@@ -201,6 +243,9 @@ Fugue allows you to take a snapshot of your Cloud environment and use it as base
 This prevents anyone from making modifications to your environment that are not compliant with your baseline.
 
 It can't recreate or delete resources it only enforces by modifying them back to the original state of the snapshot.
+
+A snapshot captures complete cloud resource configurations, attributes, relationships, and drift.
+As an added bonus snapshots enable deep visualization and reporting capabilities.
 
 ### Policy scanning
 
