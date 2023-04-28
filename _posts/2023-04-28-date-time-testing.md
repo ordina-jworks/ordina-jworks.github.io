@@ -114,9 +114,9 @@ class AgeCalculatorTest {
 		// Arrange
 		final LocalDate birthDate = LocalDate.of(1993, 4, 27);
 
-		tryOn(fixedDate, () -> {
+		tryOn(APRIL_27_2023, () -> {
 			// Act
-			int actualAge = AgeCalculator.calculateAge(APRIL_27_2023);
+			int actualAge = AgeCalculator.calculateAge(birthDate);
 
 			// Assert
 			int expectedAge = 30;
