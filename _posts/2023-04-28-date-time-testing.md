@@ -20,17 +20,17 @@ Here's an example of how to mock the `now()` method of the `LocalDateTime` class
 
 ```pom.xml
 <dependency>
-	<groupId>org.mockito</groupId>
-	<artifactId>mockito-inline</artifactId>
-	<scope>test</scope>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-inline</artifactId>
+    <scope>test</scope>
 </dependency>
 ```
 
 ```java
 try (MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class)) {
     mockedStatic.when(LocalDateTime::now).thenReturn(fixedDate);
-    
-	// Your code here.
+
+    // Your code here.
 }
 ```
 
@@ -43,8 +43,8 @@ This will help to improve your code significantly and make it more readable:
 ```java
 private void tryOn(LocalDateTime fixedDate, Runnable test) {
     try (MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class)) {
-		mockedStatic.when(LocalDateTime::now).thenReturn(fixedDate);
-		test.run();
+        mockedStatic.when(LocalDateTime::now).thenReturn(fixedDate);
+        test.run();
     }
 }
 ```
@@ -77,71 +77,71 @@ import org.mockito.Mockito;
 
 class AgeCalculatorTest {
 
-	private static final LocalDate APRIL_27_2023 = LocalDate.of(2023, 4, 27);
-	
-	@Test
-	void testCalculateAgeWorksOnlyIn2023() {
-		// Arrange
-		LocalDate birthDate = LocalDate.of(1993, 4, 27);
+    private static final LocalDate APRIL_27_2023 = LocalDate.of(2023, 4, 27);
+    
+    @Test
+    void testCalculateAgeWorksOnlyIn2023() {
+        // Arrange
+        LocalDate birthDate = LocalDate.of(1993, 4, 27);
 
-		// Act
-		int actualAge = AgeCalculator.calculateAge(birthDate);
+        // Act
+        int actualAge = AgeCalculator.calculateAge(birthDate);
 
-		// Assert
-		int expectedAge = 30;
-		assertThat(actualAge).isEqualTo(expectedAge);
-	}
+        // Assert
+        int expectedAge = 30;
+        assertThat(actualAge).isEqualTo(expectedAge);
+    }
 
-	@Test
-	void testCalculateAgeWorksEveryYear() {
-		// Arrange
-		final LocalDate birthDate = LocalDate.of(1993, 4, 27);
+    @Test
+    void testCalculateAgeWorksEveryYear() {
+        // Arrange
+        final LocalDate birthDate = LocalDate.of(1993, 4, 27);
 
-		try (MockedStatic<LocalDate> mockedStatic = Mockito.mockStatic(LocalDate.class)) {
-			mockedStatic.when(LocalDate::now).thenReturn(APRIL_27_2023);
+        try (MockedStatic<LocalDate> mockedStatic = Mockito.mockStatic(LocalDate.class)) {
+            mockedStatic.when(LocalDate::now).thenReturn(APRIL_27_2023);
 
-			// Act
-			int actualAge = AgeCalculator.calculateAge(birthDate);
+            // Act
+            int actualAge = AgeCalculator.calculateAge(birthDate);
 
-			// Assert
-			int expectedAge = 30;
-			assertThat(actualAge).isEqualTo(expectedAge);
-		}
-	}
+            // Assert
+            int expectedAge = 30;
+            assertThat(actualAge).isEqualTo(expectedAge);
+        }
+    }
 
-	@Test
-	void testCalculateAgeWorksEveryYearUsingTryOn() {
-		// Arrange
-		final LocalDate birthDate = LocalDate.of(1993, 4, 27);
+    @Test
+    void testCalculateAgeWorksEveryYearUsingTryOn() {
+        // Arrange
+        final LocalDate birthDate = LocalDate.of(1993, 4, 27);
 
-		tryOn(APRIL_27_2023, () -> {
-			// Act
-			int actualAge = AgeCalculator.calculateAge(birthDate);
+        tryOn(APRIL_27_2023, () -> {
+            // Act
+            int actualAge = AgeCalculator.calculateAge(birthDate);
 
-			// Assert
-			int expectedAge = 30;
-			assertThat(actualAge).isEqualTo(expectedAge);
-		});
-	}
+            // Assert
+            int expectedAge = 30;
+            assertThat(actualAge).isEqualTo(expectedAge);
+        });
+    }
 
-	private void tryOn(LocalDate fixedDate, Runnable test) {
-		try (MockedStatic<LocalDate> mockedStatic = Mockito.mockStatic(LocalDate.class)) {
-			mockedStatic.when(LocalDate::now).thenReturn(fixedDate);
+    private void tryOn(LocalDate fixedDate, Runnable test) {
+        try (MockedStatic<LocalDate> mockedStatic = Mockito.mockStatic(LocalDate.class)) {
+            mockedStatic.when(LocalDate::now).thenReturn(fixedDate);
 
-			test.run();
-		}
-	}
+            test.run();
+        }
+    }
 
-	static class AgeCalculator {
+    static class AgeCalculator {
 
-		public static int calculateAge(LocalDate birthDate) {
-			LocalDate currentDate = LocalDate.now();
-			int age = currentDate.getYear() - birthDate.getYear();
-			if (birthDate.getDayOfYear() > currentDate.getDayOfYear()) {
-				age--;
-			}
-			return age;
-		}
-	}
+        public static int calculateAge(LocalDate birthDate) {
+            LocalDate currentDate = LocalDate.now();
+            int age = currentDate.getYear() - birthDate.getYear();
+            if (birthDate.getDayOfYear() > currentDate.getDayOfYear()) {
+                age--;
+            }
+            return age;
+        }
+    }
 }
 ```
