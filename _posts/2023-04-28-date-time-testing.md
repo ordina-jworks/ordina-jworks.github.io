@@ -28,9 +28,10 @@ Here's an example of how to mock the `now()` method of the `LocalDateTime` class
 
 ```java
 try (MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class)) {
-		mockedStatic.when(LocalDateTime::now).thenReturn(fixedDate);
-		// Your code here.
-		}
+    mockedStatic.when(LocalDateTime::now).thenReturn(fixedDate);
+    
+	// Your code here.
+}
 ```
 
 In this code snippet, `fixedDate` is a `LocalDateTime` object representing the fixed date and time you want to use in your tests.
@@ -41,19 +42,19 @@ This will help to improve your code significantly and make it more readable:
 
 ```java
 private void tryOn(LocalDateTime fixedDate, Runnable test) {
-		try (MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class)) {
+    try (MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class)) {
 		mockedStatic.when(LocalDateTime::now).thenReturn(fixedDate);
 		test.run();
-		}
-		}
+    }
+}
 ```
 
 You can then use this method in your tests to ensure that your code produces consistent results:
 
 ```java
 tryOn(fixedDate, () -> {
-		// Your code here.
-		});
+    // Your code here.
+});
 ```
 
 Using a fixed date and time in your tests ensures that your code produces consistent results, regardless of the actual date and time.
@@ -76,6 +77,8 @@ import org.mockito.Mockito;
 
 class AgeCalculatorTest {
 
+	private static final LocalDate APRIL_27_2023 = LocalDate.of(2023, 4, 27);
+	
 	@Test
 	void testCalculateAgeWorksOnlyIn2023() {
 		// Arrange
@@ -93,10 +96,9 @@ class AgeCalculatorTest {
 	void testCalculateAgeWorksEveryYear() {
 		// Arrange
 		final LocalDate birthDate = LocalDate.of(1993, 4, 27);
-		final LocalDate fixedDate = LocalDate.of(2023, 4, 27);
 
 		try (MockedStatic<LocalDate> mockedStatic = Mockito.mockStatic(LocalDate.class)) {
-			mockedStatic.when(LocalDate::now).thenReturn(fixedDate);
+			mockedStatic.when(LocalDate::now).thenReturn(APRIL_27_2023);
 
 			// Act
 			int actualAge = AgeCalculator.calculateAge(birthDate);
@@ -111,11 +113,10 @@ class AgeCalculatorTest {
 	void testCalculateAgeWorksEveryYearUsingTryOn() {
 		// Arrange
 		final LocalDate birthDate = LocalDate.of(1993, 4, 27);
-		final LocalDate fixedDate = LocalDate.of(2023, 4, 27);
 
 		tryOn(fixedDate, () -> {
 			// Act
-			int actualAge = AgeCalculator.calculateAge(birthDate);
+			int actualAge = AgeCalculator.calculateAge(APRIL_27_2023);
 
 			// Assert
 			int expectedAge = 30;
