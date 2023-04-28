@@ -1,5 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-04-27T17:15:11+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Intelligent Automation</title><link href="https://ordina-jworks.github.io/architecture/2023/02/20/intelligent-automation.html" rel="alternate" type="text/html" title="Intelligent Automation" /><published>2023-02-20T00:00:00+00:00</published><updated>2023-02-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2023/02/20/intelligent-automation</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2023/02/20/intelligent-automation.html"><![CDATA[<p>Already 4 years ago, <a href="https://evolute.be/reviews/bpmnext2019.html" target="_blank" rel="noopener noreferrer">Nathaniel Palmer’s keynote at bpmNext</a> introduced me to the concept of Intelligent Automation. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-04-28T10:16:42+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Date and Time Testing</title><link href="https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing.html" rel="alternate" type="text/html" title="Date and Time Testing" /><published>2023-04-28T00:00:00+00:00</published><updated>2023-04-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing.html"><![CDATA[<p>Working with dates and times can be challenging for developers, especially regarding testing.
+When testing code that involves the current date or time, it takes time to ensure that the results are correct and consistent.
+Luckily, there are several ways to solve this problem.</p>
+
+<p>One approach is to use a fixed date and time in your tests.
+This ensures that your code produces consistent results, regardless of the actual date and time.
+You can achieve this by mocking the <code class="language-plaintext highlighter-rouge">now()</code> method of the <code class="language-plaintext highlighter-rouge">LocalDateTime</code> class, which returns the current date and time.</p>
+
+<p>Here’s an example of how to mock the <code class="language-plaintext highlighter-rouge">now()</code> method of the <code class="language-plaintext highlighter-rouge">LocalDateTime</code> class using Mockito Inline and Java:</p>
+
+<pre><code class="language-pom.xml">&lt;dependency&gt;
+	&lt;groupId&gt;org.mockito&lt;/groupId&gt;
+	&lt;artifactId&gt;mockito-inline&lt;/artifactId&gt;
+	&lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">MockedStatic</span><span class="o">&lt;</span><span class="nc">LocalDateTime</span><span class="o">&gt;</span> <span class="n">mockedStatic</span> <span class="o">=</span> <span class="nc">Mockito</span><span class="o">.</span><span class="na">mockStatic</span><span class="o">(</span><span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">mockedStatic</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="nl">LocalDateTime:</span><span class="o">:</span><span class="n">now</span><span class="o">).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">fixedDate</span><span class="o">);</span>
+    
+	<span class="c1">// Your code here.</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this code snippet, <code class="language-plaintext highlighter-rouge">fixedDate</code> is a <code class="language-plaintext highlighter-rouge">LocalDateTime</code> object representing the fixed date and time you want to use in your tests.
+The <code class="language-plaintext highlighter-rouge">MockedStatic</code> class is a Mockito class that allows you to mock static methods.</p>
+
+<p>To make this code more reusable, you can create a small method that accepts a <code class="language-plaintext highlighter-rouge">fixedDate</code> and a test in a <code class="language-plaintext highlighter-rouge">Runnable</code>.
+This will help to improve your code significantly and make it more readable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">tryOn</span><span class="o">(</span><span class="nc">LocalDateTime</span> <span class="n">fixedDate</span><span class="o">,</span> <span class="nc">Runnable</span> <span class="n">test</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">(</span><span class="nc">MockedStatic</span><span class="o">&lt;</span><span class="nc">LocalDateTime</span><span class="o">&gt;</span> <span class="n">mockedStatic</span> <span class="o">=</span> <span class="nc">Mockito</span><span class="o">.</span><span class="na">mockStatic</span><span class="o">(</span><span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+		<span class="n">mockedStatic</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="nl">LocalDateTime:</span><span class="o">:</span><span class="n">now</span><span class="o">).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">fixedDate</span><span class="o">);</span>
+		<span class="n">test</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can then use this method in your tests to ensure that your code produces consistent results:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tryOn</span><span class="o">(</span><span class="n">fixedDate</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="c1">// Your code here.</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p>Using a fixed date and time in your tests ensures that your code produces consistent results, regardless of the actual date and time.
+This can help you to identify and fix bugs more quickly and ensure that your code works as expected in all scenarios.</p>
+
+<p>In summary, when testing code that involves the current date and time, it’s essential to use a fixed date and time to ensure consistent results.
+You can achieve this by mocking the <code class="language-plaintext highlighter-rouge">now()</code> method of the <code class="language-plaintext highlighter-rouge">LocalDateTime</code> class using Mockito and Java.
+By using a small method like <code class="language-plaintext highlighter-rouge">tryOn</code>, you can make your code more reusable and easier to read.</p>
+
+<p>A full code example</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.time.LocalDate</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mockito.MockedStatic</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.mockito.Mockito</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">AgeCalculatorTest</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">LocalDate</span> <span class="no">APRIL_27_2023</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2023</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">27</span><span class="o">);</span>
+	
+	<span class="nd">@Test</span>
+	<span class="kt">void</span> <span class="nf">testCalculateAgeWorksOnlyIn2023</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">// Arrange</span>
+		<span class="nc">LocalDate</span> <span class="n">birthDate</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1993</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">27</span><span class="o">);</span>
+
+		<span class="c1">// Act</span>
+		<span class="kt">int</span> <span class="n">actualAge</span> <span class="o">=</span> <span class="nc">AgeCalculator</span><span class="o">.</span><span class="na">calculateAge</span><span class="o">(</span><span class="n">birthDate</span><span class="o">);</span>
+
+		<span class="c1">// Assert</span>
+		<span class="kt">int</span> <span class="n">expectedAge</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span>
+		<span class="n">assertThat</span><span class="o">(</span><span class="n">actualAge</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedAge</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Test</span>
+	<span class="kt">void</span> <span class="nf">testCalculateAgeWorksEveryYear</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">// Arrange</span>
+		<span class="kd">final</span> <span class="nc">LocalDate</span> <span class="n">birthDate</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1993</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">27</span><span class="o">);</span>
+
+		<span class="k">try</span> <span class="o">(</span><span class="nc">MockedStatic</span><span class="o">&lt;</span><span class="nc">LocalDate</span><span class="o">&gt;</span> <span class="n">mockedStatic</span> <span class="o">=</span> <span class="nc">Mockito</span><span class="o">.</span><span class="na">mockStatic</span><span class="o">(</span><span class="nc">LocalDate</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+			<span class="n">mockedStatic</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="nl">LocalDate:</span><span class="o">:</span><span class="n">now</span><span class="o">).</span><span class="na">thenReturn</span><span class="o">(</span><span class="no">APRIL_27_2023</span><span class="o">);</span>
+
+			<span class="c1">// Act</span>
+			<span class="kt">int</span> <span class="n">actualAge</span> <span class="o">=</span> <span class="nc">AgeCalculator</span><span class="o">.</span><span class="na">calculateAge</span><span class="o">(</span><span class="n">birthDate</span><span class="o">);</span>
+
+			<span class="c1">// Assert</span>
+			<span class="kt">int</span> <span class="n">expectedAge</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span>
+			<span class="n">assertThat</span><span class="o">(</span><span class="n">actualAge</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedAge</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Test</span>
+	<span class="kt">void</span> <span class="nf">testCalculateAgeWorksEveryYearUsingTryOn</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">// Arrange</span>
+		<span class="kd">final</span> <span class="nc">LocalDate</span> <span class="n">birthDate</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1993</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">27</span><span class="o">);</span>
+
+		<span class="n">tryOn</span><span class="o">(</span><span class="no">APRIL_27_2023</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+			<span class="c1">// Act</span>
+			<span class="kt">int</span> <span class="n">actualAge</span> <span class="o">=</span> <span class="nc">AgeCalculator</span><span class="o">.</span><span class="na">calculateAge</span><span class="o">(</span><span class="n">birthDate</span><span class="o">);</span>
+
+			<span class="c1">// Assert</span>
+			<span class="kt">int</span> <span class="n">expectedAge</span> <span class="o">=</span> <span class="mi">30</span><span class="o">;</span>
+			<span class="n">assertThat</span><span class="o">(</span><span class="n">actualAge</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedAge</span><span class="o">);</span>
+		<span class="o">});</span>
+	<span class="o">}</span>
+
+	<span class="kd">private</span> <span class="kt">void</span> <span class="nf">tryOn</span><span class="o">(</span><span class="nc">LocalDate</span> <span class="n">fixedDate</span><span class="o">,</span> <span class="nc">Runnable</span> <span class="n">test</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">(</span><span class="nc">MockedStatic</span><span class="o">&lt;</span><span class="nc">LocalDate</span><span class="o">&gt;</span> <span class="n">mockedStatic</span> <span class="o">=</span> <span class="nc">Mockito</span><span class="o">.</span><span class="na">mockStatic</span><span class="o">(</span><span class="nc">LocalDate</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+			<span class="n">mockedStatic</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="nl">LocalDate:</span><span class="o">:</span><span class="n">now</span><span class="o">).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">fixedDate</span><span class="o">);</span>
+
+			<span class="n">test</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kd">static</span> <span class="kd">class</span> <span class="nc">AgeCalculator</span> <span class="o">{</span>
+
+		<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculateAge</span><span class="o">(</span><span class="nc">LocalDate</span> <span class="n">birthDate</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">LocalDate</span> <span class="n">currentDate</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+			<span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="n">currentDate</span><span class="o">.</span><span class="na">getYear</span><span class="o">()</span> <span class="o">-</span> <span class="n">birthDate</span><span class="o">.</span><span class="na">getYear</span><span class="o">();</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">birthDate</span><span class="o">.</span><span class="na">getDayOfYear</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">currentDate</span><span class="o">.</span><span class="na">getDayOfYear</span><span class="o">())</span> <span class="o">{</span>
+				<span class="n">age</span><span class="o">--;</span>
+			<span class="o">}</span>
+			<span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Maarten&quot;, &quot;last_name&quot;=&gt;&quot;Casteels&quot;, &quot;permalink&quot;=&gt;&quot;/author/maarten-casteels/&quot;, &quot;avatar&quot;=&gt;&quot;maarten-casteels.png&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;github&quot;=&gt;&quot;denmette&quot;, &quot;linkedin&quot;=&gt;&quot;maartencasteels&quot;, &quot;email&quot;=&gt;&quot;Maarten.Casteels@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Maarten is a Java Consultant at Ordina Belgium who wants to write tests for everything he writes.&quot;}</name><email>Maarten.Casteels@ordina.be</email></author><category term="Testing" /><category term="testing" /><category term="unit testing" /><summary type="html"><![CDATA[Working with dates and times can be challenging for developers, especially regarding testing. When testing code that involves the current date or time, it takes time to ensure that the results are correct and consistent. Luckily, there are several ways to solve this problem.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-04-28-date-time-testing/blog-post-overlay.webp" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-04-28-date-time-testing/blog-post-overlay.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Intelligent Automation</title><link href="https://ordina-jworks.github.io/architecture/2023/02/20/intelligent-automation.html" rel="alternate" type="text/html" title="Intelligent Automation" /><published>2023-02-20T00:00:00+00:00</published><updated>2023-02-20T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2023/02/20/intelligent-automation</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2023/02/20/intelligent-automation.html"><![CDATA[<p>Already 4 years ago, <a href="https://evolute.be/reviews/bpmnext2019.html" target="_blank" rel="noopener noreferrer">Nathaniel Palmer’s keynote at bpmNext</a> introduced me to the concept of Intelligent Automation. 
 This is the extension of the classical Process Management approach using Intelligent Business Process Management Solutions (iBPMS) to automate processes with the influx of new possibilities on a technological level: AI and machine learning to crunch the data, RPA, and the introduction of bots for automating swivel chair processes, and more pronounced use of decision management automation. 
 When the <a href="https://bpm-books.com/products/intelligent-automation" target="_blank" rel="noopener noreferrer">titular book</a> was published by Future Strategies, I picked up my copy and started reading in the hopes of figuring out how to implement this. 
 The book is similar in structure to other volumes of Future Strategies in that it is a collection of articles by luminaries in the field, accompanied by several award-winning case studies.</p>
@@ -1823,125 +1954,4 @@ The failures can happen at different levels:</p>
 <p>I found the book to be written in a straightforward but not very deep-delving way. 
 As such I would recommend it for non-business-minded consultants to have an introduction to this subject matter, “For Dummies”-style. 
 It is a starting point to get the general frame of mind before delving deeper into organizational concepts, business strategy, and other related areas. 
-It does a good job of lifting the veil enough to get newcomers excited about what else is out there to be learned.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="development" /><category term="technical leadership" /><category term="architecture" /><category term="software architecture" /><summary type="html"><![CDATA[Although I finished the book “The Connected Company” several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. The book itself came out in 2012, which at this point is already 10 years in the past, and it largely builds on the idea of the quantum organization (Ralph Kilmann), on which I already briefly extrapolated when I wrote about the Five Dysfunctions of a Team.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-13-connecting-the-pods/tile.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-13-connecting-the-pods/tile.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">RDS IAM Authentication with Spring Boot - secure password-less database authentication on AWS</title><link href="https://ordina-jworks.github.io/cloud/2022/06/13/aws-rds-iam-authentication-spring-boot.html" rel="alternate" type="text/html" title="RDS IAM Authentication with Spring Boot - secure password-less database authentication on AWS" /><published>2022-06-13T00:00:00+00:00</published><updated>2022-06-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/06/13/aws-rds-iam-authentication-spring-boot</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/06/13/aws-rds-iam-authentication-spring-boot.html"><![CDATA[<ul>
-  <li><a href="#introduction">Introduction</a></li>
-  <li><a href="#database-role-grant">Database role grant</a></li>
-  <li><a href="#aws">AWS</a></li>
-  <li><a href="#spring-boot">Spring Boot</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h2 id="introduction">Introduction</h2>
-<p>Database authentication in Spring Boot has traditionally always been very simple to implement and configure to your needs.
-Whether it is with a custom data source, or just using the <code class="language-plaintext highlighter-rouge">spring.datasource</code> properties, it was always pretty straightforward to get a working database connection.
-Handling the sensitive data such as database passwords in different environments can be tricky, but nowadays, there are enough solutions to tackle this problem in a secure and discrete way.</p>
-
-<p>Fortunately, if you are deploying your application on the AWS cloud, you don’t have to struggle passwords anymore or need a fancy tool, because you simply don’t need a password.
-You are now able to establish a database connection by authenticating through IAM. 
-Note that this feature only works for MariaDB, MySQL and PostgreSQL.</p>
-
-<p>The feature works with “authentication tokens”, which is a string of characters that is unique and generated by Amazon RDS.
-One authentication token has a lifespan of 15 minutes and needs to be re-generated before or after it expires to keep the connection alive.</p>
-
-<p>This very useful mechanic can deeply strengthen the security of your application by erasing the need of a password and therefore, destroying another opportunity to get your sensitive data in the wrong hands.</p>
-
-<p>Note that you need to explicitly <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Enabling.html" target="_blank" rel="noopener noreferrer">enable IAM authentication</a> before you can use this feature.</p>
-
-<h2 id="database-role-grant">Database role grant</h2>
-<p>Enabling IAM authentication alone is not enough.
-When you create a new database user for your application, you also need to grant the rights to the database user to fetch an authentication token to use in the authentication process.</p>
-
-<p>For Postgres, this can be done with the following SQL query:</p>
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">USER</span> <span class="o">&lt;</span><span class="n">databaseuser</span><span class="o">&gt;</span> <span class="k">WITH</span> <span class="n">LOGIN</span><span class="p">;</span>
-<span class="k">GRANT</span> <span class="n">rds_iam</span> <span class="k">TO</span> <span class="n">databaseuser</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>For MySQL:</p>
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">USER</span> <span class="o">&lt;</span><span class="n">databaseuser</span><span class="o">&gt;</span> <span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">AWSAuthenticationPlugin</span> <span class="k">AS</span> <span class="s1">'RDS'</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h2 id="aws">AWS</h2>
-<p>The application can only fetch a new authentication token if it has the right to do so.
-Since we are running our application on an AWS environment, it only makes sense to make use of IAM roles.</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-   </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-         </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
-         </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-             </span><span class="s2">"rds-db:connect"</span><span class="w">
-         </span><span class="p">],</span><span class="w">
-         </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-             </span><span class="s2">"arn:aws:rds-db:region:account-id:dbuser:DbiResourceId/db-user-name"</span><span class="w">
-         </span><span class="p">]</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-   </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>If you are running your application on an EC2 instance, make sure that your EC2 instance has an IAM role attached to it which explicitly gives access to the <code class="language-plaintext highlighter-rouge">rds-db:connect</code> action.
-On EKS (Kubernetes for AWS), you can use <a href="https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html" target="_blank" rel="noopener noreferrer">IAM roles for service accounts</a>.</p>
-
-<h2 id="spring-boot">Spring Boot</h2>
-<p>You will only need the <a href="https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-rds" target="_blank" rel="noopener noreferrer">AWS SDK for RDS</a> to fetch an authentication token, which you can add as a dependency in Maven by adding the following code block:</p>
-
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>software.amazon.awssdk<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>rds<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>2.20.5<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
-
-<p>To achieve the token fetching in Spring Boot, I created a custom <code class="language-plaintext highlighter-rouge">HikariDataSource</code> which overrides the <code class="language-plaintext highlighter-rouge">getPassword()</code> method and used <code class="language-plaintext highlighter-rouge">RdsIamAuthTokenGenerator</code> and <code class="language-plaintext highlighter-rouge">GetIamAuthTokenRequest</code> to create a request for an authentication token from RDS.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RDSIAMDataSource</span> <span class="kd">extends</span> <span class="nc">HikariDataSource</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getPassword</span><span class="o">()</span> <span class="o">{</span>
-        <span class="c1">// Alternatively, you can create a Bean declaration of RdsClient. For demo purposes, I have decided to instantiate it here.</span>
-        <span class="nc">RdsClient</span> <span class="n">rdsClient</span> <span class="o">=</span> <span class="nc">RdsClient</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">region</span><span class="o">(</span><span class="k">new</span> <span class="nc">DefaultAwsRegionProviderChain</span><span class="o">().</span><span class="na">getRegion</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-        
-        <span class="nc">RdsUtilities</span> <span class="n">rdsUtilities</span> <span class="o">=</span> <span class="n">rdsClient</span><span class="o">.</span><span class="na">utilities</span><span class="o">();</span>
-
-        <span class="no">URI</span> <span class="n">jdbcUri</span> <span class="o">=</span> <span class="n">parseJdbcURL</span><span class="o">(</span><span class="n">getJdbcUrl</span><span class="o">());</span>
-
-        <span class="nc">GenerateAuthenticationTokenRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">GenerateAuthenticationTokenRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">getUsername</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">hostname</span><span class="o">(</span><span class="n">jdbcUri</span><span class="o">.</span><span class="na">getHost</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">port</span><span class="o">(</span><span class="n">jdbcUri</span><span class="o">.</span><span class="na">getPort</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-
-        <span class="k">return</span> <span class="n">rdsUtilities</span><span class="o">.</span><span class="na">generateAuthenticationToken</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="no">URI</span> <span class="nf">parseJdbcURL</span><span class="o">(</span><span class="nc">String</span> <span class="n">jdbcUrl</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nc">String</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">jdbcUrl</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
-        <span class="k">return</span> <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">uri</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p style="text-align: center; font-style: italic;">Note that for MariaDB, you do not need your own custom implementation as <a href="https://mariadb.com/kb/en/mariadb-connector-j-250-release-notes/#aws-iam" target="_blank" rel="noopener noreferrer">they have an implementation of their own</a>.</p>
-
-<p>To make sure that our connection does not drop due to authentication failures, we are going to set the maximum lifespan for the connection (remember that authentication tokens are only valid for 15 minutes).</p>
-
-<p>Don’t forget to set your database properties (host, port and username). 
-<strong>Important note:</strong> IAM authentication to the database requires an SSL connection.</p>
-
-<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Sets the max lifetime of each connection to 840000 ms (14 minutes). After 14 minutes, the application does a new request to RDS for a fresh authentication token
-</span><span class="py">spring.datasource.hikari.max-lifetime</span><span class="p">=</span><span class="s">840000</span>
-<span class="c"># JDBC url with the properties 'ssl' and 'sslmode', this properties are bound to PostgreSQL instances
-</span><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:postgresql://&lt;db-instance-name&gt;.&lt;random&gt;.&lt;region&gt;.rds.amazonaws.com:&lt;port&gt;/&lt;db-name&gt;?ssl=true&amp;sslmode=require</span>
-<span class="c"># Database user which has the 'rds_iam' role
-</span><span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">&lt;db user&gt;</span>
-</code></pre></div></div>
-<p>With this implementation, the <code class="language-plaintext highlighter-rouge">getPassword()</code> method will be called every 14 minutes.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-<p>Security is an important factor in many companies and environments, and this is definitely a recommended way of securely accessing your database from inside your application as it is a big improvement over the traditional username/password authentication method.
-You don’t have a password, which means you don’t have to share it, so you have zero risk of exposing your password to unwanted parties. Not having a password also eliminates the need to manage passwords and to rotate passwords every now and then.
-With the authentication token lifespan of 15 minutes, each generated token is secure and expires rapidly in case the token gets leaked.</p>
-
-<p>While it is slightly more of a hassle to set it up, it is definitely worth your while to implement RDS IAM authentication, especially if you are already running your application and infrastructure on AWS.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java and Cloud engineer with a sharpened focus on all things related to cloud, specifically AWS. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud-native development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="Spring Boot" /><category term="AWS" /><category term="Spring" /><category term="Security" /><summary type="html"><![CDATA[Introduction Database role grant AWS Spring Boot Conclusion]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-13-aws-rds-iam-authentication-spring-boot.jpeg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-13-aws-rds-iam-authentication-spring-boot.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+It does a good job of lifting the veil enough to get newcomers excited about what else is out there to be learned.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="development" /><category term="technical leadership" /><category term="architecture" /><category term="software architecture" /><summary type="html"><![CDATA[Although I finished the book “The Connected Company” several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. The book itself came out in 2012, which at this point is already 10 years in the past, and it largely builds on the idea of the quantum organization (Ralph Kilmann), on which I already briefly extrapolated when I wrote about the Five Dysfunctions of a Team.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-13-connecting-the-pods/tile.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-13-connecting-the-pods/tile.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
