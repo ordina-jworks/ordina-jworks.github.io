@@ -8,8 +8,6 @@ category: Cloud
 comments: true
 ---
 
-<!-- TODO complete index -->
-
 - [Introduction](#introduction)
 - [The Warden: Open Policy Agent](#the-warden-open-policy-agent)
 - [The Janitor: Cloud Custodian](#the-janitor-cloud-custodian)
@@ -272,9 +270,6 @@ In conclusion, managing and securing cloud environments can be a complex and cha
 While these tools can be valuable additions to any organization’s cloud security and compliance toolset, it’s worth noting that cloud providers also offer native solutions like AWS Security Hub, Azure Security Center/Sentinel that can offer similar functionality. 
 However, the native solutions may lack the flexibility and customization options of third-party tools like OPA, Cloud Custodian, and Snyk, which may be essential for meeting specific organizational requirements. 
 
-<!---
-TO DO -- 
-
-Change blogpost date
-
--->
+If you found this post helpful, be sure to keep an eye out for our upcoming follow-up post,
+we'll be diving deeper into the practical applications of OPA and sharing some real-world use cases.
+Be sure to stay tuned so you don't miss out on valuable insights and tips.
