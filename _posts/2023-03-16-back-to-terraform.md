@@ -230,11 +230,11 @@ The team enjoyed a simpler, more efficient infrastructure setup, improved perfor
 
 ### Conclusion
 
-When inheriting an existing project with infrastructure as code already in place, it's important to critically evaluate the tools being used and consider whether they're still the best fit for the project. In the case of the team in this story, they found that the Terragrunt setup they inherited was overly complex, slow, and added unnecessary overhead to their workflow.
+The decision to move away from Terragrunt and towards a hybrid approach of using Terraform and a monorepo had several (un)expected benefits for the team. Not only did it simplify the setup and reduce maintenance overhead, but it also significantly sped up the development process and CI/CD pipelines.
 
-By moving to a hybrid approach that involved setting up a new monorepo containing all the Terraform modules and a new Terraform root configuration setup, the team was able to simplify their workflow, speed up development, and improve security. Moving to a monorepo also allowed them to streamline their CI/CD pipelines, as they no longer had to checkout multiple repositories. Furthermore, setting up a new environment only required a simple configuration file with around 10 values.
+The team was able to clean up and improve the security of the existing Terraform modules, and consolidate them into a single repository, making it much easier to manage and make changes. The move to a simpler configuration file for new environments also made it easier to spin up new instances of the infrastructure.
 
-The decision to move away from Terragrunt wasn't an easy one, but ultimately it was the right choice for this project. By critically evaluating their tools and being willing to make changes when necessary, the team was able to improve their workflow and make progress on their project. As with any project, it's important to regularly assess whether the tools and processes being used are still the best fit and make adjustments as needed.
+While it can be tempting to stick with existing tools and setups, sometimes a reevaluation of the current setup can lead to significant improvements in productivity and efficiency.
 
 ## Conclusion
 
