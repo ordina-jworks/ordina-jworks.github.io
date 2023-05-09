@@ -219,7 +219,8 @@ Moving to a monorepo from the existing Terragrunt setup not only simplified the 
 One of the most significant issues with the Terragrunt setup was its complexity and slow performance on the CI/CD pipelines, which checked out multiple git repositories. 
 However, by consolidating the Terraform modules into a single repository, the team eliminated the need to checkout different repositories during CI/CD, significantly speeding up the pipeline.
 
-The development process also benefited from the switch to a monorepo. A simple change to the infrastructure no longer required updates to multiple git repositories, making the process more efficient and reducing the chance of errors.
+The development process also benefited from the switch to a monorepo. 
+A simple change to the infrastructure no longer required updates to multiple git repositories, making the process more efficient and reducing the chance of errors.
 
 In addition to these expected advantages, the team discovered other benefits that were unexpected. 
 For example, setting up a new environment only requires a simple configuration file with around ten configuration values. 
