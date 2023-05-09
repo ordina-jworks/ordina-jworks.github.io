@@ -214,7 +214,9 @@ One of the most significant issues with the Terragrunt setup was its complexity 
 
 The development process also benefited from the switch to a monorepo. A simple change to the infrastructure no longer required updates to multiple git repositories, making the process more efficient and reducing the chance of errors.
 
-In addition to these expected advantages, the team discovered other benefits that were unexpected. For example, setting up a new environment only requires a simple configuration file with around ten configuration values. This means that setting up a new environment is much quicker and more straightforward than before.
+In addition to these expected advantages, the team discovered other benefits that were unexpected. 
+For example, setting up a new environment only requires a simple configuration file with around ten configuration values. 
+This means that setting up a new environment is much quicker and more straightforward than before.
 
 Overall, the decision to move from Terragrunt to a hybrid approach with a monorepo proved to be a wise one. The team enjoyed a simpler, more efficient infrastructure setup, improved performance on CI/CD pipelines, and unexpected benefits such as streamlined environment setup.
 
