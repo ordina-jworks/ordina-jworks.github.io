@@ -176,7 +176,9 @@ Developers need to learn yet another language (HCL) to use Terraform and it does
 When starting a new infrastructure project, it's important to choose the right tools for the job. But what happens when you inherit an existing project with infrastructure as code (IaC) already in place, using a tool like Terragrunt that your team is not familiar with? 
 This is the situation the team in this story found themselves in.
 
-The project they were working on was based on an existing infrastructure stack that had been built using Terragrunt, a popular wrapper around Terraform. While Terragrunt can be a powerful tool for managing complex infrastructure stacks, the new team found that it added unnecessary complexity and overhead to their workflow. They struggled to read and understand the existing Terragrunt code, which had been split into multiple Terraform modules in different git repositories and brought back together using a Terragrunt configuration repository.
+The project they were working on was based on an existing infrastructure stack that had been built using Terragrunt, a popular wrapper around Terraform. 
+While Terragrunt can be a powerful tool for managing complex infrastructure stacks, the new team found that it added unnecessary complexity and overhead to their workflow. 
+They struggled to read and understand the existing Terragrunt code, which had been split into multiple Terraform modules in different git repositories and brought back together using a Terragrunt configuration repository.
 
 Adding to the complexity, the Terragrunt configuration was loading different versions of the Terraform modules in different environments, and the Terraform state was split into modules as well, with custom scripts to read and manipulate the state. All of these factors made it difficult for the new team to make progress on the project, and they began to question the decision to use Terragrunt in the first place.
 
