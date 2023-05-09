@@ -194,7 +194,8 @@ So they began discussing alternatives, and eventually someone asked the question
 The answer was surprising: the team wasn't even using any of Terragrunt's real advantages, and was instead dealing with unnecessary overhead. 
 The configuration of all external modules was just a single key-value file, with no clear indication of which value was passed to which module.
 
-It became clear that continuing to use Terragrunt was simply pointless, and only adding to the team's frustration. They, together with the company's architects, made the decision to switch back to using Terraform directly, in order to simplify their workflow and make progress on the project.
+It became clear that continuing to use Terragrunt was simply pointless, and only adding to the team's frustration. 
+They, together with the company's architects, made the decision to switch back to using Terraform directly, in order to simplify their workflow and make progress on the project.
 
 ### Returning to terraform without breaking the existing infrastructure
 
