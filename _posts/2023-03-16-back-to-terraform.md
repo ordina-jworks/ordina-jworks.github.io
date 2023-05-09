@@ -218,7 +218,8 @@ In addition to these expected advantages, the team discovered other benefits tha
 For example, setting up a new environment only requires a simple configuration file with around ten configuration values. 
 This means that setting up a new environment is much quicker and more straightforward than before.
 
-Overall, the decision to move from Terragrunt to a hybrid approach with a monorepo proved to be a wise one. The team enjoyed a simpler, more efficient infrastructure setup, improved performance on CI/CD pipelines, and unexpected benefits such as streamlined environment setup.
+Overall, the decision to move from Terragrunt to a hybrid approach with a monorepo proved to be a wise one. 
+The team enjoyed a simpler, more efficient infrastructure setup, improved performance on CI/CD pipelines, and unexpected benefits such as streamlined environment setup.
 
 ### Conclusion
 
