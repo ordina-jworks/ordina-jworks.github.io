@@ -180,7 +180,8 @@ The project they were working on was based on an existing infrastructure stack t
 While Terragrunt can be a powerful tool for managing complex infrastructure stacks, the new team found that it added unnecessary complexity and overhead to their workflow. 
 They struggled to read and understand the existing Terragrunt code, which had been split into multiple Terraform modules in different git repositories and brought back together using a Terragrunt configuration repository.
 
-Adding to the complexity, the Terragrunt configuration was loading different versions of the Terraform modules in different environments, and the Terraform state was split into modules as well, with custom scripts to read and manipulate the state. All of these factors made it difficult for the new team to make progress on the project, and they began to question the decision to use Terragrunt in the first place.
+Adding to the complexity, the Terragrunt configuration was loading different versions of the Terraform modules in different environments, and the Terraform state was split into modules as well, with custom scripts to read and manipulate the state. 
+All of these factors made it difficult for the new team to make progress on the project, and they began to question the decision to use Terragrunt in the first place.
 
 ### Deciding to Return to Terraform
 
