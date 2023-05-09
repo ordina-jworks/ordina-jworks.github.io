@@ -202,7 +202,8 @@ They, together with the company's architects, made the decision to switch back t
 After making the decision to switch back to using Terraform directly, the team realized that a complete overhaul of their infrastructure setup would be necessary. 
 Rather than throwing out all of the existing Terragrunt code, however, they decided to take a hybrid approach.
 
-The first step was to set up a new mono git repository that would contain all of the different Terraform modules that had previously been spread across multiple repositories. They also created a new Terraform root configuration setup, which would enable them to manage the entire infrastructure as a single entity.
+The first step was to set up a new mono git repository that would contain all of the different Terraform modules that had previously been spread across multiple repositories. 
+They also created a new Terraform root configuration setup, which would enable them to manage the entire infrastructure as a single entity.
 
 Next, the team began moving these Terraform modules into their new monorepo. As they did so, they took the opportunity to clean them up, removing any unused input variables or features. They also improved the security setup, as the project required the infrastructure to be publicly accessible instead of hidden behind an on-premises network.
 
