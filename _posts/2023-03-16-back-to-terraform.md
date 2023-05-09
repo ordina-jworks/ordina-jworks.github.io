@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [pieter_vincken]
+authors: [pieter_vincken, yannick_bontemps]
 title: 'Back to Terraform'
 image: /img/2023-03-16-back-to-terraform/header.jpg
 tags: [cloud, automation, cicd]
@@ -75,8 +75,6 @@ Another key benefit of Terragrunt is that it supports automatic generation of Te
 It also includes a feature called "apply-all", which applies Terraform changes across all configured environments, simplifying the management of complex environments.
 While Terragrunt provides several benefits, it does come with a learning curve, as it requires developers to learn a new syntax and understand its unique features.
 Additionally, it adds another layer of complexity to infrastructure management, which may not be necessary for smaller projects.
-
-// TODO @Yannick review please!
 
 # Use cases
 
@@ -173,7 +171,53 @@ Developers need to learn yet another language (HCL) to use Terraform and it does
 
 ## Additional complexity without the promised benefit: Terragrunt
 
-// Yannick
+### Background
+
+When starting a new infrastructure project, it's important to choose the right tools for the job. But what happens when you inherit an existing project with infrastructure as code (IaC) already in place, using a tool like Terragrunt that your team is not familiar with? This is the situation that the team in this story found themselves in.
+
+The project they were working on was based on an existing infrastructure stack that had been built using Terragrunt, a popular wrapper around Terraform. While Terragrunt can be a powerful tool for managing complex infrastructure stacks, the new team found that it added unnecessary complexity and overhead to their workflow. They struggled to read and understand the existing Terragrunt code, which had been split into multiple Terraform modules in different git repositories and brought back together using a Terragrunt configuration repository.
+
+Adding to the complexity, the Terragrunt configuration was loading different versions of the Terraform modules in different environments, and the Terraform state was split into modules as well, with custom scripts to read and manipulate the state. All of these factors made it difficult for the new team to make progress on the project, and they began to question the decision to use Terragrunt in the first place.
+
+### Deciding to Return to Terraform
+
+After struggling to work with the complex and fragmented Terragrunt setup, the new infrastructure team wanted to find a simpler, more streamlined approach. They sought a setup with a low threshold, low maintenance, and easy to understand.
+
+As they dug deeper into the Terragrunt configuration, they found that even the company's architects had some doubts about its usefulness. So they began discussing alternatives, and eventually someone asked the question: "Why are we using Terragrunt?"
+
+The answer was surprising: the team wasn't even using any of Terragrunt's real advantages, and was instead dealing with unnecessary overhead. The configuration of all external modules was just a single key-value file, with no clear indication of which value was passed to which module.
+
+It became clear that continuing to use Terragrunt was simply pointless, and only adding to the team's frustration. They, together with the company's architects, made the decision to switch back to using Terraform directly, in order to simplify their workflow and make progress on the project.
+
+### Returning to terraform without breaking the existing infrastructure
+
+After making the decision to switch back to using Terraform directly, the team realized that a complete overhaul of their infrastructure setup would be necessary. Rather than throwing out all of the existing Terragrunt code, however, they decided to take a hybrid approach.
+
+The first step was to set up a new mono git repository that would contain all of the different Terraform modules that had previously been spread across multiple repositories. They also created a new Terraform root configuration setup, which would enable them to manage the entire infrastructure as a single entity.
+
+Next, the team began moving these Terraform modules into their new monorepo. As they did so, they took the opportunity to clean them up, removing any unused input variables or features. They also improved the security setup, as the project required the infrastructure to be publicly accessible instead of hidden behind an on-premises network.
+
+By consolidating all of the Terraform modules in one place, the team made it easier for existing teams to import them into their Terragrunt setup. The hybrid approach proved to be a successful strategy, enabling the team to manage their infrastructure more effectively and efficiently, but also not breaking what was already in place.
+
+### Some other (un)expected advantages
+
+Moving to a monorepo from the existing Terragrunt setup not only simplified the project's infrastructure, but it also brought several expected and unexpected advantages.
+
+One of the most significant issues with the Terragrunt setup was its complexity and slow performance on the CI/CD pipelines, which checked out multiple git repositories. However, by consolidating the Terraform modules into a single repository, the team eliminated the need to checkout different repositories during CI/CD, significantly speeding up the pipeline.
+
+The development process also benefited from the switch to a monorepo. A simple change to the infrastructure no longer required updates to multiple git repositories, making the process more efficient and reducing the chance of errors.
+
+In addition to these expected advantages, the team discovered other benefits that were unexpected. For example, setting up a new environment only requires a simple configuration file with around ten configuration values. This means that setting up a new environment is much quicker and more straightforward than before.
+
+Overall, the decision to move from Terragrunt to a hybrid approach with a monorepo proved to be a wise one. The team enjoyed a simpler, more efficient infrastructure setup, improved performance on CI/CD pipelines, and unexpected benefits such as streamlined environment setup.
+
+### Conclusion
+
+When inheriting an existing project with infrastructure as code already in place, it's important to critically evaluate the tools being used and consider whether they're still the best fit for the project. In the case of the team in this story, they found that the Terragrunt setup they inherited was overly complex, slow, and added unnecessary overhead to their workflow.
+
+By moving to a hybrid approach that involved setting up a new monorepo containing all the Terraform modules and a new Terraform root configuration setup, the team was able to simplify their workflow, speed up development, and improve security. Moving to a monorepo also allowed them to streamline their CI/CD pipelines, as they no longer had to checkout multiple repositories. Furthermore, setting up a new environment only required a simple configuration file with around 10 values.
+
+The decision to move away from Terragrunt wasn't an easy one, but ultimately it was the right choice for this project. By critically evaluating their tools and being willing to make changes when necessary, the team was able to improve their workflow and make progress on their project. As with any project, it's important to regularly assess whether the tools and processes being used are still the best fit and make adjustments as needed.
 
 ## Conclusion
 
