@@ -191,7 +191,8 @@ They sought a setup with a low threshold, low maintenance, and easy to understan
 As they dug deeper into the Terragrunt configuration, they found that even the company's architects had some doubts about its usefulness. 
 So they began discussing alternatives, and eventually someone asked the question: "Why are we using Terragrunt?"
 
-The answer was surprising: the team wasn't even using any of Terragrunt's real advantages, and was instead dealing with unnecessary overhead. The configuration of all external modules was just a single key-value file, with no clear indication of which value was passed to which module.
+The answer was surprising: the team wasn't even using any of Terragrunt's real advantages, and was instead dealing with unnecessary overhead. 
+The configuration of all external modules was just a single key-value file, with no clear indication of which value was passed to which module.
 
 It became clear that continuing to use Terragrunt was simply pointless, and only adding to the team's frustration. They, together with the company's architects, made the decision to switch back to using Terraform directly, in order to simplify their workflow and make progress on the project.
 
