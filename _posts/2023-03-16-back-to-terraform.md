@@ -205,7 +205,9 @@ Rather than throwing out all of the existing Terragrunt code, however, they deci
 The first step was to set up a new mono git repository that would contain all of the different Terraform modules that had previously been spread across multiple repositories. 
 They also created a new Terraform root configuration setup, which would enable them to manage the entire infrastructure as a single entity.
 
-Next, the team began moving these Terraform modules into their new monorepo. As they did so, they took the opportunity to clean them up, removing any unused input variables or features. They also improved the security setup, as the project required the infrastructure to be publicly accessible instead of hidden behind an on-premises network.
+Next, the team began moving these Terraform modules into their new monorepo. 
+As they did so, they took the opportunity to clean them up, removing any unused input variables or features. 
+They also improved the security setup, as the project required the infrastructure to be publicly accessible instead of hidden behind an on-premises network.
 
 By consolidating all of the Terraform modules in one place, the team made it easier for existing teams to import them into their Terragrunt setup. The hybrid approach proved to be a successful strategy, enabling the team to manage their infrastructure more effectively and efficiently, but also not breaking what was already in place.
 
