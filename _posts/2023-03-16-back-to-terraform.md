@@ -188,7 +188,8 @@ All of these factors made it difficult for the new team to make progress on the 
 After struggling to work with the complex and fragmented Terragrunt setup, the new infrastructure team wanted to find a simpler, more streamlined approach. 
 They sought a setup with a low threshold, low maintenance, and easy to understand.
 
-As they dug deeper into the Terragrunt configuration, they found that even the company's architects had some doubts about its usefulness. So they began discussing alternatives, and eventually someone asked the question: "Why are we using Terragrunt?"
+As they dug deeper into the Terragrunt configuration, they found that even the company's architects had some doubts about its usefulness. 
+So they began discussing alternatives, and eventually someone asked the question: "Why are we using Terragrunt?"
 
 The answer was surprising: the team wasn't even using any of Terragrunt's real advantages, and was instead dealing with unnecessary overhead. The configuration of all external modules was just a single key-value file, with no clear indication of which value was passed to which module.
 
