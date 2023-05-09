@@ -216,7 +216,8 @@ The hybrid approach proved to be a successful strategy, enabling the team to man
 
 Moving to a monorepo from the existing Terragrunt setup not only simplified the project's infrastructure, but it also brought several expected and unexpected advantages.
 
-One of the most significant issues with the Terragrunt setup was its complexity and slow performance on the CI/CD pipelines, which checked out multiple git repositories. However, by consolidating the Terraform modules into a single repository, the team eliminated the need to checkout different repositories during CI/CD, significantly speeding up the pipeline.
+One of the most significant issues with the Terragrunt setup was its complexity and slow performance on the CI/CD pipelines, which checked out multiple git repositories. 
+However, by consolidating the Terraform modules into a single repository, the team eliminated the need to checkout different repositories during CI/CD, significantly speeding up the pipeline.
 
 The development process also benefited from the switch to a monorepo. A simple change to the infrastructure no longer required updates to multiple git repositories, making the process more efficient and reducing the chance of errors.
 
