@@ -2,8 +2,8 @@
 layout: post
 authors: [pieter_vincken, yannick_bontemps]
 title: 'Back to Terraform'
-image: /img/2023-03-16-back-to-terraform/header.jpg
-tags: [cloud, automation, cicd]
+image: /img/2020-05-30-terraform/terraform.png
+tags: [cloud, automation, cicd, terraform, iac]
 category: Cloud
 comments: true
 ---
@@ -14,11 +14,9 @@ comments: true
 - [What is Terraform?](#what-is-terraform)
 - [What is Pulumi?](#what-is-pulumi)
 - [What is Terragrunt?](#what-is-terragrunt)
-- [Behind the curtains](#behind-the-curtains)
-- [How to setup](#how-to-setup)
-- [Tips and tricks](#tips-and-tricks)
-- [Why should I use it?](#why-should-i-use-it)
-- [Links](#links)
+- [Developer adoption, excluding the batteries: Pulumi](#developer-adoption-excluding-the-batteries-pulumi)
+- [Additional complexity without the promised benefit: Terragrunt](#additional-complexity-without-the-promised-benefit-terragrunt)
+- [Conclusion](#conclusion)
 
 # Introduction
 
@@ -247,11 +245,11 @@ These PoCs are often a good indicator of the feasibility of a tool, but they don
 Therefore we recommend including the maturity of a tool and the general availability of knowledge about the tool in the market. 
 Look up how many TerraGrunt or Pulumi developers there are near you and compare that to the number of Terraform developers you can find. 
 
-> In the current market, all three might be hard to find a generally expensive.
-
 Next to selecting the right tool for the right reasons, your existing team also needs to be able to work with the tool.
 Selecting a tool therefore as much of a technical as a people decision. 
 
-Finally, selecting a well-established tool is always a save bet. 
+Finally, selecting a well-established tool is always a safe bet. 
 We'd like to highlight that you can and should select more innovative and less established tools as well but don't use them for your core business or as something that will support (or fail to) your entire application landscape.
-Pulumi and TerraGrunt might pop up on our horizon in the future again, but for now, we'll stick with good old ([28 July 2014](https://en.wikipedia.org/wiki/Terraform_(software){:target="_blank" rel="noopener noreferrer"})) Terraform 
+Pulumi and TerraGrunt might pop up on our horizon in the future again, but for now, we'll stick with good old ([28 July 2014](https://en.wikipedia.org/wiki/Terraform_(software){:target="_blank" rel="noopener noreferrer"})) Terraform. 
+
+If you want help with your Infrastructure As Code, cloud adoption in your company or want to provide feedback, feel free to contact [Yannick](https://be.linkedin.com/in/yannick-bontemps-885379b0){:target="_blank" rel="noopener noreferrer"} or [Pieter](https://be.linkedin.com/in/pieter-vincken-a94b5153){:target="_blank" rel="noopener noreferrer"} on LinkedIn!
