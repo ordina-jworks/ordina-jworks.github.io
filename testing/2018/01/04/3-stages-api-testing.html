@@ -217,14 +217,14 @@ A second button is the <code class="language-plaintext highlighter-rouge">filter
 When pressed, it will emit an event that can be listened to by other microfrontends.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">public</span> <span class="nf">filterCCs</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="nf">if</span><span class="p">(</span><span class="nf">isPlatformBrowser</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">platformId</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nf">isPlatformBrowser</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">platformId</span><span class="p">))</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CustomEvent</span><span class="p">(</span><span class="dl">'</span><span class="s1">filterCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="na">detail</span><span class="p">:</span> <span class="p">{</span> <span class="na">needle</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span><span class="p">}</span> <span class="p">});</span>
     <span class="nb">window</span><span class="p">.</span><span class="nf">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kr">public</span> <span class="nf">filterStats</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nf">if </span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">===</span> <span class="dl">''</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">needle</span> <span class="o">===</span> <span class="dl">''</span> <span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nf">_updateData</span><span class="p">();</span>
@@ -292,7 +292,7 @@ When the needle is undefined (or an empty string), the search endpoint will retu
 <p>For unit testing our front-end Angular 5 application, we are going to use the <code class="language-plaintext highlighter-rouge">import { MockBackend } from '@angular/http/testing';</code> from Angular itself to mock our back-end.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
-<span class="nf">beforeEach</span><span class="p">(</span><span class="nf">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nf">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">TestBed</span><span class="p">.</span><span class="nf">configureTestingModule</span><span class="p">({</span>
         <span class="p">...</span>
       <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
@@ -349,7 +349,7 @@ Just as with our front-end, we trust the framework to correctly handle the commu
 <p>Our unit tests will start at the controller level of our API.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">searchCCs</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should return a filtered array of competence centers</span><span class="dl">'</span><span class="p">,</span> <span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should return a filtered array of competence centers</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
       <span class="k">await</span> <span class="nx">ccsController</span><span class="p">.</span><span class="nf">searchCCs</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">,</span> <span class="dl">'</span><span class="s1">tim</span><span class="dl">'</span><span class="p">);</span>
       <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="nx">mockResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
       <span class="nf">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>

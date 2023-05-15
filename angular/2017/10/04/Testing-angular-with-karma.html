@@ -291,7 +291,7 @@ The instance of the class can be used to test its public functions (unit test).<
     <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
     <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>
 
-    <span class="nf">beforeEach</span><span class="p">(</span><span class="nf">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nx">TestBed</span><span class="p">.</span><span class="nf">configureTestingModule</span><span class="p">({</span>
             <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
             <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">CarBrandService</span><span class="p">],</span>
@@ -336,7 +336,7 @@ That’s where the <code class="language-plaintext highlighter-rouge">spyOn</cod
     <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">RequestPopupContainer</span><span class="p">;</span>
     <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>        
 
-    <span class="nf">beforeEach</span><span class="p">(</span><span class="nf">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nx">TestBed</span><span class="p">.</span><span class="nf">configureTestingModule</span><span class="p">({</span>
             <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
             <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">CarBrandService</span><span class="p">],</span>
@@ -350,7 +350,7 @@ That’s where the <code class="language-plaintext highlighter-rouge">spyOn</cod
         <span class="nx">component</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="nx">componentInstance</span><span class="p">;</span>
 
         <span class="kd">const</span> <span class="nx">carBrandService</span> <span class="o">=</span> <span class="nx">fixture</span><span class="p">.</span><span class="nx">debugElement</span><span class="p">.</span><span class="nx">injector</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="nx">CarBrandService</span><span class="p">);</span>
-        <span class="nf">spyOn</span><span class="p">(</span><span class="nx">carBrandService</span><span class="p">,</span> <span class="dl">'</span><span class="s1">findAll</span><span class="dl">'</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="nf">of</span><span class="p">([</span>
+        <span class="nf">spyOn</span><span class="p">(</span><span class="nx">carBrandService</span><span class="p">,</span> <span class="dl">'</span><span class="s1">findAll</span><span class="dl">'</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
             <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mazda</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Japan</span><span class="dl">'</span> <span class="p">},</span>
             <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">BMW</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Germany</span><span class="dl">'</span> <span class="p">}</span>
         <span class="p">]));</span>    
@@ -370,7 +370,7 @@ That’s something we do not want at all.</p>
 
 <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">class</span> <span class="nc">MockCarBrandService</span> <span class="p">{</span>
     <span class="nf">findAll</span><span class="p">():</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">CarBrand</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="nf">of</span><span class="p">([</span>
+        <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
             <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mazda</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Japan</span><span class="dl">'</span> <span class="p">},</span>
             <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">BMW</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Germany</span><span class="dl">'</span> <span class="p">}</span>
         <span class="p">]);</span>     
@@ -381,7 +381,7 @@ That’s something we do not want at all.</p>
     <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
     <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span>        
 
-    <span class="nf">beforeEach</span><span class="p">(</span><span class="nf">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nx">TestBed</span><span class="p">.</span><span class="nf">configureTestingModule</span><span class="p">({</span>
             <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
             <span class="na">providers</span><span class="p">:</span> <span class="p">[{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">CarBrandService</span><span class="p">,</span> <span class="na">useClass</span><span class="p">:</span> <span class="nx">MockCarBrandService</span><span class="p">}],</span>
@@ -408,12 +408,12 @@ We can again add spies like in the first approach, but you can imagine that this
     <span class="kd">let</span> <span class="na">fixture</span><span class="p">:</span> <span class="nx">ComponentFixture</span><span class="o">&lt;</span><span class="nx">AppComponent</span><span class="o">&gt;</span><span class="p">;</span> 
 
     <span class="kd">const</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nf">createSpyObj</span><span class="p">(</span><span class="dl">'</span><span class="s1">carBrandService</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">findAll</span><span class="dl">'</span><span class="p">]);</span>
-    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="nf">of</span><span class="p">([</span>
+    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
         <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mazda</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Japan</span><span class="dl">'</span> <span class="p">},</span>
         <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">BMW</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Germany</span><span class="dl">'</span> <span class="p">}</span>
     <span class="p">]);</span>
 
-    <span class="nf">beforeEach</span><span class="p">(</span><span class="nf">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">beforeEach</span><span class="p">(</span><span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nx">TestBed</span><span class="p">.</span><span class="nf">configureTestingModule</span><span class="p">({</span>
             <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">],</span>
             <span class="na">providers</span><span class="p">:</span> <span class="p">[{</span><span class="na">provide</span><span class="p">:</span> <span class="nx">CarBrandService</span><span class="p">,</span> <span class="na">useValue</span><span class="p">:</span> <span class="nx">mockCarBrandService</span><span class="p">}],</span>
@@ -481,7 +481,7 @@ Of course we want to mock these classes and as we saw in the Angular TestBed sec
     <span class="kd">let</span> <span class="na">component</span><span class="p">:</span> <span class="nx">AppComponent</span><span class="p">;</span>
 
     <span class="kd">const</span> <span class="nx">mockCarBrandService</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nf">createSpyObj</span><span class="p">(</span><span class="dl">'</span><span class="s1">carBrandService</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">findAll</span><span class="dl">'</span><span class="p">]);</span>
-    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="nf">of</span><span class="p">([</span>
+    <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
         <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mazda</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Japan</span><span class="dl">'</span> <span class="p">},</span>
         <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">BMW</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Germany</span><span class="dl">'</span> <span class="p">}</span>
     <span class="p">]);</span>
@@ -547,7 +547,7 @@ By passing an argument to it, time can be advanced by more ticks at once: <code 
 <p>Now, what if you want to test a function that returns an Observable? 
 Well, simply subscribe to it in an async block and check the result!</p>
 
-<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should return a list of cars</span><span class="dl">'</span> <span class="nf">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should return a list of cars</span><span class="dl">'</span> <span class="k">async</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">service</span><span class="p">.</span><span class="nf">findAll</span><span class="p">().</span><span class="nf">take</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">subscribe</span><span class="p">(</span>
         <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nf">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nf">toBe</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
@@ -613,7 +613,7 @@ If you want for example different <code class="language-plaintext highlighter-ro
 
     <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Happy path</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="nf">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="nf">of</span><span class="p">([</span>
+            <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="p">([</span>
                 <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mazda</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Japan</span><span class="dl">'</span> <span class="p">},</span>
                 <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">BMW</span><span class="dl">'</span><span class="p">,</span> <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Germany</span><span class="dl">'</span> <span class="p">}</span>
             <span class="p">]));</span>
@@ -624,7 +624,7 @@ If you want for example different <code class="language-plaintext highlighter-ro
     <span class="p">});</span>
     
     <span class="nf">describe</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error path</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="nf">throw</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error</span><span class="dl">'</span><span class="p">));</span>
+        <span class="nx">mockCarBrandService</span><span class="p">.</span><span class="nx">findAll</span><span class="p">.</span><span class="nx">and</span><span class="p">.</span><span class="nf">returnValue</span><span class="p">(</span><span class="nx">Observable</span><span class="p">.</span><span class="k">throw</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error</span><span class="dl">'</span><span class="p">));</span>
 
         <span class="nf">it</span><span class="p">(...);</span>
         <span class="p">...</span>

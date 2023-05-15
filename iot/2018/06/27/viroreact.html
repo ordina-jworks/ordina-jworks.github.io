@@ -402,9 +402,9 @@ This being built on React Native we can also declare our own components of cours
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">CustomComponent</span> <span class="kd">extends</span> <span class="nc">Component</span> <span class="p">{</span>
 	<span class="kd">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span><span class="na">customProperty</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span>
 
-    <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span><span class="nf">super</span><span class="p">()</span> <span class="p">;}</span>
+    <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span><span class="k">super</span><span class="p">()</span> <span class="p">;}</span>
 
-	<span class="nf">render</span><span class="p">()</span> <span class="p">{</span><span class="nf">return </span><span class="p">(</span>
+	<span class="nf">render</span><span class="p">()</span> <span class="p">{</span><span class="k">return </span><span class="p">(</span>
 		<span class="o">&lt;</span><span class="nx">ViroText</span> <span class="nx">text</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">customProperty</span><span class="p">}</span><span class="o">&gt;</span> <span class="p">);}</span>
 	<span class="p">}</span>
 
@@ -537,7 +537,7 @@ Every time one of these events occurs, we want to fetch the latest meeting room 
                 <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Not Available</span><span class="dl">'</span>
             <span class="p">})</span>
         <span class="p">})</span>
-        <span class="p">.</span><span class="nf">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
         <span class="p">});</span>
 <span class="p">}</span>
@@ -621,7 +621,7 @@ In our case, two TextViews positioned with a FlexView.</p>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">MarkerScene</span> <span class="kd">extends</span> <span class="nc">Component</span> <span class="p">{</span>
 
     <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nf">super</span><span class="p">();</span>
+        <span class="k">super</span><span class="p">();</span>
 
         <span class="c1">// Set initial state here</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
@@ -645,7 +645,7 @@ In our case, two TextViews positioned with a FlexView.</p>
     <span class="p">}</span>
 
     <span class="nf">render</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nf">return </span><span class="p">(</span>
+        <span class="k">return </span><span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">ViroARScene</span> <span class="nx">onAnchorFound</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">}</span>
                          <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_getInfo</span><span class="p">}</span><span class="o">&gt;</span>
                 <span class="o">&lt;</span><span class="nx">ViroARImageMarker</span> <span class="nx">target</span><span class="o">=</span><span class="p">{</span><span class="dl">"</span><span class="s2">mr7</span><span class="dl">"</span><span class="p">}</span><span class="o">&gt;</span>
@@ -680,7 +680,7 @@ In our case, two TextViews positioned with a FlexView.</p>
                     <span class="na">text</span><span class="p">:</span> <span class="nx">isTrueSet</span> <span class="p">?</span> <span class="s2">`Available`</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Not Available</span><span class="dl">'</span>
                 <span class="p">})</span>
             <span class="p">})</span>
-            <span class="p">.</span><span class="nf">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
             <span class="p">});</span>
     <span class="p">}</span>
@@ -747,7 +747,7 @@ Here we can define which scene to load when starting up the application.</p>
 
 <span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nc">ViroSample</span> <span class="kd">extends</span> <span class="nc">Component</span> <span class="p">{</span>
     <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nf">super</span><span class="p">();</span>
+        <span class="k">super</span><span class="p">();</span>
 
         <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
             <span class="na">sharedProps</span><span class="p">:</span> <span class="nx">sharedProps</span>
@@ -761,7 +761,7 @@ Here we can define which scene to load when starting up the application.</p>
     <span class="p">}</span>
 
     <span class="nf">_getARNavigator</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nf">return </span><span class="p">(</span>
+        <span class="k">return </span><span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">ViroARSceneNavigator</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">sharedProps</span><span class="p">}</span>
                                   <span class="nx">initialScene</span><span class="o">=</span><span class="sr">/</span><span class="err">&gt;
 </span>        <span class="p">);</span>

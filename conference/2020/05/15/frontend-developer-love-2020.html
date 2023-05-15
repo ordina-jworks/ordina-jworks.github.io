@@ -320,7 +320,7 @@ For example, we can emulate that we visit a website from a specific location wit
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">webkit</span><span class="p">,</span> <span class="nx">devices</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">playwright</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">iPhone11</span> <span class="o">=</span> <span class="nx">devices</span><span class="p">[</span><span class="dl">'</span><span class="s1">iPhone 11 Pro</span><span class="dl">'</span><span class="p">];</span>
 
-<span class="p">(</span><span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">browser</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">webkit</span><span class="p">.</span><span class="nf">launch</span><span class="p">();</span>
   <span class="kd">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nf">newContext</span><span class="p">({</span>
     <span class="na">viewport</span><span class="p">:</span> <span class="nx">iPhone11</span><span class="p">.</span><span class="nx">viewport</span><span class="p">,</span>
@@ -527,12 +527,12 @@ An example she gave of a decorator to add a store to your components is this:</p
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">modules</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">parameters</span>
     <span class="k">return</span> <span class="p">{</span>
       <span class="nf">created</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nf">for </span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for </span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">registerModule</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">modules</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span>
         <span class="p">}</span>
         <span class="kd">const</span> <span class="nx">channel</span> <span class="o">=</span> <span class="nx">addons</span><span class="p">.</span><span class="nf">getChannel</span><span class="p">()</span>
         <span class="nx">channel</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="nx">STORY_CHANGED</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-          <span class="nf">for </span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">for </span><span class="p">(</span><span class="nx">name</span> <span class="k">in</span> <span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nf">unregisterModule</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
           <span class="p">}</span>
         <span class="p">})</span>

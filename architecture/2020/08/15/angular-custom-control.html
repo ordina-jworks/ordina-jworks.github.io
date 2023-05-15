@@ -203,7 +203,7 @@ No TypeScript, no open/close status, nothing fancy.</p>
 
 <p>This is what it can do:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">AColorPicker</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">AColorPicker</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">off</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
 </code></pre></div></div>
@@ -279,22 +279,22 @@ I mostly set the template and style inline for dumb components to keep them from
   <span class="p">}</span>
 
   <span class="nf">openPicker</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nf">show</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
   <span class="nf">closePicker</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nf">hide</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
   <span class="k">private</span> <span class="nf">initializePicker</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pickerElement</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span> <span class="o">=</span> <span class="nx">AColorPicker</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pickerElement</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">);</span>
+    <span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pickerElement</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">_picker</span> <span class="o">=</span> <span class="nx">AColorPicker</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pickerElement</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nf">hide</span><span class="p">();</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="p">;</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -346,7 +346,7 @@ The other functions may be a bit more difficult to understand.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">setDisabledState</span><span class="p">(</span><span class="nx">isDisabled</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span> <span class="o">=</span> <span class="nx">isDisabled</span><span class="p">;</span>
-  <span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isDisabled</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nf">closePicker</span><span class="p">();</span>
   <span class="p">}</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">changeDetectorRef</span><span class="p">.</span><span class="nf">markForCheck</span><span class="p">();</span>
@@ -366,7 +366,7 @@ However <code class="language-plaintext highlighter-rouge">writeValue</code> wil
 That is why the value is also stored in <code class="language-plaintext highlighter-rouge">color</code>, which is used to set the initial value when the picker is initialized.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">writeValue</span><span class="p">(</span><span class="nx">obj</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nf">setColor</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">obj</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">obj</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
@@ -392,7 +392,7 @@ They are usually implemented like this:</p>
 <p>We’ll be using them in our change event, like this:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">closePicker</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">open</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">picker</span><span class="p">.</span><span class="nf">hide</span><span class="p">();</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="k">this</span><span class="p">.</span><span class="nf">_onTouched</span><span class="p">();</span>
@@ -441,7 +441,7 @@ Something more specific might be a validator to have at least 50% blue in the co
 <span class="p">});</span>
 
 <span class="kd">const</span> <span class="nx">ValidateMinimumBlue</span> <span class="o">=</span> <span class="p">(</span><span class="nx">control</span><span class="p">:</span> <span class="nx">FormControl</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nx">control</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">control</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="kd">const</span> <span class="p">{</span> <span class="nx">b</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">parseColor</span><span class="p">(</span><span class="nx">control</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
@@ -511,7 +511,7 @@ Angular uses this instance to represent the control within the object graph that
 <p>To use this, you have to remove the provider for <code class="language-plaintext highlighter-rouge">NG_VALUE_ACCESSOR</code> and instead add this in your constructor:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">constructor</span><span class="p">(</span><span class="nx">ngControl</span><span class="p">:</span> <span class="nx">NgControl</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!!</span><span class="nx">ngControl</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="o">!!</span><span class="nx">ngControl</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">ngControl</span><span class="p">.</span><span class="nx">valueAccessor</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -528,7 +528,7 @@ Angular uses this instance to represent the control within the object graph that
 
 <p>Or if you really want to hook onto specific methods, you can do this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="nx">markAsDirty</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">markAsDirty</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">.</span><span class="nx">markAsDirty</span> <span class="o">=</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">markAsDirty</span><span class="p">.</span><span class="nf">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ngControl</span><span class="p">.</span><span class="nx">control</span><span class="p">)(</span><span class="nx">options</span><span class="p">);</span>

@@ -365,7 +365,7 @@ If you don’t know what that is yet, I suggest you read up on it, a good articl
         <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nf">getAllRedCarsAsPromise</span><span class="p">();</span>
 
         <span class="nf">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nf">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
-      <span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="nf">fail</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
       <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
         <span class="nf">done</span><span class="p">();</span>
@@ -400,7 +400,7 @@ The test will eventually fail, but it will take 5 seconds to fail instead of 0.5
         <span class="k">await</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nf">getAllRedCarsAsPromise</span><span class="p">();</span>
 
         <span class="nf">fail</span><span class="p">(</span><span class="dl">'</span><span class="s1">Call should not have succeeded</span><span class="dl">'</span><span class="p">);</span>
-      <span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// nothing to expect here</span>
       <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
         <span class="nf">done</span><span class="p">();</span>
@@ -421,7 +421,7 @@ In the finally block, we tell jasmine the test is done.</p>
     <span class="k">try</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">cars</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nf">getAllRedCarsAsPromise</span><span class="p">();</span>
-    <span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">carRetrievalError</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
@@ -448,7 +448,7 @@ For observables, these types of scenarios are a little easier to test, but with 
 
       <span class="nx">componentUnderTest</span>
         <span class="p">.</span><span class="nf">getAllRedCarsAsPromiseWithStuffHappeningInBetween</span><span class="p">()</span>
-        <span class="p">.</span><span class="nf">finally</span><span class="p">(</span>
+        <span class="p">.</span><span class="k">finally</span><span class="p">(</span>
           <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nf">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">cars</span><span class="p">).</span><span class="nf">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
             <span class="nf">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nf">toBeFalsy</span><span class="p">();</span>
@@ -483,7 +483,7 @@ The finally callback of the returned promise, will execute after we call our pro
 
       <span class="nx">componentUnderTest</span>
         <span class="p">.</span><span class="nf">getAllRedCarsAsPromiseWithStuffHappeningInBetween</span><span class="p">()</span>
-        <span class="p">.</span><span class="nf">finally</span><span class="p">(</span>
+        <span class="p">.</span><span class="k">finally</span><span class="p">(</span>
           <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nf">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">cars</span><span class="p">).</span><span class="nf">toEqual</span><span class="p">([]);</span>
             <span class="nf">expect</span><span class="p">(</span><span class="nx">componentUnderTest</span><span class="p">.</span><span class="nx">loading</span><span class="p">).</span><span class="nf">toBeFalsy</span><span class="p">();</span>
@@ -526,7 +526,7 @@ The finally callback of the returned promise, will execute after we call our pro
  The first one is this:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should get the cars where the color is red</span><span class="dl">'</span><span class="p">,</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nf">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nf">getCarsAsObservable</span><span class="p">()).</span><span class="nf">thenReturn</span><span class="p">(</span><span class="nf">of</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aBrownCar</span><span class="p">]));</span>
+      <span class="nf">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nf">getCarsAsObservable</span><span class="p">()).</span><span class="nf">thenReturn</span><span class="p">(</span><span class="k">of</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aBrownCar</span><span class="p">]));</span>
 
     <span class="nx">componentUnderTest</span>
       <span class="p">.</span><span class="nf">getAllRedCarsAsObservable</span><span class="p">()</span>
@@ -548,13 +548,13 @@ This is the easiest way to test this scenario, although, it is a little verbose.
 To reduce the lines of code, a simple scenario like this, can also be tested by transforming the observable to a promise and test it like we did in the promise scenario:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">it</span><span class="p">(</span><span class="dl">'</span><span class="s1">should get the cars where the color is red (alternative way)</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="nx">done</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nf">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nf">getCarsAsObservable</span><span class="p">()).</span><span class="nf">thenReturn</span><span class="p">(</span><span class="nf">of</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aBrownCar</span><span class="p">]));</span>
+      <span class="nf">when</span><span class="p">(</span><span class="nx">carService</span><span class="p">.</span><span class="nf">getCarsAsObservable</span><span class="p">()).</span><span class="nf">thenReturn</span><span class="p">(</span><span class="k">of</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">,</span> <span class="nx">aBlackCadillac</span><span class="p">,</span> <span class="nx">aBrownCar</span><span class="p">]));</span>
 
       <span class="k">try</span> <span class="p">{</span>
         <span class="kd">const</span> <span class="nx">actual</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">componentUnderTest</span><span class="p">.</span><span class="nf">getAllRedCarsAsObservable</span><span class="p">().</span><span class="nf">toPromise</span><span class="p">();</span>
         <span class="nf">expect</span><span class="p">(</span><span class="nx">actual</span><span class="p">).</span><span class="nf">toEqual</span><span class="p">([</span><span class="nx">aRedPorsche</span><span class="p">]);</span>
         <span class="nf">done</span><span class="p">();</span>
-      <span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="nf">fail</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
         <span class="nf">done</span><span class="p">();</span>
       <span class="p">}</span>

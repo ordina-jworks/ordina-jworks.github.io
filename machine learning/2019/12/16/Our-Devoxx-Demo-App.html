@@ -296,7 +296,7 @@ Finally we bind the <code class="language-plaintext highlighter-rouge">app</code
 
 <p>The basic code is not too difficult:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">detector</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Loader</span><span class="p">.</span><span class="nf">loadCoco</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">../../../</span><span class="dl">'</span><span class="p">));</span>
     <span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">await</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">mediaDevices</span>
         <span class="p">.</span><span class="nf">getUserMedia</span><span class="p">({</span>
@@ -339,7 +339,7 @@ Finally we call the <code class="language-plaintext highlighter-rouge">update</c
     <span class="nx">Loader</span><span class="p">.</span><span class="nf">anotateCanvas</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span> <span class="nx">detectedClasses</span><span class="p">);</span>
     <span class="nf">updateList</span><span class="p">(</span><span class="nx">detectedClasses</span><span class="p">);</span>
 
-    <span class="nf">if </span><span class="p">(</span><span class="nx">enableLiveUpdate</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">enableLiveUpdate</span><span class="p">)</span> <span class="p">{</span>
         <span class="nf">setTimeout</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span> <span class="mi">1000</span> <span class="o">/</span> <span class="nx">framerate</span><span class="p">,</span> <span class="nx">video</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">detector</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>

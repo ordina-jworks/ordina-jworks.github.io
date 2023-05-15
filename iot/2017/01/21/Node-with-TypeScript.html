@@ -365,13 +365,13 @@ Its purpose is to manage the other workers and be the message bridge.
         <span class="kd">let</span> <span class="na">numberOfHttpWorkers</span><span class="p">:</span><span class="kr">number</span>  <span class="o">=</span> <span class="nx">cores</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">?</span> <span class="nx">cores</span> <span class="o">-</span> <span class="mi">2</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
         <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">There are </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">cores</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> cores available, starting </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">numberOfHttpWorkers</span> <span class="o">+</span> <span class="dl">'</span><span class="s1"> HTTP workers...</span><span class="dl">'</span><span class="p">);</span>
 
-        <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="na">i</span><span class="p">:</span><span class="kr">number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numberOfHttpWorkers</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="na">i</span><span class="p">:</span><span class="kr">number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numberOfHttpWorkers</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">let</span> <span class="nx">worker</span> <span class="o">=</span> <span class="nx">cluster</span><span class="p">.</span><span class="nf">fork</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http</span><span class="dl">'</span><span class="p">,</span> <span class="na">debug</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">});</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">httpWorkers</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">worker</span><span class="p">);</span>
         <span class="p">}</span>
 
         <span class="c1">//Revive workers if they die!</span>
-        <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">cluster</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">exit</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">reviveWorker</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">};</span>
@@ -475,9 +475,9 @@ The <code class="language-plaintext highlighter-rouge">IntervalWorker</code> pic
      * Sets up the connection to the Arduino and starts the desired Arduino Scenario.
      */</span>
     <span class="k">private</span> <span class="nx">setupArduino</span> <span class="o">=</span> <span class="p">():</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nf">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">enableArduino</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">enableArduino</span><span class="p">)</span> <span class="p">{</span>
 
-            <span class="nf">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">useSerialOverJohnnyFive</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">useSerialOverJohnnyFive</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">this</span><span class="p">.</span><span class="nx">arduino</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArduinoSerial</span><span class="p">(</span>
                     <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">serialPortName</span><span class="p">,</span>
                     <span class="k">this</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">arduino</span><span class="p">.</span><span class="nx">serialPortBaudRate</span><span class="p">,</span>
@@ -558,7 +558,7 @@ This allows the application to send the callback ID across Node instances and ex
              * @returns {MessageManager} The instance of this singleton class.
              */</span>
             <span class="k">public</span> <span class="k">static</span> <span class="nf">getInstance</span><span class="p">():</span> <span class="nx">MessageManager</span> <span class="p">{</span>
-                <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageManager</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageManager</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nx">MessageManager</span><span class="p">.</span><span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MessageManager</span><span class="p">();</span>
                 <span class="p">}</span>
                 <span class="k">return</span> <span class="nx">MessageManager</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
@@ -616,8 +616,8 @@ This allows the application to send the callback ID across Node instances and ex
              * @param callbackId The callbackId for which to execute the callback function.
              */</span>
             <span class="k">public</span> <span class="nf">executeCallbackForId</span><span class="p">(</span><span class="nx">callbackId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">:</span><span class="k">void</span> <span class="p">{</span>
-                <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">callbackEntry</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nf">if</span><span class="p">(</span><span class="nx">callbackEntry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">callbackId</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">callbackEntry</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">callbackEntry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">callbackId</span><span class="p">)</span> <span class="p">{</span>
                         <span class="nx">callbackEntry</span><span class="p">[</span><span class="mi">1</span><span class="p">]();</span>
                         <span class="k">return</span><span class="p">;</span>
                     <span class="p">}</span>
@@ -656,7 +656,7 @@ This allows the application to send the callback ID across Node instances and ex
          * @returns {MessageHandler} The instance of this singleton class.
          */</span>
         <span class="k">public</span> <span class="k">static</span> <span class="nf">getInstance</span><span class="p">():</span> <span class="nx">MessageHandler</span> <span class="p">{</span>
-            <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageHandler</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">MessageHandler</span><span class="p">.</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nx">MessageHandler</span><span class="p">.</span><span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MessageHandler</span><span class="p">();</span>
             <span class="p">}</span>
             <span class="k">return</span> <span class="nx">MessageHandler</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
@@ -731,11 +731,11 @@ This allows the application to send the callback ID across Node instances and ex
          * @param msg The IPCMessage that is to be forwarded to the correct target.
          */</span>
         <span class="k">private</span> <span class="nx">targetHandler</span> <span class="o">=</span> <span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">IPCMessage</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nf">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
                 <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCRequest</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCRequest</span><span class="o">&gt;</span> <span class="nx">msg</span><span class="p">;</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Master received request</span><span class="dl">'</span><span class="p">);</span>
 
-                <span class="nf">switch </span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">){</span>
+                <span class="k">switch </span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">){</span>
                     <span class="k">case</span> <span class="nx">MessageTarget</span><span class="p">.</span><span class="na">DATA_BROKER</span><span class="p">:</span>
                         <span class="k">this</span><span class="p">.</span><span class="nx">dataBroker</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
                         <span class="k">break</span><span class="p">;</span>
@@ -751,7 +751,7 @@ This allows the application to send the callback ID across Node instances and ex
                         <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Cannot find message target: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
                 <span class="p">}</span>
 
-            <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
                 <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCReply</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCReply</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Master received reply!</span><span class="dl">'</span><span class="p">);</span>
 
@@ -772,13 +772,13 @@ This allows the application to send the callback ID across Node instances and ex
          * @param msg The IPCMessage as passed on by the master process.
          */</span>
         <span class="k">public</span> <span class="nx">onMessageFromMasterReceived</span> <span class="o">=</span> <span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">IPCMessage</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="nf">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REQUEST</span><span class="p">)</span> <span class="p">{</span>
                 <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCRequest</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCRequest</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
 
                 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">[id:</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">cluster</span><span class="p">.</span><span class="nx">worker</span><span class="p">.</span><span class="nx">id</span>  <span class="o">+</span> <span class="dl">'</span><span class="s1">] Received request from master: routing to: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">MessageTarget</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">.</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="nx">targetFunction</span><span class="p">);</span>
                 <span class="k">this</span><span class="p">.</span><span class="nx">emitter</span><span class="p">.</span><span class="nf">emit</span><span class="p">(</span><span class="nx">MessageTarget</span><span class="p">[</span><span class="nx">m</span><span class="p">.</span><span class="nx">target</span><span class="p">]</span> <span class="o">+</span> <span class="dl">''</span><span class="p">,</span> <span class="nx">m</span><span class="p">);</span>
 
-            <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="kd">type</span> <span class="o">==</span> <span class="nx">IPCMessage</span><span class="p">.</span><span class="nx">TYPE_REPLY</span><span class="p">)</span> <span class="p">{</span>
                 <span class="kd">let</span> <span class="na">m</span><span class="p">:</span> <span class="nx">IPCReply</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">IPCReply</span><span class="o">&gt;</span><span class="nx">msg</span><span class="p">;</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Slave received reply!</span><span class="dl">'</span><span class="p">);</span>
 

@@ -251,7 +251,7 @@ It provides you with some nice TypeScript decorators which makes your code a lot
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nc">EntityApi</span> <span class="kd">extends</span> <span class="nc">CoreApi</span> <span class="p">{</span>
     <span class="k">private</span> <span class="nx">entityController</span><span class="p">:</span> <span class="nx">EntityController</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">EntityController</span><span class="p">();</span>
     <span class="nf">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nf">super</span><span class="p">();</span>
+        <span class="k">super</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="c1">// the create function would that have to be executed by the main server while bootstrapping the application</span>
@@ -306,8 +306,8 @@ So we solved this by pushing all connected clients to an array and when we recei
 	<span class="p">}</span>
 
 	<span class="nf">handleDisconnect</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-			<span class="nf">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">client</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">client</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
 				<span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">.</span><span class="nf">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 				<span class="k">break</span><span class="p">;</span>
 			<span class="p">}</span>
@@ -321,7 +321,7 @@ So we solved this by pushing all connected clients to an array and when we recei
 	<span class="p">}</span>
 
 	<span class="k">private</span> <span class="nf">broadcast</span><span class="p">(</span><span class="nx">message</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">c</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">c</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="nx">clients</span><span class="p">)</span> <span class="p">{</span>
 			<span class="nx">c</span><span class="p">.</span><span class="nf">emit</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
@@ -365,7 +365,7 @@ We still store the log in a “logs” collection, so that if ever our daily, we
 
         <span class="c1">// sensors send all their containers to us, we only need to update the collections</span>
         <span class="c1">// if they are 'counters' and they have a numeric value</span>
-        <span class="nf">if </span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">counter</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">numericValue</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if </span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">container</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">counter</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">numericValue</span><span class="p">)</span> <span class="p">{</span>
 
             <span class="c1">// update all collections</span>
             <span class="c1">// by putting them in a variable, they all get executed without having to wait for each one to complete,</span>
@@ -421,7 +421,7 @@ We still store the log in a “logs” collection, so that if ever our daily, we
                           <span class="nx">totalCountPromise</span><span class="p">,</span>
                           <span class="nx">yearlyCountPromise</span><span class="p">,</span>
                           <span class="nx">monthlyCountPromise</span><span class="p">]).</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-                              <span class="nf">if </span><span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
+                              <span class="k">if </span><span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
                                   <span class="nx">socket</span><span class="p">.</span><span class="nf">emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">stream-received</span><span class="dl">'</span><span class="p">);</span>
                               <span class="p">}</span>
                           <span class="p">},</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -429,7 +429,7 @@ We still store the log in a “logs” collection, so that if ever our daily, we
                           <span class="p">});</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="nx">item</span><span class="p">;</span>
-    <span class="p">}</span> <span class="nf">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nc">HttpException</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span> <span class="nx">HttpStatus</span><span class="p">.</span><span class="nx">BAD_REQUEST</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>

@@ -507,8 +507,8 @@ Depending on specific parameters, you can then choose to send back a different t
 <span class="kd">function</span> <span class="nf">start</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">interval</span> <span class="o">=</span> <span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nf">createMockEvent</span><span class="p">();</span> <span class="c1">// to implement yourself</span>
-    <span class="nf">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">channels</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nf">if</span><span class="p">(</span><span class="nx">channels</span><span class="p">.</span><span class="nf">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">channels</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">channels</span><span class="p">.</span><span class="nf">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
         <span class="nx">channels</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nf">sseSend</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="c1">// console.log('Emitting to ' + key);</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -783,7 +783,7 @@ You want all your api calls to go to the other mock (Node-RED in this case) whil
 <p>The advantage of implementing the start/stop functionality, is that you can tell your test framework to start the sse-mock events stream and then start watching the response in the UI.</p>
 
 <p>e.g. (protractor, jasmine):</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">beforeAll</span><span class="p">(</span><span class="nf">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">beforeAll</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/start</span><span class="dl">'</span><span class="p">);</span> <span class="c1">// depending on the host/address</span>
 <span class="p">});</span>
 </code></pre></div></div>

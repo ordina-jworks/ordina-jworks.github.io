@@ -211,7 +211,7 @@ The developer only had to create an instance of the required service, and pass i
 <span class="kd">const</span> <span class="nx">myAuthService</span> <span class="o">=</span> <span class="nf">createOidcAuthService</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
 
 <span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nf">return </span><span class="p">(</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">AuthProvider</span> <span class="nx">authService</span><span class="o">=</span><span class="p">{</span><span class="nx">myAuthService</span><span class="p">}</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">MyFirstComponent</span> <span class="o">/&gt;</span>
       <span class="o">&lt;</span><span class="nx">MySecondComponent</span> <span class="o">/&gt;</span>
@@ -230,7 +230,7 @@ Or use the <code class="language-plaintext highlighter-rouge">useAuth</code> hoo
 <span class="k">import</span> <span class="p">{</span> <span class="nx">AuthConsumer</span><span class="p">,</span> <span class="nx">useAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@our-scope/authentication-core</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">MyFirstComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nf">return </span><span class="p">(</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">AuthConsumer</span><span class="o">&gt;</span>
     <span class="p">{(</span><span class="nx">authData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">username</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
@@ -241,7 +241,7 @@ Or use the <code class="language-plaintext highlighter-rouge">useAuth</code> hoo
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">MySecondComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="p">{</span> <span class="nx">authData</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">useAuth</span><span class="p">();</span>
-  <span class="nf">return </span><span class="p">(</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">displayName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>  <span class="p">)</span>
 <span class="p">}</span>
@@ -344,7 +344,7 @@ The only changes which might have to be made to components, are for those compon
 <span class="k">import</span> <span class="p">{</span> <span class="nx">MyFirstComponent</span><span class="p">,</span> <span class="nx">MySecondComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Components</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nf">return </span><span class="p">(</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">AuthProvider</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">MyFirstComponent</span> <span class="o">/&gt;</span>
       <span class="o">&lt;</span><span class="nx">MySecondComponent</span> <span class="o">/&gt;</span>
@@ -360,7 +360,7 @@ The only changes which might have to be made to components, are for those compon
 <span class="k">import</span> <span class="p">{</span> <span class="nx">AuthConsumer</span><span class="p">,</span> <span class="nx">useAuth</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./auth</span><span class="dl">'</span><span class="p">;</span>
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">MyFirstComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nf">return </span><span class="p">(</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">AuthConsumer</span><span class="o">&gt;</span>
     <span class="p">{(</span><span class="nx">authData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span> <span class="c1">// Now authData's type is inferred</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">username</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
@@ -371,7 +371,7 @@ The only changes which might have to be made to components, are for those compon
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">MySecondComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kd">const</span> <span class="p">{</span> <span class="nx">authData</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">useAuth</span><span class="p">();</span> <span class="c1">// Now authData's type is inferred</span>
-  <span class="nf">return </span><span class="p">(</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">authData</span><span class="p">.</span><span class="nx">displayName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>  <span class="p">)</span>
 <span class="p">}</span>

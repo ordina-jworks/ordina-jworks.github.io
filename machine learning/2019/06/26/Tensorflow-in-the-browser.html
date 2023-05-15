@@ -381,16 +381,16 @@ A working example of this code can be found <a href="https://storage.googleapis.
     <span class="nx">validationSplit</span><span class="p">,</span>
     <span class="na">epochs</span><span class="p">:</span> <span class="nx">trainEpochs</span><span class="p">,</span>
     <span class="na">callbacks</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">onBatchEnd</span><span class="p">:</span> <span class="nf">async </span><span class="p">(</span><span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="na">onBatchEnd</span><span class="p">:</span> <span class="k">async </span><span class="p">(</span><span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nx">trainBatchCount</span><span class="o">++</span><span class="p">;</span>
-            <span class="nf">if </span><span class="p">(</span><span class="nx">onIteration</span> <span class="o">&amp;&amp;</span> <span class="nx">batch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if </span><span class="p">(</span><span class="nx">onIteration</span> <span class="o">&amp;&amp;</span> <span class="nx">batch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nf">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onBatchEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">batch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nf">nextFrame</span><span class="p">();</span>
         <span class="p">},</span>
-        <span class="na">onEpochEnd</span><span class="p">:</span> <span class="nf">async </span><span class="p">(</span><span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="na">onEpochEnd</span><span class="p">:</span> <span class="k">async </span><span class="p">(</span><span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nx">valAcc</span> <span class="o">=</span> <span class="nx">logs</span><span class="p">.</span><span class="nx">val_acc</span><span class="p">;</span>
-            <span class="nf">if </span><span class="p">(</span><span class="nx">onIteration</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if </span><span class="p">(</span><span class="nx">onIteration</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nf">onIteration</span><span class="p">(</span><span class="dl">'</span><span class="s1">onEpochEnd</span><span class="dl">'</span><span class="p">,</span> <span class="nx">epoch</span><span class="p">,</span> <span class="nx">logs</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="k">await</span> <span class="nx">tf</span><span class="p">.</span><span class="nf">nextFrame</span><span class="p">();</span>
@@ -417,8 +417,8 @@ A working example of this code can be found <a href="https://storage.googleapis.
     <span class="c1">// one element for each output class. All values in the vector are 0</span>
     <span class="c1">// except for one, which has a value of 1 (e.g. [0, 0, 0, 1, 0]). </span>
     <span class="kd">const</span> <span class="nx">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kd">const</span> <span class="nx">labels</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">labels</span><span class="p">.</span><span class="nf">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nf">dataSync</span><span class="p">());</span>
-    <span class="kd">const</span> <span class="nx">predictions</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nf">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nf">dataSync</span><span class="p">());</span>
+    <span class="kd">const</span> <span class="nx">labels</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">examples</span><span class="p">.</span><span class="nx">labels</span><span class="p">.</span><span class="nf">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nf">dataSync</span><span class="p">());</span>
+    <span class="kd">const</span> <span class="nx">predictions</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">output</span><span class="p">.</span><span class="nf">argMax</span><span class="p">(</span><span class="nx">axis</span><span class="p">).</span><span class="nf">dataSync</span><span class="p">());</span>
 <span class="p">});</span>
 </code></pre></div></div>
 
@@ -458,7 +458,7 @@ This is provided the machine learning technique is available within the ML5 libr
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nf">gotResult</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">results</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nf">if </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="nf">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">#result</span><span class="dl">'</span><span class="p">).</span><span class="nf">html</span><span class="p">(</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">className</span><span class="p">);</span>

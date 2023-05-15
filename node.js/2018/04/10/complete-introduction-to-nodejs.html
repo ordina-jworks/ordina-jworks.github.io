@@ -455,7 +455,7 @@ whenever the EventEmitter emits an event all the functions attached to the named
 <span class="nx">eventEmitter</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="c1">// as you can see, our callback function accepts a data parameter,</span>
   <span class="c1">// we'll check if the event was emitted with data and has a 'name' property, if so we log 'Hello name'</span>
-  <span class="nf">if </span><span class="p">(</span><span class="nx">data</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">data</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`Hello </span><span class="p">${</span><span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="c1">// if no data was passed to the callback, we'll simply log 'Hello world'</span>
@@ -488,7 +488,7 @@ Let’s see it in action with an example:</p>
   <span class="nx">req</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">readable</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
       <span class="kd">let</span> <span class="nx">chunk</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
       <span class="c1">// as long as we can read chunks from the request, we write those chunks to the response</span>
-      <span class="nf">while</span><span class="p">(</span><span class="kc">null</span> <span class="o">!==</span> <span class="p">(</span><span class="nx">chunk</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nf">read</span><span class="p">())){</span>
+      <span class="k">while</span><span class="p">(</span><span class="kc">null</span> <span class="o">!==</span> <span class="p">(</span><span class="nx">chunk</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nf">read</span><span class="p">())){</span>
          <span class="c1">// we can keep writing to the writable response stream as long as the connection is open,</span>
          <span class="c1">// so we keep piping the readable data to the response</span>
           <span class="nx">response</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nx">chunk</span><span class="p">);</span>
@@ -529,12 +529,12 @@ To take advantage of multi-core systems, the user will sometimes want to launch 
 <span class="c1">// so we do this with the 'os' module's cpus method which returns an array of cpus, to get the amount we get the array's length</span>
 <span class="kd">const</span> <span class="nx">numCPUs</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">os</span><span class="dl">'</span><span class="p">).</span><span class="nf">cpus</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
 
-<span class="nf">if </span><span class="p">(</span><span class="nx">cluster</span><span class="p">.</span><span class="nx">isMaster</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if </span><span class="p">(</span><span class="nx">cluster</span><span class="p">.</span><span class="nx">isMaster</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// the cluster will first start up a master process that forks itself onto the other cpus and handles the load balancing between these workers</span>
   <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`Master </span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2"> is running`</span><span class="p">);</span>
 
   <span class="c1">// fork this process to a worker for every cpu that is left (note the &lt; and not &lt;=)</span>
-  <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numCPUs</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">numCPUs</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">cluster</span><span class="p">.</span><span class="nf">fork</span><span class="p">();</span>
   <span class="p">}</span>
 
