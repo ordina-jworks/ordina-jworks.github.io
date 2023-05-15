@@ -29,7 +29,8 @@ Add to that the rate of change that companies need to handle to stay competitive
 Originally, we started investigating solutions to scan your infrastructure as code and cloud environment.
 We thought we'd look at a handful of tools, evaluate them and select a clear winner.
 
-We quickly discovered there are quite some interesting tools out their,
+We quickly discovered there are quite some interesting tools out there.
+Some that are free and some that cost you a lot of money,
 some that are free and some that cost you a lot of money,
 and some not only do cloud, but can do much more.
 
@@ -44,7 +45,7 @@ Cloud computing has made it easy for organizations to manage their IT infrastruc
 
 OPA is an open-source, general-purpose policy engine that can be used to enforce policies across various systems, including cloud infrastructure.
 
-Some of OPA's strenghts summed up:
+Some of OPA's strengths summed up:
 
 ### Policy Management
 OPA provides a simple and flexible policy language used by writing [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/){:target="_blank" rel="noopener noreferrer"}.  that allows organizations to define and manage policies across multiple cloud platforms. 
@@ -54,7 +55,7 @@ These policies are available as code and can be managed like any other code, inc
 
 ### Automated Compliancy Enforcement
 
-OPA can be integrated into the Cloud environment using various methods, such as by deploying it as a sidecar container in a Kubernetes cluster or by using Google Cloud functions, [AWS Lambda](https://aws.amazon.com/blogs/opensource/easily-running-open-policy-agent-serverless-with-aws-lambda-and-amazon-api-gateway/){:target="_blank" rel="noopener noreferrer"} or Azure Automation to run OPA policies. 
+OPA can be integrated into the cloud environment using various methods, such as by deploying it as a sidecar container in a Kubernetes cluster or by using Google Cloud functions, [AWS Lambda](https://aws.amazon.com/blogs/opensource/easily-running-open-policy-agent-serverless-with-aws-lambda-and-amazon-api-gateway/){:target="_blank" rel="noopener noreferrer"} or Azure Automation to run OPA policies. 
 Once integrated, OPA can provide real-time policy evaluation and enforcement across the AWS environment, enabling organizations to maintain compliance and security posture.
 
 ### Integrations
@@ -95,7 +96,7 @@ Snyk can scan your code for vulnerabilities and compliance issues.
 It can scan your code for security issues like sql injection or path traversal vulnerabilities.
 
 You might be thinking that nice but how do I figure out how to solve it?
-They have a data flow that shows you the entry point and method invocation of the vulnerability.
+They have a data flow that shows you the entry point and method invocation of the vulnerability, which shows you the entire stack path to the vulnerability in your source code.
 Which shows you the entire stack path to the vulnerability in your source code.
 This helps you in assessing what the impact of a vulnerability is and how urgent you need to provide a patch for it.
 (method that is publicly accessible vs library code that isn't used)
@@ -119,14 +120,14 @@ The company might for various reason not allow AGPLv3 libraries for example, bec
 Snyk can scan your container images for vulnerabilities it can do this from docker images, Amazon ECR, Docker hub, ...
 You can set this up in your Kubernetes cluster, but currently Fargate is not supported.
 
-If you want to automate the updating of your images you can do this by using container scanning on your git repository,
-using this method Snyk can automatically create pull requests for you that you can test and then merge if satisfied.
+You can automate the image updating process by using container scanning on your Git repository.
+By using this method, Snyk can automatically create pull requests for you that you can test and then merge if satisfied.
 This reduces your effort to stay safe and up to date.
 
 ### Infrastructure as code scanning
 
 Snyk can scan your infrastructure as code against the CIS AWS Foundations Benchmark or you can write custom policies.
-To scan you IaC you simply have to add your git repository that contains your IaC
+To scan your IaC, you simply have to add your Git repository that contains your IaC
 and the Snyk platform will start scanning if for you.
 You can also use the Snyk CLI to scan your IaC if you want to make it part of your CI/CD pipelines.
 By using it this way you can make this a requirement before pull requests are merged that you pass the CLI tool's scan
@@ -150,7 +151,7 @@ Security.
 ### Container scanning
 
 Trivy can scan container images against well known vulnerabilities.
-On the [tool's homepage](https://trivy.dev/), you can enter public available docker hub images to test it out.
+On the [tool's homepage](https://trivy.dev/), you can enter public available Docker Hub images to test it out.
 Trivy will scan files inside container images and container image metadata.
 
 Trivy scans the files inside container images for:
@@ -176,7 +177,7 @@ supported of the box for alpine and ubuntu based images.
 
 ### CI/CD integration
 
-Because Trivy is a cli tool it can easily be integrates in CI/CD pipelines.
+Because Trivy is a CLI tool, it can easily be integrates in new or existing CI/CD pipelines.
 To integrate it into GitHub you could tell trivy the run should fail (exit code 1 instead of 0) only for HIGH and
 Critical issues.
 
@@ -187,7 +188,7 @@ This action has some examples of how you can integrate this with GitHub Advanced
 
 ### AWS integration
 
-Trivy can be run locally to scan your AWS environment using the AWS cli.
+Trivy can be run locally to scan your AWS environment using the AWS CLI.
 The default included check scans against AWS CIS 1.2.0 benchmark.
 It shows summarizes a lists of issues, and gives description of how to resolve the issue, it won't automatically fix it.
 
@@ -199,7 +200,7 @@ While security hub would tell you after the resource already exists in AWS.
 Trivy can scan your code for secrets,
 because it's not like you have ever had a developer push your precious AWS access key.
 I really wonder why we suddenly have EC2s booting up with the biggest possible instance size and GPU's.
-it can scan for:
+It can scan for:
 
 * AWS access key
 * GCP service account
@@ -236,14 +237,14 @@ it was bought by Snyk some time ago and after this take-over Snyk started workin
 
 ### Baseline enforcement
 
-Fugue allows you to take a snapshot of your Cloud environment and use it as baseline.
+Fugue allows you to take a snapshot of your cloud environment and use it as baseline.
 
 This prevents anyone from making modifications to your environment that are not compliant with your baseline.
 
-It can't recreate or delete resources it only enforces by modifying them back to the original state of the snapshot.
+It can't recreate or delete resources, it only enforces by modifying them back to the original state of the snapshot.
 
 A snapshot captures complete cloud resource configurations, attributes, relationships, and drift.
-As an added bonus snapshots enable deep visualization and reporting capabilities.
+As an added bonus, snapshots enable deep visualization and reporting capabilities.
 
 ### Policy scanning
 
