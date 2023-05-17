@@ -1,5 +1,164 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-05-15T20:51:46+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Date and Time Testing</title><link href="https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing.html" rel="alternate" type="text/html" title="Date and Time Testing" /><published>2023-04-28T00:00:00+00:00</published><updated>2023-04-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing.html"><![CDATA[<p>Working with dates and times can be challenging for developers, especially regarding testing.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-05-17T09:16:19+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">KubeCon + CloudNativeCon 2023</title><link href="https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023.html" rel="alternate" type="text/html" title="KubeCon + CloudNativeCon 2023" /><published>2023-05-17T00:00:00+00:00</published><updated>2023-05-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023.html"><![CDATA[<h1 id="introduction">Introduction</h1>
+
+<p style="text-align: center;"><img src="/img/2023-05-17-kubecon-2023/group-picture.jpg" alt="JWorks group picture" class="image" style="margin:0px auto; max-width:100%" />
+<em>JWorks at Kubecon 2023</em></p>
+
+<p>Another year, another KubeCon | CloudNativeCon EU edition. 
+And, of course, JWorks was also present at this year’s edition in Amsterdam in the <a href="https://www.rai.nl/" target="_blank" rel="noopener noreferrer">RAI</a>.
+We wanted to hear more about all the new features, frameworks, tools, ideas and concepts that the Kubernetes and cloud world have to offer.
+And we got what we wanted.
+We attended many interesting talks, talked to very intriguing people at the event, and had a lot of fun while doing so.
+Next to the talks, there were also many booths from companies from all over the world (AWS, Azure, Canonical, …) to engage with other people and to talk and promote their newest products for the developer market.
+You can look at some of the talks we attended, which were very interesting.
+You can click on the talk title to go to the recorded version on YouTube, which CNCF provides.</p>
+
+<h1 id="metrics-at-full-throttle-intro-and-deep-dive-into-thanos---saswata-mukherjee--filip-petkovski-shopify"><a href="https://www.youtube.com/watch?v=2GokLB5_VfY" target="_blank" rel="noopener noreferrer">Metrics at Full Throttle: Intro and Deep Dive Into Thanos - Saswata Mukherjee &amp; Filip Petkovski, Shopify</a></h1>
+
+<p><a href="https://thanos.io/" target="_blank" rel="noopener noreferrer">Thanos</a> enables a highly available Prometheus setup.
+It replaces parts of the Prometheus deployment model that are hard to scale with regular Prometheus.</p>
+
+<p>This talk is a great introduction to Thanos.
+Saswata and Filip start by explaining what difficulties you can have with scaling a regular Prometheus setup. 
+They explain what components of Thanos solve the different issues with scaling Prometheus. 
+The following components of Thanos are introduced: Sidecar, Ruler, Receive, Query, Compactor, and Store gateway.</p>
+
+<p>Where the first half of the talk is mainly targeted towards people who don’t know Thanos or don’t know all capabilities of Thanos yet, the second half was surely targeted towards experienced Thanos users.
+In the second half of the talk, Saswata and Filip highlight recent, since the KubeCon Detroit, improvements to Thanos.</p>
+
+<p>They discuss 5 new features in Thanos. 
+The first boils down to optimizations to the store gateway to remove the high IO requirements to run the store gateway.
+The new store gateway implementation doesn’t require the high IO disk anymore as the information is stored in memory instead of on disk.</p>
+
+<p>Three new features were announced to optimize the querying throughout the different components in Thanos.</p>
+
+<p>First, quality of service limits was added as Thanos configuration options. 
+This allows teams managing Thanos to define the limits to tune the Thanos performance and prevent a single query from overloading the system.</p>
+
+<p>The second improvement related to query performance was a newly implemented, Thanos-specific, PromQL engine. 
+With the new query engine, the query will be analyzed up front and an optimal (parallel!) execution will be determined. 
+Since not all operators are supported yet, the new engine will be used when possible with a fallback to the standard Prometheus PromQL engine when needed.</p>
+
+<p>The third improvement is the distributed execution of queries.
+This mechanism allows queries to be executed by the nodes that have direct access to the needed data, preventing costly data transfers between components in the Thanos architecture. 
+If you want more information on this amazing feature, definitely check out this talk when it’s available on YouTube!</p>
+
+<p>A new hash ring mechanism was implemented for the Receiver to prevent overloading single Receiver instances.</p>
+
+<p>They end by showing real-world performance graphs from a Thanos deployment and how different versions of Thanos caused visible improvements.</p>
+
+<h1 id="playstation-and-kubernetes-how-to-solve-a-problem-like-real-time---joseph-irving-playstation"><a href="https://www.youtube.com/watch?v=pklRTQoRrNY" target="_blank" rel="noopener noreferrer">PlayStation and Kubernetes: How to Solve a Problem Like Real-Time - Joseph Irving, PlayStation</a></h1>
+
+<p>Since its birth in 1994, (Sony) PlayStation has been a global pioneer in the gaming industry.
+As PlayStation grew, its infrastructure needed to grow as well.
+Over time, PlayStation had to scale its game servers so that it could handle their demand.
+This had to be done in a way where game servers could be scaled in a compatible way with the game clients.
+This means that simply spinning up more instances of the game server might not always work.</p>
+
+<p>This talk, presented by Joseph Irving, went over the kind of problems they faced, different types of real-time game servers, and their advantages and limitations (peer-to-peer, dedicated game servers, etc.).</p>
+
+<p>Their solution was to use a project called <a href="https://agones.dev/site/" target="_blank" rel="noopener noreferrer">Agones</a>, which is created and maintained by Google in collaboration with Ubisoft.
+Agones is an open-source platform that provides a native way of running game servers on Kubernetes without worrying about the infrastructure.
+It provides compatibility with game server connections by using GameServers and connecting those GameServers with Fleets.
+Joseph introduces the Agones framework and talks about how they use it and how it helped them to scale their gaming servers and to provide multi-regional operability.</p>
+
+<p>He concludes the talk by talking about Matchmakers, which implements matchmaking (finding matches for people that are searching for a lobby in a game) through Kubernetes.</p>
+
+<h1 id="automating-configuration-and-permissions-testing-for-gitops-with-opa-conftest---eve-ben-ezra--michael-hume-the-new-york-times"><a href="https://www.youtube.com/watch?v=VCX4UALQjeg" target="_blank" rel="noopener noreferrer">Automating Configuration and Permissions Testing for GitOps with OPA Conftest - Eve Ben Ezra &amp; Michael Hume, The New York Times</a></h1>
+
+<p>Open Policy Agent is a tool to add <a href="https://www.openpolicyagent.org/" target="_blank" rel="noopener noreferrer">policy-based control to cloud-native environments</a>.
+OPA is used in many different tools and systems as a system to validate configuration before it’s deployed to cloud environments.</p>
+
+<p>In this talk, Eve and Michel explain how OPA is used in the New York Times internal developer platform to control what their developers deploy.
+Eve starts by showing what problems they experienced at the New York Times with allowing developers to use the internal platform. 
+As with all validation (aka testing) mechanisms, shifting left is the focus. 
+They continue to explain how <a href="https://www.conftest.dev/" target="_blank" rel="noopener noreferrer">Conftest</a> helped them in providing feedback to the developer as soon as they write a single line of code.
+Validating the configuration using the same definition along every set in the process, makes it very transparent to developers where issues are introduced and what they can do to fix them.</p>
+
+<p>Next, a great introduction to OPAs rule language Rego is shown by Eve.
+They take the audience through a complete example, explaining what is defined and how it’s interpreted, including the quirks, using Rego.</p>
+
+<p>Finally, Michel shows how <a href="https://github.com/yannh/kubeconform" target="_blank" rel="noopener noreferrer">Kubeconform</a> can be used to help with Kubernetes version migrations, including CRDs. 
+They show a real example and explain how the output of the tool can be used to quickly identify what’s wrong with a manifest.</p>
+
+<p>If anything, this talk is a brilliant introduction to Rego.
+If you have an interest in policy management in your Kubernetes cluster or if you have experienced hard-to-find bugs in Kubernetes manifests, this is a must-watch talk from the <a href="https://www.nytimes.com/" target="_blank" rel="noopener noreferrer">New York Times</a>.</p>
+
+<h1 id="state-of-the-mop-cloud-custodian-in-2023"><a href="https://www.youtube.com/watch?v=Lx5f-0WOFrA" target="_blank" rel="noopener noreferrer">State of the Mop: Cloud Custodian in 2023</a></h1>
+
+<p>During the presentation, Kapil Thangavelu provided a concise update on <a href="https://cloudcustodian.io/" target="_blank" rel="noopener noreferrer">Cloud Custodian</a>, an open-source rules engine designed for account and resource management on AWS, Azure, and GCP, based on the Rego language.
+Cloud Custodian can effectively scale from small businesses to large enterprises.</p>
+
+<p>Since Kubecon Detroit in October 2022, Cloud Custodian has added support for two new providers.
+Additionally, they’ve included Terraform support to enable users to check their Terraform source code while running inside a pipeline.</p>
+
+<p>Looking ahead, Cloud Custodian’s roadmap for the current year includes adding a new K8s admission controller, support for AWS CloudFormation, preventative support for AWS, and an improved authoring experience through the addition of policy testing, policy tracing, a policy debugger, and more.</p>
+
+<p>Cloud Custodian’s open-source nature, flexibility, and upcoming roadmap make it a tool to watch for organizations managing cloud resources.
+It provides a powerful and customizable way to improve security, cost optimization, and compliance across different cloud providers.</p>
+
+<h1 id="scaling-databases-at-activision---greg-smith--vladimir-kovacik-activisionblizzard"><a href="https://www.youtube.com/watch?v=_ba9tbivT28" target="_blank" rel="noopener noreferrer">Scaling Databases at Activision - Greg Smith &amp; Vladimir Kovacik, Activision/Blizzard</a></h1>
+<p>This talk goes over how Activision / Blizzard scaled their databases over time. 
+They introduce the session by talking about hosting and operating their databases in the past, which included bare metal, many virtual machines &amp; containers, …
+As they progressed and more people joined their games (especially on launch days), they quickly discovered that there was a need for better scaling, especially in the number of shards, due to performance issues.</p>
+
+<p>As the whole company was internally moving to Kubernetes, they wondered if there was a way to have their MySQL databases hosted on Kubernetes natively. 
+This is where they introduce <a href="https://vitess.io/" target="_blank" rel="noopener noreferrer">Vitess</a>, a native way to run and scale MySQL-compatible databases.
+They wanted to use something that supported MySQL since they had plenty of MySQL experts employed and because they used MySQL before adopting Vitess.</p>
+
+<p>They divided the migration to Vitess into three adoption stages: MVP, Load Testing &amp; Production Readiness.</p>
+
+<h3 id="mvp">MVP</h3>
+<p>In the MVP stage, they wanted to find out how easy or hard it was to migrate to Vitess. 
+They needed to verify that Vitess works for them, which they could quickly find out by running their database tests.
+Along the way, they were able to fix all the issues that the migration caused, which included talking with the Vitess community to find solutions.</p>
+
+<h3 id="load-testing">Load Testing</h3>
+<p>In the Load Testing stage, they needed to make sure that this new solution was able to scale successfully and handle their workload (again, especially on launch days).
+This could be done by checking if shards scaled successfully and that there were no performance bottlenecks during the load testing.
+The developers were able to confirm that scaling was done as how they expected it to scale.</p>
+
+<h3 id="production-readiness">Production Readiness</h3>
+<p>In the Production Readiness stage, they had to prove that their solution worked and that their previous stage turned out as a success.
+However, they wanted more confirmation about how Vitess works as they needed to be sure that it was the right solution.
+After some chaos testing and implementing other Vitess features, they confirmed that the scaling solution was stable.</p>
+
+<p>One of their most important changes was the move from application sharding to a single endpoint.
+Where there previously was a separate sharding configuration in the application configuration, they now moved to a single database endpoint.</p>
+
+<p>They concluded the talk by stating that Vitess does work, and right now there are approximately 60 Vitess clusters in development and production environments.
+They are also building an internal team around the company to support Vitess, and it has become the default database solution for any new services that the company will implement.</p>
+
+<p>It was a very long process, but eventually, they were able to successfully adopt Vitess.</p>
+
+<h1 id="sponsors--vendors--projects-with-stands">Sponsors / Vendors / Projects with stands</h1>
+<p>At Kubecon, there were a lot of booths where companies and separate projects were able to promote their product, introduce new features, and offer some fun gadgets to the attendees of Kubecon.
+Some major players in the industry were there, and of course, a lot of people were interested in what they had to offer to make their lives more simple.</p>
+
+<h2 id="aws">AWS</h2>
+
+<p>AWS had an impressive presence, offering attendees a wide range of experiences and insights into their latest developments.
+The AWS stand provided a sneak peek of upcoming features and integrations planned for their EKS portal.
+The visuals on display highlighted their focus on monitoring and improving the overall user experience.</p>
+
+<p>In addition to the exciting demos, AWS provided a fun and challenging mini-golf game for conference-goers to play.
+Participants had the opportunity to win AWS-branded pyjama pants, adding a touch of fun and excitement to the event.</p>
+
+<p>AWS didn’t stop at the game, as they also offered an array of other goodies for attendees throughout the conference.
+Whether it was swag bags or other branded merchandise, AWS had something for everyone.</p>
+
+<p>Finally, AWS brought a team of experts who were available to answer any questions attendees had about EKS.
+Their knowledgeable team provided attendees with valuable insights and guidance on using the platform effectively.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Kubecon was a fun experience, and we got a load of interesting topics and talks.
+Amsterdam is beautiful and tourist-friendly, with most of the residents speaking English fluently.
+The RAI was a huge venue, which meant to go from talk to talk some (power) walking was needed.
+Some talks were too popular to fit into the rooms that were assigned to them.
+The live stream was always a backup, but it doesn’t have that same effect, even if you sit around a smartphone screen with ten people to watch a talk.
+The food and especially the coffee was great this edition.
+KubeCon | CloudNativeCon EU was a great experience, and we can’t wait until next year’s edition.
+See you in Paris!</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java and Cloud engineer with a sharpened focus on all things related to cloud, specifically AWS. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud-native development.&quot;}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="conference" /><category term="cloud-native" /><category term="kubernetes" /><summary type="html"><![CDATA[Introduction]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-05-17-kubecon-2023/banner-resized.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-05-17-kubecon-2023/banner-resized.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Date and Time Testing</title><link href="https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing.html" rel="alternate" type="text/html" title="Date and Time Testing" /><published>2023-04-28T00:00:00+00:00</published><updated>2023-04-28T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing</id><content type="html" xml:base="https://ordina-jworks.github.io/testing/2023/04/28/date-time-testing.html"><![CDATA[<p>Working with dates and times can be challenging for developers, especially regarding testing.
 When testing code that involves the current date or time, it takes time to ensure that the results are correct and consistent.
 Luckily, there are several ways to solve this problem.</p>
 
@@ -1669,289 +1828,4 @@ The reason I went with the ci-cd route is that I knew it would pull me out of my
 
 <blockquote>
   <p><strong>Agile is a small idea about the small problems of small programming teams doing small things</strong>.</p>
-</blockquote>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Laura&quot;, &quot;last_name&quot;=&gt;&quot;Prevost&quot;, &quot;permalink&quot;=&gt;&quot;/author/laura-prevost/&quot;, &quot;avatar&quot;=&gt;&quot;laura-prevost.jpg&quot;, &quot;title&quot;=&gt;&quot;Analyst&quot;, &quot;linkedin&quot;=&gt;&quot;laura-prevost-72097255&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Laura is an Analyst at Ordina Belgium. Also Competence Lead of Technical Leadership at Jworks. Passionate about people. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>laura.prevost@ordina.be</email></author><category term="Leadership" /><category term="Leadership" /><category term="Agile" /><category term="Clean" /><summary type="html"><![CDATA[Table of contents Introduction The Reasons for Agile Business Practices Team Practices Technical Practices Conclusion]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-30-clean-agile/clean_agile_home.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-30-clean-agile/clean_agile_home.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Connecting the Pods</title><link href="https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods.html" rel="alternate" type="text/html" title="Connecting the Pods" /><published>2022-06-13T00:00:00+00:00</published><updated>2022-06-13T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods</id><content type="html" xml:base="https://ordina-jworks.github.io/development/2022/06/13/connecting-the-pods.html"><![CDATA[<p>Although I finished the book “<a href="https://www.amazon.co.uk/Connected-Company-Dave-Gray/dp/1491919477/ref=sr_1_1" target="_blank" rel="noopener noreferrer">The Connected Company</a>” several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. 
-The book itself came out in 2012, which at this point is already 10 years in the past, and it largely builds on the idea of the quantum organization (Ralph Kilmann), on which I already briefly extrapolated when I wrote about <a href="https://ordina-jworks.github.io/architecture/2020/07/08/Book-Five-Dysfunctions.html" target="_blank" rel="noopener noreferrer">the Five Dysfunctions of a Team</a>.</p>
-
-<p>The book consists of 5 parts:</p>
-<ol>
-  <li>Why change? The drivers behind the move towards a Connected Company.</li>
-  <li>What is a Connected Company? The book offers an attempt at a definition and the listing of the characteristics of such a company.</li>
-  <li>How does a Connected Company work? The adapted processes and organizational impacts on the company are reviewed in this part.</li>
-  <li>How do you lead a Connected Company? The hierarchy (and/or lack thereof) of this new type of company.</li>
-  <li>How do you get there from here? The evolution that the organization needs to go through in order to claim the vaunted title.</li>
-</ol>
-
-<h2 id="part-1-why-change">Part 1: Why Change?</h2>
-
-<p>The first part aims to explain the different drivers that make the transition to a Connected Company necessary. 
-The idea is to have an abstraction derived from several customer cases. 
-The first chapters go about comparing the organization to a network, where significant events can travel the different nodes of a network and have an impact on all of them. 
-The organization of today is a participant in a multitude of social networks (employees, customers, competitors, shareholders…), and each of these shapes how the power balance within the organization is established.</p>
-
-<p style="text-align: center;"><img src="/img/2022-06-13-connecting-the-pods/networkanatomy.png" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%" /></p>
-
-<p>Traditional companies have an information stream that is pretty much one direction. 
-The company would have an unending stream of products that would be shipped out to customers, and so the company is organized and optimized for such an exchange. 
-However, this industrial age has given way to a situation where the feedback from these customers will change how the company goes about things and forces companies to create customer relationships where they will have to listen to these customers. 
-This service economy necessitates new habits, behaviors, and organizational structures.</p>
-
-<p>The author states that the change towards this service economy is supported by three factors: product saturation, information technology, and urbanization. 
-There are some issues with this analysis as far as I’m concerned. 
-Or rather some tweaks I would add with the benefit of ten years of hindsight. 
-While product saturation is indeed present in most industries, the notion that Customer Intimacy will always be victorious over Product Leadership or Operational Excellence seems a bit curt. 
-I would half expect Customer Intimacy to work better in a blue-ocean-type of industry where the saturation has not yet peaked. 
-As for urbanization, this is a concept I would switch out for globalization with the social networks of the internet generating a much greater impact. 
-Information technology is then just an extension of this globalization, making such social networks possible.</p>
-
-<p>Around the time of this book’s release, there was similarly the notion of Social Business Process Management rearing its head. 
-Social BPM refers to a twofold mindset. 
-On the one hand, it uses Web 2.0 and Enterprise 2.0 style collaboration portals where participants can share and influence process design and certain decision-making activities during process execution. 
-On the other hand, we also speak of Social BPM when we allude to leveraging the organization’s outward social media resources into internal business processes.</p>
-
-<p>In 2014 Gartner had retitled the first of the mindsets as Design-By-Doing BPM, as placed it thus named on its Hype Cycle, as seen in the illustration below. 
-While supported by advanced BPM technology and social software in order to make process design more visible and holistic (thus guaranteeing the “emergent” design), it also requires a user experience perspective and their willingness to step into such an endeavor so that social networks of employees can be cultivated and mobilized around the idea of bottom-up process improvement efforts.</p>
-
-<p style="text-align: center;"><img src="/img/2022-06-13-connecting-the-pods/gartnersocialbpm.png" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%" /></p>
-
-<p>The critical difference between services and products is this more direct co-creation with the customer. 
-They decide where, when, and how the services are delivered. 
-This makes services highly contextual and places the value of services to the customer in the interaction (or customer experience). 
-To draw the similarities with the social web even further: Products can then be considered the end result of a service to the customer and become the physical manifestation or avatar of the service.</p>
-
-<p>It seems like common sense to care about and keep track of customers. 
-But when companies start to grow, a lot of distractions have a way of muddying the waters with other preoccupations, resulting in a decline in customer focus. 
-These distractions can range from a multitude of new opportunities to internal efficiency drives, over-expansion (with product dilution as a result), and so on. 
-This can also lead to an automation of processes to handle the increasing complexity with the caveat of these automations becoming too restrictive, and limiting the creativity and adaptability of your services. 
-Where the author argues this case, I would however stipulate that over-automation is easily mitigated by determining which of your processes are run-of-the-mill and which add value to your unique selling point or differentiator. 
-The former are ideal candidates for such an automation drive (or standardization) whereas the latter are more suited for custom development that allows for easy adaptation. 
-This comes down to finding a balance between efficiency and adaptability/innovation.</p>
-
-<p>Another game changer is the number of companies that go belly up. 
-This is largely due to the complexity of the market increasing, with new technologies popping up all over and disrupting the market in addition to the previously mentioned globalization which increases the number of competitors companies have to deal with. 
-This might have seemed like a new reality, but remember the phrase “Innovate or Die” by Peter Drucker who was already advocating such disruptions back in 1985. 
-According to the author, the solution to this disruption is the Coevolutionary Process. 
-Every time you adapt, the others in your industry are forced to do so as well and vice versa. 
-This process can be competitive, but also cooperative with tactical alliances giving your company the leg up it needs to stay ahead of the rat race. 
-There are other <a href="https://evolute.be/thoughts/disruption.html" target="_blank" rel="noopener noreferrer">forms of disruption</a>, but these are what the author wishes to focus on.</p>
-
-<h2 id="part-2-what-is-a-connected-company">Part 2: What is a Connected Company?</h2>
-
-<p>Companies must stop acting like machines, but should behave as learning organisms who interact with their environment and improve based on experiments and feedback. 
-This is the premise of the author and reminiscent of the argumentation of Friedrich August von Hayek, renowned economist and contemporary (although in theories diametrically opposed) to John Meynard Keynes. 
-F. A. Hayek would go on record stating the economy is organic, not like a well-oiled machine that can be fixed as stipulated by Keynes.</p>
-
-<p>The comparison of a company to a machine comes from the scientific management theory of Frederick Taylor and has helped some of the great industry giants get to where they were at the pinnacle of their profit. 
-Knowledge is explicit and absolute and can be represented in operating manuals, documentation, and metrics. 
-These “machines” have the following characteristics:</p>
-<ol>
-  <li>The machine needs to be controlled by an operator or driver.</li>
-  <li>It needs to be maintained, and when it breaks down, you fix it.</li>
-  <li>A machine works the same way its entire life, and when it is no longer useful, you build a new one.</li>
-</ol>
-
-<p>I do not think this comparison holds up to a company, but arguments can be made to equate it to value chains or processes within a company. 
-This static nature of the process will come into conflict with the changes all around us, and we need mechanisms to deal with this change. 
-It will also clash with people’s inherent resistance to being controlled. 
-The author will propose the Connected Company approach for this.</p>
-
-<p>Where the Connected Company wants to make a paradigm shift, is to move the focus from procedures and rules where there is the idea of an optimal solution that balances the needs of the company with those of the customers towards a company putting the focus more on the customer and to become more like a support system for those customers. 
-Ashby’s Law (also called the Law of Requisite Variety) is mentioned in one breath with this view: Any control system must be capable of variety that is greater or equal to the variety in the system to be controlled. 
-However, this seems to assume that processes within companies are fixed, while the whole discipline of Business Process Management is predicated on the fact that a process is never finished, and that there is always room for improvement, either induced by internal or external factors.</p>
-
-<p>In any case, a case is made for customers resisting standardization, and that to meet such required variety, the company needs innovation. 
-One of those ways to achieve this is to give the employees of the company the freedom to experiment. 
-This also benefits the employees in their learning, which is fundamentally different from receiving training. 
-Learning is a way to deal with new situations, and how an employee deals with the uncertainties that might be encountered.</p>
-
-<p>It is also quite comical to see that the author later on in the chapters talks of the Net Promoter Score (NPS) as a way to track customer satisfaction as if the NPS is not a metric. 
-NPS is a score that attempts to measure the customer perception of the company by asking the customers to rate it on a scale of 1 to 10. 
-This puts each customer in one of three categories based on the score they gave:</p>
-<ul>
-  <li>Promoters: The most avid fans of your services. These customers will regularly buy your products or services and recommend them to others.</li>
-  <li>Passives: Customers that are willing to shift to one of your competitors if a better deal comes along.</li>
-  <li>Detractors: These are the malcontent customers that might even dissuade others from buying your product or services.</li>
-</ul>
-
-<p style="text-align: center;"><img src="/img/2022-06-13-connecting-the-pods/NPS.png" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%" /></p>
-
-<p>Your overall company NPS equals the percentage of protomers reduced by the number of detractors.</p>
-
-<p>Going on the findings from <a href="https://www.amazon.co.uk/Living-Company-Learning-Longevity-Business-ebook/dp/B01HPVHKPO/ref=sr_1_" target="_blank" rel="noopener noreferrer">The Living Company</a> by Arie De Geus, companies that stand the test of time share certain similarities:</p>
-<ul>
-  <li>Distributed Control: The company should be decentralized and connected to a wide array of partners.</li>
-  <li>Strong Identity: Although the organizational structure was loosely coupled, the company culture was known and carried by all employees.</li>
-  <li>Feedback Loops: Companies should take their cue from the world they inhabit, reacting to feedback and improving their workings based on it.</li>
-</ul>
-
-<p>In essence, companies should move from a design by division to a design for connection. 
-It should not be defined by its individual pieces within its own borders, but rather by the partnership it can form and the information it can extract from these partnerships, be they with customers, suppliers, strategic partners, or even competitors.</p>
-
-<p>While it is important for companies to turn a profit, there are good profits and bad profits. 
-This is one of the purposes of a company, much like proving to be a worthy investment for shareholders and providing a livelihood for its employees. 
-Good profits are derived from creating value for your customers. 
-Bad profits are those made at the expense of the happiness of customers, prioritizing the maximization of short-term profit over long-term sustainability. 
-While this type of profit maximization might be to the benefit of the stakeholders, the other parties (customers and employees) will feel the backlash. 
-All in all, the company should put maximum effort into aligning its performance to what it promised, and furthermore aligning that promise to what customers actually need or want (purpose). 
-This balancing exercise will aid tremendously in veering towards good profits. 
-This can once again be mapped to the 3 categories of business strategy: Customer Intimacy, Product Leadership, and Operational Excellence.</p>
-
-<p style="text-align: center;"><img src="/img/2022-06-13-connecting-the-pods/strategies.png" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%" /></p>
-
-<h2 id="part-3-how-does-a-connected-company-work">Part 3: How does a Connected Company work?</h2>
-
-<p>Business agility is the name of the game and the Connected Company tries to address this topic through the standard technological ways that are available in an attempt to make the company more built for agility:</p>
-<ul>
-  <li>Agile Development with small autonomous teams</li>
-  <li>Service Oriented Development with service contracts, a focus on composability, and loose coupling</li>
-</ul>
-
-<p>The idea is to transform a business into a podular organization. 
-This is an approach that combines the traditional organization split into divisions with pods where you divide the required work into “businesses within businesses”, which can function independently from other pods, and take on the responsibility for a complete “service”. 
-This allows the organization to represent itself as a group of smaller organizations. 
-Each of these pods is autonomous and can function on behalf of the business as a whole.</p>
-
-<p>In a traditional company with divisions, the need for a Corporate Strategy occurs when an enterprise develops multiple divisions (typically linked to separate value chains), each with a distinct business strategy. 
-This is for example the case when a company starts diversifying its products or services. 
-Based on how the corporate strategy is handled across these divisions, we can segment the types of diversification into 4 main categories. 
-Single Businesses are centralized and can be defined as having a predominant business strategy that applies to almost all of their business units. 
-Dominant Businesses still have business strategies that vary and take up a significant part of the enterprise, but overall they follow one centralized strategy that accounts for most of their enterprise. 
-Next, we have the diversified businesses, which are comprised of several business strategies, be they related to each other (for example they are all still targeting the technological markets) and thus able to share a value chain, or be they completely unrelated (typically conglomerates). 
-The podular organization attempts to take this conglomerate idea to the next level, and apply it within individual divisions.</p>
-
-<p style="text-align: center;"><img src="/img/2022-06-13-connecting-the-pods/strategies02.png" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%" /></p>
-
-<p>So what is a pod? 
-A small, autonomous unit that has the mandate and the capabilities to deliver whatever it is that its customers value. 
-It is designed to take decisions and implement changes as quickly and as close to the customer as possible. 
-Whereas the traditional company employs processes that can be seen as recipes or a series of steps that need to be executed, the podular organization is structured as a net, distributing the workload based on goals instead of allocating individual steps or stages. 
-And the pods are not necessarily part of the same organization or company but could extend across several to couple its inherent benefits with more economy-of-scale oriented benefits.</p>
-
-<p>This gives a number of advantages based on its lattice-like structure, exchanging consistency and efficiency for flexibility and creativity:</p>
-<ul>
-  <li>Pods are flexible: changing the structure and purpose is easy and fast.</li>
-  <li>Pods are allowed to fail as the network will provide redundancy by adjusting the purpose of similar pods.</li>
-  <li>Pods can scale up fast by adding additional pods and letting them immediately contribute.</li>
-</ul>
-
-<p>This type of flexibility cannot exist in a vacuum. 
-It needs a proper support system (or platform) to make it happen, necessitating a shared infrastructure for all available and future pods, such as for example a proper cloud adoption. 
-Although it might seem quite a daunting task to put in place, this shared infrastructure offers numerous benefits:</p>
-<ul>
-  <li>More traffic brings more customers and in turn more business.</li>
-  <li>It allows for a focus on differentiators, making it possible to prioritize certain services and products that are “hot” at the moment, only to switch to others when the need arises.</li>
-  <li>The commonality between these pods (common technological standards and shared company culture) generates trust with customers who can see a rise in the overall quality of all services and products offered.</li>
-</ul>
-
-<p>As with all organizations, the connected company needs to continue to evolve. 
-This is done by learning, and the connected company sees learning as a growth spiral called successive approximation. 
-The connected company takes actions, which leads to feedback and discovery based on the outcome of such actions. 
-Once these are collected, you reflect upon how to change the way actions are taken to improve their result. 
-When compared to more traditional ways of learning such as the Double-Loop Learning, to me, this seems like the reflection part is portrayed as a bit too straightforward. 
-If the results of your actions are the only thing to reflect upon, the reframing of the mindset is missed.</p>
-
-<p style="text-align: center;"><img src="/img/2022-06-13-connecting-the-pods/learning.png" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%" /></p>
-
-<p>To go a bit more into detail on this type of learning: Professor Chris Argyris of Harvard Business School identifies three possible levels of learning in an organization, which he coined single-loop, double-loop, and deutero learning. 
-The idea is that with single-loop learning we adjust the capability so that variances in results are addressed. 
-We can look at this as attacking the symptoms of a supply chain problem. 
-With double-loop learning, we search for the under-lying reason for the symptoms of a problem and try to remedy this reason in order to make sure the symptoms no longer occur. 
-One might conclude that double-loop learning is a sounder strategy for attacking problems, but this is incorrect. 
-Both are needed for a balanced resolution of the issues with a supply chain. 
-Take for instance the occurrence of a fire. 
-One needs to address putting out the flames (symptom) before being able to tackle the underlying reason. 
-The balanced application of both of these levels is called deutero learning, which is the preferred manner of proceeding.</p>
-
-<p style="text-align: center;"><img src="/img/2022-06-13-connecting-the-pods/deutero.png" alt="Workspace" class="image fit" style="margin:0px auto; max-width:100%" /></p>
-
-<p>The successive approximation approach in the book focuses on three levels of learning: 
-How entrepreneurs learn, how companies learn, and how the platform learns.</p>
-
-<p>The entrepreneurial method for learning (as stated by Saras Sarasvathy) states that entrepreneurs focus on the qualities they possess within the organization and attempt to utilize these to their greatest effect. 
-This translates into the following points:</p>
-<ol>
-  <li>Entrepreneurs do not start with predictions, but rather with their cares, experiences, and network of people. The learning is based on interactions with people, trying things out on a small scale, and asking questions.</li>
-  <li>Entrepreneurs seek commitment from the people in their projects.</li>
-  <li>With the commitment of people to projects, these projects gain momentum, new capabilities, and an expanding roster of committed people. This reflects on the projects through realigning the goals with their new reality.</li>
-  <li>With the accumulation of resources, the project coalesces in a working model typically coupled with a new and innovative offering.</li>
-</ol>
-
-<p>Organizations learn through two distinct flows. 
-Tacit Knowledge is the knowledge that is being picked up through doing. Experience in the truest sense. 
-Explicit Knowledge is the knowledge that is being shared, measured, and documented… 
-Both are valuable and the organization needs to come up with ways to combine these for maximum effect, for example installing learning spaces where colleagues can come together and share their experiences to achieve the desired cross-pollination.</p>
-
-<p>How platforms learn is likened to the Pace Layered Architecture that was popularized amongst others by Gartner. 
-I have already given my views on this in a previous blogpost: <a href="https://evolute.be/thoughts/anyroad.html" target="_blank" rel="noopener noreferrer">Any Road Will Get You There</a></p>
-
-<h2 id="part-4-how-do-you-lead-a-connected-company">Part 4: How Do You Lead a Connected Company?</h2>
-
-<p>The book states that strategy happens at all levels, but instead of a corporate strategy filtering down to the business units that make up the company, it should be more like a pool of experiments at all levels from which senior management can cherry-pick to achieve success. 
-This would seem to me to imply that there is a definite risk of squandering opportunities where the opportunity cost far outweighs the benefits such experimenting brings with it. 
-On the other hand, this will help innovation tremendously with the possibility of higher returns. 
-So this would be a high-risk high rewards type of situation much in line with blue ocean strategic thinking. 
-It shifts strategy from being driven by prediction to being driven by discovery. 
-This is referenced by the book as the content of Eric D. Beinhocker’s book “<a href="https://www.amazon.co.uk/Origin-Wealth-Evolution-Complexity-Economics/dp/0712676619/ref=sr_1_1" target="_blank" rel="noopener noreferrer">The Origin of Wealth</a>”, where he labels these two strategic approaches as deliberate and emergent strategy.</p>
-
-<p>Another view on strategic approaches comes from colonel John Boyd, whose OODA loop formed the inspiration for the previously mentioned double-loop learning. 
-He states three facets of conflict (or in our case competition with rivaling companies): attrition warfare, maneuver warfare, and moral warfare.</p>
-
-<p>Attrition warfare is when companies will invest huge capital to corner the market and push out competitors. 
-This will work in certain scenarios. 
-Typically in saturated markets where the only discriminator will be price, such tactics can yield the desired result. 
-But this is an expensive proposition.</p>
-
-<p>Maneuver warfare focuses on new technologies to leverage them in the same way cash is used with attrition warfare. 
-To translate this concept to the Connected Company, it needs an emphasis on learning and adapting to new technologies to faster seize opportunities, and as such maximize your advantage in the market. 
-The more you distribute control, the faster you can learn and “maneuver”.</p>
-
-<p>The last of these is moral warfare where you play on the minds and emotions of the customer base while vilifying your competitors. 
-The greater your moral authority, the more cohesive your company culture and your people are, and the greater the impact they can deliver. 
-In essence, think people first! Attracting the good and competent people, keeping them, and elevating their worth through learning, gives your company a head start in the competition race.</p>
-
-<p>Management in the end comes down to having a single purpose for the organization: To design, run and continuously improve the systems that enable it to effectively pursue its goals. 
-A shift needs to be created in traditional management from organizing and supervising (or the well-known command and control management style) to a management that is focused on support (what we label servant leadership) with the previous style on the backburner. 
-Flexibility and structure must be balanced so that the system has enough formalized structure to avoid endlessly reinventing and repeating routine work, and enough adaptability and freedom to not overly constrain work and creativity. 
-This balance is denoted by the so-called tipping points or critical values in your complex adaptive system. 
-Once your cadence moves past such a tipping point, the dynamic of your workforce and productivity shifts, and needs addressing. 
-This is called “tuning the system”, and aims at keeping the organization in the goldilocks zone of that balance.</p>
-
-<p>In order to apply all of these strategic and management concepts, a company needs to have the proper tools in the organizational toolbelt. 
-These are such tools as situational awareness (sensing and understanding the context of its ecosystem to judge changes and their potential impact), dealing with adaptive tensions that are constantly happening in its ecosystem, information transparency (with Lord Kelvin’s “measuring is knowing” adage), and diversification both in terms of products and services as well as people to ensure the company can evolve. 
-The book also mentions command intent, a term used in the military to depict a common goal to work towards. 
-For companies, this becomes a broad vision that leaves the individual pods a large degree of freedom in how to put plans into action (leaning back to the principles of deliberate strategy).</p>
-
-<h2 id="part-5-how-do-you-get-there-from-here">Part 5: How do you get there from here?</h2>
-
-<p>The final part of the book is the smallest by far, a mere 25 pages. 
-It deals with what to do to transform your organization into the podular variety, and what risks might be associated with such a transformation. 
-This change can be kickstarted in four distinct ways: organic growth, top-down leader-driven change, pilot pods, and network weaving.</p>
-
-<p>The organic growth of a company happens when it starts as a small entity and slowly builds itself up. 
-Typically you will find small teams in such a startup that are acting in a similar manner to the pods in the podular organization. 
-The focus, in this case, should be on a shared purpose, let autonomous pods spring to life naturally, and create additional growth through replicating pods by moving people already familiar with the workings of pods into the newly created ones.</p>
-
-<p>Top-down leader-driven change is a more difficult path that demands commitment from the company leadership to steer it in this new direction. 
-There are certain themes that need to be incorporated into this type of change, notably: a focus on customers, avoidance of abundant bureaucracy, moving the decisions closer to where the customers interact with the company, fostering teamwork, and putting your people first as they are the ones that will need to make the pods successful.</p>
-
-<p>Pilot pods are proof-of-concept style pods that can be used to feel things out on how to proceed with this change. 
-They are useful to gather experience and find the proper balances that need to be struck in strategy and execution. 
-These will be outside of typical company structures and should therefore have enough leeway to figure out whether they will be successful, and not be written off at the first signs of trouble.</p>
-
-<p>Network weaving is the last way to get your company on the podular bandwagon. 
-By forging better networks and more connections, the company becomes more effective and adaptive, as there is a cross-pollination that will deliver the needed expertise and knowledge workers that can precipitate the change. 
-This is however the slow-burn step-by-step approach and will require more time than the previous options to become a full-fledged podular entity.</p>
-
-<p>The journey can be perilous, and there are risks that can be expected in the form of failures. 
-With this type of transformation, these risks should be mitigated as soon as possible when they present themselves. 
-The failures can happen at different levels:</p>
-<ul>
-  <li>Failure at the pod level: The distribution of control is very important. As stated earlier in this post, the balance between deliberate and strategic management determines the proper strategy. The level of autonomy given to each pod is an equally important equilibrium. Too much autonomy for any pod can become a liability for the company and severely limit the ability of other pods to function properly. Too little autonomy will infringe upon the pods’ creativity and the ability to learn. This is a fine line that can only be pinpointed through adequate preparation and trial runs.</li>
-  <li>Failure at the platform level: As the platform is needed to allow for this podular way of working, there are certain requirements attached to such a support system: The proper amount of investment needs to be made to have a platform that will suit the needs of this type of organization. There is also the same danger at this level as was in the previous: The danger of over-controlling the platform, or making the barriers to entry too strong by asking too much in return for using the platform (be it conditions or cost or any other quid pro quo). There should be a burden shared by all participants, but this should not outweigh the benefits.</li>
-  <li>Failure of purpose: The focus should remain on the vision of the company, and not just focused on turning a profit. This can lead too easily to the disintegration of the overall company culture as pods migrate further and further away from each other in the pursuit of the bottom line.</li>
-</ul>
-
-<h2 id="conclusion">Conclusion</h2>
-<p>I found the book to be written in a straightforward but not very deep-delving way. 
-As such I would recommend it for non-business-minded consultants to have an introduction to this subject matter, “For Dummies”-style. 
-It is a starting point to get the general frame of mind before delving deeper into organizational concepts, business strategy, and other related areas. 
-It does a good job of lifting the veil enough to get newcomers excited about what else is out there to be learned.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Peter&quot;, &quot;last_name&quot;=&gt;&quot;De Kinder&quot;, &quot;github&quot;=&gt;&quot;peterdekinder&quot;, &quot;linkedin&quot;=&gt;&quot;peterdekinder&quot;, &quot;permalink&quot;=&gt;&quot;/author/peterdekinder/&quot;, &quot;avatar&quot;=&gt;&quot;peterdekinder.jpg&quot;, &quot;title&quot;=&gt;&quot;Solution Architect&quot;, &quot;email&quot;=&gt;&quot;peter.dekinder@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Peter is a Solution Architect with firm roots in the Java technosphere, but with a wide interest in all things architecture. His areas of specialization include Service Oriented Architectures, Business Process Management and Security.&quot;}</name><email>peter.dekinder@ordina.be</email></author><category term="development" /><category term="technical leadership" /><category term="architecture" /><category term="software architecture" /><summary type="html"><![CDATA[Although I finished the book “The Connected Company” several months ago, I only recently got around to gathering my thoughts on the matter and putting them to paper. The book itself came out in 2012, which at this point is already 10 years in the past, and it largely builds on the idea of the quantum organization (Ralph Kilmann), on which I already briefly extrapolated when I wrote about the Five Dysfunctions of a Team.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-13-connecting-the-pods/tile.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-13-connecting-the-pods/tile.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</blockquote>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Laura&quot;, &quot;last_name&quot;=&gt;&quot;Prevost&quot;, &quot;permalink&quot;=&gt;&quot;/author/laura-prevost/&quot;, &quot;avatar&quot;=&gt;&quot;laura-prevost.jpg&quot;, &quot;title&quot;=&gt;&quot;Analyst&quot;, &quot;linkedin&quot;=&gt;&quot;laura-prevost-72097255&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Laura is an Analyst at Ordina Belgium. Also Competence Lead of Technical Leadership at Jworks. Passionate about people. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;}</name><email>laura.prevost@ordina.be</email></author><category term="Leadership" /><category term="Leadership" /><category term="Agile" /><category term="Clean" /><summary type="html"><![CDATA[Table of contents Introduction The Reasons for Agile Business Practices Team Practices Technical Practices Conclusion]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-30-clean-agile/clean_agile_home.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-30-clean-agile/clean_agile_home.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
