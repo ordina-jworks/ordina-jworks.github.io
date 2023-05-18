@@ -32,7 +32,6 @@ We thought we'd look at a handful of tools, evaluate them and select a clear win
 
 We quickly discovered there are quite some interesting tools out there.
 Some that are free and some that cost you a lot of money,
-some that are free and some that cost you a lot of money,
 and some not only do cloud, but can do much more.
 
 We'll be summarizing the tools we found and how they can help you to secure your cloud environment or other resources.
