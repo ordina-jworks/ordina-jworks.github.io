@@ -137,9 +137,9 @@ or even block deployment to environments.
 
 Snyk allows you to write custom policies in Rego, but only for IaC scanning and platform policies.
 
-OPA is easy to use because applications can easily delegate police validation to OPA if needed.
-Snyk IaC leverages OPA to do it's polic scanning according to one of their blogposts.
-You get a preset of policies out o the box from Snyk and you can add your own custom policies writen in Rego.
+OPA is easy to use because applications can easily delegate policy validation to OPA if needed.
+Snyk IaC leverages OPA to do its policy scanning, according to one of their blogposts.
+You get a preset of policies out the box from Snyk, and you can add your own custom policies written in Rego.
 
 ## The Container Detective: Trivy
 
