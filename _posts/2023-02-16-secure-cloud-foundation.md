@@ -150,8 +150,7 @@ Security.
 
 ### Container scanning
 
-Trivy can scan container images against well known vulnerabilities.
-On the [tool's homepage](https://trivy.dev/), you can enter public available Docker Hub images to test it out.
+Trivy can scan container images against well-known vulnerabilities.
 Trivy will scan files inside container images and container image metadata.
 
 Trivy scans the files inside container images for:
