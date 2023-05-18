@@ -24,8 +24,10 @@ you know that keeping it secure and compliant can be a challenging task.
 Every company has their own security and compliance requirements,
 and they should at least follow a best practice standard like CIS AWS Foundations Benchmark.
 
-Often, you'll find that because of the segmented responsibilities across many teams and projects, gaps exist in the security and compliance posture of the organisation. 
-Add to that the rate of change that companies need to handle to stay competitive and you end up with a puzzle that no-one can oversee. 
+Often, you'll find that because of the segmented responsibilities across many teams and projects,
+gaps exist in the security and compliance posture of the organization.
+Add to that the rate of change that companies need to handle to stay competitive,
+and you end up with a puzzle that no-one can oversee.
 
 Originally, we started investigating solutions to scan your infrastructure as code and cloud environment.
 We thought we'd look at a handful of tools, evaluate them and select a clear winner.
@@ -48,12 +50,17 @@ OPA is an open-source, general-purpose policy engine that can be used to enforce
 Some of OPA's strengths summed up:
 
 ### Policy Management
-OPA provides a simple and flexible policy language used by writing [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/){:target="_blank" rel="noopener noreferrer"}.  that allows organizations to define and manage policies across multiple cloud platforms. 
-Policies can be created to enforce security controls, compliancy, and cost optimization rules. 
-The policies can be customized to meet specific operational needs.
-These policies are available as code and can be managed like any other code, including automated testing in an organisation. 
 
-### Automated Compliancy Enforcement
+OPA provides a simple and flexible policy language used by
+writing [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/){:target="_blank" rel="noopener
+noreferrer"}.
+That allows organizations to define and manage policies across multiple cloud platforms.
+Policies can be created to enforce security controls, compliance, and cost optimization rules.
+The policies can be customized to meet specific operational needs.
+These policies are available as code and can be managed like any other code, including automated testing in an
+organisation.
+
+### Automated Compliance Enforcement
 
 OPA can be integrated into the cloud environment using various methods, such as by deploying it as a sidecar container in a Kubernetes cluster or by using Google Cloud functions, [AWS Lambda](https://aws.amazon.com/blogs/opensource/easily-running-open-policy-agent-serverless-with-aws-lambda-and-amazon-api-gateway/){:target="_blank" rel="noopener noreferrer"} or Azure Automation to run OPA policies. 
 Once integrated, OPA can provide real-time policy evaluation and enforcement across the AWS environment, enabling organizations to maintain compliance and security posture.
@@ -96,31 +103,31 @@ Snyk can scan your code for vulnerabilities and compliance issues,
 by example security issues like sql injection or path traversal vulnerabilities.
 
 You might then ask: "How can it help me solve them?"
-They have data flow windows that shows you the entry point and method invocation of the vulnerability, which shows you
+They have a data flow window that shows you the entry point and method invocation of the vulnerability, which shows you
 the entire stack path to the vulnerability in your source code.
 This helps you in assessing what the impact of a vulnerability is and how urgent you need to provide a patch for it.
-This way you can for example asses if a method is publicly accessible or not.
+This way you can, for example, determine if a method is publicly accessible or not.
 
-To help you further with solving the vulnerability you can read the details of the vulnerability
-and a best practice for preventing it, if available.
-If you thought that would be enough they have another tab that shows 3 open source projects that had the vulnerability
+To help you further with solving the vulnerability, you can read the details of the vulnerability
+and the best practice for preventing it, if available.
+If you thought that would be enough, they have another tab that shows 3 open source projects that had the vulnerability
 and how they fixed it in their code base.
 
 ### License Scanning
 
 You can configure Snyk to scan your open source dependencies for license issues with your dependencies,
-which can be useful for example if your company wants to avoid using dependencies with a certain license,
+which can be useful, for example, if your company wants to avoid using dependencies with a certain license,
 because they want to commercialize the software in the future.
-For example a library that uses patents,
+For example, a library that uses patents,
 but its software rights don't include that you may use their patents when using their library.
-The company might for various reason not allow AGPLv3 libraries for example, because of various reasons.
+The company might for various reasons not allow AGPLv3 libraries, for example, because of various reasons.
 
 ### Container scanning
 
 Snyk can scan your container images for vulnerabilities it can do this from docker images, Amazon ECR, Docker hub, ...
 You can set this up in your Kubernetes cluster, but currently Fargate is not supported.
 
-You can automate the image updating process by using container scanning on your Git repository.
+You can automate the image updating process by using container scanning in your Git repository.
 By using this method, Snyk can automatically create pull requests for you that you can test and then merge if satisfied.
 This reduces your effort to stay safe and up to date.
 
@@ -175,12 +182,12 @@ like a `pom.xml`, but can also scan into jar and war files.
 
 If you thought "that's nice", that's not all it can do!
 It can also scan your linux systems package managers by fetching what packages are installed,
-apt and apk are supported of the box for alpine and ubuntu based images.
+apt and apk are supported by default for alpine and ubuntu based images.
 
 ### CI/CD integration
 
-Because Trivy is a CLI tool, it can easily be integrates in new or existing CI/CD pipelines.
-To integrate it into GitHub you could tell trivy the run should fail (exit code 1 instead of 0) only for HIGH and
+Because Trivy is a CLI tool, it can easily be integrated in new or existing CI/CD pipelines.
+To integrate it into GitHub, you could tell trivy the run should fail (exit code 1 instead of 0) only for HIGH and
 Critical issues.
 
 Trivy also maintains a [GitHub action](https://github.com/aquasecurity/trivy-action) to integrate it in GitHub actions.
@@ -192,7 +199,7 @@ This action has some examples of how you can integrate this with GitHub Advanced
 
 Trivy can be run locally to scan your AWS environment using the AWS CLI.
 The default included check scans against AWS CIS 1.2.0 benchmark.
-It shows summarizes a lists of issues, and gives description of how to resolve the issue, it won't automatically fix it.
+It shows summarizes a lists of issues, and gives description of how to resolve the issue; it won't automatically fix it.
 
 The benefit compared to AWS security hub is that here you can stop the issue from being created before merge or deploy.
 While security hub would tell you after the resource already exists in AWS.
@@ -232,8 +239,9 @@ both of these rule engines are open-source and use OPA under the hood.
 
 ## The Composer: Fugue
 
-[Fugue](https://www.fugue.co/){:target="_blank" rel="noopener noreferrer"} is a cloud security platform that helps you to secure your cloud environment,
-it was bought by Snyk some time ago and after this take-over Snyk started working on Snyk Cloud.
+[Fugue](https://www.fugue.co/){:target="_blank" rel="noopener noreferrer"} is a cloud security platform that helps you
+to secure your cloud environment,
+it was bought by Snyk some time ago, and after this take-over Snyk started working on Snyk Cloud.
 
 <img src="{{ '/img/2023-02-16-secure-cloud-foundation/Fugue.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%; height:60%">
 
@@ -276,6 +284,6 @@ offer similar functionality.
 However, the native solutions may lack the flexibility and customization options of third-party tools like OPA, Cloud
 Custodian, and Snyk, which may be essential for meeting specific organizational requirements.
 
-If you found this post helpful, be sure to keep an eye out for our upcoming follow-up post,
+If you find this post helpful, be sure to keep an eye out for our upcoming follow-up post,
 we'll be diving deeper into the practical applications of OPA and sharing some real-world use cases.
 Be sure to stay tuned, so you don't miss out on valuable insights and tips.
