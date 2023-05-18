@@ -1,11 +1,12 @@
 ---
 layout: post
-authors: [lander_marien, duncan_casteleyn]
+authors: [ lander_marien, duncan_casteleyn ]
 title: 'Secure cloud foundation tooling'
-image: /img/2023-02-16-secure-cloud-foundation/header.png # TODO - change image
-tags: [aws, cloud]
+image: /img/2023-02-16-secure-cloud-foundation/header.png
+tags: [ aws, cloud ]
 category: Cloud
 comments: true
+date: 2023-05-18
 ---
 
 - [Introduction](#introduction)
@@ -92,24 +93,24 @@ Cloud Custodian also helps organizations optimize cloud costs by automating the 
 
 ### Code scanning
 
-Snyk can scan your code for vulnerabilities and compliance issues.
-It can scan your code for security issues like sql injection or path traversal vulnerabilities.
+Snyk can scan your code for vulnerabilities and compliance issues,
+by example security issues like sql injection or path traversal vulnerabilities.
 
-You might be thinking that nice but how do I figure out how to solve it?
-They have a data flow that shows you the entry point and method invocation of the vulnerability, which shows you the entire stack path to the vulnerability in your source code.
-Which shows you the entire stack path to the vulnerability in your source code.
+You might then ask: "How can it help me solve them?"
+They have data flow windows that shows you the entry point and method invocation of the vulnerability, which shows you
+the entire stack path to the vulnerability in your source code.
 This helps you in assessing what the impact of a vulnerability is and how urgent you need to provide a patch for it.
-(method that is publicly accessible vs library code that isn't used)
+This way you can for example asses if a method is publicly accessible or not.
 
-To help you further even more with solving the vulnerability you can read the details of the vulnerability
+To help you further with solving the vulnerability you can read the details of the vulnerability
 and a best practice for preventing it, if available.
 If you thought that would be enough they have another tab that shows 3 open source projects that had the vulnerability
 and how they fixed it in their code base.
 
-### Licence scanning
+### License Scanning
 
-You can configure Snyk to scan your open source dependencies for licence issues with your dependencies,
-which can be useful for example if your company wants to avoid using dependencies with a certain licence,
+You can configure Snyk to scan your open source dependencies for license issues with your dependencies,
+which can be useful for example if your company wants to avoid using dependencies with a certain license,
 because they want to commercialize the software in the future.
 For example a library that uses patents,
 but its software rights don't include that you may use their patents when using their library.
@@ -169,11 +170,14 @@ The image metadata will be scanned for:
 ### Dependency scanning
 
 Trivy can scan your dependencies for well known vulnerabilities.
-It has a mode that automatically discovers, declarations files for various package managers
-This Dependency scanning is very powerful it scans the file system for typical files used to declare dependencies,
+
+It has a mode that automatically discovers, declarations files for various package managers.
+This dependency scanning is very powerful it scans the file system for typical files used to declare dependencies,
 like a `pom.xml`, but can also scan into jar and war files.
-If you thought that's nice well it can also scan your linux systems package managers installed packages, apt and apk are
-supported of the box for alpine and ubuntu based images.
+
+If you thought "that's nice", that's not all it can do!
+It can also scan your linux systems package managers by fetching what packages are installed,
+apt and apk are supported of the box for alpine and ubuntu based images.
 
 ### CI/CD integration
 
@@ -223,10 +227,10 @@ Trivy can scan your configuration files against known configuration issues it su
 
 ### Custom policies
 
-For all the mentioned functionality custom policies can be written in Rego.
-Trivy uses defsec their cloud rules engine for Docker and Kubernetes
-and tfsec a static analysis scanner for terraform code, both of these rule engines are open-source.
-Under the hood they both use OPA.
+You can add your own custom policies, but you will have to write them in Rego.
+Trivy uses Defsec their cloud rules engine for Docker and Kubernetes and tfsec a static analysis scanner for terraform
+code,
+both of these rule engines are open-source and use OPA under the hood.
 
 ## The Composer: Fugue
 
@@ -268,9 +272,12 @@ Fugue allows you to write custom policies in Rego.
 
 In conclusion, managing and securing cloud environments can be a complex and challenging task due to segmented responsibilities across different teams and projects. Open Policy Agent, Cloud Custodian, and Snyk are three tools of many that can help organizations enforce policies, maintain continuous compliance and governance, and optimize costs across multiple cloud platforms.
 
-While these tools can be valuable additions to any organization’s cloud security and compliance toolset, it’s worth noting that cloud providers also offer native solutions like AWS Security Hub, Azure Security Center/Sentinel that can offer similar functionality. 
-However, the native solutions may lack the flexibility and customization options of third-party tools like OPA, Cloud Custodian, and Snyk, which may be essential for meeting specific organizational requirements. 
+While these tools can be valuable additions to any organization’s cloud security and compliance toolset, it’s worth
+noting that cloud providers also offer native solutions like AWS Security Hub, Azure Security Center/Sentinel that can
+offer similar functionality.
+However, the native solutions may lack the flexibility and customization options of third-party tools like OPA, Cloud
+Custodian, and Snyk, which may be essential for meeting specific organizational requirements.
 
 If you found this post helpful, be sure to keep an eye out for our upcoming follow-up post,
 we'll be diving deeper into the practical applications of OPA and sharing some real-world use cases.
-Be sure to stay tuned so you don't miss out on valuable insights and tips.
+Be sure to stay tuned, so you don't miss out on valuable insights and tips.
