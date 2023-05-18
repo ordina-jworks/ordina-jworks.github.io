@@ -203,7 +203,7 @@ While security hub would tell you after the resource already exists in AWS.
 
 Trivy can scan your code for secrets,
 because it's not like you have ever had a developer push your precious AWS access key.
-I really wonder why we suddenly have EC2s booting up with the biggest possible instance size and GPU's.
+(I really wonder why we suddenly have EC2s with GPU's booting up?)
 It can scan for:
 
 * AWS access key
