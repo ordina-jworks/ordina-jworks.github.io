@@ -16,8 +16,6 @@ This devcase required us to use a range of tools and technologies, from Java Spr
 In this blog post, we will share our experience working with these technologies, as well as the use of Spring Boot, Terraform, Google Assistant, GitHub Actions, etc. to build a scalable and reliable system that meets the project's requirements.
 In addition, the main problems we encountered during the devcase and how we overcame them.  
 
-
-
 ## Our goal
 
 Make two different applications that will use Tesla Cars.
