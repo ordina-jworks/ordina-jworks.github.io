@@ -1,46 +1,54 @@
 ---
 layout: post
-authors: [] 
+authors: [otte_fieremans, fe_dekeyser] 
 title: 'Vuzix And How To Use It'
 image:
-tags: []
+tags: [Java, Terraform, PostgreSQL, Android, Docker, Postman, AWS, Vuzix Blade, JUnit, DynamoDB, Git, Spring, RestAPI, IAM, ECR, App Runner, RDS, Gradle, Maven, Swagger]
 category: Internship
 comments: true
 ---
 
 
-# VUZIX AND HOW TO USE IT
 
----
-Posted June 2nd, 2023 in Internship by Otte Fieremans and Fe Dekeyser
+# TABLE OF CONTENTS
 
-TAGS: Java, Terraform, PostgreSQL, Android, Docker, Postman, AWS, Vuzix Blade, JUnit, DynamoDB, Git, Spring, RestAPI, IAM, ECR, App Runner, RDS, Gradle, Maven, Swagger
+* [Introduction](#introduction)
+* [What needed to be done](#what-needed-to-be-done)
+* [About those glasses](#about-those-glasses)
+* [Android App](#android-app)
+  * [Enhancing user experience](#enhancing-the-user-experience)
+  * [Hands-free experience](#hands-free-experience)
+  * [User inputs](#user-inputs)
+  * [Optimization and testing](#optimization-and-testing)
+* [Spring Boot API](#spring-boot-api) 
+  * [REST](#rest)
+  * [Postgres database](#postgres-database)
+  * [API integration](#api-integration)
+* [Infrastructure as code](#infrastructure-as-code)
+  * [Setting up the S3 backend, the tip of the iceberg](#setting-up-the-s3-backend-the-tip-of-the-iceberg)
+  * [Setting up the repository](#setting-up-the-repository)
+  * [Pushing to the repository](#pushing-to-the-repository)
+    * [The trigger](#the-trigger)
+    * [Jobs](#jobs)
+    * [CI](#ci)
+    * [CD](#cd)
+  * [Now for the database](#now-for-the-database)
+  * [Let's finally run the API](#lets-finally-run-the-api)
+  * [Terraform workflow](#terraform-workflow)
+  * [Visual Representation](#visual-representation)
+* [Summary](#summary)
 
-## TABLE OF CONTENTS
+# INTRODUCTION
 
----
-
-- Introduction
-- What needed to be done
-- About those glasses
-- Android
-- API
-- Infrastructure as code
-- Summary
-
-## INTRODUCTION
-
----
 In today's world, there are numerous navigation options available, with every mobile phone equipped with GPS functionality.
-However, what if there was an even easier way? Our project offers a solution where you can embark on a seamless walk, bike ride, or any other journey without the need to constantly retrieve your phone from your pocket. 
-By following our app, you can effortlessly navigate your chosen route while remaining informed of crucial information such as direction, speed, distance and potentially more. 
+However, what if there was an even easier way? Our project offers a solution where you can embark on a seamless walk, bike ride, or any other journey without the need to constantly retrieve your phone from your pocket.
+By following our app, you can effortlessly navigate your chosen route while remaining informed of crucial information such as direction, speed, distance and potentially more.
 The beauty lies in our app's ability to project all this data onto your eyewear, enhancing your overall experience.
 
 Simply upload your routes using GPX files, select the desired route, and you're ready to begin your adventure!
 
-## WHAT NEEDED TO BE DONE
+# WHAT NEEDED TO BE DONE
 
----
 The project we were about to embark on described building an Android application which runs on the Vuzix Blade AR-glasses and communicates with an API that runs in a Cloud environment.
 
 - Build the Android application for the Blade
@@ -53,9 +61,8 @@ The project we were about to embark on described building an Android application
 - Expand the pipeline to setup Cloud infrastructure
 - Go for a walk
 
-## ABOUT THOSE GLASSES
+# ABOUT THOSE GLASSES
 
----
 In today's market, there is a considerable variety of "smart glasses" available.
 However, when compared to other smart eyewear options, the Vuzix Blade stands out due to its subtle design, making it particularly well-suited for outdoor use.
 Consequently, our app is specifically tailored to function seamlessly with this particular eyewear.
@@ -64,54 +71,111 @@ As a result, extended excursions would require the use of a power bank to ensure
 
 If you desire to use these glasses for yourself here are some introductory steps to get you started on utilizing the full potential of the Vuzix Blade.
 
-https://files.vuzix.com/Content/pdfs/Vuzix-Blade-User-Manual.pdf
+[User Manual](https://files.vuzix.com/Content/pdfs/Vuzix-Blade-User-Manual.pdf)
 
-## ANDROID
+# ANDROID APP
 
----
 The Vuzix Blade uses the Android 5 OS, so we developed our app using Android, utilizing the Java programming language.
-While both of us were new to Android development, we already had experience working with mobile apps and java, which allowed us to quickly grasp the necessary concepts and tools.
+While both of us were new to Android development, we already had experience working with mobile applications and Java, which allowed us to quickly grasp the necessary concepts and tools.
+There were some difficulties since we were limited to features from Android API 22 but we still managed to bring the application to a desirable outcome.
 
-Throughout the development process, we explored various features and functionalities that could enhance the user experience. For instance, we implemented real-time GPS tracking to accurately monitor the user's location and provide precise navigation instructions. Additionally, we integrated heart rate monitoring capabilities to offer valuable health-related information during physical activities.
+### Enhancing the user experience
 
-*couple codesnippets here?*
+Throughout the development process, we explored various features and functionalities that could enhance the user experience.
+For instance, we implemented real-time GPS tracking to accurately monitor the user's location and provide precise navigational instructions.
+This way we could also show a user what speed they were traveling.
+We use the magnetic field sensor in the glasses to determine the user's direction and make sure they are always being directed in the right direction.
+
+
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Vuzix-App-main.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Vuzix-App-routes.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Vuzix-app-stats.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
+
+### Hands-free experience
 
 By utilising the Vuzix Blade's display, we successfully projected relevant data, such as distance, speed and direction directly onto the user's field of view, ensuring an intuitive and hands-free experience.
+With a simplistic interface the user can easily select the route he wants to traverse and since it is displayed on smart glasses the black background makes it transparent, so the user has optimal visibility while traversing his path.
+Furthermore, after having selected a route, the user will see information about the previous times he travelled the route as you can see on the image on the right.
 
-To optimize performance and enhance the overall app experience, we employed efficient coding practices, utilized libraries and frameworks compatible with Android, and conducted rigorous testing to identify and address any potential issues or bugs.
+### User inputs
 
-## API
+A user also has multiple inputs he can use to enhance the user experience.
+They can go forward or back a point since most GPX-files' coordinates are rounded which can make the points that are marked sometimes appear inside of buildings.
+Even when they are user generated routes, and the user never came in a 10-meter radius of the building.
+To further help with this but also for people wo don’t want to begin at the start of their route or people who just got lost.
+There is a rebase function that just puts you on the point closest to where you are regardless of where in your route you were.
+The user can also at any point reload his statistics for the route he is traveling or start a new route.
 
----
-We have leveraged a Spring Boot API integrated with a Postgres database to effortlessly retrieve routes from the cloud.
-This powerful combination allows us to seamlessly interact with the database and efficiently fetch the required route information.
+### Optimization and testing
 
-By utilizing Spring Boot, we have developed a robust API that acts as a middleware, connecting our application to the Postgres database.
-With its extensive set of modules and libraries, Spring Boot provides a cohesive framework for building RESTful services.
+* To ensure optimal performance, we employed efficient coding practices and utilized compatible libraries and frameworks for the Android platform.
+* Rigorous testing was conducted to identify and address any potential issues or bugs, enhancing the overall app experience.
 
-The Postgres database serves as the central repository for storing and managing our route data, ensuring data integrity and efficient querying capabilities.
+By incorporating these enhancements, we have created an Android app that provides users with a seamless and intuitive navigation experience on the Vuzix Blade, leveraging real-time GPS tracking, user-friendly inputs, and optimized performance.
 
-*swagger screenshot?*
+# SPRING BOOT API
 
-Through the integration of the Spring Boot API and Postgres database, we establish a streamlined connection, enabling us to access and retrieve routes effortlessly from the cloud.
-This seamless integration enhances our navigation capabilities, providing a smoother and more user-friendly experience.
+Our application leverages the power of a Spring Boot API integrated with a Postgres database.
+This robust combination enables us to effortlessly retrieve routes from the cloud, providing users with easy access to their desired routes anytime, anywhere.
 
-## INFRASTRUCTURE AS CODE
+### REST
 
----
+By utilizing Spring Boot as a middleware, our API serves as a bridge between our application and the Postgres database.
+Spring Boot's extensive set of modules and libraries provide a cohesive framework for building RESTful services, ensuring smooth and reliable communication between the application and the database.
+
+### Postgres Database
+
+The Postgres database acts as a centralized repository, storing and managing all the route data and statistics.
+With this centralized approach, we ensure data integrity and efficient querying capabilities, allowing users to access and analyze their route information effectively.
+We save our GPX files as a String in a SQL Database with a Unique name, So the user won’t confuse their files and the API can query by name.
+Route statistics are saved in the database, establishing a many-to-one relation with the GPX model.
+These statistics capture essential information such as start and end times, enabling our application to calculate the duration of routes and average speeds accurately.
+
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Swagger.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+
+*The GPX object*
+```json
+{
+  "id": 0,
+  "name": "string",
+  "gpx": "string"
+}
+```
+*The RouteStatistic object*
+```json
+{
+  "id": 0,
+  "startDate": "string",
+  "endDate": "string",
+  "gpx": {}
+}
+```
+
+### API integration
+
+Experience hassle-free route management with our integrated API and Postgres database solution.
+Seamlessly retrieve and manage routes with ease, enhancing your navigation experience.
+Our user-friendly approach prioritizes data integrity, delivering a streamlined and intuitive route management solution.
+
+# INFRASTRUCTURE AS CODE
+
 As the API took shape it was time to start thinking about how our infrastructure in the cloud would look like.
-To manage and provision our infrastructure we used a little nifty tool called Terraform. 
+To manage and provision our infrastructure we used a little nifty tool called Terraform.
 
 Terraform is an open-source infrastructure as code (IaC) tool developed by HashiCorp.
 It enables the automation of provisioning and managing infrastructure resources across various cloud providers and on-premises environments.
-With Terraform, you define your desired infrastructure configuration using a declarative language called HashiCorp Configuration Language (HCL). These configurations, known as Terraform code, describe the desired state of your infrastructure, specifying the resources, dependencies, and configurations needed. By executing Terraform commands, it compares the current state of the infrastructure with the desired state and determines the necessary actions to bring the infrastructure into the desired state. Terraform's ability to manage infrastructure as code allows for version control, collaboration, and reproducibility, making it an efficient and scalable solution for infrastructure management. 
+With Terraform, you define your desired infrastructure configuration using a declarative language called HashiCorp Configuration Language (HCL).
+These configurations, known as Terraform code, describe the desired state of your infrastructure, specifying the resources, dependencies, and configurations needed.
+By executing Terraform commands, it compares the current state of the infrastructure with the desired state and determines the necessary actions to bring the infrastructure into the desired state.
+Terraform's ability to manage infrastructure as code allows for version control, collaboration, and reproducibility, making it an efficient and scalable solution for infrastructure management.
 
 ### Setting up the S3 backend, the tip of the iceberg
 
 To begin our quest for provisioned infrastructure we needed a place to store the state of our configuration.
-In Terraform x AWS an S3 bucket is used for exactly this. Another necessary resource to setting up the S3 backend is a DynamoDB table.
+In Terraform x AWS an S3 bucket is used for exactly this.
+Another necessary resource to setting up the S3 backend is a DynamoDB table.
 This single table stores the lock of the state so that it cannot be accessed by multiple persons at a time, which could otherwise lead to configuration drift.
-```
+```HCL
 backend "s3" {
     bucket = "vuzix-blade-intership-tfstate"
     key    = "terraform/terraform.tfstate"
@@ -128,7 +192,7 @@ U can also see the `dynamodb_table` parameter which references to the table for 
 To start deploying our API to the cloud we’re going to need a place to store our built images, which the runner is going to use to launch the API.
 Remember that we don’t even have a database and runner in the cloud yet.
 The repository also has a lifecycle policy, this implies that the repository should only keep the 5 latest images, to keep it from overcrowding.
-```
+```HCL
 resource "aws_ecr_repository" "vuzix-blade-internship-container-repository" {
     name = "vuzix-blade-internship-container-repository"
     image_scanning_configuration {
@@ -147,7 +211,7 @@ For now, we’ll take a break from Terraform to focus on the workflow which is w
 
 This is the first and probably most important part of the workflow: defining a trigger.
 In our application the trigger is pulling into the main branch.
-```
+```YAML
 name: build/push workflow vuzix-blade-internship
 
 on:
@@ -157,12 +221,13 @@ on:
 ```
 #### Jobs
 
-When the trigger is set, we’re ready to start defining jobs. In our case we have 2 jobs, the deploy has been split into CI and CD respectively.
+When the trigger is set, we’re ready to start defining jobs.
+In our case we have 2 jobs, the deploy has been split into CI and CD respectively.
 
 #### CI
 Inside this CI job we are going to run our integration tests of the API to make sure that all the logic works to our liking before we build and push the image to the repository.
 
-```
+```YAML
   ci:
     name: CI
     runs-on: [self-hosted, Linux]
@@ -185,7 +250,7 @@ Only when the CI job is ran successfully will the CD job be able to start.
 Inside the CD job we need to set up a couple preparations before we can build and push to the repository.
 We need permission to push to AWS, to get this permission we made a custom IAM role (this role was manually created) that we can assume in the runner.
 
-```
+```YAML
 - name: Configure AWS credentials
   uses: aws-actions/configure-aws-credentials@v2
   with:
@@ -199,7 +264,7 @@ We need permission to push to AWS, to get this permission we made a custom IAM r
 `role-to-assume` lets us specify a role to assume with its ARN, this role must have the necessary permissions to perform all the actions inside the workflow.
 If the login attempt is successfull the role logs into the ECR.
 
-```
+```YAML
 - name: Build Docker image
   env:
     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -217,7 +282,8 @@ We make use of the built-in Spring Boot plugin named Paketo, the `spring-boot:bu
 The `docker push` command automatically recognizes that it needs to push to the specified repository, hens the naming convention.
 
 If done correctly we can see that the repository in AWS recieves and stores our image.
-![ECR Screenshot](../img/2023-06-01-vuzix-and-how-to-use-it/ECR-screenshot.png)
+
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/ECR-screenshot.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 ### Now for the database
 
@@ -232,7 +298,7 @@ The `aws_db_parameter_group` is a default parameter group for RDS with the corre
 
 Our `aws_security_group` that is specifically for our RDS will open the necessary ports in the VPC for inbound and outbound traffic from and to our App Runner (more on the App Runner later).
 
-```
+```HCL
 resource "aws_db_instance" "dev-vuzix-blade-internship-db" {
     allocated_storage = 10
     instance_class = "db.t3.micro"
@@ -256,7 +322,8 @@ U can see in our `aws_db_instance` where we have defined the security group, vpc
 
 ### Let's finally run the API
 
-Now for the fun part: finally running our API in the cloud. To achieve this, we’re using the App Runner resource.
+Now for the fun part: finally running our API in the cloud.
+To achieve this, we’re using the App Runner resource.
 There are a couple of things you need to take care of before trying to run your app in an App Runner.
 Firstly, it needs to sit in the same VPC as the RDS so that they can connect to each other.
 Secondly, there needs to be a custom role for the runner that has permissions to retrieve the image from the ECR.
@@ -271,7 +338,7 @@ In the `aws_apprunner_service` you have to specify a role that has access to the
 The role needs the permissions to be assumed by the App Runner and to perform actions on our image repository.
 The specifying of a role is mandatory if the App Runner needs to access a private image repository.
 
-```
+```HCL
 resource "aws_apprunner_service" "vuzix-blade-internship-apprunner-service" {
     service_name = "vuzix-blade-internship-apprunner-service"
     tags = var.resource_tags
@@ -310,7 +377,7 @@ In the `aws_apprunner_service` above you can see the `network_configuration {}` 
 After the App Runner was set up we wanted a way to automatically apply and destroy our Terraform configuration.
 Because we do not want to lose any previously built images or data inside the database, the only resource being automatically destroyed and set up again is the App Runner.
 
-```
+```YAML
 name: Terraform Apply On Schedule
 
 on:
@@ -320,7 +387,7 @@ on:
 The trigger for our Terraform Apply workflow.
 This workflow runs every day from Monday till Friday at 6am (UTC), the Terraform Destroy workflow runs at 4pm (UTC).
 
-```
+```YAML
 - name: Terraform Init
   run: |
     terraform init -input=false
@@ -334,17 +401,23 @@ This workflow runs every day from Monday till Friday at 6am (UTC), the Terraform
 ```
 We initialize our Terraform and apply the configuration, the `terraform destroy` is very similar except for the fact that in the destroy we use the `-target` tag to target our App Runner resource.
 
-## VISUAL REPRESENTATION
+### VISUAL REPRESENTATION
 
----
-**Project Visual**
+Displayed below you will find two images, one representing the project as a whole and how it intertwines with our cloud infrastructure.
+The second picture represents the entire Terraform state and the dependencies of each resource.
+
+*Project Visual*
 
 
-![Project Visual](../img/2023-06-01-vuzix-and-how-to-use-it/infrastructure-graphical.png)
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/infrastructure-graphical.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
-**Terraform Graphical**
+*Terraform Graphical*
 
-![Terraform Graphical](../img/2023-06-01-vuzix-and-how-to-use-it/Terraform-graphical.png)
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Terraform-graphical.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+
+# SUMMARY
+
+
 
 
 
