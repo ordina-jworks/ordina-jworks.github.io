@@ -289,8 +289,8 @@ If done correctly we can see that the repository in AWS recieves and stores our 
 
 The database consists of an RDS resource in AWS which is running a Postgres 15 engine.
 Before we can begin setting up our RDS instance we have to decide how we’re going to handle the network situation.
-We want to put our RDS in a VPC (Virtual Private Cloud)to keep it secure inside our public Cloud, we can specify this using an `aws_db_subnet_group`.
-We also need a couple other resources to optimally setup the RDS like an `aws_db_parameter_group` and an `aws_security_group`.
+We want to put our RDS in a VPC (Virtual Private Cloud) to keep it secure inside our public Cloud, we can specify this using an `aws_db_subnet_group`.
+We also need a couple other resources to optimally set up the RDS like an `aws_db_parameter_group` and an `aws_security_group`.
 
 In the `aws_db_subnet_group` we just need to define our subnets and AWS will automatically recognize the correct VPC.
 
@@ -417,9 +417,21 @@ The second picture represents the entire Terraform state and the dependencies of
 
 # SUMMARY
 
+Our project encompasses various technologies and tools to enhance the navigation experience.
+We leverage the Vuzix Blade smart glasses, utilizing their subtle design for outdoor use.
+Our app, developed using Android and Java, seamlessly integrates with the Vuzix Blade, projecting useful information onto the user's eye wear without hindering their sight.
 
+Furthermore, our system incorporates a Spring Boot REST API integrated with a Postgres database.
+This combination enables us to effortlessly send or retrieve routes and their analytics from the cloud, offering efficient data management and reliable access to essential navigation information.
+To efficiently manage our cloud resources, we employ Terraform as our infrastructure-as-code tool.
+With Terraform's configuration files, we define and provision the required cloud resources, ensuring consistent and tailored infrastructure setups.
+With a pipeline to automatically build and destroy cloud resources to have optimal availability and low costs.
 
+Overall, our project integrates different technologies and tools, providing users with a convenient, hands-free navigation experience while optimizing resource management and leveraging cloud capabilities.
 
+We also created this visual to represent all the technologies and tools we used to bring this project to fruition.
 
+<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/technologies.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
-
+Last but not least a special thanks to our mentors Jeroen Vereecken and Stijn Geerts for guiding us through our internship and helping us along the way.
+And a big thanks to Nils Devos for giving us this opportunity.
