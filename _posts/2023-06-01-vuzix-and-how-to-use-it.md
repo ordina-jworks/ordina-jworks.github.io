@@ -71,7 +71,7 @@ As a result, extended excursions would require the use of a power bank to ensure
 
 If you desire to use these glasses for yourself here are some introductory steps to get you started on utilizing the full potential of the Vuzix Blade.
 
-[User Manual](https://files.vuzix.com/Content/pdfs/Vuzix-Blade-User-Manual.pdf)
+[User Manual](https://files.vuzix.com/Content/pdfs/Vuzix-Blade-User-Manual.pdf){:target="_blank" rel="noopener noreferrer"}
 
 # ANDROID APP
 
