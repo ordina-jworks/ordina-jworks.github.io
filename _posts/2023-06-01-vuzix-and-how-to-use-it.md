@@ -2,7 +2,7 @@
 layout: post
 authors: [otte_fieremans, fe_dekeyser] 
 title: 'Vuzix And How To Use It'
-image:
+image: /img/2023-06-01-vuzix-and-how-to-use-it/glasses.png
 tags: [Java, Terraform, PostgreSQL, Android, Docker, Postman, AWS, Vuzix Blade, JUnit, DynamoDB, Git, Spring, RestAPI, IAM, ECR, App Runner, RDS, Gradle, Maven, Swagger]
 category: Internship
 comments: true
