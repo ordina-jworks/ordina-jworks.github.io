@@ -47,7 +47,7 @@ Cloud computing has made it easy for organizations to manage their IT infrastruc
 
 OPA is an open-source, general-purpose policy engine that can be used to enforce policies across various systems, including cloud infrastructure.
 
-Some of OPA's strengths summed up:
+Lets look at some of the strengths and advantages that OPA has to offer.
 
 ### Policy Management
 
@@ -77,7 +77,7 @@ OPA can integrate with various cloud native tools, including Kubernetes, Istio, 
 
 Cloud Custodian uses a policy-driven approach to scan cloud resources. Policies are written using a simple and flexible policy language that allows organizations to define and manage policies.
 
-The features of Cloud Custodian for a secure cloud environment:
+Following are some features with which Cloud Custodian can make governance and compliance easier.
 
 ### Automated Remediation
 
