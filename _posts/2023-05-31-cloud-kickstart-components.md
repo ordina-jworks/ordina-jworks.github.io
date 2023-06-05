@@ -3,7 +3,7 @@ layout: post
 authors: [gabriel_dela_peña, oumaima_zeraouili]
 title: 'Cloud Kickstart Components'
 image: /img/2023-05-17-kubecon-2023/banner-resized.jpg
-tags: [cloud, aws, internship, kubernetes, terraform, docker, aws services]
+tags: [cloud, aws, internship, kubernetes, terraform, docker]
 category: Cloud
 comments: true
 
