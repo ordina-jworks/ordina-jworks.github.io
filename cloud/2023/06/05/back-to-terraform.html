@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Back to Terraform - Pieter Vincken and Yannick Bontemps">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2023-06-05-back-to-terraform/header.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Back to Terraform - Pieter Vincken and Yannick Bontemps"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2023-06-05-back-to-terraform/header.png"/>
+
+    
+    <title>Back to Terraform - Pieter Vincken and Yannick Bontemps &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/meet-the-team">Meet the team</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="https://join.ordina-jworks.io/">JOIN</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Back to Terraform</h2>
+                
+
+                
+                    Posted Jun 5, 2023
+
+
+    in <a href="/categories/cloud/">Cloud</a>
+
+
+
+    by
+    
+        <a href="/author/pieter_vincken/">Pieter Vincken</a>
+        
+            
+                 and 
+        
+        
+    
+        <a href="/author/yannick_bontemps/">Yannick Bontemps</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/cloud/">cloud</a>, 
+    
+        <a href="/tags/automation/">automation</a>, 
+    
+        <a href="/tags/cicd/">cicd</a>, 
+    
+        <a href="/tags/terraform/">terraform</a>, 
+    
+        <a href="/tags/iac/">iac</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>“Fail fast” does not imply lack of commitment to a mission or goal, but on the contrary, indicates a willingness to experiment in the process, learn quickly from the results, and make adjustments to better achieve an enhanced customer experience.</p>
+</blockquote>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#what-is-terraform">What is Terraform?</a></li>
+  <li><a href="#what-is-pulumi">What is Pulumi?</a></li>
+  <li><a href="#what-is-terragrunt">What is Terragrunt?</a></li>
+  <li><a href="#developer-adoption-excluding-the-batteries-pulumi">Developer adoption, excluding the batteries: Pulumi</a></li>
+  <li><a href="#additional-complexity-without-the-promised-benefit-terragrunt">Additional complexity without the promised benefit: Terragrunt</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Public cloud computing has revolutionized the way organizations approach their IT infrastructure. 
+Rather than investing in and maintaining their hardware and software, businesses can now access computing resources through the internet, on an as-needed basis. 
+This shift towards public cloud adoption has created a demand for new management and deployment approaches, with Infrastructure as Code (IaC) emerging as a critical tool for cloud infrastructure management.</p>
+
+<p>IaC is the process of defining and provisioning computing infrastructure through code, rather than through manual processes. 
+This approach allows for consistent, repeatable, and scalable infrastructure deployment, while also providing the ability to automate management tasks and enforce governance policies. 
+With IaC, developers can write code that defines the desired state of infrastructure, which can then be deployed and improved over time.</p>
+
+<p>As organizations increase their footprint in the cloud, the need for IaC becomes increasingly important. 
+Without proper automation and governance, manual infrastructure management becomes time-consuming, error-prone, and difficult to scale. 
+Developers can easily collaborate and share their infrastructure code, while also ensuring that resources are deployed consistently and securely. 
+By automating infrastructure provisioning and deployment, organizations can more easily scale resources up or down as needed, optimize resource usage, and rapidly respond to changing business needs.</p>
+
+<p>In this blog post, we’ll discuss 3 different IaC tools: Terraform, Pulumi and Terragrunt. 
+We’ll discuss two real-world cases where Pulumi and Terragrunt were replaced by Terraform. 
+We’ll explain why they weren’t the correct fit and what lessons we learned from using them.
+If you’re already familiar with the 3 tools, feel free to skip the next 3 sections and dive straight into the <a href="#use-cases">use cases</a></p>
+
+<h2 id="what-is-terraform">What is Terraform?</h2>
+
+<p>Terraform is an open-source IaC tool, created by Hashicorp, that enables developers to provision and manage cloud infrastructure across various cloud providers. 
+It uses a declarative language to define infrastructure resources, allowing developers to specify the desired state of resources such as virtual machines, load balancers, databases, and more. 
+The tool then manages the entire lifecycle of these resources, from initial provisioning to improvements over time to deletion.
+Terraform’s use of code to manage cloud infrastructure provides several benefits.</p>
+
+<p>First, it allows for consistent and repeatable infrastructure deployment, eliminating manual errors.
+Second, it enables collaboration and version control, as infrastructure code can be shared among teams and tracked through Git repositories. 
+This allows teams to execute infrastructure changes using the same processes as code changes in their application.
+Deploying a single instance of an application or 100s becomes as simple as a code change.
+Terraform’s versatility and portability make it an attractive choice for managing multi-cloud environments.
+Its state management features ensure that infrastructure changes are auditable and transparent. 
+With Terraform, organizations can achieve greater efficiency, scalability, and agility in their public cloud infrastructure management.</p>
+
+<h2 id="what-is-pulumi">What is Pulumi?</h2>
+
+<p>Pulumi is another IaC platform that allows developers to define and manage cloud infrastructure using familiar programming languages such as Python, JavaScript, and Go.
+Pulumi takes a different approach compared to Terraform, which uses a declarative language to define infrastructure resources.</p>
+
+<p>With Pulumi, developers can create infrastructure resources using a variety of programming languages, leveraging the full power of those languages to manage infrastructure. 
+This approach provides more flexibility and control compared to Terraform, as developers can use programming language constructs such as loops, conditionals, and functions to create more dynamic and complex infrastructure resources.
+While Pulumi provides more flexibility and control compared to Terraform, it may also require more programming knowledge and experience to use effectively.
+Terraform, on the other hand, provides a simpler and more standardized approach to infrastructure management, which can be easier for beginners to learn.</p>
+
+<p>In essence, Pulumi and Terraform aren’t that different, they just use a different <code class="language-plaintext highlighter-rouge">interface</code> to determine what the desired state of the infrastructure is. 
+Pulumi even uses the Terraform libraries in the backend to create the desired state model.</p>
+
+<h2 id="what-is-terragrunt">What is Terragrunt?</h2>
+
+<p>Terragrunt is a thin wrapper around Terraform that provides extra functionality and simplifies the management of multiple Terraform modules.
+It is essentially a tool for managing Terraform code and configurations, and it uses a similar syntax to Terraform.</p>
+
+<p>One of the main benefits of Terragrunt is that it provides a more modular approach to infrastructure management compared to Terraform. 
+With Terragrunt, developers can define common configurations and modules that can be reused across multiple Terraform projects.
+This makes it easier to maintain consistent infrastructure across an organization and reduces duplication of effort.</p>
+
+<p>Another key benefit of Terragrunt is that it supports the automatic generation of Terraform configuration files, making it easier to manage and scale large infrastructure projects. 
+It also includes a feature called “apply-all”, which applies Terraform changes across all configured environments, simplifying the management of complex environments.
+While Terragrunt provides several benefits, it does come with a learning curve, as it requires developers to learn a new syntax and understand its unique features.
+Additionally, it adds another layer of complexity to infrastructure management, which may not be necessary for smaller projects.</p>
+
+<h1 id="use-cases">Use cases</h1>
+
+<h2 id="developer-adoption-excluding-the-batteries-pulumi">Developer adoption, excluding the batteries: Pulumi</h2>
+
+<h3 id="background">Background</h3>
+
+<p>This story starts with the IT operations team of a large corporation.
+The team is responsible for managing all on-premise infrastructure and supporting teams in using public cloud providers such as Amazon Web Services (AWS) and Microsoft Azure.
+For the scope of this story, the on-premise side of things isn’t relevant.</p>
+
+<p>For the public cloud resources, the team supplied the development teams with accounts to manage and allowed them to either request infrastructure from the operations team or manage their infrastructure on their own. 
+This meant that some development teams chose AWS CloudFormation to manage their infrastructure, some vendors supplied scripts (including Terraform) and some teams clicked the setup together in the AWS Console.</p>
+
+<p>The issue where temporary proofs-of-concept (PoCs) became <code class="language-plaintext highlighter-rouge">no such thing as temporary</code> production environments, was also a common occurrence.
+Due to this approach, the governance and security footprint of applications depended highly on the AWS knowledge available in the teams.</p>
+
+<p>Finally, just a side note, the CI/CD solution consisted of AWS CI/CD services: CodeBuild, CodePipeline, CodeCommit and CodeArtifact.</p>
+
+<h3 id="managing-expectations-utopia">Managing expectations: Utopia</h3>
+
+<p>To improve governance and security of the landscape, standardized building blocks would be built.
+These building blocks would adhere to the security and governance requirements by design. 
+The idea was that project teams could use the building blocks directly in their project and could maintain them over time.</p>
+
+<p>The operation team evaluated multiple tools, including Terraform and Pulumi. 
+As the project teams generally didn’t know Terraform, but did know programming languages, Pulumi was chosen as a standard tool to build and distribute the building blocks.</p>
+
+<p>Pulumi supports a handful of languages at the time of writing: Go, Python, NodeJS (JavaScript/TypeScript), .NET and Java.
+One of the assumptions made by the operations team was that the development teams would know at least one of these languages.</p>
+
+<p>Another advantage, especially compared to AWS CloudFormation or plain Terraform, is that programming languages generally have great support for testing, especially unit testing. 
+This would allow the operations team to create components, validate them using traditional testing methods and supply components to teams with a high level of confidence that they would work as intended.</p>
+
+<p>Finally, the last relevant assumption for this story was the assumption that development teams would like to manage their infrastructure and would maintain the code needed to deploy, run and maintain that infrastructure.</p>
+
+<p>By now you might have figured out that these assumptions might be the cause of our <code class="language-plaintext highlighter-rouge">change of heart</code></p>
+
+<h3 id="change-of-heart">Change of heart</h3>
+
+<p>The change of heart occurred after multiple difficulties and unexpected limitations.</p>
+
+<p>The first red flag was discovered during the evaluation phase. 
+While setting up Pulumi, most of the documentation assumes that the Pulumi Service product is used. 
+This is most visible in the default behavior of the <code class="language-plaintext highlighter-rouge">pulumi login</code> command.
+This command is needed to initialize the Pulumi context and its default behavior is to login into the Pulumi Service product.
+It’s possible to use AWS S3, Azure Storage Accounts or local files instead <a href="https://www.pulumi.com/docs/intro/concepts/state/#using-a-self-managed-backend" target="_blank" rel="noopener noreferrer">as is documented here</a>.</p>
+<blockquote>
+  <p>Note that for AWS, profile support is implemented by adding it to the query parameters of the S3 and KMS connection strings. This has implications on the “shareability” of the configuration across developers.</p>
+</blockquote>
+
+<p>As there was support for the desired self-managed approach with some additional configuration, this wasn’t considered an issue at the time.</p>
+
+<p>During the implementation of the pipelines to deploy the Pulumi setup, another red flag occurred.
+Reviewing infrastructure rollouts is a key feature of any IaC tool.
+(Infrastructure) Developers want to be able to review the changes Pulumi wants to make to the infrastructure to match the new desired state. 
+This feature has proven to be invaluable in the past to prevent costly or even unrecoverable mistakes in the code. 
+Unfortunately, this is another area where Pulumi isn’t strong at the time of writing. 
+The support for reviewing the changes that Pulumi will make is limited to the CLI and saving a <code class="language-plaintext highlighter-rouge">change plan</code> that can be reviewed is supported, <a href="https://www.pulumi.com/docs/intro/concepts/update-plans/" target="_blank" rel="noopener noreferrer">but behind an experimental flag</a>, which suggests it’s not ready for production use. 
+Currently, the change plan is also not in a review-friendly format.</p>
+
+<p>Remember the assumption that development teams would know a programming language that was supported by Pulumi?
+Good news, they do and Pulumi supports their language of choice.
+The problem is that the most commonly used language is Java, the language that is currently only experimentally supported by Pulumi. 
+This shouldn’t be a problem as Pulumi supports cross-language component creation. 
+This means that the operation teams can create Pulumi components in Python for example and allow development teams to use them in Java once that reaches prime-time status. 
+Unfortunately, a theme starts to occur in the feature set of Pulumi. 
+The cross-language component support is also a feature that’s <a href="https://github.com/pulumi/pulumi/issues/6804" target="_blank" rel="noopener noreferrer">still under heavy development</a> and cannot be used properly at the time of writing.</p>
+
+<p>Finally, for the sake of completeness, there were a few additional issues that are worth mentioning.</p>
+
+<p>The assumption that (unit) tests could be easily written to validate the Pulumi code, doesn’t hold true today. 
+There is <a href="https://www.pulumi.com/docs/guides/testing/" target="_blank" rel="noopener noreferrer">support for testing</a> in Pulumi, but due to the lack of <code class="language-plaintext highlighter-rouge">real</code> mocking capabilities (including any side-effects) in Pulumi, the tests feel like testing getters and setters instead of proper tests. 
+A solution like the mocking server in the <a href="https://github.com/fabric8io/kubernetes-client#mocking-kubernetes" target="_blank" rel="noopener noreferrer">Fabric8 Kubernetes client</a> would solve this issue.</p>
+
+<p>Another side-effect of having a regular programming language is that the order of execution of statements is important. 
+When the output of a previous statement is needed as input for the next, one cannot simply use the output of the first command to pipe it to the next. 
+This is a limitation because Pulumi needs to build a desired state model in the backend before it can know the actual output for some statements. 
+When the output of a statement is needed in the next statement, it needs to have a way to postpone the execution of that statement.
+<a href="https://www.pulumi.com/docs/intro/concepts/inputs-outputs/#outputs-and-strings" target="_blank" rel="noopener noreferrer">Pulumi does supply helper functions</a> to make this less of an issue, but it’s something that needs to be considered when developing the code.</p>
+
+<h3 id="pulumi-to-terraform-conclusion">Pulumi to Terraform conclusion</h3>
+
+<p>These previous issues combined caused the team to switch to Terraform as their preferred IaC tool.</p>
+
+<p>Pulumi has a ton of potential and might become the next big multi-cloud IaC tool in the coming years. 
+Unfortunately, too many parts don’t feel ready enough to be used in a corporate context where infrastructure developers come at a premium.</p>
+
+<p>Terraform has a proven track record. 
+It supports shared modules in a variety of ways: S3, Git, and local files, … 
+It properly supports a split between the <code class="language-plaintext highlighter-rouge">plan</code> and <code class="language-plaintext highlighter-rouge">apply</code> phases, meaning that the change plan can be reviewed.
+Terraform Cloud is a SaaS solution provided by Hashicorp, but it doesn’t feel like a requirement to properly use Terraform.</p>
+
+<p>Terraform isn’t perfect either though.
+There is no real testing automated capability in Terraform, especially without deploying the infrastructure.
+Developers need to learn yet another language (HCL) to use Terraform and it doesn’t have the flexibility of a real programming language.</p>
+
+<h2 id="additional-complexity-without-the-promised-benefit-terragrunt">Additional complexity without the promised benefit: Terragrunt</h2>
+
+<h3 id="background-1">Background</h3>
+
+<p>When starting a new infrastructure project, it’s important to choose the right tools for the job. But what happens when you inherit an existing project with infrastructure as code (IaC) already in place, using a tool like Terragrunt that your team is not familiar with? 
+This is the situation the team in this story found themselves in.</p>
+
+<p>The project they were working on was based on an existing infrastructure stack that had been built using Terragrunt, a popular wrapper around Terraform. 
+While Terragrunt can be a powerful tool for managing complex infrastructure stacks, the new team found that it added unnecessary complexity and overhead to their workflow. 
+They struggled to read and understand the existing Terragrunt code, which had been split into multiple Terraform modules in different git repositories and brought back together using a Terragrunt configuration repository.</p>
+
+<p>Adding to the complexity, the Terragrunt configuration was loading different versions of the Terraform modules in different environments, and the Terraform state was split into modules as well, with custom scripts to read and manipulate the state. 
+All of these factors made it difficult for the new team to make progress on the project, and they began to question the decision to use Terragrunt in the first place.</p>
+
+<h3 id="deciding-to-return-to-terraform">Deciding to Return to Terraform</h3>
+
+<p>After struggling to work with the complex and fragmented Terragrunt setup, the new infrastructure team wanted to find a simpler, more streamlined approach. 
+They sought a setup with a low threshold, low maintenance, and easy to understand.</p>
+
+<p>As they dug deeper into the Terragrunt configuration, they found that even the company’s architects had some doubts about its usefulness. 
+So they began discussing alternatives, and eventually, someone asked the question: “Why are we using Terragrunt?”</p>
+
+<p>The answer was surprising: the team wasn’t even using any of Terragrunt’s real advantages and was instead dealing with unnecessary overhead. 
+The configuration of all external modules was just a single key-value file, with no clear indication of which value was passed to which module.</p>
+
+<p>It became clear that continuing to use Terragrunt was simply pointless, and only adding to the team’s frustration. 
+They, together with the company’s architects, decided to switch back to using Terraform directly, to simplify their workflow and make progress on the project.</p>
+
+<h3 id="returning-to-terraform-without-breaking-the-existing-infrastructure">Returning to terraform without breaking the existing infrastructure</h3>
+
+<p>After deciding to switch back to using Terraform directly, the team realized that a complete overhaul of their infrastructure setup would be necessary. 
+Rather than throwing out all of the existing Terragrunt code, however, they decided to take a hybrid approach.</p>
+
+<p>The first step was to set up a new mono git repository that would contain all of the different Terraform modules that had previously been spread across multiple repositories. 
+They also created a new Terraform root configuration setup, which would enable them to manage the entire infrastructure as a single entity.</p>
+
+<p>Next, the team began moving these Terraform modules into their new mono repo. 
+As they did so, they took the opportunity to clean them up, removing any unused input variables or features. 
+They also improved the security setup, as the project required the infrastructure to be publicly accessible instead of hidden behind an on-premises network.</p>
+
+<p>By consolidating all of the Terraform modules in one place, the team made it easier for existing teams to import them into their Terragrunt setup. 
+The hybrid approach proved to be a successful strategy, enabling the team to manage their infrastructure more effectively and efficiently, but also not breaking what was already in place.</p>
+
+<h3 id="some-other-unexpected-advantages">Some other (un)expected advantages</h3>
+
+<p>Moving to a mono repo from the existing Terragrunt setup not only simplified the project’s infrastructure but also brought several expected and unexpected advantages.</p>
+
+<p>One of the most significant issues with the Terragrunt setup was its complexity and slow performance on the CI/CD pipelines, which checked out multiple git repositories. 
+However, by consolidating the Terraform modules into a single repository, the team eliminated the need to check out different repositories during CI/CD, significantly speeding up the pipeline.</p>
+
+<p>The development process also benefited from the switch to a mono repo. 
+A simple change to the infrastructure no longer required updates to multiple git repositories, making the process more efficient and reducing the chance of errors.</p>
+
+<p>In addition to these expected advantages, the team discovered other unexpected benefits. 
+For example, setting up a new environment only requires a simple configuration file with around ten configuration values. 
+This means that setting up a new environment is much quicker and more straightforward than before.</p>
+
+<p>Overall, the decision to move from Terragrunt to a hybrid approach with a mono repo proved to be a wise one. 
+The team enjoyed a simpler, more efficient infrastructure setup, improved performance on CI/CD pipelines, and unexpected benefits such as a streamlined environment setup.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>The decision to move away from Terragrunt and towards a hybrid approach of using Terraform and a mono repo had several (un)expected benefits for the team. Not only did it simplify the setup and reduce maintenance overhead, but it also significantly sped up the development process and CI/CD pipelines.</p>
+
+<p>The team was able to clean up and improve the security of the existing Terraform modules, and consolidate them into a single repository, making it much easier to manage and make changes. The move to a simpler configuration file for new environments also made it easier to spin up new instances of the infrastructure.</p>
+
+<p>While it can be tempting to stick with existing tools and setups, sometimes a reevaluation of the current setup can lead to significant improvements in productivity and efficiency.</p>
+
+<h1 id="conclusion-1">Conclusion</h1>
+
+<p>The main takeaways of this blog post are twofold:</p>
+<ul>
+  <li>use the right tool for the job, technically and,</li>
+  <li>even more importantly, use a tool that the users can understand and/or have knowledge on</li>
+</ul>
+
+<p>Often tools are selected based on a first impression and a very small PoC, as in the first story. 
+These PoCs are often a good indicator of the feasibility of a tool, but they don’t show real use of course.
+Therefore we recommend including the maturity of a tool and the general availability of knowledge about the tool in the market. 
+Look up how many TerraGrunt or Pulumi developers there are near you and compare that to the number of Terraform developers you can find.</p>
+
+<p>Next to selecting the right tool for the right reasons, your existing team also needs to be able to work with the tool.
+Selecting a tool therefore as much of a technical as a people decision.</p>
+
+<p>Finally, selecting a well-established tool is always a safe bet. 
+We’d like to highlight that you can and should select more innovative and less established tools as well but don’t use them for your core business or as something that will support (or fail to) your entire application landscape.
+Pulumi and TerraGrunt might pop up on our horizon in the future again, but for now, we’ll stick with good old (<a href="https://en.wikipedia.org/wiki/Terraform_(software){:target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;}">28 July 2014</a>) Terraform.</p>
+
+<p>If you want help with your Infrastructure As Code, cloud adoption in your company or want to provide feedback, feel free to contact <a href="https://be.linkedin.com/in/yannick-bontemps-885379b0" target="_blank" rel="noopener noreferrer">Yannick</a> or <a href="https://be.linkedin.com/in/pieter-vincken-a94b5153" target="_blank" rel="noopener noreferrer">Pieter</a> on LinkedIn!</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html&title=Back to Terraform&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Back to Terraform&url=https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/pieter_vincken/" class="image spotlight-image" title="">
+            <img src="/img/author/pieter-vincken.jpeg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Pieter rarely sees problems, just too many solutions sometimes. That’s why K’nex was his favorite pastime as a child. Nowadays, he builds cloud platforms so organizations don’t have to worry about their IT infrastructure but can focus on their clients.</p>
+</p>
+            
+        </div>
+    </div>
+    
+    <div class="inner">
+        <a href="/author/yannick_bontemps/" class="image spotlight-image" title="">
+            <img src="/img/author/yannick-bontemps.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yannick is Practice Lead for everything Application Platforms, but with a strong focus on cloud. Next to that he’s all into solutions.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2023 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2023-06-05-back-to-terraform/header.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

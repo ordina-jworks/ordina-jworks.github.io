@@ -1,5 +1,265 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-06-05T14:41:41+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">KubeCon + CloudNativeCon 2023</title><link href="https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023.html" rel="alternate" type="text/html" title="KubeCon + CloudNativeCon 2023" /><published>2023-05-17T00:00:00+00:00</published><updated>2023-05-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023.html"><![CDATA[<h1 id="introduction">Introduction</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-06-05T15:30:55+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Back to Terraform</title><link href="https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html" rel="alternate" type="text/html" title="Back to Terraform" /><published>2023-06-05T00:00:00+00:00</published><updated>2023-06-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html"><![CDATA[<blockquote>
+  <p>“Fail fast” does not imply lack of commitment to a mission or goal, but on the contrary, indicates a willingness to experiment in the process, learn quickly from the results, and make adjustments to better achieve an enhanced customer experience.</p>
+</blockquote>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#what-is-terraform">What is Terraform?</a></li>
+  <li><a href="#what-is-pulumi">What is Pulumi?</a></li>
+  <li><a href="#what-is-terragrunt">What is Terragrunt?</a></li>
+  <li><a href="#developer-adoption-excluding-the-batteries-pulumi">Developer adoption, excluding the batteries: Pulumi</a></li>
+  <li><a href="#additional-complexity-without-the-promised-benefit-terragrunt">Additional complexity without the promised benefit: Terragrunt</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Public cloud computing has revolutionized the way organizations approach their IT infrastructure. 
+Rather than investing in and maintaining their hardware and software, businesses can now access computing resources through the internet, on an as-needed basis. 
+This shift towards public cloud adoption has created a demand for new management and deployment approaches, with Infrastructure as Code (IaC) emerging as a critical tool for cloud infrastructure management.</p>
+
+<p>IaC is the process of defining and provisioning computing infrastructure through code, rather than through manual processes. 
+This approach allows for consistent, repeatable, and scalable infrastructure deployment, while also providing the ability to automate management tasks and enforce governance policies. 
+With IaC, developers can write code that defines the desired state of infrastructure, which can then be deployed and improved over time.</p>
+
+<p>As organizations increase their footprint in the cloud, the need for IaC becomes increasingly important. 
+Without proper automation and governance, manual infrastructure management becomes time-consuming, error-prone, and difficult to scale. 
+Developers can easily collaborate and share their infrastructure code, while also ensuring that resources are deployed consistently and securely. 
+By automating infrastructure provisioning and deployment, organizations can more easily scale resources up or down as needed, optimize resource usage, and rapidly respond to changing business needs.</p>
+
+<p>In this blog post, we’ll discuss 3 different IaC tools: Terraform, Pulumi and Terragrunt. 
+We’ll discuss two real-world cases where Pulumi and Terragrunt were replaced by Terraform. 
+We’ll explain why they weren’t the correct fit and what lessons we learned from using them.
+If you’re already familiar with the 3 tools, feel free to skip the next 3 sections and dive straight into the <a href="#use-cases">use cases</a></p>
+
+<h2 id="what-is-terraform">What is Terraform?</h2>
+
+<p>Terraform is an open-source IaC tool, created by Hashicorp, that enables developers to provision and manage cloud infrastructure across various cloud providers. 
+It uses a declarative language to define infrastructure resources, allowing developers to specify the desired state of resources such as virtual machines, load balancers, databases, and more. 
+The tool then manages the entire lifecycle of these resources, from initial provisioning to improvements over time to deletion.
+Terraform’s use of code to manage cloud infrastructure provides several benefits.</p>
+
+<p>First, it allows for consistent and repeatable infrastructure deployment, eliminating manual errors.
+Second, it enables collaboration and version control, as infrastructure code can be shared among teams and tracked through Git repositories. 
+This allows teams to execute infrastructure changes using the same processes as code changes in their application.
+Deploying a single instance of an application or 100s becomes as simple as a code change.
+Terraform’s versatility and portability make it an attractive choice for managing multi-cloud environments.
+Its state management features ensure that infrastructure changes are auditable and transparent. 
+With Terraform, organizations can achieve greater efficiency, scalability, and agility in their public cloud infrastructure management.</p>
+
+<h2 id="what-is-pulumi">What is Pulumi?</h2>
+
+<p>Pulumi is another IaC platform that allows developers to define and manage cloud infrastructure using familiar programming languages such as Python, JavaScript, and Go.
+Pulumi takes a different approach compared to Terraform, which uses a declarative language to define infrastructure resources.</p>
+
+<p>With Pulumi, developers can create infrastructure resources using a variety of programming languages, leveraging the full power of those languages to manage infrastructure. 
+This approach provides more flexibility and control compared to Terraform, as developers can use programming language constructs such as loops, conditionals, and functions to create more dynamic and complex infrastructure resources.
+While Pulumi provides more flexibility and control compared to Terraform, it may also require more programming knowledge and experience to use effectively.
+Terraform, on the other hand, provides a simpler and more standardized approach to infrastructure management, which can be easier for beginners to learn.</p>
+
+<p>In essence, Pulumi and Terraform aren’t that different, they just use a different <code class="language-plaintext highlighter-rouge">interface</code> to determine what the desired state of the infrastructure is. 
+Pulumi even uses the Terraform libraries in the backend to create the desired state model.</p>
+
+<h2 id="what-is-terragrunt">What is Terragrunt?</h2>
+
+<p>Terragrunt is a thin wrapper around Terraform that provides extra functionality and simplifies the management of multiple Terraform modules.
+It is essentially a tool for managing Terraform code and configurations, and it uses a similar syntax to Terraform.</p>
+
+<p>One of the main benefits of Terragrunt is that it provides a more modular approach to infrastructure management compared to Terraform. 
+With Terragrunt, developers can define common configurations and modules that can be reused across multiple Terraform projects.
+This makes it easier to maintain consistent infrastructure across an organization and reduces duplication of effort.</p>
+
+<p>Another key benefit of Terragrunt is that it supports the automatic generation of Terraform configuration files, making it easier to manage and scale large infrastructure projects. 
+It also includes a feature called “apply-all”, which applies Terraform changes across all configured environments, simplifying the management of complex environments.
+While Terragrunt provides several benefits, it does come with a learning curve, as it requires developers to learn a new syntax and understand its unique features.
+Additionally, it adds another layer of complexity to infrastructure management, which may not be necessary for smaller projects.</p>
+
+<h1 id="use-cases">Use cases</h1>
+
+<h2 id="developer-adoption-excluding-the-batteries-pulumi">Developer adoption, excluding the batteries: Pulumi</h2>
+
+<h3 id="background">Background</h3>
+
+<p>This story starts with the IT operations team of a large corporation.
+The team is responsible for managing all on-premise infrastructure and supporting teams in using public cloud providers such as Amazon Web Services (AWS) and Microsoft Azure.
+For the scope of this story, the on-premise side of things isn’t relevant.</p>
+
+<p>For the public cloud resources, the team supplied the development teams with accounts to manage and allowed them to either request infrastructure from the operations team or manage their infrastructure on their own. 
+This meant that some development teams chose AWS CloudFormation to manage their infrastructure, some vendors supplied scripts (including Terraform) and some teams clicked the setup together in the AWS Console.</p>
+
+<p>The issue where temporary proofs-of-concept (PoCs) became <code class="language-plaintext highlighter-rouge">no such thing as temporary</code> production environments, was also a common occurrence.
+Due to this approach, the governance and security footprint of applications depended highly on the AWS knowledge available in the teams.</p>
+
+<p>Finally, just a side note, the CI/CD solution consisted of AWS CI/CD services: CodeBuild, CodePipeline, CodeCommit and CodeArtifact.</p>
+
+<h3 id="managing-expectations-utopia">Managing expectations: Utopia</h3>
+
+<p>To improve governance and security of the landscape, standardized building blocks would be built.
+These building blocks would adhere to the security and governance requirements by design. 
+The idea was that project teams could use the building blocks directly in their project and could maintain them over time.</p>
+
+<p>The operation team evaluated multiple tools, including Terraform and Pulumi. 
+As the project teams generally didn’t know Terraform, but did know programming languages, Pulumi was chosen as a standard tool to build and distribute the building blocks.</p>
+
+<p>Pulumi supports a handful of languages at the time of writing: Go, Python, NodeJS (JavaScript/TypeScript), .NET and Java.
+One of the assumptions made by the operations team was that the development teams would know at least one of these languages.</p>
+
+<p>Another advantage, especially compared to AWS CloudFormation or plain Terraform, is that programming languages generally have great support for testing, especially unit testing. 
+This would allow the operations team to create components, validate them using traditional testing methods and supply components to teams with a high level of confidence that they would work as intended.</p>
+
+<p>Finally, the last relevant assumption for this story was the assumption that development teams would like to manage their infrastructure and would maintain the code needed to deploy, run and maintain that infrastructure.</p>
+
+<p>By now you might have figured out that these assumptions might be the cause of our <code class="language-plaintext highlighter-rouge">change of heart</code></p>
+
+<h3 id="change-of-heart">Change of heart</h3>
+
+<p>The change of heart occurred after multiple difficulties and unexpected limitations.</p>
+
+<p>The first red flag was discovered during the evaluation phase. 
+While setting up Pulumi, most of the documentation assumes that the Pulumi Service product is used. 
+This is most visible in the default behavior of the <code class="language-plaintext highlighter-rouge">pulumi login</code> command.
+This command is needed to initialize the Pulumi context and its default behavior is to login into the Pulumi Service product.
+It’s possible to use AWS S3, Azure Storage Accounts or local files instead <a href="https://www.pulumi.com/docs/intro/concepts/state/#using-a-self-managed-backend" target="_blank" rel="noopener noreferrer">as is documented here</a>.</p>
+<blockquote>
+  <p>Note that for AWS, profile support is implemented by adding it to the query parameters of the S3 and KMS connection strings. This has implications on the “shareability” of the configuration across developers.</p>
+</blockquote>
+
+<p>As there was support for the desired self-managed approach with some additional configuration, this wasn’t considered an issue at the time.</p>
+
+<p>During the implementation of the pipelines to deploy the Pulumi setup, another red flag occurred.
+Reviewing infrastructure rollouts is a key feature of any IaC tool.
+(Infrastructure) Developers want to be able to review the changes Pulumi wants to make to the infrastructure to match the new desired state. 
+This feature has proven to be invaluable in the past to prevent costly or even unrecoverable mistakes in the code. 
+Unfortunately, this is another area where Pulumi isn’t strong at the time of writing. 
+The support for reviewing the changes that Pulumi will make is limited to the CLI and saving a <code class="language-plaintext highlighter-rouge">change plan</code> that can be reviewed is supported, <a href="https://www.pulumi.com/docs/intro/concepts/update-plans/" target="_blank" rel="noopener noreferrer">but behind an experimental flag</a>, which suggests it’s not ready for production use. 
+Currently, the change plan is also not in a review-friendly format.</p>
+
+<p>Remember the assumption that development teams would know a programming language that was supported by Pulumi?
+Good news, they do and Pulumi supports their language of choice.
+The problem is that the most commonly used language is Java, the language that is currently only experimentally supported by Pulumi. 
+This shouldn’t be a problem as Pulumi supports cross-language component creation. 
+This means that the operation teams can create Pulumi components in Python for example and allow development teams to use them in Java once that reaches prime-time status. 
+Unfortunately, a theme starts to occur in the feature set of Pulumi. 
+The cross-language component support is also a feature that’s <a href="https://github.com/pulumi/pulumi/issues/6804" target="_blank" rel="noopener noreferrer">still under heavy development</a> and cannot be used properly at the time of writing.</p>
+
+<p>Finally, for the sake of completeness, there were a few additional issues that are worth mentioning.</p>
+
+<p>The assumption that (unit) tests could be easily written to validate the Pulumi code, doesn’t hold true today. 
+There is <a href="https://www.pulumi.com/docs/guides/testing/" target="_blank" rel="noopener noreferrer">support for testing</a> in Pulumi, but due to the lack of <code class="language-plaintext highlighter-rouge">real</code> mocking capabilities (including any side-effects) in Pulumi, the tests feel like testing getters and setters instead of proper tests. 
+A solution like the mocking server in the <a href="https://github.com/fabric8io/kubernetes-client#mocking-kubernetes" target="_blank" rel="noopener noreferrer">Fabric8 Kubernetes client</a> would solve this issue.</p>
+
+<p>Another side-effect of having a regular programming language is that the order of execution of statements is important. 
+When the output of a previous statement is needed as input for the next, one cannot simply use the output of the first command to pipe it to the next. 
+This is a limitation because Pulumi needs to build a desired state model in the backend before it can know the actual output for some statements. 
+When the output of a statement is needed in the next statement, it needs to have a way to postpone the execution of that statement.
+<a href="https://www.pulumi.com/docs/intro/concepts/inputs-outputs/#outputs-and-strings" target="_blank" rel="noopener noreferrer">Pulumi does supply helper functions</a> to make this less of an issue, but it’s something that needs to be considered when developing the code.</p>
+
+<h3 id="pulumi-to-terraform-conclusion">Pulumi to Terraform conclusion</h3>
+
+<p>These previous issues combined caused the team to switch to Terraform as their preferred IaC tool.</p>
+
+<p>Pulumi has a ton of potential and might become the next big multi-cloud IaC tool in the coming years. 
+Unfortunately, too many parts don’t feel ready enough to be used in a corporate context where infrastructure developers come at a premium.</p>
+
+<p>Terraform has a proven track record. 
+It supports shared modules in a variety of ways: S3, Git, and local files, … 
+It properly supports a split between the <code class="language-plaintext highlighter-rouge">plan</code> and <code class="language-plaintext highlighter-rouge">apply</code> phases, meaning that the change plan can be reviewed.
+Terraform Cloud is a SaaS solution provided by Hashicorp, but it doesn’t feel like a requirement to properly use Terraform.</p>
+
+<p>Terraform isn’t perfect either though.
+There is no real testing automated capability in Terraform, especially without deploying the infrastructure.
+Developers need to learn yet another language (HCL) to use Terraform and it doesn’t have the flexibility of a real programming language.</p>
+
+<h2 id="additional-complexity-without-the-promised-benefit-terragrunt">Additional complexity without the promised benefit: Terragrunt</h2>
+
+<h3 id="background-1">Background</h3>
+
+<p>When starting a new infrastructure project, it’s important to choose the right tools for the job. But what happens when you inherit an existing project with infrastructure as code (IaC) already in place, using a tool like Terragrunt that your team is not familiar with? 
+This is the situation the team in this story found themselves in.</p>
+
+<p>The project they were working on was based on an existing infrastructure stack that had been built using Terragrunt, a popular wrapper around Terraform. 
+While Terragrunt can be a powerful tool for managing complex infrastructure stacks, the new team found that it added unnecessary complexity and overhead to their workflow. 
+They struggled to read and understand the existing Terragrunt code, which had been split into multiple Terraform modules in different git repositories and brought back together using a Terragrunt configuration repository.</p>
+
+<p>Adding to the complexity, the Terragrunt configuration was loading different versions of the Terraform modules in different environments, and the Terraform state was split into modules as well, with custom scripts to read and manipulate the state. 
+All of these factors made it difficult for the new team to make progress on the project, and they began to question the decision to use Terragrunt in the first place.</p>
+
+<h3 id="deciding-to-return-to-terraform">Deciding to Return to Terraform</h3>
+
+<p>After struggling to work with the complex and fragmented Terragrunt setup, the new infrastructure team wanted to find a simpler, more streamlined approach. 
+They sought a setup with a low threshold, low maintenance, and easy to understand.</p>
+
+<p>As they dug deeper into the Terragrunt configuration, they found that even the company’s architects had some doubts about its usefulness. 
+So they began discussing alternatives, and eventually, someone asked the question: “Why are we using Terragrunt?”</p>
+
+<p>The answer was surprising: the team wasn’t even using any of Terragrunt’s real advantages and was instead dealing with unnecessary overhead. 
+The configuration of all external modules was just a single key-value file, with no clear indication of which value was passed to which module.</p>
+
+<p>It became clear that continuing to use Terragrunt was simply pointless, and only adding to the team’s frustration. 
+They, together with the company’s architects, decided to switch back to using Terraform directly, to simplify their workflow and make progress on the project.</p>
+
+<h3 id="returning-to-terraform-without-breaking-the-existing-infrastructure">Returning to terraform without breaking the existing infrastructure</h3>
+
+<p>After deciding to switch back to using Terraform directly, the team realized that a complete overhaul of their infrastructure setup would be necessary. 
+Rather than throwing out all of the existing Terragrunt code, however, they decided to take a hybrid approach.</p>
+
+<p>The first step was to set up a new mono git repository that would contain all of the different Terraform modules that had previously been spread across multiple repositories. 
+They also created a new Terraform root configuration setup, which would enable them to manage the entire infrastructure as a single entity.</p>
+
+<p>Next, the team began moving these Terraform modules into their new mono repo. 
+As they did so, they took the opportunity to clean them up, removing any unused input variables or features. 
+They also improved the security setup, as the project required the infrastructure to be publicly accessible instead of hidden behind an on-premises network.</p>
+
+<p>By consolidating all of the Terraform modules in one place, the team made it easier for existing teams to import them into their Terragrunt setup. 
+The hybrid approach proved to be a successful strategy, enabling the team to manage their infrastructure more effectively and efficiently, but also not breaking what was already in place.</p>
+
+<h3 id="some-other-unexpected-advantages">Some other (un)expected advantages</h3>
+
+<p>Moving to a mono repo from the existing Terragrunt setup not only simplified the project’s infrastructure but also brought several expected and unexpected advantages.</p>
+
+<p>One of the most significant issues with the Terragrunt setup was its complexity and slow performance on the CI/CD pipelines, which checked out multiple git repositories. 
+However, by consolidating the Terraform modules into a single repository, the team eliminated the need to check out different repositories during CI/CD, significantly speeding up the pipeline.</p>
+
+<p>The development process also benefited from the switch to a mono repo. 
+A simple change to the infrastructure no longer required updates to multiple git repositories, making the process more efficient and reducing the chance of errors.</p>
+
+<p>In addition to these expected advantages, the team discovered other unexpected benefits. 
+For example, setting up a new environment only requires a simple configuration file with around ten configuration values. 
+This means that setting up a new environment is much quicker and more straightforward than before.</p>
+
+<p>Overall, the decision to move from Terragrunt to a hybrid approach with a mono repo proved to be a wise one. 
+The team enjoyed a simpler, more efficient infrastructure setup, improved performance on CI/CD pipelines, and unexpected benefits such as a streamlined environment setup.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>The decision to move away from Terragrunt and towards a hybrid approach of using Terraform and a mono repo had several (un)expected benefits for the team. Not only did it simplify the setup and reduce maintenance overhead, but it also significantly sped up the development process and CI/CD pipelines.</p>
+
+<p>The team was able to clean up and improve the security of the existing Terraform modules, and consolidate them into a single repository, making it much easier to manage and make changes. The move to a simpler configuration file for new environments also made it easier to spin up new instances of the infrastructure.</p>
+
+<p>While it can be tempting to stick with existing tools and setups, sometimes a reevaluation of the current setup can lead to significant improvements in productivity and efficiency.</p>
+
+<h1 id="conclusion-1">Conclusion</h1>
+
+<p>The main takeaways of this blog post are twofold:</p>
+<ul>
+  <li>use the right tool for the job, technically and,</li>
+  <li>even more importantly, use a tool that the users can understand and/or have knowledge on</li>
+</ul>
+
+<p>Often tools are selected based on a first impression and a very small PoC, as in the first story. 
+These PoCs are often a good indicator of the feasibility of a tool, but they don’t show real use of course.
+Therefore we recommend including the maturity of a tool and the general availability of knowledge about the tool in the market. 
+Look up how many TerraGrunt or Pulumi developers there are near you and compare that to the number of Terraform developers you can find.</p>
+
+<p>Next to selecting the right tool for the right reasons, your existing team also needs to be able to work with the tool.
+Selecting a tool therefore as much of a technical as a people decision.</p>
+
+<p>Finally, selecting a well-established tool is always a safe bet. 
+We’d like to highlight that you can and should select more innovative and less established tools as well but don’t use them for your core business or as something that will support (or fail to) your entire application landscape.
+Pulumi and TerraGrunt might pop up on our horizon in the future again, but for now, we’ll stick with good old (<a href="https://en.wikipedia.org/wiki/Terraform_(software){:target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;}">28 July 2014</a>) Terraform.</p>
+
+<p>If you want help with your Infrastructure As Code, cloud adoption in your company or want to provide feedback, feel free to contact <a href="https://be.linkedin.com/in/yannick-bontemps-885379b0" target="_blank" rel="noopener noreferrer">Yannick</a> or <a href="https://be.linkedin.com/in/pieter-vincken-a94b5153" target="_blank" rel="noopener noreferrer">Pieter</a> on LinkedIn!</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter rarely sees problems, just too many solutions sometimes. That’s why K’nex was his favorite pastime as a child. Nowadays, he builds cloud platforms so organizations don’t have to worry about their IT infrastructure but can focus on their clients.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2019-05-03-istio-service-mesh-s2s.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-09-18-kustomize.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-18-devoxx-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-06-02-terraform.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-08-28-kubernetes-clients-comparison.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2021-10-15-5-reasons-not-to-go-to-the-cloud.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-02-14-postgres-ai.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-06-10-kubecon.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-27-renovate.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-06-05-back-to-terraform.md collection=posts&gt;]}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="cicd" /><category term="terraform" /><category term="iac" /><summary type="html"><![CDATA[“Fail fast” does not imply lack of commitment to a mission or goal, but on the contrary, indicates a willingness to experiment in the process, learn quickly from the results, and make adjustments to better achieve an enhanced customer experience.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-06-05-back-to-terraform/header.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-06-05-back-to-terraform/header.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">KubeCon + CloudNativeCon 2023</title><link href="https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023.html" rel="alternate" type="text/html" title="KubeCon + CloudNativeCon 2023" /><published>2023-05-17T00:00:00+00:00</published><updated>2023-05-17T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/05/17/kubecon-2023.html"><![CDATA[<h1 id="introduction">Introduction</h1>
 
 <p style="text-align: center;"><img src="/img/2023-05-17-kubecon-2023/group-picture.jpg" alt="JWorks group picture" class="image" style="margin:0px auto; max-width:100%" />
 <em>JWorks at Kubecon 2023</em></p>
@@ -835,7 +1095,7 @@ If you already have a good CI/CD process that allows you to build, test, merge a
 
 <p>Feel free to reach out to <a href="https://www.linkedin.com/in/pieter-vincken-a94b5153/" target="_blank" rel="noopener noreferrer">me</a> if you want to look into this solution.</p>
 
-<p>Special thanks to the Unicorn team for helping with the blog post and automating the dependency updates!</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter Vincken is a Cloud Automation Engineer with a strong interest in anything related to Cloud Native. He likes to optimize development workflows, from Ideation until code running in production, by enabling CI/CD to be fully automated. Any solutions he creates, will have started as an architectural drawing.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2019-05-03-istio-service-mesh-s2s.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-09-18-kustomize.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-18-devoxx-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-06-02-terraform.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-08-28-kubernetes-clients-comparison.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2021-10-15-5-reasons-not-to-go-to-the-cloud.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-02-14-postgres-ai.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-06-10-kubecon.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-27-renovate.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;]}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="cicd" /><summary type="html"><![CDATA[Anything worth doing twice is worth automation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ode to JOIN</title><link href="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html" rel="alternate" type="text/html" title="Ode to JOIN" /><published>2022-10-24T00:00:00+00:00</published><updated>2022-10-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html"><![CDATA[<p>We had JOIN, we had fun, we had seasons in the sun. 
+<p>Special thanks to the Unicorn team for helping with the blog post and automating the dependency updates!</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter rarely sees problems, just too many solutions sometimes. That’s why K’nex was his favorite pastime as a child. Nowadays, he builds cloud platforms so organizations don’t have to worry about their IT infrastructure but can focus on their clients.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2019-05-03-istio-service-mesh-s2s.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-09-18-kustomize.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-18-devoxx-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-06-02-terraform.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-08-28-kubernetes-clients-comparison.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2021-10-15-5-reasons-not-to-go-to-the-cloud.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-02-14-postgres-ai.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-06-10-kubecon.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-27-renovate.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-06-05-back-to-terraform.md collection=posts&gt;]}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="cicd" /><summary type="html"><![CDATA[Anything worth doing twice is worth automation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ode to JOIN</title><link href="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html" rel="alternate" type="text/html" title="Ode to JOIN" /><published>2022-10-24T00:00:00+00:00</published><updated>2022-10-24T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join</id><content type="html" xml:base="https://ordina-jworks.github.io/architecture/2022/10/24/ode-to-join.html"><![CDATA[<p>We had JOIN, we had fun, we had seasons in the sun. 
 It has already been a month since the 9th edition of the JOIN conference was concluded. 
 And even though it had been ten years since the first edition, the skipped year due to the pandemic will cause us to have an additional anniversary edition next year. 
 The aluminum edition will be a sight to see, and it would be a shame to miss it.</p>
@@ -1670,162 +1930,4 @@ The reason I went with the ci-cd route is that I knew it would pull me out of my
 
 <p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/tech_summary.png" style="margin:0px auto; max-width: 75%;" /></p>
 
-<p>As a final sendoff I want to say a quick thank you to my mentor Nick Geudens for guiding me through the jungle of DevOps and AWS and to Frederick Bousson for coming up with the project and allowing me the opportunity to execute it.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Lander&quot;, &quot;last_name&quot;=&gt;&quot;Marien&quot;, &quot;permalink&quot;=&gt;&quot;/author/lander_marien/&quot;, &quot;avatar&quot;=&gt;&quot;lander_marien.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;linkedin&quot;=&gt;&quot;lander-mariën&quot;, &quot;email&quot;=&gt;&quot;lander.marien@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Lander is a graduating student Programming at Thomas More Campus De Nayer.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2022-07-07-snitching-on-your-colleagues-using-cloud-magic.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;]}</name><email>lander.marien@ordina.be</email></author><category term="Internship" /><category term="Spring" /><category term="Spring Boot" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Kubernetes" /><category term="Terraform" /><category term="Helm" /><category term="Azure" /><category term="Internet Of Things" /><category term="RaspberryPi" /><category term="Javascript" /><category term="Node.js" /><category term="AWS" /><category term="DynamoDB" /><category term="RDS" /><category term="Postgres" /><summary type="html"><![CDATA[Table Of Contents]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Clean Agile - Back to Basics</title><link href="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html" rel="alternate" type="text/html" title="Clean Agile - Back to Basics" /><published>2022-06-30T00:00:00+00:00</published><updated>2022-06-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile</id><content type="html" xml:base="https://ordina-jworks.github.io/leadership/2022/06/30/clean-agile.html"><![CDATA[<h1 id="table-of-contents">Table of contents</h1>
-<ul>
-  <li><a href="#introduction">Introduction</a></li>
-  <li><a href="#the-reasons-for-agile">The Reasons for Agile</a></li>
-  <li><a href="#business-practices">Business Practices</a></li>
-  <li><a href="#team-practices">Team Practices</a></li>
-  <li><a href="#technical-practices">Technical Practices</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ul>
-
-<h1 id="introduction">Introduction</h1>
-
-<p>Coming from a non-programming background, I was always interested to hear or learn about Agile methodology but with a fear that Agile vocabulary would be too techy for me. This book helped me to get rid out of my fears once and for all. In addition, having been in a High Performance Team using Agile Methodologies at Ordina for 5 years, “Uncle Bob”(Robert C. Martin) helped me via his <em>Back to Basics</em> book to restructure what I experienced and helped me to create my own lessons learned.</p>
-
-<p>This book is for programmers and non-programmers alike. It aims not to go into technical details but focusses more on explaining what the fundamentals of Agile are.</p>
-
-<p>Agile’s ideology and values emerge from a group of 17 programming experts during the fall of 2000 who were willing to create an alternative of what is called the Scientific Management (which inspired the idea of “Waterfall” development).</p>
-
-<p>Four basic values came out of this gathering and are the central idea of the Agile Manifesto that emerged from that moment:</p>
-
-<ul>
-  <li><strong>Individuals and interactions</strong> over processed and tools</li>
-  <li><strong>Working software</strong> over comprehensive documentation</li>
-  <li><strong>Customer collaboration</strong> over contract negotiation</li>
-  <li><strong>Responding to change</strong> over following a plan</li>
-</ul>
-
-<p>Uncle Bob then gives as an introduction an Agile overview.
- He does this by responding to the question: <strong>“how do you manage a software project”</strong>.
- Therefore, he uses the metaphor of the Iron Cross, a management trade-off that needs to be done in all projects. One has to pick three out of the four goals: Good, Fast, Cheap, Done , in order to manage a project. Reaching all of these in the project is not possible.</p>
-
-<p><img class="image fit" src="/img/2022-06-30-clean-agile/clean-agile-1.png" style="margin:0px auto; max-width: 100%;" /></p>
-
-<p>In this context, he warns that Agile is not the Holy Grail, but only a framework that helps managers and developers to execute the goals they decide to take on <em>by providing real data</em>. This data is needed to make good decisions. Without data, no project can be well managed.</p>
-
-<p>This way he introduces some Agile tools (known from everyone that already worked with one of the Agile methodologies): burn-down charts, story points, business value, iterations. These have only one goal: every stakeholder of the project has a constant feedback on how it evolutes. These are thus created not to control the team but to make appropriate adjustments to correctly manage the project.</p>
-
-<h1 id="the-reasons-for-agile">The Reasons for Agile</h1>
-
-<p>If you have to read only one chapter of this book, it should be this one. In it, Uncle Bob reminds us that even if many of the Agile tools have been proliferating since 20 years (Scrum, Kanban, XP, SAFe, etc.), it makes no sense to use them without keeping in mind the essence of Agility.</p>
-
-<p>There are the two straightforward reasons of using Agile methodologies: <strong>professionalism</strong> and <strong>reasonable expectations</strong> of our customer.</p>
-
-<ul>
-  <li>Professionalism in the sense that developers are those who design today’s world (software is everywhere). And as the quote of the first Spiderman movie warns: <strong>“With great power comes great responsibility”</strong>.</li>
-</ul>
-
-<p><img class="image fit" src="/img/2022-06-30-clean-agile/clean-agile-2.jpg" style="margin:0px auto; max-width: 50%;" /></p>
-
-<ul>
-  <li>Customers have the right to have Reasonable expectations :
-    <ul>
-      <li>Continuous technical readiness: in order to counter artificial delays, the system should be technically deployable at the end of each iteration (Clean Code, Automated Testing)</li>
-      <li>Stable productivity and inexpensive adaptability: customers and managers don’t expect the project to slow down with time (Continuous Refactoring, Architecture Design, Clean Code)</li>
-      <li>Continuous improvement: early problems must fade away and the system should get better and better with time (Pair Programming, TDD, Refactoring, Simple Design)</li>
-      <li>Fearless competence: developers do not have to fear touching an ugly code (Clean Code)</li>
-      <li>QA should find nothing and Test Automation: If QA finds a problem, development team should figure out what went wrong in the process so that QA finds nothing next time (TDD, Continuous Integration, Acceptance Testing)</li>
-      <li>We cover for each other: it is your responsibility to make sure that at least one other team member can cover for you (Pair Programming, Whole Team, Collective Ownership)</li>
-      <li>Honest estimates: developers need to provide estimates based on what they do and don’t know (Planning Game, Whole Team)</li>
-      <li>You need to say “no”: no matter which pressure is on you, you have to say “no” if the answer is really no (Whole Team)</li>
-      <li>Mentoring and continuous aggressive learning: as the industry changes quickly, you should follow this flow and learn to teach (Whole Team)</li>
-    </ul>
-  </li>
-</ul>
-
-<p>In this state of mind, he concludes this chapter with the XP Customer and Developer Bill of Rights:</p>
-
-<p><strong>Customer Bill of Rights</strong></p>
-
-<ul>
-  <li>You have the right to an overall plan, to know what can be accomplished when and at what cost.</li>
-  <li>You have the right to get the most possible value out of every programming week.</li>
-  <li>You have the right to see progress in a running system, proven to work by passing repeatable tests that you specify.</li>
-  <li>You have the right to change your mind, to substitute functionality, and to change priorities without paying exorbitant costs.</li>
-  <li>You have the right to be informed of schedule changes, in time to choose how to reduce the scope to restore the original date. You can cancel at any time and be left with a useful working system reflecting investment to date.</li>
-</ul>
-
-<p><strong>Developer Bill of Rights</strong></p>
-
-<ul>
-  <li>You have the right to know what is needed, with clear declarations of priority.</li>
-  <li>You have the right to produce quality work at all times.</li>
-  <li>You have the right to ask for and receive help from peers, managers, and customers.</li>
-  <li>You have the right to make and update your own estimates.</li>
-  <li>You have the right to accept your responsibilities instead of having them assigned to you.</li>
-</ul>
-
-<p><img class="image fit" src="/img/2022-06-30-clean-agile/clean-agile-3.jpg" style="margin:0px auto; max-width: 100%;" /></p>
-
-<p>Based on those fundamental reasons, the next 3 chapters aim to explain the practices of XP (Business, Team and Technical wise) - keeping in mind that Agile is the foundation of an <strong>ethical</strong> standard of software. Nothing else.</p>
-
-<h1 id="business-practices">Business Practices</h1>
-
-<p>As Uncle Bob reminds, XP Business-facing-practices are including the concepts of Planning, Small Releases, Acceptance Tests and Whole Team.</p>
-
-<ul>
-  <li><strong>Planning</strong> and day-to-day management are handled through story points. The concept behind SP is that those points are not estimated time, but estimated effort. The aim for using story points is to give a day-to-day estimation of the workload. Each iteration will help the next iteration to estimate more precisely what still needs to be developed. But, as he highlights: “that estimate is not a promise, and the team has not failed if the velocity is lower. The aim is thus only to produce data necessary to manage the project correctly</li>
-  <li><strong>Small releases</strong> practices are handled through the concept of <em>Continuous Delivery</em>. He mentions that nowadays, the best Source Code Control used is Git thanks to some of its characteristics (no checkout time, no conflicts of committing, tiny decoupled modules, rapid commit frequency, fast-running test suite…)</li>
-  <li><strong>Acceptance Tests</strong> practices are handled through the concept of <em>Behavior-Driven Development</em> (BDD): The business writes formal tests (Given…, When…, Then…) describing the behavior of each story, and Developers automate those tests, which become the <em>Definition of Done</em></li>
-  <li><strong>Whole Team</strong> practice has been conceptualized to cancel the mental separation between the customer and the developers. “A development team is composed of many roles including managers, testers, technical writers, etc.”</li>
-</ul>
-
-<p>Business practices have thus one aim: to increase and facilitate communication between business and developers. <strong>“That communication breeds trust”</strong>.</p>
-
-<h1 id="team-practices">Team Practices</h1>
-
-<p>Team practices are aimed at governing the relationship between all team members for the sake of the project they work on. These are composed by: Metaphor, Sustainable Pace, Collective Ownership and Continuous Integration.</p>
-
-<ul>
-  <li><strong>Metaphor</strong> practice is the fact that a model (with its own vocabulary) is created to explain the problem domain in order to get <strong>everyone</strong> agreed on it (developers as well as management or customers or..)</li>
-  <li><strong>Sustainable Pace</strong> practices remind to keep workload at a life equilibrium, through diminishing as much a possible overtime or “marathons”, and keeping in mind that “sleep is the most precious ingredient in the life of a programmer”</li>
-  <li><strong>Collective ownership</strong> practices defines the fact that even if sometimes a developer needs to specialize in a particular domain, he should also generalize, obligating himself to work on other areas of the code, less known for him</li>
-  <li><strong>Continuous Integration</strong> practices is the fact that the continuous build should never break</li>
-</ul>
-
-<p>For Uncle Bob, these practices “help small teams to behave like true teams”.</p>
-
-<h1 id="technical-practices">Technical Practices</h1>
-
-<p>While these practices are less used by programmers, Uncle Bob pinpoints that they are the very core of Agile and not using them is creating an “ineffective flaccid shell of what it was intended to be”.
- These practices are the following: Test-Driven Development (TDD), Refactoring, Simple Design and Pair Programming.</p>
-
-<ul>
-  <li><strong>TDD</strong> practice are for developers what double-entry bookkeeping is for accountants. Uncle Bob reminds the <a href="http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd" target="_blank" rel="noopener noreferrer">three rules of TDD</a> but, more important, he explains by an example of how courageous it is to keep the code clean and orderly. Thanks to that, we can act like professionals.</li>
-  <li><strong>Refactoring</strong> is the “practice of improving the structure of the code without altering the behavior, as defined by the tests”. In order to do so, he suggests the Red/Green/Refactor cycle, insisting on the 2 separated dimensions that are writing a code that works versus writing a code that is clean.</li>
-</ul>
-
-<p><img class="image fit" src="/img/2022-06-30-clean-agile/clean-agile-4.png" style="margin:0px auto; max-width: 100%;" /></p>
-
-<ul>
-  <li><strong>Simple design</strong> is the practice based on the 4 Kent Beck’s rules:
-    <ul>
-      <li>Pass all the tests</li>
-      <li>Reveal the intent: being expressive, easy to read</li>
-      <li>Remove duplication: the code shouldn’t say the same thing more than once</li>
-      <li>Decrease elements (classes, functions, variables, etc)</li>
-    </ul>
-  </li>
-  <li><strong>Pair programming</strong> practice has one goal: to “share and exchange knowledge, not concentrate it”</li>
-</ul>
-
-<h1 id="conclusion">Conclusion</h1>
-
-<p>As a conclusion for the book, the 4 core values of Agile are summarized :</p>
-
-<ul>
-  <li><strong>Courage</strong>: to say no, to rewrite code, to document well, to test well, to take a step aside, etc. “The belief that quality and discipline increase speed”</li>
-  <li><strong>Communication</strong>: whatever form it takes (face-to-face, informal, interpersonal), direct and frequent communication is a must to create a team looking at the same direction</li>
-  <li><strong>Feedback</strong>: giving or receiving feedback is what makes a team working efficiently</li>
-  <li><strong>Simplicity</strong>: through being direct, with the idea of acknowledging a problem when you know there is one.</li>
-</ul>
-
-<p>The next pages and last chapter are designed to give ideas on how Agile values are implemented concretely ( how Agile works in small versus big companies, how to transform a non-Agile company to an Agile company, Coaching, Certification, Agile tools) as well as the next direction Uncle Bob thinks Agile should take (Synergy between Agility and Craftmanship). But for me, at this point we divert from the original purpose of this book, which is to highlight the core values of what Agility is.</p>
-
-<p>I will thus finish this article with one of his sentences that illustrated to me his mindset while reading the book.</p>
-
-<blockquote>
-  <p><strong>Agile is a small idea about the small problems of small programming teams doing small things</strong>.</p>
-</blockquote>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Laura&quot;, &quot;last_name&quot;=&gt;&quot;Prevost&quot;, &quot;permalink&quot;=&gt;&quot;/author/laura-prevost/&quot;, &quot;avatar&quot;=&gt;&quot;laura-prevost.jpg&quot;, &quot;title&quot;=&gt;&quot;Analyst&quot;, &quot;linkedin&quot;=&gt;&quot;laura-prevost-72097255&quot;, &quot;email&quot;=&gt;&quot;laura.prevost@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Laura is an Analyst at Ordina Belgium. Also Competence Lead of Technical Leadership at Jworks. Passionate about people. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2022-05-05-collective-intelligence.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-06-30-clean-agile.md collection=posts&gt;]}</name><email>laura.prevost@ordina.be</email></author><category term="Leadership" /><category term="Leadership" /><category term="Agile" /><category term="Clean" /><summary type="html"><![CDATA[Table of contents Introduction The Reasons for Agile Business Practices Team Practices Technical Practices Conclusion]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-06-30-clean-agile/clean_agile_home.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-06-30-clean-agile/clean_agile_home.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>As a final sendoff I want to say a quick thank you to my mentor Nick Geudens for guiding me through the jungle of DevOps and AWS and to Frederick Bousson for coming up with the project and allowing me the opportunity to execute it.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Lander&quot;, &quot;last_name&quot;=&gt;&quot;Marien&quot;, &quot;permalink&quot;=&gt;&quot;/author/lander_marien/&quot;, &quot;avatar&quot;=&gt;&quot;lander_marien.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;linkedin&quot;=&gt;&quot;lander-mariën&quot;, &quot;email&quot;=&gt;&quot;lander.marien@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Lander is a graduating student Programming at Thomas More Campus De Nayer.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2022-07-07-snitching-on-your-colleagues-using-cloud-magic.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;]}</name><email>lander.marien@ordina.be</email></author><category term="Internship" /><category term="Spring" /><category term="Spring Boot" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Kubernetes" /><category term="Terraform" /><category term="Helm" /><category term="Azure" /><category term="Internet Of Things" /><category term="RaspberryPi" /><category term="Javascript" /><category term="Node.js" /><category term="AWS" /><category term="DynamoDB" /><category term="RDS" /><category term="Postgres" /><summary type="html"><![CDATA[Table Of Contents]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
