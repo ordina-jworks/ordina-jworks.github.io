@@ -2,7 +2,7 @@
 layout: post
 authors: [pieter_vincken, yannick_bontemps]
 title: 'Back to Terraform'
-image: /img/2020-05-30-terraform/terraform.png
+image: /img/2023-06-05-back-to-terraform/header.png
 tags: [cloud, automation, cicd, terraform, iac]
 category: Cloud
 comments: true
@@ -20,15 +20,19 @@ comments: true
 
 # Introduction
 
-Public cloud computing has revolutionized the way organizations approach their IT infrastructure. Rather than investing in and maintaining their hardware and software, businesses can now access computing resources through the internet, on an as-needed basis. 
+Public cloud computing has revolutionized the way organizations approach their IT infrastructure. 
+Rather than investing in and maintaining their hardware and software, businesses can now access computing resources through the internet, on an as-needed basis. 
 This shift towards public cloud adoption has created a demand for new management and deployment approaches, with Infrastructure as Code (IaC) emerging as a critical tool for cloud infrastructure management.
+
 IaC is the process of defining and provisioning computing infrastructure through code, rather than through manual processes. 
 This approach allows for consistent, repeatable, and scalable infrastructure deployment, while also providing the ability to automate management tasks and enforce governance policies. 
 With IaC, developers can write code that defines the desired state of infrastructure, which can then be deployed and improved over time. 
+
 As organizations increase their footprint in the cloud, the need for IaC becomes increasingly important. 
 Without proper automation and governance, manual infrastructure management becomes time-consuming, error-prone, and difficult to scale. 
-With IaC, developers can easily collaborate and share infrastructure code, while also ensuring that resources are deployed consistently and securely. 
+Developers can easily collaborate and share their infrastructure code, while also ensuring that resources are deployed consistently and securely. 
 By automating infrastructure provisioning and deployment, organizations can more easily scale resources up or down as needed, optimize resource usage, and rapidly respond to changing business needs.
+
 In this blog post, we'll discuss 3 different IaC tools: Terraform, Pulumi and Terragrunt. 
 We'll discuss two real-world cases where Pulumi and Terragrunt were replaced by Terraform. 
 We'll explain why they weren't the correct fit and what lessons we learned from using them.
@@ -40,6 +44,7 @@ Terraform is an open-source IaC tool, created by Hashicorp, that enables develop
 It uses a declarative language to define infrastructure resources, allowing developers to specify the desired state of resources such as virtual machines, load balancers, databases, and more. 
 The tool then manages the entire lifecycle of these resources, from initial provisioning to improvements over time to deletion.
 Terraform's use of code to manage cloud infrastructure provides several benefits. 
+
 First, it allows for consistent and repeatable infrastructure deployment, eliminating manual errors.
 Second, it enables collaboration and version control, as infrastructure code can be shared among teams and tracked through Git repositories. 
 This allows teams to execute infrastructure changes using the same processes as code changes in their application.
@@ -52,6 +57,7 @@ With Terraform, organizations can achieve greater efficiency, scalability, and a
 
 Pulumi is another IaC platform that allows developers to define and manage cloud infrastructure using familiar programming languages such as Python, JavaScript, and Go.
 Pulumi takes a different approach compared to Terraform, which uses a declarative language to define infrastructure resources.
+
 With Pulumi, developers can create infrastructure resources using a variety of programming languages, leveraging the full power of those languages to manage infrastructure. 
 This approach provides more flexibility and control compared to Terraform, as developers can use programming language constructs such as loops, conditionals, and functions to create more dynamic and complex infrastructure resources.
 While Pulumi provides more flexibility and control compared to Terraform, it may also require more programming knowledge and experience to use effectively.
@@ -68,6 +74,7 @@ It is essentially a tool for managing Terraform code and configurations, and it 
 One of the main benefits of Terragrunt is that it provides a more modular approach to infrastructure management compared to Terraform. 
 With Terragrunt, developers can define common configurations and modules that can be reused across multiple Terraform projects.
 This makes it easier to maintain consistent infrastructure across an organization and reduces duplication of effort.
+
 Another key benefit of Terragrunt is that it supports the automatic generation of Terraform configuration files, making it easier to manage and scale large infrastructure projects. 
 It also includes a feature called "apply-all", which applies Terraform changes across all configured environments, simplifying the management of complex environments.
 While Terragrunt provides several benefits, it does come with a learning curve, as it requires developers to learn a new syntax and understand its unique features.
@@ -119,7 +126,8 @@ While setting up Pulumi, most of the documentation assumes that the Pulumi Servi
 This is most visible in the default behavior of the `pulumi login` command.
 This command is needed to initialize the Pulumi context and its default behavior is to login into the Pulumi Service product.
 It's possible to use AWS S3, Azure Storage Accounts or local files instead [as is documented here](https://www.pulumi.com/docs/intro/concepts/state/#using-a-self-managed-backend){:target="_blank" rel="noopener noreferrer"}. 
-> Note that for AWS, profile support is implemented by adding it to the query parameters of the S3 and KMS connection strings. This has implications on the "shareability" of the configuration across developers
+> Note that for AWS, profile support is implemented by adding it to the query parameters of the S3 and KMS connection strings. This has implications on the "shareability" of the configuration across developers. 
+
 As there was support for the desired self-managed approach with some additional configuration, this wasn't considered an issue at the time.
 
 During the implementation of the pipelines to deploy the Pulumi setup, another red flag occurred.
