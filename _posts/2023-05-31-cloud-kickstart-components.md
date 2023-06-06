@@ -162,7 +162,7 @@ One of the key advantages of using Terraform is its ability to automate the prov
 
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_11.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
-The code shown above, shows a snippet terraform code inside our project. This snippet code will configure the required provider and backend settings. It ensures that the project can interact with AWS resources using the specified provider and store the state of the infrastructure in an S3 bucket.
+The code shown above shows a snippet of terraform code inside our project. This snippet code will configure the required provider and backend settings. It ensures that the project can interact with AWS resources using the specified provider and store the state of the infrastructure in an S3 bucket.
 
 # Conclusion
 
