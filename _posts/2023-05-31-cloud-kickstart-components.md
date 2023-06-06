@@ -62,7 +62,7 @@ We use the capabilities of GitHub Actions, a workflow automation tool. We have a
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_2.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 One of the key benefits of GitHub Actions is its ability to automate the deployment of applications using Docker images. Using a simple configuration, we have set up workflows that automatically build our applications, package them into Docker images, and push those images to a Docker registry. 
-This automation saves us valuable time and effort, ensuring that our applications are always up to date and readily available for deployment.
+This automation saves us valuable time and effort, ensuring our applications are always up-to-date and readily available for deployment.
 
 This automation allows us to seamlessly deploy our applications, configure the necessary settings, and utilize the full capabilities of AWS without manual intervention. For example, when triggering a deployment workflow, GitHub Actions pulls the Docker image from the registry, distributes it to ECR and deploys it to an Elastic Kubernetes Service (EKS) cluster . Simultaneously, it can create S3 buckets for storage, create/add some CloudWatch metrics, set up the alarms and necessary permissions and configurations, all in an automated and reliable manner. 
 This level of automation significantly reduces the complexity and time required to deploy and integrate our applications with AWS services.
