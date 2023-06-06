@@ -67,7 +67,7 @@ This automation saves us valuable time and effort, ensuring our applications are
 This automation allows us to seamlessly deploy our applications, configure the necessary settings, and utilize the full capabilities of AWS without manual intervention. For example, when triggering a deployment workflow, GitHub Actions pulls the Docker image from the registry, distributes it to ECR and deploys it to an Elastic Kubernetes Service (EKS) cluster. Simultaneously, it can create S3 buckets for storage, create/add some CloudWatch metrics, and set up the alarms and necessary permissions and configurations, all in an automated and reliable manner.
 This level of automation significantly reduces the complexity and time required to deploy and integrate our applications with AWS services.
 
-In conclusion, GitHub Actions has become an invaluable tool for us, empowering us to automate the deployment to Docker and seamlessly utilize multiple AWS services. 
+In conclusion, GitHub Actions has become an invaluable tool, empowering us to automate the deployment to Docker and seamlessly utilize multiple AWS services.
 
 # Amazon Web Services (AWS)
 
