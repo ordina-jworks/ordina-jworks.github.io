@@ -51,7 +51,7 @@ Docker Hub is a central repository allowing us to store, manage, and distribute 
 To begin the deployment process, we build and package our application code into a Docker image, encapsulating all the necessary dependencies and configurations. 
 This Docker image acts as a self-contained unit, ensuring consistent deployment across various environments. We leverage the power of Docker Hub, a trusted and widely used container registry, to store and manage our Docker images. 
 By utilizing Docker Hub, we can easily version our images, making tracking and managing changes over time simple.
-This ensures that our Docker images are always up to date, incorporating the latest changes and enhancements. Once our Docker images are prepared on Docker Hub, we are ready to deploy them to AWS.
+This ensures that our Docker images are always up to date, incorporating the latest changes and enhancements. Once our Docker images are prepared on Docker Hub, we will deploy them to AWS.
 
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_1.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
