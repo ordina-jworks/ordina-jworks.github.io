@@ -43,7 +43,7 @@ What they can do, what they can't do, what you can use them with and for.
 
 Cloud computing has made it easy for organizations to manage their IT infrastructure on a large scale. However, with the ease of cloud computing comes the challenge of securing the environment and preventing accidental misconfigurations. This is where [Open Policy Agent](https://www.openpolicyagent.org/){:target="_blank" rel="noopener noreferrer"} (OPA) comes into play.
 
-<img src="{{ '/img/2023-02-16-secure-cloud-foundation/warden.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:100%">
+<img src="{{ '/img/2023-02-16-secure-cloud-foundation/warden.png' | prepend: site.baseurl }}" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:60%">
 
 OPA is an open-source, general-purpose policy engine that can be used to enforce policies across various systems, including cloud infrastructure.
 
