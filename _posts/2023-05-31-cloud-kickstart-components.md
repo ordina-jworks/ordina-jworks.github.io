@@ -156,7 +156,7 @@ For example, we utilize Container Insights to monitor our EKS cluster .
 
 # Terraform
 
-In our project, we use the capabilities of Terraform to perform a wide range of tasks automatically. Terraform serves as a powerful infrastructure as code (IaC) tool that allows us to define, provision, and manage our project resources in a seamless and efficient manner. With Terraform, we can customize our infrastructure requirements and define them in a declarative configuration language. This enables us to specify the desired state of our infrastructure, including the resources, dependencies, and configurations needed for our project.
+In our project, we use the capabilities of Terraform to perform a wide range of tasks automatically. Terraform is a powerful infrastructure as code (IaC) tool that allows us to define, provision, and manage our project resources seamlessly and efficiently. With Terraform, we can customize our infrastructure requirements and represent them in a declarative configuration language. This enables us to specify the desired state of our infrastructure, including the resources, dependencies, and configurations needed for our project.
 
 One of the key advantages of using Terraform is its ability to automate the provisioning and management of resources across various cloud providers, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP). This eliminates the need for manual interventions, reduces human error, and ensures consistent deployments across environments.
 
