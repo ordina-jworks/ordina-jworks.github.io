@@ -166,7 +166,7 @@ The code shown above shows a snippet of terraform code inside our project. This 
 
 # Conclusion
 
-Our Cloud kickstart project has been an extraordinary journey, and we express deep appreciation for the exceptional support and guidance offered by our mentors, Pieter Vincken and Sigriet Van Breusegem. This experience has truly been transformative, allowing us to acquire invaluable knowledge and skills, significantly enhancing our proficiency in cloud computing and automation.
+Our cloud kickstart project has been an extraordinary journey, and we express deep appreciation for the exceptional support and guidance offered by our mentors, Pieter Vincken and Sigriet Van Breusegem. This experience has truly been transformative, allowing us to acquire invaluable knowledge and skills, significantly enhancing our proficiency in cloud computing and automation.
 
 Through this project, we have developed a comprehensive understanding of various aspects, including:
 
