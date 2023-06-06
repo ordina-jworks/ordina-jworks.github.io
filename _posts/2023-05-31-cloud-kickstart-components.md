@@ -105,7 +105,7 @@ These containers within a pod often work together to fulfill a specific task or 
 # Amazon CloudWatch
 
 AWS CloudWatch plays a vital role in our operations by providing us with real-time insights into the performance and health of our AWS resources and applications. 
-With AWS CloudWatch, we have the ability to collect and analyze a wide range of metrics across various AWS services, including compute instances, databases, storage, and networking. 
+With AWS CloudWatch, we can collect and analyze a wide range of metrics across various AWS services, including compute instances, databases, storage, and networking. 
 This comprehensive monitoring solution allows us to gain deep visibility into the performance and utilization of our resources, enabling us to make informed decisions and optimize our infrastructure.
 
 ### 1. CloudWatch Dashboard
