@@ -32,7 +32,7 @@ We are excited to introduce Cloud Kickstart Components, an internship project ai
 
 Our internship project focuses on automating the deployment process, eliminating the need for manual configurations and reducing the chances of errors. With this template, developers can seamlessly deploy their applications to AWS, allowing them to concentrate on their core application logic and development tasks.
 
-Through Cloud Kickstart Components, we provide an easy-to-use template that integrates with various AWS services, including EKS and ECR instances, Amazon CloudWatch, Amazon S3 for storage and Amazon IAM. This integration empowers developers to take advantage of multiple AWS services without the complexities of individual setup and configuration.
+Through Cloud Kickstart Components, we provide an easy-to-use template that integrates with various AWS services, including EKS and ECR instances, Amazon CloudWatch, Amazon S3 for storage and Amazon IAM. This integration empowers developers to take advantage of multiple AWS services without individual setup and configuration complexities.	
 
 # Architecture
 
