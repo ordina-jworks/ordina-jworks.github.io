@@ -115,7 +115,7 @@ These dashboards offer a consolidated view of our key metrics, allowing us to mo
 
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_6.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
-The example image above shows the different metrics we included such as CPU usage, Incoming log events,…
+The example image above shows the different metrics we included, such as CPU usage, Incoming log events,…
 
 ### 2. CloudWatch Logs
 
