@@ -97,7 +97,7 @@ This allows us to streamline our development and operations processes, enabling 
 
 Amazon Elastic Kubernetes Service (EKS) pod is the smallest and most basic unit of deployment within a Kubernetes cluster.
 A pod represents a single or multiple instance(s) of a running application workload within the cluster. 
-It encapsulates one or more containers that are tightly coupled and share the same network namespace, IP address, and storage volumes.
+It encapsulates one or more tightly coupled containers that share the same network namespace, IP address, and storage volumes.
 These containers within a pod often work together to fulfill a specific task or service.
 
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_5.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
