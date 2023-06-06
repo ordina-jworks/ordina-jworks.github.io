@@ -47,7 +47,7 @@ With the Docker image available, we utilize AWS services to deploy the applicati
 
 # Docker
 
-Docker Hub serves as a central repository that allows us to store, manage, and distribute our Docker images, while AWS provides the ideal platform for deploying and running our containerized applications. 
+Docker Hub is a central repository allowing us to store, manage, and distribute our Docker images. At the same time, AWS provides the ideal platform for deploying and running our containerized applications.
 To begin the deployment process, we build and package our application code into a Docker image, encapsulating all the necessary dependencies and configurations. 
 This Docker image acts as a self-contained unit, ensuring consistent deployment across various environments. We leverage the power of Docker Hub, a trusted and widely used container registry, to store and manage our Docker images. 
 By utilizing Docker Hub, we can easily version our images, making it simple to track and manage changes over time. 
