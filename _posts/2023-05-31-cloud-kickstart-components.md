@@ -57,7 +57,7 @@ This ensures that our Docker images are always up to date, incorporating the lat
 
 # GitHub Actions
 
-We use the capabilities of GitHub Actions, a workflow automation tool. With GitHub Actions, we have automated various tasks, including deploying to Docker and seamlessly integrating our applications with multiple Amazon Web Services (AWS).
+We use the capabilities of GitHub Actions, a workflow automation tool. We have automated various tasks with GitHub Actions, including deploying to Docker and seamlessly integrating our applications with multiple Amazon Web Services (AWS).
 
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_2.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
