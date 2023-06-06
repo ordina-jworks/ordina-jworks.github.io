@@ -141,7 +141,7 @@ When a metric breaches a threshold for a specific timeframe or meets a predefine
 
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_8.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
-CloudWatch triggers an alarm, notifying us of any potential issues or deviations from expected behavior. This proactive monitoring approach empowers us to address potential problems before they impact our applications or services. In the example image above, the CPU usage is being monitored. The red line represents the upper limit of CPU usage, representing the maximum value that can be reached.
+CloudWatch triggers an alarm, notifying us of potential issues or deviations from expected behavior. This proactive monitoring approach empowers us to address potential problems before they impact our applications or services. In the example image above, the CPU usage is being monitored. The red line represents the upper CPU usage limit, meaning the maximum value that can be reached.
 If the CPU surpasses the maximum value indicated by the red line, as shown in the image, a notification will be sent to a specific email address.
 
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_9.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
