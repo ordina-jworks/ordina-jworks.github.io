@@ -36,7 +36,8 @@ Through Cloud Kickstart Components, we provide an easy-to-use template that inte
 
 # Architecture
 
-The first step in our deployment process is for the developer to push their code to the designated repository, such as GitHub. This ensures that the latest changes and updates are available for deployment. Once the code is pushed, our deployment pipeline kicks into action. The Spring Boot application is built, packaged, and transformed into a Docker image. This image encapsulates the application and its dependencies, making it portable and ready for deployment. The Docker image is then stored in a Docker registry, such as Docker Hub. This step ensures that the image is ready and available for deployment across different environments.
+
+The first step in our deployment process is for the developer to push their code to the designated repository, such as GitHub. This ensures that the latest changes and updates are available for deployment. Once the code is pushed, our deployment pipeline kicks into action. The Spring Boot application is built, packaged, and transformed into a Docker image. This image encapsulates the application and its dependencies, making it portable and ready for deployment. The Docker image is then stored in a Docker registry, such as Docker Hub. This step ensures the image is prepared and available for deployment across different environments.
 
 We use the power of GitHub Actions, a workflow automation tool, to streamline the deployment process. Using predefined workflows, we configure GitHub Actions to automatically trigger the deployment process whenever there is a new Docker image available. GitHub Actions pulls the Docker image from the Docker registry, fetching the latest version of the Spring Boot application that was built in the previous steps. This ensures that the deployment uses the most up-to-date version of the application.
 
