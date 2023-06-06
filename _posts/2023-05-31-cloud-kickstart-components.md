@@ -91,7 +91,7 @@ This allows us to monitor the performance of our container images and repositori
 # Amazon EKS
 
 To deploy these containers effectively, we have adopted Amazon Elastic Kubernetes Service (EKS) from Amazon Web Services (AWS). 
-AWS EKS provides us with a robust and reliable platform to deploy, scale, and manage our containerized applications with ease.
+AWS EKS provides a robust and reliable platform to deploy, scale, and easily manage our containerized applications.
 AWS EKS is a fully managed Kubernetes service that simplifies the deployment and management of containerized applications. 
 This allows us to streamline our development and operations processes, enabling faster time-to-market and improved agility.
 
