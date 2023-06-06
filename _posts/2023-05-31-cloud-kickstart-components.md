@@ -76,7 +76,7 @@ We have chosen Amazon Web Services (AWS) as our preferred cloud computing platfo
 <img alt="architecture" src="{{ 'img/2023-05-31-cloud-kickstart-components/img_3.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 By leveraging AWS as our cloud computing platform, we can take advantage of a vast array of services and features that enable us to build and scale our applications efficiently. 
-The flexibility, scalability, and reliability of AWS empower us to focus on innovation and deliver exceptional experiences to our users while benefiting from the robust infrastructure and services provided by AWS.
+AWS's flexibility, scalability, and reliability empower us to focus on innovation and deliver exceptional experiences to our users while benefiting from the robust infrastructure and services AWS provides.
 
 # Amazon ECR
 
