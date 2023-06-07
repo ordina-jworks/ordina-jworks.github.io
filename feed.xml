@@ -1,5 +1,292 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-06-06T20:32:47+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Back to Terraform</title><link href="https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html" rel="alternate" type="text/html" title="Back to Terraform" /><published>2023-06-05T00:00:00+00:00</published><updated>2023-06-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-06-07T05:15:06+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Secure cloud foundation tooling</title><link href="https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation.html" rel="alternate" type="text/html" title="Secure cloud foundation tooling" /><published>2023-06-07T00:00:00+00:00</published><updated>2023-06-07T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation.html"><![CDATA[<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#the-warden-open-policy-agent">The Warden: Open Policy Agent</a></li>
+  <li><a href="#the-janitor-cloud-custodian">The Janitor: Cloud Custodian</a></li>
+  <li><a href="#the-watchdog-snyk">The Watchdog: Snyk</a></li>
+  <li><a href="#the-container-detective-trivy">The Container Detective: Trivy</a></li>
+  <li><a href="#the-composer-fugue">The Composer: Fugue</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>If you ever came in contact with an enterprise cloud environment,
+you know that keeping it secure and compliant can be a challenging task.</p>
+
+<p>Every company has their own security and compliance requirements,
+and they should at least follow a best practice standard like CIS AWS Foundations Benchmark.</p>
+
+<p>Often, you’ll find that because of the segmented responsibilities across many teams and projects,
+gaps exist in the security and compliance posture of the organization.
+Add to that the rate of change that companies need to handle to stay competitive,
+and you end up with a puzzle that no-one can oversee.</p>
+
+<p>Originally, we started investigating solutions to scan your infrastructure as code and cloud environment.
+We thought we’d look at a handful of tools, evaluate them and select a clear winner.</p>
+
+<p>We quickly discovered there are quite some interesting tools out there.
+Some that are free and some that cost you a lot of money,
+and some not only do cloud, but can do much more.</p>
+
+<p>We’ll be summarizing the tools we found and how they can help you to secure your cloud environment or other resources.
+What they can do, what they can’t do, what you can use them with and for.</p>
+
+<h2 id="the-warden-open-policy-agent">The Warden: Open Policy Agent</h2>
+
+<p>Cloud computing has made it easy for organizations to manage their IT infrastructure on a large scale. However, with the ease of cloud computing comes the challenge of securing the environment and preventing accidental misconfigurations. This is where <a href="https://www.openpolicyagent.org/" target="_blank" rel="noopener noreferrer">Open Policy Agent</a> (OPA) comes into play.</p>
+
+<p><img src="/img/2023-02-16-secure-cloud-foundation/warden.png" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:60%" /></p>
+
+<p>OPA is an open-source, general-purpose policy engine that can be used to enforce policies across various systems, including cloud infrastructure.</p>
+
+<p>Lets look at some of the strengths and advantages that OPA has to offer.</p>
+
+<h3 id="policy-management">Policy Management</h3>
+
+<p>OPA provides a simple and flexible policy language used by
+writing <a href="https://www.openpolicyagent.org/docs/latest/policy-language/" target="_blank" rel="noopener
+noreferrer">Rego</a>.
+That allows organizations to define and manage policies across multiple cloud platforms.
+Policies can be created to enforce security controls, compliance, and cost optimization rules.
+The policies can be customized to meet specific operational needs.
+These policies are available as code and can be managed like any other code, including automated testing in an
+organisation.</p>
+
+<h3 id="automated-compliance-enforcement">Automated Compliance Enforcement</h3>
+
+<p>OPA can be integrated into the cloud environment using various methods, such as by deploying it as a sidecar container in a Kubernetes cluster or by using Google Cloud functions, <a href="https://aws.amazon.com/blogs/opensource/easily-running-open-policy-agent-serverless-with-aws-lambda-and-amazon-api-gateway/" target="_blank" rel="noopener noreferrer">AWS Lambda</a> or Azure Automation to run OPA policies. 
+Once integrated, OPA can provide real-time policy evaluation and enforcement across the AWS environment, enabling organizations to maintain compliance and security posture.</p>
+
+<h3 id="integrations">Integrations</h3>
+
+<p>OPA can integrate with various cloud native tools, including Kubernetes, Istio, and Envoy. This allows organizations to extend their policy management across various systems, helps to ensure end-to-end compliance, making it easier to enforce policies across multiple platforms and cover broad ecosystems.</p>
+
+<h2 id="the-janitor-cloud-custodian">The Janitor: Cloud Custodian</h2>
+
+<p><a href="https://cloudcustodian.io/" target="_blank" rel="noopener noreferrer">Cloud Custodian</a> is an open-source tool that helps organizations manage their cloud infrastructure in a secure and compliant way. One of the key features of Cloud Custodian is its ability to scan cloud resources across multiple cloud platforms, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP).</p>
+
+<p><img src="/img/2023-02-16-secure-cloud-foundation/janitor.png" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:60%; height:60%;" /></p>
+
+<p>Cloud Custodian uses a policy-driven approach to scan cloud resources. Policies are written using a simple and flexible policy language that allows organizations to define and manage policies.</p>
+
+<p>Following are some features with which Cloud Custodian can make governance and compliance easier.</p>
+
+<h3 id="automated-remediation">Automated Remediation</h3>
+
+<p>Cloud Custodian not only identifies policy violations but also automates the remediation process. For example, if a policy violation is identified, such as an unsecured storage bucket in AWS, Cloud Custodian can automatically take corrective actions, such as deleting the unsecured bucket or encrypting it.</p>
+
+<h3 id="continuous-compliance">Continuous Compliance</h3>
+
+<p>Cloud Custodian helps organizations maintain continuous compliance by ensuring that policies are enforced at all times. The tool can detect any changes in the cloud infrastructure that may violate the policies and take corrective actions in real-time.</p>
+
+<h3 id="cost-optimization">Cost Optimization</h3>
+
+<p>Cloud Custodian also helps organizations optimize cloud costs by automating the deletion of unused resources, enforcing tagging policies to identify unused resources, and providing reports on cost savings.</p>
+
+<h2 id="the-watchdog-snyk">The Watchdog: Snyk</h2>
+
+<p><a href="https://snyk.io/" target="_blank" rel="noopener noreferrer">Snyk</a> is a cloud security platform that helps you to get end-to-end insight into your security footprint.</p>
+
+<p><img src="/img/2023-02-16-secure-cloud-foundation/snyk.png" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:60%; height:60%" /></p>
+
+<h3 id="code-scanning">Code scanning</h3>
+
+<p>Snyk can scan your code for vulnerabilities and compliance issues,
+by example security issues like sql injection or path traversal vulnerabilities.</p>
+
+<p>You might then ask: “How can it help me solve them?”
+They have a data flow window that shows you the entry point and method invocation of the vulnerability, which shows you
+the entire stack path to the vulnerability in your source code.
+This helps you in assessing what the impact of a vulnerability is and how urgent you need to provide a patch for it.
+This way you can, for example, determine if a method is publicly accessible or not.</p>
+
+<p>To help you further with solving the vulnerability, you can read the details of the vulnerability
+and the best practice for preventing it, if available.
+If you thought that would be enough, they have another tab that shows 3 open source projects that had the vulnerability
+and how they fixed it in their code base.</p>
+
+<h3 id="license-scanning">License Scanning</h3>
+
+<p>You can configure Snyk to scan your open source dependencies for license issues with your dependencies,
+which can be useful, for example, if your company wants to avoid using dependencies with a certain license,
+because they want to commercialize the software in the future.
+For example, a library that uses patents,
+but its software rights don’t include that you may use their patents when using their library.
+The company might for various reasons not allow AGPLv3 libraries, for example, because of various reasons.</p>
+
+<h3 id="container-scanning">Container scanning</h3>
+
+<p>Snyk can scan your container images for vulnerabilities it can do this from docker images, Amazon ECR, Docker hub, …
+You can set this up in your Kubernetes cluster, but currently Fargate is not supported.</p>
+
+<p>You can automate the image updating process by using container scanning in your Git repository.
+By using this method, Snyk can automatically create pull requests for you that you can test and then merge if satisfied.
+This reduces your effort to stay safe and up to date.</p>
+
+<h3 id="infrastructure-as-code-scanning">Infrastructure as code scanning</h3>
+
+<p>Snyk can scan your infrastructure as code against the CIS AWS Foundations Benchmark or you can write custom policies.
+To scan your IaC, you simply have to add your Git repository that contains your IaC
+and the Snyk platform will start scanning if for you.
+You can also use the Snyk CLI to scan your IaC if you want to make it part of your CI/CD pipelines.
+By using it this way you can make this a requirement before pull requests are merged that you pass the CLI tool’s scan
+or even block deployment to environments.</p>
+
+<h3 id="custom-policies">Custom policies</h3>
+
+<p>Snyk allows you to write custom policies in Rego, but only for IaC scanning and platform policies.</p>
+
+<p>OPA is easy to use because applications can easily delegate policy validation to OPA if needed.
+Snyk IaC leverages OPA to do its policy scanning, according to one of their blogposts.
+You get a preset of policies out the box from Snyk, and you can add your own custom policies written in Rego.</p>
+
+<h2 id="the-container-detective-trivy">The Container Detective: Trivy</h2>
+
+<p><a href="https://trivy.dev/" target="_blank" rel="noopener noreferrer">Trivy</a> is an open-source cli tool provided by Aqua
+Security.</p>
+
+<p><img src="/img/2023-02-16-secure-cloud-foundation/Trivy.png" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:60%; height:60%" /></p>
+
+<h3 id="container-scanning-1">Container scanning</h3>
+
+<p>Trivy can scan container images against well-known vulnerabilities.
+Trivy will scan files inside container images and container image metadata.</p>
+
+<p>Trivy scans the files inside container images for:</p>
+
+<ul>
+  <li>Vulnerabilities</li>
+  <li>Misconfigurations</li>
+  <li>Secrets</li>
+  <li>Licenses</li>
+</ul>
+
+<p>The image metadata will be scanned for:</p>
+
+<ul>
+  <li>Misconfigurations</li>
+  <li>Secrets</li>
+</ul>
+
+<h3 id="dependency-scanning">Dependency scanning</h3>
+
+<p>Trivy can scan your dependencies for well known vulnerabilities.</p>
+
+<p>It has a mode that automatically discovers, declarations files for various package managers.
+This dependency scanning is very powerful it scans the file system for typical files used to declare dependencies,
+like a <code class="language-plaintext highlighter-rouge">pom.xml</code>, but can also scan into jar and war files.</p>
+
+<p>If you thought “that’s nice”, that’s not all it can do!
+It can also scan your linux systems package managers by fetching what packages are installed,
+apt and apk are supported by default for alpine and ubuntu based images.</p>
+
+<h3 id="cicd-integration">CI/CD integration</h3>
+
+<p>Because Trivy is a CLI tool, it can easily be integrated in new or existing CI/CD pipelines.
+To integrate it into GitHub, you could tell trivy the run should fail (exit code 1 instead of 0) only for HIGH and
+Critical issues.</p>
+
+<p>Trivy also maintains a <a href="https://github.com/aquasecurity/trivy-action">GitHub action</a> to integrate it in GitHub actions.
+But the community has created 2 additional GitHub actions.</p>
+
+<p>This action has some examples of how you can integrate this with GitHub Advanced Security.</p>
+
+<h3 id="aws-integration">AWS integration</h3>
+
+<p>Trivy can be run locally to scan your AWS environment using the AWS CLI.
+The default included check scans against AWS CIS 1.2.0 benchmark.
+It shows summarizes a lists of issues, and gives description of how to resolve the issue; it won’t automatically fix it.</p>
+
+<p>The benefit compared to AWS security hub is that here you can stop the issue from being created before merge or deploy.
+While security hub would tell you after the resource already exists in AWS.</p>
+
+<h3 id="secret-scanning">Secret scanning</h3>
+
+<p>Trivy can scan your code for secrets,
+because it’s not like you have ever had a developer push your precious AWS access key.
+(I really wonder why we suddenly have EC2s with GPU’s booting up?)
+It can scan for:</p>
+
+<ul>
+  <li>AWS access key</li>
+  <li>GCP service account</li>
+  <li>GitHub personal access token</li>
+  <li>GitLab personal access token</li>
+  <li>Slack access token</li>
+  <li>etc.</li>
+</ul>
+
+<p>It can do this either on the file system or inside a container image.</p>
+
+<h3 id="configuration-issues">Configuration issues</h3>
+
+<p>Trivy can scan your configuration files against known configuration issues it support files like:</p>
+
+<ul>
+  <li>Dockerfiles</li>
+  <li>Kubernetes manifests</li>
+  <li>Terraform</li>
+  <li>CloudFormation</li>
+  <li>etc.</li>
+</ul>
+
+<h3 id="custom-policies-1">Custom policies</h3>
+
+<p>You can add your own custom policies, but you will have to write them in Rego.
+Trivy uses Defsec their cloud rules engine for Docker and Kubernetes and tfsec a static analysis scanner for terraform
+code,
+both of these rule engines are open-source and use OPA under the hood.</p>
+
+<h2 id="the-composer-fugue">The Composer: Fugue</h2>
+
+<p><a href="https://www.fugue.co/" target="_blank" rel="noopener noreferrer">Fugue</a> is a cloud security platform that helps you
+to secure your cloud environment,
+it was bought by Snyk some time ago, and after this take-over Snyk started working on Snyk Cloud.</p>
+
+<p><img src="/img/2023-02-16-secure-cloud-foundation/Fugue.png" alt="Gandalf, You shall not pass" class="image fit" style="margin:0px auto; max-width:60%; height:60%" /></p>
+
+<h3 id="baseline-enforcement">Baseline enforcement</h3>
+
+<p>Fugue allows you to take a snapshot of your cloud environment and use it as baseline.</p>
+
+<p>This prevents anyone from making modifications to your environment that are not compliant with your baseline.</p>
+
+<p>It can’t recreate or delete resources, it only enforces by modifying them back to the original state of the snapshot.</p>
+
+<p>A snapshot captures complete cloud resource configurations, attributes, relationships, and drift.
+As an added bonus, snapshots enable deep visualization and reporting capabilities.</p>
+
+<h3 id="policy-scanning">Policy scanning</h3>
+
+<p>Fugue allows you to write policies to scan your AWS environment for compliance,
+or you can use one of the pre-defined policies like CIS AWS Foundations Benchmark.</p>
+
+<p>It does not provide automatic solutions to fix the violations, but has descriptions on how to fix them.</p>
+
+<h3 id="cicd-integration-1">CI/CD integration</h3>
+
+<p>Fugue can be integrated with your CI/CD pipeline to scan your infrastructure as code for compliance using their cli.</p>
+
+<p>They have a guide on how to set this up with CircleCI,
+but it should be possible to set this up with any other CI/CD tools.</p>
+
+<h3 id="custom-policies-2">Custom policies</h3>
+
+<p>Fugue allows you to write custom policies in Rego.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In conclusion, managing and securing cloud environments can be a complex and challenging task due to segmented responsibilities across different teams and projects. Open Policy Agent, Cloud Custodian, and Snyk are three tools of many that can help organizations enforce policies, maintain continuous compliance and governance, and optimize costs across multiple cloud platforms.</p>
+
+<p>While these tools can be valuable additions to any organization’s cloud security and compliance toolset, it’s worth
+noting that cloud providers also offer native solutions like AWS Security Hub, Azure Security Center/Sentinel that can
+offer similar functionality.
+However, the native solutions may lack the flexibility and customization options of third-party tools like OPA, Cloud
+Custodian, and Snyk, which may be essential for meeting specific organizational requirements.</p>
+
+<p>If you find this post helpful, be sure to keep an eye out for our upcoming follow-up post,
+we’ll be diving deeper into the practical applications of OPA and sharing some real-world use cases.
+Be sure to stay tuned, so you don’t miss out on valuable insights and tips.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Lander&quot;, &quot;last_name&quot;=&gt;&quot;Marien&quot;, &quot;permalink&quot;=&gt;&quot;/author/lander_marien/&quot;, &quot;avatar&quot;=&gt;&quot;lander_marien.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;linkedin&quot;=&gt;&quot;lander-marien&quot;, &quot;email&quot;=&gt;&quot;lander.marien@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Lander is a Cloud Engineer with an elevated interest in everything Kubernetes, Automation and AWS.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2022-07-07-snitching-on-your-colleagues-using-cloud-magic.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-06-07-secure-cloud-foundation.md collection=posts&gt;]}</name><email>lander.marien@ordina.be</email></author><category term="Cloud" /><category term="aws" /><category term="cloud" /><summary type="html"><![CDATA[Introduction The Warden: Open Policy Agent The Janitor: Cloud Custodian The Watchdog: Snyk The Container Detective: Trivy The Composer: Fugue]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-02-16-secure-cloud-foundation/header.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-02-16-secure-cloud-foundation/header.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Back to Terraform</title><link href="https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html" rel="alternate" type="text/html" title="Back to Terraform" /><published>2023-06-05T00:00:00+00:00</published><updated>2023-06-05T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/06/05/back-to-terraform.html"><![CDATA[<blockquote>
   <p>“Fail fast” does not imply lack of commitment to a mission or goal, but on the contrary, indicates a willingness to experiment in the process, learn quickly from the results, and make adjustments to better achieve an enhanced customer experience.</p>
 </blockquote>
 
@@ -1561,373 +1848,4 @@ This is where genba comes into play. It’s Japanese for “actual place”.</p>
 <p>It means you need to go the place in your company where the actual value is created. Nigel explained how he helped to transform a corn factory by actually doing an 8-hour shift on the factory floor.
 This gave him better insights in one shift than his previous 3 weeks of observation. This enabled him to make changes to the production line and added value to the company.</p>
 
-<p>More information can be found on <a href="https://nigelthurlow.com/" target="_blank" rel="noopener noreferrer">his website</a>.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Project Manager&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Project Manager at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2018-07-03-Agile-DevOps-Summit-Brussels.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-12-experience-agile-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-25-agile-reporting.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-02-12-experience-agile-2019-part-2.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-03-experience-agile-2022.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-19-waterfall-vs-agile.md collection=posts&gt;]}</name><email>wouter.nivelle@ordina.be</email></author><category term="Conference" /><category term="Agile" /><category term="Conference" /><summary type="html"><![CDATA[After 2 years of COVID, it was finally time for another conference. I’ve chosen the eXperience Agile conference in Lisbon, Portugal, from 26/09/2022 to 27/09/2022. It was the 8th edition of a global conference that focuses on gathering wisdom and best practices on business agility as well as technical agility. Since I’m working with agile teams, I hoped to gather more knowledge and learn new things to apply to my teams.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-10-03-experience-agile-2022/ExperienceAgile2022.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-10-03-experience-agile-2022/ExperienceAgile2022.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Snitching On Your Colleagues Using Cloud Magic</title><link href="https://ordina-jworks.github.io/internship/2022/07/07/snitching-on-your-colleagues-using-cloud-magic.html" rel="alternate" type="text/html" title="Snitching On Your Colleagues Using Cloud Magic" /><published>2022-07-07T00:00:00+00:00</published><updated>2022-07-07T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/internship/2022/07/07/snitching-on-your-colleagues-using-cloud-magic</id><content type="html" xml:base="https://ordina-jworks.github.io/internship/2022/07/07/snitching-on-your-colleagues-using-cloud-magic.html"><![CDATA[<h1 id="table-of-contents">Table Of Contents</h1>
-
-<ul>
-  <li>
-    <p><a href="#introduction">Introduction</a></p>
-  </li>
-  <li><a href="#the-task-at-hand">The Task At Hand</a></li>
-  <li><a href="#exploring-the-environment">Exploring The Environment</a>
-    <ul>
-      <li><a href="#azure-repos">Azure Repos</a></li>
-      <li><a href="#pipeline">Pipeline</a></li>
-      <li><a href="#library">Library</a></li>
-      <li><a href="#service-connections">Service Connections</a></li>
-    </ul>
-  </li>
-  <li><a href="#into-the-rabbit-hole-setting-up-the-pipeline">Into The Rabbit-Hole : Setting Up The Pipeline</a>
-    <ul>
-      <li><a href="#before-we-dive-in">Before We Dive In</a></li>
-      <li><a href="#basic-tasks">Basic Tasks</a></li>
-      <li><a href="#containerization">Containerization</a></li>
-      <li><a href="#setting-up-a-cloud-database">Setting Up A Cloud Database</a></li>
-      <li><a href="#provisioning-a-cloud-cluster">Provisioning A Cloud Cluster</a></li>
-      <li><a href="#giving-a-signal">Giving A Signal</a></li>
-      <li><a href="#a-visual-representation">A Visual Representation</a></li>
-    </ul>
-  </li>
-  <li><a href="#out-of-the-frying-pan-and-into-the-fire-creating-our-own-task">Out Of The Frying Pan And Into The Fire: Creating Our Own Task</a>
-    <ul>
-      <li><a href="#requirements">Requirements</a></li>
-      <li><a href="#getting-the-logs">Getting The Logs</a></li>
-      <li><a href="#filtering-and-saving-failures">Filtering And Saving Failures</a></li>
-      <li><a href="#factory-fresh">Factory Fresh</a></li>
-    </ul>
-  </li>
-  <li><a href="#the-berry-on-top--our-physical-feedback">The Berry On Top: Our Physical Feedback</a>
-    <ul>
-      <li><a href="#dollar-store-google-assistant">Dollar Store Google Assistant</a></li>
-    </ul>
-  </li>
-  <li><a href="#the-good-the-bad---the-ugly--summary">The Good, The Bad &amp; … The Ugly?</a></li>
-</ul>
-
-<h1 id="introduction">Introduction</h1>
-
-<p>7 weeks ago I started my internship at Ordina Mechelen.
-I had several project options available all looking to touch new and unknown tech that might be relevant for future operations.</p>
-
-<p>My inner Judas spoke to me when I saw a listing about a project that would shoot toy rockets at developers if they broke a build, and it would provide a great opportunity to pull myself out of my comfort zone focusing more on Devops and Cloud platforms rather than pure programming.
-Sadly due to a global hardware shortage the toy rocket launcher was not available for delivery anymore, so I decided to use a raspberry pi to fetch the build logs and convert them into audio using google text to speech.</p>
-
-<h1 id="the-task-at-hand">The Task At Hand</h1>
-
-<p>The project described a ci-cd pipeline that would trigger a raspberry pi once a build fails, then in response the pi would operate a toy rocket launcher unit that would target the developer responsible for breaking the build.
-As such the final project can be broken down into these steps:</p>
-
-<ul>
-  <li>Create a sacrificial bare-bones spring boot project to put through the ringer</li>
-  <li>Create a pipeline which performs some cookie cutter tasks</li>
-  <li>Expand pipeline to setup AWS infrastructure</li>
-  <li>Expand pipeline to provision said infrastructure</li>
-  <li>Create a custom pipeline task to fetch and push build logs</li>
-  <li>Configure raspberry pi to host a node.js server</li>
-  <li>Listen for new log files</li>
-  <li>If new log files have been found, search for error messages and convert those via text to speech(TTS)</li>
-  <li>Broadcast the failures of your colleagues</li>
-</ul>
-
-<h1 id="exploring-the-environment">Exploring The Environment</h1>
-<p>I’m going to dive right into the meat and potatoes of this project and write about the pipeline since the spring boot application does nothing more than display some basic html and runs a couple of unit tests.
-The devops environment that was used consisted of a couple of things.</p>
-<h3 id="azure-repos">Azure Repos</h3>
-<p>A simple git instance on the Azure platform used for version control of our spring boot project.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/repo_position.png" style="margin:0px auto; max-width: 100%;" /></p>
-
-<h3 id="pipeline">Pipeline</h3>
-<p>The bread and butter of our operation. Using a data serialization language called yaml we are able to define each individual task we want applied to our code.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/pipeline_position.png" style="margin:0px auto; max-width: 100%;" /></p>
-
-<h3 id="library">Library</h3>
-<p>A place to store key value pairs that we can group and later reference in our yaml file.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/library_position.png" style="margin:0px auto; max-width: 100%;" /></p>
-
-<h3 id="service-connections">Service Connections</h3>
-<p>Predefined connections to internal (Azure) or external services from which we can later extract credentials to gain access in the pipeline.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/service_connection_position.png" style="margin:0px auto; max-width: 100%;" /></p>
-
-<h1 id="into-the-rabbit-hole-setting-up-the-pipeline">Into The Rabbit-Hole: Setting Up The Pipeline</h1>
-<p>In this section I will initially explain how to set up some basic tasks within our yaml file for building and testing. 
-Next, I’ll move on to containerizing our build. 
-Finally, I’ll explain how I have used IaC (Infrastructure as Code) to firstly spin up an RDS (AWS) instance based on Postgres and secondly use Helm to deploy the application to an EKS (AWS) cluster owned by JWorks.</p>
-<h3 id="before-we-dive-in">Before We Dive In</h3>
-<p>Before we dive in, there are some nice to know things about the inner workings and structure of a pipeline defined in a yaml file.
-I’ll briefly go over some key definitions, so you can follow along when each individual task gets explained.</p>
-<ul>
-  <li>Triggers :
-    <ul>
-      <li>Triggers are (like the word implies) what starts a pipeline</li>
-      <li>These can be changes in a branch like <strong><em>main</em></strong> or <strong><em>develop</em></strong> but could also be specific events happening in another pipeline such as failed jobs/stages or a specific variable value</li>
-    </ul>
-  </li>
-  <li>Variables :
-    <ul>
-      <li>A hardcoded variable defined at the start of your pipeline</li>
-      <li>A variable group containing secret values like tokens that can not be acquired using service connections</li>
-      <li>Both of these options can be defined at the same time or individually and used anywhere in the pipeline including in additional task commands if the task allows it.</li>
-    </ul>
-  </li>
-  <li>Stages :
-    <ul>
-      <li>Defines what steps your pipeline should take in what order.</li>
-      <li>Encapsulation of <strong><em>stage</em></strong> sections</li>
-    </ul>
-  </li>
-  <li>Stage :
-    <ul>
-      <li>A section of your pipeline</li>
-      <li>Can be given a name of your choosing eg: Test,Docker,CloudSetup …</li>
-      <li>Encapsulation for <strong><em>jobs</em></strong></li>
-    </ul>
-  </li>
-  <li>Jobs :
-    <ul>
-      <li>Encapsulation of <strong><em>job</em></strong> sections</li>
-    </ul>
-  </li>
-  <li>Job :
-    <ul>
-      <li>Can be given a name of your choosing just like the <strong><em>stage</em></strong> section</li>
-      <li>Can be given a <strong><em>pool</em></strong> attribute to define which agent OS has to run this job</li>
-      <li>Encapsulation of one or more <strong><em>task</em></strong> sections</li>
-    </ul>
-  </li>
-  <li>Task :
-    <ul>
-      <li>A pre-built or custom-made task to be performed on your pipeline run.</li>
-      <li>Has a variety of attributes that can be manually filled up such as credentials or dictating your preferred working directories</li>
-    </ul>
-  </li>
-  <li>Agents :
-    <ul>
-      <li>A machine hosted by the cloud provider (Azure in our case) that runs on a specific OS</li>
-      <li>Defined in the <strong><em>pool</em></strong> attribute of a <strong><em>job</em></strong> or at the start of a pipeline.</li>
-      <li>Mostly a clean slate with only some essential software pre-installed eg: Docker</li>
-      <li>Gets wiped after use in order to accommodate the next job.</li>
-    </ul>
-  </li>
-</ul>
-
-<p>All of the above gets combined into a structure that resembles following code.</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">variables</span><span class="pi">:</span>
-<span class="pi">-</span> <span class="na">group</span><span class="pi">:</span> <span class="s">my-variable-group</span>
-
-<span class="na">trigger</span><span class="pi">:</span> <span class="s">main</span>
-
-<span class="na">pool</span><span class="pi">:</span>
-  <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
-
-<span class="na">stages</span><span class="pi">:</span>
-<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span>
-  <span class="na">jobs</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">job</span><span class="pi">:</span> <span class="s">myJob</span>
-    <span class="na">steps</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span> <span class="s">echo "Hello"</span> 
-</code></pre></div></div>
-
-<h3 id="basic-tasks">Basic Tasks</h3>
-<p>Following are the pipeline tasks used to test our java project, generate a test rapport and then build it using Maven.</p>
-<h4 id="maven-test">Maven Test</h4>
-<p>To test our application we will be using JUnit because of the pre-existing support given by Azure. 
-This will also generate a test rapport during each pipeline run based on the unit tests defined in our project.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/maven_test.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<h4 id="maven-build">Maven Build</h4>
-<p>A standard task using the Maven goal of ‘package’ which returns a JAR file that can later be used by Docker.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/maven_build.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<h4 id="copying-and-creating-an-artifact">Copying And Creating An Artifact</h4>
-<p>In order to use our build across multiple agents we need to create an artifact out of the build.
-This artifact gets stored within the pipeline and can get called upon whenever we please.
-We do this by first copying our build to a directory on our agent that functions as the default staging directory for artifacts.
-By using a second task we take that build and publish it to our pipeline storage.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/copy_and_publish.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<h3 id="containerization">Containerization</h3>
-<p>Here we use the artifact we created during our last job to create an image and push it to Dockerhub.</p>
-<h4 id="fetching-our-artifact">Fetching Our Artifact</h4>
-<p>First we have to fetch the artifact that we uploaded to our pipeline and place it in the appropriate directory on our new agent.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/download_artifact.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<h4 id="creating-an-image">Creating An Image</h4>
-<p>Then we use said artifact together with a Dockerfile that was previously placed within our java project to create and upload an image to Dockerhub.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/docker_task.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<h3 id="setting-up-a-cloud-database">Setting Up A Cloud Database</h3>
-<p>In this job we will use Terraform to set up an RDS (AWS) database based on Postgres for our containerized java application.
-Our Terraform files are stored in the java project under a folder called infrastructure and can be called upon directly, alternatively a remote folder containing Terraform files can be specified if you want or need to split up your project files.
-Credentials needed to get access to AWS services come from a manually pre-defined service connection.</p>
-<h4 id="installing-terraform">Installing Terraform</h4>
-<p>In order to use Terraform on our agent we have to first install it to our agent since it is not supplied by default.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_install_task.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<h4 id="initializing-terraform">Initializing Terraform</h4>
-<p>This task performs several initialization steps in order to prepare the current working directory for use with Terraform.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_init.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<h4 id="terraform-plan">Terraform Plan</h4>
-<p>Plans out what configurations and steps will be made once the apply command is given.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_plan_task.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<h4 id="terraform-apply">Terraform Apply</h4>
-<p>Excecuting our Terraform plan defined in the previous step.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/terraform_apply.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<h3 id="provisioning-a-cloud-cluster">Provisioning A Cloud Cluster</h3>
-<p>Now that we have an image of our app and place to store data to only one crucial step remains, launching our application.
-Our application gets deployed to EKS (Elastic Kubernetes Service) which is another AWS service designed for running cloud based Kubernetes.
-In order to do so a Helm chart has been made which like the Terraform files is stored under the infrastructure directory of our project.
-These charts are defined in a yaml format where specifications for Kubernetes are being made eg: Name of the app, Kind , Amount of replicas, Image to use …</p>
-
-<h4 id="helm-deploy">Helm Deploy</h4>
-<p>Using our Helm chart and a service connection allowing us to deploy to the Jworks cluster, we deploy our application, which gets pulled from Dockerhub, to the “stage-thomas-more” namespace within EKS.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/helm_task.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<h3 id="giving-a-signal">Giving A Signal</h3>
-<p>Now that everything has been set up and all the services are up and running it’s time to give our developers a heads-up.
-I did this using a Telegram bot that will broadcast a message for every build that has run.
-The bot token was stored in the <strong>library</strong> as a secret key-value pair.</p>
-<h4 id="creating-our-bot">Creating Our Bot</h4>
-<p>This is a prerequisite if you want to work with Telegram since a bot token and a chat id are required to function.
-Telegram has a neat tutorial on how to create your own bot using the “Botfather” which you can find here : <a href="https://core.telegram.org/bots" target="_blank" rel="noopener noreferrer">The Botfather</a></p>
-<h4 id="sending-out-notifications">Sending Out Notifications</h4>
-<p>Now that we have our bot token and a chat id we can define a message that gets sent everytime the task is reached.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/telegram_task.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<h3 id="a-visual-representation">A Visual Representation</h3>
-<p>Displayed below you will find two images representing the pipeline and the goals they accomplish on the Cloud.</p>
-
-<p>For now pay no attention to the little logo displaying Eric Cartman, this is the image I used to represent my custom task which we will get to in the following section.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/pipeline_flow.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/AWS_diagram_final_image.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<h1 id="out-of-the-frying-pan-and-into-the-fire-creating-our-own-task">Out Of The Frying Pan And Into The Fire: Creating Our Own Task</h1>
-<p>During week 5 all of the above was learned, implemented and configured to a working state so a question was asked by Frederick Bousson the solutions lead at the Jworks Ordina Unit if it was possible to create a custom task for use in the pipeline.</p>
-
-<p>Up for another challenge I stepped into the pretty unexplored (And not fully documented) lands of developing a task for a pipeline.
-The main objective of the task is to get the pipeline logs from a predefined pipeline run or from the current one as default.
-Those logs get filtered and send to a DynamoDB instance hosted on AWS.</p>
-
-<h4 id="requirements">Requirements</h4>
-<ul>
-  <li>Node.js</li>
-  <li>TFX : A packaging tool</li>
-  <li>Microsoft VSS Web Extension SDK package</li>
-  <li>Some experience writing in Javascript or Typescript</li>
-  <li>A Visual Studio publisher account (free)</li>
-</ul>
-
-<h4 id="getting-the-logs">Getting The Logs</h4>
-<p>This was done using the Azure Devops REST API: <a href="https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-7.1" target="_blank" rel="noopener noreferrer">Documentation</a></p>
-
-<p>To get builds, a couple of things are required:</p>
-<ul>
-  <li>The Azure Devops organization name</li>
-  <li>The project name</li>
-  <li>The build number</li>
-  <li>Authorization</li>
-</ul>
-
-<p>While the values for point one and two were pretty straightforward gaining access to the <strong>build logs</strong> required a <strong>build id</strong> instead of a <strong>build number</strong> , and since the <strong>build id</strong> can not be traced through the UI of Azure Devops some nested API requests were required.</p>
-
-<p>The Authorization was gained through the creation of a PAT token that can be used as a header in the GET Request.</p>
-<h4 id="filtering-and-saving-failures">Filtering And Saving Failures</h4>
-<p>Now that we have our desired logs all that remains is filtering, formatting and sending those logs to DynamoDB.
-In order to complete this operation the following steps were taken:</p>
-<ul>
-  <li>Set up authorization in a way that allows developers to use their AWS service connection.</li>
-  <li>Use the AWS SDK combined with the credentials from the service connection to authorize the user.</li>
-  <li>Filter the received logs which had a format of plain text using regex to find possible error messages</li>
-  <li>Format the error messages together with the developer responsible for the build and the time of build.</li>
-  <li>Push our formatted object to DynamoDB</li>
-</ul>
-
-<h4 id="factory-fresh">Factory Fresh</h4>
-<p>Eh Voilà!
-Our extension does everything we hoped it would do, so it’s time implement it in our pipeline.</p>
-
-<p>First we compile our Typescript to Javascript since the index.js file is the default node entry point.
-We then package our extension, and finally upload it using the management portal where we share it with our organizations of choice.</p>
-
-<p>The result:</p>
-
-<p>In my publisher account:
-<img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/custom_task_in_marketplace.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<p>In the pipeline:
-<img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/custom_extension_task.png" style="margin:0px auto; max-width: 50%;" /></p>
-
-<p>Want to check out the code? Take a look at the project repo : <a href="https://github.com/MarienL1995/customTaskPublic" target="_blank" rel="noopener noreferrer">Github</a></p>
-
-<h1 id="the-berry-on-top--our-physical-feedback">The Berry On Top : Our Physical Feedback</h1>
-<p>Almost there!
-Finally, it is time for the actual dirty work namely snitching on our dear colleagues.
-To do this I only needed two things, a raspberry pi and a bluetooth speaker.</p>
-
-<h3 id="dollar-store-google-assistant">Dollar Store Google Assistant</h3>
-<p>Initially we had planned to use a toy rocket launcher as our physical feedback machine.
-That idea was scrapped however because of a global shortage (or tremendous price increase) for all hardware components.</p>
-
-<p>Next the Google Assistant came to mind which is embedded in Android devices or a Google home speaker.
-The problem with this idea unfortunately was that the Google Assistant was never designed to take in text input through an API because devices running Google Assistant had no direct endpoints.
-Now we could in fact work around this and set up a Home automation system like Home Assistant or Node Red but this would mean that our speaker could never change location without reconfiguring access to its new network.</p>
-
-<p>A final solution I came up with in secret while my mentor was away on a conference in Valencia, was to run a Node.js server on a Raspberry Pi that after booting takes a reference log from our DynamoDB database.
-Every minute it would get the latest log available and compare it to the log it had stored, this way when a difference in logs had been found it knew it was time to call out the developer.</p>
-
-<p>Through a nifty npm package we are able to send our text message that we want converted to an audio file and get an url in return pointing to an audio file.
-Using Node file system I programmatically created a text file where each audio url alternated with a path to a local audio file gets written on a line in the previously created text file.
-What I had just created was a playlist which dictated the order of audio files to be played.
-All I had to do now was hook it up to a media player.</p>
-
-<p><strong><em>note</em></strong>: This not the ideal solution, but it allowed the Pi and speaker to be portable to any location as long as we could connect it to wi-fi.</p>
-
-<p>A succesfull pipeline run broadcast(Sound up):</p>
-
-<div class="responsive-video">
-  
-    <iframe src="https://www.youtube.com/embed/W4LZsEbTRF4" frameborder="0" allowfullscreen="true"> </iframe>
-  
-</div>
-
-<p>A failed pipeline run broadcast(Sound up):</p>
-
-<div class="responsive-video">
-  
-    <iframe src="https://www.youtube.com/embed/6PS0K2zdW-o" frameborder="0" allowfullscreen="true"> </iframe>
-  
-</div>
-
-<h1 id="the-good-the-bad---the-ugly--summary">The Good, The Bad &amp; … The Ugly? : Summary</h1>
-
-<p>Like I mentioned at the start of this blog, there were a number of different project options to choose from as an internship topic.
-The reason I went with the ci-cd route is that I knew it would pull me out of my comfort zone and broaden my view on development in general.</p>
-
-<p>While having touched on basic CLI environments like Docker or Bash it always felt cryptic to use a multitude of flags and if you messed up the error messages weren’t all that clear compared to an error with a web framework like React for example.</p>
-
-<p>After 7 weeks of submerging myself mostly in configuration files like .yaml and .tf(Terraform) combined with CLI tools such as kubectl for Kubernetes, psql for Postgres and AWS CLI for AWS Configuration, I’m glad to say that i feel a lot more at home touching on tools not necessarily meant for pure programming.</p>
-
-<p>For a total recap of tools and software used during the project, I put together the following image.</p>
-
-<p><img class="image fit" src="/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/tech_summary.png" style="margin:0px auto; max-width: 75%;" /></p>
-
-<p>As a final sendoff I want to say a quick thank you to my mentor Nick Geudens for guiding me through the jungle of DevOps and AWS and to Frederick Bousson for coming up with the project and allowing me the opportunity to execute it.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Lander&quot;, &quot;last_name&quot;=&gt;&quot;Marien&quot;, &quot;permalink&quot;=&gt;&quot;/author/lander_marien/&quot;, &quot;avatar&quot;=&gt;&quot;lander_marien.jpg&quot;, &quot;title&quot;=&gt;&quot;Intern&quot;, &quot;linkedin&quot;=&gt;&quot;lander-marien&quot;, &quot;email&quot;=&gt;&quot;lander.marien@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Lander is a Cloud Engineer with an elevated interest in everything Kubernetes, Automation and AWS.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2022-07-07-snitching-on-your-colleagues-using-cloud-magic.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;]}</name><email>lander.marien@ordina.be</email></author><category term="Internship" /><category term="Spring" /><category term="Spring Boot" /><category term="Git" /><category term="DevOps" /><category term="Docker" /><category term="Kubernetes" /><category term="Terraform" /><category term="Helm" /><category term="Azure" /><category term="Internet Of Things" /><category term="RaspberryPi" /><category term="Javascript" /><category term="Node.js" /><category term="AWS" /><category term="DynamoDB" /><category term="RDS" /><category term="Postgres" /><summary type="html"><![CDATA[Table Of Contents]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-07-07-snitching-on-your-colleagues-using-cloud-magic/Betrayal.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>More information can be found on <a href="https://nigelthurlow.com/" target="_blank" rel="noopener noreferrer">his website</a>.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Project Manager&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Project Manager at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2018-07-03-Agile-DevOps-Summit-Brussels.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-12-experience-agile-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-25-agile-reporting.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-02-12-experience-agile-2019-part-2.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-03-experience-agile-2022.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-19-waterfall-vs-agile.md collection=posts&gt;]}</name><email>wouter.nivelle@ordina.be</email></author><category term="Conference" /><category term="Agile" /><category term="Conference" /><summary type="html"><![CDATA[After 2 years of COVID, it was finally time for another conference. I’ve chosen the eXperience Agile conference in Lisbon, Portugal, from 26/09/2022 to 27/09/2022. It was the 8th edition of a global conference that focuses on gathering wisdom and best practices on business agility as well as technical agility. Since I’m working with agile teams, I hoped to gather more knowledge and learn new things to apply to my teams.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-10-03-experience-agile-2022/ExperienceAgile2022.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-10-03-experience-agile-2022/ExperienceAgile2022.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
