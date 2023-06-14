@@ -1,5 +1,183 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-06-09T11:53:04+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Secure cloud foundation tooling</title><link href="https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation.html" rel="alternate" type="text/html" title="Secure cloud foundation tooling" /><published>2023-06-07T00:00:00+00:00</published><updated>2023-06-07T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation.html"><![CDATA[<ul>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-06-14T06:42:44+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Cloud Kickstart Components</title><link href="https://ordina-jworks.github.io/cloud/2023/06/14/cloud-kickstart-components.html" rel="alternate" type="text/html" title="Cloud Kickstart Components" /><published>2023-06-14T00:00:00+00:00</published><updated>2023-06-14T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/06/14/cloud-kickstart-components</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/06/14/cloud-kickstart-components.html"><![CDATA[<h1 id="table-of-contents">Table of contents</h1>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#architecture">Architecture</a></li>
+  <li><a href="#docker">Docker</a></li>
+  <li><a href="#github-actions">GitHub Actions</a></li>
+  <li><a href="#aws">Amazon Web Services(AWS)</a></li>
+  <li><a href="#amazon-ecr">Amazon ECR</a></li>
+  <li><a href="#amazon-eks">Amazon EKS</a></li>
+  <li><a href="#amazon-cloudwatch">Amazon CloudWatch</a>
+    <ul>
+      <li><a href="#cloudwatch-dashboard">CloudWatch Dashboard</a></li>
+      <li><a href="#cloudwatch-logs">CloudWatch Logs</a></li>
+      <li><a href="#cloudwatch-alarms">CloudWatch Alarms</a></li>
+      <li><a href="#cloudwatch-container-insights">CloudWatch Container Insights</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Introducing Cloud Kickstart Components: Simplifying Application Deployment on AWS (Internship Project)</p>
+
+<p>We are excited to introduce Cloud Kickstart Components, an internship project aimed at simplifying the process of deploying applications on Amazon Web Services (AWS). As interns, we have developed a template that enables the automatic deployment of applications to AWS, harnessing the power of multiple AWS services effortlessly.</p>
+
+<p>Our internship project focuses on automating the deployment process, eliminating the need for manual configurations and reducing the chances of errors. With this template, developers can seamlessly deploy their applications to AWS, allowing them to concentrate on their core application logic and development tasks.</p>
+
+<p>Through Cloud Kickstart Components, we provide an easy-to-use template that integrates with various AWS services, including EKS and ECR instances, Amazon CloudWatch, Amazon S3 for storage and Amazon IAM. This integration empowers developers to take advantage of multiple AWS services without individual setup and configuration complexities.</p>
+
+<h1 id="architecture">Architecture</h1>
+
+<p>The first step in our deployment process is for the developer to push their code to the designated repository, such as GitHub. This ensures that the latest changes and updates are available for deployment. Once the code is pushed, our deployment pipeline kicks into action. The Spring Boot application is built, packaged, and transformed into a Docker image. This image encapsulates the application and its dependencies, making it portable and ready for deployment. The Docker image is then stored in a Docker registry, such as Docker Hub. This step ensures the image is prepared and available for deployment across different environments.</p>
+
+<p>We use the power of GitHub Actions, a workflow automation tool, to streamline the deployment process. Using predefined workflows, we configure GitHub Actions to automatically trigger the deployment process whenever a new Docker image is available. GitHub Actions pulls the Docker image from the registry, fetching the latest version of the Spring Boot application built in the previous steps. This ensures that the deployment uses the most up-to-date version of the application.</p>
+
+<p>With the Docker image available, we utilize AWS services to deploy the application. Depending on the specific requirements, it can automatically provision resources such as Amazon Elastic Kubernetes Service (EKS) instances, Amazon Elastic Container Registry (ECR), Amazon Simple Storage Service (S3) buckets and many more. After deployment, we implement continuous monitoring and testing mechanisms using CloudWatch. We set up custom metrics, create dashboards for visualization, and define alarms to detect anomalies or performance issues. Additionally, we leverage CloudWatch Logs to collect application logs for troubleshooting and analysis.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<h1 id="docker">Docker</h1>
+
+<p>Docker Hub is a central repository allowing us to store, manage, and distribute our Docker images. At the same time, AWS provides the ideal platform for deploying and running our containerized applications.
+To begin the deployment process, we build and package our application code into a Docker image, encapsulating all the necessary dependencies and configurations. 
+This Docker image acts as a self-contained unit, ensuring consistent deployment across various environments. We leverage the power of Docker Hub, a trusted and widely used container registry, to store and manage our Docker images. 
+By utilizing Docker Hub, we can easily version our images, making tracking and managing changes over time simple.
+This ensures that our Docker images are always up to date, incorporating the latest changes and enhancements. Once our Docker images are prepared on Docker Hub, we will deploy them to AWS.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_1.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<h1 id="github-actions">GitHub Actions</h1>
+
+<p>We use the capabilities of GitHub Actions, a workflow automation tool. We have automated various tasks with GitHub Actions, including deploying to Docker and seamlessly integrating our applications with multiple Amazon Web Services (AWS).</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_2.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<p>One of the key benefits of GitHub Actions is its ability to automate the deployment of applications using Docker images. Using a simple configuration, we have set up workflows that automatically build our applications, package them into Docker images, and push those images to a Docker registry. 
+This automation saves us valuable time and effort, ensuring our applications are always up-to-date and readily available for deployment.</p>
+
+<p>This automation allows us to seamlessly deploy our applications, configure the necessary settings, and utilize the full capabilities of AWS without manual intervention. For example, when triggering a deployment workflow, GitHub Actions pulls the Docker image from the registry, distributes it to ECR and deploys it to an Elastic Kubernetes Service (EKS) cluster. Simultaneously, it can create S3 buckets for storage, create/add some CloudWatch metrics, and set up the alarms and necessary permissions and configurations, all in an automated and reliable manner.
+This level of automation significantly reduces the complexity and time required to deploy and integrate our applications with AWS services.</p>
+
+<p>In conclusion, GitHub Actions has become an invaluable tool, empowering us to automate the deployment to Docker and seamlessly utilize multiple AWS services.</p>
+
+<h1 id="amazon-web-services-aws">Amazon Web Services (AWS)</h1>
+
+<p>We have chosen Amazon Web Services (AWS) as our preferred cloud computing platform. With AWS, we have access to a comprehensive suite of cloud services that enable us to build, deploy, and manage our applications and infrastructure with flexibility, scalability, and reliability.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_3.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<p>By leveraging AWS as our cloud computing platform, we can take advantage of a vast array of services and features that enable us to build and scale our applications efficiently. 
+AWS’s flexibility, scalability, and reliability empower us to focus on innovation and deliver exceptional experiences to our users while benefiting from the robust infrastructure and services AWS provides.</p>
+
+<h1 id="amazon-ecr">Amazon ECR</h1>
+
+<p>We utilize AWS Elastic Container Registry (ECR) as a pivotal component in our deployment and containerization strategy. AWS ECR is a secure and fully managed container registry, enabling us to store, manage, and deploy container images effortlessly. With AWS ECR, we can securely store our Docker container images, ensuring their availability for deployment across various environments.
+The integration of ECR within the AWS ecosystem allows us to seamlessly incorporate it into our deployment pipelines, simplifying the process of deploying containerized applications.</p>
+
+<p>Moreover, AWS ECR provides powerful monitoring and management capabilities. We can track image usage, monitor repository activity, and gain insights into resource utilization through integration with AWS CloudWatch. 
+This allows us to monitor the performance of our container images and repositories, enabling proactive management and optimization.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_4.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<h1 id="amazon-eks">Amazon EKS</h1>
+
+<p>To deploy these containers effectively, we have adopted Amazon Elastic Kubernetes Service (EKS) from Amazon Web Services (AWS). 
+AWS EKS provides a robust and reliable platform to deploy, scale, and easily manage our containerized applications.
+AWS EKS is a fully managed Kubernetes service that simplifies the deployment and management of containerized applications. 
+This allows us to streamline our development and operations processes, enabling faster time-to-market and improved agility.</p>
+
+<p>Amazon Elastic Kubernetes Service (EKS) pod is the smallest and most basic unit of deployment within a Kubernetes cluster.
+A pod represents a single or multiple instance(s) of a running application workload within the cluster. 
+It encapsulates one or more tightly coupled containers that share the same network namespace, IP address, and storage volumes.
+These containers within a pod often work together to fulfill a specific task or service.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_5.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<h1 id="amazon-cloudwatch">Amazon CloudWatch</h1>
+
+<p>AWS CloudWatch plays a vital role in our operations by providing us with real-time insights into the performance and health of our AWS resources and applications. 
+With AWS CloudWatch, we can collect and analyze a wide range of metrics across various AWS services, including compute instances, databases, storage, and networking. 
+This comprehensive monitoring solution allows us to gain deep visibility into the performance and utilization of our resources, enabling us to make informed decisions and optimize our infrastructure.</p>
+
+<h3 id="1-cloudwatch-dashboard">1. CloudWatch Dashboard</h3>
+
+<p>Additionally, AWS CloudWatch provides us with the flexibility to create customized dashboards. 
+These dashboards offer a consolidated view of our key metrics, allowing us to monitor and analyze critical aspects of our infrastructure and applications in a centralized and intuitive manner.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_6.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<p>The example image above shows the different metrics we included, such as CPU usage, Incoming log events,…</p>
+
+<h3 id="2-cloudwatch-logs">2. CloudWatch Logs</h3>
+
+<p>AWS CloudWatch also supports log management and analysis through CloudWatch Logs. This feature enables us to centralize and collect logs generated by our applications and services. We can then search, filter, and analyze these logs, making troubleshooting and debugging more efficient. 
+CloudWatch Logs simplifies investigating issues and monitoring application behavior by consolidating logs in a single location.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_7.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<p>As shown image above, different logs are being shown inside CloudWatch Logs. Every endpoints inside our application sends the following logs :</p>
+<ul>
+  <li>The log level</li>
+  <li>The message</li>
+  <li>The context</li>
+  <li>The sender</li>
+  <li>The IP address</li>
+  <li>The endpoint</li>
+</ul>
+
+<p>Depending on the endpoint itself, the values are going to be different.</p>
+
+<h3 id="3-cloudwatch-alarms">3. CloudWatch Alarms</h3>
+
+<p>One of the key features we leverage in AWS CloudWatch is the ability to set up custom alarms. These alarms enable us to define specific thresholds and conditions for our metrics. 
+When a metric breaches a threshold for a specific timeframe or meets a predefined condition.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_8.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<p>CloudWatch triggers an alarm, notifying us of potential issues or deviations from expected behavior. This proactive monitoring approach empowers us to address potential problems before they impact our applications or services. In the example image above, the CPU usage is being monitored. The red line represents the upper CPU usage limit, meaning the maximum value that can be reached.
+If the CPU surpasses the maximum value indicated by the red line, as shown in the image, a notification will be sent to a specific email address.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_9.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<h3 id="4-cloudwatch-container-insights">4. CloudWatch Container Insights</h3>
+
+<p>Container Insights, powered by Amazon CloudWatch, offers real-time monitoring and deep visibility into the performance and health of your containers. Integrating Container Insights into our deployment template enables developers to gain valuable insights and make data-driven decisions to optimize their containerized applications. With Container Insights, you can effortlessly monitor crucial metrics such as CPU and memory utilization, network performance, disk I/O, and container-level resource allocation. This level of observability empowers you to identify performance bottlenecks, proactively troubleshoot issues, and optimize resource allocation for better efficiency. CloudWatch automatically collects metrics for many resources, such as CPU, memory, disk, and network. At the same time, Container Insights supports collecting metrics from clusters deployed on Fargate for both Amazon ECS and Amazon EKS.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_10.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<p>For example, we utilize Container Insights to monitor our EKS cluster .</p>
+
+<h1 id="terraform">Terraform</h1>
+
+<p>In our project, we use the capabilities of Terraform to perform a wide range of tasks automatically. Terraform is a powerful infrastructure as code (IaC) tool that allows us to define, provision, and manage our project resources seamlessly and efficiently. With Terraform, we can customize our infrastructure requirements and represent them in a declarative configuration language. This enables us to specify the desired state of our infrastructure, including the resources, dependencies, and configurations needed for our project.</p>
+
+<p>One of the key advantages of using Terraform is its ability to automate the provisioning and management of resources across various cloud providers, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP). This eliminates manual interventions, reduces human error, and ensures consistent deployments across environments.</p>
+
+<p><img alt="architecture" src="img/2023-06-14-cloud-kickstart-components/img_11.png" style="margin:0px auto; max-width: 750px;" /></p>
+
+<p>The code shown above shows a snippet of terraform code inside our project. This snippet code will configure the required provider and backend settings. It ensures that the project can interact with AWS resources using the specified provider and store the state of the infrastructure in an S3 bucket.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Our cloud kickstart project has been an extraordinary journey, and we express deep appreciation for the exceptional support and guidance offered by our mentors, Pieter Vincken and Sigriet Van Breusegem. This experience has truly been transformative, allowing us to acquire invaluable knowledge and skills, significantly enhancing our proficiency in cloud computing and automation.</p>
+
+<p>Through this project, we have developed a comprehensive understanding of various aspects, including:</p>
+
+<ol>
+  <li>Cloud infrastructure and its intricacies.</li>
+  <li>Proficiency in working with Amazon Web Services (AWS), a leading cloud computing platform.</li>
+  <li>Extensive knowledge and hands-on experience with multiple AWS services, enabling us to leverage their full potential.</li>
+  <li>Mastery of Terraform, an essential tool for infrastructure automation and provisioning.</li>
+  <li>Expertise in automation techniques, empowering us to streamline and optimize various processes.</li>
+  <li>Proficiency in setting up Continuous Integration/Continuous Deployment (CI/CD) pipelines using GitHub Actions, ensuring efficient code deployment and delivery.</li>
+  <li>Strong grasp of Agile methodologies, allowing us to adapt swiftly to changing requirements and deliver high-quality results.</li>
+  <li>Effective communication and teamwork skills, fostering collaboration and synergy among team members.</li>
+</ol>
+
+<p>Undoubtedly, this Cloud Kickstart project has been instrumental in broadening our horizons and equipping us with the expertise needed to thrive in cloud computing and automation. We are deeply grateful for the opportunity and look forward to applying our newfound knowledge to future endeavors.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Gabriel&quot;, &quot;last_name&quot;=&gt;&quot;Dela Peña&quot;, &quot;permalink&quot;=&gt;&quot;/author/gabriel-dela-peña/&quot;, &quot;avatar&quot;=&gt;&quot;gabriel-dela-peña.png&quot;, &quot;title&quot;=&gt;&quot;Java Developer&quot;, &quot;linkedin&quot;=&gt;&quot;gabriel-dela-peña-4abb09223&quot;, &quot;github&quot;=&gt;&quot;GabrielDelaPena&quot;, &quot;email&quot;=&gt;&quot;Gabriel.DelaPena@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Gabriel is a  Developer with a strong interest in back-end and front-end.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2023-06-14-cloud-kickstart-components.md collection=posts&gt;]}</name><email>Gabriel.DelaPena@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="aws" /><category term="internship" /><category term="kubernetes" /><category term="terraform" /><category term="docker" /><summary type="html"><![CDATA[Table of contents]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-06-14-cloud-kickstart-components/cloud-kickstart-component-banner.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-06-14-cloud-kickstart-components/cloud-kickstart-component-banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Secure cloud foundation tooling</title><link href="https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation.html" rel="alternate" type="text/html" title="Secure cloud foundation tooling" /><published>2023-06-07T00:00:00+00:00</published><updated>2023-06-07T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2023/06/07/secure-cloud-foundation.html"><![CDATA[<ul>
   <li><a href="#introduction">Introduction</a></li>
   <li><a href="#the-warden-open-policy-agent">The Warden: Open Policy Agent</a></li>
   <li><a href="#the-janitor-cloud-custodian">The Janitor: Cloud Custodian</a></li>
@@ -1651,201 +1829,4 @@ Once that phase is done and the developers can finally start working, they accel
 If that is done with waterfall or agile is less important. Even scrumfall might work for some organization, be it less effective than a “pure” model.</p>
 
 <p>As with any model, experimentation must be done and improvements must be made. As in agile, this depends from organization to organization how it can be done. There is no one answer that fits for everyone.µ
-The most important to keep in mind is that every organization needs to shift its approach to one that decreases waste while increasing quality and predictability.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Project Manager&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Project Manager at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2018-07-03-Agile-DevOps-Summit-Brussels.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-12-experience-agile-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-25-agile-reporting.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-02-12-experience-agile-2019-part-2.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-03-experience-agile-2022.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-19-waterfall-vs-agile.md collection=posts&gt;]}</name><email>wouter.nivelle@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Project Management" /><category term="Waterfall" /><summary type="html"><![CDATA[Waterfall or agile for a new project? Benefits or disadvantages?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-10-19-waterfall-vs-agile/header.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-10-19-waterfall-vs-agile/header.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">eXperience Agile 2022</title><link href="https://ordina-jworks.github.io/conference/2022/10/03/experience-agile-2022.html" rel="alternate" type="text/html" title="eXperience Agile 2022" /><published>2022-10-03T00:00:00+00:00</published><updated>2022-10-03T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/conference/2022/10/03/experience-agile-2022</id><content type="html" xml:base="https://ordina-jworks.github.io/conference/2022/10/03/experience-agile-2022.html"><![CDATA[<p>After 2 years of COVID, it was finally time for another conference. I’ve chosen the eXperience Agile conference in Lisbon, Portugal, from 26/09/2022 to 27/09/2022.
-It was the 8th edition  of a global conference that focuses on gathering wisdom and best practices on business agility as well as technical agility.
-Since I’m working with agile teams, I hoped to gather more knowledge and learn new things to apply to my teams.</p>
-
-<p><img alt="Ready for the start" src="/img/2022-10-03-experience-agile-2022/ready_for_the_start.jpg" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>The first day contained 5 talks, agile safari’s, workshops and lightning talks.
-The second day had the same format, but due to flight timings, I couldn’t see them all.</p>
-
-<p>All talks were maximum thirty minutes, so the information was very concise.
-In this blogpost, I’ll list some talks I found interesting.</p>
-
-<h1 id="table-of-contents">Table of contents</h1>
-
-<ul>
-  <li><a href="#fast-agile-by-ron-quartel">FAST Agile, by Ron Quartel</a></li>
-  <li><a href="#optimise-your-neurophysiology-for-agile-thinking-by-delia-mccabe">Optimise your neurophysiology for agile thinking, by Delia McCabe</a></li>
-  <li><a href="#practice-does-not-make-perfect-by-gil-broza">Practice does not make perfect, by Gil Broza</a></li>
-  <li><a href="#understanding-value-streams-at-the-gemba-by-nigel-thurlow">Understanding value streams at the gemba, by Nigel Thurlow</a></li>
-</ul>
-
-<h1 id="fast-agile-by-ron-quartel">FAST Agile, by Ron Quartel</h1>
-
-<p>The full title of the talk was ‘FAST Agile – The New (and Wild) Kid on the Agile Block’.</p>
-<blockquote>
-  <p>“Fluid Scaling Technology aka FAST Agile, is the outcome of an experiment in radical self-organization at scale. Not only did it work, but we also found it solved many of the issues that come with agile at scale that existing methods face. If you like Dave Snowden’s rewilding agile message, you are likely to see the promise in this radical new way of working built on Open Space Technology. Prepare to be surprised…”</p>
-</blockquote>
-
-<p><img alt="FAST Agile" src="/img/2022-10-03-experience-agile-2022/fast_agile.png" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>During the talk, Ron referred a lot to the Cynefin model by <a href="https://thecynefin.co/about-us/about-cynefin-framework/" target="_blank" rel="noopener noreferrer">Dave Snowden</a>. Explaining that model here would take me too far away from the purpose of this post.
-In short, it helps to determine in what situation your company/project/team is (complex, complicated, chaos, obvious). And based on that situation, you can take calculated decisions.</p>
-
-<p>Scrum can then be placed in the space between complicated and complex.
-FAST sits in the complex space, next to the chaos border.</p>
-
-<p><img alt="Scrum and FAST in Cynefin" src="/img/2022-10-03-experience-agile-2022/scrum_fast_cynefin.png" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>Now, what is FAST? It uses the principle of the Open Space Technology, where large groups of people come together, self-organise and set up a planning.
-It stands for Fluid Scaling Technology. The A is just there so it sounds better.
-How the process works:</p>
-<ol>
-  <li>It merges teams into a tribe</li>
-  <li>Everyone throws their work on a wall</li>
-  <li>Everyone self-organizes around the work</li>
-  <li>2 days later, everyone meets back and shares their progress</li>
-  <li>Repeat from the start</li>
-</ol>
-
-<p>It’s an agile method where scaling is built-in. Certain conditions must be met, but that’s also true for Scrum and agile in general.</p>
-
-<p>How does FAST help?</p>
-<ul>
-  <li>It’s a pure complex system, unlike other scaling methods like SAFe which are complicated in nature. The Cynefin model teaches us that complicated systems must be solved with complicated models, and complex with complex.</li>
-  <li>It has been designed to not transform to zombie agile</li>
-  <li>It focuses on both Discovery and Delivery while other agile methods focus on Delivery</li>
-</ul>
-
-<p>More information on FAST can be found at <a href="https://fluid.scaling.tech/" target="_blank" rel="noopener noreferrer">Fluid Scaling Tech</a>.</p>
-
-<h1 id="optimise-your-neurophysiology-for-agile-thinking-by-delia-mccabe">Optimise your neurophysiology for agile thinking, by Delia McCabe</h1>
-
-<p>A surprising talk about the functioning of the brain and how it correlates with agile.</p>
-<blockquote>
-  <p>“Thinking occurs across a sensitive and sophisticated neural network. Our neurophysiology depends heavily on lifestyle choices, which include the nutrients we consume. Other lifestyle factors, which include sleep quality, physical activity, and work and relationships, also impact this sophisticated network, although nutrition  forms the foundation of our neurophysiology. It is therefore the first principle we need to address if we aim to maximise cognitive strategies such as agile, creative, and flexible thinking.”</p>
-</blockquote>
-
-<p><img alt="Feed your brain" src="/img/2022-10-03-experience-agile-2022/feed_your_brain.png" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>I was most curious about this talk, as it doesn’t immediately connect with an agile conference. She said it herself that she was surprised to have been invited, but took it as a challenge to explain how the brain works and how that affects the agile way of thinking.</p>
-
-<p>She started the talk with explaining how our brains have evolved to work in a jungle environment, to survive.
-But that the current office life is a lot different and our brains have difficulties handling it. Back in the ancient times, stress was present in short bursts (for example when hunting), but not continuously like it is in the current times.</p>
-
-<p>She explained how the brain needs to be nourished correctly in order to be able to receive new information.
-If the brain is not nourished properly, it will not be able to create new neural links and thus not process new experiences.
-So for example, when you’re explaining something new to another person, if that person’s brain is not nourished as it should be, that person will not process the information correctly, if at all.</p>
-
-<p>More information on this subject can be found at <a href="https://www.lighterbrighteryou.life/" target="_blank" rel="noopener noreferrer">here</a>.</p>
-
-<h1 id="practice-does-not-make-perfect-by-gil-broza">Practice does not make perfect, by Gil Broza</h1>
-
-<p>Almost every company uses agile nowadays. But not everyone gets it right.</p>
-<blockquote>
-  <p>“These days, almost every organization is on an Agile journey. And yet, most companies have trouble achieving real agility. Why is that? Aren’t the ingredients for effective transformations available to everyone? There is no shortage of motivation, established practices, detailed processes, ever-improving tools, literature, consultants, employees with agile experience, and certifications. Gil Broza, author of “The Agile Mindset” and “The Human Side of Agile”, thinks that one particular ingredient has been overlooked in the mad rush to adopt Agile. In this session, he leads us on an exploration of that ingredient and its crucial role in successful Agile journeys.”</p>
-</blockquote>
-
-<p><img alt="Practice does not make perfect" src="/img/2022-10-03-experience-agile-2022/practice_does_not_make_perfect.png" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>The talk started with the explanation of the logical levels model.
-It goes top-down from identity and role, to values and belief, to capability, behaviour and environment.
-He gave the following example in his current role:</p>
-
-<p><img alt="Logical levels example" src="/img/2022-10-03-experience-agile-2022/logical_levels.png" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>He continued explaining the starting point of many agile journeys.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Traditional values</th>
-      <th>Traditional beliefs</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Get it right the first time</td>
-      <td>Customers know what they want</td>
-    </tr>
-    <tr>
-      <td>Minimize cost and time</td>
-      <td>Putting a plan together is worth it</td>
-    </tr>
-    <tr>
-      <td>Make early commitments</td>
-      <td>Okay to have multiple constraints</td>
-    </tr>
-    <tr>
-      <td>Follow industry standards</td>
-      <td>People are resources</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>The above is of course not very agile. But it’s a starting point where many organisations started.
-He then went on explaining how the above works in the logical levels model and how to adapt it.</p>
-
-<p>But either way, as he stated, “Practices don’t matter, mind-set does”.
-A good example is the table below, where you can see that just giving things a different name does not work if the traditional belief stays.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Practice/role/artifact</th>
-      <th>Was conceived as</th>
-      <th>A traditional mindset sees it as</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Daily standup</td>
-      <td>Regular check-in to maximize the team’s value output</td>
-      <td>Daily status for maximizing work-the-plan</td>
-    </tr>
-    <tr>
-      <td>Product backlog</td>
-      <td>Prioritized list of valuable deliverables the team might do</td>
-      <td>Project plan</td>
-    </tr>
-    <tr>
-      <td>Pair programming</td>
-      <td>Collaboration to minimize the risk of employing humans</td>
-      <td>Under-utilization</td>
-    </tr>
-    <tr>
-      <td>Scrum Master</td>
-      <td>Servant leader, helping the team succeed as a team</td>
-      <td>Project manager, ensures process compliance</td>
-    </tr>
-    <tr>
-      <td>Sprint demo</td>
-      <td>Feedback, for adaptation</td>
-      <td>Frequent deadline for sign-off, tracking and accountability</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>More information of his talk can be found <a href="https://3pvantage.com/resources/Gil%20Broza%20-%20Practice%20Does%20not%20Make%20Perfect.pdf" target="_blank" rel="noopener noreferrer">here</a>.</p>
-
-<h1 id="understanding-value-streams-at-the-gemba-by-nigel-thurlow">Understanding value streams at the gemba, by Nigel Thurlow</h1>
-
-<p>The full title of this talk was “Understanding value streams at the gemba, not from the office”.</p>
-<blockquote>
-  <p>“He’ll cover what Lean metrics really are, how scaling should work, take you into queuing theory, and then back to the Genba where the real improvements happen. Learn what a real value stream is and how to uncover the real costs of doing business. This and a whole lot more of mind bending topics.”</p>
-</blockquote>
-
-<p><img alt="Value stream mapping" src="/img/2022-10-03-experience-agile-2022/value_stream_mapping.png" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>Now this was a talk that was filled with information. There were 71 (!) slides that had to be told in 30 minutes. That is a lot of information to transfer in a short period of time.
-However, Nigel managed to do so quite well.
-I’m not going to pretend I understood everything, but it was interesting nonetheless.</p>
-
-<p>He talked about the Flow system, about complex versus complicated environments, about various tools and how they’re only visualisations, etc… .
-There was way too much to tell here in this blog post, but I’ll try to share some things I’m going to keep in mind.</p>
-
-<p>Value is cross organisation. You can try to sub-optimize in the IT department, but if you don’t take the other departments with you, the value generated will not be optimal.
-The value stream contains all the people, machines, technology and skills needed to complete the end to end product delivery.</p>
-
-<p>Closely tying in to the above is the genba/gemba and real value stream.
-He explains that growth, costs, time-to-market and staff attrition are not problems, but outcomes. And that if you want to change those outcomes, you’ll have to change how you do work.
-This is where genba comes into play. It’s Japanese for “actual place”.</p>
-
-<p><img alt="Gemba" src="/img/2022-10-03-experience-agile-2022/gemba.jpg" class="image fit" style="margin:0px auto; max-width: 750px;" /></p>
-
-<p>It means you need to go the place in your company where the actual value is created. Nigel explained how he helped to transform a corn factory by actually doing an 8-hour shift on the factory floor.
-This gave him better insights in one shift than his previous 3 weeks of observation. This enabled him to make changes to the production line and added value to the company.</p>
-
-<p>More information can be found on <a href="https://nigelthurlow.com/" target="_blank" rel="noopener noreferrer">his website</a>.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Project Manager&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Project Manager at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2018-07-03-Agile-DevOps-Summit-Brussels.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-12-experience-agile-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-25-agile-reporting.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-02-12-experience-agile-2019-part-2.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-03-experience-agile-2022.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-19-waterfall-vs-agile.md collection=posts&gt;]}</name><email>wouter.nivelle@ordina.be</email></author><category term="Conference" /><category term="Agile" /><category term="Conference" /><summary type="html"><![CDATA[After 2 years of COVID, it was finally time for another conference. I’ve chosen the eXperience Agile conference in Lisbon, Portugal, from 26/09/2022 to 27/09/2022. It was the 8th edition of a global conference that focuses on gathering wisdom and best practices on business agility as well as technical agility. Since I’m working with agile teams, I hoped to gather more knowledge and learn new things to apply to my teams.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-10-03-experience-agile-2022/ExperienceAgile2022.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-10-03-experience-agile-2022/ExperienceAgile2022.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+The most important to keep in mind is that every organization needs to shift its approach to one that decreases waste while increasing quality and predictability.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Wouter&quot;, &quot;last_name&quot;=&gt;&quot;Nivelle&quot;, &quot;permalink&quot;=&gt;&quot;/author/wouter-nivelle/&quot;, &quot;avatar&quot;=&gt;&quot;wouter-nivelle.jpg&quot;, &quot;title&quot;=&gt;&quot;Project Manager&quot;, &quot;linkedin&quot;=&gt;&quot;wouter-nivelle-34a90b31&quot;, &quot;email&quot;=&gt;&quot;wouter.nivelle@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Wouter is a Project Manager at Ordina Belgium. Passionate about agile. Eager to share knowledge. Not afraid of challenges. Always interested in learning and discovering new things.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2018-07-03-Agile-DevOps-Summit-Brussels.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-12-experience-agile-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-25-agile-reporting.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-02-12-experience-agile-2019-part-2.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-03-experience-agile-2022.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-19-waterfall-vs-agile.md collection=posts&gt;]}</name><email>wouter.nivelle@ordina.be</email></author><category term="Agile" /><category term="Agile" /><category term="Project Management" /><category term="Waterfall" /><summary type="html"><![CDATA[Waterfall or agile for a new project? Benefits or disadvantages?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2022-10-19-waterfall-vs-agile/header.jpg" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2022-10-19-waterfall-vs-agile/header.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
