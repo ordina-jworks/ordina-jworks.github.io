@@ -43,7 +43,7 @@ We use the power of GitHub Actions, a workflow automation tool, to streamline th
 
 With the Docker image available, we utilize AWS services to deploy the application. Depending on the specific requirements, it can automatically provision resources such as Amazon Elastic Kubernetes Service (EKS) instances, Amazon Elastic Container Registry (ECR), Amazon Simple Storage Service (S3) buckets and many more. After deployment, we implement continuous monitoring and testing mechanisms using CloudWatch. We set up custom metrics, create dashboards for visualization, and define alarms to detect anomalies or performance issues. Additionally, we leverage CloudWatch Logs to collect application logs for troubleshooting and analysis.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 # Docker
 
@@ -53,13 +53,13 @@ This Docker image acts as a self-contained unit, ensuring consistent deployment 
 By utilizing Docker Hub, we can easily version our images, making tracking and managing changes over time simple.
 This ensures that our Docker images are always up to date, incorporating the latest changes and enhancements. Once our Docker images are prepared on Docker Hub, we will deploy them to AWS.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_1.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_1.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 # GitHub Actions
 
 We use the capabilities of GitHub Actions, a workflow automation tool. We have automated various tasks with GitHub Actions, including deploying to Docker and seamlessly integrating our applications with multiple Amazon Web Services (AWS).
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_2.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_2.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 One of the key benefits of GitHub Actions is its ability to automate the deployment of applications using Docker images. Using a simple configuration, we have set up workflows that automatically build our applications, package them into Docker images, and push those images to a Docker registry. 
 This automation saves us valuable time and effort, ensuring our applications are always up-to-date and readily available for deployment.
@@ -73,7 +73,7 @@ In conclusion, GitHub Actions has become an invaluable tool, empowering us to au
 
 We have chosen Amazon Web Services (AWS) as our preferred cloud computing platform. With AWS, we have access to a comprehensive suite of cloud services that enable us to build, deploy, and manage our applications and infrastructure with flexibility, scalability, and reliability.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_3.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_3.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 By leveraging AWS as our cloud computing platform, we can take advantage of a vast array of services and features that enable us to build and scale our applications efficiently. 
 AWS's flexibility, scalability, and reliability empower us to focus on innovation and deliver exceptional experiences to our users while benefiting from the robust infrastructure and services AWS provides.
@@ -86,7 +86,7 @@ The integration of ECR within the AWS ecosystem allows us to seamlessly incorpor
 Moreover, AWS ECR provides powerful monitoring and management capabilities. We can track image usage, monitor repository activity, and gain insights into resource utilization through integration with AWS CloudWatch. 
 This allows us to monitor the performance of our container images and repositories, enabling proactive management and optimization.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_4.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_4.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 # Amazon EKS
 
@@ -100,7 +100,7 @@ A pod represents a single or multiple instance(s) of a running application workl
 It encapsulates one or more tightly coupled containers that share the same network namespace, IP address, and storage volumes.
 These containers within a pod often work together to fulfill a specific task or service.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_5.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_5.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 # Amazon CloudWatch
 
@@ -113,7 +113,7 @@ This comprehensive monitoring solution allows us to gain deep visibility into th
 Additionally, AWS CloudWatch provides us with the flexibility to create customized dashboards. 
 These dashboards offer a consolidated view of our key metrics, allowing us to monitor and analyze critical aspects of our infrastructure and applications in a centralized and intuitive manner.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_6.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_6.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 The example image above shows the different metrics we included, such as CPU usage, Incoming log events,…
 
@@ -122,7 +122,7 @@ The example image above shows the different metrics we included, such as CPU usa
 AWS CloudWatch also supports log management and analysis through CloudWatch Logs. This feature enables us to centralize and collect logs generated by our applications and services. We can then search, filter, and analyze these logs, making troubleshooting and debugging more efficient. 
 CloudWatch Logs simplifies investigating issues and monitoring application behavior by consolidating logs in a single location.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_7.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_7.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 As shown image above, different logs are being shown inside CloudWatch Logs. Every endpoints inside our application sends the following logs :
 -	The log level
@@ -139,18 +139,18 @@ Depending on the endpoint itself, the values are going to be different.
 One of the key features we leverage in AWS CloudWatch is the ability to set up custom alarms. These alarms enable us to define specific thresholds and conditions for our metrics. 
 When a metric breaches a threshold for a specific timeframe or meets a predefined condition.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_8.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_8.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 CloudWatch triggers an alarm, notifying us of potential issues or deviations from expected behavior. This proactive monitoring approach empowers us to address potential problems before they impact our applications or services. In the example image above, the CPU usage is being monitored. The red line represents the upper CPU usage limit, meaning the maximum value that can be reached.
 If the CPU surpasses the maximum value indicated by the red line, as shown in the image, a notification will be sent to a specific email address.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_9.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_9.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 ### 4. CloudWatch Container Insights
 
 Container Insights, powered by Amazon CloudWatch, offers real-time monitoring and deep visibility into the performance and health of your containers. Integrating Container Insights into our deployment template enables developers to gain valuable insights and make data-driven decisions to optimize their containerized applications. With Container Insights, you can effortlessly monitor crucial metrics such as CPU and memory utilization, network performance, disk I/O, and container-level resource allocation. This level of observability empowers you to identify performance bottlenecks, proactively troubleshoot issues, and optimize resource allocation for better efficiency. CloudWatch automatically collects metrics for many resources, such as CPU, memory, disk, and network. At the same time, Container Insights supports collecting metrics from clusters deployed on Fargate for both Amazon ECS and Amazon EKS.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_10.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_10.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 For example, we utilize Container Insights to monitor our EKS cluster .
 
@@ -160,7 +160,7 @@ In our project, we use the capabilities of Terraform to perform a wide range of 
 
 One of the key advantages of using Terraform is its ability to automate the provisioning and management of resources across various cloud providers, including Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP). This eliminates manual interventions, reduces human error, and ensures consistent deployments across environments.
 
-<img alt="architecture" src="{{ 'img/2023-06-14-cloud-kickstart-components/img_11.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+<img alt="architecture" src="{{ '/img/2023-06-14-cloud-kickstart-components/img_11.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
 
 The code shown above shows a snippet of terraform code inside our project. This snippet code will configure the required provider and backend settings. It ensures that the project can interact with AWS resources using the specified provider and store the state of the infrastructure in an S3 bucket.
 
