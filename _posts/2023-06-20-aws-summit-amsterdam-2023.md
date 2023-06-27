@@ -54,7 +54,7 @@ They always design their newest features and services with privacy as a primary 
 In addition to product announcements, the keynote featured customer success stories, highlighting how organizations from various sectors have leveraged AWS to achieve significant business outcomes.
 They spoke of companies that had successfully migrated their infrastructure to the cloud.
 
-There were a few companies that were there to share their experience.
+Some of these companies shared their experience on stage.
 One of the best examples was the Efteling (an amusement park in The Netherlands), which was presented by Jonas Rietbergen.
 They added a functionality to their application where they estimate how occupied the park was at the current moment.
 Thanks to these estimations, they were able to predict waiting times and recommend other alternatives in case the current ride was too tied up.
