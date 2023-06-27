@@ -52,7 +52,7 @@ AWS continues to assure that the data of their users remains safe.
 They always design their newest features and services with privacy as a primary concern, and they will to continue to invest in ways to ensure that they live up to their own standards.
 
 In addition to product announcements, the keynote featured customer success stories, highlighting how organizations from various sectors have leveraged AWS to achieve significant business outcomes.
-The speaker spoke of companies that had successfully migrated their infrastructure to the cloud.
+They spoke of companies that had successfully migrated their infrastructure to the cloud.
 
 There were a few companies that were there to share their experience.
 One of the best examples was the Efteling (an amusement park in The Netherlands), which was presented by Jonas Rietbergen.
