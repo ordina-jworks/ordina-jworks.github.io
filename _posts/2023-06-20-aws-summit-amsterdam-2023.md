@@ -18,7 +18,7 @@ With a packed schedule of an overwhelming keynote and inspiring sessions, it pro
 If you want to know more about AWS, from introduction to advanced sessions and topics, then this day is a great opportunity to do so.
 You will be able to meet all kinds of people: AWS employees, partners, other companies, sponsors and, if you have any questions, you can talk to an AWS expert.
 An app was available which could be downloaded through the App Store or the Play Store, which contained a detailed schedule about all the sessions taking place that day.
-it is a must-have if you are attending this event in the future.
+It's a must-have when you're attending this event.
 
 ## Keynote
 {:refdef: style="text-align: center;"}
