@@ -49,7 +49,7 @@ Their main mission, as always, is that clients should be able to focus only on i
 With these kinds of topics, privacy is often a concern.
 Users want to know how their data is used and what measures are taken to keep it safe.
 AWS continues to assure that the data of their users remains safe.
-They always design their newest features and services with privacy on the first place, and they will to continue to invest in ways to ensure that they live up to their own standards.
+They always design their newest features and services with privacy as a primary concern, and they will to continue to invest in ways to ensure that they live up to their own standards.
 
 In addition to product announcements, the keynote featured customer success stories, highlighting how organizations from various sectors have leveraged AWS to achieve significant business outcomes.
 The speaker spoke of companies that had successfully migrated their infrastructure to the cloud.
