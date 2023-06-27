@@ -56,7 +56,7 @@ They spoke of companies that had successfully migrated their infrastructure to t
 
 Some of these companies shared their experience on stage.
 One of the best examples was the Efteling (an amusement park in The Netherlands), which was presented by Jonas Rietbergen.
-They added a functionality to their application where they estimate how occupied the park was at the current moment.
+They added a functionality to their application where they estimate how occupied the park at any point in time.
 Thanks to these estimations, they were able to predict waiting times and recommend other alternatives in case the current ride was too tied up.
 Efteling did this by creating a data lake, integrating it with Sagemaker Model and saving predictions every 30 minutes to Aurora.
 These predictions could then be fetched by Lambda and exposed through API Gateway.
