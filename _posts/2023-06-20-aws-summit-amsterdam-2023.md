@@ -46,7 +46,8 @@ Andy also talked about Artificial Intelligence and Machine Learning, which is a 
 Amazon Bedrock, which is presented by Andy, allows you to create generative AI applications by using foundation models.
 Their main mission, as always, is that clients should be able to focus only on innovation and their applications, and the purpose of them, and not the surrounding infrastructure.
 
-With these kinds of topics, users are always afraid of their data and the privacy that surrounds the whole concept.
+With these kinds of topics, privacy is often a concern.
+Users want to know how their data is used and what measures are taken to keep it safe.
 AWS continues to assure that the data of their users remains safe.
 They always design their newest features and services with privacy on the first place, and they will to continue to invest in ways to ensure that they live up to their own standards.
 
