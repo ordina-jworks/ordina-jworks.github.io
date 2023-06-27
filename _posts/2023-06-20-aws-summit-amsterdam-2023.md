@@ -42,7 +42,7 @@ Andy Warfield, the VP & Distinguished Engineer of AWS continued the Keynote and 
 _Andy Warfield - the newest features and services_
 {: refdef}
 
-Andy also talked about Artificial Intelligence and Machine Learning, which is the newest hype and trend in IT.
+Andy also talked about Artificial Intelligence and Machine Learning, which is a clear trend in IT and on AWS.
 Amazon Bedrock, which is presented by Andy, allows you to create generative AI applications by using foundation models.
 Their main mission, as always, is that clients should be able to focus only on innovation and their applications, and the purpose of them, and not the surrounding infrastructure.
 
