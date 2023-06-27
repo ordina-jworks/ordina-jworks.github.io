@@ -35,7 +35,7 @@ She talked about the Benelux and the impact that AWS has on the region and the i
 _Marielle Lindgren - carbon neutrality_
 {: refdef}
 
-Andy Warfield, the VP & Distinguished Engineer of AWS took over the Keynote and spoke about the newest features and services that AWS has implemented the last year.
+Andy Warfield, the VP & Distinguished Engineer of AWS continued the Keynote and spoke about the newest features and services that AWS has implemented over last year.
 
 {:refdef: style="text-align: center;"}
 <img src="{{ '/img/2023-06-20-aws-summit-amsterdam-2023/andy-warfield.png' | prepend: site.baseurl }}" alt="Andy Warfield" class="image fit" style="margin:0px auto; max-width:100%">
