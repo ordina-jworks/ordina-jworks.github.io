@@ -12,7 +12,7 @@ comments: true
 _AWS Summit Amsterdam 2023 entrance_
 {: refdef}
 
-After an absence of 3 years, AWS was happy to announce that it was reviving its annual real-life conference again in Amsterdam.
+After an absence of 3 years, AWS was happy to announce that it was reviving its annual real-life conference in Amsterdam.
 The summit brought industry leaders, cloud enthusiasts and tech idealists together under one roof.
 With a packed schedule of an overwhelming keynote and inspiring sessions, it proved to be a very exciting day.
 If you want to know more about AWS, from introduction to advanced sessions and topics, then this day is a great opportunity to do so.
