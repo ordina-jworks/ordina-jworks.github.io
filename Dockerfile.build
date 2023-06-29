@@ -1,6 +1,10 @@
-FROM jekyll/jekyll:4.2.2@sha256:400b8d1569f118bca8a3a09a25f32803b00a55d1ea241feaf5f904d66ca9c625
-# Image to use M1 Macs
-# FROM younglook/jekyll-arm64:latest
+FROM ruby:3.2.2@sha256:9d51b178e1231df7d4222e7c288bf5b8b3191a9df41ce37457c48a9efb4f60c5
 
+RUN apt-get update
 # install imagemagick
-RUN apk update && apk add imagemagick
+RUN apt-get install imagemagick
+
+WORKDIR /srv/jekyll
+VOLUME [/srv/jekyll]
+EXPOSE 35729
+EXPOSE 4000
