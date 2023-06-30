@@ -67,7 +67,13 @@ _Efteling - predictions explained by Jonas Rietbergen_
 {: refdef}
 
 Other companies were HEMA, PostNL, Epic Games, which were presented by Andy and how these companies used the newest services and features.
-Takeaway (Just Eat) also gave a small presentation on how they use AWS to improve customer experience in their app.
+For example, PostNL was able to speed up the start time of their Lambda's  by 10x by using the Lambda SnapStart feature.
+
+Takeaway (Just Eat) also gave a small presentation on how they use AWS to improve customer experience in their application. 
+Their application needs to be safe, secure, stable and scalable at all times as demand for their application fluctuates throughout the day. 
+Making sure that the application can handle high amounts of load during lunch & dinner times is a top priority, all while making sure that the cost and customer experience stays optimized.
+This is why Takeaway partnered with AWS as they were able to meet the demands easily. Sadly, the speaker did not mention which specific services they use to accomplish these requirements.
+
 
 ## Sessions
 There were sessions throughout the day from both AWS and partners.
