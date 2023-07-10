@@ -1,0 +1,148 @@
+---
+layout: post
+authors: [omer_tulumen]
+title: 'Webscraping and Kubernetes/KubeEdge'
+image: /img/2023-07-08-webscraping-kubernetes-kubeedge/banner.png
+tags: [Spring Boot, AWS, Terraform, Automation, KubeEdge]
+category: Development and cloud
+comments: true
+---
+
+
+# Table of contents
+
+* [Introduction](#introduction)
+* [Problem](#problem)
+* [Architecture](#architecture)
+    * [Application](#application)
+        * [Spring Boot & Quarkus](#quarkus)
+        * [InfluxDB](#influxDb)
+        * [Prometheus](#prometheus)
+        * [Grafana](#grafana)
+    * [Cloud & automation](#cloud&automation)
+        * [Cloud](#cloud)
+            * [EKS and Kubernetes](#eks_and_kubernetes)
+            * [ECR](#ecr)
+            * [Route 53](#route_53)
+            * [EFS](#efs)
+        * [Automation](#automation)
+            * [Github Actions](#github_actions)
+            * [Terraform](#terraform)
+        * [KubeEdge](#kubeedge)
+
+# Introduction
+
+Do you want to learn something about webscraping ? What about Kubernetes and/or AWS ? If the answer is yes, then you're in correct place. In this blog I will talk about my Internship where I have build a webscraping application, configured the cloud (AWS) infrastructure and deployment process. I will also talk about what KubeEdge is and what it's limitations are. Hopefully you have a fun time reading my summarized journey. Enjoy!
+
+# Problem
+
+Before I jump into the architecture of the internship assignment, let's first discuss the problem we aimed to solve in order to understand what we have build.
+
+Prices of products differ significantly from different shops and also change very fast. Nowadays it's getting very hard to keep up with these prices and make the most economical purchase. So we are trying to solve this issue by creating an webscraping application which will scrape data from multiple webshops so the most economical purchase can be made.
+
+Besides this, we also want the application to be in a Kubernetes environment in the cloud (AWS) aswell. Additionally for KubeEdge we also need a cloud/Kubernetes environment in order to be able to configure KubeEdge. However, there are limitations to this which will be discussed later on.
+
+# Architecture
+
+I have splitted the architecture schema of the assignment into 2 for a better reading experience. The first part will be about the application itself with all of it's features. The second part is about the Cloud infrastructure and the automation process.
+
+## 1. Application
+
+On the picture below you can see the architecture schema of the application with it's features and dependencies. On the following chapters I will dive deeper in each of these technologies.
+
+<img alt="architecture webscraping" src="{{ '/img/2023-07-08-webscraping-kubernetes-kubeedge/architecture-webscraping.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">        
+
+
+### 1.1 Spring Boot en Quarkus
+
+The main webscraping application has been built with Spring Boot. Besides Spring Boot it also has been built with Quarkus. Quarkus is another lightweight Java framework. The reason the application has been created in both is to compare perfomances in both technologies. In this case was the difference so little because of the complexity of the application itself wasn't that high as far as I can tell.
+
+The application is scraping data from Albert Heijn and Action. In order for the application to be production ready it should have implementations for other webshops aswell. The application is also developed in such a way that it's fairly easy to add new webshops to scrape. However, the difficulty lies in being able to scrape data from all of the webshops because some webshops also have security implementations which makes scraping much harder. This was also out of the scope of the assignment which is why I didn't dig deeper in scraping those websites.
+
+In order to use the application I have provided 2 applications for this assignment (excluding quarkus). The CLI application which is used as a temporary front-end to make user interaction possible and the back-end which will handle the requests. 
+
+The CLI application has some commando's which can be used. On the table below you can see which command's that can be used with it's description.
+
+	Commando	        Description
+	Scrape “title”	    This command will scrape data from all the implemented webshops and save them to the database.
+	Cheapest “title”	This command will return the cheapest product in the database.
+	Eco “title”     	This command will return the most economic product it can find in the database.
+
+
+On the picture below you can see a flow of how the commandline can be used.
+
+<img alt="flow app" src="{{ '/img/2023-07-08-webscraping-kubernetes-kubeedge/flow-application.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">        
+
+
+### 1.2 InfluxDB
+
+The scraped data is saved in a timeseries database, namely InfluxDB. InfluxDB is a database where data is stored with timestamps. Each saved data will be stored as an unique data because the values of the data based on time can differ. The prices of products can change regularly in webshops which is why InfluxDB is being used. 
+
+### 1.3 Prometheus
+
+I also had to provide a monitoring tool (Prometheus) which used to monitor the performance of the application. This is been done using a Prometheus endpoint. In our example it's actually used as some kind of middleware in our example. It will collect metrics of Spring Boot and Quarkus application that are exposed using the Micrometer. A visialization tool will then collect it from this endpoint.
+
+Now in order for prometheus to work, you also have to provide a configuration when creating a prometheus image aswell. On the image below you can see the configuration file that's being used for this setup.
+
+<img alt="prometheus" src="{{ '/img/2023-07-08-webscraping-kubernetes-kubeedge/prometheus.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">        
+
+
+### 1.4 Grafana
+
+Grafana is a visualization tool which will visualize the metrics that are collected from the Prometheus endpoint. This will provide a better representation of the metric data (as shown below) and can be configured as needed for which metrics to show.
+
+<img alt="architecture" src="{{ '/img/2023-07-08-webscraping-kubernetes-kubeedge/grafana.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">        
+
+
+## 2. Cloud & automation
+
+On the picture below you can see the architecture of the cloud and automation part. Lets dig deeper into this part.
+
+<img alt="architecture" src="{{ '/img/2023-07-08-webscraping-kubernetes-kubeedge/architecture-cloud-automation.png' | prepend: site.baseurl }}"  style="margin:0px auto; max-width: 750px;">
+
+
+### 2.1 Cloud
+
+In order to deploy the application to the cloud, it also has to be configured correctly to be able to do so. AWS (cloud provider) has many services that can be used. In the following chapters I want to talk about the infrastructure that has been configured using some of these services that were necessary in order integrate the application to the cloud environment.
+
+#### 2.1.1 EKS and Kubernetes
+
+EKS stands for "Elastic Kubernetes Service". EKS is a Kubernetes platform that's being used in order to be able to use Kubernetes resources. Pods, deployments, services, Ingresses are the main resources that have been used. These resources have been created with the use of a Package manager tool "Helm". Helm packages the resources and calls it "charts". These charts are then being created and makes in much easier to create or delete resources instantly by creating and deleting these charts. 
+
+Let's also talk briefly about these Kubernetes resources. Pods are smallest deployable Kubernetes units. It can be seen as a container which holds the an image. In our example I have 2 pods, one for the application itself and the other one for the database. A layer above the pods are deployments. Deployments helps us configuring the pods. For example a replica count can be configured telling how many pods it should create. Services are entrypoints to other Kubernetes resources so communication between them is possible. Lastly Ingress will provide an public url to access the kubernetes environment from the internet.
+
+#### 2.1.2 ECR
+
+ECR stands for "Elastic Container Registry". It's basically a repository that can be used in the AWS environment. The application is being pushed in here which makes the application accessable within the AWS environment. In our example is a pod using this repository to pull in the image of the application.
+
+#### 2.1.3 Route 53
+
+On chapter 2.1.2 I talked about Ingress. Now Ingresses will provide a generated url which makes it accessable from the internet but is not very user friendly because it's randomly generated. Route 53 is an AWS DNS service which will map this url to a more readable url.
+
+#### 2.1.4 EFS
+
+EFS stands for "Elastic File System". One of the benefits of Kubernetes is that it watches over your pods. If a pod fails for some reason it will recreate the pod for you which is one of the reasons why it's called an orchestration tool. However, in our example a database is being used inside a pod. If the pod would fail it will be recreated but this will also mean that the data would be lost. EFS is being used to store this data. The databases pod's volume is then mounted to the created EFS to solve this issue. 
+
+### 2.2 Automation
+
+For an optimal deployment process I also provided automation to do so. So let's take a look into that.
+
+#### 2.2.1 Github Actions
+
+In order to automate the deployment process, a pipeline is needed. Github Actions is used for this. A Github Workflow has been created which will have multiple tasks that are needed for the automation process. It will build, run tests and package the application. It will also do the necessary authorization to AWS and aswell as run Terraform. This pipeline will be runned whenever a commit has been pushed to a certain branch.
+
+#### 2.2.2 Terraform
+
+Now in order to have an optimal automation process Terraform is being used. Terraform is a IaC (Infrastructure as Code) tool which will configure the cloud environment. In Terraform, cloud resources like ECR which have been discussed in the previous chapters are being created. This makes it much better to manage these resources. The Terraform files can be edited which will adjust your cloud environment. So instead of manually creating cloud resources this is been done using this tool. 
+
+## 3. KubeEdge
+
+The last thing I want to talk about is KubeEdge. KubeEdge is an extension of Kubernetes which brings your Kubernetes environment to the Edge devices. Edge devices are typically devices which have less resources like the Raspberry pi's.
+ 
+The benefit of KubeEdge is that because Kubernetes is running on the edge device itself, it makes it much more performant then when it would have been in the cloud. The reason is because it doesn't need to communicate with the cloud in order to retrieve the information. So another benefit is that it doesn't connection with the cloud in order to function properly. However, cloud is needed to communicate with KubeEdge manually.
+
+There are limitations when it comes to KubeEdge though at the moment. It's fairly early in development which brings some issues with it. One of which is that it's not compatible with AWS at the moment. To configure KubeEdge you need to configure both cloud side (cloudcore) aswell as edge side (Edge Core). At the time of my internship it wasn't possible to configure these because of the compatitability issue. Maybe later on the line when KubeEdge is a much more finished product we will be able to see it's full potential. Only time will tell.
+
+## 4. Conclusion
+
+It was a great assignment where alot of various technologies had been used. I really had alot of fun learning about these technologies and experimenting with them. I'm very happy the experience I gained from it. Not only that but I also had great mentors and collegues that helped me whenever I needed along the way. For that I'm also very grateful. 
