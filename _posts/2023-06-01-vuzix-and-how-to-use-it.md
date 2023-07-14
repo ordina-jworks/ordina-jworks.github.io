@@ -1,14 +1,12 @@
 ---
 layout: post
-authors: [otte_fieremans, fe_dekeyser] 
+authors: [otte_fieremans, fe_dekeyser]
 title: 'Vuzix And How To Use It'
 image: /img/2023-06-01-vuzix-and-how-to-use-it/glasses.png
-tags: [Java, Terraform, PostgreSQL, Android, Docker, Postman, AWS, Vuzix Blade, JUnit, DynamoDB, Git, Spring, RestAPI, IAM, ECR, App Runner, RDS, Gradle, Maven, Swagger]
+tags: [ Vuzix Blade, AWS, Terraform, Android, Spring ]
 category: Internship
 comments: true
 ---
-
-
 
 # TABLE OF CONTENTS
 
@@ -41,24 +39,24 @@ comments: true
 # INTRODUCTION
 
 In today's world, there are numerous navigation options available, with every mobile phone equipped with GPS functionality.
-However, what if there was an even easier way? Our project offers a solution where you can embark on a seamless walk, bike ride, or any other journey without the need to constantly retrieve your phone from your pocket.
-By following our app, you can effortlessly navigate your chosen route while remaining informed of crucial information such as direction, speed, distance and potentially more.
+However, what if there was an even easier way?
+Our project offers a solution where you can embark on a seamless walk, bike ride, or any other journey without the need to constantly retrieve your phone from your pocket.
+By following our app, you can effortlessly navigate your chosen route while remaining informed of crucial information such as direction, speed, distance, and potentially more.
 The beauty lies in our app's ability to project all this data onto your eyewear, enhancing your overall experience.
 
 Simply upload your routes using GPX files, select the desired route, and you're ready to begin your adventure!
 
 # WHAT NEEDED TO BE DONE
 
-The project we were about to embark on described building an Android application which runs on the Vuzix Blade AR-glasses and communicates with an API that runs in a Cloud environment.
+The project we were about to embark on described building an Android application that runs on the Vuzix Blade AR glasses and communicates with an API that runs in a Cloud environment.
 
-- Build the Android application for the Blade
+- Build the Android application for the Vuzix Blade
 - Set up an API with Spring Boot to read and write data to a database
 - Connecting the Android application and API locally
 - Expand the Android application with extra features
-- Expand the API with Terraform configurations
-- Setting up AWS Cloud infrastructure for API with Terraform
-- Setting up a CI/CD pipeline to build to image to the Cloud
-- Expand the pipeline to setup Cloud infrastructure
+- Setting up the AWS infrastructure using Terraform
+- Setting up a CI/CD pipeline to build the image and deploy it on AWS
+- Expand the pipeline to apply Terraform on AWS
 - Go for a walk
 
 # ABOUT THOSE GLASSES
@@ -77,13 +75,13 @@ If you desire to use these glasses for yourself here are some introductory steps
 
 The Vuzix Blade uses the Android 5 OS, so we developed our app using Android, utilizing the Java programming language.
 While both of us were new to Android development, we already had experience working with mobile applications and Java, which allowed us to quickly grasp the necessary concepts and tools.
-There were some difficulties since we were limited to features from Android API 22 but we still managed to bring the application to a desirable outcome.
+There were some difficulties since we were limited to features from Android API 22, but we still managed to bring the application to a desirable outcome.
 
 ### Enhancing the user experience
 
 Throughout the development process, we explored various features and functionalities that could enhance the user experience.
 For instance, we implemented real-time GPS tracking to accurately monitor the user's location and provide precise navigational instructions.
-This way we could also show a user what speed they were traveling.
+This way we could also show the user what speed they were travelling.
 We use the magnetic field sensor in the glasses to determine the user's direction and make sure they are always being directed in the right direction.
 
 
@@ -100,11 +98,11 @@ Furthermore, after having selected a route, the user will see information about 
 ### User inputs
 
 A user also has multiple inputs he can use to enhance the user experience.
-They can go forward or back a point since most GPX-files' coordinates are rounded which can make the points that are marked sometimes appear inside of buildings.
-Even when they are user generated routes, and the user never came in a 10-meter radius of the building.
-To further help with this but also for people wo don’t want to begin at the start of their route or people who just got lost.
+They can go forward or back a point since most GPX file coordinates are rounded which can make the points that are marked sometimes appear inside of buildings.
+Even when they are user-generated routes, and the user never came within a 10-meter radius of the building.
+To further help with this but also for people who don’t want to begin at the start of their route or people who just got lost.
 There is a rebase function that just puts you on the point closest to where you are regardless of where in your route you were.
-The user can also at any point reload his statistics for the route he is traveling or start a new route.
+The user can also at any point reload his statistics for the route he is travelling or start a new route.
 
 ### Optimization and testing
 
@@ -173,7 +171,7 @@ Terraform's ability to manage infrastructure as code allows for version control,
 
 To begin our quest for provisioned infrastructure we needed a place to store the state of our configuration.
 In Terraform x AWS an S3 bucket is used for exactly this.
-Another necessary resource to setting up the S3 backend is a DynamoDB table.
+Another necessary resource for setting up the S3 backend is a DynamoDB table.
 This single table stores the lock of the state so that it cannot be accessed by multiple persons at a time, which could otherwise lead to configuration drift.
 ```HCL
 backend "s3" {
@@ -185,7 +183,7 @@ backend "s3" {
 }
 ```
 `backend "s3" {}` provides the bucket to store the state, this block resides inside the main `terraform {}` block inside the `main.tf` file.
-U can also see the `dynamodb_table` parameter which references to the table for the state lock.
+U can also see the `dynamodb_table` parameter which references the table for the state lock.
 
 ### Setting up the repository
 
@@ -203,14 +201,14 @@ resource "aws_ecr_repository" "vuzix-blade-internship-container-repository" {
 ```
 
 ### Pushing to the repository
-To push an image to the repository we could manually push it with a couple docker commands, but it seemed more efficient to use GitHub Actions for this.
-We can make a workflow file in our project which is going to run whenever we merge into main from a pull-request.
+To push an image to the repository we could manually push it with a couple of docker commands, but it seemed more efficient to use GitHub Actions for this.
+We can make a workflow file in our project which is going to run whenever we merge into the main branch from a pull request.
 For now, we’ll take a break from Terraform to focus on the workflow which is written in YAML.
 
 #### The trigger
 
 This is the first and probably most important part of the workflow: defining a trigger.
-In our application the trigger is pulling into the main branch.
+In our application, the trigger is pulling into the main branch.
 ```YAML
 name: build/push workflow vuzix-blade-internship
 
@@ -222,10 +220,10 @@ on:
 #### Jobs
 
 When the trigger is set, we’re ready to start defining jobs.
-In our case we have 2 jobs, the deploy has been split into CI and CD respectively.
+In our case we have 2 jobs, the deployment has been split into CI and CD respectively.
 
 #### CI
-Inside this CI job we are going to run our integration tests of the API to make sure that all the logic works to our liking before we build and push the image to the repository.
+Inside this CI job, we are going to run our integration tests of the API to make sure that all the logic works to our liking before we build and push the image to the repository.
 
 ```YAML
   ci:
@@ -233,21 +231,19 @@ Inside this CI job we are going to run our integration tests of the API to make 
     runs-on: [self-hosted, Linux]
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
           distribution: "zulu"
           java-version: "17"
-
       - name: "Run tests"
         run: |
           chmod +x mvnw
           ./mvnw test
 ```
 #### CD
-Only when the CI job is ran successfully will the CD job be able to start.
-Inside the CD job we need to set up a couple preparations before we can build and push to the repository.
+The CD job will only start when the CI job was successful.
+Inside the CD job, we need to set up a couple of preparations before we can build and push to the repository.
 We need permission to push to AWS, to get this permission we made a custom IAM role (this role was manually created) that we can assume in the runner.
 
 ```YAML
@@ -262,7 +258,7 @@ We need permission to push to AWS, to get this permission we made a custom IAM r
   uses: aws-actions/amazon-ecr-login@v1
 ```
 `role-to-assume` lets us specify a role to assume with its ARN, this role must have the necessary permissions to perform all the actions inside the workflow.
-If the login attempt is successfull the role logs into the ECR.
+Once the login attempt is successfully authenticated, the associated role will be assumed, granting the necessary permissions for ECR (Elastic Container Registry).
 
 ```YAML
 - name: Build Docker image
@@ -278,10 +274,11 @@ If the login attempt is successfull the role logs into the ECR.
   run: |
     docker push $ECR_REGISTRY/$ECR_REPO_NAME:latest
 ```
-We make use of the built-in Spring Boot plugin named Paketo, the `spring-boot:build-image` command above names the image as per the naming convention for pushing to an AWS repository.
-The `docker push` command automatically recognizes that it needs to push to the specified repository, hens the naming convention.
+We utilize a built-in Spring Boot plugin called Paketo. 
+The command spring-boot:build-image mentioned above follows the prescribed naming convention for tagging the image before pushing it to an AWS repository.
+The `docker push` command automatically recognizes that it needs to push to the specified repository, hence the naming convention.
 
-If done correctly we can see that the repository in AWS recieves and stores our image.
+If done correctly we can see that the repository in AWS receives and stores our image.
 
 <img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/ECR-screenshot.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
@@ -290,13 +287,14 @@ If done correctly we can see that the repository in AWS recieves and stores our 
 The database consists of an RDS resource in AWS which is running a Postgres 15 engine.
 Before we can begin setting up our RDS instance we have to decide how we’re going to handle the network situation.
 We want to put our RDS in a VPC (Virtual Private Cloud) to keep it secure inside our public Cloud, we can specify this using an `aws_db_subnet_group`.
-We also need a couple other resources to optimally set up the RDS like an `aws_db_parameter_group` and an `aws_security_group`.
+To ensure an optimal setup for the RDS (Relational Database Service), we require a couple of additional resources: an aws_db_parameter_group and an aws_security_group.
+These resources play a crucial role in configuring and securing the RDS environment.
 
 In the `aws_db_subnet_group` we just need to define our subnets and AWS will automatically recognize the correct VPC.
 
 The `aws_db_parameter_group` is a default parameter group for RDS with the corresponding engine (Postgres 15).
 
-Our `aws_security_group` that is specifically for our RDS will open the necessary ports in the VPC for inbound and outbound traffic from and to our App Runner (more on the App Runner later).
+Our `aws_security_group` which is specifically for our RDS will open the necessary ports in the VPC for inbound and outbound traffic from and to our App Runner (more on the App Runner later).
 
 ```HCL
 resource "aws_db_instance" "dev-vuzix-blade-internship-db" {
@@ -318,16 +316,16 @@ resource "aws_db_instance" "dev-vuzix-blade-internship-db" {
     depends_on = [aws_db_parameter_group.dev-vuzix-blade-internship-db, aws_db_subnet_group.vuzix-blade-internship-db-subnet-group]
 }
 ```
-U can see in our `aws_db_instance` where we have defined the security group, vpc and parameter group in the parameters `vpc_security_group_ids`, `db_subnet_group_name` and `parameter_group_name`.
+U can see in our `aws_db_instance` where we have defined the security group, VPC and parameter group in the parameters `vpc_security_group_ids`, `db_subnet_group_name` and `parameter_group_name`.
 
 ### Let's finally run the API
 
 Now for the fun part: finally running our API in the cloud.
 To achieve this, we’re using the App Runner resource.
 There are a couple of things you need to take care of before trying to run your app in an App Runner.
-Firstly, it needs to sit in the same VPC as the RDS so that they can connect to each other.
-Secondly, there needs to be a custom role for the runner that has permissions to retrieve the image from the ECR.
-And lastly, the runner also needs a security group to connect to the RDS.
+The first requirement is for the resource to reside within the same Virtual Private Cloud (VPC) as the RDS, enabling connectivity between them.
+The second requirement entails the need for a custom role assigned to the runner, granting permissions to fetch the image from the ECR (Elastic Container Registry).
+Additionally, the runner must have a security group configured to establish a connection with the RDS (Relational Database Service).
 
 In our `aws_security_group` that is specifically for our App Runner we specify the ports in the VPC for inbound and outbound traffic from and to the RDS.
 The endpoint of our App Runner however is public, because of this the endpoint of the App Runner needs to be handled like a secret.
@@ -385,7 +383,7 @@ on:
     - cron: '0 6 * * 1-5'
 ```
 The trigger for our Terraform Apply workflow.
-This workflow runs every day from Monday till Friday at 6am (UTC), the Terraform Destroy workflow runs at 4pm (UTC).
+This workflow runs every day from Monday to Friday at 6 am (UTC), and the Terraform Destroy workflow runs at 4 pm (UTC).
 
 ```YAML
 - name: Terraform Init
@@ -419,7 +417,7 @@ The second picture represents the entire Terraform state and the dependencies of
 
 Our project encompasses various technologies and tools to enhance the navigation experience.
 We leverage the Vuzix Blade smart glasses, utilizing their subtle design for outdoor use.
-Our app, developed using Android and Java, seamlessly integrates with the Vuzix Blade, projecting useful information onto the user's eye wear without hindering their sight.
+Our app, developed using Android and Java, seamlessly integrates with the Vuzix Blade, projecting useful information onto the user's eyewear without hindering their sight.
 
 Furthermore, our system incorporates a Spring Boot REST API integrated with a Postgres database.
 This combination enables us to effortlessly send or retrieve routes and their analytics from the cloud, offering efficient data management and reliable access to essential navigation information.
