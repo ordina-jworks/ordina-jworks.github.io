@@ -5,7 +5,12 @@ services:
     build:
       dockerfile: Dockerfile.build
       context: .
-    command: jekyll serve --incremental
+    command:
+      - /bin/sh
+      - -c
+      - |
+        bundle install
+        jekyll serve --host=0.0.0.0
     ports:
       - "4000:4000"
     volumes:
