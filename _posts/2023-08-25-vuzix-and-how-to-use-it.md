@@ -2,7 +2,7 @@
 layout: post
 authors: [otte_fieremans, fe_dekeyser]
 title: 'Vuzix And How To Use It'
-image: /img/2023-06-01-vuzix-and-how-to-use-it/glasses.png
+image: /img/2023-08-25-vuzix-and-how-to-use-it/glasses.png
 tags: [ Vuzix Blade, AWS, Terraform, Android, Spring ]
 category: Internship
 comments: true
@@ -85,9 +85,9 @@ This way we could also show the user what speed they were travelling.
 We use the magnetic field sensor in the glasses to determine the user's direction and make sure they are always being directed in the right direction.
 
 
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Vuzix-App-main.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Vuzix-App-routes.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Vuzix-app-stats.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/Vuzix-App-main.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/Vuzix-App-routes.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/Vuzix-app-stats.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 30%;">
 
 ### Hands-free experience
 
@@ -129,7 +129,7 @@ We save our GPX files as a String in a SQL Database with a Unique name, So the u
 Route statistics are saved in the database, establishing a many-to-one relation with the GPX model.
 These statistics capture essential information such as start and end times, enabling our application to calculate the duration of routes and average speeds accurately.
 
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Swagger.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/Swagger.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 *The GPX object*
 ```json
@@ -280,7 +280,7 @@ The `docker push` command automatically recognizes that it needs to push to the 
 
 If done correctly we can see that the repository in AWS receives and stores our image.
 
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/ECR-screenshot.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/ECR-screenshot.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 ### Now for the database
 
@@ -407,11 +407,11 @@ The second picture represents the entire Terraform state and the dependencies of
 *Project Visual*
 
 
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/infrastructure-graphical.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/infrastructure-graphical.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 75%;">
 
 *Terraform Graphical*
 
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/Terraform-graphical.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/Terraform-graphical.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 # SUMMARY
 
@@ -429,7 +429,7 @@ Overall, our project integrates different technologies and tools, providing user
 
 We also created this visual to represent all the technologies and tools we used to bring this project to fruition.
 
-<img class="p-image" src="{{ '/img/2023-06-01-vuzix-and-how-to-use-it/technologies.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
+<img class="p-image" src="{{ '/img/2023-08-25-vuzix-and-how-to-use-it/technologies.png' | prepend: site.baseurl }}" class="image fit" style="margin:0px auto; max-width: 100%;">
 
 Last but not least a special thanks to our mentors Jeroen Vereecken and Stijn Geerts for guiding us through our internship and helping us along the way.
 And a big thanks to Nils Devos for giving us this opportunity.
