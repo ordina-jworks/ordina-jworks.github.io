@@ -98,47 +98,47 @@ This provided Terraform code enables you to deploy the Lambda function within yo
 Terraform was selected for deployment due to its widespread use throughout the entire project; however, it's worth noting that alternatives like [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html){:target="_blank" rel="noopener noreferrer"} and [Serverless](https://www.serverless.com/){:target="_blank" rel="noopener noreferrer"} are also available.
 ```terraform
 data "archive_file" "user_to_group_lambda_file" {
-type        = "zip"
-source_dir  = "<path_to_source_code>"
-output_path = "lambda-add-user-to-groups.zip"
+  type        = "zip"
+  source_dir  = "<path_to_source_code>"
+  output_path = "lambda-add-user-to-groups.zip"
 }
 
 data "aws_iam_policy_document" "user_to_group_lambda_iam_policy_document" {
-statement {
-effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-
-    actions = ["sts:AssumeRole"]
-}
+  statement {
+    effect = "Allow"
+  
+      principals {
+        type        = "Service"
+        identifiers = ["lambda.amazonaws.com"]
+      }
+  
+      actions = ["sts:AssumeRole"]
+  }
 }
 
 resource "aws_iam_role" "user_to_group_lambda_iam_role" {
-name = "lambda-add-user-to-groups-role"
-
-assume_role_policy = data.aws_iam_policy_document.user_to_group_lambda_iam_policy_document.json
+  name = "lambda-add-user-to-groups-role"
+  
+  assume_role_policy = data.aws_iam_policy_document.user_to_group_lambda_iam_policy_document.json
 }
 
 resource "aws_lambda_function" "user_to_group_lambda_function" {
-filename         = "lambda-add-user-to-groups.zip"
-function_name    = "lambda-add-user-to-groups"
-handler          = "index.handler"
-role             = aws_iam_role.user_to_group_lambda_iam_role.arn
-
-source_code_hash = data.archive_file.lambda.output_base64sha256
-
-runtime          = "nodejs18.x"
+  filename         = "lambda-add-user-to-groups.zip"
+  function_name    = "lambda-add-user-to-groups"
+  handler          = "index.handler"
+  role             = aws_iam_role.user_to_group_lambda_iam_role.arn
+  
+  source_code_hash = data.archive_file.lambda.output_base64sha256
+  
+  runtime          = "nodejs18.x"
 }
 
 resource "aws_lambda_permission" "user_to_group_lambda_permission" {
-statement_id  = "AllowExecutionFromCognito"
-action        = "lambda:InvokeFunction"
-function_name = aws_lambda_function.user_to_group_lambda_function.function_name
-principal     = "cognito-idp.amazonaws.com"
-source_arn    = aws_cognito_user_pool.cognito_user_pool.arn
+  statement_id  = "AllowExecutionFromCognito"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.user_to_group_lambda_function.function_name
+  principal     = "cognito-idp.amazonaws.com"
+  source_arn    = aws_cognito_user_pool.cognito_user_pool.arn
 }
 ```
 
@@ -227,7 +227,7 @@ For the integration of the authentication process within services such as API Ga
 This is why we are storing the ID in the Parameter Store, enabling us to retrieve it whenever necessary.
 ```terraform
 resource "aws_ssm_parameter" "ssm_parameter" {
-  name  = "/${var.project}/${var.env}/user-pool-id"
+  name  = "example-application-for-aws-user-pool-id"
   type  = "String"
   value = aws_cognito_user_pool.cognito_user_pool.id
 }
