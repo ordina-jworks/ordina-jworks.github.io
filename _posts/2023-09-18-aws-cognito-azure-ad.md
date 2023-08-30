@@ -24,3 +24,54 @@ To keep things straightforward, we will utilize [Terraform](https://www.terrafor
 This setup can be easily replicated across various AWS and Azure accounts for convenience.
 
 # Azure AD
+We should create an App Registration within Azure AD which will be utilized in a later stage by AWS Cognito.
+Every authentication request should redirect back with a response to our Cognito domain.
+
+Optionally, you are able to synchronize Azure AD groups with AWS Cognito.
+This synchronization involves utilizing the `required_resource_access` block.
+This synchronization can be valuable for permissions administration linked to distinct groups like MANAGEMENT.
+
+Additionally, it's essential to generate a client secret for the application with the `azuread_application_password` resource.
+This secret facilitates Cognito's authentication with Azure AD and enables configuring your identity provider within the Cognito environment.
+```terraform
+resource "azuread_application" "application" {
+  display_name = "example-application-for-aws"
+
+  web {
+    redirect_uris = [
+      "https://example-application-for-aws.auth.eu-west-1.amazoncognito.com/oauth2/idpresponse"
+    ]
+  }
+
+  required_resource_access {
+    resource_app_id = "00000003-0000-0000-c000-000000000000" # Microsoft Graph
+    resource_access {
+      id   = "7ab1d382-f21e-4acd-a863-ba3e13f7da61" # Directory.Read.All
+      type = "Role"
+    }
+  }
+}
+
+resource "azuread_application_password" "application_password" {
+  application_object_id = azuread_application.application.object_id
+}
+```
+
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2023-09-18-cognito-azure-ad/azure-ad-overview.jpg' | prepend: site.baseurl }}" alt="Azure AD: Overview" class="image fit" style="margin:0px auto; max-width:100%">
+_Overview_
+{: refdef}
+
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2023-09-18-cognito-azure-ad/azure-ad-redirect.jpg' | prepend: site.baseurl }}" alt="Azure AD: Redirect" class="image fit" style="margin:0px auto; max-width:100%">
+_Redirect URL_
+{: refdef}
+
+{:refdef: style="text-align: center;"}
+<img src="{{ '/img/2023-09-18-cognito-azure-ad/azure-ad-secret.jpg' | prepend: site.baseurl }}" alt="Azure AD: Client secret" class="image fit" style="margin:0px auto; max-width:100%">
+_Client secret_
+{: refdef}
+
+# AWS Cognito
+
+# Conclusion
