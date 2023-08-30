@@ -1,9 +1,9 @@
 ---
 layout: post
 authors: [yolan_vloeberghs, nicholas_meyers]
-title: 'Cognito Azure AD'
+title: 'Seamless User Authentication: Bridging Azure AD and AWS Cognito'
 image: /img/2023-09-18-cognito-azure-ad/banner.jpg
-tags: [ Cloud, AWS, Terraform, Azure, Cognito, Security, Authentication ]
+tags: [ Cloud, AWS, Cognito, Azure, Terraform, Security, Authentication ]
 category: Cloud
 comments: true
 ---
