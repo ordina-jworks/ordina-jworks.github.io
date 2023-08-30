@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Going password-less in a multi cloud environment with SPIFFE - Nicholas Meyers">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/2023-08-30-spiffe/banner.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/security/2023/08/30/spiffe.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Going password-less in a multi cloud environment with SPIFFE - Nicholas Meyers"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/2023-08-30-spiffe/banner.png"/>
+
+    
+    <title>Going password-less in a multi cloud environment with SPIFFE - Nicholas Meyers &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/meet-the-team">Meet the team</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="https://join.ordina-jworks.io/">JOIN</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Going password-less in a multi cloud environment with SPIFFE</h2>
+                
+
+                
+                    Posted Aug 30, 2023
+
+
+    in <a href="/categories/security/">Security</a>
+
+
+
+    by
+    
+        <a href="/author/nicholas-meyers/">Nicholas Meyers</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/security/">Security</a>, 
+    
+        <a href="/tags/aws/">AWS</a>, 
+    
+        <a href="/tags/kubernetes/">Kubernetes</a>, 
+    
+        <a href="/tags/cloud/">Cloud</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>SPIFFE, developed by AT&amp;T and Bell Labs and maintained by CNCF, stands as an open-source solution. It operates as a standardized framework dedicated to the secure identification and fortification of communication channels among diverse application services.</p>
+</blockquote>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#how-does-it-work">How does it work</a></li>
+  <li><a href="#install-cert-manager">Install cert-manager</a></li>
+  <li><a href="#install-spiffe">Install SPIFFE</a></li>
+  <li><a href="#configure-aws">Configure AWS</a></li>
+  <li><a href="#deploy-application">Deploy application</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#extra">Extra</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In an era where data breaches and cyberattacks dominate headlines (<a href="https://cybernews.com/news/arcgis-password-exposed-poland-military-secrets/" target="_blank" rel="noopener noreferrer">Outdated password exposed</a>, 
+<a href="https://blubracket.com/solarwinds-intern-leaked-passwords-on-github/" target="_blank" rel="noopener noreferrer">leaked passwords on GitHub</a>), traditional password-based authentication methods increasingly fail to provide the security and convenience that today’s dynamic, multi-cloud environments demand. Enter SPIFFE, the Secure Production Identity Framework for Everyone, a revolutionary solution that not only addresses the shortcomings of passwords but also unlocks a new era of identity management in complex, distributed systems.</p>
+
+<p>As businesses expand their operations across multiple cloud platforms, maintaining consistent and robust authentication mechanisms becomes all the more daunting. The complexities of managing access across various clouds, services, and applications while safeguarding sensitive data demand a paradigm shift. This is where going “passwordless” emerges as a beacon of innovation, promising enhanced security, streamlined user experiences, and simplified administration.</p>
+
+<p>However, the current approach of relying on passwords and keys for authentication presents its own set of challenges. Rotating passwords and keys in a timely manner often becomes an overlooked practice due to factors like limited time, budget constraints, lack of established procedures, or simply being forgotten. Moreover, the usage of weak passwords is all too common, undermining the very foundation of security.</p>
+
+<p>What’s more, passwords and keys are frequently shared through emails, chat platforms, and even unintentionally committed to version control systems. They might find their way onto employees’ devices, creating vulnerabilities that can be exploited by malicious actors. The need for a more secure, systematic, and foolproof identity management solution is evident.</p>
+
+<p>In the dynamic landscape of distributed systems, SPIFFE stands as a powerful solution that revolutionizes identity management. By discarding the vulnerabilities associated with conventional password-based methods, SPIFFE offers a robust and secure approach. It ensures reliable authentication without the risks of easily compromised passwords and keys. In doing so, SPIFFE not only bridges security gaps but also propels us towards an authentication landscape that is more efficient, dependable, and poised for the future.</p>
+
+<p>This blog post will explain how to install SPIFFE on your on-premises Kubernetes cluster. Additionally, we will deploy an application that will establish a connection with an S3 bucket.</p>
+
+<h2 id="how-does-it-work">How does it work</h2>
+
+<p>Authentication with SPIFFE relies on mutual Transport Layer Security (mTLS) protocol. mTLS is a form of secure communication that ensures both parties—client and server—authenticate each other using digital certificates, enhancing the security of data exchanged over the network.</p>
+
+<p>So, SPIFFE will generate a CA certificate that we’ll utilize to establish trust and verify the certificates created by SPIFFE. It’s crucial to upload this CA certificate to our AWS account, ensuring that AWS recognizes and trusts all incoming requests from our cluster.</p>
+
+<p>SPIFFE generates short-lived certificates upon application startup for making requests. To maintain connection stability, SPIFFE periodically renews these certificates before expiration, ensuring seamless communication.</p>
+
+<p>As our pod initializes, SPIFFE comes into play by mounting certificates within the pod. These certificates serve a pivotal role in enabling secure calls to AWS via mutual TLS (mTLS). During these calls, our pod aims to acquire AWS credentials, which it can access internally. However, just like the certificates, these AWS credentials follow a short-lived lifecycle. The remarkable aspect here is that SPIFFE is responsible for automatically renewing these credentials. This autonomous renewal process ensures that our AWS credentials remain up-to-date and effective, seamlessly aligning with SPIFFE’s ethos of continual security enhancement.</p>
+
+<p>An example of a certificate.
+<img src="/img/2023-08-30-spiffe/spiffe-0.png" alt="Verify spiffe installation" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="install-cert-manager">Install cert-manager</h2>
+
+<p>Installing <a href="https://cert-manager.io/" target="_blank" rel="noopener noreferrer">cert-manager</a> on your Kubernetes cluster before installing SPIFFE is a crucial step. cert-manager is a widely used tool that automates the management of TLS certificates within Kubernetes.</p>
+
+<p>Integrating SPIFFE into your Kubernetes cluster relies on secure communication channels established through TLS certificates. cert-manager simplifies the management and issuance of these certificates, ensuring that the identities and connections established by SPIFFE are trustworthy and adequately encrypted.</p>
+
+<h3 id="create-a-namespace-for-cert-manager">Create a namespace for cert-manager</h3>
+
+<p>We begin by creating a namespace where we will deploy cert-manager and SPIFFE.<br />
+Use the following two commands to create the namespaces and switch to the desired namespace:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create namespace cert-manager
+kubectl config set-context <span class="nt">--current</span> <span class="nt">--namespace</span><span class="o">=</span>cert-manager
+</code></pre></div></div>
+
+<h3 id="add-jetstack">Add jetstack</h3>
+
+<p>In order to install cert-manager and SPIFFE, we can make use of the Helm package manager and install these Helm charts on our cluster. To achieve this, we need to fetch the Jetstack repository locally.<br />
+Use the following commands to achieve this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm repo add jetstack https://charts.jetstack.io
+helm repo update
+</code></pre></div></div>
+
+<h3 id="deploy-cert-manager">Deploy cert-manager</h3>
+
+<p>Now that we’ve added Jetstack as a helm repository, we can proceed to install cert-manager on our Kubernetes cluster.<br />
+Use the following commands to install cert-manager:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
+helm upgrade <span class="nt">--install</span> cert-manager jetstack/cert-manager <span class="nt">--version</span> v1.11.0 <span class="nt">--set</span> prometheus.enabled<span class="o">=</span><span class="nb">false</span>
+</code></pre></div></div>
+
+<h2 id="install-spiffe">Install SPIFFE</h2>
+
+<h3 id="deploy-spiffe">Deploy SPIFFE</h3>
+
+<p>Now that cert-manager is installed, we can proceed to the installation of SPIFFE.<br />
+To do this, use the following command:</p>
+
+<p><i>Please note: for the trusted domain, you could use a different name; I suggest using the name of your Kubernetes cluster. You will need this domain name later when setting up AWS policies.</i></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm upgrade <span class="nt">--install</span> cert-manager-csi-driver-spiffe jetstack/cert-manager-csi-driver-spiffe <span class="nt">--wait</span> <span class="se">\</span>
+<span class="nt">--set</span> image.tag<span class="o">=</span>aws <span class="se">\</span>
+<span class="nt">--set</span> image.repository.driver<span class="o">=</span>ghcr.io/joshvanl/cert-manager-csi-driver <span class="se">\</span>
+<span class="nt">--set</span> image.repository.approver<span class="o">=</span>ghcr.io/joshvanl/cert-manager-csi-driver-approver <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.logLevel=1"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.trustDomain=demo.home.cluster"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.approver.signerName=clusterissuers.cert-manager.io/csi-driver-spiffe-ca"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.issuer.name=csi-driver-spiffe-ca"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.issuer.kind=ClusterIssuer"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.issuer.group=cert-manager.io"</span>
+</code></pre></div></div>
+
+<h3 id="configure-spiffe">Configure SPIFFE</h3>
+
+<p>To obtain and renew certificates automatically, we use the following ClusterIssuer.<br />
+Deploy it using the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> https://raw.githubusercontent.com/nicholasM95/spiffe-demo/main/setup/clusterissuer.yaml
+</code></pre></div></div>
+
+<h3 id="verify-installation">Verify installation</h3>
+
+<p>Verify if all pods have started and check whether the secret <code class="language-plaintext highlighter-rouge">csi-driver-spiffe-ca</code> has been created.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-1.png" alt="Verify spiffe installation" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="configure-aws">Configure AWS</h2>
+<h3 id="create-the-s3-bucket">Create the s3 bucket</h3>
+
+<p>Create a S3 bucket with a relevant and easy name and upload a text file named ‘hello.txt’. Our application will read this file later.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-2.png" alt="Create S3 bucket" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h3 id="create-a-trusted-anchor">Create a trusted anchor</h3>
+<p>In the context of AWS, a trusted anchor might involve setting up a trust relationship with an external identity provider or certificate authority. This ensures that the SPIFFE identities generated within the Kubernetes cluster can be verified and trusted by AWS services when defining policies, access controls, or other security-related configurations.</p>
+
+<p>To achieve this, we need a CA certificate that is utilized by SPIFFE on our Kubernetes cluster. Use the following command to obtain the CA certificate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get secret csi-driver-spiffe-ca <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data}'</span>
+</code></pre></div></div>
+
+<p>Copy the value of ca.crt and decode it using base64.
+Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'copied-value'</span> | <span class="nb">base64</span> <span class="nt">-d</span>
+</code></pre></div></div>
+
+<p>Navigate to the IAM section within AWS and access the “Roles” tab.
+Scroll down and choose “Roles Anywhere.”
+Ensure that you are still within the desired region.
+Generate a trust anchor.
+Opt for the external certificate bundle option.
+Paste the decoded value of <code class="language-plaintext highlighter-rouge">ca.crt</code> from the secret.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-3.png" alt="Create Trust anchor" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h3 id="create-a-trusted-profile">Create a trusted profile</h3>
+
+<p>A trusted profile establishes trust, defines access controls, and enables secure interaction between SPIFFE-issued identities within a Kubernetes cluster and AWS resources. It ensures a smooth and secure integration between these two environments while maintaining a solid security posture.</p>
+
+<p>We require a policy that allows our application, operating in the ‘spiffe’ namespace with service account ‘file-read-app’, to gain read access to files within our designated bucket, all within the ‘demo.home.cluster’ cluster.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+	  </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+		    </span><span class="p">{</span><span class="w">
+			      </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3:GetObject"</span><span class="p">,</span><span class="w">
+			      </span><span class="nl">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+				        </span><span class="nl">"StringLike"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+					          </span><span class="nl">"aws:PrincipalTag/x509SAN/URI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spiffe://demo.home.cluster/ns/spiffe/sa/file-read-app"</span><span class="w">
+				        </span><span class="p">}</span><span class="w">
+			      </span><span class="p">},</span><span class="w">
+			      </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+			      </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::&lt;BUCKET_NAME&gt;/*"</span><span class="p">,</span><span class="w">
+			      </span><span class="nl">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+		    </span><span class="p">}</span><span class="w">
+	  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Create a new role named <code class="language-plaintext highlighter-rouge">demo_k8s_read</code>, establish a trust relationship, and append the previously mentioned policy to the permission policy.<br />
+Don’t forget to change the Arn source to your trust anchor.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"Service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rolesanywhere.amazonaws.com"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"sts:TagSession"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sts:SetSourceIdentity"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sts:AssumeRole"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"StringLike"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"aws:PrincipalTag/x509SAN/URI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spiffe://demo.home.cluster/ns/*/sa/*"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"ArnEquals"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"aws:SourceArn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:rolesanywhere:eu-west-1:930970667460:trust-anchor/6eac6a56-97c3-439f-9074-f33c576ab08d"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Go back to the “Roles Anywhere” page and create a new trust profile, again check your region.
+Use the role you created before.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-4.png" alt="Create Trust profile" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="deploy-application">Deploy application</h2>
+
+<h3 id="create-a-namespace-for-our-application">Create a namespace for our application</h3>
+
+<p>We begin by creating a namespace where we will deploy our application. <br /> 
+Use the following two commands to create the namespaces and switch to the desired namespace:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create namespace spiffe
+kubectl config set-context <span class="nt">--current</span> <span class="nt">--namespace</span><span class="o">=</span>spiffe
+</code></pre></div></div>
+
+<h3 id="deploy-service-account">Deploy service account</h3>
+
+<p>We require a service account named ‘file-read-app’ for our application.
+Create a new file named ‘serviceaccount.yaml’ with the following content.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+</code></pre></div></div>
+
+<p>Deploy service account.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> serviceaccount.yaml
+</code></pre></div></div>
+
+<h3 id="deploy-role">Deploy role</h3>
+
+<p>We require a role named ‘file-read-app’ for our application.
+Create a new file named ‘role.yaml’ with the following content.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Role</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+<span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">cert-manager.io"</span><span class="pi">]</span>
+    <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">certificaterequests"</span><span class="pi">]</span>
+    <span class="na">verbs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">create"</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>Deploy role.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> role.yaml
+</code></pre></div></div>
+
+<h3 id="deploy-role-binding">Deploy role binding</h3>
+
+<p>We require a role binding named ‘file-read-app’ for our application.
+Create a new file named ‘rolebinding.yaml’ with the following content.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">RoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">Role</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+<span class="na">subjects</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+</code></pre></div></div>
+
+<p>Deploy role binding.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> rolebinding.yaml
+</code></pre></div></div>
+
+<h3 id="deploy-application-1">Deploy application</h3>
+
+<p>Create a new file named ‘deployment.yaml’ with the following content.
+If necessary, update the environment variables.
+Fill in the three AWS resources with the one you have generated.</p>
+
+<p>SPIFFE will mount files in the volume we created here, SPIFFE would create a certificate to communicate with AWS. 
+After the certificate is generated, SPIFFE will use this to retrieve AWS credentials and mount them.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">demo-spiffe</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">demospiffe</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">demospiffe</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">serviceAccount</span><span class="pi">:</span> <span class="s">file-read-app</span>
+      <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">demospiffe</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s">nicholas95/spiffedemo:dev-1</span>
+          <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">Always</span>
+          <span class="na">env</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">AWS_REGION</span>
+              <span class="na">value</span><span class="pi">:</span> <span class="s">eu-west-1</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">AWS_BUCKET</span>
+              <span class="na">value</span><span class="pi">:</span> <span class="s">&lt;BUCKET_NAME&gt;</span>
+          <span class="na">volumeMounts</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/root/.aws</span>
+              <span class="na">name</span><span class="pi">:</span> <span class="s">spiffe</span>
+      <span class="na">volumes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">csi</span><span class="pi">:</span>
+            <span class="na">driver</span><span class="pi">:</span> <span class="s">spiffe.csi.cert-manager.io</span>
+            <span class="na">readOnly</span><span class="pi">:</span> <span class="kc">true</span>
+            <span class="na">volumeAttributes</span><span class="pi">:</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/enable</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/role</span><span class="pi">:</span> <span class="s">arn:aws:iam::930970667460:role/demo_k8s_read</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/trust-anchor</span><span class="pi">:</span> <span class="s">arn:aws:rolesanywhere:eu-west-1:930970667460:trust-anchor/1bf58d4e-35c6-465c-a05c-1bdcce05054b</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/trust-profile</span><span class="pi">:</span> <span class="s">arn:aws:rolesanywhere:eu-west-1:930970667460:profile/fa6c37f9-f64a-4bdf-b0f6-c39ec5282aa4</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">spiffe</span>
+</code></pre></div></div>
+
+<p>Deploy application.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> deployment.yaml
+</code></pre></div></div>
+<h3 id="test-our-application">Test our application</h3>
+
+<p>When your pod is started, you can open a shell into it using the following command and install curl. 
+Once curl is installed, you can send a GET request to ‘/file/hello.txt’, the response will be the content of the file in the S3 bucket.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl <span class="nb">exec</span> <span class="nt">-it</span> &lt;pod-name&gt; <span class="nt">--</span> /bin/sh
+apk add curl
+curl http://localhost:8080/file/hello.txt
+<span class="nb">exit</span>
+</code></pre></div></div>
+
+<p>We’ve also included a file watcher to monitor the renewal of credentials and certificates.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-5.png" alt="Filewatcher logging" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>AWS’s IRSA has been the go-to method for granting permissions to Kubernetes pods running on Amazon EKS. However, as the landscape of distributed systems evolves, SPIFFE offers a fresh perspective on securing these connections.</p>
+
+<p>By setting up our connection with S3 in this manner, we eliminate the need to manage access keys and secret keys ourselves. As a result, the likelihood of our keys being leaked is minimized. Additionally, both our certificates and AWS credentials have a short lifespan.</p>
+
+<p>Furthermore, we are relieved from the task of key rotation as this process occurs automatically.</p>
+
+<p>In essence, SPIFFE’s focus on secure identity issuance and management can be applied to a variety of scenarios where authenticated and secure communication is crucial. Its flexibility and adaptability make it valuable across a spectrum of modern distributed and cloud-native computing environments.</p>
+
+<p>SPIFFE becomes especially valuable when dealing with complex scenarios such as hybrid and multi-cloud setups. In the realm of security, SPIFFE shines by offering a passwordless solution that not only enhances protection but also eliminates the vulnerabilities and complexities associated with traditional passwords and keys.</p>
+
+<h2 id="extra">Extra</h2>
+
+<p>Curious about establishing a connection to an AWS database without using passwords? This <a href="https://ordina-jworks.github.io/cloud/2022/06/13/aws-rds-iam-authentication-spring-boot.html" target="_blank" rel="noopener noreferrer">post</a> explains how to connect to an RDS from EKS without needing a password. Since we’ve already set up SPIFFE, you can also achieve this from your on-premises, azure, gcloud, … environment.</p>
+
+<p>In this <a href="https://github.com/nicholasM95/spiffe-demo" target="_blank" rel="noopener noreferrer">repository</a>, you’ll find all the resources that were used to create this blog post.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/security/2023/08/30/spiffe.html&title=Going password-less in a multi cloud environment with SPIFFE&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Going password-less in a multi cloud environment with SPIFFE&url=https://ordina-jworks.github.io/security/2023/08/30/spiffe.html&via=&related=" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/security/2023/08/30/spiffe.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/nicholas-meyers/" class="image spotlight-image" title="">
+            <img src="/img/author/nicholas-meyers.jpeg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Nicholas is a Java Developer with a passion for security and an enthusiasm for exploring new technologies.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordinabelgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2023 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/2023-08-30-spiffe/banner.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

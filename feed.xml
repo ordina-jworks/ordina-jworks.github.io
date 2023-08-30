@@ -1,5 +1,358 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-08-25T09:38:55+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
-</subtitle><entry><title type="html">Vuzix And How To Use It</title><link href="https://ordina-jworks.github.io/internship/2023/08/25/vuzix-and-how-to-use-it.html" rel="alternate" type="text/html" title="Vuzix And How To Use It" /><published>2023-08-25T00:00:00+00:00</published><updated>2023-08-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/internship/2023/08/25/vuzix-and-how-to-use-it</id><content type="html" xml:base="https://ordina-jworks.github.io/internship/2023/08/25/vuzix-and-how-to-use-it.html"><![CDATA[<h1 id="table-of-contents">TABLE OF CONTENTS</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ordina-jworks.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ordina-jworks.github.io/" rel="alternate" type="text/html" /><updated>2023-08-30T10:46:28+00:00</updated><id>https://ordina-jworks.github.io/feed.xml</id><title type="html">Ordina JWorks Tech Blog</title><subtitle>We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+</subtitle><entry><title type="html">Going password-less in a multi cloud environment with SPIFFE</title><link href="https://ordina-jworks.github.io/security/2023/08/30/spiffe.html" rel="alternate" type="text/html" title="Going password-less in a multi cloud environment with SPIFFE" /><published>2023-08-30T00:00:00+00:00</published><updated>2023-08-30T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/security/2023/08/30/spiffe</id><content type="html" xml:base="https://ordina-jworks.github.io/security/2023/08/30/spiffe.html"><![CDATA[<blockquote>
+  <p>SPIFFE, developed by AT&amp;T and Bell Labs and maintained by CNCF, stands as an open-source solution. It operates as a standardized framework dedicated to the secure identification and fortification of communication channels among diverse application services.</p>
+</blockquote>
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#how-does-it-work">How does it work</a></li>
+  <li><a href="#install-cert-manager">Install cert-manager</a></li>
+  <li><a href="#install-spiffe">Install SPIFFE</a></li>
+  <li><a href="#configure-aws">Configure AWS</a></li>
+  <li><a href="#deploy-application">Deploy application</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#extra">Extra</a></li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In an era where data breaches and cyberattacks dominate headlines (<a href="https://cybernews.com/news/arcgis-password-exposed-poland-military-secrets/" target="_blank" rel="noopener noreferrer">Outdated password exposed</a>, 
+<a href="https://blubracket.com/solarwinds-intern-leaked-passwords-on-github/" target="_blank" rel="noopener noreferrer">leaked passwords on GitHub</a>), traditional password-based authentication methods increasingly fail to provide the security and convenience that today’s dynamic, multi-cloud environments demand. Enter SPIFFE, the Secure Production Identity Framework for Everyone, a revolutionary solution that not only addresses the shortcomings of passwords but also unlocks a new era of identity management in complex, distributed systems.</p>
+
+<p>As businesses expand their operations across multiple cloud platforms, maintaining consistent and robust authentication mechanisms becomes all the more daunting. The complexities of managing access across various clouds, services, and applications while safeguarding sensitive data demand a paradigm shift. This is where going “passwordless” emerges as a beacon of innovation, promising enhanced security, streamlined user experiences, and simplified administration.</p>
+
+<p>However, the current approach of relying on passwords and keys for authentication presents its own set of challenges. Rotating passwords and keys in a timely manner often becomes an overlooked practice due to factors like limited time, budget constraints, lack of established procedures, or simply being forgotten. Moreover, the usage of weak passwords is all too common, undermining the very foundation of security.</p>
+
+<p>What’s more, passwords and keys are frequently shared through emails, chat platforms, and even unintentionally committed to version control systems. They might find their way onto employees’ devices, creating vulnerabilities that can be exploited by malicious actors. The need for a more secure, systematic, and foolproof identity management solution is evident.</p>
+
+<p>In the dynamic landscape of distributed systems, SPIFFE stands as a powerful solution that revolutionizes identity management. By discarding the vulnerabilities associated with conventional password-based methods, SPIFFE offers a robust and secure approach. It ensures reliable authentication without the risks of easily compromised passwords and keys. In doing so, SPIFFE not only bridges security gaps but also propels us towards an authentication landscape that is more efficient, dependable, and poised for the future.</p>
+
+<p>This blog post will explain how to install SPIFFE on your on-premises Kubernetes cluster. Additionally, we will deploy an application that will establish a connection with an S3 bucket.</p>
+
+<h2 id="how-does-it-work">How does it work</h2>
+
+<p>Authentication with SPIFFE relies on mutual Transport Layer Security (mTLS) protocol. mTLS is a form of secure communication that ensures both parties—client and server—authenticate each other using digital certificates, enhancing the security of data exchanged over the network.</p>
+
+<p>So, SPIFFE will generate a CA certificate that we’ll utilize to establish trust and verify the certificates created by SPIFFE. It’s crucial to upload this CA certificate to our AWS account, ensuring that AWS recognizes and trusts all incoming requests from our cluster.</p>
+
+<p>SPIFFE generates short-lived certificates upon application startup for making requests. To maintain connection stability, SPIFFE periodically renews these certificates before expiration, ensuring seamless communication.</p>
+
+<p>As our pod initializes, SPIFFE comes into play by mounting certificates within the pod. These certificates serve a pivotal role in enabling secure calls to AWS via mutual TLS (mTLS). During these calls, our pod aims to acquire AWS credentials, which it can access internally. However, just like the certificates, these AWS credentials follow a short-lived lifecycle. The remarkable aspect here is that SPIFFE is responsible for automatically renewing these credentials. This autonomous renewal process ensures that our AWS credentials remain up-to-date and effective, seamlessly aligning with SPIFFE’s ethos of continual security enhancement.</p>
+
+<p>An example of a certificate.
+<img src="/img/2023-08-30-spiffe/spiffe-0.png" alt="Verify spiffe installation" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="install-cert-manager">Install cert-manager</h2>
+
+<p>Installing <a href="https://cert-manager.io/" target="_blank" rel="noopener noreferrer">cert-manager</a> on your Kubernetes cluster before installing SPIFFE is a crucial step. cert-manager is a widely used tool that automates the management of TLS certificates within Kubernetes.</p>
+
+<p>Integrating SPIFFE into your Kubernetes cluster relies on secure communication channels established through TLS certificates. cert-manager simplifies the management and issuance of these certificates, ensuring that the identities and connections established by SPIFFE are trustworthy and adequately encrypted.</p>
+
+<h3 id="create-a-namespace-for-cert-manager">Create a namespace for cert-manager</h3>
+
+<p>We begin by creating a namespace where we will deploy cert-manager and SPIFFE.<br />
+Use the following two commands to create the namespaces and switch to the desired namespace:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create namespace cert-manager
+kubectl config set-context <span class="nt">--current</span> <span class="nt">--namespace</span><span class="o">=</span>cert-manager
+</code></pre></div></div>
+
+<h3 id="add-jetstack">Add jetstack</h3>
+
+<p>In order to install cert-manager and SPIFFE, we can make use of the Helm package manager and install these Helm charts on our cluster. To achieve this, we need to fetch the Jetstack repository locally.<br />
+Use the following commands to achieve this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm repo add jetstack https://charts.jetstack.io
+helm repo update
+</code></pre></div></div>
+
+<h3 id="deploy-cert-manager">Deploy cert-manager</h3>
+
+<p>Now that we’ve added Jetstack as a helm repository, we can proceed to install cert-manager on our Kubernetes cluster.<br />
+Use the following commands to install cert-manager:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
+helm upgrade <span class="nt">--install</span> cert-manager jetstack/cert-manager <span class="nt">--version</span> v1.11.0 <span class="nt">--set</span> prometheus.enabled<span class="o">=</span><span class="nb">false</span>
+</code></pre></div></div>
+
+<h2 id="install-spiffe">Install SPIFFE</h2>
+
+<h3 id="deploy-spiffe">Deploy SPIFFE</h3>
+
+<p>Now that cert-manager is installed, we can proceed to the installation of SPIFFE.<br />
+To do this, use the following command:</p>
+
+<p><i>Please note: for the trusted domain, you could use a different name; I suggest using the name of your Kubernetes cluster. You will need this domain name later when setting up AWS policies.</i></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm upgrade <span class="nt">--install</span> cert-manager-csi-driver-spiffe jetstack/cert-manager-csi-driver-spiffe <span class="nt">--wait</span> <span class="se">\</span>
+<span class="nt">--set</span> image.tag<span class="o">=</span>aws <span class="se">\</span>
+<span class="nt">--set</span> image.repository.driver<span class="o">=</span>ghcr.io/joshvanl/cert-manager-csi-driver <span class="se">\</span>
+<span class="nt">--set</span> image.repository.approver<span class="o">=</span>ghcr.io/joshvanl/cert-manager-csi-driver-approver <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.logLevel=1"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.trustDomain=demo.home.cluster"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.approver.signerName=clusterissuers.cert-manager.io/csi-driver-spiffe-ca"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.issuer.name=csi-driver-spiffe-ca"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.issuer.kind=ClusterIssuer"</span> <span class="se">\</span>
+<span class="nt">--set</span> <span class="s2">"app.issuer.group=cert-manager.io"</span>
+</code></pre></div></div>
+
+<h3 id="configure-spiffe">Configure SPIFFE</h3>
+
+<p>To obtain and renew certificates automatically, we use the following ClusterIssuer.<br />
+Deploy it using the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> https://raw.githubusercontent.com/nicholasM95/spiffe-demo/main/setup/clusterissuer.yaml
+</code></pre></div></div>
+
+<h3 id="verify-installation">Verify installation</h3>
+
+<p>Verify if all pods have started and check whether the secret <code class="language-plaintext highlighter-rouge">csi-driver-spiffe-ca</code> has been created.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-1.png" alt="Verify spiffe installation" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="configure-aws">Configure AWS</h2>
+<h3 id="create-the-s3-bucket">Create the s3 bucket</h3>
+
+<p>Create a S3 bucket with a relevant and easy name and upload a text file named ‘hello.txt’. Our application will read this file later.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-2.png" alt="Create S3 bucket" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h3 id="create-a-trusted-anchor">Create a trusted anchor</h3>
+<p>In the context of AWS, a trusted anchor might involve setting up a trust relationship with an external identity provider or certificate authority. This ensures that the SPIFFE identities generated within the Kubernetes cluster can be verified and trusted by AWS services when defining policies, access controls, or other security-related configurations.</p>
+
+<p>To achieve this, we need a CA certificate that is utilized by SPIFFE on our Kubernetes cluster. Use the following command to obtain the CA certificate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get secret csi-driver-spiffe-ca <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data}'</span>
+</code></pre></div></div>
+
+<p>Copy the value of ca.crt and decode it using base64.
+Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'copied-value'</span> | <span class="nb">base64</span> <span class="nt">-d</span>
+</code></pre></div></div>
+
+<p>Navigate to the IAM section within AWS and access the “Roles” tab.
+Scroll down and choose “Roles Anywhere.”
+Ensure that you are still within the desired region.
+Generate a trust anchor.
+Opt for the external certificate bundle option.
+Paste the decoded value of <code class="language-plaintext highlighter-rouge">ca.crt</code> from the secret.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-3.png" alt="Create Trust anchor" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h3 id="create-a-trusted-profile">Create a trusted profile</h3>
+
+<p>A trusted profile establishes trust, defines access controls, and enables secure interaction between SPIFFE-issued identities within a Kubernetes cluster and AWS resources. It ensures a smooth and secure integration between these two environments while maintaining a solid security posture.</p>
+
+<p>We require a policy that allows our application, operating in the ‘spiffe’ namespace with service account ‘file-read-app’, to gain read access to files within our designated bucket, all within the ‘demo.home.cluster’ cluster.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+	  </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+		    </span><span class="p">{</span><span class="w">
+			      </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3:GetObject"</span><span class="p">,</span><span class="w">
+			      </span><span class="nl">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+				        </span><span class="nl">"StringLike"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+					          </span><span class="nl">"aws:PrincipalTag/x509SAN/URI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spiffe://demo.home.cluster/ns/spiffe/sa/file-read-app"</span><span class="w">
+				        </span><span class="p">}</span><span class="w">
+			      </span><span class="p">},</span><span class="w">
+			      </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+			      </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::&lt;BUCKET_NAME&gt;/*"</span><span class="p">,</span><span class="w">
+			      </span><span class="nl">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+		    </span><span class="p">}</span><span class="w">
+	  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Create a new role named <code class="language-plaintext highlighter-rouge">demo_k8s_read</code>, establish a trust relationship, and append the previously mentioned policy to the permission policy.<br />
+Don’t forget to change the Arn source to your trust anchor.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"Service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rolesanywhere.amazonaws.com"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"sts:TagSession"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sts:SetSourceIdentity"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sts:AssumeRole"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"StringLike"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"aws:PrincipalTag/x509SAN/URI"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spiffe://demo.home.cluster/ns/*/sa/*"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"ArnEquals"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"aws:SourceArn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:rolesanywhere:eu-west-1:930970667460:trust-anchor/6eac6a56-97c3-439f-9074-f33c576ab08d"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Go back to the “Roles Anywhere” page and create a new trust profile, again check your region.
+Use the role you created before.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-4.png" alt="Create Trust profile" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="deploy-application">Deploy application</h2>
+
+<h3 id="create-a-namespace-for-our-application">Create a namespace for our application</h3>
+
+<p>We begin by creating a namespace where we will deploy our application. <br /> 
+Use the following two commands to create the namespaces and switch to the desired namespace:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create namespace spiffe
+kubectl config set-context <span class="nt">--current</span> <span class="nt">--namespace</span><span class="o">=</span>spiffe
+</code></pre></div></div>
+
+<h3 id="deploy-service-account">Deploy service account</h3>
+
+<p>We require a service account named ‘file-read-app’ for our application.
+Create a new file named ‘serviceaccount.yaml’ with the following content.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+</code></pre></div></div>
+
+<p>Deploy service account.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> serviceaccount.yaml
+</code></pre></div></div>
+
+<h3 id="deploy-role">Deploy role</h3>
+
+<p>We require a role named ‘file-read-app’ for our application.
+Create a new file named ‘role.yaml’ with the following content.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Role</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+<span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">cert-manager.io"</span><span class="pi">]</span>
+    <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">certificaterequests"</span><span class="pi">]</span>
+    <span class="na">verbs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">create"</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>Deploy role.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> role.yaml
+</code></pre></div></div>
+
+<h3 id="deploy-role-binding">Deploy role binding</h3>
+
+<p>We require a role binding named ‘file-read-app’ for our application.
+Create a new file named ‘rolebinding.yaml’ with the following content.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">RoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">Role</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+<span class="na">subjects</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">file-read-app</span>
+</code></pre></div></div>
+
+<p>Deploy role binding.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> rolebinding.yaml
+</code></pre></div></div>
+
+<h3 id="deploy-application-1">Deploy application</h3>
+
+<p>Create a new file named ‘deployment.yaml’ with the following content.
+If necessary, update the environment variables.
+Fill in the three AWS resources with the one you have generated.</p>
+
+<p>SPIFFE will mount files in the volume we created here, SPIFFE would create a certificate to communicate with AWS. 
+After the certificate is generated, SPIFFE will use this to retrieve AWS credentials and mount them.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">demo-spiffe</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">demospiffe</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app.kubernetes.io/name</span><span class="pi">:</span> <span class="s">demospiffe</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">serviceAccount</span><span class="pi">:</span> <span class="s">file-read-app</span>
+      <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">demospiffe</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s">nicholas95/spiffedemo:dev-1</span>
+          <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">Always</span>
+          <span class="na">env</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">AWS_REGION</span>
+              <span class="na">value</span><span class="pi">:</span> <span class="s">eu-west-1</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">AWS_BUCKET</span>
+              <span class="na">value</span><span class="pi">:</span> <span class="s">&lt;BUCKET_NAME&gt;</span>
+          <span class="na">volumeMounts</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/root/.aws</span>
+              <span class="na">name</span><span class="pi">:</span> <span class="s">spiffe</span>
+      <span class="na">volumes</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">csi</span><span class="pi">:</span>
+            <span class="na">driver</span><span class="pi">:</span> <span class="s">spiffe.csi.cert-manager.io</span>
+            <span class="na">readOnly</span><span class="pi">:</span> <span class="kc">true</span>
+            <span class="na">volumeAttributes</span><span class="pi">:</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/enable</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/role</span><span class="pi">:</span> <span class="s">arn:aws:iam::930970667460:role/demo_k8s_read</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/trust-anchor</span><span class="pi">:</span> <span class="s">arn:aws:rolesanywhere:eu-west-1:930970667460:trust-anchor/1bf58d4e-35c6-465c-a05c-1bdcce05054b</span>
+              <span class="na">aws.spiffe.csi.cert-manager.io/trust-profile</span><span class="pi">:</span> <span class="s">arn:aws:rolesanywhere:eu-west-1:930970667460:profile/fa6c37f9-f64a-4bdf-b0f6-c39ec5282aa4</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">spiffe</span>
+</code></pre></div></div>
+
+<p>Deploy application.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> deployment.yaml
+</code></pre></div></div>
+<h3 id="test-our-application">Test our application</h3>
+
+<p>When your pod is started, you can open a shell into it using the following command and install curl. 
+Once curl is installed, you can send a GET request to ‘/file/hello.txt’, the response will be the content of the file in the S3 bucket.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl <span class="nb">exec</span> <span class="nt">-it</span> &lt;pod-name&gt; <span class="nt">--</span> /bin/sh
+apk add curl
+curl http://localhost:8080/file/hello.txt
+<span class="nb">exit</span>
+</code></pre></div></div>
+
+<p>We’ve also included a file watcher to monitor the renewal of credentials and certificates.</p>
+
+<p><img src="/img/2023-08-30-spiffe/spiffe-5.png" alt="Filewatcher logging" class="image fit" style="margin:0px auto; max-width:100%" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>AWS’s IRSA has been the go-to method for granting permissions to Kubernetes pods running on Amazon EKS. However, as the landscape of distributed systems evolves, SPIFFE offers a fresh perspective on securing these connections.</p>
+
+<p>By setting up our connection with S3 in this manner, we eliminate the need to manage access keys and secret keys ourselves. As a result, the likelihood of our keys being leaked is minimized. Additionally, both our certificates and AWS credentials have a short lifespan.</p>
+
+<p>Furthermore, we are relieved from the task of key rotation as this process occurs automatically.</p>
+
+<p>In essence, SPIFFE’s focus on secure identity issuance and management can be applied to a variety of scenarios where authenticated and secure communication is crucial. Its flexibility and adaptability make it valuable across a spectrum of modern distributed and cloud-native computing environments.</p>
+
+<p>SPIFFE becomes especially valuable when dealing with complex scenarios such as hybrid and multi-cloud setups. In the realm of security, SPIFFE shines by offering a passwordless solution that not only enhances protection but also eliminates the vulnerabilities and complexities associated with traditional passwords and keys.</p>
+
+<h2 id="extra">Extra</h2>
+
+<p>Curious about establishing a connection to an AWS database without using passwords? This <a href="https://ordina-jworks.github.io/cloud/2022/06/13/aws-rds-iam-authentication-spring-boot.html" target="_blank" rel="noopener noreferrer">post</a> explains how to connect to an RDS from EKS without needing a password. Since we’ve already set up SPIFFE, you can also achieve this from your on-premises, azure, gcloud, … environment.</p>
+
+<p>In this <a href="https://github.com/nicholasM95/spiffe-demo" target="_blank" rel="noopener noreferrer">repository</a>, you’ll find all the resources that were used to create this blog post.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Nicholas&quot;, &quot;last_name&quot;=&gt;&quot;Meyers&quot;, &quot;github&quot;=&gt;&quot;nicholasM95&quot;, &quot;linkedin&quot;=&gt;&quot;nicholasmeyers1&quot;, &quot;permalink&quot;=&gt;&quot;/author/nicholas-meyers/&quot;, &quot;avatar&quot;=&gt;&quot;nicholas-meyers.jpeg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;nicholas.meyers@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Nicholas is a Java Developer with a passion for security and an enthusiasm for exploring new technologies.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2019-10-24-Ordina-Young-Professional-Programme-2019-Summer-Edition.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-08-30-spiffe.md collection=posts&gt;]}</name><email>nicholas.meyers@ordina.be</email></author><category term="Security" /><category term="Security" /><category term="AWS" /><category term="Kubernetes" /><category term="Cloud" /><summary type="html"><![CDATA[SPIFFE, developed by AT&amp;T and Bell Labs and maintained by CNCF, stands as an open-source solution. It operates as a standardized framework dedicated to the secure identification and fortification of communication channels among diverse application services.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-08-30-spiffe/banner.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-08-30-spiffe/banner.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Vuzix And How To Use It</title><link href="https://ordina-jworks.github.io/internship/2023/08/25/vuzix-and-how-to-use-it.html" rel="alternate" type="text/html" title="Vuzix And How To Use It" /><published>2023-08-25T00:00:00+00:00</published><updated>2023-08-25T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/internship/2023/08/25/vuzix-and-how-to-use-it</id><content type="html" xml:base="https://ordina-jworks.github.io/internship/2023/08/25/vuzix-and-how-to-use-it.html"><![CDATA[<h1 id="table-of-contents">TABLE OF CONTENTS</h1>
 
 <ul>
   <li><a href="#introduction">Introduction</a></li>
@@ -1852,213 +2205,4 @@ We would have liked to see it implemented by default when you create a version, 
 It comes only for Java, which is understandable as Java Lambdas face this obstacle the most. 
 Still, we certainly won’t be surprised if AWS decides to release this feature for other languages and/or frameworks.</p>
 
-<p>Altogether we can definitely recommend using this new feature for your Java Lambdas.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java and Cloud engineer with a sharpened focus on all things related to cloud, specifically AWS. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud-native development.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2019-04-02-Kickstarter-Trajectory-2019-Light.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-07-10-Spring-IO-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-08-05-deploy-spring-boot-kubernetes.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-29-AWS-Dev-Day-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-05-07-jib.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-08-28-kubernetes-clients-comparison.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-12-10-aws-fargate-serverless-deployments.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2021-11-03-selenium-e2e-testing.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-06-13-aws-rds-iam-authentication-spring-boot.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-01-13-aws-lambda-snapstart-spring-cloud-function.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-06-30-aws-summit-amsterdam-2023.md collection=posts&gt;]}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="aws" /><category term="lambda" /><category term="snapstart" /><category term="cloud" /><category term="spring" /><category term="java" /><summary type="html"><![CDATA[Introduction What is SnapStart? Versions Pricing Limitations Uniqueness Networking Ephemeral data Using SnapStart Conclusion]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Keeping up with dependencies like a boss</title><link href="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html" rel="alternate" type="text/html" title="Keeping up with dependencies like a boss" /><published>2022-10-27T00:00:00+00:00</published><updated>2022-10-27T00:00:00+00:00</updated><id>https://ordina-jworks.github.io/cloud/2022/10/27/renovate</id><content type="html" xml:base="https://ordina-jworks.github.io/cloud/2022/10/27/renovate.html"><![CDATA[<blockquote>
-  <p>Anything worth doing twice is worth automation.</p>
-</blockquote>
-
-<ul>
-  <li><a href="#whats-the-problem">What’s the problem?</a></li>
-  <li><a href="#what-is-mend-renovate">What is Mend Renovate?</a></li>
-  <li><a href="#behind-the-curtains">Behind the curtains</a></li>
-  <li><a href="#how-to-setup">How to setup</a></li>
-  <li><a href="#tips-and-tricks">Tips and tricks</a></li>
-  <li><a href="#why-should-i-use-it">Why should I use it?</a></li>
-  <li><a href="#links">Links</a></li>
-</ul>
-
-<h2 id="whats-the-problem">What’s the problem?</h2>
-
-<h3 id="lack-of-features">Lack of features</h3>
-
-<p>Let’s imagine you need to implement support for a new feature.
-Let’s imagine that that feature is super easy to implement due to almost native support for the functionality in a library you’re already using. 
-That sounds like a great day, right? 
-You add the code to glue together the API and the library, perform some tests and call it a day. 
-There is just one problem, you didn’t check which version of the dependency you were using and the feature you need is only supported in versions 8.x.x and beyond. 
-You check your <code class="language-plaintext highlighter-rouge">pom.xml</code>, only to figure out that you’re on version <code class="language-plaintext highlighter-rouge">6.8.21</code>.
-Now you have two options, refactor 25% of your codebase to be able to use the new library or 5x your effort for implementing the feature without the support of the library.
-That doesn’t sound like a great day at the (home-)office, now does it?</p>
-
-<p>Wouldn’t be great to have been on version <code class="language-plaintext highlighter-rouge">8.1.2</code> already?</p>
-
-<h3 id="dependent-systems">Dependent systems</h3>
-
-<p>Let’s imagine another scenario.
-You’re using a library to connect to an Elasticsearch cluster that’s provided by another team. 
-Your application is running nicely in production and you’re steadily adding features to the codebase.
-The end of the year approaches and with that, the pressure to deliver the final set of promised features increases.
-All of a sudden, your application starts throwing all kinds of errors in your development environment. 
-After some stressful debugging, you figure out that the Elasticsearch cluster has been upgraded to the latest version by the other team. 
-Furiously, you open up your mailbox and look for an email about the upgrade. 
-Of course, you find the email dating back four weeks where the team announced that they will start upgrading this week for development and do production in two weeks.</p>
-
-<p>Since it’s a shared system, you can’t fault the other team, nor can you halt their upgrade path. 
-So the only way forward is to upgrade the library. 
-You open up your <code class="language-plaintext highlighter-rouge">pom.xml</code> file only to discover that you’re already 2 major versions behind. 
-Upgrading will take ages since your code depends on previously deprecated and by now removed API support.</p>
-
-<p>That sounds like a lot of overtime, stress and/or missed deadlines for the end of the year, doesn’t it…</p>
-
-<h3 id="security-vulnerability">Security Vulnerability</h3>
-
-<p>Now we get to a scenario that maybe 50% of the Java community experienced at the end of 2021.
-A severe security vulnerability was discovered in a very popular logging library: Log4J. 
-Normally, vulnerabilities aren’t this severe and there aren’t part of the nine o’clock news.
-Now imagine that you are using a vulnerable software component and you aren’t informed by the news that you need to urgently update, how would you know about the vulnerability? 
-Maybe you have some scanning software that checks for know CVEs?
-Maybe you have really good developers that are subscribed to the mailing lists of all dependencies they’re using?
-Or more likely than not, you just don’t know you’re vulnerable. 
-OWASP identified <code class="language-plaintext highlighter-rouge">Vulnerable and outdated components</code> as number six on their <code class="language-plaintext highlighter-rouge">Top 10 Web Application Security Risks</code> of 2021.</p>
-
-<p>Wouldn’t it have been nice to have a PR on every repository that had the Log4J dependency with the new version updated? 
-So that you only had to merge that PR to mitigate the vulnerability?</p>
-
-<h2 id="what-is-mend-renovate">What is Mend Renovate?</h2>
-
-<p><a href="https://www.mend.io/free-developer-tools/renovate/" target="_blank" rel="noopener noreferrer">Mend Renovate</a> (formerly known as WhiteSource Renovate) is a tool that detects dependencies in your code and informs you about new versions of your dependencies.
-It’s a free (at the time of writing) tool that can be used as a GitHub App or as a self-hosted tool. 
-Renovate scans a repository and detects the used dependencies, relying on dependency managers.
-As of time of writing, Renovate supports about <a href="https://docs.renovatebot.com/modules/manager/" target="_blank" rel="noopener noreferrer">80 different dependency management</a> systems out of the box.
-Next, it can integrate with your code repositories (e.g. Bitbucket, Github, Gitlab, …) and automatically update the dependency in your code. 
-It can create pull requests (PR) for every update it detects and even adds changelog (if available) information to the PR. 
-This is especially helpful if there are (manual) changes required to use the new version of the dependency.
-So Renovate can <code class="language-plaintext highlighter-rouge">detect</code> your dependencies, <code class="language-plaintext highlighter-rouge">inform</code> you about the updates and even tell you <code class="language-plaintext highlighter-rouge">how</code> to update.</p>
-
-<h2 id="behind-the-curtains">Behind the curtains</h2>
-
-<p>Now, how does this magic work?</p>
-
-<p>Renovate starts by scanning your source code for dependencies.
-It does this by looking for dependency files in your repository, let’s take the file structure below as an example.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>repo/ 
-├─ src/ 
-├─ Dockerfile 
-├─ pom.xml
-</code></pre></div></div>
-
-<p>Renovate will detect the Dockerfile and the Maven dependency file (<code class="language-plaintext highlighter-rouge">pom.xml</code>).
-It will pass these files to the dependency managers internally and detect which dependencies are being used.
-Let’s imagine that the Dockerfile has the following <code class="language-plaintext highlighter-rouge">FROM</code> line at the top: <code class="language-plaintext highlighter-rouge">FROM amazoncorretto:18.0.0</code>
-The dependency manager for docker will detect that this is the repository <code class="language-plaintext highlighter-rouge">amazoncorretto</code> with tag <code class="language-plaintext highlighter-rouge">18.0.0</code> on Docker Hub.
-Next, it will look in the <code class="language-plaintext highlighter-rouge">pom.xml</code>.</p>
-
-<p>Excerpt of the pom.xml:</p>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>log4j-core<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>2.12.2<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
-<p><strong>Note: Never use this dependency! This is a vulnerable version of log4j-core.</strong></p>
-
-<p>Renovate will detect the following Maven dependency: <code class="language-plaintext highlighter-rouge">org.apache.logging.log4j:log4j-core:2.12.2</code></p>
-
-<p>Next, Renovate will check for new versions of those dependencies. 
-By default, Renovate will use the central Apache Maven Repository to check for newer versions of Maven dependencies. 
-For Docker images, Docker Hub is used by default.
-Like almost everything in Renovate, you can configure it to use different data sources, like your own Nexus, Artifactory or AWS Elastic Container Registry for example.
-This way you can limit what sources are considered and you can also use Renovate to update internal dependencies instead of just public ones.</p>
-
-<p>Now let’s imagine that the most recent version of the <code class="language-plaintext highlighter-rouge">amazoncorretto</code> image is <code class="language-plaintext highlighter-rouge">18.0.2</code> (This is <code class="language-plaintext highlighter-rouge">latest</code> at the time of writing).
-Renovate will create a branch from your main branch, update the <code class="language-plaintext highlighter-rouge">FROM</code> entry in your Dockerfile and push the changes into your repository as a new branch. 
-Now your regular CI/CD process can be followed to build, test, merge and deploy your component with the updated dependency.</p>
-
-<p>The same scenario, with a second branch, will be performed to update the log4j dependency.</p>
-
-<p>As an additional bonus, if the dependency exposes it, Renovate will add the changelogs in the pull/merge request it creates in your repository.
-This makes it visible if any breaking changes were introduced and allows you to easily check, together with your tests, if you need to make changes to your code to update the dependency.</p>
-
-<p>Example of changelogs embedded in PR.</p>
-<p style="text-align: center;"><img src="/img/20221009-renovate/pr-changelog.png" alt="PR with changelogs" class="image center" style="margin:0px auto; max-width:100%" /></p>
-
-<h2 id="how-to-setup">How to setup</h2>
-
-<p>How to use Renovate depends a bit on where your code lives.</p>
-
-<h3 id="renovate-github-app">Renovate GitHub App</h3>
-
-<p>If you’re using GitHub, the setup is as easy as enabling the <a href="https://github.com/apps/renovate" target="_blank" rel="noopener noreferrer">GitHub Renovate app</a> for your repository. 
-Next, Renovate will create an onboarding pull request where it will suggest a default Renovate configuration, show a preview of what dependencies it detected and an example of what updates it has found. 
-The only thing left is to merge the pull request and renovate will automatically start scanning your repository and start creating branches and pull requests with dependency updates.</p>
-
-<h3 id="self-hosted-renovate">Self-hosted Renovate</h3>
-
-<p>The second option is to host Renovate yourself.
-This option also comes with a lot more configuration capabilities, especially w.r.t. private data sources. 
-You can run Renovate <a href="https://docs.renovatebot.com/examples/self-hosting/#gitlab-cicd-pipeline" target="_blank" rel="noopener noreferrer">as (part of) a pipeline</a>, as a <a href="https://docs.renovatebot.com/examples/self-hosting/#docker" target="_blank" rel="noopener noreferrer">Docker container</a> or even as a <a href="https://docs.renovatebot.com/examples/self-hosting/#kubernetes" target="_blank" rel="noopener noreferrer">CronJob on Kubernetes</a>.
-Since you only need NodeJS/NPM to be available, you can run it almost anywhere you want. 
-You can find an example of how to run Renovate as a Cronjob on a Kubernetes cluster in <a href="https://github.com/pietervincken/renovate-tekton-argo-talk/tree/main/k8s/renovate" target="_blank" rel="noopener noreferrer">this repository</a>.</p>
-
-<p>With the self-hosted deployment method, you need to either explicitly tell Renovate which repositories it needs to consider or configure it to auto-detect repositories based on the access of its user or the integration with your code repositories.
-For Bitbucket Server you can for example configure Renovate to automatically discover all repositories in a specific project.
-This prevents you from having to make changes to the Renovate configuration every time a new repository gets added.</p>
-
-<p>In this scenario, you’ll have to provide Renovate an identity to interact with the code repositories as well, as it needs to be able to create branches and push code changes.</p>
-
-<h2 id="tips-and-tricks">Tips and tricks</h2>
-
-<p>Aka things we discovered and/or went wrong while we started using Renovate.</p>
-
-<h3 id="limit-concurrent-branches--prs">Limit concurrent branches / PRs</h3>
-
-<p>An important tip, especially if your repository contains quite some outdated components, is to limit the number of concurrent branches and pull requests that Renovate is allowed to create. 
-By default, Renovate is not limited to a specific number which might result in literally 10s if not over 100 pull requests being created. 
-To prevent you and/or your developers from becoming overwhelmed by this, <a href="https://docs.renovatebot.com/configuration-options/#prconcurrentlimit" target="_blank" rel="noopener noreferrer">limiting the concurrent pull requests</a> is a must!</p>
-
-<h3 id="setup-auto-merging">Setup auto-merging</h3>
-
-<p>Auto-merging is a very powerful feature in Renovate, especially in combination with very good automated tests and continuous integration practices. 
-<strong>Don’t</strong> enable this when starting with Renovate. 
-Over time, you’ll be able to identify repositories and data sources for which updates are becoming as easy as just accepting the PRs. 
-For these combinations of repositories and data sources, you can enable auto-merging in Renovate. 
-This means that Renovate will perform the update to the code repository and if the result of the pipeline for that change is green, it will attempt to merge that PR.
-If you have a well-automated CI/CD process, this can allow Renovate to automatically update your dependencies and make sure that your software automatically has the latest dependencies.</p>
-
-<h3 id="use-it-in-deployment-repositories">Use it in deployment repositories</h3>
-
-<p>The term dependency is interpreted quite broadly in Renovate. 
-Not only classical libraries and Docker base images can be detected. (aka build phase dependencies)
-It can also detect dependencies in your deployment setups. 
-This means that it can detect updates in <a href="https://docs.renovatebot.com/modules/manager/ansible/" target="_blank" rel="noopener noreferrer">Ansible playbooks</a>, update <a href="https://docs.renovatebot.com/modules/manager/helmv3/https://docs.renovatebot.com/modules/manager/helmv3/" target="_blank" rel="noopener noreferrer">Helm Chart</a> references, update <a href="https://docs.renovatebot.com/modules/manager/kubernetes/" target="_blank" rel="noopener noreferrer">Kubernetes manifests</a> (including the API versions as shown below!) and even <a href="https://docs.renovatebot.com/modules/manager/kustomize/" target="_blank" rel="noopener noreferrer">Kustomize</a> and <a href="https://docs.renovatebot.com/modules/manager/terraform/" target="_blank" rel="noopener noreferrer">Terraform</a> setups.</p>
-
-<p>Enabling automated dependency management for those deployment repositories can greatly reduce the amount of effort that is required to update a newer external dependency. 
-It also helps to make sure that an update is rolled out consistently across many different environments. 
-Especially in a larger corporate context, it can be hard to determine what the latest version of a specific service is and on which environments it’s running or not. 
-By enabling Renovate to detect the dependencies, it can easily inform the different teams/users of newer versions.</p>
-
-<p>Example of automated Kubernetes API updates.</p>
-<p style="text-align: center;"><img src="/img/20221009-renovate/k8s-api-update.jpg" alt="Kubernetes API updates" class="image center" style="margin:0px auto; max-width:100%" /></p>
-
-<h3 id="start-slow">Start slow!</h3>
-
-<p>The last tip might sound a bit contradictory, but starting small with Renovate is key. 
-You want to build confidence in the data sources you’re using and prevent your teams from being overwhelmed by Renovate PRs. 
-A good way to start with Renovate is to enable it on just one or maybe a handful of low-impact repositories. 
-This way, you can see what effect it has on your workflow and how teams react to having these PRs pop up in their change feed.</p>
-
-<h2 id="why-should-i-use-it">Why should I use it?</h2>
-
-<p>At the start of this blog post, we’ve discussed why updating dependencies is important.
-As discussed, bulk updating dependencies is an option, but it might be time-consuming and therefore might be bumped to the bottom of the priority list.
-Not to mention that you might miss important security updates if you need to “look” for the changes manually. 
-Automating the update process and allowing a tool to automatically discover the updates, makes the update process a lot simpler and faster. 
-If you already have a good CI/CD process that allows you to build, test, merge and deploy small changes easily, Renovate will save you tons of time and prevent you from running unsafe, outdated software.</p>
-
-<p>And as one of my favorite sayings goes: <strong>anything worth doing twice is worth automating</strong></p>
-
-<h3 id="links">Links</h3>
-
-<ul>
-  <li><a href="https://www.mend.io/free-developer-tools/renovate/" target="_blank" rel="noopener noreferrer">Mend Renovate website</a></li>
-  <li><a href="https://github.com/renovatebot/renovate" target="_blank" rel="noopener noreferrer">Renovate Github Repository</a></li>
-  <li><a href="https://docs.renovatebot.com/" target="_blank" rel="noopener noreferrer">Renovate docs</a></li>
-  <li><a href="https://youtu.be/fAEbRmD4-G0" target="_blank" rel="noopener noreferrer">JOIN 2022 Talk YouTube Link</a></li>
-  <li><a href="https://github.com/pietervincken/renovate-tekton-argo-talk/tree/main/k8s/renovate" target="_blank" rel="noopener noreferrer">Sample Renovate Setup</a></li>
-</ul>
-
-<p>This blog post is a companion to a talk at the JOIN 2022 conference.</p>
-
-<p>Feel free to reach out to <a href="https://www.linkedin.com/in/pieter-vincken-a94b5153/" target="_blank" rel="noopener noreferrer">me</a> if you want to look into this solution.</p>
-
-<p>Special thanks to the Unicorn team for helping with the blog post and automating the dependency updates!</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Pieter&quot;, &quot;last_name&quot;=&gt;&quot;Vincken&quot;, &quot;linkedin&quot;=&gt;&quot;pieter-vincken-a94b5153&quot;, &quot;twitter&quot;=&gt;&quot;PieterVincken&quot;, &quot;github&quot;=&gt;&quot;pietervincken&quot;, &quot;permalink&quot;=&gt;&quot;/author/pieter_vincken/&quot;, &quot;avatar&quot;=&gt;&quot;pieter-vincken.jpeg&quot;, &quot;title&quot;=&gt;&quot;Cloud Automation Engineer&quot;, &quot;email&quot;=&gt;&quot;pieter.vincken@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Pieter rarely sees problems, just too many solutions sometimes. That’s why K’nex was his favorite pastime as a child. Nowadays, he builds cloud platforms so organizations don’t have to worry about their IT infrastructure but can focus on their clients.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2019-05-03-istio-service-mesh-s2s.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-09-18-kustomize.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-18-devoxx-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-06-02-terraform.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-08-28-kubernetes-clients-comparison.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2021-10-15-5-reasons-not-to-go-to-the-cloud.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-02-14-postgres-ai.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-06-10-kubecon.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-10-27-renovate.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-06-05-back-to-terraform.md collection=posts&gt;]}</name><email>pieter.vincken@ordina.be</email></author><category term="Cloud" /><category term="cloud" /><category term="automation" /><category term="cicd" /><summary type="html"><![CDATA[Anything worth doing twice is worth automation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/20221009-renovate/logo.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>Altogether we can definitely recommend using this new feature for your Java Lambdas.</p>]]></content><author><name>{&quot;first_name&quot;=&gt;&quot;Yolan&quot;, &quot;last_name&quot;=&gt;&quot;Vloeberghs&quot;, &quot;linkedin&quot;=&gt;&quot;yolan-vloeberghs-23825aa3&quot;, &quot;github&quot;=&gt;&quot;yolanv&quot;, &quot;permalink&quot;=&gt;&quot;/author/yolan-vloeberghs/&quot;, &quot;avatar&quot;=&gt;&quot;yolan-vloeberghs.jpg&quot;, &quot;title&quot;=&gt;&quot;Java Consultant&quot;, &quot;email&quot;=&gt;&quot;yolan.vloeberghs@ordina.be&quot;, &quot;bio&quot;=&gt;&quot;Yolan Vloeberghs is a Java and Cloud engineer with a sharpened focus on all things related to cloud, specifically AWS. He loves to play around with various technologies and frameworks and is very passionated and eager to learn about everything related to cloud-native development.&quot;, &quot;posts&quot;=&gt;[#&lt;Jekyll::Document _posts/2019-04-02-Kickstarter-Trajectory-2019-Light.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-07-10-Spring-IO-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-08-05-deploy-spring-boot-kubernetes.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2019-11-29-AWS-Dev-Day-2019.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-05-07-jib.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-08-28-kubernetes-clients-comparison.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2020-12-10-aws-fargate-serverless-deployments.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2021-11-03-selenium-e2e-testing.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2022-06-13-aws-rds-iam-authentication-spring-boot.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-01-13-aws-lambda-snapstart-spring-cloud-function.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-05-17-kubecon-2023.md collection=posts&gt;, #&lt;Jekyll::Document _posts/2023-06-30-aws-summit-amsterdam-2023.md collection=posts&gt;]}</name><email>yolan.vloeberghs@ordina.be</email></author><category term="Cloud" /><category term="aws" /><category term="lambda" /><category term="snapstart" /><category term="cloud" /><category term="spring" /><category term="java" /><summary type="html"><![CDATA[Introduction What is SnapStart? Versions Pricing Limitations Uniqueness Networking Ephemeral data Using SnapStart Conclusion]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://ordina-jworks.github.io/img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png" /><media:content medium="image" url="https://ordina-jworks.github.io/img/2023-01-13-aws-lambda-snapstart-spring-cloud-function/header.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
