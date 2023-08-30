@@ -2,7 +2,7 @@
 layout: post
 authors: [yolan_vloeberghs, nicholas_meyers]
 title: 'Cognito Azure AD'
-image: /img/2023-08-25-vuzix-and-how-to-use-it/glasses.png
+image: /img/2023-09-18-cognito-azure-ad/banner.jpg
 tags: [ Cloud, AWS, Terraform, Azure, Cognito, Security, Authentication ]
 category: Cloud
 comments: true
