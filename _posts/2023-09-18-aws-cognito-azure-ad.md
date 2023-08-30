@@ -20,5 +20,7 @@ In this article, we'll explore how to efficiently integrate users from your Azur
 Can these two seemingly distinct systems work together to provide a unified authentication experience?
 Let's delve into the details and discover how this integration can be seamlessly achieved.
 
-To keep things straightforward, we will utilize Terraform to establish the infrastructure.
+To keep things straightforward, we will utilize [Terraform](https://www.terraform.io/) to establish the infrastructure.
 This setup can be easily replicated across various AWS and Azure accounts for convenience.
+
+# Azure AD
