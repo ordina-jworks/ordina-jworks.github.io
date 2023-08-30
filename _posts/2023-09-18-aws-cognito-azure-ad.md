@@ -211,7 +211,7 @@ In this integration, we'll reference the previously created client_id and client
 Additionally, as we aim to synchronize all useful user attributes from Azure AD to AWS Cognito, we're required to complete an attribute mapping. 
 The data in the response body of the `attributes_url` variable will be aligned with the corresponding properties in AWS Cognito.
 
-**Please note: Don't forget to fill in your tenant id.**
+**Please note: Don't forget to fill in your tenant ID.**
 
 ```terraform
 resource "aws_cognito_identity_provider" "cognito_identity_provider" {
