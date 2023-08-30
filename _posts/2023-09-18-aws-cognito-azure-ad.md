@@ -56,7 +56,7 @@ resource "azuread_application" "application" {
 
   web {
     redirect_uris = [
-      "https://example-application-for-aws.auth.eu-west-1.amazoncognito.com/oauth2/idpresponse"
+      "https://example-application.auth.eu-west-1.amazoncognito.com/oauth2/idpresponse"
     ]
   }
 
@@ -128,7 +128,7 @@ resource "aws_lambda_function" "user_to_group_lambda_function" {
   handler          = "index.handler"
   role             = aws_iam_role.user_to_group_lambda_iam_role.arn
   
-  source_code_hash = data.archive_file.lambda.output_base64sha256
+  source_code_hash = data.archive_file.user_to_group_lambda_file.output_base64sha256
   
   runtime          = "nodejs18.x"
 }
@@ -171,7 +171,7 @@ A redirect URL was previously mentioned in the Azure AD App Registration.
 The following block will then generate the associated domain URL within AWS Cognito.
 ```terraform
 resource "aws_cognito_user_pool_domain" "cognito_user_pool_domain" {
-  domain       = "example-application-for-aws"
+  domain       = "example-application"
   user_pool_id = aws_cognito_user_pool.cognito_user_pool.id
 }
 ```
