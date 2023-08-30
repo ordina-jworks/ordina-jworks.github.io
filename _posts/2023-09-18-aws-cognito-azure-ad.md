@@ -23,13 +23,18 @@ Let's delve into the details and discover how this integration can be seamlessly
 To keep things straightforward, we will utilize [Terraform](https://www.terraform.io/) to establish the infrastructure.
 This setup can be easily replicated across various AWS and Azure accounts for convenience.
 
-# Azure AD
+# Infrastructure setup
+## Azure AD
 We should create an App Registration within Azure AD which will be utilized in a later stage by AWS Cognito.
 Every authentication request should redirect back with a response to our Cognito domain.
 
 Optionally, you are able to synchronize Azure AD groups with AWS Cognito.
 This synchronization involves utilizing the `required_resource_access` block.
 This synchronization can be valuable for permissions administration linked to distinct groups like MANAGEMENT.
+More information about the different resource apps and which ID's to use can be found [here](https://learn.microsoft.com/en-us/troubleshoot/azure/active-directory/verify-first-party-apps-sign-in#application-ids-of-commonly-used-microsoft-applications){:target="_blank" rel="noopener noreferrer"}.
+For Microsoft Graph, the ID that we should use is `00000003-0000-0000-c000-000000000000`.
+More information about the different roles for Microsoft Graph and which ID's to use can be found [here](https://learn.microsoft.com/en-us/graph/permissions-reference#all-permissions-and-ids){:target="_blank" rel="noopener noreferrer"}.
+For the `Directory.Read.All role`, the ID should be `7ab1d382-f21e-4acd-a863-ba3e13f7da61`.
 
 Additionally, it's essential to generate a client secret for the application with the `azuread_application_password` resource.
 This secret facilitates Cognito's authentication with Azure AD and enables configuring your identity provider within the Cognito environment.
@@ -72,6 +77,6 @@ _Redirect URL_
 _Client secret_
 {: refdef}
 
-# AWS Cognito
+## AWS Cognito
 
 # Conclusion
