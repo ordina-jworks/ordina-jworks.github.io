@@ -7,6 +7,10 @@ tags: [ Cloud, AWS, Cognito, Azure, Terraform, Security, Authentication ]
 category: Cloud
 comments: true
 ---
+# Table of contents
+{:.no_toc}
+- TOC
+{:toc}
 # Introduction
 In today's interconnected digital landscape, enterprises are increasingly relying on a mix of cloud solutions to meet their diverse needs.
 One common challenge is efficiently managing user identities and authentication across these platforms.
@@ -22,7 +26,6 @@ Let's delve into the details and discover how this integration can be seamlessly
 
 To keep things straightforward, we will utilize [Terraform](https://www.terraform.io/) to establish the infrastructure.
 This setup can be easily replicated across various AWS and Azure accounts for convenience.
-
 # Infrastructure setup
 The setup process will span across the two specified cloud platforms: Azure and AWS.
 The initial phase involves establishing an App Registration within Azure AD, followed by the creation of a user pool in AWS Cognito.
@@ -30,7 +33,6 @@ These components will then be synchronized together.
 
 Optionally, there's the option to include a Lambda function within AWS Cognito that facilitates the synchronization of groups from Azure AD into AWS Cognito.
 This becomes significant when users within Azure AD are categorized into groups, and if you seek to manage permissions based on the various types of groups present.
-
 ## Azure AD
 We should create an App Registration within Azure AD which will be utilized in a later stage by AWS Cognito.
 Every authentication request should redirect back with a response to our Cognito domain.
@@ -88,13 +90,12 @@ _Redirect URL_
 <img src="{{ '/img/2023-09-18-cognito-azure-ad/azure-ad-secret.jpg' | prepend: site.baseurl }}" alt="Azure AD: Client secret" class="image fit" style="margin:0px auto; max-width:100%">
 _Client secret_
 {: refdef}
-
 ## (Optional) AWS Lambda
 Should you choose to synchronize your Azure AD user groups with AWS Cognito, it is mandatory to generate this Lambda function.
 This Lambda function will be triggered following the confirmation of your account and after each instance of account authentication.
 The source code of the Lambda can be found [here](https://github.com/ordina-jworks/lambda-add-user-to-groups){:target="_blank" rel="noopener noreferrer"}.
 
-This provided Terraform code enables you to deploy the Lambda function within your AWS account.
+This provided Terraform code enables you to deploy the Lambda function within your AWS account with the correct set of permissions.
 Terraform was selected for deployment due to its widespread use throughout the entire project; however, it's worth noting that alternatives like [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html){:target="_blank" rel="noopener noreferrer"} and [Serverless](https://www.serverless.com/){:target="_blank" rel="noopener noreferrer"} are also available.
 ```terraform
 data "archive_file" "user_to_group_lambda_file" {
@@ -133,15 +134,38 @@ resource "aws_lambda_function" "user_to_group_lambda_function" {
   runtime          = "nodejs18.x"
 }
 
-resource "aws_lambda_permission" "user_to_group_lambda_permission" {
-  statement_id  = "AllowExecutionFromCognito"
+resource "" "user_to_group_lambda_permission" {
+  statement_id  = "AllowExecutioaws_lambda_permissionnFromCognito"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.user_to_group_lambda_function.function_name
   principal     = "cognito-idp.amazonaws.com"
   source_arn    = aws_cognito_user_pool.cognito_user_pool.arn
 }
-```
 
+data "aws_iam_policy_document" "user_to_group_lambda_cognito_iam_policy_document" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "cognito-idp:AdminAddUserToGroup",
+      "cognito-idp:CreateGroup"
+    ]
+
+    resources = [aws_cognito_user_pool.cognito_user_pool.arn]
+  }
+}
+
+resource "aws_iam_policy" "user_to_group_lambda_cognito_iam_role" {
+  name        = "lambda-user-to-group-cognito-policy"
+  description = "IAM policy for add user to cognito user group from a lambda"
+  policy      = data.aws_iam_policy_document.user_to_group_lambda_cognito_iam_policy_document.json
+}
+
+resource "aws_iam_role_policy_attachment" "user_to_group_lambda_cognito_iam_role_policy_attachment" {
+  role       = aws_iam_role.user_to_group_lambda_iam_role.name
+  policy_arn = aws_iam_policy.user_to_group_lambda_cognito_iam_role.arn
+}
+```
 ## AWS Cognito
 To start, the initial step involves setting up a Cognito user pool. 
 
@@ -222,7 +246,6 @@ resource "aws_cognito_identity_provider" "cognito_identity_provider" {
 _Azure AD Identity Provider_
 {: refdef}
 
-
 For the integration of the authentication process within services such as API Gateway, having the user pool ID is necessary.
 This is why we are storing the ID in the Parameter Store, enabling us to retrieve it whenever necessary.
 ```terraform
@@ -232,7 +255,6 @@ resource "aws_ssm_parameter" "ssm_parameter" {
   value = aws_cognito_user_pool.cognito_user_pool.id
 }
 ```
-
 # Conclusion
 By following this approach, we can seamlessly authenticate our enterprise users across AWS services.
 Leveraging two managed services from both clouds, the majority of the authentication process is abstracted away.
