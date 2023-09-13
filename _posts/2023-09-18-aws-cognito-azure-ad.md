@@ -260,10 +260,15 @@ resource "aws_ssm_parameter" "ssm_parameter" {
 }
 ```
 # Conclusion
-By following this approach, we can seamlessly authenticate our enterprise users across AWS services.
+If you already have an established AD setup and wish to synchronize it with Cognito, this is a recommended approach.
+However, you do have the option to authenticate your users directly within your existing AD setup without involving Cognito.
+In doing so, though, you give up the advantages of the seamless integration that AWS and Cognito offer for their services.
+It's worth noting that using Keycloak with AWS is also discouraged, as it requires manual management and lacks native integration with AWS services.
+
+By synchronizing AWS Cognito with Azure AD, we can seamlessly authenticate our enterprise users across AWS services.
 Leveraging two managed services from both clouds, the majority of the authentication process is abstracted away.
 Consequently, there's no need to manually make calls to Azure AD for authentication within our AWS-hosted applications.
-Instead, we can effortlessly integrate Cognito's authentication mechanism into services such as API Gateway, CloudFront, and other services.
+Instead, we can effortlessly integrate Cognito's native authentication mechanism into services such as API Gateway, CloudFront, and other services.
 
 In this example, we used Terraform to deploy our Lambda function on AWS.
 While this method is functional, it is advisable to consider using a framework such as [Serverless](https://www.serverless.com/){:target="_blank" rel="noopener noreferrer"} or [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html){:target="_blank" rel="noopener noreferrer"}.
