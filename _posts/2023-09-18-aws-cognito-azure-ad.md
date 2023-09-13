@@ -17,7 +17,11 @@ One common challenge is efficiently managing user identities and authentication 
 But what happens when you're already invested in Azure Active Directory as your primary identity provider?
 
 While many companies utilize Azure AD, they may not fully adopt the entire Azure ecosystem.
-However, based on our experience, integrating Cognito with AWS services offers a cleaner solution, especially if your application operates on AWS.
+This is especially noteworthy since a significant number of enterprises rely on the Microsoft ecosystem, including the widely-used Office 365 suite.
+Implementing Single Sign-On is considered a security best practice because it simplifies the process of onboarding and offboarding employees, facilitates access management, and enables policy enforcement for specific users.
+Due to the widespread use of Office 365, Azure AD is commonly employed by enterprises for managing Single Sign-On.
+
+However, if your applications are hosted on AWS, it may be more beneficial to opt for AWS Cognito to oversee the Single Sign-On for these applications.
 Although an AWS Lambda function could authenticate with Azure AD, AWS Cognito provides a convenient approach to incorporate authentication within AWS services like API Gateway and CloudFront.
 
 In this article, we'll explore how to efficiently integrate users from your Azure AD environment into AWS Cognito.
@@ -134,7 +138,7 @@ resource "aws_lambda_function" "user_to_group_lambda_function" {
   runtime          = "nodejs18.x"
 }
 
-resource "" "user_to_group_lambda_permission" {
+resource "aws_lambda_permission" "user_to_group_lambda_permission" {
   statement_id  = "AllowExecutioaws_lambda_permissionnFromCognito"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.user_to_group_lambda_function.function_name
@@ -260,3 +264,7 @@ By following this approach, we can seamlessly authenticate our enterprise users 
 Leveraging two managed services from both clouds, the majority of the authentication process is abstracted away.
 Consequently, there's no need to manually make calls to Azure AD for authentication within our AWS-hosted applications.
 Instead, we can effortlessly integrate Cognito's authentication mechanism into services such as API Gateway, CloudFront, and other services.
+
+In this example, we used Terraform to deploy our Lambda function on AWS.
+While this method is functional, it is advisable to consider using a framework such as [Serverless](https://www.serverless.com/){:target="_blank" rel="noopener noreferrer"} or [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html){:target="_blank" rel="noopener noreferrer"}.
+These frameworks offer a more managed and streamlined approach for deploying Lambda functions on AWS.
