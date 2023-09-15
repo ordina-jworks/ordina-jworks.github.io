@@ -201,6 +201,8 @@ This means that all disks created using that storage class, will have the same e
 
 ### Ingress / Load balancers
 
+
+
 ### Miscellaneous
 
 The following topics are very similar across both services or don't have a fundamental impact on the experience, but are included for completeness. 
@@ -227,6 +229,36 @@ Both add-on lists are focussed on integrating their own services into the cluste
 A few add-ons worth investigating are AWS Distro for OpenTelemetry (EKS), Open Service Mesh (AKS) and KEDA (AKS).
 
 ### Conclusion
+
+The out-of-the-box experience for both services is quite different, but in line with the general experience on both platforms. 
+
+AWS's EKS implementation feels focussed on providing the right building blocks to create a great platform. 
+It supports a high level of customization and provides many integration points with other AWS services. 
+The integration with Key Management Service for the encryption of disks is a good example. 
+The fact that they automatically rotate the keys makes it that you can configure this once and forget about it.
+Another point where the customization helps is the ability to encrypt the node pool disks. 
+It's possible, but the necessity to provide a complete launch template just to enable encryption on the nodes, feels a bit overkill.
+The freedom to configure almost anything comes at the cost of an easy getting started.
+Getting all the I's dotted and T's crossed can be tricky and debugging it can be hard.
+
+Azure's AKS feels focussed around a decent "end-user" experience. 
+There are a lot of sane defaults that make sense for most standard deployments.
+Customization is possible is some locations, but if it's not supported out of the box, there is no way to work around it like on AWS.
+The integration with other Azure services is also a hit or miss. 
+If it's natively integrated, it tends to work well. 
+If not, don't hold your breath for the AKS team to implement support for it any time soon.
+
+
+Both [AWS](https://github.com/aws/containers-roadmap/projects/1) and [Azure](https://github.com/Azure/AKS/projects/1) are quite public about their roadmap and suggestions can be raised by customers easily through their respective GitHub projects. 
+From experience, it also doesn't hurt to raise requests through support or your representatives for Azure or AWS.
+
+## Identity
+
+## Basic integrations
+
+## Monitoring
+
+## Logging
 
 - Architectural components for k8s setup
 - Iac Complexity
