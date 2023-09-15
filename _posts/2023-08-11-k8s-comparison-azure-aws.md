@@ -140,7 +140,7 @@ Installing the cluster auto scaler into EKS required setting up an IAM role for 
 There are Helm charts, Terraform modules and good documentation available to set all of it up easily. 
 The advantage of this approach is that it's highly configurable, but it's more work to configure.
 
-### (Disk) Storage
+### Disk Storage
 
 This blogpost won't go into the discussion whether running stateful workloads on Kubernetes is a good or bad idea.
 It will however discuss how persistent storage can be used and integrated in the Kubernetes clusters. 
@@ -168,6 +168,36 @@ Other storage solutions are available on both providers: Azure Files, AWS EFS, A
 Since these aren't needed to support the use case, they are not included in the comparison and only mentioned for completeness.
 
 ### Encryption
+
+Encryption for a cluster needs to be considered in multiple locations: (node) disk encryption, ETCD (secrets) encryption and API access encryption. 
+By default, all Kubernetes API access uses TLS in-flight on both AKS and EKS. 
+
+[ETCD secrets encryption](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) is available on both EKS and AKS, but not enabled by default. 
+
+For EKS, option can be enabled by [providing a Key Management Service (KMS) Key](https://docs.aws.amazon.com/eks/latest/userguide/enable-kms.html).
+A key has to be created up front and passed to the EKS service during cluster creation or during an update after the cluster is created.
+The role associated with the cluster needs to have the appopriate rights to access the key.
+The action of encrypting the secrets is irreversible once enabled.
+Rotation of the key is done automatically by AWS in the KMS service, yearly by default.
+
+For AKS, [a similar setup is available](https://learn.microsoft.com/en-us/azure/aks/use-kms-etcd-encryption). 
+A key needs to be created in an Azure Key Vault and access to the key needs to be provided to the identity associated with the AKS cluster.
+Rotation of the keys is supported, but is a [manual activity on AKS](https://learn.microsoft.com/en-us/azure/aks/use-kms-etcd-encryption#rotate-the-existing-keys).
+All secrets need to be updated during the rollout of a new key. 
+AKS does support disabling the encryption if that's ever desired.
+
+Encryption of persistent volume disks is enabled by default on EKS.
+A custom key can be used if desired by providing a reference to the key during the volume creation (through PV or PVCs) or adding it to the configuration of a storage class.
+If no key is specified, the default EBS encryption key for the account is used for encryption the volume. 
+EKS supports using different keys for different disks.
+The root disks attached to the data plane EKS nodes aren't encrypted by default. 
+A custom launch template is needed to enable this or encryption needs to be [enabled across the entire AWS account](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html#managed-node-group-concepts)
+
+On AKS, all volumes, both persistent volumes and data plane node root volumes are encrypted by default using Microsoft-managed keys.
+AKS supports customer provided keys through the usage of a Disk Encryption Set backed by an Azure Key Vault key. 
+Enabling root volume encryption can be configured in the cluster configuration by providing the required references to the disk encryption set.
+To encrypt persistent volumes automatically using a customer provided key, [the storage class can be adapted](https://learn.microsoft.com/en-us/azure/aks/azure-disk-customer-managed-keys#encrypt-your-aks-cluster-data-disk).
+This means that all disks created using that storage class, will have the same encryption key associated with it.
 
 
 
