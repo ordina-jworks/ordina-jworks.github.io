@@ -193,18 +193,38 @@ EKS supports using different keys for different disks.
 The root disks attached to the data plane EKS nodes aren't encrypted by default. 
 A custom launch template is needed to enable this or encryption needs to be [enabled across the entire AWS account](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html#managed-node-group-concepts)
 
-On AKS, all volumes, both persistent volumes and data plane node root volumes are encrypted by default using Microsoft-managed keys.
+On AKS, all volumes, both persistent volumes and data plane node root volumes are encrypted by [default using Microsoft-managed keys](https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption).
 AKS supports customer provided keys through the usage of a Disk Encryption Set backed by an Azure Key Vault key. 
 Enabling root volume encryption can be configured in the cluster configuration by providing the required references to the disk encryption set.
 To encrypt persistent volumes automatically using a customer provided key, [the storage class can be adapted](https://learn.microsoft.com/en-us/azure/aks/azure-disk-customer-managed-keys#encrypt-your-aks-cluster-data-disk).
 This means that all disks created using that storage class, will have the same encryption key associated with it.
 
+### Ingress / Load balancers
 
+### Miscellaneous
 
-Addons: 
-- https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
-- https://learn.microsoft.com/en-us/azure/aks/integrations
+The following topics are very similar across both services or don't have a fundamental impact on the experience, but are included for completeness. 
 
+Supported by both services: 
+
+- Public and Private API endpoints
+- Egress networking
+- Custom networking: Azure CNI, AWS CNI. For the use case, (standard) kubenet is used.
+- Usage of reserved and spot instances
+
+Unique on AWS:
+
+- AWS provided EKS module
+- Web Identity implementation [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)
+
+Unique on Azure:
+
+- Azure Files integration (Storage account integration)
+- Free tier cluster
+
+[AWS EKS](https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html) and [Azure AKS](https://learn.microsoft.com/en-us/azure/aks/integrations) both provide a set of add-ons on top of their standard Kubernetes offering. 
+Both add-on lists are focussed on integrating their own services into the cluster. 
+A few add-ons worth investigating are AWS Distro for OpenTelemetry (EKS), Open Service Mesh (AKS) and KEDA (AKS).
 
 ### Conclusion
 
