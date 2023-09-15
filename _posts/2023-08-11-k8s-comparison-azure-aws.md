@@ -95,7 +95,7 @@ This post will provide a high-level comparison between the two cloud providers A
 The stack that was described above will be deployed to both clouds according to the design principles. 
 In line with the design principles, choices were made to integrate with different managed services, as long as the same developer experience in the cluster is maintained. 
 
-## Architectural components for k8s setup
+## Architectural components for kuberentes setup
 
 From an architectural perspective, both setups are very similar and highly specific to the cloud of choice at the same time.
 
@@ -114,6 +114,10 @@ AWS has the option to not run directly on top of EC2 instances, but use AWS Farg
 This service allows EKS to deploy containers without having to spin up and maintain nodes.
 A similar option is available on Azure, namely Azure Container Instances. 
 Due to some caveats with the integrations which cause bad portability, these options were excluded from this comparison.
+
+## How managed is the managed service?
+
+
 
 ## Out of the box support
 
@@ -199,10 +203,6 @@ Enabling root volume encryption can be configured in the cluster configuration b
 To encrypt persistent volumes automatically using a customer provided key, [the storage class can be adapted](https://learn.microsoft.com/en-us/azure/aks/azure-disk-customer-managed-keys#encrypt-your-aks-cluster-data-disk).
 This means that all disks created using that storage class, will have the same encryption key associated with it.
 
-### Ingress / Load balancers
-
-
-
 ### Miscellaneous
 
 The following topics are very similar across both services or don't have a fundamental impact on the experience, but are included for completeness. 
@@ -213,6 +213,7 @@ Supported by both services:
 - Egress networking
 - Custom networking: Azure CNI, AWS CNI. For the use case, (standard) kubenet is used.
 - Usage of reserved and spot instances
+- Creation of load balancers and public endpoints based on Kubernetes (Service) objects.
 
 Unique on AWS:
 
@@ -285,7 +286,7 @@ From experience, it also doesn't hurt to raise requests through support or your 
 - In-depth comparison for Logging (ECK, LGTM and cloud specific)
 - In-depth comparison for Monitoring (CNCF stack and cloud specific)
 - Secret management opions (cloud specific, external secrets operator, Hashicorp Vault)
-- How k8s operators can make your life easy with just enough magic
 - CI/CD options: ArgoCD, ArgoWorkflow, Azure DevOps, AWS DevOps
+- How k8s operators can make your life easy with just enough magic
 
 If you want help with cloud adoption in your company or want to provide feedback, feel free to contact [Pieter](https://be.linkedin.com/in/pieter-vincken-a94b5153){:target="_blank" rel="noopener noreferrer"} on LinkedIn!
