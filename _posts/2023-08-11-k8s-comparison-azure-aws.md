@@ -23,13 +23,16 @@ Organizations that rely on a microservices architecture, often rely on Kubernete
 One of the biggest selling points, especially in recent years, is that Kubernetes can provide a very similar user experience for developers across different on-premise and cloud environments.
 It can provide a common abstraction from the underlying infrastructure through its API. 
 This also allows solutions build on top of Kubernetes to be easily portable across different environments.
+Or at least, that's the promise that is being made by Kubernetes platform teams across the industry.
 
 <!-- //why mgd k8s? -->
 
 Running Kubernetes yourself can be very hard to do properly.
-Managing all the moving parts, especially when the workloads running are changing frequently and use more advanced features, can be challenging, to say the least. All hyper-scale (and more and more smaller scale) providers have managed Kubernetes offerings for customers that do want to leverage the power of Kubernetes, but don't want the hassle of managing all the different pieces of the solution. 
+Managing all the moving parts, especially when the workloads are changing frequently can be challenging, to say the least.
+Mix in the usage of more advanced features like a service mesh, custom operators or multi-cloud cluster and it can become a real challenge to maintain.
+All hyper-scale (and more and more smaller scale) providers have managed Kubernetes offerings for customers that do want to leverage the power of Kubernetes, but don't want the hassle of managing all the different pieces of the solution. 
 Google has its Google Kubernetes Engine, GKE for short, Azure has its Azure Kubernetes Service, AKS, and lastly, Amazon has its Elastic Kubernetes Service, EKS for short. 
-Although all of these services deliver a Kubernetes cluster, they aren't all created equally as we'll see further in this blog post.
+Although all of these services deliver a Kubernetes cluster, they aren't all created equally as will become clear further in this blog post.
 
 <!-- //why k8s just one part of the story/not the complete picture? -->
 For most deployments of Kubernetes, Kubernetes itself is only part of the software stack of a software project. 
@@ -38,11 +41,11 @@ Some common examples are the `external-dns` operator, `certmanager` and the `clu
 These all add additional functionality, DNS management, Certificate Management and auto-scaling capabilities respectively, to the cluster. 
 
 Many articles have been written about how the different offerings compare w.r.t. speed, scaling and default feature set. 
-This blog post aims to provide a comparison from a practical, end-user perspective when installing all the bells and whistles needed to use the platform to host all required components to build and run a simple web application in a cloud-native way. 
+This blog post aims to provide a comparison from a practical, end-user perspective when installing all the bells and whistles needed to use the platform to host all required components to build and run a web application in a cloud-native way. 
 
 # The use-case
 
-This section discusses will go into detail about the software stack used for the comparison and how that stack was selected. 
+This section will go into detail about the software stack used for the comparison and how that stack was selected. 
 If you're just interested in the comparison, feel free to skip this section.
 
 The platform used in the comparison is based on a real-world use case for a customer in the financial services sector. 
@@ -55,7 +58,7 @@ The design principles can be summarized into the following:
 - Automate as much as possible
 - Use managed services where possible and integrate them into the Kubernetes cluster
 - Reduce maintenance efforts where possible
-- Buy before build, prioritize Free OpenSource Software (FOSS) from the Cloud-Native Computing Foundation (CNCF) over Commercial Of The Shelf (COTS) solutions.
+- Buy before build, prioritize Free Open Source Software (FOSS) from the Cloud-Native Computing Foundation (CNCF) over Commercial Of The Shelf (COTS) solutions.
 
 This has led to the following architecture: 
 
@@ -84,6 +87,7 @@ This setup can be reviewed in the demo repository for this blog post (link below
 The platform was originally built to run on top of Azure AKS, with the mindset that it should be easy to migrate to another cloud provider at some point. 
 For this comparison, the setup was re-platformed on top of AWS EKS with the same design principles in mind.
 Although careful thought has gone into making the comparison as fair as possible, some decisions might have been influenced due to this history, so keep that in mind when reading the comparison later in this post. 
+This comparison will only consider AWS and Azure cloud platforms.
 
 # Comparison
 
@@ -93,10 +97,10 @@ In line with the design principles, choices were made to integrate with differen
 
 ## Architectural components for k8s setup
 
-From an architectural perspective, both setups are very similar and still highly specific to the cloud of choice. 
+From an architectural perspective, both setups are very similar and highly specific to the cloud of choice at the same time.
 
 Let's start with the Kubernetes control plane. 
-This is very similar for both AWS and Azure as these are both fully managed services that are deployed and maintained by the provider. 
+This is very similar for both AWS and Azure as these are both fully managed services that are deployed and maintained by the provider.
 In both cases, no access to the actual control plane nodes is available, nor are they even visible. 
 The etcd is not exposed to the customer in either of the provider's managed services. 
 They both support public (default) and private control plane deployments. 
@@ -110,6 +114,69 @@ AWS has the option to not run directly on top of EC2 instances, but use AWS Farg
 This service allows EKS to deploy containers without having to spin up and maintain nodes.
 A similar option is available on Azure, namely Azure Container Instances. 
 Due to some caveats with the integrations which cause bad portability, these options were excluded from this comparison.
+
+## Out of the box support
+
+### Auto-scaling cluster nodes
+
+One of the big advantages of using a public cloud provider is that your "hardware" footprint can easily scale up and down, so call elasticity of the cloud. 
+It's such a big selling point for public cloud that AWS used it for their service naming scheme. 
+
+It's no wonder that it's also a key feature for the managed Kubernetes offerings for the different cloud providers.
+Both AWS and Azure support using the standard Kubernetes autoscaler project to automatically provision and destroy additional capacity for the data plane.
+However, their support and documentation is significantly different. 
+
+Enabling autoscaling on AKS is as easy as enabling the option during cluster creation.
+When adding the default (or any other) nodepool, the autoscaling option can be enabled. 
+This option will make sure that all required components, resources and configuration is created to support autoscaling of the data plane nodes.
+This includes installing the cluster auto scaler component into the cluster and setting up the required roles and rights for it to manage the node pool(s).
+The [Azure AKS documentation](https://learn.microsoft.com/en-us/azure/aks/cluster-autoscaler) shows how it can be enabled.
+There is some configuration possible, but the cluster auto scaling configuration will be managed by Azure and isn't available to user to change.
+
+On EKS, the journey is a bit more hands-on.
+[AWS EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html) lists two default options to enable auto scaling of the data plane nodes: Karpenter and cluster auto scaler. 
+Enabling these options is completely up to the infrastructure maintainer and the resources required to enable the integration need to be deployed by the infrastructure maintainer, it's not a single "add-on" that can be enabled.
+Installing the cluster auto scaler into EKS required setting up an IAM role for the auto scaler to access the AWS EC2 Auto Scaling Groups, a deployment of the cluster auto scaler itself into the cluster and making sure it's configured correctly to update the correct cluster (some auto discovery is possible). 
+There are Helm charts, Terraform modules and good documentation available to set all of it up easily. 
+The advantage of this approach is that it's highly configurable, but it's more work to configure.
+
+### (Disk) Storage
+
+This blogpost won't go into the discussion whether running stateful workloads on Kubernetes is a good or bad idea.
+It will however discuss how persistent storage can be used and integrated in the Kubernetes clusters. 
+For the use-case discussed earlier, persistent storage is needed for the CI tool: Tekton. 
+For disk integration, only integrations with Kubernetes Persistent Volumes are considered.
+
+Both AWS and Azure have support for integrating the disk based storage solutions directly into the cluster: Elastic Block Storage (EBS) for AWS and Managed Disks for Azure.
+This allows a developer to specify a [Kubernetes Persistent Volume Claim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) and the cloud provider will automatically provision the required disks, attach it to the node running the workload and make it available to the pod. 
+For both cloud providers, most of their disk types are supported.
+
+Support for persistent volumes is enabled by default for AKS cluster. 
+A standard deployment of an AKS cluster includes the deployment of the required Azure Disks CSI driver into cluster. 
+The Azure Disks CSI driver is the default storage class used in the cluster. 
+Disks created through storage classes enabled by this driver, will be backed by Azure Managed Disks automatically. 
+
+On AWS's EKS, persistent storage support needs to be explicitly enabled.
+AWS provides an add-on that can be enabled to provide support for EBS on EKS. 
+The EBS CSI driver add-on provides support for using EBS volumes in the cluster.
+Any persistent volumes created in the cluster will trigger the creation of an EBS volume and the required actions to make the volume available to the pod.
+
+From an application developer's perspective, both solutions are identical and provide similar level of support.
+As of the time of writing, both support more advanced features like encryption, snapshotting and resizing of the volumes as part of the CSI driver implementation.
+
+Other storage solutions are available on both providers: Azure Files, AWS EFS, AWS FSx, AWS File Cache. 
+Since these aren't needed to support the use case, they are not included in the comparison and only mentioned for completeness.
+
+### Encryption
+
+
+
+Addons: 
+- https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
+- https://learn.microsoft.com/en-us/azure/aks/integrations
+
+
+### Conclusion
 
 - Architectural components for k8s setup
 - Iac Complexity
@@ -126,7 +193,12 @@ Due to some caveats with the integrations which cause bad portability, these opt
 - Monitoring
 - Logging
 
+# Conclusion
+- Not all caveats are mentioned in this post (e.g. limitations w.r.t. windows support for EFS on AWS)
+
 # Further in series
+
+
 
 - In-depth comparison for Logging (ECK, LGTM and cloud specific)
 - In-depth comparison for Monitoring (CNCF stack and cloud specific)
