@@ -97,7 +97,7 @@ _Client secret_
 ## (Optional) AWS Lambda
 Should you choose to synchronize your Azure AD user groups with AWS Cognito, it is mandatory to generate this Lambda function.
 This Lambda function will be triggered following the confirmation of your account and after each instance of account authentication.
-The source code of the Lambda can be found [here](https://github.com/ordina-jworks/lambda-add-user-to-groups){:target="_blank" rel="noopener noreferrer"}.
+The source code of the Lambda can be found [here](https://github.com/Ordina-Group/lambda-add-user-to-groups){:target="_blank" rel="noopener noreferrer"}.
 
 This provided Terraform code enables you to deploy the Lambda function within your AWS account with the correct set of permissions.
 Terraform was selected for deployment due to its widespread use throughout the entire project; however, it's worth noting that alternatives like [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html){:target="_blank" rel="noopener noreferrer"} and [Serverless](https://www.serverless.com/){:target="_blank" rel="noopener noreferrer"} are also available.
