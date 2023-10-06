@@ -11,21 +11,21 @@ comments: false
 > Like stars in the night sky, managed Kubernetes services vary in brilliance; not all shine equally, but the right one can illuminate your journey to cloud-native excellence. - ChatGPT 2023
 
 - [Introduction](#introduction)
-- [Journey](#journey)
+- [The use-case](#the-usecase)
+- [Comparison](#comparison)
+- [Architectural components for kuberentes setup](#architectural-components-for-kuberentes-setup)
+- [How managed is the managed service?](#how-managed-is-the-managed-service)
+- [Out of the box support](#out-of-the-box-support)
+- [Conclusion](#conclusion)
 
 # Introduction
 
-<!-- //What is k8s? -->
-
-<!-- //Why is k8s important? -->
 Kubernetes has been the de-facto standard for cloud-native container orchestration for some years now.
 Organizations that rely on a microservices architecture, often rely on Kubernetes to be their platform to deploy to. 
 One of the biggest selling points, especially in recent years, is that Kubernetes can provide a very similar user experience for developers across different on-premise and cloud environments.
 It can provide a common abstraction from the underlying infrastructure through its API. 
 This also allows solutions build on top of Kubernetes to be easily portable across different environments.
 Or at least, that's the promise that is being made by Kubernetes platform teams across the industry.
-
-<!-- //why mgd k8s? -->
 
 Running Kubernetes yourself can be very hard to do properly.
 Managing all the moving parts, especially when the workloads are changing frequently can be challenging, to say the least.
@@ -34,7 +34,6 @@ All hyper-scale (and more and more smaller scale) providers have managed Kuberne
 Google has its Google Kubernetes Engine, GKE for short, Azure has its Azure Kubernetes Service, AKS, and lastly, Amazon has its Elastic Kubernetes Service, EKS for short. 
 Although all of these services deliver a Kubernetes cluster, they aren't all created equally as will become clear further in this blog post.
 
-<!-- //why k8s just one part of the story/not the complete picture? -->
 For most deployments of Kubernetes, Kubernetes itself is only part of the software stack of a software project. 
 A plethora of extensions, add-ons and so-called operators are used to extend the default functionality and integrate external services into Kubernetes for easier management of those resources. 
 Some common examples are the `external-dns` operator, `certmanager` and the `cluster auto scaler` projects. 
@@ -61,8 +60,6 @@ The design principles can be summarized into the following:
 - Buy before build, prioritize Free Open Source Software (FOSS) from the Cloud-Native Computing Foundation (CNCF) over Commercial Of The Shelf (COTS) solutions.
 
 This has led to the following architecture: 
-
-<!-- TODO create summary diagram -->
 
 - Azure Kubernetes Service (AKS) for the cluster.
 - Azure Key Vault for secrets, keys and certificate management and storage.
@@ -144,7 +141,7 @@ Installing the cluster auto scaler into EKS required setting up an IAM role for 
 There are Helm charts, Terraform modules and good documentation available to set all of it up easily. 
 The advantage of this approach is that it's highly configurable, but it's more work to configure.
 
-### Disk Storage
+### Persistent Storage
 
 This blogpost won't go into the discussion whether running stateful workloads on Kubernetes is a good or bad idea.
 It will however discuss how persistent storage can be used and integrated in the Kubernetes clusters. 
@@ -223,15 +220,15 @@ Unique on AWS:
 Unique on Azure:
 
 - Azure Files integration (Storage account integration)
-- Free tier cluster
+- Different tier clusters (SLA backed)
 
 [AWS EKS](https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html) and [Azure AKS](https://learn.microsoft.com/en-us/azure/aks/integrations) both provide a set of add-ons on top of their standard Kubernetes offering. 
 Both add-on lists are focussed on integrating their own services into the cluster. 
 A few add-ons worth investigating are AWS Distro for OpenTelemetry (EKS), Open Service Mesh (AKS) and KEDA (AKS).
 
-### Conclusion
+# Conclusion
 
-The out-of-the-box experience for both services is quite different, but in line with the general experience on both platforms. 
+The out-of-the-box experience for both services is quite different, but in line with the general experience on the platforms. 
 
 AWS's EKS implementation feels focussed on providing the right building blocks to create a great platform. 
 It supports a high level of customization and provides many integration points with other AWS services. 
@@ -243,50 +240,24 @@ The freedom to configure almost anything comes at the cost of an easy getting st
 Getting all the I's dotted and T's crossed can be tricky and debugging it can be hard.
 
 Azure's AKS feels focussed around a decent "end-user" experience. 
-There are a lot of sane defaults that make sense for most standard deployments.
+There are a lot of sane defaults that make sense for most deployments.
 Customization is possible is some locations, but if it's not supported out of the box, there is no way to work around it like on AWS.
 The integration with other Azure services is also a hit or miss. 
 If it's natively integrated, it tends to work well. 
 If not, don't hold your breath for the AKS team to implement support for it any time soon.
 
-
 Both [AWS](https://github.com/aws/containers-roadmap/projects/1) and [Azure](https://github.com/Azure/AKS/projects/1) are quite public about their roadmap and suggestions can be raised by customers easily through their respective GitHub projects. 
 From experience, it also doesn't hurt to raise requests through support or your representatives for Azure or AWS.
 
-## Identity
+This blogpost discussed the findings based on the experience that was gathered from the use case mentioned at the start. 
+This means that this is not an exhaustive list of pros and cons for both platforms and their respective Kubernetes implementations. 
+This blogpost is the first in a series of blogposts about this comparison. 
 
-## Basic integrations
-
-## Monitoring
-
-## Logging
-
-- Architectural components for k8s setup
-- Iac Complexity
-- Out-of-the-box comparison
-    - Encryption
-    - Auto-scaling
-    - (Disk) storage
-    - Load balancers
-- Identity
-- Basic integrations
-    - Secrets
-    - DNS
-    - Ingress
-- Monitoring
-- Logging
-
-# Conclusion
-- Not all caveats are mentioned in this post (e.g. limitations w.r.t. windows support for EFS on AWS)
-
-# Further in series
-
-
-
+Later blogposts will be created that zoom in on the following topics: 
 - In-depth comparison for Logging (ECK, LGTM and cloud specific)
 - In-depth comparison for Monitoring (CNCF stack and cloud specific)
 - Secret management opions (cloud specific, external secrets operator, Hashicorp Vault)
 - CI/CD options: ArgoCD, ArgoWorkflow, Azure DevOps, AWS DevOps
 - How k8s operators can make your life easy with just enough magic
 
-If you want help with cloud adoption in your company or want to provide feedback, feel free to contact [Pieter](https://be.linkedin.com/in/pieter-vincken-a94b5153){:target="_blank" rel="noopener noreferrer"} on LinkedIn!
+If you have any other topics you'd like to see discussed, you want help with your own Kubernetes journey or you have feedback about this blogpost, feel free to contact [Pieter](https://be.linkedin.com/in/pieter-vincken-a94b5153){:target="_blank" rel="noopener noreferrer"} on LinkedIn!
