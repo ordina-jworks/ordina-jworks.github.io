@@ -37,7 +37,7 @@ Although all of these services deliver a Kubernetes cluster, they aren't all cre
 For most deployments of Kubernetes, Kubernetes itself is only part of the software stack of a software project. 
 A plethora of extensions, add-ons and so-called operators are used to extend the default functionality and integrate external services into Kubernetes for easier management of those resources. 
 Some common examples are the `external-dns` operator, `certmanager` and the `cluster auto scaler` projects. 
-These all add additional functionality, DNS management, Certificate Management and auto-scaling capabilities respectively, to the cluster. 
+Each of these components extends a cluster's functionality by providing DNS management, certificate management, and auto-scaling capabilities, respectively.
 
 Many articles have been written about how the different offerings compare w.r.t. speed, scaling and default feature set. 
 This blog post aims to provide a comparison from a practical, end-user perspective when installing all the bells and whistles needed to use the platform to host all required components to build and run a web application in a cloud-native way. 
@@ -57,12 +57,12 @@ The design principles can be summarized into the following:
 - Automate as much as possible
 - Use managed services where possible and integrate them into the Kubernetes cluster
 - Reduce maintenance efforts where possible
-- Buy before build, prioritize Free Open Source Software (FOSS) from the Cloud-Native Computing Foundation (CNCF) over Commercial Of The Shelf (COTS) solutions.
+- Buy before build, prioritize Free Open Source Software (FOSS) from the Cloud-Native Computing Foundation ([CNCF](https://www.cncf.io/){:target="_blank" rel="noopener noreferrer"}) over Commercial Off The Shelf (COTS) solutions.
 
 This has led to the following architecture: 
 
-- Azure Kubernetes Service (AKS) for the cluster.
-- Azure Key Vault for secrets, keys and certificate management and storage.
+- Azure Kubernetes Service (AKS) for the cluster
+- Azure Key Vault for secrets, keys and certificate management and storage
 - Azure Storage Accounts for any blob storage (archival of logs, long-term metrics storage, Terraform state files, backups, ...)
 - Azure Virtual Machine Scale Sets to host the Kubernetes data plane
 - Azure Container Registry for (Docker) container image storage
@@ -102,7 +102,7 @@ In both cases, no access to the actual control plane nodes is available, nor are
 The etcd is not exposed to the customer in either of the provider's managed services. 
 They both support public (default) and private control plane deployments. 
 
-W.r.t. the data plane, the setups are similar as well. 
+With regards to the data plane, the setups are similar as well. 
 On AWS, the data plane runs on AWS EC2 nodes using Auto-Scaling Groups (ASG).
 On Azure, it runs on top of Azure Virtual Machines using VM Scale-Sets.
 Out of the box, these nodes are deployed into their equivalent of a private network, VPC or VNET, and a group of nodes is assigned to a subnet of that network. 
@@ -204,7 +204,7 @@ Supported by both services:
 
 - Public and Private API endpoints
 - Egress networking
-- Custom networking: Azure CNI, AWS CNI. For the use case, (standard) kubenet is used.
+- Custom networking: Azure CNI, AWS VPC CNI. For the use case, (standard) kubenet is used.
 - Usage of reserved and spot instances
 - Creation of load balancers and public endpoints based on Kubernetes (Service) objects.
 - Managed control plane upgrades
@@ -234,7 +234,7 @@ The out-of-the-box experience for both services is quite different but in line w
 AWS's EKS implementation feels focused on providing the right building blocks to create a great platform. 
 It supports a high level of customization and provides many integration points with other AWS services. 
 The integration with Key Management Service for the encryption of disks is a good example. 
-The fact that they automatically rotate the keys makes it so operators can configure this once and forget about it.
+The fact that they automatically rotate the keys makes it so that operators can configure this once and forget about it.
 Another point where the customization helps is the ability to encrypt the node pool disks. 
 It's possible, but the necessity to provide a complete launch template just to enable encryption on the nodes feels a bit overkill.
 The freedom to configure almost anything comes at the cost of an easy getting started.
