@@ -27,8 +27,11 @@ It can provide a common abstraction from the underlying infrastructure through i
 This also allows solutions built on top of Kubernetes to be easily portable across different environments.
 Or at least, that's the promise that is being made by Kubernetes platform teams across the industry.
 
-Running Kubernetes yourself can be very hard to do properly.
+Running Kubernetes yourself can be very hard to do properly. 
 Managing all the moving parts, especially when the workloads are changing frequently can be challenging, to say the least.
+Maintaining the hardward that runs the cluster, maintaining the hypervisor on top of that, maintaining, updating and configuring all the components of a Kubernetes controlplane (etcd, schedulers, kubelets, ...) is hard. 
+A teams of higly skilled engineers with different expertise (networking, deep OS knowledge, storage, ...) are needed to do this on-premise. 
+There are distributions available that help by automating a lot of the configuration and providing a paved road to set it up, but those come at a significant premium.
 Mix in the usage of more advanced features like a service mesh, custom operators or multi-cloud cluster and it can become a real challenge to maintain.
 All hyper-scale (and more and more smaller scale) cloud providers have managed Kubernetes offerings for customers who want to leverage the power of Kubernetes, but don't want the hassle of managing all the different pieces of the solution. 
 Google has its Google Kubernetes Engine, GKE for short, Azure has its Azure Kubernetes Service, AKS, and lastly, Amazon has its Elastic Kubernetes Service, EKS for short. 
