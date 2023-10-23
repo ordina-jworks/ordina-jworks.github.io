@@ -14,7 +14,7 @@ During Ordina's Young Professionals Program of 2022, we worked on this spectacul
 As a software developer, you must integrate different technologies to build a functional and efficient system.
 This dev case required us to use various tools and technologies, from Spring Boot to AWS and Helm.
 This blog post will share our experience working with these technologies (Spring Boot, Terraform, Google Assistant, GitHub Actions, etc.) to build a scalable and reliable system that meets the project's requirements.
-In addition, we discussed the main problems we encountered during the dev case and how we overcame them.
+In addition, we will discuss the main problems we encountered during the dev case and how we overcame them.
 
 ## Our objective
 
@@ -35,7 +35,7 @@ Beyond the sheer fun of it, we envisioned this application as a hit at conferenc
 
 **Application Two: Voice-Controlled Tesla**
 
-Our second application was a harmonious integration with Google Home.
+Our second application was an integration with Google Home.
 The aim? To control a Tesla using simple voice commands. 
 Whether it was initiating or halting charging, or inquiring about the battery's status, we felt the thrill of integrating with a third-party tool. 
 This app was not just about functionality but also about the joy of innovation.
@@ -78,7 +78,7 @@ Users connect our Tesla Application to their Google Home accounts.
 This section is about the steps we’ve taken to accomplish our results and some challenges we faced.
 
 Before we started the project, we researched the mobile Tesla App and the corresponding API.
-For this, we made use of an Unofficial [Tesla API Documentation](https://tesla-api.timdorr.com/){:target="_blank" rel="noopener noreferrer"}.
+For this, we made use of unofficial [Tesla API Documentation](https://tesla-api.timdorr.com/){:target="_blank" rel="noopener noreferrer"}.
 
 As direct requests to the authentic Tesla API are not always feasible, we opted to create a Stub API that emulates the functionality of the actual API but with dummy data.
 This enabled us to locally test all components, systematically implement features, and receive better error messages.
@@ -178,22 +178,22 @@ By leveraging the resources offered by AWS, we were able to take advantage of th
 
 2. Terraform: Terraform is a tool used for infrastructure as code.
 This tool allowed us to automate the provisioning and management of our infrastructure on AWS, making it easier for us to manage and maintain our infrastructure over time.
-The whole infrastructure will be deployed on Monday in the morning and destroyed on Friday night using a cronjob.
+The whole infrastructure will be deployed on Monday morning and destroyed on Friday night using a cronjob.
 
-3. GitHub + GitHub Actions: GitHub is a version control platform that we used to store and manage our code.
-GitHub Actions is a continuous integration and deployment (CI/CD) platform that allowed us to automate the build, test, and deployment of our application.
+3. GitHub + GitHub Actions: GitHub is a version control platform that we use to store and manage our code.
+GitHub Actions is a continuous integration and deployment (CI/CD) platform that allows us to automate the build, test, and deployment of our application.
 The CI/CD will run every time a pull request is created.
-This to validate that the application can be build using maven.
+It validates that the application can be built using Maven.
 When code changes are pushed directly to the "develop" branch, this action serves as the second trigger for the CI/CD pipeline. In addition to running build and test processes, this trigger also initiates a Terraform deployment to our development environment. This workflow ensures that not only is the code validated but also the underlying infrastructure in the Dev environment is modified or extended as required. 
 
 4. Java Spring Boot: Java Spring Boot is a framework used for building microservices and web applications.
-In our project, we utilized the power of Java Spring Boot to build the back-end of our application.
+In our project, we utilized the power of Java Spring Boot to build the back end of our application.
 Our project consisted of several different microservices, including the RPS proxy, RPS backend, stub Tesla API, Google application, and Tesla authenticator.
 Each of these microservices played a crucial role in the functionality and performance of our overall application.
 
 5. Google Actions: Google Actions is a platform for building conversational experiences for Google Assistant.
 We used Google Actions to build and integrate conversational interfaces into our application.
-For authenticating our users, google action is linked to our Cognito.
+For authenticating our users, Google Actions is linked to our AWS Cognito.
 Google actions send different request, like for instance a synchronization, to the webhook of our Google Application Microservice, which we have developed.
 
 6. Docker: Docker is a containerization technology used for deploying and managing applications.
@@ -205,18 +205,18 @@ We used Kubernetes to manage our Docker containers and Helm to simplify the depl
 8. Renovate: Renovate is a tool used for automating the updating of dependencies in our application.
 We used Renovate to ensure that our dependencies were always up-to-date and secure.
 It automatically makes a pull request when a new version of a dependency is found.
-We’ve set a limit at 2 pull requests made by renovate, so that we can maintain a good overview.
+We’ve set a limit at 2 pull requests made by Renovate, so that we can maintain a good overview.
 
 9. Postman: Postman is a tool used for testing and documenting APIs.
 We used Postman to test our APIs, which allowed us to ensure that our APIs were working correctly and that they were easy to use for other developers.
 
-10. Gatling: Gatling is a load testing tool used to test the performance of our application.
+10. Gatling: Gatling is a load-testing tool used to test the performance of our application.
 We used Gatling to ensure that our application could handle high volumes of traffic and remain performant under heavy load.
 
 ## Final Product
 
 Our final product consists of two applications designed to offer a unique and engaging user experience.
-The first application is a fun and interactive game allowing users to play the classic rock paper scissors with a tesla.
+The first application is a fun and interactive game allowing users to play the classic rock paper scissors with their Tesla car.
 
 The second application is a Google Home app that enables users to control a Tesla car using Google Assistant.
 With this application, users
@@ -234,12 +234,12 @@ This resulted in duplicated functions and conflicting efforts.
 To address this issue, we had to improve our communication and agile working and ensure that all team members were aware of each other's progress.
 
 Deploying a complex application in the cloud can also present several challenges, especially when dealing with unfamiliar platforms like AWS.
-To set up all the necessary resources in AWS, we had to learn how to work with Terraform, which required attending workshops, consulting documentation, and utilizing tutorials to learn the essential skills.
+To set up all the necessary resources in AWS, we had to learn how to work with Terraform, which required attending workshops, consulting documentation, and utilizing tutorials to learn this essential skill.
 
 Furthermore, deploying the application using Kubernetes proved incredibly challenging, as we needed to gain experience with this technology.
 This required us to explore various solutions, test different approaches, and collaborate closely with our team members to overcome this challenge.
 
 In the end, the challenges we faced proved to be valuable lessons.
-We completed our project by improving our communication and acquiring new skills, which took longer than initially thought.
+We completed our project by improving our communication and acquiring new skills.
 Our experience has taught us the importance of collaboration and adaptability when working with unfamiliar technologies.
 These lessons will prove beneficial in future projects and enable us to tackle even more complex challenges in application development.
