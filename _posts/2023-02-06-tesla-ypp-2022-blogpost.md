@@ -31,7 +31,7 @@ Here's how the game was mapped:
 - Scissors = Honk Horn
 
 Two dedicated users, each connected to their own Tesla, would choose an action equivalent to a Tesla command. 
-Beyond the sheer fun of it, we envisioned this application as a showstopper at conferences, designed to turn heads and pique curiosity.
+Beyond the sheer fun of it, we envisioned this application as a hit at conferences, designed to turn heads and pique curiosity.
 
 **Application Two: Voice-Controlled Tesla**
 
@@ -165,7 +165,7 @@ Finally, the key rotation mentioned in the previous section is also included in 
 <img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/google-architecture.png' | prepend: site.baseurl }}" alt="It shows every resource used to create the whole google application" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 The applications are deployed on Kubernetes and made accessible through Ingress and Route53.
-The Google box is linked to a Google Home account, which, in turn, is connected to our applications.
+The Google Nest Speaker, integrated with Google Assistant, is linked to a Google Home account, which, in turn, is connected to our applications.
 The Proxy API is communicating with the Tesla APIs
 
 ## Used Technologies
@@ -176,15 +176,15 @@ Here's a brief overview of each technology and why it was chosen.
 1. AWS: AWS was chosen as the cloud platform for our project because of its scalability, efficiency, and security benefits.
 By leveraging the resources offered by AWS, we were able to take advantage of the many benefits of cloud computing.
 
-2. Terraform: Terraform is an open-source tool used for infrastructure as code.
+2. Terraform: Terraform is a tool used for infrastructure as code.
 This tool allowed us to automate the provisioning and management of our infrastructure on AWS, making it easier for us to manage and maintain our infrastructure over time.
 The whole infrastructure will be deployed on Monday in the morning and destroyed on Friday night using a cronjob.
 
 3. GitHub + GitHub Actions: GitHub is a version control platform that we used to store and manage our code.
 GitHub Actions is a continuous integration and deployment (CI/CD) platform that allowed us to automate the build, test, and deployment of our application.
-The CI/CD will run every time a pull request is made.
+The CI/CD will run every time a pull request is created.
 This to validate that the application can be build using maven.
-Another trigger for the CI/CD to run is when code is pushed to the develop branch.
+When code changes are pushed directly to the "develop" branch, this action serves as the second trigger for the CI/CD pipeline. In addition to running build and test processes, this trigger also initiates a Terraform deployment to our development environment. This workflow ensures that not only is the code validated but also the underlying infrastructure in the Dev environment is modified or extended as required. 
 
 4. Java Spring Boot: Java Spring Boot is a framework used for building microservices and web applications.
 In our project, we utilized the power of Java Spring Boot to build the back-end of our application.
@@ -194,7 +194,7 @@ Each of these microservices played a crucial role in the functionality and perfo
 5. Google Actions: Google Actions is a platform for building conversational experiences for Google Assistant.
 We used Google Actions to build and integrate conversational interfaces into our application.
 For authenticating our users, google action is linked to our Cognito.
-Google actions send different request, like for instance a synchronization, to the webhook of our Google Application.
+Google actions send different request, like for instance a synchronization, to the webhook of our Google Application Microservice, which we have developed.
 
 6. Docker: Docker is a containerization technology used for deploying and managing applications.
 We used Docker to containerize our application, which allowed us to easily deploy and manage our application.
