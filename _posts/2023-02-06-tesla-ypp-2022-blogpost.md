@@ -184,7 +184,7 @@ The whole infrastructure will be deployed on Monday morning and destroyed on Fri
 GitHub Actions is a continuous integration and deployment (CI/CD) platform that allows us to automate the build, test, and deployment of our application.
 The CI/CD will run every time a pull request is created.
 It validates that the application can be built using Maven.
-When code changes are pushed directly to the "develop" branch, this action serves as the second trigger for the CI/CD pipeline. In addition to running build and test processes, this trigger also initiates a Terraform deployment to our development environment. This workflow ensures that not only is the code validated but also the underlying infrastructure in the Dev environment is modified or extended as required. 
+When code changes are pushed directly to the "develop" branch, this action serves as the second trigger for the CI/CD pipeline. In addition to running build and test processes, this trigger also initiates a Terraform deployment to our development environment. This workflow ensures that not only the is code validated but also the underlying infrastructure in the Dev environment is modified or extended as required. 
 
 4. Java Spring Boot: Java Spring Boot is a framework used for building microservices and web applications.
 In our project, we utilized the power of Java Spring Boot to build the back end of our application.
