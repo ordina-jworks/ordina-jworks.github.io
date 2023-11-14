@@ -2,7 +2,7 @@
 layout: post
 authors: [ferre_vangenechten, yanko_buyens]
 title: 'Tesla Project @ Ordina'
-image: /img/kicks.png
+image: /img/2023-11-15-tesla-ypp-2022-blogpost/header-tesla-project.png
 tags: [Spring, Spring Boot, Angular, Unit testing, Mocking, Microservices, Git, DevOps, Docker, TypeScript, Kickstarter, Young Professional Program, Security]
 category: Young Professional Programme
 comments: true
@@ -46,13 +46,13 @@ This app was not just about functionality but also about the joy of innovation.
 
 ### Step 1: Token Acquisition.
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/tesla-save-credentials.png' | prepend: site.baseurl }}" alt="The refresh token is saved in AWS secret manager" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/tesla-save-credentials.png' | prepend: site.baseurl }}" alt="The refresh token is saved in AWS secret manager" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 To kick things off, both car owners need to sign in using their Tesla accounts and submit their tokens to our application, which subsequently stores them securely in a vault.
 
 ### Step 2: Engage in the Duel.
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/tesla-execute-action.png' | prepend: site.baseurl }}" alt="The user's chosen action is sent to the Tesla proxy API" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/tesla-execute-action.png' | prepend: site.baseurl }}" alt="The user's chosen action is sent to the Tesla proxy API" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 The stage is set. 
 Players pick their moves, which the system then translates into respective Tesla commands.
@@ -65,13 +65,13 @@ The chosen commands spring into action on the Teslas.
 
 ## Step 1: Link Tesla to Google Home
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/google-save-credentials.png' | prepend: site.baseurl }}" alt="The user's credentials are saved in the Google Home account" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/google-save-credentials.png' | prepend: site.baseurl }}" alt="The user's credentials are saved in the Google Home account" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 Users connect our Tesla Application to their Google Home accounts.
 
 ## Step 2: Voice it Out to Google
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/google-execute-action.png' | prepend: site.baseurl }}" alt="The user's chosen action is relayed via Google to the Tesla proxy API" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/google-execute-action.png' | prepend: site.baseurl }}" alt="The user's chosen action is relayed via Google to the Tesla proxy API" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 ## Journey and Challenges
 
@@ -87,9 +87,9 @@ We then developed a Proxy API that can be used by any of our applications that i
 The proxy is responsible for manipulating all incoming requests in a way acceptable to Tesla.
 This includes the addition of tokens, object alterations, parameter additions, etc.
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/dummyproxy.png' | prepend: site.baseurl }}" alt="Client send request to dummy proxy api" class="image fit" style="max-width:100%; height:100%">|<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/stubproxy-to-stubapi.png' | prepend: site.baseurl }}" alt="Client send request to stub proxy api, that forward request to stub tesla api" class="image fit" style=" max-width:100%; height:100%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/dummyproxy.png' | prepend: site.baseurl }}" alt="Client send request to dummy proxy api" class="image fit" style="max-width:100%; height:100%">|<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/stubproxy-to-stubapi.png' | prepend: site.baseurl }}" alt="Client send request to stub proxy api, that forward request to stub tesla api" class="image fit" style=" max-width:100%; height:100%">
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/proxy-to-api.png' | prepend: site.baseurl }}" alt="Client send request to proxy api, that forward request to tesla api" class="image fit" style="margin:0px auto; max-width:60%; height:60%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/proxy-to-api.png' | prepend: site.baseurl }}" alt="Client send request to proxy api, that forward request to tesla api" class="image fit" style="margin:0px auto; max-width:60%; height:60%">
 
 To simplify our development process, we worked with three separate profiles within the proxy: one that interacts directly with the authentic Tesla API, another with our own Stub API, and a final profile that returns dummy data without an external service.
 This way, we could switch easily and validate our code quickly.
@@ -99,7 +99,7 @@ It could take several seconds before the vehicle is online and ready to receive 
 To wake up the vehicle, we need to call an endpoint.
 It could take a few seconds, so we created a retry mechanism with a timeout.
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/wake-up-mechanisme.png' | prepend: site.baseurl }}" alt="Client send request to proxy api, that forward request to tesla api. When received a 408 error, the proxy send a wake up request" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/wake-up-mechanisme.png' | prepend: site.baseurl }}" alt="Client send request to proxy api, that forward request to tesla api. When received a 408 error, the proxy send a wake up request" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 **Diagram Explanation**: When the vehicle is in sleeping mode, the Tesla API returns a 408 error while trying to execute a command.
 Our proxy will catch this error, send a wake-up request, and try to execute the command again after 10 seconds.
@@ -112,7 +112,7 @@ This way, there are no Tesla tokens on the client side, and we can manage the to
 Tesla tokens expire every eight hours, so we need to refresh them automatically to keep using the vehicles in our applications.
 We managed to do this on AWS using the Secrets Manager and Lambda services.
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/refresh-tokens.png' | prepend: site.baseurl }}" alt="Every 7 hours the lambda to refresh the acess token is triggered" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/refresh-tokens.png' | prepend: site.baseurl }}" alt="Every 7 hours the lambda to refresh the acess token is triggered" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 **Diagram Explanation**: The owner of the Tesla must log in with his credentials and send his tokens directly to our Proxy application, which will save them in AWS Secrets Manager.
 A lambda will be executed every seven hours to refresh the Access Token.
@@ -137,7 +137,7 @@ This section is about the architecture that is used.
 We are starting with more information about the global architecture.
 Later, there will be zoomed in on the architecture used for the two different applications that are built: Rock-Paper-Scissors and Google Integration.
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/tesla-architecture.png' | prepend: site.baseurl }}" alt="It shows every resource used to create the whole tesla application" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/tesla-architecture.png' | prepend: site.baseurl }}" alt="It shows every resource used to create the whole tesla application" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 Above, you can see a complete diagram of the architecture we've used to accomplish our results.
 Everything within the black-lined square represents services running on AWS.
@@ -149,7 +149,7 @@ In the context of testing, we've used Postman to test REST and Gatling for perfo
 
 ## ROCK PAPER SCISSORS ARCHITECTURE
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/rock-paper-scissors-architecture.png' | prepend: site.baseurl }}" alt="It shows every resource used to create the whole rock paper scissors application" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/rock-paper-scissors-architecture.png' | prepend: site.baseurl }}" alt="It shows every resource used to create the whole rock paper scissors application" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 A user will first need to authenticate themselves using Cognito before sending requests.
 
@@ -162,7 +162,7 @@ Finally, the key rotation mentioned in the previous section is also included in 
 
 ## GOOGLE HOME ARCHITECTURE
 
-<img src="{{ '/img/2023-02-06-tesla-ypp-2022-blogpost/google-architecture.png' | prepend: site.baseurl }}" alt="It shows every resource used to create the whole google application" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
+<img src="{{ '/img/2023-11-15-tesla-ypp-2022-blogpost/google-architecture.png' | prepend: site.baseurl }}" alt="It shows every resource used to create the whole google application" class="image fit" style="margin:0px auto; max-width:70%; height:70%">
 
 The applications are deployed on Kubernetes and made accessible through Ingress and Route53.
 The Google Nest Speaker, integrated with Google Assistant, is linked to a Google Home account, which, in turn, is connected to our applications.
