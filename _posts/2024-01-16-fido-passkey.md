@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [nicholas_meyers]
-title: 'Understanding FIDO/Passkeys: A Step-by-Step Guide to Implementation in Spring Boot and Angular Applications'
+title: 'Understanding FIDO & Passkeys: Guide for Spring Boot and Angular Apps'
 image: /img/2024-01-16-fido-passkey/banner.png
 tags: [Security, Spring Boot, Angular]
 category: Security
@@ -88,12 +88,7 @@ In our Spring Boot application, we are going to handle the registration and logi
 
 <dependency>
     <groupId>org.flywaydb</groupId>
-    <artifactId>flyway-mysql</artifactId>
-</dependency>
-
-<dependency>
-    <groupId>org.mariadb.jdbc</groupId>
-    <artifactId>mariadb-java-client</artifactId>
+    <artifactId>flyway-core</artifactId>
 </dependency>
 ```
 
@@ -137,7 +132,7 @@ CREATE TABLE user
     PRIMARY KEY (id)
 );
 
-CREATE TABLE pass_key
+CREATE TABLE passkey
 (
     id              CHAR(36)                NOT NULL,
     key_id          VARBINARY(255)          NOT NULL,
@@ -176,7 +171,7 @@ public class ByteArrayUtils {
 ```
 
 ### Models
-Create a model `User` and a model `PassKey`.
+Create a model `User` and a model `Passkey`.
 
 ```java
 @Getter
@@ -204,7 +199,7 @@ public class User {
 @Getter
 @Setter
 @Entity
-public class PassKey {
+public class Passkey {
     @Id
     @GeneratedValue(generator = "UUID")
     @JdbcTypeCode(java.sql.Types.VARCHAR)
@@ -220,7 +215,7 @@ public class PassKey {
 ```
 
 ### Repositories
-Create a repository `UserRepository`, `PassKeyRepository` and `MyCredentialRepository`.
+Create a repository `UserRepository`, `PasskeyRepository` and `MyCredentialRepository`.
 
 ```java
 public interface UserRepository extends JpaRepository<User, UUID> {
@@ -232,12 +227,12 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 ```
 
 ```java
-public interface PassKeyRepository extends JpaRepository<PassKey, UUID> {
-    List<PassKey> findAllByUserHandle(byte[] userHandle);
+public interface PasskeyRepository extends JpaRepository<Passkey, UUID> {
+    List<Passkey> findAllByUserHandle(byte[] userHandle);
 
-    List<PassKey> findAllByKeyId(byte[] keyId);
+    List<Passkey> findAllByKeyId(byte[] keyId);
 
-    Optional<PassKey> findByUserHandleAndKeyId(byte[] userHandle, byte[] keyId);
+    Optional<Passkey> findByUserHandleAndKeyId(byte[] userHandle, byte[] keyId);
 }
 ```
 
@@ -247,7 +242,7 @@ public interface PassKeyRepository extends JpaRepository<PassKey, UUID> {
 public class MyCredentialRepository implements CredentialRepository {
 
     private final UserRepository userRepository;
-    private final PassKeyRepository passKeyRepository;
+    private final PasskeyRepository passkeyRepository;
 
     @Override
     public Set<PublicKeyCredentialDescriptor> getCredentialIdsForUsername(String username) {
@@ -256,7 +251,7 @@ public class MyCredentialRepository implements CredentialRepository {
         if (user.isPresent()) {
             log.info("Username {} found", username);
             Set<PublicKeyCredentialDescriptor> descriptors = new HashSet<>();
-            passKeyRepository.findAllByUserHandle(user.get().getUserHandle())
+            passkeyRepository.findAllByUserHandle(user.get().getUserHandle())
                     .forEach(descriptor -> {
                         log.info("Found credential for {}", username);
                         descriptors.add(PublicKeyCredentialDescriptor.builder()
@@ -294,7 +289,7 @@ public class MyCredentialRepository implements CredentialRepository {
     @Override
     public Optional<RegisteredCredential> lookup(ByteArray credentialId, ByteArray userHandle) {
         log.info("Get key for credential id and user handle");
-        Optional<PassKey> key = passKeyRepository
+        Optional<Passkey> key = passkeyRepository
                 .findByUserHandleAndKeyId(byteArrayToBytes(userHandle), byteArrayToBytes(credentialId));
         if (key.isPresent()) {
             log.info("Key found for credential id and user handle");
@@ -312,20 +307,20 @@ public class MyCredentialRepository implements CredentialRepository {
     @Override
     public Set<RegisteredCredential> lookupAll(ByteArray credentialId) {
         log.info("Get keys for credential id");
-        List<PassKey> passKeys = passKeyRepository.findAllByKeyId(byteArrayToBytes(credentialId));
-        if (passKeys.isEmpty()) {
+        List<Passkey> passkeys = passkeyRepository.findAllByKeyId(byteArrayToBytes(credentialId));
+        if (passkeys.isEmpty()) {
             log.info("No keys found for credential id");
         } else {
             log.info("Keys found for credential id");
         }
 
         Set<RegisteredCredential> registeredCredentials = new HashSet<>();
-        passKeys.forEach(passKey -> {
+        passkeys.forEach(passkey -> {
             RegisteredCredential db = RegisteredCredential.builder()
-                    .credentialId(bytesToByteArray(passKey.getKeyId()))
-                    .userHandle(bytesToByteArray(passKey.getUserHandle()))
-                    .publicKeyCose(bytesToByteArray(passKey.getPublicKey()))
-                    .signatureCount(passKey.getSignatureCount())
+                    .credentialId(bytesToByteArray(passkey.getKeyId()))
+                    .userHandle(bytesToByteArray(passkey.getUserHandle()))
+                    .publicKeyCose(bytesToByteArray(passkey.getPublicKey()))
+                    .signatureCount(passkey.getSignatureCount())
                     .build();
             registeredCredentials.add(db);
         });
@@ -358,7 +353,7 @@ The `PublicKeyCredentialParameters` is a data structure used to specify the cryp
 public class ServerConfiguration {
 
     private final UserRepository userRepository;
-    private final PassKeyRepository passKeyRepository;
+    private final PasskeyRepository passkeyRepository;
 
     @Bean
     public RelyingPartyIdentity relyingPartyIdentity() {
@@ -373,7 +368,7 @@ public class ServerConfiguration {
     public RelyingParty relyingParty() {
         RelyingParty rp = RelyingParty.builder()
                 .identity(relyingPartyIdentity())
-                .credentialRepository(new MyCredentialRepository(userRepository, passKeyRepository))
+                .credentialRepository(new MyCredentialRepository(userRepository, passkeyRepository))
                 .allowOriginPort(true)
                 .build();
         return rp;
@@ -431,19 +426,23 @@ public record StartRegisterRequestResource(String username) {
 
 ```java
 public record StartRegisterResponseResource(String challenge, RelyingPartyIdentity rp, UserIdentity user,
-                                            List<PublicKeyCredentialParameters> pubKeyCredParams, long timeout,
-                                            String attestation, List<StartRegisterCredentialResponseResource> excludeCredentials,
+                                            List<PublicKeyCredentialParameters> pubKeyCredParams, 
+                                            long timeout, String attestation, 
+                                            List<StartRegisterCredentialResponseResource> excludeCredentials,
                                             AuthenticatorSelectionCriteria authenticatorSelection) {
 }
 ```
 
 ```java
-public record VerifyClientRequestResource(ByteArray attestationObject, ByteArray clientDataJSON, List<String> transports) {
+public record VerifyClientRequestResource(ByteArray attestationObject, ByteArray clientDataJSON, 
+                                          List<String> transports) {
 }
 ```
 
 ```java
-public record VerifyAttestationRequestResource(ByteArray id, ByteArray rawId, VerifyClientRequestResource response, String type, Object clientExtensionResults, String authenticatorAttachment) {
+public record VerifyAttestationRequestResource(ByteArray id, ByteArray rawId, 
+                                               VerifyClientRequestResource response, String type, 
+                                               Object clientExtensionResults, String authenticatorAttachment) {
 }
 ```
 
@@ -527,7 +526,7 @@ public class VerifyRegistrationService {
 
     private final RelyingParty relyingParty;
     private final UserRepository userRepository;
-    private final PassKeyRepository passKeyRepository;
+    private final PasskeyRepository passkeyRepository;
     
     public VerifyRegistrationResponseResource verify(VerifyRegistrationRequestResource resource) throws Base64UrlException, IOException {
         Optional<User> user = userRepository.findByUsername(resource.username());
@@ -571,17 +570,17 @@ public class VerifyRegistrationService {
             transport = String.join(",", transportList);
         }
 
-        PassKey passKey = new PassKey();
-        passKey.setId(UUID.randomUUID());
-        passKey.setUserHandle(user.get().getUserHandle());
-        passKey.setPublicKey(publicKey);
-        passKey.setKeyId(keyId);
-        passKey.setType(type);
-        passKey.setTransport(transport);
-        passKey.setSignatureCount(signatureCount);
+        Passkey passkey = new Passkey();
+        passkey.setId(UUID.randomUUID());
+        passkey.setUserHandle(user.get().getUserHandle());
+        passkey.setPublicKey(publicKey);
+        passkey.setKeyId(keyId);
+        passkey.setType(type);
+        passkey.setTransport(transport);
+        passkey.setSignatureCount(signatureCount);
 
         log.info("Save passkey for transports {}", transport);
-        passKeyRepository.save(passKey);
+        passkeyRepository.save(passkey);
 
         return new VerifyRegistrationResponseResource(true);
     }
@@ -650,13 +649,15 @@ public class RegistrationController {
 ### Create login resources
 
 ```java
-public record AllowCredentialsResponseResource(ByteArray id, String type, Set<AuthenticatorTransport> transports) {
+public record AllowCredentialsResponseResource(ByteArray id, String type, 
+                                               Set<AuthenticatorTransport> transports) {
 }
 ```
 
 ```java
 public record AssertionRequestResource(ByteArray id, ByteArray rawId, AssertionResource response,
-                                       String type, Object clientExtensionResults, String authenticatorAttachment) {
+                                       String type, Object clientExtensionResults, 
+                                       String authenticatorAttachment) {
 }
 ```
 
