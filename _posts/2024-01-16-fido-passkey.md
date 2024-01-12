@@ -52,7 +52,7 @@ On our device, we need to decrypt the challenge with our private key, solve the 
 After sending the encrypted response, the server is able to validate the response using our public key.
 If the challenge is correct, the server approves the login. 
 
-So, in this way, we no longer store the user's password, but only a public key that can be shared openly.
+In this way we no longer store the user passwords, but only their public key which can be shared openly.
 
 ## Create a new Spring Boot application
 
