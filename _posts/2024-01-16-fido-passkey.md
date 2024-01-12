@@ -49,7 +49,8 @@ If the server can verify the signature using our public key, the registration is
 
 To authenticate a user, we send our username to the server, and the server will answer with a challenge encrypted with our public key.
 On our device, we need to decrypt the challenge with our private key, solve the challenge, and return our response encrypted with our private key.
-After sending the encrypted response, the server is able to validate the response with our public key and check if the login succeeded.
+After sending the encrypted response, the server is able to validate the response using our public key.
+If the challenge is correct, the server approves the login. 
 
 So, in this way, we no longer store the user's password, but only a public key that can be shared openly.
 
