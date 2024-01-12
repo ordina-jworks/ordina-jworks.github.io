@@ -43,7 +43,7 @@ This method is used in signatures, to validate the identity of the sender of the
 So, how is this technology employed in FIDO? During registration, your device generates a unique passkey, which contains a public key and a private key.
 The public key is stored on the service provider's server, while the private key remains securely on your device (smartphone, tablet, or a dedicated FIDO security key).
 
-To register as a new user, we must send our public key to the server and have it validated. 
+To register as a new user, we must send our public key to the server for validation. 
 The server will send us a challenge that we must sign using our private key. 
 If the server can verify the signature using our public key, the registration is complete.
 
