@@ -37,7 +37,8 @@ To understand how passkeys work, let's take a step back and delve into the realm
 we deal with a key pair consisting of a private key, which must remain private and undisclosed, and a public key, which can be shared openly.
 
 Through asymmetric encryption, a message encrypted with the public key can only be deciphered by the possessor of the private key. 
-Conversely, if a message is encrypted with the private key, it can be read using the public key (signature).
+Conversely, if a message is encrypted with the private key, it can be decrypted using the public key. 
+This method is used in signatures, to validate the identity of the sender of the information.
 
 So, how is this technology employed in FIDO? During registration, your device generates a unique passkey, which contains a public key and a private key.
 The public key is stored on the service provider's server, while the private key remains securely on your device (smartphone, tablet, or a dedicated FIDO security key).
