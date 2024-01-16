@@ -1119,6 +1119,7 @@ The combination of FIDO's robust security protocols and the convenience of passk
 contributing to a more secure and user-centric online environment. Embracing these advancements not only aligns with the evolving landscape of digital security 
 but also empowers users with a more efficient and trustworthy means of safeguarding their online identities. 
 It's a win-win that positions FIDO and passkeys as a compelling choice for the future of secure and user-friendly authentication.
+Curious which companies are already switched to a password less authentication? Check out [this website](https://www.passkeys.io/who-supports-passkeys){:target="_blank" rel="noopener noreferrer"}
 
 
 
