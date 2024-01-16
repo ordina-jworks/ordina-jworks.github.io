@@ -1,0 +1,29 @@
+<div class="embed-youtube-player">
+    <iframe src="https://www.youtube.com/embed/{{ include.id }}" allowfullscreen="true"></iframe>
+</div>
+
+
+<style>
+    .embed-youtube-player {
+        text-align: center;
+        height: 0;
+        position: relative;
+        margin-bottom: 35px;
+    {% if include.aspect-ratio == "16:9" %}
+        padding-bottom: 56.25%; /* 16:9 (9/16)x100 */
+    {% elsif include.aspect-ratio == "4:3" %}
+        padding-bottom: 75%; /* 4:3 (3/4)x100*/
+    {% else %}
+        padding-bottom: 42.857%; /* 21:9 (9 / 21) * 100 */
+    {% endif %}
+    }
+
+    .embed-youtube-player iframe {
+        width: 70%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 15%;
+        border-radius: 5px;
+    }
+</style>

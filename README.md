@@ -133,6 +133,10 @@ If a change is made to a sentence,
 the diff will only show the difference between the old and new sentence,
 and not the complete paragraph.
 
+Adding a YouTube video can be done by using `{% include youtube-player.html id='lRFeuSH9t44' aspect-ratio='21:9' %}`.
+The id of the YouTube video can be found in the URL parameter `v`.
+The suggested aspect ratio is `21:9` other aspect ratios are `16:9` or `4:3`.
+
 ## SASS usage
 
 When giving layout to components in your blog,

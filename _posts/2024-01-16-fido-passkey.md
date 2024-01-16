@@ -54,6 +54,10 @@ If the challenge is correct, the server approves the login.
 
 In this way we no longer store the user passwords, but only their public key which can be shared openly.
 
+For a deeper understanding and visual examples, check out the video below.
+
+{% include youtube-player.html id='lRFeuSH9t44' aspect-ratio='21:9' %}
+
 ## Create a new Spring Boot application
 
 In our Spring Boot application, we are going to handle the registration and login.
@@ -403,7 +407,8 @@ public class ServerConfiguration {
 ```
 
 ### Create Extension Output
-The `ClientExtensionOutputs` refers to the output of client extensions during the WebAuthn process, such as creating a public key credential or authentication. This output may contain information specific to the used extensions.
+The `ClientExtensionOutputs` refers to the output of client extensions during the [WebAuthn](https://webauthn.guide/){:target="_blank" rel="noopener noreferrer"} process, 
+such as creating a public key credential or authentication. This output may contain information specific to the used extensions.
 
 ```java
 public class CustomClientExtensionOutput implements ClientExtensionOutputs {
@@ -1113,6 +1118,7 @@ The combination of FIDO's robust security protocols and the convenience of passk
 contributing to a more secure and user-centric online environment. Embracing these advancements not only aligns with the evolving landscape of digital security 
 but also empowers users with a more efficient and trustworthy means of safeguarding their online identities. 
 It's a win-win that positions FIDO and passkeys as a compelling choice for the future of secure and user-friendly authentication.
+
 
 
 ## Extra
