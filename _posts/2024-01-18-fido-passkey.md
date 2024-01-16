@@ -2,7 +2,7 @@
 layout: post
 authors: [nicholas_meyers]
 title: 'Understanding FIDO & Passkeys: Guide for Spring Boot and Angular Apps'
-image: /img/2024-01-16-fido-passkey/banner.png
+image: /img/2024-01-18-fido-passkey/banner.png
 tags: [Security, Spring Boot, Angular]
 category: Security
 comments: true
