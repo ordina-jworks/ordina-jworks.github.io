@@ -8,7 +8,7 @@ category: Security
 comments: true
 ---
 
-> What's a common vulnerability in applications? Isn't it the traditional username/password login? Perhaps it's time to embrace FIDO/Passkeys for a more secure login method.
+> What's a common vulnerability in applications? Isn't it the traditional username & password login? Perhaps it's time to embrace FIDO & Passkeys for a more secure login method.
 
 - [Introduction](#introduction)
 - [How does it work](#how-does-it-work)
@@ -43,16 +43,16 @@ This method is used in signatures, to validate the identity of the sender of the
 So, how is this technology employed in FIDO? During registration, your device generates a unique passkey, which contains a public key and a private key.
 The public key is stored on the service provider's server, while the private key remains securely on your device (smartphone, tablet, or a dedicated FIDO security key).
 
-To register as a new user, we must send our public key to the server for validation. 
-The server will send us a challenge that we must sign using our private key. 
-If the server can verify the signature using our public key, the registration is complete.
+To register as a new user, you must send our public key to the server for validation. 
+The server will return a challenge that you must sign using your private key. 
+If the server can verify the signature using your public key, the registration is complete.
 
-To authenticate a user, we send our username to the server, and the server will answer with a challenge encrypted with our public key.
-On our device, we need to decrypt the challenge with our private key, solve the challenge, and return our response encrypted with our private key.
-After sending the encrypted response, the server is able to validate the response using our public key.
+To authenticate a user, send your username to the server, and the server will answer with a challenge encrypted with your public key. 
+On your device, we need to decrypt the challenge with your private key, solve the challenge, and return your response encrypted with your private key.
+After sending the encrypted response, the server can validate the response using your public key.
 If the challenge is correct, the server approves the login. 
 
-In this way we no longer store the user passwords, but only their public key which can be shared openly.
+In this way we no longer store the user's passwords, but only their public key which can be shared openly.
 
 For a deeper understanding and visual examples, check out the video below.
 
@@ -152,7 +152,7 @@ CREATE TABLE passkey
 );
 ```
 
-And configure the database in the `application.properties` file.
+And configure the h2 database in the `application.properties` file.
 ```properties
 spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;MODE=MySQL;NON_KEYWORDS=USER
 spring.datasource.driverClassName=org.h2.Driver
@@ -243,6 +243,8 @@ public interface PasskeyRepository extends JpaRepository<Passkey, UUID> {
 }
 ```
 
+In addition to the repositories that interact with the database, we also have an implementation of the [CredentialRepository](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/CredentialRepository.html){:target="_blank" rel="noopener noreferrer"} from Yubico.\
+This is used by [RelyingParty](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/RelyingParty.html){:target="_blank" rel="noopener noreferrer"} to look up credentials, usernames and user handles from usernames, user handles and credential ids.
 ```java
 @Slf4j
 @AllArgsConstructor
@@ -349,8 +351,25 @@ public class MyCredentialRepository implements CredentialRepository {
 Create a configuration class `ServerConfiguration`.
 
 The term "Relying Party Identity" refers to the identification information of the relying party.\
-A "Relying Party" (RP) is an entity, typically a website or an online service, that relies on FIDO-based authentication to verify the identity of users. The relying party initiates and manages the FIDO authentication process to ensure secure and user-friendly login experiences.\
-The `AuthenticatorSelectionCriteria` is a set of criteria used to specify preferences for the characteristics of the authenticator that should be used during the credential creation process.\
+A "Relying Party" (RP) is an entity, typically a website or an online service, that relies on FIDO-based authentication to verify the identity of users. The relying party initiates and manages the FIDO authentication process to ensure secure and user-friendly login experiences.
+
+The `AuthenticatorSelectionCriteria` is a set of criteria used to specify preferences for the characteristics of the authenticator that should be used during the credential creation process.
+
+The [AuthenticatorAttachment](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/data/AuthenticatorAttachment.html){:target="_blank" rel="noopener noreferrer"} this enumeration’s values describe authenticators' attachment modalities.
+* `CROSS_PLATFORM`: Passkey will be stored on another device. (hardware key, smartphone if you are working on a computer)
+* `PLATFORM`: You need to register with a built-in biometric. (fingerprint, face id)\
+**Note:** If this field is not set, both methods are activated.
+
+The [ResidentKeyRequirement](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/data/ResidentKeyRequirement.html){:target="_blank" rel="noopener noreferrer"} this enumeration's values describe the Relying Party's requirements for client-side discoverable credentials.
+* `DISCOURAGED`: The client and authenticator will try to create a server-side credential if possible, and a discoverable credential otherwise.
+* `PREFERRED`: The client and authenticator will try to create a discoverable credential if possible, and a server-side credential otherwise.
+* `REQUIRED`: The client and authenticator will try to create a discoverable credential, and fail the registration if that is not possible.
+
+The [UserVerificationRequirement](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/data/UserVerificationRequirement.html){:target="_blank" rel="noopener noreferrer"} a WebAuthn Relying Party may require user verification for some of its operations.
+* `DISCOURAGED`: This value indicates that the Relying Party does not want user verification.
+* `PREFERRED`: This value indicates that the Relying Party prefers user verification for the operation if possible, but will not fail if the verification isn't available.
+* `REQUIRED`: Indicates that the Relying Party requires user verification for the operation and will fail if the verification isn't available.
+
 The `PublicKeyCredentialParameters` is a data structure used to specify the cryptographic algorithms and key types that a relying party (or website) is willing to accept during the credential creation process.
 
 
@@ -420,7 +439,7 @@ public class CustomClientExtensionOutput implements ClientExtensionOutputs {
 }
 ```
 
-### Create registration resources
+### Create registration web resources
 
 ```java
 public record StartRegisterCredentialResponseResource(ByteArray id, String type, String[] transports) {
@@ -465,7 +484,9 @@ public record VerifyRegistrationResponseResource(boolean verified) {
 ```
 
 ### Start Registration Service
-Create a service `StartRegistrationService`.
+Create a service `StartRegistrationService`.\
+In the start registration service, we prepare everything for the registration of a new user. 
+We create a user, challenge, registration options, and send them back in the response with the information of our application.
 
 ```java
 @AllArgsConstructor
@@ -524,7 +545,10 @@ public class StartRegistrationService {
 ```
 
 ### Verify Registration Service
-Create a service `VerifyRegistrationService`.
+Create a service `VerifyRegistrationService`.\
+In the verify registration service, we will verify the registration. 
+The frontend application has processed the response from the start registration service and sends the result back to the verify service. 
+If the verification is successful, the user is registered.
 
 ```java
 @Slf4j
@@ -654,7 +678,7 @@ public class RegistrationController {
 }
 ```
 
-### Create login resources
+### Create login web resources
 
 ```java
 public record AllowCredentialsResponseResource(ByteArray id, String type, 
@@ -697,8 +721,10 @@ public record VerifyLoginResponseResource(boolean verified) {
 
 
 ### Start Login Service
-Create a service `StartLoginService`.
-
+Create a service `StartLoginService`.\
+In the start login service, we will check if the user is registered and prepare everything for the login. 
+We create a challenge and send it back in the response along with the information of our application and the details of 
+the key used in the challenge.
 ```java
 @Slf4j
 @AllArgsConstructor
@@ -764,7 +790,9 @@ public class StartLoginService {
 ```
 
 ### Verify Login Service
-Create a service `VerifyLoginService`.
+Create a service `VerifyLoginService`.\
+In the verify login service, we will verify the login. The frontend application has processed the response from the start login service
+and sends the result back to the verify service. If the verification is successful, the user is logged in.
 
 ```java
 @Slf4j
@@ -880,6 +908,14 @@ ng new frontend --routing true --style css
 ```
 
 Install the needed packages.
+
+The `@simplewebauthn/browser` package in Angular provides a convenient and simplified way to integrate WebAuthn (Web Authentication) functionality into your Angular applications. 
+By using this package, you can streamline the implementation of WebAuthn features such as secure and passwordless authentication, 
+enhancing the overall security of your application. This package abstracts the complexities of the WebAuthn API, 
+making it easier for developers to incorporate modern authentication methods without delving into intricate details, 
+saving time and effort in the development process.
+
+The `@ng-bootstrap/ng-bootstrap` package in Angular provides a set of native Angular directives for [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/){:target="_blank" rel="noopener noreferrer"} components.
 ```
 npm i @simplewebauthn/browser
 ng add @ng-bootstrap/ng-bootstrap
@@ -887,6 +923,11 @@ ng add @ng-bootstrap/ng-bootstrap
 
 Complete the app modules in the `app.module.ts` file.
 Add the `FormsModule` and `HttpClientModule`.
+
+The `FormsModule` is a module that provides support for two-way data binding through the ngModel directive.
+This means that changes to the model in the component are automatically reflected in the associated view, and vice versa.
+
+The `HttpClientModule` is a module that provides the HttpClient service, which is a powerful and feature-rich HTTP client for making requests to a server.
 
 ```typescript
 @NgModule({
@@ -914,7 +955,9 @@ ng generate service service/register
 ng generate service service/login
 ```
 
-Paste the following code in the `register.service.ts` file.
+Paste the following code in the `register.service.ts` file.\
+In the registration service, we will be constructing a client that can send requests to our backend service for registration.
+
 ```typescript
 export class RegisterService {
 
@@ -953,7 +996,8 @@ export class RegisterService {
 }
 ```
 
-Paste the following code in the `login.service.ts` file.
+Paste the following code in the `login.service.ts` file.\
+In the login service, we will be constructing a client that can send requests to our backend service for authentication.
 ```typescript
 export class LoginService {
 
@@ -999,12 +1043,13 @@ ng generate component component/home -s
 ng generate component component/user -s
 ```
 
-Delete the existing content in the `app.component.html` file and fill in the following code.
+Delete the existing content in the `app.component.html` file and fill in the following code.\
+In Angular, `<router-outlet></router-outlet>` is a directive that plays a crucial role in managing the routing of your application.
 ```html
 <router-outlet></router-outlet>
 ```
 
-Complete the routing configuration in the `app.routing.module.ts` file
+Complete the routing configuration in the `app.routing.module.ts` file.
 ```typescript
 const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -1015,6 +1060,16 @@ const routes: Routes = [
 ```
 
 Paste the following code in the `home.component.ts` file.
+
+In the `register` function, we send a request to our backend service with a username for which we want to create a new account. 
+If everything is okay, the response will contain the necessary result to initiate our registration with WebAuthn. 
+WebAuthn will then display the appropriate screens to create the passkeys. 
+The result of the WebAuthn action is then sent back to the backend service to complete the registration.
+
+In the `login` function, we send a request to our backend service with a username for which we want to initiate a login. 
+If everything is okay, the response will contain the necessary result to start the login process with WebAuthn. 
+WebAuthn will then display the screens to solve the challenge with the previously created passkey. 
+The result of the WebAuthn action is then sent back to the backend service to complete the authentication.
 ```typescript
 import {Component} from '@angular/core';
 import {LoginService} from "../../service/login.service";
@@ -1082,7 +1137,8 @@ export class HomeComponent {
 }
 ```
 
-Paste the following code in the `home.component.html` file.
+Paste the following code in the `home.component.html` file.\
+On this page, we display an input text field for the username, a button for registration, and a button for login.
 ```html
 <div class="container mt-5">
     <div class="row">
@@ -1107,7 +1163,8 @@ Paste the following code in the `home.component.html` file.
 </div>
 ```
 
-Paste the following code in the `user.component.html` file.
+Paste the following code in the `user.component.html` file.\
+We show this welcome screen for the user when the login is successful.
 ```html
 <p>Welcome</p>
 ```
