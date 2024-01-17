@@ -155,7 +155,7 @@ CREATE TABLE passkey
 
 And configure the h2 database in the `application.properties` file.
 ```properties
-spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;MODE=MySQL;NON_KEYWORDS=USER
+spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;NON_KEYWORDS=USER
 spring.datasource.driverClassName=org.h2.Driver
 ```
 
