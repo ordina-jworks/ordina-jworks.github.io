@@ -186,6 +186,7 @@ Create a model `User` and a model `Passkey`.
 @Getter
 @Setter
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(generator = "UUID")
