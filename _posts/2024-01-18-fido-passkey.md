@@ -129,7 +129,7 @@ There are various transport mechanisms defined in FIDO, including:
 
 Create a SQL file `V1__init.sql`.
 ```sql
-CREATE TABLE user
+CREATE TABLE users
 (
     id                      CHAR(36)                NOT NULL,
     username                CHARACTER VARYING(255)  NOT NULL,
