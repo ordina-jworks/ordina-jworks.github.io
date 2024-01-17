@@ -160,14 +160,14 @@ spring.datasource.driverClassName=org.h2.Driver
 ```
 
 ### Create utils
+
 Because Yubico's dependency works with their own object ByteArray instead of byte[], we create a small class to easily convert between them.
 
 Create a `ByteArrayUtils` class.
-```java
-public class ByteArrayUtils {
-    private ByteArrayUtils() {
-    }
 
+```java
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ByteArrayUtils {
     public static byte[] byteArrayToBytes(ByteArray byteArray) {
         return byteArray.getBytes();
     }
@@ -179,6 +179,7 @@ public class ByteArrayUtils {
 ```
 
 ### Models
+
 Create a model `User` and a model `Passkey`.
 
 ```java
@@ -223,11 +224,11 @@ public class Passkey {
 ```
 
 ### Repositories
+
 Create a repository `UserRepository`, `PasskeyRepository` and `MyCredentialRepository`.
 
 ```java
 public interface UserRepository extends JpaRepository<User, UUID> {
-
     Optional<User> findByUsername(String username);
 
     Optional<User> findByUserHandle(byte[] userHandle);
@@ -246,9 +247,10 @@ public interface PasskeyRepository extends JpaRepository<Passkey, UUID> {
 
 In addition to the repositories that interact with the database, we also have an implementation of the [CredentialRepository](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/CredentialRepository.html){:target="_blank" rel="noopener noreferrer"} from Yubico.\
 This is used by [RelyingParty](https://developers.yubico.com/java-webauthn-server/JavaDoc/webauthn-server-core/2.0.0/com/yubico/webauthn/RelyingParty.html){:target="_blank" rel="noopener noreferrer"} to look up credentials, usernames and user handles from usernames, user handles and credential ids.
+
 ```java
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MyCredentialRepository implements CredentialRepository {
 
     private final UserRepository userRepository;
@@ -349,6 +351,7 @@ public class MyCredentialRepository implements CredentialRepository {
 ```
 
 ### Server Configuration
+
 Create a configuration class `ServerConfiguration`.
 
 The term "Relying Party Identity" refers to the identification information of the relying party.\
@@ -375,7 +378,7 @@ The `PublicKeyCredentialParameters` is a data structure used to specify the cryp
 
 
 ```java
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Configuration
 public class ServerConfiguration {
 
@@ -428,6 +431,7 @@ public class ServerConfiguration {
 ```
 
 ### Create Extension Output
+
 The `ClientExtensionOutputs` refers to the output of client extensions during the [WebAuthn](https://webauthn.guide/){:target="_blank" rel="noopener noreferrer"} process, 
 such as creating a public key credential or authentication. This output may contain information specific to the used extensions.
 
@@ -485,12 +489,13 @@ public record VerifyRegistrationResponseResource(boolean verified) {
 ```
 
 ### Start Registration Service
+
 Create a service `StartRegistrationService`.\
 In the start registration service, we prepare everything for the registration of a new user. 
 We create a user, challenge, registration options, and send them back in the response with the information of our application.
 
 ```java
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class StartRegistrationService {
 
@@ -546,6 +551,7 @@ public class StartRegistrationService {
 ```
 
 ### Verify Registration Service
+
 Create a service `VerifyRegistrationService`.\
 In the verify registration service, we will verify the registration. 
 The frontend application has processed the response from the start registration service and sends the result back to the verify service. 
@@ -553,7 +559,7 @@ If the verification is successful, the user is registered.
 
 ```java
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class VerifyRegistrationService {
 
@@ -655,10 +661,11 @@ public class VerifyRegistrationService {
 ```
 
 ### Registration Controller
+
 Create a controller `RegistrationController` with 2 endpoints, the `start registration` and `verify registration`.
 
 ```java
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/register")
 @CrossOrigin("http://localhost:4200")
@@ -722,13 +729,15 @@ public record VerifyLoginResponseResource(boolean verified) {
 
 
 ### Start Login Service
+
 Create a service `StartLoginService`.\
 In the start login service, we will check if the user is registered and prepare everything for the login. 
 We create a challenge and send it back in the response along with the information of our application and the details of 
 the key used in the challenge.
+
 ```java
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class StartLoginService {
 
@@ -791,13 +800,14 @@ public class StartLoginService {
 ```
 
 ### Verify Login Service
+
 Create a service `VerifyLoginService`.\
 In the verify login service, we will verify the login. The frontend application has processed the response from the start login service
 and sends the result back to the verify service. If the verification is successful, the user is logged in.
 
 ```java
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class VerifyLoginService {
 
@@ -878,10 +888,11 @@ public class VerifyLoginService {
 ```
 
 ### Login Controller
+
 Create a controller `LoginController` with 2 endpoints, the `start login` and `verify login`.
 
 ```java
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/login")
 @CrossOrigin("http://localhost:4200")
@@ -917,6 +928,7 @@ making it easier for developers to incorporate modern authentication methods wit
 saving time and effort in the development process.
 
 The `@ng-bootstrap/ng-bootstrap` package in Angular provides a set of native Angular directives for [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/){:target="_blank" rel="noopener noreferrer"} components.
+
 ```
 npm i @simplewebauthn/browser
 ng add @ng-bootstrap/ng-bootstrap
@@ -949,6 +961,7 @@ export class AppModule { }
 ```
 
 ### Create services
+
 We are going to create 2 services, the `RegisterService` and `LoginService`.
 
 ```bash
@@ -999,6 +1012,7 @@ export class RegisterService {
 
 Paste the following code in the `login.service.ts` file.\
 In the login service, we will be constructing a client that can send requests to our backend service for authentication.
+
 ```typescript
 export class LoginService {
 
@@ -1046,11 +1060,13 @@ ng generate component component/user -s
 
 Delete the existing content in the `app.component.html` file and fill in the following code.\
 In Angular, `<router-outlet></router-outlet>` is a directive that plays a crucial role in managing the routing of your application.
+
 ```html
 <router-outlet></router-outlet>
 ```
 
 Complete the routing configuration in the `app.routing.module.ts` file.
+
 ```typescript
 const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -1071,6 +1087,7 @@ In the `login` function, we send a request to our backend service with a usernam
 If everything is okay, the response will contain the necessary result to start the login process with WebAuthn. 
 WebAuthn will then display the screens to solve the challenge with the previously created passkey. 
 The result of the WebAuthn action is then sent back to the backend service to complete the authentication.
+
 ```typescript
 import {Component} from '@angular/core';
 import {LoginService} from "../../service/login.service";
@@ -1140,6 +1157,7 @@ export class HomeComponent {
 
 Paste the following code in the `home.component.html` file.\
 On this page, we display an input text field for the username, a button for registration, and a button for login.
+
 ```html
 <div class="container mt-5">
     <div class="row">
@@ -1166,11 +1184,13 @@ On this page, we display an input text field for the username, a button for regi
 
 Paste the following code in the `user.component.html` file.\
 We show this welcome screen for the user when the login is successful.
+
 ```html
 <p>Welcome</p>
 ```
 
 ## Conclusion
+
 Embracing FIDO and Passkeys represents a leap forward in security and user-friendliness. 
 By shifting away from traditional password-based authentication methods, users benefit from heightened security measures while enjoying a more seamless and user-friendly experience. 
 The combination of FIDO's robust security protocols and the convenience of passkeys not only enhances protection against cyber threats but also simplifies the user authentication process, 
@@ -1180,13 +1200,14 @@ It's a win-win that positions FIDO and passkeys as a compelling choice for the f
 Curious which companies are already switched to a password less authentication? Check out [this website](https://www.passkeys.io/who-supports-passkeys){:target="_blank" rel="noopener noreferrer"}
 
 
-
 ## Extra
+
 If you're interested in exploring the implementation details, you can access the frontend and backend code on GitHub.
 * [Backend](https://github.com/nicholasM95/passwordless-backend){:target="_blank" rel="noopener noreferrer"}
 * [Frontend](https://github.com/nicholasM95/passwordless-frontend){:target="_blank" rel="noopener noreferrer"}
 
 If you want to start the application locally, you can start the Docker containers and visit [the project locally](http://localhost:4200){:target="_blank" rel="noopener noreferrer"}.
+
 ```bash
 docker run -p 8080:8080 nicholas95/passwordless-backend:v1
 docker run -p 4200:80 nicholas95/passwordless-frontend:v1
