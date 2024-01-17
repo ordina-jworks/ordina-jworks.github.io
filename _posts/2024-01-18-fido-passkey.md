@@ -99,6 +99,7 @@ In our Spring Boot application, we are going to handle the registration and logi
 ```
 
 ### Database
+
 We use Flyway to set up our database; we need to keep track of our users and their passkeys.
 
 We need to save the following data for the user.
