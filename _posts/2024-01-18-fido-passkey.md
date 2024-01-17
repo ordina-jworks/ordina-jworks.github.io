@@ -1199,14 +1199,15 @@ but also empowers users with a more efficient and trustworthy means of safeguard
 It's a win-win that positions FIDO and passkeys as a compelling choice for the future of secure and user-friendly authentication.
 Curious which companies are already switched to a password less authentication? Check out [this website](https://www.passkeys.io/who-supports-passkeys){:target="_blank" rel="noopener noreferrer"}
 
-
 ## Extra
+
 
 If you're interested in exploring the implementation details, you can access the frontend and backend code on GitHub.
 * [Backend](https://github.com/nicholasM95/passwordless-backend){:target="_blank" rel="noopener noreferrer"}
 * [Frontend](https://github.com/nicholasM95/passwordless-frontend){:target="_blank" rel="noopener noreferrer"}
 
 If you want to start the application locally, you can start the Docker containers and visit [the project locally](http://localhost:4200){:target="_blank" rel="noopener noreferrer"}.
+
 
 ```bash
 docker run -p 8080:8080 nicholas95/passwordless-backend:v1
