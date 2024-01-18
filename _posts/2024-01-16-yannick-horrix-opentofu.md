@@ -1,8 +1,8 @@
 ---
 layout: post
 authors: [yannick-horrix]
-title: 'Choosing Your Orchestrator: OpenTofu vs. Terraform'
-image: /img/2023-09-18-cognito-azure-ad/banner.jpg
+title: 'Choosing Your Orchestrator: OpenTofu vs Terraform'
+image: /img/2024-01-16-yannick-horrix-opentofu/banner.jpg
 tags: [ cloud, automation, terraform, opentofu, iac ]
 category: cloud
 comments: true
@@ -27,20 +27,6 @@ On January 10, 2024, OpenTofu achieved a pivotal milestone by releasing its firs
 In this article we'll delve into a comparative analysis of OpenTofu and Terraform, exploring the impact of the license change, to help you make an informed decision when choosing the right tool for your infrastructure needs.
 
 # A Comparative Analysis: OpenTofu vs. Terraform
-## Licensing and pricing
-
-Both Terraform and OpenTofu are open-source tools, providing free usage.
-
-As said, OpenTofu uses the Mozilla Public License (MPL), which allows developers to freely use, modify, and distribute software for both commercial and non-commercial use.
-
-Terraform has now shifted to the Business Source License (BUSL). This also permits free use of source code, including commercial use, except when it’s used to provide an offering that competes with HashiCorp.
-
-An example of this could be running Terraform in a hosted way in CI/CD and offering this as a production service.
-
-So while, Terraform remains free to use in your projects, there is a problem when providing a service that incorporates the software.
-
-In terms of pricing, while both are free to use, Terraform does offer multiple paid services with Terraform Cloud, a platform managing Terraform code, availaible as a hosted service. Additionally, organizations with advanced security and compliance needs can purchase Terraform Enterprise. This is a self-hosted distribution of Terraform Cloud which offers a private instance that includes the advanced features available in Terraform Cloud.
-
 
 ## Features
  
@@ -64,9 +50,23 @@ For now, both tools are functionally equivalent and compatible. Time will tell w
 
 ## Configuration and Syntax
 
-The core difference between OpenTofu and Terraform is its syntax. OpenTofu uses a declarative syntax, where users can define their desired end state without having to worry about the steps required to get there. Terraform, on the other hand, employs a procedural approach. This means users have to define the specific steps, leading to higher control over the execution at the cost of higher complexity.
+The core difference between OpenTofu and Terraform lies in its syntax. OpenTofu uses a declarative syntax, where users can define their desired end state without having to worry about the steps required to get there. Terraform, on the other hand, employs a procedural approach. This means users have to define the specific steps, leading to higher control over the execution at the cost of higher complexity.
 
 In terms of configuration, OpenTofu focuses on simplicity in its configuration language, prioritizing readability and ease of use. Terraform configuration, on the other hand, can be more verbose and complex to maintain.
+
+## Licensing and pricing
+
+Both Terraform and OpenTofu are open-source tools, providing free usage.
+
+As said, OpenTofu uses the Mozilla Public License (MPL), which allows developers to freely use, modify, and distribute software for both commercial and non-commercial use.
+
+Terraform has now shifted to the Business Source License (BUSL). This also permits free use of source code, including commercial use, except when it’s used to provide an offering that competes with HashiCorp.
+
+An example of this could be running Terraform in a hosted way in CI/CD and offering this as a production service.
+
+So while, Terraform remains free to use in your projects, there can be an issue when incorporating Terraform in a service offering.
+
+In terms of paid offerings, Terraform does offer multiple options with Terraform Cloud, a platform managing Terraform code, availaible as a hosted service. Additionally, organizations with advanced security and compliance needs can purchase Terraform Enterprise. This is a self-hosted distribution of Terraform Cloud which offers a private instance that includes the advanced features available in Terraform Cloud.
 
 ## Community and Support
 
@@ -80,23 +80,51 @@ OpenTofu, as a fork of Terraform, is a newer tool with a relatively newer and ma
 
 ## Summary
 
+To summarize, the following table captures the comparison between the two tools.
+
+| Feature | OpenTofu | Terraform |
+|----------|----------|----------|
+| Features | Similar to Terraform, with some improvements | Large featureset |
+| Configuration | Declarative, easier to use | Procedural, more complex |
+| Licensing | Mozilla Public License (MPL), open-source | Business Software License (BUSL), open-source with restrictions |
+| Pricing | Free to use | Free to use, with some restrictions for commercial use |
+| Community | Smaller, but expanding | Large |
+| Maturity | New | Mature |
+
 
 
 # How to Migrate?
 
-OpenTofu promises a seamless migration for Terraform users. As both OpenTofu 1.6 and Terraform 1.6 are compatible, the migration process is relatively straightforward. However, it is advised to have a disaster recovery plan in place as the migration still is a non-trivial change to the architecture.
+OpenTofu promises a seamless migration for Terraform users. As both OpenTofu 1.6 and Terraform 1.6 are compatible, the migration process is relatively straightforward. However, it is advised to have a disaster recovery plan in place as the migration still poses a non-trivial change to the architecture. The migration process is detailed in the [OpenTofu Migration Guide](https://opentofu.org/docs/intro/migration/){:target="_blank" rel="noopener noreferrer"}.
 
-The process is as follows:
+In summary, the process looks like this:
 1. Apply all changes with Terraform
-2. Install OpenTofu
+
+`terraform apply`
+
+2. [Install OpenTofu](https://opentofu.org/docs/install/){:target="_blank" rel="noopener noreferrer"}
+
 3. Back up your state file
+
 4. Initialize OpenTofu
+
+`tofu init`
+
 5. Inspect the Plan
+
+`tofu plan`
+
 6. Test out a small change
 
+`tofu apply`
+
 In order to rollback, it suffices to create a backup of the new state file and perform
-terraform init
-terraform plan
+
+`terraform init`
+
+`terraform plan`
+
+to verify that everything is working correctly.
 
 # Conclusion
 Despite the emergence of OpenTofu, Terraform remains a stalwart in the IaC realm. HashiCorp's enduring commitment to innovation, its reputation as an industry standard, and a vast user community ensure Terraform's relevance. While the licensing shift prompted reflection, HashiCorp continues to shape the IaC landscape, adapting to industry dynamics.
@@ -105,14 +133,13 @@ As OpenTofu steps into the limelight, its future is laden with promises. The com
 
 The upcoming OpenTofu 1.7 holds exciting prospects, including community-requested features not available in Terraform, such as client-side state encryption, parameterizable backends, providers, and modules, and third-party extensibility through a plugin system for new state backends.
 
-When providing a commercial service that incorporates Terraform, it can be worthwile to investigate switching to OpenTofu.
+When you are a service provider looking to incorporate Terraform in one of your offerings, it can be worthwile to look at OpenTofu as an alternative to avoid licensing costs or legal trouble.
 
+For regular users, not much has changed on the surface. Terraform still is a very robust and well supported too capable of handling your orchestration needs. OpenTofu does offer some benefits in ease of use and configuration, and as both tools are currently compatible and functionally equivalent it may be interesting to take try out OpenTofu and see what it has to offer. 
 
-#### References
-https://www.linuxfoundation.org/press/opentofu-announces-general-availability
-https://medium.com/@zoiwrites/terraform-is-dead-long-live-opentofu-bf4c73364050
-https://redblink.com/opentofu-open-source-alternative-terraform
-https://www.linuxfoundation.org/press/opentofu-announces-general-availability
-https://opentofu.org/docs/intro
-https://developer.hashicorp.com/terraform/docs
-https://www.cloudthat.com/resources/blog/a-deep-dive-into-terraform-vs-opentofu-in-cloud-infrastructure-orchestration
+The open-source community supporting OpenTofu will decide the future of the project. While the early signs are positive, it remains to be seen whether the tool can keep up in functionality and compatibility with Terraform, or even surpass it in some areas. At Jworks, We are certainly interested in its future development.
+
+# What's next?
+In a follow-up post, we will attempt to migrate some of our projects from Terraform to OpenTofu. Here will we go through the migration process step-by-step and compare the performance of the two tools in a production setting.
+
+Stay tuned for more!
