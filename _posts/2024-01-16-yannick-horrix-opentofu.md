@@ -10,6 +10,7 @@ comments: true
 
 > The power of Open Source is the power of the people. The people rule.
 
+
 {:.no_toc}
 - TOC
 {:toc}
@@ -120,6 +121,7 @@ In summary, the process looks like this:
 6. Test out a small change
 
    `tofu apply`
+
 And that's it.
 Migration complete!
 
