@@ -2,7 +2,7 @@
 layout: post
 authors: [yannick-horrix]
 title: 'Choosing Your Orchestrator: OpenTofu vs Terraform'
-image: /img/2024-01-16-yannick-horrix-opentofu/banner.jpg
+image: /img/2024-01-19-yannick-horrix-opentofu/banner.jpg
 tags: [ cloud, automation, terraform, opentofu, iac ]
 category: cloud
 comments: true
