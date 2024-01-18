@@ -19,7 +19,7 @@ comments: true
 Terraform, an industry-leading infrastructure as code (IaC) tool, has been a cornerstone of cloud provisioning and infrastructure management since its inception in 2014. 
 Over the years, it has fostered a vibrant community comprising thousands of users, contributors, vendors, and an extensive ecosystem of open source modules and extensions.
 
-However, August 10, 2023, marked a significant shift in Terraform’s trajectory when HashiCorp, its stewarding organization, changed the license from the Mozilla Public License (v2.0) to the Business Source License (v1.1). 
+August 10th 2023 markes a significant shift in Terraform’s trajectory when HashiCorp, its stewarding organization, changed the license from the Mozilla Public License (v2.0) to the Business Source License (v1.1). 
 This abrupt change sent ripples across the Terraform community, sparking concerns about its future.
 
 In response, the open source community initiated the OpenTofu project, which was adopted by the Linux Foundation on September 20th. OpenTofu, starting off as a fork from Terraform 1.5.6, aims to create a truly open source alternative to Terraform. 
