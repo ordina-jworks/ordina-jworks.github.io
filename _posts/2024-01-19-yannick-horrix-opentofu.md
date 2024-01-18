@@ -15,7 +15,7 @@ comments: true
 - TOC
 {:toc}
 
-# Introduction
+# Introduction & Timeline
 Terraform, an industry-leading infrastructure as code (IaC) tool, has been a cornerstone of cloud provisioning and infrastructure management since its inception in 2014. 
 Over the years, it has fostered a vibrant community comprising thousands of users, contributors, vendors, and an extensive ecosystem of open source modules and extensions.
 
