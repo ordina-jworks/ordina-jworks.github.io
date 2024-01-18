@@ -26,7 +26,7 @@ In response, the open source community initiated the OpenTofu project, which was
 On January 10, 2024, OpenTofu achieved a pivotal milestone by releasing its first production-stable version, OpenTofu 1.6.0, bringing new features and promising a seamless migration for current Terraform users.
 
 In this article we'll delve into a comparative analysis of OpenTofu and Terraform, exploring the impact of the license change, to help you make an informed decision when choosing the right tool for your infrastructure needs.
-# A Comparative Analysis: OpenTofu vs. Terraform
+# A Comparative Analysis: OpenTofu vs Terraform
 ## Features
 In terms of functionality, both tools are currently equivalent. 
 The OpenTofu community has aimed to maintain feature parity with Terraform for the time being. 
@@ -54,7 +54,7 @@ This means users have to define the specific steps, leading to higher control ov
 
 In terms of configuration, OpenTofu focuses on simplicity in its configuration language, prioritizing readability and ease of use. 
 Terraform configuration, on the other hand, can be more verbose and complex to maintain.
-## Licensing and pricing
+## Licensing and Pricing
 Both Terraform and OpenTofu are open-source tools, providing free usage.
 
 As said, OpenTofu uses the Mozilla Public License (MPL), which allows developers to freely use, modify, and distribute software for both commercial and non-commercial use.
@@ -74,13 +74,14 @@ The Terraform community is vast, offering a large breadth of resources.
 This means that users have more readily accessible examples at their disposal and can find solutions to their problems more quickly.
 
 OpenTofu, on the other hand, is a growing tool with an expanding community. 
-Although not as large as Terraform's, its community is rapidly expaning as more users move to OpenTofu. 
+Although not as large as Terraform's, its community is rapidly expanding as more users move to OpenTofu. 
 This will provide ever increasing support and resources for the tool in the future.
 ## Maturity and Stability
 Terraform is proven as a mature, stable and extremely popular orchestration tool capable of handling enterprise-grade infrastructure deployments.
 OpenTofu, as a fork of Terraform, is a newer tool with a relatively newer and may be more susceptible to bugs and instability. However, the “OpenTofu” community is actively addressing these issues, and its stability is expected to improve with time.
 ## Summary
 To summarize, the following table captures the comparison between the two tools.
+
 | Feature | OpenTofu | Terraform |
 |----------|----------|----------|
 | Features | Similar to Terraform, with some improvements | Large featureset |
@@ -89,6 +90,7 @@ To summarize, the following table captures the comparison between the two tools.
 | Pricing | Free to use | Free to use, with some restrictions for commercial use |
 | Community | Smaller, but expanding | Large |
 | Maturity | New | Mature |
+
 # How to Migrate?
 OpenTofu promises a seamless migration for Terraform users. 
 As both OpenTofu 1.6 and Terraform 1.6 are compatible, the migration process is relatively straightforward. 
@@ -97,19 +99,36 @@ The migration process is detailed in the [OpenTofu Migration Guide](https://open
 
 In summary, the process looks like this:
 1. Apply all changes with Terraform
+
    `terraform apply`
 2. [Install OpenTofu](https://opentofu.org/docs/install/){:target="_blank" rel="noopener noreferrer"}
+   
+    Test if you can successfully execute the `tofu` command:
+
+    `tofu --version`
 3. Back up your state file
+   
+   If you are using a local state file, you can simply make a copy of your `terraform.tfstate` file in your project directory.
+
+   If you are using a remote backend such as an S3 bucket, make sure that you follow the backup procedures for the backend and that you exercise the restore procedure at least once. 
 4. Initialize OpenTofu
+
    `tofu init`
 5. Inspect the Plan
+
    `tofu plan`
 6. Test out a small change
+
    `tofu apply`
+And that's it.
+Migration complete!
 
 In order to rollback, it suffices to create a backup of the new state file and perform
+
 `terraform init`
+
 `terraform plan`
+
 to verify that everything is working correctly.
 # Conclusion
 Despite the emergence of OpenTofu, Terraform remains a stalwart in the IaC realm. 
@@ -122,7 +141,7 @@ Features like advanced testing, enhanced S3 state backend, and a new provider an
 
 The upcoming OpenTofu 1.7 holds exciting prospects, including community-requested features not available in Terraform, such as client-side state encryption, parameterizable backends, providers, and modules, and third-party extensibility through a plugin system for new state backends.
 
-When you are a service provider looking to incorporate Terraform in one of your offerings, it can be worthwile to look at OpenTofu as an alternative to avoid licensing costs or legal trouble.
+When you are a service provider looking to incorporate Terraform in one of your offerings, it can be worthwhile to look at OpenTofu as an alternative to avoid licensing costs or legal trouble.
 
 For regular users, not much has changed on the surface. 
 Terraform still is a very robust and well supported too capable of handling your orchestration needs. 
