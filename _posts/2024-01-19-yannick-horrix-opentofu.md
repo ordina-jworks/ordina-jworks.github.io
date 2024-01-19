@@ -105,7 +105,6 @@ To summarize, the following table captures the comparison between the two tools.
 | Licensing | Mozilla Public License (MPL 2.0), open-source | Business Software License (BUSL 1.1), source-avalaible |
 | Pricing | Free to use | Free to use, with restrictive commercial use. Paid offerings available. |
 | Community | Smaller, but expanding | Large, but support is shrinking due to sentiment  |
-| Maturity | New | Mature |
 | Stability | Similar to Terraform | Proven stability and robustness |
 
 # How to Migrate?
