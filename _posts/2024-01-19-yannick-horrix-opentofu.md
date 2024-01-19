@@ -70,11 +70,18 @@ So while, Terraform remains free to use in your projects, there can be an issue 
 
 
 
-## Pricing
+## Pricing and Offerings
 
-In terms of paid offerings, Terraform does offer multiple options with Terraform Cloud, a platform managing Terraform code, availaible as a hosted service. 
-Additionally, organizations with advanced security and compliance needs can purchase Terraform Enterprise. 
-This is a self-hosted distribution of Terraform Cloud which offers a private instance that includes the advanced features available in Terraform Cloud.
+In terms of pricing, both tools are free to use, with some limitations for commercial use when it comes to Terraform.
+
+Hashicorp does offer paid solutions, starting with Terraform Cloud, a centralized platform for managing Terraform code. Key features include version control integration, secure variable storage, remote state management, and policy enforcement, enabling organizations to efficiently maintain control over their cloud infrastructure.
+
+[Pricing](https://www.hashicorp.com/products/terraform/pricing?product_intent=terraform){:target="_blank" rel="noopener noreferrer"} for Terraform Cloud follows a Resources Under Management (RUM) model, where Terraform counts the amount of objects it manages and calculates cost accordingly. 
+The Standard Tier offering is billed at $0.00014 per hour per resource. For the Plus and Enterprise tiers, pricing is negotiated directly with Hashicorp sales.
+
+Let's take the example os Terraform Enterprise. This is a self-hosted solution offered as a private installation rather than a SaaS solution.
+Judging from the AWS Marketplace and Azure Marketplace offerings of Terraform Enterprise, pricing starts from $15,000/year. 
+This includes just five workspaces, likely to be insufficieint for a large enterprise.
 
 ## Community and Support
 
