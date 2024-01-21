@@ -87,7 +87,8 @@ This includes just five workspaces, likely to be insufficieint for a large enter
 ## Community and Support
 
 Terraform currently holds the advantage when it comes to community support. 
-Backed by Hashicorp and benefiting from years of community-wide support as an open-source project pre-license change), it can offer a large breadth of resources for user to take advantage of.
+Backed by Hashicorp and benefiting from years of community-wide support as an open-source project pre-license change. 
+It offers a large breadth of resources for user to take advantage of.
 The impact of the license changes is starting to show however, with community contributions to Terraform [drying up almost completely in the last couple of months](https://thenewstack.io/open-source-in-numbers-the-terraform-license-change-impact-on-contribution/){:target="_blank" rel="noopener noreferrer"}. Time will tell what the final impact of this shift in community support will mean for users.
 
 OpenTofu, on the other hand, is a growing tool with an expanding community. 
