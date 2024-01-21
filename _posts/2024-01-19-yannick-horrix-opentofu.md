@@ -79,7 +79,8 @@ Hashicorp does offer paid solutions, starting with Terraform Cloud, a centralize
 [Pricing](https://www.hashicorp.com/products/terraform/pricing?product_intent=terraform){:target="_blank" rel="noopener noreferrer"} for Terraform Cloud follows a Resources Under Management (RUM) model, where Terraform counts the amount of objects it manages and calculates cost accordingly. 
 The Standard Tier offering is billed at $0.00014 per hour per resource. For the Plus and Enterprise tiers, pricing is negotiated directly with Hashicorp sales.
 
-Let's take the example os Terraform Enterprise. This is a self-hosted solution offered as a private installation rather than a SaaS solution.
+Let's take the example for Terraform Enterprise. 
+This is a self-hosted solution offered as a private installation rather than a SaaS solution.
 Judging from the AWS Marketplace and Azure Marketplace offerings of Terraform Enterprise, pricing starts from $15,000/year. 
 This includes just five workspaces, likely to be insufficieint for a large enterprise.
 
