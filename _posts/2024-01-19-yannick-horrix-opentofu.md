@@ -107,7 +107,7 @@ To summarize, the following table captures the comparison between the two tools.
 | Feature | OpenTofu | Terraform |
 |----------|----------|----------|
 | Features | Similar to Terraform, with some improvements | Large featureset |
-| Configuration | Declarative, easier to use | Declarative but more complex |
+| Configuration | Declarative | Declarative |
 | Ownership | Part of Linux Foundation | Owned by Hashicorp |
 | Open Source | Yes | Source-available |
 | Licensing | Mozilla Public License (MPL 2.0), open-source | Business Software License (BUSL 1.1), source-avalaible |
