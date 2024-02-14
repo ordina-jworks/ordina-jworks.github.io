@@ -1,3 +1,6 @@
+# Repository Deprecated
+**The blog has been moved to https://github.com/Ordina-Group/JWorks-blog**
+
 # Ordina JWorks Tech Blog
 
 The JWorks Tech Blog is powered by [Jekyll](https://jekyllrb.com).
